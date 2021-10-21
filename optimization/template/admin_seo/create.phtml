@@ -1,0 +1,11 @@
+{{wrap with="_admin/popup.phtml" into="content_zone"}}
+  <h1>Добавление нового Url и мета-полей</h1>
+
+  {{form id='object_form' action='' method='post' enctype="multipart/form-data"}}
+    {{include file='_admin/form_errors.phtml' /}}
+
+    {{include file='admin_seo/_include/form_fields.phtml' /}}
+
+    {{include file='_admin/create_common_elements.phtml' /}}
+  {{/form}}
+{{/wrap}}
