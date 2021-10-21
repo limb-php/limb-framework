@@ -12,8 +12,10 @@
  * @package zfsearch
  * @version $Id$
  */
-lmb_require('limb/web_app/src/controller/lmbController.class.php');
-lmb_require('limb/search/src/dataset/lmbSearchResultProcessor.class.php');
+namespace limb\zfsearch\src\controller;
+
+use limb\web_app\src\controller\lmbController;
+use limb\search\src\dataset\lmbSearchResultProcessor;
 
 class ZendSearchController extends lmbController
 {
