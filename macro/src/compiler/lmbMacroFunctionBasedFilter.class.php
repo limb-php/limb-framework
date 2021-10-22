@@ -8,6 +8,8 @@
  */
 namespace limb\macro\src\compiler;
 
+use limb\macro\src\compiler\lmbMacroFilter;
+
 /**
  * class lmbMacroFunctionBasedFilter.
  *

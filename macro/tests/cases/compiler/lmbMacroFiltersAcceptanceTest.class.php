@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\macro\tests\cases\compiler;
 
-lmb_require('limb/macro/src/compiler/lmbMacroFilter.class.php');
+use limb\macro\src\compiler\lmbMacroFilter;
+use limb\macro\src\compiler\lmbMacroFilterInfo;
 
 class MacroFilterFooTest extends lmbMacroFilter
 {
