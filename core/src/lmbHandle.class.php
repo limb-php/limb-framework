@@ -45,7 +45,7 @@ class lmbHandle extends lmbProxy
 
   protected function _createOriginalObject()
   {
-    lmb_require($this->_getClassFullPath());
+    //require_once($this->_getClassFullPath());
 
     $refl = new \ReflectionClass($this->class);
     return call_user_func_array(array($refl, 'newInstance'),$this->args);

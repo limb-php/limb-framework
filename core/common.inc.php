@@ -71,7 +71,7 @@ function lmb_is_path_absolute($path)
           (strlen($path) > 2 && $path{1} == ':'));
 }
 
-function lmb_require($file_path, $class = '')
+/*function lmb_require($file_path, $class = '')
 {
   if(strpos($file_path, '*') !== false)
   {
@@ -104,7 +104,7 @@ function lmb_require($file_path, $class = '')
       $exception_class = 'Exception';
     throw new $exception_class("lmb_require: could not include source file '$file_path'");
   }
-}
+}*/
 
 function lmb_require_glob($file_path)
 {
