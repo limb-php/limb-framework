@@ -1,4 +1,8 @@
 <?php
+namespace limb\cache\src\wact;
+
+use WactCompilerTag;
+
 /**
  * @tag cache:block
  * @req_attributes ttl key group

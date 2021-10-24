@@ -1,8 +1,8 @@
 <?php
 namespace limb\cache2\src\macro;
 
-lmb_require('limb/macro/src/compiler/lmbMacroNode.class.php');
-lmb_require('limb/macro/src/compiler/lmbMacroTag.class.php');
+use limb\macro\src\compiler\lmbMacroNode;
+use limb\macro\src\compiler\lmbMacroTag;
 /**
  * class CacheTag.
  * @tag cache

@@ -8,6 +8,8 @@
  */
 namespace limb\i18n\src\macro;
 
+use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
+
 /**
  * @filter i18n_capitalize
  * @package i18n

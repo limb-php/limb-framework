@@ -7,7 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 require_once('limb/wact/src/tags/form/control.inc.php');
-lmb_require('limb/wysiwyg/src/lmbWysiwygConfigurationHelper.class.php');
+
+use limb\wysiwyg\src\lmbWysiwygConfigurationHelper;
+
 define('LIMB_WYSIWYG_DIR', dirname(__FILE__) . '/../../../');
 
 /**

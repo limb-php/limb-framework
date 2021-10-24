@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-require_once('limb/wact/src/tags/form/input.tag.php');
-require_once('limb/calendar/src/lmbWactDate3SelectWidget.class.php');
+use limb\calendar\src\wact;
+
+use limb\wact\src\tags\form\input.tag;
+use limb\calendar\src\lmbWactDate3SelectWidget;
 
 /**
  * @tag date3select

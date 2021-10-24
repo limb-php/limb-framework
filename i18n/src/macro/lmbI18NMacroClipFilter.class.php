@@ -8,6 +8,8 @@
  */
 namespace limb\i18n\src\macro;
 
+use limb\macro\src\compiler\lmbMacroFilter;
+
 /**
  * Filter i18n_clip for macro templates
  * @filter i18n_clip

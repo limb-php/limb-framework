@@ -6,6 +6,10 @@
  * @copyright  Copyright &copy; 2004-2010 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\mail\src\macro;
+
+use limb\macro\src\compiler\lmbMacroTag;
+use limb\macro\src\lmbMacroException;
 
 /**
  * @tag mailpart
