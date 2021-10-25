@@ -9,6 +9,7 @@
 namespace limb\imagekit\src\im\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
+use limb\imagekit\src\lmbAbstractImageContainer;
 
 /**
  * Rotate image filter
@@ -46,7 +47,7 @@ class lmbImRotateImageFilter extends lmbAbstractImageFilter
       {
         $bgcolor = "#".$this->getBgColor();
 
-        $container->getResource()->rotateImage(new ImagickPixel($bgcolor), $angle);
+        $container->getResource()->rotateImage(new \ImagickPixel($bgcolor), $angle);
       }
     }
   }

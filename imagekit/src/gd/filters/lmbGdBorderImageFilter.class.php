@@ -2,6 +2,8 @@
 namespace limb\imagekit\src\gd\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
+use limb\imagekit\src\lmbAbstractImageContainer;
+use limb\imagekit\src\gd\lmbGdImageContainer;
 
 /**
  * Border image filter

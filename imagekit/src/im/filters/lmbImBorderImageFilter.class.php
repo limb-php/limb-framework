@@ -9,6 +9,7 @@
 namespace limb\imagekit\src\im\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
+use limb\imagekit\src\lmbAbstractImageContainer;
 
 /**
  * Border image filter
@@ -29,26 +30,26 @@ class lmbImBorderImageFilter extends lmbAbstractImageFilter
 
     if($this->getIsRoundCorner() && $round_corner_png = $this->getRoundCornerPng())
     {
-      $rc = new Imagick();
+      $rc = new \Imagick();
       $rc->readImage($this->getRoundCornerPng());
       $rc_width = $rc->getImageWidth() / 2;
       $rc_height = $rc->getImageHeight() / 2;
 
       $rc_clone = $rc->clone();
       $rc_clone->cropImage($rc_width, $rc_height, 0, 0);
-      $im->compositeImage($rc_clone, Imagick::COMPOSITE_OVER, 0, 0); //top left
+      $im->compositeImage($rc_clone, \Imagick::COMPOSITE_OVER, 0, 0); //top left
 
       $rc_clone = $rc->clone();
       $rc_clone->cropImage($rc_width, $rc_height, $rc_width, 0);
-      $im->compositeImage($rc_clone, Imagick::COMPOSITE_OVER, $container->getWidth() - $rc_width, 0); //top right
+      $im->compositeImage($rc_clone, \Imagick::COMPOSITE_OVER, $container->getWidth() - $rc_width, 0); //top right
 
       $rc_clone = $rc->clone();
       $rc_clone->cropImage($rc_width, $rc_height, 0, $rc_height);
-      $im->compositeImage($rc_clone, Imagick::COMPOSITE_OVER, 0, $container->getHeight() - $rc_height); //bottom left
+      $im->compositeImage($rc_clone, \Imagick::COMPOSITE_OVER, 0, $container->getHeight() - $rc_height); //bottom left
 
       $rc_clone = $rc->clone();
       $rc_clone->cropImage($rc_width, $rc_height, $rc_width, $rc_height);
-      $im->compositeImage($rc_clone, Imagick::COMPOSITE_OVER, $container->getWidth() - $rc_width, $container->getHeight() - $rc_height); //bottom right
+      $im->compositeImage($rc_clone, \Imagick::COMPOSITE_OVER, $container->getWidth() - $rc_width, $container->getHeight() - $rc_height); //bottom right
     }
   }
 

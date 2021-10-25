@@ -9,6 +9,7 @@
 namespace limb\imagekit\src\im\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
+use limb\imagekit\src\lmbAbstractImageContainer;
 
 /**
  * SepiaTone image filter

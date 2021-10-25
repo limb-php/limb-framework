@@ -58,7 +58,7 @@ class lmbImImageContainer extends lmbAbstractImageContainer
 
     $this->img = new \Imagick();
     $this->img->readImage($file_name);
-    if (!($this->img instanceof Imagick))
+    if (!($this->img instanceof \Imagick))
       throw new lmbImageCreateFailedException($file_name, $type);
 
     $this->img_type = $this->img->getImageFormat();
@@ -85,7 +85,7 @@ class lmbImImageContainer extends lmbAbstractImageContainer
       }
       else
       {
-        $this->img->setCompression(imagick::COMPRESSION_JPEG);
+        $this->img->setCompression(\imagick::COMPRESSION_JPEG);
         $this->img->setCompressionQuality($quality);
       }
     }

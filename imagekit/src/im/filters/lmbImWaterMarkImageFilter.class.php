@@ -9,6 +9,7 @@
 namespace limb\imagekit\src\im\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
+use limb\imagekit\src\lmbAbstractImageContainer;
 
 /**
  * Watermark image filter
@@ -25,7 +26,7 @@ class lmbImWaterMarkImageFilter extends lmbAbstractImageFilter
     $width = $container->getWidth();
     $height = $container->getHeight();
 
-    $wm_cont = new Imagick();
+    $wm_cont = new \Imagick();
     $wm_cont->readImage($this->getWaterMark());
     list($x, $y) = $this->calcPosition($this->getX(), $this->getY(), $width, $height, $wm_cont->getImageWidth(), $wm_cont->getImageHeight(), $this->getXCenter(), $this->getYCenter());
 
@@ -37,7 +38,7 @@ class lmbImWaterMarkImageFilter extends lmbAbstractImageFilter
         $wm_cont->setImageAlpha( $this->getOpacity() / 100 );
     }
 
-    $container->getResource()->compositeImage($wm_cont, Imagick::COMPOSITE_OVER, $x, $y, Imagick::CHANNEL_ALL);
+    $container->getResource()->compositeImage($wm_cont, \Imagick::COMPOSITE_OVER, $x, $y, \Imagick::CHANNEL_ALL);
     //$container->getResource()->compositeImage($wm_cont, Imagick::COMPOSITE_DEFAULT, $x, $y);
   }
 

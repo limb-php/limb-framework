@@ -9,6 +9,7 @@
 namespace limb\imagekit\src\im\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
+use limb\imagekit\src\lmbAbstractImageContainer;
 
 /**
  * Annotate image filter
@@ -27,13 +28,13 @@ class lmbImAnnotateImageFilter extends lmbAbstractImageFilter
     $x = $text_size; // left
     $y = $max_box_height; // baseline
 
-    $draw = new ImagickDraw();
+    $draw = new \ImagickDraw();
     $draw->setFont($this->getTextFont());
     $draw->setFontSize($text_size);
-    $color = new ImagickPixel("#" . $this->getTextColor());
+    $color = new \ImagickPixel("#" . $this->getTextColor());
     $draw->setFillColor($color);
 
-    $img = new Imagick();
+    $img = new \Imagick();
     $img->newImage($max_box_width + 2 * $text_size, 2 * $max_box_height, "none");
     $img->annotateImage( $draw, $x, $y, $text_angle, $this->getText());
     $img->trimImage(0);
@@ -48,7 +49,7 @@ class lmbImAnnotateImageFilter extends lmbAbstractImageFilter
 
     $annotated_img = $this->_generateAnnotation();
 
-    $container->getResource()->compositeImage($annotated_img, Imagick::COMPOSITE_OVER, $this->getX(), $this->getY());
+    $container->getResource()->compositeImage($annotated_img, \Imagick::COMPOSITE_OVER, $this->getX(), $this->getY());
 
     $annotated_img->destroy();
   }

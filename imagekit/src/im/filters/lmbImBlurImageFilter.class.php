@@ -9,6 +9,7 @@
 namespace limb\imagekit\src\im\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
+use limb\imagekit\src\lmbAbstractImageContainer;
 
 /**
  * Blur image filter
@@ -59,6 +60,6 @@ class lmbImBlurImageFilter extends lmbAbstractImageFilter
 
   function getChannel()
   {
-    return $this->getParam('channel', Imagick :: CHANNEL_ALL);
+    return $this->getParam('channel', \Imagick::CHANNEL_ALL);
   }
 }

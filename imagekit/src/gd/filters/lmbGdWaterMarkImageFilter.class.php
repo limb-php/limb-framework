@@ -9,6 +9,7 @@
 namespace limb\imagekit\src\gd\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
+use limb\imagekit\src\lmbAbstractImageContainer;
 
 /**
  * Resize image filter

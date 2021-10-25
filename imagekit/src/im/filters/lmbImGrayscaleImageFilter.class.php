@@ -9,6 +9,7 @@
 namespace limb\imagekit\src\im\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
+use limb\imagekit\src\lmbAbstractImageContainer;
 
 /**
  * Grayscale image filter
@@ -19,6 +20,6 @@ class lmbImGrayscaleImageFilter extends lmbAbstractImageFilter
 {
   function apply(lmbAbstractImageContainer $container)
   {
-    $container->getResource()->setImageType(Imagick :: IMGTYPE_GRAYSCALE);
+    $container->getResource()->setImageType(\Imagick::IMGTYPE_GRAYSCALE);
   }
 }

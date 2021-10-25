@@ -2,6 +2,7 @@
 namespace limb\imagekit\src\gd\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
+use limb\imagekit\src\lmbAbstractImageContainer;
 
 /**
  * SepiaTone image filter

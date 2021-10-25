@@ -9,6 +9,7 @@
 namespace limb\imagekit\src\im\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
+use limb\imagekit\src\lmbAbstractImageContainer;
 
 /**
  * Reflection image filter
@@ -42,7 +43,7 @@ class lmbImReflectionImageFilter extends lmbAbstractImageFilter
       $reflection->flipImage();
 
       /* Create gradient. It will be overlayd on the reflection */
-      $gradient = new Imagick();
+      $gradient = new \Imagick();
       if( $finish_transparency = $this->getFinishTransparency() )
         $gradient_str = "gradient:#" . $bg_color . $finish_transparency . "-#" . $bg_color;
       else
@@ -53,19 +54,19 @@ class lmbImReflectionImageFilter extends lmbAbstractImageFilter
                               );
 
       /* Composite the gradient on the reflection */
-      $reflection->compositeImage( $gradient, imagick::COMPOSITE_OVER, 0, 0 );
+      $reflection->compositeImage( $gradient, \imagick::COMPOSITE_OVER, 0, 0 );
 
       /* Add some opacity */
       if($tr > 0)
         $reflection->setImageOpacity( (100 - $tr) / 100 );
 
       /* Canvas needs to be large enough to hold the both images */
-      $canvas = new Imagick();
-      $canvas->newImage( $src_w, $des_h, new ImagickPixel("#".$bg_color) );
+      $canvas = new \Imagick();
+      $canvas->newImage( $src_w, $des_h, new \ImagickPixel("#".$bg_color) );
 
       /* Composite the original image and the reflection on the canvas */
-      $canvas->compositeImage( $im, imagick::COMPOSITE_OVER, 0, 0 );
-      $canvas->compositeImage( $reflection, imagick::COMPOSITE_OVER,
+      $canvas->compositeImage( $im, \imagick::COMPOSITE_OVER, 0, 0 );
+      $canvas->compositeImage( $reflection, \imagick::COMPOSITE_OVER,
                                0, $src_h );
 
       $container->replaceResource($canvas);

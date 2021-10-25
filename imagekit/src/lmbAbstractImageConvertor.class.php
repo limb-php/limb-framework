@@ -103,9 +103,11 @@ abstract class lmbAbstractImageConvertor
 
   protected function loadFilter($name, $prefix)
   {
-    $class = 'lmb'.$prefix.ucfirst($name).'ImageFilter';
-    $full_path = $this->getFilterLocator()->locate($class.'.class.php');
-    lmb_require($full_path);
+    $class = 'limb\\imagekit\\src\\' . strtolower($prefix) . '\\filters\\lmb' . $prefix.ucfirst($name) . 'ImageFilter';
+
+    //$full_path = $this->getFilterLocator()->locate($class.'.class.php');
+    //lmb_require($full_path);
+
     return $class;
   }
 
