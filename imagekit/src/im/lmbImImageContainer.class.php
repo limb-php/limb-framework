@@ -56,7 +56,7 @@ class lmbImImageContainer extends lmbAbstractImageContainer
       throw new lmbFileNotFoundException($file_name);
 
 
-    $this->img = new Imagick();
+    $this->img = new \Imagick();
     $this->img->readImage($file_name);
     if (!($this->img instanceof Imagick))
       throw new lmbImageCreateFailedException($file_name, $type);
@@ -80,7 +80,7 @@ class lmbImImageContainer extends lmbAbstractImageContainer
     {
       if(method_exists($this->img, 'setImageCompression'))
       {
-        $this->img->setImageCompression(imagick::COMPRESSION_JPEG);
+        $this->img->setImageCompression(\Imagick::COMPRESSION_JPEG);
         $this->img->setImageCompressionQuality($quality);
       }
       else
@@ -145,7 +145,7 @@ class lmbImImageContainer extends lmbAbstractImageContainer
 
   static function supportType($type)
   {
-    if(!class_exists('Imagick'))
+    if(!class_exists('\Imagick'))
       return false;
     return (boolean)(in_array($type, self::$supported_types));
   }
