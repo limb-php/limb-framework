@@ -2,6 +2,8 @@
 namespace limb\cms\src\validation\rule;
 
 use limb\validation\src\rule\lmbSingleFieldRule;
+use limb\active_record\src\lmbActiveRecord;
+use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 
 class lmbCmsUniqueFieldRule extends lmbSingleFieldRule

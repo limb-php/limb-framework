@@ -138,6 +138,7 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
   protected function _renderTemplate($error, $trace, $file, $line, $context, $request, $session)
   {
     $formatted_error = nl2br($error);
+    $formatted_file = nl2br($file);
 
     $body = <<<EOD
 <html>
@@ -189,7 +190,7 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
 <a href="#" onclick="TextDump(); return false;">Raw dump</a>
 
 <div id="Context" style="display: block;">
-<h3>Error in '{$file}' around line {$line}:</h3>
+<h3>Error in '{$formatted_file}' around line {$line}:</h3>
 <pre>{$context}</pre>
 </div>
 

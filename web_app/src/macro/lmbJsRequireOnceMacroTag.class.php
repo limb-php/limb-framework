@@ -1,6 +1,7 @@
 <?php
+namespace limb\web_app\src\macro;
 
-lmb_require('limb/web_app/src/macro/file_version.tag.php');
+use limb\web_app\src\macro\lmbFileVersionMacroTag;
 
 /**
  * @tag js:require_once

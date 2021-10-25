@@ -1,4 +1,7 @@
 <?php
+namespace limb\web_app\src\macro;
+
+use limb\macro\src\compiler\lmbMacroTag;
 
 /**
  * @tag file:version

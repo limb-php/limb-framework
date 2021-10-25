@@ -10,8 +10,10 @@
  * @package    web_app
  */
 
-lmb_require('limb/web_app/src/controller/lmbController.class.php');
-lmb_require('limb/view/src/wact/lmbWactHighlightHandler.class.php');
+use limb\web_app\src\controller\lmbController;
+use limb\view\src\wact\lmbWactHighlightHandler;
+use limb\view\src\lmbWactView;
+
 require_once('limb/view/lib/XML/HTMLSax3.php');
 
 abstract class lmbWactTemplateSourceController extends lmbController
@@ -23,8 +25,7 @@ abstract class lmbWactTemplateSourceController extends lmbController
   function doDisplay()
   {
     require_once('limb/wact/src/compiler/templatecompiler.inc.php');
-    require_once('limb/view/src/lmbWactView.class.php');
-    
+
     $this->setTemplate('template_source/display.html');
     
     if(($t = $this->request->get('t')) && is_array($t) && sizeof($t) > 0)

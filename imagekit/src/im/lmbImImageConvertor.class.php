@@ -24,8 +24,8 @@ class lmbImImageConvertor extends lmbAbstractImageConvertor
 
   function __construct($params = array())
   {
-    if (!class_exists('Imagick'))
-      throw new lmbImageLibraryNotInstalledException('ImageMagick');
+    if (!class_exists('\Imagick'))
+      throw new lmbImageLibraryNotInstalledException('\ImageMagick');
 
     if(!isset($params['filters_scan_dirs']))
       $params['filters_scan_dirs'] = dirname(__FILE__) . '/filters';

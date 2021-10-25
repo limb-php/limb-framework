@@ -9,6 +9,8 @@
 namespace limb\mail\src;
 
 use limb\mail\src\lmbBaseMailerInterface;
+use limb\toolkit\src\lmbToolkit;
+use limb\core\src\exception\lmbException;
 
 /**
  * class lmbMailer.
@@ -59,7 +61,7 @@ class lmbMailer implements lmbBaseMailerInterface
 
   protected function _createMailer()
   {
-    $mailer = new PHPMailer(true);
+    $mailer = new \PHPMailer(true);
     $mailer->set('LE', "\r\n");
 
     if($this->use_phpmail)

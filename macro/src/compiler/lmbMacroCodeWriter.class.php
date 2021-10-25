@@ -124,7 +124,7 @@ class lmbMacroCodeWriter
     $code = "<?php\n" .
            //protection from self inclusion
            "if(!class_exists('{$this->class}', false)){\n" .
-           $this->_renderIncludeList() . 
+           $this->_renderIncludeList() .
            "class {$this->class} " . ($this->parent ? "extends {$this->parent} " : '') . "{\n" .
            (!$this->init_code ? "" :
            "\nfunction _init() {" .
