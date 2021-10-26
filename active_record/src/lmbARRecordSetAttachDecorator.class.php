@@ -11,6 +11,7 @@ namespace limb\active_record\src;
 use limb\core\src\lmbCollectionDecorator;
 use limb\core\src\lmbClassPath;
 use limb\core\src\lmbSet;
+use limb\core\src\lmbCollection;
 use limb\core\src\lmbArrayHelper;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\core\src\exception\lmbException;
