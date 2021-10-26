@@ -9,6 +9,7 @@
 namespace limb\session\src;
 
 use limb\session\src\lmbSessionStorageInterface;
+use limb\core\src\lmbSerializable;
 
 /**
  * lmbSessionNativeStorage does nothing thus keeping native file-based php session storage to be used.

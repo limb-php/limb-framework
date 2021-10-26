@@ -9,6 +9,7 @@
 namespace limb\session\src;
 
 use limb\session\src\lmbSessionStorageInterface;
+use limb\core\src\lmbSerializable;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\lmbSimpleDb;
 

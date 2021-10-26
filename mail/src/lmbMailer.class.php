@@ -11,6 +11,7 @@ namespace limb\mail\src;
 use limb\mail\src\lmbBaseMailerInterface;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
+use phpmailerException;
 
 /**
  * class lmbMailer.
@@ -174,7 +175,8 @@ class lmbMailer implements lmbBaseMailerInterface
     foreach($recipients as $recipient)
       $mailer->AddAddress($recipient['address'], $recipient['name']);
 
-    if(!$sender = $this->processMailAddressee($sender))
+    $sender = $this->processMailAddressee($sender);
+    if(!$sender)
       return false;
 
     $mailer->From = $sender['address'];
@@ -184,7 +186,7 @@ class lmbMailer implements lmbBaseMailerInterface
 
       return $mailer->Send();
     }
-    catch (phpmailerException $e)
+    catch (Exception $e)
     {
       throw new lmbException($e->getMessage());
     }
@@ -209,7 +211,7 @@ class lmbMailer implements lmbBaseMailerInterface
   {
     if(is_array($adressee))
     {
-      if(isset($adressee['address']) && isset($adressee['name']))
+      if(isset($adressee['address']) && array_key_exists('name', $adressee))
         return $adressee;
 
       return null;

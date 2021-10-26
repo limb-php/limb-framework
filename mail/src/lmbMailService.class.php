@@ -6,6 +6,8 @@ use limb\mail\src\lmbMailer;
 use limb\mail\src\lmbMemoryMailer;
 use limb\mail\src\lmbResponseMailer;
 use limb\macro\src\lmbMacroTemplate;
+use limb\toolkit\src\lmbToolkit;
+use limb\core\src\exception\lmbException;
 
 class lmbMailService
 {

@@ -13,6 +13,7 @@ use limb\session\src\lmbSession;
 use limb\session\src\lmbSessionNativeStorage;
 use limb\session\src\lmbSessionDbStorage;
 use limb\toolkit\src\lmbToolkit;
+use limb\core\src\lmbSerializable;
 
 /**
  * lmbSessionStartupFilter installs session storage driver and starts session.
