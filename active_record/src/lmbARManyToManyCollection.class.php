@@ -9,6 +9,7 @@
 namespace limb\active_record\src;
 
 use limb\active_record\src\lmbARRelationCollection;
+use limb\dbal\src\lmbTableGateway;
 use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 
