@@ -32,7 +32,7 @@ class lmbMacroMultipleSelectWidget extends lmbMacroSelectWidget
     if(!is_object($values) && !is_array($values))
       $values = $this->default_selection;
 
-    if(is_object($values) && !($values instanceof Iterator))
+    if(is_object($values) && !($values instanceof \Iterator))
       $values = $this->default_selection;
     
     if(!$value_field = $this->getAttribute('value_field'))
@@ -43,7 +43,7 @@ class lmbMacroMultipleSelectWidget extends lmbMacroSelectWidget
     {
       if(is_scalar($value))
         $result[] = $value;        
-      elseif((is_array($value) || $value instanceof ArrayAccess)  && isset($value[$value_field]))
+      elseif((is_array($value) || $value instanceof \ArrayAccess)  && isset($value[$value_field]))
         $result[] = $value[$value_field];        
     }
     return $result;
