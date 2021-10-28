@@ -7,8 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
- lmb_require('limb/macro/src/lmbMacroTemplate.class.php');
- lmb_require('limb/macro/src/lmbMacroConfig.class.php');
+ use limb\macro\src\lmbMacroTemplate;
+ use limb\macro\src\lmbMacroConfig;
 
 class lmbBaseMacroTest extends UnitTestCase
 {

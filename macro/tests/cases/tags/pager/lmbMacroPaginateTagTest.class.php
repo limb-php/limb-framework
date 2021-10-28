@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
  
-lmb_require('limb/core/src/lmbArrayIterator.class.php');
+use limb\core\src\lmbArrayIterator;
 
 class lmbMacroPaginateTagTest extends lmbBaseMacroTest
 {
