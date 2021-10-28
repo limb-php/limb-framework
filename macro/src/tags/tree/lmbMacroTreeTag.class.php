@@ -67,7 +67,7 @@ class lmbMacroTreeTag extends lmbMacroTag
     //rendering tags after branch
     $code->writePHP('if(' . $counter . ") {\n");
     foreach($after_node as $tag)
-      if(!$tag instanceof limb\macro\src\tags\tree\lmbMacroTreeEmptyTag)
+      if(!$tag instanceof lmbMacroTreeEmptyTag)
         $tag->generate($code);
     $code->writePHP("}\n");
     $code->endMethod();
@@ -87,7 +87,7 @@ class lmbMacroTreeTag extends lmbMacroTag
     $tags = array();
     foreach($this->children as $child)
     {
-      if($child instanceof limb\macro\src\tags\tree\lmbMacroTreeNodeTag)
+      if($child instanceof lmbMacroTreeNodeTag)
         break;
       $tags[] = $child;
     }
@@ -102,7 +102,7 @@ class lmbMacroTreeTag extends lmbMacroTag
     {
       if($collect)
         $tags[] = $child;
-      if($child instanceof limb\macro\src\tags\tree\lmbMacroTreeNodeTag)
+      if($child instanceof lmbMacroTreeNodeTag)
         $collect = true;
     }
     return $tags;
@@ -115,7 +115,7 @@ class lmbMacroTreeTag extends lmbMacroTag
 
   protected function _renderEmptyTag($code, $items)
   {
-    if($list_empty = $this->findImmediateChildByClass('lmbMacroTreeEmptyTag'))
+    if($list_empty = $this->findImmediateChildByClass('limb\\macro\\src\\tags\\tree\\lmbMacroTreeEmptyTag'))
     {
       $code->writePHP('if(count(' . $items . ') == 0) {');
         $list_empty->generate($code);
