@@ -9,8 +9,10 @@
 namespace limb\active_record\src;
 
 use limb\active_record\src\lmbARRelationCollection;
+use limb\core\src\lmbCollection;
 use limb\dbal\src\lmbTableGateway;
 use limb\dbal\src\query\lmbSelectRawQuery;
+use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 
 /**
@@ -86,7 +88,7 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
       //$table->delete(lmbSQLCriteria :: in($this->relation_info['foreign_field'], $to_remove_ids));
       $criteria = new lmbSqlCriteria();
       $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['field'], $this->owner->getId()));
-      $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['foreign_field'], $to_remove_ids, lmbSQLFieldCriteria :: IN));
+      $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['foreign_field'], $to_remove_ids, lmbSQLFieldCriteria::IN));
       $table->delete($criteria);
     }
   }
@@ -96,7 +98,7 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
     $table = new lmbTableGateway($this->relation_info['table'], $this->conn);
     $criteria = new lmbSQLCriteria();
     $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['field'], $this->owner->getId()));
-    $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['foreign_field'], null, lmbSQLFieldCriteria :: IS_NOT_NULL));
+    $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['foreign_field'], null, lmbSQLFieldCriteria::IS_NOT_NULL));
     $existing_records = $table->select($criteria);
 
     return lmbCollection :: toFlatArray($existing_records, $this->relation_info['foreign_field']);
