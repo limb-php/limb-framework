@@ -3,6 +3,7 @@ namespace limb\cms\src\validation\rule;
 
 use limb\validation\src\rule\lmbSingleFieldRule;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
+use limb\active_record\src\lmbActiveRecord;
 
 class lmbCmsUserUniqueFieldRule extends lmbSingleFieldRule
 {

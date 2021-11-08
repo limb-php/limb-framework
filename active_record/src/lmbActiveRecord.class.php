@@ -27,6 +27,7 @@ use limb\active_record\src\lmbARMetaInfo;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbNoSuchPropertyException;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
+use limb\core\src\exception\lmbNoSuchMethodException;
 
 /**
  * Base class responsible for ActiveRecord design pattern implementation. Inspired by Rails ActiveRecord class.

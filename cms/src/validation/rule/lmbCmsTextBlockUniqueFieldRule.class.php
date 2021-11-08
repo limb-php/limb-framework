@@ -3,6 +3,7 @@ namespace limb\cms\src\validation\rule;
 
 use limb\validation\src\rule\lmbSingleFieldRule;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
+use limb\cms\src\model\lmbCmsTextBlock;
 
 class lmbCmsTextBlockUniqueFieldRule extends lmbSingleFieldRule
 {
@@ -20,7 +21,7 @@ class lmbCmsTextBlockUniqueFieldRule extends lmbSingleFieldRule
     if($this->text_block->getId())
       $criteria->addAnd('id <> '. $this->text_block->getId());
 
-    if(lmbActiveRecord :: findOne('lmbCmsTextBlock', $criteria))
+    if(lmbCmsTextBlock :: findOne($criteria))
       $this->error('Тектовый блок со значением поля {Field} уже существует');
   }
 }
