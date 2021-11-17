@@ -9,6 +9,7 @@
 namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbStatementInterface;
+use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbMysqlStatement.
