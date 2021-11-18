@@ -11,8 +11,11 @@ namespace limb\active_record\src;
 use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\query\lmbSelectQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;
+use \limb\active_record\src\lmbActiveRecord;
+use \limb\active_record\src\lmbARRecordSetDecorator;
 use limb\active_record\src\lmbARRecordSetAttachDecorator;
 use limb\active_record\src\lmbARRecordSetJoinDecorator;
+use limb\core\src\exception\lmbException;
 use limb\active_record\src\lmbARException;
 
 class lmbARQuery extends lmbSelectRawQuery

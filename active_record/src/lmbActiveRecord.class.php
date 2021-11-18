@@ -1532,12 +1532,6 @@ class lmbActiveRecord extends lmbObject
    */
   static function findById($class_name, $id = null, $throw_exception = true, $conn = null)
   {
-/*if( $class_name == 'src\model\lmbCmsClassName' )
-{
-var_dump( self :: _isClass($class_name) );
-exit();
-}*/
-
     if(!self :: _isClass($class_name))
     {
       $conn = $throw_exception;
@@ -1581,12 +1575,16 @@ exit();
       $params = array('first', 'criteria' => $this->_db_conn->quoteIdentifier($this->_primary_key_name) . '=' . $id);
     }
 
-    if($object = $this->_find($params))
+    $object = $this->_find($params);
+    if($object) {
       return $object;
-    elseif($throw_exception)
+    }
+    elseif($throw_exception) {
       throw new lmbARNotFoundException(get_class($this), $id);
-    else
+    }
+    else {
       return null;
+    }
   }
   /**
    *  Finds a collection of objects in database using array of object ids, this method is actually a wrapper around find()
@@ -1783,7 +1781,7 @@ exit();
     if(isset($params['fields']) && is_array($params['fields']))
       $this->setLazyAttributesExcept($params['fields']);
 
-    $query = lmbARQuery :: create($this, $params, $this->_db_conn);
+    $query = lmbARQuery::create($this, $params, $this->_db_conn);
     if(isset($params['add_table']))
     {
       if(!is_array($params['add_table']))
