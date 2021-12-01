@@ -105,7 +105,7 @@ class lmbWebAppTools extends lmbAbstractTools
   {
     if(!is_object($this->flash_box))
     {
-      $this->flash_box = lmbFlashBox :: create($this->toolkit->getSession());
+      $this->flash_box = lmbFlashBox::create($this->toolkit->getSession());
     }
 
     return $this->flash_box;
@@ -131,8 +131,9 @@ class lmbWebAppTools extends lmbAbstractTools
     if($namespace)
       $controller_name = $namespace . '\\' . lmb_camel_case($controller_name);
 
-    $file = str_replace('\\', DIRECTORY_SEPARATOR, $controller_name) . '.class.php';
-    if( stream_resolve_include_path($file) === false )
+    $class = str_replace('\\', DIRECTORY_SEPARATOR, $controller_name);
+    $file = $class . '.class.php';
+    if( stream_resolve_include_path($file) === false ) //if( class_exists($class, false) )
     {
       throw new lmbException("web_app: Could not find controller file '$file'");
     }
