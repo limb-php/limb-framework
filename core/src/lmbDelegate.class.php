@@ -8,6 +8,8 @@
  */
 namespace limb\core\src;
 
+use limb\core\src\exception\lmbException;
+
 /**
  * Object form of invoking an object method
  * @package core
