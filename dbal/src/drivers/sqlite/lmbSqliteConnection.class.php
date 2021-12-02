@@ -6,16 +6,17 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\dbal\src\drivers\sqlite;
 
-lmb_require('limb/dbal/src/drivers/lmbDbBaseConnection.class.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteDbInfo.class.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteQueryStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteInsertStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteDropStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteManipulationStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteTypeInfo.class.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteRecord.class.php');
+use limb\dbal\src\drivers\lmbDbBaseConnection;
+//use(dirname(__FILE__) . '/lmbSqliteDbInfo.class.php');
+//use(dirname(__FILE__) . '/lmbSqliteQueryStatement.class.php');
+//use(dirname(__FILE__) . '/lmbSqliteInsertStatement.class.php');
+//use(dirname(__FILE__) . '/lmbSqliteDropStatement.class.php');
+//use(dirname(__FILE__) . '/lmbSqliteManipulationStatement.class.php');
+//use(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
+//use(dirname(__FILE__) . '/lmbSqliteTypeInfo.class.php');
+//use(dirname(__FILE__) . '/lmbSqliteRecord.class.php');
 
 /**
  * class lmbSqliteConnection.

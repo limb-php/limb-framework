@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/dbal/src/drivers/lmbDbInsertStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteManipulationStatement.class.php');
+namespace limb\dbal\src\drivers\sqlite;
+
+use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
+//lmb_require(dirname(__FILE__) . '/lmbSqliteManipulationStatement.class.php');
 
 /**
  * class lmbSqliteInsertStatement.
@@ -15,7 +17,7 @@ lmb_require(dirname(__FILE__) . '/lmbSqliteManipulationStatement.class.php');
  * @package dbal
  * @version $Id$
  */
-class lmbSqliteInsertStatement extends lmbSqliteManipulationStatement implements lmbDbInsertStatement
+class lmbSqliteInsertStatement extends lmbSqliteManipulationStatement implements lmbDbInsertStatementInterface
 {
   function insertId($field_name = 'id')
   {

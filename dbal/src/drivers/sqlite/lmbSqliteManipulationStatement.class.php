@@ -6,9 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\dbal\src\drivers\sqlite;
 
-lmb_require('limb/dbal/src/drivers/lmbDbManipulationStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
+use limb\dbal\src\drivers\lmbDbManipulationStatementIinterface;
+//lmb_require(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
 
 /**
  * class lmbSqliteManipulationStatement.
@@ -16,7 +17,7 @@ lmb_require(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
  * @package dbal
  * @version $Id$
  */
-class lmbSqliteManipulationStatement extends lmbSqliteStatement implements lmbDbManipulationStatement
+class lmbSqliteManipulationStatement extends lmbSqliteStatement implements lmbDbManipulationStatementIinterface
 {
   function getAffectedRowCount()
   {

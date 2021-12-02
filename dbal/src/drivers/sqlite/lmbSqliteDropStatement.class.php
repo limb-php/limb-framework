@@ -6,10 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\dbal\src\drivers\sqlite;
 
 use limb\core\src\exception\lmbException;
-
-lmb_require(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
+//lmb_require(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
 
 /**
  * class lmbSqliteDropStatement.

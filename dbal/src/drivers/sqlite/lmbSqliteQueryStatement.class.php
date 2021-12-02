@@ -6,11 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace limb\dbal\src\drivers\sqlite;
 
-lmb_require('limb/dbal/src/drivers/lmbDbQueryStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteRecord.class.php');
-lmb_require(dirname(__FILE__) . '/lmbSqliteRecordSet.class.php');
+use limb\dbal\src\drivers\lmbDbQueryStatementIinterface;
+//lmb_require(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
+//lmb_require(dirname(__FILE__) . '/lmbSqliteRecord.class.php');
+//lmb_require(dirname(__FILE__) . '/lmbSqliteRecordSet.class.php');
 
 /**
  * class lmbSqliteQueryStatement.
@@ -18,7 +19,7 @@ lmb_require(dirname(__FILE__) . '/lmbSqliteRecordSet.class.php');
  * @package dbal
  * @version $Id$
  */
-class lmbSqliteQueryStatement extends lmbSqliteStatement implements lmbDbQueryStatement
+class lmbSqliteQueryStatement extends lmbSqliteStatement implements lmbDbQueryStatementIinterface
 {
   function getOneRecord()
   {
