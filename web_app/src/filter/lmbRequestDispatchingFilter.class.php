@@ -12,6 +12,7 @@ use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
+use limb\web_app\src\exception\lmbControllerNotFoundException;
 
 /**
  * class lmbRequestDispatchingFilter.
@@ -73,7 +74,7 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
     {
       $controller = $this->toolkit->createController($dispatched_params['controller'], $dispatched_params['namespace'] ?? '');
     }
-    catch(limb\core\src\exception\lmbException $e)
+    catch(lmbControllerNotFoundException $e)
     {
       $controller = $this->toolkit->createController($this->default_controller_name, $this->default_controller_namespace);
     }

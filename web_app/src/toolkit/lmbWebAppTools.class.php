@@ -17,6 +17,7 @@ use limb\web_app\src\request\lmbRoutes;
 use limb\core\src\exception\lmbException;
 use limb\core\src\lmbBacktrace;
 use limb\fs\src\exception\lmbFileNotFoundException;
+use limb\web_app\src\exception\lmbControllerNotFoundException;
 
 lmb_env_setor('LIMB_CONTROLLERS_INCLUDE_PATH', 'src/controller;limb/*/src/controller');
 
@@ -123,8 +124,6 @@ class lmbWebAppTools extends lmbAbstractTools
 
   function createController($controller_name, $namespace = '')
   {
-    //$controller_name = lmb_camel_case($controller_name) . 'Controller';
-
     if( strrpos($controller_name, 'Controller') == 0 )
       $controller_name .= 'Controller';
 
@@ -135,7 +134,7 @@ class lmbWebAppTools extends lmbAbstractTools
     $file = $class . '.class.php';
     if( stream_resolve_include_path($file) === false ) //if( class_exists($class, false) )
     {
-      throw new lmbException("web_app: Could not find controller file '$file'");
+      throw new lmbControllerNotFoundException("web_app: Could not find controller file '$file'");
     }
 
     return new $controller_name;
