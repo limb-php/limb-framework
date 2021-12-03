@@ -73,7 +73,7 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
     {
       $controller = $this->toolkit->createController($dispatched_params['controller'], $dispatched_params['namespace'] ?? '');
     }
-    catch(lmbException $e)
+    catch(limb\core\src\exception\lmbException $e)
     {
       $controller = $this->toolkit->createController($this->default_controller_name, $this->default_controller_namespace);
     }
