@@ -8,18 +8,20 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
 {
   public function getFunctions()
   {
-      return array(
+      return [
           new \Twig\TwigFunction('render', static::class.'::renderFragment', array('is_safe' => array('html'))),
           new \Twig\TwigFunction('controller', static::class.'::controller'),
           new \Twig\TwigFunction('file_exists', static::class.'::file_exists'),
           new \Twig\TwigFunction('copy_year', static::class.'::copy_year'),
           new \Twig\TwigFunction('form_errors', static::class.'::form_errors'),
-      );
+      ];
   }
 
   public function getTokenParsers()
   {
-      return [new Wysiwyg_TokenParser()];
+      return [
+        new Wysiwyg_TokenParser()
+      ];
   }
 
   /* extension functions */
@@ -46,11 +48,15 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
     return $start_year . ((date('Y') != $start_year) ? '&ndash;' . date('Y') : '');
   }
 
-  public static function form_errors($form_id)
+  public static function form_errors($form_id, $new_field_names = array())
   {
     $view = lmbToolkit::instance()->getView();
 
-    return $view->getFormErrors($form_id);
+    $error_list = $view->getFormErrors($form_id);
+    if( !empty($new_field_names) )
+      $error_list->renameFields( $new_field_names );
+
+    return $error_list;
   }
 
 }

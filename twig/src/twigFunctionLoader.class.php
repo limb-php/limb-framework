@@ -1,6 +1,6 @@
 <?php
 /*
- * depricated !!!
+ * depricated !!! uses with TWIG 2.x
  */
 
 namespace limb\twig\src;
