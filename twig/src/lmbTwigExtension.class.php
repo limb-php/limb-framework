@@ -53,7 +53,7 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
     $view = lmbToolkit::instance()->getView();
 
     $error_list = $view->getFormErrors($form_id);
-    if( !empty($new_field_names) )
+    if( $error_list && !empty($new_field_names) )
       $error_list->renameFields( $new_field_names );
 
     return $error_list;
