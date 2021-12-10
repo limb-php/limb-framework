@@ -15,7 +15,7 @@ class lmbCmsUserUniqueFieldRule extends lmbSingleFieldRule
     $this->user = $user;
     $this->custom_error = $custom_error;
 
-    parent :: __construct($field);
+    parent::__construct($field);
   }
 
   function check($value)
@@ -24,9 +24,9 @@ class lmbCmsUserUniqueFieldRule extends lmbSingleFieldRule
     if(!$this->user->isNew())
       $criteria->addAnd($this->user->getPrimaryKeyName() . ' <> '. $this->user->getId());
 
-    if(lmbActiveRecord :: findOne(get_class($this->user), $criteria))
+    if(lmbActiveRecord::findOne(get_class($this->user), $criteria))
     {
-      $error = $this->custom_error ? $this->custom_error : 'Пользователь со значением поля {Field} уже существует';
+      $error = $this->custom_error ? $this->custom_error : lmb_i18n('User with {Field} already exists', 'cms');
       $this->error( $error );
     }
   }
