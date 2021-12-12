@@ -1,15 +1,15 @@
 <?php
 namespace limb\optimization\src\model;
 
-use src\model\cachedActiveRecord;
 use limb\core\src\lmbObject;
 use limb\active_record\src\lmbActiveRecord;
+use limb\validation\src\lmbValidator;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\cms\src\validation\rule\lmbCmsUniqueFieldRule;
 
-class MetaInfo extends cachedActiveRecord
+class MetaInfo extends lmbActiveRecord
 {
   protected $_db_table_name = 'meta_data';
 
@@ -28,7 +28,7 @@ class MetaInfo extends cachedActiveRecord
   /* getters/setters */
   static function getCurrentUrl()
   {
-    $request = lmbToolKit :: instance()->getRequest();
+    $request = lmbToolKit::instance()->getRequest();
     $uri = $request->getUri();
 
     $url = $uri->getPathToLevel($uri->countPath() - 1);
@@ -44,9 +44,9 @@ class MetaInfo extends cachedActiveRecord
   protected static function _getMetadataForUrl($url = null)
   {
     if(!$url)
-      $url = self :: getCurrentUrl();
+      $url = self::getCurrentUrl();
 
-    $toolkit = lmbToolKit :: instance();
+    $toolkit = lmbToolKit::instance();
 
     $criteria = new lmbSQLFieldCriteria('url', '/' . $url);
     $criteria->addOr( new lmbSQLFieldCriteria('url', $url) );
@@ -55,59 +55,59 @@ class MetaInfo extends cachedActiveRecord
       $criteria->addOr( new lmbSQLFieldCriteria('url', '/' . $url . $suffix) );
       $criteria->addOr( new lmbSQLFieldCriteria('url', $url . $suffix) );
     }
-    $meta = lmbActiveRecord :: findFirst( __CLASS__, array('cache' => true,
-                                                           'criteria' => $criteria) );
+    $meta = lmbActiveRecord::findFirst( __CLASS__, array('cache' => true,
+                                                                   'criteria' => $criteria) );
 
     if( !empty($meta) )
-      self :: $_meta = $meta;
+      self::$_meta = $meta;
     else
-      self :: $_meta = new lmbObject(array('meta_title' => '', 'meta_description' => '', 'meta_keywords' => '', 'head_title' => ''));
+      self::$_meta = new lmbObject(array('meta_title' => '', 'meta_description' => '', 'meta_keywords' => '', 'head_title' => ''));
   }
 
   public static function getMetaTitle()
   {
-    if(empty(self :: $_meta))
-      self :: _getMetaDataForUrl();
+    if(empty(self::$_meta))
+      self::_getMetaDataForUrl();
 
-    return self :: $_meta->get('title');
+    return self::$_meta->get('title');
   }
 
   public static function getMetaKeywords()
   {
-    if(empty(self :: $_meta))
-      self :: _getMetaDataForUrl();
+    if(empty(self::$_meta))
+      self::_getMetaDataForUrl();
 
-    return self :: $_meta->get('keywords');
+    return self::$_meta->get('keywords');
   }
 
   public static function getMetaDescription()
   {
-    if(empty(self :: $_meta))
-      self :: _getMetaDataForUrl();
+    if(empty(self::$_meta))
+      self::_getMetaDataForUrl();
 
-    return self :: $_meta->get('description');
+    return self::$_meta->get('description');
   }
 
   public static function getHeadTitle()
   {
-    if(empty(self :: $_meta))
-      self :: _getMetaDataForUrl();
+    if(empty(self::$_meta))
+      self::_getMetaDataForUrl();
 
-    return self :: $_meta->get('head');
+    return self::$_meta->get('head');
   }
 
   public static function getMetaForCurrentUrl()
   {
-    if(empty(self :: $_meta))
-       self :: _getMetaDataForUrl();
+    if(empty(self::$_meta))
+       self::_getMetaDataForUrl();
 
-    return self :: $_meta;
+    return self::$_meta;
   }
 
   public static function getMetaForUrl($uri)
   {
-    self :: _getMetaDataForUrl($uri);
-    return self :: $_meta;
+    self::_getMetaDataForUrl($uri);
+    return self::$_meta;
   }
 
   /* */
@@ -115,16 +115,16 @@ class MetaInfo extends cachedActiveRecord
   {
     $criteria = new lmbSQLFieldCriteria('url', $url);
 
-    return lmbActiveRecord :: findFirst( __CLASS__, array('criteria' => $criteria) );
+    return lmbActiveRecord::findFirst( __CLASS__, array('criteria' => $criteria) );
   }
 
   static function findForAdmin( $params = array() )
   {
     $criteria = new lmbSQLCriteria();
 
-    return lmbActiveRecord :: find( __CLASS__, array('criteria' => $criteria,
-                                                     'sort' => isset($params['sort']) ? $params['sort'] : null
-                                                     ) );
+    return lmbActiveRecord::find( __CLASS__, array('criteria' => $criteria,
+                                                             'sort' => isset($params['sort']) ? $params['sort'] : null
+                                                            ) );
   }
 }
 
