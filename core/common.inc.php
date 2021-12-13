@@ -11,10 +11,6 @@
  * @package core
  * @version $Id: common.inc.php 8127 2010-02-10 10:40:35Z conf $
  */
-if(!isset($_ENV['LIMB_LAZY_CLASS_PATHS']))
-  $_ENV['LIMB_LAZY_CLASS_PATHS'] = array();
-if(!isset($_ENV['LIMB_LAZY_TRIED']))
-  $_ENV['LIMB_LAZY_TRIED'] = array();
 define('LIMB_UNDEFINED', 'undefined' . microtime());
 define('LIMB_PACKAGES_DIR', dirname(__FILE__) . '/../');
 
