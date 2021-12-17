@@ -20,8 +20,6 @@ class lmbMacroRouteUrlTag extends lmbMacroTag
 {
   protected function _generateContent($code)
   {
-    //$code->registerInclude('limb/core/src/lmbArrayHelper.class.php');
-    
     $fake_params = $code->generateVar();
     $params = $code->generateVar();
     $code->writePhp("{$params} = array();\n");
@@ -31,7 +29,7 @@ class lmbMacroRouteUrlTag extends lmbMacroTag
 
     if($this->has('params'))
     {
-      $code->writePhp("{$fake_params} = limb\core\src\lmbArrayHelper :: explode(',',':', {$this->getEscaped('params')});\n");
+      $code->writePhp("{$fake_params} = limb\core\src\lmbArrayHelper::explode(',',':', {$this->getEscaped('params')});\n");
       $code->writePhp("foreach({$fake_params} as \$key => \$value) {$params}[trim(\$key)] = trim(\$value);\n");
     }
 
@@ -42,7 +40,7 @@ class lmbMacroRouteUrlTag extends lmbMacroTag
     else
       $code->writePhp("{$skip_controller} = false;\n");
 
-    $code->writePhp("echo limb\\toolkit\\src\\lmbToolkit :: instance()->getRoutesUrl({$params}, {$this->getEscaped('route')}, {$skip_controller});\n");
+    $code->writePhp("echo limb\\toolkit\\src\\lmbToolkit::instance()->getRoutesUrl({$params}, {$this->getEscaped('route')}, {$skip_controller});\n");
   }
 }
 

@@ -14,6 +14,7 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
           new \Twig\TwigFunction('file_exists', static::class.'::file_exists'),
           new \Twig\TwigFunction('copy_year', static::class.'::copy_year'),
           new \Twig\TwigFunction('form_errors', static::class.'::form_errors'),
+          new \Twig\TwigFunction('route_url', static::class.'::route_url'),
       ];
   }
 
@@ -59,4 +60,10 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
     return $error_list;
   }
 
+  public static function route_url($params, $route = '', $skip_controller = false)
+  {
+    $routes = lmbToolkit::instance()->getRoutesUrl($params, $route, $skip_controller);
+
+    return $routes;
+  }
 }
