@@ -1791,8 +1791,9 @@ class lmbActiveRecord extends lmbObject
       $query->addGroupBy($this->_primary_key_name);
     }
 
-    if(isset($params['left_join']))
+    if(isset($params['left_join']) && !empty($params['left_join']))
     {
+      // addLeftJoin($table, $field, $connect_table, $connect_field, $table_alias = '')
       if( is_array($params['left_join'][0]) )
       {
         foreach( $params['left_join'] as $left_join )
