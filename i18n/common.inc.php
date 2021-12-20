@@ -12,8 +12,12 @@
  * @version $Id: common.inc.php 8042 2010-01-19 20:53:10Z korchasa $
  */
 require_once('limb/core/common.inc.php');
+require_once('limb/fs/common.inc.php');
 
-require_once('toolkit.inc.php');
+use limb\toolkit\src\lmbToolkit;
+use limb\i18n\src\toolkit\lmbI18NTools;
+
+lmbToolkit::merge(new lmbI18NTools());
 
 function lmb_i18n($text, $arg1 = null, $arg2 = null)
 {

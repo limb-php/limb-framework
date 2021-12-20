@@ -2,7 +2,10 @@
 set_include_path(get_include_path() . PATH_SEPARATOR .
                  dirname(__FILE__) . '/lib/minify/min/lib/' . PATH_SEPARATOR);
 
-require_once('toolkit.inc.php');
+use limb\toolkit\src\lmbToolkit;
+use limb\optimization\src\toolkit\optimizationTools;
+
+lmbToolkit::merge(new optimizationTools());
 
 /**
 * Returns GZIP compressed content string with header

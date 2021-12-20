@@ -1,0 +1,11 @@
+{
+  "name": "xadminx/limb-dbal",
+  "require": {
+    "xadminx/limb-core": "dev-master",
+    "xadminx/limb-toolkit": "dev-master",
+    "xadminx/limb-net": "dev-master",
+    "xadminx/limb-fs": "dev-master",
+    "xadminx/limb-config": "dev-master",
+    "xadminx/limb-filter_chain": "dev-master"
+  }
+}

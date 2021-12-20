@@ -13,8 +13,8 @@
  */
 require_once('limb/core/common.inc.php');
 require_once('limb/toolkit/common.inc.php');
-//lmb_package_require('toolkit');
 
-require_once('toolkit.inc.php');
+use limb\toolkit\src\lmbToolkit;
+use limb\net\src\lmbNetTools;
 
-//lmb_package_register('net', dirname(__FILE__));
+lmbToolkit::merge(new lmbNetTools());

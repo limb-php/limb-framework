@@ -14,6 +14,7 @@
 require_once('limb/core/common.inc.php');
 require_once('limb/toolkit/common.inc.php');
 
-require_once('toolkit.inc.php');
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\toolkit\lmbDbTools;
 
-//lmb_package_register('dbal', dirname(__FILE__));
+lmbToolkit::merge(new lmbDbTools());

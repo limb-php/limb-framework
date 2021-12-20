@@ -13,8 +13,10 @@
  */
 require_once('limb/core/common.inc.php');
 require_once('limb/toolkit/common.inc.php');
-//lmb_package_require('toolkit');
+require_once('limb/fs/common.inc.php');
+require_once('limb/config/common.inc.php');
 
-require_once('toolkit.inc.php');
+use limb\toolkit\src\lmbToolkit;
+use limb\view\src\toolkit\lmbViewTools;
 
-//lmb_package_register('view', dirname(__FILE__));
+lmbToolkit::merge(new lmbViewTools());

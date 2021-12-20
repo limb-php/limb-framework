@@ -13,6 +13,7 @@
  */
 require_once('limb/core/common.inc.php');
 
-require_once('toolkit.inc.php');
+use limb\toolkit\src\lmbToolkit;
+use limb\fs\src\lmbFsTools;
 
-//lmb_package_register('fs', dirname(__FILE__));
+lmbToolkit :: merge(new lmbFsTools());

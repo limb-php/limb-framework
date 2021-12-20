@@ -10,9 +10,10 @@ set_include_path(dirname(__FILE__) . '/../' . PATH_SEPARATOR . get_include_path(
 //set_error_handler('error_handler');
 
 require_once(dirname(__FILE__) . '/tests_runner/common.inc.php');
-require_once(dirname(__FILE__) . '/tests_runner/src/lmbTestRunner.class.php');
-require_once(dirname(__FILE__) . '/tests_runner/src/lmbTestTreeFilePathNode.class.php');
-require_once(dirname(__FILE__) . '/tests_runner/src/lmbTestTreeGlobNode.class.php');
+
+use limb\tests_runner\src\lmbTestRunner;
+use limb\tests_runner\src\lmbTestTreeFilePathNode;
+use limb\tests_runner\src\lmbTestTreeGlobNode;
 
 $fork = true;
 $quiet = false;

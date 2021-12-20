@@ -11,6 +11,7 @@ namespace limb\toolkit\src;
 use limb\core\src\lmbObject;
 use limb\toolkit\src\lmbToolkitToolsInterface;
 use limb\toolkit\src\lmbRegistry;
+use limb\core\src\exception\lmbNoSuchMethodException;
 
 /**
  * Toolkit is an implementation of Dinamic Service Locator pattern

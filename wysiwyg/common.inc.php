@@ -14,9 +14,4 @@
 require_once('limb/core/common.inc.php');
 require_once('limb/config/common.inc.php');
 require_once('limb/macro/common.inc.php');
-//lmb_package_require('config');
-//lmb_package_require('macro');
-
-require_once('toolkit.inc.php');
-
-//lmb_package_register('wysiwyg', dirname(__FILE__));
+require_once('limb/config/common.inc.php');

@@ -13,8 +13,8 @@
  */
 require_once('limb/core/common.inc.php');
 require_once('limb/web_app/common.inc.php');
-//lmb_package_require('web_app');
 
-require_once('toolkit.inc.php');
+use limb\toolkit\src\lmbToolkit;
+use limb\cms\src\toolkit\lmbCmsTools;
 
-//lmb_package_register('cms', dirname(__FILE__));
+lmbToolkit::merge(new lmbCmsTools());

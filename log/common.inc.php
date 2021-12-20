@@ -12,5 +12,9 @@
  * @version $Id$
  */
 require_once('limb/core/common.inc.php');
+require_once('limb/config/common.inc.php');
 
-//lmb_package_register('log', dirname(__FILE__));
+use limb\toolkit\src\lmbToolkit;
+use limb\log\src\lmbLogTools;
+
+lmbToolkit::merge(new lmbLogTools());

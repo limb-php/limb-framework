@@ -13,5 +13,7 @@
  */
 require_once('limb/core/common.inc.php');
 
-require_once('toolkit.inc.php');
+use limb\toolkit\src\lmbToolkit;
+use limb\cache\src\lmbCacheTools;
 
+lmbToolkit :: merge(new lmbCacheTools());

@@ -12,5 +12,3 @@
  * @version $Id$
  */
 require_once('limb/core/common.inc.php');
-
-//lmb_package_register('calendar', dirname(__FILE__));

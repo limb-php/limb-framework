@@ -14,6 +14,7 @@
 require_once('limb/core/common.inc.php');
 require_once('limb/view/common.inc.php');
 
-require_once('toolkit.inc.php');
+use limb\toolkit\src\lmbToolkit;
+use limb\mail\src\toolkit\lmbMailTools;
 
-//lmb_package_register('mail', dirname(__FILE__));
+lmbToolkit::merge(new lmbMailTools());

@@ -25,7 +25,7 @@ if(PHP_SAPI == 'cli')
 }
 else
 {
-  $request = lmbToolkit :: instance()->getRequest();
+  $request = lmbToolkit::instance()->getRequest();
 
   lmb_env_setor('LIMB_HTTP_REQUEST_PATH', $request->getUri()->toString());
 

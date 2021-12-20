@@ -15,6 +15,7 @@ require_once('limb/core/common.inc.php');
 require_once('limb/validation/common.inc.php');
 require_once('limb/dbal/common.inc.php');
 
-require_once('toolkit.inc.php');
+use limb\toolkit\src\lmbToolkit;
+use limb\active_record\src\toolkit\lmbARTools;
 
-//lmb_package_register('active_record', dirname(__FILE__));
+lmbToolkit :: merge(new lmbARTools());
