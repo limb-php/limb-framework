@@ -17,6 +17,7 @@ require_once('limb/active_record/common.inc.php');
 require_once('limb/net/common.inc.php');
 require_once('limb/session/common.inc.php');
 require_once('limb/view/common.inc.php');
+require_once('limb/log/common.inc.php');
 
 use limb\toolkit\src\lmbToolkit;
 use limb\web_app\src\toolkit\lmbWebAppTools;

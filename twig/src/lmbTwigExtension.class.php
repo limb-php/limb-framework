@@ -25,6 +25,13 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
       ];
   }
 
+  public function getFilters()
+  {
+    return [
+      new \Twig\TwigFilter('number_format', 'number_format')
+    ];
+  }
+
   /* extension functions */
   public static function renderFragment($uri, $options = array())
   {

@@ -22,5 +22,3 @@ if(!defined('WACT_CACHE_DIR'))
   define('WACT_CACHE_DIR', dirname(__FILE__) . '/cache/');
 
 if(version_compare(PHP_VERSION,"5.3","<")) set_magic_quotes_runtime(0);
-
-//lmb_package_register('wact', dirname(__FILE__));
