@@ -6,9 +6,8 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/view/wact.inc.php');
-lmb_require('limb/view/src/wact/lmbWactTemplateConfig.class.php');
-lmb_require('limb/wact/src/WactTemplate.class.php');
+use limb\view\src\wact\lmbWactTemplateConfig;
+use limb\wact\src\WactTemplate;
 
 /**
  * class lmbWactTemplate.

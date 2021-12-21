@@ -15,6 +15,5 @@ set_time_limit(0);
 error_reporting(E_ALL);
 
 require_once(dirname(__FILE__) . '/simpletest.inc.php');
-require_once(dirname(__FILE__) . '/src/lmbTestGroup.class.php');
 
 
