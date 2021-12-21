@@ -14,8 +14,6 @@ use limb\web_cache\src\lmbFullPageCacheUriPathRule;
 use limb\web_cache\src\lmbFullPageCacheUserRule;
 use limb\web_cache\src\lmbFullPageCacheRequestRule;
 
-require_once('limb/config/toolkit.inc.php');
-
 /**
  * class lmbFullPageCacheIniPolicyLoader.
  *
