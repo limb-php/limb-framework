@@ -101,14 +101,28 @@ class lmbTwigView extends lmbView
 
     $twig->addExtension(new lmbTwigExtension());
 
-    //$this->templateInstance = $twig->loadTemplate( $this->getTemplate() ); // twig v1.*
     $this->templateInstance = $twig->load( $this->getTemplate() ); // twig v3.*
     return $this->templateInstance;
   }
 
   function render()
   {
-    return $this->getTwigTemplate()->render( $this->getVariables() );
+    return $this->getTwigTemplate()->render( $this->_fillTemplateVars() );
   }
 
+  protected function _fillTemplateVars()
+  {
+    $params = array();
+
+    foreach($this->getVariables() as $variable_name => $value)
+      $params[ $variable_name ] = $value;
+
+    foreach($this->forms_datasources as $form_id => $datasource)
+      $params[ 'form_' . $form_id . '_datasource' ] = $datasource;
+
+    foreach($this->forms_errors as $form_id => $error_list)
+      $params[ 'form_' . $form_id . '_error_list' ] = $error_list->getArray();
+
+    return $params;
+  }
 }
