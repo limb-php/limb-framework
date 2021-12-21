@@ -14,7 +14,3 @@
 require_once('limb/core/common.inc.php');
 require_once('limb/fs/common.inc.php');
 require_once('limb/toolkit/common.inc.php');
-//lmb_package_require('fs');
-//lmb_package_require('toolkit');
-
-//lmb_package_register('js', dirname(__FILE__));
