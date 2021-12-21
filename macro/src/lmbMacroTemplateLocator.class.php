@@ -8,8 +8,6 @@
  */
 namespace limb\macro\src;
 
-require_once('limb/fs/toolkit.inc.php');
-
 use limb\fs\src\lmbFs;
 use limb\macro\src\lmbMacroTemplateLocatorInterface;
 use limb\toolkit\src\lmbToolkit;
@@ -32,12 +30,12 @@ class lmbMacroTemplateLocator implements lmbMacroTemplateLocatorInterface
   {
     $this->cache_dir = $config->cache_dir;
     $this->scan_dirs = $config->tpl_scan_dirs;    
-    $this->toolkit = lmbToolkit :: instance();
+    $this->toolkit = lmbToolkit::instance();
   }
 
   function locateSourceTemplate($file_name)
   {
-    if(!lmbFs :: isPathAbsolute($file_name))
+    if(!lmbFs::isPathAbsolute($file_name))
       return $this->toolkit->tryFindFileByAlias($file_name, $this->scan_dirs, 'macro');
     elseif(file_exists($file_name))
       return $file_name;

@@ -12,5 +12,4 @@
  * @version $Id$
  */
 require_once('limb/core/common.inc.php');
-
-//lmb_package_register('macro', dirname(__FILE__));
+require_once('limb/fs/common.inc.php');
