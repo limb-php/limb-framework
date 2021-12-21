@@ -1,6 +1,6 @@
 <?php
 set_include_path(get_include_path() . PATH_SEPARATOR .
-                 dirname(__FILE__) . '/lib/minify/min/lib/' . PATH_SEPARATOR);
+                 dirname(__FILE__) . '/lib/minify/lib/src/' . PATH_SEPARATOR);
 
 use limb\toolkit\src\lmbToolkit;
 use limb\optimization\src\toolkit\optimizationTools;
@@ -66,44 +66,5 @@ function set_gzip_header($response = null) {
         header("Content-Encoding: " . $encoding);
     }
   }
-}
-
-/* */
-function processUrlPath(&$path, $route = null)
-{
-  $common_conf = limb\toolkit\src\lmbToolkit :: instance()->getCommonSettings();
-  $suffix = $common_conf['url_suffix'];
-
-  if( $suffix )
-  {
-    $uri = new limb\net\src\lmbUri($path);
-    $old_path = rtrim($uri->getPath(), '/');
-    if( (strpos($old_path, ".") === false) && ($old_path != "/" && $old_path != "") )
-      $uri->setPath( $old_path . $suffix );
-
-    $path = $uri->toString();
-  }
-}
-function processPath($path)
-{
-  processUrlPath($path);
-  return $path;
-}
-
-function filterPath($path)
-{
-  $common_conf = limb\toolkit\src\lmbToolkit :: instance()->getCommonSettings();
-  $suffix = $common_conf['url_suffix'];
-
-  if($suffix)
-  {
-    $pos = strrpos($path, $suffix);
-    if($pos !== false)
-    {
-      $path = substr($path, 0, -strlen($suffix));
-    }
-  }
-
-  return $path;
 }
 
