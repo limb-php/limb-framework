@@ -6,10 +6,12 @@
 * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
-lmb_require('limb/acl/src/lmbAcl.class.php');
-lmb_require('limb/acl/src/lmbRoleProviderInterface.interface.php');
-lmb_require('limb/acl/src/lmbResourceProviderInterface.interface.php');
-lmb_require('limb/acl/src/lmbRolesResolverInterface.interface.php');
+namespace limb\acl\tests\cases;
+
+use limb\acl\src\lmbAcl;
+use limb\acl\src\lmbRoleProviderInterface;
+use limb\acl\src\lmbResourceProviderInterface;
+use limb\acl\src\lmbRolesResolverInterface;
 
 class Acl_Tests_User implements lmbRoleProviderInterface
 {
