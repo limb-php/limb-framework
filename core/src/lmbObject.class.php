@@ -45,7 +45,7 @@ use limb\core\src\exception\lmbNoSuchPropertyException;
  * }
  * $foo = new Foo();
  * //the call below will be magically mapped to getBar() method
- * //this can be very useful for WACT templates, e.g. {$bar} in
+ * //this can be very useful for templates, e.g. {$bar} in
  * //template will trigger the same method getBar() as well
  * $foo->get('bar');
  * </code>

@@ -9,7 +9,6 @@
 namespace limb\i18n\src\translation;
 
 use limb\i18n\src\translation\lmbPHPDictionaryExtractor;
-use limb\i18n\src\translation\lmbWACTDictionaryExtractor;
 use limb\i18n\src\translation\lmbFsDictionaryExtractor;
 use limb\i18n\src\translation\lmbI18NDictionary;
 use limb\i18n\src\translation\lmbQtDictionaryBackend;
@@ -43,7 +42,6 @@ class lmbDictionaryUpdater
   function updateTranslations($source_dir, $dry_run = false)
   {
     $loader = new lmbFsDictionaryExtractor();
-    $loader->registerFileParser('.html', new lmbWACTDictionaryExtractor());
     $loader->registerFileParser('.php', new lmbPHPDictionaryExtractor());
     $loader->registerFileParser('.phtml', new lmbPHPDictionaryExtractor());
 

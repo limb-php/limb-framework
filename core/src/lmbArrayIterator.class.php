@@ -11,10 +11,10 @@ namespace limb\core\src;
 use limb\core\src\lmbCollectionInterface;
 
 /**
- * class WactArrayIterator.
+ * class lmbArrayIterator.
  *
- * @package wact
- * @version $Id: WactArrayIterator.class.php 6386 2007-10-05 14:22:21Z serega $
+ * @package core
+ * @version $Id: lmbArrayIterator.class.php 6386 2007-10-05 14:22:21Z serega $
  */
 class lmbArrayIterator extends ArrayIterator implements lmbCollectionInterface
 {

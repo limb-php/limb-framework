@@ -12,9 +12,8 @@ use limb\toolkit\src\lmbAbstractTools;
 use limb\core\src\exception\lmbException;
 use limb\macro\src\lmbMacroTemplateLocator;
 use limb\macro\src\lmbMacroConfig;
-use limb\view\src\wact\lmbWactTemplateLocator;
 
-lmb_env_setor('LIMB_SUPPORTED_VIEW_TYPES', '.phtml=limb\view\src\lmbMacroView;.html=limb\view\src\lmbWactView;.twig=limb\view\src\lmbTwigView');
+lmb_env_setor('LIMB_SUPPORTED_VIEW_TYPES', '.phtml=limb\view\src\lmbMacroView;.twig=limb\view\src\lmbTwigView');
 
 /**
  * class lmbViewTools.
@@ -25,7 +24,6 @@ lmb_env_setor('LIMB_SUPPORTED_VIEW_TYPES', '.phtml=limb\view\src\lmbMacroView;.h
 class lmbViewTools extends lmbAbstractTools
 {
   protected $view_types = array();
-  protected $wact_locator;
   protected $macro_config;
   protected $macro_locator;
   protected $twig_config;
@@ -91,24 +89,6 @@ class lmbViewTools extends lmbAbstractTools
       throw new lmbException("Template extension '$ext' is not supported");
 
     return $this->view_types[$ext];
-  }
-
-  function getWactLocator()
-  {
-    if(is_object($this->wact_locator))
-      return $this->wact_locator;
-
-    $config = $this->toolkit->getConf('wact');
-
-    $locator = $this->toolkit->getFileLocator($config->get('tpl_scan_dirs'), 'template');
-    $this->wact_locator = new lmbWactTemplateLocator($locator, $config->get('cache_dir'));
-
-    return $this->wact_locator;
-  }
-
-  function setWactLocator($wact_locator)
-  {
-    $this->wact_locator = $wact_locator;
   }
 
   function getMacroConfig()

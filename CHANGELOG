@@ -9,13 +9,13 @@ consider viewing CHANGELOG files for each package.
   * CORE package cruft cleanup, refactoring and misc. code optimizations
   * CACHE package cleanup and better implementation, added initial APC and Memcached support
   * DATETIME package refactoring, renaming lmbDate into lmbDateTime, etc
-  * MACRO alternative to WACT templating engine added with almost all WACT alike functionality
+  * MACRO alternative templating engine
   * IMAGEKIT package complete redesign using filters and fluent interfaces
   * TESTS_RUNNER test groups and methods filters, better coverage support
   * JS package upgraded jQuery to 1.2.1
   * MAIL package upgraded phpmailer to 1.73
   * WEB_APP package major cleanup: removed all commands and obsolete controllers
-  * VIEW package support for view selection based on template extension added(currently MACRO and WACT)
+  * VIEW package support for view selection based on template extension added
   * TREE package ArrayAccess and ArrayIterator compatibility fixes
   * FS package more generic iterators added
 
@@ -36,7 +36,6 @@ consider viewing CHANGELOG files for each package.
   * DATETIME package cleanup and misc improvements
   * initial TinyMC support in WYSIWYG package
   * FCKEditor updated to 2.4.2
-  * WACT better expressions support
   * SQLite DB driver
   * DBAL package refactoring and cleanup, lmbDBAL is a central facade for accessing mis. tools in a package
   * JS package cleanup, moving to jQuery instead of Prototype
@@ -47,7 +46,6 @@ consider viewing CHANGELOG files for each package.
   * Limb3 CLI universal runner
   * Total rewrite of I18N translations subsystem
   * Limb3 skeleton application(LIMB_APP)
-  * Optional WACT templates strict mode(all tags should be balanced)
   * More robust CLI unit tests runner in TESTS_RUNNER package
   * Updating FCKEditor to 2.4 in WYSIWYG
   * Filter chains can be intercepting filters

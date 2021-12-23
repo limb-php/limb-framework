@@ -65,7 +65,7 @@ Usage:
   i18n update-tranlsations(ut) [-t|--test] [<src_dir>] [<dictionary_dir>]
 
   Updates all translation dictionaries with new untranslated entries(currently only Qt
-  dictionaries supported). Parses PHP and WACT templates sources in <src_dir>(current dir .
+  dictionaries supported). Parses PHP and templates sources in <src_dir>(current dir .
   by default) and updates dictionaries in <dictionary_dir>(./i18n/translations by default)
 
 Options:

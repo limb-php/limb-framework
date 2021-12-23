@@ -38,10 +38,10 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
 
   function run($filter_chain)
   {
-    $this->toolkit = lmbToolkit :: instance();
+    $this->toolkit = lmbToolkit::instance();
 
-    lmbErrorGuard :: registerFatalErrorHandler($this, 'handleFatalError');
-    lmbErrorGuard :: registerExceptionHandler($this, 'handleException');
+    lmbErrorGuard::registerFatalErrorHandler($this, 'handleFatalError');
+    lmbErrorGuard::registerExceptionHandler($this, 'handleException');
 
     $filter_chain->next();
   }
@@ -217,7 +217,7 @@ EOD;
 
   protected function _extractExceptionFileAndLine($e)
   {
-    if($e instanceof WactException)
+    if($e instanceof lmbException)
     {
       $params = $e->getParams();
       if(isset($params['file']))

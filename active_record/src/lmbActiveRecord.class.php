@@ -1635,16 +1635,7 @@ class lmbActiveRecord extends lmbObject
 
     return $this->_find($params);
   }
-  /**
-   *  Implements WACT template datasource component interface, this method simply calls find()
-   *  @see find()
-   *  @param mixed misc magic params
-   *  @return iterator
-   */
-  function getDataset($magic_params = array())
-  {
-    return $this->_find($magic_params);
-  }
+
   /**
    *  Finds a collection of objects in database using raw SQL
    *  @param string class name of the object

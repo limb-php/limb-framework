@@ -4,7 +4,6 @@ namespace limb\optimization\src\filter;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
 use limb\macro\src\compiler\lmbMacroCompiler;
-use limb\wact\src\compiler\WactCompiler;
 
 class lmbOptimizationFilter implements lmbInterceptingFilterInterface
 {
@@ -17,7 +16,7 @@ class lmbOptimizationFilter implements lmbInterceptingFilterInterface
     {
       lmbMacroCompiler :: registerOnCompileCallback(array($this, 'onCompileTemplate'));
 
-      WactCompiler :: registerOnCompileCallback(array($this, 'onCompileTemplate'));
+      //TwigCompiler :: registerOnCompileCallback(array($this, 'onCompileTemplate'));
     }
 
     $filter_chain->next();
@@ -40,7 +39,7 @@ class lmbOptimizationFilter implements lmbInterceptingFilterInterface
 
   function onCompileTemplate($data)
   {
-    require_once('JSMin.php');
+    require_once('JSMin/JSMin.php');
     require_once('Minify/HTML.php');
     require_once('Minify/CSS.php');
     require_once('Minify/CommentPreserver.php');
