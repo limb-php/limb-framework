@@ -6,9 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\web_agent\src\request;
 
-lmb_require(dirname(__FILE__).'/../lmbWebAgentCookies.class.php');
-lmb_require(dirname(__FILE__).'/../lmbWebAgentHeaders.class.php');
+use limb\web_agent\src\lmbWebAgentCookies;
+use limb\web_agent\src\lmbWebAgentHeaders;
 
 /**
  * Abstract class of webagent request

@@ -6,9 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\web_agent\src;
 
-lmb_require(dirname(__FILE__).'/lmbWebServerCookiesCollection.class.php');
-lmb_require(dirname(__FILE__).'/lmbWebAgentHeaders.class.php');
+use lmbWebServerCookiesCollection;
+use lmbWebAgentHeaders;
 
 /**
  * Web server response

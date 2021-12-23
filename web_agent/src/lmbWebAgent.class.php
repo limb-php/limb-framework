@@ -6,13 +6,14 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\web_agent\src;
 
 /**
  * @package web_agent
  */
-lmb_require(dirname(__FILE__).'/lmbWebAgentKit.class.php');
-lmb_require(dirname(__FILE__).'/lmbWebServerCookiesCollection.class.php');
-lmb_require(dirname(__FILE__).'/lmbWebAgentValues.class.php');
+use lmbWebAgentKit;
+use lmbWebServerCookiesCollection;
+use lmbWebAgentValues;
 
 /**
  * Web agent

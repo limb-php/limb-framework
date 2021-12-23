@@ -6,12 +6,13 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\web_agent\src\request;
 
-lmb_require(dirname(__FILE__).'/lmbAbstractWebAgentRequest.class.php');
-lmb_require(dirname(__FILE__).'/../lmbWebServerResponse.class.php');
-lmb_require(dirname(__FILE__).'/../lmbWebAgentCookie.class.php');
-lmb_require(dirname(__FILE__).'/../lmbWebAgentHeaders.class.php');
-lmb_require(dirname(__FILE__).'/../lmbWebServerCookiesCollection.class.php');
+use lmbAbstractWebAgentRequest;
+use limb\web_agent\src\lmbWebServerResponse;
+use limb\web_agent\src\lmbWebAgentCookies;
+use limb\web_agent\src\lmbWebAgentHeaders;
+use limb\web_agent\src\lmbWebServerCookiesCollection;
 
 /**
  * Web request with sockets
