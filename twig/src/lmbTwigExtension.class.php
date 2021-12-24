@@ -28,7 +28,10 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
   public function getFilters()
   {
     return [
-      new \Twig\TwigFilter('number_format', 'number_format')
+      new \Twig\TwigFilter('number_format', 'number_format'),
+      new \Twig\TwigFilter('odd_or_even', function ($number) {
+        return ($number % 2) ? 'odd' : 'even' ;
+      })
     ];
   }
 
