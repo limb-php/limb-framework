@@ -9,9 +9,8 @@
 namespace limb\acl\src;
 
 use limb\acl\src\lmbRoleProviderInterface;
-use limb\acl\src\mbResourceProviderInterface;
-use limb\acl\src\lmbRolesResolverInterface;
 use limb\acl\src\lmbResourceProviderInterface;
+use limb\acl\src\lmbRolesResolverInterface;
 use limb\acl\src\lmbAclException;
 
 class lmbAcl
@@ -248,11 +247,15 @@ class lmbAcl
     $roles = array();
 
     if($resource instanceof lmbRolesResolverInterface)
+    {
       if($resolved_role = $resource->getRoleFor($role))
         $roles = $this->_mergeRoles($roles, $resolved_role);
+    }
 
     if($role instanceof lmbRoleProviderInterface)
+    {
       $roles = $this->_mergeRoles($roles, $role->getRole());
+    }
 
     // role is not an object, it's a raw role by itself
     if (!$roles)
