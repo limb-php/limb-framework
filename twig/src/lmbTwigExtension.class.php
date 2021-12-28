@@ -13,6 +13,7 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
           new \Twig\TwigFunction('controller', static::class.'::controller'),
           new \Twig\TwigFunction('file_exists', static::class.'::file_exists'),
           new \Twig\TwigFunction('copy_year', static::class.'::copy_year'),
+          new \Twig\TwigFunction('form_datasource', static::class.'::form_datasource'),
           new \Twig\TwigFunction('form_errors', static::class.'::form_errors'),
           new \Twig\TwigFunction('route_url', static::class.'::route_url'),
       ];
@@ -68,6 +69,14 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
       $error_list->renameFields( $new_field_names );
 
     return $error_list;
+  }
+
+  public static function form_datasource($form_id, $name)
+  {
+    $view = lmbToolkit::instance()->getView();
+    $datasource = $view->getFormDatasource($form_id);
+
+    return $datasource[ $name ];
   }
 
   public static function route_url($params, $route = '', $skip_controller = false)
