@@ -11,6 +11,7 @@ namespace limb\acl\src;
 use limb\acl\src\lmbRoleProviderInterface;
 use limb\acl\src\mbResourceProviderInterface;
 use limb\acl\src\lmbRolesResolverInterface;
+use limb\acl\src\lmbResourceProviderInterface;
 use limb\acl\src\lmbAclException;
 
 class lmbAcl
@@ -220,7 +221,9 @@ class lmbAcl
   protected function _checkRole($role)
   {
     if(!$this->isRoleExist($role))
+    {
       throw new lmbAclException('Role not exist', array('role' => $role));
+    }
   }
 
   protected function _checkResource($resource)
