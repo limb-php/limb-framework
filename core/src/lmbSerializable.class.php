@@ -18,7 +18,6 @@ class lmbSerializable
 {
   protected $subject;
   protected $serialized;
-  protected $class_paths = array();
 
   function __construct($subject)
   {
@@ -29,16 +28,10 @@ class lmbSerializable
   {
     if($this->serialized)
     {
-      $this->_includeFiles();
       $this->subject = unserialize($this->serialized);
       $this->serialized = null;
     }
     return $this->subject;
-  }
-
-  function getClassPaths()
-  {
-    return $this->class_paths;
   }
 
   function __sleep()
@@ -50,65 +43,9 @@ class lmbSerializable
     if(is_null($this->serialized))
     {
       $this->serialized = serialize($this->subject);
-      $this->_fillClassPathInfo($this->serialized);
     }
-    return array('serialized', 'class_paths');
-  }
 
-  protected function _includeFiles()
-  {
-    if(function_exists('lmb_require'))
-    {
-      foreach($this->class_paths as $path)
-        lmb_require($path);
-    }
-    else
-    {
-      foreach($this->class_paths as $path)
-        require_once($path);
-    }
-  }
-
-  protected function _fillClassPathInfo($serialized)
-  {
-    $classes = self :: extractSerializedClasses($serialized);
-    $this->class_paths = array();
-
-    foreach($classes as $class)
-    {
-      if( class_exists($class) )
-      {
-        $reflect = new \ReflectionClass($class);
-        if($reflect->isInternal())
-          throw new lmbException("Class '$class' can't be serialized since it's an iternal PHP class, consider omitting object of this class by providing custom __sleep, __wakeup handlers");
-        $this->class_paths[] = self :: getClassPath($reflect);
-      }
-    }
-  }
-
-  static function getClassPath($refl)
-  {
-    $path = $refl->getFileName();
-    //if include path is a part of the class path remove it
-    //since it makes serializable stuff more tolerant to changes in filesystem
-    foreach(lmb_get_include_path_items() as $inc_path)
-    {
-      if(!$inc_path)
-        continue;
-      $inc_path = rtrim($inc_path, '/\\');
-      if(strpos($path, $inc_path) === 0)
-        return substr($path, strlen($inc_path)+1);
-    }
-    return $path;
-  }
-
-  static function extractSerializedClasses($str)
-  {
-    $extract_class_names_regexp = '~([\||;]O|^O):\d+:"([^"]+)":\d+:\{~';
-    if(preg_match_all($extract_class_names_regexp, $str, $m))
-      return array_unique($m[2]);
-    else
-      return array();
+    return array('serialized');
   }
 
   static function serialize($raw_data)
@@ -123,5 +60,4 @@ class lmbSerializable
     return $container->getSubject();
   }
 }
-
 
