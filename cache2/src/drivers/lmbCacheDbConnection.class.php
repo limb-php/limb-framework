@@ -1,10 +1,13 @@
 <?php
 namespace limb\cache2\src\drivers;
 
-lmb_package_require('dbal');
-lmb_require('limb/cache2/src/drivers/lmbCacheAbstractConnection.class.php');
-lmb_require('limb/dbal/src/criteria/lmbSQLCriteria.class.php');
-lmb_require('limb/core/src/lmbSerializable.class.php');
+use limb\cache2\src\drivers\lmbCacheAbstractConnection;
+use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\core\src\lmbSerializable;
+use limb\net\src\lmbUri;
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\lmbTableGateway;
+use limb\core\src\exception\lmbNoSuchPropertyException;
 
 class lmbCacheDbConnection extends lmbCacheAbstractConnection
 {
@@ -60,7 +63,7 @@ class lmbCacheDbConnection extends lmbCacheAbstractConnection
       ));
       return true;
     }
-    catch (Exception $e)
+    catch (\Exception $e)
     {
       return false;
     }
@@ -88,7 +91,7 @@ class lmbCacheDbConnection extends lmbCacheAbstractConnection
       ));
       return true;
     }
-    catch (Exception $e)
+    catch (\Exception $e)
     {
       return false;
     }
@@ -109,7 +112,7 @@ class lmbCacheDbConnection extends lmbCacheAbstractConnection
       ));
       return true;
     }
-    catch (Exception $e)
+    catch (\Exception $e)
     {
       return false;
     }

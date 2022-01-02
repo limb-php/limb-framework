@@ -1,8 +1,9 @@
 <?php
 namespace limb\cache2\src\drivers;
 
-lmb_require('limb/cache2/src/drivers/lmbCacheAbstractConnection.class.php');
-lmb_require('limb/core/src/lmbSerializable.class.php');
+use limb\cache2\src\drivers\lmbCacheAbstractConnection;
+use limb\toolkit\src\lmbToolkit;
+use limb\core\src\lmbSerializable;
 
 class lmbCacheSessionConnection extends lmbCacheAbstractConnection
 {

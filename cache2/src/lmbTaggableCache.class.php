@@ -2,12 +2,13 @@
 namespace limb\cache2\src;
 
 use limb\cache2\src\lmbCacheBaseWrapper;
+use limb\cache2\src\drivers\lmbCacheConnectionInterface;
 
 class lmbTaggableCache extends lmbCacheBaseWrapper
 {
   public $tags_prefix = 'tag42_';
 
-  function __construct(lmbCacheConnection $connection)
+  function __construct(lmbCacheConnectionInterface $connection)
   {
     parent::__construct($connection);
   }

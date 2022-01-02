@@ -8,10 +8,12 @@
  */
 namespace limb\cache2\src\drivers;
 
-lmb_require('limb/cache2/src/lmbNonTransparentCache.interface.php');
-lmb_require('limb/cache2/src/logs/lmbCacheLogFile.class.php');
-lmb_require('limb/cache2/src/logs/lmbCacheLogMemory.class.php');
-lmb_require('limb/core/src/lmbBacktrace.class.php');
+use limb\cache2\src\lmbNonTransparentCacheInterface;
+use limb\cache2\src\logs\lmbCacheLogFile;
+use limb\cache2\src\logs\lmbCacheLogMemory;
+use limb\cache2\src\lmbCacheLog;
+use limb\cache2\src\lmbCacheInterface;
+use limb\core\src\exception\lmbException;
 
 class lmbCacheLoggedConnection extends lmbCacheAbstractConnection
 {
@@ -44,7 +46,7 @@ class lmbCacheLoggedConnection extends lmbCacheAbstractConnection
   {
     $time = microtime(true);
     $result = $this->cache_connection->add($key, $value, $ttl);
-    $this->logger->addRecord($key, lmbCache::OPERATION_ADD, microtime(true) - $time, $result);
+    $this->logger->addRecord($key, lmbCacheInterface::OPERATION_ADD, microtime(true) - $time, $result);
     return $result;
   }
 
@@ -52,7 +54,7 @@ class lmbCacheLoggedConnection extends lmbCacheAbstractConnection
   {
     $time = microtime(true);
     $value = $this->cache_connection->set($key, $value, $ttl);
-    $this->logger->addRecord($key, lmbCache::OPERATION_SET, microtime(true) - $time, $value);
+    $this->logger->addRecord($key, lmbCacheInterface::OPERATION_SET, microtime(true) - $time, $value);
     return $value;
   }
 
@@ -60,7 +62,7 @@ class lmbCacheLoggedConnection extends lmbCacheAbstractConnection
   {
     $time = microtime(true);
     $value = $this->cache_connection->get($key);
-    $this->logger->addRecord($key, lmbCache::OPERATION_GET, microtime(true) - $time, !is_null($value));
+    $this->logger->addRecord($key, lmbCacheInterface::OPERATION_GET, microtime(true) - $time, !is_null($value));
     return $value;
   }
 
@@ -68,7 +70,7 @@ class lmbCacheLoggedConnection extends lmbCacheAbstractConnection
   {
     $time = microtime(true);
     $value = $this->cache_connection->delete($key);
-    $this->logger->addRecord($key, lmbCache::OPERATION_DELETE, microtime(true) - $time, (bool) $value);
+    $this->logger->addRecord($key, lmbCacheInterface::OPERATION_DELETE, microtime(true) - $time, (bool) $value);
     return $value;
   }
 
@@ -91,10 +93,10 @@ class lmbCacheLoggedConnection extends lmbCacheAbstractConnection
   {
     $queries = array();
     $operation_names = array(
-      lmbCache::OPERATION_ADD => 'ADD',
-      lmbCache::OPERATION_GET => 'GET',
-      lmbCache::OPERATION_SET => 'SET',
-      lmbCache::OPERATION_DELETE => 'DELETE',
+      lmbCacheInterface::OPERATION_ADD => 'ADD',
+      lmbCacheInterface::OPERATION_GET => 'GET',
+      lmbCacheInterface::OPERATION_SET => 'SET',
+      lmbCacheInterface::OPERATION_DELETE => 'DELETE',
     );
 
     foreach ($this->messages as $message)

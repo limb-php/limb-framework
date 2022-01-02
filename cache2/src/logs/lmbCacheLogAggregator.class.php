@@ -1,8 +1,8 @@
 <?php
 namespace limb\cache2\src\logs;
 
-lmb_require('limb/cache2/lmbCacheLog.class.php');
-lmb_require('limb/core/src/exception/lmbException.class.php');
+use limb\cache2\src\lmbCacheLog;
+use limb\core\src\exception\lmbException;
 
 class lmbCacheLogAggregator
 {

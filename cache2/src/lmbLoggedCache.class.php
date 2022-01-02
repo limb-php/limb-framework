@@ -12,6 +12,8 @@ use limb\cache2\src\lmbCacheBaseWrapper;
 use limb\cache2\src\lmbCacheLog;
 use limb\core\src\lmbBacktrace;
 use limb\dbal\src\query\lmbInsertQuery;
+use limb\core\src\exception\lmbException;
+
 
 class lmbLoggedCache extends lmbCacheBaseWrapper
 {

@@ -1,5 +1,5 @@
 <?php
-interface lmbCacheLog
+interface lmbCacheLogInterface
 {
   static function instance();
 

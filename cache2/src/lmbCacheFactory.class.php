@@ -9,6 +9,8 @@
 namespace limb\cache2\src;
 
 use limb\net\src\lmbUri;
+use limb\core\src\exception\lmbException;
+use limb\cache2\src\lmbLoggedCache;
 
 /**
  * class lmbCache.
@@ -40,15 +42,11 @@ class lmbCacheFactory
   {
     $driver = $dsn->getProtocol();
 
-    $class = 'lmbCache' . ucfirst($driver) . 'Connection';
+    $class = 'cache2\\src\\drivers\\lmbCache' . ucfirst($driver) . 'Connection';
 
     if(!class_exists($class))
     {
-      $file = DIRNAME(__FILE__).'/drivers/' . $class . '.class.php';
-      if(!file_exists($file))
-        throw new lmbException("Cache driver '$driver' file not found for DSN '" . $dsn->toString() . "'!");
-
-      lmb_require($file);
+      throw new lmbException("Cache driver '$driver' file not found for DSN '" . $dsn->toString() . "'!");
     }
 
     return $class;

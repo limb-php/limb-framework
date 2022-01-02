@@ -1,7 +1,7 @@
 <?php
 namespace limb\cache2\src;
 
-use limb\cache2\lmbCacheLog;
+use limb\cache2\src\lmbCacheLog;
 use limb\core\src\exception\lmbException;
 
 class lmbCacheLogAggregator

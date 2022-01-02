@@ -7,10 +7,10 @@
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html*/
 namespace limb\cache2\src\drivers;
 
-lmb_require('limb/cache2/src/drivers/lmbCacheAbstractConnection.class.php');
-lmb_require('limb/net/src/lmbUri.class.php');
-lmb_require('limb/core/src/lmbSerializable.class.php');
-lmb_require('limb/fs/src/lmbFs.class.php');
+use limb\cache2\src\drivers\lmbCacheAbstractConnection;
+use limb\net\src\lmbUri;
+use limb\core\src\lmbSerializable;
+use limb\fs\src\lmbFs;
 
 /**
  * class lmbCacheFileConnection.

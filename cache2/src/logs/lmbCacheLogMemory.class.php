@@ -1,9 +1,9 @@
 <?php
 namespace limb\cache2\src\logs;
 
-lmb_require('limb/cache2/src/logs/lmbCacheLog.interface.php');
+use limb\cache2\src\logs\lmbCacheLogInterface;
 
-class lmbCacheLogMemory implements lmbCacheLog
+class lmbCacheLogMemory implements lmbCacheLogInterface
 {
   protected static $instance = null;
 

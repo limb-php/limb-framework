@@ -13,6 +13,9 @@ use limb\cache2\src\lmbCacheFactory;
 use limb\cache2\src\lmbMintCache;
 use limb\cache2\src\lmbLoggedCache;
 use limb\cache2\src\lmbTaggableCache;
+use limb\toolkit\src\lmbToolkit;
+use limb\net\src\lmbUri;
+
 /**
  * class lmbCacheTools.
  *
@@ -70,7 +73,7 @@ class lmbCacheTools extends lmbAbstractTools
 
         return $this->createCacheConnectionByDSN($dsn);
       }
-      catch (Exception $e)
+      catch (\Exception $e)
       {
         return $this->createCacheFakeConnection();
       }

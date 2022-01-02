@@ -8,7 +8,9 @@
  */
 namespace limb\cache2\src\drivers;
 
-lmb_require('limb/cache2/src/drivers/lmbCacheConnection.interface.php');
+use limb\cache2\src\drivers\lmbCacheConnectionInterface;
+use limb\net\src\lmbUri;
+use limb\core\src\lmbSerializable;
 
 /**
  * interface lmbCacheAbstractConnection.
@@ -16,7 +18,7 @@ lmb_require('limb/cache2/src/drivers/lmbCacheConnection.interface.php');
  * @package cache2
  * @version $Id$
  */
-abstract class lmbCacheAbstractConnection implements lmbCacheConnection
+abstract class lmbCacheAbstractConnection implements lmbCacheConnectionInterface
 {
   protected $dsn;
   protected $prefix;

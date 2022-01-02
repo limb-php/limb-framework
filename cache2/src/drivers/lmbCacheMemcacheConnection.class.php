@@ -8,7 +8,9 @@
  */
 namespace limb\cache2\src\drivers;
 
-lmb_require('limb/cache2/src/drivers/lmbCacheAbstractConnection.class.php');
+use limb\cache2\src\drivers\lmbCacheAbstractConnection;
+use limb\core\src\exception\lmbException;
+use limb\net\src\lmbUri;
 
 /**
  * class lmbCacheMemcacheBackend.
@@ -48,7 +50,7 @@ class lmbCacheMemcacheConnection extends lmbCacheAbstractConnection
   {
     if(!self::$_connected_servers[$this->_server_id])
     {
-      $server = new Memcache();
+      $server = new \Memcache();
       if(!$server->connect($this->dsn->getHost(), $this->dsn->getPort()))
         throw new lmbException("Can't connect to memcache", array('host' => $this->dsn->getHost(), 'post' => $this->dsn->getPort()));
 

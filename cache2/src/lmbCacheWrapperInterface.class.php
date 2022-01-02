@@ -3,7 +3,7 @@ namespace limb\cache2\src;
 
 use limb\cache2\src\drivers\lmbCacheConnectionInterface;
 
-interface lmbCacheWrapperInterface extends lmbCacheConnection
+interface lmbCacheWrapperInterface extends lmbCacheConnectionInterface
 {
   function getWrappedConnection();
 }

@@ -8,7 +8,7 @@
  */
 namespace limb\cache2\src\drivers;
 
-lmb_require('limb/cache2/src/drivers/lmbCacheAbstractConnection.class.php');
+use limb\cache2\src\drivers\lmbCacheAbstractConnection;
 
 /**
  * class lmbCacheApcuConnection.
