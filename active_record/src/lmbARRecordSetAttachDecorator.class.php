@@ -9,7 +9,6 @@
 namespace limb\active_record\src;
 
 use limb\core\src\lmbCollectionDecorator;
-use limb\core\src\lmbClassPath;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbCollection;
 use limb\core\src\lmbArrayHelper;
@@ -56,8 +55,8 @@ class lmbARRecordSetAttachDecorator extends lmbCollectionDecorator
 
         switch($relation_type)
         {
-          case lmbActiveRecord :: HAS_ONE:
-          case lmbActiveRecord :: MANY_BELONGS_TO:
+          case lmbActiveRecord::HAS_ONE:
+          case lmbActiveRecord::MANY_BELONGS_TO:
             $ids = lmbArrayHelper :: getColumnValues($this->prefix . $relation_info['field'], $this->iterator);
             if(!count($ids))
               $this->loaded_attaches[$relation_name] = array();
@@ -69,7 +68,7 @@ class lmbARRecordSetAttachDecorator extends lmbCollectionDecorator
                                                                                     $export_each = false);
             }
           break;
-          case lmbActiveRecord :: BELONGS_TO:
+          case lmbActiveRecord::BELONGS_TO:
             $ids = lmbArrayHelper :: getColumnValues($this->prefix . $this->base_object->getPrimaryKeyName(), $this->iterator);
 
             if(!count($ids))
@@ -84,7 +83,7 @@ class lmbARRecordSetAttachDecorator extends lmbCollectionDecorator
                                                                                     $export_each = false);
             }
           break;
-          case lmbActiveRecord :: HAS_MANY:
+          case lmbActiveRecord::HAS_MANY:
             if(!isset($params['sort']))
               $params['sort'] = $relation_object->getDefaultSortParams();
 
@@ -106,7 +105,7 @@ class lmbARRecordSetAttachDecorator extends lmbCollectionDecorator
             foreach($attached_objects as $attached_object)
               $this->loaded_attaches[$relation_name][$attached_object->get($relation_info['field'])][] = $attached_object;
           break;
-          case lmbActiveRecord :: HAS_MANY_TO_MANY:
+          case lmbActiveRecord::HAS_MANY_TO_MANY:
             if(!isset($params['sort']))
               $params['sort'] = $relation_object->getDefaultSortParams();
 
@@ -149,17 +148,17 @@ class lmbARRecordSetAttachDecorator extends lmbCollectionDecorator
 
       switch($relation_type)
       {
-        case lmbActiveRecord :: HAS_ONE:
-        case lmbActiveRecord :: MANY_BELONGS_TO:
+        case lmbActiveRecord::HAS_ONE:
+        case lmbActiveRecord::MANY_BELONGS_TO:
           if(isset($this->loaded_attaches[$relation_name][$object->get($this->prefix . $relation_info['field'])]))
             $fields->set($this->prefix . $relation_name, $this->loaded_attaches[$relation_name][$object->get($this->prefix . $relation_info['field'])]);
         break;
-        case lmbActiveRecord :: BELONGS_TO:
+        case lmbActiveRecord::BELONGS_TO:
           if(isset($this->loaded_attaches[$relation_name][$object->get($this->prefix . $this->base_object->getPrimaryKeyName())]))
             $fields->set($this->prefix . $relation_name, $this->loaded_attaches[$relation_name][$object->get($this->prefix . $this->base_object->getPrimaryKeyName())]);
         break;
-        case lmbActiveRecord :: HAS_MANY:
-        case lmbActiveRecord :: HAS_MANY_TO_MANY:
+        case lmbActiveRecord::HAS_MANY:
+        case lmbActiveRecord::HAS_MANY_TO_MANY:
           $collection = $this->base_object->createRelationCollection($relation_name);
           $collection->setOwner($object);
           if(isset($this->loaded_attaches[$relation_name][$object->get($this->prefix . $this->base_object->getPrimaryKeyName())]))

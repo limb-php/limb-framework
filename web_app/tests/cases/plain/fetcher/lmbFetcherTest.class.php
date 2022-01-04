@@ -6,10 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/core/src/lmbCollection.class.php');
-lmb_require('limb/core/src/lmbCollectionDecorator.class.php');
-lmb_require('limb/core/src/lmbClassPath.class.php');
-lmb_require('limb/web_app/src/fetcher/lmbFetcher.class.php');
+
+use limb\core\src\lmbCollection;
+use limb\core\src\lmbCollectionDecorator;
+use limb\web_app\src\fetcher\lmbFetcher;
+use limb\core\src\lmbSet;
+use limb\core\src\exception\lmbException;
 
 class TestingDatasetDecorator extends lmbCollectionDecorator
 {

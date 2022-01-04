@@ -45,8 +45,7 @@ class lmbClassPath
   {
     if(!class_exists($this->class_name))
     {
-      if(!@include_once($this->raw_path . '.class.php'))
-        throw new lmbException("Could not import class from '{$this->raw_path}.class.php'");
+      throw new lmbException("Could not import class '{$this->class_name}'");
     }
   }
 
@@ -57,16 +56,8 @@ class lmbClassPath
 
   function createObject($args = array())
   {
-    if(!class_exists($this->class_name))
-      require_once($this->_getClassFileFullPath());
-
     $refl = new \ReflectionClass($this->class_name);
     return call_user_func_array(array($refl, 'newInstance'),$args);
-  }
-
-  protected function _getClassFileFullPath()
-  {
-    return $this->raw_path . '.class.php';
   }
 
   protected function _parseConstants($value)

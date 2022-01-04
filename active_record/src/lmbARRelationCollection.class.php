@@ -12,6 +12,7 @@ use limb\core\src\lmbCollectionInterface;
 use limb\core\src\lmbCollection;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\toolkit\src\lmbToolkit;
+use limb\core\src\exception\lmbException;
 
 /**
  * abstract class lmbARRelationCollection.
@@ -339,7 +340,10 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
   function removeAll()
   {
     if($this->is_owner_new)
-      return $this->reset();
+    {
+      $this->reset();
+      return;
+    }
 
     $this->_removeRelatedRecords();
   }

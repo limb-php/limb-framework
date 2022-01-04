@@ -9,7 +9,6 @@
 namespace limb\active_record\src;
 
 use limb\core\src\lmbCollectionDecorator;
-use limb\core\src\lmbClassPath;
 use limb\core\src\lmbSet;
 
 /**

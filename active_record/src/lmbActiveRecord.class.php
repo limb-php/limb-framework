@@ -13,7 +13,6 @@ use limb\core\src\lmbDelegate;
 use limb\core\src\lmbCollection;
 use limb\dbal\src\lmbTableGateway;
 use limb\dbal\src\criteria\lmbSQLCriteria;
-use limb\dbal\src\drivers\lmbDbTypeInfo;
 use limb\validation\src\lmbValidator;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\exception\lmbValidationException;
@@ -389,19 +388,19 @@ class lmbActiveRecord extends lmbObject
   function getRelationType($relation)
   {
     if(isset($this->_has_one[$relation]))
-      return self :: HAS_ONE;
+      return self::HAS_ONE;
 
     if(isset($this->_has_many[$relation]))
-      return self :: HAS_MANY;
+      return self::HAS_MANY;
 
     if(isset($this->_has_many_to_many[$relation]))
-      return self :: HAS_MANY_TO_MANY;
+      return self::HAS_MANY_TO_MANY;
 
     if(isset($this->_belongs_to[$relation]))
-      return self :: BELONGS_TO;
+      return self::BELONGS_TO;
 
     if(isset($this->_many_belongs_to[$relation]))
-      return self :: MANY_BELONGS_TO;
+      return self::MANY_BELONGS_TO;
   }
 
   protected function _getAllRelations()
@@ -474,11 +473,6 @@ class lmbActiveRecord extends lmbObject
     return $this->_default_sort_params;
   }
 
-  protected function _createTableObjectByAlias($class_path_alias)
-  {
-    $class_path = new lmbClassPath($class_path_alias);
-    return $class_path->createObject();
-  }
   /**
    *  Returns common validator for create and update operations. It should be overridden
    *  if you want to have a custom validator, e.g:
@@ -1053,7 +1047,7 @@ class lmbActiveRecord extends lmbObject
 
       $this->_onBeforeSave();
 
-      $this->_invokeListeners(self :: ON_BEFORE_SAVE);
+      $this->_invokeListeners(self::ON_BEFORE_SAVE);
 
       //_savePreRelations makes the object dirty if related objects were changed
       //in case of the new object we don't care since it will be saved anyway
@@ -1068,7 +1062,7 @@ class lmbActiveRecord extends lmbObject
       {
         $this->_onBeforeUpdate();
 
-        $this->_invokeListeners(self :: ON_BEFORE_UPDATE);
+        $this->_invokeListeners(self::ON_BEFORE_UPDATE);
 
         if($need_validation && !$this->_validateUpdate())
         {
@@ -1081,7 +1075,7 @@ class lmbActiveRecord extends lmbObject
 
         $this->_onUpdate();
 
-        $this->_invokeListeners(self :: ON_UPDATE);
+        $this->_invokeListeners(self::ON_UPDATE);
 
         $this->_setAutoTimes();
 
@@ -1089,13 +1083,13 @@ class lmbActiveRecord extends lmbObject
 
         $this->_onAfterUpdate();
 
-        $this->_invokeListeners(self :: ON_AFTER_UPDATE);
+        $this->_invokeListeners(self::ON_AFTER_UPDATE);
       }
       elseif($this->isNew())
       {
         $this->_onBeforeCreate();
 
-        $this->_invokeListeners(self :: ON_BEFORE_CREATE);
+        $this->_invokeListeners(self::ON_BEFORE_CREATE);
 
         $this->_savePreRelations();
 
@@ -1110,7 +1104,7 @@ class lmbActiveRecord extends lmbObject
 
         $this->_onCreate();
 
-        $this->_invokeListeners(self :: ON_CREATE);
+        $this->_invokeListeners(self::ON_CREATE);
 
         $this->_setAutoTimes();
 
@@ -1120,12 +1114,12 @@ class lmbActiveRecord extends lmbObject
 
         $this->_onAfterCreate();
 
-        $this->_invokeListeners(self :: ON_AFTER_CREATE);
+        $this->_invokeListeners(self::ON_AFTER_CREATE);
       }
 
       $this->_onAfterSave();
 
-      $this->_invokeListeners(self :: ON_AFTER_SAVE);
+      $this->_invokeListeners(self::ON_AFTER_SAVE);
 
       $this->_savePostRelations();
 
@@ -1133,7 +1127,7 @@ class lmbActiveRecord extends lmbObject
 
       $this->_is_being_saved = false;
     }
-    catch(Exception $e)
+    catch(\Exception $e)
     {
       $this->_db_conn->rollbackTransaction();
       throw $e;
@@ -1629,9 +1623,9 @@ class lmbActiveRecord extends lmbObject
       $params = array('criteria' => $params);
 
     if(isset($params['criteria']))
-      $params['criteria']->addAnd(new lmbSQLFieldCriteria($this->getTableName() .'.'.$this->_primary_key_name, $ids, lmbSQLFieldCriteria :: IN));
+      $params['criteria']->addAnd(new lmbSQLFieldCriteria($this->getTableName() .'.'.$this->_primary_key_name, $ids, lmbSQLFieldCriteria::IN));
     else
-      $params['criteria'] = new lmbSQLFieldCriteria($this->getTableName() .'.'.$this->_primary_key_name, $ids, lmbSQLFieldCriteria :: IN);
+      $params['criteria'] = new lmbSQLFieldCriteria($this->getTableName() .'.'.$this->_primary_key_name, $ids, lmbSQLFieldCriteria::IN);
 
     return $this->_find($params);
   }
@@ -1962,7 +1956,7 @@ class lmbActiveRecord extends lmbObject
     $this->_is_being_destroyed = true;
 
     $this->_onBeforeDestroy();
-    $this->_invokeListeners(self :: ON_BEFORE_DESTROY);
+    $this->_invokeListeners(self::ON_BEFORE_DESTROY);
 
     $this->_removeOneToOneObjects();
     $this->_removeOneToManyObjects();
@@ -1972,7 +1966,7 @@ class lmbActiveRecord extends lmbObject
     $this->_deleteDbRecord();
 
     $this->_onAfterDestroy();
-    $this->_invokeListeners(self :: ON_AFTER_DESTROY);
+    $this->_invokeListeners(self::ON_AFTER_DESTROY);
 
     $this->_is_being_destroyed = false;
   }
@@ -2272,61 +2266,61 @@ class lmbActiveRecord extends lmbObject
   function registerOnBeforeSaveCallback($callback)
   {
     $args = func_get_args();
-    $this->registerCallback(self :: ON_BEFORE_SAVE, $args);
+    $this->registerCallback(self::ON_BEFORE_SAVE, $args);
   }
 
   function registerOnAfterSaveCallback($callback)
   {
     $args = func_get_args();
-    $this->registerCallback(self :: ON_AFTER_SAVE, $args);
+    $this->registerCallback(self::ON_AFTER_SAVE, $args);
   }
 
   function registerOnBeforeUpdateCallback($callback)
   {
     $args = func_get_args();
-    $this->registerCallback(self :: ON_BEFORE_UPDATE, $args);
+    $this->registerCallback(self::ON_BEFORE_UPDATE, $args);
   }
 
   function registerOnUpdateCallback($callback)
   {
     $args = func_get_args();
-    $this->registerCallback(self :: ON_UPDATE, $args);
+    $this->registerCallback(self::ON_UPDATE, $args);
   }
 
   function registerOnAfterUpdateCallback($callback)
   {
     $args = func_get_args();
-    $this->registerCallback(self :: ON_AFTER_UPDATE, $args);
+    $this->registerCallback(self::ON_AFTER_UPDATE, $args);
   }
 
   function registerOnBeforeCreateCallback($callback)
   {
     $args = func_get_args();
-    $this->registerCallback(self :: ON_BEFORE_CREATE, $args);
+    $this->registerCallback(self::ON_BEFORE_CREATE, $args);
   }
 
   function registerOnCreateCallback($callback)
   {
     $args = func_get_args();
-    $this->registerCallback(self :: ON_CREATE, $args);
+    $this->registerCallback(self::ON_CREATE, $args);
   }
 
   function registerOnAfterCreateCallback($callback)
   {
     $args = func_get_args();
-    $this->registerCallback(self :: ON_AFTER_CREATE, $args);
+    $this->registerCallback(self::ON_AFTER_CREATE, $args);
   }
 
   function registerOnBeforeDestroyCallback($callback)
   {
     $args = func_get_args();
-    $this->registerCallback(self :: ON_BEFORE_DESTROY, $args);
+    $this->registerCallback(self::ON_BEFORE_DESTROY, $args);
   }
 
   function registerOnAfterDestroyCallback($callback)
   {
     $args = func_get_args();
-    $this->registerCallback(self :: ON_AFTER_DESTROY, $args);
+    $this->registerCallback(self::ON_AFTER_DESTROY, $args);
   }
   /**
    *  Registers global listener of specified type
@@ -2335,67 +2329,67 @@ class lmbActiveRecord extends lmbObject
    */
   static function registerGlobalCallback($type, $callback)
   {
-    self :: $_global_listeners[$type][] = lmbDelegate :: objectify($callback);
+    self :: $_global_listeners[$type][] = lmbDelegate::objectify($callback);
   }
 
   static function registerGlobalOnBeforeSaveCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self :: ON_BEFORE_SAVE, $args);
+    self :: registerGlobalCallback(self::ON_BEFORE_SAVE, $args);
   }
 
   static function registerGlobalOnAfterSaveCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self :: ON_AFTER_SAVE, $args);
+    self :: registerGlobalCallback(self::ON_AFTER_SAVE, $args);
   }
 
   static function registerGlobalOnBeforeUpdateCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self :: ON_BEFORE_UPDATE, $args);
+    self :: registerGlobalCallback(self::ON_BEFORE_UPDATE, $args);
   }
 
   static function registerGlobalOnUpdateCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self :: ON_UPDATE, $args);
+    self :: registerGlobalCallback(self::ON_UPDATE, $args);
   }
 
   static function registerGlobalOnAfterUpdateCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self :: ON_AFTER_UPDATE, $args);
+    self :: registerGlobalCallback(self::ON_AFTER_UPDATE, $args);
   }
 
   static function registerGlobalOnBeforeCreateCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self :: ON_BEFORE_CREATE, $args);
+    self :: registerGlobalCallback(self::ON_BEFORE_CREATE, $args);
   }
 
   static function registerGlobalOnCreateCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self :: ON_CREATE, $args);
+    self :: registerGlobalCallback(self::ON_CREATE, $args);
   }
 
   static function registerGlobalOnAfterCreateCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self :: ON_AFTER_CREATE, $args);
+    self :: registerGlobalCallback(self::ON_AFTER_CREATE, $args);
   }
 
   static function registerGlobalOnBeforeDestroyCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self :: ON_BEFORE_DESTROY, $args);
+    self :: registerGlobalCallback(self::ON_BEFORE_DESTROY, $args);
   }
 
   static function registerGlobalOnAfterDestroyCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self :: ON_AFTER_DESTROY, $args);
+    self :: registerGlobalCallback(self::ON_AFTER_DESTROY, $args);
   }
 
   protected function _invokeListeners($type)

@@ -9,10 +9,10 @@
 namespace limb\web_app\src\fetcher;
 
 use limb\web_app\src\fetcher\lmbFetcher;
-use limb\dbal\src\lmbTableGateway;
-use limb\core\src\lmbClassPath;
 use limb\core\src\lmbCollection;
 use limb\active_record\src\lmbActiveRecord;
+use limb\core\src\exception\lmbException;
+use limb\active_record\src\lmbARNotFoundException;
 
 /**
  * class lmbActiveRecordFetcher.
@@ -22,15 +22,15 @@ use limb\active_record\src\lmbActiveRecord;
  */
 class lmbActiveRecordFetcher extends lmbFetcher
 {
-  protected $class_path;
+  protected $class_name;
   protected $record_id;
   protected $record_ids;
   protected $find;
   protected $find_params = array();
 
-  function setClassPath($value)
+  function setClassName($value)
   {
-    $this->class_path = $value;
+    $this->class_name = $value;
   }
 
   function setRecordId($value)
@@ -65,25 +65,21 @@ class lmbActiveRecordFetcher extends lmbFetcher
 
   function _createDataSet()
   {
-    if(!$this->class_path)
-      throw new lmbException('Class path is not defined!');
-
-    $class_path = new lmbClassPath($this->class_path);
-    $class_path->import();
-    $class_name = $class_path->getClassName();
+    if(!$this->class_name)
+      throw new lmbException('Class is not defined!');
 
     if(is_null($this->record_id) && is_null($this->record_ids))
     {
       if(!$this->find)
       {
-        return lmbActiveRecord :: find($class_name);
+        return lmbActiveRecord :: find($this->class_name);
       }
       else
       {
         $method = 'find' . lmb_camel_case($this->find);
-        $callback = array($class_name, $method);
+        $callback = array($this->class_name, $method);
         if(!is_callable($callback))
-         throw new lmbException('Active record of class "'. $class_name . '" does not support method "'. $method . '"');
+         throw new lmbException('Active record of class "'. $this->class_name . '" does not support method "'. $method . '"');
         return call_user_func_array($callback, $this->find_params);
       }
     }
@@ -95,13 +91,13 @@ class lmbActiveRecordFetcher extends lmbFetcher
         if($this->find)
         {
           $method = 'find' . lmb_camel_case($this->find);
-          $callback = array($class_name, $method);
+          $callback = array($this->class_name, $method);
           if(!is_callable($callback))
-            throw new lmbException('Active record of class "'. $class_name . '" does not support method "'. $method . '"');
+            throw new lmbException('Active record of class "'. $this->class_name . '" does not support method "'. $method . '"');
           $record = call_user_func_array($callback, array($this->record_id));
         }
         else
-          $record = lmbActiveRecord :: findById($class_name, $this->record_id);
+          $record = lmbActiveRecord :: findById($this->class_name, $this->record_id);
       }
       catch(lmbARNotFoundException $e)
       {
@@ -112,7 +108,7 @@ class lmbActiveRecordFetcher extends lmbFetcher
     }
     elseif($this->record_ids)
     {
-      return lmbActiveRecord :: findByIds($class_name, $this->record_ids);
+      return lmbActiveRecord :: findByIds($this->class_name, $this->record_ids);
     }
 
     return new lmbCollection();

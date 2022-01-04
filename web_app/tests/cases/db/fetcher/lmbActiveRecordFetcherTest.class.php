@@ -74,7 +74,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $course2 = $this->_createCourse();
 
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassPath('CourseForTest');
+    $fetcher->setClassName('CourseForTest');
 
     $rs = $fetcher->fetch();
     $rs->rewind();
@@ -88,7 +88,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
   function testFetchWithSpecifiedFindMethod()
   {
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassPath('CourseForFetcherTestVersion');
+    $fetcher->setClassName('CourseForFetcherTestVersion');
     $fetcher->setFind('special');
     $rs = $fetcher->fetch();
     $rs->rewind();
@@ -99,7 +99,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
   function testFetchWithStaticFindWithParams()
   {
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassPath('CourseForFetcherTestVersion');
+    $fetcher->setClassName('CourseForFetcherTestVersion');
     $fetcher->setFind('with_params');
     $fetcher->addFindParam('Value1');
     $fetcher->addFindParam('Value2');
@@ -117,7 +117,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $course2 = $this->_createCourse();
 
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassPath('CourseForTest');
+    $fetcher->setClassName('CourseForTest');
     $fetcher->setRecordId($course1->getId());
 
     $rs = $fetcher->fetch();
@@ -134,7 +134,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $course1 = $this->_createCourse();
 
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassPath('CourseForFetcherTestVersion');
+    $fetcher->setClassName('CourseForFetcherTestVersion');
     $fetcher->setFind('special_by_id');
     $fetcher->setRecordId($course1->getId());
 
@@ -152,7 +152,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $course2 = $this->_createCourse();
 
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassPath('CourseForTest');
+    $fetcher->setClassName('CourseForTest');
     $fetcher->setRecordId('');
 
     $rs = $fetcher->fetch();
@@ -167,7 +167,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $course3 = $this->_createCourse();
 
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassPath('CourseForTest');
+    $fetcher->setClassName('CourseForTest');
     $fetcher->setRecordIds(null);
 
     $rs = $fetcher->fetch();
@@ -182,7 +182,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $course3 = $this->_createCourse();
 
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassPath('CourseForTest');
+    $fetcher->setClassName('CourseForTest');
     $fetcher->setRecordIds(array($course1->getId(), $course3->getId()));
 
     $rs = $fetcher->fetch();
