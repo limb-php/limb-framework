@@ -16,6 +16,8 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
           new \Twig\TwigFunction('form_datasource', static::class.'::form_datasource'),
           new \Twig\TwigFunction('form_errors', static::class.'::form_errors'),
           new \Twig\TwigFunction('route_url', static::class.'::route_url'),
+          new \Twig\TwigFunction('current_uri', static::class.'::current_uri'),
+          new \Twig\TwigFunction('uri_for_pager', static::class.'::uri_for_pager'),
       ];
   }
 
@@ -84,5 +86,26 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
     $routes = lmbToolkit::instance()->getRoutesUrl($params, $route, $skip_controller);
 
     return $routes;
+  }
+
+  public static function current_uri($replace_params = array())
+  {
+    $uri = lmbToolkit::instance()->getRequest()->getUri();
+
+    if( !empty($replace_params) )
+    {
+      foreach ($replace_params as $name => $value)
+        $uri->addQueryItem($name, $value);
+    }
+
+    return $uri;
+  }
+
+  public static function uri_for_pager($pager_name, $page_number)
+  {
+    $uri = lmbToolkit::instance()->getRequest()->getUri();
+    $uri->addQueryItem($pager_name, $page_number);
+
+    return $uri;
   }
 }

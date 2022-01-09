@@ -11,8 +11,8 @@ namespace limb\active_record\src;
 use limb\core\src\lmbObject;
 use limb\core\src\lmbDelegate;
 use limb\core\src\lmbCollection;
-use limb\dbal\src\lmbTableGateway;
 use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\validation\src\lmbValidator;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\exception\lmbValidationException;
@@ -61,8 +61,8 @@ class lmbActiveRecord extends lmbObject
   protected static $_metas = array();
 
   /**
-   * @var lmbDbConnection object current object's database connection
-   * @see lmbDbConnection
+   * @var lmbDbConnectionInterface object current object's database connection
+   * @see lmbDbConnectionInterface
    */
   protected $_db_conn;
 
@@ -268,12 +268,12 @@ class lmbActiveRecord extends lmbObject
    *  Sets default database connection object
    *  @param object instance of concrete lmbDbConnection interface implementation
    *  @return object previous connection object
-   *  @see lmbDbConnection
+   *  @see lmbDbConnectionInterface
    */
   static function setDefaultConnection($conn)
   {
-    $prev = self :: $_default_db_conn;
-    self :: $_default_db_conn = $conn;
+    $prev = self::$_default_db_conn;
+    self::$_default_db_conn = $conn;
     return $prev;
   }
   /**
@@ -283,10 +283,10 @@ class lmbActiveRecord extends lmbObject
    */
   static function getDefaultConnection()
   {
-    if(is_object(self :: $_default_db_conn))
-      return self :: $_default_db_conn;
+    if(is_object(self::$_default_db_conn))
+      return self::$_default_db_conn;
 
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
     return $toolkit->getDefaultDbConnection();
   }
   /**
@@ -295,7 +295,7 @@ class lmbActiveRecord extends lmbObject
    */
   static function getInheritanceField()
   {
-    return self :: $_inheritance_field;
+    return self::$_inheritance_field;
   }
   /**
    *  Allows to override default single table inheritance column name
@@ -303,7 +303,7 @@ class lmbActiveRecord extends lmbObject
    */
   static function setInheritanceField($field)
   {
-    return self :: $_inheritance_field = $field;
+    return self::$_inheritance_field = $field;
   }
   /**
    *  Returns name of database table

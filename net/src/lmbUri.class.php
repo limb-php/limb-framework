@@ -271,6 +271,11 @@ class lmbUri extends lmbSet
     return ($count1 - $count2);
   }
 
+  function __toString()
+  {
+    return $this->toString();
+  }
+
   function toString($parts = array('protocol', 'user', 'password', 'host', 'port', 'path', 'query', 'anchor'))
   {
     $string = '';
