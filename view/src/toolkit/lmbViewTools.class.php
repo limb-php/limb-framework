@@ -9,6 +9,7 @@
 namespace limb\view\src\toolkit;
 
 use limb\toolkit\src\lmbAbstractTools;
+use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
 use limb\macro\src\lmbMacroTemplateLocator;
 use limb\macro\src\lmbMacroConfig;
@@ -30,7 +31,7 @@ class lmbViewTools extends lmbAbstractTools
 
   function __construct()
   {
-    parent :: __construct();
+    parent::__construct();
 
     $items = explode(';', lmb_env_get('LIMB_SUPPORTED_VIEW_TYPES'));
     foreach($items as $item)
@@ -109,7 +110,7 @@ class lmbViewTools extends lmbAbstractTools
     if(is_object($this->macro_locator))
       return $this->macro_locator;
 
-    $config = lmbToolkit :: instance()->getMacroConfig();
+    $config = lmbToolkit::instance()->getMacroConfig();
     $this->macro_locator = new lmbMacroTemplateLocator(new lmbMacroConfig($config));
 
     return $this->macro_locator;
