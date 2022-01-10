@@ -9,6 +9,7 @@
 namespace limb\i18n\src\translation;
 
 use limb\i18n\src\translation\lmbI18NDictionary;
+use limb\core\src\exception\lmbException;
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;
@@ -86,7 +87,7 @@ class lmbQtDictionaryBackend //extends lmbDictionaryBackend ???
 
   function getDOMDocument($dictionary)
   {
-    $doc = new DOMDocument('1.0', 'utf-8');
+    $doc = new \DOMDocument('1.0', 'utf-8');
     $doc->formatOutput = true; // pretty printing
 
     $ts_node = $doc->createElement('TS');
