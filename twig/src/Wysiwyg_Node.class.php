@@ -3,9 +3,9 @@ namespace limb\twig\src;
 
 class Wysiwyg_Node extends \Twig\Node\Node
 {
-    public function __construct($datasource = [], $params = [], $line, $tag = null)
+    public function __construct($form_id, $params = [], $line, $tag = null)
     {
-        parent::__construct(['datasource' => $datasource], ['params' => $params], $line, $tag);
+        parent::__construct(['form_id' => $form_id], ['params' => $params], $line, $tag);
     }
 
     public function compile(\Twig\Compiler $compiler)
@@ -14,6 +14,7 @@ class Wysiwyg_Node extends \Twig\Node\Node
 
         $helper_var = $compiler->getVarName();
         $editor_var = $compiler->getVarName();
+        $datasource_var = $compiler->getVarName();
         $value_var = $compiler->getVarName();
         $w_conf_var = $compiler->getVarName();
 
@@ -24,10 +25,20 @@ class Wysiwyg_Node extends \Twig\Node\Node
             ->subcompile($params)
             ->raw(";\n")
 
-            ->write(sprintf('$%s = ', $value_var))
-            ->subcompile( $this->getNode('datasource') ) // value from item.name
+            ->write(sprintf('$%s = ', $datasource_var))
+            ->write('limb\toolkit\src\lmbToolkit::instance()->getView()->getFormDatasource( ')
+            ->subcompile( $this->getNode('form_id') ) // from datasource( form_id )
+            ->write(' )')
+            ->raw(";\n")
+
+            ->write(sprintf('$%s = $%s', $value_var, $datasource_var))
             ->write('->get( $context[\'wysiwyg_params\'][\'name\'] )')
             ->raw(";\n")
+
+            /*->write(sprintf('$%s = ', $value_var))
+            ->subcompile( $this->getNode('datasource') ) // value from item.name
+            ->write('->get( $context[\'wysiwyg_params\'][\'name\'] )')
+            ->raw(";\n")*/
 
             ->raw("echo '<textarea ")
             ->raw( $this->_genTagAttributies($compiler, $params) )
@@ -35,9 +46,8 @@ class Wysiwyg_Node extends \Twig\Node\Node
             ->write(sprintf('$%s .', $value_var))
             ->raw("'</textarea>';\n")
 
-            ->raw("include_once( 'limb/wysiwyg/src/lmbWysiwygConfigurationHelper.class.php' );\n")
             ->write(sprintf('$%s = ', $helper_var))
-            ->raw("new lmbWysiwygConfigurationHelper();\n")
+            ->raw("new limb\wysiwyg\src\lmbWysiwygConfigurationHelper();\n")
             ->write(sprintf('$%s', $helper_var))
             ->raw('->setProfileName( $context[\'wysiwyg_params\'][\'profile_name\'] ?? \'\' )')
             ->raw(";\n")
