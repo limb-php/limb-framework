@@ -21,6 +21,6 @@ class lmbMacroLabelTag extends lmbMacroFormTagElement
 {
   protected $html_tag = 'label';
   protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroFormLabelWidget';
-  //protected $widget_include_file = 'limb/macro/src/tags/form/lmbMacroFormLabelWidget.class.php';
+
 }
 

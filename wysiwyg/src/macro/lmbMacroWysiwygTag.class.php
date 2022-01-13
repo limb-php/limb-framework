@@ -26,7 +26,7 @@ class lmbMacroWysiwygTag extends lmbMacroTextAreaTag
   
   function preParse($compiler)
   {
-    parent :: preParse($compiler);
+    parent::preParse($compiler);
 
     // always has closing tag
     $this->has_closing_tag = true;
@@ -41,7 +41,6 @@ class lmbMacroWysiwygTag extends lmbMacroTextAreaTag
   protected function _determineWidget()
   {  
     $component_info = $this->_helper->getMacroWidgetInfo();    
-    $this->widget_include_file = $component_info['file'];
     $this->widget_class_name = $component_info['class'];
       
     $this->html_tag = 'wysiwyg';

@@ -25,7 +25,6 @@ class lmbMacroSelectTag extends lmbMacroFormTagElement
   {
     if ($this->getBool('multiple'))
     {
-      //$this->widget_include_file = 'limb/macro/src/tags/form/lmbMacroMultipleSelectWidget.class.php';
       $this->widget_class_name = 'limb\macro\src\tags\form\lmbMacroMultipleSelectWidget';
 
       if (!$this->has('name'))
@@ -42,9 +41,8 @@ class lmbMacroSelectTag extends lmbMacroFormTagElement
                      array('name' => $this->get('name')));
       }
     }
-    elseif(!isset($this->widget_include_file))
+    elseif(!isset($this->widget_class_name))
     {
-      //$this->widget_include_file = 'limb/macro/src/tags/form/lmbMacroSingleSelectWidget.class.php';
       $this->widget_class_name = 'limb\macro\src\tags\form\lmbMacroSingleSelectWidget';
     }
 

@@ -17,7 +17,6 @@ use limb\macro\src\compiler\lmbMacroRuntimeWidgetTag;
  */
 class lmbMacroPagerTag extends lmbMacroRuntimeWidgetTag
 {
-  protected $widget_include_file = 'limb/macro/src/tags/pager/lmbMacroPagerHelper.class.php';
   protected $widget_class_name = 'limb\macro\src\tags\pager\lmbMacroPagerHelper';
 
   protected function _generateContent($code)
@@ -30,7 +29,7 @@ class lmbMacroPagerTag extends lmbMacroRuntimeWidgetTag
     if ($items = $this->getEscaped('items'))
       $code->writePhp("{$pager}->setItemsPerPage({$items});\n");
 
-    if($this->findChildByClass('lmbMacroPagerElipsesTag'))
+    if($this->findChildByClass('limb\macro\src\tags\pager\lmbMacroPagerElipsesTag'))
     {
       $code->writePhp("{$pager}->useElipses();\n");
 

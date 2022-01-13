@@ -20,7 +20,6 @@ use limb\macro\src\tags\form\lmbMacroFormTagElement;
 class lmbMacroInputTag extends lmbMacroFormTagElement
 {
   protected $html_tag = 'input';
-  //protected $widget_include_file = 'limb/macro/src/tags/form/lmbMacroInputWidget.class.php';
 
   function preParse($compiler)
   {
@@ -40,7 +39,6 @@ class lmbMacroInputTag extends lmbMacroFormTagElement
         break;
       case 'checkbox':
       case 'radio':
-        $this->widget_include_file = 'limb/macro/src/tags/form/lmbMacroCheckableInputWidget.class.php';
         $this->widget_class_name = 'limb\macro\src\tags\form\lmbMacroCheckableInputWidget';
         break;
       case 'password':

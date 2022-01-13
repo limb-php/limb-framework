@@ -20,8 +20,7 @@ class lmbMacroDatetimeTag extends lmbMacroFormTagElement
 {
   protected $html_tag = 'input';    
   protected $widget_class_name = 'limb\calendar\src\lmbCalendarWidget';
-  protected $widget_include_file = 'limb/calendar/src/lmbCalendarWidget.class.php';  
-  
+
   function preParse($compiler)
   {
     $this->set('type', 'text');

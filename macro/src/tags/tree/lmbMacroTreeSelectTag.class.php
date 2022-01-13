@@ -21,7 +21,6 @@ class lmbMacroTreeSelectTag extends lmbMacroSelectTag
 {
   public function preParse($compiler)
   {
-    //$this->widget_include_file = 'limb/macro/src/tagr/tree/lmbMacroTreeSelectWidget.class.php';
     $this->widget_class_name = 'limb\macro\src\tag\tree\lmbMacroTreeSelectWidget';
 
     parent :: preParse($compiler);

@@ -16,7 +16,6 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroRuntimeWidgetTag extends lmbMacroTag
 {
-  protected $widget_include_file;
   protected $widget_class_name;
   protected $runtime_var;
   
@@ -65,9 +64,6 @@ class lmbMacroRuntimeWidgetTag extends lmbMacroTag
 
   protected function _generateWidget($code_writer)
   {
-    if ($this->widget_include_file)
-      $code_writer->registerInclude($this->widget_include_file);
-
     $runtime_id = $this->getRuntimeId();
     $widget = $this->getRuntimeVar();
     $code_writer->writeToInit("{$widget} = new {$this->widget_class_name}('{$runtime_id}');\n");

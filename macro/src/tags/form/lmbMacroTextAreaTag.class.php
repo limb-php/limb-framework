@@ -20,8 +20,7 @@ class lmbMacroTextAreaTag extends lmbMacroFormTagElement
 {
   protected $html_tag = 'textarea';
   protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroTextAreaWidget';
-  protected $widget_include_file = 'limb/macro/src/tags/form/lmbMacroTextAreaWidget.class.php';
-  
+
   function preParse($compiler)
   { 
     parent :: preParse($compiler);

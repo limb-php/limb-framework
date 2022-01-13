@@ -20,8 +20,7 @@ class lmbMacroFormTag extends lmbMacroRuntimeWidgetHtmlTag
 {
   protected $html_tag = 'form';
   protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroFormWidget';
-  //protected $widget_include_file = 'limb/macro/src/tags/form/lmbMacroFormWidget.class.php';
-  
+
   protected function _generateBeforeOpeningTag($code)
   {
     $form = $this->getRuntimeVar();
