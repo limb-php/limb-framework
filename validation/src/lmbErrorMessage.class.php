@@ -9,7 +9,6 @@
 namespace limb\validation\src;
 
 use limb\core\src\lmbObject;
-use limb\core\src\lmbCollection;
 
 /**
  * Single validation error message.
@@ -40,7 +39,6 @@ class lmbErrorMessage extends lmbObject
 
   function renameFields($new_field_names)
   {
-
     if(!is_array($new_field_names))
     {
       return;

@@ -10,6 +10,7 @@ namespace limb\validation\src;
 
 use limb\validation\src\lmbErrorList;
 use limb\core\src\lmbHandle;
+use limb\core\src\exception\lmbException;
 use limb\validation\src\lmbValidator;
 
 lmb_env_setor('LIMB_RULES_INCLUDE_PATH', 'src/rule;limb/*/src/rule;limb/web_app/src/validation/rule');
@@ -97,7 +98,7 @@ class lmbValidatorBuilder
   static function build($rules_list)
   {
     $validator = new lmbValidator();
-    self :: addRules($rules_list, $validator);
+    self::addRules($rules_list, $validator);
     return $validator;
   }
 
@@ -136,9 +137,9 @@ class lmbValidatorBuilder
       array_push($params, $args); // and must be the last in the $params 
     }
     
-    $params = self :: trim($params);
+    $params = self::trim($params);
 
-    $path_to_rule = self :: getPathByRuleName($rule_name);
+    $path_to_rule = self::getPathByRuleName($rule_name);
 
     return new lmbHandle($path_to_rule, $params);
   }
@@ -162,12 +163,12 @@ class lmbValidatorBuilder
 
   static function getLmbRule($underscored_name) 
   {
-    if(isset(self :: $rules_shortcuts[$underscored_name]))
+    if(isset(self::$rules_shortcuts[$underscored_name]))
     {
-      $underscored_name = self :: $rules_shortcuts[$underscored_name];
+      $underscored_name = self::$rules_shortcuts[$underscored_name];
     }
     
-    return 'lmb' . lmb_camel_case($underscored_name) . 'Rule.class.php';
+    return 'Lmb' . lmb_camel_case($underscored_name) . 'Rule';
   }
 
   static function trim($arr) 

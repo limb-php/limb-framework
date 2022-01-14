@@ -8,14 +8,12 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
-
 /**
  * Checks that field value is a valid numeric value and its precision falls
  * within allowable parameters.
  * Example of usage:
  * <code>
- *  use limb/validation/src/rule/lmbNumericPrecisionRule;
+ *  use limb\validation\src\rule\lmbNumericPrecisionRule;
  *  $validator->addRule(new lmbNumericPrecisionRule('price', 5, 2));
  *  // 100.2 with match this rule, 100.300 or 100000 - not.
  * </code>
@@ -48,12 +46,6 @@ class lmbNumericPrecisionRule extends lmbSingleFieldRule
 
   function check($value)
   {
-    /*if( !is_numeric($value) )
-    {
-      $this->error('{Field} must be a valid number.');
-      return;
-    }*/
-
     if (preg_match('/^[+-]?(\d*)\.?(\d*)$/', $value, $match))
     {
       if (strlen($match[1]) > $this->whole_digits)

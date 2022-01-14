@@ -8,8 +8,8 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbBaseValidationRule;
 use limb\core\src\lmbDelegate;
+
 /**
  * Validation rule that accepts callback in constructor and executes that callback in validate() method
  * Callback must follow lmbValidationRule interface.

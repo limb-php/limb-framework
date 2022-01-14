@@ -8,7 +8,6 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
 use limb\i18n\src\datetime\lmbLocaleDateTime;
 use limb\toolkit\src\lmbToolkit;
 
@@ -25,17 +24,17 @@ class lmbLocaleDateRule extends lmbSingleFieldRule
   function __construct($field_name, $locale = null)
   {
     $this->locale = $locale;
-    parent :: __construct($field_name);
+    parent::__construct($field_name);
   }
 
   function check($value)
   {
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
 
     if(!$this->locale)
       $this->locale = $toolkit->getLocaleObject();
 
-    if(!lmbLocaleDateTime ::  isLocalStringValid($this->locale, $value))
+    if(!lmbLocaleDateTime::isLocalStringValid($this->locale, $value))
       $this->error(lmb_i18n('{Field} must have a valid date format', 'validation'));
   }
 }

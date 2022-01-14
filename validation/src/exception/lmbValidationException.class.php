@@ -41,7 +41,7 @@ class lmbValidationException extends lmbException
 
     $message .= ' Errors list : ' . implode(', ', $errors);
 
-    parent :: __construct($message, $params, $code);
+    parent::__construct($message, $params, $code);
   }
 
   function getErrorList()

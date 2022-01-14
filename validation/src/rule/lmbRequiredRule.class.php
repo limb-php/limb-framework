@@ -8,16 +8,14 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbBaseValidationRule;
-
 /**
  * Checks that field is present in datasource and has not empty value
  * Example of usage:
  * <code>
- *  use limb/validation/src/rule/lmbRequiredRule;
+ *  use limb\validation\src\rule\lmbRequiredRule;
  *  $validator->addRule(new lmbRequiredRule('title'));
  *  //or
- *  $validator->addRule(new lmbHandle('limb/validation/src/rule/lmbRequiredRule', array('title')));
+ *  $validator->addRule(new lmbHandle('limb\validation\src\rule\lmbRequiredRule', array('title')));
  *  // or
  *  $validator->addRequiredRule('title');
  * </code>

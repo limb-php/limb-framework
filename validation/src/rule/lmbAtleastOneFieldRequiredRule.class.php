@@ -8,13 +8,12 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbBaseValidationRule;
-
 /**
  * Checks that at least one field from a list has not null value
  * Example of usage:
  * <code>
- * $validator->addRule(new limb/validation/src/rule/lmbAtleastOneFieldRequiredRule(array('name', 'nickname', 'fullname')));
+ * use limb\validation\src\rule\lmbAtleastOneFieldRequiredRule;
+ * $validator->addRule(new lmbAtleastOneFieldRequiredRule(array('name', 'nickname', 'fullname')));
  * </code>
  * @package validation
  * @version $Id: lmbAtleastOneFieldRequiredRule.class.php 7486 2009-01-26 19:13:20Z pachanga $

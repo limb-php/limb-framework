@@ -54,7 +54,7 @@ class lmbErrorList extends lmbCollection
   /**
   * Returns all processed error list with formatted messages
   * @see lmbErrorList :: addError()
-  * @return string
+  * @return array
   */
   function getReadable()
   {
