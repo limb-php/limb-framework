@@ -10,6 +10,7 @@ namespace limb\search\src\fetcher;
 
 use limb\search\src\db\query\lmbMySQL4FullTextSearchQuery;
 use limb\web_app\src\fetcher\lmbFetcher;
+use limb\toolkit\src\lmbToolkit;
 
 /**
  * class lmbSearchFetcher.
@@ -24,7 +25,7 @@ class lmbSearchFetcher extends lmbFetcher
     $query = new lmbMySQL4FullTextSearchQuery('full_text_uri_content_index',
                                               $this->_getQueryWords(),
                                               true,
-                                              lmbToolkit :: instance()->getDefaultDbConnection());
+                                              lmbToolkit::instance()->getDefaultDbConnection());
 
     return $query->getRecordSet();
   }
@@ -32,7 +33,7 @@ class lmbSearchFetcher extends lmbFetcher
   protected function _collectDecorators()
   {
     if($words = $this->_getQueryWords())
-      $this->addDecorator('limb/search/src/dataset/lmbSearchResultProcessor',
+      $this->addDecorator('limb\search\src\dataset\lmbSearchResultProcessor',
                           array('words' => $words,
                                 'matched_word_folding_radius' => 40,
                                 'gaps_pattern' => '...',
@@ -43,7 +44,7 @@ class lmbSearchFetcher extends lmbFetcher
 
   protected function _getQueryWords()
   {
-    $request = lmbToolkit :: instance()->getRequest();
+    $request = lmbToolkit::instance()->getRequest();
     $query = $request->get('query_string');
     return explode(' ', htmlspecialchars($query));
   }
