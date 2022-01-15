@@ -45,8 +45,6 @@ class lmbHandle extends lmbProxy
 
   protected function _createOriginalObject()
   {
-    //require_once($this->_getClassFullPath());
-
     $refl = new \ReflectionClass($this->class);
     return call_user_func_array(array($refl, 'newInstance'),$this->args);
   }
@@ -59,20 +57,5 @@ class lmbHandle extends lmbProxy
     return $items[0];
   }
 
-  /*protected function _getClassNamespace($class_path)
-  {
-    $classname = $this->_getClassName($class_path);
-    $file = str_replace('\\', DIRECTORY_SEPARATOR, $classname);
-
-    return $file;
-  }*/
-
-  protected function _getClassFullPath()
-  {
-    if(substr($this->class_path, -4, 4) != '.php')
-      return $this->class_path . '.class.php';
-    else
-      return $this->class_path;
-  }
 }
 

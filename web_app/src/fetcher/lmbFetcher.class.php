@@ -11,7 +11,6 @@ namespace limb\web_app\src\fetcher;
 use limb\core\src\lmbCollection;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
-use limb\core\src\lmbClassPath;
 
 /**
  * abstract class lmbFetcher.
@@ -59,12 +58,13 @@ abstract class lmbFetcher
 
   protected function _applyDecorators($dataset)
   {
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
 
     foreach($this->decorators as $decorator_data)
     {
-      $class_path = new lmbClassPath($decorator_data[0]);
-      $dataset = $class_path->createObject(array($dataset));
+      $refl = new \ReflectionClass($decorator_data[0]);
+      $dataset = call_user_func_array(array($refl, 'newInstance'), array($dataset));
+
       $this->_addParamsToDataset($dataset, $decorator_data[1]);
     }
     return $dataset;
