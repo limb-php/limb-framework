@@ -30,11 +30,5 @@ class optimizationTools extends lmbAbstractTools
     return $this->_meta_data_class :: getMetaForObject( $object );
   }
 
-  /* */
-  function getUrlSuffix()
-  {
-    $common_conf = lmbToolkit :: instance()->getCommonSettings();
-    return $common_conf['url_suffix'];
-  }
 }
 

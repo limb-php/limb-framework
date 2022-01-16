@@ -35,10 +35,9 @@ class MetaInfo extends lmbActiveRecord
     $url = ($url[0] == '/') ? (string)substr($url, 1) : $url ;
     $url = ((strlen($url) > 1) && ($url[strlen($url)-1] == '/')) ? (string)substr($url, 0, -1) : $url ;
 
-    $furl = filterPath($url);
     $query = $uri->toString( array('query') );
 
-    return $furl . ($query ? '?' . $query : '');
+    return $url . ($query ? '?' . $query : '');
   }
 
   protected static function _getMetadataForUrl($url = null)
@@ -50,11 +49,7 @@ class MetaInfo extends lmbActiveRecord
 
     $criteria = new lmbSQLFieldCriteria('url', '/' . $url);
     $criteria->addOr( new lmbSQLFieldCriteria('url', $url) );
-    if( $suffix = $toolkit->getUrlSuffix() )
-    {
-      $criteria->addOr( new lmbSQLFieldCriteria('url', '/' . $url . $suffix) );
-      $criteria->addOr( new lmbSQLFieldCriteria('url', $url . $suffix) );
-    }
+
     $meta = lmbActiveRecord::findFirst( __CLASS__, array('cache' => true,
                                                                    'criteria' => $criteria) );
 
