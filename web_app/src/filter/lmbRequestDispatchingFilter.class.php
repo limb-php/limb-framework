@@ -25,24 +25,17 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
   protected $toolkit;
   protected $dispatcher;
   protected $default_controller_name;
-  protected $default_controller_namespace;
 
-  function __construct($dispatcher, $default_controller_name = 'NotFoundController', $default_controller_namespace = '')
+  function __construct($dispatcher, $default_controller_name = 'NotFoundController')
   {
     $this->toolkit = lmbToolkit :: instance();
     $this->dispatcher = $dispatcher;
     $this->setDefaultControllerName($default_controller_name);
-    $this->setDefaultControllerNamespace($default_controller_namespace);
   }
 
   function setDefaultControllerName($default_controller_name)
   {
     $this->default_controller_name = $default_controller_name;
-  }
-
-  function setDefaultControllerNamespace($default_controller_namespace)
-  {
-    $this->default_controller_namespace = $default_controller_namespace;
   }
 
   function run($filter_chain)
