@@ -26,7 +26,7 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
   protected $dispatcher;
   protected $default_controller_name;
 
-  function __construct($dispatcher, $default_controller_name = 'NotFoundController')
+  function __construct($dispatcher, $default_controller_name = 'limb\web_app\src\controller\NotFoundController')
   {
     $this->toolkit = lmbToolkit :: instance();
     $this->dispatcher = $dispatcher;
@@ -69,7 +69,7 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
     }
     catch(lmbControllerNotFoundException $e)
     {
-      $controller = $this->toolkit->createController($this->default_controller_name, $this->default_controller_namespace);
+      $controller = $this->_createDefaultController();
     }
 
     return $controller;
@@ -77,7 +77,7 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
 
   protected function _createDefaultController()
   {
-    $controller = $this->toolkit->createController($this->default_controller_name, $this->default_controller_namespace);
+    $controller = $this->toolkit->createController($this->default_controller_name);
     $controller->setCurrentAction($controller->getDefaultAction());
 
     return $controller;
