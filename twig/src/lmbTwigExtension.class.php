@@ -18,6 +18,7 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
           new \Twig\TwigFunction('route_url', static::class.'::route_url'),
           new \Twig\TwigFunction('current_uri', static::class.'::current_uri'),
           new \Twig\TwigFunction('uri_for_pager', static::class.'::uri_for_pager'),
+          new \Twig\TwigFunction('is_allowed', static::class.'::is_allowed'),
       ];
   }
 
@@ -107,5 +108,11 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
     $uri->addQueryItem($pager_name, $page_number);
 
     return $uri;
+  }
+
+  public static function is_allowed($role, $resource = null, $privilege = null)
+  {
+    $acl = lmbToolkit::instance()->getAcl();
+    return $acl->isAllowed($role, $resource, $privilege);
   }
 }
