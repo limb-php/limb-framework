@@ -26,6 +26,9 @@ class lmbImCropImageFilter extends lmbAbstractImageFilter
     list($x, $y, $width, $height) = $this->calculateCropArea($container->getWidth(), $container->getHeight());
 
     $container->getResource()->cropImage($width, $height, $x, $y);
+
+    if( $this->getTrim() )
+      $container->getResource()->trimImage();
   }
 
   function calculateCropArea($image_width, $image_height)
@@ -94,5 +97,10 @@ class lmbImCropImageFilter extends lmbAbstractImageFilter
   function getY()
   {
     return $this->getParam('y', 0);
+  }
+
+  function getTrim()
+  {
+    return $this->getParam('trim', 0);
   }
 }
