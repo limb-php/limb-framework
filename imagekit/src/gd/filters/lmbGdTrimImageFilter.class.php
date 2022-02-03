@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2008 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\imagekit\src\im\filters;
+namespace limb\imagekit\src\gd\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
 use limb\imagekit\src\lmbAbstractImageContainer;
@@ -16,15 +16,20 @@ use limb\imagekit\src\lmbAbstractImageContainer;
  * @package imagekit
  * @version $Id: $
  */
-class lmbImTrimImageFilter extends lmbAbstractImageFilter
+class lmbGdEdgeImageFilter extends lmbAbstractImageFilter
 {
   function apply(lmbAbstractImageContainer $container)
   {
     if( $this->getTrim() === false )
       return;
 
-    $container->getResource()->trimImage($fuzz = 0);
-    $container->getResource()->setImagePage(0, 0, 0, 0);
+    $image = $container->getResource();
+
+    $bwimage = imagecropauto($image, $mode = IMG_CROP_DEFAULT, $threshold = 0.5, $color = -1);
+
+    $container->replaceResource($bwimage);
+
+    //imagedestroy($image);
   }
 
   function getTrim()
