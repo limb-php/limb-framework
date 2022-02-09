@@ -33,6 +33,7 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
   {
     return [
       new \Twig\TwigFilter('number_format', 'number_format'),
+      new \Twig\TwigFilter('format_bytes', [$this, 'format_bytes']),
       new \Twig\TwigFilter('odd_or_even', function ($number) {
         return ($number % 2) ? 'odd' : 'even' ;
       })
@@ -40,6 +41,25 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
   }
 
   /* extension functions */
+  public static function format_bytes($size)
+  {
+    $i = 0;
+    while (floor($size / 1024) > 0)
+    {
+      ++$i;
+      $size /= 1024;
+    }
+
+    $size = str_replace('.', ',', round($size, 1));
+    switch ($i) {
+      case 0: return $size .= ' Bytes';
+      case 1: return $size .= ' KBytes';
+      case 2: return $size .= ' MBytes';
+      case 3: return $size .= ' GBytes';
+      case 4: return $size .= ' TBytes';
+    }
+  }
+
   public static function renderFragment($uri, $options = array())
   {
     $strategy = isset($options['strategy']) ? $options['strategy'] : 'inline';
