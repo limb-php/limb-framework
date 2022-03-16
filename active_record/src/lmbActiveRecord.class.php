@@ -1291,7 +1291,7 @@ class lmbActiveRecord extends lmbObject
     {
       return false;
     }
-    catch(Exception $e)
+    catch(\Exception $e)
     {
       if($error_list)
         $error_list->addError('ActiveRecord :: save() exception: ' . $e->getMessage());
