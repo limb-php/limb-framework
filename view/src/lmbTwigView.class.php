@@ -48,16 +48,16 @@ class lmbTwigView extends lmbView
             )
           );
     }
-    return call_user_method_array($methodName, $tpl, $params);
+    return call_user_func_array(array($tpl, $methodName), $params);
   }
 
   static function locateTemplateByAlias($alias)
   {
-    $twig_conf = lmbToolkit :: instance()->getTwigConfig();
+    $twig_conf = lmbToolkit::instance()->getTwigConfig();
 
-    if(!lmbFs :: isPathAbsolute($alias))
+    if(!lmbFs::isPathAbsolute($alias))
     {
-       $tpl_path = lmbToolkit :: instance()->tryFindFileByAlias($alias, $twig_conf->get('tmp_dirs'), 'twig');
+       $tpl_path = lmbToolkit::instance()->tryFindFileByAlias($alias, $twig_conf->get('tmp_dirs'), 'twig');
        if( $tpl_path )
         return $alias;
     }
@@ -77,7 +77,7 @@ class lmbTwigView extends lmbView
     if( $this->templateInstance )
       return $this->templateInstance;
 
-    $twig_conf = lmbToolkit :: instance()->getTwigConfig();
+    $twig_conf = lmbToolkit::instance()->getTwigConfig();
 
     $tmp_dirs = $twig_conf->get('tmp_dirs');
 
@@ -101,7 +101,7 @@ class lmbTwigView extends lmbView
 
     $twig->addExtension(new lmbTwigExtension());
 
-    $this->templateInstance = $twig->load( $this->getTemplate() ); // twig v3.*
+    $this->templateInstance = $twig->load( $this->getTemplate() );
     return $this->templateInstance;
   }
 
