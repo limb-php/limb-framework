@@ -1778,15 +1778,17 @@ class lmbActiveRecord extends lmbObject
 
     if(isset($params['left_join']) && !empty($params['left_join']))
     {
-      // addLeftJoin($table, $field, $connect_table, $connect_field, $table_alias = '')
+      $connect_table = $this->getTableName();
+
+      // addLeftJoin($table, $field, $connect_table = <AR table>, $connect_field, $table_alias = '')
       if( is_array($params['left_join'][0]) )
       {
         foreach( $params['left_join'] as $left_join )
-          $query->addLeftJoin($left_join[0], $left_join[1], $left_join[2], $left_join[3], $left_join[4]);
+          $query->addLeftJoin($left_join[0], $left_join[1], $connect_table, $left_join[3], $left_join[4]);
       }
       else
       {
-        $query->addLeftJoin($params['left_join'][0], $params['left_join'][1], $params['left_join'][2], $params['left_join'][3], $params['left_join'][4]);
+        $query->addLeftJoin($params['left_join'][0], $params['left_join'][1], $connect_table, $params['left_join'][3], $params['left_join'][4]);
       }
     }
 
