@@ -19,6 +19,7 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
           new \Twig\TwigFunction('current_uri', static::class.'::current_uri'),
           new \Twig\TwigFunction('uri_for_pager', static::class.'::uri_for_pager'),
           new \Twig\TwigFunction('is_allowed', static::class.'::is_allowed'),
+          new \Twig\TwigFunction('pager_url', static::class.'::pager_url'),
       ];
   }
 
@@ -36,11 +37,19 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
       new \Twig\TwigFilter('format_bytes', [$this, 'format_bytes']),
       new \Twig\TwigFilter('odd_or_even', function ($number) {
         return ($number % 2) ? 'odd' : 'even' ;
-      })
+      }),
+      new \Twig\TwigFilter('str_slice', [$this, 'str_slice'])
     ];
   }
 
   /* extension functions */
+  public static function str_slice($string, $start, $length, $ending = '...')
+  {
+    $slingth = mb_strlen($string);
+
+    return mb_substr($string, $start, $length) . (($slingth > $length) ? $ending : '');
+  }
+
   public static function format_bytes($size)
   {
     $i = 0;
@@ -134,5 +143,13 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
   {
     $acl = lmbToolkit::instance()->getAcl();
     return $acl->isAllowed($role, $resource, $privilege);
+  }
+
+  public static function pager_url($name = 'pager', $page = 1)
+  {
+    $uri = lmbToolkit::instance()->getRequest()->getUri();
+    $uri->addQueryItem($name, $page);
+
+    return $uri->toString();
   }
 }
