@@ -1784,11 +1784,23 @@ class lmbActiveRecord extends lmbObject
       if( is_array($params['left_join'][0]) )
       {
         foreach( $params['left_join'] as $left_join )
-          $query->addLeftJoin($left_join[0], $left_join[1], $connect_table, $left_join[3], $left_join[4]);
+          $query->addLeftJoin($left_join[0], $left_join[1], $connect_table, $left_join[3], $left_join[4] ?? '');
       }
       else
       {
-        $query->addLeftJoin($params['left_join'][0], $params['left_join'][1], $connect_table, $params['left_join'][3], $params['left_join'][4]);
+        $query->addLeftJoin($params['left_join'][0], $params['left_join'][1], $connect_table, $params['left_join'][3], $params['left_join'][4] ?? '');
+      }
+    }
+
+    if(isset($params['extra_fields']) && !empty($params['extra_fields']))
+    {
+      // addRawField($field, $alias = null)
+      foreach( $params['extra_fields'] as $extra_field )
+      {
+        if( is_array($extra_field) )
+          $query->addRawField($extra_field[0], $extra_field[1]);
+        else
+          $query->addRawField($extra_field);
       }
     }
 
