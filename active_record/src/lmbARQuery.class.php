@@ -218,7 +218,7 @@ class lmbARQuery extends lmbSelectRawQuery
   static function create($class_name_or_obj, $params = array(), $conn = null, $sql = '')
   {
     if(!$conn)
-      $conn = lmbToolkit :: instance()->getDefaultDbConnection();
+      $conn = lmbToolkit::instance()->getDefaultDbConnection();
 
     if(!is_object($class_name_or_obj))
       $class_name_or_obj = new $class_name_or_obj;
@@ -246,14 +246,19 @@ class lmbARQuery extends lmbSelectRawQuery
     $sort_params = (isset($params['sort']) && $params['sort']) ? $params['sort'] : $class_name_or_obj->getDefaultSortParams();
     $query->order($sort_params);
 
+    if(isset($params['sort_raw']) && $params['sort_raw'])
+      $query->addRawOrder($params['sort_raw']);
+
     if(isset($params['group']) && $params['group'])
     	$query->group($params['group']);
+    if(isset($params['group_by']) && $params['group_by'])
+      $query->group($params['group_by']);
 
     $join = (isset($params['join']) && $params['join']) ? $params['join'] : array();
     if(!is_array($join))
       $join = explode(',', $join);
 
-    foreach($join as $relation_name=> $params_or_relation_name)
+    foreach($join as $relation_name => $params_or_relation_name)
     {
       if(is_numeric($relation_name))
         $query->eagerJoin(trim($params_or_relation_name));
@@ -271,6 +276,44 @@ class lmbARQuery extends lmbSelectRawQuery
         $query->eagerAttach(trim($params_or_relation_name));
       else
         $query->eagerAttach(trim($relation_name), $params_or_relation_name);
+    }
+
+    /* */
+    if(isset($params['add_table']))
+    {
+      if(!is_array($params['add_table']))
+        $params['add_table'] = array($params['add_table']);
+      foreach($params['add_table'] as $table_name)
+        $query->addTable($table_name);
+      $query->addGroupBy($class_name_or_obj->getPrimaryKeyName());
+    }
+
+    if(isset($params['left_join']) && !empty($params['left_join']))
+    {
+      $connect_table = $class_name_or_obj->getTableName();
+
+      // addLeftJoin($table, $field, $connect_table = <AR table>, $connect_field, $table_alias = '')
+      if( is_array($params['left_join'][0]) )
+      {
+        foreach( $params['left_join'] as $left_join )
+          $query->addLeftJoin($left_join[0], $left_join[1], $connect_table, $left_join[3], $left_join[4] ?? '');
+      }
+      else
+      {
+        $query->addLeftJoin($params['left_join'][0], $params['left_join'][1], $connect_table, $params['left_join'][3], $params['left_join'][4] ?? '');
+      }
+    }
+
+    if(isset($params['extra_fields']) && !empty($params['extra_fields']))
+    {
+      // addRawField($field, $alias = null)
+      foreach( $params['extra_fields'] as $extra_field )
+      {
+        if( is_array($extra_field) )
+          $query->addRawField($extra_field[0], $extra_field[1]);
+        else
+          $query->addRawField($extra_field);
+      }
     }
 
     return $query;

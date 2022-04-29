@@ -1767,47 +1767,6 @@ class lmbActiveRecord extends lmbObject
       $this->setLazyAttributesExcept($params['fields']);
 
     $query = lmbARQuery::create($this, $params, $this->_db_conn);
-    if(isset($params['add_table']))
-    {
-      if(!is_array($params['add_table']))
-        $params['add_table'] = array($params['add_table']);
-      foreach($params['add_table'] as $table_name)
-        $query->addTable($table_name);
-      $query->addGroupBy($this->_primary_key_name);
-    }
-
-    if(isset($params['left_join']) && !empty($params['left_join']))
-    {
-      $connect_table = $this->getTableName();
-
-      // addLeftJoin($table, $field, $connect_table = <AR table>, $connect_field, $table_alias = '')
-      if( is_array($params['left_join'][0]) )
-      {
-        foreach( $params['left_join'] as $left_join )
-          $query->addLeftJoin($left_join[0], $left_join[1], $connect_table, $left_join[3], $left_join[4] ?? '');
-      }
-      else
-      {
-        $query->addLeftJoin($params['left_join'][0], $params['left_join'][1], $connect_table, $params['left_join'][3], $params['left_join'][4] ?? '');
-      }
-    }
-
-    if(isset($params['extra_fields']) && !empty($params['extra_fields']))
-    {
-      // addRawField($field, $alias = null)
-      foreach( $params['extra_fields'] as $extra_field )
-      {
-        if( is_array($extra_field) )
-          $query->addRawField($extra_field[0], $extra_field[1]);
-        else
-          $query->addRawField($extra_field);
-      }
-    }
-
-    if(isset($params['group_by']))
-    {
-      $query->addGroupBy($params['group_by']);
-    }
 
     $rs = $query->fetch();
 
