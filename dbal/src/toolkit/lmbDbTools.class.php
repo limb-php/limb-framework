@@ -10,6 +10,7 @@ namespace limb\dbal\src\toolkit;
 
 use limb\toolkit\src\lmbAbstractTools;
 use limb\dbal\src\lmbDBAL;
+use limb\core\src\lmbSet;
 use limb\dbal\src\lmbDbDSN;
 use limb\dbal\src\drivers\lmbDbCachedInfo;
 use limb\dbal\src\lmbTableGateway;
@@ -67,13 +68,13 @@ class lmbDbTools extends lmbAbstractTools
       return false;
     }
   }
-  
+
   protected function _getDbDsnHash($dsn)
   {
     $dsn = self :: castToDsnObject($dsn);
     return md5($dsn->toString());
   }
-  
+
   static function castToDsnObject($dsn)
   {
     if(is_object($dsn) && ($dsn instanceof lmbDbDSN))
@@ -82,15 +83,15 @@ class lmbDbTools extends lmbAbstractTools
       return new lmbDbDSN($dsn->export());
     return new lmbDbDSN($dsn);
   }
-  
+
   protected function _tryLoadDsnFromEnvironment($conf, $name)
-  {    
+  {
     $env = $conf->get($this->db_env);
     if(!is_array($env) || !isset($env[$name]))
       throw new lmbException("Could not find database connection settings for environment '{$this->db_env}'");
     return $env[$name];
   }
-  
+
   protected function _loadDbDsnFromConfig($name)
   {
     $conf = $this->toolkit->getConf('db');
@@ -102,20 +103,20 @@ class lmbDbTools extends lmbAbstractTools
 
     $dsn = self :: castToDsnObject($dsn);
     $this->setDbDSNByName($name, $dsn);
-    
+
     return $dsn->toString();
   }
 
   function setDbDSNByName($name, $dsn)
   {
     $dsn = self :: castToDsnObject($dsn);
-    
+
     $this->dsnes_names[$name] = $this->_getDbDsnHash($dsn);
     $this->dsnes_available[$this->dsnes_names[$name]] = $dsn;
   }
 
   function getDbDSNByName($name)
-  {  
+  {
     if(!isset($this->dsnes_names[$name]))
     {
       $this->_loadDbDsnFromConfig($name);
@@ -137,36 +138,36 @@ class lmbDbTools extends lmbAbstractTools
 
     return new lmbDbDSN($array['dsn']);
   }
-  
+
   function getDbConnectionByDsn($dsn)
   {
     $dsn_hash = $this->_getDbDsnHash($dsn);
-    
+
     if(isset($this->dsnes_active[$dsn_hash]) && is_object($this->dsnes_active[$dsn_hash]))
       return $this->dsnes_active[$dsn_hash];
 
     $this->setDbConnectionByDsn($dsn, $this->createDbConnection($dsn));
     return $this->dsnes_active[$dsn_hash];
   }
-  
+
   function setDbConnectionByDsn($dsn, $conn)
   {
     $this->dsnes_active[$this->_getDbDsnHash($dsn)] = $conn;
   }
-  
+
   function setDbConnectionByName($name, $conn)
   {
     if(!is_object($dsn = $this->toolkit->getDbDSNByName($name)))
       throw new lmbException($name . ' database DSN is not valid');
-    
-    return $this->setDbConnectionByDsn($dsn, $conn);
+
+    $this->setDbConnectionByDsn($dsn, $conn);
   }
 
   function getDbConnectionByName($name)
   {
     if(!is_object($dsn = $this->toolkit->getDbDSNByName($name)))
       throw new lmbException($name . ' database DSN is not valid');
-    
+
     return $this->getDbConnectionByDsn($dsn);
   }
 
@@ -201,19 +202,19 @@ class lmbDbTools extends lmbAbstractTools
       throw new lmbException("Driver '$driver' file not found for DSN '" . $dsn->toString() . "'!");
     }
   }
-  
+
   protected function _isDbInfoCacheEnabled()
   {
     if(is_null($this->is_db_info_cache_enabled))
     {
-      $this->is_db_info_cache_enabled = false;      
-      
+      $this->is_db_info_cache_enabled = false;
+
       if(lmb_env_has('LIMB_CACHE_DB_META_IN_FILE'))
         $this->is_db_info_cache_enabled = lmb_env_get('LIMB_CACHE_DB_META_IN_FILE');
       else if($this->toolkit->getConf('db')->has('cache_db_info'))
         $this->is_db_info_cache_enabled = $this->toolkit->getConf('db')->get('cache_db_info');
     }
-    
+
     return $this->is_db_info_cache_enabled;
   }
 
@@ -222,7 +223,7 @@ class lmbDbTools extends lmbAbstractTools
     $id = $conn->getHash();
 
     if(isset($this->db_info[$id]))
-      return $this->db_info[$id];    
+      return $this->db_info[$id];
 
     if($this->_isDbInfoCacheEnabled())
       $db_info = new lmbDbCachedInfo($conn, lmb_env_get('LIMB_VAR_DIR'));
