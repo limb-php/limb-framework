@@ -1,6 +1,7 @@
 {
     "name": "xadminx/limb",
     "description": "Limb4 php framework",
+    "version": "4.0.0-dev",
     "type": "project",
     "autoload": {
         "psr-4": {
@@ -8,5 +9,7 @@
         }
     },
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "php" : ">=7.2"
+    }
 }
