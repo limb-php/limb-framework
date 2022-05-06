@@ -16,9 +16,9 @@ for($string_10240 = ''; strlen($string_10240) < 10240; $string_10240 .= md5(micr
 
 $array = array(1 => $integer, 'foo' => $float, $string_3);
 
-class Object {};
+class TestObject {};
 
-$object = new Object;
+$object = new TestObject;
 $object->id = 11;
 $object->email = 'jim_hawkins@admiral_benbow.com';
 $object->name = 'Jim Hawkins';
@@ -35,12 +35,10 @@ $object->city = 16254;
 $object->city_district = 125341;
 $object->phone = 5374832;
 $object->avatar_extension = 3;
-$object->info = 'С рождения Бобби пай-мальчиком был,
-Имел Бобби хобби - он деньги любил,
-Любил и копил.
-Все дети, как дети - живут без забот,8
-А Боб на диете - не ест и не пьёт,
-В копилку кладёт.';
+$object->info = 'string1
+string2
+string3
+string4';
 $object->is_active = 1;
 $object->ctime = 1201774844;
 $object->utime = 1202737264;
@@ -64,8 +62,8 @@ $data = array(
   'string 128 chars'  => $string_128,
   'string 512 chars'  => $string_512,
   'string 4096 chars'  => $string_4096,
-  'string 10240 chars'  => $string_10240,  
-//  'array'   => $array,  
+  'string 10240 chars'  => $string_10240,
+//  'array'   => $array,
 //  'object'  => $object
 );
 

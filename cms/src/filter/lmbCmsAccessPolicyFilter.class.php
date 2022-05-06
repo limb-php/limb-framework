@@ -33,13 +33,13 @@ class lmbCmsAccessPolicyFilter implements lmbInterceptingFilterInterface
     {
       if(!$user->isLoggedIn())
       {
-        $this->toolkit->flashMessage("Вы не авторизованы");
+        $this->toolkit->flashMessage("Not authorized");
         $this->toolkit->redirect(array('controller' => 'user', 'action' => 'login'), null, '?redirect=' . $current_path);
         return;
       }
       elseif(!$this->_allowAccess($user))
       {
-        $this->toolkit->flashMessage("Недостаточно прав доступа к разделу");
+        $this->toolkit->flashMessage("Forbidden");
 
         if('display' != $this->current_controller->getCurrentAction())
           $this->current_controller->closePopup();

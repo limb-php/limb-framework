@@ -778,7 +778,8 @@ class lmbActiveRecord extends lmbObject
     parent :: set($property, $value);
 
     // if property is a table field and was not really changed, don't mark it dirty
-    //if(!($this->_db_meta_info->hasColumn($property) && ($old_value == $value))) // == не обновляется, если впереди в бд стоит + , === излишние обновления, т.к. в запросе всегда приходит Стринг, а в бд может быть число
+    // if '==' no update if in DB has '+'. if '===' always update, in request always type string, but in DB can be integer
+    //if(!($this->_db_meta_info->hasColumn($property) && ($old_value == $value)))
     if(!($this->_db_meta_info->hasColumn($property) && ($old_value === $value)))
       $this->_markDirtyProperty($property);
   }

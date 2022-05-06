@@ -181,10 +181,10 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
           $("#TB_iframeContent").remove();
 
           /*Add button «maximaze_window»*/
-          var max_window_btn = "<a href='javascript:void(0)' id='TB_resizeWindowButton' class='maximize_window'><img src='/shared/cms/images/1x1.gif' alt='Развернуть окно' title='Развернуть окно'/></a>";
+          var max_window_btn = "<a href='javascript:void(0)' id='TB_resizeWindowButton' class='maximize_window'><img src='/shared/cms/images/1x1.gif' alt='Maximize' title='Maximize'/></a>";
 
           if(params['modal'] != "true"){//iframe no modal
-            $("#TB_window").append("<div id='TB_title'><div id='TB_ajaxWindowTitle'>"+caption+"</div>" + max_window_btn + "<div id='TB_closeAjaxWindow'><a href='#' id='TB_closeWindowButton' title='Закрыть окно'><img src='/shared/cms/images/1x1.gif' alt='Закрыть окно'/></a></div></div><iframe frameborder='0' hspace='0' src='"+urlNoQuery[0]+"' id='TB_iframeContent' name='TB_iframeContent"+Math.round(Math.random()*1000)+"' onload='tb_showIframe()' style='width:"+(ajaxContentW + 29)+"px;height:"+(ajaxContentH + 17)+"px;' > </iframe>");
+            $("#TB_window").append("<div id='TB_title'><div id='TB_ajaxWindowTitle'>"+caption+"</div>" + max_window_btn + "<div id='TB_closeAjaxWindow'><a href='#' id='TB_closeWindowButton' title='Close'><img src='/shared/cms/images/1x1.gif' alt='Close'/></a></div></div><iframe frameborder='0' hspace='0' src='"+urlNoQuery[0]+"' id='TB_iframeContent' name='TB_iframeContent"+Math.round(Math.random()*1000)+"' onload='tb_showIframe()' style='width:"+(ajaxContentW + 29)+"px;height:"+(ajaxContentH + 17)+"px;' > </iframe>");
           }else{//iframe modal
           $("#TB_overlay").unbind();
             $("#TB_window").append("<iframe frameborder='0' hspace='0' src='"+urlNoQuery[0]+"' id='TB_iframeContent' name='TB_iframeContent"+Math.round(Math.random()*1000)+"' onload='tb_showIframe()' style='width:"+(ajaxContentW + 29)+"px;height:"+(ajaxContentH + 17)+"px;'> </iframe>");
@@ -277,8 +277,8 @@ function tb_resizeWindow()
   var page_size = tb_getPageSize();
   var tb_window = jQuery('#TB_window').removeAttr('style').show();
   var tb_iframe = jQuery('#TB_iframeContent');
-  var title_min = 'Восстановить окно';
-  var title_max = 'Развернуть окно';
+  var title_min = 'Minimize';
+  var title_max = 'Maximize';
 
   if (resizeBtn.hasClass('maximize_window'))
   {

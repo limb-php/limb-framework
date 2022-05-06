@@ -4,7 +4,7 @@ CMS.forms.upload_file = function(uri, field_id, on_complete)
 {
   var input = document.getElementById(field_id);
   if(!input || !input.value)
-    throw "Файл является обязательным полем";
+    throw "File is required";
 
   var parent = input.parentNode;
 
@@ -51,7 +51,7 @@ CMS.forms.upload_file = function(uri, field_id, on_complete)
       var error = iframe.contentWindow.file_error;
       var file_name = iframe.contentWindow.file_name;
       if(!file_name)
-        error = 'При загрузке файла произошла ошибка';
+        error = 'Faild while uploading file';
       var file_size = iframe.contentWindow.file_size;
       new_file.value = file_name;
       parent.appendChild(new_file);

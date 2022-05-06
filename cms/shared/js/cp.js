@@ -1,17 +1,8 @@
-var ShowFilterDefault = 'Показать фильтр';
-var HideFilterDefault = 'Скрыть фильтр';
+var ShowFilterDefault = 'Show filter';
+var HideFilterDefault = 'Hide filter';
 
 /////// LAYOUT POSTPROCESSING HELPERS
 
-/**
-   Filter formatting
-
-   обрабатывает форму фильтра поиска при выводе списков в панели управления
-   позволяет скрывать/показывать фильтр. при необходимости отображает форму поиска в конце списка.
-   запоминает состояние отображения (скрыт/доуступен) конкретного фильтра в cookies
-
-   TODO: продублировать описание на английском. показать пример использования.
-*/
 Limb.Class('CMS.Filter',
 {
   __construct:function(showFilterStr, hideFilterStr)
