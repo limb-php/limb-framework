@@ -8,7 +8,7 @@
             "Limb\\": ""
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "4.0.0-dev",
     "require": {
         "php" : ">=7.2"
     }
