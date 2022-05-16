@@ -1,0 +1,47 @@
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+
+<p>
+  <b>Cron</b> — 
+  демон-планировщик задач в UNIX-подобных операционных системах, использующийся для периодического выполнения заданий в заданное время.
+</p>
+
+<p><b>Модуль вкючает в себя:</b></p>
+<ul>
+  <li><code>src/cron/CronJob.class.php</code> - абстрактный класс cron-задачи</li>
+  <li><code>src/cron/CronJobLogger.class.php</code> - журналирование результатов работы cron-задач</li>
+  <li><code>src/controller/AdminCronJobController.class.php</code> - мониторинг журнала cron-задач</li>
+  <li><code>_install/skel/cli/cron/cron_runner</code> - bash-скрипт стартер cron-задачи</li>
+  <li><code>_install/skel/cli/cron/_*.sh</code> - расписание cron-задач</li>
+</ul>
+
+<p><b>Журнал результатов работы</b> cron-задач храниться в БД в таблице <code>cron_job_log</code></p>
+<textarea class="sql" name="code">
+  --
+  -- Structure for table `cron_job_log`
+  --
+  DROP TABLE IF EXISTS `cron_job_log`;
+  CREATE TABLE `cron_job_log` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) DEFAULT NULL,
+    `time` int(11) DEFAULT NULL,
+    `status` varchar(25) NULL DEFAULT NULL,
+    `info` text,
+    `path` varchar(255) DEFAULT NULL,      
+    PRIMARY KEY  (`id`),
+    KEY `name` (`name`),                        
+    KEY `status` (`status`)
+  ) ENGINE=InnoDB;
+</textarea>
+
+<p><b>Пример использования:</b></p>
+<ol>
+  <li>разрабатываемый класс cron-задачи должен реализовывать логику абстрактного класса <code>CronJob</code> (пример <code>_install/src/cron/SimpleCronJob.class.php</code>)</li>
+  <li>
+    добавить запуск разработанного класса cron-задачи в соответствующий файл расписания (<code>_install/skel/cli/cron/_*.sh</code>),
+    например, таким образом: <code>cron_runner src/cron/SimpleCronJob.class.php</code>
+  </li>
+</ol>
+
+<p><b>Мониторинг журнала</b> результатов работы cron-задач осуществляеться из контрольной панели по адресу <a href='/admin_cron_job' target='_blank'>/admin_cron_job</a></p>
+
+<p><b>Внимание!</b> Для корректного исполнения cron-задач требуется настройка <code>crontab</code> на сервере исполнения на проектное расписание (<code>install/skel/cli/cron/_*.sh</code>)</p>

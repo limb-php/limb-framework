@@ -1,0 +1,16 @@
+--
+-- Structure for table `cron_job_log`
+--
+DROP TABLE IF EXISTS `cron_job_log`;
+CREATE TABLE `cron_job_log` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(50) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  `status` varchar(25) NULL DEFAULT NULL,
+  `info` text,
+  `path` varchar(255) default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `name` (`name`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
