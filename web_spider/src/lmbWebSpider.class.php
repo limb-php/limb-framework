@@ -130,7 +130,6 @@ class lmbWebSpider
     if(is_object($this->uri_extractor))
       return $this->uri_extractor;
 
-    include_once(dirname(__FILE__) . '/lmbUriExtractor.class.php');
     $this->uri_extractor = new lmbUriExtractor();
     return $this->uri_extractor;
   }
@@ -145,7 +144,6 @@ class lmbWebSpider
     if(is_object($this->content_reader))
       return $this->content_reader;
 
-    include_once(dirname(__FILE__) . '/lmbUriContentReader.class.php');
     $this->content_reader = new lmbUriContentReader();
     return $this->content_reader;
   }
@@ -160,7 +158,6 @@ class lmbWebSpider
     if(is_object($this->meta_filter))
       return $this->meta_filter;
 
-    include_once(dirname(__FILE__) . '/lmbMetaFilter.class.php');
     $this->meta_filter = new lmbMetaFilter();
     return $this->meta_filter;
   }
@@ -175,7 +172,6 @@ class lmbWebSpider
     if(is_object($this->content_type_filter))
       return $this->content_type_filter;
 
-    include_once(dirname(__FILE__) . '/lmbContentTypeFilter.class.php');
     $this->content_type_filter = new lmbContentTypeFilter();
     return $this->content_type_filter;
   }
@@ -195,7 +191,6 @@ class lmbWebSpider
     if(is_object($this->uri_filter))
       return $this->uri_filter;
 
-    include_once(dirname(__FILE__) . '/lmbUriFilter.class.php');
     $this->uri_filter = new lmbUriFilter();
     return $this->uri_filter;
   }
@@ -210,10 +205,7 @@ class lmbWebSpider
     if(is_object($this->uri_normalizer))
       return $this->uri_normalizer;
 
-    include_once(dirname(__FILE__) . '/lmbUriNormalizer.class.php');
     $this->uri_normalizer = new lmbUriNormalizer();
     return $this->uri_normalizer;
   }
 }
-
-

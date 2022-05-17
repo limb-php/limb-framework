@@ -13,6 +13,8 @@
  * @package web_spider
  * @version $Id: lmbContentTypeFilter.class.php 7686 2009-03-04 19:57:12Z korchasa $
  */
+namespace limb\web_spider\src;
+
 class lmbContentTypeFilter
 {
   protected $allowed_types;

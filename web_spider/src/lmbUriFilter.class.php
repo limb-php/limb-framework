@@ -13,6 +13,8 @@
  * @package web_spider
  * @version $Id: lmbUriFilter.class.php 7903 2009-04-26 18:36:36Z slevin $
  */
+namespace limb\web_spider\src;
+
 class lmbUriFilter
 {
   protected $allowed_protocols = array();

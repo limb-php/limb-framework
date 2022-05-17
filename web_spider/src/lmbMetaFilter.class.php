@@ -13,6 +13,8 @@
  * @package web_spider
  * @version $Id: lmbMetaFilter.class.php 7686 2009-03-04 19:57:12Z 3d-max $
  */
+namespace limb\web_spider\src;
+
 class lmbMetaFilter
 {
 
