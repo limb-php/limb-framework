@@ -9,6 +9,7 @@
 namespace limb\cms\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
+use limb\toolkit\src\lmbToolkit;
 
 /**
  * class lmbCmsAccessPolicyFilter.
@@ -20,7 +21,7 @@ class lmbCmsAccessPolicyFilter implements lmbInterceptingFilterInterface
 {
   function run($filter_chain)
   {
-    $this->toolkit = lmbToolkit :: instance();
+    $this->toolkit = lmbToolkit::instance();
     $this->current_controller = $this->toolkit->getDispatchedController();
 
     $user = $this->toolkit->getCmsUser();

@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/validation/src/rule/lmbEmailRule.class.php');
+namespace limb\validation\tests\cases\rule;
+
+use limb\validation\src\rule\lmbEmailRule;
 
 class lmbEmailRuleTest extends lmbValidationRuleTestCase
 {
@@ -108,7 +110,7 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
     $rule = new lmbEmailRule('testfield',$error="my custom error");
 
     $dataspace = new lmbSet();
-    $dataspace->set('testfield', 'не@правильное.мыло');
+    $dataspace->set('testfield', 'not@wrong.mail');
 
     $this->error_list->expectOnce('addError',
                                   array($error,
@@ -117,14 +119,14 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
 
     $rule->validate($dataspace, $this->error_list);
   }
-  
+
   function testEmailDoubleUnderscore() {
   	$rule = new lmbEmailRule('testfield');
   	$dataspace = new lmbSet();
-  	$dataspace->set('testfield', '__ps__@mail.ru');
-  	
+  	$dataspace->set('testfield', '__ps__@gmail.com');
+
   	$this->error_list->expectNever('addError');
-  	$rule->validate($dataspace, $this->error_list);  	
+  	$rule->validate($dataspace, $this->error_list);
   }
 }
 

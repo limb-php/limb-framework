@@ -2,7 +2,9 @@
 namespace limb\cms\src\validation\rule;
 
 use limb\validation\src\rule\lmbSingleFieldRule;
+use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
+use limb\active_record\src\lmbActiveRecord;
 
 class lmbTreeUniqueIdentifierRule extends lmbSingleFieldRule
 {
@@ -18,17 +20,17 @@ class lmbTreeUniqueIdentifierRule extends lmbSingleFieldRule
     $this->error_message = $error_message;
     $this->parent_id = $parent_id ? $parent_id : $this->node->getParent()->getId();
 
-    parent :: __construct($field_name);
+    parent::__construct($field_name);
   }
 
   function check($value)
   {
-    $criteria = lmbSQLCriteria :: equal($this->field_name, $value)->addAnd('parent_id = ' . $this->parent_id);
+    $criteria = lmbSQLCriteria::equal($this->field_name, $value)->addAnd('parent_id = ' . $this->parent_id);
 
     if(!$this->node->isNew())
       $criteria->addAnd($this->node->getPrimaryKeyName() . ' <> '. $this->node->getId());
 
-    if(lmbActiveRecord :: findOne(get_class($this->node), $criteria))
+    if(lmbActiveRecord::findFirst(get_class($this->node), $criteria))
       $this->error($this->error_message);
   }
 }

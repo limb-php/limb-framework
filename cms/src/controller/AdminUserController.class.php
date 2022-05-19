@@ -1,4 +1,6 @@
 <?php
+namespace limb\cms\src\controller;
+
 lmb_require('limb/cms/src/controller/lmbAdminObjectController.class.php');
 lmb_require('limb/validation/src/rule/lmbMatchRule.class.php');
 lmb_require('limb/cms/src/model/lmbCmsUser.class.php');

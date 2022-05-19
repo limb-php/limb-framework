@@ -1,4 +1,6 @@
 <?php
+namespace limb\cms\src\controller;
+
 lmb_require('limb/web_app/src/controller/lmbController.class.php');
 lmb_require('limb/mail/src/lmbMailer.class.php');
 lmb_require('limb/cms/src/model/lmbCmsUser.class.php');

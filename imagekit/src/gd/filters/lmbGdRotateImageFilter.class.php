@@ -24,7 +24,7 @@ class lmbGdRotateImageFilter extends lmbAbstractImageFilter
     $flip_x = $this->getFlipX();
     $flip_y = $this->getFlipY();
 
-    if($angle || $flip_x || $flip_y) //выполняем, только в случае необходимости
+    if($angle || $flip_x || $flip_y)
     {
       if($flip_x && $flip_y)
       {

@@ -32,7 +32,7 @@ class lmbImReflectionImageFilter extends lmbAbstractImageFilter
       $reflection_height = $this->_calcReflectionHeight($src_w, $src_h, $height2width);
     }
 
-    if($reflection_height > 0) //выполнить, тольк в случае, если необходимо отражение
+    if($reflection_height > 0) //for reflection only
     {
       $im = $container->getResource();
 

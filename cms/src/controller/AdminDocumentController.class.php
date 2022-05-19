@@ -9,8 +9,13 @@
  * @version    $Id$
  * @package    cms
  */
-lmb_require('limb/cms/src/controller/lmbAdminObjectController.class.php');
-lmb_require('limb/cms/src/model/lmbCmsDocument.class.php');
+namespace limb\cms\src\controller;
+
+use limb\cms\src\controller\lmbAdminObjectController;
+use limb\cms\src\model\lmbCmsDocument;
+use limb\active_record\src\lmbActiveRecord;
+use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\core\src\exception\lmbException;
 
 class AdminDocumentController extends lmbAdminObjectController
 {
@@ -22,7 +27,7 @@ class AdminDocumentController extends lmbAdminObjectController
       $this->is_root = true;
       $criteria = new lmbSQLCriteria('parent_id > 0');
       $criteria->addAnd(new lmbSQLCriteria('level = 1'));
-      $this->item = lmbCmsDocument :: findRoot();
+      $this->item = lmbCmsDocument::findRoot();
     }
     else {
       $this->is_root = false;
@@ -31,7 +36,7 @@ class AdminDocumentController extends lmbAdminObjectController
       $criteria = new lmbSQLCriteria('parent_id = ' . $this->item->getId());
     }
 
-    $this->items = lmbActiveRecord :: find($this->_object_class_name, array('criteria' => $criteria, 'sort'=>array('priority'=>'ASC')));
+    $this->items = lmbActiveRecord::find($this->_object_class_name, array('criteria' => $criteria, 'sort'=>array('priority'=>'ASC')));
     $this->_applySortParams();
   }
 

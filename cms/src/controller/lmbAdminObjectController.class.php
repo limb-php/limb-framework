@@ -6,8 +6,11 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/cms/src/controller/lmbObjectController.class.php');
-lmb_require('limb/datetime/src/lmbDateTime.class.php');
+namespace limb\cms\src\controller;
+
+use limb\cms\src\controller\lmbObjectController;
+use limb\datetime\src\lmbDateTime;
+use limb\active_record\src\lmbActiveRecord;
 
 /**
  * abstract class AdminObjectController.

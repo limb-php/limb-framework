@@ -74,13 +74,13 @@ class lmbMacroCompiler
     $generated_code = $this->_generateTemplateCode($class, $render_func, $root_node);
     $generated_code = '<?php /* This file is generated from ' . $source_file . '*/?>' . $generated_code;
 
-    if(!empty(self :: $_listeners['on_compile']))
+    if(!empty(self::$_listeners['on_compile']))
     {
-      $deligate = self :: $_listeners['on_compile'];
-      $generated_code = $deligate->invokeArray(array($generated_code)); // выполнение хука
+      $deligate = self::$_listeners['on_compile'];
+      $generated_code = $deligate->invokeArray(array($generated_code)); // hook execution
     }
 
-    self :: writeFile($compiled_file, $generated_code);
+    self::writeFile($compiled_file, $generated_code);
   }
 
   function _generateTemplateCode($class, $render_func, $root_node)
@@ -140,7 +140,7 @@ class lmbMacroCompiler
    */
   static function registerOnCompileCallback($callback)
   {
-    self :: $_listeners['on_compile'] = lmbDelegate :: objectify($callback);
+    self::$_listeners['on_compile'] = lmbDelegate :: objectify($callback);
   }
 }
 

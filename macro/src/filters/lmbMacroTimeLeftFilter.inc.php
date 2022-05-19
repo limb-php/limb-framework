@@ -9,6 +9,17 @@
 
 function vypiska($skolko, $chego)
 {
+  if( $chego == 2 )
+    return 'year (s)';
+  elseif( $chego == 1 )
+    return 'month (s)';
+  elseif( $chego == 0 )
+    return 'day (s)';
+
+}
+
+/*function vypiska($skolko, $chego)
+{
   $array = array(
       "",
       "день",
@@ -35,7 +46,7 @@ function vypiska($skolko, $chego)
   if ($skolko >= 100)
       return vypiska($skolko % 100, $chego);
   return $array[$a];
-}
+}*/
 
 function time_left($std)
 {
@@ -53,17 +64,17 @@ function time_left($std)
   if ($year != 0 && $month != 0 && $day != 0)
       $soob = $soob . ", ";
   if ($year != 0 && $month != 0 && $day == 0)
-      $soob = $soob . " и ";
+      $soob = $soob . " and ";
   if ($month == 0 && $day != 0 && $year != 0)
-      $soob = $soob . " и ";
+      $soob = $soob . " and ";
   if ($month != 0)
       $soob = $soob . $month . " " . vypiska($month, 1);
   if ($month != 0 && $day != 0)
-      $soob = $soob . " и ";
+      $soob = $soob . " and ";
   if ($day != 0)
-      $soob = $soob . $day . " " . vypiska($day, 0) . " назад";
+      $soob = $soob . $day . " " . vypiska($day, 0) . " ago";
   else
-    $soob = "сегодня";
+    $soob = "today";
 
   return $soob;
 }

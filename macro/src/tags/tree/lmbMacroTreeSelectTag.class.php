@@ -23,7 +23,7 @@ class lmbMacroTreeSelectTag extends lmbMacroSelectTag
   {
     $this->widget_class_name = 'limb\macro\src\tag\tree\lmbMacroTreeSelectWidget';
 
-    parent :: preParse($compiler);
+    parent::preParse($compiler);
   }
 
   function _generateContent($code_writer)
@@ -31,12 +31,12 @@ class lmbMacroTreeSelectTag extends lmbMacroSelectTag
     $select = $this->getRuntimeVar();
 
     if( !$this->has('first_option') )
-      $title = 'Выбрать родителя';
+      $title = lmb_i18n('Parent select');
     else
       $title = $this->get('first_option');
 
     $code_writer->writePHP("{$select}->prependToOptions('0', array('title' => '$title', 'path' => null, 'level' => null));\n");
 
-    parent :: _generateContent($code_writer);
+    parent::_generateContent($code_writer);
   }
 }

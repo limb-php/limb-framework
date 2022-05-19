@@ -25,7 +25,7 @@ class lmbCmsUniqueFieldRule extends lmbSingleFieldRule
       $this->class = $class;
     }
 
-    parent :: __construct($field, $custom_error);
+    parent::__construct($field, $custom_error);
   }
 
   function check($value)
@@ -34,9 +34,9 @@ class lmbCmsUniqueFieldRule extends lmbSingleFieldRule
     if(!$this->object->isNew())
       $criteria->addAnd(new lmbSQLFieldCriteria($this->object->getPrimaryKeyName(), $this->object->getId(), lmbSQLFieldCriteria::NOT_EQUAL));
 
-    $records = lmbActiveRecord :: find($this->class, $criteria);
+    $records = lmbActiveRecord::find($this->class, $criteria);
 
     if($records->count())
-      $this->error('Значение в поле {Field} уже занято');
+      $this->error('Field {Field} already exists');
   }
 }

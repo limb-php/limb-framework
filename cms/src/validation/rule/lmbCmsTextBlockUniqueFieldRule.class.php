@@ -21,8 +21,8 @@ class lmbCmsTextBlockUniqueFieldRule extends lmbSingleFieldRule
     if($this->text_block->getId())
       $criteria->addAnd('id <> '. $this->text_block->getId());
 
-    if(lmbCmsTextBlock :: findOne($criteria))
-      $this->error('Тектовый блок со значением поля {Field} уже существует');
+    if(lmbCmsTextBlock::findFirst($criteria))
+      $this->error('Text block with field {Field} elready exist');
   }
 }
 
