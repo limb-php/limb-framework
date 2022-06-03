@@ -42,6 +42,11 @@ class lmbMacroPagerHelper
     $this->_initBaseUrl();
   }
 
+  function getId()
+  {
+    return $this->id;
+  }
+
   function prepare()
   {
     $this->total_page_count = ceil($this->total_items / $this->items_per_page);
