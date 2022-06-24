@@ -38,7 +38,7 @@ class lmbNumericPrecisionRule extends lmbSingleFieldRule
   */
   function __construct($field_name, $whole_digits, $decimal_digits = 0, $custom_error = '')
   {
-    parent :: __construct($field_name, $custom_error);
+    parent::__construct($field_name, $custom_error);
 
     $this->whole_digits = $whole_digits;
     $this->decimal_digits = $decimal_digits;
@@ -46,6 +46,8 @@ class lmbNumericPrecisionRule extends lmbSingleFieldRule
 
   function check($value)
   {
+    $value = sprintf('%f', $value);
+
     if (preg_match('/^[+-]?(\d*)\.?(\d*)$/', $value, $match))
     {
       if (strlen($match[1]) > $this->whole_digits)
