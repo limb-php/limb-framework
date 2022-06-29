@@ -17,7 +17,6 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
           new \Twig\TwigFunction('form_errors', static::class.'::form_errors'),
           new \Twig\TwigFunction('route_url', static::class.'::route_url'),
           new \Twig\TwigFunction('current_uri', static::class.'::current_uri'),
-          new \Twig\TwigFunction('uri_for_pager', static::class.'::uri_for_pager'),
           new \Twig\TwigFunction('is_allowed', static::class.'::is_allowed'),
           new \Twig\TwigFunction('pager_url', static::class.'::pager_url'),
       ];
@@ -131,14 +130,6 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
     return $uri;
   }
 
-  public static function uri_for_pager($pager_name, $page_number)
-  {
-    $uri = lmbToolkit::instance()->getRequest()->getUri();
-    $uri->addQueryItem($pager_name, $page_number);
-
-    return $uri;
-  }
-
   public static function is_allowed($role, $resource = null, $privilege = null)
   {
     $acl = lmbToolkit::instance()->getAcl();
@@ -148,8 +139,10 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
   public static function pager_url($name = 'pager', $page = 1)
   {
     $uri = lmbToolkit::instance()->getRequest()->getUri();
-    $uri->addQueryItem($name, $page);
+    $curi = clone($uri);
 
-    return $uri->toString();
+    $curi->addQueryItem($name, $page);
+
+    return $curi->toString();
   }
 }
