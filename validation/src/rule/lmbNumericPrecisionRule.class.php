@@ -46,8 +46,6 @@ class lmbNumericPrecisionRule extends lmbSingleFieldRule
 
   function check($value)
   {
-    $value = sprintf('%f', $value);
-
     if (preg_match('/^[+-]?(\d*)\.?(\d*)$/', $value, $match))
     {
       if (strlen($match[1]) > $this->whole_digits)
