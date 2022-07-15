@@ -32,23 +32,28 @@ class lmbARRecordSetDecorator extends lmbCollectionDecorator
     $this->lazy_attributes = $lazy_attributes;
     $this->use_proxy = $use_proxy;
 
-    parent :: __construct($record_set);
+    parent::__construct($record_set);
   }
 
   function current()
   {
-    if(!$record = parent :: current())
+    if(!$record = parent::current())
       return null;
 
-    return self :: createObjectFromRecord($record, $this->class_path, $this->conn, $this->lazy_attributes, $this->use_proxy);
+    return self::createObjectFromRecord($record, $this->class_path, $this->conn, $this->lazy_attributes, $this->use_proxy);
   }
 
   function at($pos)
   {
-    if(!$record = parent :: at($pos))
+    if( $pos == 'count' )
+    {
+      return self::count();
+    }
+
+    if(!$record = parent::at($pos))
       return null;
 
-    return self :: createObjectFromRecord($record, $this->class_path, $this->conn, $this->lazy_attributes, $this->use_proxy);
+    return self::createObjectFromRecord($record, $this->class_path, $this->conn, $this->lazy_attributes, $this->use_proxy);
   }
 
   function getIds()
@@ -61,9 +66,9 @@ class lmbARRecordSetDecorator extends lmbCollectionDecorator
 
   static function createObjectFromRecord($record, $default_class_name, $conn, $lazy_attributes = null, $use_proxy = false)
   {
-    if($path = $record->get(lmbActiveRecord :: getInheritanceField()))
+    if($path = $record->get(lmbActiveRecord::getInheritanceField()))
     {
-      $class_name = lmbActiveRecord :: getInheritanceClass($record);
+      $class_name = lmbActiveRecord::getInheritanceClass($record);
 
       if(!class_exists($class_name))
         throw new lmbException("Class '$class_name' not found");

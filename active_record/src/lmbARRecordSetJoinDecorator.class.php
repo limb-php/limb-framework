@@ -33,7 +33,7 @@ class lmbARRecordSetJoinDecorator extends lmbCollectionDecorator
     $this->join_relations = $join_relations;
     $this->prefix = $prefix;
 
-    parent :: __construct($record_set);
+    parent::__construct($record_set);
   }
 
   function rewind()
@@ -49,12 +49,12 @@ class lmbARRecordSetJoinDecorator extends lmbCollectionDecorator
         $this->iterator = new lmbARRecordSetAttachDecorator($this->iterator, $object, $this->conn, $params['attach'], $relation_name . '__');
     }
 
-    parent :: rewind();
+    parent::rewind();
   }
 
   function current()
   {
-    if(!$record = parent :: current())
+    if(!$record = parent::current())
       return null;
 
     $this->_extractPrefixedFieldsAsActiveRecords($record);
@@ -73,7 +73,7 @@ class lmbARRecordSetJoinDecorator extends lmbCollectionDecorator
 
       $fields = new lmbSet();
       $prefix = $this->prefix . $relation_name . '__';
-      
+
       if($record instanceof lmbActiveRecord)
         $data = $record->exportRaw();
       else
@@ -89,14 +89,19 @@ class lmbARRecordSetJoinDecorator extends lmbCollectionDecorator
         }
       }
 
-      $related_object = lmbARRecordSetDecorator :: createObjectFromRecord($fields, $relation_info['class'], $this->conn); 
+      $related_object = lmbARRecordSetDecorator::createObjectFromRecord($fields, $relation_info['class'], $this->conn);
       $record->set($this->prefix . $relation_name, $related_object);
     }
   }
 
   function at($pos)
   {
-    if(!$record = parent :: at($pos))
+    if( $pos == 'count' )
+    {
+      return self::count();
+    }
+
+    if(!$record = parent::at($pos))
       return null;
 
     $this->_extractPrefixedFieldsAsActiveRecords($record);

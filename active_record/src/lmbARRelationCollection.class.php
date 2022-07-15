@@ -39,12 +39,12 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
     $this->owner = $owner;
     $this->relation_info = $owner->getRelationInfo($relation);
     if($criteria)
-      $this->default_params['criteria'] = lmbSQLCriteria :: objectify($criteria);
+      $this->default_params['criteria'] = lmbSQLCriteria::objectify($criteria);
 
     if(is_object($conn))
       $this->conn = $conn;
     else
-      $this->conn = lmbToolkit :: instance()->getDefaultDbConnection();
+      $this->conn = lmbToolkit::instance()->getDefaultDbConnection();
 
     $this->reset();
   }
@@ -57,7 +57,7 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
 
   function setCriteria($criteria)
   {
-    $this->criteria = lmbSQLCriteria :: objectify($criteria);
+    $this->criteria = lmbSQLCriteria::objectify($criteria);
   }
 
   function reset()
@@ -295,6 +295,11 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
 
   function at($pos)
   {
+    if( $pos == 'count' )
+    {
+      return self::count();
+    }
+
     $this->_ensureDataset();
     return $this->dataset->at($pos);
   }
