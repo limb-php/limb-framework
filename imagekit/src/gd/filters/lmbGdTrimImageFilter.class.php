@@ -16,7 +16,7 @@ use limb\imagekit\src\lmbAbstractImageContainer;
  * @package imagekit
  * @version $Id: $
  */
-class lmbGdEdgeImageFilter extends lmbAbstractImageFilter
+class lmbGdTrimImageFilter extends lmbAbstractImageFilter
 {
   function apply(lmbAbstractImageContainer $container)
   {
