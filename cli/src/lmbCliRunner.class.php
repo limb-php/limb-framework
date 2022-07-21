@@ -2,13 +2,14 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 namespace limb\cli\src;
 
 use limb\cli\src\lmbCliBaseCmd;
+use limb\core\src\exception\lmbException;
 
 @define('LIMB_CLI_INCLUDE_PATH', 'cli;limb/*/cli');
 
@@ -35,12 +36,12 @@ class lmbCliRunner
 
   static function commandToClass($name)
   {
-    return lmb_camel_case(self :: sanitizeName($name)) . 'CliCmd';
+    return lmb_camel_case(self::sanitizeName($name)) . 'CliCmd';
   }
 
   static function actionToMethod($name)
   {
-    return lmb_camel_case(self :: sanitizeName($name));
+    return lmb_camel_case(self::sanitizeName($name));
   }
 
   static function sanitizeName($name)
@@ -79,7 +80,7 @@ class lmbCliRunner
 
     if($arg = $this->input->getArgument(1))
     {
-      $method = self :: actionToMethod($arg);
+      $method = self::actionToMethod($arg);
       if(method_exists($command, $method))
       {
         $action = $method;
@@ -110,14 +111,10 @@ class lmbCliRunner
     $items = explode(';', $this->search_path);
     foreach($items as $item)
     {
-      $class = self :: commandToClass($command_name);
-      $path = $item . '/' . $class . '.class.php';
+      $class = self::commandToClass($command_name);
+      //$path = $item . '/' . $class . '.class.php';
 
-      if($resolved = lmb_glob($path))
-      {
-        require_once($resolved[0]);
-        return new $class($this->output);
-      }
+      return new $class($this->output);
     }
   }
 }

@@ -249,7 +249,7 @@ class lmbObject implements lmbSetInterface
 
   protected function _isGuarded($property)
   {
-    return isset($property{0}) ? $property{0} == '_' : false;
+    return isset($property[0]) ? $property[0] == '_' : false;
   }
 
   /**#@+

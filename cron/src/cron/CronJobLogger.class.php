@@ -2,6 +2,8 @@
 namespace limb\cron\src\cron;
 
 use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\lmbTableGateway;
 
 class CronJobLogger
 {

@@ -26,9 +26,9 @@ class lmbFs
 
   static function safeWrite($file, $content, $perm=0664)
   {
-    self :: mkdir(dirname($file));
+    self::mkdir(dirname($file));
 
-    $tmp = self :: generateTmpFile('_');
+    $tmp = self::generateTmpFile('_');
     $fh = fopen($tmp, 'w');
 
     if($fh === false)
@@ -43,7 +43,7 @@ class lmbFs
     //flock($fh, LOCK_UN); // The lock is released also by fclose()
     fclose($fh);
 
-    if(lmbSys :: isWin32() && file_exists($file))
+    if(lmbSys::isWin32() && file_exists($file))
       unlink($file);
 
     if(!rename($tmp, $file))
@@ -426,13 +426,13 @@ class lmbFs
 
   static function isPathAbsolute($path, $fs_type = self :: LOCAL)
   {
-    switch(self :: _concreteSeparatorType($fs_type))
+    switch(self::_concreteSeparatorType($fs_type))
     {
       case self :: UNIX:
-        return $path{0} == '/';
+        return $path[0] == '/';
       case self :: DOS:
-        return $path{0} == '/' ||
-               $path{0} == "\\" ||
+        return $path[0] == '/' ||
+               $path[0] == "\\" ||
                preg_match('~^[a-zA-Z]+:~', $path);
     }
   }

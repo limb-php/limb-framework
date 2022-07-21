@@ -2,6 +2,9 @@
 namespace limb\cron\src\controller;
 
 use limb\web_app\src\controller\lmbController;
+use limb\cron\src\cron\CronJobLogger;
+use limb\dbal\src\lmbTableGateway;
+use limb\dbal\src\criteria\lmbSQLCriteria;
 
 class AdminCronJobController extends lmbController
 {
@@ -47,11 +50,11 @@ class AdminCronJobController extends lmbController
 
     $job_name = $this->request->get('job_name');
     if('' != $job_name)
-      $criteria->addAnd(lmbSQLCriteria :: equal('name', $job_name));
+      $criteria->addAnd(lmbSQLCriteria::equal('name', $job_name));
 
     if((bool)$this->request->get('only_failed'))
     {
-      $criteria->addAnd(lmbSQLCriteria :: in('status', array(
+      $criteria->addAnd(lmbSQLCriteria::in('status', array(
         CronJobLogger::STATUS_ERROR,
         CronJobLogger::STATUS_EXCEPTION,
         CronJobLogger::STATUS_CONFLICT,
