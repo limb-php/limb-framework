@@ -73,11 +73,11 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
     if($persistent)
     {
-      $conn = @pg_pconnect($connstr);
+      $conn = pg_pconnect($connstr);
     }
     else
     {
-      $conn = @pg_connect($connstr);
+      $conn = pg_connect($connstr);
     }
 
     if(!is_resource($conn))
@@ -102,7 +102,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
   {
     if($this->connectionId)
     {
-      @pg_close($this->connectionId);
+      pg_close($this->connectionId);
       $this->connectionId = null;
     }
   }
@@ -114,7 +114,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
   function execute($sql)
   {
-    $result = @pg_query($this->getConnectionId(), $sql);
+    $result = pg_query($this->getConnectionId(), $sql);
     if($result === false)
     {
       $this->_raiseError($sql);
@@ -206,7 +206,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
   function isValid()
   {
-    return @pg_ping($this->getConnectionId());
+    return pg_ping($this->getConnectionId());
   }
 }
 
