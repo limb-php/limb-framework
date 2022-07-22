@@ -2,11 +2,13 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/dbal/src/drivers/lmbDbStatement.interface.php');
+namespace limb\dbal\src\drivers\pgsql;
+
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 
 /**
  * class lmbPgsqlStatement.
@@ -29,7 +31,7 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
     $this->sql = $sql;
     $this->connection = $connection;
   }
-  
+
   function setConnection($connection)
   {
     $this->connection = $connection;
@@ -54,7 +56,7 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
   {
     $this->parameters[$name] = is_null($value) ?  null : intval($value);
   }
-  
+
   function setFloat($name, $value)
   {
     $this->parameters[$name] = is_null($value) ?
@@ -111,7 +113,7 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
     $this->parameters[$name] = is_null($value) ?
     null : $value;
   }
-  
+
   function setClob($name, $value)
   {
     $this->parameters[$name] = is_null($value) ?
@@ -133,8 +135,8 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
       $this->parameters[$name] = null;
     }
   }
-  
-  
+
+
   function setDate($name, $value)
   {
     $this->_setDate($name, $value, 'Y-m-d');
@@ -150,14 +152,14 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
     $this->_setDate($name, $value, 'Y-m-d H:i:s');
   }
 
-  
+
   function setBlob($name, $value)
   {
     $this->parameters[$name] = is_null($value) ?
     null :
     (string) $value;
   }
-  
+
   function set($name, $value)
   {
     if(is_string($value))
@@ -195,7 +197,7 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
     $this->_prepareStatement();
     return $this->statement;
   }
-  
+
   protected function _prepareStatement()
   {
     $sql = $this->_handleBindVars($this->sql);
@@ -203,15 +205,15 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
     {
       $this->statement_name = "pgsql_statement_" . $this->connection->getStatementNumber();
       $this->statement = pg_prepare($this->connection->getConnectionId(), $this->statement_name, $sql);
-    }    
+    }
     if(!$this->statement)
     {
       $this->connection->_raiseError("");
       return;
     }
   }
-  
-  
+
+
   protected function _handleBindVars($sql)
   {
     $this->prepParams = array();
@@ -235,7 +237,7 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
         if ($cast_types)
         {
           $this->statement_name = null;
-          $newsql .= '::'; 
+          $newsql .= '::';
           if (is_null($this->parameters[$param]))
           {
             $newsql .= 'int';
@@ -262,25 +264,25 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
     }
     return $newsql;
   }
-  
+
   function getSQL()
   {
     return $this->sql;
   }
 
-  
-  
+
+
   function getPrepParams()
   {
     return $this->prepParams;
   }
-  
+
   function getStatementName()
   {
     $this->getStatement();
     return $this->statement_name;
   }
-  
+
   function execute($sql = "")
   {
     if (!empty($sql))
@@ -297,7 +299,7 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
     }
     return $queryId;
   }
-  
+
   function addOrder($sort_params)
   {
     if(preg_match('~(?<=FROM).+\s+ORDER\s+BY\s+~i', $this->sql))
@@ -310,31 +312,31 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
 
     $this->sql = rtrim($this->sql, ',');
   }
-  
+
   function addLimit($offset, $limit)
   {
      $this->sql .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
   }
-  
+
   function count()
   {
     if (!$this->queryId)
       $this->queryId = $this->execute();
-      
+
     return pg_num_rows($this->queryId);
   }
-  
+
   function free()
   {
     if ($this->queryId && is_resource($this->queryId))
       pg_free_result($this->queryId);
-      
+
     $this->queryId = null;
     $this->statement = null;
-    $this->statement_name = null;      
+    $this->statement_name = null;
   }
-  
-  
+
+
 }
 
 

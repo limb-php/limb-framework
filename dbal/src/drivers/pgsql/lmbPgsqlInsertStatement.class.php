@@ -2,12 +2,13 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/dbal/src/drivers/lmbDbInsertStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbPgsqlManipulationStatement.class.php');
+namespace limb\dbal\src\drivers\pgsql;
+
+use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
 
 /**
  * class lmbPgsqlInsertStatement.
@@ -15,7 +16,7 @@ lmb_require(dirname(__FILE__) . '/lmbPgsqlManipulationStatement.class.php');
  * @package dbal
  * @version $Id: lmbPgsqlInsertStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
  */
-class lmbPgsqlInsertStatement extends lmbPgsqlManipulationStatement implements lmbDbInsertStatement
+class lmbPgsqlInsertStatement extends lmbPgsqlManipulationStatement implements lmbDbInsertStatementInterface
 {
   function insertId($field_name = 'id')
   {

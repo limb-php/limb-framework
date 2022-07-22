@@ -2,13 +2,14 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\dbal\src\drivers\pgsql;
 
-lmb_require('limb/dbal/src/drivers/lmbDbBaseRecordSet.class.php');
-lmb_require('limb/dbal/src/drivers/pgsql/lmbPgsqlRecord.class.php');
+use limb\dbal\src\drivers\lmbDbBaseRecordSet;
+use limb\dbal\src\drivers\pgsql\lmbPgsqlRecord;
 
 /**
  * class lmbPgsqlRecordSet.
@@ -90,7 +91,7 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
   {
     return $this->key;
   }
-  
+
   function at($pos)
   {
     $stmt = clone $this->stmt;
@@ -102,7 +103,7 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
     $queryId = $stmt->execute();
     $res = pg_fetch_assoc($queryId);
     pg_free_result($queryId);
-    
+
     if($res)
     {
       $record = new lmbPgsqlRecord();
@@ -110,7 +111,7 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
       return $record;
     }
   }
-  
+
 
   function countPaginated()
   {

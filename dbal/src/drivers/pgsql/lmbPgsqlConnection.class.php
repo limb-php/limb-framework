@@ -6,17 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\dbal\src\drivers\pgsql;
 
 use limb\core\src\exception\lmbException;
-
-lmb_require('limb/dbal/src/drivers/lmbDbBaseConnection.class.php');
-lmb_require(dirname(__FILE__) . '/lmbPgsqlQueryStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbPgsqlDropStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbPgsqlInsertStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbPgsqlManipulationStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbPgsqlStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbPgsqlDbInfo.class.php');
-lmb_require(dirname(__FILE__) . '/lmbPgsqlTypeInfo.class.php');
+use limb\dbal\src\drivers\lmbDbBaseConnection;
 
 /**
  * class lmbPgsqlConnection.
@@ -42,7 +35,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     }
     return $this->connectionId;
   }
-  
+
   function getStatementNumber()
   {
       return ++$this->statement_number;
@@ -128,7 +121,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     }
     return $result;
   }
-  
+
   function executeStatement($stmt)
   {
       $stmt_name = $stmt->getStatementName();
@@ -210,7 +203,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     $seq = "{$table}_{$colname}_seq";
     return (int)$this->newStatement("SELECT currval('$seq')")->getOneValue();
   }
-  
+
   function isValid()
   {
     return @pg_ping($this->getConnectionId());
