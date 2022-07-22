@@ -50,10 +50,10 @@ class lmbSet implements lmbSetInterface
 
     return $value;
   }
-  
+
   function getFloat($name)
   {
-    return (float) str_replace(',', '.', $this->get($name)); 
+    return (float) str_replace(',', '.', $this->get($name));
   }
 
   function set($name, $value)
@@ -130,7 +130,7 @@ class lmbSet implements lmbSetInterface
 
   protected function _isGuarded($property)
   {
-    return $property && $property{0} == '_';
+    return $property && $property[0] == '_';
   }
 
   //ArrayAccess interface

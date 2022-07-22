@@ -211,7 +211,7 @@ class lmbUri extends lmbSet
     if(!strlen($this->path))
       return true;
 
-    return ('/' == $this->path{0});
+    return ('/' == $this->path[0]);
   }
 
   function isRelative()

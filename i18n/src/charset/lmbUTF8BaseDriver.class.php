@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 namespace limb\i18n\src\charset;
 
@@ -61,7 +61,7 @@ class lmbUTF8BaseDriver
     */
     function isASCII($str) {
         for($i = 0; $i < strlen($str); $i++)
-        if (ord($str{$i}) > 127) return false;
+        if (ord($str[$i]) > 127) return false;
 
         return true;
     }
@@ -76,8 +76,8 @@ class lmbUTF8BaseDriver
     function UTF8Strip($str) {
         $ascii = '';
         for($i = 0; $i < strlen($str); $i++) {
-            if (ord($str{$i}) < 128)
-                $ascii .= $str{$i};
+            if (ord($str[$i]) < 128)
+                $ascii .= $str[$i];
         }
         return $ascii;
     }

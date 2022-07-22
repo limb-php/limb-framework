@@ -49,8 +49,8 @@ function lmb_is_path_absolute($path)
     return false;
 
   //very trivial check, is more comprehensive one required?
-  return (($path{0} == '/' || $path{0} == '\\') ||
-          (strlen($path) > 2 && $path{1} == ':'));
+  return (($path[0] == '/' || $path[0] == '\\') ||
+          (strlen($path) > 2 && $path[1] == ':'));
 }
 
 function lmb_autoload($class)
