@@ -26,7 +26,7 @@ class lmbPgsqlManipulationStatement extends lmbPgsqlStatement implements lmbDbMa
       return pg_affected_rows($this->queryId);
   }
 
-  function execute()
+  function execute($sql = "")
   {
     $this->queryId = parent :: execute();
     return $this->queryId;
