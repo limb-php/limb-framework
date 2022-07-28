@@ -1,11 +1,12 @@
 <?php
+require_once(dirname(__FILE__) . '/../../../lmb-setup.php');
 
-require_once(dirname(__FILE__) . '/../../../../setup.php');
-lmb_require('limb/core/src/lmbBacktrace.class.php');
-lmb_require('limb/core/src/lmbCollection.class.php');
-lmb_require('limb/fs/src/lmbFS.class.php');
-lmb_require('bit-cms/cron/src/cron/CronJobLogger.class.php');
-/** Превед багу */
+use limb\core\src\lmbBacktrace;
+use limb\core\src\lmbCollection;
+use limb\fs\src\lmbFs;
+use limb\cron\src\cron\CronJobLogger;
+use limb\core\src\exception\lmbException;
+
 new lmbBacktrace;
 
 function write_error_in_log($errno, $errstr, $errfile, $errline)
@@ -20,7 +21,7 @@ $debug_mode = false;
 if(in_array('-d', $argv))
   $debug_mode = true;
 
-//set_error_handler('write_error_in_log');
+set_error_handler('write_error_in_log');
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 ini_set('memory_limit', -1);
@@ -53,27 +54,27 @@ if(!flock($fp, LOCK_EX + LOCK_NB))
 
 flock($fp, LOCK_EX + LOCK_NB);
 
-  try {
-    lmb_require($parsed_cron_job_path['cron_job_file_path']);
-    $job  = new $parsed_cron_job_path['cron_job_class'];
+try {
+  require($parsed_cron_job_path['cron_job_file_path']);
+  $job  = new $parsed_cron_job_path['cron_job_class'];
 
-    if(!in_array('-ld', $argv))
-      $logger->makeStartRecord();
+  if(!in_array('-ld', $argv))
+    $logger->makeStartRecord();
 
-    ob_start();
-      echo $parsed_cron_job_path['cron_job_class'] . ' started' . PHP_EOL;
-      $result = $job->run();
-      $output = ob_get_contents();
-    ob_end_clean();
+  ob_start();
+  echo $parsed_cron_job_path['cron_job_class'] . ' started' . PHP_EOL;
+  $result = $job->run();
+  $output = ob_get_contents();
+  ob_end_clean();
 
-    if(!in_array('-ld', $argv))
-      $logger->makeEndRecord($result, $output);
-  }
-  catch (lmbException $e)
-  {
-    $logger->makeExceptionRecord($e->getNiceTraceAsString());
-    throw $e;
-  }
+  if(!in_array('-ld', $argv))
+    $logger->makeEndRecord($result, $output);
+}
+catch (lmbException $e)
+{
+  $logger->makeExceptionRecord($e->getNiceTraceAsString());
+  throw $e;
+}
 
 flock($fp, LOCK_UN);
 fclose($fp);
