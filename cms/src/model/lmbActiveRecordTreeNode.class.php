@@ -1,8 +1,8 @@
 <?php
 namespace limb\cms\src\model;
 
-lmb_require('limb/active_record/src/lmbActiveRecord.class.php');
-lmb_require('limb/tree/src/lmbMPTree.class.php');
+use limb\active_record\src\lmbActiveRecord;
+use limb\tree\src\lmbMPTree;
 
 abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
 {

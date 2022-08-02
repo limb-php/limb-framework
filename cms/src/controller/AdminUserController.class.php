@@ -1,13 +1,13 @@
 <?php
 namespace limb\cms\src\controller;
 
-lmb_require('limb/cms/src/controller/lmbAdminObjectController.class.php');
-lmb_require('limb/validation/src/rule/lmbMatchRule.class.php');
-lmb_require('limb/cms/src/model/lmbCmsUser.class.php');
+use limb\cms\src\controller\lmbAdminObjectController;
+use limb\validation\src\rule\lmbMatchRule;
+use limb\cms\src\model\lmbCmsUser;
 
 class AdminUserController extends lmbAdminObjectController
 {
-  protected $_object_class_name = 'lmbCmsUser';
+  protected $_object_class_name = 'limb\cms\src\model\lmbCmsUser';
 
   function doChangePassword()
   {

@@ -1,11 +1,11 @@
 <?php
 namespace limb\cms\src\controller;
 
-lmb_require('limb/cms/src/controller/lmbAdminObjectController.class.php');
-lmb_require('limb/cms/src/model/lmbCmsSeo.class.php');
+use limb\cms\src\controller\lmbAdminObjectController;
+use limb\cms\src\model\lmbCmsSeo;
 
 class AdminSeoController extends lmbAdminObjectController
 {
-  protected $_object_class_name = 'lmbCmsSeo';
+  protected $_object_class_name = 'limb\cms\src\model\lmbCmsSeo';
 }
 

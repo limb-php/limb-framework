@@ -15,7 +15,10 @@ namespace limb\cms\src\model;
  * @version $Id$
  */
 
-lmb_require("limb/cms/src/model/lmbCmsUserRoles.class.php");
+use limb\cms\src\model\lmbCmsUserRoles;
+use limb\cms\src\validation\rule\lmbCmsUserUniqueFieldRule;
+use limb\validation\src\rule\lmbEmailRule;
+use limb\validation\src\rule\lmbMatchRule;
 
 class lmbCmsUser extends lmbActiveRecord
 {
@@ -35,11 +38,9 @@ class lmbCmsUser extends lmbActiveRecord
     $validator->addRequiredRule('login', 'Поле "Логин" обязательно для заполнения');
     $validator->addRequiredRule('email', 'Поле "E-mail" обязательно для заполнения');
 
-    lmb_require('limb/cms/src/validation/rule/lmbCmsUserUniqueFieldRule.class.php');
     $validator->addRule(new lmbCmsUserUniqueFieldRule('login', $this));
     $validator->addRule(new lmbCmsUserUniqueFieldRule('email', $this));
 
-    lmb_require('limb/validation/src/rule/lmbEmailRule.class.php');
     $validator->addRule(new lmbEmailRule('email', 'Неверный формат поля "E-mail"'));
     return $validator;
   }
@@ -52,7 +53,6 @@ class lmbCmsUser extends lmbActiveRecord
     $validator = $this->_createValidator();
     $validator->addRequiredRule('password', 'Поле "Пароль" обязательно для заполнения');
 
-    lmb_require('limb/validation/src/rule/lmbMatchRule.class.php');
     $validator->addRule(new lmbMatchRule('password', 'repeat_password', 'Значения полей "Пароль" и "Подтверждение пароля" не совпадают'));
 
     return $validator;

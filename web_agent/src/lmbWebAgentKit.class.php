@@ -20,8 +20,7 @@ class lmbWebAgentKit {
   {
     $class = 'lmb'.ucfirst($req).'WebAgentRequest';
 
-    $class_path = dirname(__FILE__).'/request/'.$class.'.class.php';
-    lmb_require($class_path);
+    $class_path = 'limb\\web_agent\\src\\request\\'.$class;
 
     return new $class;
   }

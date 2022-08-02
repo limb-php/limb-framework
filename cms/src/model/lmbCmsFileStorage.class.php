@@ -1,8 +1,8 @@
 <?php
 namespace limb\cms\src\model;
 
-lmb_require('limb/fs/src/lmbFs.class.php');
-lmb_require('limb/net/src/lmbMimeType.class.php');
+use limb\fs\src\lmbFs;
+use limb\net\src\lmbMimeType;
 
 class lmbCmsFileStorage
 {

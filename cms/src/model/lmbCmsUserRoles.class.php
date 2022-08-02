@@ -8,7 +8,7 @@
  */
 namespace limb\cms\src\model;
 
-lmb_require('limb/cms/src/model/lmbCmsUserRole.class.php');
+use limb\cms\src\model\lmbCmsUserRole;
 /**
  * class lmbCmsUserRoles.
  *

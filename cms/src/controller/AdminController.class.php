@@ -8,7 +8,7 @@
  */
 namespace limb\cms\src\controller;
 
-lmb_require('limb/web_app/src/controller/lmbController.class.php');
+use limb\web_app\src\controller\lmbController;
 
 /**
  * class AdminController.

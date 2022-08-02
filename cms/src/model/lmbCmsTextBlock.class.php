@@ -1,7 +1,8 @@
 <?php
 namespace limb\cms\src\model;
 
-lmb_require('limb/dbal/src/criteria/lmbSQLCriteria.class.php');
+use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\cms\src\validation\rule\lmbCmsTextBlockUniqueFieldRule;
 
 class lmbCmsTextBlock extends lmbActiveRecord
 {
@@ -15,7 +16,6 @@ class lmbCmsTextBlock extends lmbActiveRecord
     $validator->addRequiredRule('identifier', 'Поле "Идентификатор" обязательно для заполнения');
     $validator->addRequiredRule('content', 'Поле "Текст" обязательно для заполнения');
 
-    lmb_require('limb/cms/src/validation/rule/lmbCmsTextBlockUniqueFieldRule.class.php');
     $validator->addRule(new lmbCmsTextBlockUniqueFieldRule('identifier', $this, 'Текстовый блок со значением поля "Идентификатор" уже существует'));
 
     return $validator;
@@ -27,12 +27,12 @@ class lmbCmsTextBlock extends lmbActiveRecord
     if($block)
       return $block->getContent();
 
-    
+
     if(lmbToolkit::instance()->hasConf('text_blocks') && lmbToolkit::instance()->getConf('text_blocks')->has($identifier))
     {
     	$default_content = lmbToolkit::instance()->getConf('text_blocks')->get($identifier);
     	return $default_content['content'];
-    } 
+    }
 
     return null;
   }

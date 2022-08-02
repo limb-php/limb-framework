@@ -36,8 +36,7 @@
 
     <div id='sidebar'>
       <?php
-        lmb_require('limb/cms/src/fetcher/lmbCmsAdminNavigationFetcher.class.php');
-        $this->navigation=new lmbCmsAdminNavigationFetcher();
+        $this->navigation=new limb\cms\src\fetcher\lmbCmsAdminNavigationFetcher();
         $this->navigation=$this->navigation->fetch();
       ?>
       <dl id='main_menu'>

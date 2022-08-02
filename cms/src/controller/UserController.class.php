@@ -1,10 +1,10 @@
 <?php
 namespace limb\cms\src\controller;
 
-lmb_require('limb/web_app/src/controller/lmbController.class.php');
-lmb_require('limb/mail/src/lmbMailer.class.php');
-lmb_require('limb/cms/src/model/lmbCmsUser.class.php');
-lmb_require('limb/view/src/lmbMacroView.class.php');
+use limb\web_app\src\controller\lmbController;
+use limb\mail\src\lmbMailer;
+use limb\cms\src\model\lmbCmsUser;
+use limb\view\src\lmbMacroView;
 
 class UserController extends lmbController
 {
@@ -40,7 +40,7 @@ class UserController extends lmbController
 
   function doApprove()
   {
-    if(!$user = lmbActiveRecord :: findFirst('lmbCmsUser', array('generated_password = ?', $this->request->get('id'))))
+    if(!$user = lmbCmsUser::findFirst( array('generated_password = ?', $this->request->get('id'))))
       return $this->flashAndRedirect('Вы прошли по неверной ссылке! Убедитесь, что она соответствует ссылке в отправленном вам письме', '/user/forgot_password');
 
     $user->setHashedPassword($user->getGeneratedPassword());
@@ -77,5 +77,3 @@ class UserController extends lmbController
     $this->response->redirect('/');
   }
 }
-
-?>

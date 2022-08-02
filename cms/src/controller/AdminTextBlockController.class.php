@@ -1,13 +1,13 @@
 <?php
 namespace limb\cms\src\controller;
 
-lmb_require('limb/cms/src/controller/lmbAdminObjectController.class.php');
-lmb_require('limb/cms/src/model/lmbCmsTextBlock.class.php');
+use limb\cms\src\controller\lmbAdminObjectController;
+use limb\cms\src\model\lmbCmsTextBlock;
 
 class AdminTextBlockController extends lmbAdminObjectController
 {
   protected $_form_name = 'object_form';
-  protected $_object_class_name = 'lmbCmsTextBlock';
+  protected $_object_class_name = 'limb\cms\src\model\lmbCmsTextBlock';
 
   public function doDisplay()
   {

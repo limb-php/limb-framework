@@ -17,14 +17,14 @@ if(!isset($argv[1]))
 $path = $_SERVER['LIMB_PROJECT_DIR'];
 require_once($path . '/setup.php');
 
-lmb_require('limb/net/src/lmbUri.class.php');
-lmb_require('limb/web_spider/src/lmbWebSpider.class.php');
-lmb_require('limb/web_spider/src/lmbUriFilter.class.php');
-lmb_require('limb/web_spider/src/lmbContentTypeFilter.class.php');
-lmb_require('limb/web_spider/src/lmbSearchIndexingObserver.class.php');
-lmb_require('limb/search/src/indexer/lmbFullTextSearchIndexer.class.php');
-lmb_require('limb/search/src/indexer/lmbSearchTextNormalizer.class.php');
-lmb_require('limb/web_spider/src/lmbUriNormalizer.class.php');
+use limb\net\src\lmbUri;
+use limb\web_spider\src\lmbWebSpider;
+use limb\web_spider\src\lmbUriFilter;
+use limb\web_spider\src\lmbContentTypeFilter;
+use limb\web_spider\src\lmbSearchIndexingObserver;
+use limb\search\src\indexer\lmbFullTextSearchIndexer;
+use limb\search\src\indexer\lmbSearchTextNormalizer;
+use limb\web_spider\src\lmbUriNormalizer;
 
 $uri = new lmbUri($argv[1]);
 

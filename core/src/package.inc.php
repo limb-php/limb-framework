@@ -20,7 +20,7 @@ function lmb_package_require($name, $packages_dir = '')
 
   $main_file_path = $packages_dir . $name . '/common.inc.php';
   try {
-    lmb_require($packages_dir . $name . '/common.inc.php');
+    require($packages_dir . $name . '/common.inc.php');
   }
   catch(lmbException $e)
   {
@@ -63,5 +63,6 @@ function lmb_packages_list()
 function lmb_require_package_class($package, $path_in_package_src)
 {
   $file_path = lmb_package_get_path($package).'/src/'.$path_in_package_src.'.class.php';
-  lmb_require($file_path);
+
+  require($file_path);
 }

@@ -6,11 +6,12 @@ if(file_exists('./setup.php'))
   require_once('./setup.php');
 
 require_once('limb/cli/common.inc.php');
-lmb_require('limb/cli/src/lmbCliResponse.class.php');
-lmb_require('limb/cli/src/lmbCliInput.class.php');
-lmb_require('limb/cli/src/lmbCliOption.class.php');
-lmb_require('limb/cli/src/lmbCliException.class.php');
-lmb_require('limb/cli/src/lmbCliRunner.class.php');
+
+use limb\cli\src\lmbCliResponse;
+use limb\cli\src\lmbCliInput;
+use limb\cli\src\lmbCliOption;
+use limb\cli\src\lmbCliException;
+use limb\cli\src\lmbCliRunner;
 
 $output = new lmbCliResponse();
 $output->setVerbose(true);

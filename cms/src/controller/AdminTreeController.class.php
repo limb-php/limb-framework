@@ -1,8 +1,9 @@
 <?php
 namespace limb\cms\src\controller;
 
-lmb_require('limb/web_app/src/controller/lmbController.class.php');
-lmb_require('limb/cms/src/lmbCmsTreeBrowser.class.php');
+use limb\web_app\src\controller\lmbController;
+use limb\cms\src\lmbCmsTreeBrowser;
+use limb\cms\src\model\lmbCmsNode;
 
 class AdminTreeController extends lmbController
 {

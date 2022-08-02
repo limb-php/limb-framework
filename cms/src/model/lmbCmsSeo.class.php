@@ -3,20 +3,19 @@ namespace limb\cms\src\model;
 
 use limb\core\src\lmbObject;
 use limb\active_record\src\lmbActiveRecord;
+use limb\cms\src\validation\rule\lmbCmsUniqueFieldRule;
 
 class lmbCmsSeo extends lmbActiveRecord
 {
   protected $_db_table_name = 'lmb_cms_seo';
   protected static $_meta;
-  
+
   protected function _createValidator()
   {
-    lmb_require('limb/cms/src/validation/rule/lmbCmsUniqueFieldRule.class.php');
-    
     $validator = new lmbValidator();
 
     $validator->addRequiredRule('title', '"Title" обязательное поле');
-    
+
     $validator->addRequiredRule('url', '"Url" обязательное поле');
     $validator->addRule(new lmbCmsUniqueFieldRule('url', 'lmbCmsSeo', $this, '"Url" должен быть уникальным'));
 
@@ -71,8 +70,8 @@ class lmbCmsSeo extends lmbActiveRecord
     $sql = 'SELECT keywords, description, title FROM lmb_cms_seo WHERE url = \'/\' OR ';
 
     for($i = 1; $i < $count_path; $i++)
-      $sql .= ' url = \'' . self :: getDefaultConnection()->escape($uri->getPathToLevel($i)) . '\'' . ($i < $count_path - 1? ' OR ':''); 
-    
+      $sql .= ' url = \'' . self :: getDefaultConnection()->escape($uri->getPathToLevel($i)) . '\'' . ($i < $count_path - 1? ' OR ':'');
+
     $sql .= ' ORDER BY url DESC LIMIT 1';
     $meta = lmbDBAL :: fetchOneRow($sql);
 

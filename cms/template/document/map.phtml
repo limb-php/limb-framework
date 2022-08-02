@@ -9,14 +9,10 @@
     <div class="breadcrumbs"><a href="/">Начало</a>&nbsp;&raquo;&nbsp;Карта сайта</div>
 
     <?php
-
-      lmb_require('limb/tree/src/lmbTreeNestedCollection.class.php');
-      lmb_require('limb/tree/src/lmbTreeHelper.class.php');
-
       $docs = lmbActiveRecord::find('lmbCmsDocument', lmbSQLCriteria::equal('is_published', 1)->addAnd(new lmbSQLCriteria('level > 0')));
-      $sorted_docs = lmbTreeHelper :: sort($docs, array('id' => 'ASC'));
+      $sorted_docs = limb\tree\src\lmbTreeHelper :: sort($docs, array('id' => 'ASC'));
 
-      $processed_docs = new lmbTreeNestedCollection($sorted_docs);
+      $processed_docs = new limb\tree\src\lmbTreeNestedCollection($sorted_docs);
       $processed_docs->setChildrenField('preloaded_children');
       $processed_docs->rewind();
 

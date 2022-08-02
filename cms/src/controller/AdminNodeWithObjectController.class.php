@@ -8,8 +8,8 @@
  */
 namespace limb\cms\src\controller;
 
-lmb_require('limb/web_app/src/controller/lmbController.class.php');
-lmb_require('limb/cms/src/model/lmbCmsNode.class.php');
+use limb\web_app\src\controller\lmbController;
+use limb\cms\src\model\lmbCmsNode;
 
 /**
  * abstract class AdminNodeWithObjectController.
@@ -21,7 +21,7 @@ abstract class AdminNodeWithObjectController extends lmbController
 {
   protected $_form_name = 'object_form';
   protected $_controller_name = '';
-  protected $_node_class_name = 'lmbCmsNode';
+  protected $_node_class_name = 'limb\cms\src\model\lmbCmsNode';
   protected $_object_class_name = '';
   protected $_generate_identifier = false;
 

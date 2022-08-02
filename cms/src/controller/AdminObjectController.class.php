@@ -8,7 +8,7 @@
  */
 namespace limb\cms\src\controller;
 
-lmb_require('limb/web_app/src/controller/lmbController.class.php');
+use limb\web_app\src\controller\lmbController;
 
 /**
  * abstract class AdminObjectController.
@@ -102,12 +102,12 @@ abstract class AdminObjectController extends lmbController
 
   function performPublishCommand()
   {
-    $this->performCommand('limb/cms/src/command/lmbCmsPublishObjectCommand', $this->_object_class_name);
+    $this->performCommand('limb\cms\src\command\lmbCmsPublishObjectCommand', $this->_object_class_name);
   }
 
   function performUnpublishCommand()
   {
-    $this->performCommand('limb/cms/src/command/lmbCmsUnpublishObjectCommand', $this->_object_class_name);
+    $this->performCommand('limb\cms\src\command\lmbCmsUnpublishObjectCommand', $this->_object_class_name);
   }
 
   protected function _import()
