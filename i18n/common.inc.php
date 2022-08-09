@@ -11,8 +11,8 @@
  * @package i18n
  * @version $Id: common.inc.php 8042 2010-01-19 20:53:10Z korchasa $
  */
-require_once('limb/core/common.inc.php');
-require_once('limb/fs/common.inc.php');
+require_once(dirname(__FILE__) . '/../core/common.inc.php');
+require_once(dirname(__FILE__) . '/../fs/common.inc.php');
 
 use limb\toolkit\src\lmbToolkit;
 use limb\i18n\src\toolkit\lmbI18NTools;
@@ -24,7 +24,7 @@ function lmb_i18n($text, $arg1 = null, $arg2 = null)
   static $toolkit;
 
   if(!$toolkit)
-    $toolkit = limb\toolkit\src\lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
 
   return $toolkit->translate($text, $arg1, $arg2);
 }

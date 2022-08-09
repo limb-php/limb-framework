@@ -11,9 +11,9 @@
  * @package config
  * @version $Id: common.inc.php 8038 2010-01-19 20:19:00Z korchasa $
  */
-require_once('limb/core/common.inc.php');
+require_once(dirname(__FILE__) . '/../core/common.inc.php');
 
 use limb\toolkit\src\lmbToolkit;
 use limb\config\src\lmbConfTools;
 
-lmbToolkit :: merge(new lmbConfTools());
+lmbToolkit::merge(new lmbConfTools());

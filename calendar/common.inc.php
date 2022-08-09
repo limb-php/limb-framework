@@ -11,4 +11,4 @@
  * @package calendar
  * @version $Id$
  */
-require_once('limb/core/common.inc.php');
+require_once(dirname(__FILE__) . '/../core/common.inc.php');

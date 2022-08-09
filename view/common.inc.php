@@ -11,10 +11,10 @@
  * @package view
  * @version $Id$
  */
-require_once('limb/core/common.inc.php');
-require_once('limb/toolkit/common.inc.php');
-require_once('limb/fs/common.inc.php');
-require_once('limb/config/common.inc.php');
+require_once(dirname(__FILE__) . '/../core/common.inc.php');
+require_once(dirname(__FILE__) . '/../toolkit/common.inc.php');
+require_once(dirname(__FILE__) . '/../fs/common.inc.php');
+require_once(dirname(__FILE__) . '/../config/common.inc.php');
 
 use limb\toolkit\src\lmbToolkit;
 use limb\view\src\toolkit\lmbViewTools;

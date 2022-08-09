@@ -11,9 +11,9 @@
  * @package cache
  * @version $Id: common.inc.php 7486 2009-01-26 19:13:20Z pachanga $
  */
-require_once('limb/core/common.inc.php');
+require_once(dirname(__FILE__) . '/../core/common.inc.php');
 
 use limb\toolkit\src\lmbToolkit;
 use limb\cache\src\lmbCacheTools;
 
-lmbToolkit :: merge(new lmbCacheTools());
+lmbToolkit::merge(new lmbCacheTools());

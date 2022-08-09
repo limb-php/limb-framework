@@ -11,7 +11,7 @@
  * @package active_record
  * @version $Id: common.inc.php 6691 2008-01-15 14:55:59Z serega $
  */
-require_once('limb/core/common.inc.php');
+require_once(dirname(__FILE__) . '/../core/common.inc.php');
 
 use limb\toolkit\src\lmbToolkit;
 use limb\acl\src\toolkit\lmbAclTools;

@@ -14,9 +14,9 @@
 define('LIMB_UNDEFINED', 'undefined' . microtime());
 define('LIMB_PACKAGES_DIR', dirname(__FILE__) . '/../');
 
-require_once('limb/core/src/assert.inc.php');
-require_once('limb/core/src/env.inc.php');
-require_once('limb/core/src/string.inc.php');
+require_once(dirname(__FILE__) . '/src/assert.inc.php');
+require_once(dirname(__FILE__) . '/src/env.inc.php');
+require_once(dirname(__FILE__) . '/src/string.inc.php');
 
 use limb\core\src\exception\lmbException;
 use limb\core\src\lmbBacktrace;

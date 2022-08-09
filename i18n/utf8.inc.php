@@ -11,7 +11,7 @@
  * @package i18n
  * @version $Id: utf8.inc.php 7486 2009-01-26 19:13:20Z pachanga $
  */
-require_once('limb/i18n/src/charset/driver.inc.php');
+require_once(dirname(__FILE__) . '/src/charset/driver.inc.php');
 
 use limb\i18n\src\charset\lmbUTF8BaseDriver;
 use limb\i18n\src\charset\lmbUTF8MbstringDriver;

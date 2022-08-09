@@ -11,4 +11,4 @@
  * @package cli
  * @version $Id: common.inc.php 8036 2010-01-19 20:12:58Z korchasa $
  */
-require_once('limb/core/common.inc.php');
+require_once(dirname(__FILE__) . '/../core/common.inc.php');
