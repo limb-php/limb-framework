@@ -65,22 +65,19 @@ function lmb_autoload($class)
     $found = $fullname;
   }
 
-  /*$fullname = str_replace('\\', DIRECTORY_SEPARATOR, $class).'.class.php';
-  $found = true;*/
-
   if ($found)
   {
     require($fullname);
   }
   else
   {
-      $message = "lmb_autoload: could not include source file '$file'";
+      /*$message = "lmb_autoload: could not include source file '$file'";
       if (class_exists('limb\core\src\exception\lmbException') && class_exists('limb\core\src\lmbBacktrace')) {
         $trace = new lmbBacktrace(20, 1);
         throw new lmbException($message, array('trace' => $trace->toString()));
       } else {
         throw new Exception($message);
-      }
+      }*/
   }
 
 }
