@@ -1,7 +1,7 @@
 {
     "name": "xadminx/limb",
     "description": "Limb4 php framework",
-    "version": "4.0.0-dev",
+    "license": "MIT",
     "type": "project",
     "require": {
         "php" : ">=7.2"
@@ -11,11 +11,11 @@
     },
     "autoload": {
         "files": [
-            'limb/acl/common.inc.php',
-            'limb/active_record/common.inc.php',
-            'limb/cache/common.inc.php',
-            'limb/cache2/common.inc.php',
-            'limb/core/common.inc.php'
+            "limb/acl/common.inc.php",
+            "limb/active_record/common.inc.php",
+            "limb/cache/common.inc.php",
+            "limb/cache2/common.inc.php",
+            "limb/core/common.inc.php"
         ],
         "psr-4": {
             "limb\\": ""
