@@ -6,6 +6,9 @@
     "require": {
         "php" : ">=7.2"
     },
+    "replace": {
+        "limb/auth": "self.version"
+    },
     "autoload": {
         "files": [
             'limb/acl/common.inc.php',
