@@ -7,7 +7,7 @@
         "php" : ">=7.2"
     },
     "replace": {
-        "limb/auth": "self.version"
+        "limb/acl": "self.version"
     },
     "autoload": {
         "files": [
