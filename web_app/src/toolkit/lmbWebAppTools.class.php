@@ -131,10 +131,11 @@ class lmbWebAppTools extends lmbAbstractTools
       $controller_name = $namespace . '\\' . lmb_camel_case($controller_name);
 
     $class = str_replace('\\', DIRECTORY_SEPARATOR, $controller_name);
-    $file = $class . '.class.php';
-    if( stream_resolve_include_path($file) === false ) //if( class_exists($class, false) )
+    //$file = $class . '.class.php';
+    //if( stream_resolve_include_path($file) === false )
+    if( class_exists($class, false) )
     {
-      throw new lmbControllerNotFoundException("web_app: Could not find controller file '$file'");
+      throw new lmbControllerNotFoundException("web_app: Could not find controller class '$class'");
     }
 
     return new $controller_name;
@@ -169,7 +170,7 @@ class lmbWebAppTools extends lmbAbstractTools
   }
 
   function addVersionToUrl($file_src, $safe = false)
-  { 
+  {
     list($file_src, $version) = $this->toolkit->getNormalizeUrlAndVersion($file_src, $safe);
     //return '_/' . $version . '/' . ltrim($file_src, '/');
     return ltrim($file_src, '/') . '?' . $version;
@@ -199,9 +200,9 @@ class lmbWebAppTools extends lmbAbstractTools
     $version = ($version > 0 ? '1' : '0') . base_convert(abs($version), 10, 36);
     return array($file, $version);
   }
-    
+
   function selectDomainForFile($domains, $file_src, $safe = false)
-  { 
+  {
     list($file_src, $version) = $this->toolkit->getNormalizeUrlAndVersion($file_src, $safe);
     return '//' . $domains[floor(fmod(abs(crc32($file_src)), count($domains)))] . '/_/' . $version . '/' . ltrim($file_src, '/');
   }
