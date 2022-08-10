@@ -41,7 +41,7 @@ class lmbConfTools extends lmbAbstractTools
   function hasConf($name)
   {
     try {
-      $this->toolkit->getConf($name);
+      $this->getConf($name);
       return true;
     }
     catch (lmbFileNotFoundException $e)
@@ -64,7 +64,7 @@ class lmbConfTools extends lmbAbstractTools
 
   protected function _locateConfFiles($name)
   {
-    return $this->toolkit->findFileByAlias($name, $this->toolkit->getConfIncludePath(), 'config', false);
+    return $this->toolkit->findFileByAlias($name, $this->getConfIncludePath(), 'config', false);
   }
 
   function getConf($name)

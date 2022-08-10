@@ -157,7 +157,7 @@ class lmbDbTools extends lmbAbstractTools
 
   function setDbConnectionByName($name, $conn)
   {
-    if(!is_object($dsn = $this->toolkit->getDbDSNByName($name)))
+    if(!is_object($dsn = $this->getDbDSNByName($name)))
       throw new lmbException($name . ' database DSN is not valid');
 
     $this->setDbConnectionByDsn($dsn, $conn);
@@ -165,7 +165,7 @@ class lmbDbTools extends lmbAbstractTools
 
   function getDbConnectionByName($name)
   {
-    if(!is_object($dsn = $this->toolkit->getDbDSNByName($name)))
+    if(!is_object($dsn = $this->getDbDSNByName($name)))
       throw new lmbException($name . ' database DSN is not valid');
 
     return $this->getDbConnectionByDsn($dsn);
