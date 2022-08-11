@@ -295,7 +295,7 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
 
   function at($pos)
   {
-    if( $pos == 'count' )
+    if( $pos === 'count' )
     {
       return self::count();
     }

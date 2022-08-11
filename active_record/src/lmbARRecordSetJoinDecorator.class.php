@@ -96,7 +96,7 @@ class lmbARRecordSetJoinDecorator extends lmbCollectionDecorator
 
   function at($pos)
   {
-    if( $pos == 'count' )
+    if( $pos === 'count' )
     {
       return self::count();
     }
