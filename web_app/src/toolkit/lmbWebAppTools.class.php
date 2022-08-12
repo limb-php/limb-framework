@@ -133,7 +133,7 @@ class lmbWebAppTools extends lmbAbstractTools
     $class = str_replace('\\', DIRECTORY_SEPARATOR, $controller_name);
     //$file = $class . '.class.php';
     //if( stream_resolve_include_path($file) === false )
-    if( class_exists($class, false) )
+    if ( !class_exists($class) )
     {
       throw new lmbControllerNotFoundException("web_app: Could not find controller class '$class'");
     }
