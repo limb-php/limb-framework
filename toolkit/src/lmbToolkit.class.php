@@ -31,7 +31,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * $toolkit = lmbToolkit :: instance();
  * $toolkit->set('my_var', $value)'
  * $request = $toolkit->getRequest(); // supported by lmbNetTools
- * $same_request = $toolkit->get('requets'); // will delegate to getRequest()
+ * $same_request = $toolkit->get('request'); // will delegate to getRequest()
  * $db_connection = $toolkit->getDefaultDbConnection(); // supported by lmbDbTools
  * $toolkit->get('my_var'); // returns $value value
  * </code>
@@ -49,6 +49,10 @@ class lmbToolkit extends lmbObject
   * @var array Current tools array
   */
   protected $_tools = array();
+  /**
+   * @var array tools array
+   */
+  protected $_tool = array();
   /**
   * @var array Cached tools signatures that is methods supported by tools
   */
@@ -81,6 +85,20 @@ class lmbToolkit extends lmbObject
 
     self :: $_instance = new lmbToolkit();
     return self :: $_instance;
+  }
+
+  /*
+   *
+   */
+  function addTool($tool_name, $tool)
+  {
+    $this->_tool[$tool_name] = $tool;
+  }
+
+  function getTool($tool_name)
+  {
+    if( isset( $this->_tool[$tool_name] ) )
+      return $this->_tool[$tool_name];
   }
 
   /**
@@ -164,21 +182,27 @@ class lmbToolkit extends lmbObject
   * Extends current tools with new tool
   * @return lmbToolkit The only instance of lmbToolkit class
   */
-  static function merge($tool)
+  static function merge($tool, $name = '')
   {
     $toolkit = lmbToolkit :: instance();
-    $toolkit->add($tool);
+    $toolkit->add($tool, $name);
     return $toolkit;
   }
 
   /**
   * Extends current tools with new tool
   */
-  function add($tool)
+  function add($tool, $name = '')
   {
-    $tools = $this->_tools;
-    array_unshift($tools, $tool);
-    $this->setTools($tools);
+    if( !$name )
+      $name = get_class($tool);
+
+    if( !isset($this->_tools[$name]) )
+    {
+      $tools = $this->_tools;
+      $tools[$name] = $tool;
+      $this->setTools($tools);
+    }
   }
 
   /**
