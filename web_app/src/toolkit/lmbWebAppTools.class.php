@@ -130,12 +130,12 @@ class lmbWebAppTools extends lmbAbstractTools
     if($namespace)
       $controller_name = $namespace . '\\' . lmb_camel_case($controller_name);
 
-    $class = str_replace('\\', DIRECTORY_SEPARATOR, $controller_name);
+    //$class = str_replace('\\', DIRECTORY_SEPARATOR, $controller_name);
     //$file = $class . '.class.php';
     //if( stream_resolve_include_path($file) === false )
-    if ( !class_exists($class) )
+    if ( !class_exists($controller_name) )
     {
-      throw new lmbControllerNotFoundException("web_app: Could not find controller class '$class'");
+      throw new lmbControllerNotFoundException("web_app: Could not find controller class '$controller_name'");
     }
 
     return new $controller_name;
