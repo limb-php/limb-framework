@@ -293,13 +293,13 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
   }
   //end
 
+  function getCount()
+  {
+    return $this->count();
+  }
+
   function at($pos)
   {
-    if( $pos === 'count' )
-    {
-      return self::count();
-    }
-
     $this->_ensureDataset();
     return $this->dataset->at($pos);
   }

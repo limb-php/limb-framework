@@ -43,13 +43,13 @@ class lmbARRecordSetDecorator extends lmbCollectionDecorator
     return self::createObjectFromRecord($record, $this->class_path, $this->conn, $this->lazy_attributes, $this->use_proxy);
   }
 
+  function getCount()
+  {
+    return self::count();
+  }
+
   function at($pos)
   {
-    if( $pos === 'count' )
-    {
-      return self::count();
-    }
-
     if(!$record = parent::at($pos))
       return null;
 

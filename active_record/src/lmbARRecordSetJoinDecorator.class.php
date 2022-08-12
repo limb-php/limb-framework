@@ -94,13 +94,13 @@ class lmbARRecordSetJoinDecorator extends lmbCollectionDecorator
     }
   }
 
+  function getCount()
+  {
+    return self::count();
+  }
+
   function at($pos)
   {
-    if( $pos === 'count' )
-    {
-      return self::count();
-    }
-
     if(!$record = parent::at($pos))
       return null;
 
