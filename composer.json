@@ -6,6 +6,8 @@
     "require": {
         "php" : ">=7.2"
     },
+    "require-dev": {
+    },
     "replace": {
         "limb/acl": "self.version",
         "limb/active_record": "self.version",
@@ -45,38 +47,7 @@
     },
     "autoload": {
         "files": [
-            "limb/acl/common.inc.php",
-            "limb/active_record/common.inc.php",
-            "limb/cache/common.inc.php",
-            "limb/cache2/common.inc.php",
-            "limb/calendar/common.inc.php",
-            "limb/cli/common.inc.php",
-            "limb/cms/common.inc.php",
-            "limb/config/common.inc.php",
-            "limb/core/common.inc.php",
-            "limb/datetime/common.inc.php",
-            "limb/dbal/common.inc.php",
-            "limb/filter_chain/common.inc.php",
-            "limb/fs/common.inc.php",
-            "limb/i18n/common.inc.php",
-            "limb/i18n/utf8.inc.php",
-            "limb/imagekit/common.inc.php",
-            "limb/log/common.inc.php",
-            "limb/macro/common.inc.php",
-            "limb/mail/common.inc.php",
-            "limb/net/common.inc.php",
-            "limb/optimization/common.inc.php",
-            "limb/search/common.inc.php",
-            "limb/session/common.inc.php",
-            "limb/toolkit/common.inc.php",
-            "limb/tree/common.inc.php",
-            "limb/validation/common.inc.php",
-            "limb/view/common.inc.php",
-            "limb/web_agent/common.inc.php",
-            "limb/web_app/common.inc.php",
-            "limb/web_cache/common.inc.php",
-            "limb/web_spider/common.inc.php",
-            "limb/wysiwyg/common.inc.php"
+            "src/limb/core/common.inc.php"
         ],
         "psr-0": {
             "limb\\": "src/"

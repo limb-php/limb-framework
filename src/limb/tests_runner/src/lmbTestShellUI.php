@@ -10,6 +10,8 @@ namespace limb\tests_runner\src;
 
 use limb\tests_runner\src\lmbTestGetopt;
 use limb\tests_runner\src\lmbTestOptions;
+use limb\tests_runner\src\lmbTestTreeGlobNode;
+use limb\tests_runner\src\lmbTestUserException;
 
 /**
  * class lmbTestShellUI.
@@ -31,7 +33,7 @@ class lmbTestShellUI
     {
       $this->argv = is_array($argv) ? $argv : lmbTestGetopt::readPHPArgv();
     }
-    catch(Exception $e)
+    catch(\Exception $e)
     {
       $this->_error($e->getMessage() . "\n");
     }
@@ -161,7 +163,7 @@ EOD;
       else
         $options = lmbTestGetopt :: getopt2($this->argv, $short_opts, $long_opts);
     }
-    catch(Exception $e)
+    catch(\Exception $e)
     {
       $this->_help(1);
     }
@@ -254,7 +256,6 @@ EOD;
 
     try
     {
-      require_once(dirname(__FILE__) . '/lmbTestTreeGlobNode.class.php');
       $node = new lmbTestTreeGlobNode($paths);
       $res = $runner->run($node);
     }
@@ -264,7 +265,7 @@ EOD;
     {
       $this->_error($e->getMessage());
     }
-    catch(Exception $e)
+    catch(\Exception $e)
     {
       $this->_error($e->__toString());
     }

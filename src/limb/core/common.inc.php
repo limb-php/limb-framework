@@ -50,17 +50,6 @@ function lmb_is_path_absolute($path)
           (strlen($path) > 2 && $path[1] == ':'));
 }
 
-function lmb_autoload($class)
-{
-  $file = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
-
-  $fullname = stream_resolve_include_path($file);
-  if ($fullname !== false)
-  {
-    require($fullname);
-  }
-}
-
 function lmb_var_dump($obj, $echo = false)
 {
   ob_start();

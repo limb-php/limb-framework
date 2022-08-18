@@ -11,7 +11,8 @@
  * @package tests_runner
  * @version $Id: limb_unit.php 7486 2009-01-26 19:13:20Z pachanga $
  */
-require_once(dirname(__FILE__) . '/../src/lmbTestShellUI.class.php');
+
+use limb\tests_runner\src\lmbTestShellUI;
 
 set_time_limit(0);
 error_reporting(E_ALL);

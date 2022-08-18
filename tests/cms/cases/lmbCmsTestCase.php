@@ -6,8 +6,11 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/dbal/src/lmbSimpleDb.class.php');
-lmb_require('limb/cms/src/model/lmbCmsDocument.class.php');
+
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\lmbSimpleDb;
+use limb\cms\src\model\lmbCmsDocument;
+use limb\dbal\src\lmbTableGateway;
 
 class lmbCmsTestCase extends UnitTestCase
 {
@@ -75,5 +78,3 @@ class lmbCmsTestCase extends UnitTestCase
       $this->_initCmsDocumentTable();
   }
 }
-
-?>

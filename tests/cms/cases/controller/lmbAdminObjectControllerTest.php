@@ -6,10 +6,12 @@
  * @copyright Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/cms/src/controller/lmbAdminObjectController.class.php');
-lmb_require('limb/active_record/src/lmbActiveRecord.class.php');
-lmb_require('limb/net/src/lmbHttpRequest.class.php');
-lmb_require('limb/web_app/src/tests/lmbWebApplicationSandbox.class.php');
+use limb\cms\src\controller\lmbAdminObjectController;
+use limb\active_record\src\lmbActiveRecord;
+use limb\net\src\lmbHttpRequest;
+use limb\web_app\src\tests\lmbWebApplicationSandbox;
+use limb\validation\src\lmbValidator;
+use limb\toolkit\src\lmbToolkit;
 
 class AdminObjectForTesting extends lmbActiveRecord
 {
@@ -164,5 +166,3 @@ class lmbAdminObjectControllerTest extends UnitTestCase
     $this->assertEqual($response->getResponseString(), $expected_callchain);
   }
 }
-
-

@@ -6,9 +6,9 @@
 * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
-namespace limb\acl\tests\cases;
 
 use limb\acl\src\lmbAcl;
+use limb\acl\src\lmbAclException;
 
 class lmbAclAllowsTest extends UnitTestCase
 {
