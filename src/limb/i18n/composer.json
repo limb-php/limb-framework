@@ -4,6 +4,12 @@
         "php": ">=7.2"
     },
     "autoload": {
+        "autoload": {
+            "files": [
+                "common.inc.php",
+                "utf8.inc.php"
+            ]
+        },
         "psr-0": {
             "limb\\i18n\\": ""
         }

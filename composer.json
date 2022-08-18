@@ -53,6 +53,11 @@
             "limb\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-0" : {
+            "limb\\tests\\" : "tests/"
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }

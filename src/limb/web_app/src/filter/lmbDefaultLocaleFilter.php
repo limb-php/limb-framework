@@ -8,8 +8,6 @@
  */
 namespace limb\web_app\src\filter;
 
-require_once('limb/i18n/common.inc.php');
-
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
 
@@ -27,7 +25,7 @@ class lmbDefaultLocaleFilter implements lmbInterceptingFilterInterface
   function __construct($default_locale)
   {
     $this->default_locale = $default_locale;
-    $this->toolkit = lmbToolkit :: instance();
+    $this->toolkit = lmbToolkit::instance();
   }
 
   function run($filter_chain)
