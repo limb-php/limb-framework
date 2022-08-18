@@ -23,7 +23,7 @@ use limb\view\src\lmbDummyView;
  * @package web_app
  * @version $Id: lmbController.class.php 8117 2010-01-31 11:20:22Z Forumsky $
  */
-class lmbController
+class LmbController
 {
   /**
    * @var array array of mixins

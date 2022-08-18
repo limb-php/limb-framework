@@ -6,6 +6,8 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\tests_runner\src;
+
 require_once(dirname(__FILE__). '/lmbTestTreeNode.class.php');
 require_once(dirname(__FILE__). '/lmbTestTreeFilePathNode.class.php');
 require_once(dirname(__FILE__). '/lmbTestUserException.class.php');

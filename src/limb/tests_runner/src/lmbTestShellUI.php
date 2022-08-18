@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-require_once(dirname(__FILE__) . '/lmbTestGetopt.class.php');
-require_once(dirname(__FILE__) . '/lmbTestOptions.class.php');
+namespace limb\tests_runner\src;
+
+use limb\tests_runner\src\lmbTestGetopt;
+use limb\tests_runner\src\lmbTestOptions;
 
 /**
  * class lmbTestShellUI.

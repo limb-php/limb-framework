@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-namespace limb\macro\src\tag\tree;
+namespace limb\macro\src\tags\tree;
 
 use limb\macro\src\tags\form\lmbMacroSingleSelectWidget;
 
