@@ -1,0 +1,21 @@
+{
+  "name": "limb/dbal",
+  "require": {
+    "php": ">=7.2",
+    "limb/core": "dev-master",
+    "limb/toolkit": "dev-master",
+    "limb/net": "dev-master",
+    "limb/fs": "dev-master",
+    "limb/config": "dev-master",
+    "limb/filter_chain": "dev-master"
+  },
+  "autoload": {
+    "psr-0": {
+      "limb\\dbal\\": ""
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev"
+}
