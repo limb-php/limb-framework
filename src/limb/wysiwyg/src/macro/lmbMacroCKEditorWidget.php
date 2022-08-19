@@ -8,9 +8,9 @@
  */
 namespace limb\wysiwyg\src\macro;
 
-use limb\wysiwyg\src\macro\lmbMacroBaseWysiwygWidget;
+use limb\core\src\lmbEnv;
 
-lmb_env_setor('LIMB_CKEDITOR_DIR', 'limb/wysiwyg/lib/CKeditor/');
+lmbEnv::setor('LIMB_CKEDITOR_DIR', 'limb/wysiwyg/lib/CKeditor/');
 
 /**
  * @package wysiwyg

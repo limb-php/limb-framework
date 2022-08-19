@@ -2,6 +2,7 @@
 namespace limb\cms\src\controller;
 
 use limb\web_app\src\controller\lmbController;
+use limb\core\src\lmbEnv;
 use limb\mail\src\lmbMailer;
 use limb\cms\src\model\lmbCmsUser;
 use limb\view\src\lmbMacroView;
@@ -33,7 +34,7 @@ class UserController extends lmbController
     $email_body = $template->render();
 
     $mailer = new lmbMailer();
-    $mailer->sendPlainMail($user->getEmail(), lmb_env_get('ADMIN_EMAIL', "no_reply@bit-cms.com"), "Password recovery", $email_body);
+    $mailer->sendPlainMail($user->getEmail(), lmbEnv::get('ADMIN_EMAIL', "no_reply@bit-cms.com"), "Password recovery", $email_body);
 
     $this->flashAndRedirect("Новый пароль выслан на ваш email", '/user/login');
   }

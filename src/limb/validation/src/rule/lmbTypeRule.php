@@ -26,4 +26,3 @@ class lmbTypeRule extends lmbSingleFieldRule
     }
   }
 }
-?>

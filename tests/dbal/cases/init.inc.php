@@ -1,11 +1,13 @@
 <?php
 
 require_once('limb/core/tests/cases/init.inc.php');
-lmb_package_require('dbal');
+
+use limb\core\src\lmbEnv;
+use limb\toolkit\src\lmbToolkit;
 
 function lmb_tests_init_db_dsn()
 {
-  lmb_env_set('LIMB_CACHE_DB_META_IN_FILE', false);
+  lmbEnv::set('LIMB_CACHE_DB_META_IN_FILE', false);
 
   if(lmbToolkit::instance()->isDefaultDbDSNAvailable())
   {
@@ -22,7 +24,7 @@ function lmb_tests_init_db_dsn()
   else
   {
     $default_value = 'sqlite://localhost/' . lmb_var_dir() . '/sqlite_tests.db';
-    $dsn = lmb_env_get('LIMB_TEST_DB_DSN', $default_value);
+    $dsn = lmbEnv::get('LIMB_TEST_DB_DSN', $default_value);
     lmbToolkit::instance()->setDefaultDbDSN($dsn);
     echo "INFO: Using default test database '$dsn'\n";
   }

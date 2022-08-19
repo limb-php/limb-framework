@@ -8,14 +8,14 @@
  */
 namespace limb\web_app\src\controller;
 
-lmb_env_setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
-
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbMixable;
 use limb\fs\src\lmbFs;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;
-use limb\view\src\lmbDummyView;
+use limb\core\src\lmbEnv;
+
+lmbEnv::setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
 
 /**
  * class lmbController.
@@ -342,12 +342,12 @@ class LmbController
 
   function isCacheEnabled()
   {
-    return (bool) lmb_env_get('LIMB_CONTROLLER_CACHE_ENABLED');
+    return (bool) lmbEnv::get('LIMB_CONTROLLER_CACHE_ENABLED');
   }
 
   function _loadCache()
   {
-    if($this->isCacheEnabled() && file_exists($cache = lmb_env_get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache'))
+    if($this->isCacheEnabled() && file_exists($cache = lmbEnv::get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache'))
       $this->action_template_map = unserialize(file_get_contents($cache));
   }
 
@@ -355,7 +355,7 @@ class LmbController
   {
     if($this->map_changed && $this->isCacheEnabled())
     {
-      lmbFs :: safeWrite(lmb_env_get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache',
+      lmbFs :: safeWrite(lmbEnv::get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache',
                          serialize($this->action_template_map));
     }
   }

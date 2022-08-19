@@ -9,8 +9,8 @@
 namespace limb\dbal\src\toolkit;
 
 use limb\toolkit\src\lmbAbstractTools;
-use limb\dbal\src\lmbDBAL;
 use limb\core\src\lmbSet;
+use limb\core\src\lmbEnv;
 use limb\dbal\src\lmbDbDSN;
 use limb\dbal\src\drivers\lmbDbCachedInfo;
 use limb\dbal\src\lmbTableGateway;
@@ -209,8 +209,8 @@ class lmbDbTools extends lmbAbstractTools
     {
       $this->is_db_info_cache_enabled = false;
 
-      if(lmb_env_has('LIMB_CACHE_DB_META_IN_FILE'))
-        $this->is_db_info_cache_enabled = lmb_env_get('LIMB_CACHE_DB_META_IN_FILE');
+      if( lmbEnv::has('LIMB_CACHE_DB_META_IN_FILE') )
+        $this->is_db_info_cache_enabled = lmbEnv::get('LIMB_CACHE_DB_META_IN_FILE');
       else if($this->toolkit->getConf('db')->has('cache_db_info'))
         $this->is_db_info_cache_enabled = $this->toolkit->getConf('db')->get('cache_db_info');
     }
@@ -226,7 +226,7 @@ class lmbDbTools extends lmbAbstractTools
       return $this->db_info[$id];
 
     if($this->_isDbInfoCacheEnabled())
-      $db_info = new lmbDbCachedInfo($conn, lmb_env_get('LIMB_VAR_DIR'));
+      $db_info = new lmbDbCachedInfo($conn, lmbEnv::get('LIMB_VAR_DIR'));
     else
       $db_info = $conn->getDatabaseInfo();
 

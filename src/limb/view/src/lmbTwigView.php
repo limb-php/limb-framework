@@ -8,7 +8,7 @@
  */
 namespace limb\view\src;
 
-use limb\view\src\lmbView;
+use limb\core\src\lmbEnv;
 use limb\toolkit\src\lmbToolkit;
 use limb\fs\src\lmbFs;
 use limb\core\src\exception\lmbException;
@@ -83,10 +83,10 @@ class lmbTwigView extends lmbView
 
     $loader = new \Twig\Loader\FilesystemLoader( $tmp_dirs );
 
-    if( lmb_env_get('APP_TEMPLATE_THEME') )
+    if( lmbEnv::get('APP_TEMPLATE_THEME') )
     {
       foreach( $tmp_dirs as $dir )
-        $loader->prependPath( $dir.'/_themes/'.lmb_env_get('APP_TEMPLATE_THEME') );
+        $loader->prependPath( $dir.'/_themes/' . lmbEnv::get('APP_TEMPLATE_THEME') );
     }
 
     $twig = new \Twig\Environment($loader, ['cache' => $twig_conf->get('cache'),

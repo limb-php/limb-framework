@@ -8,7 +8,7 @@
  */
 namespace limb\config\src;
 
-use limb\config\src\lmbIni;
+use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;
 
 /**
@@ -40,7 +40,7 @@ class lmbCachedIni extends lmbIni
 
   function isCacheEnabled()
   {
-    return (bool) lmb_env_get('LIMB_INI_CACHE_ENABLED', true);
+    return (bool) lmbEnv::get('LIMB_INI_CACHE_ENABLED', true);
   }
 
   function getCacheFile()
@@ -55,7 +55,7 @@ class lmbCachedIni extends lmbIni
 
     $cache_dir = $this->_cache_dir;
 
-    lmbFs :: mkdir($cache_dir);
+    lmbFs::mkdir($cache_dir);
 
     $cache_file = $this->getCacheFile();
 
@@ -91,8 +91,8 @@ class lmbCachedIni extends lmbIni
     if(!$this->isCacheEnabled())
       return;
 
-    lmbFs :: safeWrite($this->getCacheFile(),
-                       serialize($this->export()));
+    lmbFs::safeWrite($this->getCacheFile(),
+                     serialize($this->export()));
   }
 
   function removeCache()

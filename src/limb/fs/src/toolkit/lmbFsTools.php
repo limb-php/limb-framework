@@ -8,6 +8,7 @@
  */
 namespace limb\fs\src\toolkit;
 
+use limb\core\src\lmbEnv;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\fs\src\lmbFileLocator;
 use limb\fs\src\lmbCachingFileLocator;
@@ -60,10 +61,10 @@ class lmbFsTools extends lmbAbstractTools
     else
       $file_locations = new lmbIncludePathFileLocations(explode(';', $paths));
 
-    if(lmb_env_has('LIMB_VAR_DIR') && ('devel' != lmb_env_get('LIMB_APP_MODE')))
+    if(lmbEnv::has('LIMB_VAR_DIR') && ('devel' != lmbEnv::get('LIMB_APP_MODE')))
       $locator = new lmbCachingFileLocator(new lmbFileLocator($file_locations),
-                                           lmb_env_get('LIMB_VAR_DIR') . '/locators/',
-                                           $locator_name);
+        lmbEnv::get('LIMB_VAR_DIR') . '/locators/',
+                 $locator_name);
     else
       $locator = new lmbFileLocator($file_locations);
 

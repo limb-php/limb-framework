@@ -12,10 +12,8 @@
  * @version $Id: common.inc.php 8127 2010-02-10 10:40:35Z conf $
  */
 define('LIMB_UNDEFINED', 'undefined' . microtime());
-define('LIMB_PACKAGES_DIR', dirname(__FILE__) . '/../');
 
 require_once(dirname(__FILE__) . '/src/assert.inc.php');
-require_once(dirname(__FILE__) . '/src/env.inc.php');
 require_once(dirname(__FILE__) . '/src/string.inc.php');
 
 function lmb_glob($path)
@@ -75,7 +73,7 @@ function lmb_var_dump($obj, $echo = false)
 function lmb_var_dir($value = null)
 {
   if($value)
-    lmb_env_set('LIMB_VAR_DIR', $value);
+    lmbEnv::set('LIMB_VAR_DIR', $value);
   else
-    return lmb_env_get('LIMB_VAR_DIR');
+    return lmbEnv::get('LIMB_VAR_DIR');
 }

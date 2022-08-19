@@ -8,7 +8,7 @@
  */
 namespace limb\mail\src;
 
-use limb\mail\src\lmbBaseMailerInterface;
+use limb\core\src\lmbEnv;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
 use phpmailerException;
@@ -50,7 +50,7 @@ class lmbMailer implements lmbBaseMailerInterface
 
     $this->setConfig($config);
 
-    $php_mailer_version = lmb_env_get('PHPMAILER_VERSION_NAME', 'phpmailer-5.1');
+    $php_mailer_version = lmbEnv::get('PHPMAILER_VERSION_NAME', 'phpmailer-5.1');
     include_once('limb/mail/lib/' .  $php_mailer_version . '/class.phpmailer.php');
   }
 

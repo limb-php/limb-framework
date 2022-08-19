@@ -10,17 +10,16 @@ namespace limb\config\src\toolkit;
 
 use limb\toolkit\src\lmbAbstractTools;
 use limb\core\src\lmbObject;
+use limb\core\src\lmbEnv;
 use limb\config\src\lmbIni;
 use limb\config\src\lmbYaml;
-use limb\config\src\lmbYamlParser;
-use limb\config\src\lmbYamlInline;
 use limb\config\src\lmbCachedIni;
 use limb\config\src\lmbConf;
 use limb\fs\src\lmbFs;
 use limb\core\src\exception\lmbException;
 use limb\fs\src\exception\lmbFileNotFoundException;
 
-lmb_env_setor('LIMB_CONF_INCLUDE_PATH', 'settings;limb/*/settings');
+lmbEnv::setor('LIMB_CONF_INCLUDE_PATH', 'settings;limb/*/settings');
 
 /**
  * class lmbConfTools.
@@ -58,7 +57,7 @@ class lmbConfTools extends lmbAbstractTools
   function getConfIncludePath()
   {
     if(!$this->conf_include_path)
-      $this->conf_include_path = lmb_env_get('LIMB_CONF_INCLUDE_PATH');
+      $this->conf_include_path = lmbEnv::get('LIMB_CONF_INCLUDE_PATH');
     return $this->conf_include_path;
   }
 
@@ -79,8 +78,8 @@ class lmbConfTools extends lmbAbstractTools
     if($ext == '.ini')
     {
       $file = $this->_locateConfFiles($name);
-      if(lmb_env_has('LIMB_VAR_DIR'))
-        $this->confs[$name] = new lmbCachedIni($file, lmb_env_get('LIMB_VAR_DIR') . '/ini/');
+      if( lmbEnv::has('LIMB_VAR_DIR') )
+        $this->confs[$name] = new lmbCachedIni($file, lmbEnv::get('LIMB_VAR_DIR') . '/ini/');
       else
         $this->confs[$name] = new lmbIni($file);
     }

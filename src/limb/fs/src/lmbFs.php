@@ -9,6 +9,7 @@
 namespace limb\fs\src;
 
 use limb\core\src\lmbSys;
+use limb\core\src\lmbEnv;
 use limb\fs\src\exception\lmbFsException;
 
 /**
@@ -59,8 +60,8 @@ class lmbFs
 
   static function getTmpDir()
   {
-    if(lmb_env_has('LIMB_VAR_DIR'))
-      return lmb_env_get('LIMB_VAR_DIR');
+    if( lmbEnv::has('LIMB_VAR_DIR') )
+      return lmbEnv::get('LIMB_VAR_DIR');
 
     if($path = session_save_path())
     {

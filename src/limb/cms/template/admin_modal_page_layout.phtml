@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- Powered by LIMB | http://www.limb-project.com/ -->
 <!-- Designed by BIT | http://www.bit-creative.com/ -->
-<? $this->static_files_version = lmb_env_get('CMS_STATIC_FILES_VERSION'); ?>
+<? $this->static_files_version = lmbEnv::get('CMS_STATIC_FILES_VERSION'); ?>
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -21,7 +21,7 @@
     {{slot id='content_zone'/}}
   </div>
 </body>
-<script src="<? echo lmb_env_get('JQUERY_FILE_URL'); ?>?{$#static_files_version}"></script>
+<script src="<? echo lmbEnv::get('JQUERY_FILE_URL'); ?>?{$#static_files_version}"></script>
 <script src="/shared/js/js/limb.js?{$#static_files_version}"></script>
 <script src="/shared/js/js/limb/url.js?{$#static_files_version}"></script>
 <script src="/shared/js/js/limb/flash.js?{$#static_files_version}"></script>

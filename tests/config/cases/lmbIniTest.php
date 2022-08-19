@@ -6,10 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/config/src/lmbIni.class.php');
-lmb_require('limb/fs/src/lmbFs.class.php');
 
-lmb_env_setor('INI_TEST_UNIQUE_CONSTANT', '*constant*');
+use limb\config\src\lmbIni;
+use limb\core\src\lmbEnv;
+use limb\fs\src\lmbFs;
+
+lmbEnv::setor('INI_TEST_UNIQUE_CONSTANT', '*constant*');
 
 class lmbIniTest extends UnitTestCase
 {

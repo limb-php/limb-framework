@@ -10,11 +10,12 @@ namespace limb\i18n\src\toolkit;
 
 use limb\toolkit\src\lmbAbstractTools;
 use limb\i18n\src\locale\lmbLocale;
+use limb\core\src\lmbEnv;
 use limb\i18n\src\translation\lmbQtDictionaryBackend;
 use limb\config\src\lmbCachedIni;
 use limb\config\src\lmbIni;
 
-lmb_env_setor('LIMB_LOCALE_INCLUDE_PATH', 'i18n/locale;limb/i18n/i18n/locale');
+lmbEnv::setor('LIMB_LOCALE_INCLUDE_PATH', 'i18n/locale;limb/i18n/i18n/locale');
 
 /**
  * class lmbI18NTools.
@@ -34,9 +35,9 @@ class lmbI18NTools extends lmbAbstractTools
     if(!is_object($this->dict_backend))
     {
       $this->dict_backend = new lmbQtDictionaryBackend();
-      if(lmb_env_get('LIMB_VAR_DIR'))
+      if(lmbEnv::get('LIMB_VAR_DIR'))
       {
-        $this->dict_backend->setCacheDir(lmb_env_get('LIMB_VAR_DIR'));
+        $this->dict_backend->setCacheDir(lmbEnv::get('LIMB_VAR_DIR'));
         $this->dict_backend->useCache();
       }
     }
@@ -83,10 +84,10 @@ class lmbI18NTools extends lmbAbstractTools
 
   function createLocaleObject($locale)
   {
-    $file = $this->toolkit->findFileByAlias($locale . '.ini', lmb_env_get('LIMB_LOCALE_INCLUDE_PATH'), 'i18n_locale');
+    $file = $this->toolkit->findFileByAlias($locale . '.ini', lmbEnv::get('LIMB_LOCALE_INCLUDE_PATH'), 'i18n_locale');
 
-    if(lmb_env_has('LIMB_VAR_DIR'))
-      return new lmbLocale($locale, new lmbCachedIni($file, lmb_env_get('LIMB_VAR_DIR') . '/locale/'));
+    if(lmbEnv::has('LIMB_VAR_DIR'))
+      return new lmbLocale($locale, new lmbCachedIni($file, lmbEnv::get('LIMB_VAR_DIR') . '/locale/'));
     else
       return new lmbLocale($locale, new lmbIni($file));
   }

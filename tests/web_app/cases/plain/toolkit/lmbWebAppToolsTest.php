@@ -6,21 +6,26 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/web_app/src/request/lmbRoutes.class.php');
-lmb_require('limb/toolkit/src/lmbMockToolsWrapper.class.php');
-lmb_require('limb/web_app/src/controller/lmbController.class.php');
-lmb_require('limb/core/src/lmbSet.class.php');
+
+use limb\web_app\src\request\lmbRoutes;
+use limb\web_app\src\controller\LmbController;
+use limb\core\src\lmbSet;
+use limb\core\src\lmbEnv;
+use limb\toolkit\src\lmbToolkit;
+use limb\fs\src\lmbFs;
+use limb\core\src\lmbObject;
+use limb\core\src\exception\lmbException;
 
 class lmbWebAppToolsTest extends UnitTestCase
 {
   function setUp()
   {
-    lmbToolkit :: save();
+    lmbToolkit::save();
   }
 
   function tearDown()
   {
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testToRouteUrl()
@@ -59,7 +64,7 @@ class lmbWebAppToolsTest extends UnitTestCase
 
     $this->assertFalse($toolkit->isWebAppDebugEnabled());
 
-    lmb_env_set('LIMB_APP_MODE', 'devel');
+    lmbEnv::set('LIMB_APP_MODE', 'devel');
     $this->assertTrue($toolkit->isWebAppDebugEnabled());
 
     $toolkit->setConf('common', new lmbObject(array('debug_enabled' => true)));
@@ -72,7 +77,7 @@ class lmbWebAppToolsTest extends UnitTestCase
   function testAddVersionToUrl()
   {
     $toolkit = lmbToolkit :: merge(new lmbWebAppTools());
-    lmb_env_set('LIMB_DOCUMENT_ROOT', null);
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', null);
     try 
     {
       $toolkit->addVersionToUrl('js/main.js');
@@ -80,9 +85,9 @@ class lmbWebAppToolsTest extends UnitTestCase
     } catch (lmbException $e)  {
       $this->assertTrue(true);
     }
-    
-    lmb_env_set('LIMB_DOCUMENT_ROOT', lmb_env_get('LIMB_VAR_DIR').'/www');
-    lmbFs :: rm(lmb_env_get('LIMB_DOCUMENT_ROOT').'/js/main.js');
+
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', lmbEnv::get('LIMB_VAR_DIR').'/www');
+    lmbFs::rm(lmbEnv::get('LIMB_DOCUMENT_ROOT').'/js/main.js');
 
     try 
     {
@@ -92,16 +97,16 @@ class lmbWebAppToolsTest extends UnitTestCase
       $this->assertTrue(true);
     }
 
-    lmbFs :: safeWrite(lmb_env_get('LIMB_DOCUMENT_ROOT').'/js/main.js', '(function() {})()');
+    lmbFs :: safeWrite(lmbEnv::get('LIMB_DOCUMENT_ROOT').'/js/main.js', '(function() {})()');
     $url = $toolkit->addVersionToUrl('js/main.js');
-    $url_abs = $toolkit->addVersionToUrl(lmb_env_get('LIMB_HTTP_BASE_PATH') . 'js/main.js');
+    $url_abs = $toolkit->addVersionToUrl(lmbEnv::get('LIMB_HTTP_BASE_PATH') . 'js/main.js');
     $this->assertEqual($url, $url_abs);
   }
 
   function testAddVersionToUrl_Safe()
   {
     $toolkit = lmbToolkit :: merge(new lmbWebAppTools());
-    lmb_env_set('LIMB_DOCUMENT_ROOT', null);
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', null);
     try 
     {
       $url = $toolkit->addVersionToUrl('js/main.js', true);
@@ -110,9 +115,9 @@ class lmbWebAppToolsTest extends UnitTestCase
     } catch (lmbException $e)  {
       $this->assertTrue(false);
     }
-    
-    lmb_env_set('LIMB_DOCUMENT_ROOT', lmb_env_get('LIMB_VAR_DIR').'/www');
-    lmbFs :: rm(lmb_env_get('LIMB_DOCUMENT_ROOT').'/js/main.js');
+
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', lmbEnv::get('LIMB_VAR_DIR').'/www');
+    lmbFs::rm(lmbEnv::get('LIMB_DOCUMENT_ROOT').'/js/main.js');
 
     try 
     {

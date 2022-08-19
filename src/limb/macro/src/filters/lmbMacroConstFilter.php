@@ -23,6 +23,6 @@ class lmbMacroConstFilter extends lmbMacroFilter
   {
     $value = ltrim($this->base->getValue(), '$');
 
-    return 'lmb_env_get(' . $value . ')';
+    return 'limb\core\src\lmbEnv::get(' . $value . ')';
   }
 }

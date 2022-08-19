@@ -1,7 +1,12 @@
 <?php
-lmb_require('limb/core/src/lmbSet.class.php');
-lmb_require('limb/toolkit/src/lmbToolkit.class.php');
-lmb_require('limb/dbal/src/toolkit/lmbDbTools.class.php');
+
+use limb\core\src\lmbEnv;
+use limb\core\src\lmbSet;
+use limb\config\src\lmbConf;
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\toolkit\lmbDbTools;
+use limb\dbal\src\lmbDbDSN;
+use limb\core\src\exception\lmbException;
 
 class ExceptionalDbConfStub extends lmbConf
 {
@@ -123,21 +128,21 @@ class lmbDbToolsTest extends UnitTestCase
 
   function testGetDbInfo_cache_global_negative()
   {
-  	lmb_env_set('LIMB_CACHE_DB_META_IN_FILE', false);
+    lmbEnv::set('LIMB_CACHE_DB_META_IN_FILE', false);
     $conn = $this->tools->getDbConnectionByDsn('mysql://root:test@localhost/hello_from_foo?charset=cp1251&version=1');
     $this->assertIsA($this->tools->getDbInfo($conn), 'lmbMysqlDbInfo');   
   }
   
   function testGetDbInfo_cache_global_positive()
   {
-    lmb_env_set('LIMB_CACHE_DB_META_IN_FILE', true);
+    lmbEnv::set('LIMB_CACHE_DB_META_IN_FILE', true);
     $conn = $this->tools->getDbConnectionByDsn('mysql://root:test@localhost/hello_from_foo?charset=cp1251&version=2');
     $this->assertIsA($this->tools->getDbInfo($conn), 'lmbDbCachedInfo');    
   }
   
   function testGetDbInfo_cache_in_conf_negative()
   {    
-    lmb_env_remove('LIMB_CACHE_DB_META_IN_FILE');
+    lmbEnv::remove('LIMB_CACHE_DB_META_IN_FILE');
     
     $config = new lmbSet($this->config);    
     $config['cache_db_info'] = false;    
@@ -149,7 +154,7 @@ class lmbDbToolsTest extends UnitTestCase
   
   function testGetDbInfo_cache_in_conf_positive()
   {    
-    lmb_env_remove('LIMB_CACHE_DB_META_IN_FILE');
+    lmbEnv::remove('LIMB_CACHE_DB_META_IN_FILE');
     
     $config = new lmbSet($this->config);    
     $config['cache_db_info'] = true;    

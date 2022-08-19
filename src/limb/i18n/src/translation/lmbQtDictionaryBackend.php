@@ -8,13 +8,13 @@
  */
 namespace limb\i18n\src\translation;
 
-use limb\i18n\src\translation\lmbI18NDictionary;
+use limb\core\src\lmbEnv;
 use limb\core\src\exception\lmbException;
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;
 
-lmb_env_setor('LIMB_TRANSLATIONS_INCLUDE_PATH', 'i18n/translations;limb/*/i18n/translations');
+lmbEnv::setor('LIMB_TRANSLATIONS_INCLUDE_PATH', 'i18n/translations;limb/*/i18n/translations');
 
 /**
  * class lmbQtDictionaryBackend.
@@ -29,7 +29,7 @@ class lmbQtDictionaryBackend //extends lmbDictionaryBackend ???
 
   function __construct()
   {
-    $this->search_path = lmb_env_get('LIMB_TRANSLATIONS_INCLUDE_PATH');
+    $this->search_path = lmbEnv::get('LIMB_TRANSLATIONS_INCLUDE_PATH');
   }
 
   function setCacheDir($dir)

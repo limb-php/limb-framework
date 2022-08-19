@@ -9,8 +9,8 @@
 namespace limb\active_record\src;
 
 use limb\core\src\lmbCollectionDecorator;
-use limb\active_record\src\lmbARProxy;
 use limb\core\src\exception\lmbException;
+use limb\core\src\lmbEnv;
 
 /**
  * class lmbARRecordSetDecorator.
@@ -76,10 +76,10 @@ class lmbARRecordSetDecorator extends lmbCollectionDecorator
     else
       $class_name = is_object($default_class_name) ? get_class($default_class_name) : $default_class_name;
 
-    if($use_proxy || lmb_env_get('LIMB_ACTIVE_RECORD_FORCE_PROXY', false))
+    if($use_proxy || lmbEnv::get('LIMB_ACTIVE_RECORD_FORCE_PROXY', false))
     {
       $proxy_class = $class_name . '_ARProxy';
-      lmbARProxy :: generate($proxy_class, $class_name);
+      lmbARProxy::generate($proxy_class, $class_name);
       return new $proxy_class($record, $class_name, $conn, $lazy_attributes);
     }
 

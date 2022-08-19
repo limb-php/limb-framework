@@ -8,12 +8,11 @@
  */
 namespace limb\validation\src;
 
-use limb\validation\src\lmbErrorList;
+use limb\core\src\lmbEnv;
 use limb\core\src\lmbHandle;
 use limb\core\src\exception\lmbException;
-use limb\validation\src\lmbValidator;
 
-lmb_env_setor('LIMB_RULES_INCLUDE_PATH', 'src/rule;limb/*/src/rule;limb/web_app/src/validation/rule');
+lmbEnv::setor('LIMB_RULES_INCLUDE_PATH', 'src/rule;limb/*/src/rule;limb/web_app/src/validation/rule');
 
 /**
  * Builds new or fills with the rules existing lmbValidator object, simplifying constructing rules

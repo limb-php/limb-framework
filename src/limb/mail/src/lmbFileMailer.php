@@ -1,7 +1,7 @@
 <?php
 namespace limb\mail\src;
 
-use limb\mail\src\lmbBaseMailerInterface;
+use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;
 
 class lmbFileMailer implements lmbBaseMailerInterface
@@ -42,6 +42,6 @@ EOD;
     
   protected function _send($recipients, $content)
   {
-    lmbFs::safeWrite(lmb_env_get('LIMB_VAR_DIR').'/mail/'.(pow(2,31) - time()).'_'.$recipients.'_'.microtime(true).'.txt', $content);
+    lmbFs::safeWrite(lmbEnv::get('LIMB_VAR_DIR').'/mail/'.(pow(2,31) - time()).'_'.$recipients.'_'.microtime(true).'.txt', $content);
   }
 }

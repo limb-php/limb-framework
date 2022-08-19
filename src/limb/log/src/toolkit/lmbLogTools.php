@@ -9,6 +9,7 @@
 namespace limb\log\src\toolkit;
 
 use limb\toolkit\src\lmbAbstractTools;
+use limb\core\src\lmbEnv;
 use limb\log\src\lmbLog;
 use limb\net\src\lmbUri;
 use limb\fs\src\exception\lmbFileNotFoundException;
@@ -25,7 +26,7 @@ class lmbLogTools extends lmbAbstractTools
 
   function getLogDSNes()
   {
-    $default_dsn = 'file://'.lmb_env_get('LIMB_VAR_DIR').'log/error.log';
+    $default_dsn = 'file://'.lmbEnv::get('LIMB_VAR_DIR').'log/error.log';
 
     if(!$this->toolkit->hasConf('common'))
       return array($default_dsn);

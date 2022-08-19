@@ -1,5 +1,7 @@
 <?php
 
+use limb\core\src\lmbEnv;
+
 $conf = array(
-  'cache_dir' => lmb_env_get('LIMB_VAR_DIR') . '/fpcache/'
+  'cache_dir' => lmbEnv::get('LIMB_VAR_DIR') . '/fpcache/'
 );

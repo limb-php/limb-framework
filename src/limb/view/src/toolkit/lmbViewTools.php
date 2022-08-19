@@ -10,11 +10,12 @@ namespace limb\view\src\toolkit;
 
 use limb\toolkit\src\lmbAbstractTools;
 use limb\toolkit\src\lmbToolkit;
+use limb\core\src\lmbEnv;
 use limb\core\src\exception\lmbException;
 use limb\macro\src\lmbMacroTemplateLocator;
 use limb\macro\src\lmbMacroConfig;
 
-lmb_env_setor('LIMB_SUPPORTED_VIEW_TYPES', '.phtml=limb\view\src\lmbMacroView;.twig=limb\view\src\lmbTwigView');
+lmbEnv::setor('LIMB_SUPPORTED_VIEW_TYPES', '.phtml=limb\view\src\lmbMacroView;.twig=limb\view\src\lmbTwigView');
 
 /**
  * class lmbViewTools.
@@ -33,7 +34,7 @@ class lmbViewTools extends lmbAbstractTools
   {
     parent::__construct();
 
-    $items = explode(';', lmb_env_get('LIMB_SUPPORTED_VIEW_TYPES'));
+    $items = explode(';', lmbEnv::get('LIMB_SUPPORTED_VIEW_TYPES'));
     foreach($items as $item)
     {
       list($ext, $class) = explode('=', $item);

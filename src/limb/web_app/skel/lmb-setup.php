@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use limb\core\src\lmbEnv;
+
 /**
  * @package web_app
  * @version $Id: setup.php 8131 2010-02-15 19:45:22Z conf $
@@ -25,4 +27,4 @@ if(file_exists(dirname(__FILE__) . '/setup.override.php'))
 require_once('limb/core/common.inc.php');
 require_once('limb/web_app/common.inc.php');
 
-lmb_env_setor('LIMB_VAR_DIR', dirname(__FILE__) . '/var/');
+lmbEnv::setor('LIMB_VAR_DIR', dirname(__FILE__) . '/var/');

@@ -8,14 +8,18 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use limb\core\src\lmbEnv;
+use limb\fs\src\lmbFs;
+use limb\core\src\exception\lmbException;
+
 class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
 {
   function testRender()
   {
-    $root = lmb_env_get('LIMB_VAR_DIR').'/www/';
-    lmb_env_set('LIMB_DOCUMENT_ROOT', $root); 
-    lmbFs :: safeWrite($root . 'js/main.js', 'content main.js');
-    lmbFs :: safeWrite($root . 'js/blog.js', 'is blog.js');
+    $root = lmbEnv::get('LIMB_VAR_DIR').'/www/';
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', $root);
+    lmbFs::safeWrite($root . 'js/main.js', 'content main.js');
+    lmbFs::safeWrite($root . 'js/blog.js', 'is blog.js');
 
     lmbFs :: rm($root . '/media/var');
 
@@ -28,7 +32,7 @@ class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
 
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
     $content = trim($page->render());
-    $file = array_shift(lmbFs :: ls($root.'/media/var/'));
+    $file = array_shift(lmbFs::ls($root.'/media/var/'));
 
     $this->assertEqual('<script type="text/javascript" src="'.$this->toolkit->addVersionToUrl('media/var/'.$file).'" ></script>', $content);
 
@@ -42,11 +46,11 @@ class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
 
   function testFileNameNotDependOrderFiles()
   {
-    lmb_env_set('LIMB_DOCUMENT_ROOT', ($root = lmb_env_get('LIMB_VAR_DIR').'/www/')); 
-    lmbFs :: safeWrite($root . 'js/main.js', 'content');
-    lmbFs :: safeWrite($root . 'js/blog.js', 'content');
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', ($root = lmbEnv::get('LIMB_VAR_DIR').'/www/'));
+    lmbFs::safeWrite($root . 'js/main.js', 'content');
+    lmbFs::safeWrite($root . 'js/blog.js', 'content');
 
-    lmbFs :: rm($root . '/media/var');
+    lmbFs::rm($root . '/media/var');
 
     $template = '
     {{js:combined dir="media/var"}}
@@ -55,7 +59,7 @@ class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
     {{/js:combined}}';
 
     $this->_createMacroTemplate($template, 'tpl.html')->render(); 
-    $file_name_one = array_shift(lmbFs :: ls($root.'/media/var/'));
+    $file_name_one = array_shift(lmbFs::ls($root.'/media/var/'));
     
     $template = '
     {{js:combined dir="media/var"}}
@@ -71,9 +75,9 @@ class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
 
   function testNotFoundFile()
   {
-    $root = lmb_env_get('LIMB_VAR_DIR').'/www';
-    lmb_env_set('LIMB_DOCUMENT_ROOT', $root);
-    lmbFs :: rm($root);
+    $root = lmbEnv::get('LIMB_VAR_DIR').'/www';
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', $root);
+    lmbFs::rm($root);
 
     $template = '{{js_combined dir="media/"}}{{js_once src="js/main.js" }}{{/js_combined}}';
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
@@ -94,7 +98,7 @@ class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
     $page->render();
     
-    $file = array_shift(lmbFs :: ls($root.'/media/'));
+    $file = array_shift(lmbFs::ls($root.'/media/'));
 
     $js_content = "/* include main.js - NOT FOUND */\n\n/* include blog.js */\nfunction blog() {};";
     $this->assertEqual(file_get_contents($root . '/media/'.$file), $js_content);

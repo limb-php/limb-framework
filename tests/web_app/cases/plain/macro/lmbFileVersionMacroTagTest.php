@@ -8,12 +8,15 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use limb\core\src\lmbEnv;
+use limb\fs\src\lmbFs;
+
 class lmbFileVersionMacroTagTest extends lmbMacroTestCase
 {
   function testRender()
   {
-    lmb_env_set('LIMB_DOCUMENT_ROOT', lmb_env_get('LIMB_VAR_DIR').'/www');
-    lmbFs :: safeWrite(lmb_env_get('LIMB_VAR_DIR') . '/www/index.html', '<html>Hello!</html>');
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', lmbEnv::get('LIMB_VAR_DIR').'/www');
+    lmbFs::safeWrite(lmbEnv::get('LIMB_VAR_DIR') . '/www/index.html', '<html>Hello!</html>');
 
     $template = '{{file:version src="index.html" }}';
 
@@ -25,8 +28,8 @@ class lmbFileVersionMacroTagTest extends lmbMacroTestCase
   
   function testSafeAttribute()
   {
-    lmb_env_set('LIMB_DOCUMENT_ROOT', lmb_env_get('LIMB_VAR_DIR').'/www/');
-    lmbFs :: rm(lmb_env_get('LIMB_DOCUMENT_ROOT').'not_found.html');
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', lmbEnv::get('LIMB_VAR_DIR').'/www/');
+    lmbFs::rm(lmbEnv::get('LIMB_DOCUMENT_ROOT').'not_found.html');
 
     $template = '{{file:version src="not_found.html" }}';
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
@@ -49,8 +52,8 @@ class lmbFileVersionMacroTagTest extends lmbMacroTestCase
 
   function testToVar()
   {
-    lmb_env_set('LIMB_DOCUMENT_ROOT', lmb_env_get('LIMB_VAR_DIR').'/www');
-    lmbFs :: safeWrite(lmb_env_get('LIMB_VAR_DIR') . '/www/index.html', '<html>Hello!</html>');
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', lmbEnv::get('LIMB_VAR_DIR').'/www');
+    lmbFs::safeWrite(lmbEnv::get('LIMB_VAR_DIR') . '/www/index.html', '<html>Hello!</html>');
 
     $template = '{{file:version src="index.html" to_var="$one" }} -{$one}-';
 
@@ -64,9 +67,9 @@ class lmbFileVersionMacroTagTest extends lmbMacroTestCase
     if(!function_exists('gzencode'))
       return print("Skip: function gzencode not exists.\n");
 
-    lmb_env_set('LIMB_DOCUMENT_ROOT', lmb_env_get('LIMB_VAR_DIR').'/www/');
-    lmbFs :: safeWrite(lmb_env_get('LIMB_VAR_DIR') . '/www/one.js', 'var window = {};');
-    $doc_root = lmb_env_get('LIMB_DOCUMENT_ROOT');
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', lmbEnv::get('LIMB_VAR_DIR').'/www/');
+    lmbFs::safeWrite(lmbEnv::get('LIMB_VAR_DIR') . '/www/one.js', 'var window = {};');
+    $doc_root = lmbEnv::get('LIMB_DOCUMENT_ROOT');
 
     $template = '{{file:version src="one.js" gzip_static_dir="media/var/gz" gzip_level="9" }}';
     $page = $this->_createMacroTemplate($template, 'tpl.html');

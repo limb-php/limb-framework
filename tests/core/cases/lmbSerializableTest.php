@@ -6,8 +6,11 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/core/src/lmbSerializable.class.php');
-lmb_require(dirname(__FILE__) . '/serializable_stubs.inc.php');
+
+use limb\core\src\lmbSerializable;
+use limb\core\src\lmbEnv;
+
+require(dirname(__FILE__) . '/serializable_stubs.inc.php');
 
 class lmbSerializableTest extends UnitTestCase
 {
@@ -47,7 +50,7 @@ class lmbSerializableTest extends UnitTestCase
   function testRemoveIncludePathFromClassPath()
   {
     //generating class and placing it in a temp dir
-    $var_dir = lmb_env_get('LIMB_VAR_DIR');
+    $var_dir = lmbEnv::get('LIMB_VAR_DIR');
     $class = 'Foo' . mt_rand();
     file_put_contents("$var_dir/foo.php", "<?php class $class { function say() {return 'hello';} }");
 
@@ -75,7 +78,7 @@ class lmbSerializableTest extends UnitTestCase
   function testRemoveIncludePathWithTrailingSlashFromClassPath()
   {
     //generating class and placing it in a temp dir
-    $var_dir = lmb_env_get('LIMB_VAR_DIR');
+    $var_dir = lmbEnv::get('LIMB_VAR_DIR');
     $class = 'Foo' . mt_rand();
     file_put_contents("$var_dir/foo.php", "<?php class $class { function say() {return 'hello';} }");
 

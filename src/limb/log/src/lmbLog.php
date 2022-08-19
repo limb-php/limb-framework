@@ -8,10 +8,7 @@
  */
 namespace limb\log\src;
 
-use limb\log\src\lmbLogWriterInterface;
-use limb\log\src\lmbLogEntry;
-use limb\net\src\lmbUri;
-use limb\fs\src\exception\lmbFileNotFoundException;
+use limb\core\src\lmbEnv;
 use limb\core\src\lmbBacktrace;
 use limb\core\src\exception\lmbException;
 
@@ -51,7 +48,7 @@ class lmbLog
 
   function isLogEnabled()
   {
-    return (bool) lmb_env_get('LIMB_LOG_ENABLE', true);
+    return (bool) lmbEnv::get('LIMB_LOG_ENABLE', true);
   }
 
   function setErrorLevel($level)

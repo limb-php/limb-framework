@@ -1,6 +1,8 @@
 <?php
 set_include_path(dirname(__FILE__) . '/../../../../');
 
+use limb\core\src\lmbEnv;
+
 $test = null;
 if(isset($argv[1]))
   $test = $argv[1];
@@ -9,11 +11,10 @@ $mark = microtime(true);
 $counter = 0;
 
 require_once('limb/core/common.inc.php');
-
-lmb_env_set('LIMB_VAR_DIR', dirname(__FILE__) . '/../../../var/');
-lmb_env_set('LIMB_CACHE_DB_META_IN_FILE', true);
-
 require_once('limb/active_record/common.inc.php');
+
+lmbEnv::set('LIMB_VAR_DIR', dirname(__FILE__) . '/../../../var/');
+lmbEnv::set('LIMB_CACHE_DB_META_IN_FILE', true);
 
 echo "active record common includes: " . (microtime(true) - $mark) . "\n";
 

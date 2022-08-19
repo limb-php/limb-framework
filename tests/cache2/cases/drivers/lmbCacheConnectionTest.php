@@ -6,8 +6,11 @@
 * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
-lmb_require('limb/core/src/lmbObject.class.php');
-lmb_require('limb/cache2/src/lmbCacheFactory.class.php');
+
+use limb\core\src\lmbEnv;
+use limb\core\src\lmbObject;
+use limb\cache2\src\lmbCacheFactory;
+use limb\net\src\lmbUri;
 
 class CacheableFooBarClass{}
 
@@ -27,7 +30,7 @@ abstract class lmbCacheConnectionTest extends UnitTestCase
   function __construct()
   {
     if($this->storage_init_file)
-      lmb_require($this->storage_init_file);
+      require($this->storage_init_file);
   }
 
   function setUp()
@@ -275,7 +278,8 @@ abstract class lmbCacheConnectionTest extends UnitTestCase
     set_include_path('$include_path');
     require_once('$setup_file');
 
-    lmb_require('limb/cache2/src/lmbCacheFactory.class.php');
+    use limb\\cache2\\src\\lmbCacheFactory;
+    
     \$cache = lmbCacheFactory::createConnection('{$this->dsn}');
     ob_end_clean();
     echo serialize(\$cache->$method('$arguments_str'));
@@ -283,13 +287,13 @@ EOD;
     $storage_init_file = $limb_db_dsn = $limb_var_dir = '';
 
     if($this->storage_init_file)
-      $storage_init_file = "lmb_require('{$this->storage_init_file}');";
+      $storage_init_file = "require('{$this->storage_init_file}');";
 
-    if(lmb_env_has('LIMB_DB_DSN'))
-      $limb_db_dsn = "lmb_env_setor('LIMB_DB_DSN', '" . lmb_env_get('LIMB_DB_DSN') . "');";
+    if(lmbEnv::has('LIMB_DB_DSN'))
+      $limb_db_dsn = "lmbEnv::setor('LIMB_DB_DSN', '" . lmbEnv::get('LIMB_DB_DSN') . "');";
 
-    if(lmb_env_has('LIMB_VAR_DIR'))
-      $limb_var_dir = "lmb_env_setor('LIMB_VAR_DIR', '" . lmb_env_get('LIMB_VAR_DIR') . "');";
+    if(lmbEnv::has('LIMB_VAR_DIR'))
+      $limb_var_dir = "lmbEnv::setor('LIMB_VAR_DIR', '" . lmbEnv::get('LIMB_VAR_DIR') . "');";
 
     $request_code = sprintf($request_code, $storage_init_file, $limb_db_dsn, $limb_var_dir);
 

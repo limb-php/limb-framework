@@ -8,9 +8,9 @@
  */
 namespace limb\wysiwyg\src\macro;
 
-use limb\wysiwyg\src\macro\lmbMacroBaseWysiwygWidget;
+use limb\core\src\lmbEnv;
 
-lmb_env_setor('LIMB_FCKEDITOR_DIR', 'limb/wysiwyg/lib/FCKeditor/');
+lmbEnv::setor('LIMB_FCKEDITOR_DIR', 'limb/wysiwyg/lib/FCKeditor/');
 
 /**
  * @package wysiwyg

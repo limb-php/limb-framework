@@ -9,17 +9,17 @@
 namespace limb\web_app\src\toolkit;
 
 use limb\toolkit\src\lmbToolkit;
+use limb\core\src\lmbEnv;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\session\src\lmbSession;
 use limb\view\src\lmbDummyView;
 use limb\web_app\src\util\lmbFlashBox;
 use limb\web_app\src\request\lmbRoutes;
 use limb\core\src\exception\lmbException;
-use limb\core\src\lmbBacktrace;
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
 
-lmb_env_setor('LIMB_CONTROLLERS_INCLUDE_PATH', 'src/controller;limb/*/src/controller');
+lmbEnv::setor('LIMB_CONTROLLERS_INCLUDE_PATH', 'src/controller;limb/*/src/controller');
 
 /**
  * class lmbWebAppTools.
@@ -82,7 +82,7 @@ class lmbWebAppTools extends lmbAbstractTools
     if(!isset($params['controller']) && !$skip_controller)
       $params['controller'] = $this->toolkit->getDispatchedController()->getName();
 
-    return lmb_env_get('LIMB_HTTP_GATEWAY_PATH') . ltrim($routes->toUrl($params, $route_name), '/');
+    return lmbEnv::get('LIMB_HTTP_GATEWAY_PATH') . ltrim($routes->toUrl($params, $route_name), '/');
   }
 
   function getRoutes()
@@ -154,7 +154,7 @@ class lmbWebAppTools extends lmbAbstractTools
   function isWebAppDebugEnabled()
   {
     $mode = false;
-    if('devel' === lmb_env_get('LIMB_APP_MODE'))
+    if('devel' === lmbEnv::get('LIMB_APP_MODE'))
       $mode = true;
 
     try
@@ -178,7 +178,7 @@ class lmbWebAppTools extends lmbAbstractTools
 
   function getNormalizeUrlAndVersion($file_src, $safe = false)
   {
-    $doc_root = lmb_env_get('LIMB_DOCUMENT_ROOT', false);
+    $doc_root = lmbEnv::get('LIMB_DOCUMENT_ROOT', false);
     if(!$doc_root)
       if($safe)
         return array($file_src, '00');

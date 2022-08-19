@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-lmb_require('limb/core/src/lmbDelegate.class.php');
+use limb\core\src\lmbDelegate;
 
 class DelegateTestingStub
 {

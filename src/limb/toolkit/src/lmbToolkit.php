@@ -197,10 +197,12 @@ class lmbToolkit extends lmbObject
     if( !$name )
       $name = get_class($tool);
 
-    $tools = $this->_tools;
-    array_unshift($tools, $tool);
-    //$tools[$name] = $tool;
-    $this->setTools($tools);
+    if( !isset($this->_tools[$name]) )
+    {
+      $tools = $this->_tools;
+      $tools = array($name => $tool) + $tools; //array_unshift($tools, $tool);
+      $this->setTools($tools);
+    }
   }
 
   /**

@@ -8,12 +8,16 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use limb\core\src\lmbEnv;
+use limb\fs\src\lmbFs;
+use limb\core\src\exception\lmbException;
+
 class lmbJsRequireOnceMacroTagTest extends lmbMacroTestCase
 {
   function testOnceRender()
   {
-    lmb_env_set('LIMB_DOCUMENT_ROOT', lmb_env_get('LIMB_VAR_DIR').'/www');
-    lmbFs :: safeWrite(lmb_env_get('LIMB_VAR_DIR') . '/www/js/main.js', 'function() { alert(1); }');
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', lmbEnv::get('LIMB_VAR_DIR').'/www');
+    lmbFs::safeWrite(lmbEnv::get('LIMB_VAR_DIR') . '/www/js/main.js', 'function() { alert(1); }');
     $template = '{{js:require_once src="js/main.js" }}{{js_once src="js/main.js" }}';
 
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
@@ -24,7 +28,7 @@ class lmbJsRequireOnceMacroTagTest extends lmbMacroTestCase
 
   function testNotFoundFile()
   {
-    lmb_env_set('LIMB_DOCUMENT_ROOT', lmb_env_get('LIMB_VAR_DIR'));
+    lmbEnv::set('LIMB_DOCUMENT_ROOT', lmbEnv::get('LIMB_VAR_DIR'));
     
     $template = '{{js:require_once src="js/main.js" }}';
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
