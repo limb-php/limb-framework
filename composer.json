@@ -47,7 +47,7 @@
     },
     "autoload": {
         "files": [
-            "src/limb/bootstrap.php"
+            "bootstrap.php"
         ],
         "psr-0": {
             "limb\\": "src/"
