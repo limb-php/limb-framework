@@ -4,7 +4,6 @@
 -- default value introduced in "get" method for all classes implementing SetInterface
 -- lmb_require static includes cache for modules with classes fixed
 -- adding experimental lmb_require_class which operates with lazy loading of classes only
--- renaming lmb_glob_require => lmb_require_glob and adding a test for it
 -- adding support for future stream_resolve_include_path
 -- lmb_require second argument is not $optional any more, this stuff was moved into lmb_require_optional
 -- lmb_require second argument now can be a class or interface name which gives possibility to use lmb_require lazy loading for classes and interfaces which are stored in modules
@@ -30,7 +29,7 @@
 -- lmbCollection :: toFlatArray now accepts optional $key_field parameter. This parameter allows to get array with $key_field values as keys in result array
 -- renaming lmbReflection into lmbReflectionHelper and making it static
 -- making lmbCollection :: _setupIteratedDataset() protected
--- a bit more optimal versions of lmb_camel_case, lmb_under_scores added with tests
+-- a bit more optimal versions of lmbString::camel_case, lmbString::under_scores added with tests
 -- lmbArrayHelper :: arrayMerge(..) now can accept many arguments
 -- adding phpdoc header to modules
 -- lmb_require_optional($file_path) it includes files only if they exist and if not it doesn't throw an exception(actually it's just a wrapper around lmb_require)
@@ -67,9 +66,9 @@
 0.1.3-alpha - 1 April 2007 (r5454)
 ==================================================
 -- lmb_find_limb_packages() removed as it was never used
--- toStudlyCaps() is now deprecated, use lmb_camel_case() instead
--- to_under_scores() is now deprecated, use lmb_under_scores() instead
--- makeStudlyCapsReadable() is now deprecated, use lmb_humanize() instead
+-- toStudlyCaps() is now deprecated, use lmbString::camel_case() instead
+-- to_under_scores() is now deprecated, use lmbString::under_scores() instead
+-- makeStudlyCapsReadable() is now deprecated, use lmbString::humanize() instead
 -- other minor fixes
 
 0.1.1-alpha - 16 February 2007 (r5029)

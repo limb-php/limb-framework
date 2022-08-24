@@ -19,7 +19,7 @@ use limb\toolkit\src\lmbToolkit;
  */
 abstract class lmbAbstractTools implements lmbToolkitToolsInterface
 {
-  protected $reserved_methods = array('__construct', '_setRaw', '_getRaw');
+  protected $reserved_methods = array('__construct', '_setRaw', '_getRaw', '_init');
   /**
   * @var lmbToolkit reference of lmbToolkit instance
   */
@@ -27,7 +27,12 @@ abstract class lmbAbstractTools implements lmbToolkitToolsInterface
 
   function __construct()
   {
-    $this->toolkit = lmbToolkit :: instance();
+    $this->toolkit = lmbToolkit::instance();
+  }
+
+  static function getRequiredTools()
+  {
+    return [];
   }
 
   /**

@@ -14,6 +14,7 @@ use limb\fs\src\lmbFs;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;
 use limb\core\src\lmbEnv;
+use limb\core\src\lmbString;
 
 lmbEnv::setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
 
@@ -143,7 +144,7 @@ class LmbController
     $ctrlClassName = $refController->getShortName();
 
     if($pos = strpos($ctrlClassName, 'Controller'))
-      return lmb_under_scores(substr($ctrlClassName, 0, $pos));
+      return lmbString::under_scores(substr($ctrlClassName, 0, $pos));
   }
 
   /**
@@ -313,7 +314,7 @@ class LmbController
 
   protected function _mapActionToMethod($action)
   {
-    return lmb_camel_case('do_' . $action);
+    return lmbString::camel_case('do_' . $action);
   }
 
   function forward($controller_name, $action)

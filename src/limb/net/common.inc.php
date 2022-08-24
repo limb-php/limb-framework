@@ -12,9 +12,3 @@
  * @version $Id: common.inc.php 8041 2010-01-19 20:49:36Z korchasa $
  */
 require_once(dirname(__FILE__) . '/../core/common.inc.php');
-require_once(dirname(__FILE__) . '/../toolkit/common.inc.php');
-
-use limb\toolkit\src\lmbToolkit;
-use limb\net\src\toolkit\lmbNetTools;
-
-lmbToolkit::merge(new lmbNetTools());

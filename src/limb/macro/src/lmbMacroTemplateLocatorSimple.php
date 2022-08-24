@@ -10,6 +10,7 @@ namespace limb\macro\src;
 
 use limb\macro\src\lmbMacroTemplateLocatorInterface;
 use limb\macro\src\lmbMacroConfig;
+use limb\fs\src\lmbFs;
 
 /**
  * class lmbMacroSimpleTemplateLocator.
@@ -28,7 +29,7 @@ class lmbMacroTemplateLocatorSimple implements lmbMacroTemplateLocatorInterface
 
   function locateSourceTemplate($file_name)
   {         
-    if(lmb_is_path_absolute($file_name))
+    if(lmbFs::is_path_absolute($file_name))
       return $file_name;
     
     $dirs = $this->config->tpl_scan_dirs;
@@ -36,7 +37,7 @@ class lmbMacroTemplateLocatorSimple implements lmbMacroTemplateLocatorInterface
     foreach($dirs as $dir)
     {
       $file_path = $dir . '/' . $file_name;
-      if(lmb_is_path_absolute($file_path) && file_exists($file_path))
+      if(lmbFs::is_path_absolute($file_path) && file_exists($file_path))
         return $file_path;
       if($full_path = stream_resolve_include_path($file_path))
         return $full_path;

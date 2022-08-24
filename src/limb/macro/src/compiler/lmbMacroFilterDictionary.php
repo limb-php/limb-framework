@@ -24,11 +24,11 @@ class lmbMacroFilterDictionary
 
   static function instance()
   {
-    if(self :: $instance)
-      return self :: $instance;
+    if(self::$instance)
+      return self::$instance;
 
-    self :: $instance = new lmbMacroFilterDictionary();
-    return self :: $instance;
+    self::$instance = new lmbMacroFilterDictionary();
+    return self::$instance;
   }
 
   function load(\limb\macro\src\lmbMacroConfig $config)
@@ -39,9 +39,9 @@ class lmbMacroFilterDictionary
 
     //compatibility with PHP 5.1.6
     $filters_scan_dirs = $config->filters_scan_dirs;
-    foreach($filters_scan_dirs as $dir)
+    foreach($filters_scan_dirs as $scan_dir)
     {
-      foreach(lmb_glob($dir . '/*Filter.php') as $file)
+      foreach(lmbFs::glob($scan_dir . '/*Filter.*') as $file)
         $this->registerFromFile($file);
     }
 
@@ -66,7 +66,7 @@ class lmbMacroFilterDictionary
   protected function _saveCache()
   {
     $cache_file = $this->cache_dir . '/filters.cache';
-    lmbFs :: safeWrite($cache_file, serialize($this->info));
+    lmbFs::safeWrite($cache_file, serialize($this->info));
   }
 
   function register($filter_info)
@@ -91,7 +91,7 @@ class lmbMacroFilterDictionary
 
   function registerFromFile($file)
   {
-    $infos = lmbMacroAnnotationParser :: extractFromFile($file, 'limb\macro\src\compiler\lmbMacroFilterInfo');
+    $infos = lmbMacroAnnotationParser::extractFromFile($file, 'limb\macro\src\compiler\lmbMacroFilterInfo');
     foreach($infos as $info)
       $this->register($info, $file);
   }

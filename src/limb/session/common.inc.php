@@ -13,3 +13,8 @@
  */
 require_once(dirname(__FILE__) . '/../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../dbal/common.inc.php');
+
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\toolkit\lmbDbTools;
+
+lmbToolkit::merge(new lmbDbTools());

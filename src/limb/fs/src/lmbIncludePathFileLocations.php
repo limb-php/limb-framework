@@ -30,7 +30,7 @@ class lmbIncludePathFileLocations implements lmbFileLocationsInterface
     $resolved = array();
     foreach($this->paths as $path)
     {
-      foreach(lmb_glob($path) as $dir)
+      foreach(lmbFs::glob($path) as $dir)
         $resolved[] = $dir;
     }
     return $resolved;

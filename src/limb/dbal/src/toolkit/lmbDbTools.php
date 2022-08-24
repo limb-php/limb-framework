@@ -8,6 +8,7 @@
  */
 namespace limb\dbal\src\toolkit;
 
+use limb\config\src\toolkit\lmbConfTools;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbEnv;
@@ -32,6 +33,13 @@ class lmbDbTools extends lmbAbstractTools
   protected $db_tables = array();
   protected $is_db_info_cache_enabled;
   protected $db_env = 'devel';
+
+  static function getRequiredTools()
+  {
+    return [
+      lmbConfTools::class
+    ];
+  }
 
   function setDbEnvironment($env)
   {
@@ -188,11 +196,9 @@ class lmbDbTools extends lmbAbstractTools
     $driver = $dsn->getDriver();
     $class = 'lmb' . ucfirst($driver) . 'Connection';
     $className = "limb\dbal\src\drivers\\" . $driver . "\\" . $class;
-    //$file = 'limb/dbal/src/drivers/' . $driver . '/' . $class . '.php';
 
     try
     {
-      //require_once($file);
       $connectionClass = new $className($dsn, $dsn->toString());
 
       return $connectionClass;

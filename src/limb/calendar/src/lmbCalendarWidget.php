@@ -131,7 +131,8 @@ class lmbCalendarWidget extends lmbMacroInputWidget
   {
     $jstr = '';
     reset($array);
-    while(list($key, $val) = each($array))
+    //while(list($key, $val) = each($array))
+    foreach ($array as $key => $val)
     {
       if(is_bool($val))
         $val = $val ? 'true' : 'false';
@@ -154,5 +155,3 @@ class lmbCalendarWidget extends lmbMacroInputWidget
     return $attrstr;
   }
 }
-
-

@@ -8,6 +8,8 @@
  */
 namespace limb\search\src\indexer;
 
+use limb\i18n\src\charset\lmbI18nString;
+
 /**
  * class lmbSearchTextNormalizer.
  *
@@ -18,7 +20,7 @@ class lmbSearchTextNormalizer
 {
   function process($content)
   {
-    $content = lmb_strtolower($content);
+    $content = lmbI18nString::strtolower($content);
 
     $content = str_replace("\n", ' ', $content );
     $content = str_replace("\t", ' ', $content );

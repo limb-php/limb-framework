@@ -426,7 +426,7 @@ class lmbUri extends lmbSet
     $query_items = array();
     $flat_array = array();
 
-    lmbArrayHelper :: toFlatArray($this->query_items, $flat_array);
+    lmbArrayHelper::toFlatArray($this->query_items, $flat_array);
     ksort($flat_array);
     foreach($flat_array as $key => $value)
     {

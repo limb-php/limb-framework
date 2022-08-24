@@ -12,8 +12,4 @@
  * @version $Id: common.inc.php 6588 2007-12-05 22:10:21Z alex433 $
  */
 require_once(dirname(__FILE__) . '/../core/common.inc.php');
-
-use limb\toolkit\src\lmbToolkit;
-use limb\cache2\src\lmbCacheTools;
-
-lmbToolkit::merge(new lmbCacheTools());
+require_once(dirname(__FILE__) . '/../config/common.inc.php');

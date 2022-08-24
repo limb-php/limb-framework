@@ -15,6 +15,8 @@
  */
 namespace limb\web_spider\src;
 
+use limb\i18n\src\charset\lmbI18nString;
+
 class lmbUriExtractor
 {
   protected function _defineUriRegex()
@@ -48,7 +50,7 @@ class lmbUriExtractor
       if( $parsed_url = parse_url($decoded_url) )
       {
         if( substr($decoded_url, -1) == '/' ) // last slash
-          $decoded_url = lmb_substr($decoded_url, 0, -1);
+          $decoded_url = lmbI18nString::substr($decoded_url, 0, -1);
 
         if( !isset($parsed_url['host']) && ($decoded_url{0} != '/') ) // first slash if no host
           $decoded_url = '/' . $decoded_url;

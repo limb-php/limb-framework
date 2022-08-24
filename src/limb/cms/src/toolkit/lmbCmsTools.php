@@ -6,9 +6,13 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\cms\src\toolkit;
+
 use limb\toolkit\src\lmbAbstractTools;
 use limb\tree\src\lmbMPTree;
 use limb\cms\src\model\lmbCmsSessionUser;
+use limb\web_app\src\toolkit\lmbWebAppTools;
+use limb\web_app\src\toolkit\lmbProfileTools;
 
 /**
  * class lmbCmsTools.
@@ -20,6 +24,14 @@ class lmbCmsTools extends lmbAbstractTools
 {
   protected $tree;
   protected $user;
+
+  static function getRequiredTools()
+  {
+    return [
+      lmbWebAppTools::class,
+      lmbProfileTools::class
+    ];
+  }
 
   function getCmsTree($tree_name = 'node')
   {

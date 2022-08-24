@@ -13,7 +13,3 @@
  */
 require_once(dirname(__FILE__) . '/../core/common.inc.php');
 
-use limb\toolkit\src\lmbToolkit;
-use limb\acl\src\toolkit\lmbAclTools;
-
-lmbToolkit::merge(new lmbAclTools());

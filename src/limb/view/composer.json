@@ -1,7 +1,11 @@
 {
     "name": "limb/view",
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "limb/core": "dev-master",
+        "limb/toolkit": "dev-master",
+        "limb/config": "dev-master",
+        "limb/fs": "dev-master"
     },
     "autoload": {
         "psr-0": {

@@ -9,6 +9,7 @@
 namespace limb\active_record\src;
 
 use limb\core\src\lmbObject;
+use limb\core\src\lmbString;
 use limb\core\src\lmbDelegate;
 use limb\core\src\lmbCollection;
 use limb\dbal\src\criteria\lmbSQLCriteria;
@@ -221,7 +222,7 @@ class lmbActiveRecord extends lmbObject
     $class_name = get_class($this);
 
     if(!$this->_db_table_name)
-      $this->_db_table_name = lmb_under_scores($class_name);
+      $this->_db_table_name = lmbString::under_scores($class_name);
 
     if(isset(self :: $_metas[$class_name]))
       $meta = self :: $_metas[$class_name];
@@ -871,7 +872,7 @@ class lmbActiveRecord extends lmbObject
    */
   function mapPropertyToAddToMethod($property)
   {
-    return 'addTo' . lmb_camel_case($property);
+    return 'addTo' . lmbString::camel_case($property);
   }
   /**
    *  Maps "addTo" to property, e.g. "addToPropertyName" => "property_name"
@@ -881,7 +882,7 @@ class lmbActiveRecord extends lmbObject
   function mapAddToProperty($method)
   {
     if(substr($method, 0, 5) == 'addTo')
-      return lmb_under_scores(substr($method, 5));
+      return lmbString::under_scores(substr($method, 5));
   }
   /**
    *  Maps database field to property name
@@ -1428,29 +1429,7 @@ class lmbActiveRecord extends lmbObject
 
   static protected function _getCallingClass()
   {
-    if(function_exists('get_called_class'))
-      return get_called_class();
-
-    //once PHP-5.3 LSB patch is available we'll use get_called_class
-    //currently it's a quite a slow implementation and it doesn't
-    //recognize multiline function calls
-
-    $trace = debug_backtrace();
-    $back = $trace[1];
-    $method = $back['function'];
-    $fp = fopen($back['file'], 'r');
-
-    for($i=0; $i<$back['line']-1; $i++)
-      fgets($fp);
-
-    $line = fgets($fp);
-    fclose($fp);
-
-    if(!preg_match('~(\w+)\s*::\s*' . $method . '\s*\(~', $line, $m))
-      throw new lmbARException("Static calling class not found!(using multiline static method call?)");
-    if($m[1] == 'lmbActiveRecord')
-      throw new lmbARException("Found static class can't be lmbActiveRecord!");
-    return $m[1];
+    return get_called_class();
   }
 
   /**
@@ -1463,15 +1442,15 @@ class lmbActiveRecord extends lmbObject
    */
   static function findFirst($class_name = null, $magic_params = null, $conn = null)
   {
-    if(!self :: _isClass($class_name))
+    if(!self::_isClass($class_name))
     {
       $conn = $magic_params;
       $magic_params = $class_name ? $class_name : array();
-      $class_name = self :: _getCallingClass();
+      $class_name = self::_getCallingClass();
     }
 
     $params = array();
-    if(self :: _isCriteria($magic_params))
+    if(self::_isCriteria($magic_params))
       $params = array('first', 'criteria' => $magic_params);
     elseif(is_null($magic_params))
       $params = array('first');
@@ -1485,7 +1464,7 @@ class lmbActiveRecord extends lmbObject
       throw new lmbARException("Could not find class '$class_name'");
 
     if(!is_object($conn))
-      $conn = self :: getDefaultConnection();
+      $conn = self::getDefaultConnection();
 
     $obj = new $class_name(null, $conn);
     return $obj->_findFirst($params);
@@ -1499,13 +1478,13 @@ class lmbActiveRecord extends lmbObject
    */
   static function findOne($class_name = null, $magic_params = null, $conn = null)
   {
-    if(!self :: _isClass($class_name))
+    if(!self::_isClass($class_name))
     {
       $conn = $magic_params;
       $magic_params = $class_name ? $class_name : array();
-      $class_name = self :: _getCallingClass();
+      $class_name = self::_getCallingClass();
     }
-    return self :: findFirst($class_name, $magic_params, $conn);
+    return self::findFirst($class_name, $magic_params, $conn);
   }
   /**
    *  Userland filter for findFirst() static method
@@ -1527,19 +1506,19 @@ class lmbActiveRecord extends lmbObject
    */
   static function findById($class_name, $id = null, $throw_exception = true, $conn = null)
   {
-    if(!self :: _isClass($class_name))
+    if(!self::_isClass($class_name))
     {
       $conn = $throw_exception;
       $throw_exception = $id;
       $id = $class_name;
-      $class_name = self :: _getCallingClass();
+      $class_name = self::_getCallingClass();
     }
 
     if(!class_exists($class_name, true))
       throw new lmbARException("Could not find class '$class_name'");
 
     if(!is_object($conn))
-      $conn = self :: getDefaultConnection();
+      $conn = self::getDefaultConnection();
 
     $obj = new $class_name(null, $conn);
     return $obj->_findById($id, $throw_exception);
@@ -1592,19 +1571,19 @@ class lmbActiveRecord extends lmbObject
    */
   static function findByIds($class_name, $ids = null, $params = null, $conn = null)
   {
-    if(!self :: _isClass($class_name))
+    if(!self::_isClass($class_name))
     {
       $conn = $params;
       $params = $ids;
       $ids = $class_name;
-      $class_name = self :: _getCallingClass();
+      $class_name = self::_getCallingClass();
     }
 
     if(!class_exists($class_name, true))
       throw new lmbARException("Could not find class '$class_name'");
 
     if(!is_object($conn))
-      $conn = self :: getDefaultConnection();
+      $conn = self::getDefaultConnection();
 
     $obj = new $class_name(null, $conn);
     return $obj->_findByIds($ids, $params);
@@ -1620,7 +1599,7 @@ class lmbActiveRecord extends lmbObject
   {
     if(!is_array($ids) || !sizeof($ids))
       return new lmbCollection();
-    if(self :: _isCriteria($params))
+    if(self::_isCriteria($params))
       $params = array('criteria' => $params);
 
     if(isset($params['criteria']))
@@ -1640,18 +1619,18 @@ class lmbActiveRecord extends lmbObject
    */
   static function findBySql($class_name, $sql = null, $conn = null)
   {
-    if(!self :: _isClass($class_name))
+    if(!self::_isClass($class_name))
     {
       $conn = $sql;
       $sql = $class_name;
-      $class_name = self :: _getCallingClass();
+      $class_name = self::_getCallingClass();
     }
 
     if(!is_object($conn))
-      $conn = self :: getDefaultConnection();
+      $conn = self::getDefaultConnection();
 
     $stmt = $conn->newStatement($sql);
-    return self :: decorateRecordSet($stmt->getRecordSet(), $class_name);
+    return self::decorateRecordSet($stmt->getRecordSet(), $class_name);
   }
   /**
    *  Finds first object in database using raw SQL
@@ -1662,14 +1641,14 @@ class lmbActiveRecord extends lmbObject
    */
   static function findFirstBySql($class_name, $sql = null, $conn = null)
   {
-    if(!self :: _isClass($class_name))
+    if(!self::_isClass($class_name))
     {
       $conn = $sql;
       $sql = $class_name;
-      $class_name = self :: _getCallingClass();
+      $class_name = self::_getCallingClass();
     }
 
-    $rs = self :: findBySql($class_name, $sql, $conn);
+    $rs = self::findBySql($class_name, $sql, $conn);
     $rs->paginate(0, 1);
     $rs->rewind();
     if($rs->valid())
@@ -1682,13 +1661,13 @@ class lmbActiveRecord extends lmbObject
    */
   static function findOneBySql($class_name, $sql = null, $conn = null)
   {
-    if(!self :: _isClass($class_name))
+    if(!self::_isClass($class_name))
     {
       $conn = $sql;
       $sql = $class_name;
-      $class_name = self :: _getCallingClass();
+      $class_name = self::_getCallingClass();
     }
-    return self :: findFirstBySql($class_name, $sql, $conn);
+    return self::findFirstBySql($class_name, $sql, $conn);
   }
 
   /**
@@ -1728,17 +1707,17 @@ class lmbActiveRecord extends lmbObject
    */
   static function find($class_name = null, $magic_params = null, $conn = null)
   {
-    if(!self :: _isClass($class_name))
+    if(!self::_isClass($class_name))
     {
       $conn = $magic_params;
       $magic_params = $class_name ? $class_name : array();
-      $class_name = self :: _getCallingClass();
+      $class_name = self::_getCallingClass();
     }
 
     if(!is_object($conn))
-      $conn = self :: getDefaultConnection();
+      $conn = self::getDefaultConnection();
 
-    if(self :: _isCriteria($magic_params))
+    if(self::_isCriteria($magic_params))
       $params = array('criteria' => $magic_params);
     elseif(is_int($magic_params) || (is_array($magic_params) && isset($magic_params['id'])))
       return self :: findById($class_name, $magic_params, false, $conn);

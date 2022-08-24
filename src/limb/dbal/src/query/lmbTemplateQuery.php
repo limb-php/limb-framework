@@ -10,6 +10,7 @@ namespace limb\dbal\src\query;
 
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
+use limb\core\src\lmbString;
 
 /**
  * class lmbTemplateQuery.
@@ -66,7 +67,7 @@ class lmbTemplateQuery
     $result = array();
     foreach($this->_hints as $hint)
     {
-      $method = '_get' . lmb_camel_case($hint) . 'Hint';
+      $method = '_get' . lmbString::camel_case($hint) . 'Hint';
       $wrapped_hint = $this->_wrapHint($hint);
       if(!strpos($this->_template_sql, $wrapped_hint))
         throw new lmbException('Hint ' . $wrapped_hint . ' is not found in template sql "' . $this->_template_sql . '"');

@@ -17,6 +17,5 @@ use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
  */
 class lmbI18NMacroCapitalizeFilter extends lmbMacroFunctionBasedFilter
 {
-  protected $function = 'lmb_ucfirst';
-  protected $include_file = 'limb/i18n/utf8.inc.php';
+  protected $function = array('limb\i18n\src\charset\lmbI18nString', 'ucfirst');
 }

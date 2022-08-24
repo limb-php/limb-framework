@@ -8,6 +8,7 @@
  */
 namespace limb\log\src\toolkit;
 
+use limb\config\src\toolkit\lmbConfTools;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\core\src\lmbEnv;
 use limb\log\src\lmbLog;
@@ -23,6 +24,13 @@ use limb\fs\src\exception\lmbFileNotFoundException;
 class lmbLogTools extends lmbAbstractTools
 {
   protected $log;
+
+  static function getRequiredTools()
+  {
+    return [
+      lmbConfTools::class
+    ];
+  }
 
   function getLogDSNes()
   {

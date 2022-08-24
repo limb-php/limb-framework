@@ -9,7 +9,7 @@
 namespace limb\validation\src\rule;
 
 use limb\validation\src\rule\lmbSingleFieldRule;
-require_once('limb/i18n/utf8.inc.php');
+use limb\i18n\src\charset\lmbI18nString;
 
 /**
  * class lmbI18NSizeRangeRule.
@@ -46,13 +46,13 @@ class lmbI18NSizeRangeRule extends lmbSingleFieldRule
 
   function check($value)
   {
-    if(!is_null($this->min_length) && (lmb_strlen($value) < $this->min_length))
+    if(!is_null($this->min_length) && (lmbI18nString::strlen($value) < $this->min_length))
     {
       $this->error(lmb_i18n('{Field} must be greater than {min} and less than {max} characters.', 'validation'),
                    array('min' => $this->min_length, 'max' => $this->max_length));
     }
 
-    if(lmb_strlen($value) > $this->max_length)
+    if(lmbI18nString::strlen($value) > $this->max_length)
     {
       if(is_null($this->min_length))
         $this->error(lmb_i18n('{Field} must be less than {max} characters.', 'validation'),

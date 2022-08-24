@@ -6,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-use limb\toolkit\src\lmbAbstractTools;
+namespace limb\cache\src\toolkit;
 
+use limb\toolkit\src\lmbAbstractTools;
 use limb\cache\src\lmbCacheGroupDecorator;
 use limb\cache\src\lmbCacheFileBackend;
 

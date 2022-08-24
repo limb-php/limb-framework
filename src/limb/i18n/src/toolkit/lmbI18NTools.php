@@ -8,6 +8,7 @@
  */
 namespace limb\i18n\src\toolkit;
 
+use limb\fs\src\toolkit\lmbFsTools;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\i18n\src\locale\lmbLocale;
 use limb\core\src\lmbEnv;
@@ -29,6 +30,13 @@ class lmbI18NTools extends lmbAbstractTools
   protected $locale_objects = array();
   protected $dictionaries = array();
   protected $dict_backend;
+
+  static function getRequiredTools()
+  {
+    return [
+      lmbFsTools::class
+    ];
+  }
 
   function getDictionaryBackend()
   {

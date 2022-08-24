@@ -8,6 +8,8 @@
  */
 namespace limb\active_record\src\toolkit;
 
+use limb\dbal\src\toolkit\lmbDbTools;
+use limb\i18n\src\toolkit\lmbI18NTools;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\active_record\src\lmbARMetaInfo;
 
@@ -20,6 +22,14 @@ use limb\active_record\src\lmbARMetaInfo;
 class lmbARTools extends lmbAbstractTools
 {
   protected $metas = array();
+
+  static function getRequiredTools()
+  {
+    return [
+      lmbDbTools::class,
+      lmbI18NTools::class
+    ];
+  }
 
   function getActiveRecordMetaInfo($active_record, $conn = null)
   {

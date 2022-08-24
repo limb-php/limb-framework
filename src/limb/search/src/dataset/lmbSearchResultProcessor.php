@@ -9,6 +9,7 @@
 namespace limb\search\src\dataset;
 
 use limb\core\src\lmbCollectionDecorator;
+use limb\i18n\src\charset\lmbI18nString;
 
 /**
  * class lmbSearchResultProcessor.
@@ -121,14 +122,14 @@ class lmbSearchResultProcessor extends lmbCollectionDecorator
   function _makeGap($gap_pos, $text_chunk)
   {
     $result = '';
-    $chunk_len = lmb_strlen($text_chunk);
+    $chunk_len = lmbI18nString::strlen($text_chunk);
 
     if($gap_pos == 'middle')
     {
       if($chunk_len > 2*$this->radius)
-        $result = lmb_substr($text_chunk, 0, $this->radius) .
+        $result = lmbI18nString::substr($text_chunk, 0, $this->radius) .
                   $this->gaps_pattern .
-                  lmb_substr($text_chunk, (-1)*$this->radius, $this->radius);
+                  lmbI18nString::substr($text_chunk, (-1)*$this->radius, $this->radius);
       else
         $result = $text_chunk;
     }
@@ -136,14 +137,14 @@ class lmbSearchResultProcessor extends lmbCollectionDecorator
     {
       if($chunk_len > $this->radius)
         $result = $this->gaps_pattern .
-                  lmb_substr($text_chunk, (-1)*$this->radius, $this->radius);
+                  lmbI18nString::substr($text_chunk, (-1)*$this->radius, $this->radius);
      else
        $result = $text_chunk;
     }
     elseif($gap_pos == 'right')
     {
       if($chunk_len > $this->radius)
-        $result = lmb_substr($text_chunk, 0, $this->radius) .
+        $result = lmbI18nString::substr($text_chunk, 0, $this->radius) .
                   $this->gaps_pattern;
      else
        $result = $text_chunk;
@@ -154,10 +155,10 @@ class lmbSearchResultProcessor extends lmbCollectionDecorator
 
   function _usortHandler($a, $b)
   {
-   if (lmb_strlen($a) == lmb_strlen($b))
+   if (lmbI18nString::strlen($a) == lmbI18nString::strlen($b))
      return 0;
 
-   return (lmb_strlen($a) > lmb_strlen($b)) ? -1 : 1;
+   return (lmbI18nString::strlen($a) > lmbI18nString::strlen($b)) ? -1 : 1;
   }
 }
 

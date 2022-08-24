@@ -9,7 +9,9 @@
 namespace limb\validation\src;
 
 use limb\core\src\lmbEnv;
+use limb\core\src\lmbString;
 use limb\core\src\lmbHandle;
+use limb\fs\src\lmbFs;
 use limb\core\src\exception\lmbException;
 
 lmbEnv::setor('LIMB_RULES_INCLUDE_PATH', 'src/rule;limb/*/src/rule;limb/web_app/src/validation/rule');
@@ -151,7 +153,7 @@ class lmbValidatorBuilder
     {      
       $full_path = $dir . '/' . $rule_file_name;
             
-      if(lmb_glob($full_path))
+      if(lmbFs::glob($full_path))
       {
         return $full_path;
       }        
@@ -167,7 +169,7 @@ class lmbValidatorBuilder
       $underscored_name = self::$rules_shortcuts[$underscored_name];
     }
     
-    return 'Lmb' . lmb_camel_case($underscored_name) . 'Rule';
+    return 'Lmb' . lmbString::camel_case($underscored_name) . 'Rule';
   }
 
   static function trim($arr) 

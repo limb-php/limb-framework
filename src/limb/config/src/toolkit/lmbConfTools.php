@@ -8,6 +8,7 @@
  */
 namespace limb\config\src\toolkit;
 
+use limb\fs\src\toolkit\lmbFsTools;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\core\src\lmbObject;
 use limb\core\src\lmbEnv;
@@ -31,6 +32,13 @@ class lmbConfTools extends lmbAbstractTools
 {
   protected $confs = array();
   protected $conf_include_path;
+
+  static function getRequiredTools()
+  {
+    return [
+      lmbFsTools::class
+    ];
+  }
 
   function setConf($name, $conf)
   {

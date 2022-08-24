@@ -12,7 +12,7 @@ use limb\core\src\exception\lmbException;
 
 /**
  * class lmbInvalidArgumentException.
- * @see lmb_assert_* functions.
+ * @see lmbAssert::class functions.
  *
  * @package core
  * @version $Id$

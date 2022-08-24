@@ -20,5 +20,5 @@ use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
  */
 class lmbMacroStrToLowerFilter extends lmbMacroFunctionBasedFilter
 {
-  protected $function = 'lmb_strtolower';
+  protected $function = array('limb\i18n\src\charset\lmbI18nString', 'strtolower');
 }

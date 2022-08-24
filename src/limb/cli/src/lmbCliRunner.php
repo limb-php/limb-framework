@@ -9,6 +9,7 @@
 namespace limb\cli\src;
 
 use limb\cli\src\lmbCliBaseCmd;
+use limb\core\src\lmbString;
 use limb\core\src\exception\lmbException;
 
 @define('LIMB_CLI_INCLUDE_PATH', 'cli;limb/*/cli');
@@ -36,12 +37,12 @@ class lmbCliRunner
 
   static function commandToClass($name)
   {
-    return lmb_camel_case(self::sanitizeName($name)) . 'CliCmd';
+    return lmbString::camel_case(self::sanitizeName($name)) . 'CliCmd';
   }
 
   static function actionToMethod($name)
   {
-    return lmb_camel_case(self::sanitizeName($name));
+    return lmbString::camel_case(self::sanitizeName($name));
   }
 
   static function sanitizeName($name)

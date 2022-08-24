@@ -11,6 +11,7 @@ namespace limb\web_app\src\fetcher;
 use limb\core\src\lmbCollection;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
+use limb\core\src\lmbString;
 
 /**
  * abstract class lmbFetcher.
@@ -74,7 +75,7 @@ abstract class lmbFetcher
   {
     foreach($params as $param => $value)
     {
-      $method = lmb_camel_case('set_'.$param, false);
+      $method = lmbString::camel_case('set_'.$param, false);
       $dataset->$method($value);
     }
   }

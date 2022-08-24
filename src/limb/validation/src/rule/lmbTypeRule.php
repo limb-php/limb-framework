@@ -3,6 +3,7 @@ namespace limb\validation\src\rule;
 
 use limb\validation\src\rule\lmbSingleFieldRule;
 use limb\core\src\exception\lmbInvalidArgumentException;
+use limb\core\src\lmbAssert;
 
 class lmbTypeRule extends lmbSingleFieldRule
 {
@@ -18,7 +19,7 @@ class lmbTypeRule extends lmbSingleFieldRule
   {
     try
     {
-      lmb_assert_type($value, $this->type);
+      lmbAssert::assert_type($value, $this->type);
     }
     catch (lmbInvalidArgumentException $e)
     {

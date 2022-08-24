@@ -14,8 +14,3 @@
 require_once(dirname(__FILE__) . '/../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../validation/common.inc.php');
 require_once(dirname(__FILE__) . '/../dbal/common.inc.php');
-
-use limb\toolkit\src\lmbToolkit;
-use limb\active_record\src\toolkit\lmbARTools;
-
-lmbToolkit::merge(new lmbARTools());

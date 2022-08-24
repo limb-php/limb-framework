@@ -16,6 +16,8 @@ namespace limb\toolkit\src;
  */
 interface lmbToolkitToolsInterface
 {
+  static function getRequiredTools();
+
   /**
   * @return array Array of method names with reference to itself, something like array('getUser' => $this, 'getTree' => $this)
   */

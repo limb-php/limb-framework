@@ -10,6 +10,7 @@ namespace limb\active_record\src;
 
 use limb\core\src\lmbCollectionInterface;
 use limb\core\src\lmbCollection;
+use limb\core\src\lmbString;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
@@ -382,7 +383,7 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
   {
     foreach($params as $param => $value)
     {
-      $method = lmb_camel_case('set_'.$param, false);
+      $method = lmbString::camel_case('set_'.$param, false);
       $dataset->$method($value);
     }
   }

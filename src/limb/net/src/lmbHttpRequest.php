@@ -133,6 +133,19 @@ class lmbHttpRequest extends lmbSet
       (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST');
   }
 
+  function isAjax()
+  {
+    if ($this->has('DNT'))
+      return true;
+
+    return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')? true : false;
+  }
+
+  function isPjax()
+  {
+    return (isset($_SERVER['HTTP_X_PJAX']))? true : false;
+  }
+
   function pretendPost($flag = true)
   {
     $this->__pretend_post = $flag;

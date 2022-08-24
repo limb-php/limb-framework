@@ -6,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\cache2\src;
+namespace limb\cache2\src\toolkit;
 
+use limb\config\src\toolkit\lmbConfTools;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\cache2\src\lmbCacheFactory;
 use limb\cache2\src\lmbMintCache;
@@ -25,6 +26,13 @@ use limb\net\src\lmbUri;
 class lmbCacheTools extends lmbAbstractTools
 {
   protected $_cache = array();
+
+  static function getRequiredTools()
+  {
+    return [
+      lmbConfTools::class
+    ];
+  }
 
   function getCache($name = 'default')
   {
@@ -89,7 +97,7 @@ class lmbCacheTools extends lmbAbstractTools
 
   function createCacheConnectionByDSN($dsn)
   {
-    return lmbCacheFactory :: createConnection($dsn);
+    return lmbCacheFactory::createConnection($dsn);
   }
 
   function setCache($cache, $name = 'default')

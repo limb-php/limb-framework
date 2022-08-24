@@ -14,7 +14,24 @@
 require_once(dirname(__FILE__) . '/../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../config/common.inc.php');
 
-use limb\toolkit\src\lmbToolkit;
-use limb\log\src\toolkit\lmbLogTools;
+function lmb_var_dump($obj, $echo = false)
+{
+  ob_start();
+  var_dump($obj);
+  $dump = ob_get_contents();
+  ob_end_clean();
 
-lmbToolkit::merge(new lmbLogTools());
+  if($echo)
+  {
+    if(PHP_SAPI != 'cli')
+    {
+      echo '<pre>';
+      echo $dump;
+      echo '</pre>';
+    }
+    else
+      echo $dump;
+  }
+  else
+    return $dump;
+}

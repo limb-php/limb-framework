@@ -6,8 +6,7 @@
     "autoload": {
         "autoload": {
             "files": [
-                "common.inc.php",
-                "utf8.inc.php"
+                "common.inc.php"
             ]
         },
         "psr-0": {

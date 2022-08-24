@@ -9,6 +9,7 @@
 namespace limb\toolkit\src;
 
 use limb\core\src\lmbObject;
+use limb\core\src\lmbString;
 use limb\toolkit\src\lmbToolkitToolsInterface;
 use limb\toolkit\src\lmbRegistry;
 use limb\core\src\exception\lmbNoSuchMethodException;
@@ -50,10 +51,6 @@ class lmbToolkit extends lmbObject
   */
   protected $_tools = array();
   /**
-   * @var array tools array
-   */
-  protected $_tool = array();
-  /**
   * @var array Cached tools signatures that is methods supported by tools
   */
   protected $_tools_signatures = array();
@@ -85,20 +82,6 @@ class lmbToolkit extends lmbObject
 
     self :: $_instance = new lmbToolkit();
     return self :: $_instance;
-  }
-
-  /*
-   *
-   */
-  function addTool($tool_name, $tool)
-  {
-    $this->_tool[$tool_name] = $tool;
-  }
-
-  function getTool($tool_name)
-  {
-    if( isset( $this->_tool[$tool_name] ) )
-      return $this->_tool[$tool_name];
   }
 
   /**
@@ -184,7 +167,7 @@ class lmbToolkit extends lmbObject
   */
   static function merge($tool, $name = '')
   {
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
     $toolkit->add($tool, $name);
     return $toolkit;
   }
@@ -199,8 +182,18 @@ class lmbToolkit extends lmbObject
 
     if( !isset($this->_tools[$name]) )
     {
+      $req_tools = $tool::getRequiredTools();
+      if (!empty($req_tools)) {
+        foreach ($req_tools as $req_tool) {
+          lmbToolkit::merge( new $req_tool() );
+        }
+      }
+
+      if( method_exists($tool, '_init') )
+        call_user_func_array(array($tool, '_init'), array());
+
       $tools = $this->_tools;
-      $tools = array($name => $tool) + $tools; //array_unshift($tools, $tool);
+      $tools = array($name => $tool) + $tools;
       $this->setTools($tools);
     }
   }
@@ -228,12 +221,12 @@ class lmbToolkit extends lmbObject
     if($method = $this->_mapPropertyToGetMethod($var))
       return $this->$method();
     else
-      return parent :: get($var, $default);
+      return parent::get($var, $default);
   }
 
   function has($var)
   {
-    return $this->_hasGetMethodFor($var) || parent :: has($var);
+    return $this->_hasGetMethodFor($var) || parent::has($var);
   }
 
   /**
@@ -242,7 +235,7 @@ class lmbToolkit extends lmbObject
   */
   function setRaw($var, $value)
   {
-    return parent :: _setRaw($var, $value);
+    parent::_setRaw($var, $value);
   }
 
   /**
@@ -251,7 +244,7 @@ class lmbToolkit extends lmbObject
   */
   function getRaw($var)
   {
-    return parent :: _getRaw($var);
+    return parent::_getRaw($var);
   }
 
   /**
@@ -303,7 +296,7 @@ class lmbToolkit extends lmbObject
   {
     $this->_ensureSignatures();
 
-    $capsed = lmb_camel_case($property);
+    $capsed = lmbString::camel_case($property);
     $method = 'get' . $capsed;
     if(isset($this->_tools_signatures[$method]))
       return $method;
@@ -313,7 +306,7 @@ class lmbToolkit extends lmbObject
   {
     $this->_ensureSignatures();
 
-    $method = 'set' . lmb_camel_case($property);
+    $method = 'set' . lmbString::camel_case($property);
     if(isset($this->_tools_signatures[$method]))
       return $method;
   }

@@ -79,7 +79,7 @@ class lmbFs
 
   static function generateTmpFile($prefix = 'p')
   {
-    return tempnam(self :: getTmpDir(), $prefix);
+    return tempnam(self::getTmpDir(), $prefix);
   }
 
   /**
@@ -87,14 +87,14 @@ class lmbFs
    */
   static function generateTempFile($prefix = 'p')
   {
-    return self :: generateTmpFile($prefix);
+    return self::generateTmpFile($prefix);
   }
 
   static function dirpath($path)
   {
-    $path = self :: normalizePath($path);
+    $path = self::normalizePath($path);
 
-   if(($dir_pos = strrpos($path, self :: separator())) !== false )
+   if(($dir_pos = strrpos($path, self::separator())) !== false )
       return substr($path, 0, $dir_pos);
 
     return $path;
@@ -113,21 +113,21 @@ class lmbFs
     if(is_dir($dir))
       return;
 
-    $dir = self :: normalizePath($dir);
+    $dir = self::normalizePath($dir);
 
     if(!$parents)
     {
-      self :: _doMkdir($dir, $perm);
+      self::_doMkdir($dir, $perm);
       return;
     }
 
-    $separator = self :: separator();
-    $path_elements = self :: explodePath($dir);
+    $separator = self::separator();
+    $path_elements = self::explodePath($dir);
 
     if(count($path_elements) == 0)
       return;
 
-    $index = self :: _getFirstExistingPathIndex($path_elements, $separator);
+    $index = self::_getFirstExistingPathIndex($path_elements, $separator);
 
     if($index === false)
     {
@@ -143,7 +143,7 @@ class lmbFs
     for($i=$index; $i < count($path_elements); $i++)
     {
       $offset_path .= $path_elements[$i] . $separator;
-      self :: _doMkdir($offset_path, $perm);
+      self::_doMkdir($offset_path, $perm);
     }
   }
 
@@ -173,7 +173,7 @@ class lmbFs
     if(is_dir($dir))
       return;
 
-    if(self :: _hasWin32NetPrefix($dir))
+    if(self::_hasWin32NetPrefix($dir))
       return;
 
     $oldumask = umask(0);
@@ -186,21 +186,21 @@ class lmbFs
     umask($oldumask);
   }
 
-  static function explodePath($path, $fs_type = self :: UNIX)
+  static function explodePath($path, $fs_type = self::UNIX)
   {
-    $path = self :: normalizePath($path, $fs_type);
-    $separator = self :: separator($fs_type);
+    $path = self::normalizePath($path, $fs_type);
+    $separator = self::separator($fs_type);
 
     $dir_elements = explode($separator, $path);
 
     if(sizeof($dir_elements) > 1 &&  $dir_elements[sizeof($dir_elements)-1] === '')
       array_pop($dir_elements);
 
-    if(self :: _hasWin32NetPrefix($path))
+    if(self::_hasWin32NetPrefix($path))
     {
       array_shift($dir_elements);
       array_shift($dir_elements);
-      $dir_elements[0] = self :: WIN32_NET_PREFIX . $dir_elements[0];
+      $dir_elements[0] = self::WIN32_NET_PREFIX . $dir_elements[0];
     }
     return $dir_elements;
   }
@@ -246,7 +246,7 @@ class lmbFs
       if($file == '.' ||  $file == '..')
         continue;
 
-      self :: _doRm($item . $separator . $file, $separator);
+      self::_doRm($item . $separator . $file, $separator);
     }
 
     closedir($handle);
@@ -273,7 +273,7 @@ class lmbFs
     if(!is_dir($src))
     {
       if(!is_dir($dest))
-        self :: mkdir(dirname($dest));
+        self::mkdir(dirname($dest));
       else
         $dest = $dest . '/' . basename($src);
 
@@ -282,24 +282,24 @@ class lmbFs
       return;
     }
 
-    self :: mkdir($dest);
+    self::mkdir($dest);
 
-    $src = self :: normalizePath($src);
-    $dest = self :: normalizePath($dest);
-    $separator = self :: separator();
+    $src = self::normalizePath($src);
+    $dest = self::normalizePath($dest);
+    $separator = self::separator();
 
     if($as_child)
     {
       $separator_regex = preg_quote($separator);
       if(preg_match( "#^.+{$separator_regex}([^{$separator_regex}]+)$#", $src, $matches))
       {
-        self :: _doMkdir($dest . $separator . $matches[1], 0777);
+        self::_doMkdir($dest . $separator . $matches[1], 0777);
         $dest .= $separator . $matches[1];
       }
       else
         return false;
     }
-    $items = self :: find($src, 'df', $include_regex, $exclude_regex, false, $include_hidden);
+    $items = self::find($src, 'df', $include_regex, $exclude_regex, false, $include_hidden);
 
     $total_items = $items;
     while(count($items) > 0)
@@ -313,9 +313,9 @@ class lmbFs
           copy($full_path, $dest . $separator . $item);
         elseif(is_dir( $full_path))
         {
-          self :: _doMkdir($dest . $separator . $item, 0777);
+          self::_doMkdir($dest . $separator . $item, 0777);
 
-          $new_items = self :: find($full_path, 'df', $include_regex, $exclude_regex, $item, $include_hidden);
+          $new_items = self::find($full_path, 'df', $include_regex, $exclude_regex, $item, $include_hidden);
 
           $items = array_merge($items, $new_items);
           $total_items = array_merge($total_items, $new_items);
@@ -336,7 +336,7 @@ class lmbFs
       return array();
 
     $files = array();
-    $path = self :: normalizePath($path);
+    $path = self::normalizePath($path);
     if($handle = opendir($path))
     {
       while(($file = readdir($handle)) !== false)
@@ -354,25 +354,25 @@ class lmbFs
   /**
   * Return the separator used between directories and files according to $type.
   */
-  static function separator($type = lmbFs :: UNIX)
+  static function separator($type = lmbFs::UNIX)
   {
-    switch(self :: _concreteSeparatorType($type))
+    switch(self::_concreteSeparatorType($type))
     {
-      case self :: UNIX:
+      case self::UNIX:
         return '/';
-      case self :: DOS:
+      case self::DOS:
         return "\\";
     }
   }
 
   protected static function _concreteSeparatorType($type)
   {
-    if($type == self :: LOCAL)
+    if($type == self::LOCAL)
     {
-      if(lmbSys :: isWin32())
-        $type = self :: DOS;
+      if(lmbSys::isWin32())
+        $type = self::DOS;
       else
-        $type = lmbFs :: UNIX;
+        $type = lmbFs::UNIX;
     }
     return $type;
   }
@@ -381,9 +381,9 @@ class lmbFs
   * Converts any directory separators found in $path, in both unix and dos style, into
   * the separator type specified by $to_type and returns it.
   */
-  static function convertSeparators($path, $to_type = self :: UNIX)
+  static function convertSeparators($path, $to_type = self::UNIX)
   {
-    $separator = self :: separator($to_type);
+    $separator = self::separator($to_type);
     return preg_replace("#[/\\\\]#", $separator, $path);
   }
 
@@ -393,12 +393,12 @@ class lmbFs
   * For instance: "var/../lib/db" becomes "lib/db", while "../site/var" will not be changed.
   * Will also convert separators
   */
-  static function normalizePath($path, $to_type = self :: UNIX)
+  static function normalizePath($path, $to_type = self::UNIX)
   {
-    $path = self :: convertSeparators($path, $to_type);
-    $separator = self :: separator($to_type);
+    $path = self::convertSeparators($path, $to_type);
+    $separator = self::separator($to_type);
 
-    $path = self :: _normalizeSeparators($path, $separator);
+    $path = self::_normalizeSeparators($path, $separator);
 
     $path_elements= explode($separator, $path);
     $newpath_elements= array();
@@ -420,18 +420,18 @@ class lmbFs
     return rtrim($path, '/\\');
   }
 
-  static function isPathRelative($path, $fs_type = self :: LOCAL)
+  static function isPathRelative($path, $fs_type = self::LOCAL)
   {
-    return !self :: isPathAbsolute($path, $os_type);
+    return !self::isPathAbsolute($path, $os_type);
   }
 
-  static function isPathAbsolute($path, $fs_type = self :: LOCAL)
+  static function isPathAbsolute($path, $fs_type = self::LOCAL)
   {
     switch(self::_concreteSeparatorType($fs_type))
     {
-      case self :: UNIX:
+      case self::UNIX:
         return $path[0] == '/';
-      case self :: DOS:
+      case self::DOS:
         return $path[0] == '/' ||
                $path[0] == "\\" ||
                preg_match('~^[a-zA-Z]+:~', $path);
@@ -443,7 +443,7 @@ class lmbFs
     $quoted = preg_quote($separator);
     $clean_path = preg_replace( "~$quoted$quoted+~", $separator, $path);
 
-    if(self :: _hasWin32NetPrefix($path))
+    if(self::_hasWin32NetPrefix($path))
       $clean_path = '\\' . $clean_path;
 
     return $clean_path;
@@ -451,18 +451,18 @@ class lmbFs
 
   protected static function _hasWin32NetPrefix($path)//ugly!!!
   {
-    if(lmbSys :: isWin32() &&  strlen($path) > 2)
+    if(lmbSys::isWin32() &&  strlen($path) > 2)
     {
-      return (substr($path, 0, 2) == self :: WIN32_NET_PREFIX);
+      return (substr($path, 0, 2) == self::WIN32_NET_PREFIX);
     }
     return false;
   }
 
-  static function path($names, $include_end_separator=false, $type = self :: UNIX)
+  static function path($names, $include_end_separator=false, $type = self::UNIX)
   {
-    $separator = self :: separator($type);
+    $separator = self::separator($type);
     $path = implode($separator, $names);
-    $path = self :: normalizePath($path, $type);
+    $path = self::normalizePath($path, $type);
 
     $has_end_separator = (strlen($path) > 0 &&  $path[strlen($path) - 1] == $separator);
 
@@ -476,12 +476,12 @@ class lmbFs
 
   static function find($dir, $types = 'dfl', $include_regex = '', $exclude_regex = '', $add_path = true, $include_hidden = false)
   {
-    $dir = self :: normalizePath($dir);
-    $dir = self :: chop($dir);
+    $dir = self::normalizePath($dir);
+    $dir = self::chop($dir);
 
     $items = array();
 
-    $separator = self :: separator();
+    $separator = self::separator();
 
     if($handle = @opendir($dir))
     {
@@ -520,14 +520,14 @@ class lmbFs
 
   static function findRecursive($path, $types = 'dfl', $include_regex = '', $exclude_regex = '', $add_path = true, $include_hidden = false)
   {
-    return self :: walkDir($path,
-                          array('lmbFs', '_doFindRecursive'),
-                          array('types' => $types,
-                               'include_regex' => $include_regex,
-                               'exclude_regex' => $exclude_regex,
-                               'add_path' => $add_path,
-                               'include_hidden' => $include_hidden),
-                          true);
+    return self::walkDir($path,
+                        array('lmbFs', '_doFindRecursive'),
+                        array('types' => $types,
+                             'include_regex' => $include_regex,
+                             'exclude_regex' => $exclude_regex,
+                             'add_path' => $add_path,
+                             'include_hidden' => $include_hidden),
+                        true);
   }
 
   protected static function _doFindRecursive($dir, $file, $path, $params, &$return_params)
@@ -535,12 +535,12 @@ class lmbFs
     if(!is_dir($path))
       return;
 
-    $items = self :: find($path,
-                          $params['types'],
-                          $params['include_regex'],
-                          $params['exclude_regex'],
-                          $params['add_path'],
-                          $params['include_hidden']);
+    $items = self::find($path,
+                        $params['types'],
+                        $params['include_regex'],
+                        $params['exclude_regex'],
+                        $params['add_path'],
+                        $params['include_hidden']);
     foreach($items as $item)
       $return_params[] = $item;
   }
@@ -549,13 +549,13 @@ class lmbFs
   {
     $return_params = array();
 
-    $separator = self :: separator();
-    $dir = self :: normalizePath($dir);
-    $dir = self :: chop($dir);
+    $separator = self::separator();
+    $dir = self::normalizePath($dir);
+    $dir = self::chop($dir);
 
     $params['separator'] = $separator;
 
-    self :: _doWalkDir($dir,
+    self::_doWalkDir($dir,
                      $separator,
                      $function_def,
                      $return_params,
@@ -583,7 +583,7 @@ class lmbFs
      if(($file == '.') || ($file == '..'))
         continue;
 
-      self :: _doWalkDir($item . $separator . $file,
+      self::_doWalkDir($item . $separator . $file,
                        $separator,
                        $function_def,
                        $return_params,
@@ -591,6 +591,38 @@ class lmbFs
                        $level + 1);
     }
     closedir($handle);
+  }
+
+  static function glob($path)
+  {
+    if(self::is_path_absolute($path))
+      return glob($path);
+
+    $result = array();
+    foreach(self::get_include_path_items() as $dir)
+    {
+      if($res = glob("$dir/$path"))
+      {
+        foreach($res as $item)
+          $result[] = $item;
+      }
+    }
+    return $result;
+  }
+
+  static function get_include_path_items()
+  {
+    return explode(PATH_SEPARATOR, get_include_path());
+  }
+
+  static function is_path_absolute($path)
+  {
+    if(!$path)
+      return false;
+
+    //very trivial check, is more comprehensive one required?
+    return (($path[0] == '/' || $path[0] == '\\') ||
+      (strlen($path) > 2 && $path[1] == ':'));
   }
 }
 

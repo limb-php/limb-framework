@@ -8,6 +8,8 @@
  */
 namespace limb\view\src\toolkit;
 
+use limb\config\src\toolkit\lmbConfTools;
+use limb\fs\src\toolkit\lmbFsTools;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbEnv;
@@ -40,6 +42,14 @@ class lmbViewTools extends lmbAbstractTools
       list($ext, $class) = explode('=', $item);
       $this->view_types[$ext] = $class;
     }
+  }
+
+  static function getRequiredTools()
+  {
+    return [
+      lmbFsTools::class,
+      lmbConfTools::class
+    ];
   }
 
   function setSupportedViewTypes($types)

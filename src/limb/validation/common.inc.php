@@ -13,3 +13,8 @@
  */
 require_once(dirname(__FILE__) . '/../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../i18n/common.inc.php');
+
+use limb\toolkit\src\lmbToolkit;
+use limb\i18n\src\toolkit\lmbI18NTools;
+
+lmbToolkit::merge(new lmbI18NTools());

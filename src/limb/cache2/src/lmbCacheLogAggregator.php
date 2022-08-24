@@ -1,7 +1,7 @@
 <?php
 namespace limb\cache2\src;
 
-use limb\cache2\src\lmbCacheLog;
+use limb\core\src\lmbEnv;
 use limb\core\src\exception\lmbException;
 
 class lmbCacheLogAggregator
@@ -15,7 +15,7 @@ class lmbCacheLogAggregator
 
   function aggregate()
   {
-    if(!rename($this->log_file, $new_name = tempnam(lmb_var_dir(), 'cache_log_aggregator')))
+    if(!rename($this->log_file, $new_name = tempnam(lmbEnv::get('LIMB_VAR_DIR'), 'cache_log_aggregator')))
       throw new lmbException('Can\'t move file', array('source' => $this->log_file, 'destination' => $new_name));
 
     $cmd = "cat ".$new_name.' | awk \' {if($NF>1){data[$2"/"$1]++;}} END{for(i in data){print i"/"data[i];}}\'';

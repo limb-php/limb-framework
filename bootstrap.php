@@ -3,6 +3,9 @@ set_include_path(dirname(__FILE__) . '/src/' . PATH_SEPARATOR . get_include_path
 
 function lmb_autoload($className)
 {
+  //$basedir = dirname(__FILE__) . '/src/';
+  $basedir = '';
+
   $className = ltrim($className, '\\');
   $fileName  = '';
   $namespace = '';
@@ -13,7 +16,7 @@ function lmb_autoload($className)
   }
   $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
-  $fullname = stream_resolve_include_path($fileName);
+  $fullname = stream_resolve_include_path($basedir . $fileName);
   if ($fullname !== false)
   {
     require($fullname);

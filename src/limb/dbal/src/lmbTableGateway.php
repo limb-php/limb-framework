@@ -18,6 +18,7 @@ use limb\dbal\src\drivers\lmbDbTypeInfo;
 use limb\dbal\src\drivers\lmbDbCachedInfo;
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
+use limb\core\src\lmbString;
 
 /**
  * class lmbTableGateway.
@@ -55,7 +56,7 @@ class lmbTableGateway
 
   protected function _guessDbTableName()
   {
-    return str_replace('_db_table', '', lmb_under_scores(get_class($this)));
+    return str_replace('_db_table', '', lmbString::under_scores(get_class($this)));
   }
 
   protected function _definePrimaryKeyName()
@@ -330,7 +331,7 @@ class lmbTableGateway
 
   protected function _mapTableNameToClass($table_name)
   {
-    return lmb_camel_case($table_name);
+    return lmbString::camel_case($table_name);
   }
 
   function getColumnsForSelect($table_name = '', $exclude_columns = array(), $prefix = '')

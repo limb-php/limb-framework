@@ -14,3 +14,10 @@
 require_once(dirname(__FILE__) . '/../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../web_app/common.inc.php');
 require_once(dirname(__FILE__) . '/../config/common.inc.php');
+
+use limb\toolkit\src\lmbToolkit;
+use limb\web_app\src\toolkit\lmbWebAppTools;
+use limb\config\src\toolkit\lmbConfTools;
+
+lmbToolkit::merge(new lmbWebAppTools());
+lmbToolkit::merge(new lmbConfTools());

@@ -9,8 +9,6 @@
 
 use limb\core\src\exception\lmbException;
 
-lmb_require(dirname(__FILE__) . '/lmbLinterStatement.class.php');
-
 /**
  * class lmbLinterDropStatement.
  *

@@ -25,11 +25,11 @@ class lmbMacroTagDictionary
 
   static function instance()
   {
-    if(self :: $instance)
-      return self :: $instance;
+    if(self::$instance)
+      return self::$instance;
 
-    self :: $instance = new lmbMacroTagDictionary();
-    return self :: $instance;
+    self::$instance = new lmbMacroTagDictionary();
+    return self::$instance;
   }
 
   function load(\limb\macro\src\lmbMacroConfig $config)
@@ -42,14 +42,14 @@ class lmbMacroTagDictionary
 
     //compatibility with PHP 5.1.6
     $tag_scan_dirs = $config->tags_scan_dirs;
-    foreach($tag_scan_dirs as $dir)
+    foreach($tag_scan_dirs as $scan_dir)
     {
-      foreach($this->_getThisAndImmediateDirectories($dir) as $item)
+      foreach($this->_getThisAndImmediateDirectories($scan_dir) as $item)
         $real_scan_dirs[] = $item;
     }
     foreach($real_scan_dirs as $scan_dir)
     {
-      foreach(lmb_glob($scan_dir . '/*Tag.php') as $file)
+      foreach(lmbFs::glob($scan_dir . '/*Tag.*') as $file)
         $this->registerFromFile($file);
     }
 
@@ -59,7 +59,7 @@ class lmbMacroTagDictionary
   function _getThisAndImmediateDirectories($dir)
   {
     $dirs = array();
-    foreach(lmb_glob("$dir/*") as $item) {
+    foreach(lmbFs::glob("$dir/*") as $item) {
       if($item != '.' && $item != '..' && is_dir($item))
         $dirs[] = $item;
     }
@@ -87,7 +87,7 @@ class lmbMacroTagDictionary
   protected function _saveCache()
   {
     $cache_file = $this->cache_dir . '/tags.cache';
-    lmbFs :: safeWrite($cache_file, serialize($this->info));
+    lmbFs::safeWrite($cache_file, serialize($this->info));
   }
 
   function register($tag_info)
@@ -112,7 +112,7 @@ class lmbMacroTagDictionary
 
   function registerFromFile($file)
   {
-    $infos = lmbMacroAnnotationParser :: extractFromFile($file, 'limb\macro\src\compiler\lmbMacroTagInfo');
+    $infos = lmbMacroAnnotationParser::extractFromFile($file, 'limb\macro\src\compiler\lmbMacroTagInfo');
     foreach($infos as $info)
       $this->register($info, $file);
   }

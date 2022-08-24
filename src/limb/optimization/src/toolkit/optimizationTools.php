@@ -1,6 +1,7 @@
 <?php
 namespace limb\optimization\src\toolkit;
 
+use limb\active_record\src\toolkit\lmbARTools;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\toolkit\src\lmbToolkit;
 
@@ -8,6 +9,13 @@ class optimizationTools extends lmbAbstractTools
 {
   private $_meta_info_class = 'limb\optimization\src\model\MetaInfo';
   private $_meta_data_class = 'limb\optimization\src\model\MetaData';
+
+  static function getRequiredTools()
+  {
+    return [
+      lmbARTools::class
+    ];
+  }
 
   function setMetaInfoClass($class_name)
   {

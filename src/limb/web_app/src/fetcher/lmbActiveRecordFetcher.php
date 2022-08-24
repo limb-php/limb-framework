@@ -13,6 +13,7 @@ use limb\core\src\lmbCollection;
 use limb\active_record\src\lmbActiveRecord;
 use limb\core\src\exception\lmbException;
 use limb\active_record\src\lmbARNotFoundException;
+use limb\core\src\lmbString;
 
 /**
  * class lmbActiveRecordFetcher.
@@ -76,7 +77,7 @@ class lmbActiveRecordFetcher extends lmbFetcher
       }
       else
       {
-        $method = 'find' . lmb_camel_case($this->find);
+        $method = 'find' . lmbString::camel_case($this->find);
         $callback = array($this->class_name, $method);
         if(!is_callable($callback))
          throw new lmbException('Active record of class "'. $this->class_name . '" does not support method "'. $method . '"');
@@ -90,7 +91,7 @@ class lmbActiveRecordFetcher extends lmbFetcher
       {
         if($this->find)
         {
-          $method = 'find' . lmb_camel_case($this->find);
+          $method = 'find' . lmbString::camel_case($this->find);
           $callback = array($this->class_name, $method);
           if(!is_callable($callback))
             throw new lmbException('Active record of class "'. $this->class_name . '" does not support method "'. $method . '"');

@@ -13,8 +13,3 @@
  */
 require_once(dirname(__FILE__) . '/../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../web_app/common.inc.php');
-
-use limb\toolkit\src\lmbToolkit;
-use limb\cms\src\toolkit\lmbCmsTools;
-
-lmbToolkit::merge(new lmbCmsTools());

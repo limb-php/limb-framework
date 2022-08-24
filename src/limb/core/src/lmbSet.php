@@ -130,7 +130,7 @@ class lmbSet implements lmbSetInterface
 
   protected function _isGuarded($property)
   {
-    return $property && $property[0] == '_';
+    return ($property && (is_string($property)) && ($property[0] == '_'));
   }
 
   //ArrayAccess interface

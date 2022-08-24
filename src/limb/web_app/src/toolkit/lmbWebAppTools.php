@@ -8,11 +8,18 @@
  */
 namespace limb\web_app\src\toolkit;
 
+use limb\active_record\src\toolkit\lmbARTools;
+use limb\config\src\toolkit\lmbConfTools;
+use limb\i18n\src\toolkit\lmbI18NTools;
+use limb\log\src\toolkit\lmbLogTools;
+use limb\net\src\toolkit\lmbNetTools;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbEnv;
+use limb\core\src\lmbString;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\session\src\lmbSession;
 use limb\view\src\lmbDummyView;
+use limb\view\src\toolkit\lmbViewTools;
 use limb\web_app\src\util\lmbFlashBox;
 use limb\web_app\src\request\lmbRoutes;
 use limb\core\src\exception\lmbException;
@@ -34,6 +41,36 @@ class lmbWebAppTools extends lmbAbstractTools
   protected $dispatched_controller;
   protected $routes;
   protected $flash_box;
+
+  static function getRequiredTools()
+  {
+    return [
+      lmbI18NTools::class,
+      lmbConfTools::class,
+      lmbARTools::class,
+      lmbNetTools::class,
+      lmbViewTools::class,
+      lmbLogTools::class
+    ];
+  }
+
+  static function _init()
+  {
+    if(PHP_SAPI != 'cli') {
+      $request = lmbToolkit::instance()->getRequest();
+
+      lmbEnv::setor('LIMB_HTTP_REQUEST_PATH', $request->getUri()->toString());
+
+      //HTTP_BASE_PATH is defined automatically according to current host and offset settings
+      lmbEnv::setor('LIMB_HTTP_BASE_PATH', $request->getUri()->toString(
+          array('protocol', 'user', 'password', 'host', 'port')) . '/' . lmbEnv::get('LIMB_HTTP_OFFSET_PATH'));
+
+      if (substr(lmbEnv::get('LIMB_HTTP_BASE_PATH'), -1, 1) != '/') {
+        echo('LIMB_HTTP_BASE_PATH constant must have trailing slash(' . lmbEnv::get('LIMB_HTTP_BASE_PATH') . ')!!!');
+        exit(1);
+      }
+    }
+  }
 
   function getSession()
   {
@@ -128,7 +165,7 @@ class lmbWebAppTools extends lmbAbstractTools
       $controller_name .= 'Controller';
 
     if($namespace)
-      $controller_name = $namespace . '\\' . lmb_camel_case($controller_name);
+      $controller_name = $namespace . '\\' . lmbString::camel_case($controller_name);
 
     //$class = str_replace('\\', DIRECTORY_SEPARATOR, $controller_name);
     //$file = $class . '.php';

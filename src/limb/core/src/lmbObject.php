@@ -11,6 +11,8 @@ namespace limb\core\src;
 use limb\core\src\lmbSetInterface;
 use limb\core\src\exception\lmbNoSuchMethodException;
 use limb\core\src\exception\lmbNoSuchPropertyException;
+use limb\core\src\lmbString;
+
 /**
  * Generic container for data with magic accessors.
  *
@@ -296,13 +298,13 @@ class lmbObject implements lmbSetInterface
   protected function _mapGetToProperty($method)
   {
     if(0 === strpos($method, 'get'))
-      return lmb_under_scores(substr($method, 3));
+      return lmbString::under_scores(substr($method, 3));
   }
 
   protected function _mapSetToProperty($method)
   {
     if(0 === strpos($method, 'set'))
-      return lmb_under_scores(substr($method, 3));
+      return lmbString::under_scores(substr($method, 3));
   }
 
   protected function _mapPropertyToMethod($property)
@@ -311,7 +313,7 @@ class lmbObject implements lmbSetInterface
     if(isset($map[$property]))
       return $map[$property];
 
-    $capsed = lmb_camel_case($property);
+    $capsed = lmbString::camel_case($property);
     $method = 'get' . $capsed;
     if($method !== 'get' && method_exists($this, $method))
     {
@@ -329,7 +331,7 @@ class lmbObject implements lmbSetInterface
 
   protected function _mapPropertyToSetMethod($property)
   {
-    $method = 'set' . lmb_camel_case($property);
+    $method = 'set' . lmbString::camel_case($property);
     if($method !== 'set' && method_exists($this, $method))
       return $method;
   }
