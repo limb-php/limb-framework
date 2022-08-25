@@ -27,6 +27,7 @@ use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
 
 lmbEnv::setor('LIMB_CONTROLLERS_INCLUDE_PATH', 'src/controller;limb/*/src/controller');
+lmbEnv::setor('LIMB_ENABLE_MOD_REWRITE', true); // we assume mod_rewrite in ON by default
 
 /**
  * class lmbWebAppTools.
@@ -56,8 +57,29 @@ class lmbWebAppTools extends lmbAbstractTools
 
   static function _init()
   {
-    if(PHP_SAPI != 'cli') {
+    if(PHP_SAPI == 'cli')
+    {
+      lmbEnv::setor('LIMB_HTTP_GATEWAY_PATH', '/');
+      lmbEnv::setor('LIMB_HTTP_BASE_PATH', '/');
+      lmbEnv::setor('LIMB_HTTP_REQUEST_PATH', '/');
+      lmbEnv::setor('LIMB_HTTP_SHARED_PATH', '/shared/');
+      lmbEnv::setor('LIMB_HTTP_OFFSET_PATH', '');
+    }
+    else
+    {
       $request = lmbToolkit::instance()->getRequest();
+
+      if(!lmbEnv::has('LIMB_HTTP_OFFSET_PATH'))
+      {
+        $offset = trim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+        if($offset && $offset != '.')
+          lmbEnv::setor('LIMB_HTTP_OFFSET_PATH', $offset . '/');
+        else
+          lmbEnv::setor('LIMB_HTTP_OFFSET_PATH', '');
+      }
+
+      if(substr(lmbEnv::get('LIMB_HTTP_OFFSET_PATH'), 0, 1) == '/')
+        throw new lmbException('LIMB_HTTP_OFFSET_PATH constant must not have starting slash(' . lmbEnv::get('LIMB_HTTP_OFFSET_PATH') . ')!!!');
 
       lmbEnv::setor('LIMB_HTTP_REQUEST_PATH', $request->getUri()->toString());
 
@@ -67,6 +89,22 @@ class lmbWebAppTools extends lmbAbstractTools
 
       if (substr(lmbEnv::get('LIMB_HTTP_BASE_PATH'), -1, 1) != '/') {
         echo('LIMB_HTTP_BASE_PATH constant must have trailing slash(' . lmbEnv::get('LIMB_HTTP_BASE_PATH') . ')!!!');
+        exit(1);
+      }
+
+      if(!lmbEnv::has('LIMB_HTTP_GATEWAY_PATH'))
+      {
+        if(lmbEnv::has('LIMB_ENABLE_MOD_REWRITE'))
+          lmbEnv::setor('LIMB_HTTP_GATEWAY_PATH', lmbEnv::get('LIMB_HTTP_BASE_PATH'));
+        else
+          lmbEnv::setor('LIMB_HTTP_GATEWAY_PATH', lmbEnv::get('LIMB_HTTP_BASE_PATH') . 'index.php/');
+      }
+
+      lmbEnv::setor('LIMB_HTTP_SHARED_PATH', lmbEnv::get('LIMB_HTTP_BASE_PATH') . 'shared/');
+
+      if(substr(lmbEnv::get('LIMB_HTTP_SHARED_PATH'), -1, 1) != '/')
+      {
+        echo('LIMB_HTTP_SHARED_PATH constant must have trailing slash(' . lmbEnv::get('LIMB_HTTP_SHARED_PATH') . ')!!!');
         exit(1);
       }
     }

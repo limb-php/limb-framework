@@ -1,6 +1,8 @@
 <?php
 set_include_path(dirname(__FILE__) . '/src/' . PATH_SEPARATOR . get_include_path());
 
+$_ENV['LIMB_START_TIME'] = microtime(true);
+
 function lmb_autoload($className)
 {
   //$basedir = dirname(__FILE__) . '/src/';
@@ -23,4 +25,5 @@ function lmb_autoload($className)
   }
 }
 
-spl_autoload_register('lmb_autoload');
+if( defined('LIMB_AUTOLOAD_CLASSES') && LIMB_AUTOLOAD_CLASSES )
+  spl_autoload_register('lmb_autoload');
