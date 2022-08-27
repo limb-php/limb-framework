@@ -51,7 +51,7 @@ class lmbCacheApcBackend implements lmbCacheBackendInterface
     if (!$value = apc_fetch($key))
       return false;
 
-    if (array_key_exists("raq", $params))
+    if (array_key_exists("raw", $params))
     {
       return $value;
     }

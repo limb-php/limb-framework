@@ -192,13 +192,12 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
 
   protected function _getMetaFilePath($key)
   {
-    $file=$this->getCacheDir()."/".$key.".meta";
-    return $file;
+    return $this->getCacheDir()."/".$this->_getCacheFileName($key).".meta";
   }
 
   protected function _getCacheFileName($key)
   {
-    return $key. '_' .'.cache';
+    $hash = md5($key);
+    return $hash[0] . '/' . $hash[1] . '/' . $key . '_' . '.cache';
   }
-
 }

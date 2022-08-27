@@ -57,6 +57,25 @@ class lmbCacheGroupDecorator implements lmbCacheBackendInterface
     return $result;
   }
 
+  function increment($key, $value = 1)
+  {
+    if( false === $cvalue = $this->get($key) )
+    {
+      return false;
+    }
+    else
+    {
+      $result = $cvalue + $value;
+
+      return $this->set($result, $value);
+    }
+  }
+
+  function decrement($key, $value = 1)
+  {
+    return $this->increment($key, -$value);
+  }
+
   function get($key, $params = array())
   {
     $group = $this->_getGroup($params);
