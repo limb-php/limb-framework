@@ -20,7 +20,7 @@ class lmbEnv
   {
     if(array_key_exists($name, $_ENV))
     {
-      if($_ENV[$name] === LIMB_UNDEFINED)
+      if( !isset($_ENV[$name]) )
         return false;
       else
         return true;
@@ -36,7 +36,7 @@ class lmbEnv
   {
     if(array_key_exists($name, $_ENV))
     {
-      if($_ENV[$name] === LIMB_UNDEFINED)
+      if( !isset($_ENV[$name]) )
         return $def;
       else
         return $_ENV[$name];
@@ -80,17 +80,17 @@ class lmbEnv
 
   static function remove($name)
   {
-    $_ENV[$name] = LIMB_UNDEFINED;
+    unset( $_ENV[$name] );
   }
 
   static function trace($name)
   {
-    self::setor('profile' . $name . LIMB_UNDEFINED, true);
+    self::setor('lmb_profile' . $name, true);
   }
 
   static function trace_has($name)
   {
-    return self::has('profile' . $name . LIMB_UNDEFINED);
+    return self::has('lmb_profile' . $name);
   }
 
   static function trace_show()

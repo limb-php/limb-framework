@@ -202,7 +202,7 @@ class lmbObject implements lmbSetInterface
    * @param string property name
    * @return mixed|null
    */
-  function get($name, $default = LIMB_UNDEFINED)
+  function get($name, $default = null)
   {
     if($method = $this->_mapPropertyToMethod($name))
       return $this->$method();
@@ -210,7 +210,7 @@ class lmbObject implements lmbSetInterface
     if($this->_hasProperty($name))
       return $this->_getRaw($name);
 
-    if(LIMB_UNDEFINED !== $default)
+    if(null !== $default)
       return $default;
 
     throw new lmbNoSuchPropertyException("No such property '$name' in " . get_class($this));

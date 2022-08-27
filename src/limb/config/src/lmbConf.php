@@ -9,10 +9,10 @@
 namespace limb\config\src;
 
 use limb\core\src\lmbObject;
-use limb\core\src\lmbArrayHelper;
 use limb\core\src\exception\lmbException;
 use limb\core\src\exception\lmbNoSuchPropertyException;
 use limb\fs\src\exception\lmbFileNotFoundException;
+use limb\core\src\exception\lmbInvalidArgumentException;
 
 /**
  * class lmbConf.
@@ -60,7 +60,7 @@ class lmbConf extends lmbObject
       return false;
   }
 
-  function get($name, $default = LIMB_UNDEFINED)
+  function get($name, $default = null)
   {
     if(!$name)
       throw new lmbInvalidArgumentException('Option name not given');

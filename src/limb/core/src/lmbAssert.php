@@ -23,9 +23,9 @@ class lmbAssert
       throw new lmbInvalidArgumentException($custom_message, array('value' => $value), 0, 1);
   }
 
-  static function assert_type($value, $expected_type, $custom_message = LIMB_UNDEFINED)
+  static function assert_type($value, $expected_type, $custom_message = null)
   {
-    if (LIMB_UNDEFINED === $custom_message)
+    if (null === $custom_message)
       $custom_message = 'Value must be a ' . $expected_type . ' type.';
 
     $given_type = gettype($value);
@@ -52,9 +52,9 @@ class lmbAssert
     throw new lmbInvalidArgumentException($custom_message, array('value' => $value), 0, 1);
   }
 
-  static function assert_array_with_key($array, $key_or_keys, $custom_message = LIMB_UNDEFINED)
+  static function assert_array_with_key($array, $key_or_keys, $custom_message = null)
   {
-    if (LIMB_UNDEFINED === $custom_message)
+    if (null === $custom_message)
       $custom_message = 'Value is not an array or doesn\'t have a key "' . $key_or_keys . '"';
 
     if (!is_array($key_or_keys))
@@ -76,9 +76,9 @@ class lmbAssert
     throw new lmbInvalidArgumentException($custom_message, $params, 0, 1);
   }
 
-  static function assert_reg_exp($string, $pattern, $custom_message = LIMB_UNDEFINED)
+  static function assert_reg_exp($string, $pattern, $custom_message = null)
   {
-    if (LIMB_UNDEFINED === $custom_message)
+    if (null === $custom_message)
       $custom_message = 'Value is not an string or pattern  "' . $pattern . '" not found';
 
     if (!is_string($string) && !(is_object($string) && method_exists($string, '__toString')))

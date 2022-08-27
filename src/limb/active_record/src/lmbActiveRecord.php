@@ -657,7 +657,7 @@ class lmbActiveRecord extends lmbObject
    *  @param string property name
    *  @return mixed
    */
-  function get($property, $default = LIMB_UNDEFINED)
+  function get($property, $default = null)
   {
     if(!$this->isNew() && $this->_izLazyAttribute($property) && !parent :: has($property))
       $this->_loadLazyAttribute($property);
@@ -667,7 +667,7 @@ class lmbActiveRecord extends lmbObject
       if($aggregated_object = $this->_getAggregatedObject($property))
         return $aggregated_object;
 
-      return (LIMB_UNDEFINED !== $default) ? $default : $aggregated_object;
+      return (null !== $default) ? $default : $aggregated_object;
     }
 
     try
@@ -676,7 +676,7 @@ class lmbActiveRecord extends lmbObject
     }
     catch(lmbNoSuchPropertyException $e) {}
 
-    if(LIMB_UNDEFINED !== $default)
+    if(null !== $default)
       return $default;
 
     if(in_array($property, $this->_db_table_fields))
@@ -981,22 +981,8 @@ class lmbActiveRecord extends lmbObject
            $this->_many_belongs_to[$property]['can_be_null'];
   }
 
-  protected function _loadAggregatedObject($property, $value = LIMB_UNDEFINED)
+  protected function _loadAggregatedObject($property)
   {
-    // for BC
-    if(isset($this->_composed_of[$property]['getter']))
-    {
-      if ($value === LIMB_UNDEFINED)
-      {
-        if(!$value = $this->_getRaw($property))
-          return $value;
-      }
-
-      $class = $this->_composed_of[$property]['class'];
-      $object = new $class($value);
-      return $object;
-    }
-
     $class = $this->_composed_of[$property]['class'];
     $object = new $class();
 
@@ -2184,7 +2170,7 @@ class lmbActiveRecord extends lmbObject
     if(is_object($obj))
       return $this->set($property, $obj);
 
-    $this->set($property, $this->_loadAggregatedObject($property, $obj));
+    $this->set($property, $this->_loadAggregatedObject($property));
   }
   /**
    *  Exports object data with lazy properties resolved

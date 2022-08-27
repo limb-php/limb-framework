@@ -24,12 +24,12 @@ class lmbSet implements lmbSetInterface
       $this->import($properties);
   }
 
-  function get($name, $default = LIMB_UNDEFINED)
+  function get($name, $default = null)
   {
     if(isset($this->$name) && !$this->_isGuarded($name))
       return $this->$name;
 
-    if(LIMB_UNDEFINED !== $default)
+    if(null !== $default)
       return $default;
   }
 

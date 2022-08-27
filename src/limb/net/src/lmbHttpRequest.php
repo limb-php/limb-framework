@@ -32,7 +32,7 @@ class lmbHttpRequest extends lmbSet
 
   function __construct($uri_string = null, $get = null, $post = null, $cookies = null, $files = null)
   {
-    parent :: __construct();
+    parent::__construct();
     $this->_initRequestProperties($uri_string, $get, $post, $cookies, $files);
   }
 
@@ -56,7 +56,7 @@ class lmbHttpRequest extends lmbSet
       $this->__cookies = $this->_stripHttpSlashes($this->__cookies);
     }
 
-    $this->__request = lmbArrayHelper :: arrayMerge($this->__get, $this->__post, $this->__files);
+    $this->__request = lmbArrayHelper::arrayMerge($this->__get, $this->__post, $this->__files);
 
     foreach($this->__request as $k => $v)
     {
@@ -109,17 +109,17 @@ class lmbHttpRequest extends lmbSet
       return $file;
   }
 
-  function getRequest($key = null, $default = LIMB_UNDEFINED)
+  function getRequest($key = null, $default = null)
   {
     return $this->_get($this->__request, $key, $default);
   }
 
-  function getGet($key = null, $default = LIMB_UNDEFINED)
+  function getGet($key = null, $default = null)
   {
     return $this->_get($this->__get, $key, $default);
   }
 
-  function getPost($key = null, $default = LIMB_UNDEFINED)
+  function getPost($key = null, $default = null)
   {
     return $this->_get($this->__post, $key, $default);
   }
@@ -151,22 +151,22 @@ class lmbHttpRequest extends lmbSet
     $this->__pretend_post = $flag;
   }
 
-  function getCookie($key = null, $default = LIMB_UNDEFINED)
+  function getCookie($key = null, $default = null)
   {
     return $this->_get($this->__cookies, $key, $default);
   }
 
-  function getSafe($var,$default = LIMB_UNDEFINED)
+  function getSafe($var,$default = null)
   {
-    return htmlspecialchars(parent :: get($var,$default));
+    return htmlspecialchars(parent::get($var,$default));
   }
 
-  function getFiltered($key, $filter, $default = LIMB_UNDEFINED)
+  function getFiltered($key, $filter, $default = null)
   {
     return filter_var($this->get($key, $default), $filter);
   }
 
-  function getGetFiltered($key, $filter, $default = LIMB_UNDEFINED)
+  function getGetFiltered($key, $filter, $default = null)
   {
     $value = $this->getGet($key, $default);
     if (is_array($key))
@@ -175,7 +175,7 @@ class lmbHttpRequest extends lmbSet
       return filter_var($value, $filter);
   }
 
-  function getPostFiltered($key, $filter, $default = LIMB_UNDEFINED)
+  function getPostFiltered($key, $filter, $default = null)
   {
     $value = $this->getPost($key, $default);
     if (is_array($key))
@@ -184,7 +184,7 @@ class lmbHttpRequest extends lmbSet
       return filter_var($value, $filter);
   }
 
-  protected function _get(&$arr, $key = null, $default = LIMB_UNDEFINED)
+  protected function _get(&$arr, $key = null, $default = null)
   {
     if(is_null($key))
       return $arr;
@@ -198,17 +198,22 @@ class lmbHttpRequest extends lmbSet
     }
     elseif(isset($arr[$key]))
       return $arr[$key];
-    elseif($default !== LIMB_UNDEFINED)
+    elseif($default !== null)
       return $default;
   }
 
-  function get($key, $default = LIMB_UNDEFINED)
+  function get($key, $default = null)
   {
     $_key = "__$key";
     if(in_array($_key, $this->__reserved_attrs))
       return $this->$_key;
 
     return parent::get($key, $default);
+  }
+
+  function getBoolean($name, $default = false)
+  {
+    return filter_var($this->get($name, $default), FILTER_VALIDATE_BOOLEAN);
   }
 
   function getUri()
@@ -268,7 +273,7 @@ class lmbHttpRequest extends lmbSet
     $flat = array();
     $query = '';
 
-    lmbArrayHelper :: toFlatArray($this->__request, $flat);
+    lmbArrayHelper::toFlatArray($this->__request, $flat);
 
     foreach($flat as $key => $value)
     {
