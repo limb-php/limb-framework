@@ -41,19 +41,15 @@ abstract class lmbAbstractTools implements lmbToolkitToolsInterface
   */
   function getToolsSignatures()
   {
-    $methods = get_class_methods(get_class($this));
+    $methods = get_class_methods($this);
+    $interface_methods = get_class_methods(lmbToolkitToolsInterface::class);
 
     $signatures = array();
     foreach($methods as $method)
     {
-      if(in_array($method, $this->reserved_methods))
+      if(in_array($method, $this->reserved_methods) || in_array($method, $interface_methods))
         continue;
       $signatures[$method] = $this;
-    }
-
-    foreach(get_class_methods('limb\toolkit\src\lmbToolkitToolsInterface') as $method)
-    {
-      unset($signatures[$method]);
     }
 
     return $signatures;
