@@ -35,14 +35,14 @@ class lmbUpdateQuery extends lmbCriteriaQuery
     return $this->_table;
   }
 
-  function addField($field, $value = LIMB_UNDEFINED)
+  function addField($field, $value = null)
   {
     $this->_fields[$field] = $value;
     $this->_registerHint('fields');
     return $this;
   }
 
-  function field($field, $value = LIMB_UNDEFINED)
+  function field($field, $value = null)
   {
     return $this->addField($field, $value);
   }
@@ -86,7 +86,7 @@ class lmbUpdateQuery extends lmbCriteriaQuery
     $values = array();
     foreach($this->_fields as $field => $value)
     {
-      if($value !== LIMB_UNDEFINED)
+      if($value !== null)
         $this->_set_values[$field] = $value;
 
       $values[] = $this->_conn->quoteIdentifier($field) . " = :{$field}:";

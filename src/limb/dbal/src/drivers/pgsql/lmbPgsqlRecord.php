@@ -23,12 +23,12 @@ class lmbPgsqlRecord extends lmbDbBaseRecord
     $this->properties = $data;
   }
 
-  function get($name, $default = LIMB_UNDEFINED)
+  function get($name, $default = null)
   {
     if(isset($this->properties[$name]))
       return $this->properties[$name];
-    if(LIMB_UNDEFINED !== $default)
-      return $default;
+
+    return $default;
   }
 
   function set($name, $value)

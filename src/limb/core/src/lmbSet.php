@@ -29,8 +29,7 @@ class lmbSet implements lmbSetInterface
     if(isset($this->$name) && !$this->_isGuarded($name))
       return $this->$name;
 
-    if(null !== $default)
-      return $default;
+    return $default;
   }
 
   function getInteger($name)

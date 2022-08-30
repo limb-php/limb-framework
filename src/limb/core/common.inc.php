@@ -11,4 +11,3 @@
  * @package core
  * @version $Id: common.inc.php 8127 2010-02-10 10:40:35Z conf $
  */
-define('LIMB_UNDEFINED', 'undefined' . microtime());

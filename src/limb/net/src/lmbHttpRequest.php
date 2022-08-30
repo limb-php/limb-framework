@@ -193,13 +193,13 @@ class lmbHttpRequest extends lmbSet
     {
       $ret = array();
       foreach($key as $item)
-        $ret[$item] = (isset($arr[$item]) ? $arr[$item] : null);
+        $ret[$item] = ($arr[$item] ?? null);
       return $ret;
     }
     elseif(isset($arr[$key]))
       return $arr[$key];
-    elseif($default !== null)
-      return $default;
+
+    return $default;
   }
 
   function get($key, $default = null)

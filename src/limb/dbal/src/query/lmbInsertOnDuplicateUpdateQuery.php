@@ -32,7 +32,7 @@ class lmbInsertOnDuplicateUpdateQuery extends lmbTemplateQuery
     $this->_registerHint('new_values');
   }
 
-  function addField($field, $value = LIMB_UNDEFINED)
+  function addField($field, $value = null)
   {
     $this->_fields[$field] = $value;
     $this->_registerHint('fields');
@@ -54,7 +54,7 @@ class lmbInsertOnDuplicateUpdateQuery extends lmbTemplateQuery
     $values = array();
     foreach($this->_fields as $field => $value)
     {
-      if($value !== LIMB_UNDEFINED)
+      if($value !== null)
         $this->_set_values[$field] = $value;
 
       $values[] = ":{$field}:";

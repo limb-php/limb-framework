@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/dbal/src/drivers/lmbDbBaseRecord.class.php');
+namespace limb\dbal\src\drivers\oci;
+
+use limb\dbal\src\drivers\lmbDbBaseRecord;
 
 /**
  * class lmbOciRecord.
@@ -21,7 +23,7 @@ class lmbOciRecord extends lmbDbBaseRecord
     $this->import($data);
   }
 
-  function get($name, $default = LIMB_UNDEFINED)
+  function get($name, $default = null)
   {
     //Character encoding issue? Charset of identifiers?
     $upname = strtoupper($name);
@@ -30,8 +32,7 @@ class lmbOciRecord extends lmbDbBaseRecord
     elseif(isset($this->properties[$name])) //a quick hack
       return $this->properties[$name];
     
-    if(LIMB_UNDEFINED !== $default)
-      return $default;
+    return $default;
   }
 
   function remove($name)

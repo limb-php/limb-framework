@@ -30,7 +30,7 @@ class lmbInsertQuery extends lmbTemplateQuery
     $this->_registerHint('values');
   }
 
-  function addField($field, $value = LIMB_UNDEFINED)
+  function addField($field, $value = null)
   {
     $this->_fields[$field] = $value;
     $this->_registerHint('fields');
@@ -52,7 +52,7 @@ class lmbInsertQuery extends lmbTemplateQuery
     $values = array();
     foreach($this->_fields as $field => $value)
     {
-      if($value !== LIMB_UNDEFINED)
+      if($value !== null)
       {
         $this->_set_values[$field] = $value;
       }

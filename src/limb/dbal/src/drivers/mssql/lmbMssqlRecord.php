@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/dbal/src/drivers/lmbDbBaseRecord.class.php');
+namespace limb\dbal\src\drivers\mssql;
+
+use limb\dbal\src\drivers\lmbDbBaseRecord;
 
 /**
  * class lmbMssqlRecord.
@@ -23,13 +25,12 @@ class lmbMssqlRecord extends lmbDbBaseRecord
     $this->properties = $data;
   }
 
-  function get($name, $default = LIMB_UNDEFINED)
+  function get($name, $default = null)
   {
     if(isset($this->properties[$name]))
       return $this->properties[$name];
 
-    if(LIMB_UNDEFINED !== $default)
-      return $default;
+    return $default;
   }
 
   function set($name, $value)
