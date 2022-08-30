@@ -6,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace limb\dbal\src\drivers\oci;
+
 lmb_require('limb/dbal/src/drivers/lmbDbInsertStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbOciManipulationStatement.class.php');
 
 /**
  * class lmbOciUpdateStatement.

@@ -6,16 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/dbal/src/exception/lmbDbException.class.php');
-lmb_require('limb/dbal/src/drivers/lmbDbBaseConnection.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciDbInfo.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciQueryStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciInsertStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciUpdateStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciManipulationStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciTypeInfo.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciRecord.class.php');
+namespace limb\dbal\src\drivers\oci;
+
+use limb\dbal\src\exception\lmbDbException;
+use limb\dbal\src\drivers\lmbDbBaseConnection;
 
 /**
  * class lmbOciConnection.

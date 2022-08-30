@@ -6,11 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/dbal/src/drivers/lmbDbQueryStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbOciStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciRecord.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciRecordSet.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciArraySet.class.php');
+namespace limb\dbal\src\drivers\oci;
+
+use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
 
 /**
  * class lmbOciQueryStatement.
@@ -18,7 +16,7 @@ lmb_require(dirname(__FILE__) . '/lmbOciArraySet.class.php');
  * @package dbal
  * @version $Id: lmbOciQueryStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
  */
-class lmbOciQueryStatement extends lmbOciStatement implements lmbDbQueryStatement
+class lmbOciQueryStatement extends lmbOciStatement implements lmbDbQueryStatementInterface
 {
   function paginate($start, $limit)
   {

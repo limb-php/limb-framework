@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/dbal/src/drivers/lmbDbInsertStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbOciManipulationStatement.class.php');
+namespace limb\dbal\src\drivers\oci;
+
+use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
+use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbOciInsertStatement.
@@ -15,7 +17,7 @@ lmb_require(dirname(__FILE__) . '/lmbOciManipulationStatement.class.php');
  * @package dbal
  * @version $Id: lmbOciInsertStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
  */
-class lmbOciInsertStatement extends lmbOciManipulationStatement implements lmbDbInsertStatement
+class lmbOciInsertStatement extends lmbOciManipulationStatement implements lmbDbInsertStatementInterface
 {
   protected function _mapHolderToField($name, $sql)
   {

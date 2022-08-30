@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/dbal/src/drivers/lmbDbInfo.class.php');
-lmb_require('limb/dbal/src/drivers/mssql/lmbMssqlTableInfo.class.php');
+namespace limb\dbal\src\drivers\mssql;
+
+use limb\dbal\src\drivers\lmbDbInfo;
+use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbMssqlDbInfo.

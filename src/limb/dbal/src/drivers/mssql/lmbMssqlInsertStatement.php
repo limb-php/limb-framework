@@ -6,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/dbal/src/drivers/lmbDbInsertStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbMssqlManipulationStatement.class.php');
+namespace limb\dbal\src\drivers\mssql;
+
+use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
 
 /**
  * class lmbMssqlInsertStatement.
@@ -15,7 +16,7 @@ lmb_require(dirname(__FILE__) . '/lmbMssqlManipulationStatement.class.php');
  * @package dbal
  * @version $Id: lmbMssqlInsertStatement.class.php,v 1.1.1.1 2009/06/08 11:57:21 mike Exp $
  */
-class lmbMssqlInsertStatement extends lmbMssqlManipulationStatement implements lmbDbInsertStatement
+class lmbMssqlInsertStatement extends lmbMssqlManipulationStatement implements lmbDbInsertStatementInterface
 {
   function insertId($field_name = 'id')
   {

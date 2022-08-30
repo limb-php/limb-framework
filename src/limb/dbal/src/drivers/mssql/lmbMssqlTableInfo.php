@@ -6,6 +6,8 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace limb\dbal\src\drivers\mssql;
+
 lmb_require('limb/dbal/src/drivers/lmbDbTableInfo.class.php');
 lmb_require('limb/dbal/src/drivers/mssql/lmbMssqlColumnInfo.class.php');
 

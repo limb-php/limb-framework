@@ -6,9 +6,9 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace limb\dbal\src\drivers\mssql;
 
-lmb_require('limb/dbal/src/drivers/lmbDbQueryStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbMssqlStatement.class.php');
+use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
 
 /**
  * class lmbMssqlQueryStatement.
@@ -16,7 +16,7 @@ lmb_require(dirname(__FILE__) . '/lmbMssqlStatement.class.php');
  * @package dbal
  * @version $Id: lmbMssqlQueryStatement.class.php,v 1.1.1.1 2009/06/08 11:57:21 mike Exp $
  */
-class lmbMssqlQueryStatement extends lmbMssqlStatement implements lmbDbQueryStatement
+class lmbMssqlQueryStatement extends lmbMssqlStatement implements lmbDbQueryStatementInterface
 {
   function getOneRecord()
   {

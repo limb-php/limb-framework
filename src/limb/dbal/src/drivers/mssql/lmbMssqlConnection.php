@@ -6,16 +6,10 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\dbal\src\drivers\mssql;
 
-lmb_require('limb/dbal/src/drivers/lmbDbBaseConnection.class.php');
-lmb_require(dirname(__FILE__) . '/lmbMssqlDbInfo.class.php');
-lmb_require(dirname(__FILE__) . '/lmbMssqlQueryStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbMssqlInsertStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbMssqlManipulationStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbMssqlStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbMssqlTypeInfo.class.php');
-lmb_require(dirname(__FILE__) . '/lmbMssqlRecord.class.php');
-lmb_require(dirname(__FILE__) . '/lmbMssqlRecordSet.class.php');
+use limb\dbal\src\drivers\lmbDbBaseConnection;
+use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbMssqlConnection.

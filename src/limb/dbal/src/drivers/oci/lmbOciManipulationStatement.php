@@ -6,10 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/dbal/src/drivers/lmbDbManipulationStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbOciStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciClob.class.php');
-lmb_require(dirname(__FILE__) . '/lmbOciBlob.class.php');
+namespace limb\dbal\src\drivers\oci;
+
+use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
+
 
 /**
  * class lmbOciManipulationStatement.
@@ -17,7 +17,7 @@ lmb_require(dirname(__FILE__) . '/lmbOciBlob.class.php');
  * @package dbal
  * @version $Id: lmbOciManipulationStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
  */
-class lmbOciManipulationStatement extends lmbOciStatement implements lmbDbManipulationStatement
+class lmbOciManipulationStatement extends lmbOciStatement implements lmbDbManipulationStatementInterface
 {
   protected $queryId;
   protected $lobs = array();
