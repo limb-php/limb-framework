@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
 * Limb PHP Framework
 *
@@ -7,6 +7,7 @@
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
 
+use PHPUnit\Framework\TestCase;
 use limb\acl\src\lmbAcl;
 use limb\acl\src\lmbRoleProviderInterface;
 use limb\acl\src\lmbResourceProviderInterface;
@@ -71,11 +72,11 @@ class Acl_Tests_Article implements lmbRolesResolverInterface, lmbResourceProvide
   }
 }
 
-class lmbAclObjectsFeatureTest extends UnitTestCase
+class lmbAclObjectsFeatureTest extends TestCase
 {
   protected $acl;
 
-  function setUp()
+  protected function setUp(): void
   {
     $this->acl = new lmbAcl();
   }

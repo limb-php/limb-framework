@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
 * Limb PHP Framework
 *
@@ -7,9 +7,10 @@
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
 
+use PHPUnit\Framework\TestCase;
 use limb\acl\src\lmbAcl;
 
-class lmbAclAllowsAcceptanceTest extends UnitTestCase  
+class lmbAclAllowsAcceptanceTest extends TestCase
 {
   function testAcceptance()
   {

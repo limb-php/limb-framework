@@ -1,7 +1,8 @@
 {
     "name": "limb/tests_runner",
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "phpunit/phpunit": "^9"
     },
     "autoload": {
         "psr-0": {

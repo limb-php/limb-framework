@@ -6,10 +6,13 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-require_once(dirname(__FILE__) . '/lmbARTestingObjectMother.class.php');
-lmb_require('limb/dbal/src/drivers/lmbAuditDbConnection.class.php');
 
-class lmbARBaseTestCase extends UnitTestCase
+use PHPUnit\Framework\TestCase;
+use limb\dbal\src\drivers\lmbAuditDbConnection;
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\lmbSimpleDb;
+
+class lmbARBaseTestCase extends TestCase
 {
   protected $conn;
   protected $db;

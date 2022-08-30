@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
 * Limb PHP Framework
 *
@@ -7,17 +7,18 @@
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
 
+use PHPUnit\Framework\TestCase;
 use limb\acl\src\lmbAcl;
 use limb\acl\src\lmbAclException;
 
-class lmbAclTest extends UnitTestCase
+class lmbAclTest extends TestCase
 {
   /**
    * @var lmbAcl
    */
   public $acl;
 
-  function setUp()
+  protected function setUp(): void
   {
     $this->acl = new lmbAcl();
   }
@@ -73,7 +74,7 @@ class lmbAclTest extends UnitTestCase
 
   function testRoleInheritsMultiple()
   {
-    $acl = new lmbAcl();
+    $acl = $this->acl;
 
     $acl->addRole('guest');
     $acl->addRole('member');
@@ -109,7 +110,7 @@ class lmbAclTest extends UnitTestCase
 
   function testResourceInherits()
   {
-    $acl = new lmbAcl();
+    $acl = $this->acl;
 
     $acl->addResource('content');
     $this->assertIdentical($acl->getResourceInherits('content'), array());
@@ -135,7 +136,7 @@ class lmbAclTest extends UnitTestCase
 
   function testResourceInheritsMultiple()
   {
-    $acl = new lmbAcl();
+    $acl = $this->acl;
 
     $acl->addResource('content');
     $acl->addResource('articles');

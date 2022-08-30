@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
 * Limb PHP Framework
 *
@@ -7,17 +7,18 @@
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
 
+use PHPUnit\Framework\TestCase;
 use limb\acl\src\lmbAcl;
 use limb\acl\src\lmbAclException;
 
-class lmbAclAllowsTest extends UnitTestCase
+class lmbAclAllowsTest extends TestCase
 {
   /**
    * @var lmbAcl
    */
   public $acl;
 
-  function setUp()
+  protected function setUp(): void
   {
     $this->acl = new lmbAcl();
   }

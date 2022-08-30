@@ -7,6 +7,7 @@
         "php" : ">=7.2"
     },
     "require-dev": {
+        "phpunit/phpunit": "^9"
     },
     "replace": {
         "limb/acl": "self.version",
@@ -54,9 +55,6 @@
         }
     },
     "autoload-dev": {
-        "psr-0" : {
-            "limb\\tests\\" : "tests/"
-        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true
