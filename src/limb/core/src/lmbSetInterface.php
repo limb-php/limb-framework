@@ -16,7 +16,7 @@ namespace limb\core\src;
  */
 interface lmbSetInterface extends \ArrayAccess, \Iterator
 {
-  function get($name, $default = LIMB_UNDEFINED);
+  function get($name, $default = null);
   function set($name, $value);
   function remove($name);
   function reset();

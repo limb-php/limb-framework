@@ -216,7 +216,7 @@ class lmbToolkit extends lmbObject
   * Checks if appropriate getter method in tools exists to delegate to
   * @return mixed
   */
-  function get($var, $default = LIMB_UNDEFINED)
+  function get($var, $default = null)
   {
     if($method = $this->_mapPropertyToGetMethod($var))
       return $this->$method();

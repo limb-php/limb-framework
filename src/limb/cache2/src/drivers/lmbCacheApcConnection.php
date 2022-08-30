@@ -35,7 +35,7 @@ class lmbCacheApcConnection extends lmbCacheAbstractConnection
   function set($key, $value, $ttl = false)
   {
     $key = $this->_resolveKey($key);
-    if($value === false) $value = LIMB_UNDEFINED;
+
     return apc_store($key, $value, $ttl);
   }
 
@@ -44,13 +44,11 @@ class lmbCacheApcConnection extends lmbCacheAbstractConnection
     if($this->_was_delete && in_array($resolved_key, $this->_deleted))
       return null;
 
-    $value = apc_fetch($resolved_key);
-    if($value === false)
-      return NULL;
-    elseif($value === LIMB_UNDEFINED)
-      return false;
-    else
-      return $value;
+    $value = apc_fetch($resolved_key, $success);
+    if($success === false)
+      return null;
+
+    return $value;
   }
 
   function delete($key)
