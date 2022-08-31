@@ -7,7 +7,6 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 use limb\i18n\src\datetime\lmbLocaleDateTime;
-use limb\datetime\src\lmbDateTime;
 use limb\toolkit\src\lmbToolkit;
 
 function lmb_i18n_date_filter($params,$value)

@@ -26,7 +26,6 @@ use limb\core\src\exception\lmbException;
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
 
-lmbEnv::setor('LIMB_CONTROLLERS_INCLUDE_PATH', 'src/controller;limb/*/src/controller');
 lmbEnv::setor('LIMB_ENABLE_MOD_REWRITE', true); // we assume mod_rewrite in ON by default
 
 /**

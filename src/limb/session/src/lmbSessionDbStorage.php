@@ -9,7 +9,6 @@
 namespace limb\session\src;
 
 use limb\session\src\lmbSessionStorageInterface;
-use limb\core\src\lmbSerializable;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\lmbSimpleDb;
 
@@ -48,7 +47,6 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
 
   /**
    * @see lmbSessionStorage :: install()
-   * @return void
    */
   function install()
   {
@@ -101,7 +99,6 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
    * Creates new or updates existing row in <b>lmb_session</b> db table
    * @param string session ID
    * @param mixed session data
-   * @return void
    */
   function storageWrite($session_id, $value)
   {
@@ -125,7 +122,6 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
   /**
    * Removed a row from <b>lmb_session</b> db table
    * @param string session ID
-   * @return void
    */
   function storageDestroy($session_id)
   {
@@ -139,7 +135,6 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
    * Checks if storage is still valid. If session if not valid - removes it's row from <b>lmb_session</b> db table
    * Prefers class attribute {@link $max_life_time} if it's not NULL.
    * @param integer system session max life time
-   * @return void
    */
   function storageGc($max_life_time)
   {
