@@ -1616,7 +1616,7 @@ class lmbActiveRecord extends lmbObject
       $conn = self::getDefaultConnection();
 
     $stmt = $conn->newStatement($sql);
-    return self::decorateRecordSet($stmt->getRecordSet(), $class_name);
+    return self::decorateRecordSet($stmt->getRecordSet(), $class_name, $conn);
   }
   /**
    *  Finds first object in database using raw SQL
@@ -1763,12 +1763,15 @@ class lmbActiveRecord extends lmbObject
   /**
    *  Finds a collection of records(not lmbActiveRecord objects!) from database table
    *  @param string|object filtering criteria
-   *  @param array sort params
+   *  @param array params
    *  @return iterator
    */
-  function findAllRecords($criteria = null, $sort_params = array())
+  function findAllRecords($criteria = null, $params = array())
   {
-    $query = lmbARQuery :: create(get_class($this), $params = array('criteria' => $criteria, 'sort' => $sort_params), $this->_db_conn);
+    $magic_params = array_merge($params, array('criteria' => $criteria));
+
+    //$query = lmbARQuery :: create(get_class($this), $magic_params, $this->_db_conn);
+    $query = lmbARQuery :: create(self::_getCallingClass(), $magic_params);
     return $query->fetch($decorate = false);
   }
 
@@ -2052,7 +2055,7 @@ class lmbActiveRecord extends lmbObject
   static function decorateRecordSet($rs, $class, $conn = null)
   {
     if(!is_object($conn))
-      $conn = self :: getDefaultConnection();
+      $conn = self::getDefaultConnection();
 
     return new lmbARRecordSetDecorator($rs, $class, $conn);
   }

@@ -9,14 +9,9 @@
 namespace limb\active_record\src;
 
 use limb\dbal\src\query\lmbSelectRawQuery;
-use limb\dbal\src\query\lmbSelectQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;
-use \limb\active_record\src\lmbActiveRecord;
-use \limb\active_record\src\lmbARRecordSetDecorator;
-use limb\active_record\src\lmbARRecordSetAttachDecorator;
-use limb\active_record\src\lmbARRecordSetJoinDecorator;
 use limb\core\src\exception\lmbException;
-use limb\active_record\src\lmbARException;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbARQuery extends lmbSelectRawQuery
 {
@@ -79,7 +74,7 @@ class lmbARQuery extends lmbSelectRawQuery
 
   protected function _addFieldsForObject($object, $table_name = '', $prefix = '', $magic_params = array())
   {
-    if(isset($magic_params['fields']) && is_array($magic_params['fields']))
+    if(isset($magic_params['fields']) && is_array($magic_params['fields']) && !empty($magic_params['fields']))
       $object->setLazyAttributesExcept($magic_params['fields']);
 
     $lazy_attributes = $object->getLazyAttributes();
@@ -167,15 +162,15 @@ class lmbARQuery extends lmbSelectRawQuery
       $relation_type = $base_object->getRelationType($relation_name);
       switch($relation_type)
       {
-        case lmbActiveRecord :: HAS_ONE:
-        case lmbActiveRecord :: MANY_BELONGS_TO:
+        case lmbActiveRecord::HAS_ONE:
+        case lmbActiveRecord::MANY_BELONGS_TO:
           $this->addLeftJoin($object->getTableName(),
                              $object->getPrimaryKeyName(),
                              $parent_relation_name,
                              $relation_info['field'],
                              $prefix . $relation_name);
         break;
-        case lmbActiveRecord :: BELONGS_TO:
+        case lmbActiveRecord::BELONGS_TO:
           $this->addLeftJoin($object->getTableName(),
                              $relation_info['field'],
                              $parent_relation_name,
