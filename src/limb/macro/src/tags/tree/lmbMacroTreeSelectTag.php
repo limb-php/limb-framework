@@ -9,6 +9,7 @@
 namespace limb\macro\src\tags\tree;
 
 use limb\macro\src\tags\form\lmbMacroSelectTag;
+use limb\i18n\src\lmbI18n;
 
 /**
  * analog for {{select}} tag to creating <select> tags for generating tree
@@ -31,7 +32,7 @@ class lmbMacroTreeSelectTag extends lmbMacroSelectTag
     $select = $this->getRuntimeVar();
 
     if( !$this->has('first_option') )
-      $title = lmb_i18n('Parent select');
+      $title = lmbI18n::translate('Parent select');
     else
       $title = $this->get('first_option');
 

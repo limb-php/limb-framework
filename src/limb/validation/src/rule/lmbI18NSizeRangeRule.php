@@ -8,8 +8,8 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
 use limb\i18n\src\charset\lmbI18nString;
+use limb\i18n\src\lmbI18n;
 
 /**
  * class lmbI18NSizeRangeRule.
@@ -48,17 +48,17 @@ class lmbI18NSizeRangeRule extends lmbSingleFieldRule
   {
     if(!is_null($this->min_length) && (lmbI18nString::strlen($value) < $this->min_length))
     {
-      $this->error(lmb_i18n('{Field} must be greater than {min} and less than {max} characters.', 'validation'),
+      $this->error(lmbI18n::translate('{Field} must be greater than {min} and less than {max} characters.', 'validation'),
                    array('min' => $this->min_length, 'max' => $this->max_length));
     }
 
     if(lmbI18nString::strlen($value) > $this->max_length)
     {
       if(is_null($this->min_length))
-        $this->error(lmb_i18n('{Field} must be less than {max} characters.', 'validation'),
+        $this->error(lmbI18n::translate('{Field} must be less than {max} characters.', 'validation'),
                    array('min' => $this->min_length, 'max' => $this->max_length));
       else
-        $this->error(lmb_i18n('{Field} must be less than {max} and greater than {min} characters.', 'validation'),
+        $this->error(lmbI18n::translate('{Field} must be less than {max} and greater than {min} characters.', 'validation'),
                    array('min' => $this->min_length, 'max' => $this->max_length));
     }
   }

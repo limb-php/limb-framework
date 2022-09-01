@@ -4,6 +4,7 @@ namespace limb\cms\src\validation\rule;
 use limb\validation\src\rule\lmbSingleFieldRule;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\active_record\src\lmbActiveRecord;
+use limb\i18n\src\lmbI18n;
 
 class lmbCmsUserUniqueFieldRule extends lmbSingleFieldRule
 {
@@ -26,7 +27,7 @@ class lmbCmsUserUniqueFieldRule extends lmbSingleFieldRule
 
     if(lmbActiveRecord::findOne(get_class($this->user), $criteria))
     {
-      $error = $this->custom_error ? $this->custom_error : lmb_i18n('User with {Field} already exists', 'cms');
+      $error = $this->custom_error ? $this->custom_error : lmbI18n::translate('User with {Field} already exists', 'cms');
       $this->error( $error );
     }
   }

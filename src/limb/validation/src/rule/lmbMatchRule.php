@@ -8,7 +8,7 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbBaseValidationRule;
+use limb\i18n\src\lmbI18n;
 
 /**
  * Checks that field value exactly match a reference field value
@@ -58,7 +58,7 @@ class lmbMatchRule extends lmbBaseValidationRule
 
     if(isset($value1) && isset($value2) && strcmp($value1, $value2))
     {
-      $error = $this->custom_error ? $this->custom_error : lmb_i18n('{Field} does not match {MatchField}.', 'validation');
+      $error = $this->custom_error ? $this->custom_error : lmbI18n::translate('{Field} does not match {MatchField}.', 'validation');
       $this->error($error, array('Field' => $this->field_name, 'MatchField' => $this->reference_field));
     }
   }

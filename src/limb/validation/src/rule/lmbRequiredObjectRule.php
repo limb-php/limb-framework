@@ -8,7 +8,7 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbBaseValidationRule;
+use limb\i18n\src\lmbI18n;
 
 /**
  * Checks that field is present in datasource and it's value is an object of some or any class
@@ -58,7 +58,7 @@ class lmbRequiredObjectRule extends lmbBaseValidationRule
 
     if(!is_object($value) || ($this->class && !($value instanceof $this->class)))
     {
-      $error = $this->custom_error ? $this->custom_error : lmb_i18n('Object {Field} is required', 'validation');
+      $error = $this->custom_error ? $this->custom_error : lmbI18n::translate('Object {Field} is required', 'validation');
       $this->error($error, array('Field' => $this->field_name));
       return;
     }

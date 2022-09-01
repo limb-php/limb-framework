@@ -9,6 +9,8 @@
 namespace limb\web_app\src\validation\rule;
 
 use limb\validation\src\rule\lmbSingleFieldRule;
+use limb\toolkit\src\lmbToolkit;
+use limb\i18n\src\lmbI18n;
 
 /**
  * class lmbUniqueTableFieldRule.
@@ -33,7 +35,7 @@ class lmbUniqueTableFieldRule extends lmbSingleFieldRule
 
   function check($value)
   {
-    $conn = lmbToolkit :: instance()->getDefaultDbConnection();
+    $conn = lmbToolkit::instance()->getDefaultDbConnection();
 
     $sql = 'SELECT *
             FROM ' . $this->table_name . '
@@ -49,7 +51,7 @@ class lmbUniqueTableFieldRule extends lmbSingleFieldRule
     if($this->error_message)
       $this->error($this->error_message, array('Value' => $value));
     else
-      $this->error(lmb_i18n('{Field} must have other value since {Value} already exists', 'web_app'),
+      $this->error(lmbI18n::translate('{Field} must have other value since {Value} already exists', 'web_app'),
                    array('Value' => $value));
   }
 }

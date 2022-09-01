@@ -23,13 +23,13 @@ class lmbI18nMacroTag extends lmbMacroTag
   function preParse($compiller)
   {
      if(!$this->has('text')) throw new lmbMacroException('tag {{i18n}} required attribute "text"');
-     parent :: preParse($compiller);
+     parent::preParse($compiller);
   }
 
   protected function _generateContent($code)
   {
     $code->writePHP('
-    echo lmb_i18n(\''.$this->get('text').'\',\''.($this->has('domain')?$this->get('domain'):'default').'\');
+    echo limb\i18n\src\lmbI18n::translate(\''.$this->get('text').'\',\''.($this->has('domain') ? $this->get('domain'):'default').'\');
         ');
   }
 

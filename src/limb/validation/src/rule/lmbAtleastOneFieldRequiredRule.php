@@ -8,6 +8,8 @@
  */
 namespace limb\validation\src\rule;
 
+use limb\i18n\src\lmbI18n;
+
 /**
  * Checks that at least one field from a list has not null value
  * Example of usage:
@@ -63,7 +65,7 @@ class lmbAtleastOneFieldRequiredRule extends lmbBaseValidationRule
     for($i = 0; $i < count($this->field_names); $i++)
       $fields[] = '{' . $i . '}';
 
-    return lmb_i18n('Atleast one field required among: {fields}',
+    return lmbI18n::translate('Atleast one field required among: {fields}',
                      array('{fields}' => implode(', ', $fields)),
                     'validation');
   }

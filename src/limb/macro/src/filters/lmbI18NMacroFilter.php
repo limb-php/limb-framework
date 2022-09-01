@@ -22,6 +22,6 @@ class lmbI18NMacroFilter extends lmbMacroFilter
 
   function getValue()
   {
-    return 'lmb_i18n(' . $this->base->getValue() . ', array(), "' . $this->params[0] . '")';
+    return 'limb\i18n\src\lmbI18n::translate(' . $this->base->getValue() . ', array(), "' . $this->params[0] . '")';
   }
 }

@@ -2,6 +2,7 @@
 namespace limb\cms\src\validation\rule;
 
 use limb\validation\src\rule\lmbBaseValidationRule;
+use limb\i18n\src\lmbI18n;
 
 class lmbCmsTreeIdentifierRule extends lmbBaseValidationRule
 {
@@ -29,7 +30,7 @@ class lmbCmsTreeIdentifierRule extends lmbBaseValidationRule
 
     if(!$parent_node = $datasource->getParent())
     {
-      $error = $this->custom_error ? $this->custom_error : lmb_i18n('Parent node not found', 'cms');
+      $error = $this->custom_error ? $this->custom_error : lmbI18n::translate('Parent node not found', 'cms');
       return;
     }
 
@@ -44,7 +45,7 @@ class lmbCmsTreeIdentifierRule extends lmbBaseValidationRule
       if($node->id == $datasource['id'])
         continue;
 
-      $error = $this->custom_error ? $this->custom_error : lmb_i18n('Duplicate tree identifier', 'cms');
+      $error = $this->custom_error ? $this->custom_error : lmbI18n::translate('Duplicate tree identifier', 'cms');
       $this->error($error, array('Field' => $this->field_name));
       break;
     }
@@ -54,7 +55,7 @@ class lmbCmsTreeIdentifierRule extends lmbBaseValidationRule
   {
     if(!preg_match('~^[a-zA-Z0-9-_\.]+$~', $value))
     {
-      $error = $this->custom_error ? $this->custom_error : lmb_i18n('{Field} can contain numeric, latin alphabet and `-`, `_`, `.` symbols only', 'cms');
+      $error = $this->custom_error ? $this->custom_error : lmbI18n::translate('{Field} can contain numeric, latin alphabet and `-`, `_`, `.` symbols only', 'cms');
       $this->error($error, array('Field' => $this->field_name));
       return;
     }

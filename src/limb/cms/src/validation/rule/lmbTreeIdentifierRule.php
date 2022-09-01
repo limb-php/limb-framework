@@ -9,6 +9,7 @@
 namespace limb\cms\src\validation\rule;
 
 use limb\validation\src\rule\lmbSingleFieldRule;
+use limb\i18n\src\lmbI18n;
 
 /**
  * class lmbTreeIdentifierRule.
@@ -21,7 +22,7 @@ class lmbTreeIdentifierRule extends lmbSingleFieldRule
   function check($value)
   {
     if(!preg_match('~^[a-zA-Z0-9-_\.]+$~', $value))
-      return $this->error(lmb_i18n('{Field} may contain only digits, Latin characters and special characters `-`, `_`, `.`'));
+      return $this->error(lmbI18n::translate('{Field} may contain only digits, Latin characters and special characters `-`, `_`, `.`'));
   }
 }
 
