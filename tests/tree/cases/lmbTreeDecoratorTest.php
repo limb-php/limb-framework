@@ -6,9 +6,8 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/tree/src/lmbTreeDecorator.class.php');
-lmb_require('limb/tree/src/lmbMPTree.class.php');
-lmb_require(dirname(__FILE__) . '/lmbTreeTestBase.class.php');
+use limb\tree\src\lmbTreeDecorator;
+use limb\tree\src\lmbMPTree;
 
 class TreeTestVersionForDecorator extends lmbMPTree
 {

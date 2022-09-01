@@ -6,14 +6,20 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\tree\src;
 
 /**
  * @package tree
- * @version $Id: lmbTreeDecorator.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbTreeDecorator.php
  */
 use limb\tree\src\lmbTreeInterface;
-use limb\core\src\lmbDecorator;
 
-lmbDecorator :: generate('limb\tree\src\lmbTreeInterface', '\lmbTreeDecorator');
+abstract class lmbTreeDecorator implements lmbTreeInterface
+{
+  protected $tree;
 
-
+  public function __construct($tree)
+  {
+    $this->tree = $tree;
+  }
+}
