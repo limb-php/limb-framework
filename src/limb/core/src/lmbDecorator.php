@@ -8,37 +8,7 @@
  */
 namespace limb\core\src;
 
-use limb\core\src\lmbReflectionHelper;
 use limb\core\src\exception\lmbException;
-
-/**
- * class lmbDecoratorGeneratorDefaultEventsHandler
- *
- * @package core
- * @version $Id$
- */
-class lmbDecoratorGeneratorDefaultEventsHandler
-{
-  function onDeclareProperties()
-  {
-    return "private \$original;";
-  }
-
-  function onConstructor()
-  {
-    return "\$this->original = \$args[0];\n";
-  }
-
-  function onMethod($method)
-  {
-    return "return call_user_func_array(array(\$this->original, '$method'), \$args);\n";
-  }
-
-  function onExtra()
-  {
-    return "";
-  }
-}
 
 //idea is based on MockGenerator class from SimpleTest test suite
 /**
@@ -56,7 +26,7 @@ class lmbDecorator
     if($decorator_class == null)
       $decorator_class = $decoratee_class . 'Decorator';
 
-    if(isset(self :: $history[$decorator_class]))
+    if(isset(self::$history[$decorator_class]))
       return false;
 
     if(class_exists($decorator_class,false))
@@ -65,8 +35,8 @@ class lmbDecorator
     if($events_handler == null)
       $events_handler = new lmbDecoratorGeneratorDefaultEventsHandler();
 
-    $res = eval(self :: _createClassCode($decoratee_class, $decorator_class, $events_handler));
-    self :: $history[$decorator_class] = 1;
+    $res = eval(self::_createClassCode($decoratee_class, $decorator_class, $events_handler));
+    self::$history[$decorator_class] = 1;
     return true;
   }
 
@@ -98,7 +68,7 @@ class lmbDecorator
     $code .= "        \$args = func_get_args();\n";
     $code .= $events_handler->onConstructor() . "\n";
     $code .= "    }\n";
-    $code .= self :: _createHandlerCode($decoratee_class, $decorator_class, $events_handler) . "\n";
+    $code .= self::_createHandlerCode($decoratee_class, $decorator_class, $events_handler) . "\n";
     $code .= "}\n";
     //var_dump("<pre>". $code . "</pre>"); exit();
     return $code;
@@ -107,10 +77,10 @@ class lmbDecorator
   static private function _createHandlerCode($decoratee_class, $decorator_class, $events_handler)
   {
     $code = '';
-    $methods = lmbReflectionHelper :: getOverridableMethods($decoratee_class);
+    $methods = lmbReflectionHelper::getOverridableMethods($decoratee_class);
     foreach($methods as $method)
     {
-      if(self :: _isSkipMethod($method))
+      if(self::_isSkipMethod($method))
         continue;
 
       $code .= "    " . lmbReflectionHelper :: getSignature($decoratee_class, $method) . " {\n";

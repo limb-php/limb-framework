@@ -9,7 +9,6 @@
 namespace limb\web_app\src;
 
 use limb\filter_chain\src\lmbFilterChain;
-use limb\web_app\src\controller\lmbController;
 use limb\core\src\lmbHandle;
 
 /**

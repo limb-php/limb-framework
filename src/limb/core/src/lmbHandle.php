@@ -18,18 +18,12 @@ use limb\core\src\lmbProxy;
  */
 class lmbHandle extends lmbProxy
 {
-  protected $args;
-  protected $class_path;
   protected $class;
+  protected $args;
 
-  function __construct($class_path, $args = array(), $class = null)
+  function __construct($class, $args = array())
   {
-    if(is_null($class))
-      $this->class = $this->_getClassName($class_path);
-    else
-      $this->class = $class;
-
-    $this->class_path = $class_path;
+    $this->class = $class;
     $this->args = $args;
   }
 
@@ -46,16 +40,7 @@ class lmbHandle extends lmbProxy
   protected function _createOriginalObject()
   {
     $refl = new \ReflectionClass($this->class);
-    return call_user_func_array(array($refl, 'newInstance'),$this->args);
+    return call_user_func_array(array($refl, 'newInstance'), $this->args);
   }
-
-  protected function _getClassName($class_path)
-  {
-    $decoded_class_path = explode('/', $class_path);
-    $items = explode('.', end($decoded_class_path));
-
-    return $items[0];
-  }
-
 }
 

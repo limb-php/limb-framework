@@ -13,8 +13,8 @@ use limb\web_app\src\controller\LmbController;
  * class FallbackToViewController.
  * To use this controller just pass it's name to lmbRequestDispatchingFilter, e.g.:
  *  <code>
- *   $this->registerFilter(new lmbHandle('limb/web_app/src/filter/lmbRequestDispatchingFilter',
- *                                       array(new lmbHandle('limb/web_app/src/request/lmbRoutesRequestDispatcher'),
+ *   $this->registerFilter(new lmbHandle('limb\web_app\src\filter/lmbRequestDispatchingFilter',
+ *                                       array(new lmbHandle('limb\web_app\src\request\lmbRoutesRequestDispatcher'),
  *                                            'any_template')));
  *  </code>
  *

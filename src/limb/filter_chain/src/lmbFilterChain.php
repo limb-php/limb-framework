@@ -48,7 +48,7 @@ use limb\filter_chain\src\lmbInterceptingFilterInterface;
  *  //register a handle for a filter in the chain
  *  //in this case we can avoid PHP code parsing if
  *  //this filter won't be processed
- *  $chain->registerFilter(new lmbHandle('/path/to/MyFilter'));
+ *  $chain->registerFilter(new lmbHandle('\namespace\MyFilter'));
  *  //executes the chain
  *  $chain->process();
  *  </code>
