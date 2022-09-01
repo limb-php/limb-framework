@@ -8,11 +8,7 @@
  */
 namespace limb\dbal\src\drivers;
 
-use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\core\src\lmbBacktrace;
-use limb\core\src\lmbDecorator;
-
-lmbDecorator :: generate('limb\dbal\src\drivers\lmbDbConnectionInterface', 'lmbDbConnectionDecorator');
 
 /**
  * class lmbAuditDbConnection.
@@ -20,7 +16,7 @@ lmbDecorator :: generate('limb\dbal\src\drivers\lmbDbConnectionInterface', 'lmbD
  * @package dbal
  * @version $Id$
  */
-class lmbAuditDbConnection extends \lmbDbConnectionDecorator
+class lmbAuditDbConnection extends lmbDbConnectionDecorator
 {
   protected $stats = array();
   protected $statement_number = 0;
@@ -30,7 +26,7 @@ class lmbAuditDbConnection extends \lmbDbConnectionDecorator
     $info = array('query' => $sql);
     $info['trace'] = $this->getTrace();
     $start_time = microtime(true);
-    $res = parent :: execute($sql);
+    $res = $this->connection->execute($sql);
     $info['time'] = round(microtime(true) - $start_time, 6);
     $this->stats[] = $info;
     return $res;
@@ -41,7 +37,7 @@ class lmbAuditDbConnection extends \lmbDbConnectionDecorator
     $info = array('query' => $stmt->getSQL());
     $info['trace'] = $this->getTrace();
     $start_time = microtime(true);
-    $res = parent :: executeStatement($stmt);
+    $res = $this->connection->executeStatement($stmt);
     $info['time'] = round(microtime(true) - $start_time, 6);
     $this->stats[] = $info;
     return $res;
@@ -49,7 +45,7 @@ class lmbAuditDbConnection extends \lmbDbConnectionDecorator
 
   function newStatement($sql)
   {
-    $statement = parent :: newStatement($sql);
+    $statement = $this->connection->newStatement($sql);
     $statement->setConnection($this);
     return $statement;
   }
@@ -72,10 +68,9 @@ class lmbAuditDbConnection extends \lmbDbConnectionDecorator
   function getQueries($reg_exp = '')
   {
     $res = array();
-    foreach($this->stats as $info)
-    {
+    foreach ($this->stats as $info) {
       $query = $info['query'];
-      if(!$reg_exp || preg_match('/' . $reg_exp . '/i', $query))
+      if (!$reg_exp || preg_match('/' . $reg_exp . '/i', $query))
         $res[] = $query;
     }
 
@@ -84,11 +79,11 @@ class lmbAuditDbConnection extends \lmbDbConnectionDecorator
 
   function getTrace()
   {
-  	$trace_length = 8;
-  	$offset = 4; // getting rid of useless trace elements
+    $trace_length = 8;
+    $offset = 4; // getting rid of useless trace elements
 
-  	$trace = new lmbBacktrace($trace_length, $offset);
-  	return $trace->toString();
+    $trace = new lmbBacktrace($trace_length, $offset);
+    return $trace->toString();
   }
 
   function getStats()
@@ -96,7 +91,81 @@ class lmbAuditDbConnection extends \lmbDbConnectionDecorator
     return $this->stats;
   }
 
+  /* */
+  function getConnectionId()
+  {
+    return $this->connection->getConnectionId();
+  }
 
+  function getHash()
+  {
+    return $this->connection->getHash();
+  }
+
+  function getDsnString()
+  {
+    return $this->connection->getDsnString();
+  }
+
+  function connect()
+  {
+    $this->connection->connect();
+  }
+
+  function getTypeInfo()
+  {
+    return $this->connection->getTypeInfo();
+  }
+
+  function getDatabaseInfo()
+  {
+    return $this->connection->getDatabaseInfo();
+  }
+
+  function getSequenceValue($table, $colname)
+  {
+    return $this->connection->getSequenceValue($table, $colname);
+  }
+
+  function quoteIdentifier($id)
+  {
+    return $this->connection->quoteIdentifier($id);
+  }
+
+  function escape($string)
+  {
+    return $this->connection->escape($string);
+  }
+
+  function getExtension()
+  {
+    return $this->connection->getExtension();
+  }
+
+  function getType()
+  {
+    return $this->connection->getType();
+  }
+
+  function beginTransaction()
+  {
+    $this->connection->beginTransaction();
+  }
+
+  function commitTransaction()
+  {
+    $this->connection->commitTransaction();
+  }
+
+  function rollbackTransaction()
+  {
+    $this->connection->rollbackTransaction();
+  }
+
+  function disconnect()
+  {
+    $this->connection->disconnect();
+  }
 }
 
 

@@ -8,11 +8,6 @@
  */
 namespace limb\dbal\src\drivers;
 
-use limb\dbal\src\drivers\lmbDbConnectionInterface;
-use limb\core\src\lmbDecorator;
-
-lmbDecorator :: generate('limb\dbal\src\drivers\lmbDbConnectionInterface', 'lmbDbConnectionDecorator');
-
 /**
  * class lmbAutoTransactionConnection.
  *
@@ -20,7 +15,7 @@ lmbDecorator :: generate('limb\dbal\src\drivers\lmbDbConnectionInterface', 'lmbD
  * @version $Id: lmbAutoTransactionConnection.class.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 
-class lmbAutoTransactionConnection extends \lmbDbConnectionDecorator
+class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
 {
   protected $modifying_statements = array('UPDATE',
                                           'DELETE',
@@ -35,7 +30,7 @@ class lmbAutoTransactionConnection extends \lmbDbConnectionDecorator
     if($this->_isModifyingSQL($sql))
       $this->beginTransaction();
 
-    return parent :: newStatement($sql);
+    return $this->connection->newStatement($sql);
   }
 
   protected function _isModifyingSQL($sql)
@@ -54,7 +49,7 @@ class lmbAutoTransactionConnection extends \lmbDbConnectionDecorator
   {
     if($this->is_in_transaction)
       return;
-    parent :: beginTransaction();
+    $this->connection->beginTransaction();
     $this->is_in_transaction = true;
   }
 
@@ -62,7 +57,7 @@ class lmbAutoTransactionConnection extends \lmbDbConnectionDecorator
   {
     if($this->is_in_transaction)
     {
-      parent :: commitTransaction();
+      $this->connection->commitTransaction();
       $this->is_in_transaction = false;
     }
   }
@@ -71,7 +66,7 @@ class lmbAutoTransactionConnection extends \lmbDbConnectionDecorator
   {
     if($this->is_in_transaction)
     {
-      parent :: rollbackTransaction();
+      $this->connection->rollbackTransaction();
       $this->is_in_transaction = false;
     }
   }
@@ -79,6 +74,77 @@ class lmbAutoTransactionConnection extends \lmbDbConnectionDecorator
   function isInTransaction()
   {
     return $this->is_in_transaction;
+  }
+
+  /* */
+  function execute($sql)
+  {
+    return $this->connection->execute($sql);
+  }
+
+  function executeStatement($stmt)
+  {
+    return $this->connection->executeStatement($stmt);
+  }
+
+  function getConnectionId()
+  {
+    return $this->connection->getConnectionId();
+  }
+
+  function getHash()
+  {
+    return $this->connection->getHash();
+  }
+
+  function getDsnString()
+  {
+    return $this->connection->getDsnString();
+  }
+
+  function connect()
+  {
+    $this->connection->connect();
+  }
+
+  function getTypeInfo()
+  {
+    return $this->connection->getTypeInfo();
+  }
+
+  function getDatabaseInfo()
+  {
+    return $this->connection->getDatabaseInfo();
+  }
+
+  function getSequenceValue($table, $colname)
+  {
+    return $this->connection->getSequenceValue($table, $colname);
+  }
+
+  function quoteIdentifier($id)
+  {
+    return $this->connection->quoteIdentifier($id);
+  }
+
+  function escape($string)
+  {
+    return $this->connection->escape($string);
+  }
+
+  function getExtension()
+  {
+    return $this->connection->getExtension();
+  }
+
+  function getType()
+  {
+    return $this->connection->getType();
+  }
+
+  function disconnect()
+  {
+    $this->connection->disconnect();
   }
 }
 
