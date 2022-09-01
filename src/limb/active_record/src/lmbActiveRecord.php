@@ -1840,9 +1840,7 @@ class lmbActiveRecord extends lmbObject
   function loadFromRecord($record)
   {
     $decoded = $this->_decodeDbValues($record);
-
-    foreach($decoded as $key => $value)
-      $this->_setRaw($key, $value);
+    $this->importRaw($decoded);
 
     $this->_resetDirty();
     $this->_is_new = false;

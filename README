@@ -10,10 +10,9 @@ Here is the list of the most notable packages at the moment:
             generic object containers, decorators generators, transparent object proxies, etc
     * toolkit: dependency injection tools
     * filter_chain: InterceptingFilter design pattern implementation
-    * wact: a forked and a bit patched version of the brilliant template WACT subsystem(http://phpwact.org)
     * web_app: FrontController and MVC patterns implementation.
     * active_record: ActiveRecord pattern implementation(Rails alike flavour, http://rubyonrails.com/)
     * dbal: Database Abstraction Layer which supports MySql, PostreSQL and Oracle at the moment.
-    * tests_runner: unit testing tools built around excellent SimpleTest library(http://simpletest.org)
+    * tests_runner: unit testing tools built around excellent PHPUnit library
     * session: transparent PHP session wrappers with painless persistence of objects
     

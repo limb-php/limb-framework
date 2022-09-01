@@ -83,7 +83,8 @@ class lmbMysqlRecord extends lmbDbBaseRecord
   function getString($name)
   {
     $value = $this->get($name);
-    return is_null($value) ?  null : (string) $value;
+    //return is_null($value) ?  null : (string) $value;
+    return is_null($value) ?  null : $value;
   }
 
   function getBoolean($name)
@@ -146,6 +147,11 @@ class lmbMysqlRecord extends lmbDbBaseRecord
   }
 
   function getClob($name)
+  {
+    return $this->get($name);
+  }
+
+  function getChar($name)
   {
     return $this->get($name);
   }
