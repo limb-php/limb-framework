@@ -9,6 +9,8 @@
 namespace limb\cms\src\controller;
 
 use limb\web_app\src\controller\lmbController;
+use limb\core\src\exception\lmbException;
+use limb\active_record\src\lmbActiveRecord;
 
 /**
  * abstract class AdminObjectController.
@@ -113,31 +115,41 @@ abstract class AdminObjectController extends lmbController
   protected function _import()
   {
     $this->_onBeforeImport();
-    $this->item->import($this->request);
+    $this->item->import( $this->request->export() );
     $this->_onAfterImport();
   }
 
-  protected function _validateAndSave($is_create = false)
+  protected function _validate()
   {
     $this->_onBeforeValidate();
     $this->item->validate($this->error_list);
     $this->_onAfterValidate();
+  }
+
+  protected function _save($is_create)
+  {
+    if($is_create)
+      $this->_onBeforeCreate();
+    else
+      $this->_onBeforeUpdate();
+
+    $this->_onBeforeSave();
+    $this->item->saveSkipValidation();
+    $this->_onAfterSave();
+
+    if($is_create)
+      $this->_onAfterCreate();
+    else
+      $this->_onAfterUpdate();
+  }
+
+  protected function _validateAndSave($is_create = false)
+  {
+    $this->_validate();
 
     if($this->error_list->isValid())
     {
-      if($is_create)
-        $this->_onBeforeCreate();
-      else
-        $this->_onBeforeUpdate();
-
-      $this->_onBeforeSave();
-      $this->item->saveSkipValidation();
-      $this->_onAfterSave();
-
-      if($is_create)
-        $this->_onAfterCreate();
-      else
-        $this->_onAfterUpdate();
+      $this->_save($is_create);
 
       $this->_endDialog();
     }

@@ -69,7 +69,8 @@ class lmbSet implements lmbSetInterface
 
   function removeAll()
   {
-    foreach($this->_getUnguardedVars($this) as $name => $var)
+    $unguarded_vars = $this->_getUnguardedVars($this);
+    foreach($unguarded_vars as $name => $var)
       $this->remove($name);
   }
 
@@ -95,7 +96,8 @@ class lmbSet implements lmbSetInterface
   function export()
   {
     $exported = array();
-    foreach($this->_getUnguardedVars($this) as $name => $var)
+    $unguarded_vars = $this->_getUnguardedVars($this);
+    foreach($unguarded_vars as $name => $var)
       $exported[$name] = $var;
     return $exported;
   }
@@ -119,7 +121,8 @@ class lmbSet implements lmbSetInterface
   protected function _getUnguardedVars()
   {
     $vars = array();
-    foreach(get_object_vars($this) as $name => $var)
+    $object_vars = get_object_vars($this);
+    foreach($object_vars as $name => $var)
     {
       if(!$this->_isGuarded($name))
         $vars[$name] = $var;

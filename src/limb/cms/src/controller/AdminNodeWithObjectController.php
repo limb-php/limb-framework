@@ -10,6 +10,8 @@ namespace limb\cms\src\controller;
 
 use limb\web_app\src\controller\lmbController;
 use limb\cms\src\model\lmbCmsNode;
+use limb\core\src\exception\lmbException;
+use limb\active_record\src\lmbActiveRecord;
 
 /**
  * abstract class AdminNodeWithObjectController.
@@ -52,7 +54,7 @@ abstract class AdminNodeWithObjectController extends lmbController
       $this->_import();
 
       if($this->_generate_identifier || $this->request->get('auto_identifier'))
-        $this->node->setIdentifier(lmbCmsNode :: generateIdentifier($this->request->get('parent')));
+        $this->node->setIdentifier(lmbCmsNode::generateIdentifier($this->request->get('parent')));
 
       $this->_validateAndSave(true);
     }
@@ -85,8 +87,8 @@ abstract class AdminNodeWithObjectController extends lmbController
 
   protected function _import()
   {
-    $this->node->import($this->request);
-    $this->item->import($this->request);
+    $this->node->import($this->request->export());
+    $this->item->import($this->request->export());
   }
 
   protected function _validateAndSave($is_create = false)
@@ -166,7 +168,7 @@ abstract class AdminNodeWithObjectController extends lmbController
     {
       foreach($this->request->getArray('ids') as $id)
       {
-        $node = lmbActiveRecord :: findById('lmbCmsNode', (int)$id);
+        $node = lmbActiveRecord::findById(lmbCmsNode::class, (int)$id);
         $node->destroy();
       }
 
