@@ -7,7 +7,11 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-class lmbAssertFunctionsTest extends UnitTestCase
+use PHPUnit\Framework\TestCase;
+use limb\core\src\exception\lmbInvalidArgumentException;
+use limb\core\src\lmbAssert;
+
+class lmbAssertFunctionsTest extends TestCase
 {
   function testAssertTrue()
   {
@@ -33,12 +37,12 @@ class lmbAssertFunctionsTest extends UnitTestCase
   {
     try
     {
-      lmb_assert_true(false);
+      lmbAssert::assert_true(false);
       $this->fail();
     }
     catch(lmbInvalidArgumentException $e)
     {
-      $this->assertPattern('/Value must be true/', $e->getMessage());
+      $this->assertMatchesRegularExpression('/Value must be true/', $e->getMessage());
     }
   }
 
@@ -47,11 +51,11 @@ class lmbAssertFunctionsTest extends UnitTestCase
     $message = uniqid('lmb_assert_true');
     try
     {
-      lmb_assert_true(false, $message);
+      lmbAssert::assert_true(false, $message);
     }
     catch(lmbInvalidArgumentException $e)
     {
-      $this->assertPattern('/'.$message.'/', $e->getMessage());
+      $this->assertMatchesRegularExpression('/'.$message.'/', $e->getMessage());
     }
   }
 
@@ -132,11 +136,11 @@ class lmbAssertFunctionsTest extends UnitTestCase
     $message = uniqid('lmb_assert_type');
     try
     {
-      lmb_assert_type(true, 'string', $message);
+      lmbAssert::assert_type(true, 'string', $message);
     }
     catch(lmbInvalidArgumentException $e)
     {
-      $this->assertPattern('/'.$message.'/', $e->getMessage());
+      $this->assertMatchesRegularExpression('/'.$message.'/', $e->getMessage());
     }
   }
 
@@ -161,11 +165,11 @@ class lmbAssertFunctionsTest extends UnitTestCase
     $message = uniqid('lmb_assert_array_with_key');
     try
     {
-      lmb_assert_array_with_key(array(), 'some_key', $message);
+      lmbAssert::assert_array_with_key(array(), 'some_key', $message);
     }
     catch(lmbInvalidArgumentException $e)
     {
-      $this->assertPattern('/'.$message.'/', $e->getMessage());
+      $this->assertMatchesRegularExpression('/'.$message.'/', $e->getMessage());
     }
   }
 
@@ -179,13 +183,13 @@ class lmbAssertFunctionsTest extends UnitTestCase
     $this->_checkPositive('reg_exp', 'abc', '/bc/');
     $this->_checkNegative('reg_exp', 'abc', '/xy/');
 
-    Mock::generate('stdClass', 'MockStringProvider', array('__toString'));
-    $string_provider = new MockStringProvider;
-    $string_provider->expectAtLeastOnce('__toString');
-    $string_provider->setReturnValue('__toString', 'abc');
+    $stub = $this->createMock('stdClass');
+    $stub->
+      method('__toString')->
+      will('abc');
 
-    $this->_checkPositive('reg_exp', $string_provider, '/bc/');
-    $this->_checkNegative('reg_exp', $string_provider, '/xy/');
+    $this->_checkPositive('reg_exp', $stub, '/bc/');
+    $this->_checkNegative('reg_exp', $stub, '/xy/');
   }
 
   function testAssertRegExp_CustomMessage()
@@ -193,23 +197,23 @@ class lmbAssertFunctionsTest extends UnitTestCase
     $message = uniqid('lmb_assert_reg_exp');
     try
     {
-      lmb_assert_reg_exp(array(), 'foo', $message);
+      lmbAssert::assert_reg_exp(array(), 'foo', $message);
     }
     catch(lmbInvalidArgumentException $e)
     {
-      $this->assertPattern('/'.$message.'/', $e->getMessage());
+      $this->assertMatchesRegularExpression('/'.$message.'/', $e->getMessage());
     }
   }
 
   protected function _callCheck($check_name, $first_check_param, $second_check_param)
   {
-    call_user_func_array('lmb_assert_'.$check_name, array($first_check_param, $second_check_param));
+    call_user_func_array('limb\core\src\lmbAssert::assert_'.$check_name, array($first_check_param, $second_check_param));
   }
 
   protected function _checkPositive($check_name, $first_check_param, $second_check_param = null)
   {
     $this->_callCheck($check_name,$first_check_param,$second_check_param);
-    $this->pass();
+    $this->assertTrue(true);
   }
 
   protected function _checkNegative($check_name, $first_param, $second_param = null)
@@ -217,12 +221,12 @@ class lmbAssertFunctionsTest extends UnitTestCase
     try
     {
       $this->_callCheck($check_name, $first_param, $second_param);
-      $message = "fail lmb_assert_{$check_name}(".(var_export($first_param, true)).", ".var_export($second_param, true).')';
+      $message = "fail lmbAssert::assert_{$check_name}(".(var_export($first_param, true)).", ".var_export($second_param, true).')';
       $this->fail($message);
     }
     catch(lmbInvalidArgumentException $e)
     {
-      $this->pass();
+      $this->assertTrue(true);
       return $e->getMessage();
     }
   }

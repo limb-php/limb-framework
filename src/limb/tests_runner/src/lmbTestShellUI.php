@@ -8,11 +8,6 @@
  */
 namespace limb\tests_runner\src;
 
-use limb\tests_runner\src\lmbTestGetopt;
-use limb\tests_runner\src\lmbTestOptions;
-use limb\tests_runner\src\lmbTestTreeGlobNode;
-use limb\tests_runner\src\lmbTestUserException;
-
 /**
  * class lmbTestShellUI.
  *
@@ -245,7 +240,6 @@ EOD;
     if(!$cover_report_dir && defined('LIMB_TESTS_RUNNER_COVERAGE_REPORT_DIR'))
       $cover_report_dir = LIMB_TESTS_RUNNER_COVERAGE_REPORT_DIR;
 
-    require_once(dirname(__FILE__) . '/lmbTestRunner.class.php');
     $runner = new lmbTestRunner();
 
     if($this->reporter)
@@ -278,7 +272,7 @@ EOD;
     $php_code = preg_replace('~\?>~', '', $php_code);
 
     ob_start();
-    $result = create_function('', $php_code);
+    $result = function($php_code) { return $php_code; };
     if(!$result)
       $error = ob_get_contents();
     ob_end_clean();

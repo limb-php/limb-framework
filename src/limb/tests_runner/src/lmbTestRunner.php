@@ -8,6 +8,9 @@
  */
 namespace limb\tests_runner\src;
 
+use limb\tests_runner\src\lmbTestShellReporter;
+use limb\tests_runner\src\lmbSummaryCoverageReporter;
+
 /**
  * class lmbTestRunner.
  *
@@ -52,8 +55,6 @@ class lmbTestRunner
 
   function run($root_node, $path='/')
   {
-    require_once(dirname(__FILE__) . '/../simpletest.inc.php');
-
     self :: $current = $this;
 
     $this->_startStats();
@@ -68,7 +69,7 @@ class lmbTestRunner
   protected function _doRun($node, $path)
   {
     if(!$sub_node = $node->findChildByPath($path))
-      throw new Exception("Test node '$path' not found!");
+      throw new \Exception("Test node '$path' not found!");
 
     $test = $sub_node->createTestCase();
     return $test->run($this->_getReporter());
@@ -117,7 +118,6 @@ class lmbTestRunner
     else
     {
       //this reporter just collects stats and doesn't write anything, only prints summary
-      require_once(dirname(__FILE__) . '/lmbSummaryCoverageReporter.class.php');
       $this->coverage_reporter = new lmbSummaryCoverageReporter();
     }
 
@@ -139,7 +139,6 @@ class lmbTestRunner
   {
     if(!$this->reporter)
     {
-      require_once(dirname(__FILE__) . '/lmbTestShellReporter.class.php');
       SimpleTest :: prefer(new lmbTestShellReporter());
       return clone(SimpleTest :: preferred(array('SimpleReporter', 'SimpleReporterDecorator')));
     }

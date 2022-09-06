@@ -7,9 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbArrayIterator;
 
-class lmbArrayIteratorTest extends UnitTestCase
+class lmbArrayIteratorTest extends TestCase
 {
   function testEmptyIterator()
   {
@@ -28,10 +29,10 @@ class lmbArrayIteratorTest extends UnitTestCase
     $iterator->rewind();
     $this->assertTrue($iterator->valid());
 
-    $this->assertEqual($iterator->current(), 'Ivan');
+    $this->assertSame($iterator->current(), 'Ivan');
     $iterator->next();
     $this->assertTrue($iterator->valid());
-    $this->assertEqual($iterator->current(), 'Pavel');
+    $this->assertSame($iterator->current(), 'Pavel');
   }
 
   function testIterateOver()
@@ -48,13 +49,13 @@ class lmbArrayIteratorTest extends UnitTestCase
   {
     $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
     $iterator->paginate($offset = 0, $limit = 2);
-    $this->assertEqual($iterator->count(), 5);
-    $this->assertEqual($iterator->countPaginated(), $limit);
+    $this->assertSame($iterator->count(), 5);
+    $this->assertSame($iterator->countPaginated(), $limit);
 
     $iterator->rewind();
-    $this->assertEqual($iterator->current(), 'a');
+    $this->assertSame($iterator->current(), 'a');
     $iterator->next();
-    $this->assertEqual($iterator->current(), 'b');
+    $this->assertSame($iterator->current(), 'b');
   }
 
   function testIterateWithPaginationNonZeroOffset()
@@ -63,9 +64,9 @@ class lmbArrayIteratorTest extends UnitTestCase
     $iterator->paginate($offset = 2, $limit = 2);
 
     $iterator->rewind();
-    $this->assertEqual($iterator->current(), 'c');
+    $this->assertSame($iterator->current(), 'c');
     $iterator->next();
-    $this->assertEqual($iterator->current(), 'd');
+    $this->assertSame($iterator->current(), 'd');
   }
 
   function testPaginateWithOutOfBounds()
@@ -73,8 +74,8 @@ class lmbArrayIteratorTest extends UnitTestCase
     $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
     $iterator->paginate($offset = 5, $limit = 2);
 
-    $this->assertEqual($iterator->count(), 5);
-    $this->assertEqual($iterator->countPaginated(), 0);
+    $this->assertSame($iterator->count(), 5);
+    $this->assertSame($iterator->countPaginated(), 0);
 
     $iterator->rewind();
     $this->assertFalse($iterator->valid());
@@ -85,8 +86,8 @@ class lmbArrayIteratorTest extends UnitTestCase
     $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
     $iterator->paginate($offset = -1, $limit = 2);
 
-    $this->assertEqual($iterator->count(), 5);
-    $this->assertEqual($iterator->countPaginated(), 0);
+    $this->assertSame($iterator->count(), 5);
+    $this->assertSame($iterator->countPaginated(), 0);
 
     $iterator->rewind();
     $this->assertFalse($iterator->valid());
