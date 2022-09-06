@@ -1,7 +1,12 @@
 {
     "name": "limb/core",
+    "description": "The LIMB4 Core package.",
+    "license": "MIT",
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "limb/core": "^4.2",
+        "limb/config": "^4.2",
+        "limb/dbal": "^4.2"
     },
     "autoload": {
         "psr-0": {

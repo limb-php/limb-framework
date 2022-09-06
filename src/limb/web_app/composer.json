@@ -1,7 +1,15 @@
 {
     "name": "limb/web_app",
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "limb/core": "^4.2",
+        "limb/config": "^4.2",
+        "limb/i18n": "^4.2",
+        "limb/net": "^4.2",
+        "limb/active_record": "^4.2",
+        "limb/session": "^4.2",
+        "limb/view": "^4.2",
+        "limb/log": "^4.2"
     },
     "autoload": {
         "psr-0": {

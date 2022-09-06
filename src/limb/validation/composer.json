@@ -1,7 +1,9 @@
 {
     "name": "limb/validation",
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "limb/core": "^4.2",
+        "limb/i18n": "^4.2"
     },
     "autoload": {
         "psr-0": {

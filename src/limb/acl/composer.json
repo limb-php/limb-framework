@@ -2,12 +2,9 @@
     "name": "limb/acl",
     "require": {
         "php": ">=7.2",
-        "limb/core": "dev-master"
+        "limb/core": "^4.2"
     },
     "autoload": {
-        "files": [
-            "src/limb/core/common.inc.php"
-        ],
         "psr-0": {
             "limb\\acl\\": ""
         }

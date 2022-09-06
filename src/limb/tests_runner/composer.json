@@ -2,6 +2,7 @@
     "name": "limb/tests_runner",
     "require": {
         "php": ">=7.2",
+        "limb/core": "^4.2",
         "phpunit/phpunit": "^9"
     },
     "autoload": {

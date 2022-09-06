@@ -1,7 +1,8 @@
 {
     "name": "limb/toolkit",
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "limb/core": "^4.2"
     },
     "autoload": {
         "psr-0": {

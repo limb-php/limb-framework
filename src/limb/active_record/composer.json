@@ -1,7 +1,10 @@
 {
     "name": "limb/active_record",
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "limb/core": "^4.2",
+        "limb/dbal": "^4.2",
+        "limb/validation": "^4.2"
     },
     "autoload": {
         "psr-0": {

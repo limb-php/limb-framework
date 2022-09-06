@@ -2,12 +2,11 @@
   "name": "limb/dbal",
   "require": {
     "php": ">=7.2",
-    "limb/core": "dev-master",
-    "limb/toolkit": "dev-master",
-    "limb/net": "dev-master",
-    "limb/fs": "dev-master",
-    "limb/config": "dev-master",
-    "limb/filter_chain": "dev-master"
+    "limb/core": "^4.2",
+    "limb/toolkit": "^4.2",
+    "limb/net": "^4.2",
+    "limb/fs": "^4.2",
+    "limb/config": "^4.2"
   },
   "autoload": {
     "psr-0": {
