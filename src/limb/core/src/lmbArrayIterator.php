@@ -9,14 +9,15 @@
 namespace limb\core\src;
 
 use limb\core\src\lmbCollectionInterface;
+use limb\core\src\exception\lmbException;
 
 /**
  * class lmbArrayIterator.
  *
  * @package core
- * @version $Id: lmbArrayIterator.class.php 6386 2007-10-05 14:22:21Z serega $
+ * @version $Id: lmbArrayIterator.php 6386 2007-10-05 14:22:21Z serega $
  */
-class lmbArrayIterator extends ArrayIterator implements lmbCollectionInterface
+class lmbArrayIterator extends \ArrayIterator implements lmbCollectionInterface
 {
   public $position = 0;
   public $offset = 0;
@@ -35,7 +36,7 @@ class lmbArrayIterator extends ArrayIterator implements lmbCollectionInterface
       {
         $this->seek($this->offset);
       }
-      catch(OutOfBoundsException $e)
+      catch(\OutOfBoundsException $e)
       {
         $this->seek($this->count()-1);
         $this->next();
@@ -46,14 +47,14 @@ class lmbArrayIterator extends ArrayIterator implements lmbCollectionInterface
   function next()
   {
     $this->position++;
-    return parent :: next();
+    parent::next();
   }
 
   function valid()
   {
     if($this->limit && ($this->position >= $this->limit))
       return false;
-    return parent :: valid();
+    return parent::valid();
   }
 
   function getOffset()
@@ -85,7 +86,7 @@ class lmbArrayIterator extends ArrayIterator implements lmbCollectionInterface
       $this->seek($pos);
       return $this->current();
     }
-    catch(OutOfBoundsException $e)
+    catch(\OutOfBoundsException $e)
     {
       $this->seek($this->count()-1);
       return null;
