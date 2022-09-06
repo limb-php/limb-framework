@@ -11,25 +11,21 @@ class lmbWysiwygConfigurationHelper
   protected $_wysiwyg_types = array(
     'fckeditor' => array(
       'macro' => array(
-        'file' => 'limb/wysiwyg/src/macro/lmbMacroFCKEditorWidget.class.php',
         'class' => 'limb\wysiwyg\src\macro\lmbMacroFCKEditorWidget'
       ),
     ),
     'ckeditor' => array(
       'macro' => array(
-        'file' => 'limb/wysiwyg/src/macro/lmbMacroCKEditorWidget.class.php',
         'class' => 'limb\wysiwyg\src\macro\lmbMacroCKEditorWidget'
       ),
     ),
     'ckeditor5' => array(
       'macro' => array(
-        'file' => 'limb/wysiwyg/src/macro/lmbMacroCKEditor5Widget.class.php',
         'class' => 'limb\wysiwyg\src\macro\lmbMacroCKEditor5Widget'
       ),
     ),
     'tinymce' => array(
       'macro' => array(
-        'file' => 'limb/wysiwyg/src/macro/lmbMacroTinyMCEWidget.class.php',
         'class' => 'limb\wysiwyg\src\macro\lmbMacroTinyMCEWidget'
       ),
     ),

@@ -48,7 +48,7 @@ class lmbMacroWysiwygTag extends lmbMacroTextAreaTag
     $this->set('profile_name', $this->_helper->getProfileName());    
   }
   
-  // rewriting parent behaviour since we don't need to render <wisywyg> tag 
+  // rewriting parent behaviour since we don't need to render <wysiwyg> tag
   protected function _generateOpeningTag($code_writer)
   {
     $this->_generateWidget($code_writer);

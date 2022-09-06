@@ -17,7 +17,7 @@ use limb\wysiwyg\src\lmbWysiwygConfigurationHelper;
  */
 class lmbMacroBaseWysiwygWidget extends lmbMacroFormElementWidget
 {
-  protected $skip_render = array('value','config_name', 'profile_name');
+  protected $skip_render = array('value', 'config_name', 'profile_name');
   /**
    * @var lmbWysiwygConfigurationHelper
    */
