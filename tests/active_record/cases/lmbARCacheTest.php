@@ -6,9 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-require_once('limb/active_record/src/lmbAROneToManyCollection.class.php');
-lmb_require('limb/cache/src/lmbCacheFileWithMetaBackend.class.php');
-lmb_require('limb/cache/src/lmbCacheGroupDecorator.class.php');
+
+use limb\active_record\src\lmbActiveRecord;
+use limb\active_record\src\lmbAROneToManyCollection;
+use limb\cache\src\lmbCacheFileWithMetaBackend;
+use limb\cache\src\lmbCacheGroupDecorator;
+use limb\core\src\lmbCollection;
 
 class cachedActiveRecord extends lmbActiveRecord
 {
@@ -227,18 +230,18 @@ class lmbARCacheTest extends lmbARBaseTestCase
   protected $tables_to_cleanup = array('course_for_test', 'lecture_for_test');
   protected $cache;
 
-  function setUp()
+  protected function setUp(): void
   {
-    parent :: setUp();
+    parent::setUp();
 
     $cache_dir = LIMB_VAR_DIR . '/cache';
     $this->cache = new lmbCacheGroupDecorator(new lmbCacheFileWithMetaBackend($cache_dir));
     //$this->cache->flush();
   }
 
-  function tearDown()
+  protected function tearDown(): void
   {
-    parent :: tearDown();
+    parent::tearDown();
 
     //$this->cache->flush();
   }

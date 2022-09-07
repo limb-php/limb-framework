@@ -6,12 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-require_once(dirname(__FILE__) . '/lmbActiveRecordTest.class.php');
-require_once(dirname(__FILE__) . '/lmbAROneToManyRelationsTest.class.php');
-require_once(dirname(__FILE__) . '/lmbAROneToOneRelationsTest.class.php');
-require_once(dirname(__FILE__) . '/lmbARManyToManyRelationsTest.class.php');
-require_once(dirname(__FILE__) . '/lmbARAggregatedObjectTest.class.php');
-require_once(dirname(__FILE__) . '/lmbARAttributesLazyLoadingTest.class.php');
+
+use limb\active_record\src\lmbActiveRecord;
+use limb\core\src\lmbSet;
 
 class LessonForTestWithCustomImport extends lmbActiveRecord
 {

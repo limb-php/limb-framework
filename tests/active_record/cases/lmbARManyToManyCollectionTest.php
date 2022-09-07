@@ -6,10 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-require_once('limb/active_record/src/lmbARManyToManyCollection.class.php');
-require_once(dirname(__FILE__) . '/lmbARManyToManyRelationsTest.class.php');
 
-Mock :: generate('GroupForTest', 'MockGroupForTest');
+use limb\active_record\src\lmbARManyToManyCollection;
+use limb\active_record\src\lmbActiveRecord;
 
 class GroupForTestStub extends GroupForTest
 {
@@ -17,7 +16,7 @@ class GroupForTestStub extends GroupForTest
 
   function save($error_list = null)
   {
-    parent :: save($error_list);
+    parent::save($error_list);
     $this->save_calls++;
   }
 }
@@ -85,8 +84,8 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
   function testSaveWithExistingOwnerDoesNothing()
   {
-    $group1 = new MockGroupForTest();
-    $group2 = new MockGroupForTest();
+    $group1 = $this->createMock(MockGroupForTest::class);
+    $group2 = $this->createMock(MockGroupForTest::class);
 
     $user = $this->_createUserAndSave();
 

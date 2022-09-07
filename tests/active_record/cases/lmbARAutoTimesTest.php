@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use limb\active_record\src\lmbActiveRecord;
+
 class TestAutoTimesObject extends lmbActiveRecord
 {
   protected $_db_table_name = 'test_auto_times_object';

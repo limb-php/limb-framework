@@ -19,7 +19,7 @@ class lmbARBaseTestCase extends TestCase
   protected $creator;
   protected $tables_to_cleanup = array();
 
-  function setUp()
+  protected function setUp(): void
   {
     $toolkit = lmbToolkit :: save();
     $this->conn = new lmbAuditDbConnection($toolkit->getDefaultDbConnection());
@@ -30,7 +30,7 @@ class lmbARBaseTestCase extends TestCase
     $this->_cleanUp();
   }
 
-  function tearDown()
+  protected function tearDown(): void
   {
     $this->_cleanUp();
 
