@@ -8,11 +8,6 @@
  */
 namespace limb\tests_runner\src;
 
-require_once(dirname(__FILE__) . '/lmbTestTreeNode.class.php');
-require_once(dirname(__FILE__) . '/lmbTestTreeShallowDirNode.class.php');
-require_once(dirname(__FILE__) . '/lmbTestTreeDirNode.class.php');
-require_once(dirname(__FILE__) . '/lmbTestTreeFileNode.class.php');
-
 /**
  * class lmbTestTreeFilePathNode.
  *
@@ -27,7 +22,7 @@ class lmbTestTreeFilePathNode extends lmbTestTreeNode
   function __construct($file_path, $offset = null)
   {
     if(!is_file($file_path) && !is_dir($file_path))
-      throw new Exception("'$file_path' is not a valid file path!");
+      throw new \Exception("'$file_path' is not a valid file path!");
 
     $this->file_path = realpath($file_path);
     $this->offset = $offset;

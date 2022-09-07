@@ -34,7 +34,7 @@ class lmbTestRunner
 
   static function getCurrent()
   {
-    return self :: $current;
+    return self::$current;
   }
 
   function setReporter($reporter)
@@ -55,7 +55,7 @@ class lmbTestRunner
 
   function run($root_node, $path='/')
   {
-    self :: $current = $this;
+    self::$current = $this;
 
     $this->_startStats();
     $this->_startCoverage();

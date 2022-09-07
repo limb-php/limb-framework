@@ -8,9 +8,6 @@
  */
 namespace limb\tests_runner\src;
 
-require_once(dirname(__FILE__) . '/lmbTestTreeNode.class.php');
-require_once(dirname(__FILE__) . '/lmbDetachedFixture.class.php');
-
 /**
  * class lmbTestTreeShallowDirNode.
  *
@@ -25,7 +22,7 @@ class lmbTestTreeShallowDirNode extends lmbTestTreeNode
   function __construct($dir)
   {
     if(!is_dir($dir))
-      throw new Exception("'$dir' is not a directory!");
+      throw new \Exception("'$dir' is not a directory!");
 
     $this->dir = $dir;
   }

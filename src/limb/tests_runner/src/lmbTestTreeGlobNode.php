@@ -8,10 +8,6 @@
  */
 namespace limb\tests_runner\src;
 
-require_once(dirname(__FILE__). '/lmbTestTreeNode.class.php');
-require_once(dirname(__FILE__). '/lmbTestTreeFilePathNode.class.php');
-require_once(dirname(__FILE__). '/lmbTestUserException.class.php');
-
 /**
  * class lmbTestTreeGlobNode.
  *

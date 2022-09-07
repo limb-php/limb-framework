@@ -8,7 +8,6 @@
  */
 namespace limb\tests_runner\src;
 
-require_once(dirname(__FILE__) . '/lmbTestTreePath.class.php');
 
 /**
  * abstract class lmbTestTreeNode.
@@ -154,7 +153,6 @@ class lmbTestTreeNode
   protected function _doCreateTestCase()
   {
     //we need to delay inclusion of SimpleTest as much as possible
-    require_once(dirname(__FILE__) . '/lmbTestGroup.class.php');
     return new lmbTestGroup($this->getTestLabel());
   }
 

@@ -8,10 +8,6 @@
  */
 namespace limb\tests_runner\src;
 
-require_once(dirname(__FILE__) . '/lmbTestTreePath.class.php');
-require_once(dirname(__FILE__) . '/lmbTestRunner.class.php');
-require_once(dirname(__FILE__) . '/lmbTestHTMLReporter.class.php');
-
 /**
  * class lmbTestWebUI.
  *

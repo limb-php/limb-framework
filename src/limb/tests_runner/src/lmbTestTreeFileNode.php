@@ -8,8 +8,7 @@ namespace limb\tests_runner\src;
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-use lmbTestTreeTerminalNode;
-use lmbTestUserException;
+
 
 /**
  * class lmbTestTreeFileNode.
@@ -56,7 +55,7 @@ class lmbTestTreeFileNode extends lmbTestTreeTerminalNode
     if(!$groups = lmbTestOptions :: get('groups_filter'))
       return false;
 
-    $refclass = new ReflectionClass($class);
+    $refclass = new \ReflectionClass($class);
     $doc = $refclass->getDocComment();
 
     //if there's a group filter and no group annotation class is filtered

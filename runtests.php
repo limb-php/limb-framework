@@ -9,8 +9,9 @@ set_include_path(dirname(__FILE__) . '/../' . PATH_SEPARATOR . get_include_path(
 //}
 //set_error_handler('error_handler');
 
+require_once(dirname(__FILE__) . '/vendor/autoload.php');
 require_once(dirname(__FILE__) . '/bootstrap.php');
-require_once(dirname(__FILE__) . 'src/limb/tests_runner/common.inc.php');
+require_once(dirname(__FILE__) . '/src/limb/tests_runner/common.inc.php');
 
 use limb\tests_runner\src\lmbTestRunner;
 use limb\tests_runner\src\lmbTestTreeFilePathNode;

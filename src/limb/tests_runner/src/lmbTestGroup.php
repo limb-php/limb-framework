@@ -8,11 +8,13 @@
  */
 namespace limb\tests_runner\src;
 
+use TestSuite
+
 /**
  * class lmbTestGroup.
  *
  * @package tests_runner
- * @version $Id: lmbTestGroup.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbTestGroup.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class lmbTestGroup extends TestSuite
 {
@@ -28,7 +30,7 @@ class lmbTestGroup extends TestSuite
 
   function run($reporter)
   {
-    $res = parent :: run($reporter);
+    $res = parent::run($reporter);
 
     $this->_tearDownFixture();
 

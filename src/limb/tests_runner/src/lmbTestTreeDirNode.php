@@ -8,12 +8,6 @@
  */
 namespace limb\tests_runner\src;
 
-require_once(dirname(__FILE__) . '/lmbTestTreeShallowDirNode.class.php');
-require_once(dirname(__FILE__) . '/lmbTestTreeFileNode.class.php');
-require_once(dirname(__FILE__) . '/lmbDetachedFixture.class.php');
-require_once(dirname(__FILE__) . '/lmbTestFileFilter.class.php');
-require_once(dirname(__FILE__) . '/lmbTestOptions.class.php');
-
 /**
  * class lmbTestTreeDirNode.
  *
@@ -33,14 +27,14 @@ class lmbTestTreeDirNode extends lmbTestTreeShallowDirNode
 
   static function getFileFilter()
   {
-    if(!is_object(self :: $file_filter))
+    if(!is_object(self::$file_filter))
       self :: setFileFilter(lmbTestOptions :: get('file_filter'));
-    return self :: $file_filter;
+    return self::$file_filter;
   }
 
   static function setFileFilter($filter)
   {
-    $prev = self :: $file_filter;
+    $prev = self::$file_filter;
 
     if(is_object($filter))
       $obj = $filter;
