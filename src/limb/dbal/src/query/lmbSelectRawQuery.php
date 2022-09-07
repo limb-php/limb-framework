@@ -9,7 +9,7 @@
 namespace limb\dbal\src\query;
 
 use limb\core\src\exception\lmbException;
-use limb\dbal\src\query\lmbCriteriaQuery;
+use limb\dbal\src\criteria\lmbSQLCriteria;
 
 //TODO: use primitive lexer for parsing sql templates someday...
 
@@ -35,7 +35,7 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
   function __construct($sql_or_conn = null, $conn = null)
   {
     if(is_object($sql_or_conn))
-      parent :: __construct(self :: DEFAULT_SQL_TEMPLATE, $sql_or_conn);
+      parent :: __construct(self::DEFAULT_SQL_TEMPLATE, $sql_or_conn);
     else
       parent :: __construct($sql_or_conn, $conn);
   }
@@ -142,7 +142,7 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
 
   function addHaving($criteria)
   {
-    $this->_having[] = lmbSQLCriteria :: objectify($criteria);
+    $this->_having[] = lmbSQLCriteria::objectify($criteria);
     $this->_registerHint('having');
     return $this;
   }
