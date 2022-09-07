@@ -117,6 +117,11 @@ class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
     return $this->connection->getDatabaseInfo();
   }
 
+  function getStatementNumber()
+  {
+      return $this->connection->getStatementNumber();
+  }
+
   function getSequenceValue($table, $colname)
   {
     return $this->connection->getSequenceValue($table, $colname);

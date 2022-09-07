@@ -18,154 +18,151 @@ use limb\core\src\lmbBacktrace;
  */
 class lmbAuditDbConnection extends lmbDbConnectionDecorator
 {
-  protected $stats = array();
-  protected $statement_number = 0;
+    protected $stats = array();
 
-  function execute($sql)
-  {
-    $info = array('query' => $sql);
-    $info['trace'] = $this->getTrace();
-    $start_time = microtime(true);
-    $res = $this->connection->execute($sql);
-    $info['time'] = round(microtime(true) - $start_time, 6);
-    $this->stats[] = $info;
-    return $res;
-  }
-
-  function executeStatement($stmt)
-  {
-    $info = array('query' => $stmt->getSQL());
-    $info['trace'] = $this->getTrace();
-    $start_time = microtime(true);
-    $res = $this->connection->executeStatement($stmt);
-    $info['time'] = round(microtime(true) - $start_time, 6);
-    $this->stats[] = $info;
-    return $res;
-  }
-
-  function newStatement($sql)
-  {
-    $statement = $this->connection->newStatement($sql);
-    $statement->setConnection($this);
-    return $statement;
-  }
-
-  function getStatementNumber()
-  {
-    return ++$this->statement_number;
-  }
-
-  function countQueries()
-  {
-    return sizeof($this->stats);
-  }
-
-  function resetStats()
-  {
-    $this->stats = array();
-  }
-
-  function getQueries($reg_exp = '')
-  {
-    $res = array();
-    foreach ($this->stats as $info) {
-      $query = $info['query'];
-      if (!$reg_exp || preg_match('/' . $reg_exp . '/i', $query))
-        $res[] = $query;
+    function execute($sql)
+    {
+        $info = array('query' => $sql);
+        $info['trace'] = $this->getTrace();
+        $start_time = microtime(true);
+        $res = $this->connection->execute($sql);
+        $info['time'] = round(microtime(true) - $start_time, 6);
+        $this->stats[] = $info;
+        return $res;
     }
 
-    return $res;
-  }
+    function executeStatement($stmt)
+    {
+        $info = array('query' => $stmt->getSQL());
+        $info['trace'] = $this->getTrace();
+        $start_time = microtime(true);
+        $res = $this->connection->executeStatement($stmt);
+        $info['time'] = round(microtime(true) - $start_time, 6);
+        $this->stats[] = $info;
+        return $res;
+    }
 
-  function getTrace()
-  {
-    $trace_length = 8;
-    $offset = 4; // getting rid of useless trace elements
+    function newStatement($sql)
+    {
+        $statement = $this->connection->newStatement($sql);
+        $statement->setConnection($this);
+        return $statement;
+    }
 
-    $trace = new lmbBacktrace($trace_length, $offset);
-    return $trace->toString();
-  }
+    function countQueries()
+    {
+        return sizeof($this->stats);
+    }
 
-  function getStats()
-  {
-    return $this->stats;
-  }
+    function resetStats()
+    {
+        $this->stats = array();
+    }
 
-  /* */
-  function getConnectionId()
-  {
-    return $this->connection->getConnectionId();
-  }
+    function getQueries($reg_exp = '')
+    {
+        $res = array();
+        foreach ($this->stats as $info) {
+            $query = $info['query'];
+            if (!$reg_exp || preg_match('/' . $reg_exp . '/i', $query))
+                $res[] = $query;
+        }
 
-  function getHash()
-  {
-    return $this->connection->getHash();
-  }
+        return $res;
+    }
 
-  function getDsnString()
-  {
-    return $this->connection->getDsnString();
-  }
+    function getTrace()
+    {
+        $trace_length = 8;
+        $offset = 4; // getting rid of useless trace elements
 
-  function connect()
-  {
-    $this->connection->connect();
-  }
+        $trace = new lmbBacktrace($trace_length, $offset);
+        return $trace->toString();
+    }
 
-  function getTypeInfo()
-  {
-    return $this->connection->getTypeInfo();
-  }
+    function getStats()
+    {
+        return $this->stats;
+    }
 
-  function getDatabaseInfo()
-  {
-    return $this->connection->getDatabaseInfo();
-  }
+    /* */
+    function getConnectionId()
+    {
+        return $this->connection->getConnectionId();
+    }
 
-  function getSequenceValue($table, $colname)
-  {
-    return $this->connection->getSequenceValue($table, $colname);
-  }
+    function getHash()
+    {
+        return $this->connection->getHash();
+    }
 
-  function quoteIdentifier($id)
-  {
-    return $this->connection->quoteIdentifier($id);
-  }
+    function getDsnString()
+    {
+        return $this->connection->getDsnString();
+    }
 
-  function escape($string)
-  {
-    return $this->connection->escape($string);
-  }
+    function connect()
+    {
+        $this->connection->connect();
+    }
 
-  function getExtension()
-  {
-    return $this->connection->getExtension();
-  }
+    function getTypeInfo()
+    {
+        return $this->connection->getTypeInfo();
+    }
 
-  function getType()
-  {
-    return $this->connection->getType();
-  }
+    function getDatabaseInfo()
+    {
+        return $this->connection->getDatabaseInfo();
+    }
 
-  function beginTransaction()
-  {
-    $this->connection->beginTransaction();
-  }
+    function getStatementNumber()
+    {
+        return $this->connection->getStatementNumber();
+    }
 
-  function commitTransaction()
-  {
-    $this->connection->commitTransaction();
-  }
+    function getSequenceValue($table, $colname)
+    {
+        return $this->connection->getSequenceValue($table, $colname);
+    }
 
-  function rollbackTransaction()
-  {
-    $this->connection->rollbackTransaction();
-  }
+    function quoteIdentifier($id)
+    {
+        return $this->connection->quoteIdentifier($id);
+    }
 
-  function disconnect()
-  {
-    $this->connection->disconnect();
-  }
+    function escape($string)
+    {
+        return $this->connection->escape($string);
+    }
+
+    function getExtension()
+    {
+        return $this->connection->getExtension();
+    }
+
+    function getType()
+    {
+        return $this->connection->getType();
+    }
+
+    function beginTransaction()
+    {
+        $this->connection->beginTransaction();
+    }
+
+    function commitTransaction()
+    {
+        $this->connection->commitTransaction();
+    }
+
+    function rollbackTransaction()
+    {
+        $this->connection->rollbackTransaction();
+    }
+
+    function disconnect()
+    {
+        $this->connection->disconnect();
+    }
 }
-
-
