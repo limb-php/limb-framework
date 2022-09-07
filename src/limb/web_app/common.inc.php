@@ -11,11 +11,5 @@
  * @package web_app
  * @version $Id: common.inc.php 8048 2010-01-19 22:12:02Z korchasa $
  */
-require_once(dirname(__FILE__) . '/../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../i18n/common.inc.php');
-require_once(dirname(__FILE__) . '/../config/common.inc.php');
-require_once(dirname(__FILE__) . '/../active_record/common.inc.php');
-require_once(dirname(__FILE__) . '/../net/common.inc.php');
-require_once(dirname(__FILE__) . '/../session/common.inc.php');
-require_once(dirname(__FILE__) . '/../view/common.inc.php');
 require_once(dirname(__FILE__) . '/../log/common.inc.php');

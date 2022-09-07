@@ -1,5 +1,6 @@
 <?php
-lmb_require('bit-cms/cron/src/cron/CronJob.class.php');
+
+require('cms/src/cron/CronJob.class.php');
 
 class SimpleCronJob extends CronJob
 {

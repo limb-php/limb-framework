@@ -8,6 +8,11 @@
  */
 
 /**
- * @package macro
- * @version $Id$
+ * @package validation
+ * @version $Id: common.inc.php 8048 2010-01-19 22:12:02Z korchasa $
  */
+
+use limb\toolkit\src\lmbToolkit;
+use limb\i18n\src\toolkit\lmbI18NTools;
+
+lmbToolkit::merge(new lmbI18NTools());

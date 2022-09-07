@@ -11,4 +11,3 @@
  * @package net
  * @version $Id: common.inc.php 8041 2010-01-19 20:49:36Z korchasa $
  */
-require_once(dirname(__FILE__) . '/../core/common.inc.php');

@@ -11,27 +11,31 @@
  * @package log
  * @version $Id$
  */
-require_once(dirname(__FILE__) . '/../core/common.inc.php');
-require_once(dirname(__FILE__) . '/../config/common.inc.php');
 
-function lmb_var_dump($obj, $echo = false)
+
+if(!function_exists('lmb_var_dump'))
 {
-  ob_start();
-  var_dump($obj);
-  $dump = ob_get_contents();
-  ob_end_clean();
 
-  if($echo)
-  {
-    if(PHP_SAPI != 'cli')
+    function lmb_var_dump($obj, $echo = false)
     {
-      echo '<pre>';
-      echo $dump;
-      echo '</pre>';
+        ob_start();
+        var_dump($obj);
+        $dump = ob_get_contents();
+        ob_end_clean();
+
+        if($echo)
+        {
+            if(PHP_SAPI != 'cli')
+            {
+                echo '<pre>';
+                echo $dump;
+                echo '</pre>';
+            }
+            else
+                echo $dump;
+        }
+        else
+            return $dump;
     }
-    else
-      echo $dump;
-  }
-  else
-    return $dump;
+
 }

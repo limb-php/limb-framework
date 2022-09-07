@@ -7,8 +7,6 @@ use limb\fs\src\lmbFs;
 use limb\cron\src\cron\CronJobLogger;
 use limb\core\src\exception\lmbException;
 
-new lmbBacktrace;
-
 function write_error_in_log($errno, $errstr, $errfile, $errline)
 {
   global $logger;

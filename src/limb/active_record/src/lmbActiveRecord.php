@@ -1748,7 +1748,7 @@ class lmbActiveRecord extends lmbObject
     }
 
     if(isset($params['limit']))
-      $rs->paginate(isset($params['offset']) ? $params['offset'] : 0, $params['limit']);
+      $rs->paginate($params['offset'] ?? 0, $params['limit']);
 
     if($return_first)
     {
