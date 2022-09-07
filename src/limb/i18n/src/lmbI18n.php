@@ -19,7 +19,7 @@ use limb\toolkit\src\lmbToolkit;
 
 class lmbI18n
 {
-  function translate($text, $arg1 = null, $arg2 = null)
+  static function translate($text, $arg1 = null, $arg2 = null)
   {
     $toolkit = lmbToolkit::instance();
 
