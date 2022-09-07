@@ -6,6 +6,8 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbDecorator;
 
 interface DecorateeTestInterface
@@ -32,7 +34,7 @@ class DecorateeTestStub implements DecorateeTestInterface
   function typehint(DecorateeTestStub $value){}
 }
 
-class lmbDecoratorTest extends UnitTestCase
+class lmbDecoratorTest extends TestCase
 {
   function testDecoratorIsInstanceOfDecoratee()
   {

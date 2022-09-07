@@ -7,12 +7,14 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-abstract class lmbRequireBaseTest extends UnitTestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class lmbRequireBaseTest extends TestCase
 {
   var $tmp_dir;
   var $env;
 
-  function setUp()
+  protected function setUp(): void
   {
     if(!is_dir(lmb_var_dir()))
       mkdir(lmb_var_dir());
@@ -23,7 +25,7 @@ abstract class lmbRequireBaseTest extends UnitTestCase
     $this->env = $_ENV;
   }
 
-  function tearDown()
+  protected function tearDown(): void
   {
     $this->_rm($this->tmp_dir);
     $_ENV = $this->env;

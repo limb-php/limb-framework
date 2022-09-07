@@ -7,12 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbSerializable;
 use limb\core\src\lmbEnv;
 
 require(dirname(__FILE__) . '/serializable_stubs.inc.php');
 
-class lmbSerializableTest extends UnitTestCase
+class lmbSerializableTest extends TestCase
 {
   function testCheckClassPaths()
   {

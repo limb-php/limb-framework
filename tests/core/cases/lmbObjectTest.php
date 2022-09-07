@@ -7,6 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbObject;
 
 class ObjectTestVersion extends lmbObject
@@ -92,7 +93,7 @@ class ObjectTestWithOverridingConstructor extends lmbObject
   function __construct() {}
 }
 
-class lmbObjectTest extends UnitTestCase
+class lmbObjectTest extends TestCase
 {
 
   function testPredefinedVariablesWithOverriddenConstructor() {

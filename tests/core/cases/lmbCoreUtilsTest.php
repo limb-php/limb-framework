@@ -7,7 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-class lmbCoreUtilsTest extends UnitTestCase
+use PHPUnit\Framework\TestCase;
+
+class lmbCoreUtilsTest extends TestCase
 {
   function testCamelCaseUcfirst()
   {

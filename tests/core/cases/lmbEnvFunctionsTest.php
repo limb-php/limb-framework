@@ -1,20 +1,21 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbEnv;
 
-class lmbEnvFunctionsTest extends UnitTestCase
+class lmbEnvFunctionsTest extends TestCase
 {
   private $_prev_env = array();
   private $_keys = array();
 
-  function setUp()
+  protected function setUp(): void
   {
     $this->_prev_env = $_ENV;
     $_ENV = array();
     $this->_keys = array();
   }
 
-  function tearDown()
+  protected  function tearDown(): void
   {
     $_ENV = $this->_prev_env;
   }

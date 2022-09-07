@@ -7,7 +7,6 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-use limb\core\tests\cases\lmbRequireBaseTest;
 
 class lmbRequireClassTest extends lmbRequireBaseTest
 {

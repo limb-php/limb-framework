@@ -7,6 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbDelegatesChain;
 
 class DelegatesChainTestingStubObject
@@ -33,7 +34,8 @@ class DelegatesChainTestingStubObject
   
 }
 
-class lmbDelegatesChainTest extends UnitTestCase {
+class lmbDelegatesChainTest extends TestCase
+{
   
   function testInvoke()
   {

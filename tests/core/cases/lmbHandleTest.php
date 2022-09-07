@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use PHPUnit\Framework\TestCase;
+
 class lmbHandleDeclaredInSameFile
 {
   var $test_var;
@@ -22,7 +24,7 @@ class lmbHandleDeclaredInSameFile
   }
 }
 
-class lmbHandleTest extends UnitTestCase
+class lmbHandleTest extends TestCase
 {
   function testDeclaredInSameFile()
   {

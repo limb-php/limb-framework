@@ -7,6 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbSet;
 
 class lmbSetTestObject
@@ -14,7 +15,7 @@ class lmbSetTestObject
   public $var;
 }
 
-class lmbSetTest extends UnitTestCase
+class lmbSetTest extends TestCase
 {
   function testGetFromEmptySet()
   {

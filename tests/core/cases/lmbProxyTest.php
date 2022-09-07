@@ -7,6 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbObject;
 use limb\core\src\lmbProxy;
 
@@ -28,7 +29,7 @@ class ProxyTestingStub extends lmbProxy
   }
 }
 
-class lmbProxyTest extends UnitTestCase
+class lmbProxyTest extends TestCase
 {
   function testAccessAttributesOfWrappedObject()
   {

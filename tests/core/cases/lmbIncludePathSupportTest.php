@@ -7,11 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-class lmbIncludePathSupportTest extends UnitTestCase
+use PHPUnit\Framework\TestCase;
+
+class lmbIncludePathSupportTest extends TestCase
 {
   var $old_include_path;
 
-  function setUp()
+  protected function setUp(): void
   {
     if(!is_dir(LIMB_VAR_DIR))
       mkdir(LIMB_VAR_DIR);
@@ -23,7 +25,7 @@ class lmbIncludePathSupportTest extends UnitTestCase
     set_include_path(LIMB_VAR_DIR . '/tmp' . PATH_SEPARATOR . get_include_path());
   }
 
-  function tearDown()
+  protected function tearDown(): void
   {
     $this->rm_dir(LIMB_VAR_DIR . '/tmp');
     set_include_path($this->old_include_path);

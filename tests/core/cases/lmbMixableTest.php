@@ -7,6 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbMixable;
 use limb\core\src\lmbMixin;
 
@@ -73,7 +74,7 @@ class MixedTestStub
   }
 }
 
-class lmbMixableTest extends UnitTestCase
+class lmbMixableTest extends TestCase
 {
   function testMixinObjects()
   {

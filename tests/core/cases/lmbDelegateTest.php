@@ -7,6 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbDelegate;
 
 class DelegateTestingStub
@@ -54,7 +55,7 @@ function DelegateTestingStubFunction($arg = null)
     return $remember;
 }
 
-class lmbDelegateTest extends UnitTestCase
+class lmbDelegateTest extends TestCase
 {
   function testDelegateToObject()
   {
