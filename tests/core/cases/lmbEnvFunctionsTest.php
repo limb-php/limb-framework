@@ -27,28 +27,28 @@ class lmbEnvFunctionsTest extends TestCase
 
   function testGetDefault()
   {
-    $this->assertEqual(lmbEnv::get($this->_('foo'), 1), 1);
+    $this->assertEquals(lmbEnv::get($this->_('foo'), 1), 1);
   }
 
   function testGetWithDefinedConstant()
   {
       define($this->_('foo'), 'bar');
-      $this->assertEqual(lmbEnv::get($this->_('foo')), 'bar');
+      $this->assertEquals(lmbEnv::get($this->_('foo')), 'bar');
   }
 
   function testSet()
   {
     lmbEnv::set($this->_('foo'), 'bar');
-    $this->assertEqual(lmbEnv::get($this->_('foo')), 'bar');
+    $this->assertEquals(lmbEnv::get($this->_('foo')), 'bar');
   }
 
   function testSetOr()
   {
     lmbEnv::setor($this->_('foo'), 'bar');
-    $this->assertEqual(lmbEnv::get($this->_('foo')), 'bar');
+    $this->assertEquals(lmbEnv::get($this->_('foo')), 'bar');
 
     lmbEnv::setor($this->_('foo'), 'baz');
-    $this->assertEqual(lmbEnv::get($this->_('foo')), 'bar');
+    $this->assertEquals(lmbEnv::get($this->_('foo')), 'bar');
   }
 
   function testSetOrWithDefinedConstant()
@@ -56,7 +56,7 @@ class lmbEnvFunctionsTest extends TestCase
       define($this->_('foo'), 'bar');
 
       lmbEnv::setor($this->_('foo'), 'baz');
-      $this->assertEqual(lmbEnv::get($this->_('foo')), 'bar');
+      $this->assertEquals(lmbEnv::get($this->_('foo')), 'bar');
   }
 
   function testHas()
@@ -77,7 +77,7 @@ class lmbEnvFunctionsTest extends TestCase
   {
     $this->assertFalse(defined($this->_('foo')));
     lmbEnv::set($this->_('foo'), 'bar');
-    $this->assertEqual(constant($this->_('foo')), 'bar');
+    $this->assertEquals(constant($this->_('foo')), 'bar');
   }
 
   function testHasAndGetFallbackToConstant()
@@ -89,18 +89,18 @@ class lmbEnvFunctionsTest extends TestCase
 
     define($name, 'bar');
     $this->assertTrue(lmbEnv::has($name));
-    $this->assertEqual(lmbEnv::get($name), 'bar');
+    $this->assertEquals(lmbEnv::get($name), 'bar');
   }
 
   function testRemove()
   {
     lmbEnv::set('foo_remove', 'bar');
     $this->assertTrue(lmbEnv::has('foo_remove'));
-    $this->assertEqual(lmbEnv::get('foo_remove'), 'bar');
+    $this->assertEquals(lmbEnv::get('foo_remove'), 'bar');
 
     lmbEnv::remove('foo_remove');
     $this->assertFalse(lmbEnv::has('foo_remove'));
-    $this->assertEqual(lmbEnv::get('foo_remove', $random = mt_rand()), $random);
+    $this->assertEquals(lmbEnv::get('foo_remove', $random = mt_rand()), $random);
   }
 
   function testTrace()
@@ -112,22 +112,22 @@ class lmbEnvFunctionsTest extends TestCase
     $call_line = strval(__LINE__ - 1);
     $trace_info = ob_get_clean();
 
-    $this->assertTrue(strstr($trace_info, __FILE__));
-    $this->assertTrue(strstr($trace_info, $call_line));
-    $this->assertTrue(strstr($trace_info, $method_name = 'setor'));
-    $this->assertTrue(strstr($trace_info, $key));
-    $this->assertTrue(strstr($trace_info, $value));
+    $this->assertTrue(strstr($trace_info, __FILE__) !== false);
+    $this->assertTrue(strstr($trace_info, $call_line) !== false);
+    $this->assertTrue(strstr($trace_info, $method_name = 'setor') !== false);
+    $this->assertTrue(strstr($trace_info, $key) !== false);
+    $this->assertTrue(strstr($trace_info, $value) !== false);
 
     ob_start();
     lmbEnv::set($key, $value = 'baz');
     $call_line = strval(__LINE__ - 1);
     $trace_info = ob_get_clean();
 
-    $this->assertTrue(strstr($trace_info, __FILE__));
-    $this->assertTrue(strstr($trace_info, $call_line));
-    $this->assertTrue(strstr($trace_info, $method_name = 'set'));
-    $this->assertTrue(strstr($trace_info, $key));
-    $this->assertTrue(strstr($trace_info, $value));
+    $this->assertTrue(strstr($trace_info, __FILE__) !== false);
+    $this->assertTrue(strstr($trace_info, $call_line) !== false);
+    $this->assertTrue(strstr($trace_info, $method_name = 'set') !== false);
+    $this->assertTrue(strstr($trace_info, $key) !== false);
+    $this->assertTrue(strstr($trace_info, $value) !== false);
   }
 
   //used for convenient tracking of the random keys
@@ -143,7 +143,7 @@ class lmbEnvFunctionsTest extends TestCase
     $new_value = $old_value.'/';
 
     lmbEnv::set('LIMB_VAR_DIR', $new_value);
-    $this->assertIdentical($new_value, lmb_var_dir());
+    $this->assertEquals($new_value, lmb_var_dir());
 
     lmbEnv::set('LIMB_VAR_DIR', $old_value);
   }
@@ -153,7 +153,7 @@ class lmbEnvFunctionsTest extends TestCase
     $new_value = $old_value.'/';
 
     lmb_var_dir($new_value);
-    $this->assertIdentical($new_value, lmb_var_dir());
+    $this->assertEquals($new_value, lmb_var_dir());
 
     lmbEnv::set('LIMB_VAR_DIR', $old_value);
   }

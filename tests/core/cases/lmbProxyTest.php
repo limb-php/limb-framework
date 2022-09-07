@@ -38,11 +38,11 @@ class lmbProxyTest extends TestCase
 
     $proxy = new ProxyTestingStub($wrapped);
 
-    $this->assertEqual($proxy->wow, 'yahoo');
+    $this->assertEquals($proxy->wow, 'yahoo');
     $proxy->wow = 'ho-ho';
-    $this->assertEqual($proxy->wow, 'ho-ho');
+    $this->assertEquals($proxy->wow, 'ho-ho');
 
-    $this->assertEqual($proxy->create_calls, 1);
+    $this->assertEquals($proxy->create_calls, 1);
   }
 
   function testPassMethodsCallsToWrappedObject()
@@ -51,9 +51,9 @@ class lmbProxyTest extends TestCase
     $proxy = new ProxyTestingStub($wrapped);
 
     $proxy->set('foo', 'Foo');
-    $this->assertEqual($proxy->get('foo'), 'Foo');
+    $this->assertEquals($proxy->get('foo'), 'Foo');
 
-    $this->assertEqual($proxy->create_calls, 1);
+    $this->assertEquals($proxy->create_calls, 1);
   }
 
   function testGetClass()
@@ -61,7 +61,7 @@ class lmbProxyTest extends TestCase
     $wrapped = new lmbObject();
     $proxy = new ProxyTestingStub($wrapped);
 
-    $this->assertEqual($proxy->getClass(), $wrapped->getClass());
+    $this->assertEquals($proxy->getClass(), $wrapped->getClass());
   }
 }
 

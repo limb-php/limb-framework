@@ -25,10 +25,10 @@ class lmbAclTest extends TestCase
 
   function testAddAndGetRoles()
   {
-    $this->assertIdentical(count($this->acl->getRoles()), 0);
+    $this->assertEquals(count($this->acl->getRoles()), 0);
     $this->assertFalse($this->acl->isRoleExist('guest'));
     $this->acl->addRole('guest');
-    $this->assertIdentical(count($this->acl->getRoles()), 1);
+    $this->assertEquals(count($this->acl->getRoles()), 1);
     $this->assertTrue($this->acl->isRoleExist('guest'));
   }
 
@@ -51,10 +51,10 @@ class lmbAclTest extends TestCase
     $acl = $this->acl;
 
     $acl->addRole('guest');
-    $this->assertIdentical($acl->getRoleInherits('guest'), array());
+    $this->assertEquals($acl->getRoleInherits('guest'), array());
 
     $acl->addRole('member', 'guest');
-    $this->assertIdentical($acl->getRoleInherits('member'), array('guest'));
+    $this->assertEquals($acl->getRoleInherits('member'), array('guest'));
 
     $acl->addRole('admin', 'member');
     $inherits = $acl->getRoleInherits('admin');
@@ -87,10 +87,10 @@ class lmbAclTest extends TestCase
 
   function testAddAndGetResources()
   {
-    $this->assertIdentical(count($this->acl->getResources()), 0);
+    $this->assertEquals(count($this->acl->getResources()), 0);
     $this->assertFalse($this->acl->isResourceExist('content'));
     $this->acl->addResource('content');
-    $this->assertIdentical(count($this->acl->getResources()), 1);
+    $this->assertEquals(count($this->acl->getResources()), 1);
     $this->assertTrue($this->acl->isResourceExist('content'));
   }
 
@@ -113,10 +113,10 @@ class lmbAclTest extends TestCase
     $acl = $this->acl;
 
     $acl->addResource('content');
-    $this->assertIdentical($acl->getResourceInherits('content'), array());
+    $this->assertEquals($acl->getResourceInherits('content'), array());
 
     $acl->addResource('articles', 'content');
-    $this->assertIdentical($acl->getResourceInherits('articles'), array('content'));
+    $this->assertEquals($acl->getResourceInherits('articles'), array('content'));
 
     $acl->addResource('news', 'articles');
     $inherits = $acl->getResourceInherits('news');

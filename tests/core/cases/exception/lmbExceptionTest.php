@@ -15,13 +15,13 @@ class lmbExceptionTest extends TestCase
   function testGetParams()
   {
     $e = new lmbException('foo', $params = array('bar' => 'baz'));
-    $this->assertEqual($params, $e->getParams());
+    $this->assertEquals($params, $e->getParams());
   }
 
   function testGetParam()
   {
     $e = new lmbException('foo', array('bar' => 'baz'));
-    $this->assertEqual('baz', $e->getParam('bar'));
+    $this->assertEquals('baz', $e->getParam('bar'));
     $this->assertNull($e->getParam('not_existed'));
   }
 
@@ -31,22 +31,23 @@ class lmbExceptionTest extends TestCase
     $param_key = 'bar';
     $param_value = 'baz';
     $e = new lmbException($original_message, array($param_key => $param_value));
-    $this->assertPattern("/{$original_message}/", $e->getMessage());
-    $this->assertPattern("/{$param_key}/", $e->getMessage());
-    $this->assertPattern("/{$param_value}/", $e->getMessage());
+    $this->assertMatchesRegularExpression("/{$original_message}/", $e->getMessage());
+    $this->assertMatchesRegularExpression("/{$param_key}/", $e->getMessage());
+    $this->assertMatchesRegularExpression("/{$param_value}/", $e->getMessage());
   }
 
   function testGetNiceTraceAsString()
   {
     $e = $this->_createException('foo');
     $trace = $e->getNiceTraceAsString();
-    $first_call = array_shift(explode(PHP_EOL, $trace));
+    $trace_arr = explode(PHP_EOL, $trace);
+    $first_call = array_shift($trace_arr);
 
-    $this->assertPattern('/lmbExceptionTest/', $first_call);
-    $this->assertPattern('/_createException/', $first_call);
-    $this->assertPattern('/foo/', $first_call);
-    $this->assertPattern('/'.basename(__FILE__).'/', $first_call);
-    $this->assertPattern('/39/', $first_call);
+    $this->assertMatchesRegularExpression('/lmbExceptionTest/', $first_call);
+    $this->assertMatchesRegularExpression('/_createException/', $first_call);
+    $this->assertMatchesRegularExpression('/foo/', $first_call);
+    $this->assertMatchesRegularExpression('/'.basename(__FILE__).'/', $first_call);
+    $this->assertMatchesRegularExpression('/41/', $first_call);
   }
 
   function testGetNiceTraceAsString_HideCalls()
@@ -57,7 +58,7 @@ class lmbExceptionTest extends TestCase
     $trace_full = explode(PHP_EOL, $full->getNiceTraceAsString());
     $trace_with_hidden_call = explode(PHP_EOL, $with_hidden_call->getNiceTraceAsString());
 
-    $this->assertEqual($trace_full[1], $trace_with_hidden_call[0]);
+    $this->assertEquals($trace_full[1], $trace_with_hidden_call[0]);
   }
 
   protected function _createException() {

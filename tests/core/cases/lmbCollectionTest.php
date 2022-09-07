@@ -38,11 +38,11 @@ class lmbCollectionTest extends TestCase
     $this->assertTrue($iterator->valid());
 
     $dataspace1 = $iterator->current();
-    $this->assertEqual($dataspace1->export(), array('x' => 1,'y' => 2));
+    $this->assertEquals($dataspace1->export(), array('x' => 1,'y' => 2));
 
     $iterator->next();
     $dataspace2 = $iterator->current();
-    $this->assertEqual($dataspace2->export(), array('x' => 3,'y' => 4));
+    $this->assertEquals($dataspace2->export(), array('x' => 3,'y' => 4));
   }
 
   function testIterateOver()
@@ -55,7 +55,7 @@ class lmbCollectionTest extends TestCase
     $iterator->next();
     $this->assertFalse($iterator->valid());
     $dataspace = $iterator->current();
-    $this->assertEqual($dataspace->export(), array());
+    $this->assertEquals($dataspace->export(), array());
   }
 
   function testIterateWithForeach()
@@ -70,7 +70,7 @@ class lmbCollectionTest extends TestCase
     foreach($iterator as $record)
       $str .= $record->get('x');
 
-    $this->assertEqual($str, '123');
+    $this->assertEquals($str, '123');
   }
 
   function testWorksOkWithArrayOfSets()
@@ -85,7 +85,7 @@ class lmbCollectionTest extends TestCase
     foreach($iterator as $record)
       $str .= $record->get('x');
 
-    $this->assertEqual($str, '123');
+    $this->assertEquals($str, '123');
   }
 
   function testAdd()
@@ -102,9 +102,9 @@ class lmbCollectionTest extends TestCase
     $iterator->rewind();
     $this->assertTrue($iterator->valid());
 
-    $this->assertEqual($iterator->current(), $item1);
+    $this->assertEquals($iterator->current(), $item1);
     $iterator->next();
-    $this->assertEqual($iterator->current(), $item2);
+    $this->assertEquals($iterator->current(), $item2);
   }
 
   function testAddToPositionAndSortByKeys()
@@ -124,9 +124,9 @@ class lmbCollectionTest extends TestCase
 
     $this->assertTrue($iterator->valid());
 
-    $this->assertEqual($iterator->current(), $item2);
+    $this->assertEquals($iterator->current(), $item2);
     $iterator->next();
-    $this->assertEqual($iterator->current(), $item1);
+    $this->assertEquals($iterator->current(), $item1);
   }
 
   function testSort()
@@ -138,9 +138,9 @@ class lmbCollectionTest extends TestCase
     $iterator = new lmbCollection($data);
     $iterator->sort(array('x' => 'DESC'));
     $arr = $iterator->getArray();
-    $this->assertEqual($arr[0]['x'], 'C');
-    $this->assertEqual($arr[1]['x'], 'B');
-    $this->assertEqual($arr[2]['x'], 'A');
+    $this->assertEquals($arr[0]['x'], 'C');
+    $this->assertEquals($arr[1]['x'], 'B');
+    $this->assertEquals($arr[2]['x'], 'A');
   }
 
   function testSortWorksOkWithSetsToo()
@@ -152,16 +152,16 @@ class lmbCollectionTest extends TestCase
     $iterator = new lmbCollection(array($item1, $item2, $item3));
     $iterator->sort(array('x' => 'DESC'));
     $arr = $iterator->getArray();
-    $this->assertEqual($arr[0]->get('x'), 'C');
-    $this->assertEqual($arr[1]->get('x'), 'B');
-    $this->assertEqual($arr[2]->get('x'), 'A');
+    $this->assertEquals($arr[0]->get('x'), 'C');
+    $this->assertEquals($arr[1]->get('x'), 'B');
+    $this->assertEquals($arr[2]->get('x'), 'A');
   }
 
   function testDontSortEmptyCollection()
   {
     $iterator = new lmbCollection();
     $iterator->sort(array('x' => 'DESC'));
-    $this->assertEqual($iterator->getArray(), array());
+    $this->assertEquals($iterator->getArray(), array());
   }
 
   function testConcat()
@@ -175,7 +175,7 @@ class lmbCollectionTest extends TestCase
     $col2 = new lmbCollection(array($item3));
     $col3 = new lmbCollection(array($item4));
 
-    $this->assertEqual(lmbCollection :: concat($col1, $col2, $col3),
+    $this->assertEquals(lmbCollection :: concat($col1, $col2, $col3),
                        new lmbCollection(array($item1, $item2, $item3, $item4)));
   }
 
@@ -189,13 +189,13 @@ class lmbCollectionTest extends TestCase
 
     $arr = lmbCollection :: toFlatArray($iterator, 'x');
     $this->assertTrue(isset($arr['A']));
-    $this->assertEqual($arr['A'], array('x' => 'A'));
+    $this->assertEquals($arr['A'], array('x' => 'A'));
 
     $this->assertTrue(isset($arr['B']));
-    $this->assertEqual($arr['B'], array('x' => 'B'));
+    $this->assertEquals($arr['B'], array('x' => 'B'));
 
     $this->assertTrue(isset($arr['C']));
-    $this->assertEqual($arr['C'], array('x' => 'C'));
+    $this->assertEquals($arr['C'], array('x' => 'C'));
   }
 }
 

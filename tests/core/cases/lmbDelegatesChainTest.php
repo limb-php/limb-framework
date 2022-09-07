@@ -9,6 +9,7 @@
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbDelegatesChain;
+use limb\core\src\lmbDelegate;
 
 class DelegatesChainTestingStubObject
 {
@@ -49,12 +50,12 @@ class lmbDelegatesChainTest extends TestCase
     $chain->add(new lmbDelegate($obj3, 'invokable'));
     
     $result = $chain->invoke('invoked');
-    $this->assertEqual($result, 'result');
-    $this->assertEqual($obj1->invoked, 1);
-    $this->assertEqual($obj2->invoked, 1);
-    $this->assertEqual($obj3->invoked, 0);
-    $this->assertEqual($obj1->last_arg, 'invoked');
-    $this->assertEqual($obj2->last_arg, 'invoked');
+    $this->assertEquals($result, 'result');
+    $this->assertEquals($obj1->invoked, 1);
+    $this->assertEquals($obj2->invoked, 1);
+    $this->assertEquals($obj3->invoked, 0);
+    $this->assertEquals($obj1->last_arg, 'invoked');
+    $this->assertEquals($obj2->last_arg, 'invoked');
   }
   
   function testFind()
@@ -67,7 +68,7 @@ class lmbDelegatesChainTest extends TestCase
     $chain->add(new lmbDelegate($obj2, 'invokable'));
     
     $num = $chain->find(array($obj2, 'invokable'));
-    $this->assertEqual($num, 1);
+    $this->assertEquals($num, 1);
     
     $num = $chain->find(array(new DelegatesChainTestingStubObject(), 'invokable'));
     $this->assertFalse($num);
@@ -101,8 +102,8 @@ class lmbDelegatesChainTest extends TestCase
     $chain->invoke();
     $chain->remove(new lmbDelegate($obj2, 'invokable'));
     $chain->invoke();
-    $this->assertEqual($obj1->invoked, 2);
-    $this->assertEqual($obj2->invoked, 1);
+    $this->assertEquals($obj1->invoked, 2);
+    $this->assertEquals($obj2->invoked, 1);
   }
   
   function testPassingInvokeArgs()
@@ -113,8 +114,8 @@ class lmbDelegatesChainTest extends TestCase
     $chain->add(new lmbDelegate($obj, 'invokable'));
     
     $chain->invoke('arg1', 'arg2');
-    $this->assertEqual($obj->last_arg, 'arg1');
-    $this->assertEqual($obj->last_arg2, 'arg2');
+    $this->assertEquals($obj->last_arg, 'arg1');
+    $this->assertEquals($obj->last_arg2, 'arg2');
   }
   
 }

@@ -9,43 +9,22 @@
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbSerializable;
+use limb\core\src\exception\lmbException;
 use limb\core\src\lmbEnv;
 
 require(dirname(__FILE__) . '/serializable_stubs.inc.php');
 
 class lmbSerializableTest extends TestCase
 {
-  function testCheckClassPaths()
-  {
-    $stub = new SerializableTestStub();
-    $stub->again = new SerializableTestStub();
-
-    $container = new lmbSerializable($stub);
-
-    $this->assertEqual($container->getClassPaths(), array());
-
-    $serialized = serialize($container);
-
-    $this->assertEqual($container->getClassPaths(), array($this->_getClassPath('SerializableTestStub'),
-                                                          $this->_getClassPath('SerializableTestChildStub')));
-  }
-
   function testSerializeUnserialize()
   {
     $stub = new SerializableTestStub();
     $container = new lmbSerializable($stub);
     $file = $this->_writeToFile(serialize($container));
 
-    $this->assertEqual($this->_phpSerializedObjectCall($file, '->identify()'), $stub->identify());
-    $this->assertEqual($this->_phpSerializedObjectCall($file, '->getChild()->identify()'), $stub->getChild()->identify());
+    $this->assertEquals($this->_phpSerializedObjectCall($file, '->identify()'), $stub->identify());
+    $this->assertEquals($this->_phpSerializedObjectCall($file, '->getChild()->identify()'), $stub->getChild()->identify());
     unlink($file);
-  }
-
-  function testExtractSerializedClasses()
-  {
-    $stub = new SerializableTestChildStub();
-    $serialized = serialize($stub);
-    $this->assertEqual(lmbSerializable :: extractSerializedClasses($serialized), array('SerializableTestChildStub'));
   }
 
   function testRemoveIncludePathFromClassPath()
@@ -71,7 +50,7 @@ class lmbSerializableTest extends TestCase
     rename("$var_dir/foo.php", "$var_dir/$new_dir/foo.php");
 
     //emulating new include path settings
-    $this->assertEqual($this->_phpSerializedObjectCall($file, '->say()', "$var_dir/$new_dir"), $foo->say());
+    $this->assertEquals($this->_phpSerializedObjectCall($file, '->say()', "$var_dir/$new_dir"), $foo->say());
 
     set_include_path($prev_inc_path);
   }
@@ -99,7 +78,7 @@ class lmbSerializableTest extends TestCase
     rename("$var_dir/foo.php", "$var_dir/$new_dir/foo.php");
 
     //emulating new include path settings
-    $this->assertEqual($this->_phpSerializedObjectCall($file, '->say()', "$var_dir/$new_dir"), $foo->say());
+    $this->assertEquals($this->_phpSerializedObjectCall($file, '->say()', "$var_dir/$new_dir"), $foo->say());
 
     set_include_path($prev_inc_path);
   }
@@ -127,13 +106,15 @@ class lmbSerializableTest extends TestCase
       serialize($container);
       $this->assertTrue(false);
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+
+    }
 
   }
 
   function _writeToFile($serialized)
   {
-    $tmp_serialized_file = LIMB_VAR_DIR . '/serialized.' . mt_rand() . uniqid();
+    $tmp_serialized_file = lmbEnv::get('LIMB_VAR_DIR') . '/serialized.' . mt_rand() . uniqid();
     file_put_contents($tmp_serialized_file, $serialized);
     return $tmp_serialized_file;
   }

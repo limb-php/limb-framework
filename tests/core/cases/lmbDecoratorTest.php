@@ -9,6 +9,7 @@
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbDecorator;
+use limb\core\src\exception\lmbException;
 
 interface DecorateeTestInterface
 {
@@ -60,10 +61,13 @@ class lmbDecoratorTest extends TestCase
     //exception must be thrown since lmbDecoratorTest class already exists
     try
     {
-      lmbDecorator :: generate('DecorateeTestStub', 'lmbDecoratorTest');
+      lmbDecorator::generate('DecorateeTestStub', 'lmbDecoratorTest');
       $this->assertTrue(false);
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+        return $e->getMessage();
+    }
   }
 
   function testImplementsInterface()
@@ -96,8 +100,8 @@ class lmbDecoratorTest extends TestCase
 
     $refl = new ReflectionClass($class);
     $params = $refl->getMethod('typehint')->getParameters();
-    $this->assertEqual(sizeof($params), 1);
-    $this->assertEqual($params[0]->getClass()->getName(), 'DecorateeTestStub');
+    $this->assertEquals(sizeof($params), 1);
+    $this->assertEquals($params[0]->getClass()->getName(), 'DecorateeTestStub');
   }
 
   function testCallsPassedToDecorated()
@@ -108,7 +112,7 @@ class lmbDecoratorTest extends TestCase
 
     $decorator = new $class(new DecorateeTestStub());
     $decorator->set('foo');
-    $this->assertEqual($decorator->get(), 'foo');
+    $this->assertEquals($decorator->get(), 'foo');
   }
 }
 

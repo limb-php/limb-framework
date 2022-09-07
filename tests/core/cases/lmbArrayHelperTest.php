@@ -17,7 +17,7 @@ class lmbArrayHelperTest extends TestCase
     $a = array('orange', 'nested' => array(1), 'b' => 1);
     $b = array('apple', 'nested' => array(2), 'a' => 1);
 
-    $this->assertSame(lmbArrayHelper::arrayMerge($a, $b),
+    $this->assertEquals(lmbArrayHelper::arrayMerge($a, $b),
                       array('apple', 'nested' => array(2), 'b' => 1, 'a' => 1));
   }
 
@@ -27,7 +27,7 @@ class lmbArrayHelperTest extends TestCase
     $b = array('apple', 'nested' => array(2), 'a' => 1);
     $c = array('banana', 'b' => 2);
 
-    $this->assertSame(lmbArrayHelper::arrayMerge($a, $b, $c),
+    $this->assertEquals(lmbArrayHelper::arrayMerge($a, $b, $c),
                       array('banana', 'nested' => array(2), 'b' => 2, 'a' => 1));
 
   }
@@ -40,37 +40,37 @@ class lmbArrayHelperTest extends TestCase
 
     lmbArrayHelper::Map($map, $src, $dest);
 
-    $this->assertSame($dest, array('foo1' => 1, 'bar1' => 2));
+    $this->assertEquals($dest, array('foo1' => 1, 'bar1' => 2));
   }
 
   function testExplode()
   {
     $string = 'man:bob,dog:willy';
     $res = lmbArrayHelper::explode(',', ':', $string);
-    $this->assertSame($res, array('man' => 'bob', 'dog' => 'willy'));
+    $this->assertEquals($res, array('man' => 'bob', 'dog' => 'willy'));
   }
 
   function testGetColumnValues()
   {
     $arr = array(array('foo' => 1), array('foo' => 2));
 
-    $this->assertSame(lmbArrayHelper::getColumnValues('foo', $arr), array(1, 2));
+    $this->assertEquals(lmbArrayHelper::getColumnValues('foo', $arr), array(1, 2));
   }
 
   function testGetMaxColumnValue()
   {
     $arr = array(array('foo' => 1), array('foo' => 2));
 
-    $this->assertSame(lmbArrayHelper :: getMaxColumnValue('foo', $arr, $pos), 2);
-    $this->assertSame($pos, 1);
+    $this->assertEquals(lmbArrayHelper :: getMaxColumnValue('foo', $arr, $pos), 2);
+    $this->assertEquals($pos, 1);
   }
 
   function testGetMinColumnValue()
   {
     $arr = array(array('foo' => 1), array('foo' => 2));
 
-    $this->assertSame(lmbArrayHelper::getMinColumnValue('foo', $arr, $pos), 1);
-    $this->assertSame($pos, 0);
+    $this->assertEquals(lmbArrayHelper::getMinColumnValue('foo', $arr, $pos), 1);
+    $this->assertEquals($pos, 0);
   }
 
   function testToFlatArray()
@@ -78,10 +78,10 @@ class lmbArrayHelperTest extends TestCase
     $arr = array(1, 'apple' => 2, 'basket' => array('chips' => 3, 'nachoes' => 4));
 
     lmbArrayHelper::toFlatArray($arr, $result1);
-    $this->assertSame($result1, array(1, 'apple' => 2, 'basket[chips]' => 3, 'basket[nachoes]' => 4));
+    $this->assertEquals($result1, array(1, 'apple' => 2, 'basket[chips]' => 3, 'basket[nachoes]' => 4));
 
     lmbArrayHelper::toFlatArray($arr, $result2, '_');
-    $this->assertSame($result2, array('_[0]' => 1, '_[apple]' => 2, '_[basket][chips]' => 3, '_[basket][nachoes]' => 4));
+    $this->assertEquals($result2, array('_[0]' => 1, '_[apple]' => 2, '_[basket][chips]' => 3, '_[basket][nachoes]' => 4));
   }
 
   function testArrayMapRecursive()
@@ -90,7 +90,7 @@ class lmbArrayHelperTest extends TestCase
 
     lmbArrayHelper::arrayMapRecursive(function($v) { return $v + 1; }, $arr);
 
-    $this->assertSame($arr, array(2, 'apple' => 3, 'basket' => array('chips' => 4, 'nachoes' => 5)));
+    $this->assertEquals($arr, array(2, 'apple' => 3, 'basket' => array('chips' => 4, 'nachoes' => 5)));
   }
 
   function testSortArray()
@@ -98,10 +98,10 @@ class lmbArrayHelperTest extends TestCase
     $arr = array(array('a' => 1, 'b' => 2), array('a' => 2, 'b' => 1), array('a' => 2, 'b' => 0));
 
     $res = lmbArrayHelper::sortArray($arr, array('a' => 'DESC', 'b' => 'ASC'));
-    $this->assertSame($res, array(2 => array('a' => 2, 'b' => 0), 1 => array('a' => 2, 'b' => 1), 0 => array('a' => 1, 'b' => 2)));
+    $this->assertEquals($res, array(2 => array('a' => 2, 'b' => 0), 1 => array('a' => 2, 'b' => 1), 0 => array('a' => 1, 'b' => 2)));
 
     $res = lmbArrayHelper::sortArray($arr, array('a' => 'DESC', 'b' => 'ASC'), false);
-    $this->assertSame($res, array(array('a' => 2, 'b' => 0), array('a' => 2, 'b' => 1), array('a' => 1, 'b' => 2)));
+    $this->assertEquals($res, array(array('a' => 2, 'b' => 0), array('a' => 2, 'b' => 1), array('a' => 1, 'b' => 2)));
   }
 }
 

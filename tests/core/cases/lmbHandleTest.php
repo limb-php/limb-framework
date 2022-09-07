@@ -8,6 +8,7 @@
  */
 
 use PHPUnit\Framework\TestCase;
+use limb\core\src\lmbHandle;
 
 class lmbHandleDeclaredInSameFile
 {
@@ -28,60 +29,54 @@ class lmbHandleTest extends TestCase
 {
   function testDeclaredInSameFile()
   {
-    $handle = new lmbHandle('lmbHandleDeclaredInSameFile');
-    $this->assertIsA($handle->resolve(), 'lmbHandleDeclaredInSameFile');
+    $handle = new lmbHandle(lmbHandleDeclaredInSameFile::class);
+    $this->assertInstanceOf(lmbHandleDeclaredInSameFile::class, $handle->resolve());
   }
 
   function testPassMethodCalls()
   {
-    $handle = new lmbHandle('lmbHandleDeclaredInSameFile');
-    $this->assertEqual($handle->foo(), 'foo');
+    $handle = new lmbHandle(lmbHandleDeclaredInSameFile::class);
+    $this->assertEquals($handle->foo(), 'foo');
   }
 
   function testPassAttributes()
   {
-    $handle = new lmbHandle('lmbHandleDeclaredInSameFile');
-    $this->assertEqual($handle->test_var, 'default');
+    $handle = new lmbHandle(lmbHandleDeclaredInSameFile::class);
+    $this->assertEquals($handle->test_var, 'default');
 
     $handle->test_var = 'foo';
-    $this->assertEqual($handle->test_var, 'foo');
+    $this->assertEquals($handle->test_var, 'foo');
   }
 
   function testPassArgumentsDeclaredInSameFile()
   {
-    $handle = new lmbHandle('lmbHandleDeclaredInSameFile', array('some_value'));
-    $this->assertEqual($handle->test_var, 'some_value');
+    $handle = new lmbHandle(lmbHandleDeclaredInSameFile::class, array('some_value'));
+    $this->assertEquals($handle->test_var, 'some_value');
   }
 
   function testShortClassPath()
   {
-    $handle = new lmbHandle(dirname(__FILE__) . '/lmbTestHandleClass');
-    $this->assertIsA($handle->resolve(), 'lmbTestHandleClass');
-  }
-
-  function testShortClassPathWithExtension()
-  {
-    $handle = new lmbHandle(dirname(__FILE__) . '/lmbTestHandleClass.class.php');
-    $this->assertIsA($handle->resolve(), 'lmbTestHandleClass');
+    $handle = new lmbHandle(lmbTestHandleClass::class);
+    $this->assertInstanceOf(lmbTestHandleClass::class, $handle->resolve());
   }
 
   function testShortClassPathPassArguments()
   {
-    $handle = new lmbHandle(dirname(__FILE__) . '/lmbTestHandleClass', array('some_value'));
-    $this->assertEqual($handle->test_var, 'some_value');
+    $handle = new lmbHandle(lmbTestHandleClass::class, array('some_value'));
+    $this->assertEquals($handle->test_var, 'some_value');
   }
 
   function testFullClassPath()
   {
-    $handle = new lmbHandle(dirname(__FILE__) . '/handle.inc.php', array(), 'lmbLoadedHandleClass');
-    $this->assertIsA($handle->resolve(), 'lmbLoadedHandleClass');
+    $handle = new lmbHandle(lmbLoadedHandleClass::class);
+    $this->assertInstanceOf(lmbLoadedHandleClass::class, $handle->resolve());
   }
 
   function testFullClassPathPassArguments()
   {
-    $handle = new lmbHandle(dirname(__FILE__) . '/handle.inc.php', array('some_value'), 'lmbLoadedHandleClass');
-    $this->assertEqual($handle->test_var, 'some_value');
-    $this->assertEqual($handle->bar(), 'bar');
+    $handle = new lmbHandle(lmbLoadedHandleClass::class, array('some_value'));
+    $this->assertEquals($handle->test_var, 'some_value');
+    $this->assertEquals($handle->bar(), 'bar');
   }
 }
 

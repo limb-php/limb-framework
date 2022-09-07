@@ -9,6 +9,8 @@
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbObject;
+use limb\core\src\exception\lmbNoSuchPropertyException;
+use limb\core\src\exception\lmbNoSuchMethodException;
 
 class ObjectTestVersion extends lmbObject
 {
@@ -147,7 +149,7 @@ class lmbObjectTest extends TestCase
   function testGetAttributesNames()
   {
     $object = new ObjectTestVersion();
-    $this->assertEqual($object->getAttributesNames(), array('bar', 'protected'));
+    $this->assertEquals($object->getAttributesNames(), array('bar', 'protected'));
   }
 
   function testSetGet()
@@ -155,7 +157,7 @@ class lmbObjectTest extends TestCase
     $object = new lmbObject();
     $object->set('foo', 1);
 
-    $this->assertEqual($object->get('foo'), 1);
+    $this->assertEquals($object->get('foo'), 1);
   }
 
   function testSetGetNullValue()
@@ -169,7 +171,7 @@ class lmbObjectTest extends TestCase
   function testGetWithDefaultValue()
   {
     $object = new lmbObject();
-    $this->assertEqual($object->get('foo', 'bar'), 'bar');
+    $this->assertEquals($object->get('foo', 'bar'), 'bar');
   }
 
   function testCallingGetterForNonExistingPropertyThrowsException()
@@ -182,6 +184,8 @@ class lmbObjectTest extends TestCase
     }
     catch(lmbNoSuchPropertyException $e)
     {
+        $this->assertTrue(true);
+        return $e->getMessage();
     }
   }
 
@@ -197,6 +201,8 @@ class lmbObjectTest extends TestCase
     }
     catch(lmbNoSuchPropertyException $e)
     {
+        $this->assertTrue(true);
+        return $e->getMessage();
     }
   }
 
@@ -205,7 +211,7 @@ class lmbObjectTest extends TestCase
     $object = new lmbObject();
     $object->set('foo_bar_yo', 1);
 
-    $this->assertEqual($object->getFooBarYo(), 1);
+    $this->assertEquals($object->getFooBarYo(), 1);
   }
 
   function testNonExistingSetter()
@@ -213,21 +219,21 @@ class lmbObjectTest extends TestCase
     $object = new lmbObject();
     $object->setFooBarYo(1);
 
-    $this->assertEqual($object->getFooBarYo(), 1);
+    $this->assertEquals($object->getFooBarYo(), 1);
   }
 
   function testCallGetterForPropertyIfItExists()
   {
     $object = new ObjectTestVersion();
     $object->bar = 'BAR';
-    $this->assertEqual($object->get('bar'), 'BAR_get_called');
+    $this->assertEquals($object->get('bar'), 'BAR_get_called');
   }
 
   function testCallSetterForPropertyIfItExists()
   {
     $object = new ObjectTestVersion();
     $object->set('bar', 'BAR');
-    $this->assertEqual($object->bar, 'BAR_set_called');
+    $this->assertEquals($object->bar, 'BAR_set_called');
   }
 
   function testGetterForIsPropertyIsMappedToIsMethodIfItExists()
@@ -254,6 +260,8 @@ class lmbObjectTest extends TestCase
     }
     catch(lmbNoSuchMethodException $e)
     {
+        $this->assertTrue(true);
+        return $e->getMessage();
     }
   }
 
@@ -267,6 +275,8 @@ class lmbObjectTest extends TestCase
     }
     catch(lmbNoSuchMethodException $e)
     {
+        $this->assertTrue(true);
+        return $e->getMessage();
     }
   }
 
@@ -277,9 +287,9 @@ class lmbObjectTest extends TestCase
     $object->set('baz', 'wow');
     $object->import(array('foo' => 'test', 'bar' => 'test2'));
 
-    $this->assertEqual($object->get('foo'), 'test');
-    $this->assertEqual($object->get('bar'), 'test2');
-    $this->assertEqual($object->get('baz'), 'wow');
+    $this->assertEquals($object->get('foo'), 'test');
+    $this->assertEquals($object->get('bar'), 'test2');
+    $this->assertEquals($object->get('baz'), 'wow');
   }
 
   function testImportIgnoresGuardedProperties()
@@ -287,14 +297,14 @@ class lmbObjectTest extends TestCase
     $object = new ObjectTestVersion();
     $object->_guarded = 'yeah';
     $object->import(array('_guarded' => 'no'));
-    $this->assertEqual($object->_guarded, 'yeah');
+    $this->assertEquals($object->_guarded, 'yeah');
   }
 
   function testPassAttributesInConstructor()
   {
     $object = new lmbObject(array('foo' => 'hey', 'baz' => 'wow'));
-    $this->assertEqual($object->get('foo'), 'hey');
-    $this->assertEqual($object->get('baz'), 'wow');
+    $this->assertEquals($object->get('foo'), 'hey');
+    $this->assertEquals($object->get('baz'), 'wow');
   }
 
   function testExport()
@@ -303,7 +313,7 @@ class lmbObjectTest extends TestCase
     $object->set('foo', 'yo-yo');
     $object->set('bar', 'zoo');
 
-    $this->assertEqual($object->export(), array('foo' => 'yo-yo', 'bar' => 'zoo'));
+    $this->assertEquals($object->export(), array('foo' => 'yo-yo', 'bar' => 'zoo'));
   }
 
   function testExportOnlyNonGuardedProperties()
@@ -311,7 +321,7 @@ class lmbObjectTest extends TestCase
     $object = new ObjectTestVersion();
     $object->set('foo', 'FOO');
 
-    $this->assertEqual($object->export(), array('bar' => null, 'foo' => 'FOO', 'protected' => 'me'));
+    $this->assertEquals($object->export(), array('bar' => null, 'foo' => 'FOO', 'protected' => 'me'));
   }
 
   function testRemove()
@@ -322,7 +332,7 @@ class lmbObjectTest extends TestCase
 
     $object->remove('bar');
 
-    $this->assertEqual($object->get('foo'), 2);
+    $this->assertEquals($object->get('foo'), 2);
     $this->assertTrue($object->has('foo'));
     $this->assertFalse($object->has('bar'));
   }
@@ -333,7 +343,7 @@ class lmbObjectTest extends TestCase
     $object->_guarded = 'yeah';
     $object->remove('_guarded');
 
-    $this->assertEqual($object->_guarded, 'yeah');
+    $this->assertEquals($object->_guarded, 'yeah');
   }
 
   function testReset()
@@ -344,7 +354,7 @@ class lmbObjectTest extends TestCase
 
     $object->reset();
 
-    $this->assertEqual($object->export(), array());
+    $this->assertEquals($object->export(), array());
   }
 
   function testResetExceptGuardedProperties()
@@ -352,16 +362,16 @@ class lmbObjectTest extends TestCase
     $object = new ObjectTestVersion();
     $object->_guarded = 'yeah';
     $object->reset();
-    $this->assertEqual($object->_guarded, 'yeah');
+    $this->assertEquals($object->_guarded, 'yeah');
   }
 
   function testGetClass()
   {
     $o1 = new lmbObject();
-    $this->assertEqual($o1->getClass(), 'lmbObject');
+    $this->assertEquals($o1->getClass(), lmbObject::class);
 
     $o2 = new ObjectTestVersion($this);
-    $this->assertEqual($o2->getClass(), 'ObjectTestVersion');
+    $this->assertEquals($o2->getClass(), ObjectTestVersion::class);
   }
 
   function testImplementsArrayAccessInterface()
@@ -369,10 +379,10 @@ class lmbObjectTest extends TestCase
     $o = new lmbObject();
 
     $o->set('foo', 'Bar');
-    $this->assertEqual($o['foo'], 'Bar');
+    $this->assertEquals($o['foo'], 'Bar');
 
     $o['foo'] = 'Zoo';
-    $this->assertEqual($o->get('foo'), 'Zoo');
+    $this->assertEquals($o->get('foo'), 'Zoo');
 
     unset($o['foo']);
     $this->assertFalse($o->has('foo'));
@@ -396,21 +406,21 @@ class lmbObjectTest extends TestCase
   {
     $obj = new ObjectTestVersion3();
     $obj->protected = 'value';
-    $this->assertEqual($obj->setter_called_count, 1);
-    $this->assertEqual($obj->protected, 'value');
-    $this->assertEqual($obj->getter_called_count, 1);
+    $this->assertEquals($obj->setter_called_count, 1);
+    $this->assertEquals($obj->protected, 'value');
+    $this->assertEquals($obj->getter_called_count, 1);
 
     $obj = new ObjectTestVersion3();
     $obj['protected'] = 'value';
-    $this->assertEqual($obj->setter_called_count, 1);
-    $this->assertEqual($obj['protected'], 'value');
-    $this->assertEqual($obj->getter_called_count, 1);
+    $this->assertEquals($obj->setter_called_count, 1);
+    $this->assertEquals($obj['protected'], 'value');
+    $this->assertEquals($obj->getter_called_count, 1);
 
     $obj = new ObjectTestVersion3();
     $obj->set('protected', 'value');
-    $this->assertEqual($obj->setter_called_count, 1);
-    $this->assertEqual($obj->get('protected'), 'value');
-    $this->assertEqual($obj->getter_called_count, 1);
+    $this->assertEquals($obj->setter_called_count, 1);
+    $this->assertEquals($obj->get('protected'), 'value');
+    $this->assertEquals($obj->getter_called_count, 1);
   }
 
   function testAccessByMethodForProtectedPropertiesSeveralTimes()
@@ -418,28 +428,28 @@ class lmbObjectTest extends TestCase
     $obj = new ObjectTestVersion3();
     $obj->protected = 'value1';
     $obj->protected = 'value2';
-    $this->assertEqual($obj->setter_called_count, 2);
-    $this->assertEqual($obj->protected, 'value2');
+    $this->assertEquals($obj->setter_called_count, 2);
+    $this->assertEquals($obj->protected, 'value2');
 
     $obj = new ObjectTestVersion3();
     $obj['protected'] = 'value1';
     $obj['protected'] = 'value2';
-    $this->assertEqual($obj->setter_called_count, 2);
-    $this->assertEqual($obj['protected'], 'value2');
+    $this->assertEquals($obj->setter_called_count, 2);
+    $this->assertEquals($obj['protected'], 'value2');
 
     $obj = new ObjectTestVersion3();
     $obj->set('protected', 'value1');
     $obj->set('protected', 'value2');
-    $this->assertEqual($obj->setter_called_count, 2);
-    $this->assertEqual($obj->get('protected'), 'value2');
+    $this->assertEquals($obj->setter_called_count, 2);
+    $this->assertEquals($obj->get('protected'), 'value2');
   }
 
   function testRawSetDoNotCallTheMagick()
   {
     $obj = new ObjectTestVersion3();
     $obj->rawSet($obj->rawGet());
-    $this->assertIdentical(0, $obj->setter_called_count);
-    $this->assertIdentical(0, $obj->getter_called_count);
+    $this->assertEquals(0, $obj->setter_called_count);
+    $this->assertEquals(0, $obj->getter_called_count);
   }
 
   function testImplementsIterator()
@@ -452,7 +462,7 @@ class lmbObjectTest extends TestCase
     foreach($set as $key => $value)
       $result[$key] = $value;
 
-    $this->assertEqual($array, $result);
+    $this->assertEquals($array, $result);
   }
 
   function testImplementsIteratorWithFalseElementsInArray()
@@ -466,7 +476,7 @@ class lmbObjectTest extends TestCase
     foreach($set as $key => $value)
       $result[$key] = $value;
 
-    $this->assertEqual($array, $result);
+    $this->assertEquals($array, $result);
   }
 
   /** @ */

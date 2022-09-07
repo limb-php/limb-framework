@@ -18,15 +18,15 @@ class lmbCollectionPaginationTest extends TestCase
     $data = array(array('x' => 'a'), array('x' => 'b'), array('x' => 'c'), array('x' => 'd'), array('x' => 'e'));
     $iterator = new lmbCollection($data);
     $iterator->paginate($offset = 0, $limit = 2);
-    $this->assertEqual($iterator->count(), 5);
-    $this->assertEqual($iterator->countPaginated(), $limit);
+    $this->assertEquals($iterator->count(), 5);
+    $this->assertEquals($iterator->countPaginated(), $limit);
 
     $iterator->rewind();
     $dataspace1 = $iterator->current();
-    $this->assertEqual($dataspace1->export(), array('x' => 'a'));
+    $this->assertEquals($dataspace1->export(), array('x' => 'a'));
     $iterator->next();
     $dataspace2 = $iterator->current();
-    $this->assertEqual($dataspace2->export(), array('x' => 'b'));
+    $this->assertEquals($dataspace2->export(), array('x' => 'b'));
   }
 
   function testIterateWithPaginationNonZeroOffset()
@@ -37,10 +37,10 @@ class lmbCollectionPaginationTest extends TestCase
 
     $iterator->rewind();
     $dataspace1 = $iterator->current();
-    $this->assertEqual($dataspace1->export(), array('x' => 'c'));
+    $this->assertEquals($dataspace1->export(), array('x' => 'c'));
     $iterator->next();
     $dataspace2 = $iterator->current();
-    $this->assertEqual($dataspace2->export(), array('x' => 'd'));
+    $this->assertEquals($dataspace2->export(), array('x' => 'd'));
   }
 
   function testPaginateWithOutOfBounds()
@@ -49,8 +49,8 @@ class lmbCollectionPaginationTest extends TestCase
     $iterator = new lmbCollection($data);
     $iterator->paginate($offset = 5, $limit = 2);
 
-    $this->assertEqual($iterator->count(), 5);
-    $this->assertEqual($iterator->countPaginated(), 0);
+    $this->assertEquals($iterator->count(), 5);
+    $this->assertEquals($iterator->countPaginated(), 0);
 
     $iterator->rewind();
     $this->assertFalse($iterator->valid());
@@ -62,8 +62,8 @@ class lmbCollectionPaginationTest extends TestCase
     $iterator = new lmbCollection($data);
     $iterator->paginate($offset = -1, $limit = 2);
 
-    $this->assertEqual($iterator->count(), 5);
-    $this->assertEqual($iterator->countPaginated(), 0);
+    $this->assertEquals($iterator->count(), 5);
+    $this->assertEquals($iterator->countPaginated(), 0);
 
     $iterator->rewind();
     $this->assertFalse($iterator->valid());
@@ -82,7 +82,7 @@ class lmbCollectionPaginationTest extends TestCase
     foreach($iterator as $record)
       $str .= $record->get('x');
 
-    $this->assertEqual($str, '23');
+    $this->assertEquals($str, '23');
   }
 
   function testResetInternalIteratorIfPrimaryDatasetChanged()
@@ -98,7 +98,7 @@ class lmbCollectionPaginationTest extends TestCase
     foreach($iterator as $record)
       $str .= $record->get('x');
 
-    $this->assertEqual($str, '23');
+    $this->assertEquals($str, '23');
 
     $iterator->add(new lmbSet(array('x' => '4')));
 
@@ -106,7 +106,7 @@ class lmbCollectionPaginationTest extends TestCase
     foreach($iterator as $record)
       $str .= $record->get('x');
 
-    $this->assertEqual($str, '234');
+    $this->assertEquals($str, '234');
   }
 
   function testResetInternalIteratorOnSortToo()
@@ -122,7 +122,7 @@ class lmbCollectionPaginationTest extends TestCase
     foreach($iterator as $record)
       $str .= $record->get('x');
 
-    $this->assertEqual($str, 'AB');
+    $this->assertEquals($str, 'AB');
 
     $iterator->sort(array('x' => 'DESC'));
 
@@ -130,7 +130,7 @@ class lmbCollectionPaginationTest extends TestCase
     foreach($iterator as $record)
       $str .= $record->get('x');
 
-    $this->assertEqual($str, 'BA');
+    $this->assertEquals($str, 'BA');
   }
 
 }

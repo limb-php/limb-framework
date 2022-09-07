@@ -11,6 +11,14 @@ use PHPUnit\Framework\TestCase;
 use limb\core\src\exception\lmbInvalidArgumentException;
 use limb\core\src\lmbAssert;
 
+class extStdClass extends stdClass
+{
+    function __toString()
+    {
+        return '';
+    }
+}
+
 class lmbAssertFunctionsTest extends TestCase
 {
   function testAssertTrue()
@@ -183,10 +191,10 @@ class lmbAssertFunctionsTest extends TestCase
     $this->_checkPositive('reg_exp', 'abc', '/bc/');
     $this->_checkNegative('reg_exp', 'abc', '/xy/');
 
-    $stub = $this->createMock('stdClass');
+    $stub = $this->createMock(extStdClass::class);
     $stub->
       method('__toString')->
-      will('abc');
+        willReturn('abc');
 
     $this->_checkPositive('reg_exp', $stub, '/bc/');
     $this->_checkNegative('reg_exp', $stub, '/xy/');
