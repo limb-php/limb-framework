@@ -43,7 +43,7 @@ class lmbAssert
     if (isset($aliases[$expected_type]) && $aliases[$expected_type] == $given_type)
       return;
 
-    if ('array' == $expected_type && 'object' == $given_type && $value instanceof ArrayAccess)
+    if ('array' == $expected_type && 'object' == $given_type && $value instanceof \ArrayAccess)
       return;
 
     if ('object' == $given_type && $value instanceof $expected_type)
@@ -60,7 +60,7 @@ class lmbAssert
     if (!is_array($key_or_keys))
       $key_or_keys = array($key_or_keys);
 
-    if (is_array($array) || (is_object($array) && $array instanceof ArrayAccess)) {
+    if (is_array($array) || (is_object($array) && $array instanceof \ArrayAccess)) {
       $value_keys = array_keys((array)$array);
       $missed_keys = array_diff($key_or_keys, $value_keys);
       if (0 === count($missed_keys))

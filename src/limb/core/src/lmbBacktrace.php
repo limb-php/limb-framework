@@ -57,7 +57,7 @@ class lmbBacktrace
     foreach($this->backtrace as $item)
     {
       $trace_string .= '* ';
-      $trace_string .= $this->_formatBacktraceItem($item) . "\n";
+      $trace_string .= $this->_formatBacktraceItem($item) . "\n" . PHP_EOL;
     }
     return $trace_string;
   }

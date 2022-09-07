@@ -11,3 +11,51 @@
  * @package core
  * @version $Id: common.inc.php 8127 2010-02-10 10:40:35Z conf $
  */
+
+use limb\core\src\lmbEnv;
+use limb\core\src\lmbString;
+use limb\core\src\lmbAssert;
+
+if (!function_exists('lmb_var_dir'))
+{
+
+    function lmb_var_dir($value = null)
+    {
+        if($value !== null)
+            lmbEnv::set('LIMB_VAR_DIR', $value);
+        else
+            return lmbEnv::get('LIMB_VAR_DIR');
+    }
+
+}
+
+if (!function_exists('lmb_camel_case'))
+{
+
+    function lmb_camel_case($str, $ucfirst = true)
+    {
+        return lmbString::camel_case($str, $ucfirst);
+    }
+
+}
+
+if (!function_exists('lmb_under_scores'))
+{
+
+    function lmb_under_scores($str)
+    {
+        return lmbString::under_scores($str);
+    }
+
+}
+
+if (!function_exists('lmb_plural'))
+{
+
+    function lmb_plural($word)
+    {
+        return lmbString::plural($word);
+    }
+
+}
+

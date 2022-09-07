@@ -48,6 +48,7 @@
     },
     "autoload": {
         "files": [
+            "src/limb/core/common.inc.php",
             "bootstrap.php"
         ],
         "psr-0": {

@@ -20,9 +20,6 @@ class lmbEnv
   {
     if(array_key_exists($name, $_ENV))
     {
-      if( !isset($_ENV[$name]) )
-        return false;
-      else
         return true;
     }
 
@@ -80,7 +77,7 @@ class lmbEnv
 
   static function remove($name)
   {
-    unset( $_ENV[$name] );
+      unset( $_ENV[$name] );
   }
 
   static function trace($name)
