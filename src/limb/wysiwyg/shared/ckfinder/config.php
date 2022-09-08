@@ -1,276 +1,180 @@
 <?php
+
 /*
- * ### CKFinder : Configuration File - Basic Instructions
+ * CKFinder Configuration File
  *
- * In a generic usage case, the following tasks must be done to configure
- * CKFinder:
- *     1. Check the $baseUrl and $baseDir variables;
- *     2. If available, paste your license key in the "LicenseKey" setting;
- *     3. Create the CheckAuthentication() function that enables CKFinder for authenticated users;
- *
- * Other settings may be left with their default values, or used to control
- * advanced features of CKFinder.
+ * For the official documentation visit https://ckeditor.com/docs/ckfinder/ckfinder3-php/
  */
 
-/**
- * This function must check the user session to be sure that he/she is
- * authorized to upload and access files in the File Browser.
- *
- * @return boolean
- */
-function CheckAuthentication()
-{
-	//WARNING : DO NOT simply return "true". By doing so, you are allowing
-	//"anyone" to upload and list the files in your server. You must implement
-	//some kind of session validation here. Even something very simple as...
+/*============================ PHP Error Reporting ====================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/debugging.html
 
-	// return isset($_SESSION['IsAuthorized']) && $_SESSION['IsAuthorized'];
+// Production
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+ini_set('display_errors', 0);
 
-	//... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
-	//user logs in your system.
+// Development
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 
-	return false;
-}
+/*============================ General Settings =======================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html
 
-// LicenseKey : Paste your license key here. If left blank, CKFinder will be
-// fully functional, in demo mode.
-$config['LicenseName'] = '';
-$config['LicenseKey'] = '';
+$config = array();
 
-/*
-To make it easy to configure CKFinder, the $baseUrl and $baseDir can be used.
-Those are helper variables used later in this config file.
-*/
+/*============================ Enable PHP Connector HERE ==============================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_authentication
 
-/*
-$baseUrl : the base path used to build the final URL for the resources handled
-in CKFinder. If empty, the default value (/userfiles/) is used.
+$config['authentication'] = function () {
+    return false;
+};
 
-Examples:
-	$baseUrl = 'http://example.com/ckfinder/files/';
-	$baseUrl = '/userfiles/';
+/*============================ License Key ============================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_licenseKey
 
-ATTENTION: The trailing slash is required.
-*/
-$baseUrl = '/ckfinder/userfiles/';
+$config['licenseName'] = '';
+$config['licenseKey']  = '';
 
-/*
-$baseDir : the path to the local directory (in the server) which points to the
-above $baseUrl URL. This is the path used by CKFinder to handle the files in
-the server. Full write permissions must be granted to this directory.
+/*============================ CKFinder Internal Directory ============================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_privateDir
 
-Examples:
-	// You may point it to a directory directly:
-	$baseDir = '/home/login/public_html/ckfinder/files/';
-	$baseDir = 'C:/SiteDir/CKFinder/userfiles/';
+$config['privateDir'] = array(
+    'backend' => 'default',
+    'tags'   => '.ckfinder/tags',
+    'logs'   => '.ckfinder/logs',
+    'cache'  => '.ckfinder/cache',
+    'thumbs' => '.ckfinder/cache/thumbs',
+);
 
-	// Or you may let CKFinder discover the path, based on $baseUrl:
-	$baseDir = resolveUrl($baseUrl);
+/*============================ Images and Thumbnails ==================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_images
 
-ATTENTION: The trailing slash is required.
-*/
-$baseDir = resolveUrl($baseUrl);
+$config['images'] = array(
+    'maxWidth'  => 1600,
+    'maxHeight' => 1200,
+    'quality'   => 80,
+    'sizes' => array(
+        'small'  => array('width' => 480, 'height' => 320, 'quality' => 80),
+        'medium' => array('width' => 600, 'height' => 480, 'quality' => 80),
+        'large'  => array('width' => 800, 'height' => 600, 'quality' => 80)
+    )
+);
 
-/*
- * ### Advanced Settings
- */
+/*=================================== Backends ========================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_backends
 
-/*
-Thumbnails : thumbnails settings. All thumbnails will end up in the same
-directory, no matter the resource type.
-*/
-$config['Thumbnails'] = Array(
-		'url' => $baseUrl . '_thumbs',
-		'directory' => $baseDir . '_thumbs',
-		'enabled' => true,
-		'directAccess' => false,
-		'maxWidth' => 100,
-		'maxHeight' => 100,
-		'bmpSupported' => false,
-		'quality' => 80);
+$config['backends'][] = array(
+    'name'         => 'default',
+    'adapter'      => 'local',
+    'baseUrl'      => '/ckfinder/userfiles/',
+//  'root'         => '', // Can be used to explicitly set the CKFinder user files directory.
+    'chmodFiles'   => 0777,
+    'chmodFolders' => 0755,
+    'filesystemEncoding' => 'UTF-8',
+);
 
-/*
-Set the maximum size of uploaded images. If an uploaded image is larger, it
-gets scaled down proportionally. Set to 0 to disable this feature.
-*/
-$config['Images'] = Array(
-		'maxWidth' => 1600,
-		'maxHeight' => 1200,
-		'quality' => 80);
+/*================================ Resource Types =====================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_resourceTypes
 
-/*
-RoleSessionVar : the session variable name that CKFinder must use to retrieve
-the "role" of the current user. The "role", can be used in the "AccessControl"
-settings (bellow in this page).
+$config['defaultResourceTypes'] = '';
 
-To be able to use this feature, you must initialize the session data by
-uncommenting the following "session_start()" call.
-*/
-$config['RoleSessionVar'] = 'CKFinder_UserRole';
-//session_start();
+$config['resourceTypes'][] = array(
+    'name'              => 'Files', // Single quotes not allowed.
+    'directory'         => 'files',
+    'maxSize'           => 0,
+    'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip',
+    'deniedExtensions'  => '',
+    'backend'           => 'default'
+);
 
-/*
-AccessControl : used to restrict access or features to specific folders.
+$config['resourceTypes'][] = array(
+    'name'              => 'Images',
+    'directory'         => 'images',
+    'maxSize'           => 0,
+    'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
+    'deniedExtensions'  => '',
+    'backend'           => 'default'
+);
 
-Many "AccessControl" entries can be added. All attributes are optional.
-Subfolders inherit their default settings from their parents' definitions.
+/*================================ Access Control =====================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_roleSessionVar
 
-	- The "role" attribute accepts the special '*' value, which means
-	  "everybody".
-	- The "resourceType" attribute accepts the special value '*', which
-	  means "all resource types".
-*/
+$config['roleSessionVar'] = 'CKFinder_UserRole';
 
-$config['AccessControl'][] = Array(
-		'role' => '*',
-		'resourceType' => '*',
-		'folder' => '/',
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_accessControl
+$config['accessControl'][] = array(
+    'role'                => '*',
+    'resourceType'        => '*',
+    'folder'              => '/',
 
-		'folderView' => true,
-		'folderCreate' => true,
-		'folderRename' => true,
-		'folderDelete' => true,
+    'FOLDER_VIEW'         => true,
+    'FOLDER_CREATE'       => true,
+    'FOLDER_RENAME'       => true,
+    'FOLDER_DELETE'       => true,
 
-		'fileView' => true,
-		'fileUpload' => true,
-		'fileRename' => true,
-		'fileDelete' => true);
+    'FILE_VIEW'           => true,
+    'FILE_CREATE'         => true,
+    'FILE_RENAME'         => true,
+    'FILE_DELETE'         => true,
 
-/*
-For example, if you want to restrict the upload, rename or delete of files in
-the "Logos" folder of the resource type "Images", you may uncomment the
-following definition, leaving the above one:
+    'IMAGE_RESIZE'        => true,
+    'IMAGE_RESIZE_CUSTOM' => true
+);
 
-$config['AccessControl'][] = Array(
-		'role' => '*',
-		'resourceType' => 'Images',
-		'folder' => '/Logos',
 
-		'fileUpload' => false,
-		'fileRename' => false,
-		'fileDelete' => false);
-*/
+/*================================ Other Settings =====================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html
 
-/*
-ResourceType : defines the "resource types" handled in CKFinder. A resource
-type is nothing more than a way to group files under different paths, each one
-having different configuration settings.
+$config['overwriteOnUpload'] = false;
+$config['checkDoubleExtension'] = true;
+$config['disallowUnsafeCharacters'] = false;
+$config['secureImageUploads'] = true;
+$config['checkSizeAfterScaling'] = true;
+$config['htmlExtensions'] = array('html', 'htm', 'xml', 'js');
+$config['hideFolders'] = array('.*', 'CVS', '__thumbs');
+$config['hideFiles'] = array('.*');
+$config['forceAscii'] = false;
+$config['xSendfile'] = false;
 
-Each resource type name must be unique.
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_debug
+$config['debug'] = false;
 
-When loading CKFinder, the "type" querystring parameter can be used to display
-a specific type only. If "type" is omitted in the URL, the
-"DefaultResourceTypes" settings is used (may contain the resource type names
-separated by a comma). If left empty, all types are loaded.
+/*==================================== Plugins ========================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_plugins
 
-maxSize is defined in bytes, but shorthand notation may be also used.
-Available options are: G, M, K (case insensitive).
-1M equals 1048576 bytes (one Megabyte), 1K equals 1024 bytes (one Kilobyte), 1G equals one Gigabyte.
-Example: 'maxSize' => "8M",
-*/
-$config['DefaultResourceTypes'] = '';
+$config['pluginsDirectory'] = __DIR__ . '/plugins';
+$config['plugins'] = array();
 
-$config['ResourceType'][] = Array(
-		'name' => 'Files',				// Single quotes not allowed
-		'url' => $baseUrl . 'files',
-		'directory' => $baseDir . 'files',
-		'maxSize' => 0,
-		'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,zip',
-		'deniedExtensions' => '');
+/*================================ Cache settings =====================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_cache
 
-$config['ResourceType'][] = Array(
-		'name' => 'Images',
-		'url' => $baseUrl . 'images',
-		'directory' => $baseDir . 'images',
-		'maxSize' => 0,
-		'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
-		'deniedExtensions' => '');
+$config['cache'] = array(
+    'imagePreview' => 24 * 3600,
+    'thumbnails'   => 24 * 3600 * 365,
+    'proxyCommand' => 0
+);
 
-$config['ResourceType'][] = Array(
-		'name' => 'Flash',
-		'url' => $baseUrl . 'flash',
-		'directory' => $baseDir . 'flash',
-		'maxSize' => 0,
-		'allowedExtensions' => 'swf,flv',
-		'deniedExtensions' => '');
+/*============================ Temp Directory settings ================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_tempDirectory
 
-/*
- Due to security issues with Apache modules, it is recommended to leave the
- following setting enabled.
+$config['tempDirectory'] = sys_get_temp_dir();
 
- How does it work? Suppose the following:
+/*============================ Session Cause Performance Issues =======================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_sessionWriteClose
 
-	- If "php" is on the denied extensions list, a file named foo.php cannot be
-	  uploaded.
-	- If "rar" (or any other) extension is allowed, one can upload a file named
-	  foo.rar.
-	- The file foo.php.rar has "rar" extension so, in theory, it can be also
-	  uploaded.
+$config['sessionWriteClose'] = true;
 
-In some conditions Apache can treat the foo.php.rar file just like any PHP
-script and execute it.
+/*================================= CSRF protection ===================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_csrfProtection
 
-If CheckDoubleExtension is enabled, each part of the file name after a dot is
-checked, not only the last part. In this way, uploading foo.php.rar would be
-denied, because "php" is on the denied extensions list.
-*/
-$config['CheckDoubleExtension'] = true;
+$config['csrfProtection'] = true;
 
-/*
-If you have iconv enabled (visit http://php.net/iconv for more information),
-you can use this directive to specify the encoding of file names in your
-system. Acceptable values can be found at:
-	http://www.gnu.org/software/libiconv/
+/*===================================== Headers =======================================*/
+// https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_headers
 
-Examples:
-	$config['FilesystemEncoding'] = 'CP1250';
-	$config['FilesystemEncoding'] = 'ISO-8859-2';
-*/
-$config['FilesystemEncoding'] = 'UTF-8';
+$config['headers'] = array();
 
-/*
-Perform additional checks for image files
-if set to true, validate image size
-*/
-$config['SecureImageUploads'] = true;
+/*============================== End of Configuration =================================*/
 
-/*
-Indicates that the file size (maxSize) for images must be checked only
-after scaling them. Otherwise, it is checked right after uploading.
-*/
-$config['CheckSizeAfterScaling'] = true;
-
-/*
-For security, HTML is allowed in the first Kb of data for files having the
-following extensions only.
-*/
-$config['HtmlExtensions'] = array('html', 'htm', 'xml', 'js');
-
-/*
-Folders to not display in CKFinder, no matter their location.
-No paths are accepted, only the folder name.
-The * and ? wildcards are accepted.
-*/
-$config['HideFolders'] = Array(".svn", "CVS");
-
-/*
-Files to not display in CKFinder, no matter their location.
-No paths are accepted, only the file name, including extension.
-The * and ? wildcards are accepted.
-*/
-$config['HideFiles'] = Array(".*");
-
-/*
-After file is uploaded, sometimes it is required to change its permissions
-so that it was possible to access it at the later time.
-If possible, it is recommended to set more restrictive permissions, like 0755.
-Set to 0 to disable this feature.
-Note: not needed on Windows-based servers.
-*/
-$config['ChmodFiles'] = 0777 ;
-
-/*
-See comments above.
-Used when creating folders that does not exist.
-*/
-$config['ChmodFolders'] = 0755 ;
+// Config must be returned - do not change it.
+return $config;

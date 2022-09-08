@@ -3,7 +3,9 @@
     "require": {
         "php": ">=7.2",
         "limb/core": "^4.2",
-        "limb/config": "^4.2"
+        "limb/config": "^4.2",
+        "tinymce/tinymce": "latest",
+        "ckeditor/ckeditor4-releases": "latest"
     },
     "autoload": {
         "psr-0": {
