@@ -34,6 +34,7 @@ interface lmbDbConnectionInterface
   function quoteIdentifier($id);
   function escape($string);
   function getExtension();
+  function _raiseError($msg);
 }
 
 
