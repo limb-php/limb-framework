@@ -992,7 +992,7 @@ class lmbActiveRecord extends lmbObject
       $mapping = array($property => $property);
 
     foreach($mapping as $aggregate_field => $ar_field)
-      $object->set($aggregate_field, $this->_getRaw($ar_field));
+      $object->set($aggregate_field, $this->get($ar_field)); // _getRaw
 
     if(isset($this->_composed_of[$property]['setup_method']))
     {
@@ -1145,15 +1145,6 @@ class lmbActiveRecord extends lmbObject
       $object = $this->_getRaw($property);
       if(!is_object($object))
         continue;
-
-      // for bc
-      if(isset($info['getter']))
-      {
-        $method = $info['getter'];
-        $value = $object->$method();
-        $this->_setARField($property, $value);
-        continue;
-      }
 
       if(!isset($info['mapping']))
         $mapping = array($property => $property);
