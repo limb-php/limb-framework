@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use limb\view\src\lmbMacroView;
 use limb\fs\src\lmbFs;
 use limb\validation\src\lmbErrorList;
+use limb\core\src\lmbSet;
 
 class lmbMacroViewTest extends TestCase
 {
