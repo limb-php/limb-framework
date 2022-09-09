@@ -8,7 +8,7 @@
  */
 lmb_require('limb/net/src/lmbIp.class.php');
 
-class lmbIpTest extends UnitTestCase
+class lmbIpTest extends TestCase
 {
   function testIsValid()
   {

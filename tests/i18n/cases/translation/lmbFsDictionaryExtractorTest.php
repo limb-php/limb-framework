@@ -21,7 +21,7 @@ lmb_require('limb/i18n/src/translation/lmbDictionary.class.php');
 Mock :: generate('lmbSourceDictionaryExtractor', 'MockBaseDictionaryParser');
 Mock :: generate('lmbFsRecursiveIterator', 'MockFsRecursiveIterator');
 
-class lmbFsDictionaryExtractorTest extends UnitTestCase
+class lmbFsDictionaryExtractorTest extends TestCase
 {
 	
 	function skip()

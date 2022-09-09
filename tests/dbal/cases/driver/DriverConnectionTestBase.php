@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-abstract class DriverConnectionTestBase extends UnitTestCase
+abstract class DriverConnectionTestBase extends TestCase
 {
   var $query_stmt_class;
   var $insert_stmt_class;

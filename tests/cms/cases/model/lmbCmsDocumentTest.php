@@ -18,7 +18,7 @@ class lmbCmsDocumentTest extends lmbCmsTestCase
     $parent = $this->_createDocument('parent');
     $child = $this->_createDocument('child', $parent);
 
-    $this->assertEqual($parent->getUri(), '/parent');
-    $this->assertEqual($child->getUri(), '/parent/child');
+    $this->assertEquals($parent->getUri(), '/parent');
+    $this->assertEquals($child->getUri(), '/parent/child');
   }
 }

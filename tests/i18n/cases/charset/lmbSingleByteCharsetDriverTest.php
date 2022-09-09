@@ -8,7 +8,7 @@
  */
 lmb_require('limb/i18n/src/charset/lmbSingleByteCharsetDriver.class.php');
 
-class lmbSingleByteCharsetDriverTest extends UnitTestCase
+class lmbSingleByteCharsetDriverTest extends TestCase
 {
   function test_substr() {
       $driver = new lmbSingleByteCharsetDriver();

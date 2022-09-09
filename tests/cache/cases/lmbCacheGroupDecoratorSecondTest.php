@@ -30,8 +30,9 @@ class SomeClass
 }
 
 
-class lmbCacheGroupDecoratorSecondTest extends UnitTestCase
-{	function _createBackend()
+class lmbCacheGroupDecoratorSecondTest extends TestCase
+{
+	function _createBackend()
   {
     $this->cache_dir = LIMB_VAR_DIR . '/cache';
     return new lmbCacheFileBackend($this->cache_dir);

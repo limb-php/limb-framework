@@ -8,7 +8,7 @@
  */
 lmb_require('limb/log/src/lmbLogEntry.class.php');
 
-class lmbLogEntryTest extends UnitTestCase {
+class lmbLogEntryTest extends TestCase {
 
   function testGetters()
   {
@@ -19,17 +19,17 @@ class lmbLogEntryTest extends UnitTestCase {
       $backtrace = new lmbBacktrace(),
       $time = time()
     );
-    $this->assertEqual($level, $entry->getLevel());
-    $this->assertEqual($message, $entry->getMessage());
-    $this->assertEqual($params, $entry->getParams());
-    $this->assertEqual($backtrace, $entry->getBacktrace());
-    $this->assertEqual($time, $entry->getTime());
+    $this->assertEquals($level, $entry->getLevel());
+    $this->assertEquals($message, $entry->getMessage());
+    $this->assertEquals($params, $entry->getParams());
+    $this->assertEquals($backtrace, $entry->getBacktrace());
+    $this->assertEquals($time, $entry->getTime());
   }
 
   function testGetLevelForHuman()
   {
     $entry = new lmbLogEntry(LOG_ERR,'foo');
-    $this->assertEqual('Error', $entry->getLevelForHuman());
+    $this->assertEquals('Error', $entry->getLevelForHuman());
   }
 
   function testIsLevel()

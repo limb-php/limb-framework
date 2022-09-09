@@ -10,7 +10,7 @@
 use limb\fs\src\toolkit\lmbFsTools;
 use limb\core\src\lmbEnv;
 
-class lmbFsToolsTest extends UnitTestCase
+class lmbFsToolsTest extends TestCase
 {
   /**
    * @var lmbFsTools

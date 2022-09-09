@@ -9,7 +9,7 @@
 lmb_require('limb/net/src/lmbHttpRequest.class.php');
 lmb_require('limb/net/src/lmbUri.class.php');
 
-class lmbHttpRequestTest extends UnitTestCase
+class lmbHttpRequestTest extends TestCase
 {
   function testGetUri()
   {

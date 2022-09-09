@@ -9,14 +9,14 @@
 lmb_require('limb/fs/src/lmbFsRecursiveIterator.class.php');
 lmb_require('limb/fs/src/lmbFs.class.php');
 
-class lmbFsRecursiveIteratorTest extends UnitTestCase
+class lmbFsRecursiveIteratorTest extends TestCase
 {
   var $dir;
 
   function lmbFsRecursiveIteratorTest()
   {
     $this->dir = LIMB_VAR_DIR . '/tmp/';
-    parent :: UnitTestCase();
+    parent :: TestCase();
   }
 
   function _createFileSystem()
@@ -99,7 +99,7 @@ class lmbFsRecursiveIteratorTest extends UnitTestCase
     sort($expected);
 
     //make this test more bullet proof
-    $this->assertEqual($res, $expected);
+    $this->assertEquals($res, $expected);
 
     $this->_removeFileSystem();
   }
@@ -110,7 +110,7 @@ class lmbFsRecursiveIteratorTest extends UnitTestCase
     $this->assertFalse($it->isDot(), '%s ' . $line);
     $this->assertTrue($it->isDir(), '%s ' . $line);
     $this->assertFalse($it->isFile(), '%s ' . $line);
-    $this->assertEqual(lmbFs :: normalizePath($it->getPath()),
+    $this->assertEquals(lmbFs :: normalizePath($it->getPath()),
                        lmbFs :: normalizePath($path), '%s ' . $line);
   }
 
@@ -134,7 +134,7 @@ class lmbFsRecursiveIteratorTest extends UnitTestCase
     $this->assertFalse($it->isDot(), '%s ' . $line);
     $this->assertFalse($it->isDir(), '%s ' . $line);
     $this->assertTrue($it->isFile(), '%s ' . $line);
-    $this->assertEqual(lmbFs :: normalizePath($it->getPath()),
+    $this->assertEquals(lmbFs :: normalizePath($it->getPath()),
                        lmbFs :: normalizePath($path), '%s ' . $line);
   }
 }

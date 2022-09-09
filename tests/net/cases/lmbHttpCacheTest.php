@@ -11,7 +11,7 @@ lmb_require('limb/net/src/lmbHttpCache.class.php');
 
 Mock :: generate('lmbHttpResponse', 'MockHttpResponse');
 
-class lmbHttpCacheTest extends UnitTestCase
+class lmbHttpCacheTest extends TestCase
 {
   var $response;
   var $cache;

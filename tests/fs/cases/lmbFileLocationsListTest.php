@@ -11,7 +11,7 @@ lmb_require('limb/fs/src/lmbFileLocationsList.class.php');
 
 Mock :: generate('lmbFileLocations', 'MockFileLocations');
 
-class lmbFileLocationsListTest extends UnitTestCase
+class lmbFileLocationsListTest extends TestCase
 {
   function testGetLocations()
   {
@@ -23,7 +23,7 @@ class lmbFileLocationsListTest extends UnitTestCase
 
     $paths = $locations->getLocations();
 
-    $this->assertEqual(sizeof($paths), 4);
+    $this->assertEquals(sizeof($paths), 4);
     $this->assertPathsEqual($paths[0], 'path0');
     $this->assertPathsEqual($paths[1], 'path1');
     $this->assertPathsEqual($paths[2], 'path2');
@@ -40,7 +40,7 @@ class lmbFileLocationsListTest extends UnitTestCase
 
     $paths = $locations->getLocations();
 
-    $this->assertEqual(sizeof($paths), 4);
+    $this->assertEquals(sizeof($paths), 4);
     $this->assertPathsEqual($paths[0], 'path0');
     $this->assertPathsEqual($paths[1], 'path1');
     $this->assertPathsEqual($paths[2], 'path2');
@@ -61,7 +61,7 @@ class lmbFileLocationsListTest extends UnitTestCase
 
     $paths = $locations->getLocations();
 
-    $this->assertEqual(sizeof($paths), 7);
+    $this->assertEquals(sizeof($paths), 7);
     $this->assertPathsEqual($paths[0], 'path0');
     $this->assertPathsEqual($paths[1], 'path1');
     $this->assertPathsEqual($paths[2], 'path2');
@@ -73,7 +73,7 @@ class lmbFileLocationsListTest extends UnitTestCase
 
   function assertPathsEqual($path1, $path2, $msg=false)
   {
-    $this->assertEqual(rtrim(lmbFs :: normalizePath($path1), '/\\'),
+    $this->assertEquals(rtrim(lmbFs :: normalizePath($path1), '/\\'),
                        rtrim(lmbFs :: normalizePath($path2), '/\\'),
                        $msg);
   }

@@ -9,7 +9,7 @@
 require_once(dirname(__FILE__) . '/../DriverInsertTestBase.class.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
-class lmbOciLobTest extends UnitTestCase
+class lmbOciLobTest extends TestCase
 {
   function setUp()
   {

@@ -11,14 +11,14 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
     $document = $this->_createDocument($identifier = 'foo');
 
     $must_be_document = lmbActiveRecord :: findById('lmbCmsDocument', $document->getId());
-    $this->assertEqual($must_be_document->identifier, $identifier);
-    $this->assertEqual($must_be_document->id, $document->getId());
-    $this->assertEqual($must_be_document->parent_id, $document->getTree()->getRootNode()->get('id'));
-    $this->assertEqual($must_be_document->children->count(), 0);
+    $this->assertEquals($must_be_document->identifier, $identifier);
+    $this->assertEquals($must_be_document->id, $document->getId());
+    $this->assertEquals($must_be_document->parent_id, $document->getTree()->getRootNode()->get('id'));
+    $this->assertEquals($must_be_document->children->count(), 0);
 
     $root = $must_be_document->getParent();
-    $this->assertEqual($root->identifier, '');
-    $this->assertEqual($root->id, $must_be_document->parent_id);
+    $this->assertEquals($root->identifier, '');
+    $this->assertEquals($root->id, $must_be_document->parent_id);
   }
 
   function testDestroyAlsoRemovesChildren()
@@ -28,12 +28,12 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
     $child = $this->_createDocument('child', $parent);
 
     $nodes = array($parent, $child);
-    $this->assertEqual(count($root->getChildren(2)), count($nodes));
+    $this->assertEquals(count($root->getChildren(2)), count($nodes));
 
     $parent = lmbActiveRecord :: findById('lmbCmsDocument', $parent->getId());
     $parent->destroy();
 
-    $this->assertEqual(count($root->getChildren(2)), 0);
+    $this->assertEquals(count($root->getChildren(2)), 0);
   }
 
   function testGetChildren()
@@ -48,7 +48,7 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
     $children->rewind();
     $this->assertTrue($children->valid());
     $child1 = $children->current();
-    $this->assertEqual($child1->title, $object3->title);
+    $this->assertEquals($child1->title, $object3->title);
 
     $children->next();
     $this->assertTrue($children->valid());

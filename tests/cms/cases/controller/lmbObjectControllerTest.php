@@ -22,7 +22,7 @@ class TestObjectController extends lmbObjectController
   protected $in_popup = false;
 }
 
-class lmbObjectControllerTest extends UnitTestCase
+class lmbObjectControllerTest extends TestCase
 {
   protected $toolkit;
 
@@ -55,9 +55,9 @@ class lmbObjectControllerTest extends UnitTestCase
     $controller = new TestObjectController();
     $controller->doDisplay();
     
-    if($this->assertEqual(count($controller->items), 1))
+    if($this->assertEquals(count($controller->items), 1))
       if($this->assertIsA($controller->items[0], 'ObjectForTesting'))
-        $this->assertEqual($controller->items[0]->getId(), $object->getId());
+        $this->assertEquals($controller->items[0]->getId(), $object->getId());
   }
   
   function testDoItem()
@@ -73,7 +73,7 @@ class lmbObjectControllerTest extends UnitTestCase
     $controller->doItem();
         
     if($this->assertIsA($controller->item, 'ObjectForTesting'))
-        $this->assertEqual($controller->item->getId(), $object->getId());
+        $this->assertEquals($controller->item->getId(), $object->getId());
   }
 }
 

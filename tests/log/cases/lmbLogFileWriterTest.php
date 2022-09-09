@@ -9,7 +9,7 @@
 lmb_require('limb/log/src/lmbLogFileWriter.class.php');
 lmb_require('limb/net/src/lmbUri.class.php');
 
-class lmbLogFileWriterTest extends UnitTestCase {
+class lmbLogFileWriterTest extends TestCase {
 
   function testWrite()
   {

@@ -8,7 +8,7 @@
  */
 require_once('limb/dbal/src/drivers/lmbDbTypeInfo.class.php');
 
-abstract class DriverStatementTestBase extends UnitTestCase
+abstract class DriverStatementTestBase extends TestCase
 {
   function setTypedValue($type, $column, $value)
   {

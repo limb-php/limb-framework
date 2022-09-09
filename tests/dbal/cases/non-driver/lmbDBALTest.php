@@ -13,7 +13,7 @@ lmb_require('limb/dbal/src/drivers/lmbDbQueryStatement.interface.php');
 Mock::generate('lmbDbConnection', 'MockDbConnection');
 Mock::generate('lmbDbQueryStatement', 'MockDbQueryStatement');
 
-class lmbDBALTest extends UnitTestCase
+class lmbDBALTest extends TestCase
 {
   protected $toolkit;
   protected $dsn;

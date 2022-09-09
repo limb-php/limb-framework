@@ -9,7 +9,7 @@
 lmb_require('limb/search/src/dataset/lmbSearchResultProcessor.class.php');
 lmb_require('limb/core/src/lmbCollection.class.php');
 
-class lmbSearchResultProcessorTest extends UnitTestCase
+class lmbSearchResultProcessorTest extends TestCase
 {
   function testLeftAndRightGaps()
   {

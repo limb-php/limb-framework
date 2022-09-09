@@ -8,7 +8,7 @@
  */
 lmb_require('limb/net/src/lmbUri.class.php');
 
-class lmbUriTest extends UnitTestCase
+class lmbUriTest extends TestCase
 {
   function testCreate()
   {

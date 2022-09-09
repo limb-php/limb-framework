@@ -9,7 +9,7 @@
 
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
-class lmbSqliteExtensionTest extends UnitTestCase
+class lmbSqliteExtensionTest extends TestCase
 {
   function setUp()
   {

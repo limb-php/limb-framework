@@ -9,7 +9,7 @@
 use limb\log\src\lmbLog;
 use limb\log\src\lmbLogWriterInterface;
 
-class lmbLogTest extends UnitTestCase {
+class lmbLogTest extends TestCase {
 
   /**
    * @var lmbLog
@@ -25,22 +25,22 @@ class lmbLogTest extends UnitTestCase {
   function testWritersManipulation()
   {
     $log = new lmbLog();
-    $this->assertEqual(array(), $log->getWriters());
+    $this->assertEquals(array(), $log->getWriters());
 
     $log->registerWriter($writer = new lmbLogWriterForLogTests(new lmbUri()));
-    $this->assertEqual(array($writer), $log->getWriters());
+    $this->assertEquals(array($writer), $log->getWriters());
 
     $log->resetWriters();
-    $this->assertEqual(array(), $log->getWriters());
+    $this->assertEquals(array(), $log->getWriters());
   }
 
   function testLog()
   {
     $this->log->log('imessage', LOG_INFO, 'iparam', 'ibacktrace');
     $this->assertTrue($this->_getLastLogEntry()->isLevel(LOG_INFO));
-    $this->assertEqual('imessage', $this->_getLastLogEntry()->getMessage());
-    $this->assertEqual('iparam', $this->_getLastLogEntry()->getParams());
-    $this->assertEqual('ibacktrace', $this->_getLastLogEntry()->getBacktrace());
+    $this->assertEquals('imessage', $this->_getLastLogEntry()->getMessage());
+    $this->assertEquals('iparam', $this->_getLastLogEntry()->getParams());
+    $this->assertEquals('ibacktrace', $this->_getLastLogEntry()->getBacktrace());
   }
 
   function testLogException()

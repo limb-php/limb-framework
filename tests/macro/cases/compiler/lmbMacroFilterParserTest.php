@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-class lmbMacroFilterParserTest extends UnitTestCase
+class lmbMacroFilterParserTest extends TestCase
 {
   protected $parser;
 

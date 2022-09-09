@@ -4,7 +4,7 @@ use limb\cache2\src\lmbTaggableCache;
 use limb\cache2\src\lmbCacheFactory;
 use limb\core\src\lmbEnv;
 
-class lmbTaggableCacheTest extends UnitTestCase
+class lmbTaggableCacheTest extends TestCase
 {
   /**
    * @var lmbTaggableCache

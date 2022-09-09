@@ -8,7 +8,7 @@
  */
 lmb_require('limb/net/src/lmbUploadedFilesParser.class.php');
 
-class lmbUploadedFilesParserTest extends UnitTestCase
+class lmbUploadedFilesParserTest extends TestCase
 {
   var $parser;
 

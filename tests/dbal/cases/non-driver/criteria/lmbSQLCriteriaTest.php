@@ -8,7 +8,7 @@
  */
 lmb_require('limb/dbal/src/criteria/lmbSQLCriteria.class.php');
 
-class lmbSQLCriteriaTest extends UnitTestCase
+class lmbSQLCriteriaTest extends TestCase
 {
   function testBuildCriteriaFromString()
   {

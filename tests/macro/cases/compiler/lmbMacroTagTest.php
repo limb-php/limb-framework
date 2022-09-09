@@ -15,7 +15,7 @@ Mock::generate('lmbMacroCodeWriter', 'MockMacroCodeWriter');
 Mock::generate('lmbMacroCompiler', 'MockMacroCompiler');
 Mock::generate('lmbMacroTagAttribute', 'MockMacroTagAttribute');
 
-class lmbMacroTagTest extends UnitTestCase
+class lmbMacroTagTest extends TestCase
 {
   protected $node;
   protected $tag_info;

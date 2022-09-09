@@ -91,7 +91,7 @@ class lmbAllowedTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacroByText('{{allowed role="man" resource="girl" privelege="marry"}}foo{{/allowed}}');
 
     $out = $macro->render();
-    $this->assertEqual('foo', $out);
+    $this->assertEquals('foo', $out);
   }
 
   function testWithAllParams_Negative_Privelege()
@@ -99,7 +99,7 @@ class lmbAllowedTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacroByText('{{allowed role="boy" resource="girl" privelege="marry"}}foo{{/allowed}}');
 
     $out = $macro->render();
-    $this->assertEqual('', $out);
+    $this->assertEquals('', $out);
   }
 
   function testWithoutPrivelege_Positive()
@@ -107,7 +107,7 @@ class lmbAllowedTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacroByText('{{allowed role="man" resource="vodka"}}foo{{/allowed}}');
 
     $out = $macro->render();
-    $this->assertEqual('foo', $out);
+    $this->assertEquals('foo', $out);
   }
 
   function testWithoutPrivelege_Negative()
@@ -115,7 +115,7 @@ class lmbAllowedTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacroByText('{{allowed role="boy" resource="vodka"}}foo{{/allowed}}');
 
     $out = $macro->render();
-    $this->assertEqual('', $out);
+    $this->assertEquals('', $out);
   }
 
   function testDefaultRoleProvider_Positive()
@@ -124,7 +124,7 @@ class lmbAllowedTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacroByText('{{allowed resource="vodka"}}foo{{/allowed}}');
 
     $out = $macro->render();
-    $this->assertEqual('foo', $out);
+    $this->assertEquals('foo', $out);
   }
 
   function testDefaultRoleProvider_Negative()
@@ -133,7 +133,7 @@ class lmbAllowedTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacroByText('{{allowed resource="vodka"}}foo{{/allowed}}');
 
     $out = $macro->render();
-    $this->assertEqual('', $out);
+    $this->assertEquals('', $out);
   }
 
   function testDinamicRole_Positive()
@@ -145,7 +145,7 @@ class lmbAllowedTagTest extends lmbBaseMacroTest
     $macro->set('role', $role);
 
     $out = $macro->render();
-    $this->assertEqual('foo', $out);
+    $this->assertEquals('foo', $out);
   }
 
   function testDinamicRole_Negative()
@@ -157,6 +157,6 @@ class lmbAllowedTagTest extends lmbBaseMacroTest
     $macro->set('role', $role);
 
     $out = $macro->render();
-    $this->assertEqual('', $out);
+    $this->assertEquals('', $out);
   }
 }

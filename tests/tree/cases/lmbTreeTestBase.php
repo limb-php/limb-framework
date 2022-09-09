@@ -11,7 +11,7 @@ lmb_require('limb/tree/src/exception/lmbTreeException.class.php');
 lmb_require('limb/tree/src/exception/lmbTreeInvalidNodeException.class.php');
 lmb_require('limb/tree/src/exception/lmbTreeConsistencyException.class.php');
 
-abstract class lmbTreeTestBase extends UnitTestCase
+abstract class lmbTreeTestBase extends TestCase
 {
   protected $db;
   protected $conn;

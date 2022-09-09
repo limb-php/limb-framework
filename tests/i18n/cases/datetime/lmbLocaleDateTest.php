@@ -8,7 +8,7 @@
  */
 lmb_require('limb/i18n/src/datetime/lmbLocaleDateTime.class.php');
 
-class lmbLocaleDateTimeTest extends UnitTestCase
+class lmbLocaleDateTimeTest extends TestCase
 {
   function testCreateByLocaleString()
   {

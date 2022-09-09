@@ -9,7 +9,7 @@
 
 require_once('limb/macro/src/tags/pager/lmbMacroPagerHelper.class.php');
 
-class lmbMacroPagerHelperTest extends UnitTestCase
+class lmbMacroPagerHelperTest extends TestCase
 {
   protected $pager_id;
   protected $pager;

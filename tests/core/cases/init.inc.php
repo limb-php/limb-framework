@@ -1,5 +1,5 @@
 <?php
-require_once('limb/fs/src/lmbFs.class.php');
+use limb\fs\src\lmbFs;
 
 function lmb_tests_init_var_dir($value)
 {

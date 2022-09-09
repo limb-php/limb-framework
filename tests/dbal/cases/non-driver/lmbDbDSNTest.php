@@ -8,7 +8,7 @@
  */
 lmb_require('limb/dbal/src/lmbDbDSN.class.php');
 
-class lmbDbDSNTest extends UnitTestCase
+class lmbDbDSNTest extends TestCase
 {
   function testMalformedStringThrowsException()
   {

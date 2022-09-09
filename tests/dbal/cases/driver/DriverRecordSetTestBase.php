@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-abstract class DriverRecordSetTestBase extends UnitTestCase
+abstract class DriverRecordSetTestBase extends TestCase
 {
   var $record_class;
 

@@ -9,7 +9,7 @@
 require_once('limb/dbal/tests/common.inc.php');
 lmb_require('limb/dbal/src/criteria/lmbSQLFieldBetweenCriteria.class.php');
 
-class lmbSQLFieldBetweenCriteriaTest extends UnitTestCase
+class lmbSQLFieldBetweenCriteriaTest extends TestCase
 {
   var $conn;
   var $query;

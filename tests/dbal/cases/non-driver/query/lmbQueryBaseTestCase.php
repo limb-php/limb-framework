@@ -8,7 +8,7 @@
  */
 lmb_require('limb/dbal/src/lmbSimpleDb.class.php');
 
-class lmbQueryBaseTestCase extends UnitTestCase
+class lmbQueryBaseTestCase extends TestCase
 {
   protected $db;
   protected $conn;

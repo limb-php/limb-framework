@@ -9,7 +9,7 @@
 
 require_once(dirname(__FILE__).'/../../src/lmbMailer.class.php');
 
-class lmbMailerTest extends UnitTestCase {
+class lmbMailerTest extends TestCase {
 
   function testConstructorConfiguration()
   {

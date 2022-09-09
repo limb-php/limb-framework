@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-class lmbMacroHtmlTagWidgetTest extends UnitTestCase
+class lmbMacroHtmlTagWidgetTest extends TestCase
 {
   function setUp()
   {

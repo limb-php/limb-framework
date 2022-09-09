@@ -8,7 +8,7 @@
  */
 lmb_require('limb/config/src/lmbIni.class.php');
 
-class lmbIniOverrideTest extends UnitTestCase
+class lmbIniOverrideTest extends TestCase
 {
   function setUp()
   {

@@ -18,7 +18,7 @@ class ExceptionalDbConfStub extends lmbConf
   }
 }
 
-class lmbDbToolsTest extends UnitTestCase
+class lmbDbToolsTest extends TestCase
 {
   var $tools;
   var $config;

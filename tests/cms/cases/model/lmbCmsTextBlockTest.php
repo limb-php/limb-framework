@@ -19,12 +19,12 @@ class lmbCmsTextBlockTest extends lmbCmsTestCase
     $block->save();
     
     $block_content = lmbCmsTextBlock::getRawContent($identifier);
-    $this->assertEqual($block_content, $content);
+    $this->assertEquals($block_content, $content);
   }
   
   function testGetRawContent_Negative()
   {    
     $block_content = lmbCmsTextBlock::getRawContent('not_existed');
-    $this->assertEqual($block_content, '');
+    $this->assertEquals($block_content, '');
   }
 }

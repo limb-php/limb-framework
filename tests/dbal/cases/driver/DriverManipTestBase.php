@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-abstract class DriverManipTestBase extends UnitTestCase
+abstract class DriverManipTestBase extends TestCase
 {
   function checkRecord($id)
   {

@@ -8,7 +8,7 @@
  */
 lmb_require('limb/i18n/src/locale/lmbLocaleSpec.class.php');
 
-class lmbLocaleSpecTest extends UnitTestCase
+class lmbLocaleSpecTest extends TestCase
 {
   function testParseOnlyLanguage()
   {

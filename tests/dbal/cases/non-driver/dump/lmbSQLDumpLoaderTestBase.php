@@ -9,7 +9,7 @@
 lmb_require('limb/dbal/src/lmbSimpleDb.class.php');
 lmb_require('limb/dbal/src/dump/lmbSQLDumpLoader.class.php');
 
-abstract class lmbSQLDumpLoaderTestBase extends UnitTestCase
+abstract class lmbSQLDumpLoaderTestBase extends TestCase
 {
   var $db;
   var $conn;

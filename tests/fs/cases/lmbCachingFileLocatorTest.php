@@ -6,17 +6,19 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/fs/src/lmbFileLocator.class.php');
-lmb_require('limb/fs/src/lmbCachingFileLocator.class.php');
 
-Mock :: generate('lmbFileLocator', 'MockFileLocator');
+use PHPUnit\Framework\TestCase;
+use limb\fs\src\lmbFileLocator;
+use limb\fs\src\lmbCachingFileLocator;
 
-class lmbCachingFileLocatorTest extends UnitTestCase
+Mock::generate('lmbFileLocator', 'MockFileLocator');
+
+class lmbCachingFileLocatorTest extends TestCase
 {
   var $locator;
   var $wrapped_locator;
 
-  function setUp()
+  function setUp(): void
   {
     $this->wrapped_locator = new MockFileLocator();
 
@@ -31,7 +33,7 @@ class lmbCachingFileLocatorTest extends UnitTestCase
     $this->wrapped_locator->expectOnce('locate');
     $this->wrapped_locator->setReturnValue('locate', 'located-path-to-file', array('path-to-file', array()));
 
-    $this->assertEqual($this->locator->locate('path-to-file'), 'located-path-to-file');
+    $this->assertEquals($this->locator->locate('path-to-file'), 'located-path-to-file');
   }
 
   function testLocateCacheHit()
@@ -41,7 +43,7 @@ class lmbCachingFileLocatorTest extends UnitTestCase
 
     $this->locator->locate('path-to-file');
 
-    $this->assertEqual($this->locator->locate('path-to-file'), 'located-path-to-file');
+    $this->assertEquals($this->locator->locate('path-to-file'), 'located-path-to-file');
   }
 
   function testLocaleNotCacheHitOnOtherParams()
@@ -53,7 +55,7 @@ class lmbCachingFileLocatorTest extends UnitTestCase
     $this->locator->locate('path-to-file');
 
     $path = $this->locator->locate('path-to-file', array('param' => 'value'));
-    $this->assertEqual($path, 'located-path-to-file2');
+    $this->assertEquals($path, 'located-path-to-file2');
   }
 
   function testWriteToCacheOnDestroy()
@@ -67,7 +69,7 @@ class lmbCachingFileLocatorTest extends UnitTestCase
 
     $cached_locations = unserialize(file_get_contents($this->cache_file));
 
-    $this->assertEqual($cached_locations, array('path-to-file' => 'located-path-to-file'));
+    $this->assertEquals($cached_locations, array('path-to-file' => 'located-path-to-file'));
 
     unlink($this->cache_file);
   }
@@ -111,7 +113,7 @@ class lmbCachingFileLocatorTest extends UnitTestCase
 
     $local_locator = new lmbCachingFileLocator($this->wrapped_locator, LIMB_VAR_DIR);
 
-    $this->assertEqual($local_locator->locate('path-to-file'), 'located-path-to-file');
+    $this->assertEquals($local_locator->locate('path-to-file'), 'located-path-to-file');
 
     unlink($this->cache_file);
   }

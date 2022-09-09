@@ -8,7 +8,7 @@
  */
 lmb_require('limb/log/src/lmbLogEchoWriter.class.php');
 
-class lmbLogEchoWriterTest extends UnitTestCase {
+class lmbLogEchoWriterTest extends TestCase {
 
   function testWrite()
   {

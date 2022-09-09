@@ -8,7 +8,7 @@
  */
 lmb_require('limb/dbal/src/query/lmbSelectQuery.class.php');
 
-class lmbSelectQueryTest extends UnitTestCase
+class lmbSelectQueryTest extends TestCase
 {
   function testConstruct()
   {

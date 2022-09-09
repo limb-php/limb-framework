@@ -10,7 +10,7 @@
 lmb_require('limb/core/src/lmbObject.class.php');
 lmb_require('limb/cache2/src/lmbCacheFactory.class.php');
 
-class lmbCacheFactoryTest extends UnitTestCase
+class lmbCacheFactoryTest extends TestCase
 {
   function testCacheMemcacheCreation()
   {

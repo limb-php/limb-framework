@@ -12,7 +12,7 @@ use limb\dbal\src\lmbSimpleDb;
 use limb\cms\src\model\lmbCmsDocument;
 use limb\dbal\src\lmbTableGateway;
 
-class lmbCmsTestCase extends UnitTestCase
+class lmbCmsTestCase extends TestCase
 {
   protected $db;
   protected $conn;

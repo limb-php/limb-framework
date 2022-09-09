@@ -10,7 +10,7 @@ lmb_require('limb/i18n/src/translation/lmbI18NDictionary.class.php');
 lmb_require('limb/i18n/src/translation/lmbQtDictionaryBackend.class.php');
 lmb_require('limb/fs/src/lmbFs.class.php');
 
-class lmbQtDictionaryBackendTest extends UnitTestCase
+class lmbQtDictionaryBackendTest extends TestCase
 {
   function setUp()
   {

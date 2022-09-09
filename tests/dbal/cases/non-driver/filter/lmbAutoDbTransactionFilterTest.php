@@ -30,7 +30,7 @@ class FilterWorkingWithDbStub
   }
 }
 
-class lmbAutoDbTransactionFilterTest extends UnitTestCase
+class lmbAutoDbTransactionFilterTest extends TestCase
 {
   var $toolkit;
   var $db;

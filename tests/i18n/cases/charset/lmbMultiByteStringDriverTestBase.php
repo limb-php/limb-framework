@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-abstract class lmbMultiByteStringDriverTestBase extends UnitTestCase
+abstract class lmbMultiByteStringDriverTestBase extends TestCase
 {
     function & _createDriver() {
         return null;

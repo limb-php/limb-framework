@@ -11,7 +11,7 @@ lmb_require('limb/toolkit/src/lmbToolkit.class.php');
 lmb_require('limb/net/src/lmbNetTools.class.php');
 lmb_require('limb/net/src/lmbHttpResponse.class.php');
 
-class lmbLogFirePHPWriterTest extends UnitTestCase {
+class lmbLogFirePHPWriterTest extends TestCase {
 
   function testWrite()
   {

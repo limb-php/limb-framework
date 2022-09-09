@@ -10,7 +10,7 @@
  use limb\macro\src\lmbMacroTemplate;
  use limb\macro\src\lmbMacroConfig;
 
-class lmbBaseMacroTest extends UnitTestCase
+class lmbBaseMacroTest extends TestCase
 {
   public $base_dir;
   public $tpl_dir;

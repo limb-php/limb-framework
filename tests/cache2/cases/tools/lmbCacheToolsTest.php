@@ -8,7 +8,7 @@
  */
 lmb_require('limb/core/src/lmbObject.class.php');
 
-class lmbCacheToolsTest extends UnitTestCase
+class lmbCacheToolsTest extends TestCase
 {
   function setUp()
   {

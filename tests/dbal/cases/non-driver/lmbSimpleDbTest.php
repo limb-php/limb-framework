@@ -9,7 +9,7 @@
 lmb_require('limb/dbal/src/criteria/lmbSQLFieldCriteria.class.php');
 lmb_require('limb/dbal/src/lmbSimpleDb.class.php');
 
-class lmbSimpleDbTest extends UnitTestCase
+class lmbSimpleDbTest extends TestCase
 {
   var $db = null;
   var $conn = null;

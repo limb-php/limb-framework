@@ -11,7 +11,7 @@ Mock::generate('lmbMacroNode', 'MockMacroNode');
 
 class MyTestingMacroNode extends lmbMacroNode{}
 
-class lmbMacroNodeTest extends UnitTestCase
+class lmbMacroNodeTest extends TestCase
 {
   protected $node;
   protected $tag_info;

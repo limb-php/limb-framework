@@ -8,7 +8,7 @@
 */
 lmb_require('limb/view/src/lmbBlitzView.class.php');
 
-class lmbBlitzViewTest extends UnitTestCase
+class lmbBlitzViewTest extends TestCase
 {
     function skip()
     {

@@ -10,7 +10,7 @@ require_once('limb/dbal/src/drivers/lmbDbTypeInfo.class.php');
 lmb_require('limb/dbal/src/criteria/lmbSQLFieldCriteria.class.php');
 lmb_require('limb/dbal/src/lmbTableGateway.class.php');
 
-class lmbTableGatewayTest extends UnitTestCase
+class lmbTableGatewayTest extends TestCase
 {
   var $conn = null;
   var $db_table_test = null;

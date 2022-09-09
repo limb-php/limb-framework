@@ -10,7 +10,7 @@
 Mock::generate('lmbMacroNode', 'MockMacroNode');
 Mock::generate('lmbMacroCompiler', 'MockMacroCompiler');
 
-class lmbMacroTreeBuilderTest extends UnitTestCase
+class lmbMacroTreeBuilderTest extends TestCase
 {
   protected $compiler;
   protected $tree_builder;

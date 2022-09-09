@@ -10,7 +10,7 @@ require_once('limb/dbal/tests/common.inc.php');
 lmb_require('limb/dbal/src/query/lmbSelectRawQuery.class.php');
 lmb_require('limb/dbal/src/criteria/lmbSQLFieldCriteria.class.php');
 
-class lmbSQLFieldCriteriaTest extends UnitTestCase
+class lmbSQLFieldCriteriaTest extends TestCase
 {
   var $conn;
   var $query;

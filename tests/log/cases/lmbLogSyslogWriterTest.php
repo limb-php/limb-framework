@@ -8,7 +8,7 @@
  */
 lmb_require('limb/log/src/lmbLogSyslogWriter.class.php');
 
-class lmbLogSyslogWriterTest extends UnitTestCase {
+class lmbLogSyslogWriterTest extends TestCase {
 
   function skip() {
       $log_exists = file_exists('/var/log/syslog');

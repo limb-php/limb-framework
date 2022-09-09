@@ -9,7 +9,7 @@
 lmb_require('limb/i18n/src/datetime/lmbLocaleDateTime.class.php');
 lmb_require('limb/i18n/toolkit.inc.php');
 
-class lmbLocaleDateTimeFormatTest extends UnitTestCase
+class lmbLocaleDateTimeFormatTest extends TestCase
 {
   function testFormatWithoutLocale()
   {

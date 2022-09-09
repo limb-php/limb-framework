@@ -49,9 +49,9 @@ class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
 
     $result = $this->_createDispatcher();
 
-    $this->assertEqual($result['controller'], 'document');
-    $this->assertEqual($result['action'], 'item');
-    $this->assertEqual($result['id'], $document->getId());
+    $this->assertEquals($result['controller'], 'document');
+    $this->assertEquals($result['action'], 'item');
+    $this->assertEquals($result['id'], $document->getId());
   }
 }
 

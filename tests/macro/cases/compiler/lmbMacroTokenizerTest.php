@@ -9,7 +9,7 @@
 
 Mock :: generate('lmbMacroTokenizerListener', 'MockMacroTokenizerListener');
 
-class lmbMacroTokenizerTest extends UnitTestCase
+class lmbMacroTokenizerTest extends TestCase
 {
   protected $parser;
   protected $listener;

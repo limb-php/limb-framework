@@ -11,7 +11,7 @@ lmb_require('limb/dbal/src/lmbSimpleDb.class.php');
 
 Mock :: generate('TestSessionObject');
 
-class lmbSessionDbStorageTest extends UnitTestCase
+class lmbSessionDbStorageTest extends TestCase
 {
   protected $db;
   protected $conn;

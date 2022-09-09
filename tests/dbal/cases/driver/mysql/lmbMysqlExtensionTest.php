@@ -9,7 +9,7 @@
 
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
-class lmbMysqlExtensionTest extends UnitTestCase
+class lmbMysqlExtensionTest extends TestCase
 {
   function setUp()
   {

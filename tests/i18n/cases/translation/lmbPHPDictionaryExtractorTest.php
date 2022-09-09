@@ -9,7 +9,7 @@
 lmb_require('limb/i18n/src/translation/lmbPHPDictionaryExtractor.class.php');
 lmb_require('limb/i18n/src/translation/lmbI18NDictionary.class.php');
 
-class lmbPHPDictionaryExtractorTest extends UnitTestCase
+class lmbPHPDictionaryExtractorTest extends TestCase
 {
   function testExtractDefault()
   {

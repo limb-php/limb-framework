@@ -9,7 +9,7 @@
 
 Mock::generate('lmbMacroTokenizerListener', 'MockMacroTokenizerListener');
 
-class lmbMacroTokenizerMalformedTest extends UnitTestCase
+class lmbMacroTokenizerMalformedTest extends TestCase
 {
   protected $parser;
   protected $listener;

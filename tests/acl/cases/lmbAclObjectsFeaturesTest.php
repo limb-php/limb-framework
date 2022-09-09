@@ -84,10 +84,10 @@ class lmbAclObjectsFeatureTest extends TestCase
   function testGetRole()
   {
     $user = new Acl_Tests_User($is_logged_in = false);
-    $this->assertEqual('guest', $user->getRole());
+    $this->assertEquals('guest', $user->getRole());
 
     $user = new Acl_Tests_User($is_logged_in = true);
-    $this->assertEqual('member', $user->getRole());
+    $this->assertEquals('member', $user->getRole());
   }
 
   function testGetRoleFromResolver()
@@ -95,10 +95,10 @@ class lmbAclObjectsFeatureTest extends TestCase
     $article = new Acl_Tests_Article();
 
     $user = new Acl_Tests_Member('Bob');
-    $this->assertEqual(array('owner'), $article->getRoleFor($user));
+    $this->assertEquals(array('owner'), $article->getRoleFor($user));
 
     $user = new Acl_Tests_Member('Valtazar');
-    $this->assertEqual(array('approver', 'daemon'), $article->getRoleFor($user));
+    $this->assertEquals(array('approver', 'daemon'), $article->getRoleFor($user));
   }
 
   function testAclDynamicResolving()

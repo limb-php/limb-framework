@@ -9,20 +9,20 @@
 lmb_require('limb/cli/src/lmbCliInput.class.php');
 lmb_require('limb/cli/src/lmbCliOption.class.php');
 
-class lmbCliInputTest extends UnitTestCase
+class lmbCliInputTest extends TestCase
 {
   function testReadEmpty()
   {
     $cli = new lmbCliInput();
-    $this->assertEqual($cli->getOptions(), array());
-    $this->assertEqual($cli->getArguments(), array());
+    $this->assertEquals($cli->getOptions(), array());
+    $this->assertEquals($cli->getArguments(), array());
 
     $this->assertNull($cli->getOption('f'));
     $this->assertNull($cli->getOptionValue('f'));
     $this->assertFalse($cli->hasOption('f'));
-    $this->assertEqual($cli->getOptionValue('f', 'wow'), 'wow');
+    $this->assertEquals($cli->getOptionValue('f', 'wow'), 'wow');
     $this->assertNull($cli->getArgument(0));
-    $this->assertEqual($cli->getArgument(0, 'wow'), 'wow');
+    $this->assertEquals($cli->getArgument(0, 'wow'), 'wow');
   }
 
   function testUseStringOptionsDescription()
@@ -30,9 +30,9 @@ class lmbCliInputTest extends UnitTestCase
     $cli = new lmbCliInput('i|input=;b;foo=;c=');
     $opts = $cli->getOptions();
 
-    $this->assertEqual($opts[0], new lmbCliOption('i', 'input', lmbCliOption :: VALUE_REQ));
-    $this->assertEqual($opts[1], new lmbCliOption('b'));
-    $this->assertEqual($opts[2], new lmbCliOption('foo', lmbCliOption :: VALUE_REQ));
+    $this->assertEquals($opts[0], new lmbCliOption('i', 'input', lmbCliOption :: VALUE_REQ));
+    $this->assertEquals($opts[1], new lmbCliOption('b'));
+    $this->assertEquals($opts[2], new lmbCliOption('foo', lmbCliOption :: VALUE_REQ));
     $this->assertEqual($opts[3], new lmbCliOption('c', lmbCliOption :: VALUE_REQ));
   }
 

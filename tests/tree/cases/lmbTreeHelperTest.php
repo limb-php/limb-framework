@@ -9,7 +9,7 @@
 lmb_require('limb/tree/src/lmbTreeHelper.class.php');
 lmb_require('limb/core/src/lmbCollection.class.php');
 
-class lmbTreeHelperTest extends UnitTestCase
+class lmbTreeHelperTest extends TestCase
 {
   function testSortComplexRs()
   {

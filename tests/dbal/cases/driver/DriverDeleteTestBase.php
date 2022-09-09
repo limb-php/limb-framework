@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-abstract class DriverDeleteTestBase extends UnitTestCase
+abstract class DriverDeleteTestBase extends TestCase
 {
 }
 

@@ -11,7 +11,7 @@ lmb_require('limb/dbal/src/drivers/lmbDbConnection.interface.php');
 
 Mock :: generate('lmbDbConnection', 'MockDbConnection');
 
-class lmbAutoTransactionConnectionTest extends UnitTestCase
+class lmbAutoTransactionConnectionTest extends TestCase
 {
   protected $wrapped;
   protected $connection;

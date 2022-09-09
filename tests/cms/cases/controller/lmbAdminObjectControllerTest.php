@@ -54,7 +54,7 @@ class TestAdminObjectController extends lmbAdminObjectController
   protected function _initEditForm() { $this->response->append('initEditForm|'); }
 }
 
-class lmbAdminObjectControllerTest extends UnitTestCase
+class lmbAdminObjectControllerTest extends TestCase
 {
   protected $toolkit;
 
@@ -82,7 +82,7 @@ class lmbAdminObjectControllerTest extends UnitTestCase
     $app = new lmbWebApplicationSandbox();
     $response = $app->imitate($request);
 
-    $this->assertEqual($response->getResponseString(), 'onCreate|initCreateForm|');
+    $this->assertEquals($response->getResponseString(), 'onCreate|initCreateForm|');
   }
 
   function testEventsOnPerformCreateActionWithPost()
@@ -93,7 +93,7 @@ class lmbAdminObjectControllerTest extends UnitTestCase
     $response = $app->imitate($request);
 
     $expected_callchain = 'onCreate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|onBeforeCreate|onBeforeSave|onAfterSave|onAfterCreate|';
-    $this->assertEqual($response->getResponseString(), $expected_callchain);
+    $this->assertEquals($response->getResponseString(), $expected_callchain);
   }
 
   function testEventsOnPerformCreateActionWithPostNotValid()
@@ -104,7 +104,7 @@ class lmbAdminObjectControllerTest extends UnitTestCase
     $response = $app->imitate($request);
 
     $expected_callchain = 'onCreate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|';
-    $this->assertEqual($response->getResponseString(), $expected_callchain);
+    $this->assertEquals($response->getResponseString(), $expected_callchain);
   }
 
   function testEventsOnPerformEditActionFirstTime()
@@ -118,7 +118,7 @@ class lmbAdminObjectControllerTest extends UnitTestCase
     $app = new lmbWebApplicationSandbox();
     $response = $app->imitate($request);
 
-    $this->assertEqual($response->getResponseString(), 'onUpdate|initEditForm|');
+    $this->assertEquals($response->getResponseString(), 'onUpdate|initEditForm|');
   }
 
   function testEventsOnPerformEditActionWithPostNotValid()
@@ -133,7 +133,7 @@ class lmbAdminObjectControllerTest extends UnitTestCase
     $response = $app->imitate($request);
 
     $expected_callchain = 'onUpdate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|';
-    $this->assertEqual($response->getResponseString(), $expected_callchain);
+    $this->assertEquals($response->getResponseString(), $expected_callchain);
   }
 
   function testEventsOnPerformEditActionWithPost()
@@ -148,7 +148,7 @@ class lmbAdminObjectControllerTest extends UnitTestCase
     $response = $app->imitate($request);
 
     $expected_callchain = 'onUpdate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|onBeforeUpdate|onBeforeSave|onAfterSave|onAfterUpdate|';
-    $this->assertEqual($response->getResponseString(), $expected_callchain);
+    $this->assertEquals($response->getResponseString(), $expected_callchain);
   }
 
   function testEventsOnPerformDeleteAction()
@@ -163,6 +163,6 @@ class lmbAdminObjectControllerTest extends UnitTestCase
     $response = $app->imitate($request);
 
     $expected_callchain = 'onBeforeDelete|onAfterDelete|';
-    $this->assertEqual($response->getResponseString(), $expected_callchain);
+    $this->assertEquals($response->getResponseString(), $expected_callchain);
   }
 }

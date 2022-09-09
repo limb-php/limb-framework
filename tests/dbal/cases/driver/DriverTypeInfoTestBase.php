@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-abstract class DriverTypeInfoTestBase extends UnitTestCase
+abstract class DriverTypeInfoTestBase extends TestCase
 {
   var $typeInfo;
   var $columnList;

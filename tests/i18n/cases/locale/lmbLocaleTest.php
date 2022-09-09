@@ -10,7 +10,7 @@ lmb_require('limb/config/src/lmbIni.class.php');
 lmb_require('limb/i18n/src/locale/lmbLocaleSpec.class.php');
 lmb_require('limb/i18n/src/locale/lmbLocale.class.php');
 
-class lmbLocaleTest extends UnitTestCase
+class lmbLocaleTest extends TestCase
 {
   function testGetLocaleSpec()
   {

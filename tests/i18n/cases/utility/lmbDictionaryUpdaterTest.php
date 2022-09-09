@@ -20,7 +20,7 @@ lmb_require('limb/i18n/src/translation/lmbDictionaryUpdater.class.php');
 
 Mock :: generate('lmbCliResponse', 'MockCliResponse');
 
-class lmbDictionaryUpdaterTest extends UnitTestCase
+class lmbDictionaryUpdaterTest extends TestCase
 {	
 	
   function skip()

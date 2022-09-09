@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-class lmbI18NHelpersTest extends UnitTestCase
+class lmbI18NHelpersTest extends TestCase
 {
   function testTraslitEmpty()
   {

@@ -9,7 +9,7 @@
 
 Mock :: generate('lmbMacroAnnotationParserListener', 'MockMacroAnnotationParserListener');
 
-class lmbMacroAnnotationParserTest extends UnitTestCase
+class lmbMacroAnnotationParserTest extends TestCase
 {
   function setUp()
   {

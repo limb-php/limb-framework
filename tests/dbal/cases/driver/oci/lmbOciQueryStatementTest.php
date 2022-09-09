@@ -10,7 +10,7 @@ require_once(dirname(__FILE__) . '/../DriverQueryTestBase.class.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 require_once('limb/dbal/src/drivers/oci/lmbOciQueryStatement.class.php');
 
-class lmbOciQueryStatementTest extends UnitTestCase
+class lmbOciQueryStatementTest extends TestCase
 {
   function setUp()
   {

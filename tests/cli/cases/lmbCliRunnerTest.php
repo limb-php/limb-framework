@@ -11,7 +11,7 @@ lmb_require('limb/cli/src/lmbCliResponse.class.php');
 lmb_require('limb/cli/src/lmbCliInput.class.php');
 lmb_require('limb/cli/src/lmbCliRunner.class.php');
 
-class lmbCliRunnerTest extends UnitTestCase
+class lmbCliRunnerTest extends TestCase
 {
   var $tmp_dir;
 
@@ -64,9 +64,9 @@ class lmbCliRunnerTest extends UnitTestCase
 
   function testCommandToClass()
   {
-    $this->assertEqual(lmbCliRunner :: commandToClass('foo'), 'FooCliCmd');
-    $this->assertEqual(lmbCliRunner :: commandToClass('foo_bar'), 'FooBarCliCmd');
-    $this->assertEqual(lmbCliRunner :: commandToClass('foo-bar'), 'FooBarCliCmd');
+    $this->assertEquals(lmbCliRunner :: commandToClass('foo'), 'FooCliCmd');
+    $this->assertEquals(lmbCliRunner :: commandToClass('foo_bar'), 'FooBarCliCmd');
+    $this->assertEquals(lmbCliRunner :: commandToClass('foo-bar'), 'FooBarCliCmd');
   }
 
   function testDefaultAction()
@@ -83,7 +83,7 @@ class lmbCliRunnerTest extends UnitTestCase
 
     $this->_createCommandClass($cmd);
 
-    $this->assertEqual($runner->execute(), 0);
+    $this->assertEquals($runner->execute(), 0);
   }
 
   function testFallbackToDefaultAction()
@@ -100,7 +100,7 @@ class lmbCliRunnerTest extends UnitTestCase
 
     $this->_createCommandClass($cmd);
 
-    $this->assertEqual($runner->execute(), 0);
+    $this->assertEquals($runner->execute(), 0);
   }
 
   function testConcreteAction()
@@ -117,7 +117,7 @@ class lmbCliRunnerTest extends UnitTestCase
 
     $this->_createCommandClass($cmd, 'function foo(){return 1;}');
 
-    $this->assertEqual($runner->execute(), 1);
+    $this->assertEquals($runner->execute(), 1);
   }
 
   function testSanitizeActionName()
@@ -134,7 +134,7 @@ class lmbCliRunnerTest extends UnitTestCase
 
     $this->_createCommandClass($cmd, 'function fooBar(){return 1;}');
 
-    $this->assertEqual($runner->execute(), 1);
+    $this->assertEquals($runner->execute(), 1);
   }
 
   function testPassArgvToAction()
@@ -169,7 +169,7 @@ array(3) {
 
 EOD;
 
-    $this->assertEqual($expected, $str);
+    $this->assertEquals($expected, $str);
   }
 
   function _createCommandClass($name, $body='')

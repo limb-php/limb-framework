@@ -10,7 +10,7 @@ lmb_require('limb/core/src/lmbObject.class.php');
 
 class CacheableFooBarClass{}
 
-abstract class lmbCacheBackendTest extends UnitTestCase
+abstract class lmbCacheBackendTest extends TestCase
 {
   protected $cache;
 

@@ -8,7 +8,7 @@
  */
 lmb_require('limb/view/src/lmbPHPView.class.php');
 
-class lmbPHPViewTest extends UnitTestCase
+class lmbPHPViewTest extends TestCase
 {
   function testRender()
   {

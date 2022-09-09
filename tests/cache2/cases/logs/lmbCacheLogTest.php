@@ -2,7 +2,7 @@
 
 lmb_require('limb/cache2/src/lmbCache.interface.php');
 
-abstract class lmbCacheLogTest extends UnitTestCase
+abstract class lmbCacheLogTest extends TestCase
 {
   /**
    * @var lmbCacheLog

@@ -19,7 +19,7 @@ Mock :: generatePartial(
 
 Mock::generate('lmbHttpRedirectStrategy', 'MockHttpRedirectStrategy');
 
-class lmbHttpResponseTest extends UnitTestCase
+class lmbHttpResponseTest extends TestCase
 {
   var $response;
 
@@ -98,7 +98,7 @@ class lmbHttpResponseTest extends UnitTestCase
     $this->response->redirect($path = 'some path');
 
     $this->assertTrue($this->response->isRedirected());
-    $this->assertEqual($this->response->getRedirectedPath(), $path);
+    $this->assertEquals($this->response->getRedirectedPath(), $path);
   }
 
   function testRedirectOnlyOnce()

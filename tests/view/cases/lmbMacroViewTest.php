@@ -10,7 +10,7 @@ lmb_require('limb/view/src/lmbMacroView.class.php');
 lmb_require('limb/fs/src/lmbFs.class.php');
 lmb_require('limb/validation/src/lmbErrorList.class.php');
 
-class lmbMacroViewTest extends UnitTestCase
+class lmbMacroViewTest extends TestCase
 {
   function setUp()
   {

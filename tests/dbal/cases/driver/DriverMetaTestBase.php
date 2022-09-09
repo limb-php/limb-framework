@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-abstract class DriverMetaTestBase extends UnitTestCase
+abstract class DriverMetaTestBase extends TestCase
 {
   var $connection;
 

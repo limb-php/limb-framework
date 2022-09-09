@@ -8,7 +8,7 @@
  */
 lmb_require('limb/net/src/lmbMimeType.class.php');
 
-class lmbMimeTypeTest extends UnitTestCase
+class lmbMimeTypeTest extends TestCase
 {
   function getExtensionFailed()
   {
@@ -17,8 +17,8 @@ class lmbMimeTypeTest extends UnitTestCase
 
   function testGetExtension()
   {
-    $this->assertEqual(lmbMimeType :: getExtension('text/html'), 'html');
-    $this->assertEqual(lmbMimeType :: getExtension('text/rtf'), 'rtf');
+    $this->assertEquals(lmbMimeType :: getExtension('text/html'), 'html');
+    $this->assertEquals(lmbMimeType :: getExtension('text/rtf'), 'rtf');
   }
 
   function testGetMimeTypeForExtensionFailed()

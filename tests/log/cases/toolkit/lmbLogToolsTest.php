@@ -11,7 +11,7 @@ require('limb/log/toolkit.inc.php');
 use limb\core\src\lmbEnv;
 use limb\toolkit\src\lmbToolkit;
 
-class lmbLogToolsTest extends UnitTestCase
+class lmbLogToolsTest extends TestCase
 {
   protected $toolkit;
 
@@ -29,7 +29,7 @@ class lmbLogToolsTest extends UnitTestCase
   function testGetLogDSNes_default()
   {
     $dsnes = $this->toolkit->getLogDSNes();
-    $this->assertEqual('file://'.realpath(lmbEnv::get('LIMB_VAR_DIR')).'/log/error.log', $dsnes[0]);
+    $this->assertEquals('file://'.realpath(lmbEnv::get('LIMB_VAR_DIR')).'/log/error.log', $dsnes[0]);
   }
 
   function testGetLogDSNes_fromConfig()
@@ -37,7 +37,7 @@ class lmbLogToolsTest extends UnitTestCase
     $this->toolkit->setConf('common', array('logs' => array('foo')));
 
     $dsnes = $this->toolkit->getLogDSNes();
-    $this->assertEqual('foo', $dsnes[0]);
+    $this->assertEquals('foo', $dsnes[0]);
   }
 
   function testGetLog()

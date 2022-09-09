@@ -9,7 +9,7 @@
 lmb_require('limb/cli/src/lmbCliOption.class.php');
 
 
-class lmbCliOptionTest extends UnitTestCase
+class lmbCliOptionTest extends TestCase
 {
   function testCreateException()
   {
@@ -25,39 +25,39 @@ class lmbCliOptionTest extends UnitTestCase
   {
     $opt = new lmbCliOption('s', lmbCliOption :: VALUE_REQ);
     $this->assertNull($opt->getLongName());
-    $this->assertEqual($opt->getShortName(), 's');
-    $this->assertEqual($opt->getValueMode(), lmbCliOption :: VALUE_REQ);
-    $this->assertEqual($opt->toString(), '-s');
+    $this->assertEquals($opt->getShortName(), 's');
+    $this->assertEquals($opt->getValueMode(), lmbCliOption :: VALUE_REQ);
+    $this->assertEquals($opt->toString(), '-s');
   }
 
   function testCreateWithLongNameOnly()
   {
     $opt = new lmbCliOption('foo', lmbCliOption :: VALUE_REQ);
     $this->assertNull($opt->getShortName());
-    $this->assertEqual($opt->getLongName(), 'foo');
-    $this->assertEqual($opt->getValueMode(), lmbCliOption :: VALUE_REQ);
-    $this->assertEqual($opt->toString(), '--foo');
+    $this->assertEquals($opt->getLongName(), 'foo');
+    $this->assertEquals($opt->getValueMode(), lmbCliOption :: VALUE_REQ);
+    $this->assertEquals($opt->toString(), '--foo');
   }
 
   function testCreateWithBothNames()
   {
     $opt = new lmbCliOption('f', 'foo', lmbCliOption :: VALUE_REQ);
-    $this->assertEqual($opt->getShortName(), 'f');
-    $this->assertEqual($opt->getLongName(), 'foo');
-    $this->assertEqual($opt->getValueMode(), lmbCliOption :: VALUE_REQ);
-    $this->assertEqual($opt->toString(), '-f|--foo');
+    $this->assertEquals($opt->getShortName(), 'f');
+    $this->assertEquals($opt->getLongName(), 'foo');
+    $this->assertEquals($opt->getValueMode(), lmbCliOption :: VALUE_REQ);
+    $this->assertEquals($opt->toString(), '-f|--foo');
   }
 
   function testDefaultValueMode()
   {
     $opt = new lmbCliOption('s');
-    $this->assertEqual($opt->getValueMode(), lmbCliOption :: VALUE_NO);
+    $this->assertEquals($opt->getValueMode(), lmbCliOption :: VALUE_NO);
 
     $opt = new lmbCliOption('foo');
-    $this->assertEqual($opt->getValueMode(), lmbCliOption :: VALUE_NO);
+    $this->assertEquals($opt->getValueMode(), lmbCliOption :: VALUE_NO);
 
     $opt = new lmbCliOption('f', 'foo');
-    $this->assertEqual($opt->getValueMode(), lmbCliOption :: VALUE_NO);
+    $this->assertEquals($opt->getValueMode(), lmbCliOption :: VALUE_NO);
   }
 
   function testValueMode()

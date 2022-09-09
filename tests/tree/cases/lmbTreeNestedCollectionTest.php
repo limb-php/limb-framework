@@ -9,7 +9,7 @@
 lmb_require('limb/core/src/lmbCollection.class.php');
 lmb_require('limb/tree/src/lmbTreeNestedCollection.class.php');
 
-class lmbTreeNestedCollectionTest extends UnitTestCase
+class lmbTreeNestedCollectionTest extends TestCase
 {
   function testMakeNestedOneElementRs()
   {

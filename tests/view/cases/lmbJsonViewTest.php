@@ -8,7 +8,7 @@
 */
 lmb_require('limb/view/src/lmbJsonView.class.php');
 
-class lmbJsonViewTest extends UnitTestCase
+class lmbJsonViewTest extends TestCase
 {
   /**
    * @var lmbJsonView

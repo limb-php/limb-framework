@@ -14,7 +14,7 @@ class TestAbstractTools extends lmbAbstractTools
   function bar(){}
 }
 
-class lmbAbstractToolsTest extends UnitTestCase
+class lmbAbstractToolsTest extends TestCase
 {
   function testGetToolsSignatures()
   {

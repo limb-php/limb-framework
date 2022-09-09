@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-class lmbMacroTestCase extends UnitTestCase
+class lmbMacroTestCase extends TestCase
 {
   protected $toolkit;
   
