@@ -8,7 +8,7 @@
  */
 namespace limb\dbal\src\drivers\oci;
 
-lmb_require('limb/dbal/src/drivers/lmbDbTableInfo.class.php');
+use limb\dbal\src\drivers\lmbDbTableInfo;
 
 
 /**

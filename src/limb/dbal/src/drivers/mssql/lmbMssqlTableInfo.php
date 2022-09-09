@@ -8,8 +8,8 @@
  */
 namespace limb\dbal\src\drivers\mssql;
 
-lmb_require('limb/dbal/src/drivers/lmbDbTableInfo.class.php');
-lmb_require('limb/dbal/src/drivers/mssql/lmbMssqlColumnInfo.class.php');
+use limb\dbal\src\drivers\lmbDbTableInfo;
+use limb\dbal\src\drivers\mssql\lmbMssqlColumnInfo;
 
 /**
  * class lmbMssqlTableInfo.

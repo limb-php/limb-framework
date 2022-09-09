@@ -6,8 +6,8 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/dbal/src/drivers/lmbDbInfo.class.php');
-lmb_require('limb/dbal/src/drivers/linter/lmbLinterTableInfo.class.php');
+use limb\dbal\src\drivers\lmbDbInfo;
+use limb\dbal\src\drivers\linter\lmbLinterTableInfo;
 
 /**
  * class lmbLinterDbInfo.

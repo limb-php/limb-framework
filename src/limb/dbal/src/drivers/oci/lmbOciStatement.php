@@ -8,7 +8,7 @@
  */
 namespace limb\dbal\src\drivers\oci;
 
-lmb_require('limb/dbal/src/drivers/lmbDbStatement.interface.php');
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 
 /**
  * class lmbOciStatement.

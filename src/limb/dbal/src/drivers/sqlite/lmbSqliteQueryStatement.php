@@ -9,9 +9,6 @@
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbQueryStatementIinterface;
-//lmb_require(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
-//lmb_require(dirname(__FILE__) . '/lmbSqliteRecord.class.php');
-//lmb_require(dirname(__FILE__) . '/lmbSqliteRecordSet.class.php');
 
 /**
  * class lmbSqliteQueryStatement.

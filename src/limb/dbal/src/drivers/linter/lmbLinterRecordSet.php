@@ -7,8 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-lmb_require('limb/dbal/src/drivers/lmbDbBaseRecordSet.class.php');
-lmb_require('limb/dbal/src/drivers/linter/lmbLinterRecord.class.php');
+use limb\dbal\src\drivers\lmbDbBaseRecordSet;
+use limb\dbal\src\drivers\linter\lmbLinterRecord;
 
 /**
  * class lmbLinterRecordSet.

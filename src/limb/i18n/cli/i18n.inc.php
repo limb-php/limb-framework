@@ -1,8 +1,7 @@
 <?php
 
-lmb_require('limb/i18n/src/scanner/lmbTSDocument.class.php');
-lmb_require('limb/i18n/src/scanner/lmbI18nScanner.class.php');
-
+use limb\i18n\src\scanner\lmbTSDocument;
+use limb\i18n\src\scanner\lmbI18nScanner;
 
 
 function _i18n_taskman_err($message)

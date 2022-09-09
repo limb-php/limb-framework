@@ -8,10 +8,8 @@
  */
 namespace limb\dbal\src\drivers\mysql;
 
-lmb_require('limb/dbal/src/drivers/lmbDbTableInfo.class.php');
-lmb_require('limb/dbal/src/drivers/lmbDbIndexInfo.class.php');
-lmb_require('limb/dbal/src/drivers/mysql/lmbMysqlColumnInfo.class.php');
-lmb_require('limb/dbal/src/drivers/mysql/lmbMysqlIndexInfo.class.php');
+use limb\dbal\src\drivers\lmbDbTableInfo;
+use limb\dbal\src\drivers\lmbDbIndexInfo;
 
 /**
  * class lmbMysqlTableInfo.

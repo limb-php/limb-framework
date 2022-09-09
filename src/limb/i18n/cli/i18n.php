@@ -15,7 +15,6 @@ taskman_propset('PROJECT_DIR', $project_dir);
 taskman_propset('TEMPLATE_DIR',$project_dir.'/template');
 
 
-lmb_require('limb/i18n/cli/i18n.inc.php');
 taskman_run();
 
 lmbFs::rm(LIMB_VAR_DIR);

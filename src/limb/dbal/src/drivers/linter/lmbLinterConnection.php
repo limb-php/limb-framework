@@ -9,14 +9,7 @@
 
 use limb\core\src\exception\lmbException;
 
-lmb_require('limb/dbal/src/drivers/lmbDbBaseConnection.class.php');
-lmb_require(dirname(__FILE__) . '/lmbLinterQueryStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbLinterDropStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbLinterInsertStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbLinterManipulationStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbLinterStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbLinterDbInfo.class.php');
-lmb_require(dirname(__FILE__) . '/lmbLinterTypeInfo.class.php');
+use limb\dbal\src\drivers\lmbDbBaseConnection;
 
 /**
  * class lmbLinterConnection.

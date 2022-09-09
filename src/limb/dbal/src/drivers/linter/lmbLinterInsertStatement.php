@@ -6,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/dbal/src/drivers/lmbDbInsertStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbLinterManipulationStatement.class.php');
+
+use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
+use limb\dbal\src\drivers\linter\lmbLinterManipulationStatement;
 
 /**
  * class lmbLinterInsertStatement.
@@ -15,7 +16,7 @@ lmb_require(dirname(__FILE__) . '/lmbLinterManipulationStatement.class.php');
  * @package dbal
  * @version $Id: $
  */
-class lmbLinterInsertStatement extends lmbLinterManipulationStatement implements lmbDbInsertStatement
+class lmbLinterInsertStatement extends lmbLinterManipulationStatement implements lmbDbInsertStatementInterface
 {
   function insertId($field_name = 'id')
   {

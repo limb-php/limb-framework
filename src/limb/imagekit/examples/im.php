@@ -1,6 +1,8 @@
 <?php
 set_include_path(dirname(__FILE__) . '/../../');
-lmb_require('limb/imagekit/src/lmbImageKit.class.php');
+
+use limb\imagekit\src\lmbImageKit;
+
 lmbImageKit::create('im')->load(dirname(__FILE__).'/images/input.jpg', 'jpeg')
             ->resize(array('width' => 100, 'height' => 100))
               ->rotate(array('angle' => 45, 'bgcolor' => 'FF0000'))

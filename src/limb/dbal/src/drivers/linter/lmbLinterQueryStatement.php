@@ -7,11 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-lmb_require('limb/dbal/src/drivers/lmbDbQueryStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbLinterStatement.class.php');
-lmb_require(dirname(__FILE__) . '/lmbLinterRecord.class.php');
-lmb_require(dirname(__FILE__) . '/lmbLinterRecordSet.class.php');
-lmb_require(dirname(__FILE__) . '/lmbLinterArraySet.class.php');
+use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
 
 /**
  * class lmbLinterQueryStatement.
@@ -19,7 +15,7 @@ lmb_require(dirname(__FILE__) . '/lmbLinterArraySet.class.php');
  * @package dbal
  * @version $Id: $
  */
-class lmbLinterQueryStatement extends lmbLinterStatement implements lmbDbQueryStatement
+class lmbLinterQueryStatement extends lmbLinterStatement implements lmbDbQueryStatementInterface
 {
   function getOneRecord()
   {

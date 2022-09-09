@@ -8,8 +8,7 @@
  */
 namespace limb\dbal\src\drivers\mysql;
 
-lmb_require('limb/dbal/src/drivers/lmbDbManipulationStatement.interface.php');
-lmb_require(dirname(__FILE__) . '/lmbMysqlStatement.class.php');
+use limb/dbal/src/drivers/lmbDbManipulationStatementInterface;
 
 /**
  * class lmbMysqlManipulationStatement.
@@ -17,7 +16,7 @@ lmb_require(dirname(__FILE__) . '/lmbMysqlStatement.class.php');
  * @package dbal
  * @version $Id: lmbMysqlManipulationStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
  */
-class lmbMysqlManipulationStatement extends lmbMysqlStatement implements lmbDbManipulationStatement
+class lmbMysqlManipulationStatement extends lmbMysqlStatement implements lmbDbManipulationStatementInterface
 {
   function getAffectedRowCount()
   {

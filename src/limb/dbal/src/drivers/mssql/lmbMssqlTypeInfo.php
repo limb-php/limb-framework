@@ -8,7 +8,7 @@
  */
 namespace limb\dbal\src\drivers\mssql;
 
-lmb_require('limb/dbal/src/drivers/lmbDbTypeInfo.class.php');
+use limb\dbal\src\drivers\lmbDbTypeInfo;
 
 /**
  * class lmbMssqlTypeInfo.

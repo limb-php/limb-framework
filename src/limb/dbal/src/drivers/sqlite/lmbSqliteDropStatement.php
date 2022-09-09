@@ -9,7 +9,6 @@
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\core\src\exception\lmbException;
-//lmb_require(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
 
 /**
  * class lmbSqliteDropStatement.

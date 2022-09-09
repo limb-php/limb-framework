@@ -9,7 +9,6 @@
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbManipulationStatementIinterface;
-//lmb_require(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
 
 /**
  * class lmbSqliteManipulationStatement.

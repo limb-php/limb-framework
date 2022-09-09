@@ -8,8 +8,8 @@
  */
 namespace limb\dbal\src\drivers\oci;
 
-lmb_require('limb/dbal/src/drivers/lmbDbBaseRecordSet.class.php');
-lmb_require('limb/dbal/src/drivers/oci/lmbOciRecord.class.php');
+use limb\dbal\src\drivers\lmbDbBaseRecordSet;
+use limb\dbal\src\drivers\oci\lmbOciRecord;
 
 /**
  * class lmbOciRecordSet.

@@ -8,8 +8,7 @@
  */
 namespace limb\dbal\src\drivers\linter;
 
-lmb_require('limb/dbal/src/drivers/lmbDbManipulationStatement.interface.php');
-lmb_require('lmbLinterStatement.class.php');
+use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
 
 /**
  * class lmbLinterManipulationStatement.
@@ -17,7 +16,7 @@ lmb_require('lmbLinterStatement.class.php');
  * @package dbal
  * @version $Id: $
  */
-class lmbLinterManipulationStatement extends lmbLinterStatement implements lmbDbManipulationStatement
+class lmbLinterManipulationStatement extends lmbLinterStatement implements lmbDbManipulationStatementInterface
 {
   protected $queryId;
   protected $hasBlobs = false;

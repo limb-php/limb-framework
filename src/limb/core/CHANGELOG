@@ -5,7 +5,6 @@ master
 1.0.0-stable - 25 December 2007 (r6640)
 ==================================================
 -- default value introduced in "get" method for all classes implementing SetInterface
--- adding experimental lmb_require_class which operates with lazy loading of classes only
 -- adding support for future stream_resolve_include_path
 -- new lmbArrayIterator class added that is an advanced version of SPL ArrayIterator supporting lmbCollectionInterface
 -- lmbObject::_hasAttribute() increased performance
@@ -14,7 +13,6 @@ master
   * lmbObject now throws an exception of lmbNoSuchMethodException if someone calls getXX() for non existing property. 
   * lmbObject has __set, __get, __isset, __unset methods overloaded that delegate to set, get, has and remove accordingly
   * As a result lmbObject fulfils its contract, i.e. $obj['foo'] == $obj->getFoo() == obj->get('foo') == $obj->foo
--- added some bench tests for lmb_require()
 -- adding misc optimizations into lmbObject getters
 -- better tests for lmbSet and lmbObject
 -- lmbSet :: remove(..) didn't honour guarded properties

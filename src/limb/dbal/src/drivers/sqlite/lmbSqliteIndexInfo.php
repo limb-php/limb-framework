@@ -9,7 +9,6 @@
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbIndexInfo;
-//lmb_require(dirname(__FILE__) . '/lmbSqliteTypeInfo.class.php');
 
 /**
  * class lmbSqliteIndexInfo.
