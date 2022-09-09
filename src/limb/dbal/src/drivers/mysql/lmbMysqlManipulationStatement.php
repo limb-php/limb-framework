@@ -8,7 +8,7 @@
  */
 namespace limb\dbal\src\drivers\mysql;
 
-use limb/dbal/src/drivers/lmbDbManipulationStatementInterface;
+use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
 
 /**
  * class lmbMysqlManipulationStatement.
