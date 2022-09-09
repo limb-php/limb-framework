@@ -13,7 +13,7 @@ lmb_require('limb/web_agent/src/lmbWebAgentHeaders.class.php');
  * @package web_agent
  * @version $Id: lmbWebAgentHeadersTest.class.php 40 2007-10-04 15:52:39Z CatMan $
  */
-class lmbWebAgentHeadersTest extends UnitTestCase {
+class lmbWebAgentHeadersTest extends TestCase {
 
   protected function _getHeaders()
   {

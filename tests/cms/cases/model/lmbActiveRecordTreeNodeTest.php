@@ -53,7 +53,7 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
     $children->next();
     $this->assertTrue($children->valid());
     $child2 = $children->current();
-    $this->assertEqual($child2->title, $object4->title);
+    $this->assertEquals($child2->title, $object4->title);
   }
 
   function testFindRoot()
@@ -138,7 +138,7 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
     );
     foreach($child_2_2_3->getParents() as $node){
       $this->assertTrue(in_array($node['id'], $assert));
-      $this->assertEqual('lmbCmsDocument', get_class($node));
+      $this->assertEquals('lmbCmsDocument', get_class($node));
     }
 
   }

@@ -39,7 +39,7 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
 
   function testGetName()
   {
-    $this->assertEqual($this->table_info->getName(), 'founding_fathers');
+    $this->assertEquals($this->table_info->getName(), 'founding_fathers');
   }
 
   function testHasColumn()
@@ -58,7 +58,7 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
 
   function testGetColumnList()
   {
-    $this->assertEqual($this->table_info->getColumnList(),
+    $this->assertEquals($this->table_info->getColumnList(),
           array('id' => 'id', 'first' => 'first', 'last' => 'last'));
   }
   
@@ -67,7 +67,7 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
     $columns = $this->table_info->getColumns();
     if($this->assertTrue(isset($columns['id'])))
       if($this->assertIsA($columns['id'], 'lmbDbColumnInfo'))
-        $this->assertEqual($columns['id']->getName(), 'id');    
+        $this->assertEquals($columns['id']->getName(), 'id');
   }
 
 
@@ -109,7 +109,7 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
 
     $table = $this->database_info->getTable('indexes');
 
-    $this->assertEqual($table->getIndexList(),
+    $this->assertEquals($table->getIndexList(),
       array('primary_column' => 'primary_column',
             'unique_column_named_index' => 'unique_column_named_index',
             'common_column' => 'common_column'));

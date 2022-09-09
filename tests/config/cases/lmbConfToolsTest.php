@@ -9,7 +9,7 @@
 lmb_require('limb/config/src/lmbConfTools.class.php');
 lmb_require('limb/core/src/lmbSet.class.php');
 
-class lmbConfToolsTest extends UnitTestCase
+class lmbConfToolsTest extends TestCase
 {
   /**
    * @var lmbConfTools

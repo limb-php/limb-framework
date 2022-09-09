@@ -64,7 +64,7 @@ class lmbRequestDispatchingFilterTestTools extends lmbAbstractTools
   }
 }
 
-class lmbRequestDispatchingFilterTest extends UnitTestCase
+class lmbRequestDispatchingFilterTest extends TestCase
 {
   protected $toolkit;
   protected $request;

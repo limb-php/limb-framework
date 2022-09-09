@@ -2,7 +2,7 @@
 
 @define('LIMB_VAR_DIR', dirname(__FILE__) . '/../../var');
 
-class TaskmanTest extends UnitTestCase
+class TaskmanTest extends TestCase
 {
   function setUp()
   {

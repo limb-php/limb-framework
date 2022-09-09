@@ -19,7 +19,7 @@ lmb_require('limb/web_agent/src/lmbWebServerCookieCollection.class.php');
  * @package web_agent
  * @version $Id: lmbWebServerResponseTest.class.php 40 2007-10-04 15:52:39Z CatMan $
  */
-class lmbWebServerResponseTest extends UnitTestCase {
+class lmbWebServerResponseTest extends TestCase {
 
   function testGetResponseParams()
   {

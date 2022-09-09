@@ -12,7 +12,7 @@ lmb_require('limb/core/src/lmbObject.class.php');
 
 class lmbSerializableObjectForTests extends lmbSerializable {}
 
-class lmbSessionTest extends UnitTestCase
+class lmbSessionTest extends TestCase
 {
   protected $session;
 

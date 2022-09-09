@@ -9,7 +9,7 @@
 lmb_require('limb/net/src/lmbUri.class.php');
 lmb_require('limb/web_spider/src/lmbUriExtractor.class.php');
 
-class lmbUriExtractorTest extends UnitTestCase
+class lmbUriExtractorTest extends TestCase
 {
   var $extractor;
 

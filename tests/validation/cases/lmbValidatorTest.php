@@ -13,7 +13,7 @@ lmb_require('limb/validation/src/lmbErrorList.class.php');
 Mock::generate('lmbValidationRule', 'MockValidationRule');
 Mock::generate('lmbErrorList', 'MockFieldsErrorList');
 
-class lmbValidatorTest extends UnitTestCase
+class lmbValidatorTest extends TestCase
 {
   var $error_list;
   var $validator;

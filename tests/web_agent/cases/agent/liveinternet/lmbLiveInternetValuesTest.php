@@ -13,7 +13,7 @@ lmb_require('limb/web_agent/src/agent/liveinternet/lmbLiveInternetValues.class.p
  * @package web_agent
  * @version $Id: lmbLiveInternetValuesTest.class.php 43 2007-10-05 15:33:11Z CatMan $
  */
-class lmbLiveInternetValuesTest extends UnitTestCase {
+class lmbLiveInternetValuesTest extends TestCase {
 
   function testBuildQuery()
   {

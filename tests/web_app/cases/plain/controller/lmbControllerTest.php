@@ -74,7 +74,7 @@ class TestingForwardController extends lmbController
   }
 }
 
-class lmbControllerTest extends UnitTestCase
+class lmbControllerTest extends TestCase
 {
   protected $toolkit;
 

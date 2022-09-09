@@ -54,7 +54,7 @@ class TestTools2 extends lmbAbstractTools
   }
 }
 
-class lmbToolkitTest extends UnitTestCase
+class lmbToolkitTest extends TestCase
 {
   function testInstance()
   {

@@ -14,7 +14,7 @@ use limb\net\src\lmbUri;
 
 class CacheableFooBarClass{}
 
-abstract class lmbCacheConnectionTest extends UnitTestCase
+abstract class lmbCacheConnectionTest extends TestCase
 {
   /**
    * @var lmbUri

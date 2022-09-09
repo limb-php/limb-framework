@@ -33,7 +33,7 @@ class lmbCliInputTest extends TestCase
     $this->assertEquals($opts[0], new lmbCliOption('i', 'input', lmbCliOption :: VALUE_REQ));
     $this->assertEquals($opts[1], new lmbCliOption('b'));
     $this->assertEquals($opts[2], new lmbCliOption('foo', lmbCliOption :: VALUE_REQ));
-    $this->assertEqual($opts[3], new lmbCliOption('c', lmbCliOption :: VALUE_REQ));
+    $this->assertEquals($opts[3], new lmbCliOption('c', lmbCliOption :: VALUE_REQ));
   }
 
   function testUseStringOptionsDescriptionWithEndingSeparator()
@@ -41,7 +41,7 @@ class lmbCliInputTest extends TestCase
     $cli = new lmbCliInput('h|help;');
     $opts = $cli->getOptions();
 
-    $this->assertEqual($opts[0], new lmbCliOption('h', 'help'));
+    $this->assertEquals($opts[0], new lmbCliOption('h', 'help'));
   }
 
   function testReadSimpleOptionsWithArguments()
@@ -51,9 +51,9 @@ class lmbCliInputTest extends TestCase
     $cli = new lmbCliInput('f=;bar=');
 
     $this->assertTrue($cli->read($argv));
-    $this->assertEqual($cli->getOptionValue('f'), 'wow');
-    $this->assertEqual($cli->getOptionValue('bar'), '1');
-    $this->assertEqual($cli->getArguments(), array('foo', 'bar'));
+    $this->assertEquals($cli->getOptionValue('f'), 'wow');
+    $this->assertEquals($cli->getOptionValue('bar'), '1');
+    $this->assertEquals($cli->getArguments(), array('foo', 'bar'));
   }
 
   function testReadOptionsHoldingSpaces()
@@ -63,9 +63,9 @@ class lmbCliInputTest extends TestCase
     $cli = new lmbCliInput('foo=;bar=;f=');
 
     $this->assertTrue($cli->read($argv));
-    $this->assertEqual($cli->getOptionValue('foo'), 'wow hey test');
-    $this->assertEqual($cli->getOptionValue('f'), 'spaces spaces');
-    $this->assertEqual($cli->getOptionValue('bar'), 1);
+    $this->assertEquals($cli->getOptionValue('foo'), 'wow hey test');
+    $this->assertEquals($cli->getOptionValue('f'), 'spaces spaces');
+    $this->assertEquals($cli->getOptionValue('bar'), 1);
     $this->assertEqual($cli->getArguments(), array('foo', 'bar'));
   }
 

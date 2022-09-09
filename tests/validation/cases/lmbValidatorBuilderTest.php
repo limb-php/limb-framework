@@ -12,7 +12,7 @@ lmb_require('limb/validation/src/lmbValidatorBuilder.class.php');
 
 Mock::generate('lmbValidator', 'MockValidator');
 
-class lmbValidatorBuilderTest extends UnitTestCase
+class lmbValidatorBuilderTest extends TestCase
 {
   var $validator;
 

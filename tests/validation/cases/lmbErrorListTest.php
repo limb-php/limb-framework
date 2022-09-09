@@ -8,7 +8,7 @@
  */
 lmb_require('limb/validation/src/lmbErrorList.class.php');
 
-class lmbErrorListTest extends UnitTestCase
+class lmbErrorListTest extends TestCase
 {
   function testAddFieldError()
   {

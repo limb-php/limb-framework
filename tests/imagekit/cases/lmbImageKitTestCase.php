@@ -8,7 +8,7 @@
  */
 lmb_require('limb/imagekit/src/lmbImageKit.class.php');
 
-abstract class lmbImageKitTestCase extends UnitTestCase
+abstract class lmbImageKitTestCase extends TestCase
 {
   protected $driver;
 

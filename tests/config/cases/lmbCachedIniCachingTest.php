@@ -9,7 +9,7 @@
 lmb_require('limb/config/src/lmbCachedIni.class.php');
 lmb_require('limb/fs/src/lmbFs.class.php');
 
-class lmbCachedIniCachingTest extends UnitTestCase
+class lmbCachedIniCachingTest extends TestCase
 {
   var $cache_dir;
 

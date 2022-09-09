@@ -9,7 +9,7 @@
 lmb_require('limb/datetime/src/lmbMonth.class.php');
 lmb_require('limb/datetime/src/lmbDateTime.class.php');
 
-class lmbMonthTest extends UnitTestCase
+class lmbMonthTest extends TestCase
 {
   function testCreateCurrent()
   {

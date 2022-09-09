@@ -16,7 +16,7 @@ lmb_require('limb/web_agent/src/agent/liveinternet/lmbLiveInternetAgent.class.ph
  * @package web_agent
  * @version $Id: lmbLiveInternetAgentTest.class.php 89 2007-10-12 15:28:50Z CatMan $
  */
-class lmbLiveInternetAgentTest extends UnitTestCase {
+class lmbLiveInternetAgentTest extends TestCase {
   protected $agent;
   protected $request;
 

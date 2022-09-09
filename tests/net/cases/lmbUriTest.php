@@ -16,18 +16,18 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual($uri->getProtocol(), 'http');
-    $this->assertEqual($uri->getHost(), 'localhost');
-    $this->assertEqual($uri->getUser(), 'admin');
-    $this->assertEqual($uri->getPassword(), 'test');
-    $this->assertEqual($uri->getPort(), '81');
-    $this->assertEqual($uri->getAnchor(), '23');
+    $this->assertEquals($uri->getProtocol(), 'http');
+    $this->assertEquals($uri->getHost(), 'localhost');
+    $this->assertEquals($uri->getUser(), 'admin');
+    $this->assertEquals($uri->getPassword(), 'test');
+    $this->assertEquals($uri->getPort(), '81');
+    $this->assertEquals($uri->getAnchor(), '23');
 
-    $this->assertEqual($uri->getQueryItem('foo'), 'bar');
-    $this->assertEqual($uri->countQueryItems(), 1);
+    $this->assertEquals($uri->getQueryItem('foo'), 'bar');
+    $this->assertEquals($uri->countQueryItems(), 1);
 
-    $this->assertEqual($uri->getPath(), '/test.php/test');
-    $this->assertEqual($uri->countPath(), 3);
+    $this->assertEquals($uri->getPath(), '/test.php/test');
+    $this->assertEquals($uri->countPath(), 3);
     $this->assertEqual($uri->getPathElements(), array('', 'test.php', 'test'));
     $this->assertEqual($uri->getPathElement(0), '');
     $this->assertEqual($uri->getPathElement(1), 'test.php');

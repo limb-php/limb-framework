@@ -11,7 +11,7 @@ lmb_require('limb/web_spider/src/lmbUriContentReader.class.php');
 
 Mock :: generate('lmbUriContentReader', 'MockUriContentReader');
 
-class lmbInnerUriNormalizerObserverTest extends UnitTestCase
+class lmbInnerUriNormalizerObserverTest extends TestCase
 {
   var $observer;
   var $reader;

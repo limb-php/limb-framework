@@ -14,43 +14,43 @@ class lmbHttpRequestTest extends TestCase
   function testGetUri()
   {
     $request = new lmbHttpRequest('http://test.com');
-    $this->assertEqual($request->getUri(), new lmbUri('http://test.com'));
+    $this->assertEquals($request->getUri(), new lmbUri('http://test.com'));
   }
 
   function testGetUriPath()
   {
     $request = new lmbHttpRequest('http://test.com/path?foo=1');
-    $this->assertEqual($request->getUriPath(), '/path');
+    $this->assertEquals($request->getUriPath(), '/path');
   }
 
   function testGet()
   {
     $request = new lmbHttpRequest('http://test.com', array('c' => 1), array('d' => 2));
-    $this->assertEqual($request->get('c'), 1);
-    $this->assertEqual($request->get('d'), 2);
+    $this->assertEquals($request->get('c'), 1);
+    $this->assertEquals($request->get('d'), 2);
     $this->assertNull($request->get('foo'));
   }
 
   function testMergePostOverGet()
   {
     $request = new lmbHttpRequest('http://test.com', array('a' => 2), array('a' => 3));
-    $this->assertEqual($request->get('a'), 3);
+    $this->assertEquals($request->get('a'), 3);
   }
 
   function testGetSafe()
   {
     $request = new lmbHttpRequest('http://test.com', array('c' => '<xss>'));
-    $this->assertEqual($request->getSafe('c'), htmlspecialchars('<xss>'));
+    $this->assertEquals($request->getSafe('c'), htmlspecialchars('<xss>'));
   }
 
   function testGetRequest()
   {
     $request = new lmbHttpRequest('http://test.com', array('c' => 1), array('d' => 2));
-    $this->assertEqual($request->getRequest(), array('c' => 1, 'd' => 2));
-    $this->assertEqual($request->getRequest('c'), 1);
+    $this->assertEquals($request->getRequest(), array('c' => 1, 'd' => 2));
+    $this->assertEquals($request->getRequest('c'), 1);
     $this->assertNull($request->getRequest('b'), 1);
 
-    $this->assertEqual($request->getRequest('b', 1), 1); // test for default values
+    $this->assertEquals($request->getRequest('b', 1), 1); // test for default values
     $this->assertIdentical($request->getRequest('b', 0), 0);
 
     $this->assertEqual($request->getRequest(array('b', 'c', 'd')), array('b' => null, 'c' => 1, 'd' => 2));

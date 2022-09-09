@@ -11,7 +11,7 @@ lmb_require('limb/datetime/src/lmbDateTimeZone.class.php');
 
 class FooDateTime extends lmbDateTime {}
 
-class lmbDateTimeTest extends UnitTestCase
+class lmbDateTimeTest extends TestCase
 {
   function testInvalidDateTime()
   {

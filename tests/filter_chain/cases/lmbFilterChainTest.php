@@ -55,7 +55,7 @@ class OutputFilter3
   }
 }
 
-class lmbFilterChainTest extends UnitTestCase
+class lmbFilterChainTest extends TestCase
 {
   var $fc;
   function setUp()

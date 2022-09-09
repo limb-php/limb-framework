@@ -10,7 +10,7 @@ lmb_require('limb/net/src/lmbUri.class.php');
 lmb_require('limb/web_spider/src/lmbUriNormalizer.class.php');
 
 
-class lmbUriNormalizerTest extends UnitTestCase
+class lmbUriNormalizerTest extends TestCase
 {
   var $normalizer;
 

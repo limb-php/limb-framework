@@ -9,7 +9,7 @@
 lmb_require('limb/web_cache/src/lmbFullPageCacheWriter.class.php');
 lmb_require('limb/fs/src/lmbFs.class.php');
 
-class lmbFullPageCacheWriterTest extends UnitTestCase
+class lmbFullPageCacheWriterTest extends TestCase
 {
   protected $writer;
 

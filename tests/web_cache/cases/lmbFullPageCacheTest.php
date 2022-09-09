@@ -19,7 +19,7 @@ Mock :: generate('lmbFullPageCachePolicy', 'MockFullPageCachePolicy');
 Mock :: generate('lmbFullPageCacheRequest', 'MockFullPageCacheRequest');
 Mock :: generate('lmbFullPageCacheWriter', 'MockFullPageCacheWriter');
 
-class lmbFullPageCacheTest extends UnitTestCase
+class lmbFullPageCacheTest extends TestCase
 {
   protected $cache;
   protected $writer;

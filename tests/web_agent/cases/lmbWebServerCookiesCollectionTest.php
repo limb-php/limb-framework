@@ -13,7 +13,7 @@ lmb_require('limb/web_agent/src/lmbWebServerCookiesCollection.class.php');
  * @package web_agent
  * @version $Id: lmbWebServerCookiesCollectionTest.class.php 43 2007-10-05 15:33:11Z CatMan $
  */
-class lmbWebServerCookiesCollectionTest extends UnitTestCase {
+class lmbWebServerCookiesCollectionTest extends TestCase {
 
   function testAdd()
   {

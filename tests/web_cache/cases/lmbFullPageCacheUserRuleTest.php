@@ -11,7 +11,7 @@ lmb_require('limb/web_cache/src/lmbFullPageCacheUser.class.php');
 lmb_require('limb/web_cache/src/lmbFullPageCacheUserRule.class.php');
 lmb_require('limb/net/src/lmbHttpRequest.class.php');
 
-class lmbFullPageCacheUserRuleTest extends UnitTestCase
+class lmbFullPageCacheUserRuleTest extends TestCase
 {
   function testMatch()
   {

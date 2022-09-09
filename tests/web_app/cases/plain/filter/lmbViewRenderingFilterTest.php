@@ -15,7 +15,7 @@ Mock :: generate('lmbHttpResponse', 'MockHttpResponse');
 Mock :: generate('lmbFilterChain', 'MockFilterChain');
 Mock :: generate('lmbView', 'MockView');
 
-class lmbViewRenderingFilterTest extends UnitTestCase
+class lmbViewRenderingFilterTest extends TestCase
 {
   var $toolkit;
 

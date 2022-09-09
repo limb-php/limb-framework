@@ -9,7 +9,7 @@
 
 lmb_require('limb/dbal/src/lmbSimpleDb.class.php');
 
-class lmbWebAppTestCase extends UnitTestCase
+class lmbWebAppTestCase extends TestCase
 {
   protected $toolkit;
   protected $request;

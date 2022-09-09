@@ -17,7 +17,7 @@ lmb_require('limb/web_cache/src/lmbFullPageCacheRequest.class.php');
 lmb_require('limb/net/src/lmbHttpRequest.class.php');
 lmb_require('limb/config/src/lmbFakeIni.class.php');
 
-class lmbFullPageCacheAcceptanceTest extends UnitTestCase
+class lmbFullPageCacheAcceptanceTest extends TestCase
 {
   protected $toolkit;
   protected $ruleset;

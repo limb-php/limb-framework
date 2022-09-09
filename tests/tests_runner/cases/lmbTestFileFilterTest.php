@@ -8,7 +8,7 @@
  */
 require_once(dirname(__FILE__) . '/../../src/lmbTestFileFilter.class.php');
 
-class lmbTestFileFilterTest extends UnitTestCase
+class lmbTestFileFilterTest extends TestCase
 {
   function testOneFilterMatch()
   {

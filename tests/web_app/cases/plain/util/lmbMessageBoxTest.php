@@ -9,7 +9,7 @@
  
 lmb_require('limb/web_app/src/util/lmbMessageBox.class.php');
 
-class lmbMessageBoxTest extends UnitTestCase
+class lmbMessageBoxTest extends TestCase
 {
   function testGetUnitifiedList()
   {

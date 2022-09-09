@@ -54,7 +54,7 @@ class GeneratedTestClass
   function generateClass()
   {
     $parts = array();
-    $parts['%class_header%'] = "\nclass {$this->class_name} extends UnitTestCase {\n";
+    $parts['%class_header%'] = "\nclass {$this->class_name} extends TestCase {\n";
     $parts['%class_footer%'] = "\n}\n";
     $parts['%class%'] = $parts['%class_header%'] .
                         "function testMe() {echo \"" . $this->getOutput() . "\";}" .
@@ -66,7 +66,7 @@ class GeneratedTestClass
   function generateClassFailing()
   {
     $parts = array();
-    $parts['%class_header%'] = "\nclass {$this->class_name} extends UnitTestCase {\n";
+    $parts['%class_header%'] = "\nclass {$this->class_name} extends TestCase {\n";
     $parts['%class_footer%'] = "\n}\n";
     $parts['%class%'] = $parts['%class_header%'] .
                         "function testMe() {\$this->assertTrue(false);echo \"" . $this->getOutput() . "\";}" .
@@ -78,7 +78,7 @@ class GeneratedTestClass
   function generateClassThrowingException()
   {
     $parts = array();
-    $parts['%class_header%'] = "\nclass {$this->class_name} extends UnitTestCase {\n";
+    $parts['%class_header%'] = "\nclass {$this->class_name} extends TestCase {\n";
     $parts['%class_footer%'] = "\n}\n";
     $parts['%class%'] = $parts['%class_header%'] .
                         "function testMe() {throw new Exception('thrown from {$this->getOutput()}');}" .
@@ -88,7 +88,7 @@ class GeneratedTestClass
   }
 }
 
-abstract class lmbTestRunnerBase extends UnitTestCase
+abstract class lmbTestRunnerBase extends TestCase
 {
   function _rmdir($path)
   {

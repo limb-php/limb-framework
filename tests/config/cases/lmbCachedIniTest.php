@@ -6,19 +6,19 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/config/src/lmbCachedIni.class.php');
-lmb_require(dirname(__FILE__) . '/lmbIniTest.class.php');
+
+use limb\config\src\lmbCachedIni;
 
 class lmbCachedIniTest extends lmbIniTest
 {
   var $cache_dir;
 
-  function setUp()
+  function setUp(): void
   {
     parent :: setUp();
 
     $this->cache_dir = lmb_var_dir() . '/ini/';
-    lmbFs :: rm($this->cache_dir);
+    lmbFs::rm($this->cache_dir);
   }
 
   function _createIni($contents)

@@ -84,7 +84,7 @@ class TestOneTableObjectWithRelationsByMethods extends lmbActiveRecord
   }
 }
 
-class lmbARRelationsDefinitionMethodsTest extends UnitTestCase
+class lmbARRelationsDefinitionMethodsTest extends TestCase
 {
   protected $object;
 

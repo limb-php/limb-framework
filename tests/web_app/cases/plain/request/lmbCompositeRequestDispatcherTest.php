@@ -12,7 +12,7 @@ lmb_require('limb/net/src/lmbHttpRequest.class.php');
 
 Mock :: generate('lmbRequestDispatcher', 'MockRequestDispatcher');
 
-class lmbCompositeRequestDispatcherTest extends UnitTestCase
+class lmbCompositeRequestDispatcherTest extends TestCase
 {
   protected $request;
 

@@ -13,9 +13,9 @@ class CronJobLoggerTest extends CronModuleTestCase
     $rs = $this->db_table->select()->getArray();
     $rs = $rs[0];
 
-    $this->assertEqual($rs['name'], 'TestCron');
-    $this->assertEqual($rs['status'], CronJobLogger :: STATUS_START);
-    $this->assertEqual($rs['info'], '');
+    $this->assertEquals($rs['name'], 'TestCron');
+    $this->assertEquals($rs['status'], CronJobLogger :: STATUS_START);
+    $this->assertEquals($rs['info'], '');
   }
 
   function testMakeStartRecord_WithOutput()
@@ -26,9 +26,9 @@ class CronJobLoggerTest extends CronModuleTestCase
     $rs = $this->db_table->select()->getArray();
     $rs = $rs[0];
 
-    $this->assertEqual($rs['name'], 'TestCron');
-    $this->assertEqual($rs['status'], CronJobLogger :: STATUS_START);
-    $this->assertEqual($rs['info'], $output_message);
+    $this->assertEquals($rs['name'], 'TestCron');
+    $this->assertEquals($rs['status'], CronJobLogger :: STATUS_START);
+    $this->assertEquals($rs['info'], $output_message);
   }
 
   function testMakeConflictRecord_WithoutOutput()
@@ -38,9 +38,9 @@ class CronJobLoggerTest extends CronModuleTestCase
     $rs = $this->db_table->select()->getArray();
     $rs = $rs[0];
 
-    $this->assertEqual($rs['name'], 'TestCron');
-    $this->assertEqual($rs['status'], CronJobLogger :: STATUS_CONFLICT);
-    $this->assertEqual($rs['info'], '');
+    $this->assertEquals($rs['name'], 'TestCron');
+    $this->assertEquals($rs['status'], CronJobLogger :: STATUS_CONFLICT);
+    $this->assertEquals($rs['info'], '');
   }
 
   function testMakeConflictRecord_WithOutput()
@@ -52,7 +52,7 @@ class CronJobLoggerTest extends CronModuleTestCase
     $rs = $this->db_table->select()->getArray();
     $rs = $rs[0];
 
-    $this->assertEqual($rs['name'], 'TestCron');
+    $this->assertEquals($rs['name'], 'TestCron');
     $this->assertEqual($rs['status'], CronJobLogger :: STATUS_CONFLICT);
     $this->assertEqual($rs['info'], $output_message);
   }

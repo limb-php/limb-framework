@@ -12,7 +12,7 @@ lmb_require('limb/core/src/lmbObject.class.php');
 
 Mock :: generate('lmbFullPageCacheRule', 'MockFullPageCacheRule');
 
-class lmbFullPageCacheRulesetTest extends UnitTestCase
+class lmbFullPageCacheRulesetTest extends TestCase
 {
   function testSetType()
   {

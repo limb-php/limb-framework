@@ -40,7 +40,7 @@ class lmbTestTreeFileNodeTest extends lmbTestRunnerBase
     $bar = new GeneratedTestClass();
     file_put_contents(LIMB_VAR_DIR . '/module2.php',
     "<?php\n" .
-    "//class Foo extends UnitTestCase\n" .
+    "//class Foo extends TestCase\n" .
     "\$a = 'class Junky';\n" .
     $foo->generateClass() . "\n" .
     $bar->generateClass() . "\n?>");

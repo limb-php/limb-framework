@@ -15,7 +15,7 @@ lmb_require('limb/config/src/lmbFakeIni.class.php');
 
 Mock :: generate('lmbInterceptingFilter', 'MockInterceptingFilter');
 
-class lmbFullPageCacheFilterTest extends UnitTestCase
+class lmbFullPageCacheFilterTest extends TestCase
 {
   protected $fc;
   protected $filter2;

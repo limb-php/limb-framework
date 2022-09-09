@@ -35,7 +35,7 @@ abstract class DriverUpdateTestBase extends DriverManipTestBase
     $stmt->setInteger('id', 3);
 
     $stmt->execute();
-    $this->assertEqual($stmt->getAffectedRowCount(), 1);
+    $this->assertEquals($stmt->getAffectedRowCount(), 1);
 
     $this->checkRecord(3);
   }
@@ -53,7 +53,7 @@ abstract class DriverUpdateTestBase extends DriverManipTestBase
     $stmt->setVarChar('last', 'Nixon');
 
     $stmt->execute();
-    $this->assertEqual($stmt->getAffectedRowCount(), 3);
+    $this->assertEquals($stmt->getAffectedRowCount(), 3);
   }
 }
 

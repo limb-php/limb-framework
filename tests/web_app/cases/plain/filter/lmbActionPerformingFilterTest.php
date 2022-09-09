@@ -13,7 +13,7 @@ lmb_require('limb/web_app/src/controller/lmbController.class.php');
 Mock :: generate('lmbFilterChain', 'MockFilterChain');
 Mock :: generate('lmbController', 'MockController');
 
-class lmbActionPerformingFilterTest extends UnitTestCase
+class lmbActionPerformingFilterTest extends TestCase
 {
   var $toolkit;
 

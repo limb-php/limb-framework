@@ -14,7 +14,7 @@
 lmb_require('limb/toolkit/src/lmbMockToolsWrapper.class.php');
 lmb_require('limb/web_app/src/toolkit/lmbProfileTools.class.php');
 
-class lmbProfileToolsTest extends UnitTestCase
+class lmbProfileToolsTest extends TestCase
 {
 
   function setUp()

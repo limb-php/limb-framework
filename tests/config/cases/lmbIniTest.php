@@ -13,7 +13,7 @@ use limb\fs\src\lmbFs;
 
 lmbEnv::setor('INI_TEST_UNIQUE_CONSTANT', '*constant*');
 
-class lmbIniTest extends UnitTestCase
+class lmbIniTest extends TestCase
 {
   function setUp()
   {

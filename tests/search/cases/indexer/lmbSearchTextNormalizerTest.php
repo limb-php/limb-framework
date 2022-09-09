@@ -8,7 +8,7 @@
  */
 lmb_require('limb/search/src/indexer/lmbSearchTextNormalizer.class.php');
 
-class lmbSearchTextNormalizerTest extends UnitTestCase
+class lmbSearchTextNormalizerTest extends TestCase
 {
   function testProcess()
   {

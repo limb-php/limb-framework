@@ -8,7 +8,7 @@
  */
 require_once(dirname(__FILE__) . '/../../src/lmbTestTreePath.class.php');
 
-class lmbTestTreePathTest extends UnitTestCase
+class lmbTestTreePathTest extends TestCase
 {
   function testToArray()
   {

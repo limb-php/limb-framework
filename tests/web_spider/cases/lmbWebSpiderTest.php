@@ -26,7 +26,7 @@ Mock :: generate('lmbUriFilter', 'MockUriFilter');
 Mock :: generate('lmbContentTypeFilter', 'MockContentTypeFilter');
 Mock :: generate('lmbUriContentReader', 'MockUriContentReader');
 
-class lmbWebSpiderTest extends UnitTestCase
+class lmbWebSpiderTest extends TestCase
 {
   var $spider;
   var $observer;

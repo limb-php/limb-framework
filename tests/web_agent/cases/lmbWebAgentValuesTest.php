@@ -13,7 +13,7 @@ lmb_require('limb/web_agent/src/lmbWebAgentValues.class.php');
  * @package web_agent
  * @version $Id: lmbWebAgentValuesTest.class.php 40 2007-10-04 15:52:39Z CatMan $
  */
-class lmbWebAgentValuesTest extends UnitTestCase {
+class lmbWebAgentValuesTest extends TestCase {
 
   function testBuildQuery()
   {

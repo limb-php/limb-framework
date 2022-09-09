@@ -8,7 +8,7 @@
  */
 lmb_require('limb/datetime/src/lmbDateTimePeriod.class.php');
 
-class lmbDateTimePeriodTest extends UnitTestCase
+class lmbDateTimePeriodTest extends TestCase
 {
   function testInvalidPeriod()
   {

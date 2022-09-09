@@ -97,7 +97,7 @@ class lmbCliOptionTest extends TestCase
     $this->assertNull($opt->getValue());
 
     $opt->setValue('wow');
-    $this->assertEqual($opt->getValue(), 'wow');
+    $this->assertEquals($opt->getValue(), 'wow');
   }
 
   function testIsPresent()

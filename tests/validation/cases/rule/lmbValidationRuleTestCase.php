@@ -11,7 +11,7 @@ lmb_require('limb/core/src/lmbSet.class.php');
 
 Mock::generate('lmbErrorList', 'MockErrorList');
 
-abstract class lmbValidationRuleTestCase extends UnitTestCase
+abstract class lmbValidationRuleTestCase extends TestCase
 {
   protected $error_list;
 

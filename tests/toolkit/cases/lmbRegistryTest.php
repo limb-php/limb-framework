@@ -8,7 +8,7 @@
  */
 lmb_require('limb/toolkit/src/lmbRegistry.class.php');
 
-class lmbRegistryTest extends UnitTestCase
+class lmbRegistryTest extends TestCase
 {
   function testGetNull()
   {

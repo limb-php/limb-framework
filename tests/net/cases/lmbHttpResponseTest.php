@@ -114,7 +114,7 @@ class lmbHttpResponseTest extends TestCase
     $this->response->redirect('some other path');
 
     $this->assertTrue($this->response->isRedirected());
-    $this->assertEqual($this->response->getRedirectedPath(), $path);
+    $this->assertEquals($this->response->getRedirectedPath(), $path);
   }
 
   function testSendHeadersOnCommit()
@@ -168,16 +168,16 @@ class lmbHttpResponseTest extends TestCase
 
   function testGetResponseDefaultStatus()
   {
-    $this->assertEqual($this->response->getStatus(), 200);
+    $this->assertEquals($this->response->getStatus(), 200);
   }
 
   function testGetResponseStatusHttp()
   {
     $this->response->addHeader('HTTP/1.0  304 ');
-    $this->assertEqual($this->response->getStatus(), 304);
+    $this->assertEquals($this->response->getStatus(), 304);
 
     $this->response->addHeader('HTTP/1.1  412');
-    $this->assertEqual($this->response->getStatus(), 412);
+    $this->assertEquals($this->response->getStatus(), 412);
   }
 
   function testGetUnknownDirective()
@@ -188,24 +188,24 @@ class lmbHttpResponseTest extends TestCase
   function testGetDirective()
   {
     $this->response->addHeader('Cache-Control: protected, max-age=0, must-revalidate');
-    $this->assertEqual($this->response->getDirective('cache-control'), 'protected, max-age=0, must-revalidate');
+    $this->assertEquals($this->response->getDirective('cache-control'), 'protected, max-age=0, must-revalidate');
 
     $this->response->addHeader('Cache-Control :    protected, max-age=10  ');
-    $this->assertEqual($this->response->getDirective('cache-control'), 'protected, max-age=10');
+    $this->assertEquals($this->response->getDirective('cache-control'), 'protected, max-age=10');
   }
 
   function testGetContentDefaultType()
   {
-    $this->assertEqual($this->response->getContentType(), 'text/html');
+    $this->assertEquals($this->response->getContentType(), 'text/html');
   }
 
   function testGetContentType()
   {
     $this->response->addHeader('Content-Type: image/png');
-    $this->assertEqual($this->response->getContentType(), 'image/png');
+    $this->assertEquals($this->response->getContentType(), 'image/png');
 
     $this->response->addHeader('Content-Type: application/rss+xml');
-    $this->assertEqual($this->response->getContentType(), 'application/rss+xml');
+    $this->assertEquals($this->response->getContentType(), 'application/rss+xml');
   }
 
   function testGetContentTypeWithDelimiter()

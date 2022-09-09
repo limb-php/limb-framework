@@ -7,8 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+require ('.setup.php');
+
+use PHPUnit\Framework\TestCase;
 use limb\fs\src\toolkit\lmbFsTools;
 use limb\core\src\lmbEnv;
+use limb\fs\src\lmbFileLocator;
+use limb\fs\src\lmbCachingFileLocator;
 
 class lmbFsToolsTest extends TestCase
 {
@@ -17,7 +22,7 @@ class lmbFsToolsTest extends TestCase
    */
   protected $tools;
 
-  function setUp()
+  function setUp(): void
   {
     $this->tools = new lmbFsTools();
   }
@@ -29,13 +34,13 @@ class lmbFsToolsTest extends TestCase
      lmbEnv::set('LIMB_APP_MODE', 'devel');
      lmbEnv::remove('LIMB_VAR_DIR');
 
-     $this->assertIsA($this->tools->getFileLocator('foo','locator1'), 'lmbFileLocator');
+     $this->assertInstanceOf(lmbFileLocator::class, $this->tools->getFileLocator('foo','locator1'));
 
      lmbEnv::set('LIMB_VAR_DIR', $old_var_dir);
-     $this->assertIsA($this->tools->getFileLocator('foo','locator2'), 'lmbFileLocator');
+     $this->assertInstanceOf(lmbFileLocator::class, $this->tools->getFileLocator('foo','locator2'));
 
      lmbEnv::set('LIMB_APP_MODE', 'production');
-     $this->assertIsA($this->tools->getFileLocator('foo','locator3'), 'lmbCachingFileLocator');
+     $this->assertInstanceOf(lmbCachingFileLocator::class, $this->tools->getFileLocator('foo','locator3'));
 
      lmbEnv::set('LIMB_APP_MODE', $old_mode);
   }

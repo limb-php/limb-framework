@@ -8,7 +8,7 @@
  */
 lmb_require('limb/web_spider/src/lmbContentTypeFilter.class.php');
 
-class lmbContentTypeFilterTest extends UnitTestCase
+class lmbContentTypeFilterTest extends TestCase
 {
   var $filter;
 

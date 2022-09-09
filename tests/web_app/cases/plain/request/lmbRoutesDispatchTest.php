@@ -9,7 +9,7 @@
 lmb_require('limb/web_app/src/request/lmbRoutes.class.php');
 lmb_require('limb/net/src/lmbUri.class.php');
 
-class lmbRoutesDispatchTest extends UnitTestCase
+class lmbRoutesDispatchTest extends TestCase
 {
   function setUp()
   {

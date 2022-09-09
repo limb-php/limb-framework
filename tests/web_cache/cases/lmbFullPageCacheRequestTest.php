@@ -10,7 +10,7 @@ lmb_require('limb/web_cache/src/lmbFullPageCacheUser.class.php');
 lmb_require('limb/web_cache/src/lmbFullPageCacheRequest.class.php');
 lmb_require('limb/net/src/lmbHttpRequest.class.php');
 
-class lmbFullPageCacheRequestTest extends UnitTestCase
+class lmbFullPageCacheRequestTest extends TestCase
 {
   function testGetHash()
   {

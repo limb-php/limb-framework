@@ -9,7 +9,7 @@
 
 lmb_require(dirname(__FILE__).'/../../src/lmbImageKit.class.php');
 
-class lmbImageKitTest extends UnitTestCase
+class lmbImageKitTest extends TestCase
 {
   function skip()
   {

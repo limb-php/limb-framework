@@ -34,15 +34,15 @@ abstract class DriverRecordSetTestBase extends TestCase
     $this->assertTrue($this->cursor->valid());
     $record = $this->cursor->current();
     $this->assertIsA($record, $this->record_class);
-    $this->assertEqual($record->get('id'), 1);
-    $this->assertEqual($record->get('first'), 'George');
+    $this->assertEquals($record->get('id'), 1);
+    $this->assertEquals($record->get('first'), 'George');
     $this->cursor->next();
     $this->cursor->next();
     $this->cursor->rewind();
     $record = $this->cursor->current();
     $this->assertIsA($record, $this->record_class);
-    $this->assertEqual($record->get('id'), 1);
-    $this->assertEqual($record->get('first'), 'George');
+    $this->assertEquals($record->get('id'), 1);
+    $this->assertEquals($record->get('first'), 'George');
   }
 
   function testIteration()

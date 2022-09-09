@@ -13,7 +13,7 @@ lmb_require('limb/search/src/indexer/lmbSearchTextNormalizer.class.php');
 
 Mock :: generate('lmbSearchTextNormalizer', 'MockSearchTextNormalizer');
 
-class lmbFullTextSearchIndexerTest extends UnitTestCase
+class lmbFullTextSearchIndexerTest extends TestCase
 {
   protected $db;
 

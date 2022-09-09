@@ -31,22 +31,22 @@ abstract class DriverIndexInfoTestBase extends DriverMetaTestBase
   {
     $indexes = $this->table->getIndexList();
 
-    $this->assertEqual(3, count($indexes));
+    $this->assertEquals(3, count($indexes));
 
     $this->assertTrue($this->table->hasIndex($this->_index_names['primary']));
     $primary_index = $this->table->getIndex($this->_index_names['primary']);
     $this->assertTrue($primary_index->isPrimary());
-    $this->assertEqual('primary_column', $primary_index->column_name);
+    $this->assertEquals('primary_column', $primary_index->column_name);
 
     $this->assertTrue($this->table->hasIndex($this->_index_names['unique']));
     $unique_index = $this->table->getIndex($this->_index_names['unique']);
     $this->assertTrue($unique_index->isUnique());
-    $this->assertEqual('unique_column', $unique_index->column_name);
+    $this->assertEquals('unique_column', $unique_index->column_name);
 
     $this->assertTrue($this->table->hasIndex($this->_index_names['common']));
     $common_index = $this->table->getIndex($this->_index_names['common']);
     $this->assertTrue($common_index->isCommon());
-    $this->assertEqual('common_column', $common_index->column_name);
+    $this->assertEquals('common_column', $common_index->column_name);
   }
 
   function tearDown()

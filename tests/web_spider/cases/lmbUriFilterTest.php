@@ -8,7 +8,7 @@
  */
 lmb_require('limb/web_spider/src/lmbUriFilter.class.php');
 
-class lmbUriFilterTest extends UnitTestCase
+class lmbUriFilterTest extends TestCase
 {
   var $filter;
 

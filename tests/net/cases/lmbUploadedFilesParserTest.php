@@ -20,7 +20,7 @@ class lmbUploadedFilesParserTest extends TestCase
   function testEmpty()
   {
      $result = $this->parser->parse(array());
-     $this->assertEqual($result, array());
+     $this->assertEquals($result, array());
   }
 
   function testSimple()
@@ -43,7 +43,7 @@ class lmbUploadedFilesParserTest extends TestCase
      );
 
      $result = $this->parser->parse($files);
-     $this->assertEqual($result, $files);
+     $this->assertEquals($result, $files);
   }
 
   function testObjectifySimple()
@@ -69,7 +69,7 @@ class lmbUploadedFilesParserTest extends TestCase
                        'file2' => new lmbUploadedFile($files['file2']));
 
      $result = $this->parser->objectify($files);
-     $this->assertEqual($result, $expected);
+     $this->assertEquals($result, $expected);
   }
 
   function testComplex()
@@ -119,7 +119,7 @@ class lmbUploadedFilesParserTest extends TestCase
      );
 
      $result = $this->parser->parse($files);
-     $this->assertEqual($result, $expected);
+     $this->assertEquals($result, $expected);
   }
 
   function testObjectifyComplex()
@@ -169,7 +169,7 @@ class lmbUploadedFilesParserTest extends TestCase
      );
 
      $result = $this->parser->objectify($files);
-     $this->assertEqual($result, $expected);
+     $this->assertEquals($result, $expected);
   }
 
   function testMegaComplex()
@@ -243,7 +243,7 @@ class lmbUploadedFilesParserTest extends TestCase
      );
 
      $result = $this->parser->parse($files);
-     $this->assertEqual($result, $expected);
+     $this->assertEquals($result, $expected);
   }
 
   function testObjectifyMegaComplex()

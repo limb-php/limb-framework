@@ -9,7 +9,7 @@
 lmb_require('limb/validation/src/lmbErrorList.class.php');
 lmb_require('limb/validation/src/exception/lmbValidationException.class.php');
 
-class lmbValidationExceptionTest extends UnitTestCase
+class lmbValidationExceptionTest extends TestCase
 {
   function testErrorListAttachedToErrorMessage()
   {

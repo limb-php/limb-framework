@@ -32,17 +32,17 @@ class lmbHttpCacheTest extends TestCase
   function testSetCacheSettings()
   {
     $this->cache->setLastModifiedTime($time = time());
-    $this->assertEqual($this->cache->getLastModifiedTime(), $time);
-    $this->assertEqual($this->cache->formatLastModifiedTime(), gmdate('D, d M Y H:i:s \G\M\T', $time));
+    $this->assertEquals($this->cache->getLastModifiedTime(), $time);
+    $this->assertEquals($this->cache->formatLastModifiedTime(), gmdate('D, d M Y H:i:s \G\M\T', $time));
 
     $this->cache->setEtag($etag = md5(time()));
-    $this->assertEqual($this->cache->getEtag(), $etag);
+    $this->assertEquals($this->cache->getEtag(), $etag);
 
     $this->cache->setCacheTime(10);
-    $this->assertEqual($this->cache->getCacheTime(), 10);
+    $this->assertEquals($this->cache->getCacheTime(), 10);
 
     $this->cache->setCacheType('public');
-    $this->assertEqual($this->cache->getCacheType(), 'public');
+    $this->assertEquals($this->cache->getCacheType(), 'public');
   }
 
   function testGetDefaultEtag1()
@@ -56,7 +56,7 @@ class lmbHttpCacheTest extends TestCase
     $this->cache->setLastModifiedTime($time = time());
     $etag = $this->cache->getEtag();
 
-    $this->assertEqual($etag, '"' . md5($script . '?' . $query . '#' . $time ) . '"');
+    $this->assertEquals($etag, '"' . md5($script . '?' . $query . '#' . $time ) . '"');
   }
 
   function testGetDefaultEtag2()
@@ -71,7 +71,7 @@ class lmbHttpCacheTest extends TestCase
     $this->cache->setLastModifiedTime($time = time());
     $etag = $this->cache->getEtag();
 
-    $this->assertEqual($etag, '"' . md5($script . '?' . $query . '#' . $time ) . '"');
+    $this->assertEquals($etag, '"' . md5($script . '?' . $query . '#' . $time ) . '"');
   }
 
   function testGetDefaultEtag3()

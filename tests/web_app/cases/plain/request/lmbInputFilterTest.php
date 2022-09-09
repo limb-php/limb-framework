@@ -15,7 +15,7 @@ class lmbTestInputFilterStabRule
 
 Mock :: generate('lmbTestInputFilterStabRule', 'MockInputFilterRule');
 
-class lmbInputFilterTest extends UnitTestCase
+class lmbInputFilterTest extends TestCase
 {
   function testAddFilter()
   {

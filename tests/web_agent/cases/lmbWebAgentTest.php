@@ -16,7 +16,7 @@ lmb_require('limb/web_agent/src/lmbWebAgent.class.php');
  * @package web_agent
  * @version $Id: lmbWebAgentTest.class.php 43 2007-10-05 15:33:11Z CatMan $
  */
-class lmbWebAgentTest extends UnitTestCase {
+class lmbWebAgentTest extends TestCase {
 
   function testSavePageCookie()
   {

@@ -96,7 +96,7 @@ class lmbIpTest extends TestCase
   {
     $ip_list = lmbIp::encodeIpRange('192.168.0.1', '192.168.10.10', lmbIp::SIGNED);
 
-    $this->assertEqual((pow(256, 1)*10 + pow(256, 0)*10) - (pow(256, 1) * 0 + pow(256, 0) * 1)+1, sizeof($ip_list));
+    $this->assertEquals((pow(256, 1)*10 + pow(256, 0)*10) - (pow(256, 1) * 0 + pow(256, 0) * 1)+1, sizeof($ip_list));
     $this->assertIdentical(false, array_search(lmbIp::encode('192.168.0.0', lmbIp::SIGNED), $ip_list));
     $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.0.1', lmbIp::SIGNED), $ip_list));
     $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.0.255', lmbIp::SIGNED), $ip_list));
@@ -108,7 +108,7 @@ class lmbIpTest extends TestCase
   {
     $ip_list = lmbIp::encodeIpRange('192.168.0.1', '192.168.10.10', lmbIp::UNSIGNED);
 
-    $this->assertEqual((pow(256, 1)*10 + pow(256, 0)*10) - (pow(256, 1) * 0 + pow(256, 0) * 1)+1, sizeof($ip_list));
+    $this->assertEquals((pow(256, 1)*10 + pow(256, 0)*10) - (pow(256, 1) * 0 + pow(256, 0) * 1)+1, sizeof($ip_list));
     $this->assertIdentical(false, array_search(lmbIp::encode('192.168.0.0', lmbIp::UNSIGNED), $ip_list));
     $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.0.1', lmbIp::UNSIGNED), $ip_list));
     $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.0.255', lmbIp::UNSIGNED), $ip_list));
@@ -120,7 +120,7 @@ class lmbIpTest extends TestCase
   {
     $ip_list = lmbIp::encodeIpRange('192.168.0.1', '192.168.10.10', lmbIp::USTRING);
 
-    $this->assertEqual((pow(256, 1)*10 + pow(256, 0)*10) - (pow(256, 1) * 0 + pow(256, 0) * 1)+1, sizeof($ip_list));
+    $this->assertEquals((pow(256, 1)*10 + pow(256, 0)*10) - (pow(256, 1) * 0 + pow(256, 0) * 1)+1, sizeof($ip_list));
     $this->assertIdentical(false, array_search(lmbIp::encode('192.168.0.0', lmbIp::USTRING), $ip_list));
     $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.0.1', lmbIp::USTRING), $ip_list));
     $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.0.255', lmbIp::USTRING), $ip_list));

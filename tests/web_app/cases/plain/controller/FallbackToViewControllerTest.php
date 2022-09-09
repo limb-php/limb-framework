@@ -9,7 +9,7 @@
 lmb_require('limb/web_app/src/controller/FallbackToViewController.class.php');
 lmb_require('limb/net/src/lmbHttpRequest.class.php');
 
-class FallbackToViewControllerTest extends UnitTestCase
+class FallbackToViewControllerTest extends TestCase
 {
   protected $toolkit;
 

@@ -3,7 +3,7 @@
 lmb_require('limb/core/src/lmbSet.class.php');
 lmb_require('limb/wysiwyg/src/lmbWysiwygConfigurationHelper.class.php');
 
-class lmbWysiwygConfigurationHelperTest extends UnitTestCase 
+class lmbWysiwygConfigurationHelperTest extends TestCase
 {
   /**
    * @var lmbWysiwygConfigurationHelper

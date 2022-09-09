@@ -18,7 +18,7 @@ class TestingSpiderIndexer
 Mock :: generate('lmbUriContentReader', 'MockUriContentReader');
 Mock :: generate('TestingSpiderIndexer', 'MockSearchIndexer');
 
-class lmbSearchIndexingObserverTest extends UnitTestCase
+class lmbSearchIndexingObserverTest extends TestCase
 {
   var $observer;
   var $indexer;

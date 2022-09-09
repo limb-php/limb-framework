@@ -11,7 +11,7 @@ lmb_require('limb/web_spider/src/lmbUriContentReader.class.php');
 
 Mock :: generate('lmbUri', 'MockUri');
 
-class lmbUriContentReaderTest extends UnitTestCase
+class lmbUriContentReaderTest extends TestCase
 {
   function testOpen()
   {

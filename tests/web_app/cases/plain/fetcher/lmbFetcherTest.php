@@ -55,7 +55,7 @@ class TestingFetcher extends lmbFetcher
   }
 }
 
-class lmbFetcherTest extends UnitTestCase
+class lmbFetcherTest extends TestCase
 {
   function testFetchCreateDatasetUsesScalarValue()
   {

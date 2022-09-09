@@ -34,7 +34,7 @@ abstract class DriverDatabaseInfoTestBase extends DriverMetaTestBase
     $tables = $this->dbinfo->getTables();
     if($this->assertTrue(isset($tables['founding_fathers'])))
       if($this->assertIsA($tables['founding_fathers'], 'lmbDbTableInfo'))
-        $this->assertEqual($tables['founding_fathers']->getName(), 'founding_fathers');    
+        $this->assertEquals($tables['founding_fathers']->getName(), 'founding_fathers');
   }
 }
 

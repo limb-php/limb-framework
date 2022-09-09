@@ -16,7 +16,7 @@ use limb\fs\src\lmbFs;
 use limb\core\src\lmbObject;
 use limb\core\src\exception\lmbException;
 
-class lmbWebAppToolsTest extends UnitTestCase
+class lmbWebAppToolsTest extends TestCase
 {
   function setUp()
   {
