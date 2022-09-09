@@ -520,7 +520,7 @@ class lmbFs
   static function findRecursive($path, $types = 'dfl', $include_regex = '', $exclude_regex = '', $add_path = true, $include_hidden = false)
   {
     return self::walkDir($path,
-                        array('lmbFs', '_doFindRecursive'),
+                        array(lmbFs::class, '_doFindRecursive'),
                         array('types' => $types,
                              'include_regex' => $include_regex,
                              'exclude_regex' => $exclude_regex,
