@@ -73,8 +73,7 @@ class lmbFs
     if($tmp = getenv('TMP') || $tmp = getenv('TEMP') || $tmp = getenv('TMPDIR'))
       return $tmp;
 
-    //gracefull falback?
-    return '/tmp';
+    return sys_get_temp_dir();
   }
 
   static function generateTmpFile($prefix = 'p')
@@ -483,7 +482,7 @@ class lmbFs
 
     $separator = self::separator();
 
-    if($handle = @opendir($dir))
+    if($handle = opendir($dir))
     {
       while(($element = readdir($handle)) !== false)
       {
