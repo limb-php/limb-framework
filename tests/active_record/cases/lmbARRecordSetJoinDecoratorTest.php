@@ -34,8 +34,8 @@ class lmbARRecordSetJoinDecoratorTest extends lmbARBaseTestCase
     $db->delete('lecture_for_test');
     $db->delete('course_for_test');
     
-    $this->assertEqual($arr[0]->get('course')->getTitle(), $course->getTitle());
-    $this->assertEqual($arr[1]->get('course')->getTitle(), $course->getTitle());
+    $this->assertEquals($arr[0]->get('course')->getTitle(), $course->getTitle());
+    $this->assertEquals($arr[1]->get('course')->getTitle(), $course->getTitle());
   }
 
   function _createCourseWithTwoLectures()

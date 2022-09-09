@@ -22,7 +22,7 @@ class lmbMacroFilterParserTest extends TestCase
   function testName()
   {
     $filters = $this->parser->parse($expression = 'filter');
-    $this->assertEqual($filters, array(array('name' => 'filter',
+    $this->assertEquals($filters, array(array('name' => 'filter',
                                              'expression' => 'filter',
                                              'params' => array())));
   }
@@ -30,7 +30,7 @@ class lmbMacroFilterParserTest extends TestCase
   function testEmptyName()
   {
     $filters = $this->parser->parse($expression = '');
-    $this->assertEqual($filters, array());
+    $this->assertEquals($filters, array());
   }
 
   function testInvalidName()
@@ -75,7 +75,7 @@ class lmbMacroFilterParserTest extends TestCase
   function testOneParam()
   {
     $filters = $this->parser->parse($expression = 'filter:$arg');
-    $this->assertEqual($filters, array(array('name' => 'filter',
+    $this->assertEquals($filters, array(array('name' => 'filter',
                                              'expression' => 'filter:$arg',
                                              'params' => array('$arg'))));
   }
@@ -83,7 +83,7 @@ class lmbMacroFilterParserTest extends TestCase
   function testTwoParams()
   {
     $filters = $this->parser->parse($expression = 'filter:$arg1,"arg2"');
-    $this->assertEqual($filters, array(array('name' => 'filter',
+    $this->assertEquals($filters, array(array('name' => 'filter',
                                              'expression' => 'filter:$arg1,"arg2"',
                                              'params' => array('$arg1','"arg2"'))));
   }
@@ -91,7 +91,7 @@ class lmbMacroFilterParserTest extends TestCase
   function testSpaceInParams()
   {
     $filters = $this->parser->parse($expression = 'filter:" "');
-    $this->assertEqual($filters, array(array('name' => 'filter',
+    $this->assertEquals($filters, array(array('name' => 'filter',
                                              'expression' => 'filter:" "',
                                              'params' => array('" "'))));
   }
@@ -99,7 +99,7 @@ class lmbMacroFilterParserTest extends TestCase
   function testTwoFiltersNoParams()
   {
     $filters = $this->parser->parse($expression = 'filter1|filter2');
-    $this->assertEqual($filters, array(array('name' => 'filter1',
+    $this->assertEquals($filters, array(array('name' => 'filter1',
                                              'expression' => 'filter1',
                                              'params' => array()),
                                        array('name' => 'filter2',
@@ -110,7 +110,7 @@ class lmbMacroFilterParserTest extends TestCase
   function testTwoFiltersWithParams()
   {
     $filters = $this->parser->parse($expression = 'filter1: $arg1, arg2 |filter2: arg3');
-    $this->assertEqual($filters, array(array('name' => 'filter1',
+    $this->assertEquals($filters, array(array('name' => 'filter1',
                                              'expression' => 'filter1: $arg1, arg2 ',
                                              'params' => array(' $arg1',' arg2 ')),
                                        array('name' => 'filter2',
@@ -121,7 +121,7 @@ class lmbMacroFilterParserTest extends TestCase
   function testTwoFiltersWithSeparatorInParams()
   {
     $filters = $this->parser->parse($expression = 'filter1: "x|y", arg2 |filter2: arg3');
-    $this->assertEqual($filters, array(array('name' => 'filter1',
+    $this->assertEquals($filters, array(array('name' => 'filter1',
                                              'expression' => 'filter1: "x|y", arg2 ',
                                              'params' => array(' "x|y"',' arg2 ')),
                                        array('name' => 'filter2',

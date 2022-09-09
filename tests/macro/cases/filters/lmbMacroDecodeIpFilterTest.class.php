@@ -15,7 +15,7 @@ class lmbMacroDecodeIpFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('encoded_ip', '-1062666387');
     $out = $tpl->render();
-    $this->assertEqual($out, '192.168.255.109');
+    $this->assertEquals($out, '192.168.255.109');
   }
 }
 

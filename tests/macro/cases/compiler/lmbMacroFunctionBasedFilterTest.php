@@ -34,7 +34,7 @@ class lmbMacroFunctionBasedFilterTest extends lmbBaseMacroTest
     $fake_base = new FakeBase();
     $obj = new lmbMacroFunctionBasedFilterTestFunctionFilter($fake_base);
     $obj->setParams(array('"foo"'));
-    $this->assertEqual('lmb_macro_function_based_filter_test_function(42,"foo")', $obj->getValue());
+    $this->assertEquals('lmb_macro_function_based_filter_test_function(42,"foo")', $obj->getValue());
   }
   
   function testCallback()
@@ -42,6 +42,6 @@ class lmbMacroFunctionBasedFilterTest extends lmbBaseMacroTest
     $fake_base = new FakeBase();
     $obj = new lmbMacroFunctionBasedFilterTestCallbackFilter($fake_base);
     $obj->setParams(array('"foo"'));
-    $this->assertEqual('lmbMacroFunctionBasedFilterTestClass::test(42,"foo")', $obj->getValue());
+    $this->assertEquals('lmbMacroFunctionBasedFilterTestClass::test(42,"foo")', $obj->getValue());
   }
 }

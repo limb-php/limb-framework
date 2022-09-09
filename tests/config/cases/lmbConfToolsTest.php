@@ -50,7 +50,7 @@ class lmbConfToolsTest extends TestCase
     $this->toolkit->setConf($conf_name, array($key => $value));
 
     $conf = $this->toolkit->getConf($conf_name);
-    $this->assertEqual($conf[$key], $value);
+    $this->assertEquals($conf[$key], $value);
   }
 
   function testHasConf()
@@ -73,7 +73,7 @@ class lmbConfToolsTest extends TestCase
 
     $this->assertFalse($conf->has('bar'));
     if($this->assertTrue($conf->has('foo')))
-      $this->assertEqual($conf->get('foo'), 42);
+      $this->assertEquals($conf->get('foo'), 42);
   }
 
   function testGetConf_WithoutApplicationConfig()
@@ -84,7 +84,7 @@ class lmbConfToolsTest extends TestCase
     $conf = $this->toolkit->getConf('without_app');
 
     if($this->assertTrue($conf->has('bar')))
-      $this->assertEqual($conf->get('bar'), 101);
+      $this->assertEquals($conf->get('bar'), 101);
   }
 
   function testGetYamlConf_WithoutApplicationConfig()
@@ -96,8 +96,8 @@ class lmbConfToolsTest extends TestCase
     if($this->assertTrue($conf->has('bar')))
     {
       $bar = $conf->get('bar');
-      $this->assertEqual($bar['foo'], 200);
-      $this->assertEqual($bar['test'], 'string with spaces');
+      $this->assertEquals($bar['foo'], 200);
+      $this->assertEquals($bar['test'], 'string with spaces');
     }
   }
 
@@ -115,8 +115,8 @@ class lmbConfToolsTest extends TestCase
     if($this->assertTrue($conf->has('bar')))
     {
       $bar = $conf->get('bar');
-      $this->assertEqual($bar['foo'], 201);
-      $this->assertEqual($bar['test'], 'string_without_spaces');
+      $this->assertEquals($bar['foo'], 201);
+      $this->assertEquals($bar['test'], 'string_without_spaces');
     }
   }
 
@@ -129,9 +129,9 @@ class lmbConfToolsTest extends TestCase
     if($this->assertTrue($conf->has('bar')))
     {
       $bar = $conf->get('bar');
-      $this->assertEqual($bar['foo'], 200);
-      $this->assertEqual($bar['test'], 'string with spaces');
-      $this->assertEqual($bar['nested']['inline']['prop'], 'value');
+      $this->assertEquals($bar['foo'], 200);
+      $this->assertEquals($bar['test'], 'string with spaces');
+      $this->assertEquals($bar['nested']['inline']['prop'], 'value');
     }
   }
   function testGetYamlConf_WithPhpCodeInside()
@@ -149,10 +149,10 @@ YAML;
     if($this->assertTrue($conf->has('test')))
     {
       $test = $conf->get('test');
-      $this->assertEqual(count($test),3);
-      $this->assertEqual($test['bar1'],2);
-      $this->assertEqual($test['bar2'],4);
-      $this->assertEqual($test['bar3'],6);
+      $this->assertEquals(count($test),3);
+      $this->assertEquals($test['bar1'],2);
+      $this->assertEquals($test['bar2'],4);
+      $this->assertEquals($test['bar3'],6);
       $this->assertFalse(isset($test['bar4']));
     }
   }

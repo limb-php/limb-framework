@@ -20,15 +20,15 @@ class lmbMessageBoxTest extends TestCase
     $message_box->addError('Error2');
     
     $list = $message_box->getUnifiedList();
-    $this->assertEqual(sizeof($list), 4);
-    $this->assertEqual($list[0], array('message' => 'Error1', 'is_error' => true, 'is_message' => false));
-    $this->assertEqual($list[1], array('message' => 'Error2', 'is_error' => true, 'is_message' => false));
-    $this->assertEqual($list[2], array('message' => 'Message1', 'is_error' => false, 'is_message' => true));
-    $this->assertEqual($list[3], array('message' => 'Message2', 'is_error' => false, 'is_message' => true));
+    $this->assertEquals(sizeof($list), 4);
+    $this->assertEquals($list[0], array('message' => 'Error1', 'is_error' => true, 'is_message' => false));
+    $this->assertEquals($list[1], array('message' => 'Error2', 'is_error' => true, 'is_message' => false));
+    $this->assertEquals($list[2], array('message' => 'Message1', 'is_error' => false, 'is_message' => true));
+    $this->assertEquals($list[3], array('message' => 'Message2', 'is_error' => false, 'is_message' => true));
 
     // message box is cleaned after  getUnifiedList() is called   
     $list = $message_box->getUnifiedList();
-    $this->assertEqual(sizeof($list), 0);
+    $this->assertEquals(sizeof($list), 0);
   }
 }
 

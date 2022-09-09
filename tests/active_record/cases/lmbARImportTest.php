@@ -32,7 +32,7 @@ class lmbARImportTest extends lmbARBaseTestCase
   {
     $object = new TestOneTableObject();
     $object->import(new lmbSet(array('annotation' => 'Some annotation')));
-    $this->assertEqual($object->getAnnotation(), 'Some annotation');
+    $this->assertEquals($object->getAnnotation(), 'Some annotation');
   }
 
   function testImportNewActiveRecord()
@@ -43,8 +43,8 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $object2 = new TestOneTableObject();
     $object2->import($object1);
-    $this->assertEqual($object2->getId(), $object1->getId());
-    $this->assertEqual($object2->getAnnotation(), $annotation);
+    $this->assertEquals($object2->getId(), $object1->getId());
+    $this->assertEquals($object2->getAnnotation(), $annotation);
     $this->assertTrue($object2->isNew());
     $this->assertTrue($object2->isDirty());
   }
@@ -57,8 +57,8 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $object2 = new TestOneTableObject();
     $object2->import($object1);
-    $this->assertEqual($object2->getId(), $object1->getId());
-    $this->assertEqual($object2->getAnnotation(), $annotation);
+    $this->assertEquals($object2->getId(), $object1->getId());
+    $this->assertEquals($object2->getAnnotation(), $annotation);
     $this->assertFalse($object2->isNew());
     $this->assertTrue($object2->isDirty());
   }
@@ -70,8 +70,8 @@ class lmbARImportTest extends lmbARBaseTestCase
     $object1->save();
 
     $object2 = new TestOneTableObject($object1);
-    $this->assertEqual($object2->getId(), $object1->getId());
-    $this->assertEqual($object2->getAnnotation(), $annotation);
+    $this->assertEquals($object2->getId(), $object1->getId());
+    $this->assertEquals($object2->getAnnotation(), $annotation);
     $this->assertFalse($object2->isNew());
     $this->assertTrue($object2->isDirty());
   }
@@ -89,11 +89,11 @@ class lmbARImportTest extends lmbARBaseTestCase
     $object1->import($object2);
     $this->assertFalse(array_key_exists('annotation', $object1->exportRaw()));
     $this->assertTrue($object1->has('annotation'));
-    $this->assertEqual($object1->getAnnotation(), $annotation);
+    $this->assertEquals($object1->getAnnotation(), $annotation);
     $this->assertTrue(array_key_exists('annotation', $object1->exportRaw()));
     $this->assertFalse(array_key_exists('content', $object1->exportRaw()));
     $this->assertTrue($object1->has('content'));
-    $this->assertEqual($object1->getContent(), $content);
+    $this->assertEquals($object1->getContent(), $content);
     $this->assertTrue(array_key_exists('content', $object1->exportRaw()));
   }
 
@@ -108,9 +108,9 @@ class lmbARImportTest extends lmbARBaseTestCase
                     );
 
     $object->import($source);
-    $this->assertEqual($object->getId(), 1000);
-    $this->assertEqual($object->getAnnotation(), 'Some annotation');
-    $this->assertEqual($object->getContent(), 'Some content');
+    $this->assertEquals($object->getId(), 1000);
+    $this->assertEquals($object->getAnnotation(), 'Some annotation');
+    $this->assertEquals($object->getContent(), 'Some content');
   }
 
   function testImportPreservesIdOfExistingObject()
@@ -126,10 +126,10 @@ class lmbARImportTest extends lmbARBaseTestCase
                     );
 
     $object->import($source);
-    $this->assertEqual($object->getId(), $id);
+    $this->assertEquals($object->getId(), $id);
     $this->assertNotEqual($object->getId(), 1000);// just one extra check
-    $this->assertEqual($object->getAnnotation(), 'Some annotation');
-    $this->assertEqual($object->getContent(), 'Some content');
+    $this->assertEquals($object->getAnnotation(), 'Some annotation');
+    $this->assertEquals($object->getContent(), 'Some content');
   }
 
   function testPassingArrayToConstructorCallsImport()
@@ -140,9 +140,9 @@ class lmbARImportTest extends lmbARBaseTestCase
                     );
 
     $object = new TestOneTableObject($source);
-    $this->assertEqual($object->getId(), 1000);
-    $this->assertEqual($object->getAnnotation(), 'Some annotation');
-    $this->assertEqual($object->getContent(), 'Some content');
+    $this->assertEquals($object->getId(), 1000);
+    $this->assertEquals($object->getAnnotation(), 'Some annotation');
+    $this->assertEquals($object->getContent(), 'Some content');
   }
 
   function testImportWhereOne2ManyCollectionIsArrayOfIds()
@@ -165,10 +165,10 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $course2 = new CourseForTest();
     $course2->import($source);
-    $this->assertEqual($course2->getTitle(), $course->getTitle());
-    $this->assertEqual($course2->getLectures()->count(), 2);
-    $this->assertEqual($course2->getLectures()->at(0)->getTitle(), $l1->getTitle());
-    $this->assertEqual($course2->getLectures()->at(1)->getTitle(), $l2->getTitle());
+    $this->assertEquals($course2->getTitle(), $course->getTitle());
+    $this->assertEquals($course2->getLectures()->count(), 2);
+    $this->assertEquals($course2->getLectures()->at(0)->getTitle(), $l1->getTitle());
+    $this->assertEquals($course2->getLectures()->at(1)->getTitle(), $l2->getTitle());
   }
 
   function testImportWhereOne2ManyCollectionIsMixedArray()
@@ -191,10 +191,10 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $course2 = new CourseForTest();
     $course2->import($source);
-    $this->assertEqual($course2->getTitle(), $course->getTitle());
-    $this->assertEqual($course2->getLectures()->count(), 2);
-    $this->assertEqual($course2->getLectures()->at(0)->getTitle(), $l1->getTitle());
-    $this->assertEqual($course2->getLectures()->at(1)->getTitle(), $l2->getTitle());
+    $this->assertEquals($course2->getTitle(), $course->getTitle());
+    $this->assertEquals($course2->getLectures()->count(), 2);
+    $this->assertEquals($course2->getLectures()->at(0)->getTitle(), $l1->getTitle());
+    $this->assertEquals($course2->getLectures()->at(1)->getTitle(), $l2->getTitle());
   }
 
   function testImportResetsExistingOne2ManyCollection()
@@ -218,9 +218,9 @@ class lmbARImportTest extends lmbARBaseTestCase
     $course2 = new CourseForTest($course->getId());
 
     $course2->import($source);
-    $this->assertEqual($course2->getTitle(), $course->getTitle());
-    $this->assertEqual($course2->getLectures()->count(), 1);
-    $this->assertEqual($course2->getLectures()->at(0)->getTitle(), $l2->getTitle());
+    $this->assertEquals($course2->getTitle(), $course->getTitle());
+    $this->assertEquals($course2->getLectures()->count(), 1);
+    $this->assertEquals($course2->getLectures()->at(0)->getTitle(), $l2->getTitle());
   }
 
   function testImportResetsExistingMany2ManyCollection()
@@ -243,9 +243,9 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $group2 = new GroupForTest($group->getId());
     $group2->import($source);
-    $this->assertEqual($group2->getTitle(), $group->getTitle());
-    $this->assertEqual($group2->getUsers()->count(), 1);
-    $this->assertEqual($group2->getUsers()->at(0)->getFirstName(), $u2->getFirstName());
+    $this->assertEquals($group2->getTitle(), $group->getTitle());
+    $this->assertEquals($group2->getUsers()->count(), 1);
+    $this->assertEquals($group2->getUsers()->at(0)->getFirstName(), $u2->getFirstName());
   }
 
   function testImportWhereOne2ManyParentIsNumericId()
@@ -265,8 +265,8 @@ class lmbARImportTest extends lmbARBaseTestCase
     $l2 = new LectureForTest();
     $l2->import($source);
 
-    $this->assertEqual($l2->getTitle(), $l->getTitle());
-    $this->assertEqual($l2->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($l2->getTitle(), $l->getTitle());
+    $this->assertEquals($l2->getCourse()->getTitle(), $course->getTitle());
   }
 
   function testImportWhereOne2ManyParentIsObject()
@@ -285,8 +285,8 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $l2 = new LectureForTest();
     $l2->import($source);
-    $this->assertEqual($l2->getTitle(), $l->getTitle());
-    $this->assertEqual($l2->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($l2->getTitle(), $l->getTitle());
+    $this->assertEquals($l2->getCourse()->getTitle(), $course->getTitle());
   }
 
   function testImportWhereMany2ManyCollectionIsArrayOfIds()
@@ -308,10 +308,10 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $user2 = new UserForTest();
     $user2->import($source);
-    $this->assertEqual($user2->getFirstName(), $user1->getFirstName());
-    $this->assertEqual($user2->getGroups()->count(), 2);
-    $this->assertEqual($user2->getGroups()->at(0)->getTitle(), $g1->getTitle());
-    $this->assertEqual($user2->getGroups()->at(1)->getTitle(), $g2->getTitle());
+    $this->assertEquals($user2->getFirstName(), $user1->getFirstName());
+    $this->assertEquals($user2->getGroups()->count(), 2);
+    $this->assertEquals($user2->getGroups()->at(0)->getTitle(), $g1->getTitle());
+    $this->assertEquals($user2->getGroups()->at(1)->getTitle(), $g2->getTitle());
   }
 
   function testImportWhereMany2ManyCollectionIsMixedArray()
@@ -333,10 +333,10 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $user2 = new UserForTest();
     $user2->import($source);
-    $this->assertEqual($user2->getFirstName(), $user1->getFirstName());
-    $this->assertEqual($user2->getGroups()->count(), 2);
-    $this->assertEqual($user2->getGroups()->at(0)->getTitle(), $g1->getTitle());
-    $this->assertEqual($user2->getGroups()->at(1)->getTitle(), $g2->getTitle());
+    $this->assertEquals($user2->getFirstName(), $user1->getFirstName());
+    $this->assertEquals($user2->getGroups()->count(), 2);
+    $this->assertEquals($user2->getGroups()->at(0)->getTitle(), $g1->getTitle());
+    $this->assertEquals($user2->getGroups()->at(1)->getTitle(), $g2->getTitle());
   }
 
   function testImportOne2OneWhereParentIsNumericId()
@@ -353,8 +353,8 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $number2 = new SocialSecurityForTest();
     $number2->import($source);
-    $this->assertEqual($number2->getCode(), $number->getCode());
-    $this->assertEqual($number2->getPerson()->getName(), $person->getName());
+    $this->assertEquals($number2->getCode(), $number->getCode());
+    $this->assertEquals($number2->getPerson()->getName(), $person->getName());
   }
 
   function testImportOne2OneWhereParentIsObject()
@@ -371,8 +371,8 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $number2 = new SocialSecurityForTest();
     $number2->import($source);
-    $this->assertEqual($number2->getCode(), $number->getCode());
-    $this->assertEqual($number2->getPerson()->getName(), $person->getName());
+    $this->assertEquals($number2->getCode(), $number->getCode());
+    $this->assertEquals($number2->getPerson()->getName(), $person->getName());
   }
 
   function testImportOne2OneWhereChildIsId()
@@ -389,8 +389,8 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $person2 = new PersonForTest();
     $person2->import($source);
-    $this->assertEqual($person2->getName(), $person->getName());
-    $this->assertEqual($person2->getSocialSecurity()->getCode(), $number->getCode());
+    $this->assertEquals($person2->getName(), $person->getName());
+    $this->assertEquals($person2->getSocialSecurity()->getCode(), $number->getCode());
   }
 
   function testImportOne2OneWhereChildIsObject()
@@ -407,8 +407,8 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $person2 = new PersonForTest();
     $person2->import($source);
-    $this->assertEqual($person2->getName(), $person->getName());
-    $this->assertEqual($person2->getSocialSecurity()->getCode(), $number->getCode());
+    $this->assertEquals($person2->getName(), $person->getName());
+    $this->assertEquals($person2->getSocialSecurity()->getCode(), $number->getCode());
   }
 
   function testImportNullEntity()
@@ -425,7 +425,7 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $person2 = clone $person;
     $person2->import($source);
-    $this->assertEqual($person2->getName(), $person->getName());
+    $this->assertEquals($person2->getName(), $person->getName());
     $this->assertNull($person2->getSocialSecurity());
   }
 
@@ -443,7 +443,7 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $person2 = clone $person;
     $person2->import($source);
-    $this->assertEqual($person2->getName(), $person->getName());
+    $this->assertEquals($person2->getName(), $person->getName());
     $this->assertNull($person2->getSocialSecurity());
   }
 
@@ -461,7 +461,7 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $person2 = clone $person;
     $person2->import($source);
-    $this->assertEqual($person2->getName(), $person->getName());
+    $this->assertEquals($person2->getName(), $person->getName());
     $this->assertNull($person2->getSocialSecurity());
   }
 
@@ -472,8 +472,8 @@ class lmbARImportTest extends lmbARBaseTestCase
     $member->import(array('first_name' => $first = 'first_name',
                           'last_name' => $last = 'last_name'));
 
-    $this->assertEqual($member->getName()->getFirst(), $first);
-    $this->assertEqual($member->getName()->getLast(), $last);
+    $this->assertEquals($member->getName()->getFirst(), $first);
+    $this->assertEquals($member->getName()->getLast(), $last);
   }
 
   function testOnAfterImport()
@@ -486,7 +486,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $what = ob_get_contents();
     ob_end_clean();
 
-    $this->assertEqual($what, 'Halo!');
+    $this->assertEquals($what, 'Halo!');
   }
 }
 

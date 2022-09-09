@@ -31,7 +31,7 @@ class lmbBlitzViewTest extends TestCase
         $view->set('hello', 'Hello message!');
         $view->set('again', 'Hello again!');
 
-        $this->assertEqual($view->render(), 'Hello message!Hello again!');
+        $this->assertEquals($view->render(), 'Hello message!Hello again!');
     }
 
     function testManualTemplateFunctionCall()
@@ -80,7 +80,7 @@ class lmbBlitzViewTest extends TestCase
         $view = new lmbBlitzView($path);
         $view->set('outer', $data);
 
-        $this->assertEqual($view->render(), $out);
+        $this->assertEquals($view->render(), $out);
     }
 
 }

@@ -38,8 +38,8 @@ class lmbOciLobTest extends TestCase
 
     $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
     $record = $stmt->getOneRecord();
-    $this->assertEqual($record->get('type_clob'), $value);
-    $this->assertEqual($record->get('type_varchar'), 'junk');
+    $this->assertEquals($record->get('type_clob'), $value);
+    $this->assertEquals($record->get('type_varchar'), 'junk');
   }
 
   function testInsertBlob()
@@ -62,8 +62,8 @@ class lmbOciLobTest extends TestCase
 
     $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
     $record = $stmt->getOneRecord();
-    $this->assertEqual($record->get('type_blob'), $value);
-    $this->assertEqual($record->get('type_varchar'), 'junk');
+    $this->assertEquals($record->get('type_blob'), $value);
+    $this->assertEquals($record->get('type_varchar'), 'junk');
   }
 
   function testInsertBlobAndClob()
@@ -90,9 +90,9 @@ class lmbOciLobTest extends TestCase
 
     $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
     $record = $stmt->getOneRecord();
-    $this->assertEqual($record->get('type_blob'), $blob);
-    $this->assertEqual($record->get('type_varchar'), 'junk');
-    $this->assertEqual($record->get('type_clob'), $clob);
+    $this->assertEquals($record->get('type_blob'), $blob);
+    $this->assertEquals($record->get('type_varchar'), 'junk');
+    $this->assertEquals($record->get('type_clob'), $clob);
   }
 
   function testUpdateClob()
@@ -125,8 +125,8 @@ class lmbOciLobTest extends TestCase
 
     $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
     $record = $stmt->getOneRecord();
-    $this->assertEqual($record->get('type_clob'), $newvalue);
-    $this->assertEqual($record->get('type_varchar'), 'junk');
+    $this->assertEquals($record->get('type_clob'), $newvalue);
+    $this->assertEquals($record->get('type_varchar'), 'junk');
   }
 
   function testUpdateBlob()
@@ -159,8 +159,8 @@ class lmbOciLobTest extends TestCase
 
     $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
     $record = $stmt->getOneRecord();
-    $this->assertEqual($record->get('type_blob'), $newvalue);
-    $this->assertEqual($record->get('type_varchar'), 'junk');
+    $this->assertEquals($record->get('type_blob'), $newvalue);
+    $this->assertEquals($record->get('type_varchar'), 'junk');
   }
 
   function testUpdateBlobAndClob()
@@ -200,9 +200,9 @@ class lmbOciLobTest extends TestCase
 
     $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
     $record = $stmt->getOneRecord();
-    $this->assertEqual($record->get('type_blob'), $new_blob);
-    $this->assertEqual($record->get('type_varchar'), 'junk');
-    $this->assertEqual($record->get('type_blob'), $new_clob);
+    $this->assertEquals($record->get('type_blob'), $new_blob);
+    $this->assertEquals($record->get('type_varchar'), 'junk');
+    $this->assertEquals($record->get('type_blob'), $new_clob);
   }
 }
 

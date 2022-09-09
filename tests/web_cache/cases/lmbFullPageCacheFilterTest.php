@@ -67,7 +67,7 @@ class lmbFullPageCacheFilterTest extends TestCase
     $response->start();
 
     $fc->process();
-    $this->assertEqual($response->getResponseString(), 'some_content');
+    $this->assertEquals($response->getResponseString(), 'some_content');
   }
 }
 

@@ -29,13 +29,13 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
   {
     $this->writer->writePHP('return "Hello World!";');
     $object = $this->_instantiate();
-    $this->assertEqual($object->render(), 'Hello World!');
+    $this->assertEquals($object->render(), 'Hello World!');
   }
 
   function testWriteHTML()
   {
     $this->writer->writeHTML('<p>Hello World!</p>');
-    $this->assertEqual($this->_render(),'<p>Hello World!</p>');
+    $this->assertEquals($this->_render(),'<p>Hello World!</p>');
   }
 
   function testSwithBetweenPHPAndHTML()
@@ -44,7 +44,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
     $this->writer->writeHTML('<p>Hello World!</p>');
     $this->writer->writePHP('echo ("Hello World!");');
 
-    $this->assertEqual($this->_render(), "Hello World!<p>Hello World!</p>Hello World!");
+    $this->assertEquals($this->_render(), "Hello World!<p>Hello World!</p>Hello World!");
   }
 
   function testFunction()
@@ -55,7 +55,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
     $this->writer->endFunction();
     $this->writer->writePHP("$func('a', 'b');");
 
-    $this->assertEqual($this->_render(), 'ab');
+    $this->assertEquals($this->_render(), 'ab');
   }
 
   function testMethod()
@@ -66,7 +66,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
     $this->writer->endMethod();
     $this->writer->writePHP("\$this->$func('a', 'b');");
 
-    $this->assertEqual($this->_render(), 'ab');
+    $this->assertEquals($this->_render(), 'ab');
   }
 
   function testNestedMethods()
@@ -86,7 +86,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
 
     $this->writer->writePHP("echo \$this->$foo('a', 'b');");
 
-    $this->assertEqual($this->_render(), 'abba');
+    $this->assertEquals($this->_render(), 'abba');
   }
 
   function testWriteIntoConstructor()
@@ -102,7 +102,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
     $this->writer->writePHP("\$this->$bar();");
     $this->writer->writeToInit("\$this->$foo();");
 
-    $this->assertEqual($this->_render(), 'a-a-ab-b-b');
+    $this->assertEquals($this->_render(), 'a-a-ab-b-b');
   }
 
   function testgenerateTempName()

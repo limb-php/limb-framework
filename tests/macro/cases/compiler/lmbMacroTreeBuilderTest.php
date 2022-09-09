@@ -30,7 +30,7 @@ class lmbMacroTreeBuilderTest extends TestCase
 
   function testPushNodeMakedPushedNodeCurrentCursor()
   {
-    $this->assertEqual($this->component->getChildren(), array());
+    $this->assertEquals($this->component->getChildren(), array());
     $this->assertReference($this->component, $this->tree_builder->getCursor());
 
     $child_component = new MockMacroNode();
@@ -45,7 +45,7 @@ class lmbMacroTreeBuilderTest extends TestCase
 
   function testAddNodeDontChangeCursor()
   {
-    $this->assertEqual($this->component->getChildren(), array());
+    $this->assertEquals($this->component->getChildren(), array());
     $this->assertReference($this->component, $this->tree_builder->getCursor());
 
     $child_component = new MockMacroNode();
@@ -66,9 +66,9 @@ class lmbMacroTreeBuilderTest extends TestCase
 
     $this->assertReference($this->component, $this->tree_builder->getCursor());
     $children = $this->component->getChildren();
-    $this->assertEqual(sizeof($children), 1);
+    $this->assertEquals(sizeof($children), 1);
     $this->assertIsA($children[0], 'lmbMacroTextNode');
-    $this->assertEqual($children[0]->getText(), 'text');
+    $this->assertEquals($children[0]->getText(), 'text');
   }
 
   function testPopNodeChangeCursorToParent()
@@ -96,9 +96,9 @@ class lmbMacroTreeBuilderTest extends TestCase
     {
       $this->assertWantedPattern('/Lonely closing tag/', $e->getMessage());
       $params = $e->getParams();
-      $this->assertEqual($params['file'], 'my_file');
-      $this->assertEqual($params['line'], 10);
-      $this->assertEqual($params['tag'], 'tag2');
+      $this->assertEquals($params['file'], 'my_file');
+      $this->assertEquals($params['line'], 10);
+      $this->assertEquals($params['tag'], 'tag2');
     }
   }
 
@@ -113,8 +113,8 @@ class lmbMacroTreeBuilderTest extends TestCase
     $this->tree_builder->pushExpectedTag('tag', $open_location);
     $this->tree_builder->popExpectedTag('tag', $close_location);
 
-    $this->assertEqual($this->tree_builder->getExpectedTagCount(), 1);
-    $this->assertEqual($this->tree_builder->getExpectedTag(), 'other_tag');
+    $this->assertEquals($this->tree_builder->getExpectedTagCount(), 1);
+    $this->assertEquals($this->tree_builder->getExpectedTag(), 'other_tag');
   }
 
   function testPopTagThrowsExceptionForNonClosedTags()
@@ -136,12 +136,12 @@ class lmbMacroTreeBuilderTest extends TestCase
     {
       $this->assertWantedPattern('/Unexpected closing tag/', $e->getMessage());
       $params = $e->getParams();
-      $this->assertEqual($params['file'], 'my_file');
-      $this->assertEqual($params['line'], 12);
-      $this->assertEqual($params['tag'], 'our_tag');
-      $this->assertEqual($params['expected_tag'], 'plain_tag');
-      $this->assertEqual($params['expected_file'], 'my_file');
-      $this->assertEqual($params['expected_line'], 11);         
+      $this->assertEquals($params['file'], 'my_file');
+      $this->assertEquals($params['line'], 12);
+      $this->assertEquals($params['tag'], 'our_tag');
+      $this->assertEquals($params['expected_tag'], 'plain_tag');
+      $this->assertEquals($params['expected_file'], 'my_file');
+      $this->assertEquals($params['expected_line'], 11);
     }
   }
 
@@ -174,7 +174,7 @@ class lmbMacroTreeBuilderTest extends TestCase
     // at Root and open 'tag'
     $this->assertReference($this->tree_builder->getCursor(), $root);
     $this->assertReference($InsertionPoint->getParent(), $root);
-    $this->assertEqual($this->tree_builder->getExpectedTag(), 'tag');
+    $this->assertEquals($this->tree_builder->getExpectedTag(), 'tag');
 
     // push InsertionPoint as cursor, and add another node to the tree
     $this->tree_builder->pushCursor($InsertionPoint, new lmbMacroSourceLocation('my_file', 15));
@@ -208,19 +208,19 @@ class lmbMacroTreeBuilderTest extends TestCase
 
     $this->tree_builder->pushExpectedTag('tag2', new lmbMacroSourceLocation('my_file', 13));
 
-    $this->assertEqual($this->tree_builder->getExpectedTagCount(), 3);
+    $this->assertEquals($this->tree_builder->getExpectedTagCount(), 3);
 
-    $this->assertEqual($this->tree_builder->getExpectedTag(), 'tag2');
-    $this->assertEqual($this->tree_builder->popExpectedTag('tag2', new lmbMacroSourceLocation('my_file', 15)), 'tag2');
-    $this->assertEqual($this->tree_builder->getExpectedTagCount(), 2);
+    $this->assertEquals($this->tree_builder->getExpectedTag(), 'tag2');
+    $this->assertEquals($this->tree_builder->popExpectedTag('tag2', new lmbMacroSourceLocation('my_file', 15)), 'tag2');
+    $this->assertEquals($this->tree_builder->getExpectedTagCount(), 2);
 
     // getting expected tag should skip the cursor
-    $this->assertEqual($this->tree_builder->getExpectedTag(), 'tag1');
+    $this->assertEquals($this->tree_builder->getExpectedTag(), 'tag1');
 
     // popping the next tag should restore the cursor to the original
-    $this->assertEqual($this->tree_builder->popExpectedTag('tag1', new lmbMacroSourceLocation('my_file', 17)), 'tag1');
+    $this->assertEquals($this->tree_builder->popExpectedTag('tag1', new lmbMacroSourceLocation('my_file', 17)), 'tag1');
     $this->assertReference($this->tree_builder->getCursor(), $this->component);
-    $this->assertEqual($this->tree_builder->getExpectedTagCount(), 0);
+    $this->assertEquals($this->tree_builder->getExpectedTagCount(), 0);
   }
 }
 

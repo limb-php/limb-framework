@@ -30,20 +30,20 @@ class lmbSelectRawQueryTest extends TestCase
   {
     $sql = new lmbSelectRawQuery('SELECT * FROM test', $this->conn);
 
-    $this->assertEqual($sql->toString(), 'SELECT * FROM test');
+    $this->assertEquals($sql->toString(), 'SELECT * FROM test');
   }
 
   function testReplaceFieldsHintByDefault()
   {
     $sql = new lmbSelectRawQuery('SELECT %fields% FROM test', $this->conn);
-    $this->assertEqual($sql->toString(), 'SELECT * FROM test');
+    $this->assertEquals($sql->toString(), 'SELECT * FROM test');
   }
 
   function testReplaceFieldsHintWhenFieldsExistInTemplate()
   {
     $sql = new lmbSelectRawQuery("SELECT t3 \n%fields%,t4 FROM test", $this->conn);
 
-    $this->assertEqual($sql->toString(), "SELECT t3 \n,t4 FROM test");
+    $this->assertEquals($sql->toString(), "SELECT t3 \n,t4 FROM test");
   }
 
   function testAddFieldWhenNoFieldsExistInTemplate()
@@ -53,7 +53,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addField('t1');
     $sql->addField('t2');
 
-    $this->assertEqual($sql->toString(), "SELECT 't1','t2' FROM test");
+    $this->assertEquals($sql->toString(), "SELECT 't1','t2' FROM test");
   }
 
   function testAddRawFieldWhenNoFieldsExistInTemplate()
@@ -63,7 +63,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addRawField('t1');
     $sql->addRawField('t2');
 
-    $this->assertEqual($sql->toString(), "SELECT t1,t2 FROM test");
+    $this->assertEquals($sql->toString(), "SELECT t1,t2 FROM test");
   }
 
   function testAddFieldWhenFieldsExistInTemplate()
@@ -73,7 +73,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addField('t1');
     $sql->addField('t2');
 
-    $this->assertEqual($sql->toString(), "SELECT t3 \n,'t1','t2',t4 FROM test");
+    $this->assertEquals($sql->toString(), "SELECT t3 \n,'t1','t2',t4 FROM test");
   }
 
   function testAddRawFieldWhenFieldsExistInTemplate()
@@ -83,7 +83,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addRawField('t1');
     $sql->addRawField('t2');
 
-    $this->assertEqual($sql->toString(), "SELECT t3 \n,t1,t2,t4 FROM test");
+    $this->assertEquals($sql->toString(), "SELECT t3 \n,t1,t2,t4 FROM test");
   }
 
   function testAddFieldWithAlias()
@@ -93,7 +93,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addField('t1', 'a1');
     $sql->addField('t2', 'a2');
 
-    $this->assertEqual($sql->toString(), "SELECT 't1' as 'a1','t2' as 'a2' FROM test");
+    $this->assertEquals($sql->toString(), "SELECT 't1' as 'a1','t2' as 'a2' FROM test");
   }
   
   function testAddRawFieldWithAlias()
@@ -103,7 +103,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addRawField('t1', 'a1');
     $sql->addRawField('t2', 'a2');
 
-    $this->assertEqual($sql->toString(), "SELECT t1 as a1,t2 as a2 FROM test");
+    $this->assertEquals($sql->toString(), "SELECT t1 as a1,t2 as a2 FROM test");
   }
 
   function testMixAddingRawAndRegularFields()
@@ -115,7 +115,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addRawField('t3', 'a3');
     $sql->addField('t4');
 
-    $this->assertEqual($sql->toString(), "SELECT 't2' as 'a2','t4',t1,t3 as a3 FROM test");
+    $this->assertEquals($sql->toString(), "SELECT 't2' as 'a2','t4',t1,t3 as a3 FROM test");
   }
   
   function testMixAddingRawAndRegularFieldsWhenFieldsExistInTemplate()
@@ -127,7 +127,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addRawField('t3', 'a3');
     $sql->addField('t4');
 
-    $this->assertEqual($sql->toString(), "SELECT a \n,'t2' as 'a2','t4',t1,t3 as a3,b FROM test");
+    $this->assertEquals($sql->toString(), "SELECT a \n,'t2' as 'a2','t4',t1,t3 as a3,b FROM test");
   }
   
   function testAddStarredFieldFromTable()
@@ -135,14 +135,14 @@ class lmbSelectRawQueryTest extends TestCase
     $sql = new lmbSelectRawQuery('SELECT %fields% FROM test', $this->conn);
     $sql->addField('t1.*');
 
-    $this->assertEqual($sql->toString(), 'SELECT t1.* FROM test');
+    $this->assertEquals($sql->toString(), 'SELECT t1.* FROM test');
   }
 
   function testReplaceTableHintInTemplate()
   {
     $sql = new lmbSelectRawQuery('SELECT * FROM test %tables%', $this->conn);
 
-    $this->assertEqual($sql->toString(), 'SELECT * FROM test');
+    $this->assertEquals($sql->toString(), 'SELECT * FROM test');
   }
 
   function testAddTable()
@@ -152,7 +152,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addTable('test2');
     $sql->addTable('test3');
 
-    $this->assertEqual($sql->toString(), "SELECT * FROM test \n\t,'test2','test3'");
+    $this->assertEquals($sql->toString(), "SELECT * FROM test \n\t,'test2','test3'");
   }
 
   function testAddTableWithAlias()
@@ -162,7 +162,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addTable('test2', 't2');
     $sql->addTable('test3');
 
-    $this->assertEqual($sql->toString(), "SELECT * FROM test \n\t,'test2' 't2','test3'");
+    $this->assertEquals($sql->toString(), "SELECT * FROM test \n\t,'test2' 't2','test3'");
   }
 
   function testAddSameTable()
@@ -172,7 +172,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addTable('test2', 'a');
     $sql->addTable('test2', 'b');
 
-    $this->assertEqual($sql->toString(), "SELECT * FROM test \n\t,'test2' 'a','test2' 'b'");
+    $this->assertEquals($sql->toString(), "SELECT * FROM test \n\t,'test2' 'a','test2' 'b'");
   }
 
   function testAddLeftJoin()
@@ -181,7 +181,7 @@ class lmbSelectRawQueryTest extends TestCase
 
     $sql->addLeftJoin('article', 'id', 'test', 'article_id');
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test LEFT JOIN 'article' ON 'article.id'='test.article_id'");
   }
 
@@ -192,7 +192,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addLeftJoin('article', 'id', 'test', 'article_id');
     $sql->addLeftJoin('article', 'id', 'test', 'other_article_id', 'next_article');
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test LEFT JOIN 'article' ON 'article.id'='test.article_id'".
                        " LEFT JOIN 'article' AS 'next_article' ON 'next_article.id'='test.other_article_id'");
   }
@@ -201,7 +201,7 @@ class lmbSelectRawQueryTest extends TestCase
   {
     $sql = new lmbSelectRawQuery('SELECT * FROM test %where%', $this->conn);
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        'SELECT * FROM test');
   }
 
@@ -211,7 +211,7 @@ class lmbSelectRawQueryTest extends TestCase
 
     $sql->addCriteria(new lmbSQLRawCriteria('c1=:c1:'));
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test WHERE \nc1=:c1:");
   }
 
@@ -221,7 +221,7 @@ class lmbSelectRawQueryTest extends TestCase
 
     $sql->addCriteria(new lmbSQLRawCriteria('c1=:c1:'));
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test \nWHERE c1=:c1:");
   }
 
@@ -248,7 +248,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addCriteria(new lmbSQLRawCriteria('c1=:c1:'));
     $sql->addCriteria(new lmbSQLRawCriteria('c2=:c2:'));
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        'SELECT * FROM test WHERE c1=:c1: AND c2=:c2:');
   }
 
@@ -259,7 +259,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addCriteria(new lmbSQLRawCriteria('c1=:c1:'));
     $sql->addCriteria(new lmbSQLRawCriteria('c2=:c2:'));
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test WHERE t1=t1\n AND c1=:c1: AND c2=:c2:");
   }
 
@@ -270,7 +270,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addCriteria(new lmbSQLRawCriteria('c1=:c1:'));
     $sql->addCriteria(new lmbSQLRawCriteria('c2=:c2:'));
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test WHERE t1=t1\n\n AND c1=:c1: AND c2=:c2: \n\tORDER BY t1");
   }
 
@@ -281,7 +281,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addCriteria(new lmbSQLRawCriteria('c1=:c1:'));
     $sql->addCriteria(new lmbSQLRawCriteria('c2=:c2:'));
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test WHERE t1=t1\n\n AND c1=:c1: AND c2=:c2: \n\tGROUP BY t1");
   }
 
@@ -289,7 +289,7 @@ class lmbSelectRawQueryTest extends TestCase
   {
     $sql = new lmbSelectRawQuery("SELECT * FROM test \n%order%", $this->conn);
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        'SELECT * FROM test');
   }
 
@@ -300,7 +300,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addOrder('t1');
     $sql->addOrder('t2', 'DESC');
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test \nORDER BY 't1' ASC,'t2' DESC");
   }
 
@@ -311,7 +311,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addRawOrder('rand1()');
     $sql->addRawOrder('rand2()');
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test \nORDER BY rand1(),rand2()");
   }
 
@@ -320,7 +320,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql = new lmbSelectRawQuery("SELECT * FROM test \n%order%", $this->conn);
 
     $sql->addOrder(array('t1' => 'ASC', 't2' => 'DESC'));
-    $this->assertEqual($sql->toString(), "SELECT * FROM test \nORDER BY 't1' ASC,'t2' DESC");
+    $this->assertEquals($sql->toString(), "SELECT * FROM test \nORDER BY 't1' ASC,'t2' DESC");
   }
   
   function testAddOrderWithOrderClause()
@@ -330,7 +330,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addOrder('t1');
     $sql->addOrder('t2', 'DESC');
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test ORDER BY\n 't1' ASC,'t2' DESC");
   }
 
@@ -341,7 +341,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addRawOrder('rand1()');
     $sql->addRawOrder('rand2()');
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test ORDER BY\n rand1(),rand2()");
   }
 
@@ -352,7 +352,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addOrder('t1');
     $sql->addOrder('t2', 'DESC');
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test ORDER BY t0 DESC\n ,'t1' ASC,'t2' DESC");
   }
 
@@ -360,7 +360,7 @@ class lmbSelectRawQueryTest extends TestCase
   {
     $sql = new lmbSelectRawQuery("SELECT * FROM test ORDER BY t0 DESC\n %order%", $this->conn);
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        'SELECT * FROM test ORDER BY t0 DESC');
   }
 
@@ -373,7 +373,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addRawOrder('rand2()');
     $sql->addOrder('t2', 'DESC');
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test \nORDER BY rand1(),'t1' ASC,rand2(),'t2' DESC");
   }
 
@@ -382,7 +382,7 @@ class lmbSelectRawQueryTest extends TestCase
   {
     $sql = new lmbSelectRawQuery('SELECT * FROM test', $this->conn);
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        'SELECT * FROM test');
   }
 
@@ -390,7 +390,7 @@ class lmbSelectRawQueryTest extends TestCase
   {
     $sql = new lmbSelectRawQuery("SELECT * FROM test GROUP BY t0 \n%group%", $this->conn);
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test GROUP BY t0");
   }
 
@@ -401,7 +401,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addGroupBy('t1');
     $sql->addGroupBy('t2');
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test GROUP BY 't1','t2'");
   }
 
@@ -412,7 +412,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addGroupBy('t1');
     $sql->addGroupBy('t2');
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test GROUP BY \n't1','t2'");
   }
 
@@ -423,7 +423,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addGroupBy('t1');
     $sql->addGroupBy('t2');
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test GROUP BY t0 \n,'t1','t2'");
   }
 
@@ -448,7 +448,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addHaving(new lmbSQLRawCriteria('c1=:c1:'));
     $sql->addHaving(new lmbSQLRawCriteria('c2=:c2:'));
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test GROUP BY id HAVING c1=:c1: AND c2=:c2:");
   }
 
@@ -459,7 +459,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addHaving(new lmbSQLRawCriteria('c1=:c1:'));
     $sql->addHaving(new lmbSQLRawCriteria('c2=:c2:'));
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test GROUP BY id HAVING id=1 AND c1=:c1: AND c2=:c2:");
   }
 
@@ -470,7 +470,7 @@ class lmbSelectRawQueryTest extends TestCase
     $sql->addHaving(new lmbSQLRawCriteria('c1=:c1:'));
     $sql->addHaving(new lmbSQLRawCriteria('c2=:c2:'));
 
-    $this->assertEqual($sql->toString(),
+    $this->assertEquals($sql->toString(),
                        "SELECT * FROM test GROUP BY id HAVING id=1 AND c1=:c1: AND c2=:c2: ORDER BY id");
   }
 
@@ -502,7 +502,7 @@ class lmbSelectRawQueryTest extends TestCase
               where('id=2')->
               toString();
 
-   $this->assertEqual($string,
+   $this->assertEquals($string,
                       "SELECT 'foo' as 'f' FROM 'test','test' 'test2' " .
                       "LEFT JOIN 'test' ON 'test.id'='test2.id' " .
                       "WHERE id=2 GROUP BY 'id' HAVING id=1 ORDER BY 'id' desc");
@@ -512,14 +512,14 @@ class lmbSelectRawQueryTest extends TestCase
   {
     $sql = new lmbSelectRawQuery('SELECT 2', lmbToolkit :: instance()->getDefaultDbConnection());
     $rs = $sql->fetch();
-    $this->assertEqual($rs->count(), 1);
+    $this->assertEquals($rs->count(), 1);
   }
 
   function testQueryWithoutWhereUsingDefaultConnection()
   {
     $sql = new lmbSelectRawQuery('SELECT 1=1');
     $rs = $sql->fetch();
-    $this->assertEqual($rs->count(), 1);
+    $this->assertEquals($rs->count(), 1);
   }
 
   function testQueryWithLimit()
@@ -528,7 +528,7 @@ class lmbSelectRawQueryTest extends TestCase
                                  $this->conn);
 
     $string = $sql->addTable('test_db_table')->field('id')->where('id=2')->toString();
-    $this->assertEqual($string, "SELECT 'id' FROM 'test_db_table'  WHERE id=2    LIMIT 10");
+    $this->assertEquals($string, "SELECT 'id' FROM 'test_db_table'  WHERE id=2    LIMIT 10");
   }
   
   function testThrowExceptionOnActionWIthNotExistingPlaholder()

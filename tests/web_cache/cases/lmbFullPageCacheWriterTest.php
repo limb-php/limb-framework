@@ -45,7 +45,7 @@ class lmbFullPageCacheWriterTest extends TestCase
     $cache = '1/2/3';
     $this->writer->save($cache, $content = 'whatever');
 
-    $this->assertEqual($this->writer->get($cache), $content);
+    $this->assertEquals($this->writer->get($cache), $content);
     $this->assertTrue(file_exists($this->cache_dir . '/' . $cache . '/' . $this->writer->getCacheFile()));
   }
 
@@ -58,9 +58,9 @@ class lmbFullPageCacheWriterTest extends TestCase
     //directory name conflicts with cache file name
     $this->writer->save($cache4 = '1/2/3/' . $this->writer->getCacheFile(), 'bar');
 
-    $this->assertEqual($this->writer->get($cache1), 'foo');
-    $this->assertEqual($this->writer->get($cache2), 'bar');
-    $this->assertEqual($this->writer->get($cache3), 'zoo');
+    $this->assertEquals($this->writer->get($cache1), 'foo');
+    $this->assertEquals($this->writer->get($cache2), 'bar');
+    $this->assertEquals($this->writer->get($cache3), 'zoo');
     $this->assertFalse($this->writer->get($cache4));
   }
 
@@ -95,7 +95,7 @@ class lmbFullPageCacheWriterTest extends TestCase
     $this->writer->save('1/2/3', $c2 = 'zoo');
     $this->writer->save('1', $c3 = 'ba-ba');
 
-    $this->assertEqual($this->writer->getCacheSize(), strlen($c1 . $c2 . $c3));
+    $this->assertEquals($this->writer->getCacheSize(), strlen($c1 . $c2 . $c3));
   }
 
   function _writeFile($file, $content = '')

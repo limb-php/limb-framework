@@ -43,7 +43,7 @@ class lmbLinterInsertTest extends DriverInsertTestBase
     $this->connection->newStatement("DELETE FROM founding_fathers")->execute();
 
     $new_id = $stmt->insertId('id');
-    $this->assertEqual($new_id - $id, 1);
+    $this->assertEquals($new_id - $id, 1);
   }
   
   function testInsert()
@@ -58,7 +58,7 @@ class lmbLinterInsertTest extends DriverInsertTestBase
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');
     $stmt->execute();
-    $this->assertEqual($stmt->getAffectedRowCount(), 1);
+    $this->assertEquals($stmt->getAffectedRowCount(), 1);
     $this->checkRecord(4);
   }
 
@@ -77,7 +77,7 @@ class lmbLinterInsertTest extends DriverInsertTestBase
     $stmt->setVarChar('last', 'Nixon');
 
     $id = $stmt->insertId('id');
-    $this->assertEqual($stmt->getAffectedRowCount(), 1);
+    $this->assertEquals($stmt->getAffectedRowCount(), 1);
     $this->assertIdentical($id, 4);
     $this->checkRecord(4);
   }
@@ -91,9 +91,9 @@ class lmbLinterInsertTest extends DriverInsertTestBase
     $this->assertNotNull($record);
     if($record)
     {
-      $this->assertEqual($record->get('id'), $id);
-      $this->assertEqual($record->get('first'), 'Richard');
-      $this->assertEqual($record->get('last'), 'Nixon');
+      $this->assertEquals($record->get('id'), $id);
+      $this->assertEquals($record->get('first'), 'Richard');
+      $this->assertEquals($record->get('last'), 'Nixon');
     }
   }
   

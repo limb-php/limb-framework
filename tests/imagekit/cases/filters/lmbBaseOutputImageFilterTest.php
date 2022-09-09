@@ -19,7 +19,7 @@ abstract class lmbBaseOutputImageFilterTest extends lmbImageKitTestCase
     $filter = new $class_name(array('type' => 'jpeg'));
     $filter->apply($cont);
 
-    $this->assertEqual($cont->getOutputType(), 'jpeg');
+    $this->assertEquals($cont->getOutputType(), 'jpeg');
   }
 
 }

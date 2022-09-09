@@ -52,7 +52,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $rs = $this->db->select(FULL_TEXT_SEARCH_INDEXER_TABLE);
     $arr = $rs->getArray();
 
-    $this->assertEqual($arr[0]['content'], $processed_content);
+    $this->assertEquals($arr[0]['content'], $processed_content);
   }
 
   function testNOINDEX()
@@ -119,10 +119,10 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $rs = $this->db->select(FULL_TEXT_SEARCH_INDEXER_TABLE);
     $arr = $rs->getArray();
 
-    $this->assertEqual(sizeof($arr), 1);
-    $this->assertEqual($arr[0]['uri'], $uri->toString());
-    $this->assertEqual($arr[0]['content'], 'test title content');
-    $this->assertEqual($arr[0]['title'], 'test title');
+    $this->assertEquals(sizeof($arr), 1);
+    $this->assertEquals($arr[0]['uri'], $uri->toString());
+    $this->assertEquals($arr[0]['content'], 'test title content');
+    $this->assertEquals($arr[0]['title'], 'test title');
     $this->assertTrue($arr[0]['last_modified'] > 0 && $arr[0]['last_modified'] <= time());
   }
 
@@ -136,10 +136,10 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $rs = $this->db->select(FULL_TEXT_SEARCH_INDEXER_TABLE);
     $arr = $rs->getArray();
 
-    $this->assertEqual(sizeof($arr), 1);
-    $this->assertEqual($arr[0]['uri'], $uri->toString());
-    $this->assertEqual($arr[0]['content'], 'растения доставка');
-    $this->assertEqual($arr[0]['title'], 'Растения');
+    $this->assertEquals(sizeof($arr), 1);
+    $this->assertEquals($arr[0]['uri'], $uri->toString());
+    $this->assertEquals($arr[0]['content'], 'растения доставка');
+    $this->assertEquals($arr[0]['title'], 'Растения');
     $this->assertTrue($arr[0]['last_modified'] > 0 && $arr[0]['last_modified'] <= time());
   }
 
@@ -155,10 +155,10 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $rs = $this->db->select(FULL_TEXT_SEARCH_INDEXER_TABLE);
     $arr = $rs->getArray();
 
-    $this->assertEqual(sizeof($arr), 1);
-    $this->assertEqual($arr[0]['uri'], $uri->toString());
-    $this->assertEqual($arr[0]['content'], 'content');
-    $this->assertEqual($arr[0]['title'], 'test title');
+    $this->assertEquals(sizeof($arr), 1);
+    $this->assertEquals($arr[0]['uri'], $uri->toString());
+    $this->assertEquals($arr[0]['content'], 'content');
+    $this->assertEquals($arr[0]['title'], 'test title');
     $this->assertTrue($arr[0]['last_modified'] > 0 && $arr[0]['last_modified'] <= time());
   }
 
@@ -180,10 +180,10 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $rs = $this->db->select(FULL_TEXT_SEARCH_INDEXER_TABLE);
     $arr = $rs->getArray();
 
-    $this->assertEqual(sizeof($arr), 1);
-    $this->assertEqual($arr[0]['uri'], $uri->toString());
-    $this->assertEqual($arr[0]['content'], 'title2 content2');
-    $this->assertEqual($arr[0]['title'], 'title2');
+    $this->assertEquals(sizeof($arr), 1);
+    $this->assertEquals($arr[0]['uri'], $uri->toString());
+    $this->assertEquals($arr[0]['content'], 'title2 content2');
+    $this->assertEquals($arr[0]['title'], 'title2');
     $this->assertTrue($arr[0]['last_modified'] > $time1 && $arr[0]['last_modified'] <= time());
   }
 
@@ -201,14 +201,14 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $indexer->index($uri2, $content2);
 
     $record = $indexer->findIndexRecordByUri($uri1)->export();
-    $this->assertEqual($record['uri'], $uri1->toString());
-    $this->assertEqual($record['content'], 'title1 content1');
-    $this->assertEqual($record['title'], 'title1');
+    $this->assertEquals($record['uri'], $uri1->toString());
+    $this->assertEquals($record['content'], 'title1 content1');
+    $this->assertEquals($record['title'], 'title1');
 
     $record = $indexer->findIndexRecordByUri($uri2)->export();
-    $this->assertEqual($record['uri'], $uri2->toString());
-    $this->assertEqual($record['content'], 'title2 content2');
-    $this->assertEqual($record['title'], 'title2');
+    $this->assertEquals($record['uri'], $uri2->toString());
+    $this->assertEquals($record['content'], 'title2 content2');
+    $this->assertEquals($record['title'], 'title2');
   }
 }
 

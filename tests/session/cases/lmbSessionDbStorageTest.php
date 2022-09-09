@@ -57,7 +57,7 @@ class lmbSessionDbStorageTest extends TestCase
                                 'session_data' => 'global_user|O:4:"user":12:{s:3:"_id";...',
                                 'last_activity_time' => 10), null);
 
-    $this->assertEqual($data, $this->driver->storageRead($id));
+    $this->assertEquals($data, $this->driver->storageRead($id));
   }
 
   function testStorageReadBadSessionId()
@@ -85,13 +85,13 @@ class lmbSessionDbStorageTest extends TestCase
 
     $rs = $this->db->select('lmb_session');
 
-    $this->assertEqual($rs->count(), 1);
+    $this->assertEquals($rs->count(), 1);
 
     $rs->rewind();
     $record = $rs->current();
 
-    $this->assertEqual($record->get('session_id'), $id);
-    $this->assertEqual($record->get('session_data'), $value);
+    $this->assertEquals($record->get('session_id'), $id);
+    $this->assertEquals($record->get('session_data'), $value);
     $this->assertTrue($record->get('last_activity_time') > 0 &&  $record->get('last_activity_time') <= time());
   }
 
@@ -106,13 +106,13 @@ class lmbSessionDbStorageTest extends TestCase
 
     $rs = $this->db->select('lmb_session');
 
-    $this->assertEqual($rs->count(), 1);
+    $this->assertEquals($rs->count(), 1);
 
     $rs->rewind();
     $record = $rs->current();
 
-    $this->assertEqual($record->get('session_id'), $id);
-    $this->assertEqual($record->get('session_data'), $value);
+    $this->assertEquals($record->get('session_id'), $id);
+    $this->assertEquals($record->get('session_data'), $value);
     $this->assertTrue($record->get('last_activity_time') > $time &&  $record->get('last_activity_time') <= time());
   }
 
@@ -127,8 +127,8 @@ class lmbSessionDbStorageTest extends TestCase
     $rs->rewind();
     $record = $rs->current();
 
-    $this->assertEqual($record->get('session_id'), $id);
-    $this->assertEqual($record->get('session_data'), $value);
+    $this->assertEquals($record->get('session_id'), $id);
+    $this->assertEquals($record->get('session_data'), $value);
   }
 
   function testStorageWriteUpdateBadSessionId()
@@ -143,8 +143,8 @@ class lmbSessionDbStorageTest extends TestCase
     $rs->rewind();
     $record = $rs->current();
 
-    $this->assertEqual($record->get('session_id'), $id);
-    $this->assertEqual($record->get('session_data'), $value);
+    $this->assertEquals($record->get('session_id'), $id);
+    $this->assertEquals($record->get('session_data'), $value);
   }
 
   function testStorageDestroy()
@@ -161,10 +161,10 @@ class lmbSessionDbStorageTest extends TestCase
 
     $rs = $this->db->select('lmb_session');
 
-    $this->assertEqual($rs->count(), 1);
+    $this->assertEquals($rs->count(), 1);
     $rs->rewind();
     $record = $rs->current();
-    $this->assertEqual($record->get('session_id'), 'junk');
+    $this->assertEquals($record->get('session_id'), 'junk');
   }
 
   function testStorageGcTrue()

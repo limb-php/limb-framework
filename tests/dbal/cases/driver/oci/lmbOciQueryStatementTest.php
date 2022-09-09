@@ -26,12 +26,12 @@ class lmbOciQueryStatementTest extends TestCase
 
     $rs->rewind();
     $record = $rs->current();
-    $this->assertEqual($record->get('first'), 'Alexander');
+    $this->assertEquals($record->get('first'), 'Alexander');
 
     $rs->next();
     $this->assertFalse($rs->valid());
 
-    $this->assertEqual($rs->count(), 1);
+    $this->assertEquals($rs->count(), 1);
   }
 
   function testPaginateBindedStatement()
@@ -43,12 +43,12 @@ class lmbOciQueryStatementTest extends TestCase
 
     $rs->rewind();
     $record = $rs->current();
-    $this->assertEqual($record->get('first'), 'Alexander');
+    $this->assertEquals($record->get('first'), 'Alexander');
 
     $rs->next();
     $this->assertFalse($rs->valid());
 
-    $this->assertEqual($rs->count(), 1);
+    $this->assertEquals($rs->count(), 1);
   }
 }
 

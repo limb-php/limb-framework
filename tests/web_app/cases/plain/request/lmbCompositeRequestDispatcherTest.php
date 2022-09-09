@@ -48,7 +48,7 @@ class lmbCompositeRequestDispatcherTest extends TestCase
   {
     $dispatcher = new lmbCompositeRequestDispatcher();
     $this->_setUpMocks($dispatcher, $result = array('controller' => 'whatever'), null);
-    $this->assertEqual($dispatcher->dispatch($this->request), $result);
+    $this->assertEquals($dispatcher->dispatch($this->request), $result);
   }
 
   function testDispatchOkBySecondDispatcherSinceFirstReturnNoController()
@@ -57,7 +57,7 @@ class lmbCompositeRequestDispatcherTest extends TestCase
     $this->_setUpMocks($dispatcher,
                        array('any_param' => 'whatever'),
                        $result = array('controller' => 'whatever'));
-    $this->assertEqual($dispatcher->dispatch($this->request), $result);
+    $this->assertEquals($dispatcher->dispatch($this->request), $result);
   }
 
   function testReturnEmptyArraySinceAllDispatchersCantDispatchController()
@@ -66,7 +66,7 @@ class lmbCompositeRequestDispatcherTest extends TestCase
     $this->_setUpMocks($dispatcher,
                        array('any_param1' => 'whatever'),
                        array('any_param1' => 'anything'));
-    $this->assertEqual($dispatcher->dispatch($this->request), array());
+    $this->assertEquals($dispatcher->dispatch($this->request), array());
   }
 }
 

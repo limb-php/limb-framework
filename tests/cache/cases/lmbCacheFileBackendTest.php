@@ -23,14 +23,14 @@ class lmbCacheFileBackendTest extends lmbCacheBackendTest
   function testCachedDiskFiles()
   {
     $items = lmbFs :: ls($this->cache_dir);
-    $this->assertEqual(sizeof($items), 0);
+    $this->assertEquals(sizeof($items), 0);
 
     $this->cache->set(1, $cache_value = 'value');
 
     $items = lmbFs :: ls($this->cache_dir);
-    $this->assertEqual(sizeof($items), 1);
+    $this->assertEquals(sizeof($items), 1);
 
-    $this->assertEqual($this->cache->get(1), $cache_value);
+    $this->assertEquals($this->cache->get(1), $cache_value);
 
     $this->cache->flush();
     rmdir($this->cache_dir);

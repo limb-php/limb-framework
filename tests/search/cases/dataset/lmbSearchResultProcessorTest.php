@@ -23,7 +23,7 @@ class lmbSearchResultProcessorTest extends TestCase
 
     $processor->rewind();
     $record = $processor->current();
-    $this->assertEqual($expected, $record->get('content'));
+    $this->assertEquals($expected, $record->get('content'));
   }
 
   function testGapsIntersect()
@@ -38,7 +38,7 @@ class lmbSearchResultProcessorTest extends TestCase
 
     $processor->rewind();
     $record = $processor->current();
-    $this->assertEqual($expected, $record->get('content'));
+    $this->assertEquals($expected, $record->get('content'));
   }
 
   function testGapsIntersectAndTheresRightGap()
@@ -53,7 +53,7 @@ class lmbSearchResultProcessorTest extends TestCase
 
     $processor->rewind();
     $record = $processor->current();
-    $this->assertEqual($expected, $record->get('content'));
+    $this->assertEquals($expected, $record->get('content'));
   }
 
   function testOnlyRightGap()
@@ -68,7 +68,7 @@ class lmbSearchResultProcessorTest extends TestCase
 
     $processor->rewind();
     $record = $processor->current();
-    $this->assertEqual($expected, $record->get('content'));
+    $this->assertEquals($expected, $record->get('content'));
   }
 
   function testOnlyLeftGap()
@@ -83,7 +83,7 @@ class lmbSearchResultProcessorTest extends TestCase
 
     $processor->rewind();
     $record = $processor->current();
-    $this->assertEqual($expected, $record->get('content'));
+    $this->assertEquals($expected, $record->get('content'));
   }
 
   function testGapsDontIntersect()
@@ -98,7 +98,7 @@ class lmbSearchResultProcessorTest extends TestCase
 
     $processor->rewind();
     $record = $processor->current();
-    $this->assertEqual($expected, $record->get('content'));
+    $this->assertEquals($expected, $record->get('content'));
   }
 
   function testMatchingLinesLimit()
@@ -114,7 +114,7 @@ class lmbSearchResultProcessorTest extends TestCase
 
     $processor->rewind();
     $record = $processor->current();
-    $this->assertEqual($expected, $record->get('content'));
+    $this->assertEquals($expected, $record->get('content'));
   }
 
   function testMatchesMarks()
@@ -131,7 +131,7 @@ class lmbSearchResultProcessorTest extends TestCase
 
     $processor->rewind();
     $record = $processor->current();
-    $this->assertEqual($expected, $record->get('content'));
+    $this->assertEquals($expected, $record->get('content'));
   }
 
   function testProcessorIsMultibyteAware()
@@ -148,7 +148,7 @@ class lmbSearchResultProcessorTest extends TestCase
 
     $processor->rewind();
     $record = $processor->current();
-    $this->assertEqual($expected, $record->get('content'));
+    $this->assertEquals($expected, $record->get('content'));
   }
 }
 

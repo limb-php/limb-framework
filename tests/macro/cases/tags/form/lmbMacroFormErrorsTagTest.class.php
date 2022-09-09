@@ -25,7 +25,7 @@ class lmbMacroFormErrorsTagTest extends lmbBaseMacroTest
     $page->set('form_my_form_error_list', $error_list);
  
     $out = $page->render();
-    $this->assertEqual($out, '<form name="my_form">Error in title fieldError in name field</form>');
+    $this->assertEquals($out, '<form name="my_form">Error in title fieldError in name field</form>');
   }
 
   function testFormKnowsAboutChildFields()
@@ -49,7 +49,7 @@ class lmbMacroFormErrorsTagTest extends lmbBaseMacroTest
                 '<input type="text" name="text_field" title="My text field" value="" />'.
                 '<select name="select_field" title="My select field"></select>'.
                 '</form>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }   
 
   function testChildFieldsGetErrorsAsWell()
@@ -77,6 +77,6 @@ class lmbMacroFormErrorsTagTest extends lmbBaseMacroTest
                 '<label for="select_field" class="class_of_error">My select</label>'.
                 '<select name="select_field" title="My select field" style="style_of_error"></select>'.
                 '</form>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }   
 }

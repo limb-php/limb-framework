@@ -58,7 +58,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
                 'X-test.com?test_pager=3|'.
                 'L-test.com?test_pager=4|';
 
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testPagerProperties()
@@ -75,7 +75,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
 
     $expected = '40|8|5|from:6|to:10';
 
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testSinglePageOnlyNotRenderAnything()
@@ -96,7 +96,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
 
     $expected = '';
 
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testFistPage()
@@ -116,7 +116,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
     $expected = 'C-test.com|1|'.
                 'N-test.com?test_pager=2|2|N-test.com?test_pager=3|3|N-test.com?test_pager=4|4|';
 
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testLastPage()
@@ -141,7 +141,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
                 'N-test.com?test_pager=2|2|'.
                 'C-test.com?test_pager=3|3|';
 
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testElipsesBothSides()
@@ -160,7 +160,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
     $_GET['test_pager'] = 7;
 
     $expected = 'N-1|N-2|N-3|...N-6|C-7|N-8|...N-11|N-12|N-13|';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testElipsesBothSidesAndSeparator()
@@ -180,7 +180,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
     $_GET['test_pager'] = 7;
 
     $expected = 'N-1|N-2|N-3...N-6|C-7|N-8...N-11|N-12|N-13';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testElipsesBothSidesNoPagesInSides()
@@ -199,7 +199,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
     $_GET['test_pager'] = 7;
 
     $expected = '...N-6|C-7|N-8|...';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testElipsesLeftOnly()
@@ -218,7 +218,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
     $_GET['test_pager'] = 7;
 
     $expected = 'N-1|N-2|N-3|...N-6|C-7|N-8|N-9|N-10|N-11|';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testNoElipsesForSingleItemGap()
@@ -237,7 +237,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
     $_GET['test_pager'] = 5;
 
     $expected = 'N-1|N-2|N-3|N-4|C-5|N-6|N-7|';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testElipsesMiddleCountAlwaysDisplayed()
@@ -258,7 +258,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
 
 
     $expected = 'N-1|C-2|N-3|N-4|N-5|N-6|N-7|N-8|N-9|...';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
 
     //always 9 items in middle
     $page = $this->_createMacroTemplate($template, 'tpl2.html');
@@ -268,7 +268,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
 
 
     $expected = '...N-2|N-3|N-4|N-5|C-6|N-7|N-8|N-9|N-10|...';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
 
     //if pages count less than pages_in_middle
     $page = $this->_createMacroTemplate($template, 'tpl3.html');
@@ -277,7 +277,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
     $_GET['test_pager'] = 2;
 
     $expected = 'N-1|C-2|N-3|';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testSections()
@@ -300,7 +300,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
                 'N-test.com?test_pager=4|4|'.
                 'S-test.com?test_pager=5|5|6|';
 
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testDisabledTagsShown()
@@ -317,7 +317,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
 
     $expected = 'F-|P-||-X|-L';
 
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testDisabledTagsHidden()
@@ -336,7 +336,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
 
     $expected = '';
 
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testShowFirstAndPrevTagsDisabledOnly()
@@ -353,7 +353,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
 
     $expected = 'F-|P-|';
 
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testShowNextAndLastTagsDisabledOnly()
@@ -372,7 +372,7 @@ class lmbMacroPagerTagTest extends lmbBaseMacroTest
 
     $expected = '|-X|-L';
 
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 }
 

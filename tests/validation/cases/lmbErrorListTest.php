@@ -21,10 +21,10 @@ class lmbErrorListTest extends TestCase
     $this->assertFalse($list->isValid());
 
     $errors = $list->export();
-    $this->assertEqual(sizeof($errors), 1);
-    $this->assertEqual($errors[0]['message'], $message);
-    $this->assertEqual($errors[0]['fields'], array('foo'));
-    $this->assertEqual($errors[0]['values'], array('FOO'));
+    $this->assertEquals(sizeof($errors), 1);
+    $this->assertEquals($errors[0]['message'], $message);
+    $this->assertEquals($errors[0]['fields'], array('foo'));
+    $this->assertEquals($errors[0]['values'], array('FOO'));
   }
 
   function testRenameFields()
@@ -48,8 +48,8 @@ class lmbErrorListTest extends TestCase
 
     $errors = $list->export();
 
-    $this->assertEqual($errors[0]['fields'], array('Field_1' => 'custom_login', 'Field_2' => 'custom_password'));
-    $this->assertEqual($errors[1]['fields'], array('Field_1' => 'Shakespeare', 'Field_2' => 'Romeo', 'Field_3' => 'Juliet'));
+    $this->assertEquals($errors[0]['fields'], array('Field_1' => 'custom_login', 'Field_2' => 'custom_password'));
+    $this->assertEquals($errors[1]['fields'], array('Field_1' => 'Shakespeare', 'Field_2' => 'Romeo', 'Field_3' => 'Juliet'));
   }
 
   function testRenameFieldsWithSimilarNames() {
@@ -67,7 +67,7 @@ class lmbErrorListTest extends TestCase
 
     $errors = $list->export();
 
-    $this->assertEqual($errors[0]['fields'], array('Field_1' => $new_field_names['passretype'], 'Field_2' => $new_field_names['pass']));
+    $this->assertEquals($errors[0]['fields'], array('Field_1' => $new_field_names['passretype'], 'Field_2' => $new_field_names['pass']));
   }
 
 

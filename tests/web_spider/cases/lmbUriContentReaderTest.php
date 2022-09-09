@@ -21,7 +21,7 @@ class lmbUriContentReaderTest extends TestCase
     $uri->setReturnValue('toString', dirname(__FILE__) . '/../html/index.html');
     $reader->open($uri);
     $this->assertFalse($reader->getContentType()); // since opening a plain text file not html over http
-    $this->assertEqual($reader->getContent(),
+    $this->assertEquals($reader->getContent(),
                        file_get_contents(dirname(__FILE__) . '/../html/index.html'));
   }
 

@@ -63,12 +63,12 @@ EOD;
 
     $statements = $loader->getStatements();
 
-    $this->assertEqual(sizeof($statements), 7);
+    $this->assertEquals(sizeof($statements), 7);
 
-    $this->assertEqual($statements[0], 'SET FOREIGN_KEY_CHECKS=0');
-    $this->assertEqual($statements[1], 'create database if not exists `foo`');
-    $this->assertEqual($statements[2], 'drop table if exists `bar`');
-    $this->assertEqual($statements[3], "CREATE TABLE `bar` (
+    $this->assertEquals($statements[0], 'SET FOREIGN_KEY_CHECKS=0');
+    $this->assertEquals($statements[1], 'create database if not exists `foo`');
+    $this->assertEquals($statements[2], 'drop table if exists `bar`');
+    $this->assertEquals($statements[3], "CREATE TABLE `bar` (
   `id` int(11) NOT null auto_increment,
   `url` varchar(255) NOT null default '',
   `description` varchar(255) default null,
@@ -76,11 +76,11 @@ EOD;
   PRIMARY KEY  (`id`),
   KEY `id` (`id`,`oid`)
 ) TYPE=InnoDB");
-    $this->assertEqual($statements[4], 'LOCK TABLES `baz` WRITE');
-    $this->assertEqual($statements[5], 'UNLOCK TABLES');
-    $this->assertEqual($statements[6], "INSERT INTO `article` VALUES (8,101,2,'TemplateView','Template View','wiki')");
+    $this->assertEquals($statements[4], 'LOCK TABLES `baz` WRITE');
+    $this->assertEquals($statements[5], 'UNLOCK TABLES');
+    $this->assertEquals($statements[6], "INSERT INTO `article` VALUES (8,101,2,'TemplateView','Template View','wiki')");
 
-    $this->assertEqual($loader->getAffectedTables(), array('article'));
+    $this->assertEquals($loader->getAffectedTables(), array('article'));
   }
 }
 

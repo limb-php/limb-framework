@@ -31,7 +31,7 @@ class lmbI18NCapitalizeMacroFilterTest extends lmbBaseMacroTest
     $var = "что-то";
     $tpl->set('var', $var);
     $out = $tpl->render();
-    $this->assertEqual($out, 'Что-то');
+    $this->assertEquals($out, 'Что-то');
   }
 }
 

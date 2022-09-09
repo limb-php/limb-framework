@@ -15,7 +15,7 @@ class lmbMacroClipFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('str', '12');
     $out = $tpl->render();
-    $this->assertEqual($out, '11212');        
+    $this->assertEquals($out, '11212');
   }  
   
   function testDinamic()
@@ -25,7 +25,7 @@ class lmbMacroClipFilterTest extends lmbBaseMacroTest
     $tpl->set('str', 'foo');
     $tpl->set('cnt', '1');
     $out = $tpl->render();
-    $this->assertEqual($out, 'f');        
+    $this->assertEquals($out, 'f');
   }  
   
 }

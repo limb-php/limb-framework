@@ -42,7 +42,7 @@ class lmbMacroPaginateTagTest extends lmbBaseMacroTest
     $page->set('test_iterator', new lmbArrayIterator(array('Ivan', 'Pavel', 'Mike', 'Bob', 'Todd')));
 
     $expected = 'MikeBob';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
   
   function testErrorIfOffsetGivenWithoutLimit()
@@ -71,7 +71,7 @@ class lmbMacroPaginateTagTest extends lmbBaseMacroTest
     $page->set('test_iterator', new lmbArrayIterator(array('Ivan', 'Pavel', 'Mike', 'Bob', 'Todd')));
 
     $expected = 'IvanPavel';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
   
   function testPaginateWithPager()
@@ -86,7 +86,7 @@ class lmbMacroPaginateTagTest extends lmbBaseMacroTest
     $page->set('test_iterator', new lmbArrayIterator(array('Ivan', 'Pavel', 'Mike', 'Bob', 'Todd')));
 
     $expected = 'MikeBob';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
   
   function testPaginateWithPagerOverwritesPagerItemsPerPageByLimitAttribute()
@@ -101,7 +101,7 @@ class lmbMacroPaginateTagTest extends lmbBaseMacroTest
     $page->set('test_iterator', new lmbArrayIterator(array('Ivan', 'Pavel', 'Mike', 'Bob', 'Todd', 'Serega')));
 
     $expected = 'BobToddSerega';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }  
 
   function testPaginateWithPager_TotalItemsByAttribute()
@@ -116,7 +116,7 @@ class lmbMacroPaginateTagTest extends lmbBaseMacroTest
     $page->set('test_iterator', new lmbArrayIterator(array('Ivan', 'Pavel', 'Mike', 'Bob', 'Todd')));
 
     $expected = 'IvanPavel'; // since forced to know about only 2 elements in array 
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 }
 

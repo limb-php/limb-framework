@@ -15,7 +15,7 @@ class lmbMacroCurlyBracesTagTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEqual($page->render(), "{{macro}}"); 
+    $this->assertEquals($page->render(), "{{macro}}");
   }
 }
 

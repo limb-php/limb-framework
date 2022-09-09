@@ -33,11 +33,11 @@ class lmbLinterRecordSetTest extends DriverRecordSetTestBase
     $rs->sort(array('id' => 'DESC'));
 
     $rs->rewind();
-    $this->assertEqual($rs->current()->get('first'), 'Benjamin');
+    $this->assertEquals($rs->current()->get('first'), 'Benjamin');
     $rs->next();
-    $this->assertEqual($rs->current()->get('first'), 'Alexander');
+    $this->assertEquals($rs->current()->get('first'), 'Alexander');
     $rs->next();
-    $this->assertEqual($rs->current()->get('first'), 'George');
+    $this->assertEquals($rs->current()->get('first'), 'George');
   }
 
   function testSortPaginated()
@@ -48,7 +48,7 @@ class lmbLinterRecordSetTest extends DriverRecordSetTestBase
     $rs->paginate(0, 1);
 
     $rs->rewind();
-    $this->assertEqual($rs->current()->get('first'), 'Benjamin');
+    $this->assertEquals($rs->current()->get('first'), 'Benjamin');
     $rs->next();
     $this->assertFalse($rs->valid());
   }
@@ -60,11 +60,11 @@ class lmbLinterRecordSetTest extends DriverRecordSetTestBase
     $rs->sort(array('id' => 'DESC'));
 
     $rs->rewind();
-    $this->assertEqual($rs->current()->get('first'), 'Alexander');
+    $this->assertEquals($rs->current()->get('first'), 'Alexander');
     $rs->next();
-    $this->assertEqual($rs->current()->get('first'), 'Benjamin');
+    $this->assertEquals($rs->current()->get('first'), 'Benjamin');
     $rs->next();
-    $this->assertEqual($rs->current()->get('first'), 'George');
+    $this->assertEquals($rs->current()->get('first'), 'George');
   }
 
 
@@ -74,7 +74,7 @@ class lmbLinterRecordSetTest extends DriverRecordSetTestBase
     $rs = $this->connection->newStatement($sql)->getRecordSet();
     $rs->paginate(1, 1);
 
-    $this->assertEqual($rs->at(0)->get('first'), 'George');
+    $this->assertEquals($rs->at(0)->get('first'), 'George');
   }
 
   function testsAtAfterSort()
@@ -83,9 +83,9 @@ class lmbLinterRecordSetTest extends DriverRecordSetTestBase
     $rs = $this->connection->newStatement($sql)->getRecordSet();
     $rs->sort(array('id' => 'DESC'));
 
-    $this->assertEqual($rs->at(0)->get('first'), 'Benjamin');
-    $this->assertEqual($rs->at(1)->get('first'), 'Alexander');
-    $this->assertEqual($rs->at(2)->get('first'), 'George');
+    $this->assertEquals($rs->at(0)->get('first'), 'Benjamin');
+    $this->assertEquals($rs->at(1)->get('first'), 'Alexander');
+    $this->assertEquals($rs->at(2)->get('first'), 'George');
   }
   
 }

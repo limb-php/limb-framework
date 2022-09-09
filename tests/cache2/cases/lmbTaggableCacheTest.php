@@ -30,7 +30,7 @@ class lmbTaggableCacheTest extends TestCase
   {
     $this->assertTrue($this->cache->add($key = $this->_createId(), $value = 'value', false, 'tag'));
     $this->assertFalse($this->cache->add($key, 'another_value', false, 'tag'));
-    $this->assertEqual($this->cache->get($key), $value);
+    $this->assertEquals($this->cache->get($key), $value);
   }
 
   function testDeleteByTags_SingleTag()

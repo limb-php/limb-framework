@@ -23,7 +23,7 @@ class lmbJsRequireOnceMacroTagTest extends lmbMacroTestCase
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
 
     $content = '<script type="text/javascript" src="'.$this->toolkit->addVersionToUrl('js/main.js').'" ></script>';
-    $this->assertEqual($content, $page->render());
+    $this->assertEquals($content, $page->render());
   }
 
   function testNotFoundFile()

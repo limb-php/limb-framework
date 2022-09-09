@@ -44,7 +44,7 @@ class lmbMacroFilterDictionaryTest extends lmbBaseMacroTest
     $dictionary->register($filter_info1, $file1 = 'whatever1');
     $dictionary->register($filter_info2, $file2 = 'whatever2');
 
-    $this->assertEqual($dictionary->findFilterInfo('some_filter'), $filter_info1);
+    $this->assertEquals($dictionary->findFilterInfo('some_filter'), $filter_info1);
   }
 
   function testFilterNotFound()
@@ -83,9 +83,9 @@ EOD;
     $dictionary = new lmbMacroFilterDictionary();
     $dictionary->registerFromFile($file);
 
-    $this->assertEqual($dictionary->findFilterInfo("foo_$rnd"), $filter_info1);
-    $this->assertEqual($dictionary->findFilterInfo("foo1_$rnd"), $filter_info1);
-    $this->assertEqual($dictionary->findFilterInfo("bar_$rnd"), $filter_info2);
+    $this->assertEquals($dictionary->findFilterInfo("foo_$rnd"), $filter_info1);
+    $this->assertEquals($dictionary->findFilterInfo("foo1_$rnd"), $filter_info1);
+    $this->assertEquals($dictionary->findFilterInfo("bar_$rnd"), $filter_info2);
   }
 }
 

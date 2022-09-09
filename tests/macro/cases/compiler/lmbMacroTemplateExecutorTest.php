@@ -13,9 +13,9 @@ class lmbMacroTemplateExecutorTest extends lmbBaseMacroTest
   {
     $tpl = new lmbMacroTemplateExecutor($this->_createMacroConfig(), array('foo' => 'foo', 'bar' => 'bar'));
     $tpl->set('zoo', 'zoo');
-    $this->assertEqual($tpl->foo, 'foo');
-    $this->assertEqual($tpl->bar, 'bar');
-    $this->assertEqual($tpl->zoo, 'zoo');
+    $this->assertEquals($tpl->foo, 'foo');
+    $this->assertEquals($tpl->bar, 'bar');
+    $this->assertEquals($tpl->zoo, 'zoo');
   }
 
   function testMissingVarIsEmpty()

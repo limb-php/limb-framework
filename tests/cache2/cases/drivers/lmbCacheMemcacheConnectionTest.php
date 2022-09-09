@@ -26,7 +26,7 @@ class lmbCacheMemcacheConnectionTest extends lmbCacheConnectionTest
     $id = $this->_getUniqueId('testAddAfterDelete');
     $this->assertTrue($this->cache->add($id, $v = 'value'));
 
-    $this->assertEqual($this->cache->get($id), $v);
+    $this->assertEquals($this->cache->get($id), $v);
 
     $this->assertTrue($this->cache->delete($id));
 
@@ -34,7 +34,7 @@ class lmbCacheMemcacheConnectionTest extends lmbCacheConnectionTest
 
     $this->assertTrue($this->cache->add($id, $v = 'another value'));
 
-    $this->assertEqual($this->cache->get($id), $v);
+    $this->assertEquals($this->cache->get($id), $v);
   }
 
   function testInvalidKeyOnMultipleGet()
@@ -50,7 +50,7 @@ class lmbCacheMemcacheConnectionTest extends lmbCacheConnectionTest
     $result = $this->cache->get(array($id1, $id2, $id3));
 
     $this->assertNotEqual('value1', $result[$id1]);
-    $this->assertEqual('value2', $result[$id2]);
-    $this->assertEqual('value3', $result[$id3]);
+    $this->assertEquals('value2', $result[$id2]);
+    $this->assertEquals('value3', $result[$id3]);
   }
 }

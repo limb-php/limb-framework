@@ -17,7 +17,7 @@ class lmbMacroSingleSelectTagTest extends lmbBaseMacroTest
     $page->set('options', array('red', 'green', 'blue'));
     
     $expected = '<select name="my_select"><option value="0">red</option><option value="1">green</option><option value="2">blue</option></select>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testWithSelectedOption()
@@ -29,7 +29,7 @@ class lmbMacroSingleSelectTagTest extends lmbBaseMacroTest
     $page->set('selected_value', '00ff00');
     
     $expected = '<select name="my_select"><option value="ff0000">red</option><option value="00ff00" selected="selected">green</option></select>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testSpecialCharsInOptions()
@@ -41,7 +41,7 @@ class lmbMacroSingleSelectTagTest extends lmbBaseMacroTest
     $page->set('selected_value', '"');
     
     $expected = '<select name="my_select"><option value="&gt;&gt;">&lt;&lt;</option><option value="&quot;" selected="selected">&quot;&quot;</option></select>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
   
   function testWithSelectedOption_ByArrayFieldInValue()
@@ -53,7 +53,7 @@ class lmbMacroSingleSelectTagTest extends lmbBaseMacroTest
     $page->set('selected_value_object', new lmbObject(array('my_color' => '00ff00', 'id' => 'ff0000')));
     
     $expected = '<select name="my_select"><option value="ff0000">red</option><option value="00ff00" selected="selected">green</option></select>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testWithSelectedOption_ByFieldInFormDatasource()
@@ -69,7 +69,7 @@ class lmbMacroSingleSelectTagTest extends lmbBaseMacroTest
                 '<option value="ff0000">red</option><option value="00ff00" selected="selected">green</option>'.
                 '</select>'.
                 '</form>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testSelectUseChildOptionsList_WithDefaultSelectedOption()
@@ -84,7 +84,7 @@ class lmbMacroSingleSelectTagTest extends lmbBaseMacroTest
                 '<option value="1">test1</option>'.
                 '<option value="2" selected="selected">test2</option>'.
                 '</select>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testMergeOptionsListFromTagContentWithOtherOptions()
@@ -105,7 +105,7 @@ class lmbMacroSingleSelectTagTest extends lmbBaseMacroTest
                 '<option value="4" selected="selected">test4</option>'.
                 '</select>';
     
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 }
 

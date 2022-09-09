@@ -16,6 +16,6 @@ class lmbMacroAssignTagTest extends lmbBaseMacroTest
 
     $page->set('buffer', 'baz');
 
-    $this->assertEqual($page->render(), 'baz');
+    $this->assertEquals($page->render(), 'baz');
   }
 }

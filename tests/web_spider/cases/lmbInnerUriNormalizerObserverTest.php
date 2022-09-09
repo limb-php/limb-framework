@@ -33,7 +33,7 @@ class lmbInnerUriNormalizerObserverTest extends TestCase
     $this->reader->setReturnReference('getUri', $uri = new lmbUri('http://test.com/page.html'));
 
     $observer->notify($this->reader);
-    $this->assertEqual($uri->toString(), '/page.html');
+    $this->assertEquals($uri->toString(), '/page.html');
   }
 
   function testNotifyOtherProtocol()
@@ -43,7 +43,7 @@ class lmbInnerUriNormalizerObserverTest extends TestCase
     $this->reader->setReturnReference('getUri', $uri = new lmbUri('ftp://test.com/page.html'));
 
     $observer->notify($this->reader);
-    $this->assertEqual($uri->toString(), 'ftp://test.com/page.html');
+    $this->assertEquals($uri->toString(), 'ftp://test.com/page.html');
   }
 
   function testNotifyOtherPort()
@@ -53,7 +53,7 @@ class lmbInnerUriNormalizerObserverTest extends TestCase
     $this->reader->setReturnReference('getUri', $uri = new lmbUri('http://test.com/page.html'));
 
     $observer->notify($this->reader);
-    $this->assertEqual($uri->toString(), 'http://test.com/page.html');
+    $this->assertEquals($uri->toString(), 'http://test.com/page.html');
   }
 
   function testNotifyExternalUrl()
@@ -63,7 +63,7 @@ class lmbInnerUriNormalizerObserverTest extends TestCase
     $this->reader->setReturnReference('getUri', $uri = new lmbUri('http://test2.com/page.html'));
 
     $observer->notify($this->reader);
-    $this->assertEqual($uri->toString(), 'http://test2.com/page.html');
+    $this->assertEquals($uri->toString(), 'http://test2.com/page.html');
   }
 
 }

@@ -45,7 +45,7 @@ class lmbMacroTagDictionaryTest extends lmbBaseMacroTest
     $dictionary->register($tag_info1, $file1 = 'whatever1');
     $dictionary->register($tag_info2, $file2 = 'whatever2');
 
-    $this->assertEqual($dictionary->findTagInfo('some_tag'), $tag_info1);
+    $this->assertEquals($dictionary->findTagInfo('some_tag'), $tag_info1);
   }
 
   function testTagNotFound()
@@ -96,9 +96,9 @@ EOD;
     $dictionary = new lmbMacroTagDictionary();
     $dictionary->registerFromFile($file);
 
-    $this->assertEqual($dictionary->findTagInfo("foo_$rnd"), $tag_info1);
-    $this->assertEqual($dictionary->findTagInfo("foo1_$rnd"), $tag_info1);
-    $this->assertEqual($dictionary->findTagInfo("bar_$rnd"), $tag_info2);
+    $this->assertEquals($dictionary->findTagInfo("foo_$rnd"), $tag_info1);
+    $this->assertEquals($dictionary->findTagInfo("foo1_$rnd"), $tag_info1);
+    $this->assertEquals($dictionary->findTagInfo("bar_$rnd"), $tag_info2);
   }
   
   function testLoad()
@@ -133,8 +133,8 @@ EOD;
     $dictionary = new lmbMacroTagDictionary();
     $dictionary->load($config);
 
-    $this->assertEqual($dictionary->findTagInfo("foo_$rnd")->getTag(), $tag_info1->getTag());
-    $this->assertEqual($dictionary->findTagInfo("bar_$rnd")->getTag(), $tag_info2->getTag());
+    $this->assertEquals($dictionary->findTagInfo("foo_$rnd")->getTag(), $tag_info1->getTag());
+    $this->assertEquals($dictionary->findTagInfo("bar_$rnd")->getTag(), $tag_info2->getTag());
   }
   
 }

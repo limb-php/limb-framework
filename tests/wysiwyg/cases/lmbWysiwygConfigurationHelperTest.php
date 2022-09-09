@@ -33,21 +33,21 @@ class lmbWysiwygConfigurationHelperTest extends TestCase
   
   function testSetGetProfileName()
   {    
-    $this->assertEqual($this->_helper->getProfileName(), 'foo_profile');
+    $this->assertEquals($this->_helper->getProfileName(), 'foo_profile');
     
     $this->_helper->setProfileName('bar_profile');
-    $this->assertEqual($this->_helper->getProfileName(), 'bar_profile');
+    $this->assertEquals($this->_helper->getProfileName(), 'bar_profile');
   }
   
   function testGetOption_DefaultProfile()
   {    
-    $this->assertEqual($this->_helper->getOption('baz'), 42);
+    $this->assertEquals($this->_helper->getOption('baz'), 42);
   }
   
   function testGetOption_CustomProfile()
   {    
     $this->_helper->setProfileName('bar_profile');
-    $this->assertEqual($this->_helper->getOption('baz'), 111);
+    $this->assertEquals($this->_helper->getOption('baz'), 111);
   }
   
   function testGetMacroWidgetInfo()

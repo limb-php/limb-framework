@@ -21,26 +21,26 @@ abstract class DriverTransactionTestBase extends DriverManipTestBase
 
   function testCommitTransaction()
   {
-    $this->assertEqual($this->_countRecords(), 0);
+    $this->assertEquals($this->_countRecords(), 0);
 
     $this->connection->beginTransaction();
     $stmt = $this->connection->newStatement("INSERT INTO founding_fathers VALUES (1, 'George', 'Washington')");
     $stmt->execute();
     $this->connection->commitTransaction();
 
-    $this->assertEqual($this->_countRecords(), 1);
+    $this->assertEquals($this->_countRecords(), 1);
   }
 
   function testRollbackTransaction()
   {
-    $this->assertEqual($this->_countRecords(), 0);
+    $this->assertEquals($this->_countRecords(), 0);
 
     $this->connection->beginTransaction();
     $stmt = $this->connection->newStatement("INSERT INTO founding_fathers VALUES (1, 'George', 'Washington')");
     $stmt->execute();
     $this->connection->rollbackTransaction();
 
-    $this->assertEqual($this->_countRecords(), 0);
+    $this->assertEquals($this->_countRecords(), 0);
   }
 
   function _countRecords()

@@ -32,7 +32,7 @@ class lmbTestShellUITest extends lmbTestRunnerBase
 
     $run_dir = LIMB_VAR_DIR . '/cases';
     $ret = $this->_execScript($run_dir, $screen);
-    if(!$this->assertEqual($ret, 0))
+    if(!$this->assertEquals($ret, 0))
       echo $screen;
 
     $this->assertPattern('~1\s+of\s+3\s+done\(' . $zoo->getClass() . '\)~', $screen);
@@ -54,7 +54,7 @@ class lmbTestShellUITest extends lmbTestRunnerBase
 
     chdir($cwd);
 
-    if(!$this->assertEqual($ret, 0))
+    if(!$this->assertEquals($ret, 0))
       echo $screen;
 
     $this->assertPattern('~1\s+of\s+3\s+done\(' . $zoo->getClass() . '\)~', $screen);
@@ -72,7 +72,7 @@ class lmbTestShellUITest extends lmbTestRunnerBase
 
     $run_dir = LIMB_VAR_DIR . '/cases/*.php';
     $ret = $this->_execScript($run_dir, $screen);
-    if(!$this->assertEqual($ret, 0))
+    if(!$this->assertEquals($ret, 0))
       echo $screen;
 
     $this->assertPattern('~1\s+of\s+1\s+done\(' . $foo->getClass() . '\)~', $screen);
@@ -87,7 +87,7 @@ class lmbTestShellUITest extends lmbTestRunnerBase
     $zoo = $this->_createTestCase($zoo_file = LIMB_VAR_DIR . '/cases/a/z/zoo_test.php');
 
     $ret = $this->_execScript("$bar_file $foo_file $zoo_file", $screen);
-    if(!$this->assertEqual($ret, 0))
+    if(!$this->assertEquals($ret, 0))
       echo $screen;
 
     $this->assertPattern('~1\s+of\s+3\s+done\(' . $bar->getClass() . '\)~', $screen);
@@ -104,7 +104,7 @@ class lmbTestShellUITest extends lmbTestRunnerBase
     $zoo = $this->_createTestCase($zoo_file = LIMB_VAR_DIR . '/cases/zoo_test.php');
 
     $ret = $this->_execScript("--tests=" . $foo->getClass(). "," . $zoo->getClass(). " $foo_file $bar_file $zoo_file", $screen);
-    if(!$this->assertEqual($ret, 0))
+    if(!$this->assertEquals($ret, 0))
       echo $screen;
 
     $this->assertPattern('~1\s+of\s+2\s+done\(' . $foo->getClass() . '\)~', $screen);
@@ -127,7 +127,7 @@ class lmbTestShellUITest extends lmbTestRunnerBase
     $bar = $this->_createTestCase($bar_file = LIMB_VAR_DIR . '/cases/bar_test.php', $bar_body);
 
     $ret = $this->_execScript("--methods=testFoo,testBar $foo_file $bar_file", $screen);
-    if(!$this->assertEqual($ret, 0))
+    if(!$this->assertEquals($ret, 0))
       echo $screen;
 
     $this->assertPattern('~foo1\s+of\s+2\s+done\(' . $foo->getClass() . '\)~', $screen);
@@ -141,7 +141,7 @@ class lmbTestShellUITest extends lmbTestRunnerBase
     $junk = $this->_createTestCase($junk_file = LIMB_VAR_DIR . '/cases/junk_test.php', "/*\n* @group junk\n*/ %class%");
 
     $ret = $this->_execScript("--groups=foo,bar $foo_file $bar_file $junk_file", $screen);
-    if(!$this->assertEqual($ret, 0))
+    if(!$this->assertEquals($ret, 0))
       echo $screen;
 
     $this->assertPattern('~1\s+of\s+2\s+done\(' . $foo->getClass() . '\)~', $screen);

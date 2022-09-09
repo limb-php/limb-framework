@@ -17,57 +17,57 @@ abstract class lmbMultiByteStringDriverTestBase extends TestCase
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_substr("это просто тест", 1), "то просто тест");
-        $this->assertEqual($driver->_substr("ääääσαφ", 0, 400), "ääääσαφ");
-        $this->assertEqual($driver->_substr("ääääσαφ", 2, 400), "ääσαφ");
-        $this->assertEqual($driver->_substr("ääääσαφ", 1, 4), "äääσ");
-        $this->assertEqual($driver->_substr("ääääσαφ", -1), "φ");
-        $this->assertEqual($driver->_substr("ääääσαφ", 0, -1), "ääääσα");
-        $this->assertEqual($driver->_substr("ääääσαφ", 1, -1), "äääσα");
+        $this->assertEquals($driver->_substr("это просто тест", 1), "то просто тест");
+        $this->assertEquals($driver->_substr("ääääσαφ", 0, 400), "ääääσαφ");
+        $this->assertEquals($driver->_substr("ääääσαφ", 2, 400), "ääσαφ");
+        $this->assertEquals($driver->_substr("ääääσαφ", 1, 4), "äääσ");
+        $this->assertEquals($driver->_substr("ääääσαφ", -1), "φ");
+        $this->assertEquals($driver->_substr("ääääσαφ", 0, -1), "ääääσα");
+        $this->assertEquals($driver->_substr("ääääσαφ", 1, -1), "äääσα");
     }
 
     function test_rtrim() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_rtrim("τελευτατελ\0\n\n\t"), "τελευτατελ");
-        $this->assertEqual($driver->_rtrim("τελευτατε?++.*?", ".*?+"), "τελευτατε");
+        $this->assertEquals($driver->_rtrim("τελευτατελ\0\n\n\t"), "τελευτατελ");
+        $this->assertEquals($driver->_rtrim("τελευτατε?++.*?", ".*?+"), "τελευτατε");
         //intervals stuff not working yet, and it's not clear how it should work
-        //$this->assertEqual($driver->_rtrim("τελευτατε\n\t", "\0x00..\0x1F"), "τελευτατε");
+        //$this->assertEquals($driver->_rtrim("τελευτατε\n\t", "\0x00..\0x1F"), "τελευτατε");
     }
 
     function test_ltrim() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_ltrim("\0\n\n\tτελευτατελ"), "τελευτατελ");
-        $this->assertEqual($driver->_ltrim("λτελευτατε", "λ"), "τελευτατε");
-        $this->assertEqual($driver->_ltrim("?+.*+?τελευτατε", "?.*+"), "τελευτατε");
+        $this->assertEquals($driver->_ltrim("\0\n\n\tτελευτατελ"), "τελευτατελ");
+        $this->assertEquals($driver->_ltrim("λτελευτατε", "λ"), "τελευτατε");
+        $this->assertEquals($driver->_ltrim("?+.*+?τελευτατε", "?.*+"), "τελευτατε");
     }
 
     function test_trim() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_trim(" \n\t\0 τελευτατελ\0\n\n\t"), "τελευτατελ");
-        $this->assertEqual($driver->_trim("pτελεpυτατελp", "p"), "τελεpυτατελ");
-        $this->assertEqual($driver->_trim("pτελεpυτατελp", "pλ"), "τελεpυτατε");
-        $this->assertEqual($driver->_trim("?*++?τελευτατε?+.+?", "?.+*"), "τελευτατε");
+        $this->assertEquals($driver->_trim(" \n\t\0 τελευτατελ\0\n\n\t"), "τελευτατελ");
+        $this->assertEquals($driver->_trim("pτελεpυτατελp", "p"), "τελεpυτατελ");
+        $this->assertEquals($driver->_trim("pτελεpυτατελp", "pλ"), "τελεpυτατε");
+        $this->assertEquals($driver->_trim("?*++?τελευτατε?+.+?", "?.+*"), "τελευτατε");
     }
 
     function test_str_replace() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_str_replace("ελx", "", "τελxευτατελx"),
+        $this->assertEquals($driver->_str_replace("ελx", "", "τελxευτατελx"),
                            "τευτατ");
-        $this->assertEqual($driver->_str_replace("τ", "υ", "τελευτατελ"),
+        $this->assertEquals($driver->_str_replace("τ", "υ", "τελευτατελ"),
                            "υελευυαυελ");
         $search = array("τ", "υ");
-        $this->assertEqual($driver->_str_replace($search, "λ", "τελευτατελ"),
+        $this->assertEquals($driver->_str_replace($search, "λ", "τελευτατελ"),
                            "λελελλαλελ");
         $replace = array("α", "ε");
-        $this->assertEqual($driver->_str_replace($search, $replace, "τελευτατελ"),
+        $this->assertEquals($driver->_str_replace($search, $replace, "τελευτατελ"),
                            "αελεεαααελ");
     }
 
@@ -75,49 +75,49 @@ abstract class lmbMultiByteStringDriverTestBase extends TestCase
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_strlen("τελευτατελ"), 10);
-        $this->assertEqual($driver->_strlen("τ\nελευτα τελ "), 13);
+        $this->assertEquals($driver->_strlen("τελευτατελ"), 10);
+        $this->assertEquals($driver->_strlen("τ\nελευτα τελ "), 13);
     }
 
     function test_strpos() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_strpos("τελευτατελ", "τατ"), 5);
-        $this->assertEqual($driver->_strpos("τελευτατελ", "ε"), 1);
-        $this->assertEqual($driver->_strpos("τελευτατελ", "ε", 2), 3);
+        $this->assertEquals($driver->_strpos("τελευτατελ", "τατ"), 5);
+        $this->assertEquals($driver->_strpos("τελευτατελ", "ε"), 1);
+        $this->assertEquals($driver->_strpos("τελευτατελ", "ε", 2), 3);
     }
 
     function test_strrpos() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_strrpos("τελευτατελ", "τατ"), 5);
-        $this->assertEqual($driver->_strrpos("τελευτατελ", "ε"), 8);
-        $this->assertEqual($driver->_strrpos("τελευτατελ", "ε", 3), 8);
+        $this->assertEquals($driver->_strrpos("τελευτατελ", "τατ"), 5);
+        $this->assertEquals($driver->_strrpos("τελευτατελ", "ε"), 8);
+        $this->assertEquals($driver->_strrpos("τελευτατελ", "ε", 3), 8);
     }
 
     function test_strtolower() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_strtolower("ТЕСТ"), "тест");
-        $this->assertEqual($driver->_strtolower("тЕсТ"), "тест");
+        $this->assertEquals($driver->_strtolower("ТЕСТ"), "тест");
+        $this->assertEquals($driver->_strtolower("тЕсТ"), "тест");
     }
 
     function test_strtoupper() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_strtoupper("тест"), "ТЕСТ");
-        $this->assertEqual($driver->_strtoupper("тЕсТ"), "ТЕСТ");
+        $this->assertEquals($driver->_strtoupper("тест"), "ТЕСТ");
+        $this->assertEquals($driver->_strtoupper("тЕсТ"), "ТЕСТ");
     }
 
     function test_ucfirst() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_ucfirst("тест"), "Тест");
+        $this->assertEquals($driver->_ucfirst("тест"), "Тест");
     }
 
     function test_ucfirst_Space() {
@@ -126,7 +126,7 @@ abstract class lmbMultiByteStringDriverTestBase extends TestCase
 
         $str = ' Iñtërnâtiônàlizætiøn';
         $ucfirst = ' Iñtërnâtiônàlizætiøn';
-        $this->assertEqual($driver->_ucfirst($str),$ucfirst);
+        $this->assertEquals($driver->_ucfirst($str),$ucfirst);
     }
 
     function test_ucfirst_Upper() {
@@ -135,15 +135,15 @@ abstract class lmbMultiByteStringDriverTestBase extends TestCase
 
         $str = 'Ñtërnâtiônàlizætiøn';
         $ucfirst = 'Ñtërnâtiônàlizætiøn';
-        $this->assertEqual($driver->_ucfirst($str), $ucfirst);
+        $this->assertEquals($driver->_ucfirst($str), $ucfirst);
     }
 
     function test_strcasecmp() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_strcasecmp("тест", "тест"), 0);
-        $this->assertEqual($driver->_strcasecmp("тест", "ТесТ"), 0);
+        $this->assertEquals($driver->_strcasecmp("тест", "тест"), 0);
+        $this->assertEquals($driver->_strcasecmp("тест", "ТесТ"), 0);
         $this->assertTrue($driver->_strcasecmp("тест", "ТЕСТЫ") < 0);
         $this->assertTrue($driver->_strcasecmp("тесты", "ТЕСТ") > 0);
     }
@@ -154,7 +154,7 @@ abstract class lmbMultiByteStringDriverTestBase extends TestCase
 
         $str = "это...просто тест, не стоит воспринимать это...всерьез";
 
-        $this->assertEqual($driver->_substr_count($str, "это..."), 2);
+        $this->assertEquals($driver->_substr_count($str, "это..."), 2);
     }
 
     function test_str_split() {
@@ -166,7 +166,7 @@ abstract class lmbMultiByteStringDriverTestBase extends TestCase
             'I','ñ','t','ë','r','n','â','t','i','ô','n','à','l','i',
             'z','æ','t','i','ø','n',
         );
-        $this->assertEqual($driver->_str_split($str), $array);
+        $this->assertEquals($driver->_str_split($str), $array);
     }
 
     function test_str_split_Newline() {
@@ -178,7 +178,7 @@ abstract class lmbMultiByteStringDriverTestBase extends TestCase
             'I','ñ','t','ë','r','n',"\n",'â','t','i','ô','n','à','l',"\n",'i',
             'z','æ','t','i','ø','n',"\n",
         );
-        $this->assertEqual($driver->_str_split($str), $array);
+        $this->assertEquals($driver->_str_split($str), $array);
     }
 
     function test_preg_match() {
@@ -186,7 +186,7 @@ abstract class lmbMultiByteStringDriverTestBase extends TestCase
             return;
 
         $this->assertTrue($driver->_preg_match("/^(.)/", "тест", $matches));
-        $this->assertEqual($matches[1], "т");
+        $this->assertEquals($matches[1], "т");
     }
 
     function test_preg_match_all() {
@@ -195,24 +195,24 @@ abstract class lmbMultiByteStringDriverTestBase extends TestCase
 
         $this->assertTrue($driver->_preg_match_all("/(.)/", "тест", $matches));
 
-        $this->assertEqual($matches[1][0], "т");
-        $this->assertEqual($matches[1][1], "е");
-        $this->assertEqual($matches[1][2], "с");
-        $this->assertEqual($matches[1][3], "т");
+        $this->assertEquals($matches[1][0], "т");
+        $this->assertEquals($matches[1][1], "е");
+        $this->assertEquals($matches[1][2], "с");
+        $this->assertEquals($matches[1][3], "т");
     }
 
     function test_preg_replace() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_preg_replace("/кошк./", "собаки", "кошки"), "собаки");
+        $this->assertEquals($driver->_preg_replace("/кошк./", "собаки", "кошки"), "собаки");
     }
 
     function test_preg_replace_callback() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEqual($driver->_preg_replace_callback("/(кошк)(.)/",
+        $this->assertEquals($driver->_preg_replace_callback("/(кошк)(.)/",
                                                            create_function('$m','return $m[1]."i";'),
                                                            "кошки"), "кошкi");
     }
@@ -222,8 +222,8 @@ abstract class lmbMultiByteStringDriverTestBase extends TestCase
             return;
 
         $pieces = $driver->_preg_split("/д./", "кошки да собаки");
-        $this->assertEqual($pieces[0], "кошки ");
-        $this->assertEqual($pieces[1], " собаки");
+        $this->assertEquals($pieces[0], "кошки ");
+        $this->assertEquals($pieces[1], " собаки");
     }
 }
 

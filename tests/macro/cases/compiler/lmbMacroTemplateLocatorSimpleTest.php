@@ -38,7 +38,7 @@ class lmbMacroTemplateLocatorSimpleTest extends lmbBaseMacroTest
       $this->fail();
     }
     
-    $this->assertEqual('bar', file_get_contents($template));    
+    $this->assertEquals('bar', file_get_contents($template));
   }
   
   function testLocateCompiledTemplate()
@@ -49,7 +49,7 @@ class lmbMacroTemplateLocatorSimpleTest extends lmbBaseMacroTest
     
     $template = $template_locator->locateCompiledTemplate($this->template_name);
     
-    $this->assertEqual('bar', file_get_contents($template));
+    $this->assertEquals('bar', file_get_contents($template));
   }
   
 }

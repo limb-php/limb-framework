@@ -43,7 +43,7 @@ class lmbPgsqlInsertTest extends DriverInsertTestBase
     $this->connection->newStatement("DELETE FROM founding_fathers")->execute();
 
     $new_id = $stmt->insertId('id');
-    $this->assertEqual($new_id - $id, 1);
+    $this->assertEquals($new_id - $id, 1);
   }
 }
 

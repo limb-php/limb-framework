@@ -25,7 +25,7 @@ class lmbMacroFormFieldErrorsTagTest extends lmbBaseMacroTest
     $page->set('form_my_form_error_list', $error_list);
  
     $out = $page->render();
-    $this->assertEqual($out, '<form name="my_form">field1-Error1|field2-Error1|field1-Error2|</form>');
+    $this->assertEquals($out, '<form name="my_form">field1-Error1|field2-Error1|field1-Error2|</form>');
   }
   
   function testGetErrorsForParticularField()
@@ -44,6 +44,6 @@ class lmbMacroFormFieldErrorsTagTest extends lmbBaseMacroTest
     $page->set('form_my_form_error_list', $error_list);
  
     $out = $page->render();
-    $this->assertEqual($out, '<form name="my_form">field2-Error1|</form>');
+    $this->assertEquals($out, '<form name="my_form">field2-Error1|</form>');
   }  
 }

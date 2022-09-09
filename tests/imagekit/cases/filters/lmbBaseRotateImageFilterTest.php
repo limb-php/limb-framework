@@ -20,9 +20,9 @@ abstract class lmbBaseRotateImageFilterTest extends lmbImageKitTestCase
     $cont->save($this->_getOutputImage());
     list($width, $height, $type) = getimagesize($this->_getInputImage());
     list($width2, $height2, $type2) = getimagesize($this->_getOutputImage());
-    $this->assertEqual($width, $height2);
-    $this->assertEqual($height, $width2);
-    $this->assertEqual($type, $type2);
+    $this->assertEquals($width, $height2);
+    $this->assertEquals($height, $width2);
+    $this->assertEquals($type, $type2);
   }
 
   function testParams()
@@ -30,10 +30,10 @@ abstract class lmbBaseRotateImageFilterTest extends lmbImageKitTestCase
     $class_name = $this->_getClass('lmb%RotateImageFilter');
     $filter = new $class_name(array('angle' => 90, 'bgcolor' => 'FF0000'));
 
-    $this->assertEqual($filter->getAngle(), 90);
+    $this->assertEquals($filter->getAngle(), 90);
     $bgcolor = $filter->getBgColor();
-    $this->assertEqual($bgcolor['red'], 255);
-    $this->assertEqual($bgcolor['green'], 0);
-    $this->assertEqual($bgcolor['blue'], 0);
+    $this->assertEquals($bgcolor['red'], 255);
+    $this->assertEquals($bgcolor['green'], 0);
+    $this->assertEquals($bgcolor['blue'], 0);
   }
 }

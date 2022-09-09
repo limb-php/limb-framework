@@ -15,7 +15,7 @@ class lmbMacroHtmlSpecialCharsFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '<hello>');
     $out = $tpl->render();
-    $this->assertEqual($out, '&lt;hello&gt;');
+    $this->assertEquals($out, '&lt;hello&gt;');
   }
 }
 

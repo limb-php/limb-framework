@@ -317,7 +317,7 @@ class lmbUploadedFilesParserTest extends TestCase
      );
 
      $result = $this->parser->objectify($files);
-     $this->assertEqual($result, $expected);
+     $this->assertEquals($result, $expected);
   }
 
   function testMixed()
@@ -381,7 +381,7 @@ class lmbUploadedFilesParserTest extends TestCase
      );
 
      $result = $this->parser->parse($files);
-     $this->assertEqual($result, $expected);
+     $this->assertEquals($result, $expected);
   }
 }
 

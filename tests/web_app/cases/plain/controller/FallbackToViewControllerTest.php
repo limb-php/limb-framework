@@ -47,7 +47,7 @@ class FallbackToViewControllerTest extends TestCase
     $this->toolkit->setView($view);
     $controller = new FallbackToViewController();
     $controller->performAction();
-    $this->assertEqual($this->toolkit->getView()->getTemplate(), $controller->findTemplateByAlias('not_found'));
+    $this->assertEquals($this->toolkit->getView()->getTemplate(), $controller->findTemplateByAlias('not_found'));
   }
 }
 

@@ -107,20 +107,20 @@ class lmbToolkitTest extends TestCase
   {
     $toolkit = new lmbToolkit();
     $toolkit->add(new TestTools());
-    $this->assertEqual($toolkit->commonMethod(), 'commonMethod1');
-    $this->assertEqual($toolkit->returnArg('b'), 'b');
+    $this->assertEquals($toolkit->commonMethod(), 'commonMethod1');
+    $this->assertEquals($toolkit->returnArg('b'), 'b');
   }
 
   function testAddSeveralTools()
   {
     $toolkit = new lmbToolkit();
     $toolkit->add(new TestTools());
-    $this->assertEqual($toolkit->commonMethod(), 'commonMethod1');
-    $this->assertEqual($toolkit->returnArg('b'), 'b');
+    $this->assertEquals($toolkit->commonMethod(), 'commonMethod1');
+    $this->assertEquals($toolkit->returnArg('b'), 'b');
 
     $toolkit->add(new TestTools2());
-    $this->assertEqual($toolkit->commonMethod(), 'commonMethod2');
-    $this->assertEqual($toolkit->returnArg('b'), 'b');
+    $this->assertEquals($toolkit->commonMethod(), 'commonMethod2');
+    $this->assertEquals($toolkit->returnArg('b'), 'b');
   }
 
   function testSaveRestoreToolkit()
@@ -130,21 +130,21 @@ class lmbToolkitTest extends TestCase
     $toolkit = lmbToolkit :: setup(new TestTools());
     $toolkit->commonMethod();
     $toolkit->commonMethod();
-    $this->assertEqual($toolkit->getCommonMethodCalls(), 2);
+    $this->assertEquals($toolkit->getCommonMethodCalls(), 2);
 
     $toolkit = lmbToolkit :: save();
     $toolkit->commonMethod();
-    $this->assertEqual($toolkit->getCommonMethodCalls(), 3);
+    $this->assertEquals($toolkit->getCommonMethodCalls(), 3);
 
     $toolkit = lmbToolkit :: save();
     $toolkit->commonMethod();
-    $this->assertEqual($toolkit->getCommonMethodCalls(), 4);
+    $this->assertEquals($toolkit->getCommonMethodCalls(), 4);
 
     $toolkit = lmbToolkit :: restore();
-    $this->assertEqual($toolkit->getCommonMethodCalls(), 3);
+    $this->assertEquals($toolkit->getCommonMethodCalls(), 3);
 
     $toolkit = lmbToolkit :: restore();
-    $this->assertEqual($toolkit->getCommonMethodCalls(), 2);
+    $this->assertEquals($toolkit->getCommonMethodCalls(), 2);
     lmbToolkit :: restore();
 
     lmbToolkit :: restore();
@@ -178,7 +178,7 @@ class lmbToolkitTest extends TestCase
 
     lmbToolkit :: setup(new TestTools());
     $toolkit = lmbToolkit :: merge(new TestTools2());
-    $this->assertEqual($toolkit->commonMethod(), 'commonMethod2');
+    $this->assertEquals($toolkit->commonMethod(), 'commonMethod2');
 
     lmbToolkit :: restore();
   }
@@ -192,17 +192,17 @@ class lmbToolkitTest extends TestCase
 
     $toolkit->commonMethod();
     $toolkit->commonMethod();
-    $this->assertEqual($toolkit->getCommonMethodCalls(), 2);
+    $this->assertEquals($toolkit->getCommonMethodCalls(), 2);
 
     $toolkit = lmbToolkit :: merge(new TestTools());
-    $this->assertEqual($toolkit->getCommonMethodCalls(), 0);
+    $this->assertEquals($toolkit->getCommonMethodCalls(), 0);
 
     $toolkit = lmbToolkit :: instance();
     $toolkit->commonMethod();
-    $this->assertEqual($toolkit->getCommonMethodCalls(), 1);
+    $this->assertEquals($toolkit->getCommonMethodCalls(), 1);
 
     $toolkit = lmbToolkit :: restore();
-    $this->assertEqual($toolkit->getCommonMethodCalls(), 0);
+    $this->assertEquals($toolkit->getCommonMethodCalls(), 0);
 
     lmbToolkit :: restore();
   }
@@ -212,7 +212,7 @@ class lmbToolkitTest extends TestCase
     $toolkit = new lmbToolkit();
     $toolkit->set('my_var', 'value1');
 
-    $this->assertEqual($toolkit->get('my_var'), 'value1');
+    $this->assertEquals($toolkit->get('my_var'), 'value1');
   }
   
   function testGetWithDefaultValue()
@@ -226,7 +226,7 @@ class lmbToolkitTest extends TestCase
       $this->pass();
     }
    
-    $this->assertEqual($toolkit->get('commonMethod', 'baz'), 'baz');    
+    $this->assertEquals($toolkit->get('commonMethod', 'baz'), 'baz');
   }
 
   function testSaveAndRestoreProperties()
@@ -242,7 +242,7 @@ class lmbToolkitTest extends TestCase
 
     lmbToolkit :: restore();
 
-    $this->assertEqual($toolkit->get('my_var'), 'value1');
+    $this->assertEquals($toolkit->get('my_var'), 'value1');
 
     lmbToolkit :: restore();
   }
@@ -254,16 +254,16 @@ class lmbToolkitTest extends TestCase
     $toolkit = lmbToolkit :: setup(new TestTools());
     $toolkit->set('var', 'value1');
 
-    $this->assertEqual($toolkit->getVar(), 'value1');
+    $this->assertEquals($toolkit->getVar(), 'value1');
 
     lmbToolkit :: save();
 
     $toolkit->setVar('value2');
-    $this->assertEqual($toolkit->getVar(), 'value2');
+    $this->assertEquals($toolkit->getVar(), 'value2');
 
     lmbToolkit :: restore();
 
-    $this->assertEqual($toolkit->get('var'), 'value1');
+    $this->assertEquals($toolkit->get('var'), 'value1');
 
     lmbToolkit :: restore();
   }

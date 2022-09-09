@@ -23,7 +23,7 @@ class lmbARTransactionTest extends lmbARBaseTestCase
 
     $this->conn->commitTransaction();
 
-    $this->assertEqual($this->db->count('test_one_table_object'), 1);
+    $this->assertEquals($this->db->count('test_one_table_object'), 1);
   }
 
   function  testSaveRollbacksTransaction()
@@ -38,7 +38,7 @@ class lmbARTransactionTest extends lmbARBaseTestCase
 
     $this->conn->commitTransaction();
 
-    $this->assertEqual($this->db->count('test_one_table_object'), 0);
+    $this->assertEquals($this->db->count('test_one_table_object'), 0);
   }
 }
 

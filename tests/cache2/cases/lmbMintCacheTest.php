@@ -62,7 +62,7 @@ class lmbMintCacheTest extends TestCase
     $not_expired_time = time() + 100;
     $this->cache_backend->setReturnValue('get', array($value, $not_expired_time), array($key));
     $this->cache_backend->expectOnce('get', array($key));
-    $this->assertEqual($value, $this->cache->get($key));
+    $this->assertEquals($value, $this->cache->get($key));
   }
 
   function testGetReturnNullAndCallesSetAnewWith60SecondTtl()

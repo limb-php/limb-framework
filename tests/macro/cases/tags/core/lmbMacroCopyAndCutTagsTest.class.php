@@ -15,7 +15,7 @@ class lmbMacroCopyAndCutTagsTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEqual($page->render(), 'F|N|F|');
+    $this->assertEquals($page->render(), 'F|N|F|');
   }
 
   function testCutTag()
@@ -24,7 +24,7 @@ class lmbMacroCopyAndCutTagsTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEqual($page->render(), 'N|F|');
+    $this->assertEquals($page->render(), 'N|F|');
   }
 }
 

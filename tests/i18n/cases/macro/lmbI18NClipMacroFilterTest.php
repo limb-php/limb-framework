@@ -32,7 +32,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTest
     $var = "что-то";
     $tpl->set('var', $var);
     $out = $tpl->render();
-    $this->assertEqual($out, 'что');
+    $this->assertEquals($out, 'что');
   }
   
   
@@ -44,7 +44,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTest
     $tpl->set('var', $var);
     $tpl->set('limit', 3);
     $out = $tpl->render();
-    $this->assertEqual($out, 'что');
+    $this->assertEquals($out, 'что');
   }
 
   function testLengthLimitAndOffset()
@@ -54,7 +54,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTest
     $var = "фреймворк для веб-приложений";
     $tpl->set('var', $var);
     $out = $tpl->render();
-    $this->assertEqual($out, 'вор');
+    $this->assertEquals($out, 'вор');
   }
 
   function testWithSuffix()
@@ -64,7 +64,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTest
     $var = "фреймворк для веб-приложений";
     $tpl->set('var', $var);
     $out = $tpl->render();
-    $this->assertEqual($out, 'вор...');
+    $this->assertEquals($out, 'вор...');
   }
 
   function testSuffixNotUsedTooShortString()
@@ -74,7 +74,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTest
     $var = "фреймворк";
     $tpl->set('var', $var);
     $out = $tpl->render();
-    $this->assertEqual($out, 'фреймворк');
+    $this->assertEquals($out, 'фреймворк');
   }
 
   // don't know if boundary condition works for all cases. Should work for the simple ones.
@@ -85,7 +85,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTest
     $var = "фреймворк для веб-приложений";
     $tpl->set('var', $var);
     $out = $tpl->render();
-    $this->assertEqual($out, 'фреймворк для...');
+    $this->assertEquals($out, 'фреймворк для...');
   }
 
   function testPathBasedDBELengthLimit()
@@ -95,7 +95,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTest
     $data = new lmbSet(array('var' => 'что-то'));
     $tpl->set('my', $data);
     $out = $tpl->render();
-    $this->assertEqual($out, 'что');
+    $this->assertEquals($out, 'что');
   }
 
   function testQuoteRegexPatterns()
@@ -105,7 +105,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTest
     $var = "(фреймворк.*) для веб-приложений";
     $tpl->set('var', $var);
     $out = $tpl->render();
-    $this->assertEqual($out, '(фреймворк.*) для...');
+    $this->assertEquals($out, '(фреймворк.*) для...');
   }
 }
 

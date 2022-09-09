@@ -23,33 +23,33 @@ class lmbMacroRuntimeWidgetTagTest extends lmbBaseMacroTest
   function testGetRuntimeId_ByRuntimeIdAttribute()
   {
     $this->tag->set('runtime_id', 'my_id');
-    $this->assertEqual($this->tag->getRuntimeId(), 'my_id');
+    $this->assertEquals($this->tag->getRuntimeId(), 'my_id');
   }
 
   function testGetRuntimeId_ByIdAttribute()
   {
     $this->tag->set('id', 'my_id');
-    $this->assertEqual($this->tag->getRuntimeId(), 'my_id');
+    $this->assertEquals($this->tag->getRuntimeId(), 'my_id');
   }
 
   function testGetRuntimeId_ByIdAttribute_DontUseDynamicRuntimeId()
   {
     $this->tag->set('runtime_id', '$#some_value');
     $this->tag->set('id', 'my_id');
-    $this->assertEqual($this->tag->getRuntimeId(), 'my_id');
+    $this->assertEquals($this->tag->getRuntimeId(), 'my_id');
   }
   
   function testGetRuntimeId_ByNameAttribute()
   {
     $this->tag->set('name', 'my_id');
-    $this->assertEqual($this->tag->getRuntimeId(), 'my_id');
+    $this->assertEquals($this->tag->getRuntimeId(), 'my_id');
   }
 
   function testGetRuntimeId_ByNameAttribute_DontUseDynamicIdAttribute()
   {
     $this->tag->set('id', '$#some_value');
     $this->tag->set('name', 'my_id');
-    $this->assertEqual($this->tag->getRuntimeId(), 'my_id');
+    $this->assertEquals($this->tag->getRuntimeId(), 'my_id');
   }
 
   function testGetRuntimeId_ByCleanedNameAttribute()
@@ -63,14 +63,14 @@ class lmbMacroRuntimeWidgetTagTest extends lmbBaseMacroTest
     $this->tag->set('runtime_id', 'id_by_runtime_id');
     $this->tag->set('id', 'id_by_id');
     $this->tag->set('name', 'id_by_name');
-    $this->assertEqual($this->tag->getRuntimeId(), 'id_by_runtime_id');
+    $this->assertEquals($this->tag->getRuntimeId(), 'id_by_runtime_id');
   }
 
   function testGetRuntimeId_PreferIdOverOtherName()
   {
     $this->tag->set('id', 'id_by_id');
     $this->tag->set('name', 'id_by_name');
-    $this->assertEqual($this->tag->getRuntimeId(), 'id_by_id');
+    $this->assertEquals($this->tag->getRuntimeId(), 'id_by_id');
   }
   
   function testGetRuntimeId_GenerateIdByDefault_AndSetRuntimeIdAttributeInThisCase()

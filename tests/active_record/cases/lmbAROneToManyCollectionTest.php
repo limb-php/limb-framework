@@ -88,16 +88,16 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
 
     $arr = $collection->getArray();
 
-    $this->assertEqual($arr[0]->getTitle(), $l1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $l2->getTitle());
-    $this->assertEqual(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $l1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $l2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
 
     $collection2 = new lmbAROneToManyCollection('lectures', $course);
     $arr = $collection2->getArray();
 
-    $this->assertEqual($arr[0]->getTitle(), $l1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $l2->getTitle());
-    $this->assertEqual(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $l1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $l2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
   }
 
   function testResetCollectionOnAddForExistingOwner()
@@ -117,7 +117,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $lectures = $course->getLectures();
     $lectures->rewind();
     $lecture = $lectures->current();
-    $this->assertEqual($lecture->getTitle(), $l1->getTitle());
+    $this->assertEquals($lecture->getTitle(), $l1->getTitle());
   }
 
   function testAddToWithNonSavedOwner()
@@ -132,14 +132,14 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $collection->add($l2);
 
     $arr = $collection->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $l1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $l2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $l1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $l2->getTitle());
 
     $collection2 = new lmbAROneToManyCollection('lectures', $course);
     $arr = $collection2->getArray();
 
-    $this->assertEqual(sizeof($arr), 0);
+    $this->assertEquals(sizeof($arr), 0);
   }
 
   function testSaveWithExistingOwnerDoesNothing()
@@ -171,16 +171,16 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $collection->add($l2);
 
     $collection2 = new lmbAROneToManyCollection('lectures', $course);
-    $this->assertEqual(sizeof($collection2->getArray()), 0);
+    $this->assertEquals(sizeof($collection2->getArray()), 0);
 
     $course->save();
     $collection->save();
 
     $collection3 = new lmbAROneToManyCollection('lectures', $course);
     $arr = $collection3->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $l1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $l2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $l1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $l2->getTitle());
   }
 
   function testSavingOwnerDoesntAffectCollection()
@@ -201,35 +201,35 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
 
     //items in memory
     $arr = $collection->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $l1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $l2->getTitle());
-    $this->assertEqual($l1->save_calls, 0);
-    $this->assertEqual($l2->save_calls, 0);
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $l1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $l2->getTitle());
+    $this->assertEquals($l1->save_calls, 0);
+    $this->assertEquals($l2->save_calls, 0);
 
     //...and not db yet
     $collection2 = new lmbAROneToManyCollection('lectures', $course);
-    $this->assertEqual(sizeof($collection2->getArray()), 0);
+    $this->assertEquals(sizeof($collection2->getArray()), 0);
 
     $collection->save();
 
     $collection3 = new lmbAROneToManyCollection('lectures', $course);
     $arr = $collection3->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $l1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $l2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $l1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $l2->getTitle());
 
     //check items not saved twice
     $collection->save();
 
-    $this->assertEqual($l1->save_calls, 1);
-    $this->assertEqual($l2->save_calls, 1);
+    $this->assertEquals($l1->save_calls, 1);
+    $this->assertEquals($l2->save_calls, 1);
 
     $collection4 = new lmbAROneToManyCollection('lectures', $course);
     $arr = $collection4->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $l1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $l2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $l1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $l2->getTitle());
   }
 
   function testLoadOnlyProperRecordsWithExistingOwner()
@@ -245,18 +245,18 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $course2 = $this->_createCourseAndSave(array($l3, $l4));
 
     $collection1 = new lmbAROneToManyCollection('lectures', $course1);
-    $this->assertEqual($collection1->count(), 2);
+    $this->assertEquals($collection1->count(), 2);
     $arr = $collection1->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $l1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $l2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $l1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $l2->getTitle());
 
     $collection2 = new lmbAROneToManyCollection('lectures', $course2);
-    $this->assertEqual($collection2->count(), 2);
+    $this->assertEquals($collection2->count(), 2);
     $arr = $collection2->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $l3->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $l4->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $l3->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $l4->getTitle());
   }
 
   function testCountWithExistingOwner()
@@ -270,7 +270,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $collection->add($l1);
     $collection->add($l2);
 
-    $this->assertEqual($collection->count(), 2);
+    $this->assertEquals($collection->count(), 2);
   }
 
   function testCountWithNonSavedOwner()
@@ -281,12 +281,12 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $course = $this->_initCourse();
 
     $collection = new lmbAROneToManyCollection('lectures', $course);
-    $this->assertEqual($collection->count(), 0);
+    $this->assertEquals($collection->count(), 0);
 
     $collection->add($l1);
     $collection->add($l2);
 
-    $this->assertEqual($collection->count(), 2);
+    $this->assertEquals($collection->count(), 2);
   }
 
   function testImplementsCountable()
@@ -297,12 +297,12 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $course = $this->_initCourse();
     $collection = new lmbAROneToManyCollection('lectures', $course);
 
-    $this->assertEqual(sizeof($collection), 0);
+    $this->assertEquals(sizeof($collection), 0);
 
     $collection->add($l1);
     $collection->add($l2);
 
-    $this->assertEqual(sizeof($collection), 2);
+    $this->assertEquals(sizeof($collection), 2);
   }
 
   function testPartiallyImplementsArrayAccess()
@@ -316,8 +316,8 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $collection[] = $l1;
     $collection[] = $l2;
 
-    $this->assertEqual($collection[0]->getId(), $l1->getId());
-    $this->assertEqual($collection[1]->getId(), $l2->getId());
+    $this->assertEquals($collection[0]->getId(), $l1->getId());
+    $this->assertEquals($collection[1]->getId(), $l2->getId());
     $this->assertNull($collection[2]);
 
     $this->assertTrue(isset($collection[0]));
@@ -344,7 +344,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $course2 = lmbActiveRecord :: findById('CourseForTest', $course->getId());
 
     $collection = new lmbAROneToManyCollection('lectures', $course2);
-    $this->assertEqual(sizeof($collection->getArray()), 0);
+    $this->assertEquals(sizeof($collection->getArray()), 0);
   }
 
   function testRemoveAllWithNonSavedOwner()
@@ -359,7 +359,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $collection->add($l2);
     $collection->removeAll();
 
-    $this->assertEqual($collection->count(), 0);
+    $this->assertEquals($collection->count(), 0);
   }
 
   function testPaginateWithNonSavedOwner()
@@ -377,12 +377,12 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
 
     $collection->paginate($offset = 0, $limit = 2);
 
-    $this->assertEqual($collection->count(), 3);
+    $this->assertEquals($collection->count(), 3);
     $arr = $collection->getArray();
 
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $l1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $l2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $l1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $l2->getTitle());
   }
 
   function testPaginateWithExistingOwner()
@@ -396,12 +396,12 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $collection = new lmbAROneToManyCollection('lectures', $course);
     $collection->paginate($offset = 0, $limit = 2);
 
-    $this->assertEqual($collection->count(), 3);
+    $this->assertEquals($collection->count(), 3);
     $arr = $collection->getArray();
 
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $l1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $l2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $l1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $l2->getTitle());
   }
 
   function testSortWithExistingOwner()
@@ -415,13 +415,13 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $collection = new lmbAROneToManyCollection('lectures', $course);
     $collection->sort(array('title' => 'DESC'));
 
-    $this->assertEqual($collection->count(), 3);
+    $this->assertEquals($collection->count(), 3);
     $arr = $collection->getArray();
 
-    $this->assertEqual(sizeof($arr), 3);
-    $this->assertEqual($arr[0]->getTitle(), $l3->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $l2->getTitle());
-    $this->assertEqual($arr[2]->getTitle(), $l1->getTitle());
+    $this->assertEquals(sizeof($arr), 3);
+    $this->assertEquals($arr[0]->getTitle(), $l3->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $l2->getTitle());
+    $this->assertEquals($arr[2]->getTitle(), $l1->getTitle());
   }
 
   function testSortWithNonSavedOwner()
@@ -438,9 +438,9 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $collection->add($l3);
 
     $collection->sort(array('title' => 'DESC'));
-    $this->assertEqual($collection->at(0)->getTitle(), 'C-Lecture');
-    $this->assertEqual($collection->at(1)->getTitle(), 'B-Lecture');
-    $this->assertEqual($collection->at(2)->getTitle(), 'A-Lecture');
+    $this->assertEquals($collection->at(0)->getTitle(), 'C-Lecture');
+    $this->assertEquals($collection->at(1)->getTitle(), 'B-Lecture');
+    $this->assertEquals($collection->at(2)->getTitle(), 'A-Lecture');
   }
 
   function testFindFirstWithSortParamsForExistingOwner()
@@ -450,7 +450,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $course = $this->_createCourseAndSave(array($l1, $l2));
 
     $lecture = $course->getLectures()->findFirst(array('sort' => array('id' => 'DESC')));
-    $this->assertEqual($lecture->getTitle(), $l2->getTitle());
+    $this->assertEquals($lecture->getTitle(), $l2->getTitle());
   }
 
   function testFindForExistingOwnerAppliesSortParamsFromRelationInfo()
@@ -465,8 +465,8 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $course->save();
 
     $lectures = $course->getLectures()->find();
-    $this->assertEqual($lectures->at(0)->getTitle(), $l2->getTitle());
-    $this->assertEqual($lectures->at(1)->getTitle(), $l1->getTitle());
+    $this->assertEquals($lectures->at(0)->getTitle(), $l2->getTitle());
+    $this->assertEquals($lectures->at(1)->getTitle(), $l1->getTitle());
   }
 
   function testFindForExistingOwnerAppliesSortParamsFromChildObjectByDefault()
@@ -483,8 +483,8 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $course->save();
 
     $lectures = $course->getLectures()->find();
-    $this->assertEqual($lectures->at(0)->getTitle(), $l2->getTitle());
-    $this->assertEqual($lectures->at(1)->getTitle(), $l1->getTitle());
+    $this->assertEquals($lectures->at(0)->getTitle(), $l2->getTitle());
+    $this->assertEquals($lectures->at(1)->getTitle(), $l1->getTitle());
   }
 
   function testIterateAlsoAppliesSortParamsFromRelationInfo()
@@ -499,8 +499,8 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $course->save();
 
     $lectures = $course->getLectures();
-    $this->assertEqual($lectures->at(0)->getTitle(), $l2->getTitle());
-    $this->assertEqual($lectures->at(1)->getTitle(), $l1->getTitle());
+    $this->assertEquals($lectures->at(0)->getTitle(), $l2->getTitle());
+    $this->assertEquals($lectures->at(1)->getTitle(), $l1->getTitle());
   }
 
   function testAtWithExistingOwner()
@@ -512,9 +512,9 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $course = $this->_createCourseAndSave(array($l1, $l2, $l3));
     $collection = new lmbAROneToManyCollection('lectures', $course);
 
-    $this->assertEqual($collection->at(0)->getTitle(), $l1->getTitle());
-    $this->assertEqual($collection->at(2)->getTitle(), $l3->getTitle());
-    $this->assertEqual($collection->at(1)->getTitle(), $l2->getTitle());
+    $this->assertEquals($collection->at(0)->getTitle(), $l1->getTitle());
+    $this->assertEquals($collection->at(2)->getTitle(), $l3->getTitle());
+    $this->assertEquals($collection->at(1)->getTitle(), $l2->getTitle());
   }
 
   function testFindWithExistingOwner()
@@ -526,8 +526,8 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $course = $this->_createCourseAndSave(array($l1, $l2, $l3));
 
     $lectures = $course->getLectures()->find(lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . "=" . $l1->getId());
-    $this->assertEqual($lectures->count(), 1);
-    $this->assertEqual($lectures->at(0)->getTitle(), $l1->getTitle());
+    $this->assertEquals($lectures->count(), 1);
+    $this->assertEquals($lectures->at(0)->getTitle(), $l1->getTitle());
   }
 
   function testFindWithNonSavedOwner_TODO()
@@ -553,7 +553,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $course = $this->_createCourseAndSave(array($l1, $l2, $l3));
 
     $lecture = $course->getLectures()->findFirst(lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . "=" . $l1->getId() . " OR " . lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . "=" . $l2->getId());
-    $this->assertEqual($lecture->getTitle(), $l1->getTitle());
+    $this->assertEquals($lecture->getTitle(), $l1->getTitle());
   }
 
   function testFindFirstWithNonSavedOwner_TODO()
@@ -578,12 +578,12 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $lectures = $course->getLectures();
     $lectures->addDecorator('lmbARTestingDSDecorator', array('value' => 'my_value'));
 
-    $this->assertEqual($lectures->at(0)->get('value'), 'my_value');
-    $this->assertEqual($lectures->at(1)->get('value'), 'my_value');
+    $this->assertEquals($lectures->at(0)->get('value'), 'my_value');
+    $this->assertEquals($lectures->at(1)->get('value'), 'my_value');
 
     $lectures->rewind();
     $record = $lectures->current();
-    $this->assertEqual($record->get('value'), 'my_value');
+    $this->assertEquals($record->get('value'), 'my_value');
   }
 
   function testSet()
@@ -595,8 +595,8 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $collection = new lmbAROneToManyCollection('lectures', $course);
     $collection->set(array($l2));
 
-    $this->assertEqual($collection->count(), 1);
-    $this->assertEqual($collection->at(0)->getTitle(), $l2->getTitle());
+    $this->assertEquals($collection->count(), 1);
+    $this->assertEquals($collection->at(0)->getTitle(), $l2->getTitle());
   }
 
   function testSetExistringRelatedObjectIsSaved()
@@ -609,8 +609,8 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $l2->setTitle('new_title');
     $collection->set(array($l2));
 
-    $this->assertEqual($collection->count(), 1);
-    $this->assertEqual($collection->at(0)->getTitle(), 'new_title');
+    $this->assertEquals($collection->count(), 1);
+    $this->assertEquals($collection->at(0)->getTitle(), 'new_title');
   }
 
   function testGetRelatedObjectWithAdditionCriteria()
@@ -622,7 +622,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
 
     $course = $this->_createCourseAndSave(array($l1, $l2,$l3,$l4));
 
-    $this->assertEqual(count($course->getFooLectures()), 2);
+    $this->assertEquals(count($course->getFooLectures()), 2);
   }
 
   protected function _initCourse($lectures = array())

@@ -45,11 +45,11 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     $object1->save();
 
     $object2 = new FooOneTableTestObject($object1->getId());
-    $this->assertEqual($object2->getTitle(), $object1->getTitle());
+    $this->assertEquals($object2->getTitle(), $object1->getTitle());
 
     //parents are supertypes..
     $object3 = new TestOneTableTypedObject($object1->getId());
-    $this->assertEqual($object3->getTitle(), $object1->getTitle());
+    $this->assertEquals($object3->getTitle(), $object1->getTitle());
 
     try
     {
@@ -73,10 +73,10 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     lmbActiveRecord :: delete('TestOneTableTypedObject');
 
     $rs = lmbActiveRecord :: find('FooOneTableTestObject');
-    $this->assertEqual($rs->count(), 0);
+    $this->assertEquals($rs->count(), 0);
 
     $rs = lmbActiveRecord :: find('BarFooOneTableTestObject');
-    $this->assertEqual($rs->count(), 0);
+    $this->assertEquals($rs->count(), 0);
   }
 
   function testTypedDelete()
@@ -92,15 +92,15 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     lmbActiveRecord :: delete('BarFooOneTableTestObject');//removing subclass
 
     $rs = lmbActiveRecord :: find('BarFooOneTableTestObject');
-    $this->assertEqual($rs->count(), 0);
+    $this->assertEquals($rs->count(), 0);
 
     $rs = lmbActiveRecord :: find('FooOneTableTestObject');//supertype stays
-    $this->assertEqual($rs->count(), 1);
+    $this->assertEquals($rs->count(), 1);
 
     lmbActiveRecord :: delete('FooOneTableTestObject');//removing supertype
 
     $rs = lmbActiveRecord :: find('FooOneTableTestObject');
-    $this->assertEqual($rs->count(), 0);
+    $this->assertEquals($rs->count(), 0);
   }
 
   function testFind()
@@ -114,12 +114,12 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     $object2->save();
 
     $rs = lmbActiveRecord :: find('FooOneTableTestObject');//supertype
-    $this->assertEqual($rs->count(), 2);
+    $this->assertEquals($rs->count(), 2);
     $this->assertIsA($rs->at(0), 'FooOneTableTestObject');
     $this->assertIsA($rs->at(1), 'BarFooOneTableTestObject');
 
     $rs = lmbActiveRecord :: find('BarFooOneTableTestObject');//subclass
-    $this->assertEqual($rs->count(), 1);
+    $this->assertEquals($rs->count(), 1);
     $this->assertIsA($rs->at(0), 'BarFooOneTableTestObject');
   }
 
@@ -146,9 +146,9 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     $criteria->addOr(lmbSQLCriteria::equal('title','title2'));
 
     $records = lmbActiveRecord :: find('BarFooOneTableTestObject', $criteria)->sort(array('id'))->getArray();
-    $this->assertEqual(count($records), 2);
-    $this->assertEqual($records[0]->title, $valid_object1->title);
-    $this->assertEqual($records[1]->title, $valid_object2->title);
+    $this->assertEquals(count($records), 2);
+    $this->assertEquals($records[0]->title, $valid_object1->title);
+    $this->assertEquals($records[1]->title, $valid_object2->title);
   }
 
   function testTypedRelationFind()
@@ -172,20 +172,20 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
 
     $course2 = new CourseForTestForTypedLecture($course->getId());
 
-    $this->assertEqual($course2->getLectures()->count(), 2);//supertype by default
+    $this->assertEquals($course2->getLectures()->count(), 2);//supertype by default
     $this->assertIsA($course2->getLectures()->at(0), 'FooLectureForTest');
     $this->assertIsA($course2->getLectures()->at(1), 'BarFooLectureForTest');
 
     //narrowing selection but again its supertype for BarFooLectureForTest
     $lectures = $course2->getLectures()->find(array('class' => 'FooLectureForTest'));
 
-    $this->assertEqual($lectures->count(), 2);
+    $this->assertEquals($lectures->count(), 2);
     $this->assertIsA($lectures->at(0), 'FooLectureForTest');
     $this->assertIsA($lectures->at(1), 'BarFooLectureForTest');
 
     //narrowing more
     $lectures = $course2->getLectures()->find(array('class' => 'BarFooLectureForTest'));
-    $this->assertEqual($lectures->count(), 1);
+    $this->assertEquals($lectures->count(), 1);
     $this->assertIsA($lectures->at(0), 'BarFooLectureForTest');
   }
 }

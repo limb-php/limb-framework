@@ -98,7 +98,7 @@ class lmbControllerTest extends TestCase
   function testGuessControllerName()
   {
     $controller = new SecondTestingController();
-    $this->assertEqual($controller->getName(), 'second_testing');
+    $this->assertEquals($controller->getName(), 'second_testing');
   }
 
   function testPerformAction()
@@ -114,7 +114,7 @@ class lmbControllerTest extends TestCase
     $controller = new TestingController();
     $controller->setCurrentAction('write');
     $controller->performAction();
-    $this->assertEqual($this->toolkit->getResponse()->getResponseString(), "Hi!");
+    $this->assertEquals($this->toolkit->getResponse()->getResponseString(), "Hi!");
   }
 
   function testSetTemplateOnlyIfMethodIsNotFound()
@@ -151,9 +151,9 @@ class lmbControllerTest extends TestCase
 
     $controller->performAction();
     $view = $this->toolkit->getView();
-    $this->assertEqual($view->get('item'), 'item');//this one is set in action
-    $this->assertEqual($view->get('foo'), 'FOO');
-    $this->assertEqual($view->get('bar'), 'BAR');
+    $this->assertEquals($view->get('item'), 'item');//this one is set in action
+    $this->assertEquals($view->get('foo'), 'FOO');
+    $this->assertEquals($view->get('bar'), 'BAR');
     $this->assertNull($view->get('_nope'));//this one is ignored, since it's "protected" with _
   }
 
@@ -196,13 +196,13 @@ class lmbControllerTest extends TestCase
   function testForward()
   {
     $controller = new lmbController();
-    $this->assertEqual($controller->forward('testing', 'write'), "Hi!");
+    $this->assertEquals($controller->forward('testing', 'write'), "Hi!");
   }
 
   function testForwardInConstructor()
   {
     $testController = new TestingForwardController();
-    $this->assertEqual($this->toolkit->getResponse()->getResponseString(), 'Hi!');
+    $this->assertEquals($this->toolkit->getResponse()->getResponseString(), 'Hi!');
     $this->assertFalse($testController->performAction());
   }
 
@@ -219,7 +219,7 @@ class lmbControllerTest extends TestCase
     $controller = new TestingController();
     $controller->setCurrentAction('without_popup');
     $controller->performAction();
-    $this->assertEqual('', $this->toolkit->getResponse()->getResponseString());
+    $this->assertEquals('', $this->toolkit->getResponse()->getResponseString());
   }
 
 }

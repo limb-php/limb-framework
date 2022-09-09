@@ -15,10 +15,10 @@ class lmbMacroIfAndElseIfAndElseTagsTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
 
     $page->set('foo', true);
-    $this->assertEqual($page->render(), 'A');
+    $this->assertEquals($page->render(), 'A');
 
     $page->set('foo', false);
-    $this->assertEqual($page->render(), '');
+    $this->assertEquals($page->render(), '');
   }
 
   function testIfTag_AttrAlias()
@@ -27,10 +27,10 @@ class lmbMacroIfAndElseIfAndElseTagsTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
 
     $page->set('foo', true);
-    $this->assertEqual($page->render(), 'A');
+    $this->assertEquals($page->render(), 'A');
 
     $page->set('foo', false);
-    $this->assertEqual($page->render(), '');
+    $this->assertEquals($page->render(), '');
   }
 
   function testIfTag_MissedAttr()
@@ -54,10 +54,10 @@ class lmbMacroIfAndElseIfAndElseTagsTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
 
     $page->set('foo', 1);
-    $this->assertEqual($page->render(), 'A');
+    $this->assertEquals($page->render(), 'A');
 
     $page->set('foo', 2);
-    $this->assertEqual($page->render(), 'B');
+    $this->assertEquals($page->render(), 'B');
   }
 
   function testElseIfTag_WithoutIf()
@@ -80,7 +80,7 @@ class lmbMacroIfAndElseIfAndElseTagsTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
 
     $page->set('foo', 2);
-    $this->assertEqual($page->render(), 'B');
+    $this->assertEquals($page->render(), 'B');
   }
 
   function testElseIfTag_MissedAttr()
@@ -105,10 +105,10 @@ class lmbMacroIfAndElseIfAndElseTagsTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
 
     $page->set('foo', true);
-    $this->assertEqual($page->render(), 'A');
+    $this->assertEquals($page->render(), 'A');
 
     $page->set('foo', false);
-    $this->assertEqual($page->render(), 'B');
+    $this->assertEquals($page->render(), 'B');
   }
 
   function testElseTag_WithoutIf()
@@ -131,13 +131,13 @@ class lmbMacroIfAndElseIfAndElseTagsTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
 
     $page->set('foo', 1);
-    $this->assertEqual($page->render(), 'A');
+    $this->assertEquals($page->render(), 'A');
 
     $page->set('foo', 2);
-    $this->assertEqual($page->render(), 'B');
+    $this->assertEquals($page->render(), 'B');
 
     $page->set('foo', 3);
-    $this->assertEqual($page->render(), 'C');
+    $this->assertEquals($page->render(), 'C');
   }
 }
 

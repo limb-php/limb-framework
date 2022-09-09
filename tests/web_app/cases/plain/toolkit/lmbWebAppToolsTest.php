@@ -39,7 +39,7 @@ class lmbWebAppToolsTest extends TestCase
     $toolkit->setRoutes($routes);
 
     $to_url_params = array('controller' => 'news', 'action' => 'archive');
-    $this->assertEqual($toolkit->getRoutesUrl($to_url_params), LIMB_HTTP_GATEWAY_PATH . ltrim($routes->toUrl($to_url_params), '/'));
+    $this->assertEquals($toolkit->getRoutesUrl($to_url_params), LIMB_HTTP_GATEWAY_PATH . ltrim($routes->toUrl($to_url_params), '/'));
   }
 
   function testToRouteUrlSkipController()
@@ -54,7 +54,7 @@ class lmbWebAppToolsTest extends TestCase
     $toolkit->setDispatchedController(new lmbController());
 
     $to_url_params = array('action' => 'archive');
-    $this->assertEqual($toolkit->getRoutesUrl($to_url_params, null, $skip_controller = true),
+    $this->assertEquals($toolkit->getRoutesUrl($to_url_params, null, $skip_controller = true),
                        LIMB_HTTP_GATEWAY_PATH . 'news/archive');
   }
 
@@ -100,7 +100,7 @@ class lmbWebAppToolsTest extends TestCase
     lmbFs :: safeWrite(lmbEnv::get('LIMB_DOCUMENT_ROOT').'/js/main.js', '(function() {})()');
     $url = $toolkit->addVersionToUrl('js/main.js');
     $url_abs = $toolkit->addVersionToUrl(lmbEnv::get('LIMB_HTTP_BASE_PATH') . 'js/main.js');
-    $this->assertEqual($url, $url_abs);
+    $this->assertEquals($url, $url_abs);
   }
 
   function testAddVersionToUrl_Safe()
@@ -110,7 +110,7 @@ class lmbWebAppToolsTest extends TestCase
     try 
     {
       $url = $toolkit->addVersionToUrl('js/main.js', true);
-      $this->assertEqual($url, 'js/main.js?00');
+      $this->assertEquals($url, 'js/main.js?00');
       $this->assertTrue(true);
     } catch (lmbException $e)  {
       $this->assertTrue(false);
@@ -122,7 +122,7 @@ class lmbWebAppToolsTest extends TestCase
     try 
     {
       $url = $toolkit->addVersionToUrl('js/main.js', true);
-      $this->assertEqual('js/main.js?00', $url);
+      $this->assertEquals('js/main.js?00', $url);
       $this->assertTrue(true);
     } catch (lmbException $e)  {
       $this->assertTrue(false);

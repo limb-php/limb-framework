@@ -75,7 +75,7 @@ class lmbTestGroupTest extends lmbTestRunnerBase
     $group->run(new SimpleReporter());
     $str = ob_get_contents();
     ob_end_clean(); 
-    $this->assertEqual($str, 'setup 1setup 2teardown 2teardown 1');
+    $this->assertEquals($str, 'setup 1setup 2teardown 2teardown 1');
   }
 }
 

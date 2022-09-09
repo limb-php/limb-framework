@@ -123,7 +123,7 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
 
     $object->save();
 
-    $this->assertEqual($delegate->getCallsOrder(),
+    $this->assertEquals($delegate->getCallsOrder(),
                        '|onBeforeSave TestOneTableObject||onBeforeCreate TestOneTableObject||onCreate TestOneTableObject||onAfterCreate TestOneTableObject||onAfterSave TestOneTableObject|');
   }
 
@@ -141,7 +141,7 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
     $object->set('content', 'New Super content');
     $object->save();
 
-    $this->assertEqual($delegate->getCallsOrder(),
+    $this->assertEquals($delegate->getCallsOrder(),
                        '|onBeforeSave TestOneTableObject||onBeforeUpdate TestOneTableObject||onUpdate TestOneTableObject||onAfterUpdate TestOneTableObject||onAfterSave TestOneTableObject|');
   }
 
@@ -158,7 +158,7 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
 
     $object->destroy();
 
-    $this->assertEqual($delegate->getCallsOrder(),
+    $this->assertEquals($delegate->getCallsOrder(),
                        '|onBeforeDestroy TestOneTableObject||onAfterDestroy TestOneTableObject|');
   }
 
@@ -174,7 +174,7 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
 
     $object->save();
 
-    $this->assertEqual($delegate->getCallsOrder(),
+    $this->assertEquals($delegate->getCallsOrder(),
                        '|onBeforeSave TestOneTableObject||onBeforeCreate TestOneTableObject||onCreate TestOneTableObject||onAfterCreate TestOneTableObject||onAfterSave TestOneTableObject|');
   }
 
@@ -192,7 +192,7 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
     $object->set('content', 'New Super content');
     $object->save();
 
-    $this->assertEqual($delegate->getCallsOrder(),
+    $this->assertEquals($delegate->getCallsOrder(),
                        '|onBeforeSave TestOneTableObject||onBeforeUpdate TestOneTableObject||onUpdate TestOneTableObject||onAfterUpdate TestOneTableObject||onAfterSave TestOneTableObject|');
   }
 
@@ -209,7 +209,7 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
 
     $object->destroy();
 
-    $this->assertEqual($delegate->getCallsOrder(),
+    $this->assertEquals($delegate->getCallsOrder(),
                        '|onBeforeDestroy TestOneTableObject||onAfterDestroy TestOneTableObject|');
   }
 }

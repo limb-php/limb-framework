@@ -20,7 +20,7 @@ class lmbMacroSelectOptionsExportTagTest extends lmbBaseMacroTest
                                 array('id' => '5', 'name' => 'blue')));
 
     $expected = '<select name="select"><option value="4">red</option><option value="5">blue</option></select>'; 
-    $this->assertEqual($page->render(), $expected); 
+    $this->assertEquals($page->render(), $expected);
   }
 }
 

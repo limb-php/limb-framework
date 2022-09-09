@@ -34,7 +34,7 @@ class lmbIniTest extends TestCase
   function testFilePath()
   {
     $ini = new lmbIni(dirname(__FILE__) . '/ini_test.ini', false);
-    $this->assertEqual($ini->getOriginalFile(), dirname(__FILE__) . '/ini_test.ini');
+    $this->assertEquals($ini->getOriginalFile(), dirname(__FILE__) . '/ini_test.ini');
   }
 
   function testGet()
@@ -42,8 +42,8 @@ class lmbIniTest extends TestCase
     $ini = $this->_createIni('a=foo
                               b=bar');
 
-    $this->assertEqual($ini->get('a'), 'foo');
-    $this->assertEqual($ini->get('b'), 'bar');
+    $this->assertEquals($ini->get('a'), 'foo');
+    $this->assertEquals($ini->get('b'), 'bar');
   }
 
   function testTrimFileContents()
@@ -57,7 +57,7 @@ class lmbIniTest extends TestCase
       '
     );
 
-    $this->assertEqual($ini->export(),
+    $this->assertEquals($ini->export(),
       array(
         'group1' => array('value' => 'test1'),
         'group2' => array('value' => 'test2'),
@@ -78,7 +78,7 @@ class lmbIniTest extends TestCase
       '
     );
 
-    $this->assertEqual($ini->export(),
+    $this->assertEquals($ini->export(),
       array(
         'group1' => array(
           'value1' => 'test1',
@@ -98,7 +98,7 @@ class lmbIniTest extends TestCase
       '
     );
 
-    $this->assertEqual($ini->export(),
+    $this->assertEquals($ini->export(),
       array(
         'group1' => array(
           'value1' => 'this is a string with spaces            indeed',
@@ -119,7 +119,7 @@ class lmbIniTest extends TestCase
       '
     );
 
-    $this->assertEqual($ini->export(),
+    $this->assertEquals($ini->export(),
       array(
         'group1' => array(
           'value1' => '  this is a quoted string  ',
@@ -140,7 +140,7 @@ class lmbIniTest extends TestCase
       '
     );
 
-    $this->assertEqual($ini->export(),
+    $this->assertEquals($ini->export(),
       array(
         'value' => 'global_test',
         'group1' => array('value' => 'test'),
@@ -157,7 +157,7 @@ class lmbIniTest extends TestCase
       '
     );
 
-    $this->assertEqual($ini->export(),
+    $this->assertEquals($ini->export(),
       array('group1' => array('value' => null))
     );
 
@@ -176,7 +176,7 @@ class lmbIniTest extends TestCase
       '
     );
 
-    $this->assertEqual($ini->export(),
+    $this->assertEquals($ini->export(),
       array('group1' => array('value' => array(null, 1, null, 2)))
     );
   }
@@ -194,7 +194,7 @@ class lmbIniTest extends TestCase
       '
     );
 
-    $this->assertEqual($ini->export(),
+    $this->assertEquals($ini->export(),
       array('group1' => array('value' =>
                  array('apple' => null, 'banana' => 1, 'fruit' => null)))
     );
@@ -213,7 +213,7 @@ class lmbIniTest extends TestCase
       '
     );
 
-    $this->assertEqual($ini->export(),
+    $this->assertEquals($ini->export(),
       array('group1' => array('foo' => array('apple' => 1, 'banana' => 2),
                               'bar' => array(1, 2))));
   }
@@ -268,20 +268,20 @@ class lmbIniTest extends TestCase
         test[hey] = 2'
     );
 
-    $this->assertEqual($ini->getOption('unassigned'), '');
-    $this->assertEqual($ini->getOption('junk'), 1);
+    $this->assertEquals($ini->getOption('unassigned'), '');
+    $this->assertEquals($ini->getOption('junk'), 1);
 
-    $this->assertEqual($ini->getOption('no_such_option'), '');
+    $this->assertEquals($ini->getOption('no_such_option'), '');
 
-    $this->assertEqual($ini->getOption('test', 'no_such_group'), '');
+    $this->assertEquals($ini->getOption('test', 'no_such_group'), '');
 
-    $this->assertEqual($ini->getOption('test', 'test'), 1);
+    $this->assertEquals($ini->getOption('test', 'test'), 1);
 
     $var = $ini->getOption('test', 'test2');
-    $this->assertEqual($var, array(1, 2));
+    $this->assertEquals($var, array(1, 2));
 
     $var = $ini->getOption('test', 'test3');
-    $this->assertEqual($var, array('wow' => 1, 'hey' => 2));
+    $this->assertEquals($var, array('wow' => 1, 'hey' => 2));
   }
 
   function testReplaceConstants()
@@ -293,7 +293,7 @@ class lmbIniTest extends TestCase
       '
     );
 
-    $this->assertEqual($ini->getOption('test', '*constant*'), '*constant*1');
+    $this->assertEquals($ini->getOption('test', '*constant*'), '*constant*1');
   }
 
   function testGetGroup()
@@ -308,7 +308,7 @@ class lmbIniTest extends TestCase
       '
     );
 
-    $this->assertEqual($ini->getGroup('test'), array('test' => 1));
+    $this->assertEquals($ini->getGroup('test'), array('test' => 1));
     $this->assertNull($ini->getGroup('no_such_group'));
   }
 
@@ -325,16 +325,16 @@ class lmbIniTest extends TestCase
     );
 
     $this->assertTrue($ini->assignOption($test, 'unassigned'));
-    $this->assertEqual($test, '');
+    $this->assertEquals($test, '');
 
     $this->assertTrue($ini->assignOption($test, 'junk'));
-    $this->assertEqual($test, 1);
+    $this->assertEquals($test, 1);
 
     $this->assertTrue($ini->assignOption($test, 'test', 'test'));
-    $this->assertEqual($test, 2);
+    $this->assertEquals($test, 2);
 
     $this->assertFalse($ini->assignOption($test, 'no_such_option', 'test'));
-    $this->assertEqual($test, 2);
+    $this->assertEquals($test, 2);
   }
 
   function testMergeWith()
@@ -364,7 +364,7 @@ class lmbIniTest extends TestCase
     );
 
     $c = $a->mergeWith($b);
-    $this->assertEqual($c->export(), array('test' => 2,
+    $this->assertEquals($c->export(), array('test' => 2,
                                            'foo' => 1,
                                            'bar' => 2,
                                            'val' => array(2),

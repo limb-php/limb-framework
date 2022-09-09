@@ -34,7 +34,7 @@ class lmbDBALTest extends TestCase
   function testSetDefaultDSN()
   {
     lmbDBAL :: setDefaultDSN($boo = new lmbDbDSN('mysql://localhost/db_name'));
-    $this->assertEqual($this->toolkit->getDefaultDbDSN(), $boo);
+    $this->assertEquals($this->toolkit->getDefaultDbDSN(), $boo);
   }
 
   function testDefaultConnection()
@@ -54,7 +54,7 @@ class lmbDBALTest extends TestCase
     $this->toolkit->setDefaultDbConnection($this->conn);
     $this->conn->expectOnce('newStatement', array($sql = 'SELECT 1=1'));
     $this->conn->setReturnValue('newStatement', 'whatever', array($sql));
-    $this->assertEqual(lmbDBAL :: newStatement($sql), 'whatever');
+    $this->assertEquals(lmbDBAL :: newStatement($sql), 'whatever');
   }
 
   function testExecute()
@@ -79,7 +79,7 @@ class lmbDBALTest extends TestCase
     $stmt->setReturnValue('getRecordSet', 'result');
 
     $rs = lmbDBAL :: fetch($sql, $this->conn);
-    $this->assertEqual($rs, 'result');
+    $this->assertEquals($rs, 'result');
   }
 
   function testFetchUsingDefaultConnection()
@@ -92,7 +92,7 @@ class lmbDBALTest extends TestCase
     $stmt->setReturnValue('getRecordSet', 'result');
 
     $rs = lmbDBAL :: fetch($sql);
-    $this->assertEqual($rs, 'result');
+    $this->assertEquals($rs, 'result');
   }
 
   function testFetchWithWrongSQL()
@@ -105,7 +105,7 @@ class lmbDBALTest extends TestCase
     catch(lmbDbException $e)
     {
       $this->assertPattern('/The result of this SQL query can not be fetched./', $e->getMessage());
-      $this->assertEqual($e->getParam('query'), $sql);
+      $this->assertEquals($e->getParam('query'), $sql);
     }
   }
 
@@ -126,7 +126,7 @@ class lmbDBALTest extends TestCase
   {
     $table = lmbDBAL :: table('test_db_table', $this->conn);
     $this->assertIsA($table, 'lmbTableGateway');
-    $this->assertEqual($table->getTableName(), 'test_db_table');
+    $this->assertEquals($table->getTableName(), 'test_db_table');
     $this->assertIdentical($this->conn, $table->getConnection());
   }
 
@@ -134,21 +134,21 @@ class lmbDBALTest extends TestCase
   {
     $table = lmbDBAL :: table('test_db_table');
     $this->assertIsA($table, 'lmbTableGateway');
-    $this->assertEqual($table->getTableName(), 'test_db_table');
+    $this->assertEquals($table->getTableName(), 'test_db_table');
   }
 
   function testSelectQueryUsingDefaultConnection()
   {
     $query = lmbDBAL :: selectQuery('test_db_table');
     $this->assertIsA($query, 'lmbSelectQuery');
-    $this->assertEqual($query->getTables(), array('test_db_table'));
+    $this->assertEquals($query->getTables(), array('test_db_table'));
   }
 
   function testSelectQuery()
   {
     $query = lmbDBAL :: selectQuery('test_db_table', $this->conn);
     $this->assertIsA($query, 'lmbSelectQuery');
-    $this->assertEqual($query->getTables(), array('test_db_table'));
+    $this->assertEquals($query->getTables(), array('test_db_table'));
     $this->assertIdentical($this->conn, $query->getConnection());
   }
 
@@ -156,7 +156,7 @@ class lmbDBALTest extends TestCase
   {
     $query = lmbDBAL :: updateQuery('test_db_table', $this->conn);
     $this->assertIsA($query, 'lmbUpdateQuery');
-    $this->assertEqual($query->getTable(), 'test_db_table');
+    $this->assertEquals($query->getTable(), 'test_db_table');
     $this->assertIdentical($this->conn, $query->getConnection());
   }
 
@@ -164,14 +164,14 @@ class lmbDBALTest extends TestCase
   {
     $query = lmbDBAL :: updateQuery('test_db_table');
     $this->assertIsA($query, 'lmbUpdateQuery');
-    $this->assertEqual($query->getTable(), 'test_db_table');
+    $this->assertEquals($query->getTable(), 'test_db_table');
   }
 
   function testDeleteQuery()
   {
     $query = lmbDBAL :: deleteQuery('test_db_table', $this->conn);
     $this->assertIsA($query, 'lmbDeleteQuery');
-    $this->assertEqual($query->getTable(), 'test_db_table');
+    $this->assertEquals($query->getTable(), 'test_db_table');
     $this->assertIdentical($this->conn, $query->getConnection());
   }
 
@@ -179,7 +179,7 @@ class lmbDBALTest extends TestCase
   {
     $query = lmbDBAL :: deleteQuery('test_db_table');
     $this->assertIsA($query, 'lmbDeleteQuery');
-    $this->assertEqual($query->getTable(), 'test_db_table');
+    $this->assertEquals($query->getTable(), 'test_db_table');
   }
 }
 

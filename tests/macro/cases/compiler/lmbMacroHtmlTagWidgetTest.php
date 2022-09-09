@@ -17,8 +17,8 @@ class lmbMacroHtmlTagWidgetTest extends TestCase
   function testGetAttribute()
   {
     $this->widget->setAttribute('foo', 'bar');
-    $this->assertEqual($this->widget->getAttribute('foo'), 'bar');
-    $this->assertEqual($this->widget->getAttribute('FOO'), 'bar');//case insensitive
+    $this->assertEquals($this->widget->getAttribute('foo'), 'bar');
+    $this->assertEquals($this->widget->getAttribute('FOO'), 'bar');//case insensitive
   }
 
   function testGetBoolAttributeFalse()
@@ -75,7 +75,7 @@ class lmbMacroHtmlTagWidgetTest extends TestCase
     $this->widget->renderAttributes();
     $output = ob_get_contents();
     ob_end_clean();
-    $this->assertEqual(' a="red" b="blue" c="green"',$output);
+    $this->assertEquals(' a="red" b="blue" c="green"',$output);
   }
 
   function testRemoveAttribute()

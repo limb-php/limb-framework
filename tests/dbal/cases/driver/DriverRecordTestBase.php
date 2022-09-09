@@ -19,14 +19,14 @@ abstract class DriverRecordTestBase extends TestCase
   function testArrayAccessImplementation()
   {
     $record = new $this->record_class(array('test' => 'value'));
-    $this->assertEqual($record['test'], 'value');
+    $this->assertEquals($record['test'], 'value');
   }
   
   function testGetWithDefaultValue()
   {
     $record = new $this->record_class();
-    $this->assertEqual($record->get('foo'), null);
-    $this->assertEqual($record->get('foo', 'bar'), 'bar');
+    $this->assertEquals($record->get('foo'), null);
+    $this->assertEquals($record->get('foo', 'bar'), 'bar');
   }
   
   function testImplementsIterator()
@@ -39,7 +39,7 @@ abstract class DriverRecordTestBase extends TestCase
     foreach($set as $key => $value)
       $result[$key] = $value;
 
-    $this->assertEqual($array, $result);
+    $this->assertEquals($array, $result);
   }
 
   function testImplementsIteratorWithFalseElementsInArray()
@@ -53,7 +53,7 @@ abstract class DriverRecordTestBase extends TestCase
     foreach($set as $key => $value)
       $result[$key] = $value;
 
-    $this->assertEqual($array, $result);
+    $this->assertEquals($array, $result);
   }
 }
 

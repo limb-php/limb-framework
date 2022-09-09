@@ -16,7 +16,7 @@ class lmbSearchTextNormalizerTest extends TestCase
     $result = $normalizer->process('"mysql"
       wow-it\'s JUST \'so\' `cool` i can\'t believe it <b>root</b>"he-he"');
 
-    $this->assertEqual($result, "mysql wow it's just so cool i can't believe it root he he");
+    $this->assertEquals($result, "mysql wow it's just so cool i can't believe it root he he");
   }
 
   function testProcessIsMultiByteAware()
@@ -24,7 +24,7 @@ class lmbSearchTextNormalizerTest extends TestCase
     $normalizer = new lmbSearchTextNormalizer();
     $result = $normalizer->process('Привет растения');
 
-    $this->assertEqual($result, "привет растения");
+    $this->assertEquals($result, "привет растения");
   }
 }
 

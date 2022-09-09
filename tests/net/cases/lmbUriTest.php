@@ -28,10 +28,10 @@ class lmbUriTest extends TestCase
 
     $this->assertEquals($uri->getPath(), '/test.php/test');
     $this->assertEquals($uri->countPath(), 3);
-    $this->assertEqual($uri->getPathElements(), array('', 'test.php', 'test'));
-    $this->assertEqual($uri->getPathElement(0), '');
-    $this->assertEqual($uri->getPathElement(1), 'test.php');
-    $this->assertEqual($uri->getPathElement(2), 'test');
+    $this->assertEquals($uri->getPathElements(), array('', 'test.php', 'test'));
+    $this->assertEquals($uri->getPathElement(0), '');
+    $this->assertEquals($uri->getPathElement(1), 'test.php');
+    $this->assertEquals($uri->getPathElement(2), 'test');
   }
 
   function testCreate_FileProtocolWithoutHost_OnUnix()
@@ -40,10 +40,10 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual($uri->getProtocol(), 'file');
-    $this->assertEqual($uri->getHost(), '');
+    $this->assertEquals($uri->getProtocol(), 'file');
+    $this->assertEquals($uri->getHost(), '');
 
-    $this->assertEqual($uri->getPath(), '/dir');
+    $this->assertEquals($uri->getPath(), '/dir');
   }
 
   function testCreate_FileProtocolWithoutHost_OnWindows()
@@ -52,28 +52,28 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual($uri->getProtocol(), 'file');
-    $this->assertEqual($uri->getHost(), '');
+    $this->assertEquals($uri->getProtocol(), 'file');
+    $this->assertEquals($uri->getHost(), '');
 
-    $this->assertEqual($uri->getPath(), 'c:\dir\another_dir\\');
+    $this->assertEquals($uri->getPath(), 'c:\dir\another_dir\\');
 
     $str = 'file://c:/dir/another_dir';
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual($uri->getProtocol(), 'file');
-    $this->assertEqual($uri->getHost(), '');
+    $this->assertEquals($uri->getProtocol(), 'file');
+    $this->assertEquals($uri->getHost(), '');
 
-    $this->assertEqual($uri->getPath(), 'c:/dir/another_dir');
+    $this->assertEquals($uri->getPath(), 'c:/dir/another_dir');
 
     $str = 'file://c:\dir/another_dir';
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual($uri->getProtocol(), 'file');
-    $this->assertEqual($uri->getHost(), '');
+    $this->assertEquals($uri->getProtocol(), 'file');
+    $this->assertEquals($uri->getHost(), '');
 
-    $this->assertEqual($uri->getPath(), 'c:\dir/another_dir');
+    $this->assertEquals($uri->getPath(), 'c:\dir/another_dir');
   }
 
   function testCreate_FileProtocolWithHost()
@@ -82,22 +82,22 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual($uri->getProtocol(), 'file');
-    $this->assertEqual($uri->getUser(), 'user');
-    $this->assertEqual($uri->getPassword(), 'pass');
-    $this->assertEqual($uri->getHost(), 'localhost');
-    $this->assertEqual($uri->getPath(), '/dir/file');
+    $this->assertEquals($uri->getProtocol(), 'file');
+    $this->assertEquals($uri->getUser(), 'user');
+    $this->assertEquals($uri->getPassword(), 'pass');
+    $this->assertEquals($uri->getHost(), 'localhost');
+    $this->assertEquals($uri->getPath(), '/dir/file');
 
     $str = 'file://user:pass@localhost/c:\dir\file';
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual($uri->getProtocol(), 'file');
-    $this->assertEqual($uri->getUser(), 'user');
-    $this->assertEqual($uri->getPassword(), 'pass');
-    $this->assertEqual($uri->getHost(), 'localhost');
+    $this->assertEquals($uri->getProtocol(), 'file');
+    $this->assertEquals($uri->getUser(), 'user');
+    $this->assertEquals($uri->getPassword(), 'pass');
+    $this->assertEquals($uri->getHost(), 'localhost');
     // should it be just c:\dir\file ???
-    $this->assertEqual($uri->getPath(), '/c:\dir\file');
+    $this->assertEquals($uri->getPath(), '/c:\dir\file');
   }
 
   function testInvalidUriThrowsException()
@@ -116,7 +116,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual($uri->toString(), $str);
+    $this->assertEquals($uri->toString(), $str);
   }
 
   function testToStringQueryItemsSort()
@@ -126,7 +126,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual($uri->toString(), $expected_url);
+    $this->assertEquals($uri->toString(), $expected_url);
   }
 
   function testToStringNoProtocol()
@@ -135,7 +135,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual(
+    $this->assertEquals(
       $uri->toString(array('user', 'password', 'host', 'port', 'path', 'query', 'anchor')),
       'admin:test@localhost:81/test.php?foo=bar#23'
     );
@@ -147,7 +147,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual(
+    $this->assertEquals(
       $uri->toString(array('protocol', 'password', 'host', 'port', 'path', 'query', 'anchor')),
       'http://localhost:81/test.php?foo=bar#23'
     );
@@ -159,7 +159,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual(
+    $this->assertEquals(
       $uri->toString(array('protocol', 'user', 'host', 'port', 'path', 'query', 'anchor')),
       'http://admin@localhost:81/test.php?foo=bar#23'
     );
@@ -171,7 +171,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual(
+    $this->assertEquals(
       $uri->toString(array('protocol', 'user', 'password', 'port', 'path', 'query', 'anchor')),
       '/test.php?foo=bar#23'
     );
@@ -183,7 +183,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual(
+    $this->assertEquals(
       $uri->toString(array('protocol', 'user', 'password', 'host', 'port', 'query', 'anchor')),
       'http://admin:test@localhost:81?foo=bar#23'
     );
@@ -195,7 +195,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual(
+    $this->assertEquals(
       $uri->toString(array('protocol', 'user', 'password', 'host', 'port', 'path', 'anchor')),
       'http://admin:test@localhost:81/test.php#23'
     );
@@ -207,7 +207,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual(
+    $this->assertEquals(
       $uri->toString(array('protocol', 'user', 'password', 'host', 'port', 'path')),
       'http://admin:test@localhost:81/test.php'
     );
@@ -221,9 +221,9 @@ class lmbUriTest extends TestCase
 
     $uri->setQueryString('foo=bar&bar=foo');
 
-    $this->assertEqual($uri->countQueryItems(), 2);
-    $this->assertEqual($uri->getQueryItem('foo'), 'bar');
-    $this->assertEqual($uri->getQueryItem('bar'), 'foo');
+    $this->assertEquals($uri->countQueryItems(), 2);
+    $this->assertEquals($uri->getQueryItem('foo'), 'bar');
+    $this->assertEquals($uri->getQueryItem('bar'), 'foo');
   }
 
   function testSetQueryString2()
@@ -233,32 +233,32 @@ class lmbUriTest extends TestCase
     $uri = new lmbUri($str);
     $uri->setQueryString('foo[i1]=1&foo[i2]=2');
 
-    $this->assertEqual($uri->countQueryItems(), 1);
-    $this->assertEqual($uri->getQueryItem('foo'), array('i1' => '1', 'i2' => '2'));
+    $this->assertEquals($uri->countQueryItems(), 1);
+    $this->assertEquals($uri->getQueryItem('foo'), array('i1' => '1', 'i2' => '2'));
   }
 
   function testNormalizePath()
   {
     $uri = new lmbUri('/foo/bar/../boo.php');
     $uri->normalizePath();
-    $this->assertEqual($uri, new lmbUri('/foo/boo.php'));
+    $this->assertEquals($uri, new lmbUri('/foo/boo.php'));
 
     $uri->reset('/foo/bar/../../boo.php');
     $uri->normalizePath();
-    $this->assertEqual($uri, new lmbUri('/boo.php'));
+    $this->assertEquals($uri, new lmbUri('/boo.php'));
 
     $uri->reset('/foo/bar/../boo.php');
     $uri->normalizePath();
-    $this->assertEqual($uri, new lmbUri('/foo/boo.php'));
+    $this->assertEquals($uri, new lmbUri('/foo/boo.php'));
 
     $uri->reset('/foo//bar//boo.php');
     $uri->normalizePath();
-    $this->assertEqual($uri, new lmbUri('/foo/bar/boo.php'));
+    $this->assertEquals($uri, new lmbUri('/foo/bar/boo.php'));
 
     $uri->reset('/foo//bar///boo.php');
     $uri->normalizePath();
-    $this->assertEqual($uri, $uri = new lmbUri('/foo/bar/boo.php'));
-    $this->assertEqual($uri->getPath(), $uri->getPath());
+    $this->assertEquals($uri, $uri = new lmbUri('/foo/bar/boo.php'));
+    $this->assertEquals($uri->getPath(), $uri->getPath());
   }
 
   function testAddQueryItem()
@@ -268,7 +268,7 @@ class lmbUriTest extends TestCase
     $uri = new lmbUri($str);
 
     $uri->addQueryItem('bar', 'foo');
-    $this->assertEqual($uri->getQueryString(), 'bar=foo&foo=bar');
+    $this->assertEquals($uri->getQueryString(), 'bar=foo&foo=bar');
   }
 
   function testAddQueryItem2()
@@ -278,7 +278,7 @@ class lmbUriTest extends TestCase
     $uri = new lmbUri($str);
 
     $uri->addQueryItem('foo', 'foo');
-    $this->assertEqual($uri->getQueryString(), 'foo=foo');
+    $this->assertEquals($uri->getQueryString(), 'foo=foo');
   }
 
   function testAddQueryItem3()
@@ -289,7 +289,7 @@ class lmbUriTest extends TestCase
 
     $uri->addQueryItem('foo', array('i1' => 'bar'));
     $uri->addQueryItem('bar', 1);
-    $this->assertEqual($uri->getQueryString(), 'bar=1&foo[i1]=bar');
+    $this->assertEquals($uri->getQueryString(), 'bar=1&foo[i1]=bar');
   }
 
   function testAddQueryItem4()
@@ -300,7 +300,7 @@ class lmbUriTest extends TestCase
 
     $uri->addQueryItem('foo', array('i1' => array('i2' => 'bar')));
     $uri->addQueryItem('bar', 1);
-    $this->assertEqual($uri->getQueryString(), 'bar=1&foo[i1][i2]=bar');
+    $this->assertEquals($uri->getQueryString(), 'bar=1&foo[i1][i2]=bar');
   }
 
   function testAddQueryItemUrlencode()
@@ -310,7 +310,7 @@ class lmbUriTest extends TestCase
     $uri = new lmbUri($str);
 
     $uri->addQueryItem('foo', ' foo ');
-    $this->assertEqual($uri->getQueryString(), 'foo=+foo+');
+    $this->assertEquals($uri->getQueryString(), 'foo=+foo+');
   }
 
   function testAddQueryItemUrlencode2()
@@ -320,7 +320,7 @@ class lmbUriTest extends TestCase
     $uri = new lmbUri($str);
 
     $uri->addQueryItem('foo', array('i1' => ' bar '));
-    $this->assertEqual($uri->getQueryString(), 'foo[i1]=+bar+');
+    $this->assertEquals($uri->getQueryString(), 'foo[i1]=+bar+');
   }
 
   function testCompareQueryEqual()
@@ -481,7 +481,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual(0,
+    $this->assertEquals(0,
       $uri->comparePath(
         new lmbUri('http://localhost2/test.php/test')
       )
@@ -494,7 +494,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual(1,
+    $this->assertEquals(1,
       $uri->comparePath(
         new lmbUri('http://localhost2/test.php')
       )
@@ -507,7 +507,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual(-1,
+    $this->assertEquals(-1,
       $uri->comparePath(
         new lmbUri('http://localhost2/test.php/test/test2')
       )
@@ -535,8 +535,8 @@ class lmbUriTest extends TestCase
 
     $uri->removeQueryItem('bar');
 
-    $this->assertEqual('foo=bar', $uri->getQueryString());
-    $this->assertEqual('http://localhost/test.php?foo=bar', $uri->toString());
+    $this->assertEquals('foo=bar', $uri->getQueryString());
+    $this->assertEquals('http://localhost/test.php?foo=bar', $uri->toString());
   }
 
   function testRemoveQueryItems()
@@ -547,8 +547,8 @@ class lmbUriTest extends TestCase
 
     $uri->removeQueryItems();
 
-    $this->assertEqual('', $uri->getQueryString());
-    $this->assertEqual('http://localhost/test.php', $uri->toString());
+    $this->assertEquals('', $uri->getQueryString());
+    $this->assertEquals('http://localhost/test.php', $uri->toString());
   }
 
   function testIsAbsolute()
@@ -583,34 +583,34 @@ class lmbUriTest extends TestCase
     $uri1 = new lmbUri('/index.html');
     $uri2 = new lmbUri('http://dot.com/index.html');
 
-    $this->assertEqual($uri1->getPathElements(), $uri2->getPathElements());
+    $this->assertEquals($uri1->getPathElements(), $uri2->getPathElements());
   }
 
   function testGetPathToLevel()
   {
     $uri = new lmbUri('/path/to/level');
 
-    $this->assertEqual($uri->getPathToLevel(1), '/path');
-    $this->assertEqual($uri->getPathToLevel(2), '/path/to');
-    $this->assertEqual($uri->getPathToLevel(3), '/path/to/level');
-    $this->assertEqual($uri->getPathToLevel(4), '');
+    $this->assertEquals($uri->getPathToLevel(1), '/path');
+    $this->assertEquals($uri->getPathToLevel(2), '/path/to');
+    $this->assertEquals($uri->getPathToLevel(3), '/path/to/level');
+    $this->assertEquals($uri->getPathToLevel(4), '');
   }
 
   function testGetPathFromLevel()
   {
     $uri = new lmbUri('/path/to/level');
 
-    $this->assertEqual($uri->getPathFromLevel(0), '/path/to/level');
-    $this->assertEqual($uri->getPathFromLevel(1), '/path/to/level');
-    $this->assertEqual($uri->getPathFromLevel(2), '/to/level');
-    $this->assertEqual($uri->getPathFromLevel(3), '/level');
-    $this->assertEqual($uri->getPathFromLevel(4), '/');
+    $this->assertEquals($uri->getPathFromLevel(0), '/path/to/level');
+    $this->assertEquals($uri->getPathFromLevel(1), '/path/to/level');
+    $this->assertEquals($uri->getPathFromLevel(2), '/to/level');
+    $this->assertEquals($uri->getPathFromLevel(3), '/level');
+    $this->assertEquals($uri->getPathFromLevel(4), '/');
   }
 
   function testUrlencodedPartsOfQueryAreDecoded()
   {
     $uri = new lmbUri('index.html?wow=' . urlencode('what a nice weather'));
-    $this->assertEqual($uri->getQueryItem('wow'), 'what a nice weather');
+    $this->assertEquals($uri->getQueryItem('wow'), 'what a nice weather');
   }
 
   function testToString_IfAttributeNoValidStringURL()
@@ -619,7 +619,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEqual($uri->toString(), $str);
+    $this->assertEquals($uri->toString(), $str);
   }
 
   function testUrlDecode()
@@ -628,7 +628,7 @@ class lmbUriTest extends TestCase
     $uri = new lmbUri('/index.html?var=' . urlencode($test_value));
 
     $q_items = $uri->getQueryItems();
-    $this->assertEqual($q_items['var'], $test_value);
+    $this->assertEquals($q_items['var'], $test_value);
   }
 }
 

@@ -151,7 +151,7 @@ abstract class lmbTestRunnerBase extends TestCase
     $group->run(new SimpleReporter());
     $str = ob_get_contents();
     ob_end_clean();
-    $this->assertEqual($str, $expected);
+    $this->assertEquals($str, $expected);
   }
 }
 

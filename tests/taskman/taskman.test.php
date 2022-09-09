@@ -22,8 +22,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("foo", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("foo", $out);
   }
 
   function testRunSeveralTasksFromCLI()
@@ -34,8 +34,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo,bar');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("foobar", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("foobar", $out);
   }
 
   function testRunDependedentTask()
@@ -49,8 +49,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("barfoo", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("barfoo", $out);
   }
 
   function testRunInterDependedentTasks()
@@ -69,8 +69,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("barwowzoofoo", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("barwowzoofoo", $out);
   }
 
   function testTaskAliases()
@@ -93,8 +93,8 @@ class TaskmanTest extends TestCase
     ",
     '-b z');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("foobarzoo", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("foobarzoo", $out);
   }
 
   function testConflictingTaskAliases()
@@ -124,8 +124,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo -D BAR=42');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("42", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("42", $out);
   }
 
   function testPropStringHelper()
@@ -135,8 +135,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo -D BAR=42 -D FOO=100');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("42 and 100", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("42 and 100", $out);
   }
 
   function testMissingPropThrowsException()
@@ -146,8 +146,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("exception", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("exception", $out);
   }
 
   function testPassSeveralPropsFromCLI()
@@ -157,8 +157,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo -D BAR=42 -D FOO=12');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("4212", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("4212", $out);
   }
 
   function testPropSet()
@@ -172,8 +172,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("42", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("42", $out);
   }
 
   function testPropOr()
@@ -186,8 +186,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo -D BAR=42');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("42success", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("42success", $out);
   }
 
   function testPropSetOr()
@@ -202,8 +202,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo -D BAR=42');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("42baz", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("42baz", $out);
   }
 
   function testUseConfig()
@@ -218,8 +218,8 @@ class TaskmanTest extends TestCase
     '-b -c ' . $settings . ' foo');
     @unlink($settings);
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("bar", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("bar", $out);
   }
 
   function testAlwaysTask()
@@ -233,8 +233,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("barfoo", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("barfoo", $out);
   }
 
   function testDefaultTask()
@@ -247,8 +247,8 @@ class TaskmanTest extends TestCase
     ",
     '-b');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("bar", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("bar", $out);
   }
 
   function testAlwaysAndDefaultTasks()
@@ -265,8 +265,8 @@ class TaskmanTest extends TestCase
     ",
     '-b');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("foobar", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("foobar", $out);
   }
 
   function testPassArgsToTaskFromCLI()
@@ -276,8 +276,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo arg1 arg2 arg3');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("arg1arg2arg3", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("arg1arg2arg3", $out);
   }
 
   function testArgsPassedToDependentTasks()
@@ -295,8 +295,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo arg1 arg2');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("arg1arg2arg1arg2arg1arg2", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("arg1arg2arg1arg2arg1arg2", $out);
   }
 
   function testPassArgsToTaskFromDepsDescription()
@@ -314,8 +314,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("21", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("21", $out);
   }
 
   function testCallingTaskMultipleTimesWithDifferentArgs()
@@ -333,8 +333,8 @@ class TaskmanTest extends TestCase
     ",
     '-b foo');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("2341", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("2341", $out);
   }
 
   function TODO_testArgsPassedToDefaultTask()
@@ -347,8 +347,8 @@ class TaskmanTest extends TestCase
     ",
     '-b -- wow hey');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("wowhey", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("wowhey", $out);
   }
 
   function testArgsPassedToAlwaysTask()
@@ -362,8 +362,8 @@ class TaskmanTest extends TestCase
     ",
     '-b hey wow you');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("bar:wowyouhey:wowyou", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("bar:wowyouhey:wowyou", $out);
   }
 
   function testBeforeDeps()
@@ -376,8 +376,8 @@ class TaskmanTest extends TestCase
     function task_bar() { echo 'bar'; }
     ",
     '-b bar');
-    $this->assertEqual(0, $code);
-    $this->assertEqual("foobar", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("foobar", $out);
   }
 
   function testSeveralBeforeDeps()
@@ -394,8 +394,8 @@ class TaskmanTest extends TestCase
     function task_zoo() { echo 'zoo'; }
     ",
     '-b bar');
-    $this->assertEqual(0, $code);
-    $this->assertEqual("foozoobar", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("foozoobar", $out);
   }
 
   function testInterdependentBeforeDeps()
@@ -412,8 +412,8 @@ class TaskmanTest extends TestCase
     function task_zoo() { echo 'zoo'; }
     ",
     '-b bar');
-    $this->assertEqual(0, $code);
-    $this->assertEqual("zoofoobar", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("zoofoobar", $out);
   }
 
   function testAfterDeps()
@@ -426,8 +426,8 @@ class TaskmanTest extends TestCase
     function task_bar() { echo 'bar'; }
     ",
     '-b bar');
-    $this->assertEqual(0, $code);
-    $this->assertEqual("barfoo", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("barfoo", $out);
   }
 
   function testSeveralAfterDeps()
@@ -444,8 +444,8 @@ class TaskmanTest extends TestCase
     function task_zoo() { echo 'zoo'; }
     ",
     '-b bar');
-    $this->assertEqual(0, $code);
-    $this->assertEqual("barfoozoo", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("barfoozoo", $out);
   }
 
   function testInterdependentAfterDeps()
@@ -462,8 +462,8 @@ class TaskmanTest extends TestCase
     function task_zoo() { echo 'zoo'; }
     ",
     '-b bar');
-    $this->assertEqual(0, $code);
-    $this->assertEqual("barfoozoo", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("barfoozoo", $out);
   }
 
   //function testParallTasksFromCLI()
@@ -480,13 +480,13 @@ class TaskmanTest extends TestCase
   //  ",
   //  "-b 'bar|foo|wow'");
 
-  //  $this->assertEqual(0, $code);
-  //  $this->assertEqual("", $out);
+  //  $this->assertEquals(0, $code);
+  //  $this->assertEquals("", $out);
   //  $shared = file_get_contents(LIMB_VAR_DIR . '/shared');
   //  $this->assertTrue(strpos($shared, 'foo') !== false);
   //  $this->assertTrue(strpos($shared, 'bar') !== false);
   //  $this->assertTrue(strpos($shared, 'wow') !== false);
-  //  $this->assertEqual(9, strlen($shared));
+  //  $this->assertEquals(9, strlen($shared));
   //}
 
   //function testParallTasks()
@@ -507,13 +507,13 @@ class TaskmanTest extends TestCase
   //  ",
   //  '-b zoo');
 
-  //  $this->assertEqual(0, $code);
-  //  $this->assertEqual("zoo", $out);
+  //  $this->assertEquals(0, $code);
+  //  $this->assertEquals("zoo", $out);
   //  $shared = file_get_contents(LIMB_VAR_DIR . '/shared');
   //  $this->assertTrue(strpos($shared, 'foo') !== false);
   //  $this->assertTrue(strpos($shared, 'bar') !== false);
   //  $this->assertTrue(strpos($shared, 'wow') !== false);
-  //  $this->assertEqual(9, strlen($shared));
+  //  $this->assertEquals(9, strlen($shared));
   //}
 
   //function testArgsPassedToParallTasks()
@@ -533,13 +533,13 @@ class TaskmanTest extends TestCase
   //  ",
   //  '-b zoo a1 a2');
 
-  //  $this->assertEqual(0, $code);
-  //  $this->assertEqual("", $out);
+  //  $this->assertEquals(0, $code);
+  //  $this->assertEquals("", $out);
   //  $shared = file_get_contents(LIMB_VAR_DIR . '/shared');
   //  $this->assertTrue(strpos($shared, 'foo:a1a2') !== false);
   //  $this->assertTrue(strpos($shared, 'bar:a1a2') !== false);
   //  $this->assertTrue(strpos($shared, 'zoo:a1a2') !== false);
-  //  $this->assertEqual(24, strlen($shared));
+  //  $this->assertEquals(24, strlen($shared));
   //}
 
   protected function _run($contents, $cmd)
@@ -562,7 +562,7 @@ class TaskmanTest extends TestCase
     ",
     '-b foo -D BAR=dsn?charset=u=t=f');
 
-    $this->assertEqual(0, $code);
-    $this->assertEqual("dsn?charset=u=t=f", $out);
+    $this->assertEquals(0, $code);
+    $this->assertEquals("dsn?charset=u=t=f", $out);
   }
 }

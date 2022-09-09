@@ -30,12 +30,12 @@ class lmbCacheApcBackendTest extends lmbCacheBackendTest
     $this->assertFalse($this->cache->add(1, 'value_add'));
     $this->assertFalse($this->cache->add(1, 'value_add'), 'apc_add() deletes variables on second call, see http://pecl.php.net/bugs/bug.php?id=13735');
         
-    $this->assertEqual($this->cache->get(1), $v, 'original value has been reseted by apc_add()');
+    $this->assertEquals($this->cache->get(1), $v, 'original value has been reseted by apc_add()');
     
     $this->assertTrue($this->cache->add(2, 'value2'));
     
     $this->cache->set(2, 'new value');
-    $this->assertEqual($this->cache->get(2), 'new value');
+    $this->assertEquals($this->cache->get(2), 'new value');
   }
 
   function testGetWithTtlFalse()

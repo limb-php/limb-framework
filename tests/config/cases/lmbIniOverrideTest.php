@@ -45,9 +45,9 @@ class lmbIniOverrideTest extends TestCase
 
     $ini = new lmbIni($file);
 
-    $this->assertEqual($ini->getOption('conf', 'Templates'), null);
-    $this->assertEqual($ini->getOption('path', 'Templates'), 'design/templates/');
-    $this->assertEqual($ini->getOption('force_compile', 'Templates'), 1);
+    $this->assertEquals($ini->getOption('conf', 'Templates'), null);
+    $this->assertEquals($ini->getOption('path', 'Templates'), 'design/templates/');
+    $this->assertEquals($ini->getOption('force_compile', 'Templates'), 1);
   }
 }
 

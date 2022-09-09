@@ -41,8 +41,8 @@ class lmbImageKitTest extends TestCase
       save($this->_getOutputImage());
 
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEqual($width, 60);
-    $this->assertEqual($height, 50);
+    $this->assertEquals($width, 60);
+    $this->assertEquals($height, 50);
   }
 
   function testTraversingByOverloading()
@@ -53,8 +53,8 @@ class lmbImageKitTest extends TestCase
       save($this->_getOutputImage());
 
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEqual($width, 60);
-    $this->assertEqual($height, 50);
+    $this->assertEquals($width, 60);
+    $this->assertEquals($height, 50);
   }
 
   function testPassingParamsToConvertor()

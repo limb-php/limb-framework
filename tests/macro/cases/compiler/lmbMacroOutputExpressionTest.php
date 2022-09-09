@@ -42,7 +42,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $macro->set('var', 'Foo');
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Foo');
+    $this->assertEquals($out, 'Foo');
   }
 
   function testSimpleChainedOutputForArray()
@@ -54,7 +54,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $macro->set('var', array('foo' => array('bar' => 'Hey')));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Hey');
+    $this->assertEquals($out, 'Hey');
   }
 
   function testBrokenChainOutputForArray()
@@ -65,15 +65,15 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
 
     $macro->set('var', null);
     $out = $macro->render();
-    $this->assertEqual($out, '');
+    $this->assertEquals($out, '');
 
     $macro->set('var', array('foo' => null));
     $out = $macro->render();
-    $this->assertEqual($out, '');
+    $this->assertEquals($out, '');
 
     $macro->set('var', array('foo' => array('bar' => null)));
     $out = $macro->render();
-    $this->assertEqual($out, '');
+    $this->assertEquals($out, '');
   }
 
   function testSimpleChainedOutputForObject()
@@ -85,7 +85,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $macro->set('var', new lmbObject(array('foo' => new lmbObject(array('bar' => 'Hey')))));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Hey');
+    $this->assertEquals($out, 'Hey');
   }
 
   function testBrokenChainOutputForObject()
@@ -96,15 +96,15 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
 
     $macro->set('var', null);
     $out = $macro->render();
-    $this->assertEqual($out, '');
+    $this->assertEquals($out, '');
 
     $macro->set('var', new lmbObject(array('foo' => null)));
     $out = $macro->render();
-    $this->assertEqual($out, '');
+    $this->assertEquals($out, '');
 
     $macro->set('var', new lmbObject(array('foo' => new lmbObject(array('bar' => null)))));
     $out = $macro->render();
-    $this->assertEqual($out, '');
+    $this->assertEquals($out, '');
   }
 
   function testChainedOutputForMixedArraysAndObjects()
@@ -116,7 +116,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $macro->set('var', new lmbObject(array('foo' => array('bar' => 'Hey'))));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Hey');
+    $this->assertEquals($out, 'Hey');
   }
 
   function testChainedOutputWithArrayIndexInPath()
@@ -128,7 +128,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $macro->set('var', array(array('title' => 'First'), array('title' => 'Second')));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Second');
+    $this->assertEquals($out, 'Second');
   }
 
   function testBrokenChainOutputForMixedArraysAndObjects()
@@ -139,7 +139,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
 
     $macro->set('var', new lmbObject(array('foo' => array('bar' => null))));
     $out = $macro->render();
-    $this->assertEqual($out, '');
+    $this->assertEquals($out, '');
   }
 
   function testTemplateWithOutputExpression()
@@ -148,7 +148,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('bar', "foo");
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>foo</h1>');
+    $this->assertEquals($out, '<h1>foo</h1>');
   }
 
   function testFunctionCallWithoutParamsInOutputExpression()
@@ -157,7 +157,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('bar', new lmbMacroOutputExpressionTestClass());
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>10</h1>');
+    $this->assertEquals($out, '<h1>10</h1>');
   }
 
   function testFunctionCallWithParamsInOutputExpression()
@@ -167,7 +167,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $tpl->set('bar', new lmbMacroOutputExpressionTestClass());
     $tpl->set('foo', 10);
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>aaa - 10</h1>');
+    $this->assertEquals($out, '<h1>aaa - 10</h1>');
   }
 
   function testFunctionCallAfterPathBasedChunkWithParamsInOutputExpression()
@@ -177,7 +177,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $tpl->set('bar', array('extra' => new lmbMacroOutputExpressionTestClass()));
     $tpl->set('foo', 10);
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>aaa - 10</h1>');
+    $this->assertEquals($out, '<h1>aaa - 10</h1>');
   }
   
   function testPathAfterFunctionCallInOutputExpression()
@@ -188,7 +188,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $object->zoo = 30;
     $tpl->set('bar', $object);
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>30</h1>');
+    $this->assertEquals($out, '<h1>30</h1>');
   }
   
   function testPointInFuncParams()
@@ -197,7 +197,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('bar', new lmbMacroOutputExpressionTestClass());
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>. - +</h1>');
+    $this->assertEquals($out, '<h1>. - +</h1>');
   }
   
   function testPointInFuncParamsAndComplexPathInOutputExpression()
@@ -206,7 +206,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('bar', new lmbMacroOutputExpressionTestClass());
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>.</h1>');
+    $this->assertEquals($out, '<h1>.</h1>');
   }
 
   function testClosingBracketInFuncParamsAndComplexPathInOutputExpression()
@@ -215,7 +215,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('bar', new lmbMacroOutputExpressionTestClass());
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>}</h1>');
+    $this->assertEquals($out, '<h1>}</h1>');
   }
 
   // Test that concat operation in function call is just concat operation 
@@ -227,7 +227,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $tpl->set('foo', $var = array('var1.var3' => 10, 'var2' => 20));
     
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>20</h1>');
+    $this->assertEquals($out, '<h1>20</h1>');
   }
 
   function testNestedFunctionCalls()
@@ -237,7 +237,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $tpl->set('bar', new lmbMacroOutputExpressionTestClass());
     $tpl->set('foo', new lmbMacroOutputExpressionTestClass());
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>10 - 20 - aaa</h1>');
+    $this->assertEquals($out, '<h1>10 - 20 - aaa</h1>');
   }
   
   function testOutputExpressionAsHtmlTagAttribute()
@@ -247,7 +247,7 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $tpl->set('href', '/path/to/somethere');
     $tpl->set('message', 'some text');
     $expected = '<a href="/path/to/somethere">some text</a>';
-    $this->assertEqual($tpl->render(), $expected);
+    $this->assertEquals($tpl->render(), $expected);
   }
 }
 

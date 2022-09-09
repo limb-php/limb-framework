@@ -131,8 +131,8 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
     $object = $this->_createActiveRecord($annotation = 'Some annotation', $content = 'Some content');
     $object2 = lmbActiveRecord :: findById('LazyTestOneTableObject', $object->getId());
     $exported = $object2->export();
-    $this->assertEqual($exported['annotation'], $annotation);
-    $this->assertEqual($exported['content'], $content);
+    $this->assertEquals($exported['annotation'], $annotation);
+    $this->assertEquals($exported['content'], $content);
   }
 
   function testCustomLazyFieldsInFindById()
@@ -145,11 +145,11 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
     $object2 = lmbActiveRecord :: findById('TestOneTableObject', array('id' => $object->getId(), 'fields' => array('annotation')));
     $fields = $object2->exportRaw();
     //checking which props were actually loaded
-    $this->assertEqual($fields, array('id' => $object->getId(), 'annotation' => $annotation));
+    $this->assertEquals($fields, array('id' => $object->getId(), 'annotation' => $annotation));
 
     //lazy loading in action
-    $this->assertEqual($object2->getAnnotation(), $annotation);
-    $this->assertEqual($object2->getContent(), $content);
+    $this->assertEquals($object2->getAnnotation(), $annotation);
+    $this->assertEquals($object2->getContent(), $content);
   }
 
   function testCustomLazyFieldsInFind()
@@ -163,11 +163,11 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
     $object2 = $rs->at(0);
     $fields = $object2->exportRaw();
     //checking which props were actually loaded
-    $this->assertEqual($fields, array('id' => $object->getId(), 'annotation' => $annotation));
+    $this->assertEquals($fields, array('id' => $object->getId(), 'annotation' => $annotation));
 
     //lazy loading in action
-    $this->assertEqual($object2->getAnnotation(), $annotation);
-    $this->assertEqual($object2->getContent(), $content);
+    $this->assertEquals($object2->getAnnotation(), $annotation);
+    $this->assertEquals($object2->getContent(), $content);
   }
 
   function testCustomLazyFieldsInFindFirst()
@@ -180,11 +180,11 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
     $object2 = lmbActiveRecord :: findFirst('TestOneTableObject', array('fields' => array('annotation')));
     $fields = $object2->exportRaw();
     //checking which props were actually loaded
-    $this->assertEqual($fields, array('id' => $object->getId(), 'annotation' => $annotation));
+    $this->assertEquals($fields, array('id' => $object->getId(), 'annotation' => $annotation));
 
     //lazy loading in action
-    $this->assertEqual($object2->getAnnotation(), $annotation);
-    $this->assertEqual($object2->getContent(), $content);
+    $this->assertEquals($object2->getAnnotation(), $annotation);
+    $this->assertEquals($object2->getContent(), $content);
   }
 
   function testLazyFieldsInOneToManyRelations()
@@ -200,17 +200,17 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     //all fields are lazy
     $lectures = $course->getLectures()->find(array('fields' => array()));
-    $this->assertEqual(sizeof($lectures), 2);
+    $this->assertEquals(sizeof($lectures), 2);
 
     $fields1 = $lectures[0]->exportRaw();
     $this->assertFalse(isset($fields1['title']));
     //lazy loading kicks in
-    $this->assertEqual($lectures[0]->getTitle(), 'Lecture1');
+    $this->assertEquals($lectures[0]->getTitle(), 'Lecture1');
 
     $fields2 = $lectures[1]->exportRaw();
     $this->assertFalse(isset($fields2['title']));
     //lazy loading kicks in
-    $this->assertEqual($lectures[1]->getTitle(), 'Lecture2');
+    $this->assertEquals($lectures[1]->getTitle(), 'Lecture2');
   }
 
   function testLazyFieldsInManyToManyRelations()
@@ -229,17 +229,17 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     //all fields are lazy
     $users = $group->getUsers()->find(array('fields' => array()));
-    $this->assertEqual(sizeof($users), 2);
+    $this->assertEquals(sizeof($users), 2);
 
     $fields1 = $users[0]->exportRaw();
     $this->assertFalse(isset($fields1['title']));
     //lazy loading kicks in
-    $this->assertEqual($users[0]->getFirstName(), 'bob1');
+    $this->assertEquals($users[0]->getFirstName(), 'bob1');
 
     $fields2 = $users[1]->exportRaw();
     $this->assertFalse(isset($fields2['title']));
     //lazy loading kicks in
-    $this->assertEqual($users[1]->getFirstName(), 'bob2');
+    $this->assertEquals($users[1]->getFirstName(), 'bob2');
   }
 
   protected function _checkLazyness($object, $annotation, $content)
@@ -248,13 +248,13 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     $this->assertFalse(array_key_exists('annotation', $object->exportRaw()));
     $this->assertTrue($object->has('annotation'));
-    $this->assertEqual($object->getAnnotation(), $annotation);
+    $this->assertEquals($object->getAnnotation(), $annotation);
     $this->assertTrue($object->has('annotation'));
     $this->assertTrue(array_key_exists('annotation', $object->exportRaw()));
 
     $this->assertFalse(array_key_exists('content', $object->exportRaw()));
     $this->assertTrue($object->has('content'));
-    $this->assertEqual($object->getContent(), $content);
+    $this->assertEquals($object->getContent(), $content);
     $this->assertTrue($object->has('content'));
     $this->assertTrue(array_key_exists('content', $object->exportRaw()));
   }

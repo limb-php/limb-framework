@@ -16,7 +16,7 @@ class lmbPHPViewTest extends TestCase
     $template = new lmbPHPView($file);
     $template->set('msg', 'Hello');
     $template->set('name', 'world');
-    $this->assertEqual($template->render(), 'Hello, world');
+    $this->assertEquals($template->render(), 'Hello, world');
     unlink($file);
   }
 }

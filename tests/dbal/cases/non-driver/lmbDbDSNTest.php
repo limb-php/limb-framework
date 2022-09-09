@@ -23,39 +23,39 @@ class lmbDbDSNTest extends TestCase
   function testConstructUsingString()
   {
     $dsn = new lmbDbDSN($str = 'mysql://wow:here@localhost/db');
-    $this->assertEqual($dsn->getDriver(), 'mysql');
-    $this->assertEqual($dsn->getUser(), 'wow');
-    $this->assertEqual($dsn->getPassword(), 'here');
-    $this->assertEqual($dsn->getHost(), 'localhost');
-    $this->assertEqual($dsn->getDatabase(), 'db');
-    $this->assertEqual($dsn->toString(), $str);
+    $this->assertEquals($dsn->getDriver(), 'mysql');
+    $this->assertEquals($dsn->getUser(), 'wow');
+    $this->assertEquals($dsn->getPassword(), 'here');
+    $this->assertEquals($dsn->getHost(), 'localhost');
+    $this->assertEquals($dsn->getDatabase(), 'db');
+    $this->assertEquals($dsn->toString(), $str);
   }
 
   function testConstructUsingStringWithPort()
   {
     $dsn = new lmbDbDSN($str = 'mysql://wow:here@localhost:8080/db');
-    $this->assertEqual($dsn->getDriver(), 'mysql');
-    $this->assertEqual($dsn->getUser(), 'wow');
-    $this->assertEqual($dsn->getPassword(), 'here');
-    $this->assertEqual($dsn->getHost(), 'localhost');
-    $this->assertEqual($dsn->getPort(), 8080);
-    $this->assertEqual($dsn->getDatabase(), 'db');
-    $this->assertEqual($dsn->toString(), $str);
+    $this->assertEquals($dsn->getDriver(), 'mysql');
+    $this->assertEquals($dsn->getUser(), 'wow');
+    $this->assertEquals($dsn->getPassword(), 'here');
+    $this->assertEquals($dsn->getHost(), 'localhost');
+    $this->assertEquals($dsn->getPort(), 8080);
+    $this->assertEquals($dsn->getDatabase(), 'db');
+    $this->assertEquals($dsn->toString(), $str);
   }
 
   function testConstructUsingStringWithExtraParameters()
   {
     $dsn = new lmbDbDSN($str = 'mysql://wow:here@localhost/db?param1=hey&param2=wow');
-    $this->assertEqual($dsn->getDriver(), 'mysql');
-    $this->assertEqual($dsn->getUser(), 'wow');
-    $this->assertEqual($dsn->getPassword(), 'here');
-    $this->assertEqual($dsn->getHost(), 'localhost');
-    $this->assertEqual($dsn->getDatabase(), 'db');
+    $this->assertEquals($dsn->getDriver(), 'mysql');
+    $this->assertEquals($dsn->getUser(), 'wow');
+    $this->assertEquals($dsn->getPassword(), 'here');
+    $this->assertEquals($dsn->getHost(), 'localhost');
+    $this->assertEquals($dsn->getDatabase(), 'db');
 
-    $this->assertEqual($dsn->getParam1(), 'hey');//extra parameters
-    $this->assertEqual($dsn->getParam2(), 'wow');
+    $this->assertEquals($dsn->getParam1(), 'hey');//extra parameters
+    $this->assertEquals($dsn->getParam2(), 'wow');
 
-    $this->assertEqual($dsn->toString(), $str);
+    $this->assertEquals($dsn->toString(), $str);
   }
 
   function testConstructUsingArray()
@@ -67,13 +67,13 @@ class lmbDbDSNTest extends TestCase
                               'database' => 'db',
                               'port' => 8080));
 
-    $this->assertEqual($dsn->getDriver(), 'mysql');
-    $this->assertEqual($dsn->getUser(), 'wow');
-    $this->assertEqual($dsn->getPassword(), 'here');
-    $this->assertEqual($dsn->getHost(), 'localhost');
-    $this->assertEqual($dsn->getPort(), 8080);
-    $this->assertEqual($dsn->getDatabase(), 'db');
-    $this->assertEqual($dsn->toString(), 'mysql://wow:here@localhost:8080/db');
+    $this->assertEquals($dsn->getDriver(), 'mysql');
+    $this->assertEquals($dsn->getUser(), 'wow');
+    $this->assertEquals($dsn->getPassword(), 'here');
+    $this->assertEquals($dsn->getHost(), 'localhost');
+    $this->assertEquals($dsn->getPort(), 8080);
+    $this->assertEquals($dsn->getDatabase(), 'db');
+    $this->assertEquals($dsn->toString(), 'mysql://wow:here@localhost:8080/db');
   }
 
   function testConstructUsingArrayWithExtraParameters()
@@ -87,26 +87,26 @@ class lmbDbDSNTest extends TestCase
                               array('param1' => 'hey',
                                     'param2' => 'wow')));
 
-    $this->assertEqual($dsn->getDriver(), 'mysql');
-    $this->assertEqual($dsn->getUser(), 'wow');
-    $this->assertEqual($dsn->getPassword(), 'here');
-    $this->assertEqual($dsn->getHost(), 'localhost');
-    $this->assertEqual($dsn->getPort(), 8080);
-    $this->assertEqual($dsn->getDatabase(), 'db');
+    $this->assertEquals($dsn->getDriver(), 'mysql');
+    $this->assertEquals($dsn->getUser(), 'wow');
+    $this->assertEquals($dsn->getPassword(), 'here');
+    $this->assertEquals($dsn->getHost(), 'localhost');
+    $this->assertEquals($dsn->getPort(), 8080);
+    $this->assertEquals($dsn->getDatabase(), 'db');
 
-    $this->assertEqual($dsn->getParam1(), 'hey');//extra parameters
-    $this->assertEqual($dsn->getParam2(), 'wow');
+    $this->assertEquals($dsn->getParam1(), 'hey');//extra parameters
+    $this->assertEquals($dsn->getParam2(), 'wow');
 
-    $this->assertEqual($dsn->toString(), 'mysql://wow:here@localhost:8080/db?param1=hey&param2=wow');
+    $this->assertEquals($dsn->toString(), 'mysql://wow:here@localhost:8080/db?param1=hey&param2=wow');
   }
 
   function testBuildUri()
   {
     $dsn = new lmbDbDSN(array('driver' => 'mysql', 'host' => 'localhost'));
-    $this->assertEqual($dsn->buildUri()->toString(), 'mysql://localhost/');
+    $this->assertEquals($dsn->buildUri()->toString(), 'mysql://localhost/');
 
     $dsn->host = 'somehost';
-    $this->assertEqual($dsn->buildUri()->toString(), 'mysql://somehost/');
+    $this->assertEquals($dsn->buildUri()->toString(), 'mysql://somehost/');
   }
 }
 

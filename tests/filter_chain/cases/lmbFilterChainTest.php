@@ -93,7 +93,7 @@ class lmbFilterChainTest extends TestCase
     $str = ob_get_contents();
     ob_end_clean();
 
-    $this->assertEqual($str, '<filter1><filter2></filter2></filter1>');
+    $this->assertEquals($str, '<filter1><filter2></filter2></filter1>');
   }
 
   function testFilterChainAsAFilter()
@@ -119,7 +119,7 @@ class lmbFilterChainTest extends TestCase
     $str = ob_get_contents();
     ob_end_clean();
 
-    $this->assertEqual($str, '<filter1></filter1><filter2></filter2>');
+    $this->assertEquals($str, '<filter1></filter1><filter2></filter2>');
   }
 }
 

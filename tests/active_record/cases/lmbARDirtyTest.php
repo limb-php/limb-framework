@@ -66,13 +66,13 @@ class lmbARDirtyTest extends lmbARBaseTestCase
     $object->save();
     $str = ob_get_contents();
     ob_end_clean();
-    $this->assertEqual($str, '|on_before_save||on_before_create||on_validate||on_save||on_create||on_after_create||on_after_save|');
+    $this->assertEquals($str, '|on_before_save||on_before_create||on_validate||on_save||on_create||on_after_create||on_after_save|');
 
     ob_start();
     $object->save();
     $str = ob_get_contents();
     ob_end_clean();
-    $this->assertEqual($str, '|on_before_save||on_after_save|');
+    $this->assertEquals($str, '|on_before_save||on_after_save|');
   }
 
   function testUpdateOnlyDirtyFieldsInDbForNotNewObject()
@@ -90,8 +90,8 @@ class lmbARDirtyTest extends lmbARBaseTestCase
     $object->save();
 
     $loaded_object = lmbActiveRecord :: findById('TestOneTableObject', $object->getId());
-    $this->assertEqual($loaded_object->getAnnotation(), $object->getAnnotation());
-    $this->assertEqual($loaded_object->getContent(), $initial_content);
+    $this->assertEquals($loaded_object->getAnnotation(), $object->getAnnotation());
+    $this->assertEquals($loaded_object->getContent(), $initial_content);
   }
 
   function testUpdateWhileNoDirtyFields()
@@ -110,8 +110,8 @@ class lmbARDirtyTest extends lmbARBaseTestCase
     $object->save();
 
     $loaded_object = lmbActiveRecord :: findById('TestOneTableObject', $object->getId());
-    $this->assertEqual($loaded_object->getAnnotation(), $initial_annotation);
-    $this->assertEqual($loaded_object->getContent(), $initial_content);
+    $this->assertEquals($loaded_object->getAnnotation(), $initial_annotation);
+    $this->assertEquals($loaded_object->getContent(), $initial_content);
   }
 
   function testSettingSameTablePropertyValueDoesntMakeObjectDirty()
@@ -150,7 +150,7 @@ class lmbARDirtyTest extends lmbARBaseTestCase
     $lecture->save();
 
     $lecture2 = new LectureForTest($lecture->getId());
-    $this->assertEqual($lecture2->getCourse()->getTitle(), 'course');
+    $this->assertEquals($lecture2->getCourse()->getTitle(), 'course');
   }
 
   function testChangingSavedParentObjectDoesntMakeObjectDirty()
@@ -184,7 +184,7 @@ class lmbARDirtyTest extends lmbARBaseTestCase
     $lecture->save();
 
     $lecture2 = new LectureForTest($lecture->getId());
-    $this->assertEqual($lecture2->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($lecture2->getCourse()->getTitle(), $course->getTitle());
   }
 
   function testSettingExistingParentMakesExistingObjectDirty()
@@ -202,7 +202,7 @@ class lmbARDirtyTest extends lmbARBaseTestCase
     $lecture->save();
 
     $lecture2 = new LectureForTest($lecture->getId());
-    $this->assertEqual($lecture2->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($lecture2->getCourse()->getTitle(), $course->getTitle());
   }
 
   function testAddingToCollectionDoesntMakeNewObjectDirty()
@@ -259,7 +259,7 @@ class lmbARDirtyTest extends lmbARBaseTestCase
     $member2->save();
 
     $member3 = new MemberForTest($member->getId());
-    $this->assertEqual($member3->getName()->getFirst(), 'other name');
+    $this->assertEquals($member3->getName()->getFirst(), 'other name');
   }
 
   function testUnsettingOneToOneChildObjectMakesPropertyDirty()

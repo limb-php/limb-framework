@@ -23,13 +23,13 @@ class lmbDateTimePeriodTest extends TestCase
   function testToString()
   {
     $p = new lmbDateTimePeriod('2005-12-01 13:45:12', '2005-12-01 13:46:00');
-    $this->assertEqual($p->toString(), '2005-12-01 13:45:12 - 2005-12-01 13:46:00');
+    $this->assertEquals($p->toString(), '2005-12-01 13:45:12 - 2005-12-01 13:46:00');
   }
 
   function testGetDuration()
   {
     $p = new lmbDateTimePeriod('2005-12-01 13:45:12', '2005-12-01 13:46:00');
-    $this->assertEqual($p->getDuration(), 48);
+    $this->assertEquals($p->getDuration(), 48);
   }
 
   function testIsEqual()

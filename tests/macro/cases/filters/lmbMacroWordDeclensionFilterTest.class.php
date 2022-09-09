@@ -21,14 +21,14 @@ class lmbMacroWordDeclensionFilterTest extends lmbBaseMacroTest
   
   function testFunction()
   {
-    $this->assertEqual($this->_getUserResultForNumber(1), "пользователь");
-    $this->assertEqual($this->_getUserResultForNumber('1'), "пользователь");
-    $this->assertEqual($this->_getUserResultForNumber(2), "пользователя");
-    $this->assertEqual($this->_getUserResultForNumber(11), "пользователей");
-    $this->assertEqual($this->_getUserResultForNumber(12), "пользователей");
-    $this->assertEqual($this->_getUserResultForNumber(22), "пользователя");
-    $this->assertEqual($this->_getUserResultForNumber(235), "пользователей");
-    $this->assertEqual($this->_getUserResultForNumber(10001), "пользователь");
+    $this->assertEquals($this->_getUserResultForNumber(1), "пользователь");
+    $this->assertEquals($this->_getUserResultForNumber('1'), "пользователь");
+    $this->assertEquals($this->_getUserResultForNumber(2), "пользователя");
+    $this->assertEquals($this->_getUserResultForNumber(11), "пользователей");
+    $this->assertEquals($this->_getUserResultForNumber(12), "пользователей");
+    $this->assertEquals($this->_getUserResultForNumber(22), "пользователя");
+    $this->assertEquals($this->_getUserResultForNumber(235), "пользователей");
+    $this->assertEquals($this->_getUserResultForNumber(10001), "пользователь");
   }
 }
 

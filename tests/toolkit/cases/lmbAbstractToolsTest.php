@@ -19,7 +19,7 @@ class lmbAbstractToolsTest extends TestCase
   function testGetToolsSignatures()
   {
     $tools = new TestAbstractTools();
-    $this->assertEqual($tools->getToolsSignatures(),
+    $this->assertEquals($tools->getToolsSignatures(),
                        array('foo' => $tools, 'bar' => $tools));
   }
 }

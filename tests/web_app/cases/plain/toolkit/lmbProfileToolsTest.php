@@ -33,7 +33,7 @@ class lmbProfileToolsTest extends TestCase
   {
     $this->assertTrue($this->toolkit->hasProfileStartPoint());
     $this->toolkit->setProfileStartPoint($time = microtime(true));
-    $this->assertEqual($this->toolkit->getProfilePoint('__start__'), $time);
+    $this->assertEquals($this->toolkit->getProfilePoint('__start__'), $time);
   }
 
   function testProfileEndPoint()
@@ -42,7 +42,7 @@ class lmbProfileToolsTest extends TestCase
     $this->toolkit->setProfileEndPoint();
     $this->assertTrue($this->toolkit->hasProfileEndPoint());
     $this->toolkit->setProfileEndPoint($time = microtime(true));
-    $this->assertEqual($this->toolkit->getProfilePoint('__end__'), $time);
+    $this->assertEquals($this->toolkit->getProfilePoint('__end__'), $time);
   }
 
   function testGetSetProfilePoint()
@@ -50,13 +50,13 @@ class lmbProfileToolsTest extends TestCase
     $this->toolkit->setProfilePoint('first');
     $this->assertNotNull($this->toolkit->getProfilePoint('first'));
     $this->toolkit->setProfilePoint('first', $time = microtime(true));
-    $this->assertEqual($this->toolkit->getProfilePoint('first'), $time);
+    $this->assertEquals($this->toolkit->getProfilePoint('first'), $time);
   }
 
   function testClearProfilePoint()
   {
     $this->toolkit->setProfilePoint('first', $time = microtime(true));
-    $this->assertEqual($this->toolkit->getProfilePoint('first'), $time);
+    $this->assertEquals($this->toolkit->getProfilePoint('first'), $time);
     $this->toolkit->clearProfilePoint('first');
     try
     {
@@ -86,13 +86,13 @@ class lmbProfileToolsTest extends TestCase
     $this->toolkit->setProfilePoint('first', $first = microtime(true));
     $this->toolkit->setProfilePoint('second', $second = $first + 100);
     $this->toolkit->setProfilePoint('third', $third = $second + 200);
-    $this->assertEqual($this->toolkit->getProfileTimeDiff('__start__'), 0);
-    $this->assertEqual($this->toolkit->getProfileTimeDiff('first'), $first - $this->toolkit->getProfilePoint('__start__'));
-    $this->assertEqual($this->toolkit->getProfileTimeDiff('second'), $second - $first);
+    $this->assertEquals($this->toolkit->getProfileTimeDiff('__start__'), 0);
+    $this->assertEquals($this->toolkit->getProfileTimeDiff('first'), $first - $this->toolkit->getProfilePoint('__start__'));
+    $this->assertEquals($this->toolkit->getProfileTimeDiff('second'), $second - $first);
     // order of indexes doesn't matter
-    $this->assertEqual($this->toolkit->getProfileTimeDiff('second', 'first'), $second - $first);
-    $this->assertEqual($this->toolkit->getProfileTimeDiff('first', 'second'), $second - $first);
-    $this->assertEqual($this->toolkit->getProfileTimeDiff('third', 'first'), $third - $first);
+    $this->assertEquals($this->toolkit->getProfileTimeDiff('second', 'first'), $second - $first);
+    $this->assertEquals($this->toolkit->getProfileTimeDiff('first', 'second'), $second - $first);
+    $this->assertEquals($this->toolkit->getProfileTimeDiff('third', 'first'), $third - $first);
     try
     {
       $this->toolkit->getProfileTimeDiff('non-existing point');
@@ -106,7 +106,7 @@ class lmbProfileToolsTest extends TestCase
   {
     $this->toolkit->setProfileStartPoint($start = microtime(true));
     $this->toolkit->setProfileEndPoint($end = $start + 200);
-    $this->assertEqual($this->toolkit->getProfileTotal(), $end - $start);
+    $this->assertEquals($this->toolkit->getProfileTotal(), $end - $start);
   }
 
   function testGetProfileTotalSetsEndPoint()
@@ -124,12 +124,12 @@ class lmbProfileToolsTest extends TestCase
     $this->toolkit->setProfilePoint('third', $third = $second + 200);
     $this->toolkit->setProfileEndPoint($end = $third + 300);
     $total = $end - $start;
-    $this->assertEqual($this->toolkit->getProfilePercentDiff('first'), 100 * ($first - $start) / $total);
-    $this->assertEqual($this->toolkit->getProfilePercentDiff('second'), 100 * ($second - $first) / $total);
+    $this->assertEquals($this->toolkit->getProfilePercentDiff('first'), 100 * ($first - $start) / $total);
+    $this->assertEquals($this->toolkit->getProfilePercentDiff('second'), 100 * ($second - $first) / $total);
     // order of indexes doesn't matter
-    $this->assertEqual($this->toolkit->getProfilePercentDiff('second', 'first'), 100 * ($second - $first) / $total);
-    $this->assertEqual($this->toolkit->getProfilePercentDiff('first', 'second'), 100 * ($second - $first) / $total);
-    $this->assertEqual($this->toolkit->getProfilePercentDiff('third', 'first'), 100 * ($third - $first) / $total);
+    $this->assertEquals($this->toolkit->getProfilePercentDiff('second', 'first'), 100 * ($second - $first) / $total);
+    $this->assertEquals($this->toolkit->getProfilePercentDiff('first', 'second'), 100 * ($second - $first) / $total);
+    $this->assertEquals($this->toolkit->getProfilePercentDiff('third', 'first'), 100 * ($third - $first) / $total);
   }
 
   function testAddProfileDiffView()
@@ -137,7 +137,7 @@ class lmbProfileToolsTest extends TestCase
     $this->toolkit->setProfilePoint('first', $first = microtime(true));
     $this->toolkit->setProfilePoint('second', $second = $first + 100);
     $this->toolkit->setProfilePoint('third', $third = $second + 200);
-    $this->assertEqual($this->toolkit->getProfileDiffViews(), array());
+    $this->assertEquals($this->toolkit->getProfileDiffViews(), array());
     $this->toolkit->addProfileDiffView('first', 'third');
     $this->toolkit->addProfileDiffView('first', '__end__', 'from first to end');
     $views = array(
@@ -150,7 +150,7 @@ class lmbProfileToolsTest extends TestCase
         'second_point' => '__end__'
       )
     );
-    $this->assertEqual($this->toolkit->getProfileDiffViews(), $views);
+    $this->assertEquals($this->toolkit->getProfileDiffViews(), $views);
   }
 
   function testGetProfileStat()
@@ -162,7 +162,7 @@ class lmbProfileToolsTest extends TestCase
 {$this->toolkit->showProfileStatItem('second')}
 
 Total: {$this->toolkit->getProfileTotal()} sec.</pre>";
-    $this->assertEqual($this->toolkit->getProfileStat(false), $stat);
+    $this->assertEquals($this->toolkit->getProfileStat(false), $stat);
     $this->toolkit->addProfileDiffView('first', '__end__');
     $this->toolkit->addProfileDiffView('__start__', 'second', 'From start to second');
     $stat = "<pre>{$this->toolkit->showProfileStatItem('first')}
@@ -173,7 +173,7 @@ Custom profile points:
 {$this->toolkit->showProfileStatItem('__start__', 'second', 'From start to second')}
 
 Total: {$this->toolkit->getProfileTotal()} sec.</pre>";
-    $this->assertEqual($this->toolkit->getProfileStat(false), $stat);
+    $this->assertEquals($this->toolkit->getProfileStat(false), $stat);
   }
 }
 

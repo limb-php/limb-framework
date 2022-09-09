@@ -27,13 +27,13 @@ class lmbBulkInsertQueryTest extends lmbQueryBaseTestCase
     $rs = $this->db->select('test_db_table')->sort(array('id' => 'ASC'));
     $arr = $rs->getArray();
 
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]['id'], 2);
-    $this->assertEqual($arr[0]['title'], 'some title');
-    $this->assertEqual($arr[0]['description'], 'some description');
-    $this->assertEqual($arr[1]['id'], 4);
-    $this->assertEqual($arr[1]['description'], 'some other description');
-    $this->assertEqual($arr[1]['title'], 'some other title');
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]['id'], 2);
+    $this->assertEquals($arr[0]['title'], 'some title');
+    $this->assertEquals($arr[0]['description'], 'some description');
+    $this->assertEquals($arr[1]['id'], 4);
+    $this->assertEquals($arr[1]['description'], 'some other description');
+    $this->assertEquals($arr[1]['title'], 'some other title');
   }
 
   function testExecuteDoesNothingIfNotSetsSpecified()

@@ -21,6 +21,6 @@ class lmbMacroFormElementTagTest extends lmbBaseMacroTest
     $out = $page->render();
     $expected = '<form name="my_form1"><input type="text" name="my_input" value="100" /></form>'.
                 '<form name="my_form2"><input type="text" name="my_input" value="200" /></form>';
-    $this->assertEqual($out, $expected);
+    $this->assertEquals($out, $expected);
   }
 }

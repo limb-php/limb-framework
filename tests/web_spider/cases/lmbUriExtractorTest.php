@@ -46,14 +46,14 @@ multiline
 EOD;
 
     $links = $this->extractor->extract($content);
-    $this->assertEqual(sizeof($links), 6);
+    $this->assertEquals(sizeof($links), 6);
 
-    $this->assertEqual($links[0], new lmbUri('http://test.com'));
-    $this->assertEqual($links[1], new lmbUri('http://test.com'));
-    $this->assertEqual($links[2], new lmbUri('http://test2.com?wow=1&bar=4'));
-    $this->assertEqual($links[3], new lmbUri('http://test2.com'));
-    $this->assertEqual($links[4], new lmbUri('/root/news/3'));
-    $this->assertEqual($links[5], new lmbUri('/root/news/4'));
+    $this->assertEquals($links[0], new lmbUri('http://test.com'));
+    $this->assertEquals($links[1], new lmbUri('http://test.com'));
+    $this->assertEquals($links[2], new lmbUri('http://test2.com?wow=1&bar=4'));
+    $this->assertEquals($links[3], new lmbUri('http://test2.com'));
+    $this->assertEquals($links[4], new lmbUri('/root/news/3'));
+    $this->assertEquals($links[5], new lmbUri('/root/news/4'));
   }
 }
 

@@ -39,9 +39,9 @@ class lmbTableGatewayTest extends TestCase
 
   function testCorrectTableProperties()
   {
-    $this->assertEqual($this->db_table_test->getTableName(), 'test_db_table');
-    $this->assertEqual($this->db_table_test->getPrimaryKeyName(), 'id');
-    $this->assertEqual($this->db_table_test->getColumnType('id'), lmbDbTypeInfo::TYPE_INTEGER);
+    $this->assertEquals($this->db_table_test->getTableName(), 'test_db_table');
+    $this->assertEquals($this->db_table_test->getPrimaryKeyName(), 'id');
+    $this->assertEquals($this->db_table_test->getColumnType('id'), lmbDbTypeInfo::TYPE_INTEGER);
     $this->assertIdentical($this->db_table_test->getColumnType('no_column'), false);
     $this->assertTrue($this->db_table_test->hasColumn('id'));
     $this->assertTrue($this->db_table_test->hasColumn('description'));
@@ -58,9 +58,9 @@ class lmbTableGatewayTest extends TestCase
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $record = $stmt->getOneRecord();
 
-    $this->assertEqual($record->get('title'), 'wow');
-    $this->assertEqual($record->get('description'), 'wow!');
-    $this->assertEqual($record->get('id'), $id);
+    $this->assertEquals($record->get('title'), 'wow');
+    $this->assertEquals($record->get('description'), 'wow!');
+    $this->assertEquals($record->get('id'), $id);
   }
 
   function testInsertOnDuplicateKeyUpdate()
@@ -80,9 +80,9 @@ class lmbTableGatewayTest extends TestCase
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $record = $stmt->getOneRecord();
 
-    $this->assertEqual($record->get('title'), 'wow');
-    $this->assertEqual($record->get('description'), 'wow!');
-    $this->assertEqual($record->get('id'), $id);
+    $this->assertEquals($record->get('title'), 'wow');
+    $this->assertEquals($record->get('description'), 'wow!');
+    $this->assertEquals($record->get('id'), $id);
 
     $id = $this->db_table_test->insertOnDuplicateUpdate(array('id' => $id,
                                              'title' =>  'wow',
@@ -92,15 +92,15 @@ class lmbTableGatewayTest extends TestCase
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $record = $stmt->getOneRecord();
 
-    $this->assertEqual($record->get('title'), 'wow');
-    $this->assertEqual($record->get('description'), 'new wow!');
-    $this->assertEqual($record->get('id'), $id);
+    $this->assertEquals($record->get('title'), 'wow');
+    $this->assertEquals($record->get('description'), 'new wow!');
+    $this->assertEquals($record->get('id'), $id);
   }
 
 //  function testInsertUpdatesSequenceIfAutoIncrementFieldWasSet()
 //  {
 //    $id = $this->db_table_test->insert(array('id' => 4, 'title' =>  'wow', 'description' => 'wow!'));
-//    $this->assertEqual($id, 4);
+//    $this->assertEquals($id, 4);
 //  }
 
   function testInsertThrowsExceptionIfAllFieldsWereFiltered()
@@ -120,19 +120,19 @@ class lmbTableGatewayTest extends TestCase
 
     $updated_rows_count = $this->db_table_test->update(array('description' =>  'new_description', 'junk!!!' => 'junk!!!'));
 
-    $this->assertEqual($this->db_table_test->getAffectedRowCount(), 2);
-    $this->assertEqual($updated_rows_count, 2);
+    $this->assertEquals($this->db_table_test->getAffectedRowCount(), 2);
+    $this->assertEquals($updated_rows_count, 2);
 
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $records = $stmt->getRecordSet();
 
     $records->rewind();
     $record = $records->current();
-    $this->assertEqual($record->get('description'), 'new_description');
+    $this->assertEquals($record->get('description'), 'new_description');
 
     $records->next();
     $record = $records->current();
-    $this->assertEqual($record->get('description'), 'new_description');
+    $this->assertEquals($record->get('description'), 'new_description');
   }
 
   function testUpdateAllWithRawSet()
@@ -143,19 +143,19 @@ class lmbTableGatewayTest extends TestCase
     $raw_criteria = $this->conn->quoteIdentifier('ordr') . '=' . $this->conn->quoteIdentifier('ordr') . '+1';
     $updated_rows_count = $this->db_table_test->update($raw_criteria);
 
-    $this->assertEqual($this->db_table_test->getAffectedRowCount(), 2);
-    $this->assertEqual($updated_rows_count, 2);
+    $this->assertEquals($this->db_table_test->getAffectedRowCount(), 2);
+    $this->assertEquals($updated_rows_count, 2);
 
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $records = $stmt->getRecordSet();
 
     $records->rewind();
     $record = $records->current();
-    $this->assertEqual($record->get('ordr'), '2');
+    $this->assertEquals($record->get('ordr'), '2');
 
     $records->next();
     $record = $records->current();
-    $this->assertEqual($record->get('ordr'), '11');
+    $this->assertEquals($record->get('ordr'), '11');
   }
 
   function testUpdateByCriteria()
@@ -169,21 +169,21 @@ class lmbTableGatewayTest extends TestCase
       new lmbSQLFieldCriteria('title', 'wow')
     );
 
-    $this->assertEqual($this->db_table_test->getAffectedRowCount(), 2);
-    $this->assertEqual($updated_rows_count, 2);
+    $this->assertEquals($this->db_table_test->getAffectedRowCount(), 2);
+    $this->assertEquals($updated_rows_count, 2);
 
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table ORDER BY " . $this->conn->quoteIdentifier('id'));
     $records = $stmt->getRecordSet();
 
     $records->rewind();
     $record = $records->current();
-    $this->assertEqual($record->get('description'), 'new_description');
-    $this->assertEqual($record->get('title'), 'wow2');
+    $this->assertEquals($record->get('description'), 'new_description');
+    $this->assertEquals($record->get('title'), 'wow2');
 
     $records->next();
     $record = $records->current();
-    $this->assertEqual($record->get('description'), 'new_description');
-    $this->assertEqual($record->get('title'), 'wow2');
+    $this->assertEquals($record->get('description'), 'new_description');
+    $this->assertEquals($record->get('title'), 'wow2');
   }
 
   function testUpdateById()
@@ -193,13 +193,13 @@ class lmbTableGatewayTest extends TestCase
 
     $this->db_table_test->updateById($id, array('description' =>  'new_description'));
 
-    $this->assertEqual($this->db_table_test->getAffectedRowCount(), 1);
+    $this->assertEquals($this->db_table_test->getAffectedRowCount(), 1);
 
     $stmt = $this->conn->newStatement('SELECT * FROM test_db_table WHERE ' . $this->conn->quoteIdentifier('id') . '=' . $id);
     $records = $stmt->getRecordSet();
     $records->rewind();
     $record = $records->current();
-    $this->assertEqual($record->get('description'), 'new_description');
+    $this->assertEquals($record->get('description'), 'new_description');
   }
 
   function testSelectAll()
@@ -214,15 +214,15 @@ class lmbTableGatewayTest extends TestCase
 
     $result = $this->db_table_test->select();
 
-    $this->assertEqual($result->count(), 2);
+    $this->assertEquals($result->count(), 2);
 
     $result->rewind();
     $record = $result->current();
-    $this->assertEqual($record->get('description'), 'description');
+    $this->assertEquals($record->get('description'), 'description');
 
     $result->next();
     $record = $result->current();
-    $this->assertEqual($record->get('description'), 'description2');
+    $this->assertEquals($record->get('description'), 'description2');
   }
 
   function testSelectAllLimitFields()
@@ -231,9 +231,9 @@ class lmbTableGatewayTest extends TestCase
 
     $result = $this->db_table_test->select(null, array(), array('title'));
 
-    $this->assertEqual($result->count(), 1);
+    $this->assertEquals($result->count(), 1);
 
-    $this->assertEqual($result->at(0)->get('title'), 'wow');
+    $this->assertEquals($result->at(0)->get('title'), 'wow');
     $this->assertNull($result->at(0)->get('description'));
   }
 
@@ -248,7 +248,7 @@ class lmbTableGatewayTest extends TestCase
     $id = $this->db_table_test->insert($data[1]);
 
     $record = $this->db_table_test->selectRecordById($id);
-    $this->assertEqual($record->get('description'), 'description2');
+    $this->assertEquals($record->get('description'), 'description2');
   }
 
   function testSelectRecordByIdLimitFields()
@@ -256,7 +256,7 @@ class lmbTableGatewayTest extends TestCase
     $id = $this->db_table_test->insert(array('title' =>  'wow', 'description' => 'description'));
 
     $record = $this->db_table_test->selectRecordById($id, array('title'));
-    $this->assertEqual($record->get('title'), 'wow');
+    $this->assertEquals($record->get('title'), 'wow');
     $this->assertNull($record->get('description'));
   }
 
@@ -276,7 +276,7 @@ class lmbTableGatewayTest extends TestCase
     $this->db_table_test->insert($data[1]);
 
     $record = $this->db_table_test->selectFirstRecord();
-    $this->assertEqual($record->get('title'), 'wow');
+    $this->assertEquals($record->get('title'), 'wow');
   }
 
   function testSelectFirstRecordLimitFields()
@@ -284,7 +284,7 @@ class lmbTableGatewayTest extends TestCase
     $id = $this->db_table_test->insert(array('title' =>  'wow', 'description' => 'description'));
 
     $record = $this->db_table_test->selectFirstRecord(null, array(), array('title'));
-    $this->assertEqual($record->get('title'), 'wow');
+    $this->assertEquals($record->get('title'), 'wow');
     $this->assertNull($record->get('description'));
   }
 
@@ -305,12 +305,12 @@ class lmbTableGatewayTest extends TestCase
 
     $this->db_table_test->delete();
 
-    $this->assertEqual($this->db_table_test->getAffectedRowCount(), 2);
+    $this->assertEquals($this->db_table_test->getAffectedRowCount(), 2);
 
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $records = $stmt->getRecordSet();
 
-    $this->assertEqual($records->count(), 0);
+    $this->assertEquals($records->count(), 0);
   }
 
   function testDeleteByCriteria()
@@ -325,12 +325,12 @@ class lmbTableGatewayTest extends TestCase
 
     $this->db_table_test->delete(new lmbSQLFieldCriteria('title', 'hey'));
 
-    $this->assertEqual($this->db_table_test->getAffectedRowCount(), 0);
+    $this->assertEquals($this->db_table_test->getAffectedRowCount(), 0);
 
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $records = $stmt->getRecordSet();
 
-    $this->assertEqual($records->count(), 2);
+    $this->assertEquals($records->count(), 2);
   }
 
   function testDeleteById()
@@ -348,17 +348,17 @@ class lmbTableGatewayTest extends TestCase
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $records = $stmt->getRecordSet();
 
-    $this->assertEqual($records->count(), 1);
+    $this->assertEquals($records->count(), 1);
 
     $records->rewind();
 
     $record = $records->current();
-    $this->assertEqual($record->get('title'), 'wow!');
+    $this->assertEquals($record->get('title'), 'wow!');
   }
 
   function testGetColumnsForSelectDefaultName()
   {
-    $this->assertEqual($this->db_table_test->getColumnsForSelect(), array('test_db_table.id' => 'id',
+    $this->assertEquals($this->db_table_test->getColumnsForSelect(), array('test_db_table.id' => 'id',
                                                                           'test_db_table.description' => 'description',
                                                                           'test_db_table.title' => 'title',
                                                                           'test_db_table.ordr' => 'ordr'));
@@ -366,7 +366,7 @@ class lmbTableGatewayTest extends TestCase
 
   function testGetColumnsForSelectSpecificNameAndPrefix()
   {
-    $this->assertEqual($this->db_table_test->getColumnsForSelect('tn', array(), '_'),
+    $this->assertEquals($this->db_table_test->getColumnsForSelect('tn', array(), '_'),
                        array('tn.id' => '_id',
                             'tn.description' => '_description',
                             'tn.title' => '_title',
@@ -375,7 +375,7 @@ class lmbTableGatewayTest extends TestCase
 
   function testGetColumnsForSelectSpecificNameWithExcludes()
   {
-    $this->assertEqual($this->db_table_test->getColumnsForSelect('tn', array('id', 'description')),
+    $this->assertEquals($this->db_table_test->getColumnsForSelect('tn', array('id', 'description')),
                        array('tn.title' => 'title', 'tn.ordr' => 'ordr'));
 
   }

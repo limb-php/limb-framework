@@ -13,7 +13,7 @@ class lmbMacroSingleSelectWidgetTest extends lmbBaseMacroTest
   {
     $widget = new lmbMacroSingleSelectWidget('my_select');
     $widget->setAttribute('value', 10);
-    $this->assertEqual($widget->getValue(), 10);
+    $this->assertEquals($widget->getValue(), 10);
   }
   
   function testGetValue_ReturnScalarValue_From_FormDatasource()
@@ -24,7 +24,7 @@ class lmbMacroSingleSelectWidgetTest extends lmbBaseMacroTest
     $widget = new lmbMacroSingleSelectWidget('my_select');
     $widget->setForm($form);
     
-    $this->assertEqual($widget->getValue(), 10);
+    $this->assertEquals($widget->getValue(), 10);
   }
   
   function testGetValue_ReturnDefaultValue()
@@ -33,7 +33,7 @@ class lmbMacroSingleSelectWidgetTest extends lmbBaseMacroTest
     $widget->addToDefaultSelection(10);
     $widget->setAttribute('value', null);
     
-    $this->assertEqual($widget->getValue(), 10);
+    $this->assertEquals($widget->getValue(), 10);
   }
   
   function testGetValue_ReturnValueField_If_ActualValueIsArray()
@@ -45,7 +45,7 @@ class lmbMacroSingleSelectWidgetTest extends lmbBaseMacroTest
     $widget->setAttribute('value_field', 'my_id');
     $widget->setForm($form);
     
-    $this->assertEqual($widget->getValue(), 10);
+    $this->assertEquals($widget->getValue(), 10);
   }
   
   function testGetValue_ReturnDefaultValueField_If_ActualValueIsArray()
@@ -56,7 +56,7 @@ class lmbMacroSingleSelectWidgetTest extends lmbBaseMacroTest
     $widget = new lmbMacroSingleSelectWidget('my_select');
     $widget->setForm($form);
     
-    $this->assertEqual($widget->getValue(), 20);
+    $this->assertEquals($widget->getValue(), 20);
   }
 
   function testGetValue_ReturnValueField_If_ActualValueIsObject_With_ArrayAccess()
@@ -68,7 +68,7 @@ class lmbMacroSingleSelectWidgetTest extends lmbBaseMacroTest
     $widget->setAttribute('value_field', 'my_id');
     $widget->setForm($form);
     
-    $this->assertEqual($widget->getValue(), 10);
+    $this->assertEquals($widget->getValue(), 10);
   }  
   
   function testSetGetAppendPrependOptions_ForSimpleArrays()
@@ -77,7 +77,7 @@ class lmbMacroSingleSelectWidgetTest extends lmbBaseMacroTest
     $widget->setOptions(array('red', 'green'));
     $widget->addToOptions('blue');
     $widget->prependToOptions('black');
-    $this->assertEqual($widget->getOptions(), array('black', 'red', 'green', 'blue'));
+    $this->assertEquals($widget->getOptions(), array('black', 'red', 'green', 'blue'));
   }
 
   function testSetGetAppendPrependOptions_ForAssociativeArrays()
@@ -86,7 +86,7 @@ class lmbMacroSingleSelectWidgetTest extends lmbBaseMacroTest
     $widget->setOptions(array('ff0000' => 'red', '00ff00' => 'green'));
     $widget->addToOptions('0000ff', 'blue');
     $widget->prependToOptions('000000', 'black');
-    $this->assertEqual($widget->getOptions(), array('ff0000' => 'red', '00ff00' => 'green', '0000ff' => 'blue', '000000' => 'black'));
+    $this->assertEquals($widget->getOptions(), array('ff0000' => 'red', '00ff00' => 'green', '0000ff' => 'blue', '000000' => 'black'));
   }
 }
 

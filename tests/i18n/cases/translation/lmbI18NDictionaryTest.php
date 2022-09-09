@@ -22,7 +22,7 @@ class lmbI18NDictionaryTest extends TestCase
   {
     $d = new lmbI18NDictionary();
     $this->assertFalse($d->has('Hello'));
-    $this->assertEqual($d->translate('Hello'), 'Hello');
+    $this->assertEquals($d->translate('Hello'), 'Hello');
   }
 
   function testTranslateOk()
@@ -30,21 +30,21 @@ class lmbI18NDictionaryTest extends TestCase
     $d = new lmbI18NDictionary();
     $d->add('Hello', 'Привет');
     $this->assertTrue($d->has('Hello'));
-    $this->assertEqual($d->translate('Hello'), 'Привет');
+    $this->assertEquals($d->translate('Hello'), 'Привет');
   }
 
   function testTranslateWithAttributes()
   {
     $d = new lmbI18NDictionary();
     $d->add('Hello {what}', 'Привет {what}');
-    $this->assertEqual($d->translate('Hello {what}', array('{what}' => 'Bob')), 'Привет Bob');
+    $this->assertEquals($d->translate('Hello {what}', array('{what}' => 'Bob')), 'Привет Bob');
   }
 
   function testSetTranslations()
   {
     $d = new lmbI18NDictionary();
     $d->setTranslations(array('Hello' => 'Привет'));
-    $this->assertEqual($d->translate('Hello'), 'Привет');
+    $this->assertEquals($d->translate('Hello'), 'Привет');
   }
 
   function testMergeAppend()
@@ -57,8 +57,8 @@ class lmbI18NDictionaryTest extends TestCase
 
     $d3 = $d1->merge($d2);
 
-    $this->assertEqual($d3->translate('Hello'), 'Привет');
-    $this->assertEqual($d3->translate('Test'), 'Тест');
+    $this->assertEquals($d3->translate('Hello'), 'Привет');
+    $this->assertEquals($d3->translate('Test'), 'Тест');
   }
 
   function testMergeReplace()
@@ -71,7 +71,7 @@ class lmbI18NDictionaryTest extends TestCase
 
     $d3 = $d1->merge($d2);
 
-    $this->assertEqual($d3->translate('Hello'), 'Привет снова');
+    $this->assertEquals($d3->translate('Hello'), 'Привет снова');
   }
 
   function testIsTranslated()
@@ -83,7 +83,7 @@ class lmbI18NDictionaryTest extends TestCase
     $this->assertTrue($d->isTranslated('Hello'));
     $this->assertFalse($d->isTranslated('Test'));
 
-    $this->assertEqual($d->translate('Test'), 'Test');
+    $this->assertEquals($d->translate('Test'), 'Test');
   }
 
   function testHasSameEntries()

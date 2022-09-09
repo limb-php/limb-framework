@@ -43,7 +43,7 @@ class lmbTableGatewayMetadataTest extends TestCase
                       'field_decimal' => 'field_decimal',
                       'field_tinyint' => 'field_tinyint');
 
-    $this->assertEqual($table->getColumnNames(), $expected);
+    $this->assertEquals($table->getColumnNames(), $expected);
   }
 }
 

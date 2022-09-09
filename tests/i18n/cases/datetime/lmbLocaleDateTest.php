@@ -16,9 +16,9 @@ class lmbLocaleDateTimeTest extends TestCase
 
     $date = lmbLocaleDateTime :: localStringToDate($locale, 'Thursday 20 January 2005', '%A %d %B %Y');
 
-    $this->assertEqual($date->getMonth(), 1);
-    $this->assertEqual($date->getYear(), 2005);
-    $this->assertEqual($date->getDay(), 20);
+    $this->assertEquals($date->getMonth(), 1);
+    $this->assertEquals($date->getYear(), 2005);
+    $this->assertEquals($date->getDay(), 20);
   }
 
   function testCreateByAnotherLocaleString()
@@ -27,9 +27,9 @@ class lmbLocaleDateTimeTest extends TestCase
 
     $date = lmbLocaleDateTime :: localStringToDate($locale, 'Thu 20 Jan 2005', '%a %d %b %Y');
 
-    $this->assertEqual($date->getMonth(), 1);
-    $this->assertEqual($date->getYear(), 2005);
-    $this->assertEqual($date->getDay(), 20);
+    $this->assertEquals($date->getMonth(), 1);
+    $this->assertEquals($date->getYear(), 2005);
+    $this->assertEquals($date->getDay(), 20);
   }
 
   function testCreateByWrongStringThrowsException()

@@ -70,7 +70,7 @@ class lmbMacroFormWidgetTest extends lmbBaseMacroTest
     
     $error_list = $form->getErrorList();
     $this->assertIsA($error_list, 'lmbMacroFormErrorList');
-    $this->assertEqual(count($error_list), 1);
+    $this->assertEquals(count($error_list), 1);
   }
 
   function testSetErrorsNotifyFieldsAndLabelsAboutErrors()
@@ -110,14 +110,14 @@ class lmbMacroFormWidgetTest extends lmbBaseMacroTest
     $form->setErrorList($error_list);
 
     $errors = $form->getErrorsListForFields();
-    $this->assertEqual(sizeof($errors), 3);
+    $this->assertEquals(sizeof($errors), 3);
     
     $errors = $form->getErrorsListForFields('Input1');
 
-    $this->assertEqual($errors[0]['message'], 'message1');
-    $this->assertEqual($errors[1]['message'], 'message2');
+    $this->assertEquals($errors[0]['message'], 'message1');
+    $this->assertEquals($errors[1]['message'], 'message2');
 
     $errors = $form->getErrorsListForFields('Input2');
-    $this->assertEqual($errors[0]['message'], 'message2');
+    $this->assertEquals($errors[0]['message'], 'message2');
   }
 }

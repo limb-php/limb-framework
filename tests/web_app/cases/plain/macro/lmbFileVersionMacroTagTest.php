@@ -23,7 +23,7 @@ class lmbFileVersionMacroTagTest extends lmbMacroTestCase
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
 
     $content = $this->toolkit->addVersionToUrl('index.html');
-    $this->assertEqual($content, $page->render());
+    $this->assertEquals($content, $page->render());
   }
   
   function testSafeAttribute()
@@ -47,7 +47,7 @@ class lmbFileVersionMacroTagTest extends lmbMacroTestCase
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
 
     $content = $this->toolkit->addVersionToUrl('not_found.html', true);
-    $this->assertEqual($content, $page->render());
+    $this->assertEquals($content, $page->render());
   }
 
   function testToVar()
@@ -59,7 +59,7 @@ class lmbFileVersionMacroTagTest extends lmbMacroTestCase
 
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
 
-    $this->assertEqual('-'.$this->toolkit->addVersionToUrl('index.html').'-', trim($page->render()));
+    $this->assertEquals('-'.$this->toolkit->addVersionToUrl('index.html').'-', trim($page->render()));
   }
 
   function testGzipStatic()
@@ -76,10 +76,10 @@ class lmbFileVersionMacroTagTest extends lmbMacroTestCase
     
     $content = $page->render();
     $file = 'media/var/gz/one.js';
-    $this->assertEqual($content, $this->toolkit->addVersionToUrl($file, false));
-    $this->assertEqual('var window = {};', file_get_contents($doc_root . $file));
+    $this->assertEquals($content, $this->toolkit->addVersionToUrl($file, false));
+    $this->assertEquals('var window = {};', file_get_contents($doc_root . $file));
     $gz_file = $doc_root . $file . '.gz';
     $this->assertTrue(file_exists($gz_file));
-    $this->assertEqual(gzencode('var window = {};', 9, FORCE_DEFLATE), file_get_contents($gz_file));
+    $this->assertEquals(gzencode('var window = {};', 9, FORCE_DEFLATE), file_get_contents($gz_file));
   }
 }

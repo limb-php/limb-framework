@@ -45,12 +45,12 @@ class lmbDbToolsTest extends TestCase
 
   function testGetDbDSNByName()
   {
-    $this->assertEqual($this->tools->getDbDSNByName('another_dsn'), new lmbDbDSN($this->config['another_dsn']));
+    $this->assertEquals($this->tools->getDbDSNByName('another_dsn'), new lmbDbDSN($this->config['another_dsn']));
   }
 
   function testGetDefaultDbDSN()
   {
-    $this->assertEqual(
+    $this->assertEquals(
       $this->tools->getDefaultDbDSN(),
       $this->tools->getDbDSNByName('dsn')
     );
@@ -71,10 +71,10 @@ class lmbDbToolsTest extends TestCase
 
   function testSetDbDSNByName()
   {
-    $this->assertEqual($this->tools->getDbDSNByName('another_dsn'), new lmbDbDSN($this->config['another_dsn']));
+    $this->assertEquals($this->tools->getDbDSNByName('another_dsn'), new lmbDbDSN($this->config['another_dsn']));
     $dsn = new lmbDbDSN($this->config['dsn']);
     $this->tools->setDbDSNByName('another_dsn', $dsn);
-    $this->assertEqual($this->tools->getDbDSNByName('another_dsn'), new lmbDbDSN($this->config['dsn']));
+    $this->assertEquals($this->tools->getDbDSNByName('another_dsn'), new lmbDbDSN($this->config['dsn']));
   }
 
   function testGetDbConnectionByName()

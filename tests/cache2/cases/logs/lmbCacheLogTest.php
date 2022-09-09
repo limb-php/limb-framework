@@ -18,7 +18,7 @@ abstract class lmbCacheLogTest extends TestCase
 
     $records = $this->logger->getRecords();
 
-    $this->assertEqual(2, count($records));
+    $this->assertEquals(2, count($records));
 
     $this->assertIdentical($records[0], array(
       'key' => $key1,

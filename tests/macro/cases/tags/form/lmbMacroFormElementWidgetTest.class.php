@@ -16,7 +16,7 @@ class lmbMacroFormElementWidgetTest extends lmbBaseMacroTest
     $widget->setAttribute('value', 10);
     $widget->setForm($form);
     
-    $this->assertEqual($widget->getValue(), 10);
+    $this->assertEquals($widget->getValue(), 10);
   }
 
   function testGetValue_FromFormDatasource()
@@ -26,7 +26,7 @@ class lmbMacroFormElementWidgetTest extends lmbBaseMacroTest
     $widget = new lmbMacroFormElementWidget('any_field');
     $widget->setForm($form);
     
-    $this->assertEqual($widget->getValue(), 10);
+    $this->assertEquals($widget->getValue(), 10);
   }
 
   function testGetValue_FromFormDatasource_ByNameAttribute()
@@ -37,27 +37,27 @@ class lmbMacroFormElementWidgetTest extends lmbBaseMacroTest
     $widget->setAttribute('name', 'field_name');
     $widget->setForm($form);
     
-    $this->assertEqual($widget->getValue(), 10);
+    $this->assertEquals($widget->getValue(), 10);
   }
   
   function testGetDisplayName_ReturnIdByDefault()
   {
     $widget = new lmbMacroFormElementWidget('any_field');
-    $this->assertEqual($widget->getDisplayname(), 'any_field');
+    $this->assertEquals($widget->getDisplayname(), 'any_field');
   }
 
   function testGetDisplayName_ReturnTitleAttribute()
   {
     $widget = new lmbMacroFormElementWidget('any_field');
     $widget->setAttribute('title', 'My Field');
-    $this->assertEqual($widget->getDisplayname(), 'My Field');
+    $this->assertEquals($widget->getDisplayname(), 'My Field');
   }
 
   function testGetDisplayName_ReturnAltAttribute()
   {
     $widget = new lmbMacroFormElementWidget('any_field');
     $widget->setAttribute('alt', 'My Super Field');
-    $this->assertEqual($widget->getDisplayname(), 'My Super Field');
+    $this->assertEquals($widget->getDisplayname(), 'My Super Field');
   }
   
   function testSetErrorState_SetErrorStateClassAndStyle()
@@ -67,7 +67,7 @@ class lmbMacroFormElementWidgetTest extends lmbBaseMacroTest
     $widget->setAttribute('error_class', 'my_error_class');
     $widget->setErrorState(true);
     
-    $this->assertEqual($widget->getAttribute('class'), 'my_error_class');
-    $this->assertEqual($widget->getAttribute('style'), 'my_error_style');
+    $this->assertEquals($widget->getAttribute('class'), 'my_error_class');
+    $this->assertEquals($widget->getAttribute('style'), 'my_error_style');
   }
 }

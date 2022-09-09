@@ -35,8 +35,8 @@ EOD;
   function testGet()
   {
     $conf = $this->_createConfig();
-    $this->assertEqual($conf->get('foo'), 1);
-    $this->assertEqual($conf->get('bar'), 2);
+    $this->assertEquals($conf->get('foo'), 1);
+    $this->assertEquals($conf->get('bar'), 2);
   }
 
   function testOverride()
@@ -48,8 +48,8 @@ EOD;
     $this->_createConfig('conf.override.php', $content);
     $config = $this->_createConfig('conf.php');
 
-    $this->assertEqual($config->get('foo'), 1);
-    $this->assertEqual($config->get('bar'), 2);
+    $this->assertEquals($config->get('foo'), 1);
+    $this->assertEquals($config->get('bar'), 2);
   }
 
   function testImplementsIterator()
@@ -59,7 +59,7 @@ EOD;
    foreach ($conf as $key => $value)
      $result[$key] = $value;
 
-   $this->assertEqual($result, array(
+   $this->assertEquals($result, array(
      'foo' => 1,
      'bar' => 2
    ));
@@ -97,7 +97,7 @@ EOD;
     $conf = $this->_createConfig();
     try
     {
-      $this->assertEqual($conf->get(''), 1);
+      $this->assertEquals($conf->get(''), 1);
       $this->fail();
     }
     catch(lmbInvalidArgumentException $e)

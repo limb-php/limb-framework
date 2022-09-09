@@ -15,7 +15,7 @@ class lmbMacroUcFirstFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 'hello');
     $out = $tpl->render();
-    $this->assertEqual($out, 'Hello');
+    $this->assertEquals($out, 'Hello');
   }
 }
 

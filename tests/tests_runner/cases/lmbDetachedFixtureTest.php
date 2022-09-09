@@ -36,7 +36,7 @@ class lmbDetachedFixtureTest extends lmbTestRunnerBase
     $fixture->tearDown();
     $str = ob_get_contents();
     ob_end_clean();
-    $this->assertEqual($str, 'wowhey');
+    $this->assertEquals($str, 'wowhey');
   }
 
   function testFixtureCanAccessThisWithoutPHPErrors()
@@ -56,7 +56,7 @@ class lmbDetachedFixtureTest extends lmbTestRunnerBase
 
     $str = ob_get_contents();
     ob_end_clean();
-    $this->assertEqual($str, 'test');
+    $this->assertEquals($str, 'test');
   }
 }
 

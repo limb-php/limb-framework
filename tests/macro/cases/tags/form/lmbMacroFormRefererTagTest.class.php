@@ -32,7 +32,7 @@ class lmbMacroFormRefererTagTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
  
     $out = $page->render();
-    $this->assertEqual($out, '<form name="my_form"></form>');
+    $this->assertEquals($out, '<form name="my_form"></form>');
   }   
 
   function testReferer()
@@ -44,6 +44,6 @@ class lmbMacroFormRefererTagTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
  
     $out = $page->render();
-    $this->assertEqual($out, "<form name=\"my_form\"><input type='hidden' name='referer' value='back.html'></form>");
+    $this->assertEquals($out, "<form name=\"my_form\"><input type='hidden' name='referer' value='back.html'></form>");
   }
 }

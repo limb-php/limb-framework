@@ -15,7 +15,7 @@ class lmbMacroRawFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '<>');
     $out = $tpl->render();
-    $this->assertEqual($out, '<>');
+    $this->assertEquals($out, '<>');
   }
 }
 

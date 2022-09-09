@@ -16,75 +16,75 @@ class lmbMonthTest extends TestCase
     $date = new lmbDateTime();
 
     $c = new lmbMonth();
-    $this->assertEqual($c->getYear(), $date->getYear());
-    $this->assertEqual($c->getMonth(), $date->getMonth());
+    $this->assertEquals($c->getYear(), $date->getYear());
+    $this->assertEquals($c->getMonth(), $date->getMonth());
   }
 
   function testCreate()
   {
     $c = new lmbMonth(2007, 5);
-    $this->assertEqual($c->getYear(), 2007);
-    $this->assertEqual($c->getMonth(), 5);
+    $this->assertEquals($c->getYear(), 2007);
+    $this->assertEquals($c->getMonth(), 5);
   }
 
   function testCreateByDate()
   {
     $c = new lmbMonth(new lmbDateTime('2007-05-01'));
-    $this->assertEqual($c->getYear(), 2007);
-    $this->assertEqual($c->getMonth(), 5);
+    $this->assertEquals($c->getYear(), 2007);
+    $this->assertEquals($c->getMonth(), 5);
   }
 
   function testCreateByString()
   {
     $c = new lmbMonth('2007-05-01');
-    $this->assertEqual($c->getYear(), 2007);
-    $this->assertEqual($c->getMonth(), 5);
+    $this->assertEquals($c->getYear(), 2007);
+    $this->assertEquals($c->getMonth(), 5);
   }
 
   function testGetBoundaries()
   {
     $c = new lmbMonth(2007, 5);
-    $this->assertEqual(new lmbDateTime('2007-05-01 00:00:00'), $c->getStartDate());
-    $this->assertEqual(new lmbDateTime('2007-05-31 23:59:59'), $c->getEndDate());
+    $this->assertEquals(new lmbDateTime('2007-05-01 00:00:00'), $c->getStartDate());
+    $this->assertEquals(new lmbDateTime('2007-05-31 23:59:59'), $c->getEndDate());
   }
 
   function testGetMonthName()
   {
     $c = new lmbMonth(2007, 5);
-    $this->assertEqual($c->getMonthName(), 'May');
+    $this->assertEquals($c->getMonthName(), 'May');
   }
 
   function testGetMonthShortName()
   {
     $c = new lmbMonth(2007, 1);
-    $this->assertEqual($c->getMonthName(), 'Jan');
+    $this->assertEquals($c->getMonthName(), 'Jan');
   }
 
   function testGetNumberOfDays()
   {
     $c = new lmbMonth(2007, 5);
-    $this->assertEqual($c->getNumberOfDays(), 31);
+    $this->assertEquals($c->getNumberOfDays(), 31);
   }
 
   function testGetNumberOfDaysForLeapYear()
   {
     $c1 = new lmbMonth(2005, 2);
-    $this->assertEqual($c1->getNumberOfDays(), 28);
+    $this->assertEquals($c1->getNumberOfDays(), 28);
 
     $c2 = new lmbMonth(2004, 2);
-    $this->assertEqual($c2->getNumberOfDays(), 29);
+    $this->assertEquals($c2->getNumberOfDays(), 29);
   }
 
   function testGetNumberOfWeeks()
   {
     $c1 = new lmbMonth(1999, 2);
-    $this->assertEqual($c1->getNumberOfWeeks(), 4);
+    $this->assertEquals($c1->getNumberOfWeeks(), 4);
 
     $c2 = new lmbMonth(2007, 2);
-    $this->assertEqual($c2->getNumberOfWeeks(), 5);
+    $this->assertEquals($c2->getNumberOfWeeks(), 5);
 
     $c3 = new lmbMonth(2010, 5);
-    $this->assertEqual($c3->getNumberOfWeeks(), 6);
+    $this->assertEquals($c3->getNumberOfWeeks(), 6);
   }
 
   function testGetWeekFailed()
@@ -117,10 +117,10 @@ class lmbMonthTest extends TestCase
     for($i=21;$i<28;$i++)
       $expected3[] = new lmbDateTime(sprintf("1999-02-%02d", $i+1));
 
-    $this->assertEqual($week0, $expected0);
-    $this->assertEqual($week1, $expected1);
-    $this->assertEqual($week2, $expected2);
-    $this->assertEqual($week3, $expected3);
+    $this->assertEquals($week0, $expected0);
+    $this->assertEquals($week1, $expected1);
+    $this->assertEquals($week2, $expected2);
+    $this->assertEquals($week3, $expected3);
   }
 
   function testGetWeekWithDaysFromBoundaryMonths()
@@ -155,18 +155,18 @@ class lmbMonthTest extends TestCase
     for($i=1;$i<5;$i++)
       $expected4[] = new lmbDateTime(sprintf("2007-03-%02d", $i));
 
-    $this->assertEqual($week0, $expected0);
-    $this->assertEqual($week1, $expected1);
-    $this->assertEqual($week2, $expected2);
-    $this->assertEqual($week3, $expected3);
-    $this->assertEqual($week4, $expected4);
+    $this->assertEquals($week0, $expected0);
+    $this->assertEquals($week1, $expected1);
+    $this->assertEquals($week2, $expected2);
+    $this->assertEquals($week3, $expected3);
+    $this->assertEquals($week4, $expected4);
   }
 
   function testGetAllWeeks()
   {
     $c = new lmbMonth(2007, 2);
     $weeks = $c->getAllWeeks();
-    $this->assertEqual($weeks, array($c->getWeek(0),  $c->getWeek(1), $c->getWeek(2),
+    $this->assertEquals($weeks, array($c->getWeek(0),  $c->getWeek(1), $c->getWeek(2),
                                      $c->getWeek(3), $c->getWeek(4)));
   }
 
@@ -174,28 +174,28 @@ class lmbMonthTest extends TestCase
   {
     $c = new lmbMonth(2007, 2);
     $next = $c->getNextMonth();
-    $this->assertEqual(new lmbMonth(2007, 3), $next);
+    $this->assertEquals(new lmbMonth(2007, 3), $next);
   }
 
   function testGetNextMothFromDecember()
   {
     $c = new lmbMonth(2007, 12);
     $next = $c->getNextMonth();
-    $this->assertEqual(new lmbMonth(2008, 1), $next);
+    $this->assertEquals(new lmbMonth(2008, 1), $next);
   }
 
   function testGetPrevMonth()
   {
     $c = new lmbMonth(2007, 2);
     $prev = $c->getPrevMonth();
-    $this->assertEqual(new lmbMonth(2007, 1), $prev);
+    $this->assertEquals(new lmbMonth(2007, 1), $prev);
   }
 
   function testGetPrevMonthFromJanuary()
   {
     $c = new lmbMonth(2007, 1);
     $prev = $c->getPrevMonth();
-    $this->assertEqual(new lmbMonth(2006, 12), $prev);
+    $this->assertEquals(new lmbMonth(2006, 12), $prev);
   }
 }
 

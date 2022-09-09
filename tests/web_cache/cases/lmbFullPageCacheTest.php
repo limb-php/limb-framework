@@ -83,7 +83,7 @@ class lmbFullPageCacheTest extends TestCase
     $this->writer->expectOnce('get', array($hash));
     $this->writer->setReturnValue('get', $content = 'whatever', array($hash));
 
-    $this->assertEqual($content, $this->cache->get());
+    $this->assertEquals($content, $this->cache->get());
   }
 
   function testGetNotFound()

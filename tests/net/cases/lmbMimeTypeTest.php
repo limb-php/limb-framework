@@ -54,8 +54,8 @@ class lmbMimeTypeTest extends TestCase
   {
     $this->assertEquals(lmbMimeType :: getExtension('application/x-zip-compressed'), 'zip');
     $this->assertEquals(lmbMimeType :: getExtension('application/zip'), 'zip');
-    $this->assertEqual(lmbMimeType :: getExtension('application/x-rar-compressed'), 'rar');
-    $this->assertEqual(lmbMimeType :: getExtension('application/rar'), 'rar');
+    $this->assertEquals(lmbMimeType :: getExtension('application/x-rar-compressed'), 'rar');
+    $this->assertEquals(lmbMimeType :: getExtension('application/rar'), 'rar');
   }
 
 }

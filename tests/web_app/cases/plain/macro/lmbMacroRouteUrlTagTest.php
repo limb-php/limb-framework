@@ -23,7 +23,7 @@ class lmbMacroRouteUrlTagTest extends lmbMacroTestCase
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
     
     $expected = '<a href="/news/archive">Link</a>';
-    $this->assertEqual($page->render(), $expected); 
+    $this->assertEquals($page->render(), $expected);
   }
   
   function testPutUrlwithSpaces()
@@ -38,7 +38,7 @@ class lmbMacroRouteUrlTagTest extends lmbMacroTestCase
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
     
     $expected = '<a href="/news/archive">Link</a>';
-    $this->assertEqual($page->render(), $expected); 
+    $this->assertEquals($page->render(), $expected);
   }
   
   function testWithDynamicParams()
@@ -56,7 +56,7 @@ class lmbMacroRouteUrlTagTest extends lmbMacroTestCase
     $page->set('action', $action = 'archive');
 
     $expected = '<a href="/news/archive">Link</a>';
-    $this->assertEqual($page->render(), $expected); 
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testTryToGuessRoute()
@@ -71,7 +71,7 @@ class lmbMacroRouteUrlTagTest extends lmbMacroTestCase
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
     
     $expected = '<a href="/news/archive">Link</a>';
-    $this->assertEqual($page->render(), $expected); 
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testRouteWithSkipController()
@@ -87,7 +87,7 @@ class lmbMacroRouteUrlTagTest extends lmbMacroTestCase
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
     
     $expected = '<a href="/blog/archive">Link</a>';
-    $this->assertEqual($page->render(), $expected); 
+    $this->assertEquals($page->render(), $expected);
   }
 
   function _createRoutes($config)

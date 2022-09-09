@@ -56,7 +56,7 @@ class lmbCmsSeoTest extends lmbCmsTestCase
 
       $this->assertEquals($meta->get('title'), $item['title']);
       $this->assertEquals($meta->get('keywords'), $item['keywords']);
-      $this->assertEqual($meta->get('description'), $item['description']);
+      $this->assertEquals($meta->get('description'), $item['description']);
     }
   }
 

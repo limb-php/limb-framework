@@ -46,7 +46,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 'hello');
     $out = $tpl->render();
-    $this->assertEqual($out, 'HELLO');
+    $this->assertEquals($out, 'HELLO');
   }
 
   function testFilterChain()
@@ -55,7 +55,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '  hello  ');
     $out = $tpl->render();
-    $this->assertEqual($out, 'HELLO');
+    $this->assertEquals($out, 'HELLO');
   }
   
   function testFilterWithParams()
@@ -64,7 +64,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '  /hello/  ');
     $out = $tpl->render();
-    $this->assertEqual($out, 'HELLO');
+    $this->assertEquals($out, 'HELLO');
   }
 
   function testFilterWithVariablesInParams()
@@ -74,7 +74,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl->set('var', '  /hello/  ');
     $tpl->set('foo', '/');
     $out = $tpl->render();
-    $this->assertEqual($out, 'HELLO');
+    $this->assertEquals($out, 'HELLO');
   }
 
   function testFilterWithPHPCodeInParams()
@@ -85,7 +85,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl->set('foo', '/');
     $tpl->set('bar', '#');
     $out = $tpl->render();
-    $this->assertEqual($out, 'HELLO');
+    $this->assertEquals($out, 'HELLO');
   }
   
   function testApplyHtmlFilterByDefault()
@@ -94,7 +94,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '<>');
     $out = $tpl->render();
-    $this->assertEqual($out, '&lt;&gt;');
+    $this->assertEquals($out, '&lt;&gt;');
   }  
 
   function testDoesNotApplyHtmlFilterIfOutFilterPresent()
@@ -103,7 +103,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '<>');
     $out = $tpl->render();
-    $this->assertEqual($out, '<>');
+    $this->assertEquals($out, '<>');
   }    
 }
 

@@ -24,7 +24,7 @@ class lmbMacroInputRadioTagTest extends lmbBaseMacroTest
                 '<input type="radio" id="r1" name="my_input" value="foo" checked="checked" />'.
                 '<input type="radio" id="r2" name="my_input" value="bar" />'.
                 '</form>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testRemoveCheckedIfNotChecked()
@@ -42,7 +42,7 @@ class lmbMacroInputRadioTagTest extends lmbBaseMacroTest
                 '<input type="radio" id="r2" name="my_input" value="2" />'.
                 '</form>';
 
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 }
 

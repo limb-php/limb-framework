@@ -41,7 +41,7 @@ class lmbLinterUpdateTest extends DriverUpdateTestBase
     $stmt->setInteger('id', 3);
 
     $stmt->execute();
-    $this->assertEqual($stmt->getAffectedRowCount(), 1);
+    $this->assertEquals($stmt->getAffectedRowCount(), 1);
 
     $this->checkRecord(3);
   }
@@ -59,7 +59,7 @@ class lmbLinterUpdateTest extends DriverUpdateTestBase
     $stmt->setVarChar('last', 'Nixon');
 
     $stmt->execute();
-    $this->assertEqual($stmt->getAffectedRowCount(), 3);
+    $this->assertEquals($stmt->getAffectedRowCount(), 3);
   }
   
   function checkRecord($id)
@@ -71,9 +71,9 @@ class lmbLinterUpdateTest extends DriverUpdateTestBase
     $this->assertNotNull($record);
     if($record)
     {
-      $this->assertEqual($record->get('id'), $id);
-      $this->assertEqual($record->get('first'), 'Richard');
-      $this->assertEqual($record->get('last'), 'Nixon');
+      $this->assertEquals($record->get('id'), $id);
+      $this->assertEquals($record->get('first'), 'Richard');
+      $this->assertEquals($record->get('last'), 'Nixon');
     }
   }
   

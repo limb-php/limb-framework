@@ -25,13 +25,13 @@ class lmbCacheToolsTest extends TestCase
   function testCreateCacheConnectionByDSN()
   {
     $connection = lmbToolkit::instance()->createCacheConnectionByDSN('fake://localhost/');
-    $this->assertEqual($connection->getType(),'fake');
+    $this->assertEquals($connection->getType(),'fake');
   }
 
   function testCreateCacheFakeConnection()
   {
     $connection = lmbToolkit::instance()->createCacheFakeConnection();
-    $this->assertEqual($connection->getType(),'fake');
+    $this->assertEquals($connection->getType(),'fake');
   }
 
   function testCreateConnectionByNameCacheDisabled()
@@ -40,7 +40,7 @@ class lmbCacheToolsTest extends TestCase
     $config->set('cache_enabled',false);
     lmbToolkit::instance()->setConf('cache',$config);
     $connection = lmbToolkit::instance()->createCacheConnectionByName('some_name');
-    $this->assertEqual($connection->getType(),'fake');
+    $this->assertEquals($connection->getType(),'fake');
   }
 
   function testCreateConnectionByNameCacheEnabledAndDsnNotFound()
@@ -49,7 +49,7 @@ class lmbCacheToolsTest extends TestCase
     $config->set('cache_enabled',true);
     lmbToolkit::instance()->setConf('cache',$config);
     $connection = lmbToolkit::instance()->createCacheConnectionByName('some_name');
-    $this->assertEqual($connection->getType(),'fake');
+    $this->assertEquals($connection->getType(),'fake');
   }
 
   function testCreateConnectionByNameCacheEnabled()
@@ -57,9 +57,9 @@ class lmbCacheToolsTest extends TestCase
     $config = $this->_getConfig();
     lmbToolkit::instance()->setConf('cache',$config);
     $connection = lmbToolkit::instance()->createCacheConnectionByName('dsn');
-    $this->assertEqual($connection->getType(),'file');
+    $this->assertEquals($connection->getType(),'file');
     $connection->set('var','test');
-    $this->assertEqual($connection->get('var'),'test');
+    $this->assertEquals($connection->get('var'),'test');
   }
 
   function testCreateCache()
@@ -68,9 +68,9 @@ class lmbCacheToolsTest extends TestCase
     lmbToolkit::instance()->setConf('cache',$config);
     $connection = lmbToolkit::instance()->createCache('dsn');
     $this->assertisA($connection, 'lmbCacheFileConnection');
-    $this->assertEqual($connection->getType(),'file');
+    $this->assertEquals($connection->getType(),'file');
     $connection->set('var','test');
-    $this->assertEqual($connection->get('var'),'test');
+    $this->assertEquals($connection->get('var'),'test');
   }
 
   function testCreateMintCache()
@@ -82,7 +82,7 @@ class lmbCacheToolsTest extends TestCase
     $this->assertIsA($connection, 'lmbMintCache');
     $this->assertIsA($connection->getWrappedConnection(), 'lmbCacheFileConnection');
     $connection->set('var','test');
-    $this->assertEqual($connection->get('var'),'test');
+    $this->assertEquals($connection->get('var'),'test');
   }
 
   function testCreateLoggedCache()
@@ -99,7 +99,7 @@ class lmbCacheToolsTest extends TestCase
     $this->assertIsA($connection->getWrappedConnection()->getWrappedConnection(), 'lmbCacheFileConnection');
 
     $connection->set('var', 'test');
-    $this->assertEqual($connection->get('var'), 'test');
+    $this->assertEquals($connection->get('var'), 'test');
   }
 
   function testCreateLoggedCacheWithOutMintCache()
@@ -112,7 +112,7 @@ class lmbCacheToolsTest extends TestCase
     $this->assertIsA($connection, 'lmbLoggedCache');
 
     $connection->set('var', 'test');
-    $this->assertEqual($connection->get('var'), 'test');
+    $this->assertEquals($connection->get('var'), 'test');
   }
 
   function testGetCacheByName()
@@ -120,9 +120,9 @@ class lmbCacheToolsTest extends TestCase
     $config = $this->_getConfig();
     lmbToolkit::instance()->setConf('cache',$config);
     $connection = lmbToolkit::instance()->getCacheByName('dsn');
-    $this->assertEqual($connection->getType(),'file');
+    $this->assertEquals($connection->getType(),'file');
     $connection->set('var','test');
-    $this->assertEqual($connection->get('var'),'test');
+    $this->assertEquals($connection->get('var'),'test');
   }
 
   function testGetCacheDefaultFake()
@@ -130,7 +130,7 @@ class lmbCacheToolsTest extends TestCase
     $config = $this->_getConfig($without_dsn = true);
     lmbToolkit::instance()->setConf('cache',$config);
     $connection = lmbToolkit::instance()->getCache();
-    $this->assertEqual($connection->getType(),'fake');
+    $this->assertEquals($connection->getType(),'fake');
   }
 
   function testGetCacheDefault()
@@ -139,10 +139,10 @@ class lmbCacheToolsTest extends TestCase
     $config->set('default_cache_dsn',"file:///" . LIMB_VAR_DIR . "/cache2/");
     lmbToolkit::instance()->setConf('cache',$config);
     $connection = lmbToolkit::instance()->getCache();
-    $this->assertEqual($connection->getType(),'file');
+    $this->assertEquals($connection->getType(),'file');
     $connection->set('var','test');
     $connection = lmbToolkit::instance()->getCache();
-    $this->assertEqual($connection->get('var'),'test');
+    $this->assertEquals($connection->get('var'),'test');
   }
 
   function testGetCache()
@@ -150,10 +150,10 @@ class lmbCacheToolsTest extends TestCase
     $config = $this->_getConfig();
     lmbToolkit::instance()->setConf('cache',$config);
     $connection = lmbToolkit::instance()->getCache('dsn');
-    $this->assertEqual($connection->getType(),'file');
+    $this->assertEquals($connection->getType(),'file');
     $connection->set('var','test');
     $connection = lmbToolkit::instance()->getCache('dsn');
-    $this->assertEqual($connection->get('var'),'test');
+    $this->assertEquals($connection->get('var'),'test');
   }
 
   protected function _getConfig($without_dsn = false) {

@@ -43,19 +43,19 @@ class lmbMacroPagerHelperTest extends TestCase
 
     $this->pager->prepare();
 
-    $this->assertEqual($this->pager->getCurrentPage(), 2);
+    $this->assertEquals($this->pager->getCurrentPage(), 2);
     $this->assertFalse($this->pager->isDisplayedPage());
-    $this->assertEqual($this->pager->getPage(), 1);
-    $this->assertEqual($this->pager->getTotalPages(), 10);
-    $this->assertEqual($this->pager->getPagesPerSection(), 5);
+    $this->assertEquals($this->pager->getPage(), 1);
+    $this->assertEquals($this->pager->getTotalPages(), 10);
+    $this->assertEquals($this->pager->getPagesPerSection(), 5);
     $this->assertTrue($this->pager->hasMoreThanOnePage());
-    $this->assertEqual($this->pager->getSectionBeginPage(), 1);
-    $this->assertEqual($this->pager->getSectionEndPage(), 5);
+    $this->assertEquals($this->pager->getSectionBeginPage(), 1);
+    $this->assertEquals($this->pager->getSectionEndPage(), 5);
     $this->assertTrue($this->pager->hasNext());
     $this->assertTrue($this->pager->hasPrev());
-    $this->assertEqual($this->pager->getCurrentPageBeginItem(), 11);
-    $this->assertEqual($this->pager->getCurrentPageEndItem(), 20);
-    $this->assertEqual($this->pager->getCurrentPageOffset(), 10);
+    $this->assertEquals($this->pager->getCurrentPageBeginItem(), 11);
+    $this->assertEquals($this->pager->getCurrentPageEndItem(), 20);
+    $this->assertEquals($this->pager->getCurrentPageOffset(), 10);
   }
   
   function testGettingCurrentPageWithGetIfCurrentPageWasNotSet()
@@ -68,19 +68,19 @@ class lmbMacroPagerHelperTest extends TestCase
 
     $this->pager->prepare();
     
-    $this->assertEqual($this->pager->getCurrentPage(), 2);
+    $this->assertEquals($this->pager->getCurrentPage(), 2);
     $this->assertFalse($this->pager->isDisplayedPage());
-    $this->assertEqual($this->pager->getPage(), 1);
-    $this->assertEqual($this->pager->getTotalPages(), 10);
-    $this->assertEqual($this->pager->getPagesPerSection(), 5);
+    $this->assertEquals($this->pager->getPage(), 1);
+    $this->assertEquals($this->pager->getTotalPages(), 10);
+    $this->assertEquals($this->pager->getPagesPerSection(), 5);
     $this->assertTrue($this->pager->hasMoreThanOnePage());
-    $this->assertEqual($this->pager->getSectionBeginPage(), 1);
-    $this->assertEqual($this->pager->getSectionEndPage(), 5);
+    $this->assertEquals($this->pager->getSectionBeginPage(), 1);
+    $this->assertEquals($this->pager->getSectionEndPage(), 5);
     $this->assertTrue($this->pager->hasNext());
     $this->assertTrue($this->pager->hasPrev());
-    $this->assertEqual($this->pager->getCurrentPageBeginItem(), 11);
-    $this->assertEqual($this->pager->getCurrentPageEndItem(), 20);
-    $this->assertEqual($this->pager->getCurrentPageOffset(), 10);
+    $this->assertEquals($this->pager->getCurrentPageBeginItem(), 11);
+    $this->assertEquals($this->pager->getCurrentPageEndItem(), 20);
+    $this->assertEquals($this->pager->getCurrentPageOffset(), 10);
   }
 
   function testTotalItemsZero()
@@ -92,18 +92,18 @@ class lmbMacroPagerHelperTest extends TestCase
 
     $this->pager->prepare();
 
-    $this->assertEqual($this->pager->getCurrentPage(), 1);
-    $this->assertEqual($this->pager->getPage(), 1);
+    $this->assertEquals($this->pager->getCurrentPage(), 1);
+    $this->assertEquals($this->pager->getPage(), 1);
     $this->assertTrue($this->pager->isDisplayedPage());
-    $this->assertEqual($this->pager->getTotalPages(), 1);
+    $this->assertEquals($this->pager->getTotalPages(), 1);
     $this->assertFalse($this->pager->hasMoreThanOnePage());
-    $this->assertEqual($this->pager->getSectionBeginPage(), 1);
-    $this->assertEqual($this->pager->getSectionEndPage(), 1);
+    $this->assertEquals($this->pager->getSectionBeginPage(), 1);
+    $this->assertEquals($this->pager->getSectionEndPage(), 1);
     $this->assertFalse($this->pager->hasNext());
     $this->assertFalse($this->pager->hasPrev());
-    $this->assertEqual($this->pager->getCurrentPageBeginItem(), 0);
-    $this->assertEqual($this->pager->getCurrentPageEndItem(), 0);
-    $this->assertEqual($this->pager->getCurrentPageOffset(), 0);
+    $this->assertEquals($this->pager->getCurrentPageBeginItem(), 0);
+    $this->assertEquals($this->pager->getCurrentPageEndItem(), 0);
+    $this->assertEquals($this->pager->getCurrentPageOffset(), 0);
   }
 
   function testNextPage()
@@ -115,12 +115,12 @@ class lmbMacroPagerHelperTest extends TestCase
 
     $this->pager->prepare();
 
-    $this->assertEqual($this->pager->getPage(), 1);
+    $this->assertEquals($this->pager->getPage(), 1);
 
     $this->assertTrue($this->pager->nextPage());
     $this->assertTrue($this->pager->isValid());
 
-    $this->assertEqual($this->pager->getPage(), 2);
+    $this->assertEquals($this->pager->getPage(), 2);
   }
 
   function testNextPageOutOfBounds()
@@ -155,9 +155,9 @@ class lmbMacroPagerHelperTest extends TestCase
 
     $this->pager->nextPage();
 
-    $this->assertEqual($this->pager->getSection(), 1);
-    $this->assertEqual($this->pager->getSectionBeginPage(), 1);
-    $this->assertEqual($this->pager->getSectionEndPage(), 10);
+    $this->assertEquals($this->pager->getSection(), 1);
+    $this->assertEquals($this->pager->getSectionBeginPage(), 1);
+    $this->assertEquals($this->pager->getSectionEndPage(), 10);
   }
 
   function testSectionNumbersRightBound()
@@ -171,9 +171,9 @@ class lmbMacroPagerHelperTest extends TestCase
 
     $this->pager->nextPage();
 
-    $this->assertEqual($this->pager->getSection(), 1);
-    $this->assertEqual($this->pager->getSectionBeginPage(), 1);
-    $this->assertEqual($this->pager->getSectionEndPage(), 4);
+    $this->assertEquals($this->pager->getSection(), 1);
+    $this->assertEquals($this->pager->getSectionBeginPage(), 1);
+    $this->assertEquals($this->pager->getSectionEndPage(), 4);
   }
 
   function testNextSection()
@@ -200,7 +200,7 @@ class lmbMacroPagerHelperTest extends TestCase
 
     $uri = $this->pager->getPageUri(1);
 
-    $this->assertEqual($uri, 'http://test.com?p1=+wow+&p2[3]=yo');
+    $this->assertEquals($uri, 'http://test.com?p1=+wow+&p2[3]=yo');
   }
 
   function testGetFirstPageUriNoQuery()
@@ -209,7 +209,7 @@ class lmbMacroPagerHelperTest extends TestCase
 
     $uri = $this->pager->getPageUri(1);
 
-    $this->assertEqual($uri, 'http://test.com');
+    $this->assertEquals($uri, 'http://test.com');
   }
 
   function testGetPageUri()
@@ -221,7 +221,7 @@ class lmbMacroPagerHelperTest extends TestCase
 
     $uri = $this->pager->getPageUri(2);
 
-    $this->assertEqual($uri, 'http://test.com?p1=wow&p2[3]=+yo+&test_pager=2');
+    $this->assertEquals($uri, 'http://test.com?p1=wow&p2[3]=+yo+&test_pager=2');
   }
 
   function testGetPrevSectionUri()
@@ -237,9 +237,9 @@ class lmbMacroPagerHelperTest extends TestCase
 
     $uri = $this->pager->getSectionUri();
 
-    $this->assertEqual($uri, 'http://test.com?test_pager=2');
-    $this->assertEqual($this->pager->getSectionBeginPage(), 1);
-    $this->assertEqual($this->pager->getSectionEndPage(), 2);
+    $this->assertEquals($uri, 'http://test.com?test_pager=2');
+    $this->assertEquals($this->pager->getSectionBeginPage(), 1);
+    $this->assertEquals($this->pager->getSectionEndPage(), 2);
   }
 
   function testGetNextSectionUri()
@@ -256,9 +256,9 @@ class lmbMacroPagerHelperTest extends TestCase
 
     $uri = $this->pager->getSectionUri(2);
 
-    $this->assertEqual($uri, 'http://test.com?test_pager=5');
-    $this->assertEqual($this->pager->getSectionBeginPage(), 5);
-    $this->assertEqual($this->pager->getSectionEndPage(), 6);
+    $this->assertEquals($uri, 'http://test.com?test_pager=5');
+    $this->assertEquals($this->pager->getSectionBeginPage(), 5);
+    $this->assertEquals($this->pager->getSectionEndPage(), 6);
   }
 }
 

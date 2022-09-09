@@ -36,7 +36,7 @@ class lmbSimpleDbTest extends TestCase
 
   function testGetType()
   {
-    $this->assertEqual($this->db->getType(), $this->conn->getType());
+    $this->assertEquals($this->db->getType(), $this->conn->getType());
     $this->assertNotNull($this->db->getType());
   }
 
@@ -48,9 +48,9 @@ class lmbSimpleDbTest extends TestCase
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $record = $stmt->getOneRecord();
 
-    $this->assertEqual($record->get('title'), 'wow');
-    $this->assertEqual($record->get('description'), 'wow!');
-    $this->assertEqual($record->get('id'), $id);
+    $this->assertEquals($record->get('title'), 'wow');
+    $this->assertEquals($record->get('description'), 'wow!');
+    $this->assertEquals($record->get('id'), $id);
   }
 
   //we test sequence based fields here
@@ -63,10 +63,10 @@ class lmbSimpleDbTest extends TestCase
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $record = $stmt->getOneRecord();
 
-    $this->assertEqual($record->get('title'), 'wow');
-    $this->assertEqual($record->get('description'), 'wow!');
-    //$this->assertEqual("$id", '20');
-    $this->assertEqual($record->get('id'), $id);
+    $this->assertEquals($record->get('title'), 'wow');
+    $this->assertEquals($record->get('description'), 'wow!');
+    //$this->assertEquals("$id", '20');
+    $this->assertEquals($record->get('id'), $id);
   }
 
   function testUpdateAll()
@@ -74,20 +74,20 @@ class lmbSimpleDbTest extends TestCase
     $this->db->insert('test_db_table', array('title' =>  'wow', 'description' => 'description'));
     $this->db->insert('test_db_table', array('title' =>  'wow', 'description' => 'description2'));
 
-    $this->assertEqual($this->db->countAffected(), 0);
+    $this->assertEquals($this->db->countAffected(), 0);
     $this->db->update('test_db_table', array('description' =>  'new_description'));
-    $this->assertEqual($this->db->countAffected(), 2);
+    $this->assertEquals($this->db->countAffected(), 2);
 
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $records = $stmt->getRecordSet();
 
     $records->rewind();
     $record = $records->current();
-    $this->assertEqual($record->get('description'), 'new_description');
+    $this->assertEquals($record->get('description'), 'new_description');
 
     $records->next();
     $record = $records->current();
-    $this->assertEqual($record->get('description'), 'new_description');
+    $this->assertEquals($record->get('description'), 'new_description');
   }
 
   function testUpdateByCondition()
@@ -96,24 +96,24 @@ class lmbSimpleDbTest extends TestCase
     $this->db->insert('test_db_table', array('title' =>  'wow', 'description' => 'description2'));
     $this->db->insert('test_db_table', array('title' =>  'yo', 'description' => 'description3'));
 
-    $this->assertEqual($this->db->countAffected(), 0);
+    $this->assertEquals($this->db->countAffected(), 0);
     $this->db->update('test_db_table',
                       array('description' =>  'new_description', 'title' => 'wow2'),
                       new lmbSQLFieldCriteria('title', 'wow'));
-    $this->assertEqual($this->db->countAffected(), 2);
+    $this->assertEquals($this->db->countAffected(), 2);
 
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table ORDER BY " . $this->conn->quoteIdentifier('id'));
     $records = $stmt->getRecordSet();
 
     $records->rewind();
     $record = $records->current();
-    $this->assertEqual($record->get('description'), 'new_description');
-    $this->assertEqual($record->get('title'), 'wow2');
+    $this->assertEquals($record->get('description'), 'new_description');
+    $this->assertEquals($record->get('title'), 'wow2');
 
     $records->next();
     $record = $records->current();
-    $this->assertEqual($record->get('description'), 'new_description');
-    $this->assertEqual($record->get('title'), 'wow2');
+    $this->assertEquals($record->get('description'), 'new_description');
+    $this->assertEquals($record->get('title'), 'wow2');
   }
 
   function testSelectWithOrder()
@@ -129,9 +129,9 @@ class lmbSimpleDbTest extends TestCase
     $this->db->insert('test_db_table', $data[2]);
 
     $result = $this->db->select('test_db_table', null, array('title' => 'DESC'))->getArray();
-    $this->assertEqual($result[0]->get('title'), 'zzz');
-    $this->assertEqual($result[1]->get('title'), 'kkk');
-    $this->assertEqual($result[2]->get('title'), 'aaa');
+    $this->assertEquals($result[0]->get('title'), 'zzz');
+    $this->assertEquals($result[1]->get('title'), 'kkk');
+    $this->assertEquals($result[2]->get('title'), 'aaa');
   }
 
   function testDeleteAll()
@@ -144,14 +144,14 @@ class lmbSimpleDbTest extends TestCase
     $this->db->insert('test_db_table', $data[0]);
     $this->db->insert('test_db_table', $data[1]);
 
-    $this->assertEqual($this->db->countAffected(), 0);
+    $this->assertEquals($this->db->countAffected(), 0);
     $this->db->delete('test_db_table');
-    $this->assertEqual($this->db->countAffected(), 2);
+    $this->assertEquals($this->db->countAffected(), 2);
 
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $records = $stmt->getRecordSet();
 
-    $this->assertEqual($records->count(), 0);
+    $this->assertEquals($records->count(), 0);
   }
 
   function testDeleteByStringCondition()
@@ -164,39 +164,39 @@ class lmbSimpleDbTest extends TestCase
     $this->db->insert('test_db_table', $data[0]);
     $this->db->insert('test_db_table', $data[1]);
 
-    $this->assertEqual($this->db->countAffected(), 0);
+    $this->assertEquals($this->db->countAffected(), 0);
     $this->db->delete('test_db_table',new lmbSQLFieldCriteria('title', 'wow'));
-    $this->assertEqual($this->db->countAffected(), 1);
+    $this->assertEquals($this->db->countAffected(), 1);
 
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $records = $stmt->getRecordSet();
 
-    $this->assertEqual($records->count(), 1);
+    $this->assertEquals($records->count(), 1);
   }
 
   function testExecute()
   {
     $this->db->insert('test_db_table', array('title' =>  'wow', 'description' => 'description'));
 
-    $this->assertEqual($this->db->select('test_db_table')->count(), 1);
+    $this->assertEquals($this->db->select('test_db_table')->count(), 1);
 
     $this->db->execute("DELETE FROM test_db_table");
 
-    $this->assertEqual($this->db->select('test_db_table')->count(), 0);
+    $this->assertEquals($this->db->select('test_db_table')->count(), 0);
   }
 
   function testQuery()
   {
     $this->db->insert('test_db_table', array('title' =>  'wow', 'description' => 'descr'));
     $arr = $this->db->query("SELECT * from test_db_table")->getArray();
-    $this->assertEqual(sizeof($arr), 1);
-    $this->assertEqual($arr[0]["title"], 'wow');
-    $this->assertEqual($arr[0]["description"], 'descr');
+    $this->assertEquals(sizeof($arr), 1);
+    $this->assertEquals($arr[0]["title"], 'wow');
+    $this->assertEquals($arr[0]["description"], 'descr');
   }
 
   function testQuote()
   {
-     $this->assertEqual($this->db->quote('foo'), $this->conn->quoteIdentifier('foo'));
+     $this->assertEquals($this->db->quote('foo'), $this->conn->quoteIdentifier('foo'));
   }
 }
 

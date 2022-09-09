@@ -12,15 +12,15 @@ class lmbTestTreePathTest extends TestCase
 {
   function testToArray()
   {
-    $this->assertEqual(lmbTestTreePath :: toArray('/0/1'), array('0', '1'));
-    $this->assertEqual(lmbTestTreePath :: toArray('/0/1/'), array('0', '1'));
-    $this->assertEqual(lmbTestTreePath :: toArray('/0/1/../'), array('0'));
+    $this->assertEquals(lmbTestTreePath :: toArray('/0/1'), array('0', '1'));
+    $this->assertEquals(lmbTestTreePath :: toArray('/0/1/'), array('0', '1'));
+    $this->assertEquals(lmbTestTreePath :: toArray('/0/1/../'), array('0'));
   }
 
   function testNormalize()
   {
-    $this->assertEqual(lmbTestTreePath :: normalize('/0////'), '/0');
-    $this->assertEqual(lmbTestTreePath :: normalize('/0/1/../'), '/0');
+    $this->assertEquals(lmbTestTreePath :: normalize('/0////'), '/0');
+    $this->assertEquals(lmbTestTreePath :: normalize('/0/1/../'), '/0');
   }
 }
 

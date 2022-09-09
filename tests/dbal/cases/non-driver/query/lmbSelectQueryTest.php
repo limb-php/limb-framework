@@ -14,7 +14,7 @@ class lmbSelectQueryTest extends TestCase
   {
     $sql = new lmbSelectQuery('foo');
 
-    $this->assertEqual($sql->getTables(), array('foo'));
+    $this->assertEquals($sql->getTables(), array('foo'));
   }
 
 }

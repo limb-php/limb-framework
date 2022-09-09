@@ -25,11 +25,11 @@ class lmbInsertQueryTest extends lmbQueryBaseTestCase
     $rs = $this->db->select('test_db_table')->sort(array('id' => 'ASC'));
     $arr = $rs->getArray();
 
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]['id'], $startId);
-    $this->assertEqual($arr[1]['id'], $id);
-    $this->assertEqual($arr[1]['description'], $description);
-    $this->assertEqual($arr[1]['title'], $title);
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]['id'], $startId);
+    $this->assertEquals($arr[1]['id'], $id);
+    $this->assertEquals($arr[1]['description'], $description);
+    $this->assertEquals($arr[1]['title'], $title);
   }
 
   function testAddFieldWithoutValueOnlyReservesAPlaceholder()
@@ -48,10 +48,10 @@ class lmbInsertQueryTest extends lmbQueryBaseTestCase
     $rs = $this->db->select('test_db_table');
     $arr = $rs->getArray();
 
-    $this->assertEqual(sizeof($arr), 1);
-    //$this->assertEqual($arr[0]['id'], $id);
-    $this->assertEqual($arr[0]['description'], $description);
-    $this->assertEqual($arr[0]['title'], $title);
+    $this->assertEquals(sizeof($arr), 1);
+    //$this->assertEquals($arr[0]['id'], $id);
+    $this->assertEquals($arr[0]['description'], $description);
+    $this->assertEquals($arr[0]['title'], $title);
 
   }
 }

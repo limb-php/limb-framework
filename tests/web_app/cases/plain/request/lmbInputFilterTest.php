@@ -34,7 +34,7 @@ class lmbInputFilterTest extends TestCase
     $input_filter->addRule($r2);
 
     $out = $input_filter->filter($input);
-    $this->assertEqual($out, $expected);
+    $this->assertEquals($out, $expected);
   }
 }
 

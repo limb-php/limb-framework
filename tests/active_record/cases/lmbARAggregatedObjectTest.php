@@ -102,8 +102,8 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
     $member->save();
 
     $member2 = lmbActiveRecord :: findById('MemberForTest', $member->getId());
-    $this->assertEqual($member2->getName()->getFirst(), $first);
-    $this->assertEqual($member2->getName()->getLast(), $last);
+    $this->assertEquals($member2->getName()->getFirst(), $first);
+    $this->assertEquals($member2->getName()->getLast(), $last);
   }
 
   function testSaveLoadAggrigatedObjectWithShortDefinition()
@@ -117,7 +117,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 
     $photo2 = lmbActiveRecord :: findById('PhotoForTest', $photo->getId());
     $this->assertIsA($photo2->getExtra(), 'ExtraForAggregateTest');
-    $this->assertEqual($photo2->getExtra()->getValue(), 'value_as_extra_value');
+    $this->assertEquals($photo2->getExtra()->getValue(), 'value_as_extra_value');
   }
 
   function testUsingSetupMethodOnAggregatedObjectLoad()
@@ -132,7 +132,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 
     $member2 = lmbActiveRecord :: findById('MemberForTest', $member->getId());
     $member2->getName();
-    $this->assertEqual($member2->saved_full_name, $name->getFull());
+    $this->assertEquals($member2->saved_full_name, $name->getFull());
   }
 
   function testSetDirtinessOfAggregatedObjectFieldsOnSave()
@@ -148,7 +148,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
     $member->save();
 
     $member2 = lmbActiveRecord :: findById('MemberForTest', $member->getId());
-    $this->assertEqual($member2->getName()->getLast(), $other_last);
+    $this->assertEquals($member2->getName()->getLast(), $other_last);
   }
 
   function testDoNotSettingARPrimaryKeyOnAggregatedObjects()
@@ -163,17 +163,17 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
     $this->assertNotEqual($photo->getImage()->getPhotoId(), $photo->getId());
 
     $photo2 = lmbActiveRecord :: findById('PhotoForTest', $photo->getId());
-    $this->assertEqual($photo2->getImage()->getPhotoId(), $photo2->getId());
+    $this->assertEquals($photo2->getImage()->getPhotoId(), $photo2->getId());
 
     $photo2->getImage()->setExtension($other_extension = 'png');
     $photo2->getImage()->setPhotoId($other_photo_id = ($photo2->getId() + 10)); // we try set AR primary key
     $photo2->save();
 
     $photo3 = lmbActiveRecord :: findById('PhotoForTest', $photo2->getId());
-    $this->assertEqual($photo3->getImage()->getExtension(), $other_extension);
+    $this->assertEquals($photo3->getImage()->getExtension(), $other_extension);
 
     $this->assertNotEqual($photo3->getImage()->getPhotoId(), $other_photo_id); // affect setting AR primary key
-    $this->assertEqual($photo3->getImage()->getPhotoId(), $photo3->getId()); // AR primary key not updated
+    $this->assertEquals($photo3->getImage()->getPhotoId(), $photo3->getId()); // AR primary key not updated
   }
 
   function testGenericGetReturnsAlreadyExistingObject()
@@ -186,8 +186,8 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
     $member->setName($name);
     $member->save();
 
-    $this->assertEqual($member->get('name')->getFirst(), $first);
-    $this->assertEqual($member->get('name')->getLast(), $last);
+    $this->assertEquals($member->get('name')->getFirst(), $first);
+    $this->assertEquals($member->get('name')->getLast(), $last);
   }
 
   function testLazyAggregatedObjects()
@@ -202,8 +202,8 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 
     $member2 = new LazyMemberForTest($member->getId());
 
-    $this->assertEqual($member->getName()->getFirst(), $first);
-    $this->assertEqual($member->getName()->getLast(), $last);
+    $this->assertEquals($member->getName()->getFirst(), $first);
+    $this->assertEquals($member->getName()->getLast(), $last);
   }
 
   function testAggregatedObjectAreImportedProperly()
@@ -218,7 +218,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 
     $member2 = new MemberForTest($member->export());
 
-    $this->assertEqual($member->getName()->getFirst(), $first);
-    $this->assertEqual($member->getName()->getLast(), $last);
+    $this->assertEquals($member->getName()->getFirst(), $first);
+    $this->assertEquals($member->getName()->getLast(), $last);
   }
 }

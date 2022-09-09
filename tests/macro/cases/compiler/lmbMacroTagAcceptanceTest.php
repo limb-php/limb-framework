@@ -50,7 +50,7 @@ class lmbMacroTagAcceptanceTest extends lmbBaseMacroTest
     $code = '<h1>{{foo/}}{{bar/}}</h1>';
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>foo!bar</h1>');
+    $this->assertEquals($out, '<h1>foo!bar</h1>');
   }
 
  function testTagsInsideXmlBlock_WithOtherPhpBlockNearby()
@@ -58,7 +58,7 @@ class lmbMacroTagAcceptanceTest extends lmbBaseMacroTest
     $code = '<?xml version="1.0" encoding="utf-8" ?><h1><?php echo "hi!"; ?>{{foo/}}{{bar/}}</h1>';
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $out = $tpl->render();
-    $this->assertEqual($out, '<?xml version="1.0" encoding="utf-8" ?><h1>hi!foo!bar</h1>');
+    $this->assertEquals($out, '<?xml version="1.0" encoding="utf-8" ?><h1>hi!foo!bar</h1>');
   }
 
   function testCompositeTagAttributes()
@@ -68,7 +68,7 @@ class lmbMacroTagAcceptanceTest extends lmbBaseMacroTest
     $tpl->set('var', 'Result');
     $tpl->set('foo', 'Attribute');
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>Test_Result_Attribute</h1>');
+    $this->assertEquals($out, '<h1>Test_Result_Attribute</h1>');
   }
 
   function testTagAttributeWithPathBasedVariable()
@@ -77,7 +77,7 @@ class lmbMacroTagAcceptanceTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', array('title' => 'Result'));
     $out = $tpl->render();
-    $this->assertEqual($out, '<h1>Result</h1>');
+    $this->assertEquals($out, '<h1>Result</h1>');
   }
   
 }

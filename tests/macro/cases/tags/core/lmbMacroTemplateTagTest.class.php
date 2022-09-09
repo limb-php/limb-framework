@@ -29,7 +29,7 @@ class lmbMacroTemplateTagTest extends lmbBaseMacroTest
     $macro->set('foo', 'FOO');
 
     $out = $macro->render();
-    $this->assertEqual($out, 'FOOHEYBAR');
+    $this->assertEquals($out, 'FOOHEYBAR');
   }
 
   function testApplyTemplateInline()
@@ -49,7 +49,7 @@ class lmbMacroTemplateTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($tpl);
 
     $out = $macro->render();
-    $this->assertEqual($out, 'FOOHEYBAR');
+    $this->assertEquals($out, 'FOOHEYBAR');
   }
 
   function testApplyTemplateWithIntoTags()
@@ -66,7 +66,7 @@ class lmbMacroTemplateTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($tpl);
 
     $out = $macro->render();
-    $this->assertEqual($out, 'HEYHello!Wow!AAA');
+    $this->assertEquals($out, 'HEYHello!Wow!AAA');
   }
 
   function testApplyTemplateDynamic()
@@ -91,7 +91,7 @@ class lmbMacroTemplateTagTest extends lmbBaseMacroTest
     $macro->set('foo', 'FOO');
 
     $out = $macro->render();
-    $this->assertEqual($out, 'FOOHEYBAR');
+    $this->assertEquals($out, 'FOOHEYBAR');
   }
 
 }

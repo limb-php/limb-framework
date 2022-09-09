@@ -17,7 +17,7 @@ class lmbMacroMultipleSelectTagTest extends lmbBaseMacroTest
     $page->set('options', array('red', 'green', 'blue'));
     
     $expected = '<select id="my_select" multiple="true" name="my_select[]"><option value="0">red</option><option value="1">green</option><option value="2">blue</option></select>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testWithSelectedOption()
@@ -31,7 +31,7 @@ class lmbMacroMultipleSelectTagTest extends lmbBaseMacroTest
     $expected = '<select id="my_select" name="my_select[]" multiple="true">'.
                 '<option value="ff0000">red</option><option value="00ff00" selected="selected">green</option><option value="0000ff" selected="selected">blue</option>'.
                 '</select>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testWithSelectedOption_ByArrayFieldInValue()
@@ -46,7 +46,7 @@ class lmbMacroMultipleSelectTagTest extends lmbBaseMacroTest
     $expected = '<select id="my_select" name="my_select[]" multiple="true">'.
                 '<option value="ff0000">red</option><option value="00ff00" selected="selected">green</option><option value="0000ff" selected="selected">blue</option>'.
                 '</select>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testWithSelectedOption_ByFieldInFormDatasource()
@@ -62,7 +62,7 @@ class lmbMacroMultipleSelectTagTest extends lmbBaseMacroTest
                 '<option value="ff0000">red</option><option value="00ff00" selected="selected">green</option><option value="0000ff" selected="selected">blue</option>'.
                 '</select>'.
                 '</form>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 }
 

@@ -18,9 +18,9 @@ abstract class DriverManipTestBase extends TestCase
     $this->assertNotNull($record);
     if($record)
     {
-      $this->assertEqual($record->get('id'), $id);
-      $this->assertEqual($record->get('first'), 'Richard');
-      $this->assertEqual($record->get('last'), 'Nixon');
+      $this->assertEquals($record->get('id'), $id);
+      $this->assertEquals($record->get('first'), 'Richard');
+      $this->assertEquals($record->get('last'), 'Nixon');
     }
   }
 }

@@ -23,10 +23,10 @@ class lmbSQLFieldBetweenCriteriaTest extends TestCase
   {
     $c1 = new lmbSQLFieldBetweenCriteria('a', 1, 10);
 
-    $this->assertEqual($c1->toStatementString($values, $this->conn),
+    $this->assertEquals($c1->toStatementString($values, $this->conn),
                        "'a' BETWEEN :pfa0: AND :pta0:");
 
-    $this->assertEqual($values, array('pfa0' => 1,
+    $this->assertEquals($values, array('pfa0' => 1,
                                       'pta0' => 10));
   }
 
@@ -36,10 +36,10 @@ class lmbSQLFieldBetweenCriteriaTest extends TestCase
     $c2 = new lmbSQLFieldBetweenCriteria('a', 20, 30);
     $c1->addOr($c2);
 
-    $this->assertEqual($c1->toStatementString($values, $this->conn),
+    $this->assertEquals($c1->toStatementString($values, $this->conn),
                        "('a' BETWEEN :pfa0: AND :pta0: OR a BETWEEN :pfa1: AND :pta1:)");
 
-    $this->assertEqual($values, array('pfa0' => 1,
+    $this->assertEquals($values, array('pfa0' => 1,
                                       'pta0' => 10,
                                       'pfa1' => 20,
                                       'pta1' => 30));

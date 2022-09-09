@@ -23,16 +23,16 @@ abstract class DriverQueryTestBase extends TestCase
     $stmt = $this->connection->newStatement($sql);
     $record = $stmt->getOneRecord();
     $this->assertIsA($record, $this->record_class);
-    $this->assertEqual($record->get('id'), 1);
-    $this->assertEqual($record->get('first'), 'George');
-    $this->assertEqual($record->get('last'), 'Washington');
+    $this->assertEquals($record->get('id'), 1);
+    $this->assertEquals($record->get('first'), 'George');
+    $this->assertEquals($record->get('last'), 'Washington');
   }
 
   function testGetOneValue()
   {
     $sql = "SELECT first FROM founding_fathers";
     $stmt = $this->connection->newStatement($sql);
-    $this->assertEqual($stmt->getOneValue(), 'George');
+    $this->assertEquals($stmt->getOneValue(), 'George');
   }
 
   function testGetOneColumnArray()
@@ -40,7 +40,7 @@ abstract class DriverQueryTestBase extends TestCase
     $sql = "SELECT first FROM founding_fathers";
     $stmt = $this->connection->newStatement($sql);
     $testarray = array('George', 'Alexander', 'Benjamin');
-    $this->assertEqual($stmt->getOneColumnAsArray($sql), $testarray);
+    $this->assertEquals($stmt->getOneColumnAsArray($sql), $testarray);
   }
 }
 

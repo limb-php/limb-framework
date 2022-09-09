@@ -42,7 +42,7 @@ class lmbTreeHelperTest extends TestCase
     foreach($sorted as $record)
       $to_check[] = $record->export();
 
-    $this->assertEqual($to_check, $expected_tree_array);
+    $this->assertEquals($to_check, $expected_tree_array);
   }
 }
 

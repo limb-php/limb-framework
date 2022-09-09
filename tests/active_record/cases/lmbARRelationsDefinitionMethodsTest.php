@@ -96,38 +96,38 @@ class lmbARRelationsDefinitionMethodsTest extends TestCase
 
   function testHasOne()
   {
-    $this->assertEqual($this->object->getRelationInfo('has_one_relation'), $this->relations['has_one_relation']);
-    $this->assertEqual($this->object->getRelationInfo('other_has_one_relation'), $this->relations['other_has_one_relation']);
+    $this->assertEquals($this->object->getRelationInfo('has_one_relation'), $this->relations['has_one_relation']);
+    $this->assertEquals($this->object->getRelationInfo('other_has_one_relation'), $this->relations['other_has_one_relation']);
   }
 
   function testHasMany()
   {
-    $this->assertEqual($this->object->getRelationInfo('has_many_relation'), $this->relations['has_many_relation']);
-    $this->assertEqual($this->object->getRelationInfo('other_has_many_relation'), $this->relations['other_has_many_relation']);
+    $this->assertEquals($this->object->getRelationInfo('has_many_relation'), $this->relations['has_many_relation']);
+    $this->assertEquals($this->object->getRelationInfo('other_has_many_relation'), $this->relations['other_has_many_relation']);
   }
 
   function testHasManyToMany()
   {
-    $this->assertEqual($this->object->getRelationInfo('has_many_to_many_relation'), $this->relations['has_many_to_many_relation']);
-    $this->assertEqual($this->object->getRelationInfo('other_has_many_to_many_relation'), $this->relations['other_has_many_to_many_relation']);
+    $this->assertEquals($this->object->getRelationInfo('has_many_to_many_relation'), $this->relations['has_many_to_many_relation']);
+    $this->assertEquals($this->object->getRelationInfo('other_has_many_to_many_relation'), $this->relations['other_has_many_to_many_relation']);
   }
 
   function testBelongsTo()
   {
-    $this->assertEqual($this->object->getRelationInfo('belongs_to_relation'), $this->relations['belongs_to_relation']);
-    $this->assertEqual($this->object->getRelationInfo('other_belongs_to_relation'), $this->relations['other_belongs_to_relation']);
+    $this->assertEquals($this->object->getRelationInfo('belongs_to_relation'), $this->relations['belongs_to_relation']);
+    $this->assertEquals($this->object->getRelationInfo('other_belongs_to_relation'), $this->relations['other_belongs_to_relation']);
   }
 
   function testManyBelongsTo()
   {
-    $this->assertEqual($this->object->getRelationInfo('many_belongs_to_relation'), $this->relations['many_belongs_to_relation']);
-    $this->assertEqual($this->object->getRelationInfo('other_many_belongs_to_relation'), $this->relations['other_many_belongs_to_relation']);
+    $this->assertEquals($this->object->getRelationInfo('many_belongs_to_relation'), $this->relations['many_belongs_to_relation']);
+    $this->assertEquals($this->object->getRelationInfo('other_many_belongs_to_relation'), $this->relations['other_many_belongs_to_relation']);
   }
 
   function testComposedOf()
   {
-    $this->assertEqual($this->object->getRelationInfo('value_object'), $this->relations['value_object']);
-    $this->assertEqual($this->object->getRelationInfo('other_value_object'), $this->relations['other_value_object']);
+    $this->assertEquals($this->object->getRelationInfo('value_object'), $this->relations['value_object']);
+    $this->assertEquals($this->object->getRelationInfo('other_value_object'), $this->relations['other_value_object']);
   }
 }
 

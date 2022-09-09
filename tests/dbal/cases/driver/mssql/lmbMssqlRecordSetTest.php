@@ -28,7 +28,7 @@ class lmbMssqlRecordSetTest extends DriverRecordSetTestBase
   {
     $stmt = $this->connection->newStatement('DELETE FROM founding_fathers');
     $stmt->execute();
-    $this->assertEqual($this->_countRecords(), 0);
+    $this->assertEquals($this->_countRecords(), 0);
     $stmt = $this->connection->newStatement("INSERT INTO founding_fathers (id, first, last) VALUES (1, 'George', 'Washington')");
     $stmt->execute();
     $stmt = $this->connection->newStatement("INSERT INTO founding_fathers (id, first, last) VALUES (2, 'George', 'Washington')");
@@ -49,57 +49,57 @@ class lmbMssqlRecordSetTest extends DriverRecordSetTestBase
     $stmt->execute();
     $stmt = $this->connection->newStatement("INSERT INTO founding_fathers (id, first, last) VALUES (10, 'George', 'Washington')");
     $stmt->execute();
-    $this->assertEqual($this->_countRecords(), 10);
+    $this->assertEquals($this->_countRecords(), 10);
     
     $stmt = $this->connection->newStatement("select * from founding_fathers order by id");
     $rs = $stmt->getRecordset();
     $rs->rewind();
     $rec = $rs->current();
-    $this->assertEqual($rec->get('id'), 1);
+    $this->assertEquals($rec->get('id'), 1);
     
     $rec = $rs->at(4);
-    $this->assertEqual($rec->get('id'), 5);
+    $this->assertEquals($rec->get('id'), 5);
     
     $rec = $rs->at(0);
-    $this->assertEqual($rec->get('id'), 1);
+    $this->assertEquals($rec->get('id'), 1);
     
     $rec = $rs->at(9);
-    $this->assertEqual($rec->get('id'), 10);
-    $this->assertEqual($rs->count(), 10);
+    $this->assertEquals($rec->get('id'), 10);
+    $this->assertEquals($rs->count(), 10);
     
     $rs->paginate(0, 4);
-    $this->assertEqual($rs->countPaginated(), 4);
-    $this->assertEqual($rs->count(), 10);
+    $this->assertEquals($rs->countPaginated(), 4);
+    $this->assertEquals($rs->count(), 10);
     $rs->rewind();
     $rec = $rs->current();
-    $this->assertEqual($rec->get('id'), 1);
+    $this->assertEquals($rec->get('id'), 1);
     $rs->next();
     $rec = $rs->current();
-    $this->assertEqual($rec->get('id'), 2);
+    $this->assertEquals($rec->get('id'), 2);
     $rs->next();
     $rec = $rs->current();
-    $this->assertEqual($rec->get('id'), 3);
+    $this->assertEquals($rec->get('id'), 3);
     $rs->next();
     $rec = $rs->current();
-    $this->assertEqual($rec->get('id'), 4);
+    $this->assertEquals($rec->get('id'), 4);
     
     $rs->paginate(4, 4);
     $index = 1;
     foreach ($rs as $rec)
     {
-      $this->assertEqual($rec->get('id'), 4+$index);
+      $this->assertEquals($rec->get('id'), 4+$index);
       $index++;
     }
-    $this->assertEqual($index, 5);
+    $this->assertEquals($index, 5);
     
     $rs->paginate(8, 4);
     $index = 1;
     foreach ($rs as $rec)
     {
-      $this->assertEqual($rec->get('id'), 8+$index);
+      $this->assertEquals($rec->get('id'), 8+$index);
       $index++;
     }
-    $this->assertEqual($index, 3);
+    $this->assertEquals($index, 3);
     
   }
   

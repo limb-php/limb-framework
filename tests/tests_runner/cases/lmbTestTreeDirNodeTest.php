@@ -37,13 +37,13 @@ class lmbTestTreeDirNodeTest extends lmbTestRunnerBase
 
     $node = new lmbTestTreeDirNode($this->var_dir);
     $child_nodes = $node->getChildren();
-    $this->assertEqual(sizeof($child_nodes), 1);
-    $this->assertEqual($child_nodes[0]->getDir(), $this->var_dir . '/a');
+    $this->assertEquals(sizeof($child_nodes), 1);
+    $this->assertEquals($child_nodes[0]->getDir(), $this->var_dir . '/a');
     $this->assertFalse($child_nodes[0]->isTerminal());
 
     $sub_child_nodes = $child_nodes[0]->getChildren();
-    $this->assertEqual(sizeof($sub_child_nodes), 1);
-    $this->assertEqual($sub_child_nodes[0]->getDir(), $this->var_dir . '/a/b');
+    $this->assertEquals(sizeof($sub_child_nodes), 1);
+    $this->assertEquals($sub_child_nodes[0]->getDir(), $this->var_dir . '/a/b');
     $this->assertFalse($sub_child_nodes[0]->isTerminal());
 
     $terminal_nodes = $sub_child_nodes[0]->getChildren();
@@ -65,9 +65,9 @@ class lmbTestTreeDirNodeTest extends lmbTestRunnerBase
 
     $node = new lmbTestTreeDirNode($this->var_dir);
     $nodes = $node->getChildren();
-    $this->assertEqual(sizeof($nodes), 2);
-    $this->assertEqual($nodes[0]->getFile(), $this->var_dir . '/FooYo.class.php');
-    $this->assertEqual($nodes[1]->getFile(), $this->var_dir . '/bar_test.php');
+    $this->assertEquals(sizeof($nodes), 2);
+    $this->assertEquals($nodes[0]->getFile(), $this->var_dir . '/FooYo.class.php');
+    $this->assertEquals($nodes[1]->getFile(), $this->var_dir . '/bar_test.php');
 
     lmbTestTreeDirNode :: setFileFilter($prev_filter);
   }
@@ -82,8 +82,8 @@ class lmbTestTreeDirNodeTest extends lmbTestRunnerBase
 
     $node = new lmbTestTreeDirNode($this->var_dir);
     $nodes = $node->getChildren();
-    $this->assertEqual(sizeof($nodes), 1);
-    $this->assertEqual($nodes[0]->getFile(), $this->var_dir . '/' . $foo->getFileName() . '.yo');
+    $this->assertEquals(sizeof($nodes), 1);
+    $this->assertEquals($nodes[0]->getFile(), $this->var_dir . '/' . $foo->getFileName() . '.yo');
 
     lmbTestTreeDirNode :: setFileFilter($prev_filter);
   }
@@ -98,7 +98,7 @@ class lmbTestTreeDirNodeTest extends lmbTestRunnerBase
     $node = new lmbTestTreeDirNode($this->var_dir);
     $child_node = $node->findChildByPath('/0/1');
     $this->assertTrue($child_node->isTerminal());
-    $this->assertEqual($child_node->getFile(), $this->var_dir . '/a/foo_test.php');
+    $this->assertEquals($child_node->getFile(), $this->var_dir . '/a/foo_test.php');
   }
 
   function testFindNonTerminalGroupByPath()
@@ -111,14 +111,14 @@ class lmbTestTreeDirNodeTest extends lmbTestRunnerBase
     $node = new lmbTestTreeDirNode($this->var_dir);
     $child_node = $node->findChildByPath('/0/0');
     $this->assertFalse($child_node->isTerminal());
-    $this->assertEqual($child_node->getDir(), $this->var_dir . '/a/b');
+    $this->assertEquals($child_node->getDir(), $this->var_dir . '/a/b');
   }
 
   function testFindChildByOnlySlashPath()
   {
     $node = new lmbTestTreeDirNode($this->var_dir);
     $child_node = $node->findChildByPath('/');
-    $this->assertEqual($child_node, $node);
+    $this->assertEquals($child_node, $node);
   }
 
   function testCreateTestCase()
@@ -144,17 +144,17 @@ class lmbTestTreeDirNodeTest extends lmbTestRunnerBase
     file_put_contents($this->var_dir . '/.description', 'Foo');
 
     $node = new lmbTestTreeDirNode($this->var_dir);
-    $this->assertEqual($node->getTestLabel(), 'Foo');
+    $this->assertEquals($node->getTestLabel(), 'Foo');
     $group = $node->createTestCase();
-    $this->assertEqual($group->getLabel(), 'Foo');
+    $this->assertEquals($group->getLabel(), 'Foo');
   }
 
   function testGetDefaultTestLabel()
   {
     $node = new lmbTestTreeDirNode($this->var_dir);
-    $this->assertEqual($node->getTestLabel(), 'Group test in "' . $this->var_dir . '"');
+    $this->assertEquals($node->getTestLabel(), 'Group test in "' . $this->var_dir . '"');
     $group = $node->createTestCase();
-    $this->assertEqual($group->getLabel(), 'Group test in "' . $this->var_dir . '"');
+    $this->assertEquals($group->getLabel(), 'Group test in "' . $this->var_dir . '"');
   }
 
   function testSkipTestsDirectory()

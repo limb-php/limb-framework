@@ -37,7 +37,7 @@ abstract class lmbCacheBackendTest extends TestCase
   {
     $this->cache->set(1, $v = 'value');
     $var = $this->cache->get(1);
-    $this->assertEqual($v, $var);
+    $this->assertEquals($v, $var);
   }
   
   function testAddLock()
@@ -45,12 +45,12 @@ abstract class lmbCacheBackendTest extends TestCase
     $this->assertTrue($this->cache->set(1, $v = 'value'));
     $this->assertFalse($this->cache->add(1, 'value_add'));
     
-    $this->assertEqual($this->cache->get(1), $v);
+    $this->assertEquals($this->cache->get(1), $v);
     
     $this->assertTrue($this->cache->add(2, 'value2'));
     
     $this->cache->set(2, 'new value');
-    $this->assertEqual($this->cache->get(2), 'new value');
+    $this->assertEquals($this->cache->get(2), 'new value');
   }
 
   function testSetToCache()
@@ -62,10 +62,10 @@ abstract class lmbCacheBackendTest extends TestCase
     {
       $this->cache->set(1, $v2);
       $cache_value = $this->cache->get(1);
-      $this->assertEqual($cache_value, $v2);
+      $this->assertEquals($cache_value, $v2);
     }
       $cache_value = $this->cache->get($rnd_key);
-      $this->assertEqual($cache_value, $v1);
+      $this->assertEquals($cache_value, $v1);
   }
 
   function testDeleteValue()
@@ -78,7 +78,7 @@ abstract class lmbCacheBackendTest extends TestCase
     $this->assertFalse($this->cache->get(1));
 
     $cache_value = $this->cache->get(2);
-    $this->assertEqual($cache_value, $v2);
+    $this->assertEquals($cache_value, $v2);
   }
 
   function testFlush()
@@ -103,7 +103,7 @@ abstract class lmbCacheBackendTest extends TestCase
   {
     $val = 'value';
     $this->cache->set(1, $val, array('ttl'=> 3600));
-    $this->assertEqual($val, $this->cache->get(1));
+    $this->assertEquals($val, $this->cache->get(1));
   }
 
   function testProperSerializing()
@@ -113,7 +113,7 @@ abstract class lmbCacheBackendTest extends TestCase
 
     $this->cache->set(1, $obj);
 
-    $this->assertEqual($obj, $this->cache->get(1));
+    $this->assertEquals($obj, $this->cache->get(1));
   }
 
   function testObjectClone()
@@ -127,7 +127,7 @@ abstract class lmbCacheBackendTest extends TestCase
     
     $obj->set('foo', 'new value');
     
-    $this->assertEqual($value, $this->cache->get(1)->get('foo'));
+    $this->assertEquals($value, $this->cache->get(1)->get('foo'));
     
   }
 

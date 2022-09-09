@@ -29,7 +29,7 @@ class lmbMPTreeTest extends lmbTreeTestBase
 
   function _checkProperNesting($nodes, $line='')
   {
-    $this->assertEqual(lmbArrayHelper :: sortArray($nodes, array('path' => 'ASC')),
+    $this->assertEquals(lmbArrayHelper :: sortArray($nodes, array('path' => 'ASC')),
                        $nodes);
 
     $path = lmbArrayHelper :: getMinColumnValue('path', $nodes, $index);
@@ -65,17 +65,17 @@ class lmbMPTreeTest extends lmbTreeTestBase
     $rs = $this->imp->getChildren($node_1);
     $arr = $rs->sort(array('p_identifier' => 'DESC'))->getArray();
 
-    $this->assertEqual(sizeof($arr ), 3);
-    $this->assertEqual($arr[0]['id'], $node_2_2);
-    $this->assertEqual($arr[1]['id'], $node_2_3);
-    $this->assertEqual($arr[2]['id'], $node_2_1);
+    $this->assertEquals(sizeof($arr ), 3);
+    $this->assertEquals($arr[0]['id'], $node_2_2);
+    $this->assertEquals($arr[1]['id'], $node_2_3);
+    $this->assertEquals($arr[2]['id'], $node_2_1);
 
     $rs = $this->imp->getChildren($node_1);
     $arr = $rs->sort(array('p_identifier' => 'ASC'))->getArray();
 
-    $this->assertEqual($arr[0]['id'], $node_2_1);
-    $this->assertEqual($arr[1]['id'], $node_2_3);
-    $this->assertEqual($arr[2]['id'], $node_2_2);
+    $this->assertEquals($arr[0]['id'], $node_2_1);
+    $this->assertEquals($arr[1]['id'], $node_2_3);
+    $this->assertEquals($arr[2]['id'], $node_2_2);
   }
 }
 

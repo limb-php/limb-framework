@@ -48,9 +48,9 @@ EOD;
 
     $d = $back->loadFromXML($xml);
 
-    $this->assertEqual($d->translate('Hello'), 'Привет');
-    $this->assertEqual($d->translate('Hi'), 'Привет');
-    $this->assertEqual($d->translate('Dog'), 'Собака');
+    $this->assertEquals($d->translate('Hello'), 'Привет');
+    $this->assertEquals($d->translate('Hi'), 'Привет');
+    $this->assertEquals($d->translate('Dog'), 'Собака');
   }
 
   function testLoadFromFile()
@@ -81,9 +81,9 @@ EOD;
 
     $d = $back->loadFromFile($file);
 
-    $this->assertEqual($d->translate('Hello'), 'Привет');
-    $this->assertEqual($d->translate('Hi'), 'Привет');
-    $this->assertEqual($d->translate('Dog'), 'Собака');
+    $this->assertEquals($d->translate('Hello'), 'Привет');
+    $this->assertEquals($d->translate('Hi'), 'Привет');
+    $this->assertEquals($d->translate('Dog'), 'Собака');
   }
 
   function testLoadSave()
@@ -116,18 +116,18 @@ EOD;
 
     $d1 = $back->load('ru_RU', 'default');
 
-    $this->assertEqual($d1->translate('Hello'), 'Привет');
-    $this->assertEqual($d1->translate('Hi'), 'Привет');
-    $this->assertEqual($d1->translate('Dog'), 'Собака');
+    $this->assertEquals($d1->translate('Hello'), 'Привет');
+    $this->assertEquals($d1->translate('Hi'), 'Привет');
+    $this->assertEquals($d1->translate('Dog'), 'Собака');
 
     $d1->add('Hello', 'Превед');
     $back->save('ru_RU', 'default', $d1);
 
     $d2 = $back->load('ru_RU', 'default');
 
-    $this->assertEqual($d2->translate('Hello'), 'Превед');
-    $this->assertEqual($d2->translate('Hi'), 'Привет');
-    $this->assertEqual($d2->translate('Dog'), 'Собака');
+    $this->assertEquals($d2->translate('Hello'), 'Превед');
+    $this->assertEquals($d2->translate('Hi'), 'Привет');
+    $this->assertEquals($d2->translate('Dog'), 'Собака');
   }
 
   function testLoadAll()
@@ -169,7 +169,7 @@ EOD;
     $dom = $back->getDOMDocument($d);
     $translations = $dom->getElementsByTagName('translation');
 
-    $this->assertEqual($translations->item(0)->getAttribute('type'), 'unfinished');
+    $this->assertEquals($translations->item(0)->getAttribute('type'), 'unfinished');
     $this->assertFalse($translations->item(1)->hasAttribute('type'));
   }
 }

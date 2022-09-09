@@ -103,7 +103,7 @@ class lmbFullPageCacheAcceptanceTest extends TestCase
     //repeated reading
     $this->assertTrue($cache->openSession($cached_request));
     $this->assertTrue($cache->get());
-    $this->assertEqual($cache->get(), $content);
+    $this->assertEquals($cache->get(), $content);
   }
 
   function _registerRules($content)

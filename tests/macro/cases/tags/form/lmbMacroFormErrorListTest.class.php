@@ -77,7 +77,7 @@ class lmbMacroFormErrorListTest extends lmbBaseMacroTest
     foreach($error_list as $error)
       $errors[] = $error;
 
-    $this->assertEqual($errors, $etalon);
+    $this->assertEquals($errors, $etalon);
   }
 }
 

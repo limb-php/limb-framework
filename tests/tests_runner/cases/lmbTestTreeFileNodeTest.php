@@ -74,9 +74,9 @@ class lmbTestTreeFileNodeTest extends lmbTestRunnerBase
     file_put_contents(LIMB_VAR_DIR . '/foo.php', $foo->generate());
 
     $node = new lmbTestTreeFileNode(LIMB_VAR_DIR . '/foo.php');
-    $this->assertEqual($node->getTestLabel(), 'foo.php');
+    $this->assertEquals($node->getTestLabel(), 'foo.php');
     $group = $node->createTestCase();
-    $this->assertEqual($group->getLabel(), 'foo.php');
+    $this->assertEquals($group->getLabel(), 'foo.php');
   }
 }
 

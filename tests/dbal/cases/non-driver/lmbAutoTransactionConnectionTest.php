@@ -137,7 +137,7 @@ class lmbAutoTransactionConnectionTest extends TestCase
     $this->wrapped->expectOnce('newStatement', array($sql));
     $this->wrapped->setReturnValue('newStatement', $stmt = 'whatever', array($sql));
     $this->wrapped->expectOnce('beginTransaction');
-    $this->assertEqual($this->connection->newStatement($sql), $stmt);
+    $this->assertEquals($this->connection->newStatement($sql), $stmt);
   }
 }
 

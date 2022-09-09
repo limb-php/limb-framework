@@ -15,7 +15,7 @@ class lmbMacroTrimFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '  hello  ');
     $out = $tpl->render();
-    $this->assertEqual($out, 'hello');
+    $this->assertEquals($out, 'hello');
   }
   
   function testWithParam()
@@ -24,7 +24,7 @@ class lmbMacroTrimFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '/hello/');
     $out = $tpl->render();
-    $this->assertEqual($out, 'hello');
+    $this->assertEquals($out, 'hello');
   }
 }
 

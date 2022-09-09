@@ -79,10 +79,10 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $rs = $fetcher->fetch();
     $rs->rewind();
     $this->assertTrue($rs->valid());
-    $this->assertEqual($rs->current()->getTitle(), $course1->getTitle());
+    $this->assertEquals($rs->current()->getTitle(), $course1->getTitle());
     $rs->next();
     $this->assertTrue($rs->valid());
-    $this->assertEqual($rs->current()->getTitle(), $course2->getTitle());
+    $this->assertEquals($rs->current()->getTitle(), $course2->getTitle());
   }
 
   function testFetchWithSpecifiedFindMethod()
@@ -93,7 +93,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $rs = $fetcher->fetch();
     $rs->rewind();
     $this->assertTrue($rs->valid());
-    $this->assertEqual($rs->current()->get('special'), 1);
+    $this->assertEquals($rs->current()->get('special'), 1);
   }
 
   function testFetchWithStaticFindWithParams()
@@ -106,9 +106,9 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $rs = $fetcher->fetch();
     $rs->rewind();
     $this->assertTrue($rs->valid());
-    $this->assertEqual($rs->current()->get('param'), 'Value1');
+    $this->assertEquals($rs->current()->get('param'), 'Value1');
     $rs->next();
-    $this->assertEqual($rs->current()->get('param'), 'Value2');
+    $this->assertEquals($rs->current()->get('param'), 'Value2');
   }
 
   function testFetchSingleIfFetchWithIdNotDefined()
@@ -123,8 +123,8 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $rs = $fetcher->fetch();
     $rs->rewind();
     $this->assertTrue($rs->valid());
-    $this->assertEqual($rs->current()->get('id'), $course1->getId());
-    $this->assertEqual($rs->current()->get('title'), $course1->getTitle());
+    $this->assertEquals($rs->current()->get('id'), $course1->getId());
+    $this->assertEquals($rs->current()->get('title'), $course1->getTitle());
     $rs->next();
     $this->assertFalse($rs->valid());
   }
@@ -141,7 +141,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $rs = $fetcher->fetch();
     $rs->rewind();
     $this->assertTrue($rs->valid());
-    $this->assertEqual($rs->current()->get('id'), $course1->getId());
+    $this->assertEquals($rs->current()->get('id'), $course1->getId());
     $rs->next();
     $this->assertFalse($rs->valid());
   }
@@ -188,10 +188,10 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $rs = $fetcher->fetch();
     $rs->rewind();
     $this->assertTrue($rs->valid());
-    $this->assertEqual($rs->current()->get('id'), $course1->getId());
+    $this->assertEquals($rs->current()->get('id'), $course1->getId());
     $rs->next();
     $this->assertTrue($rs->valid());
-    $this->assertEqual($rs->current()->get('id'), $course3->getId());
+    $this->assertEquals($rs->current()->get('id'), $course3->getId());
     $rs->next();
     $this->assertFalse($rs->valid());
   }

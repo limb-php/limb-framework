@@ -185,8 +185,8 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
     $this->_assertDispatchedOk($controller, $controller->getDefaultAction(), __LINE__);
 
-    $this->assertEqual($this->request->get('id'), 150);
-    $this->assertEqual($this->request->get('extra'), 'bla-bla');
+    $this->assertEquals($this->request->get('id'), 150);
+    $this->assertEquals($this->request->get('extra'), 'bla-bla');
   }
   
   function testIsRequestAvailableInControllerConstructor() 
@@ -204,7 +204,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
     $this->filter->run($this->chain);
 
     $controller = $this->toolkit->getDispatchedController();
-    $this->assertEqual($controller->param, $dispatched_params['param']);
+    $this->assertEquals($controller->param, $dispatched_params['param']);
 
     //trick again...
     lmbToolkit :: restore();
@@ -214,8 +214,8 @@ class lmbRequestDispatchingFilterTest extends TestCase
   protected function _assertDispatchedOk($controller, $action, $line)
   {
     $dispatched_request = $this->toolkit->getDispatchedController();
-    $this->assertEqual($dispatched_request->getName(), $controller->getName(), '%s ' . $line);
-    $this->assertEqual($dispatched_request->getCurrentAction(), $action, '%s ' . $line);
+    $this->assertEquals($dispatched_request->getName(), $controller->getName(), '%s ' . $line);
+    $this->assertEquals($dispatched_request->getCurrentAction(), $action, '%s ' . $line);
   }
 
   protected function _setUpMocks($dispatched_params, $controller = null)

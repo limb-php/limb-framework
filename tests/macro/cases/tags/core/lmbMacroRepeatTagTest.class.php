@@ -15,7 +15,7 @@ class lmbMacroRepeatTagTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEqual($page->render(), 'FFF');
+    $this->assertEquals($page->render(), 'FFF');
   }
   
   function testRepeatTimesIsVariableValue()
@@ -25,7 +25,7 @@ class lmbMacroRepeatTagTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     $page->set('count', 2);
     
-    $this->assertEqual($page->render(), 'FF');
+    $this->assertEquals($page->render(), 'FF');
   }
 }
 

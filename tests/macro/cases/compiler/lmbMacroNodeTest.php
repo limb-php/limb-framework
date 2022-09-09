@@ -37,13 +37,13 @@ class lmbMacroNodeTest extends TestCase
   function testGetNodeId()
   {
     $this->node->setNodeId('Test');
-    $this->assertEqual($this->node->getNodeId(), 'Test');
+    $this->assertEquals($this->node->getNodeId(), 'Test');
   }
 
   function testGetNodeIdGenerated()
   {
     $id = $this->node->getNodeId();
-    $this->assertEqual($this->node->getNodeId(), $id);
+    $this->assertEquals($this->node->getNodeId(), $id);
   }
   
   function testGetNodeIdByDefault()
@@ -247,10 +247,10 @@ class lmbMacroNodeTest extends TestCase
     {
       $this->assertWantedPattern('/Duplicate "id" attribute/', $e->getMessage());
       $params = $e->getParams();
-      $this->assertEqual($params['file'], 'my_file2');
-      $this->assertEqual($params['line'], 15);
-      $this->assertEqual($params['duplicate_node_file'], 'my_file');
-      $this->assertEqual($params['duplicate_node_line'], 10);
+      $this->assertEquals($params['file'], 'my_file2');
+      $this->assertEquals($params['line'], 15);
+      $this->assertEquals($params['duplicate_node_file'], 'my_file');
+      $this->assertEquals($params['duplicate_node_line'], 10);
     }
   }
 

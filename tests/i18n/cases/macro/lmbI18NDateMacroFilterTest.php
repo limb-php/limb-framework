@@ -17,7 +17,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTest
     $time = mktime(0, 0, 0, 2, 20, 2002);
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEqual($out, '02/20/2002');
+    $this->assertEquals($out, '02/20/2002');
   }
 
   function testSetDateByStampValue()
@@ -30,7 +30,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTest
 
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEqual($out, '12/20/2004');
+    $this->assertEquals($out, '12/20/2004');
   }
 
   function testFormatType()
@@ -43,7 +43,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTest
 
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEqual($out, 'Thursday 20 January 2005');
+    $this->assertEquals($out, 'Thursday 20 January 2005');
   }
 
   function testSetDateTimeByString()
@@ -55,7 +55,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTest
 
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEqual($out, '02/20/2002 10:23:24');
+    $this->assertEquals($out, '02/20/2002 10:23:24');
   }
 
   function testDefinedFormat()
@@ -68,7 +68,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTest
 
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEqual($out, '2004 12 20');
+    $this->assertEquals($out, '2004 12 20');
   }
 
   function testUseRussianAsCurrentLocale()
@@ -84,7 +84,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTest
 
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEqual($out, '20.12.2004');
+    $this->assertEquals($out, '20.12.2004');
 
     lmbToolkit :: restore();
   }
@@ -99,7 +99,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTest
 
     $tpl->set('my', $my_dataspace);
     $out = $tpl->render();
-    $this->assertEqual($out, '2005 01 20');
+    $this->assertEquals($out, '2005 01 20');
   }
 
   function testDateByCurrentLocale()
@@ -111,7 +111,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEqual($out, '12/20/2004');
+    $this->assertEquals($out, '12/20/2004');
   }
 
   function testWithOutParams()
@@ -123,7 +123,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEqual($out, '12/20/2004');
+    $this->assertEquals($out, '12/20/2004');
   }
 }
 

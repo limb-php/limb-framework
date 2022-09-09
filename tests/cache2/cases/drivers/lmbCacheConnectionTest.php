@@ -58,7 +58,7 @@ abstract class lmbCacheConnectionTest extends TestCase
   {
     $this->cache->set($id = $this->_getUniqueId('testGet_Positive'), $v = 'value');
     $var = $this->cache->get($id);
-    $this->assertEqual($v, $var);
+    $this->assertEquals($v, $var);
   }
 
   function testGet_Positive_Multiple()
@@ -72,8 +72,8 @@ abstract class lmbCacheConnectionTest extends TestCase
 
     $var = $this->cache->get(array($id1, $id2, $id3));
 
-    $this->assertEqual($v1, $var[$id1]);
-    $this->assertEqual($v2, $var[$id2]);
+    $this->assertEquals($v1, $var[$id1]);
+    $this->assertEquals($v2, $var[$id2]);
     $this->assertNull($var[$id3]);
   }
 
@@ -85,7 +85,7 @@ abstract class lmbCacheConnectionTest extends TestCase
 
     $var = $this->cache->get(array($id1));
 
-    $this->assertEqual($v1, $var[$id1]);
+    $this->assertEquals($v1, $var[$id1]);
   }
 
   function testGet_Positive_FalseValue()
@@ -99,7 +99,7 @@ abstract class lmbCacheConnectionTest extends TestCase
   {
     $this->cache->add($id = $this->_getUniqueId('testAdd'), $v = 'value');
     $var = $this->cache->get($id);
-    $this->assertEqual($v, $var);
+    $this->assertEquals($v, $var);
   }
 
   function testAddNonUnique()
@@ -128,7 +128,7 @@ abstract class lmbCacheConnectionTest extends TestCase
     $this->assertFalse($this->cache->get($id1));
 
     $cache_value = $this->cache->get($id2);
-    $this->assertEqual($cache_value, $v2);
+    $this->assertEquals($cache_value, $v2);
   }
 
   function testFlush()
@@ -168,7 +168,7 @@ abstract class lmbCacheConnectionTest extends TestCase
 
     $this->cache->set($id = $this->_getUniqueId('testProperSerializing'), $obj);
 
-    $this->assertEqual($obj, $this->cache->get($id));
+    $this->assertEquals($obj, $this->cache->get($id));
   }
 
   function testObjectClone()
@@ -184,7 +184,7 @@ abstract class lmbCacheConnectionTest extends TestCase
 
     $cached_obj = $this->cache->get($id);
     if($this->assertIsA($cached_obj, 'lmbObject'))
-      $this->assertEqual($value, $cached_obj->get('foo'));
+      $this->assertEquals($value, $cached_obj->get('foo'));
   }
 
   function testWithPrefix_NotIntercepting()
@@ -203,7 +203,7 @@ abstract class lmbCacheConnectionTest extends TestCase
     $cache->set($id, 42);
     $cache_with_prefix->set($id, 24);
 
-    $this->assertEqual(42, $cache->get($id));
+    $this->assertEquals(42, $cache->get($id));
   }
 
   function testIncrementAndDecrement()
@@ -213,34 +213,34 @@ abstract class lmbCacheConnectionTest extends TestCase
     $this->assertFalse($this->cache->increment($key));
 
     $this->cache->set($key.'1', "string");
-    $this->assertEqual(1, $this->cache->increment($key.'1'));
+    $this->assertEquals(1, $this->cache->increment($key.'1'));
 
     $this->cache->set($key.'2', 0);
-    $this->assertEqual(1, $this->cache->increment($key.'2'));
+    $this->assertEquals(1, $this->cache->increment($key.'2'));
 
     $this->cache->set($key.'3', 1);
     $this->cache->increment($key.'3', 10);
-    $this->assertEqual(11, $this->cache->get($key.'3'));
+    $this->assertEquals(11, $this->cache->get($key.'3'));
 
     $this->cache->set($key.'4', 11);
     $this->cache->decrement($key.'4', 1);
-    $this->assertEqual(10, $this->cache->get($key.'4'));
+    $this->assertEquals(10, $this->cache->get($key.'4'));
 
     $this->cache->set($key.'5', 11);
     $this->cache->decrement($key.'5', 100);
-    $this->assertEqual(0, $this->cache->get($key.'5'));
+    $this->assertEquals(0, $this->cache->get($key.'5'));
   }
 
   function testSafeIncrement()
   {
     $key = $this->_getUniqueId('testSafeIncrement');
-    $this->assertEqual(1, $this->cache->safeIncrement($key));
+    $this->assertEquals(1, $this->cache->safeIncrement($key));
   }
 
   function testSafeDecrement()
   {
     $key = $this->_getUniqueId('testSafeDecrement');
-    $this->assertEqual(0, $this->cache->safeDecrement($key));
+    $this->assertEquals(0, $this->cache->safeDecrement($key));
     $this->assertFalse(null === $this->cache->get($key));
   }
 

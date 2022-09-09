@@ -17,7 +17,7 @@ class lmbMacroInputTagTest extends lmbBaseMacroTest
     $page->set('var', 100);
  
     $out = $page->render();
-    $this->assertEqual($out, '<input type="text" name="my_input" value="100" />');
+    $this->assertEquals($out, '<input type="text" name="my_input" value="100" />');
   }
 
   function testTypeTextRendersValueAttributeInAnyCase()
@@ -27,7 +27,7 @@ class lmbMacroInputTagTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
  
     $out = $page->render();
-    $this->assertEqual($out, '<input type="text" name="my_input" value="" />');
+    $this->assertEquals($out, '<input type="text" name="my_input" value="" />');
   }
 
   function testTypeTextTakesValueFromFormIfPossible()
@@ -38,7 +38,7 @@ class lmbMacroInputTagTest extends lmbBaseMacroTest
     $page->set('form_data', array('my_input' => 100));
  
     $out = $page->render();
-    $this->assertEqual($out, '<form name="my_form"><input type="text" name="my_input" value="100" /></form>');
+    $this->assertEquals($out, '<form name="my_form"><input type="text" name="my_input" value="100" /></form>');
   }   
   
   function testTypesHiddenAndButtonAndImage()
@@ -56,7 +56,7 @@ class lmbMacroInputTagTest extends lmbBaseMacroTest
     $expected = '<input type="hidden" name="my_hidden" value="10" />'.
                 '<input type="button" name="my_button" value="20" />'.
                 '<input type="image" src="some_path" name="my_image" value="30" />';
-    $this->assertEqual($out, $expected);
+    $this->assertEquals($out, $expected);
   }
   
   function testTypesFileAndSubmitAndPasswordAndResetAndFile_DontTakeValueFromFormDatasource()
@@ -76,7 +76,7 @@ class lmbMacroInputTagTest extends lmbBaseMacroTest
                 '<input type="submit" name="my_submit" />'.
                 '<input type="password" name="my_password" />'.
                 '<input type="reset" name="my_reset" /></form>';
-    $this->assertEqual($out, $expected);
+    $this->assertEquals($out, $expected);
   }
   
   function testTypesFileAndSubmitAndPasswordAndResetAndFile_MayRenderValueAttribute()
@@ -96,6 +96,6 @@ class lmbMacroInputTagTest extends lmbBaseMacroTest
                 '<input type="submit" name="my_submit" value="title_20" />'.
                 '<input type="password" name="my_password" value="30" />'.
                 '<input type="reset" name="my_reset" value="any_value" />';
-    $this->assertEqual($out, $expected);
+    $this->assertEquals($out, $expected);
   }  
 }

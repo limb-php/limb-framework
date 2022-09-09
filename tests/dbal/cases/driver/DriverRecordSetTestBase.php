@@ -52,7 +52,7 @@ abstract class DriverRecordSetTestBase extends TestCase
       $record = $this->cursor->current();
       $this->assertIsA($record, $this->record_class);
     }
-    $this->assertEqual($i, 3);
+    $this->assertEquals($i, 3);
   }
 
   function testIteratorInterface()
@@ -63,30 +63,30 @@ abstract class DriverRecordSetTestBase extends TestCase
       $this->assertIsA($record, $this->record_class);
       $i++;
     }
-    $this->assertEqual($i, 3);
+    $this->assertEquals($i, 3);
   }
 
   function testPagerIteration()
   {
     $this->cursor->paginate($offset = 0, $limit = 2);
     for($this->cursor->rewind(), $i = 0; $this->cursor->valid(); $this->cursor->next(), $i++);
-    $this->assertEqual($i, 2);
+    $this->assertEquals($i, 2);
   }
 
   function testPaganationAfterIterating()
   {
     for($this->cursor->rewind(), $i = 0; $this->cursor->valid(); $this->cursor->next(), $i++);
-    $this->assertEqual($i, 3);
+    $this->assertEquals($i, 3);
     $this->cursor->paginate($offset = 0, $limit = 2);
     for($this->cursor->rewind(), $i = 0; $this->cursor->valid(); $this->cursor->next(), $i++);
-    $this->assertEqual($i, 2);
+    $this->assertEquals($i, 2);
   }
 
   function testPagerIterationPassingStringInsteadOfNumber()
   {
     $this->cursor->paginate($offset = ';Select * FROM some_table', $limit = 2);
     for($this->cursor->rewind(), $i = 0; $this->cursor->valid(); $this->cursor->next(), $i++);
-    $this->assertEqual($i, 2);
+    $this->assertEquals($i, 2);
   }
 
   function testCount()
@@ -95,11 +95,11 @@ abstract class DriverRecordSetTestBase extends TestCase
     $rs = $this->connection->newStatement($sql)->getRecordSet();
     $rs->paginate(0, 2);
 
-    $this->assertEqual($rs->count(), 3);
-    $this->assertEqual($rs->countPaginated(), 2);
+    $this->assertEquals($rs->count(), 3);
+    $this->assertEquals($rs->countPaginated(), 2);
     //double test driver internal state
-    $this->assertEqual($rs->count(), 3);
-    $this->assertEqual($rs->countPaginated(), 2);
+    $this->assertEquals($rs->count(), 3);
+    $this->assertEquals($rs->countPaginated(), 2);
   }
 
   function testSort()
@@ -109,11 +109,11 @@ abstract class DriverRecordSetTestBase extends TestCase
     $rs->sort(array('id' => 'DESC'));
 
     $rs->rewind();
-    $this->assertEqual($rs->current()->get('first'), 'Benjamin');
+    $this->assertEquals($rs->current()->get('first'), 'Benjamin');
     $rs->next();
-    $this->assertEqual($rs->current()->get('first'), 'Alexander');
+    $this->assertEquals($rs->current()->get('first'), 'Alexander');
     $rs->next();
-    $this->assertEqual($rs->current()->get('first'), 'George');
+    $this->assertEquals($rs->current()->get('first'), 'George');
   }
 
   function testSortPaginated()
@@ -124,7 +124,7 @@ abstract class DriverRecordSetTestBase extends TestCase
     $rs->paginate(0, 1);
 
     $rs->rewind();
-    $this->assertEqual($rs->current()->get('first'), 'Benjamin');
+    $this->assertEquals($rs->current()->get('first'), 'Benjamin');
     $rs->next();
     $this->assertFalse($rs->valid());
   }
@@ -136,17 +136,17 @@ abstract class DriverRecordSetTestBase extends TestCase
     $rs->sort(array('id' => 'DESC'));
 
     $rs->rewind();
-    $this->assertEqual($rs->current()->get('first'), 'Alexander');
+    $this->assertEquals($rs->current()->get('first'), 'Alexander');
     $rs->next();
-    $this->assertEqual($rs->current()->get('first'), 'Benjamin');
+    $this->assertEquals($rs->current()->get('first'), 'Benjamin');
     $rs->next();
-    $this->assertEqual($rs->current()->get('first'), 'George');
+    $this->assertEquals($rs->current()->get('first'), 'George');
   }
 
   function testAt()
   {
-    $this->assertEqual($this->cursor->at(1)->get('first'), 'Alexander');
-    $this->assertEqual($this->cursor->at(0)->get('first'), 'George');
+    $this->assertEquals($this->cursor->at(1)->get('first'), 'Alexander');
+    $this->assertEquals($this->cursor->at(0)->get('first'), 'George');
     $this->assertNull($this->cursor->at(100));
   }
 
@@ -156,7 +156,7 @@ abstract class DriverRecordSetTestBase extends TestCase
     $rs = $this->connection->newStatement($sql)->getRecordSet();
     $rs->paginate(1, 1);
 
-    $this->assertEqual($rs->at(0)->get('first'), 'George');
+    $this->assertEquals($rs->at(0)->get('first'), 'George');
   }
 
   function testsAtAfterSort()
@@ -165,9 +165,9 @@ abstract class DriverRecordSetTestBase extends TestCase
     $rs = $this->connection->newStatement($sql)->getRecordSet();
     $rs->sort(array('id' => 'DESC'));
 
-    $this->assertEqual($rs->at(0)->get('first'), 'Benjamin');
-    $this->assertEqual($rs->at(1)->get('first'), 'Alexander');
-    $this->assertEqual($rs->at(2)->get('first'), 'George');
+    $this->assertEquals($rs->at(0)->get('first'), 'Benjamin');
+    $this->assertEquals($rs->at(1)->get('first'), 'Alexander');
+    $this->assertEquals($rs->at(2)->get('first'), 'George');
   }
 
   function testGetFlatArray()

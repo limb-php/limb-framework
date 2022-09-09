@@ -77,7 +77,7 @@ class lmbFetcherTest extends TestCase
     $dataset->rewind();
     $this->assertTrue($dataset->valid());
     $record = $dataset->current();
-    $this->assertEqual($record->get('name'), 'John');
+    $this->assertEquals($record->get('name'), 'John');
   }
 
   function testFetchCreateDatasetUsesObject()
@@ -90,7 +90,7 @@ class lmbFetcherTest extends TestCase
     $dataset->rewind();
     $this->assertTrue($dataset->valid());
     $record = $dataset->current();
-    $this->assertEqual($record->get('name'), 'John');
+    $this->assertEquals($record->get('name'), 'John');
   }
 
   function testAddDecoratorWithParams()
@@ -105,7 +105,7 @@ class lmbFetcherTest extends TestCase
     $dataset->rewind();
     $this->assertTrue($dataset->valid());
     $record = $dataset->current();
-    $this->assertEqual($record->get('full'), 'PrefixA_John-Carpenter_PrefixB');
+    $this->assertEquals($record->get('full'), 'PrefixA_John-Carpenter_PrefixB');
   }
 
   function testSetOrder()
@@ -118,7 +118,7 @@ class lmbFetcherTest extends TestCase
 
     $dataset = $fetcher->fetch();
 
-    $this->assertEqual($dataset->sort_params, array('title' => 'ASC',
+    $this->assertEquals($dataset->sort_params, array('title' => 'ASC',
                                                     'name' => 'ASC',
                                                     'last_name' => 'DESC'));
   }
@@ -126,14 +126,14 @@ class lmbFetcherTest extends TestCase
   function testExtractOrderPairsFromStringSimpleCase()
   {
     $order = lmbFetcher :: extractOrderPairsFromString('title=DESC,name=ASC');
-    $this->assertEqual($order, array('title' => 'DESC',
+    $this->assertEquals($order, array('title' => 'DESC',
                                      'name' => 'ASC'));
   }
 
   function testExtractOrderPairsFromStringSimpleRandom()
   {
     $order = lmbFetcher :: extractOrderPairsFromString('title=rand()');
-    $this->assertEqual($order, array('title' => 'RAND()'));
+    $this->assertEquals($order, array('title' => 'RAND()'));
   }
 
   function testExtractOrderPairsFromStringSimpleError()

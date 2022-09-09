@@ -31,8 +31,8 @@ class lmbRoutesToUrlTest extends TestCase
                                               'action' => 'display')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEqual($routes->toUrl(array(), 'blog'), '/blog');
-    $this->assertEqual($routes->toUrl(array(), 'news'), '/news');
+    $this->assertEquals($routes->toUrl(array(), 'blog'), '/blog');
+    $this->assertEquals($routes->toUrl(array(), 'news'), '/news');
   }
 
   function testToUrlUseNamedParam()
@@ -41,7 +41,7 @@ class lmbRoutesToUrlTest extends TestCase
                           'defaults' => array('action' => 'display')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEqual($routes->toUrl(array('controller' => 'news'), 'default'), '/news/display');
+    $this->assertEquals($routes->toUrl(array('controller' => 'news'), 'default'), '/news/display');
   }
 
   function testToUrlWithPrefix()
@@ -50,7 +50,7 @@ class lmbRoutesToUrlTest extends TestCase
                           'defaults' => array('action' => 'display')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEqual($routes->toUrl(array('controller' => 'news', 'action' => 'display', 'id' => 'test')), '/news/display/test.html');
+    $this->assertEquals($routes->toUrl(array('controller' => 'news', 'action' => 'display', 'id' => 'test')), '/news/display/test.html');
   }
 
   function testToUrlApplyDefaultParamValue()
@@ -59,7 +59,7 @@ class lmbRoutesToUrlTest extends TestCase
                           'defaults' => array('action' => 'display')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEqual($routes->toUrl(array('controller' => 'news'), 'default'), '/news/');
+    $this->assertEquals($routes->toUrl(array('controller' => 'news'), 'default'), '/news/');
   }
 
   function testToUrlApplyDefaultParamValueWithNoParamsInPath()
@@ -68,7 +68,7 @@ class lmbRoutesToUrlTest extends TestCase
                           'defaults' => array('controller' => 'news', 'action' => 'display')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEqual($routes->toUrl(array('controller' => 'news', 'action' => 'display', 'id' => 'test')), '/news/display/test');
+    $this->assertEquals($routes->toUrl(array('controller' => 'news', 'action' => 'display', 'id' => 'test')), '/news/display/test');
   }
 
   function testThrowExceptionIfNotEnoughParams()
@@ -106,7 +106,7 @@ class lmbRoutesToUrlTest extends TestCase
                           'defaults' => array('action' => 'display')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEqual($routes->toUrl(array('controller' => 'news',
+    $this->assertEquals($routes->toUrl(array('controller' => 'news',
                                             'action' => 'archive')), '/news/archive');
   }
 
@@ -146,7 +146,7 @@ class lmbRoutesToUrlTest extends TestCase
                                        'url_filter' => array($this, '_processUrlResult')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEqual($routes->toUrl(array('controller' => 'admin_news',
+    $this->assertEquals($routes->toUrl(array('controller' => 'admin_news',
                                             'action' => 'archive')), '/admin/news/archive');
   }
 
@@ -171,14 +171,14 @@ class lmbRoutesToUrlTest extends TestCase
     
     $routes = new lmbRoutes($config);
     
-    $this->assertEqual($routes->toUrl(array()), '/users/');
-    $this->assertEqual($routes->toUrl(array('user' => 'bob')), '/users/bob/');
-    $this->assertEqual($routes->toUrl(array('user' => 'admin')), '/users/');
-    $this->assertEqual($routes->toUrl(array('user' => 'bob', 'action' => 'index')), '/users/bob/blog/index/');
-    $this->assertEqual($routes->toUrl(array('controller' => 'article')), '/users/admin/article/');
-    $this->assertEqual($routes->toUrl(array('controller' => 'article', 'id' => 5)), '/users/admin/article/display/5/');
-    $this->assertEqual($routes->toUrl(array('user' => 'admin', 'action' => 'display', 'id' => 0)), '/users/');
-    $this->assertEqual($routes->toUrl(array('user' => 'admin', 'id' => 19)), '/users/admin/blog/display/19/');    
+    $this->assertEquals($routes->toUrl(array()), '/users/');
+    $this->assertEquals($routes->toUrl(array('user' => 'bob')), '/users/bob/');
+    $this->assertEquals($routes->toUrl(array('user' => 'admin')), '/users/');
+    $this->assertEquals($routes->toUrl(array('user' => 'bob', 'action' => 'index')), '/users/bob/blog/index/');
+    $this->assertEquals($routes->toUrl(array('controller' => 'article')), '/users/admin/article/');
+    $this->assertEquals($routes->toUrl(array('controller' => 'article', 'id' => 5)), '/users/admin/article/display/5/');
+    $this->assertEquals($routes->toUrl(array('user' => 'admin', 'action' => 'display', 'id' => 0)), '/users/');
+    $this->assertEquals($routes->toUrl(array('user' => 'admin', 'id' => 19)), '/users/admin/blog/display/19/');
   }
   
   function testToUrlChecksRequirements()
@@ -195,7 +195,7 @@ class lmbRoutesToUrlTest extends TestCase
     
     $routes = new lmbRoutes($config);
         
-    $this->assertEqual($routes->toUrl(array('controller' => 'blog', 'action' => 'edit')), '/blog/edit/');
+    $this->assertEquals($routes->toUrl(array('controller' => 'blog', 'action' => 'edit')), '/blog/edit/');
     
     try 
     {

@@ -60,11 +60,11 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
   function testMapPropertyToField()
   {
     $course = new CourseForTest();
-    $this->assertEqual('lectures', $course->mapFieldToProperty('course_id'));
+    $this->assertEquals('lectures', $course->mapFieldToProperty('course_id'));
     $this->assertNull($course->mapFieldToProperty('blah'));
 
     $lecture = new LectureForTest();
-    $this->assertEqual('course', $lecture->mapFieldToProperty('course_id'));
+    $this->assertEquals('course', $lecture->mapFieldToProperty('course_id'));
     $this->assertNull($lecture->mapFieldToProperty('blah'));
   }
 
@@ -97,9 +97,9 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $rs = $course->getLectures();
 
     $rs->rewind();
-    $this->assertEqual($rs->current()->getTitle(), $l1->getTitle());
+    $this->assertEquals($rs->current()->getTitle(), $l1->getTitle());
     $rs->next();
-    $this->assertEqual($rs->current()->getTitle(), $l2->getTitle());
+    $this->assertEquals($rs->current()->getTitle(), $l2->getTitle());
   }
 
   function testSetingCollectionDirectlyCallsAddToMethod()
@@ -113,9 +113,9 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
 
     $course->setLectures(array($l1, $l2));
     $lectures = $course->getLectures();
-    $this->assertEqual(sizeof($lectures), 2);
-    $this->assertEqual($lectures[0]->getTitle(), $l1->getTitle());
-    $this->assertEqual($lectures[1]->getTitle(), $l2->getTitle());
+    $this->assertEquals(sizeof($lectures), 2);
+    $this->assertEquals($lectures[0]->getTitle(), $l1->getTitle());
+    $this->assertEquals($lectures[1]->getTitle(), $l2->getTitle());
   }
 
   function testSetFlushesPreviousCollection()
@@ -132,8 +132,8 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
 
     $course->setLectures(array($l1));
     $lectures = $course->getLectures()->getArray();
-    $this->assertEqual($lectures[0]->getTitle(), $l1->getTitle());
-    $this->assertEqual(sizeof($lectures), 1);
+    $this->assertEquals($lectures[0]->getTitle(), $l1->getTitle());
+    $this->assertEquals(sizeof($lectures), 1);
   }
 
   function testSaveCollection()
@@ -154,9 +154,9 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $rs = $course2->getLectures();
 
     $rs->rewind();
-    $this->assertEqual($rs->current()->getTitle(), $l1->getTitle());
+    $this->assertEquals($rs->current()->getTitle(), $l1->getTitle());
     $rs->next();
-    $this->assertEqual($rs->current()->getTitle(), $l2->getTitle());
+    $this->assertEquals($rs->current()->getTitle(), $l2->getTitle());
   }
 
   function testGenericGetLoadsCollection()
@@ -177,9 +177,9 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $rs = $course2->get('lectures');
 
     $rs->rewind();
-    $this->assertEqual($rs->current()->getTitle(), $l1->getTitle());
+    $this->assertEquals($rs->current()->getTitle(), $l1->getTitle());
     $rs->next();
-    $this->assertEqual($rs->current()->getTitle(), $l2->getTitle());
+    $this->assertEquals($rs->current()->getTitle(), $l2->getTitle());
   }
 
   function testParentObjectCanBeNull()
@@ -192,15 +192,15 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $lecture->save();
 
     $lecture2 = lmbActiveRecord :: findById('LectureForTest', $lecture->getId());
-    $this->assertEqual($lecture2->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($lecture2->getCourse()->getTitle(), $course->getTitle());
     $this->assertNull($lecture2->getAltCourse());
 
     $lecture2->setAltCourse($course);
     $lecture2->save();
 
     $lecture3 = lmbActiveRecord :: findById('LectureForTest', $lecture2->getId());
-    $this->assertEqual($lecture3->getCourse()->getTitle(), $course->getTitle());
-    $this->assertEqual($lecture3->getAltCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($lecture3->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($lecture3->getAltCourse()->getTitle(), $course->getTitle());
   }
 
   function testLoadingNonExistingParentThrowsExceptionByDefault()
@@ -250,14 +250,14 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $lecture->setAltCourse($course);
     $lecture->save();
 
-    $this->assertEqual($course->getAltLectures()->count(), 1);
+    $this->assertEquals($course->getAltLectures()->count(), 1);
 
     $lecture2 = lmbActiveRecord :: findById('LectureForTest', $lecture->getId());
 
     $lecture2->setAltCourse(null);
     $lecture2->save();
 
-    $this->assertEqual($course->getAltLectures()->count(), 0);
+    $this->assertEquals($course->getAltLectures()->count(), 0);
 
     $lecture3 = lmbActiveRecord :: findById('LectureForTest', $lecture2->getId());
     $this->assertNull($lecture3->getAltCourse());
@@ -267,18 +267,18 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
   {
     $course = $this->_initCourse();
 
-    $this->assertEqual($course->save_calls, 0);
+    $this->assertEquals($course->save_calls, 0);
 
     $course->save();
 
-    $this->assertEqual($course->save_calls, 1);
+    $this->assertEquals($course->save_calls, 1);
 
     $lecture = new LectureForTest();
     $lecture->setTitle('Physics');
     $lecture->setAltCourse($course);
     $lecture->save();
 
-    $this->assertEqual($course->save_calls, 1);
+    $this->assertEquals($course->save_calls, 1);
   }
 
   function testChangingParentIdRelationFieldDirectly()
@@ -295,13 +295,13 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $lecture->save();
 
     $lecture2 = new LectureForTest($lecture->getId());
-    $this->assertEqual($lecture2->getCourse()->getId(), $course1->getId());
+    $this->assertEquals($lecture2->getCourse()->getId(), $course1->getId());
 
     $lecture2->set('course_id', $course2->getId());
     $lecture2->save();
 
     $lecture3 = new LectureForTest($lecture->getId());
-    $this->assertEqual($lecture3->getCourse()->getId(), $course2->getId());
+    $this->assertEquals($lecture3->getCourse()->getId(), $course2->getId());
   }
 
   function testChangingParentIdRelationFieldDirectlyDoesNotWorkIfParentObjectIsDirty()
@@ -318,14 +318,14 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $lecture->save();
 
     $lecture2 = new LectureForTest($lecture->getId());
-    $this->assertEqual($lecture2->getCourse()->getId(), $course1->getId());
+    $this->assertEquals($lecture2->getCourse()->getId(), $course1->getId());
 
     $lecture2->set('course_id', $course2->getId());
     $lecture2->setCourse($course1);
     $lecture2->save();
 
     $lecture3 = new LectureForTest($lecture->getId());
-    $this->assertEqual($lecture3->getCourse()->getId(), $course1->getId());
+    $this->assertEquals($lecture3->getCourse()->getId(), $course1->getId());
   }
 
   function testOwnerSetAutomaticallyForChildAddedToCollection()
@@ -380,7 +380,7 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $course2->destroy();
 
     $lectures = lmbActiveRecord :: find('LectureForTest')->getArray();
-    $this->assertEqual(sizeof($lectures), 2);
+    $this->assertEquals(sizeof($lectures), 2);
     $this->assertNull($lectures[0]->getCourseId());
     $this->assertNull($lectures[0]->getCourseId());
   }
@@ -416,8 +416,8 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $course3 = lmbActiveRecord :: findById('CourseForTest', $course->getId());
 
     $lectures = $course3->getLectures();
-    $this->assertEqual($lectures->count(), 1);
-    $this->assertEqual($lectures->at(0)->getTitle(), $l3->getTitle());
+    $this->assertEquals($lectures->count(), 1);
+    $this->assertEquals($lectures->at(0)->getTitle(), $l3->getTitle());
   }
 
   function testErrorListIsSharedWithCollection()
@@ -453,25 +453,25 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $this->db->delete('course_for_test');
     
     $this->assertIsA($arr[0], 'LectureForTest');
-    $this->assertEqual($arr[0]->getTitle(), $lecture1->getTitle());
+    $this->assertEquals($arr[0]->getTitle(), $lecture1->getTitle());
     $this->assertIsA($arr[0]->getCourse(), 'CourseForTest');
-    $this->assertEqual($arr[0]->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($arr[0]->getCourse()->getTitle(), $course->getTitle());
     $this->assertIsA($arr[0]->getAltCourse(), 'CourseForTest');
-    $this->assertEqual($arr[0]->getAltCourse()->getTitle(), $alt_course1->getTitle());
+    $this->assertEquals($arr[0]->getAltCourse()->getTitle(), $alt_course1->getTitle());
 
     $this->assertIsA($arr[1], 'LectureForTest');
-    $this->assertEqual($arr[1]->getTitle(), $lecture2->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $lecture2->getTitle());
     $this->assertIsA($arr[1]->getCourse(), 'CourseForTest');
-    $this->assertEqual($arr[1]->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($arr[1]->getCourse()->getTitle(), $course->getTitle());
     $this->assertIsA($arr[1]->getAltCourse(), 'CourseForTest');
-    $this->assertEqual($arr[1]->getAltCourse()->getTitle(), $alt_course2->getTitle());
+    $this->assertEquals($arr[1]->getAltCourse()->getTitle(), $alt_course2->getTitle());
 
     $this->assertIsA($arr[2], 'LectureForTest');
-    $this->assertEqual($arr[2]->getTitle(), $lecture3->getTitle());
+    $this->assertEquals($arr[2]->getTitle(), $lecture3->getTitle());
     $this->assertIsA($arr[2]->getCourse(), 'CourseForTest');
-    $this->assertEqual($arr[2]->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($arr[2]->getCourse()->getTitle(), $course->getTitle());
     $this->assertIsA($arr[2]->getAltCourse(), 'CourseForTest');
-    $this->assertEqual($arr[2]->getAltCourse()->getTitle(), $alt_course1->getTitle());
+    $this->assertEquals($arr[2]->getAltCourse()->getTitle(), $alt_course1->getTitle());
   }
   
   function testFetchFirstWithRelationObjectsUsingAttach_AndThenSave()
@@ -491,7 +491,7 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     
     $course2_loaded2 = lmbActiveRecord :: findFirst('CourseForTest', array('criteria' => 'course_for_test.id = '. $course2->getId(), 'attach' => 'lectures'));
     $lectures = $course2_loaded2->getLectures();
-    $this->assertEqual(count($lectures), 2);
+    $this->assertEquals(count($lectures), 2);
   }
   
   function testImportAndSaveNullableRelataions()
@@ -506,7 +506,7 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $lecture3->setTitle("Lecture 3");
     $course->setLectures(array($lecture1, $lecture2, $lecture3));
     $course->save();
-    $this->assertEqual(lmbActiveRecord :: find("LectureForTest")->count(), 3);
+    $this->assertEquals(lmbActiveRecord :: find("LectureForTest")->count(), 3);
     
     $course_arr = $course->export();
     $lect_arr = $course->getLectures()->getIds();
@@ -514,7 +514,7 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $course_arr['lectures'] = $lect_arr;
     $course->import($course_arr);
     $course->save();
-    $this->assertEqual(lmbActiveRecord :: find("LectureForTest")->count(), 3);
+    $this->assertEquals(lmbActiveRecord :: find("LectureForTest")->count(), 3);
   }
   
   function testSwapNullableRelations()
@@ -550,7 +550,7 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
       $c2 = $course2->save();
     }
     catch (lmbARException $e){ }
-    $this->assertEqual(lmbActiveRecord :: find("LectureForTest")->count(), 4);
+    $this->assertEquals(lmbActiveRecord :: find("LectureForTest")->count(), 4);
   }
 
   function _initCourse()

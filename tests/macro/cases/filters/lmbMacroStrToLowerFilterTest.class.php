@@ -15,7 +15,7 @@ class lmbMacroStrToLowerFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 'HELLO');
     $out = $tpl->render();
-    $this->assertEqual($out, 'hello');
+    $this->assertEquals($out, 'hello');
   }
 
   function testAlias()
@@ -24,7 +24,7 @@ class lmbMacroStrToLowerFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 'HELLO');
     $out = $tpl->render();
-    $this->assertEqual($out, 'hello');
+    $this->assertEquals($out, 'hello');
   }  
 }
 

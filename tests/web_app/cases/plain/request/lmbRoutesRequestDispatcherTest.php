@@ -37,8 +37,8 @@ class lmbRoutesRequestDispatcherTest extends TestCase
     $dispatcher = new lmbRoutesRequestDispatcher();
     $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEqual($result['controller'], 'news');
-    $this->assertEqual($result['action'], 'display');
+    $this->assertEquals($result['controller'], 'news');
+    $this->assertEquals($result['action'], 'display');
   }
 
   function testUseActionFromRequestEvenIfMatchedByRoutes()
@@ -53,8 +53,8 @@ class lmbRoutesRequestDispatcherTest extends TestCase
     $dispatcher = new lmbRoutesRequestDispatcher();
     $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEqual($result['controller'], 'news');
-    $this->assertEqual($result['action'], 'admin_display');
+    $this->assertEquals($result['controller'], 'news');
+    $this->assertEquals($result['action'], 'admin_display');
   }
 
   function testUseControllerNameFromRequestEvenIfMatchedByRoutes()
@@ -70,8 +70,8 @@ class lmbRoutesRequestDispatcherTest extends TestCase
     $dispatcher = new lmbRoutesRequestDispatcher();
     $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEqual($result['controller'], 'my_controller');
-    $this->assertEqual($result['action'], 'admin_display');
+    $this->assertEquals($result['controller'], 'my_controller');
+    $this->assertEquals($result['action'], 'admin_display');
   }
 
   function testNormalizeUrl()
@@ -84,18 +84,18 @@ class lmbRoutesRequestDispatcherTest extends TestCase
 
     $this->request->getUri()->reset('/news/admin_display');
     $result = $dispatcher->dispatch($this->request);
-    $this->assertEqual($result['controller'], 'news');
-    $this->assertEqual($result['action'], 'admin_display');
+    $this->assertEquals($result['controller'], 'news');
+    $this->assertEquals($result['action'], 'admin_display');
 
     $this->request->getUri()->reset('/blog////index');
     $result = $dispatcher->dispatch($this->request);
-    $this->assertEqual($result['controller'], 'blog');
-    $this->assertEqual($result['action'], 'index');
+    $this->assertEquals($result['controller'], 'blog');
+    $this->assertEquals($result['action'], 'index');
 
     $this->request->getUri()->reset('/blog/../bar/index/');
     $result = $dispatcher->dispatch($this->request);
-    $this->assertEqual($result['controller'], 'bar');
-    $this->assertEqual($result['action'], 'index');
+    $this->assertEquals($result['controller'], 'bar');
+    $this->assertEquals($result['action'], 'index');
   }
 
   function testDispatchWithOffset()
@@ -109,8 +109,8 @@ class lmbRoutesRequestDispatcherTest extends TestCase
 
     $this->request->getUri()->reset('http://example.com/app/news/admin_display');
     $result = $dispatcher->dispatch($this->request);
-    $this->assertEqual($result['controller'], 'news');
-    $this->assertEqual($result['action'], 'admin_display');
+    $this->assertEquals($result['controller'], 'news');
+    $this->assertEquals($result['action'], 'admin_display');
   }
 }
 

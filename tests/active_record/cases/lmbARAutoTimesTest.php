@@ -30,8 +30,8 @@ class lmbARAutoTimesTest extends lmbARBaseTestCase
     $this->assertTrue($object2->getUpdateTime() >= $time);
     $this->assertTrue($object2->getCreateTime() >= $time);
 
-    $this->assertEqual($object->getUpdateTime(), $object2->getUpdateTime());
-    $this->assertEqual($object->getCreateTime(), $object2->getCreateTime());
+    $this->assertEquals($object->getUpdateTime(), $object2->getUpdateTime());
+    $this->assertEquals($object->getCreateTime(), $object2->getCreateTime());
   }
 
   function testSetTimesAutomaticallyOnUpdate()
@@ -53,12 +53,12 @@ class lmbARAutoTimesTest extends lmbARBaseTestCase
 
     $this->assertTrue($ctime1 >= $time);
     $this->assertTrue($utime1 >= $time);
-    $this->assertEqual($ctime1, $ctime2);
+    $this->assertEquals($ctime1, $ctime2);
     $this->assertTrue($utime2 > $utime1);
 
     $object2 = new TestAutoTimesObject($object->getId());
-    $this->assertEqual($object2->getCreateTime(), $ctime1);
-    $this->assertEqual($object2->getUpdateTime(), $utime2);
+    $this->assertEquals($object2->getCreateTime(), $ctime1);
+    $this->assertEquals($object2->getUpdateTime(), $utime2);
   }
 }
 

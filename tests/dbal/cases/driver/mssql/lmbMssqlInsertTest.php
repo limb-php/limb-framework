@@ -38,7 +38,7 @@ class lmbMssqlInsertTest extends DriverInsertTestBase
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');
     $stmt->execute();
-    $this->assertEqual($stmt->getAffectedRowCount(), 1);
+    $this->assertEquals($stmt->getAffectedRowCount(), 1);
     $this->checkRecord(5);
   }
   
@@ -57,7 +57,7 @@ class lmbMssqlInsertTest extends DriverInsertTestBase
     $stmt->setVarChar('last', 'Nixon');
 
     $id = $stmt->insertId('id');
-    $this->assertEqual($stmt->getAffectedRowCount(), 1);
+    $this->assertEquals($stmt->getAffectedRowCount(), 1);
     $this->assertIdentical($id, 5);
     $this->checkRecord(5);
   }

@@ -36,19 +36,19 @@ class lmbTestTreeFilePathNodeTest extends lmbTestRunnerBase
 
     $node = new lmbTestTreeFilePathNode($this->var_dir . '/a/b/foo_test.php', -3);
     $kids = $node->getChildren();
-    $this->assertEqual(sizeof($kids), 1);
+    $this->assertEquals(sizeof($kids), 1);
     $this->assertIsA($kids[0], 'lmbTestTreeShallowDirNode');
-    $this->assertEqual($kids[0]->getDir(), realpath($this->var_dir . '/a'));
+    $this->assertEquals($kids[0]->getDir(), realpath($this->var_dir . '/a'));
 
     $kids = $kids[0]->getChildren();
-    $this->assertEqual(sizeof($kids), 1);
+    $this->assertEquals(sizeof($kids), 1);
     $this->assertIsA($kids[0], 'lmbTestTreeShallowDirNode');
-    $this->assertEqual($kids[0]->getDir(), realpath($this->var_dir . '/a/b'));
+    $this->assertEquals($kids[0]->getDir(), realpath($this->var_dir . '/a/b'));
 
     $kids = $kids[0]->getChildren();
-    $this->assertEqual(sizeof($kids), 1);
+    $this->assertEquals(sizeof($kids), 1);
     $this->assertIsA($kids[0], 'lmbTestTreeFileNode');
-    $this->assertEqual($kids[0]->getFile(), realpath($this->var_dir . '/a/b/foo_test.php'));
+    $this->assertEquals($kids[0]->getFile(), realpath($this->var_dir . '/a/b/foo_test.php'));
   }
 
   function testLoadChildrenForFilePathEndingWithDir()
@@ -60,14 +60,14 @@ class lmbTestTreeFilePathNodeTest extends lmbTestRunnerBase
 
     $node = new lmbTestTreeFilePathNode($this->var_dir . '/a/b', -2);
     $kids = $node->getChildren();
-    $this->assertEqual(sizeof($kids), 1);
+    $this->assertEquals(sizeof($kids), 1);
     $this->assertIsA($kids[0], 'lmbTestTreeShallowDirNode');
-    $this->assertEqual($kids[0]->getDir(), realpath($this->var_dir . '/a'));
+    $this->assertEquals($kids[0]->getDir(), realpath($this->var_dir . '/a'));
 
     $kids = $kids[0]->getChildren();
-    $this->assertEqual(sizeof($kids), 1);
+    $this->assertEquals(sizeof($kids), 1);
     $this->assertIsA($kids[0], 'lmbTestTreeDirNode');
-    $this->assertEqual($kids[0]->getDir(), realpath($this->var_dir . '/a/b'));
+    $this->assertEquals($kids[0]->getDir(), realpath($this->var_dir . '/a/b'));
   }
 
   function testLoadChildrenUseAutoOffsetForFile()
@@ -79,9 +79,9 @@ class lmbTestTreeFilePathNodeTest extends lmbTestRunnerBase
 
     $node = new lmbTestTreeFilePathNode($this->var_dir . '/a/b/bar_test.php');
     $kids = $node->getChildren();
-    $this->assertEqual(sizeof($kids), 1);
+    $this->assertEquals(sizeof($kids), 1);
     $this->assertIsA($kids[0], 'lmbTestTreeFileNode');
-    $this->assertEqual($kids[0]->getFile(), realpath($this->var_dir . '/a/b/bar_test.php'));
+    $this->assertEquals($kids[0]->getFile(), realpath($this->var_dir . '/a/b/bar_test.php'));
   }
 
   function testLoadChildrenUseAutoOffsetForFileWithArtifacts()
@@ -94,19 +94,19 @@ class lmbTestTreeFilePathNodeTest extends lmbTestRunnerBase
 
     $node = new lmbTestTreeFilePathNode($this->var_dir . '/a/b/bar_test.php');
     $kids = $node->getChildren();
-    $this->assertEqual(sizeof($kids), 1);
+    $this->assertEquals(sizeof($kids), 1);
     $this->assertIsA($kids[0], 'lmbTestTreeShallowDirNode');
-    $this->assertEqual($kids[0]->getDir(), realpath($this->var_dir . '/a'));
+    $this->assertEquals($kids[0]->getDir(), realpath($this->var_dir . '/a'));
 
     $kids = $kids[0]->getChildren();
-    $this->assertEqual(sizeof($kids), 1);
+    $this->assertEquals(sizeof($kids), 1);
     $this->assertIsA($kids[0], 'lmbTestTreeShallowDirNode');
-    $this->assertEqual($kids[0]->getDir(), realpath($this->var_dir . '/a/b'));
+    $this->assertEquals($kids[0]->getDir(), realpath($this->var_dir . '/a/b'));
 
     $kids = $kids[0]->getChildren();
-    $this->assertEqual(sizeof($kids), 1);
+    $this->assertEquals(sizeof($kids), 1);
     $this->assertIsA($kids[0], 'lmbTestTreeFileNode');
-    $this->assertEqual($kids[0]->getFile(), realpath($this->var_dir . '/a/b/bar_test.php'));
+    $this->assertEquals($kids[0]->getFile(), realpath($this->var_dir . '/a/b/bar_test.php'));
   }
 
   function testLoadChildrenUseAutoOffsetForDir()
@@ -118,9 +118,9 @@ class lmbTestTreeFilePathNodeTest extends lmbTestRunnerBase
 
     $node = new lmbTestTreeFilePathNode($this->var_dir . '/a/b/');
     $kids = $node->getChildren();
-    $this->assertEqual(sizeof($kids), 1);
+    $this->assertEquals(sizeof($kids), 1);
     $this->assertIsA($kids[0], 'lmbTestTreeDirNode');
-    $this->assertEqual($kids[0]->getDir(), realpath($this->var_dir . '/a/b'));
+    $this->assertEquals($kids[0]->getDir(), realpath($this->var_dir . '/a/b'));
   }
 
   function testLoadChildrenUseAutoOffsetForDirWithArtifacts()
@@ -133,14 +133,14 @@ class lmbTestTreeFilePathNodeTest extends lmbTestRunnerBase
 
     $node = new lmbTestTreeFilePathNode($this->var_dir . '/a/b');
     $kids = $node->getChildren();
-    $this->assertEqual(sizeof($kids), 1);
+    $this->assertEquals(sizeof($kids), 1);
     $this->assertIsA($kids[0], 'lmbTestTreeShallowDirNode');
-    $this->assertEqual($kids[0]->getDir(), realpath($this->var_dir . '/a'));
+    $this->assertEquals($kids[0]->getDir(), realpath($this->var_dir . '/a'));
 
     $kids = $kids[0]->getChildren();
-    $this->assertEqual(sizeof($kids), 1);
+    $this->assertEquals(sizeof($kids), 1);
     $this->assertIsA($kids[0], 'lmbTestTreeDirNode');
-    $this->assertEqual($kids[0]->getDir(), realpath($this->var_dir . '/a/b'));
+    $this->assertEquals($kids[0]->getDir(), realpath($this->var_dir . '/a/b'));
   }
 
   function testParentFixturesAreExecuted()

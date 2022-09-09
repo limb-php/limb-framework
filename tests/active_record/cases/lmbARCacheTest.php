@@ -288,9 +288,9 @@ class lmbARCacheTest extends lmbARBaseTestCase
       $rs = $course2->getLectures();
 
       $rs->rewind();
-      $this->assertEqual($rs->current()->getTitle(), $l1->getTitle());
+      $this->assertEquals($rs->current()->getTitle(), $l1->getTitle());
       $rs->next();
-      $this->assertEqual($rs->current()->getTitle(), $l2->getTitle());
+      $this->assertEquals($rs->current()->getTitle(), $l2->getTitle());
     }
     else
     {
@@ -299,9 +299,9 @@ class lmbARCacheTest extends lmbARBaseTestCase
 
     if( false !== ($l12 = $this->cache->get($key_l1, array('group' => $group_l1))) )
     {
-      $this->assertEqual($l12->getTitle(), $l1->getTitle());
+      $this->assertEquals($l12->getTitle(), $l1->getTitle());
 
-      $this->assertEqual($l12->getCourse()->getTitle(), $l1->getCourse()->getTitle());
+      $this->assertEquals($l12->getCourse()->getTitle(), $l1->getCourse()->getTitle());
     }
     else
     {
@@ -330,10 +330,10 @@ class lmbARCacheTest extends lmbARBaseTestCase
 
     if( false !== ($l12c = $this->cache->get($key_l12, array('group' => $group_l12))) )
     {
-      $this->assertEqual($l12->getTitle(), $l12c->getTitle());
+      $this->assertEquals($l12->getTitle(), $l12c->getTitle());
 
-      $this->assertEqual($l12->getCourse()->getTitle(), $l12c->getCourse()->getTitle());
-      $this->assertEqual($l122->getCourse()->getTitle(), $l12c->getCourse()->getTitle());
+      $this->assertEquals($l12->getCourse()->getTitle(), $l12c->getCourse()->getTitle());
+      $this->assertEquals($l122->getCourse()->getTitle(), $l12c->getCourse()->getTitle());
     }
     else
     {
@@ -347,10 +347,10 @@ class lmbARCacheTest extends lmbARBaseTestCase
 
     if( false !== ($l12c = $this->cache->get($key_l12, array('group' => $group_l12))) )
     {
-      $this->assertEqual($l12->getTitle(), $l12c->getTitle());
+      $this->assertEquals($l12->getTitle(), $l12c->getTitle());
 
-      $this->assertEqual($l12->getCourse()->getTitle(), $l12c->getCourse()->getTitle());
-      $this->assertEqual($l122->getCourse()->getTitle(), $l12c->getCourse()->getTitle());
+      $this->assertEquals($l12->getCourse()->getTitle(), $l12c->getCourse()->getTitle());
+      $this->assertEquals($l122->getCourse()->getTitle(), $l12c->getCourse()->getTitle());
     }
     else
     {

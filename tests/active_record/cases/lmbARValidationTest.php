@@ -158,10 +158,10 @@ class lmbARValidationTest extends lmbARBaseTestCase
     }
     catch(lmbValidationException $e)
     {
-      $this->assertEqual($e->getErrorList(), $error_list);
+      $this->assertEquals($e->getErrorList(), $error_list);
     }
 
-    $this->assertEqual($this->db->count('test_one_table_object'), 0);
+    $this->assertEquals($this->db->count('test_one_table_object'), 0);
   }
 
   function testInsertOnValidationSuccess()
@@ -182,7 +182,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
 
     $object->save($error_list);
 
-    $this->assertEqual($this->db->count('test_one_table_object'), 1);
+    $this->assertEquals($this->db->count('test_one_table_object'), 1);
   }
 
   function testDoubleInsert_FirstSaveValidationError_But_SecondSaveIsOk()
@@ -210,11 +210,11 @@ class lmbARValidationTest extends lmbARBaseTestCase
       $this->assertTrue(true);
     }
 
-    $this->assertEqual($this->db->count('test_one_table_object'), 0);
+    $this->assertEquals($this->db->count('test_one_table_object'), 0);
     
     $object->save($error_list);
 
-    $this->assertEqual($this->db->count('test_one_table_object'), 1);
+    $this->assertEquals($this->db->count('test_one_table_object'), 1);
   }
   
   function testDontUpdateOnValidationError()
@@ -240,11 +240,11 @@ class lmbARValidationTest extends lmbARBaseTestCase
     }
     catch(lmbValidationException $e)
     {
-      $this->assertEqual($e->getErrorList(), $error_list);
+      $this->assertEquals($e->getErrorList(), $error_list);
     }
 
     $record = $this->db->selectRecord('test_one_table_object');
-    $this->assertEqual($record->get('annotation'), $old_annotation);
+    $this->assertEquals($record->get('annotation'), $old_annotation);
   }
 
   function testUpdateOnValidationSuccess()
@@ -265,7 +265,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $object->save($error_list);
 
     $record = $this->db->selectRecord('test_one_table_object');
-    $this->assertEqual($record->get('annotation'), $annotation);
+    $this->assertEquals($record->get('annotation'), $annotation);
   }
   
   function testDoubleUpdate_FirstSaveValidationError_But_SecondSaveIsOk()
@@ -297,7 +297,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $object->save($error_list);
 
     $record = $this->db->selectRecord('test_one_table_object');
-    $this->assertEqual($record->get('annotation'), $annotation);
+    $this->assertEquals($record->get('annotation'), $annotation);
   }  
 
   function testSaveSkipValidation()
@@ -314,7 +314,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $object->saveSkipValidation();
 
     $record = $this->db->selectRecord('test_one_table_object');
-    $this->assertEqual($record->get('annotation'), $annotation);
+    $this->assertEquals($record->get('annotation'), $annotation);
   }
 
   function testIsValid()
@@ -358,7 +358,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
 
     $this->assertFalse($object->trySave($error_list));
     $this->assertFalse($error_list->isEmpty());
-    $this->assertEqual(sizeof($error_list), 1);
+    $this->assertEquals(sizeof($error_list), 1);
     $this->assertPattern('~yo-yo~', $error_list[0]['message']);
   }
 

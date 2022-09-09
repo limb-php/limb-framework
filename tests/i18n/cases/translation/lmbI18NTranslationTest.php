@@ -43,7 +43,7 @@ EOD;
     file_put_contents($translations_dir . '/foo.ru_RU.ts', $xml);
 
     $toolkit->setLocale('ru_RU');
-    $this->assertEqual(lmb_i18n('Hello', 'foo'), 'Привет');
+    $this->assertEquals(lmb_i18n('Hello', 'foo'), 'Привет');
 
     lmbToolkit :: restore();
   }
@@ -69,7 +69,7 @@ EOD;
     file_put_contents($translations_dir . '/default.ru_RU.ts', $xml);
 
     $toolkit->setLocale('ru_RU');
-    $this->assertEqual(lmb_i18n('Hello'), 'Привет');
+    $this->assertEquals(lmb_i18n('Hello'), 'Привет');
 
     lmbToolkit :: restore();
   }
@@ -95,7 +95,7 @@ EOD;
     file_put_contents($translations_dir . '/foo.ru_RU.ts', $xml);
 
     $toolkit->setLocale('ru_RU');
-    $this->assertEqual(lmb_i18n('Hello {name}', array('{name}' => 'Bob'), 'foo'), 'Привет Bob');
+    $this->assertEquals(lmb_i18n('Hello {name}', array('{name}' => 'Bob'), 'foo'), 'Привет Bob');
 
     lmbToolkit :: restore();
   }
@@ -121,7 +121,7 @@ EOD;
     file_put_contents($translations_dir . '/default.ru_RU.ts', $xml);
 
     $toolkit->setLocale('ru_RU');
-    $this->assertEqual(lmb_i18n('Hello {name}', array('{name}' => 'Bob')), 'Привет Bob');
+    $this->assertEquals(lmb_i18n('Hello {name}', array('{name}' => 'Bob')), 'Привет Bob');
 
     lmbToolkit :: restore();
   }

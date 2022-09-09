@@ -20,7 +20,7 @@ class lmbWebAgentValuesTest extends TestCase {
     $arr = array('test' => 'val', 'test1' => 'val1');
   	$vals = new lmbWebAgentValues($arr);
 
-    $this->assertEqual($vals->buildQuery(), http_build_query($arr));
+    $this->assertEquals($vals->buildQuery(), http_build_query($arr));
   }
 
 }

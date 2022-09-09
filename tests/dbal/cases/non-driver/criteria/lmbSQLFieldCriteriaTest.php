@@ -26,8 +26,8 @@ class lmbSQLFieldCriteriaTest extends TestCase
     $c = new lmbSQLFieldCriteria('count', 4);
 
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count'=:p0count:");
-    $this->assertEqual($values, array('p0count' => 4));
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count'=:p0count:");
+    $this->assertEquals($values, array('p0count' => 4));
   }
 
   function testNotEqual()
@@ -35,8 +35,8 @@ class lmbSQLFieldCriteriaTest extends TestCase
     $c = new lmbSQLFieldCriteria('count', 4, lmbSQLFieldCriteria::NOT_EQUAL);
 
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count'<>:p0count:");
-    $this->assertEqual($values, array('p0count' => 4));
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count'<>:p0count:");
+    $this->assertEquals($values, array('p0count' => 4));
   }
 
   function testGreater()
@@ -44,8 +44,8 @@ class lmbSQLFieldCriteriaTest extends TestCase
     $c = new lmbSQLFieldCriteria('count', 4, lmbSQLFieldCriteria::GREATER);
 
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count'>:p0count:");
-    $this->assertEqual($values, array('p0count' => 4));
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count'>:p0count:");
+    $this->assertEquals($values, array('p0count' => 4));
   }
 
   function testLess()
@@ -53,8 +53,8 @@ class lmbSQLFieldCriteriaTest extends TestCase
     $c = new lmbSQLFieldCriteria('count', 4, lmbSQLFieldCriteria::LESS);
 
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count'<:p0count:");
-    $this->assertEqual($values, array('p0count' => 4));
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count'<:p0count:");
+    $this->assertEquals($values, array('p0count' => 4));
   }
 
   function testGreaterEqual()
@@ -62,8 +62,8 @@ class lmbSQLFieldCriteriaTest extends TestCase
     $c = new lmbSQLFieldCriteria('count', 4, lmbSQLFieldCriteria::GREATER_EQUAL);
 
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count'>=:p0count:");
-    $this->assertEqual($values, array('p0count' => 4));
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count'>=:p0count:");
+    $this->assertEquals($values, array('p0count' => 4));
   }
 
   function testLessEqual()
@@ -71,8 +71,8 @@ class lmbSQLFieldCriteriaTest extends TestCase
     $c = new lmbSQLFieldCriteria('count', 4, lmbSQLFieldCriteria::LESS_EQUAL);
 
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count'<=:p0count:");
-    $this->assertEqual($values, array('p0count' => 4));
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count'<=:p0count:");
+    $this->assertEquals($values, array('p0count' => 4));
   }
 
   function testIn()
@@ -80,8 +80,8 @@ class lmbSQLFieldCriteriaTest extends TestCase
     $c = new lmbSQLFieldCriteria('count', array(1, 2, 3), lmbSQLFieldCriteria::IN);
 
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count' IN (:p0_p0count:,:p1_p0count:,:p2_p0count:)");
-    $this->assertEqual($values, array('p0_p0count' => 1, 'p1_p0count' => 2, 'p2_p0count' => 3));
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count' IN (:p0_p0count:,:p1_p0count:,:p2_p0count:)");
+    $this->assertEquals($values, array('p0_p0count' => 1, 'p1_p0count' => 2, 'p2_p0count' => 3));
   }
 
   function testInWithCriteriaValuesAsKeys()
@@ -89,8 +89,8 @@ class lmbSQLFieldCriteriaTest extends TestCase
     $c = new lmbSQLFieldCriteria('count', array(1 => 1, 2 => 2, 3 => 3), lmbSQLFieldCriteria::IN);
 
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count' IN (:p1_p0count:,:p2_p0count:,:p3_p0count:)");
-    $this->assertEqual($values, array('p1_p0count' => 1, 'p2_p0count' => 2, 'p3_p0count' => 3));
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count' IN (:p1_p0count:,:p2_p0count:,:p3_p0count:)");
+    $this->assertEquals($values, array('p1_p0count' => 1, 'p2_p0count' => 2, 'p3_p0count' => 3));
   }
 
   function testNotIn()
@@ -98,22 +98,22 @@ class lmbSQLFieldCriteriaTest extends TestCase
     $c = new lmbSQLFieldCriteria('count', array(1, 2, 3), lmbSQLFieldCriteria::NOT_IN);
 
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count' NOT IN (:p0_p0count:,:p1_p0count:,:p2_p0count:)");
-    $this->assertEqual($values, array('p0_p0count' => 1, 'p1_p0count' => 2, 'p2_p0count' => 3));
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count' NOT IN (:p0_p0count:,:p1_p0count:,:p2_p0count:)");
+    $this->assertEquals($values, array('p0_p0count' => 1, 'p1_p0count' => 2, 'p2_p0count' => 3));
   }
 
   function testIsNull()
   {
     $c = new lmbSQLFieldCriteria('count', null);
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count' IS NULL");
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count' IS NULL");
   }
 
   function testIsNotNull()
   {
     $c = new lmbSQLFieldCriteria('count', null, lmbSQLFieldCriteria::NOT_EQUAL);
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count' IS NOT NULL");
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count' IS NOT NULL");
   }
 
   function testAnd()
@@ -122,8 +122,8 @@ class lmbSQLFieldCriteriaTest extends TestCase
     $c->addAnd(new lmbSQLFieldCriteria('count2', 'test'));
 
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count'=:p0count: AND 'count2'=:p1count2:");
-    $this->assertEqual($values, array('p0count' => 4, 'p1count2' => 'test'));
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count'=:p0count: AND 'count2'=:p1count2:");
+    $this->assertEquals($values, array('p0count' => 4, 'p1count2' => 'test'));
   }
 
   function testOr()
@@ -132,8 +132,8 @@ class lmbSQLFieldCriteriaTest extends TestCase
     $c->addOr(new lmbSQLFieldCriteria('count', 5));
 
     $values = array();
-    $this->assertEqual($c->toStatementString($values, $this->conn), "'count'=:p0count: OR 'count'=:p1count:");
-    $this->assertEqual($values, array('p0count' => 4, 'p1count' => 5));
+    $this->assertEquals($c->toStatementString($values, $this->conn), "'count'=:p0count: OR 'count'=:p1count:");
+    $this->assertEquals($values, array('p0count' => 4, 'p1count' => 5));
   }
 
   function testNestedCriterias()
@@ -145,10 +145,10 @@ class lmbSQLFieldCriteriaTest extends TestCase
 
     $c1->addOr($c2->addAnd($c3));
 
-    $this->assertEqual($c1->toStatementString($values, $this->conn),
+    $this->assertEquals($c1->toStatementString($values, $this->conn),
                        "'name'=:p0name: OR ('last_name' IN (:p0_p1last_name:,:p1_p1last_name:,:p2_p1last_name:) AND 'age'=:p4age:)");
 
-    $this->assertEqual($values, array('p0name' => "Leo",
+    $this->assertEquals($values, array('p0name' => "Leo",
                                       'p0_p1last_name' => "Tolstoy",
                                       'p1_p1last_name' => "Dostoevsky",
                                       'p2_p1last_name' => "Bakhtin",
@@ -161,10 +161,10 @@ class lmbSQLFieldCriteriaTest extends TestCase
     $c2 = new lmbSQLFieldCriteria('name', "Ivan");
     $c1->addOr($c2);
 
-    $this->assertEqual($c1->toStatementString($values, $this->conn),
+    $this->assertEquals($c1->toStatementString($values, $this->conn),
                        "'name'=:p0name: OR 'name'=:p1name:");
 
-    $this->assertEqual($values, array('p0name' => "Leo",
+    $this->assertEquals($values, array('p0name' => "Leo",
                                       'p1name' => "Ivan"));
   }
 

@@ -19,11 +19,11 @@ class lmbWebServerCookieTest extends TestCase {
   {
     $cookie = new lmbWebServerCookie('sid=xzxsd; expires=date; path=/; domain=.test.ru; secure');
 
-    $this->assertEqual($cookie->name, 'sid');
-    $this->assertEqual($cookie->value, 'xzxsd');
-    $this->assertEqual($cookie->expires, 'date');
-    $this->assertEqual($cookie->path, '/');
-    $this->assertEqual($cookie->domain, '.test.ru');
+    $this->assertEquals($cookie->name, 'sid');
+    $this->assertEquals($cookie->value, 'xzxsd');
+    $this->assertEquals($cookie->expires, 'date');
+    $this->assertEquals($cookie->path, '/');
+    $this->assertEquals($cookie->domain, '.test.ru');
     $this->assertTrue($cookie->secure);
   }
 

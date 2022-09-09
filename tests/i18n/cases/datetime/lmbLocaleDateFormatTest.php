@@ -16,7 +16,7 @@ class lmbLocaleDateTimeFormatTest extends TestCase
     $date = new lmbLocaleDateTime('2005-01-02 23:05:03');
     $string = $date->localeStrftime('%C %d %D %e %E %H %I %j %m %M %n %R %S %U %y %Y %t %%');
 
-    $this->assertEqual($string, "20 02 01/02/05 2 2453373 23 11 002 01 05 \n 23:05 03 1 05 2005 \t %");
+    $this->assertEquals($string, "20 02 01/02/05 2 2453373 23 11 002 01 05 \n 23:05 03 1 05 2005 \t %");
   }
 
   function testLocalizedFormat()
@@ -28,7 +28,7 @@ class lmbLocaleDateTimeFormatTest extends TestCase
     $res = $date->localeStrftime($locale->getDateFormat(), $locale);
 
     $expected = 'Thursday 20 January 2005';
-    $this->assertEqual($res, $expected);
+    $this->assertEquals($res, $expected);
   }
 }
 

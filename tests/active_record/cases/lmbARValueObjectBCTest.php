@@ -93,8 +93,8 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
     $lesson->save();
 
     $lesson2 = lmbActiveRecord :: findById('LessonForBCTest', $lesson->getId());
-    $this->assertEqual($lesson2->getDateStart()->getValue(), $v1);
-    $this->assertEqual($lesson2->getDateEnd()->getValue(), $v2);
+    $this->assertEquals($lesson2->getDateStart()->getValue(), $v1);
+    $this->assertEquals($lesson2->getDateEnd()->getValue(), $v2);
   }
 
   function testGenericGetReturnsAlreadyExistingObject()
@@ -104,8 +104,8 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
     $lesson->setDateStart(new TestingValueObject($v1 = time() - 100));
     $lesson->setDateEnd(new TestingValueObject($v2 = time() + 100));
 
-    $this->assertEqual($lesson->get('date_start')->getValue(), $v1);
-    $this->assertEqual($lesson->get('date_end')->getValue(), $v2);
+    $this->assertEquals($lesson->get('date_start')->getValue(), $v1);
+    $this->assertEquals($lesson->get('date_end')->getValue(), $v2);
   }
 
   function testLazyValueObjects()
@@ -119,8 +119,8 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
 
     $lesson2 = new LazyLessonForBCTest($lesson->getId());
 
-    $this->assertEqual($lesson2->getDateStart()->getValue(), $v1);
-    $this->assertEqual($lesson2->getDateEnd()->getValue(), $v2);
+    $this->assertEquals($lesson2->getDateStart()->getValue(), $v1);
+    $this->assertEquals($lesson2->getDateEnd()->getValue(), $v2);
   }
 
   function testValueObjectsAreImportedAndExportedProperly()
@@ -131,8 +131,8 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
 
     $lesson2 = new LessonForBCTest($lesson->export());
 
-    $this->assertEqual($lesson2->getDateStart()->getValue(), $v1);
-    $this->assertEqual($lesson2->getDateEnd()->getValue(), $v2);
+    $this->assertEquals($lesson2->getDateStart()->getValue(), $v1);
+    $this->assertEquals($lesson2->getDateEnd()->getValue(), $v2);
   }
 
   function testImportValueObjectsAreImportedProperly()
@@ -148,8 +148,8 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
 
     $lesson2 = new LessonForBCTest($lesson->export());
 
-    $this->assertEqual($lesson2->getDateStart()->getValue(), $v1);
-    $this->assertEqual($lesson2->getDateEnd()->getValue(), $v2);
+    $this->assertEquals($lesson2->getDateStart()->getValue(), $v1);
+    $this->assertEquals($lesson2->getDateEnd()->getValue(), $v2);
   }
 
   function testValueObjectsAreImportedNotFromObjects() {
@@ -165,8 +165,8 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
 
     $lesson2 = new LessonForBCTest($lesson->export());
 
-    $this->assertEqual($lesson2->getDateStart()->getValue(), $imported['date_start']);
-    $this->assertEqual($lesson2->getDateEnd()->getValue(), $imported['date_end']);
+    $this->assertEquals($lesson2->getDateStart()->getValue(), $imported['date_start']);
+    $this->assertEquals($lesson2->getDateEnd()->getValue(), $imported['date_end']);
 
   }
 

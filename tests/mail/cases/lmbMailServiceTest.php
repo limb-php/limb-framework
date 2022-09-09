@@ -25,8 +25,8 @@ EOD;
     $service = new lmbMailService('testGetMailHtmlContent');
     $service->set('foo', 42);
 
-    $this->assertEqual('subj', $service->getSubject());
-    $this->assertEqual('42bar', $service->getHtmlContent());
+    $this->assertEquals('subj', $service->getSubject());
+    $this->assertEquals('42bar', $service->getHtmlContent());
   }
 
   function testGetMailTextContent()
@@ -42,8 +42,8 @@ EOD;
     $service = new lmbMailService('testGetMailTextContent');
     $service->set('bar', 11);
 
-    $this->assertEqual('subj', $service->getSubject());
-    $this->assertEqual('11foo', $service->getTextContent());
+    $this->assertEquals('subj', $service->getSubject());
+    $this->assertEquals('11foo', $service->getTextContent());
   }
 
   function testGetMailBothContents()
@@ -63,8 +63,8 @@ EOD;
     $service->set('text_dynamic', 8);
     $service->set('html_dynamic', 15);
 
-    $this->assertEqual('4subj', $service->getSubject());
-    $this->assertEqual('8text_static', $service->getTextContent());
-    $this->assertEqual('15html_static', $service->getHtmlContent());
+    $this->assertEquals('4subj', $service->getSubject());
+    $this->assertEquals('8text_static', $service->getTextContent());
+    $this->assertEquals('15html_static', $service->getHtmlContent());
   }
 }

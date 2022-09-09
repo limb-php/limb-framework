@@ -20,7 +20,7 @@ class lmbMacroTagIncludeBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($bar_tpl);
 
     $out = $macro->render();
-    $this->assertEqual($out, '<body><p>Hello, Bob</p></body>');
+    $this->assertEquals($out, '<body><p>Hello, Bob</p></body>');
   }
 
   function testNestedStaticInclude()
@@ -36,7 +36,7 @@ class lmbMacroTagIncludeBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($bar_tpl);
 
     $out = $macro->render();
-    $this->assertEqual($out, '<body><p>Hello, Bob</p></body>');
+    $this->assertEquals($out, '<body><p>Hello, Bob</p></body>');
   }
 
   function testStaticIncludePassVariables()
@@ -50,7 +50,7 @@ class lmbMacroTagIncludeBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($bar_tpl);
 
     $out = $macro->render();
-    $this->assertEqual($out, '<body><p>Numbers: 1 2</p></body>');
+    $this->assertEquals($out, '<body><p>Numbers: 1 2</p></body>');
   }
 
   function testStaticInlineInclude()
@@ -64,7 +64,7 @@ class lmbMacroTagIncludeBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($bar_tpl);
 
     $out = $macro->render();
-    $this->assertEqual($out, '<body><p>Number: 2</p></body>');
+    $this->assertEquals($out, '<body><p>Number: 2</p></body>');
   }
 
   function testStaticIncludeMixLocalAndTemplateVariables()
@@ -79,7 +79,7 @@ class lmbMacroTagIncludeBCTest extends lmbBaseMacroTest
 
     $macro->set('var3', 3);
     $out = $macro->render();
-    $this->assertEqual($out, '<body><p>Numbers: 1 2 3</p></body>');
+    $this->assertEquals($out, '<body><p>Numbers: 1 2 3</p></body>');
   }
 
   function testDynamicInclude()
@@ -94,7 +94,7 @@ class lmbMacroTagIncludeBCTest extends lmbBaseMacroTest
     $macro->set('file', 'foo.html');
 
     $out = $macro->render();
-    $this->assertEqual($out, '<body><p>Hello!</p></body>');
+    $this->assertEquals($out, '<body><p>Hello!</p></body>');
   }
 
   function testDynamicIncludePassLocalVars()
@@ -109,7 +109,7 @@ class lmbMacroTagIncludeBCTest extends lmbBaseMacroTest
     $macro->set('file', 'foo.html');
 
     $out = $macro->render();
-    $this->assertEqual($out, '<body><p>Hello, Fred!</p></body>');
+    $this->assertEquals($out, '<body><p>Hello, Fred!</p></body>');
   }
 
   function testDynamicIncludeMixLocalAndTemplateVars()
@@ -125,7 +125,7 @@ class lmbMacroTagIncludeBCTest extends lmbBaseMacroTest
     $macro->set('lastname', 'Atkins');
 
     $out = $macro->render();
-    $this->assertEqual($out, '<body><p>Hello, Fred Atkins!</p></body>');
+    $this->assertEquals($out, '<body><p>Hello, Fred Atkins!</p></body>');
   }
 
   function testStaticIncludeWithChildIntoTagsAndVariables()
@@ -144,7 +144,7 @@ class lmbMacroTagIncludeBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($bar_tpl);
 
     $out = $macro->render();
-    $this->assertEqual($out, '<body><p>Numbers: <b>1</b> <u>2</u></p></body>');
+    $this->assertEquals($out, '<body><p>Numbers: <b>1</b> <u>2</u></p></body>');
   }
 
   function testDynamicIncludeWithChildIntoTagsAndVariables()
@@ -164,7 +164,7 @@ class lmbMacroTagIncludeBCTest extends lmbBaseMacroTest
     $macro->set('included', 'foo.html');
 
     $out = $macro->render();
-    $this->assertEqual($out, '<body><p>Numbers: <b>1</b> <u>2</u></p></body>');
+    $this->assertEquals($out, '<body><p>Numbers: <b>1</b> <u>2</u></p></body>');
   }
 }
 

@@ -13,7 +13,7 @@ class lmbMacroMultipleSelectWidgetTest extends lmbBaseMacroTest
   {
     $widget = new lmbMacroMultipleSelectWidget('my_select');
     $widget->setAttribute('value', array(10));
-    $this->assertEqual($widget->getValue(), array(10));
+    $this->assertEquals($widget->getValue(), array(10));
   }
   
   function testGetValue_ReturnValue_From_FormDatasource()
@@ -24,7 +24,7 @@ class lmbMacroMultipleSelectWidgetTest extends lmbBaseMacroTest
     $widget = new lmbMacroMultipleSelectWidget('my_select');
     $widget->setForm($form);
     
-    $this->assertEqual($widget->getValue(), array(10));
+    $this->assertEquals($widget->getValue(), array(10));
   }
   
   function testGetValue_ReturnDefaultSelection_IfValueInValueAttributeIsScalar()
@@ -32,7 +32,7 @@ class lmbMacroMultipleSelectWidgetTest extends lmbBaseMacroTest
     $widget = new lmbMacroMultipleSelectWidget('my_select');
     $widget->addToDefaultSelection(20);
     $widget->setAttribute('value', 10); // scalar not array
-    $this->assertEqual($widget->getValue(), array(20));
+    $this->assertEquals($widget->getValue(), array(20));
   }
   
   function testGetValue_ReturnDefaultSelection_IfValueInFormDatasourceIsScalar()
@@ -43,7 +43,7 @@ class lmbMacroMultipleSelectWidgetTest extends lmbBaseMacroTest
     $widget = new lmbMacroMultipleSelectWidget('my_select');
     $widget->addToDefaultSelection(20);
     $widget->setForm($form);
-    $this->assertEqual($widget->getValue(), array(20));
+    $this->assertEquals($widget->getValue(), array(20));
   }
   
   function testGetValue_ReturnDefaultValue()
@@ -53,7 +53,7 @@ class lmbMacroMultipleSelectWidgetTest extends lmbBaseMacroTest
     $widget->addToDefaultSelection(20);
     $widget->setAttribute('value', null);
     
-    $this->assertEqual($widget->getValue(), array(10, 20));
+    $this->assertEquals($widget->getValue(), array(10, 20));
   }
   
   function testGetValue_ReturnValueField_If_ActualValueContainArrays()
@@ -65,7 +65,7 @@ class lmbMacroMultipleSelectWidgetTest extends lmbBaseMacroTest
     $widget->setAttribute('value_field', 'my_id');
     $widget->setForm($form);
     
-    $this->assertEqual($widget->getValue(), array(50, 100));
+    $this->assertEquals($widget->getValue(), array(50, 100));
   }
   
   function testGetValue_ReturnDefaultValueFieldValues_If_ActualValueIsArray()
@@ -76,7 +76,7 @@ class lmbMacroMultipleSelectWidgetTest extends lmbBaseMacroTest
     $widget = new lmbMacroMultipleSelectWidget('my_select');
     $widget->setForm($form);
     
-    $this->assertEqual($widget->getValue(), array(10, 20));
+    $this->assertEquals($widget->getValue(), array(10, 20));
   }
 
   function testGetValue_ReturnValueFieldValues_If_ActualValueIsIterator()
@@ -89,7 +89,7 @@ class lmbMacroMultipleSelectWidgetTest extends lmbBaseMacroTest
     $widget->setAttribute('value_field', 'my_id');
     $widget->setForm($form);
     
-    $this->assertEqual($widget->getValue(), array(50, 100));
+    $this->assertEquals($widget->getValue(), array(50, 100));
   }
   
   function testGetValue_ReturnValueFieldValues_If_ActualValueIsIterator_WithObjectsOfArrayAccessInterface()
@@ -102,7 +102,7 @@ class lmbMacroMultipleSelectWidgetTest extends lmbBaseMacroTest
     $widget->setAttribute('value_field', 'my_id');
     $widget->setForm($form);
     
-    $this->assertEqual($widget->getValue(), array(50, 100));
+    $this->assertEquals($widget->getValue(), array(50, 100));
   }  
 }
 

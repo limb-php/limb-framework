@@ -19,7 +19,7 @@ class lmbMacroInputCheckboxTagTest extends lmbBaseMacroTest
     $page->set('form_my_form_datasource', array("my_input" => 'foo'));     
     
     $expected = '<form id="my_form"><input type="checkbox" name="my_input" value="foo" checked="checked" /></form>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testRemoveCheckedIfNotChecked()
@@ -31,7 +31,7 @@ class lmbMacroInputCheckboxTagTest extends lmbBaseMacroTest
     $page->set('form_my_form_datasource', array("my_input" => 'foo'));     
 
     $expected = '<form id="my_form"><input type="checkbox" name="my_input" value="bar" /></form>';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testIsChecked_With_CheckedValueAttribute()
@@ -43,7 +43,7 @@ class lmbMacroInputCheckboxTagTest extends lmbBaseMacroTest
     $page->set('bar', '1');
 
     $expected = '<input type="checkbox" id="test" name="my_input" checked="checked" />';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
 
   function testNotChecked_With_CheckedValueAttribute_And_ValueAttribute()
@@ -55,7 +55,7 @@ class lmbMacroInputCheckboxTagTest extends lmbBaseMacroTest
     $page->set('bar', '2');
 
     $expected = '<input type="checkbox" id="test" name="my_input" value="1" />';
-    $this->assertEqual($page->render(), $expected);
+    $this->assertEquals($page->render(), $expected);
   }
   
 function testNotCheckedInputs_When_FirstInputChecked()
@@ -73,7 +73,7 @@ function testNotCheckedInputs_When_FirstInputChecked()
 
     $expected = '<form id="my_form"><input type="checkbox" id="test_3" name="test_3" value="aa" checked="checked" /><input type="checkbox" id="test_4" name="test_4" value="bb" /></form>';
 
-    $this->assertEqual(preg_match('~\s{2,}~', '', $page->render()), $expected);
+    $this->assertEquals(preg_match('~\s{2,}~', '', $page->render()), $expected);
   }
 }
 

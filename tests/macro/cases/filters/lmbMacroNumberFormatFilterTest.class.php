@@ -15,7 +15,7 @@ class lmbMacroNumberFormatFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 1234.56);
     $out = $tpl->render();
-    $this->assertEqual($out, '1,235');
+    $this->assertEquals($out, '1,235');
   }
   
   function testWithParams()
@@ -24,7 +24,7 @@ class lmbMacroNumberFormatFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 1234.56);
     $out = $tpl->render();
-    $this->assertEqual($out, '1 234,56');
+    $this->assertEquals($out, '1 234,56');
   }
 
   function testAlias()
@@ -33,7 +33,7 @@ class lmbMacroNumberFormatFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 1234.56);
     $out = $tpl->render();
-    $this->assertEqual($out, '1 234,56');
+    $this->assertEquals($out, '1 234,56');
   }
 }
 

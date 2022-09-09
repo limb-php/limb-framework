@@ -14,7 +14,7 @@ class lmbMacroDefaultFilterTest extends lmbBaseMacroTest
     $code = '{$var|default:"val"}';
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $out = $tpl->render();
-    $this->assertEqual($out, 'val');
+    $this->assertEquals($out, 'val');
   }
 }
 

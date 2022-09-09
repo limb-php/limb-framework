@@ -27,11 +27,11 @@ class lmbWebServerResponseTest extends TestCase {
     $headers = new lmbWebAgentHeaders(array('Location' => 'http://localhost'));
     $response = new lmbWebServerResponse('content', 200, 'text/html', 'utf-8', $cookies, $headers);
 
-    $this->assertEqual($response->getContent(), 'content');
-    $this->assertEqual($response->getStatus(), 200);
-    $this->assertEqual($response->getMediaType(), 'text/html');
-    $this->assertEqual($response->getCharset(), 'utf-8');
-    $this->assertEqual($response->getHeaders()->get('location'), 'http://localhost');
+    $this->assertEquals($response->getContent(), 'content');
+    $this->assertEquals($response->getStatus(), 200);
+    $this->assertEquals($response->getMediaType(), 'text/html');
+    $this->assertEquals($response->getCharset(), 'utf-8');
+    $this->assertEquals($response->getHeaders()->get('location'), 'http://localhost');
     $this->assertFalse($response->getHeaders()->get('p3p'));
     $this->assertIdentical($response->getCookies(), $cookies);
   }

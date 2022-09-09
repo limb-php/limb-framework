@@ -101,11 +101,11 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person->setSocialSecurity($number);
     $person->save();
 
-    $this->assertEqual($person->save_count, 1);
+    $this->assertEquals($person->save_count, 1);
 
     $person->save();
 
-    $this->assertEqual($person->save_count, 1);
+    $this->assertEquals($person->save_count, 1);
   }
 
   function testSavingParentSavesChildAsWell()
@@ -123,7 +123,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person->save();
 
     $loaded_number = new SocialSecurityForTest($number->getId());
-    $this->assertEqual($loaded_number->getCode(), $new_code);
+    $this->assertEquals($loaded_number->getCode(), $new_code);
   }
 
   function testChangingChildObjectIdDirectly()
@@ -138,13 +138,13 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $number2->save();
     
     $person2 = new PersonForTest($person->getId());
-    $this->assertEqual($person2->getSocialSecurity()->getId(), $number1->getId());
+    $this->assertEquals($person2->getSocialSecurity()->getId(), $number1->getId());
 
     $person2->set('ss_id', $number2->getId());
     $person2->save();
 
     $person3 = new PersonForTest($person->getId());
-    $this->assertEqual($person3->getSocialSecurity()->getId(), $number2->getId());
+    $this->assertEquals($person3->getSocialSecurity()->getId(), $number2->getId());
   }
 
   function testChangingChildIdRelationFieldDirectlyHasNoAffectIfChildObjectPropertyIsDirty()
@@ -160,14 +160,14 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $number2->save();
 
     $person2 = new PersonForTest($person->getId());
-    $this->assertEqual($person2->getSocialSecurity()->getId(), $number1->getId());
+    $this->assertEquals($person2->getSocialSecurity()->getId(), $number1->getId());
 
     $person2->set('ss_id', $number2->getId()); // changing child relation field directly
     $person2->setSocialSecurity($number1); // and making child object dirty
     $person2->save();
 
     $person3 = new PersonForTest($person->getId());
-    $this->assertEqual($person3->getSocialSecurity()->getId(), $number1->getId());
+    $this->assertEquals($person3->getSocialSecurity()->getId(), $number1->getId());
   }
 
   function testLoadParentObject()
@@ -181,8 +181,8 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
 
     $person2 = $number2->getPerson();
 
-    $this->assertEqual($person2->getId(), $person->getId());
-    $this->assertEqual($person2->getName(), $person->getName());
+    $this->assertEquals($person2->getId(), $person->getId());
+    $this->assertEquals($person2->getName(), $person->getName());
   }
 
   function testGenericGetLoadsChildObject()
@@ -196,8 +196,8 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
 
     $person2 = $number2->getPerson();
 
-    $this->assertEqual($person2->getId(), $person->getId());
-    $this->assertEqual($person2->getName(), $person->getName());
+    $this->assertEquals($person2->getId(), $person->getId());
+    $this->assertEquals($person2->getName(), $person->getName());
   }
 
   function testLoadChildObject()
@@ -210,10 +210,10 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person2 = lmbActiveRecord :: findById('PersonForTest', $person_id);
     $number2 = $person2->getSocialSecurity();
 
-    $this->assertEqual($person2->getId(), $person_id);
-    $this->assertEqual($person2->getName(), $person->getName());
-    $this->assertEqual($number2->getId(), $number->getId());
-    $this->assertEqual($number2->getCode(), $number->getCode());
+    $this->assertEquals($person2->getId(), $person_id);
+    $this->assertEquals($person2->getName(), $person->getName());
+    $this->assertEquals($number2->getId(), $number->getId());
+    $this->assertEquals($number2->getCode(), $number->getCode());
   }
   
   function testLoadNonExistingChildObject_ThrowsExceptionByDefault()
@@ -262,10 +262,10 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person2 = lmbActiveRecord :: findById('PersonForTest', $person_id);
     $number2 = $person2->get('social_security');
 
-    $this->assertEqual($person2->getId(), $person_id);
-    $this->assertEqual($person2->getName(), $person->getName());
-    $this->assertEqual($number2->getId(), $number->getId());
-    $this->assertEqual($number2->getCode(), $number->getCode());
+    $this->assertEquals($person2->getId(), $person_id);
+    $this->assertEquals($person2->getName(), $person->getName());
+    $this->assertEquals($number2->getId(), $number->getId());
+    $this->assertEquals($number2->getCode(), $number->getCode());
   }
 
   function testParentRemovalDeletesChildren()
@@ -302,7 +302,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $this->assertNull(lmbActiveRecord :: findFirst('PersonForTest', array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $person_id)));
 
     $number2 = lmbActiveRecord :: findById('SocialSecurityForTest', $untouched_number->getId());
-    $this->assertEqual($number2->getCode(), $untouched_number->getCode());
+    $this->assertEquals($number2->getCode(), $untouched_number->getCode());
   }
 
   function testParentRemovalWithNoCascadeDeleteChildren()
@@ -319,7 +319,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person->destroy();
 
     $ss2 = lmbActiveRecord :: findFirst('SocialSecurityForTest', array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $number_id));
-    $this->assertEqual($ss2->getCode(), $number->getCode());
+    $this->assertEquals($ss2->getCode(), $number->getCode());
   }
 
   function testChildRemovalNullifyParentField()
@@ -359,7 +359,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
 
     $number2 = lmbActiveRecord :: findFirst('SocialSecurityForTest');
     $this->assertNotNull($number2, 'Removal should not be finished');
-    $this->assertEqual($number2->getId(), $number->getId());
+    $this->assertEquals($number2->getId(), $number->getId());
   }
 
   function testSettingNullDetachesChildObject()
@@ -376,7 +376,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $this->assertNull($person2->getSocialSecurity());
 
     $number2 = new SocialSecurityForTest($number->getId());
-    $this->assertEqual($number2->getCode(), $number->getCode());
+    $this->assertEquals($number2->getCode(), $number->getCode());
   }
 
   function testDontResetParentIfChildImport()
@@ -391,8 +391,8 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person2 = new PersonForTest($person->getid());
     $person2->save();
 
-    $this->assertEqual($person2->getName(), $person->getName());
-    $this->assertEqual($person2->getSocialSecurity()->getCode(), $number->getCode());
+    $this->assertEquals($person2->getName(), $person->getName());
+    $this->assertEquals($person2->getSocialSecurity()->getCode(), $number->getCode());
   }
 }
 

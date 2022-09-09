@@ -211,7 +211,7 @@ class lmbHttpResponseTest extends TestCase
   function testGetContentTypeWithDelimiter()
   {
     $this->response->addHeader('Content-Type: text/html; charset=UTF-8');
-    $this->assertEqual($this->response->getContentType(), 'text/html');
+    $this->assertEquals($this->response->getContentType(), 'text/html');
   }
 }
 

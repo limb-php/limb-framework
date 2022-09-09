@@ -84,7 +84,7 @@ class lmbHttpCacheTest extends TestCase
     $this->cache->setLastModifiedTime($time = time());
     $etag = $this->cache->getEtag();
 
-    $this->assertEqual($etag, '"' . md5($script . '#' . $time ) . '"');
+    $this->assertEquals($etag, '"' . md5($script . '#' . $time ) . '"');
   }
 
   function testIs412False()

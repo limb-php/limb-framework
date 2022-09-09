@@ -48,7 +48,7 @@ abstract class DriverInsertTestBase extends DriverManipTestBase
     $stmt->setVarChar('last', 'Nixon');
 
     $id = $stmt->insertId('id');
-    $this->assertEqual($stmt->getAffectedRowCount(), 1);
+    $this->assertEquals($stmt->getAffectedRowCount(), 1);
     $this->assertIdentical($id, 4);
     $this->checkRecord(4);
   }

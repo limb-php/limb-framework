@@ -19,7 +19,7 @@ class lmbFullPageCacheRequestTest extends TestCase
 
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
-    $this->assertEqual($request->getHash(), '/');
+    $this->assertEquals($request->getHash(), '/');
   }
 
   function testGetHashAlphabeticSorting()
@@ -29,7 +29,7 @@ class lmbFullPageCacheRequestTest extends TestCase
 
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
-    $this->assertEqual($request->getHash(),
+    $this->assertEquals($request->getHash(),
                        '/path_' . md5(serialize(array('a' => '1', 'c[d]' => '2', 'z' => '3')) .
                                      serialize(array('admin', 'test'))) . '/');
   }

@@ -45,7 +45,7 @@ class lmbNSTreeTest extends lmbTreeTestBase
       'identifier' => 'node_2'
     );
 
-    $this->assertEqual($this->imp->getNode($node_2)->export(), $moved_node);
+    $this->assertEquals($this->imp->getNode($node_2)->export(), $moved_node);
 
     $this->imp->moveNodeDown($node_2);
 
@@ -58,7 +58,7 @@ class lmbNSTreeTest extends lmbTreeTestBase
       'identifier' => 'node_2'
     );
 
-    $this->assertEqual($this->imp->getNode($node_2)->export(), $moved_node);
+    $this->assertEquals($this->imp->getNode($node_2)->export(), $moved_node);
   }
 }
 

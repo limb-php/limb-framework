@@ -19,9 +19,9 @@ abstract class lmbBaseImageContainerTest extends lmbImageKitTestCase
 
     list($width, $height, $type) = getimagesize($this->_getInputImage());
     list($width2, $height2, $type2) = getimagesize($this->_getOutputImage());
-    $this->assertEqual($width, $width2);
-    $this->assertEqual($height, $height2);
-    $this->assertEqual($type, $type2);
+    $this->assertEquals($width, $width2);
+    $this->assertEquals($height, $height2);
+    $this->assertEquals($type, $type2);
   }
 
   function testChangeType()
@@ -33,18 +33,18 @@ abstract class lmbBaseImageContainerTest extends lmbImageKitTestCase
     list($width, $height, $type) = getimagesize($this->_getInputImage());
     list($width2, $height2, $type2) = getimagesize($this->_getOutputImage('gif'));
 
-    $this->assertEqual($width, $width2);
-    $this->assertEqual($height, $height2);
+    $this->assertEquals($width, $width2);
+    $this->assertEquals($height, $height2);
     $this->assertNotEqual($type, $type2);
-    $this->assertEqual($type, IMAGETYPE_JPEG);
-    $this->assertEqual($type2, IMAGETYPE_GIF);
+    $this->assertEquals($type, IMAGETYPE_JPEG);
+    $this->assertEquals($type2, IMAGETYPE_GIF);
   }
 
   function testGetSize()
   {
     $cont = $this->_getContainer();
-    $this->assertEqual($cont->getWidth(), 100);
-    $this->assertEqual($cont->getHeight(), 137);
+    $this->assertEquals($cont->getWidth(), 100);
+    $this->assertEquals($cont->getHeight(), 137);
   }
 
   function testIsPallete()
@@ -61,7 +61,7 @@ abstract class lmbBaseImageContainerTest extends lmbImageKitTestCase
     $cont = $this->_getContainer();
     $cont->setOutputType('gif');
 
-    $this->assertEqual($cont->getOutputType(), 'gif');
+    $this->assertEquals($cont->getOutputType(), 'gif');
   }
 
   function testSave_ParamQuality()

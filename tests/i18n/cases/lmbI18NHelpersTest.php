@@ -11,7 +11,7 @@ class lmbI18NHelpersTest extends TestCase
 {
   function testTraslitEmpty()
   {
-    $this->assertEqual(lmb_translit_russian(''), '');
+    $this->assertEquals(lmb_translit_russian(''), '');
   }
   
   function testTranslitRussianText()
@@ -22,7 +22,7 @@ class lmbI18NHelpersTest extends TestCase
     $expect = 'a b v g d e jo zh z i y k l m n o p r s t u f kh c ch sh sch  y  e yu ya '.
                  'A B V G D E JO ZH Z I Y K L M N O P R S T U F KH C CH SH SCH  Y  E YU YA';
     
-    $this->assertEqual(lmb_translit_russian($str), $expect);
+    $this->assertEquals(lmb_translit_russian($str), $expect);
   }
   
   
@@ -37,7 +37,7 @@ class lmbI18NHelpersTest extends TestCase
                      
     $str = iconv('UTF-8', $encoding, $str);
     
-    $this->assertEqual(lmb_translit_russian($str, $encoding), $expect);
+    $this->assertEquals(lmb_translit_russian($str, $encoding), $expect);
   }  
 }
 

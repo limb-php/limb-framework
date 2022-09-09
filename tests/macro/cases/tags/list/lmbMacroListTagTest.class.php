@@ -19,7 +19,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array('Bob', 'Todd'));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Bob Todd ');
+    $this->assertEquals($out, 'Bob Todd ');
   }
 
   function testGroupVisibilityConditionForPreAndPostListTags()
@@ -32,7 +32,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array('Bob', 'Todd'));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Bob Todd ');
+    $this->assertEquals($out, 'Bob Todd ');
   }
 
   function testListUsingDefaultItem()
@@ -45,7 +45,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array('Bob', 'Todd'));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Bob Todd ');
+    $this->assertEquals($out, 'Bob Todd ');
   }
 
   function testEmptyList()
@@ -59,7 +59,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array());
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Nothing');
+    $this->assertEquals($out, 'Nothing');
   }
 
   function testShowCounter()
@@ -72,7 +72,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array('Bob', 'Todd'));
 
     $out = $macro->render();
-    $this->assertEqual($out, '1)Bob 2)Todd ');
+    $this->assertEquals($out, '1)Bob 2)Todd ');
   }
 
   function testTextNodesInsideListTag()
@@ -85,7 +85,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array('Bob', 'Todd'));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'List: Bob Todd  !');
+    $this->assertEquals($out, 'List: Bob Todd  !');
   }
 
   function testTextNodesInsideListTagWithEmptyListTag()
@@ -99,7 +99,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array());
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Nothing');
+    $this->assertEquals($out, 'Nothing');
   }
 
   function testKeyValue()
@@ -112,7 +112,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array('Bob' => 'god', 'Todd' => 'odd', 'zero', 1 => 'one'));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Bob is god, Todd is odd, 0 is zero, 1 is one, ');
+    $this->assertEquals($out, 'Bob is god, Todd is odd, 0 is zero, 1 is one, ');
   }
   
   function testParity()
@@ -125,7 +125,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array('Bob', 'Todd', 'Jeff'));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'odd-Bob even-Todd odd-Jeff  !');
+    $this->assertEquals($out, 'odd-Bob even-Todd odd-Jeff  !');
   }
 
   function testEvenAndOddTags()
@@ -139,7 +139,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array('Bob', 'Todd', 'Jeff'));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Odd-Bob Even-Todd Odd-Jeff  !');
+    $this->assertEquals($out, 'Odd-Bob Even-Todd Odd-Jeff  !');
   }
 
   function testListWithGlue()
@@ -155,7 +155,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array('Bob', 'Todd', 'Marry'));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'List:Bob||Todd||Marry!');
+    $this->assertEquals($out, 'List:Bob||Todd||Marry!');
   }
 
   function testListWithGlueAndKey()
@@ -171,7 +171,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array('login' => 'exists', 'password' => 'required', 'email' => 'not_valid'));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'login:exists,password:required,email:not_valid!');
+    $this->assertEquals($out, 'login:exists,password:required,email:not_valid!');
   }
 
   function testListWithGlueWithStep()
@@ -187,7 +187,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', array('Bob', 'Todd', 'Marry'));
 
     $out = $macro->render();
-    $this->assertEqual($out, 'List:BobTodd||Marry!');
+    $this->assertEquals($out, 'List:BobTodd||Marry!');
   }
 
   function testListWithGlueWithStepAsVariablee()
@@ -204,7 +204,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('var_step', 2);
 
     $out = $macro->render();
-    $this->assertEqual($out, 'List:BobTodd||Marry!');
+    $this->assertEquals($out, 'List:BobTodd||Marry!');
   }
 
   function testTwoDependentGlues()
@@ -221,7 +221,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($list_tpl);
     $macro->set('list', array('John', 'Pavel', 'Peter', 'Harry', 'Roman', 'Sergey'));
 
-    $this->assertEqual($macro->render(), 'List#John:Pavel|Peter:Harry|Roman:Sergey!');
+    $this->assertEquals($macro->render(), 'List#John:Pavel|Peter:Harry|Roman:Sergey!');
   }
 
   function testIndependentGlue()
@@ -238,7 +238,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($list_tpl);
     $macro->set('list', array('John', 'Pavel', 'Peter', 'Harry', 'Roman', 'Sergey', 'Alex', 'Vlad'));
 
-    $this->assertEqual($macro->render(), 'List#JohnPavel:Peter|Harry:RomanSergey:|AlexVlad!');
+    $this->assertEquals($macro->render(), 'List#JohnPavel:Peter|Harry:RomanSergey:|AlexVlad!');
   }
 
   function testTwoGluesInsideNestingLists()
@@ -261,7 +261,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list1', array('X', 'Y'));
     $macro->set('list2', array('A', 'B'));
 
-    $this->assertEqual($macro->render(), 'XA - XB:YA - YB');
+    $this->assertEquals($macro->render(), 'XA - XB:YA - YB');
   }
   
   function testListFillTagWithRatio()
@@ -279,7 +279,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($list_tpl);
     $macro->set('list', array('John', 'Pavel', 'Peter', 'Harry'));
 
-    $this->assertEqual($macro->render(), 'List#John:Pavel:Peter++Harry2');
+    $this->assertEquals($macro->render(), 'List#John:Pavel:Peter++Harry2');
   }
 
   function testListFillTagWithTotalElementsLessThanRatioDoesNotRenderAnything()
@@ -297,7 +297,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($list_tpl);
     $macro->set('list', array('John', 'Pavel'));
 
-    $this->assertEqual($macro->render(), 'List#John:Pavel');
+    $this->assertEquals($macro->render(), 'List#John:Pavel');
   }
 
   function testListFillTagWithTotalElementsLessButWithForceAttributeIsRendering()
@@ -315,7 +315,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($list_tpl);
     $macro->set('list', array('John', 'Pavel'));
 
-    $this->assertEqual($macro->render(), 'List#John:Pavel1');
+    $this->assertEquals($macro->render(), 'List#John:Pavel1');
   }
 
   function testListFillTagWithTotalElementsLessButWithForceAttributeButWithEmptyList()
@@ -333,7 +333,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($list_tpl);
     $macro->set('list', array());
 
-    $this->assertEqual($macro->render(), '');
+    $this->assertEquals($macro->render(), '');
   }
   
   
@@ -353,7 +353,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $list->paginate(0, 3);
     $macro->set('list', $list);
 
-    $this->assertEqual($macro->render(), 'List#JohnPavelSerega');
+    $this->assertEquals($macro->render(), 'List#JohnPavelSerega');
   }  
   
   function testIterationUsingIteratorAggregate()
@@ -367,7 +367,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $macro->set('list', $array);
 
     $out = $macro->render();
-    $this->assertEqual($out, 'Bob Todd ');
+    $this->assertEquals($out, 'Bob Todd ');
   }
 }
 

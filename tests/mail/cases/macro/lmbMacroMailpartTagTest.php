@@ -17,7 +17,7 @@ class lmbMacroMailpartTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($list_tpl);
 
     $out = $macro->render();
-    $this->assertEqual($out, '<mailpart name="test"><![CDATA[ZZZ]]></mailpart>');
+    $this->assertEquals($out, '<mailpart name="test"><![CDATA[ZZZ]]></mailpart>');
   }
   
   function testManyParts()
@@ -28,6 +28,6 @@ class lmbMacroMailpartTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($list_tpl);
 
     $out = $macro->render();
-    $this->assertEqual($out, '<mailpart name="name_a"><![CDATA[ZZZ]]></mailpart>_between_<mailpart name="name_b"><![CDATA[YYY]]></mailpart>');
+    $this->assertEquals($out, '<mailpart name="name_a"><![CDATA[ZZZ]]></mailpart>_between_<mailpart name="name_b"><![CDATA[YYY]]></mailpart>');
   }
 }

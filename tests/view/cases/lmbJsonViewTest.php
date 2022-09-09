@@ -22,9 +22,9 @@ class lmbJsonViewTest extends TestCase
   
   protected function _checkValue($must_be)
   {
-    $this->assertEqual($this->view->render(), $must_be);    
+    $this->assertEquals($this->view->render(), $must_be);
     $this->view->useEmulation(true);
-    $this->assertEqual($this->view->render(), $must_be);
+    $this->assertEquals($this->view->render(), $must_be);
   }
   
   function testRender_empty()

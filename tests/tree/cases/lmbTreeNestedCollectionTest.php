@@ -25,7 +25,7 @@ class lmbTreeNestedCollectionTest extends TestCase
     $nested = new lmbTreeNestedCollection($raw);
     $arr = $this->toArray($nested);
 
-    $this->assertEqual($arr, $expected_tree_array);
+    $this->assertEquals($arr, $expected_tree_array);
   }
 
   function testMakeNestedSimpleRs()
@@ -50,7 +50,7 @@ class lmbTreeNestedCollectionTest extends TestCase
     $nested = new lmbTreeNestedCollection($raw);
     $arr = $this->toArray($nested);
 
-    $this->assertEqual($arr, $expected_tree_array);
+    $this->assertEquals($arr, $expected_tree_array);
   }
 
   function testMakeNestedMoreComplexRs()
@@ -95,7 +95,7 @@ class lmbTreeNestedCollectionTest extends TestCase
     $nested = new lmbTreeNestedCollection($raw);
     $arr = $this->toArray($nested);
 
-    $this->assertEqual($arr, $expected_tree_array);
+    $this->assertEquals($arr, $expected_tree_array);
   }
 
   function toArray($iterator)

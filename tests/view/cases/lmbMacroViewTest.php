@@ -6,16 +6,20 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/view/src/lmbMacroView.class.php');
-lmb_require('limb/fs/src/lmbFs.class.php');
-lmb_require('limb/validation/src/lmbErrorList.class.php');
+
+include '.setup.php';
+
+use PHPUnit\Framework\TestCase;
+use limb\view\src\lmbMacroView;
+use limb\fs\src\lmbFs;
+use limb\validation\src\lmbErrorList;
 
 class lmbMacroViewTest extends TestCase
 {
-  function setUp()
+  function setUp(): void
   {
-    lmbFs :: rm(LIMB_VAR_DIR . '/tpl/');
-    lmbFs :: mkdir(LIMB_VAR_DIR . '/tpl/');
+    lmbFs::rm(LIMB_VAR_DIR . '/tpl/');
+    lmbFs::mkdir(LIMB_VAR_DIR . '/tpl/');
   }
 
   function testRenderSimpleVars()
@@ -26,7 +30,7 @@ class lmbMacroViewTest extends TestCase
     $view->set('hello', 'Hello message!');
     $view->set('again', 'Hello again!');
 
-    $this->assertEqual($view->render(), 'Hello message!Hello again!');
+    $this->assertEquals($view->render(), 'Hello message!Hello again!');
   }
   
   function testRenderForms()
@@ -50,7 +54,7 @@ class lmbMacroViewTest extends TestCase
                 '<input type="text" name="title" title="Title" value="My title" />'.
                 '</form>';
                 
-    $this->assertEqual($view->render(), $expected);
+    $this->assertEquals($view->render(), $expected);
   }   
 
   protected function _createView($file)

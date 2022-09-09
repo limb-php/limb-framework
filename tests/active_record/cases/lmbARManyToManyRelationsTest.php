@@ -27,7 +27,7 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
   function testMapPropertyToField()
   {
     $group = new GroupForTest();
-    $this->assertEqual('users', $group->mapFieldToProperty('group_id'));
+    $this->assertEquals('users', $group->mapFieldToProperty('group_id'));
     $this->assertNull($group->mapFieldToProperty('blah'));
   }
 
@@ -55,11 +55,11 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
 
     $rs->rewind();
     $this->assertTrue($rs->valid());
-    $this->assertEqual($rs->current()->getTitle(), $group1->getTitle());
-    $this->assertEqual($rs->current()->getId(), $group1->getId());
+    $this->assertEquals($rs->current()->getTitle(), $group1->getTitle());
+    $this->assertEquals($rs->current()->getId(), $group1->getId());
     $rs->next();
-    $this->assertEqual($rs->current()->getTitle(), $group2->getTitle());
-    $this->assertEqual($rs->current()->getId(), $group2->getId());
+    $this->assertEquals($rs->current()->getTitle(), $group2->getTitle());
+    $this->assertEquals($rs->current()->getId(), $group2->getId());
   }
   
   function testSetRelation()
@@ -77,15 +77,15 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
       
     $user1->save();
     $user2->save();
-    $this->assertEqual($user1->getGroups()->count(), 2);
-    $this->assertEqual($user2->getGroups()->count(), 2);
+    $this->assertEquals($user1->getGroups()->count(), 2);
+    $this->assertEquals($user2->getGroups()->count(), 2);
     
     $user1->getGroups()->set(array($group1));
     $user1->save();
     $user2->save();
      
-    $this->assertEqual($user1->getGroups()->count(), 1);
-    $this->assertEqual($user2->getGroups()->count(), 2);
+    $this->assertEquals($user1->getGroups()->count(), 1);
+    $this->assertEquals($user2->getGroups()->count(), 2);
   }
   
   function testLoadShouldNotMixTables()
@@ -109,11 +109,11 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
 
     $rs->rewind();
     $this->assertTrue($rs->valid());
-    $this->assertEqual($rs->current()->getTitle(), $group1->getTitle());
-    $this->assertEqual($rs->current()->getId(), $group1->getId());
+    $this->assertEquals($rs->current()->getTitle(), $group1->getTitle());
+    $this->assertEquals($rs->current()->getId(), $group1->getId());
     $rs->next();
-    $this->assertEqual($rs->current()->getTitle(), $group2->getTitle());
-    $this->assertEqual($rs->current()->getId(), $group2->getId());
+    $this->assertEquals($rs->current()->getTitle(), $group2->getTitle());
+    $this->assertEquals($rs->current()->getId(), $group2->getId());
   }
 
   function testFetch_WithRelatedObjectsUsing_WithMethod()
@@ -134,8 +134,8 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
     //make sure we really eager fetching
     $this->db->delete('test_one_table_object');
 
-    $this->assertEqual($arr[0]->getFirstName(), $user1->getFirstName());
-    $this->assertEqual($arr[1]->getFirstName(), $user2->getFirstName());
+    $this->assertEquals($arr[0]->getFirstName(), $user1->getFirstName());
+    $this->assertEquals($arr[1]->getFirstName(), $user2->getFirstName());
   }
 
   function testSetingCollectionDirectlyCallsAddToMethod()
@@ -147,9 +147,9 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
 
     $user->setGroups(array($g1, $g2));
     $arr = $user->getGroups()->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $g1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $g2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $g1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $g2->getTitle());
   }
 
   function testSetFlushesPreviousCollection()
@@ -164,8 +164,8 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
 
     $user->setGroups(array($g1));
     $groups = $user->getGroups()->getArray();
-    $this->assertEqual($groups[0]->getTitle(), $g1->getTitle());
-    $this->assertEqual(sizeof($groups), 1);
+    $this->assertEquals($groups[0]->getTitle(), $g1->getTitle());
+    $this->assertEquals(sizeof($groups), 1);
   }
 
   function testUpdateRelations()
@@ -186,8 +186,8 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
     $user3 = lmbActiveRecord :: findById('UserForTest', $user->getId());
     $groups = $user3->getGroups();
 
-    $this->assertEqual($groups->at(0)->getTitle(), $group2->getTitle());
-    $this->assertEqual($groups->count(), 1);
+    $this->assertEquals($groups->at(0)->getTitle(), $group2->getTitle());
+    $this->assertEquals($groups->count(), 1);
   }
 
   function testDeleteAlsoRemovesManyToManyRecords()
@@ -209,13 +209,13 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
     $user3 = lmbActiveRecord :: findById('UserForTest', $user1->getId());
     $user3->destroy();
 
-    $this->assertEqual($this->db->count('user_for_test2group_for_test'), 2);
+    $this->assertEquals($this->db->count('user_for_test2group_for_test'), 2);
 
     $user4 = lmbActiveRecord :: findById('UserForTest', $user2->getId());
     $groups = $user4->getGroups();
-    $this->assertEqual($groups->at(0)->getTitle(), $group1->getTitle());
-    $this->assertEqual($groups->at(1)->getTitle(), $group2->getTitle());
-    $this->assertEqual($groups->count(), 2);
+    $this->assertEquals($groups->at(0)->getTitle(), $group1->getTitle());
+    $this->assertEquals($groups->at(1)->getTitle(), $group2->getTitle());
+    $this->assertEquals($groups->count(), 2);
   }
 
   function testUseCustomCollection()
@@ -247,15 +247,15 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
     $g1 = $this->creator->createGroup('foo');
     $g2 = $this->creator->createGroup('bar');
     $g3 = $this->creator->createGroup('condition');
-    $this->assertEqual('condition', $g3->getTitle());
+    $this->assertEquals('condition', $g3->getTitle());
 
     $user->setGroups(array($g1, $g2,$g3));
     $user->save();
     $user = new UserForTest($user->id);
     $arr = $user->getCgroups()->getArray();
     $this->assertIsA($arr[0], 'GroupForTest');
-    $this->assertEqual(sizeof($arr), 1);
-    $this->assertEqual($arr[0]->getTitle(), $g3->getTitle());
+    $this->assertEquals(sizeof($arr), 1);
+    $this->assertEquals($arr[0]->getTitle(), $g3->getTitle());
   }
 
 }

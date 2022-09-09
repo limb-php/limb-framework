@@ -15,7 +15,7 @@ class lmbMacroRecognizeUrlsFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('str', 'foo http://aaa.com bar');
     $out = $tpl->render();
-    $this->assertEqual($out, 'foo <a href="http://aaa.com">http://aaa.com</a> bar');
+    $this->assertEquals($out, 'foo <a href="http://aaa.com">http://aaa.com</a> bar');
   }
 
   function testUrlWithWithoutHttpAndWithWWW()
@@ -24,7 +24,7 @@ class lmbMacroRecognizeUrlsFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('str', 'foo www.aaa.com bar');
     $out = $tpl->render();
-    $this->assertEqual($out, 'foo <a href="http://www.aaa.com">www.aaa.com</a> bar');
+    $this->assertEquals($out, 'foo <a href="http://www.aaa.com">www.aaa.com</a> bar');
   }
 }
 

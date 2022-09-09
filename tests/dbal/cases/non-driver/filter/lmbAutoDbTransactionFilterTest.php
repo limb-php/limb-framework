@@ -66,7 +66,7 @@ class lmbAutoDbTransactionFilterTest extends TestCase
     $stub = new FilterWorkingWithDbStub();
     $stub->sql = "INSERT INTO test_db_table (title) VALUES ('hey')";
 
-    $this->assertEqual($this->db->count('test_db_table'), 0);
+    $this->assertEquals($this->db->count('test_db_table'), 0);
 
     $chain = new lmbFilterChain();
     $chain->registerFilter(new lmbAutoDbTransactionFilter());
@@ -75,7 +75,7 @@ class lmbAutoDbTransactionFilterTest extends TestCase
 
     $this->conn->rollbackTransaction();
 
-    $this->assertEqual($this->db->count('test_db_table'), 1);
+    $this->assertEquals($this->db->count('test_db_table'), 1);
     $this->assertIdentical($this->conn, $this->toolkit->getDefaultDbConnection());
   }
 
@@ -85,7 +85,7 @@ class lmbAutoDbTransactionFilterTest extends TestCase
     $stub->sql = "INSERT INTO test_db_table (title) VALUES ('hey')";
     $stub->exception = new Exception('foo');
 
-    $this->assertEqual($this->db->count('test_db_table'), 0);
+    $this->assertEquals($this->db->count('test_db_table'), 0);
 
     $chain = new lmbFilterChain();
     $chain->registerFilter(new lmbAutoDbTransactionFilter());
@@ -98,7 +98,7 @@ class lmbAutoDbTransactionFilterTest extends TestCase
     }
     catch(Exception $e){}
 
-    $this->assertEqual($this->db->count('test_db_table'), 0);
+    $this->assertEquals($this->db->count('test_db_table'), 0);
     $this->assertIdentical($this->conn, $this->toolkit->getDefaultDbConnection());
   }
 

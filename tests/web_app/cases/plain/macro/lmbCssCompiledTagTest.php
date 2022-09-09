@@ -26,11 +26,11 @@ class lmbCssCompiledTagTest extends lmbMacroTestCase
     
     $content = $page->render();
     $src = $this->toolkit->addVersionToUrl('media/css/style-main.css');
-    $this->assertEqual('<link rel="stylesheet" type="text/css" href="'.$src.'" />', $content);
+    $this->assertEquals('<link rel="stylesheet" type="text/css" href="'.$src.'" />', $content);
 
     $compiled_file = $root . 'media/css/style-main.css';
     $src = $this->toolkit->addVersionToUrl('images/one.jpg');
-    $this->assertEqual('body {background-url: url('.$src.');}', file_get_contents($compiled_file));
+    $this->assertEquals('body {background-url: url('.$src.');}', file_get_contents($compiled_file));
   }
 }
 

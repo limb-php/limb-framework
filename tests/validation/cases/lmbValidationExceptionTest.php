@@ -17,7 +17,7 @@ class lmbValidationExceptionTest extends TestCase
     $error_list->addError('error1');
     $error_list->addError('error2');
     $exception = new lmbValidationException('Message.', $error_list, $params = array());
-    $this->assertEqual($exception->getMessage(), 'Message. Errors list : error1, error2');
+    $this->assertEquals($exception->getMessage(), 'Message. Errors list : error1, error2');
   }
 }
 

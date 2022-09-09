@@ -23,7 +23,7 @@ class lmbLiveInternetValuesTest extends TestCase {
       'id' => array(9,7,5,0));
     $vals = new lmbLiveInternetValues($arr);
 
-    $this->assertEqual($vals->buildQuery(), 'test=val;test1=val1;id=9;id=7;id=5;id=0');
+    $this->assertEquals($vals->buildQuery(), 'test=val;test1=val1;id=9;id=7;id=5;id=0');
   }
 
 }

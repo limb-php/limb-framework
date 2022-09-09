@@ -16,7 +16,7 @@ class lmbMacroFormTagTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
  
     $out = $page->render();
-    $this->assertEqual($out, '<form name="my_form">Hi</form>');
+    $this->assertEquals($out, '<form name="my_form">Hi</form>');
   }   
   
   function testFormGeneratesWidgetVar()
@@ -26,7 +26,7 @@ class lmbMacroFormTagTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
  
     $out = $page->render();
-    $this->assertEqual($out, '<form name="my_form">1111</form>');
+    $this->assertEquals($out, '<form name="my_form">1111</form>');
   }
   
   function testFormTakesErrorListFromTemplateVariable()
@@ -46,7 +46,7 @@ class lmbMacroFormTagTest extends lmbBaseMacroTest
     $page->set('form_my_form_error_list', $error_list);
  
     $out = $page->render();
-    $this->assertEqual($out, '<form name="my_form">1111</form>');
+    $this->assertEquals($out, '<form name="my_form">1111</form>');
   }
   
   function testFormTakesDatasourceFromTemplateVariable()
@@ -62,7 +62,7 @@ class lmbMacroFormTagTest extends lmbBaseMacroTest
     $page->set('form_my_form_datasource', array("value" => 1111));
  
     $out = $page->render();
-    $this->assertEqual($out, '<form name="my_form">1111</form>');
+    $this->assertEquals($out, '<form name="my_form">1111</form>');
   }
   
   function testFormTakesDatasourceByFromAttribute()
@@ -78,6 +78,6 @@ class lmbMacroFormTagTest extends lmbBaseMacroTest
     $page->set('form_data', array('value' => 1111));
  
     $out = $page->render();
-    $this->assertEqual($out, '<form name="my_form">1111</form>');
+    $this->assertEquals($out, '<form name="my_form">1111</form>');
   }
 }

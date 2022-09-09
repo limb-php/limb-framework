@@ -24,11 +24,11 @@ class lmbARRecordSetDecoratorTest extends lmbARBaseTestCase
     $iterator->rewind();
 
     $lecture1 = $iterator->current();
-    $this->assertEqual($lecture1->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($lecture1->getCourse()->getTitle(), $course->getTitle());
 
     $iterator->next();
     $lecture2 = $iterator->current();
-    $this->assertEqual($lecture2->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($lecture2->getCourse()->getTitle(), $course->getTitle());
   }
 
   function testGetOffsetIsDecorated()
@@ -40,11 +40,11 @@ class lmbARRecordSetDecoratorTest extends lmbARBaseTestCase
 
     $iterator = new lmbARRecordSetDecorator($decorated, 'LectureForTest');
 
-    $this->assertEqual($iterator->at(0)->getCourse()->getTitle(), $course->getTitle());
-    $this->assertEqual($iterator[0]->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($iterator->at(0)->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($iterator[0]->getCourse()->getTitle(), $course->getTitle());
 
-    $this->assertEqual($iterator->at(1)->getCourse()->getTitle(), $course->getTitle());
-    $this->assertEqual($iterator[1]->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($iterator->at(1)->getCourse()->getTitle(), $course->getTitle());
+    $this->assertEquals($iterator[1]->getCourse()->getTitle(), $course->getTitle());
   }
 
   function testIfRecordIsEmpty()

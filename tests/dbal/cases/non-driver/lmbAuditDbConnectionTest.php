@@ -30,7 +30,7 @@ class lmbAuditDbConnectionTest extends TestCase
     $this->wrapped->expectOnce('execute', array($sql));
     $this->connection->execute($sql);
     
-    $this->assertEqual($this->connection->countQueries(), 1);
+    $this->assertEquals($this->connection->countQueries(), 1);
   }
 
   function testResetQueryCounter()
@@ -39,11 +39,11 @@ class lmbAuditDbConnectionTest extends TestCase
     $this->connection->execute($sql);
     $this->connection->execute($sql);
     
-    $this->assertEqual($this->connection->countQueries(), 2);
+    $this->assertEquals($this->connection->countQueries(), 2);
     
     $this->connection->resetStats();
     
-    $this->assertEqual($this->connection->countQueries(), 0);
+    $this->assertEquals($this->connection->countQueries(), 0);
   }
   
   function testNewStatementSetSelfAsConnection()
@@ -70,7 +70,7 @@ class lmbAuditDbConnectionTest extends TestCase
     $this->connection->execute($sql2);
     $this->connection->execute($sql3);
    
-    $this->assertEqual(count($this->connection->getQueries('select program.*')), 2);
+    $this->assertEquals(count($this->connection->getQueries('select program.*')), 2);
   }
 }
 

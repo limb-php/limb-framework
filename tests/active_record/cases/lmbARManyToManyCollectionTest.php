@@ -48,16 +48,16 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
     $arr = $collection->getArray();
 
-    $this->assertEqual($arr[0]->getTitle(), $group1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $group2->getTitle());
-    $this->assertEqual(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $group1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $group2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
 
     $collection2 = new lmbARManyToManyCollection('groups', $user);
     $arr = $collection2->getArray();
 
-    $this->assertEqual($arr[0]->getTitle(), $group1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $group2->getTitle());
-    $this->assertEqual(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $group1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $group2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
   }
 
   function testAddToWithNonSavedOwner()
@@ -72,14 +72,14 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $collection->add($group2);
 
     $arr = $collection->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $group1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $group2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $group1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $group2->getTitle());
 
     $collection2 = new lmbARManyToManyCollection('groups', $user);
     $arr = $collection2->getArray();
 
-    $this->assertEqual(sizeof($arr), 0);
+    $this->assertEquals(sizeof($arr), 0);
   }
 
   function testSaveWithExistingOwnerDoesNothing()
@@ -112,16 +112,16 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $collection->add($group2);
 
     $collection2 = new lmbARManyToManyCollection('groups', $user);
-    $this->assertEqual(sizeof($collection2->getArray()), 0);
+    $this->assertEquals(sizeof($collection2->getArray()), 0);
 
     $user->save();
     $collection->save();
 
     $collection3 = new lmbARManyToManyCollection('groups', $user);
     $arr = $collection3->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $group1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $group2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $group1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $group2->getTitle());
   }
 
   function testSavingOwnerDoesntAffectCollection()
@@ -142,35 +142,35 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
     //items in memory
     $arr = $collection->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $group1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $group2->getTitle());
-    $this->assertEqual($group1->save_calls, 0);
-    $this->assertEqual($group2->save_calls, 0);
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $group1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $group2->getTitle());
+    $this->assertEquals($group1->save_calls, 0);
+    $this->assertEquals($group2->save_calls, 0);
 
     //...and not db yet
     $collection2 = new lmbARManyToManyCollection('groups', $user);
-    $this->assertEqual(sizeof($collection2->getArray()), 0);
+    $this->assertEquals(sizeof($collection2->getArray()), 0);
 
     $collection->save();
 
     $collection3 = new lmbARManyToManyCollection('groups', $user);
     $arr = $collection3->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $group1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $group2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $group1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $group2->getTitle());
 
     //check items not saved twice
     $collection->save();
 
-    $this->assertEqual($group1->save_calls, 1);
-    $this->assertEqual($group2->save_calls, 1);
+    $this->assertEquals($group1->save_calls, 1);
+    $this->assertEquals($group2->save_calls, 1);
 
     $collection4 = new lmbARManyToManyCollection('groups', $user);
     $arr = $collection4->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $group1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $group2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $group1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $group2->getTitle());
   }
 
   function testLoadOnlyProperRecordsWithExistingOwner()
@@ -186,18 +186,18 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $user2 = $this->_createUserAndSave(array($g3, $g4));
 
     $collection1 = new lmbARManyToManyCollection('groups', $user1);
-    $this->assertEqual($collection1->count(), 2);
+    $this->assertEquals($collection1->count(), 2);
     $arr = $collection1->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $g1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $g2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $g1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $g2->getTitle());
 
     $collection2 = new lmbARManyToManyCollection('groups', $user2);
-    $this->assertEqual($collection2->count(), 2);
+    $this->assertEquals($collection2->count(), 2);
     $arr = $collection2->getArray();
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $g3->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $g4->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $g3->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $g4->getTitle());
   }
 
   function testCountWithExistingOwner()
@@ -208,11 +208,11 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $user = $this->_createUserAndSave();
 
     $collection = new lmbARManyToManyCollection('groups', $user);
-    $this->assertEqual($collection->count(), 0);
+    $this->assertEquals($collection->count(), 0);
     $collection->add($group1);
     $collection->add($group2);
 
-    $this->assertEqual($collection->count(), 2);
+    $this->assertEquals($collection->count(), 2);
   }
 
   function testCountWithNonSavedOwner()
@@ -223,12 +223,12 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $user = new UserForTest();
 
     $collection = new lmbARManyToManyCollection('groups', $user);
-    $this->assertEqual($collection->count(), 0);
+    $this->assertEquals($collection->count(), 0);
 
     $collection->add($group1);
     $collection->add($group2);
 
-    $this->assertEqual($collection->count(), 2);
+    $this->assertEquals($collection->count(), 2);
   }
 
   function testImplementsCountable()
@@ -239,12 +239,12 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $user = $this->_createUserAndSave();
 
     $collection = new lmbARManyToManyCollection('groups', $user);
-    $this->assertEqual(sizeof($collection), 0);
+    $this->assertEquals(sizeof($collection), 0);
 
     $collection->add($group1);
     $collection->add($group2);
 
-    $this->assertEqual(sizeof($collection), 2);
+    $this->assertEquals(sizeof($collection), 2);
   }
 
   function testPartiallyImplementsArrayAccess()
@@ -259,8 +259,8 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $collection[] = $group1;
     $collection[] = $group2;
 
-    $this->assertEqual($collection[0]->getId(), $group1->getId());
-    $this->assertEqual($collection[1]->getId(), $group2->getId());
+    $this->assertEquals($collection[0]->getId(), $group1->getId());
+    $this->assertEquals($collection[1]->getId(), $group2->getId());
     $this->assertNull($collection[2]);
 
     $this->assertTrue(isset($collection[0]));
@@ -287,7 +287,7 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $user2 = lmbActiveRecord :: findById('UserForTest', $user->getId());
 
     $collection = new lmbARManyToManyCollection('groups', $user2);
-    $this->assertEqual(sizeof($collection->getArray()), 0);
+    $this->assertEquals(sizeof($collection->getArray()), 0);
   }
 
   function testRemoveAllWithNonSavedOwner()
@@ -302,7 +302,7 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $collection->add($group2);
     $collection->removeAll();
 
-    $this->assertEqual($collection->count(), 0);
+    $this->assertEquals($collection->count(), 0);
   }
 
   function testRemoveAllDeletesOnlyProperRecordsFromTable()
@@ -324,7 +324,7 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
     $collection->removeAll();
 
-    $this->assertEqual($db_table->select()->count(), 1);
+    $this->assertEquals($db_table->select()->count(), 1);
   }
 
   function testPaginateWithNonSavedOwner()
@@ -342,12 +342,12 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
     $collection->paginate($offset = 0, $limit = 2);
 
-    $this->assertEqual($collection->count(), 3);
+    $this->assertEquals($collection->count(), 3);
     $arr = $collection->getArray();
 
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $group1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $group2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $group1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $group2->getTitle());
   }
 
   function testPaginateWithExistingOwner()
@@ -361,12 +361,12 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $collection = new lmbARManyToManyCollection('groups', $user);
     $collection->paginate($offset = 0, $limit = 2);
 
-    $this->assertEqual($collection->count(), 3);
+    $this->assertEquals($collection->count(), 3);
     $arr = $collection->getArray();
 
-    $this->assertEqual(sizeof($arr), 2);
-    $this->assertEqual($arr[0]->getTitle(), $group1->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $group2->getTitle());
+    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals($arr[0]->getTitle(), $group1->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $group2->getTitle());
   }
 
   function testSortWithExistingOwner()
@@ -383,13 +383,13 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $collection = new lmbARManyToManyCollection('groups', $user);
     $collection->sort(array('title' => 'DESC'));
 
-    $this->assertEqual($collection->count(), 3);
+    $this->assertEquals($collection->count(), 3);
     $arr = $collection->getArray();
 
-    $this->assertEqual(sizeof($arr), 3);
-    $this->assertEqual($arr[0]->getTitle(), $group3->getTitle());
-    $this->assertEqual($arr[1]->getTitle(), $group2->getTitle());
-    $this->assertEqual($arr[2]->getTitle(), $group1->getTitle());
+    $this->assertEquals(sizeof($arr), 3);
+    $this->assertEquals($arr[0]->getTitle(), $group3->getTitle());
+    $this->assertEquals($arr[1]->getTitle(), $group2->getTitle());
+    $this->assertEquals($arr[2]->getTitle(), $group1->getTitle());
   }
 
   function testSortWithNonSavedOwner()
@@ -409,9 +409,9 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $collection->add($group3);
 
     $collection->sort(array('title' => 'DESC'));
-    $this->assertEqual($collection->at(0)->getTitle(), 'C-Group');
-    $this->assertEqual($collection->at(1)->getTitle(), 'B-Group');
-    $this->assertEqual($collection->at(2)->getTitle(), 'A-Group');
+    $this->assertEquals($collection->at(0)->getTitle(), 'C-Group');
+    $this->assertEquals($collection->at(1)->getTitle(), 'B-Group');
+    $this->assertEquals($collection->at(2)->getTitle(), 'A-Group');
   }
 
   function testFindWithExistingOwner()
@@ -423,8 +423,8 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $user = $this->_createUserAndSave(array($group1, $group2, $group3));
 
     $groups = $user->getGroups()->find(lmbActiveRecord::getDefaultConnection()->quoteIdentifier("group_id") . "=" . $group1->getId());
-    $this->assertEqual($groups->count(), 1);
-    $this->assertEqual($groups->at(0)->getTitle(), $group1->getTitle());
+    $this->assertEquals($groups->count(), 1);
+    $this->assertEquals($groups->at(0)->getTitle(), $group1->getTitle());
   }
 
   function testFindWithNonSavedOwner_TODO()
@@ -450,7 +450,7 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $user = $this->_createUserAndSave(array($group1, $group2, $group3));
 
     $group = $user->getGroups()->findFirst(lmbActiveRecord::getDefaultConnection()->quoteIdentifier("group_id") . "=" . $group1->getId() . " OR " . lmbActiveRecord::getDefaultConnection()->quoteIdentifier("group_id") . "=" . $group2->getId());
-    $this->assertEqual($group->getTitle(), $group1->getTitle());
+    $this->assertEquals($group->getTitle(), $group1->getTitle());
   }
 
   function testFindFirstWithNonSavedOwner_TODO()
@@ -476,9 +476,9 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $user = $this->_createUserAndSave(array($group1, $group2, $group3));
     $collection = new lmbARManyToManyCollection('groups', $user);
 
-    $this->assertEqual($collection->at(0)->getTitle(), $group1->getTitle());
-    $this->assertEqual($collection->at(2)->getTitle(), $group3->getTitle());
-    $this->assertEqual($collection->at(1)->getTitle(), $group2->getTitle());
+    $this->assertEquals($collection->at(0)->getTitle(), $group1->getTitle());
+    $this->assertEquals($collection->at(2)->getTitle(), $group3->getTitle());
+    $this->assertEquals($collection->at(1)->getTitle(), $group2->getTitle());
   }
 
   function testSet()
@@ -492,9 +492,9 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
     $collection->set(array($group1, $group3));
 
-    $this->assertEqual($collection->count(), 2);
-    $this->assertEqual($collection->at(0)->getTitle(), $group1->getTitle());
-    $this->assertEqual($collection->at(1)->getTitle(), $group3->getTitle());
+    $this->assertEquals($collection->count(), 2);
+    $this->assertEquals($collection->at(0)->getTitle(), $group1->getTitle());
+    $this->assertEquals($collection->at(1)->getTitle(), $group3->getTitle());
   }
   
   function testSetDontReInsertSameRecordsIfTheyExists()
@@ -508,17 +508,17 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     
     $table = lmbDBAL :: table('user_for_test2group_for_test', $this->conn);
     $records = $table->select()->getArray();
-    $this->assertEqual(count($records), 3);
+    $this->assertEquals(count($records), 3);
     
     $collection = new lmbARManyToManyCollection('groups', $user);
     $collection->set(array($group1, $group2, $group3, $group4));
 
     $new_records = $table->select()->getArray();
-    $this->assertEqual(count($new_records), 4);
-    $this->assertEqual($records[0]['id'], $new_records[0]['id']);
-    $this->assertEqual($records[1]['id'], $new_records[1]['id']);
-    $this->assertEqual($records[2]['id'], $new_records[2]['id']);
-    $this->assertEqual($new_records[3]['user_id'], $user->getId());
+    $this->assertEquals(count($new_records), 4);
+    $this->assertEquals($records[0]['id'], $new_records[0]['id']);
+    $this->assertEquals($records[1]['id'], $new_records[1]['id']);
+    $this->assertEquals($records[2]['id'], $new_records[2]['id']);
+    $this->assertEquals($new_records[3]['user_id'], $user->getId());
   }
   
   function testRemove_DeleteRecordAndCleanUpInternalIterator()
@@ -530,11 +530,11 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $user = $this->_createUserAndSave(array($group1, $group2, $group3));
     $groups = $user->getGroups();
     $arr = $groups->getArray();
-    $this->assertEqual(count($arr), 3);
+    $this->assertEquals(count($arr), 3);
     
     $groups->remove($group2);
     $arr = $groups->getArray();
-    $this->assertEqual(count($arr), 2);
+    $this->assertEquals(count($arr), 2);
   }
 
   protected function _initUser($groups = array())

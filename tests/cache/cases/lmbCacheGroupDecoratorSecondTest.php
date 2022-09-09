@@ -56,8 +56,8 @@ class lmbCacheGroupDecoratorSecondTest extends TestCase
     $a_read=$cache1->get('bara',array('group'=>'bar_group'));
     $b_read=$cache1->get('barb',array('group'=>'bar_group'));
 
-    $this->assertEqual($a_read, $a);
-    $this->assertEqual($b_read, $b);
+    $this->assertEquals($a_read, $a);
+    $this->assertEquals($b_read, $b);
   }
 
 
@@ -75,8 +75,8 @@ class lmbCacheGroupDecoratorSecondTest extends TestCase
     $a_read=$cache1->get('bara',array('group'=>'bar_group'));
     $b_read=$cache1->get('barb',array('group'=>'bar_group'));
 
-    $this->assertEqual($a_read, $a);
-    $this->assertEqual($b_read, $b);
+    $this->assertEquals($a_read, $a);
+    $this->assertEquals($b_read, $b);
 
     $a=SomeClass::Foo('a');
     $b=SomeClass::Foo('b');
@@ -96,8 +96,8 @@ class lmbCacheGroupDecoratorSecondTest extends TestCase
     $a_read=$cache1->get('bara',array('group'=>'bar_group'));
     $b_read=$cache1->get('barb',array('group'=>'bar_group'));
 
-    $this->assertEqual($a_read, $a);
-    $this->assertEqual($b_read, $b);
+    $this->assertEquals($a_read, $a);
+    $this->assertEquals($b_read, $b);
 
     $a=SomeClass::Foo('a');
     $b=SomeClass::Foo('b');
@@ -111,8 +111,8 @@ class lmbCacheGroupDecoratorSecondTest extends TestCase
     $a_read=$cache1->get('bara',array('group'=>'bar_group'));
     $b_read=$cache1->get('barb',array('group'=>'bar_group'));
 
-    $this->assertEqual($a_read, $a);
-    $this->assertEqual($b_read, $b);
+    $this->assertEquals($a_read, $a);
+    $this->assertEquals($b_read, $b);
 
   }
 }

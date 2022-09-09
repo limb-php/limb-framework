@@ -25,13 +25,13 @@ class lmbUpdateQueryTest extends lmbQueryBaseTestCase
     $rs = $this->db->select('test_db_table');
     $rs->rewind();
     $record = $rs->current();
-    $this->assertEqual($record->get('title'), $title);
-    $this->assertEqual($record->get('description'), $description);
+    $this->assertEquals($record->get('title'), $title);
+    $this->assertEquals($record->get('description'), $description);
     
     $rs->next();
     $record = $rs->current();
-    $this->assertEqual($record->get('title'), $title);
-    $this->assertEqual($record->get('description'), $description);
+    $this->assertEquals($record->get('title'), $title);
+    $this->assertEquals($record->get('description'), $description);
   }
 
   function testUpdateAddFieldWithoutValueOnlyReservesAPlaceholder()
@@ -50,8 +50,8 @@ class lmbUpdateQueryTest extends lmbQueryBaseTestCase
     $rs = $this->db->select('test_db_table');
     $rs->rewind();
     $record = $rs->current();
-    $this->assertEqual($record->get('title'), $title);
-    $this->assertEqual($record->get('description'), $description);
+    $this->assertEquals($record->get('title'), $title);
+    $this->assertEquals($record->get('description'), $description);
   }
 
 //  function testUpdateSpecialCase()
@@ -67,7 +67,7 @@ class lmbUpdateQueryTest extends lmbQueryBaseTestCase
 //    $rs = $this->db->select('test_db_table');
 //    $rs->rewind();
 //    $record = $rs->current();
-//    $this->assertEqual($record->get('id'), $startId + 1);
+//    $this->assertEquals($record->get('id'), $startId + 1);
 //  }
 
   function testUpdateWithCriteria()
@@ -86,15 +86,15 @@ class lmbUpdateQueryTest extends lmbQueryBaseTestCase
     $rs = $this->db->select('test_db_table');
     $rs->rewind();
     $record = $rs->current(); //this one is not changed
-    $this->assertEqual($record->get('id'), $startId);
-    $this->assertEqual($record->get('title'), '');
-    $this->assertEqual($record->get('description'), '');
+    $this->assertEquals($record->get('id'), $startId);
+    $this->assertEquals($record->get('title'), '');
+    $this->assertEquals($record->get('description'), '');
 
     $rs->next();
     $record = $rs->current();
-    $this->assertEqual($record->get('id'), $startId+1);
-    $this->assertEqual($record->get('title'), $title);
-    $this->assertEqual($record->get('description'), $description);
+    $this->assertEquals($record->get('id'), $startId+1);
+    $this->assertEquals($record->get('title'), $title);
+    $this->assertEquals($record->get('description'), $description);
   }
 
   function testChaining()
@@ -115,15 +115,15 @@ class lmbUpdateQueryTest extends lmbQueryBaseTestCase
     $rs = $this->db->select('test_db_table');
     $rs->rewind();
     $record = $rs->current(); //this one is not changed
-    $this->assertEqual($record->get('id'), $startId);
-    $this->assertEqual($record->get('title'), '');
-    $this->assertEqual($record->get('description'), '');
+    $this->assertEquals($record->get('id'), $startId);
+    $this->assertEquals($record->get('title'), '');
+    $this->assertEquals($record->get('description'), '');
 
     $rs->next();
     $record = $rs->current();
-    //$this->assertEqual($record->get('id'), $startId + 11);
-    $this->assertEqual($record->get('title'), $title);
-    $this->assertEqual($record->get('description'), $description);
+    //$this->assertEquals($record->get('id'), $startId + 11);
+    $this->assertEquals($record->get('title'), $title);
+    $this->assertEquals($record->get('description'), $description);
   }
 }
 

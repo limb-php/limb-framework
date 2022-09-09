@@ -27,10 +27,10 @@ class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTest
     $this->assertFalse($add_value);
 
     $cache_value = $this->cache->get($key);
-    $this->assertEqual($cache_value, $v1);
+    $this->assertEquals($cache_value, $v1);
 
     $cache_value = $this->cache->get($key, array('group' => 'test-group'));
-    $this->assertEqual($cache_value, $v2);
+    $this->assertEquals($cache_value, $v2);
   }
 
   function testRawPutToCacheWithGroup()
@@ -44,10 +44,10 @@ class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTest
     $this->assertFalse($add_value);
 
     $cache_value = $this->cache->get($key, array('raw' => 1));
-    $this->assertEqual($cache_value, $v1);
+    $this->assertEquals($cache_value, $v1);
 
     $cache_value = $this->cache->get($key, array('group' => 'test-group', 'raw' => 1));
-    $this->assertEqual($cache_value, $v2);
+    $this->assertEquals($cache_value, $v2);
   }
 
   
@@ -62,7 +62,7 @@ class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTest
     $this->assertFalse($this->cache->get($key, array('group' => 'test-group')));
 
     $var = $this->cache->get($key);
-    $this->assertEqual($var, $v1);
+    $this->assertEquals($var, $v1);
   }
   
   //skip specific fileBackend test

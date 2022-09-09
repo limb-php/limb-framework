@@ -26,7 +26,7 @@ class lmbMacroTemplateMailTest extends lmbBaseMacroTest
     $mail->set('text', 'test_text');
     $mailer = $mail->sendTo('test@mail.com', 'test subject');
     
-    $this->assertEqual($mailer->html, 'test_text');
+    $this->assertEquals($mailer->html, 'test_text');
   }
   
   function testMailTemplateWithMailpartTags()
@@ -50,8 +50,8 @@ class lmbMacroTemplateMailTest extends lmbBaseMacroTest
     $mail->set('html', 'test_html');
     $mailer = $mail->sendTo('test@mail.com');
     
-    $this->assertEqual($mailer->subject, 'test_subject');
-    $this->assertEqual($mailer->html, '<h1>test_html</h1>');
-    $this->assertEqual($mailer->text, 'TXT');
+    $this->assertEquals($mailer->subject, 'test_subject');
+    $this->assertEquals($mailer->html, '<h1>test_html</h1>');
+    $this->assertEquals($mailer->text, 'TXT');
   }
 }

@@ -36,8 +36,8 @@ class lmbMacroTagTest extends TestCase
   function testGetAttribute()
   {
     $this->node->set('foo', 'bar');
-    $this->assertEqual($this->node->get('foo'), 'bar');
-    $this->assertEqual($this->node->get('FOO'), 'bar');
+    $this->assertEquals($this->node->get('foo'), 'bar');
+    $this->assertEquals($this->node->get('FOO'), 'bar');
   }
 
   function testHasAttribute()
@@ -66,7 +66,7 @@ class lmbMacroTagTest extends TestCase
     $this->node->set('foo', 'value1');
     $this->node->set('zoo', 'value2');
     $this->node->set('tricky', '$this->bar');
-    $this->assertEqual($this->node->getConstantAttributes(), array('foo' => 'value1', 'zoo' => 'value2'));
+    $this->assertEquals($this->node->getConstantAttributes(), array('foo' => 'value1', 'zoo' => 'value2'));
   }
 
   function testRemoveAttribute()
@@ -112,13 +112,13 @@ class lmbMacroTagTest extends TestCase
   function testGetNodeId()
   {
     $this->node->setNodeId('Test');
-    $this->assertEqual($this->node->getNodeId(), 'Test');
+    $this->assertEquals($this->node->getNodeId(), 'Test');
   }
 
   function testGetNodeIdGenerated()
   {
     $id = $this->node->getNodeId();
-    $this->assertEqual($this->node->getNodeId(), $id);
+    $this->assertEquals($this->node->getNodeId(), $id);
   }
   
   function testGetNodeIdByDefault()
@@ -129,7 +129,7 @@ class lmbMacroTagTest extends TestCase
   function testGetNodeId_ByIdAttribute()
   {
     $this->node->set('id', 'my_tag');
-    $this->assertEqual($this->node->getNodeId(), 'my_tag');
+    $this->assertEquals($this->node->getNodeId(), 'my_tag');
   }
 
   function testGetNodeId_DontUseDynamicIdAttribute()
@@ -175,7 +175,7 @@ class lmbMacroTagTest extends TestCase
     catch(lmbMacroException $e)
     {
       $this->assertWantedPattern('/Missing required attribute/', $e->getMessage());
-      $this->assertEqual($e->getParam('attribute'), 'bar');
+      $this->assertEquals($e->getParam('attribute'), 'bar');
     }
   }
 
@@ -197,8 +197,8 @@ class lmbMacroTagTest extends TestCase
     catch(lmbMacroException $e)
     {
       $this->assertWantedPattern('/Tag cannot be nested within the same tag/', $e->getMessage());
-      $this->assertEqual($e->getParam('same_tag_file'), 'my_file');
-      $this->assertEqual($e->getParam('same_tag_line'), 10);
+      $this->assertEquals($e->getParam('same_tag_file'), 'my_file');
+      $this->assertEquals($e->getParam('same_tag_line'), 10);
     }
   }
 
@@ -227,9 +227,9 @@ class lmbMacroTagTest extends TestCase
     catch(lmbMacroException $e)
     {
       $this->assertWantedPattern('/Tag must be enclosed by a proper parent tag/', $e->getMessage());
-      $this->assertEqual($e->getParam('required_parent_tag_class'), 'MacroTagClass1CompilerTest');
-      $this->assertEqual($e->getParam('file'), $this->source_location->getFile());
-      $this->assertEqual($e->getParam('line'), $this->source_location->getLine());
+      $this->assertEquals($e->getParam('required_parent_tag_class'), 'MacroTagClass1CompilerTest');
+      $this->assertEquals($e->getParam('file'), $this->source_location->getFile());
+      $this->assertEquals($e->getParam('line'), $this->source_location->getLine());
     }
   }
 }
