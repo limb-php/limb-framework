@@ -8,6 +8,8 @@
  */
 //inspired by http://alexandre.alapetite.net/doc-alex/php-http-304/
 
+namespace limb\net\src;
+
 /**
  * class lmbHttpCache.
  *

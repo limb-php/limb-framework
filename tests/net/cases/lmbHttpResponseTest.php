@@ -6,10 +6,13 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/net/src/lmbHttpRedirectStrategy.class.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\net\src\lmbHttpRedirectStrategy;
+use limb\net\src\lmbHttpResponse;
 
 Mock :: generatePartial(
-  'lmbHttpResponse',
+  lmbHttpResponse::class,
   'SpecialMockResponse',
   array('_sendHeader',
         '_sendCookie',

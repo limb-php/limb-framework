@@ -6,10 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/net/src/lmbHttpResponse.class.php');
-lmb_require('limb/net/src/lmbHttpCache.class.php');
 
-Mock :: generate('lmbHttpResponse', 'MockHttpResponse');
+use PHPUnit\Framework\TestCase;
+use limb\net\src\lmbHttpResponse;
+use limb\net\src\lmbHttpCache;
+
+Mock :: generate(lmbHttpResponse::class, 'MockHttpResponse');
 
 class lmbHttpCacheTest extends TestCase
 {
@@ -17,14 +19,14 @@ class lmbHttpCacheTest extends TestCase
   var $cache;
   var $server_vars;
 
-  function setUp()
+  function setUp(): void
   {
     $this->response = new MockHttpResponse();
     $this->cache = new lmbHttpCache();
     $this->server_vars = $_SERVER;
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $_SERVER = $this->server_vars;
   }
