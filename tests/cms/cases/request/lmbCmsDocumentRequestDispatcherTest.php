@@ -6,8 +6,8 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/cms/src/request/lmbCmsDocumentRequestDispatcher.class.php');
-lmb_require('limb/web_app/src/request/lmbRoutes.class.php');
+use limb\cms\src\request\lmbCmsDocumentRequestDispatcher;
+use limb\web_app\src\request\lmbRoutes;
 
 class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
 {

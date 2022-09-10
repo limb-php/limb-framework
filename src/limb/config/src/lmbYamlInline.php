@@ -8,7 +8,7 @@
  */
 namespace limb\config\src;
 
-use lmbYaml;
+use limb\config\src\lmbYaml;
 
 /**
  * lmbYamlInline implements a YAML parser/dumper for the YAML inline syntax.

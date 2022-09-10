@@ -1,6 +1,6 @@
 <?php
 
-lmb_require('limb/cms/tests/cases/lmbCmsTestCase.class.php');
+use limb\cms\tests\cases\lmbCmsTestCase;
 
 class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
 {

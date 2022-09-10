@@ -6,21 +6,25 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/config/src/lmbCachedIni.class.php');
-lmb_require('limb/fs/src/lmbFs.class.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\config\src\lmbCachedIni;
+use limb\fs\src\lmbFs;
+
+require '.setup.php';
 
 class lmbCachedIniCachingTest extends TestCase
 {
   var $cache_dir;
 
-  function setUp()
+  function setUp(): void
   {
     $this->cache_dir = lmb_var_dir() . '/ini/';
     lmbFs :: rm($this->cache_dir);
     lmbFs :: mkdir(lmb_var_dir() . '/tmp_ini/');
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     lmbFs :: rm(lmb_var_dir() . '/tmp_ini/');
     lmbFs :: rm($this->cache_dir);

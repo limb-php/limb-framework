@@ -6,8 +6,8 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/cache2/src/drivers/lmbCacheDbConnection.class.php');
-lmb_require(dirname(__FILE__) . '/lmbCacheConnectionTest.class.php');
+
+use limb\cache2\src\drivers\lmbCacheDbConnection;
 require_once('limb/dbal/tests/cases/init.inc.php');
 
 class lmbCacheDbConnectionTest extends lmbCacheConnectionTest

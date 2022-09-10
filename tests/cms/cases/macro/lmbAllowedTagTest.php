@@ -1,9 +1,9 @@
 <?php
-lmb_require('limb/cms/src/macro/allowed.tag.php');
-lmb_require('limb/macro/src/lmbMacroTemplate.class.php');
-lmb_require('limb/macro/tests/cases/lmbBaseMacroTest.class.php');
-lmb_require('limb/toolkit/src/lmbAbstractTools.class.php');
-lmb_require('limb/acl/src/lmbRoleProviderInterface.interface.php');
+use limb\cms\src\macro\AllowedTag;
+use limb\macro\src\lmbMacroTemplate;
+use limb\macro\tests\cases\lmbBaseMacroTest;
+use limb\toolkit\src\lmbAbstractTools;
+use limb\acl\src\lmbRoleProviderInterface;
 
 class TestsRoleProvider implements lmbRoleProviderInterface
 {

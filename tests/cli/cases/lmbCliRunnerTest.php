@@ -6,10 +6,11 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/fs/src/lmbFs.class.php');
-lmb_require('limb/cli/src/lmbCliResponse.class.php');
-lmb_require('limb/cli/src/lmbCliInput.class.php');
-lmb_require('limb/cli/src/lmbCliRunner.class.php');
+
+use limb\fs\src\lmbFs;
+use limb\cli\src\lmbCliResponse;
+use limb\cli\src\lmbCliInput;
+use limb\cli\src\lmbCliRunner;
 
 class lmbCliRunnerTest extends TestCase
 {

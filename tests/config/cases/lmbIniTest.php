@@ -7,6 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbIni;
 use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;
@@ -15,12 +16,12 @@ lmbEnv::setor('INI_TEST_UNIQUE_CONSTANT', '*constant*');
 
 class lmbIniTest extends TestCase
 {
-  function setUp()
+  function setUp(): void
   {
     lmbFs :: mkdir(lmb_var_dir() . '/tmp_ini');
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     lmbFs :: rm(lmb_var_dir() . '/tmp_ini');
   }

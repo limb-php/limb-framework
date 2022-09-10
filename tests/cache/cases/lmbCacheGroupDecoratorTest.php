@@ -6,8 +6,8 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require(dirname(__FILE__) . '/lmbCacheFileBackendTest.class.php');
-lmb_require('limb/cache/src/lmbCacheGroupDecorator.class.php');
+
+use limb\cache\src\lmbCacheGroupDecorator;
 
 class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTest
 {

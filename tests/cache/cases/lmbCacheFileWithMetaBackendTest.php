@@ -7,8 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-lmb_require('limb/cache/src/lmbCacheFileWithMetaBackend.class.php');
-lmb_require(dirname(__FILE__) . '/lmbCacheFileBackendTest.class.php');
+use limb\cache\src\lmbCacheFileWithMetaBackend;
 
 class lmbCacheFileWithMetaBackendTest extends lmbCacheFileBackendTest
 {

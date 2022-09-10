@@ -7,8 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-lmb_require('limb/cache2/src/drivers/lmbCacheMemoryConnection.class.php');
-lmb_require(dirname(__FILE__) . '/lmbCacheFileConnectionTest.class.php');
+use limb\cache2\src\drivers\lmbCacheMemoryConnection;
 
 class lmbCacheFileConnectionWithoutSerializationTest extends lmbCacheFileConnectionTest
 {

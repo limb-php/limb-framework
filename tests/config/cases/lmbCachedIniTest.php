@@ -7,7 +7,11 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbCachedIni;
+use limb\fs\src\lmbFs;
+
+require ('lmbIniTest.php');
 
 class lmbCachedIniTest extends lmbIniTest
 {

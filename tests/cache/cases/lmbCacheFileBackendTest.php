@@ -7,8 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-lmb_require('limb/cache/src/lmbCacheFileBackend.class.php');
-lmb_require(dirname(__FILE__) . '/lmbCacheBackendTest.class.php');
+use limb\cache\src\lmbCacheFileBackend;
+use limb\fs\src\lmbFs;
 
 class lmbCacheFileBackendTest extends lmbCacheBackendTest
 {

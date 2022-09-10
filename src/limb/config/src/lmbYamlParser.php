@@ -8,7 +8,7 @@
  */
 namespace limb\config\src;
 
-use lmbYamlInline;
+use limb\config\src\lmbYamlInline;
 
 if (!defined('PREG_BAD_UTF8_OFFSET_ERROR'))
 {

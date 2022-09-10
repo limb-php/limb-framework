@@ -6,8 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
-lmb_require('limb/config/src/lmbConfTools.class.php');
-lmb_require('limb/core/src/lmbSet.class.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\toolkit\src\lmbToolkit;
+use limb\config\src\toolkit\lmbConfTools;
+use limb\core\src\lmbSet;
+use limb\fs\src\lmbFs;
 
 class lmbConfToolsTest extends TestCase
 {
@@ -19,7 +23,7 @@ class lmbConfToolsTest extends TestCase
   protected $application_configs_dir;
   protected $package_configs_dir;
 
-  function setUp()
+  function setUp(): void
   {
     lmbToolkit :: save();
     $this->toolkit = lmbToolkit :: merge(new lmbConfTools());
@@ -34,7 +38,7 @@ class lmbConfToolsTest extends TestCase
     $this->toolkit->setConfIncludePath($tests_include_apth);
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     lmbToolkit :: restore();
     lmbFs::rm($this->application_configs_dir);

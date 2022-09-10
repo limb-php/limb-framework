@@ -1,8 +1,8 @@
 <?php
 
-lmb_require('limb/cms/tests/cases/lmbCmsTestCase.class.php');
-lmb_require('limb/validation/src/lmbErrorList.class.php');
-require ('limb/cms/src/validation/rule/lmbTreeUniqueIdentifierRule.class.php');
+use limb\cms\tests\cases\lmbCmsTestCase;
+use limb\validation\src\lmbErrorList;
+use limb\cms\src\validation\rule\lmbTreeUniqueIdentifierRule;
 
 Mock::generate('lmbErrorList', 'MockErrorList');
 

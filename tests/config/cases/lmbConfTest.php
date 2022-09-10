@@ -6,8 +6,13 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/config/src/lmbConf.class.php');
-lmb_require('limb/fs/src/lmbFs.class.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\config\src\lmbConf;
+use limb\fs\src\lmbFs;
+use limb\fs\src\exception\lmbFileNotFoundException;
+use limb\core\src\exception\lmbNoSuchPropertyException;
+use limb\core\src\exception\lmbInvalidArgumentException;
 
 class lmbConfTest extends TestCase
 {
@@ -74,7 +79,7 @@ EOD;
     }
     catch (lmbFileNotFoundException $e)
     {
-      $this->pass();
+      $this->assertTrue(true);
     }
   }
 
@@ -88,7 +93,7 @@ EOD;
     }
     catch (lmbNoSuchPropertyException $e)
     {
-      $this->pass();
+        $this->assertTrue(true);
     }
   }
 
@@ -102,7 +107,7 @@ EOD;
     }
     catch(lmbInvalidArgumentException $e)
     {
-      $this->pass();
+        $this->assertTrue(true);
     }
   }
 
