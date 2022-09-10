@@ -40,25 +40,21 @@ class lmbAclAllowsTest extends TestCase
     $this->acl->addResource('news');
 
     try {
-      $this->acl->isAllowed('guest', 'not exist', 'view');
-      $this->fail();
+      $this->acl->isAllowed('guest', 'NOT EXIST', 'view');
+        $this->assertTrue(false);
     } catch (lmbAclException $e) {
-      $this->pass();
+        $this->assertTrue(true);
     }
 
     try {
-      $this->acl->isAllowed('not exist', 'news', 'view');
-      $this->fail();
+        $this->acl->isAllowed('NOT EXIST', 'news', 'view');
+        $this->assertTrue(false);
     } catch (lmbAclException $e) {
-      $this->pass();
+        $this->assertTrue(true);
     }
 
-    try {
-      $this->acl->isAllowed('guest', 'news', 'view');
-      $this->pass();
-    } catch (lmbAclException $e) {
-      $this->fail();
-    }
+
+    $this->assertFalse( $this->acl->isAllowed('guest', 'news', 'view') );
   }
 
   function testDefaultDeny()

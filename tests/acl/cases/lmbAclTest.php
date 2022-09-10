@@ -42,7 +42,7 @@ class lmbAclTest extends TestCase
     }
     catch (\Exception $e)
     {
-      $this->pass();
+        $this->assertTrue(true);
     }
   }
 
@@ -68,7 +68,7 @@ class lmbAclTest extends TestCase
       $this->acl->addRole('guest','tiabaltu');
       $this->fail();
     } catch(lmbAclException $e) {
-      $this->pass();
+        $this->assertTrue(true);
     }
   }
 
@@ -104,7 +104,7 @@ class lmbAclTest extends TestCase
     }
     catch (\Exception $e)
     {
-      $this->pass();
+        $this->assertTrue(true);
     }
   }
 
@@ -130,7 +130,7 @@ class lmbAclTest extends TestCase
       $this->acl->addResource('content','tiabaltu');
       $this->fail();
     } catch(lmbAclException $e) {
-      $this->pass();
+        $this->assertTrue(true);
     }
   }
 

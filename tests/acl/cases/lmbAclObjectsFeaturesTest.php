@@ -72,7 +72,7 @@ class Acl_Tests_Article implements lmbRolesResolverInterface, lmbResourceProvide
   }
 }
 
-class lmbAclObjectsFeatureTest extends TestCase
+class lmbAclObjectsFeaturesTest extends TestCase
 {
   protected $acl;
 
