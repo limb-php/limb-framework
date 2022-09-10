@@ -8,6 +8,8 @@
  */
 namespace limb\core\src;
 
+use limb\core\src\exception\lmbException;
+
 /**
  * class lmbMixable.
  *

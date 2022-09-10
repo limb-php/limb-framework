@@ -7,6 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+require ('.setup.php');
+require ('lmbTestHandleClass.php');
+
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbHandle;
 

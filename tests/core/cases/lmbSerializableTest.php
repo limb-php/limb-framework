@@ -12,8 +12,6 @@ use limb\core\src\lmbSerializable;
 use limb\core\src\exception\lmbException;
 use limb\core\src\lmbEnv;
 
-require(dirname(__FILE__) . '/serializable_stubs.inc.php');
-
 class lmbSerializableTest extends TestCase
 {
   function testSerializeUnserialize()
@@ -32,14 +30,14 @@ class lmbSerializableTest extends TestCase
     //generating class and placing it in a temp dir
     $var_dir = lmbEnv::get('LIMB_VAR_DIR');
     $class = 'Foo' . mt_rand();
-    file_put_contents("$var_dir/foo.php", "<?php class $class { function say() {return 'hello';} }");
+    file_put_contents("$var_dir/" . $class . ".php", "<?php class $class { function say() {return 'hello';} }");
 
     //adding temp dir to include path
     $prev_inc_path = get_include_path();
     set_include_path($var_dir . PATH_SEPARATOR . get_include_path());
 
     //including class and serializing it
-    include('foo.php');
+    include($class . '.php');
     $foo = new $class();
     $container = new lmbSerializable($foo);
     $file = $this->_writeToFile(serialize($container));
@@ -47,7 +45,7 @@ class lmbSerializableTest extends TestCase
     //now moving generated class's file into subdir
     $new_dir = mt_rand();
     mkdir("$var_dir/$new_dir");
-    rename("$var_dir/foo.php", "$var_dir/$new_dir/foo.php");
+    rename("$var_dir/" . $class . ".php", "$var_dir/$new_dir/" . $class . ".php");
 
     //emulating new include path settings
     $this->assertEquals($this->_phpSerializedObjectCall($file, '->say()', "$var_dir/$new_dir"), $foo->say());
@@ -60,14 +58,14 @@ class lmbSerializableTest extends TestCase
     //generating class and placing it in a temp dir
     $var_dir = lmbEnv::get('LIMB_VAR_DIR');
     $class = 'Foo' . mt_rand();
-    file_put_contents("$var_dir/foo.php", "<?php class $class { function say() {return 'hello';} }");
+    file_put_contents("$var_dir/" . $class . ".php", "<?php class $class { function say() {return 'hello';} }");
 
     //adding temp dir to include path
     $prev_inc_path = get_include_path();
     set_include_path("$var_dir//" . PATH_SEPARATOR . get_include_path());
 
     //including class and serializing it
-    include('foo.php');
+    include($class . '.php');
     $foo = new $class();
     $container = new lmbSerializable($foo);
     $file = $this->_writeToFile(serialize($container));
@@ -75,7 +73,7 @@ class lmbSerializableTest extends TestCase
     //now moving generated class's file into subdir
     $new_dir = mt_rand();
     mkdir("$var_dir/$new_dir");
-    rename("$var_dir/foo.php", "$var_dir/$new_dir/foo.php");
+    rename("$var_dir/" . $class . ".php", "$var_dir/$new_dir/" . $class . ".php");
 
     //emulating new include path settings
     $this->assertEquals($this->_phpSerializedObjectCall($file, '->say()', "$var_dir/$new_dir"), $foo->say());
@@ -85,30 +83,20 @@ class lmbSerializableTest extends TestCase
 
   function testSerializingUnserializeInternalClassThrowsException()
   {
-    if(class_exists('StdObject'))
-    {
-      $std_class = 'StdObject';
-    }
-    elseif(class_exists('stdClass'))
-    {
-      $std_class = 'stdClass';
-    } else {
-      echo "Notice: Could not check internal class serializing \n";
-      return;
-    }
+      $function = function () {
+          return "ABC";
+      };
 
-    $obj = new $std_class;
-    $obj->foo = "foo";
-    $container = new lmbSerializable($obj);
+      $container = new lmbSerializable($function);
 
-    try
-    {
-      serialize($container);
-      $this->assertTrue(false);
-    }
-    catch(lmbException $e){
-
-    }
+      try
+      {
+          serialize($container);
+          $this->assertTrue(false);
+      }
+      catch(\Exception $e){
+          $this->assertTrue(true);
+      }
 
   }
 
@@ -121,7 +109,7 @@ class lmbSerializableTest extends TestCase
 
   function _phpSerializedObjectCall($file, $call, $include_path = '')
   {
-    $class_path = $this->_getClassPath('lmbSerializable');
+    $class_path = $this->_getClassPath(lmbSerializable::class);
 
     $cmd = "php -r \"require_once('$class_path');" .
            ($include_path != '' ? "set_include_path('$include_path');" : '') .

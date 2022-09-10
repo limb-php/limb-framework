@@ -147,7 +147,7 @@ class lmbMixableTest extends TestCase
       $this->assertFalse(true);
     }
     catch(lmbException $e){
-
+        $this->assertTrue(true);
     }
   }
 }
