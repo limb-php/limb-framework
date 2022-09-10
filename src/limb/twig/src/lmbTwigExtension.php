@@ -10,7 +10,9 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
   {
       return [
           new \Twig\TwigFunction('render', static::class.'::renderFragment', array('is_safe' => array('html'))),
-          new \Twig\TwigFunction('controller', static::class.'::controller'),
+          new \Twig\TwigFunction('render_controller', static::class.'::renderController', array('is_safe' => array('html'))),
+          new \Twig\TwigFunction('controller', static::class.'::callback'),
+          new \Twig\TwigFunction('callback', static::class.'::callback'),
           new \Twig\TwigFunction('file_exists', static::class.'::file_exists'),
           new \Twig\TwigFunction('copy_year', static::class.'::copy_year'),
           new \Twig\TwigFunction('form_datasource', static::class.'::form_datasource'),
@@ -68,18 +70,25 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
     }
   }
 
-  public static function renderFragment($uri, $options = array())
-  {
-    $strategy = isset($options['strategy']) ? $options['strategy'] : 'inline';
-    unset($options['strategy']);
+    public static function renderFragment($view, $options = array())
+    {
+        $strategy = $options['strategy'] ?? 'inline';
+        unset($options['strategy']);
 
-    return $uri->render($options);
-  }
+        return $view->render($options);
+    }
 
-  public static function controller($controller, $options = array())
-  {
-    return call_user_func($controller, $options);
-  }
+    public static function renderController($method, $options = array())
+    {
+        $view = call_user_func($method, $options);
+
+        return self::renderFragment($view, $options);
+    }
+
+    public static function callback($method, $options = array())
+    {
+        return call_user_func($method, $options);
+    }
 
   public static function file_exists($path, $options = array())
   {
