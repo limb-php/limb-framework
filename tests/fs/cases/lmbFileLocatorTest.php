@@ -6,17 +6,23 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/fs/src/lmbFileLocations.interface.php');
-lmb_require('limb/fs/src/lmbFileLocator.class.php');
-lmb_require('limb/fs/src/lmbFs.class.php');
 
-Mock :: generate('lmbFileLocations', 'MockFileLocaions');
+require ('.setup.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\fs\src\lmbFileLocationsInterface;
+use limb\fs\src\lmbFileLocator;
+use limb\fs\src\lmbFs;
+use limb\fs\src\exception\lmbFileNotFoundException;
 
 class lmbFileLocatorTest extends TestCase
 {
   function testLocateException()
   {
-    $locator = new lmbFileLocator($mock = new MockFileLocations());
+      $mock = $this->createMock(lmbFileLocationsInterface::class);
+      $mock->method('expectOnce');
+
+    $locator = new lmbFileLocator($mock);
 
     $params = array('whatever');
     $mock->expectOnce('getLocations', array($params));
@@ -32,7 +38,10 @@ class lmbFileLocatorTest extends TestCase
 
   function testLocateUsingLocations()
   {
-    $locator = new lmbFileLocator($mock = new MockFileLocations());
+      $mock = $this->createMock(lmbFileLocationsInterface::class);
+      $mock->method('expectOnce');
+
+      $locator = new lmbFileLocator($mock);
 
     $mock->expectOnce('getLocations');
     $mock->setReturnValue('getLocations',
@@ -45,7 +54,10 @@ class lmbFileLocatorTest extends TestCase
 
   function testSkipAbsoluteAliases()
   {
-    $locator = new lmbFileLocator($mock = new MockFileLocations());
+      $mock = $this->createMock(lmbFileLocationsInterface::class);
+      $mock->method('expectOnce');
+
+    $locator = new lmbFileLocator($mock);
 
     $mock->expectNever('getLocations');
 
@@ -55,7 +67,10 @@ class lmbFileLocatorTest extends TestCase
 
   function testLocateAll()
   {
-    $locator = new lmbFileLocator($mock = new MockFileLocations());
+      $mock = $this->createMock(lmbFileLocationsInterface::class);
+      $mock->method('expectOnce');
+
+    $locator = new lmbFileLocator($mock);
 
     $mock->expectOnce('getLocations');
     $mock->setReturnValue('getLocations',

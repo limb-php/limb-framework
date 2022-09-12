@@ -7,11 +7,11 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+require ('.setup.php');
+
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFileLocator;
 use limb\fs\src\lmbCachingFileLocator;
-
-Mock::generate('lmbFileLocator', 'MockFileLocator');
 
 class lmbCachingFileLocatorTest extends TestCase
 {
@@ -20,7 +20,8 @@ class lmbCachingFileLocatorTest extends TestCase
 
   function setUp(): void
   {
-    $this->wrapped_locator = new MockFileLocator();
+      $this->wrapped_locator = $this->createMock(lmbFileLocator::class);
+      $this->wrapped_locator->method('expectOnce');
 
     $this->locator = new lmbCachingFileLocator($this->wrapped_locator, LIMB_VAR_DIR);
     $this->locator->flushCache();

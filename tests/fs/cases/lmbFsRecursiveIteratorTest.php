@@ -6,8 +6,13 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/fs/src/lmbFsRecursiveIterator.class.php');
-lmb_require('limb/fs/src/lmbFs.class.php');
+
+require ('.setup.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\fs\src\lmbFsRecursiveIterator;
+use limb\fs\src\lmbFs;
+use limb\fs\src\exception\lmbFsException;
 
 class lmbFsRecursiveIteratorTest extends TestCase
 {

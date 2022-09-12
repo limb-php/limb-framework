@@ -6,16 +6,21 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/fs/src/lmbFileLocations.interface.php');
-lmb_require('limb/fs/src/lmbFileLocationsList.class.php');
 
-Mock :: generate('lmbFileLocations', 'MockFileLocations');
+require ('.setup.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\fs\src\lmbFileLocationsInterface;
+use limb\fs\src\lmbFileLocationsList;
+use limb\fs\src\lmbFs;
 
 class lmbFileLocationsListTest extends TestCase
 {
   function testGetLocations()
   {
-    $mock = new MockFileLocations();
+      $mock = $this->createMock(lmbFileLocationsInterface::class);
+      $mock->method('expectOnce');
+
     $mock->expectOnce('getLocations');
     $mock->setReturnValue('getLocations', array('path1', 'path2'));
 
@@ -32,7 +37,9 @@ class lmbFileLocationsListTest extends TestCase
 
   function testGetLocationsUseArrayInConstructor()
   {
-    $mock = new MockFileLocations();
+      $mock = $this->createMock(lmbFileLocationsInterface::class);
+      $mock->method('expectOnce');
+
     $mock->expectOnce('getLocations');
     $mock->setReturnValue('getLocations', array('path2', 'path3'));
 
@@ -49,11 +56,15 @@ class lmbFileLocationsListTest extends TestCase
 
   function testGetLocationsComplicatedTest()
   {
-    $mock1 = new MockFileLocations();
+      $mock1 = $this->createMock(lmbFileLocationsInterface::class);
+      $mock1->method('expectOnce');
+
     $mock1->expectOnce('getLocations');
     $mock1->setReturnValue('getLocations', array('path2', 'path3'));
 
-    $mock2 = new MockFileLocations();
+      $mock2 = $this->createMock(lmbFileLocationsInterface::class);
+      $mock2->method('expectOnce');
+
     $mock2->expectOnce('getLocations');
     $mock2->setReturnValue('getLocations', array('path4', 'path5'));
 
