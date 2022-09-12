@@ -576,6 +576,11 @@ class lmbActiveRecord extends lmbObject
     }
   }
 
+  public static function __callStatic($method, $parameters)
+  {
+    return (new static)->$method(...$parameters);
+  }
+
   public function __call($method, $args = array())
   {
     try
