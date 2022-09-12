@@ -102,6 +102,12 @@ class lmbARQuery extends lmbSelectRawQuery
     return $this;
   }
 
+  function order($field, $type='ASC')
+  {
+    $this->sort_params = [];
+    return $this->addOrder($field, $type);
+  }
+
   function getRecordSet()
   {
     $rs = parent :: getRecordSet();

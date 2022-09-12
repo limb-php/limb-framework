@@ -115,6 +115,7 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
 
   function order($field, $type='ASC')
   {
+    $this->_order = [];
     return $this->addOrder($field, $type);
   }
 
