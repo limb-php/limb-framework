@@ -98,6 +98,8 @@ class lmbARQuery extends lmbSelectRawQuery
       $this->sort_params = $this->sort_params + $field;
     else
       $this->sort_params[$field] = $type;
+
+    return $this;
   }
 
   function getRecordSet()
@@ -105,6 +107,7 @@ class lmbARQuery extends lmbSelectRawQuery
     $rs = parent :: getRecordSet();
     if($this->sort_params)
       $rs->sort($this->sort_params);
+
     return $rs;
   }
 
