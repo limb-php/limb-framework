@@ -9,6 +9,7 @@
 namespace limb\dbal\src;
 
 use limb\dbal\src\dump\lmbSQLDumpLoader;
+use limb\toolkit\src\lmbToolkit;
 
 /**
  * class lmbDbDump.
@@ -32,7 +33,7 @@ class lmbDbDump
     if($connection)
       $this->connection = $connection;
     else
-      $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+      $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
   }
 
   function load($file = null)
