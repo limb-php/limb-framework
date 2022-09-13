@@ -9,7 +9,7 @@
 namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbIndexInfo;
-use lmbMysqlTypeInfo;
+use limb\dbal\src\drivers\mysql\lmbMysqlTypeInfo;
 
 /**
  * class lmbMysqlIndexInfo.

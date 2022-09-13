@@ -8,7 +8,7 @@
  */
 namespace limb\dbal\src\drivers\sqlite;
 
-use limb\dbal\src\drivers\lmbDbManipulationStatementIinterface;
+use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
 
 /**
  * class lmbSqliteManipulationStatement.
@@ -16,7 +16,7 @@ use limb\dbal\src\drivers\lmbDbManipulationStatementIinterface;
  * @package dbal
  * @version $Id$
  */
-class lmbSqliteManipulationStatement extends lmbSqliteStatement implements lmbDbManipulationStatementIinterface
+class lmbSqliteManipulationStatement extends lmbSqliteStatement implements lmbDbManipulationStatementInterface
 {
   function getAffectedRowCount()
   {

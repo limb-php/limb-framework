@@ -9,7 +9,7 @@
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbColumnInfo;
-//use lmbSqliteTypeInfo;
+use limb\dbal\src\drivers\sqlite\lmbSqliteTypeInfo;
 
 /**
  * class lmbSqliteColumnInfo.

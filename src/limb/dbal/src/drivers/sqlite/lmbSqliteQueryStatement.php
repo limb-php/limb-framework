@@ -8,7 +8,7 @@
  */
 namespace limb\dbal\src\drivers\sqlite;
 
-use limb\dbal\src\drivers\lmbDbQueryStatementIinterface;
+use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
 
 /**
  * class lmbSqliteQueryStatement.
@@ -16,7 +16,7 @@ use limb\dbal\src\drivers\lmbDbQueryStatementIinterface;
  * @package dbal
  * @version $Id$
  */
-class lmbSqliteQueryStatement extends lmbSqliteStatement implements lmbDbQueryStatementIinterface
+class lmbSqliteQueryStatement extends lmbSqliteStatement implements lmbDbQueryStatementInterface
 {
   function getOneRecord()
   {

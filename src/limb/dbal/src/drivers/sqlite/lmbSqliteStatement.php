@@ -8,7 +8,7 @@
  */
 namespace limb\dbal\src\drivers\sqlite;
 
-use limb/dbal/src/drivers/lmbDbStatementInterface;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 
 /**
  * class lmbSqliteStatement.

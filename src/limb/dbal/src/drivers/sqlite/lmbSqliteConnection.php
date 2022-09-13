@@ -9,14 +9,7 @@
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbBaseConnection;
-//use(dirname(__FILE__) . '/lmbSqliteDbInfo.class.php');
-//use(dirname(__FILE__) . '/lmbSqliteQueryStatement.class.php');
-//use(dirname(__FILE__) . '/lmbSqliteInsertStatement.class.php');
-//use(dirname(__FILE__) . '/lmbSqliteDropStatement.class.php');
-//use(dirname(__FILE__) . '/lmbSqliteManipulationStatement.class.php');
-//use(dirname(__FILE__) . '/lmbSqliteStatement.class.php');
-//use(dirname(__FILE__) . '/lmbSqliteTypeInfo.class.php');
-//use(dirname(__FILE__) . '/lmbSqliteRecord.class.php');
+use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbSqliteConnection.
@@ -26,7 +19,7 @@ use limb\dbal\src\drivers\lmbDbBaseConnection;
  */
 class lmbSqliteConnection extends lmbDbBaseConnection
 {
-  protected $connectionId;
+  protected $connection;
   protected $in_transaction = false;
 
   function getType()
@@ -34,42 +27,47 @@ class lmbSqliteConnection extends lmbDbBaseConnection
     return 'sqlite';
   }
 
-  function getConnectionId()
+    function getConnectionId()
+    {
+        return $this->getConnection();
+    }
+
+  function getConnection()
   {
-    if(!is_resource($this->connectionId))
+    if(!is_resource($this->connection))
       $this->connect();
 
-    return $this->connectionId;
+    return $this->connection;
   }
 
   function connect()
   {
-    $this->connectionId = sqlite_open($this->config['database'], 0666, $error);
+    $this->connection = new \SQLite3($this->config['database'], 0666);
 
-    if($this->connectionId === false)
+    if($this->connection === false)
       $this->_raiseError();
   }
 
   function __wakeup()
   {
-    $this->connectionId = null;
+    $this->connection = null;
   }
 
   function disconnect()
   {
-    if(is_resource($this->connectionId))
+    if(is_resource($this->connection))
     {
-      sqlite_close($this->connectionId);
-      $this->connectionId = null;
+      \SQLite3::close($this->connection);
+      $this->connection = null;
     }
   }
 
   function _raiseError($sql = null)
   {
-    if(!$this->connectionId)
+    if(!$this->connection)
       throw new lmbDbException('Could not connect to database "' . $this->config['database'] . '"');
 
-    $errno = sqlite_last_error($this->connectionId);
+    $errno = $this->getConnection()->lastErrorCode();
 
     $info = array('driver' => 'sqlite');
     $info['errorno'] = $errno;
@@ -78,12 +76,12 @@ class lmbSqliteConnection extends lmbDbBaseConnection
     if(!is_null($sql))
       $info['sql'] = $sql;
 
-    throw new lmbDbException(sqlite_error_string($errno) . ' SQL: '. $sql, $info);
+    throw new lmbDbException($this->getConnection()->lastErrorMsg($errno) . ' SQL: '. $sql, $info);
   }
 
   function execute($sql)
   {
-    $result = sqlite_query($this->getConnectionId(), $sql);
+    $result = $this->getConnection()->query($sql);
     if($result === false)
       $this->_raiseError($sql);
 
@@ -168,13 +166,11 @@ class lmbSqliteConnection extends lmbDbBaseConnection
 
   function escape($string)
   {
-    return sqlite_escape_string($string);
+    return \SQLite3::escapeString($string);
   }
 
   function getSequenceValue($table, $colname)
   {
-    return sqlite_last_insert_rowid($this->connectionId);//???
+    return \SQLite3::lastInsertRowID();//???
   }
 }
-
-

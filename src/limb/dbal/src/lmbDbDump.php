@@ -40,7 +40,7 @@ class lmbDbDump
   {
     $type = $this->connection->getType();
 
-    $default_loader = 'lmbSQLDumpLoader';
+    $default_loader = lmbSQLDumpLoader::class;
     $loader = 'lmb' . ucfirst($type) . 'DumpLoader';
 
     if(file_exists(dirname(__FILE__) . '/dump/' . $loader . '.php'))
