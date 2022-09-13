@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+require ('.setup.php');
+
 use limb\active_record\src\lmbARManyToManyCollection;
 use limb\active_record\src\lmbActiveRecord;
 
@@ -28,7 +30,7 @@ class UserForTestWithSpecialRelationTable extends lmbActiveRecord
   protected $_has_many_to_many = array('groups' => array('field' => 'user_id',
                                                          'foreign_field' => 'group_id',
                                                          'table' => 'extended_user_for_test2group_for_test',
-                                                         'class' => 'GroupForTest'));
+                                                         'class' => GroupForTest::class));
 }
 
 class lmbARManyToManyCollectionTest extends lmbARBaseTestCase

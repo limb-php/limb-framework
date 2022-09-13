@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbSet;
 use limb\config\src\lmbConf;
@@ -24,7 +25,7 @@ class lmbDbToolsTest extends TestCase
   var $config;
   var $conn;
 
-  function setUp()
+  function setUp(): void
   {
     parent::setUp();
 

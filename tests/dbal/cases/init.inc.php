@@ -1,9 +1,14 @@
 <?php
 
-require_once('limb/core/tests/cases/init.inc.php');
+require_once('tests/core/cases/init.inc.php');
 
 use limb\core\src\lmbEnv;
 use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\lmbDbDump;
+use limb\dbal\src\lmbSimpleDb;
+use limb\dbal\src\toolkit\lmbDbTools;
+
+lmbToolkit::merge(new lmbDbTools());
 
 function lmb_tests_init_db_dsn()
 {
@@ -48,7 +53,7 @@ function lmb_tests_setup_db($prefix)
     return;
 
   $file = realpath($prefix.$type);
-  lmb_require('limb/dbal/src/lmbDbDump.class.php');
+
   $dump = new lmbDbDump($file);
   $dump->load();
 
@@ -58,7 +63,7 @@ function lmb_tests_setup_db($prefix)
 function lmb_tests_teardown_db()
 {
   $conn = lmbToolkit :: instance()->getDefaultDbConnection();
-  lmb_require('limb/dbal/src/lmbSimpleDb.class.php');
+
   $db = new lmbSimpleDb($conn);
   $db->truncateDb();
   echo "INFO: Database was cleaned up\n";
