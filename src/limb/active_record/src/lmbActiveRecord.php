@@ -215,7 +215,7 @@ class lmbActiveRecord extends lmbObject
     if(is_object($conn))
       $this->_db_conn = $conn;
     else
-      $this->_db_conn = self :: getDefaultConnection();
+      $this->_db_conn = self::getDefaultConnection();
 
     $this->_db_conn_dsn = $this->_db_conn->getDsnString();
 
@@ -224,12 +224,12 @@ class lmbActiveRecord extends lmbObject
     if(!$this->_db_table_name)
       $this->_db_table_name = lmbString::under_scores($class_name);
 
-    if(isset(self :: $_metas[$class_name]))
-      $meta = self :: $_metas[$class_name];
+    if(isset(self::$_metas[$class_name]))
+      $meta = self::$_metas[$class_name];
     else
     {
       $meta = new lmbARMetaInfo($this, $this->_db_conn);
-      self :: $_metas[$class_name] = $meta;
+      self::$_metas[$class_name] = $meta;
     }
     $this->_db_meta_info = $meta;
 
@@ -263,7 +263,7 @@ class lmbActiveRecord extends lmbObject
    */
   static function setDefaultDSN($dsn)
   {
-    self :: $_default_db_conn = lmbToolkit :: instance()->createDbConnection($dsn);
+    self::$_default_db_conn = lmbToolkit::instance()->createDbConnection($dsn);
   }
   /**
    *  Sets default database connection object
@@ -585,7 +585,7 @@ class lmbActiveRecord extends lmbObject
   {
     try
     {
-      return parent :: __call($method, $args);
+      return parent::__call($method, $args);
     }
     catch(lmbNoSuchMethodException $e)
     {
@@ -621,7 +621,7 @@ class lmbActiveRecord extends lmbObject
   {
     foreach($this->_lazy_attributes as $attribute)
     {
-      if(!parent :: has($attribute))
+      if(!parent::has($attribute))
         $this->_loadLazyAttribute($attribute);
     }
   }
@@ -651,7 +651,7 @@ class lmbActiveRecord extends lmbObject
    */
   function has($property)
   {
-    return parent :: has($property)
+    return parent::has($property)
            || in_array($property, $this->_db_table_fields)
            || $this->_izLazyAttribute($property)
            || $this->_hasRelation($property);
@@ -664,7 +664,7 @@ class lmbActiveRecord extends lmbObject
    */
   function get($property, $default = null)
   {
-    if(!$this->isNew() && $this->_izLazyAttribute($property) && !parent :: has($property))
+    if(!$this->isNew() && $this->_izLazyAttribute($property) && !parent::has($property))
       $this->_loadLazyAttribute($property);
 
     if($this->_hasAggregatedObjectRelation($property))
@@ -677,7 +677,7 @@ class lmbActiveRecord extends lmbObject
 
     try
     {
-      return parent :: get($property);
+      return parent::get($property);
     }
     catch(lmbNoSuchPropertyException $e) {}
 
@@ -781,7 +781,7 @@ class lmbActiveRecord extends lmbObject
   {
     $old_value = $this->_getRaw($property);
 
-    parent :: set($property, $value);
+    parent::set($property, $value);
 
     // if property is a table field and was not really changed, don't mark it dirty
     // if '==' no update if in DB has '+'. if '===' always update, in request always type string, but in DB can be integer
@@ -935,9 +935,9 @@ class lmbActiveRecord extends lmbObject
 
   protected function _loadBelongsToObject($property)
   {
-    return self :: findFirst($this->_belongs_to[$property]['class'],
-                             array('criteria' => $this->_db_conn->quoteIdentifier($this->_belongs_to[$property]['field']) . ' = ' . (int)$this->getId()),
-                             $this->_db_conn);
+    return self::findFirst($this->_belongs_to[$property]['class'],
+                           array('criteria' => $this->_db_conn->quoteIdentifier($this->_belongs_to[$property]['field']) . ' = ' . (int)$this->getId()),
+                           $this->_db_conn);
   }
 
   protected function _loadManyBelongsToObject($property)
@@ -951,10 +951,10 @@ class lmbActiveRecord extends lmbObject
     else
       $throw_exception = true;
 
-    return self :: findById($this->_many_belongs_to[$property]['class'],
-                            $this->get($this->_many_belongs_to[$property]['field']),
-                            $throw_exception,
-                            $this->_db_conn);
+    return self::findById($this->_many_belongs_to[$property]['class'],
+                          $this->get($this->_many_belongs_to[$property]['field']),
+                          $throw_exception,
+                          $this->_db_conn);
   }
 
   protected function _loadOneToOneObject($property)
@@ -968,10 +968,10 @@ class lmbActiveRecord extends lmbObject
     else
       $throw_exception = true;
 
-    return self :: findById($this->_has_one[$property]['class'],
-                            $this->get($this->_has_one[$property]['field']),
-                            $throw_exception,
-                            $this->_db_conn);
+    return self::findById($this->_has_one[$property]['class'],
+                          $this->get($this->_has_one[$property]['field']),
+                          $throw_exception,
+                          $this->_db_conn);
   }
 
   protected function _canHasOneObjectBeNull($property)
@@ -1015,7 +1015,7 @@ class lmbActiveRecord extends lmbObject
 
   protected function _getAggregatedObject($property)
   {
-    if(parent :: has($property))
+    if(parent::has($property))
     {
       $value = $this->_getRaw($property);
 
@@ -1027,6 +1027,66 @@ class lmbActiveRecord extends lmbObject
     $this->_setRaw($property, $object);
 
     return $object;
+  }
+
+  protected function _store($need_validation)
+  {
+      $this->_onBeforeCreate();
+
+      $this->_invokeListeners(self::ON_BEFORE_CREATE);
+
+      $this->_savePreRelations();
+
+      if($need_validation && !$this->_validateInsert())
+      {
+          $this->_is_being_saved = false;
+          throw new lmbValidationException('ActiveRecord "' . get_class($this) . '" validation failed',
+              $this->_error_list);
+      }
+
+      $this->_onSave();
+
+      $this->_onCreate();
+
+      $this->_invokeListeners(self::ON_CREATE);
+
+      $this->_setAutoTimes();
+
+      $new_id = $this->_insertDbRecord($this->_propertiesToDbFields());
+      $this->_is_new = false;
+      $this->setId($new_id);
+
+      $this->_onAfterCreate();
+
+      $this->_invokeListeners(self::ON_AFTER_CREATE);
+  }
+
+  protected function _update($need_validation)
+  {
+      $this->_onBeforeUpdate();
+
+      $this->_invokeListeners(self::ON_BEFORE_UPDATE);
+
+      if($need_validation && !$this->_validateUpdate())
+      {
+          $this->_is_being_saved = false;
+          throw new lmbValidationException('ActiveRecord "' . get_class($this) . '" validation failed',
+              $this->_error_list);
+      }
+
+      $this->_onSave();
+
+      $this->_onUpdate();
+
+      $this->_invokeListeners(self::ON_UPDATE);
+
+      $this->_setAutoTimes();
+
+      $this->_updateDbRecord($this->_propertiesToDbFields($only_dirty_properties = true));
+
+      $this->_onAfterUpdate();
+
+      $this->_invokeListeners(self::ON_AFTER_UPDATE);
   }
 
   protected function _doSave($need_validation)
@@ -1051,63 +1111,12 @@ class lmbActiveRecord extends lmbObject
 
       $this->_checkDirtinessOfAggregatedObjectsFields();
 
-      if(!$this->isNew() && $this->isDirty())
+      if( $this->isDirty() )
       {
-        $this->_onBeforeUpdate();
-
-        $this->_invokeListeners(self::ON_BEFORE_UPDATE);
-
-        if($need_validation && !$this->_validateUpdate())
-        {
-          $this->_is_being_saved = false;
-          throw new lmbValidationException('ActiveRecord "' . get_class($this) . '" validation failed',
-                                           $this->_error_list);
-        }
-
-        $this->_onSave();
-
-        $this->_onUpdate();
-
-        $this->_invokeListeners(self::ON_UPDATE);
-
-        $this->_setAutoTimes();
-
-        $this->_updateDbRecord($this->_propertiesToDbFields($only_dirty_properties = true));
-
-        $this->_onAfterUpdate();
-
-        $this->_invokeListeners(self::ON_AFTER_UPDATE);
-      }
-      elseif($this->isNew())
-      {
-        $this->_onBeforeCreate();
-
-        $this->_invokeListeners(self::ON_BEFORE_CREATE);
-
-        $this->_savePreRelations();
-
-        if($need_validation && !$this->_validateInsert())
-        {
-          $this->_is_being_saved = false;
-          throw new lmbValidationException('ActiveRecord "' . get_class($this) . '" validation failed',
-                                           $this->_error_list);
-        }
-
-        $this->_onSave();
-
-        $this->_onCreate();
-
-        $this->_invokeListeners(self::ON_CREATE);
-
-        $this->_setAutoTimes();
-
-        $new_id = $this->_insertDbRecord($this->_propertiesToDbFields());
-        $this->_is_new = false;
-        $this->setId($new_id);
-
-        $this->_onAfterCreate();
-
-        $this->_invokeListeners(self::ON_AFTER_CREATE);
+          if($this->isNew())
+            $this->_store($need_validation);
+          else
+            $this->_update($need_validation);
       }
 
       $this->_onAfterSave();
@@ -1144,7 +1153,7 @@ class lmbActiveRecord extends lmbObject
   {
     foreach($this->_composed_of as $property => $info)
     {
-      if(!parent :: has($property))
+      if(!parent::has($property))
         continue;
 
       $object = $this->_getRaw($property);
@@ -1180,7 +1189,7 @@ class lmbActiveRecord extends lmbObject
     }
 
     if($this->isNew() && $this->_isInheritable())
-      $fields[self :: $_inheritance_field] = $this->_getInheritancePath();
+      $fields[self::$_inheritance_field] = $this->_getInheritancePath();
 
     return $fields;
   }
@@ -1188,12 +1197,12 @@ class lmbActiveRecord extends lmbObject
   protected function _setAutoTimes()
   {
     if($this->isNew() && $this->_hasCreateTime())
-      $this->_setRaw(self :: $_ctime_field, $this->_makeCreateTime());
+      $this->_setRaw(self::$_ctime_field, $this->_makeCreateTime());
 
     if($this->_hasUpdateTime())
     {
-      $this->_setRaw(self :: $_utime_field, $this->_makeUpdateTime());
-      $this->_markDirtyProperty(self :: $_utime_field);
+      $this->_setRaw(self::$_utime_field, $this->_makeUpdateTime());
+      $this->_markDirtyProperty(self::$_utime_field);
     }
   }
 
@@ -1209,12 +1218,12 @@ class lmbActiveRecord extends lmbObject
 
   protected function _hasUpdateTime()
   {
-    return $this->_db_meta_info->hasColumn(self :: $_utime_field);
+    return $this->_db_meta_info->hasColumn(self::$_utime_field);
   }
 
   protected function _hasCreateTime()
   {
-    return $this->_db_meta_info->hasColumn(self :: $_ctime_field);
+    return $this->_db_meta_info->hasColumn(self::$_ctime_field);
   }
 
   protected function _isInheritable()
@@ -1222,7 +1231,7 @@ class lmbActiveRecord extends lmbObject
     if(!is_null($this->_is_inheritable))
       return $this->_is_inheritable;
 
-    $this->_is_inheritable = $this->_db_meta_info->hasColumn(self :: $_inheritance_field);
+    $this->_is_inheritable = $this->_db_meta_info->hasColumn(self::$_inheritance_field);
     return $this->_is_inheritable;
   }
 
@@ -1427,7 +1436,7 @@ class lmbActiveRecord extends lmbObject
     if(!self::_isClass($class_name))
     {
       $conn = $magic_params;
-      $magic_params = $class_name ? $class_name : array();
+      $magic_params = $class_name ?? array();
       $class_name = self::_getCallingClass();
     }
 
@@ -1463,7 +1472,7 @@ class lmbActiveRecord extends lmbObject
     if(!self::_isClass($class_name))
     {
       $conn = $magic_params;
-      $magic_params = $class_name ? $class_name : array();
+      $magic_params = $class_name ?? array();
       $class_name = self::_getCallingClass();
     }
     return self::findFirst($class_name, $magic_params, $conn);
@@ -1692,7 +1701,7 @@ class lmbActiveRecord extends lmbObject
     if(!self::_isClass($class_name))
     {
       $conn = $magic_params;
-      $magic_params = $class_name ? $class_name : array();
+      $magic_params = $class_name ?? array();
       $class_name = self::_getCallingClass();
     }
 
@@ -1766,8 +1775,8 @@ class lmbActiveRecord extends lmbObject
   {
     $magic_params = array_merge($params, array('criteria' => $criteria));
 
-    //$query = lmbARQuery :: create(get_class($this), $magic_params, $this->_db_conn);
-    $query = lmbARQuery :: create(self::_getCallingClass(), $magic_params);
+    //$query = lmbARQuery::create(get_class($this), $magic_params, $this->_db_conn);
+    $query = lmbARQuery::create(self::_getCallingClass(), $magic_params);
     return $query->fetch($decorate = false);
   }
 
@@ -1814,7 +1823,7 @@ class lmbActiveRecord extends lmbObject
 
   static function getInheritanceClass($obj)
   {
-    $decoded_path = self :: decodeInheritancePath($obj[self :: $_inheritance_field]);
+    $decoded_path = self::decodeInheritancePath($obj[self::$_inheritance_field]);
     return end($decoded_path);
   }
 
@@ -1869,12 +1878,12 @@ class lmbActiveRecord extends lmbObject
 
   function getUpdateTime()
   {
-    return $this->_getRaw(self :: $_utime_field);
+    return $this->_getRaw(self::$_utime_field);
   }
 
   function getCreateTime()
   {
-    return $this->_getRaw(self :: $_ctime_field);
+    return $this->_getRaw(self::$_ctime_field);
   }
 
   /**
@@ -1919,36 +1928,36 @@ class lmbActiveRecord extends lmbObject
    */
   static function delete($class_name = null, $criteria = null, $conn = null)
   {
-    if(!self :: _isClass($class_name))
+    if(!self::_isClass($class_name))
     {
       $conn = $criteria;
       $criteria = $class_name;
-      $class_name = self :: _getCallingClass();
+      $class_name = self::_getCallingClass();
     }
 
     if(!is_object($conn))
-      $conn = self :: getDefaultConnection();
+      $conn = self::getDefaultConnection();
 
     $params = array();
     if($criteria)
       $params = array('criteria' => $criteria);
 
-    $rs = self :: find($class_name, $params, $conn);
+    $rs = self::find($class_name, $params, $conn);
     foreach($rs as $object)
       $object->destroy();
   }
 
   static function deleteRaw($class_name = null, $criteria = null, $conn = null)
   {
-    if(!self :: _isClass($class_name))
+    if(!self::_isClass($class_name))
     {
       $conn = $criteria;
       $criteria = $class_name;
-      $class_name = self :: _getCallingClass();
+      $class_name = self::_getCallingClass();
     }
 
     if(!is_object($conn))
-      $conn = self :: getDefaultConnection();
+      $conn = self::getDefaultConnection();
 
     $object = new $class_name(null, $conn);
     $db_table = $object->getDbTable();
@@ -1957,16 +1966,16 @@ class lmbActiveRecord extends lmbObject
 
   static function updateRaw($class_name, $set = null, $criteria = null, $conn = null)
   {
-    if(!self :: _isClass($class_name))
+    if(!self::_isClass($class_name))
     {
       $conn = $criteria;
       $criteria = $set;
       $set = $class_name;
-      $class_name = self :: _getCallingClass();
+      $class_name = self::_getCallingClass();
     }
 
     if(!is_object($conn))
-      $conn = self :: getDefaultConnection();
+      $conn = self::getDefaultConnection();
 
     $object = new $class_name(null, $conn);
     $db_table = $object->getDbTable();
@@ -2196,7 +2205,7 @@ class lmbActiveRecord extends lmbObject
    */
   function registerCallback($type, $callback)
   {
-    $this->_listeners[$type][] = lmbDelegate :: objectify($callback);
+    $this->_listeners[$type][] = lmbDelegate::objectify($callback);
   }
 
   function registerOnBeforeSaveCallback($callback)
@@ -2325,21 +2334,21 @@ class lmbActiveRecord extends lmbObject
   static function registerGlobalOnAfterDestroyCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self::ON_AFTER_DESTROY, $args);
+    self::registerGlobalCallback(self::ON_AFTER_DESTROY, $args);
   }
 
   protected function _invokeListeners($type)
   {
     if(isset($this->_listeners[$type]))
-      lmbDelegate :: invokeAll($this->_listeners[$type], array($this));
+      lmbDelegate::invokeAll($this->_listeners[$type], array($this));
 
-    if(isset(self :: $_global_listeners[$type]))
-      lmbDelegate :: invokeAll(self :: $_global_listeners[$type], array($this));
+    if(isset(self::$_global_listeners[$type]))
+      lmbDelegate::invokeAll(self::$_global_listeners[$type], array($this));
   }
 
   function __wakeup()
   {
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
     $this->_db_conn = $toolkit->getDbConnectionByDsn($this->_db_conn_dsn);
 
     $this->_db_meta_info = $toolkit->getActiveRecordMetaInfo($this, $this->_db_conn);
