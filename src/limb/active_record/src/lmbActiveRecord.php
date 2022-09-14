@@ -290,6 +290,19 @@ class lmbActiveRecord extends lmbObject
     $toolkit = lmbToolkit::instance();
     return $toolkit->getDefaultDbConnection();
   }
+
+    function setConnection($conn)
+    {
+        $this->_db_conn = $conn;
+
+        $this->_db_conn_dsn = $this->_db_conn->getDsnString();
+    }
+
+    function getConnection()
+    {
+        return $this->_db_conn;
+    }
+
   /**
    *  Returns current single table inheritance column name
    *  @return string

@@ -34,7 +34,7 @@ class lmbCmsUniqueFieldRule extends lmbSingleFieldRule
     if(!$this->object->isNew())
       $criteria->addAnd(new lmbSQLFieldCriteria($this->object->getPrimaryKeyName(), $this->object->getId(), lmbSQLFieldCriteria::NOT_EQUAL));
 
-    $records = lmbActiveRecord::find($this->class, $criteria);
+    $records = lmbActiveRecord::find($this->class, $criteria, $this->object->getConnection());
 
     if($records->count())
       $this->error('Field {Field} already exists');
