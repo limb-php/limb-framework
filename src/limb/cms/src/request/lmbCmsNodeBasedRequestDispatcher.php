@@ -21,7 +21,7 @@ use limb\cms\src\model\lmbCmsNode as Node;
  */
 class lmbCmsNodeBasedRequestDispatcher implements lmbRequestDispatcherInterface
 {
-  protected $node_class;
+  protected $node_class = Node::class;
 
   protected $path_offset;
   protected $base_path;
@@ -30,8 +30,6 @@ class lmbCmsNodeBasedRequestDispatcher implements lmbRequestDispatcherInterface
   {
     if( $node_class )
       $this->node_class = $node_class;
-    else
-      $this->node_class = new Node();
 
     $this->path_offset = lmbEnv::get('LIMB_HTTP_OFFSET_PATH');
     if(!is_null($path_offset))
