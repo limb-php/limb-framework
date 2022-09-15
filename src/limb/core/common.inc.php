@@ -16,6 +16,28 @@ use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
 use limb\core\src\lmbAssert;
 
+if (!function_exists('lmb_env_get'))
+{
+
+    function lmb_env_get($name, $def = null)
+    {
+        return lmbEnv::get($name, $def);
+    }
+
+}
+
+
+if (!function_exists('lmb_env_set'))
+{
+
+    function lmb_env_set($name, $value)
+    {
+        lmbEnv::set($name, $value);
+    }
+
+}
+
+
 if (!function_exists('lmb_var_dir'))
 {
 
