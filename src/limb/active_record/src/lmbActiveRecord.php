@@ -219,7 +219,7 @@ class lmbActiveRecord extends lmbObject
 
     $this->_db_conn_dsn = $this->_db_conn->getDsnString();
 
-    $class_name = get_class($this);
+    $class_name = (new \ReflectionClass($this))->getShortName();
 
     if(!$this->_db_table_name)
       $this->_db_table_name = lmbString::under_scores($class_name);
