@@ -26,13 +26,22 @@ if (!function_exists('lmb_env_get'))
 
 }
 
-
 if (!function_exists('lmb_env_set'))
 {
 
     function lmb_env_set($name, $value)
     {
         lmbEnv::set($name, $value);
+    }
+
+}
+
+if (!function_exists('lmb_env_has'))
+{
+
+    function lmb_env_has($name)
+    {
+        lmbEnv::has($name);
     }
 
 }

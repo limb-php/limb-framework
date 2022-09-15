@@ -23,7 +23,7 @@ class lmbErrorGuard
   static function registerExceptionHandler()
   {
     $delegate = func_get_args();
-    set_exception_handler(array(lmbDelegate :: objectify($delegate), 'invoke'));
+    set_exception_handler(array(lmbDelegate::objectify($delegate), 'invoke'));
   }
 
   static function registerFatalErrorHandler()
@@ -31,11 +31,11 @@ class lmbErrorGuard
     static $shutdown_registered = false;
 
     $delegate = func_get_args();
-    self :: $fatal_error_delegate = lmbDelegate :: objectify($delegate);
+    self::$fatal_error_delegate = lmbDelegate::objectify($delegate);
 
     if(!$shutdown_registered)
     {
-      register_shutdown_function(array('limb\core\src\lmbErrorGuard', '_shutdownHandler'));
+      register_shutdown_function(array(lmbErrorGuard::class, '_shutdownHandler'));
       $shutdown_registered = true;
     }
   }
@@ -43,7 +43,7 @@ class lmbErrorGuard
   static function registerErrorHandler()
   {
     $delegate = func_get_args();
-    set_error_handler(array(lmbDelegate :: objectify($delegate), 'invoke'));
+    set_error_handler(array(lmbDelegate::objectify($delegate), 'invoke'));
   }
 
   static function _shutdownHandler()
@@ -55,7 +55,7 @@ class lmbErrorGuard
       return;
 
     if($error['type'] == E_ERROR)
-      self :: $fatal_error_delegate->invoke($error);
+      self::$fatal_error_delegate->invoke($error);
   }
 }
 
