@@ -13,13 +13,13 @@ use limb\validation\src\rule\lmbSingleFieldRule;
 /**
  * Checks that field value is a valid domain name.
  * @package validation
- * @version $Id: lmbDomainRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDomainRule.php 7486 2009-01-26 19:13:20Z
  */
 class lmbDomainRule extends lmbSingleFieldRule
 {
   function check($value)
   {
-    // Check for entirely numberic domains.  Is 666.com valid?
+    // Check for entirely numeric domains.  Is 666.com valid?
     // Don't check for 2-4 character length on TLD because of things like .local
     // We can't be too restrictive by default.
     if (!preg_match("/^[a-z0-9.-]+$/i", $value))
@@ -43,7 +43,7 @@ class lmbDomainRule extends lmbSingleFieldRule
     foreach($segments as $dseg)
     {
       $len = strlen($dseg);
-      /* ignore empty segments that're due to other errors */
+      /* ignore empty segments that are due to other errors */
       if (1 > $len)
           continue;
 
@@ -53,7 +53,7 @@ class lmbDomainRule extends lmbSingleFieldRule
                      array('segment' => $dseg));
       }
 
-      if ($dseg{$len-1} == '-' || $dseg{0} == '-')
+      if ($dseg[$len-1] == '-' || $dseg[0] == '-')
       {
         $this->error('{Field} segment {segment} may not begin or end with a hyphen.',
                      array('segment' => $dseg));
