@@ -10,6 +10,7 @@ namespace limb\dbal\src\drivers\mssql;
 
 use limb\dbal\src\drivers\lmbDbBaseConnection;
 use limb\dbal\src\exception\lmbDbException;
+use limb\core\src\lmbEnv;
 
 /**
  * class lmbMssqlConnection.
@@ -104,17 +105,17 @@ class lmbMssqlConnection extends lmbDbBaseConnection
 
   function execute($sql)
   {
-    if (defined("LIMB_APP_MODE") && LIMB_APP_MODE == "devel")
+    if (lmbEnv::get('LIMB_APP_MODE') === "devel")
     {
-      Profiler :: instance()->addHit("Query");
-      Profiler :: instance()->startIncrementCheckpoint("sql_time");
+      //Profiler :: instance()->addHit("Query");
+      //Profiler :: instance()->startIncrementCheckpoint("sql_time");
     }
     $sql = mb_convert_encoding($sql, 'Windows-1251', 'UTF-8');
     $result = mssql_query($sql, $this->getConnectionId());
-    if (defined("LIMB_APP_MODE") && LIMB_APP_MODE == "devel")
+    if (lmbEnv::get('LIMB_APP_MODE') === "devel")
     {
       error_log($sql."\n\n\n", 3, LIMB_VAR_DIR.'/log/query.log');
-      Profiler :: instance()->stopIncrementCheckpoint("sql_time");
+      //Profiler :: instance()->stopIncrementCheckpoint("sql_time");
     }
     if($result === false)
     {
