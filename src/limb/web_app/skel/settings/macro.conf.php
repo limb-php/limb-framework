@@ -1,5 +1,7 @@
 <?php
 
+use limb\toolkit\src\lmbToolkit;
+
 include_once('limb/view/settings/macro.conf.php');
 
 // Recompiling templates is enabled only in debug mode.
