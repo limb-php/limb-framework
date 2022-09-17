@@ -54,7 +54,7 @@ class lmbProfileTools extends lmbAbstractTools
   {
     if(!isset($this->profile_points[$point]))
     {
-      throw new Exception("Point $point doesn't exist!");
+      throw new \Exception("Point $point doesn't exist!");
     }
     return $this->profile_points[$point];
   }
@@ -73,7 +73,7 @@ class lmbProfileTools extends lmbAbstractTools
   {
     if($point == '__start__' || $point == '__end__')
     {
-      throw new Exception("You can't unset start or end points!");
+      throw new \Exception("You can't unset start or end points!");
     }
     unset($this->profile_points[$point]);
   }
