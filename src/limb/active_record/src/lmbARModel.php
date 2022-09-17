@@ -177,7 +177,7 @@ class lmbARModel extends lmbActiveRecord
   }
 
   /* */
-  public function __call($method_name, $arguments) {
+  public function __call($method, $args = array()) {
 
   }
 }
