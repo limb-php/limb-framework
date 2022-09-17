@@ -56,7 +56,7 @@ class lmbCriteriaQuery extends lmbTemplateQuery
 
     $implode = array();
     foreach($this->_criterias as $criteria)
-      $implode[] = $criteria->toStatementString($this->_stmt_values, $this->_conn);
+      $implode[] = $criteria->toStatementString($this->_stmt_values, $this->getConnection());
 
     $where = implode(' AND ', $implode);
 

@@ -16,7 +16,7 @@ use limb\core\src\lmbString;
  * class lmbTemplateQuery.
  *
  * @package dbal
- * @version $Id: lmbTemplateQuery.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbTemplateQuery.class.php 7486 2009-01-26 19:13:20Z
  */
 class lmbTemplateQuery
 {
@@ -25,11 +25,10 @@ class lmbTemplateQuery
   protected $_conn;
   protected $_hints = array();
 
-  function __construct($template_sql, $conn=null)
+  function __construct($template_sql, $conn = null)
   {
     $this->_template_sql = $template_sql;
-    if(!is_object($conn))
-      $conn = lmbToolkit :: instance()->getDefaultDbConnection();
+
     $this->_conn = $conn;
   }
   
@@ -40,7 +39,14 @@ class lmbTemplateQuery
 
   function getConnection()
   {
-    return $this->_conn;
+      return $this->_conn ?? lmbToolkit::instance()->getDefaultDbConnection();
+  }
+
+  function setConnection($conn)
+  {
+      $this->_conn = $conn;
+
+      return $this;
   }
 
   protected function _findHintsInTemplateSql()
@@ -91,7 +97,7 @@ class lmbTemplateQuery
   function getStatement()
   {
     $sql = $this->toString();
-    $stmt = $this->_conn->newStatement($sql);
+    $stmt = $this->getConnection()->newStatement($sql);
     return $stmt;
   }
 

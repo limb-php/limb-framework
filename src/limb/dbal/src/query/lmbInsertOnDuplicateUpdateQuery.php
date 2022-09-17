@@ -14,7 +14,7 @@ use limb\dbal\src\query\lmbTemplateQuery;
  * class lmbInsertOnDuplicateUpdateQuery.
  *
  * @package dbal
- * @version $Id: lmbInsertOnDuplicateUpdateQuery.class.php 7165 2008-08-29 11:15:26Z serega $
+ * @version $Id: lmbInsertOnDuplicateUpdateQuery.php 7165 2008-08-29 11:15:26Z
  */
 class lmbInsertOnDuplicateUpdateQuery extends lmbTemplateQuery
 {
@@ -25,7 +25,10 @@ class lmbInsertOnDuplicateUpdateQuery extends lmbTemplateQuery
   function __construct($table, $conn = null)
   {
     $this->_table = $table;
-    parent :: __construct("INSERT INTO %table% (%fields%) VALUES (%values%) ON DUPLICATE KEY UPDATE %new_values%", $conn);
+
+    $this->setConnection($conn);
+
+    parent::__construct("INSERT INTO %table% (%fields%) VALUES (%values%) ON DUPLICATE KEY UPDATE %new_values%");
     
     $this->_registerHint('table');
     $this->_registerHint('values');
@@ -41,12 +44,12 @@ class lmbInsertOnDuplicateUpdateQuery extends lmbTemplateQuery
 
   protected function _getTableHint()
   {
-    return $this->_conn->quoteIdentifier($this->_table);
+    return $this->getConnection()->quoteIdentifier($this->_table);
   }
 
   protected function _getFieldsHint()
   {
-    return implode(',', array_map(array($this->_conn, 'quoteIdentifier'), array_keys($this->_fields)));
+    return implode(',', array_map(array($this->getConnection(), 'quoteIdentifier'), array_keys($this->_fields)));
   }
 
   protected function _getValuesHint()

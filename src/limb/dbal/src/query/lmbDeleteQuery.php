@@ -34,7 +34,7 @@ class lmbDeleteQuery extends lmbCriteriaQuery
 
   protected function _getTableHint()
   {
-    return $this->_conn->quoteIdentifier($this->_table);
+    return $this->getConnection()->quoteIdentifier($this->_table);
   }
 }
 

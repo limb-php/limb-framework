@@ -14,7 +14,7 @@ use limb\dbal\src\query\lmbCriteriaQuery;
  * class lmbUpdateQuery.
  *
  * @package dbal
- * @version $Id: lmbUpdateQuery.class.php 7890 2009-04-17 14:55:29Z vasiatka $
+ * @version $Id: lmbUpdateQuery.class.php 7890 2009-04-17 14:55:29Z
  */
 class lmbUpdateQuery extends lmbCriteriaQuery
 {
@@ -23,10 +23,12 @@ class lmbUpdateQuery extends lmbCriteriaQuery
   protected $_raw_fields = array();
   protected $_set_values = array();
 
-  function __construct($table, $conn=null)
+  function __construct($table, $conn = null)
   {
     $this->_table = $table;
-    parent :: __construct("UPDATE %table% SET %fields% %where%", $conn);
+
+    parent::__construct("UPDATE %table% SET %fields% %where%", $conn);
+
     $this->_registerHint('table');
   }
 
@@ -78,7 +80,7 @@ class lmbUpdateQuery extends lmbCriteriaQuery
 
   protected function _getTableHint()
   {
-    return $this->_conn->quoteIdentifier($this->_table);
+    return $this->getConnection()->quoteIdentifier($this->_table);
   }
 
   protected function _getFieldsHint()
@@ -89,7 +91,7 @@ class lmbUpdateQuery extends lmbCriteriaQuery
       if($value !== null)
         $this->_set_values[$field] = $value;
 
-      $values[] = $this->_conn->quoteIdentifier($field) . " = :{$field}:";
+      $values[] = $this->getConnection()->quoteIdentifier($field) . " = :{$field}:";
     }
 
     foreach($this->_raw_fields as $field)

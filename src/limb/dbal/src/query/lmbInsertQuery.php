@@ -14,7 +14,7 @@ use limb\dbal\src\query\lmbTemplateQuery;
  * class lmbInsertQuery.
  *
  * @package dbal
- * @version $Id: lmbInsertQuery.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbInsertQuery.class.php 7486 2009-01-26 19:13:20Z
  */
 class lmbInsertQuery extends lmbTemplateQuery
 {
@@ -25,7 +25,9 @@ class lmbInsertQuery extends lmbTemplateQuery
   function __construct($table, $conn)
   {
     $this->_table = $table;
-    parent :: __construct("INSERT INTO %table% (%fields%) VALUES (%values%)", $conn);
+
+    parent::__construct("INSERT INTO %table% (%fields%) VALUES (%values%)", $conn);
+
     $this->_registerHint('table');
     $this->_registerHint('values');
   }
@@ -39,12 +41,12 @@ class lmbInsertQuery extends lmbTemplateQuery
 
   protected function _getTableHint()
   {
-    return $this->_conn->quoteIdentifier($this->_table);
+    return $this->getConnection()->quoteIdentifier($this->_table);
   }
 
   protected function _getFieldsHint()
   {
-    return implode(',', array_map(array($this->_conn, 'quoteIdentifier'), array_keys($this->_fields)));
+    return implode(',', array_map(array($this->getConnection(), 'quoteIdentifier'), array_keys($this->_fields)));
   }
 
   protected function _getValuesHint()

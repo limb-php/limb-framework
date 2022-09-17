@@ -43,12 +43,12 @@ class lmbBulkInsertQuery extends lmbTemplateQuery
 
   protected function _getTableHint()
   {
-    return $this->_conn->quoteIdentifier($this->_table);
+    return $this->getConnection()->quoteIdentifier($this->_table);
   }
 
   protected function _getFieldsHint()
   {
-    return implode(',', array_map(array($this->_conn, 'quoteIdentifier'), array_keys($this->_fields)));
+    return implode(',', array_map(array($this->getConnection(), 'quoteIdentifier'), array_keys($this->_fields)));
   }
 
   protected function _getValuesHint()

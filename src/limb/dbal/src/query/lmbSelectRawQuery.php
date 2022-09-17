@@ -17,7 +17,7 @@ use limb\dbal\src\criteria\lmbSQLCriteria;
  * class lmbSelectRawQuery.
  *
  * @package dbal
- * @version $Id: lmbSelectRawQuery.class.php 6005 2007-06-19 21:14:49Z pachanga $
+ * @version $Id: lmbSelectRawQuery.class.php 6005 2007-06-19 21:14:49Z
  */
 class lmbSelectRawQuery extends lmbCriteriaQuery
 {
@@ -35,9 +35,9 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
   function __construct($sql_or_conn = null, $conn = null)
   {
     if(is_object($sql_or_conn))
-      parent :: __construct(self::DEFAULT_SQL_TEMPLATE, $sql_or_conn);
+      parent::__construct(self::DEFAULT_SQL_TEMPLATE, $sql_or_conn);
     else
-      parent :: __construct($sql_or_conn, $conn);
+      parent::__construct($sql_or_conn, $conn);
   }
 
   function addField($field, $alias = null)
@@ -97,10 +97,10 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
     if(is_array($field))
     {
       foreach($field as $field_name => $type)
-        $this->_order[] = $this->_conn->quoteIdentifier($field_name) . " $type";
+        $this->_order[] = $this->getConnection()->quoteIdentifier($field_name) . " $type";
     }
     else
-      $this->_order[] = $this->_conn->quoteIdentifier($field) . " $type";
+      $this->_order[] = $this->getConnection()->quoteIdentifier($field) . " $type";
 
     $this->_registerHint('order');
     return $this;
@@ -212,8 +212,8 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
         continue;
       }
 
-      $fields .= $this->_conn->quoteIdentifier($field) .
-                 ($alias ? ' as ' . $this->_conn->quoteIdentifier($alias) : '') . ',';
+      $fields .= $this->getConnection()->quoteIdentifier($field) .
+                 ($alias ? ' as ' . $this->getConnection()->quoteIdentifier($alias) : '') . ',';
     }
     if(count($this->_raw_fields) == 0)
       $fields = rtrim($fields, ',');
@@ -251,8 +251,8 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
     $tables = '';
     foreach($this->_tables as $item)
     {
-      $tables .= $this->_conn->quoteIdentifier($item[0]) .
-                 ($item[1] ? ' ' . $this->_conn->quoteIdentifier($item[1]) : '') . ',';
+      $tables .= $this->getConnection()->quoteIdentifier($item[0]) .
+                 ($item[1] ? ' ' . $this->getConnection()->quoteIdentifier($item[1]) : '') . ',';
     }
     $tables = rtrim($tables, ',');
 
@@ -269,10 +269,10 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
     {
       $table = $info['table'];
       $connect_by = $info['connect_by'];
-      $alias = $info['alias'] ? ' AS ' . $this->_conn->quoteIdentifier($info['alias']) : '';
-      $foreign_key = $this->_conn->quoteIdentifier(key($connect_by));
-      $alias_key = $this->_conn->quoteIdentifier(reset($connect_by));
-      $join[] = "LEFT JOIN " . $this->_conn->quoteIdentifier($table) . "$alias ON $foreign_key=$alias_key";
+      $alias = $info['alias'] ? ' AS ' . $this->getConnection()->quoteIdentifier($info['alias']) : '';
+      $foreign_key = $this->getConnection()->quoteIdentifier(key($connect_by));
+      $alias_key = $this->getConnection()->quoteIdentifier(reset($connect_by));
+      $join[] = "LEFT JOIN " . $this->getConnection()->quoteIdentifier($table) . "$alias ON $foreign_key=$alias_key";
     }
 
     return implode(' ', $join);
@@ -283,7 +283,7 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
     if (count($this->_group_by) == 0)
       return '';
 
-    $group = implode(',', array_map(array($this->_conn, 'quoteIdentifier'), $this->_group_by));
+    $group = implode(',', array_map(array($this->getConnection(), 'quoteIdentifier'), $this->_group_by));
 
     if($this->_groupByClauseExists($group_by_args))
     {

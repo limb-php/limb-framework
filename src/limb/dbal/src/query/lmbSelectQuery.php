@@ -16,13 +16,13 @@ use limb\dbal\src\query\lmbSelectRawQuery;
  * class lmbSelectQuery.
  *
  * @package dbal
- * @version $Id: lmbSelectQuery.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSelectQuery.class.php 7486 2009-01-26 19:13:20Z
  */
 class lmbSelectQuery extends lmbSelectRawQuery
 {
   function __construct($table, $conn = null)
   {
-    parent :: __construct(lmbSelectRawQuery :: DEFAULT_SQL_TEMPLATE, $conn);
+    parent::__construct(lmbSelectRawQuery::DEFAULT_SQL_TEMPLATE, $conn);
     $this->addTable($table);
   }
 }
