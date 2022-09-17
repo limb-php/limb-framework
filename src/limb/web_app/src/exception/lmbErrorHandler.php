@@ -32,8 +32,6 @@ class lmbErrorHandler
       $error500_page = dirname(__FILE__) . '/../../template/server_error.html';
 
     $this->error_page = $error500_page;
-
-    $this->toolkit = lmbToolkit::instance();
   }
 
   function register()
@@ -44,35 +42,37 @@ class lmbErrorHandler
 
   function handleFatalError($error)
   {
-    $this->toolkit->getLog()->log($error['message'], LOG_ERR);
-    $this->toolkit->getResponse()->reset();
+      $this->toolkit = lmbToolkit::instance();
+      $this->toolkit->getLog()->log($error['message'], LOG_ERR);
+      $this->toolkit->getResponse()->reset();
 
-    header('HTTP/1.x 500 Server Error');
+      header('HTTP/1.x 500 Server Error');
 
-    if($this->toolkit->isWebAppDebugEnabled())
-      $this->_echoErrorBacktrace($error);
-    else
-      $this->_echoErrorPage();
+      if($this->toolkit->isWebAppDebugEnabled())
+        $this->_echoErrorBacktrace($error);
+      else
+        $this->_echoErrorPage();
 
-    exit(1);
+      exit(1);
   }
 
   function handleException($e)
   {
-    if(function_exists('debugBreak'))
-      debugBreak();
+      if(function_exists('debugBreak'))
+        debugBreak();
 
-    $this->toolkit->getLog()->logException($e);
-    $this->toolkit->getResponse()->reset();
+      $this->toolkit = lmbToolkit::instance();
+      $this->toolkit->getLog()->logException($e);
+      $this->toolkit->getResponse()->reset();
 
-    header('HTTP/1.x 500 Server Error');
+      header('HTTP/1.x 500 Server Error');
 
-    if($this->toolkit->isWebAppDebugEnabled())
-      $this->_echoExceptionBacktrace($e);
-    else
-      $this->_echoErrorPage();
+      if($this->toolkit->isWebAppDebugEnabled())
+        $this->_echoExceptionBacktrace($e);
+      else
+        $this->_echoErrorPage();
 
-    exit(1);
+      exit(1);
   }
 
   function _echoErrorPage()
@@ -229,10 +229,10 @@ EOD;
     foreach(file($file) as $line)
     {
       $i++;
-      if($i >= $line_number - self :: CONTEXT_RADIUS && $i <= $line_number + self :: CONTEXT_RADIUS)
+      if($i >= $line_number - self::CONTEXT_RADIUS && $i <= $line_number + self::CONTEXT_RADIUS)
         $context[] = $i . "\t" . $line;
 
-      if($i > $line_number + self :: CONTEXT_RADIUS)
+      if($i > $line_number + self::CONTEXT_RADIUS)
         break;
     }
 
