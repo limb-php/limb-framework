@@ -57,7 +57,7 @@ class lmbLogFileWriter implements lmbLogWriterInterface
       $log_message .= "=========================\n" . $message;
 
       fwrite($fh, $log_message);
-      @flock($fp, LOCK_UN);
+      @flock($fh, LOCK_UN);
       fclose($fh);
       if(!$file_existed)
         chmod($file_name, 0664);
