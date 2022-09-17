@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\dbal\cases\driver\linter;
 
-require_once(dirname(__FILE__) . '/../DriverConnectionTestBase.class.php');
+use tests\dbal\cases\driver\DriverConnectionTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbLinterConnectionTest extends DriverConnectionTestBase
@@ -18,7 +20,7 @@ class lmbLinterConnectionTest extends DriverConnectionTestBase
     parent :: DriverConnectionTestBase('lmbLinterQueryStatement', 'lmbLinterInsertStatement', 'lmbLinterManipulationStatement', 'lmbLinterStatement');
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());

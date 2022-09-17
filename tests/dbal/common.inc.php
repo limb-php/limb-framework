@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use limb\toolkit\src\lmbToolkit;
+
 class ConnectionTestStub
 {
   function quoteIdentifier($id)
@@ -23,7 +25,7 @@ function loadTestingDbDump($dump_path)
   $tables = array();
   $sql_array = file($dump_path);
 
-  $toolkit = lmbToolkit :: instance();
+  $toolkit = lmbToolkit::instance();
   $conn = $toolkit->getDefaultDbConnection();
 
   foreach($sql_array as $sql)

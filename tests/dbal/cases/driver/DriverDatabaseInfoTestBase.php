@@ -6,13 +6,13 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-require_once(dirname(__FILE__) . '/DriverMetaTestBase.class.php');
+namespace tests\dbal\cases\driver;
 
 abstract class DriverDatabaseInfoTestBase extends DriverMetaTestBase
 {
   var $dbinfo;
 
-  function setUp()
+  function setUp(): void
   {
     $this->dbinfo = $this->connection->getDatabaseInfo();
   }

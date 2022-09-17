@@ -6,6 +6,8 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace limb\tests\dbal\cases\driver;
+
 require_once(dirname(__FILE__) . '/DriverManipTestBase.class.php');
 
 abstract class DriverInsertTestBase extends DriverManipTestBase

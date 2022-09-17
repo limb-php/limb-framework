@@ -57,6 +57,11 @@
         }
     },
     "autoload-dev": {
+        "files": [
+        ],
+        "psr-0": {
+            "tests\\": ""
+        }
     },
     "config": {
         "sort-packages": true,
