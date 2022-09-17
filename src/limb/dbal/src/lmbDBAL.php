@@ -12,7 +12,7 @@ use limb\dbal\src\lmbSimpleDb;
 use limb\dbal\src\query\lmbSelectQuery;
 use limb\dbal\src\query\lmbUpdateQuery;
 use limb\dbal\src\query\lmbDeleteQuery;
-use limb\dbal\src\querylmbInsertQuery;
+use limb\dbal\src\query\lmbInsertQuery;
 use limb\dbal\src\query\lmbBulkInsertQuery;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\drivers\lmbDbQueryStatementInterface;

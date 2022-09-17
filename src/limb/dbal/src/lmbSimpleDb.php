@@ -133,6 +133,21 @@ class lmbSimpleDb
     return $this;
   }
 
+    function insert_on_duplicate_update($table, $values, $criteria = null)
+    {
+        $query = new lmbInsertOnDuplicateUpdateQuery($table, $this->conn);
+
+        if($criteria)
+            $query->addCriteria(lmbSQLCriteria :: objectify($criteria));
+
+        foreach($values as $key => $value)
+            $query->addField($key, $value);
+
+        $this->stmt = $query->getStatement($this->conn);
+        $this->stmt->execute();
+        return $this;
+    }
+
   function delete($table, $criteria = null)
   {
     $query = new lmbDeleteQuery($table, $this->conn);
