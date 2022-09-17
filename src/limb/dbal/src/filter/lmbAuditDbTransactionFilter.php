@@ -1,6 +1,7 @@
 <?php
 namespace limb\dbal\src\filter;
 
+use limb\core\src\lmbEnv;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\dbal\src\drivers\lmbAuditDbConnection;
 use limb\toolkit\src\lmbToolkit;
@@ -11,9 +12,9 @@ class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
 
   function run($filter_chain)
   {
-    $this->toolkit = lmbToolkit :: instance();
+    $this->toolkit = lmbToolkit::instance();
 
-    if( !$this->toolkit->isWebAppDebugEnabled() )
+    if( 'devel' !== lmbEnv::get('LIMB_APP_MODE') )
     {
       $filter_chain->next();
       return;

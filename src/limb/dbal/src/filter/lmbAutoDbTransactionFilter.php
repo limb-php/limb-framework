@@ -21,7 +21,7 @@ class lmbAutoDbTransactionFilter
 {
   function run($chain)
   {
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
     $old_conn = $toolkit->getDefaultDbConnection();
     $conn = new lmbAutoTransactionConnection($old_conn);
     $toolkit->setDefaultDbConnection($conn);
@@ -32,7 +32,7 @@ class lmbAutoDbTransactionFilter
       $conn->commitTransaction();
       $toolkit->setDefaultDbConnection($old_conn);
     }
-    catch(Exception $e)
+    catch(\Exception $e)
     {
       $conn->rollbackTransaction();
       $toolkit->setDefaultDbConnection($old_conn);
