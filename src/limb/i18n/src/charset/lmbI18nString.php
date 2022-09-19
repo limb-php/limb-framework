@@ -49,7 +49,7 @@ class lmbI18nString
   }
 
 
-  function translit_russian($input, $encoding = 'utf-8')
+  static function translit_russian($input, $encoding = 'utf-8')
   {
     $encoding = strtolower($encoding);
     if($encoding != 'utf-8')
@@ -76,7 +76,7 @@ class lmbI18nString
       return $result;
   }
 
-  function utf8_to_win1251($str)
+  static function utf8_to_win1251($str)
   {
     static $conv = '';
     if(!is_array($conv))
@@ -103,7 +103,7 @@ class lmbI18nString
     return str_replace($conv['utf'], $conv['win'], $str);
   }
 
-  function win1251_to_utf8($s)
+  static function win1251_to_utf8($s)
   {
     $c209 = chr(209);
     $c208 = chr(208);
