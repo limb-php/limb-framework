@@ -204,7 +204,7 @@ class lmbFs
     return $dir_elements;
   }
 
-  static function joinPath($arr, $fs_type = self :: UNIX)
+  static function joinPath($arr, $fs_type = self::UNIX)
   {
     return implode(self :: separator($fs_type), $arr);
   }
@@ -421,7 +421,7 @@ class lmbFs
 
   static function isPathRelative($path, $fs_type = self::LOCAL)
   {
-    return !self::isPathAbsolute($path, $os_type);
+    return !self::isPathAbsolute($path, $fs_type);
   }
 
   static function isPathAbsolute($path, $fs_type = self::LOCAL)
