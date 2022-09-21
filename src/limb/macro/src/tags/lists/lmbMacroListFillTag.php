@@ -16,7 +16,7 @@ use limb\macro\src\tags\lists\lmbMacroListTag;
  * Allows to generate valid layout while output multicolumn lists
  * Default ratio attribute is 1  
  * @tag list:fill
- * @parent_tag_class lmbMacroListTag
+ * @parent_tag_class limb\macro\src\tags\lists\lmbMacroListTag
  * @package macro
  * @version $Id$
  */
@@ -27,7 +27,7 @@ class lmbMacroListFillTag extends lmbMacroTag
     $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');
     $list->countSource();
     
-    return parent :: preParse($compiler);
+    return parent::preParse($compiler);
   }
   
   protected function _generateContent($code)

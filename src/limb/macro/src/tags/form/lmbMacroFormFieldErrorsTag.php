@@ -14,7 +14,7 @@ use limb\macro\src\tags\form\lmbMacroFormTag;
 /**
  * @tag form:field_errors
  * @forbid_end_tag   
- * @parent_tag_class lmbMacroFormTag
+ * @parent_tag_class limb\macro\src\tags\form\lmbMacroFormTag
  * @restrict_self_nesting
  * @package macro
  * @version $Id$

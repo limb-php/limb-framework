@@ -2,11 +2,12 @@
 namespace limb\macro\src\tags\core;
 
 use limb\macro\src\compiler\lmbMacroTag;
+use limb\macro\src\lmbMacroException;
 
 /**
  * class lmbMacroElseIfTag.
  * @tag elseif
- * @parent_tag_class lmbMacroIfTag
+ * @parent_tag_class limb\macro\src\tags\corelmbMacroIfTag
  * @forbid_end_tag
  */
 class lmbMacroElseIfTag extends lmbMacroTag

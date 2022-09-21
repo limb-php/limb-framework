@@ -12,7 +12,7 @@ use limb\macro\src\compiler\lmbMacroTag;
 
 /**
  * @tag pager:next:disabled
- * @parent_tag_class lmbMacroPagerTag
+ * @parent_tag_class limb\macro\src\tags\pager\lmbMacroPagerTag
  * @restrict_self_nesting
  * @version $Id$
  */

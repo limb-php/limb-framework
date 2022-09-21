@@ -18,7 +18,7 @@ use limb\macro\src\tags\lists\lmbMacroListGlueHelper;
  *
  * @tag list:glue
  * @aliases list:separator 
- * @parent_tag_class lmbMacroListItemTag
+ * @parent_tag_class limb\macro\src\tags\lists\lmbMacroListItemTag
  * @package macro
  * @version $Id$
  */
@@ -55,7 +55,6 @@ class lmbMacroListGlueTag extends lmbMacroTag
     $helper_var = $this->getHelperVar($code);
     
     $code->writePHP("if(!isset({$helper_var})){\n");
-    //$code->registerInclude('limb/macro/src/tags/lists/lmbMacroListGlueHelper.class.php');
     $code->writePHP($helper_var . " = new limb\\macro\\src\\tags\\lists\\lmbMacroListGlueHelper();\n");
     $code->writePHP("}\n");
 

@@ -6,7 +6,7 @@ use limb\macro\src\compiler\lmbMacroTag;
 /**
  * class lmbMacroElseTag.
  * @tag else
- * @parent_tag_class lmbMacroIfTag
+ * @parent_tag_class limb\macro\src\tags\core\lmbMacroIfTag
  * @forbid_end_tag
  */
 class lmbMacroElseTag extends lmbMacroTag

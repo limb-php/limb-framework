@@ -8,11 +8,10 @@
  */
 namespace limb\macro\src\compiler;
 
-use limb\macro\src\compiler\lmbMacroSourceLocation;
 use limb\macro\src\lmbMacroException;
 
 /**
- * class lmbMacroNode.
+ * class limb\macro\src\compiler\lmbMacroNode.
  *
  * @package macro
  * @version $Id$
@@ -68,7 +67,7 @@ class lmbMacroNode
     if($this->node_id)
       return $this->node_id;
 
-    $this->node_id = self :: generateNewId();
+    $this->node_id = self::generateNewId();
     return $this->node_id;
   }
 
@@ -79,7 +78,7 @@ class lmbMacroNode
 
   static function generateNewId()
   {
-    return 'id00' . self :: $counter++;
+    return 'id00' . self::$counter++;
   }
 
   static function generateUniqueId()

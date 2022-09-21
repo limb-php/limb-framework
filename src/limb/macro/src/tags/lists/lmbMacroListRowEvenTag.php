@@ -13,7 +13,7 @@ use limb\macro\src\compiler\lmbMacroTag;
 /**
  * Renders a portion of the template if the current list row is even
  * @tag list:even
- * @parent_tag_class lmbMacroListItemTag
+ * @parent_tag_class limb\macro\src\tags\lists\lmbMacroListItemTag
  * @package macro
  * @version $Id$
  */

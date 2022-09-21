@@ -14,7 +14,7 @@ use limb\macro\src\tags\lists\lmbMacroListTag;
 /**
  * Renders a portion of the template if the current list row is odd
  * @tag list:odd
- * @parent_tag_class lmbMacroListItemTag
+ * @parent_tag_class limb\macro\src\tags\lists\lmbMacroListItemTag
  * @package macro
  * @version $Id$
  */
