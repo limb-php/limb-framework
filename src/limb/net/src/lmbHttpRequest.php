@@ -22,21 +22,22 @@ use limb\net\src\lmbUploadedFilesParser;
 class lmbHttpRequest extends lmbSet
 {
   protected $__uri;
+  protected $__headers = array();
   protected $__request = array();
   protected $__get = array();
   protected $__post = array();
   protected $__cookies = array();
   protected $__files = array();
   protected $__pretend_post = false;
-  protected $__reserved_attrs = array('__uri', '__request', '__get', '__post', '__cookies', '__files', '__pretend_post', '__reserved_attrs');
+  protected $__reserved_attrs = array('__uri', '__headers', '__request', '__get', '__post', '__cookies', '__files', '__pretend_post', '__reserved_attrs');
 
-  function __construct($uri_string = null, $get = null, $post = null, $cookies = null, $files = null)
+  function __construct($uri_string = null, $get = null, $post = null, $cookies = null, $files = null, $headers = null)
   {
     parent::__construct();
-    $this->_initRequestProperties($uri_string, $get, $post, $cookies, $files);
+    $this->_initRequestProperties($uri_string, $get, $post, $cookies, $files, $headers);
   }
 
-  protected function _initRequestProperties($uri_string, $get, $post, $cookies, $files)
+  protected function _initRequestProperties($uri_string, $get, $post, $cookies, $files, $headers)
   {
     $this->__uri = !is_null($uri_string) ? new lmbUri($uri_string) : new lmbUri($this->getRawUriString());
 
@@ -64,7 +65,23 @@ class lmbHttpRequest extends lmbSet
         continue;
       $this->set($k, $v);
     }
+
+    $this->__headers = $headers ?? $this->_readHeaders();
   }
+
+    protected function _readHeaders(): array
+    {
+        $headers = [];
+        foreach ($_SERVER as $key => $value) {
+            if (str_starts_with($key, 'HTTP_')) {
+                $headers[substr($key, 5)] = $value;
+            } elseif (in_array($key, ['CONTENT_TYPE', 'CONTENT_LENGTH', 'CONTENT_MD5'], true)) {
+                $headers[$key] = $value;
+            }
+        }
+
+        return $headers;
+    }
 
   protected function _parseUploadedFiles($files)
   {
@@ -132,6 +149,16 @@ class lmbHttpRequest extends lmbSet
     return sizeof($this->__post) > 0 ||
       (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST');
   }
+
+    public function getHeaders()
+    {
+        return $this->__headers;
+    }
+
+    public function getHeader($header_name, $default_value = null)
+    {
+        return $this->__headers[$header_name] ?? $default_value;
+    }
 
   function isAjax()
   {
