@@ -19,15 +19,23 @@ use limb\dbal\src\drivers\lmbDbBaseConnection;
  */
 class lmbOciConnection extends lmbDbBaseConnection
 {
-  protected $connectionId;
+    protected $connectionId;
 
-  //Transaction state. Should be either OCI_COMMIT_ON_SUCCESS or OCI_DEFAULT
-  protected $tstate = OCI_COMMIT_ON_SUCCESS;
+    //Transaction state. Should be either OCI_COMMIT_ON_SUCCESS or OCI_DEFAULT
+    protected $tstate = OCI_COMMIT_ON_SUCCESS;
 
-  function getType()
-  {
-    return 'oci';
-  }
+    function getType()
+    {
+        return 'oci';
+    }
+
+    function getExtension()
+    {
+        if(is_object($this->extension))
+            return $this->extension;
+
+        return $this->extension = new lmbOciExtension($this);
+    }
 
   function getConnectionId()
   {

@@ -19,12 +19,20 @@ use limb\dbal\src\exception\lmbDbException;
  */
 class lmbMysqliConnection extends lmbDbBaseConnection
 {
-  protected $connectionId;
+    protected $connectionId;
 
-  function getType()
-  {
-    return 'mysqli';
-  }
+    function getType()
+    {
+        return 'mysqli';
+    }
+
+    function getExtension()
+    {
+        if(is_object($this->extension))
+            return $this->extension;
+
+        return $this->extension = new lmbMysqliExtension($this);
+    }
 
   function getConnectionId()
   {

@@ -20,13 +20,21 @@ use limb\core\src\lmbEnv;
  */
 class lmbMssqlConnection extends lmbDbBaseConnection
 {
-  protected $connectionId;
-  protected $transactionCount = 0;
+    protected $connectionId;
+    protected $transactionCount = 0;
 
-  function getType()
-  {
-    return 'mssql';
-  }
+    function getType()
+    {
+        return 'mssql';
+    }
+
+    function getExtension()
+    {
+        if(is_object($this->extension))
+            return $this->extension;
+
+        return $this->extension = new lmbMssqlExtension($this);
+    }
 
   function getConnectionId()
   {

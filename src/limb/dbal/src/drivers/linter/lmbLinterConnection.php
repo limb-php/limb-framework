@@ -19,20 +19,28 @@ use limb\dbal\src\drivers\lmbDbBaseConnection;
  */
 class lmbLinterConnection extends lmbDbBaseConnection
 {
-  const CURSOR_POOL_LIMIT = 64;
-  const LINTER_EMPTY_DATASET = -18;
+    const CURSOR_POOL_LIMIT = 64;
+    const LINTER_EMPTY_DATASET = -18;
   
-  protected $connectionId;
-  protected $transactionCount = 0;
-  protected $cursorPool = array();
-  protected $mode = null;
-  protected $useConnection = false;
-  protected $debug = false;
+    protected $connectionId;
+    protected $transactionCount = 0;
+    protected $cursorPool = array();
+    protected $mode = null;
+    protected $useConnection = false;
+    protected $debug = false;
   
-  function getType()
-  {
-    return 'linter';
-  }
+    function getType()
+    {
+        return 'linter';
+    }
+
+    function getExtension()
+    {
+        if(is_object($this->extension))
+            return $this->extension;
+
+        return $this->extension = new lmbLinterExtension($this);
+    }
 
   function getConnectionId()
   {

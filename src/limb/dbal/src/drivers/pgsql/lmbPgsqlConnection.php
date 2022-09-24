@@ -19,13 +19,21 @@ use limb\dbal\src\drivers\lmbDbBaseConnection;
  */
 class lmbPgsqlConnection extends lmbDbBaseConnection
 {
-  protected $connectionId;
-  protected $statement_number = 0;
+    protected $connectionId;
+    protected $statement_number = 0;
 
-  function getType()
-  {
-    return 'pgsql';
-  }
+    function getType()
+    {
+        return 'pgsql';
+    }
+
+    function getExtension()
+    {
+        if(is_object($this->extension))
+            return $this->extension;
+
+        return $this->extension = new lmbPgsqlExtension($this);
+    }
 
   function getConnectionId()
   {

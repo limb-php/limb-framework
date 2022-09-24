@@ -8,7 +8,6 @@
  */
 namespace limb\dbal\src\drivers;
 
-use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\dbal\src\lmbDbDSN;
 
 /**
@@ -43,17 +42,7 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
     return crc32(serialize($this->config));
   }
 
-  function getExtension()
-  {
-    if(is_object($this->extension))
-      return $this->extension;
-
-    $ext = substr($this->dsn_string, 0, strpos($this->dsn_string, ':'));
-    $class = 'limb\\dbal\\src\\drivers\\' . $ext . '\\lmb' . ucfirst($ext) . 'Extension';
-
-    $this->extension = new $class($this);
-    return $this->extension;
-  }
+  abstract function getExtension();
 
   function getDsnString()
   {

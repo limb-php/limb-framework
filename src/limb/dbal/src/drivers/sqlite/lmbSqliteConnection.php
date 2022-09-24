@@ -19,13 +19,21 @@ use limb\dbal\src\exception\lmbDbException;
  */
 class lmbSqliteConnection extends lmbDbBaseConnection
 {
-  protected $connection;
-  protected $in_transaction = false;
+    protected $connection;
+    protected $in_transaction = false;
 
-  function getType()
-  {
-    return 'sqlite';
-  }
+    function getType()
+    {
+        return 'sqlite';
+    }
+
+    function getExtension()
+    {
+        if(is_object($this->extension))
+            return $this->extension;
+
+        return $this->extension = new lmbSqliteExtension($this);
+    }
 
     function getConnectionId()
     {
