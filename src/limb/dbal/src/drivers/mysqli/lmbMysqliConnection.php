@@ -10,21 +10,12 @@ namespace limb\dbal\src\drivers\mysqli;
 
 use limb\dbal\src\drivers\lmbDbBaseConnection;
 use limb\dbal\src\exception\lmbDbException;
-use limb\dbal\src\drivers\mysqli\lmbMysqliDbInfo;
-use limb\dbal\src\drivers\mysqli\lmbMysqliQueryStatement;
-use limb\dbal\src\drivers\mysqli\lmbMysqliInsertStatement;
-use limb\dbal\src\drivers\mysqli\lmbMysqliManipulationStatement;
-use limb\dbal\src\drivers\mysqli\lmbMysqliStatement;
-use limb\dbal\src\drivers\mysqli\lmbMysqliTypeInfo;
-use limb\dbal\src\drivers\mysqli\lmbMysqliTableInfo;
-use limb\dbal\src\drivers\mysqli\lmbMysqliRecord;
-use limb\dbal\src\drivers\mysqli\lmbMysqliRecordSet;
 
 /**
  * class lmbMysqlConnection.
  *
  * @package dbal
- * @version $Id: lmbMysqlConnection.class.php 6848 2008-03-21 13:44:08Z svk $
+ * @version $Id: lmbMysqlConnection.php 6848 2008-03-21 13:44:08Z svk $
  */
 class lmbMysqliConnection extends lmbDbBaseConnection
 {
@@ -190,5 +181,3 @@ class lmbMysqliConnection extends lmbDbBaseConnection
 
   }
 }
-
-

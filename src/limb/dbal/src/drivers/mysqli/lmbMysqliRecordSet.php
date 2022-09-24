@@ -9,13 +9,12 @@
 namespace limb\dbal\src\drivers\mysqli;
 
 use limb\dbal\src\drivers\lmbDbBaseRecordSet;
-use limb\dbal\src\drivers\mysqli\lmbMysqliRecord;
 
 /**
  * class lmbMysqliRecordSet.
  *
  * @package dbal
- * @version $Id: lmbMysqliRecordSet.class.php 6891 2008-04-01 21:44:38Z pachanga $
+ * @version $Id: lmbMysqliRecordSet.php 6891 2008-04-01 21:44:38Z pachanga $
  */
 class lmbMysqliRecordSet extends lmbDbBaseRecordSet
 {
@@ -166,5 +165,3 @@ class lmbMysqliRecordSet extends lmbDbBaseRecordSet
     return $count;
   }
 }
-
-

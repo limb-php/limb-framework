@@ -9,13 +9,12 @@
 namespace limb\dbal\src\drivers\mysqli;
 
 use limb\dbal\src\drivers\lmbDbColumnInfo;
-use limb\dbal\src\drivers\mysqli\lmbMysqliTypeInfo;
 
 /**
  * class lmbMysqliColumnInfo.
  *
  * @package dbal
- * @version $Id: lmbMysqliColumnInfo.class.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbMysqliColumnInfo.php 6243 2007-08-29 11:53:10Z pachanga $
  */
 class lmbMysqliColumnInfo extends lmbDbColumnInfo
 {

@@ -10,17 +10,14 @@
 namespace limb\dbal\src\drivers\mysqli;
 
 use limb\dbal\src\drivers\lmbDbIndexInfo;
-use limb\dbal\src\drivers\mysqli\lmbMysqliTypeInfo;
 
 /**
  * class lmbMysqliIndexInfo.
  *
  * @package dbal
- * @version $Id: lmbMysqliIndexInfo.class.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbMysqliIndexInfo.php 6243 2007-08-29 11:53:10Z pachanga $
  */
 class lmbMysqliIndexInfo extends lmbDbIndexInfo
 {
 
 }
-
-

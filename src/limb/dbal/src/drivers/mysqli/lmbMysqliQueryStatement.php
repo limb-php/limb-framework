@@ -9,15 +9,12 @@
 namespace limb\dbal\src\drivers\mysqli;
 
 use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
-use limb\dbal\src\drivers\mysqli\lmbMysqliStatement;
-use limb\dbal\src\drivers\mysqli\lmbMysqliRecord;
-use limb\dbal\src\drivers\mysqli\lmbMysqliRecordSet;
 
 /**
  * class lmbMysqliQueryStatement.
  *
  * @package dbal
- * @version $Id: lmbMysqliQueryStatement.class.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbMysqliQueryStatement.php 6243 2007-08-29 11:53:10Z pachanga $
  */
 class lmbMysqliQueryStatement extends lmbMysqliStatement implements lmbDbQueryStatementInterface
 {
@@ -56,5 +53,3 @@ class lmbMysqliQueryStatement extends lmbMysqliStatement implements lmbDbQuerySt
     return new lmbMysqliRecordSet($this->connection, $this->getSQL());
   }
 }
-
-

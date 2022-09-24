@@ -8,7 +8,7 @@
  */
 namespace limb\dbal\src\drivers\mysqli;
 
-use limb\dbal\src\drivers\mysql\lmbMysqlExtension;
+use limb\dbal\src\drivers\lmbDbBaseExtension;
 
 /**
  * class lmbMysqliExtension
@@ -16,6 +16,25 @@ use limb\dbal\src\drivers\mysql\lmbMysqlExtension;
  * @package dbal
  * @version $Id$
  */
-class lmbMysqliExtension extends lmbMysqlExtension
+class lmbMysqliExtension extends lmbDbBaseExtension
 {
+    function in($column_name, $values)
+    {
+        return "$column_name IN ('" . implode("','", $values) . "')";
+    }
+
+    function concat($values)
+    {
+        $str = implode(',', $values);
+        return " CONCAT({$str}) ";
+    }
+
+    //NOTE:offset leftmost position is 1
+    function substr($string, $offset, $limit=null)
+    {
+        if($limit === null)
+            return " SUBSTRING({$string} FROM {$offset}) ";
+        else
+            return " SUBSTRING({$string} FROM {$offset} FOR {$limit}) ";
+    }
 }

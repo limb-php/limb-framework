@@ -9,14 +9,13 @@
 namespace limb\dbal\src\drivers\mysqli;
 
 use limb\dbal\src\drivers\lmbDbInfo;
-use limb\dbal\src\drivers\mysqli\lmbMysqliTableInfo;
 use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbMysqliDbInfo.
  *
  * @package dbal
- * @version $Id: lmbMysqliDbInfo.class.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbMysqliDbInfo.php 6243 2007-08-29 11:53:10Z pachanga $
  */
 class lmbMysqliDbInfo extends lmbDbInfo
 {
@@ -66,5 +65,3 @@ class lmbMysqliDbInfo extends lmbDbInfo
     return $this->tables[$name];
   }
 }
-
-

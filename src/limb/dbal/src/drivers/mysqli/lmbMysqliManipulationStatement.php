@@ -9,13 +9,12 @@
 namespace limb\dbal\src\drivers\mysqli;
 
 use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
-use limb\dbal\src\drivers\mysqli\lmbMysqliStatement;
 
 /**
  * class lmbMysqliManipulationStatement.
  *
  * @package dbal
- * @version $Id: lmbMysqliManipulationStatement.class.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbMysqliManipulationStatement.php 6243 2007-08-29 11:53:10Z pachanga $
  */
 class lmbMysqliManipulationStatement extends lmbMysqliStatement implements lmbDbManipulationStatementInterface
 {
@@ -24,5 +23,3 @@ class lmbMysqliManipulationStatement extends lmbMysqliStatement implements lmbDb
     return mysqli_affected_rows($this->connection->getConnectionId());
   }
 }
-
-

@@ -8,14 +8,13 @@
  */
 namespace limb\dbal\src\drivers\mysqli;
 
-use limb\dbal\src\drivers\mysqli\lmbMysqliManipulationStatement;
 use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
 
 /**
  * class lmbMysqliInsertStatement.
  *
  * @package dbal
- * @version $Id: lmbMysqliInsertStatement.class.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbMysqliInsertStatement.php 6243 2007-08-29 11:53:10Z pachanga $
  */
 class lmbMysqliInsertStatement extends lmbMysqliManipulationStatement implements lmbDbInsertStatementInterface
 {
@@ -29,5 +28,3 @@ class lmbMysqliInsertStatement extends lmbMysqliManipulationStatement implements
       return $this->connection->getSequenceValue(null, null);
   }
 }
-
-

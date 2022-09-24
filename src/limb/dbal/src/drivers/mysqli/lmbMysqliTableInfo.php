@@ -10,14 +10,12 @@ namespace limb\dbal\src\drivers\mysqli;
 
 use limb\dbal\src\drivers\lmbDbTableInfo;
 use limb\dbal\src\drivers\lmbDbIndexInfo;
-use limb\dbal\src\drivers\mysqli\lmbMysqliColumnInfo;
-use limb\dbal\src\drivers\mysqli\lmbMysqliIndexInfo;
 
 /**
  * class lmbMysqliTableInfo.
  *
  * @package dbal
- * @version $Id: lmbMysqliTableInfo.class.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbMysqliTableInfo.php 6243 2007-08-29 11:53:10Z pachanga $
  */
 class lmbMysqliTableInfo extends lmbDbTableInfo
 {
@@ -122,5 +120,3 @@ class lmbMysqliTableInfo extends lmbDbTableInfo
     $this->isIndexesLoaded = true;
   }
 }
-
-

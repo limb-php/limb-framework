@@ -51,9 +51,6 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
     $ext = substr($this->dsn_string, 0, strpos($this->dsn_string, ':'));
     $class = 'limb\\dbal\\src\\drivers\\' . $ext . '\\lmb' . ucfirst($ext) . 'Extension';
 
-    /**if(!class_exists($class))
-      require_once("limb/dbal/src/drivers/$ext/$class.class.php");*/
-
     $this->extension = new $class($this);
     return $this->extension;
   }
