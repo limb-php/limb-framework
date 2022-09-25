@@ -1,4 +1,7 @@
 <?php
+namespace tests\core\cases;
+
+require_once ('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbEnv;

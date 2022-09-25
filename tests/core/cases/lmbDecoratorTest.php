@@ -6,6 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\core\cases;
+
+require_once ('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbDecorator;
@@ -41,7 +44,7 @@ class lmbDecoratorTest extends TestCase
   {
     $rnd = mt_rand();
     $class = 'DecoratorTestStub' .$rnd;
-    $this->assertTrue(lmbDecorator :: generate('DecorateeTestStub', $class));
+    $this->assertTrue(lmbDecorator::generate(DecorateeTestStub::class, $class));
     $obj = new $class(new DecorateeTestStub());
     $this->assertTrue($obj instanceof DecorateeTestStub);
   }
@@ -50,10 +53,10 @@ class lmbDecoratorTest extends TestCase
   {
     $rnd = mt_rand();
     $class = 'DecoratorTestStub' .$rnd;
-    $this->assertTrue(lmbDecorator :: generate('DecorateeTestStub', $class));
+    $this->assertTrue(lmbDecorator::generate(DecorateeTestStub::class, $class));
     //false here means that decorator with such name already exists, it's NOT an error 
     //a bit misleading but it's simple and works :)
-    $this->assertFalse(lmbDecorator :: generate('DecorateeTestStub', $class));
+    $this->assertFalse(lmbDecorator::generate(DecorateeTestStub::class, $class));
   }
 
   function testThrowsExceptionOnExistingClasses()
@@ -61,8 +64,8 @@ class lmbDecoratorTest extends TestCase
     //exception must be thrown since lmbDecoratorTest class already exists
     try
     {
-      lmbDecorator::generate('DecorateeTestStub', 'lmbDecoratorTest');
-      $this->assertTrue(false);
+      lmbDecorator::generate(DecorateeTestStub::class, lmbDecoratorTest::class);
+      $this->fail();
     }
     catch(lmbException $e){
         $this->assertTrue(true);
@@ -74,21 +77,21 @@ class lmbDecoratorTest extends TestCase
   {
     $rnd = mt_rand();
     $class = 'DecoratorTestStub' .$rnd;
-    $this->assertTrue(lmbDecorator :: generate('DecorateeTestStub', $class));
+    $this->assertTrue(lmbDecorator::generate(DecorateeTestStub::class, $class));
 
-    $refl = new ReflectionClass($class);
-    $this->assertTrue($refl->implementsInterface('DecorateeTestInterface'));
+    $refl = new \ReflectionClass($class);
+    $this->assertTrue($refl->implementsInterface(DecorateeTestInterface::class));
   }
 
   function testHasMethods()
   {
     $rnd = mt_rand();
     $class = 'DecoratorTestStub' .$rnd;
-    $this->assertTrue(lmbDecorator :: generate('DecorateeTestStub', $class));
+    $this->assertTrue(lmbDecorator::generate(DecorateeTestStub::class, $class));
 
     $decorator = new $class(new DecorateeTestStub());
 
-    foreach(get_class_methods('DecorateeTestStub') as $method)
+    foreach(get_class_methods(DecorateeTestStub::class) as $method)
       $this->assertTrue(method_exists($decorator, $method));
   }
 
@@ -96,24 +99,22 @@ class lmbDecoratorTest extends TestCase
   {
     $rnd = mt_rand();
     $class = 'DecoratorTestStub' .$rnd;
-    $this->assertTrue(lmbDecorator :: generate('DecorateeTestStub', $class));
+    $this->assertTrue(lmbDecorator::generate(DecorateeTestStub::class, $class));
 
-    $refl = new ReflectionClass($class);
+    $refl = new \ReflectionClass($class);
     $params = $refl->getMethod('typehint')->getParameters();
     $this->assertEquals(sizeof($params), 1);
-    $this->assertEquals($params[0]->getClass()->getName(), 'DecorateeTestStub');
+    $this->assertEquals($params[0]->getClass()->getName(), DecorateeTestStub::class);
   }
 
   function testCallsPassedToDecorated()
   {
     $rnd = mt_rand();
     $class = 'DecoratorTestStub' .$rnd;
-    $this->assertTrue(lmbDecorator :: generate('DecorateeTestStub', $class));
+    $this->assertTrue(lmbDecorator::generate(DecorateeTestStub::class, $class));
 
     $decorator = new $class(new DecorateeTestStub());
     $decorator->set('foo');
     $this->assertEquals($decorator->get(), 'foo');
   }
 }
-
-

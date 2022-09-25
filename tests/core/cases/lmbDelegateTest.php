@@ -6,6 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\core\cases;
+
+require_once ('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbDelegate;
@@ -42,8 +45,8 @@ class DelegateTestingStub
 
   function staticMethod($arg)
   {
-    self :: $static_arg = $arg;
-    self :: $static_called = true;
+    self::$static_arg = $arg;
+    self::$static_called = true;
   }
 }
 
@@ -75,7 +78,7 @@ class lmbDelegateTest extends TestCase
     try
     {
       $delegate->invoke();
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbException $e){
         $this->assertTrue(true);
@@ -85,11 +88,11 @@ class lmbDelegateTest extends TestCase
 
   function testDelegateToStaticClass()
   {
-    $delegate = new lmbDelegate('DelegateTestingStub', 'staticMethod');
+    $delegate = new lmbDelegate(DelegateTestingStub::class, 'staticMethod');
     $this->assertFalse(DelegateTestingStub::$static_called);
     $delegate->invoke('bar');
     $this->assertTrue(DelegateTestingStub::$static_called);
-    $this->assertEquals(DelegateTestingStub::$static_arg, 'bar');
+    $this->assertEquals('bar', DelegateTestingStub::$static_arg);
   }
 
   function testInvalidStaticDelegatee()
@@ -98,7 +101,7 @@ class lmbDelegateTest extends TestCase
     try
     {
       $delegate->invoke();
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbException $e){
         $this->assertTrue(true);
@@ -108,9 +111,9 @@ class lmbDelegateTest extends TestCase
 
   function testDelegateToFunction()
   {
-    $delegate = new lmbDelegate('DelegateTestingStubFunction');
+    $delegate = new lmbDelegate('tests\core\cases\DelegateTestingStubFunction');
     $delegate->invoke('bar');
-    $this->assertEquals(DelegateTestingStubFunction(), 'bar');
+    $this->assertEquals('bar', DelegateTestingStubFunction());
   }
 
   function testInvalidFunctionDelegatee()
@@ -119,7 +122,7 @@ class lmbDelegateTest extends TestCase
     try
     {
       $delegate->invoke();
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbException $e){
         $this->assertTrue(true);
@@ -134,7 +137,7 @@ class lmbDelegateTest extends TestCase
     $delegate = new lmbDelegate(array($stub, 'instanceMethod'));
     $delegate->invoke('bar');
     $this->assertTrue($stub->instance_called);
-    $this->assertEquals($stub->instance_arg, 'bar');
+    $this->assertEquals('bar', $stub->instance_arg);
   }
 
   function testInvokeWithMultipleArgs()
@@ -142,8 +145,8 @@ class lmbDelegateTest extends TestCase
     $stub = new DelegateTestingStub();
     $delegate = new lmbDelegate(array($stub, 'instanceMethodWithManyArgs'));
     $delegate->invoke('bar', 'foo');
-    $this->assertEquals($stub->instance_arg1, 'bar');
-    $this->assertEquals($stub->instance_arg2, 'foo');
+    $this->assertEquals('bar', $stub->instance_arg1);
+    $this->assertEquals('foo', $stub->instance_arg2);
   }
 
   function testInvokeArray()
@@ -151,8 +154,8 @@ class lmbDelegateTest extends TestCase
     $stub = new DelegateTestingStub();
     $delegate = new lmbDelegate(array($stub, 'instanceMethodWithManyArgs'));
     $delegate->invokeArray(array('bar', 'foo'));
-    $this->assertEquals($stub->instance_arg1, 'bar');
-    $this->assertEquals($stub->instance_arg2, 'foo');
+    $this->assertEquals('bar', $stub->instance_arg1);
+    $this->assertEquals('foo', $stub->instance_arg2);
   }
 
   function testInvokeAll()
@@ -165,14 +168,14 @@ class lmbDelegateTest extends TestCase
     $d2 = new lmbDelegate($s2, 'instanceMethod');
     $d3 = new lmbDelegate($s3, 'instanceMethod');
 
-    lmbDelegate :: invokeAll(array($d1, $d2, $d3), array('bar'));
+    lmbDelegate::invokeAll(array($d1, $d2, $d3), array('bar'));
 
     $this->assertTrue($s1->instance_called);
-    $this->assertEquals($s1->instance_arg, 'bar');
+    $this->assertEquals('bar', $s1->instance_arg);
     $this->assertTrue($s2->instance_called);
-    $this->assertEquals($s2->instance_arg, 'bar');
+    $this->assertEquals('bar', $s2->instance_arg);
     $this->assertTrue($s3->instance_called);
-    $this->assertEquals($s3->instance_arg, 'bar');
+    $this->assertEquals('bar', $s3->instance_arg);
   }
 
   function testInvokeChain()
@@ -185,7 +188,7 @@ class lmbDelegateTest extends TestCase
     $d2 = new lmbDelegate($s2, 'instanceReturningMethod');//returns argument
     $d3 = new lmbDelegate($s3, 'instanceMethod');
 
-    lmbDelegate :: invokeChain(array($d1, $d2, $d3), array('bar'));
+    lmbDelegate::invokeChain(array($d1, $d2, $d3), array('bar'));
 
     $this->assertTrue($s1->instance_called);
     $this->assertEquals($s1->instance_arg, 'bar');
@@ -213,4 +216,3 @@ class lmbDelegateTest extends TestCase
     $this->assertTrue($d5->equal($d6));
   }
 }
-

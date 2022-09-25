@@ -6,14 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-
-class SerializableTestChildStub
-{
-  function identify()
-  {
-    return 'child';
-  }
-}
+namespace tests\core\cases;
 
 class SerializableTestStub
 {

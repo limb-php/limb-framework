@@ -6,9 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\core\cases;
 
-require ('.setup.php');
-require ('lmbTestHandleClass.php');
+require_once ('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbHandle;
@@ -39,22 +39,22 @@ class lmbHandleTest extends TestCase
   function testPassMethodCalls()
   {
     $handle = new lmbHandle(lmbHandleDeclaredInSameFile::class);
-    $this->assertEquals($handle->foo(), 'foo');
+    $this->assertEquals('foo', $handle->foo());
   }
 
   function testPassAttributes()
   {
     $handle = new lmbHandle(lmbHandleDeclaredInSameFile::class);
-    $this->assertEquals($handle->test_var, 'default');
+    $this->assertEquals('default', $handle->test_var);
 
     $handle->test_var = 'foo';
-    $this->assertEquals($handle->test_var, 'foo');
+    $this->assertEquals('foo', $handle->test_var);
   }
 
   function testPassArgumentsDeclaredInSameFile()
   {
     $handle = new lmbHandle(lmbHandleDeclaredInSameFile::class, array('some_value'));
-    $this->assertEquals($handle->test_var, 'some_value');
+    $this->assertEquals('some_value', $handle->test_var);
   }
 
   function testShortClassPath()
@@ -66,7 +66,7 @@ class lmbHandleTest extends TestCase
   function testShortClassPathPassArguments()
   {
     $handle = new lmbHandle(lmbTestHandleClass::class, array('some_value'));
-    $this->assertEquals($handle->test_var, 'some_value');
+    $this->assertEquals('some_value', $handle->test_var);
   }
 
   function testFullClassPath()
@@ -78,8 +78,7 @@ class lmbHandleTest extends TestCase
   function testFullClassPathPassArguments()
   {
     $handle = new lmbHandle(lmbLoadedHandleClass::class, array('some_value'));
-    $this->assertEquals($handle->test_var, 'some_value');
-    $this->assertEquals($handle->bar(), 'bar');
+    $this->assertEquals('some_value', $handle->test_var);
+    $this->assertEquals('bar', $handle->bar());
   }
 }
-

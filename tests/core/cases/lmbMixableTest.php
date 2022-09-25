@@ -6,6 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\core\cases;
+
+require_once ('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbMixable;
@@ -82,51 +85,51 @@ class lmbMixableTest extends TestCase
     $mixed = new lmbMixable();
     $mixed->mixin(new MixinFoo());
     $mixed->mixin(new MixinBar());
-    $this->assertEquals($mixed->foo(), 'foo');
-    $this->assertEquals($mixed->bar(), 'bar');
+    $this->assertEquals('foo', $mixed->foo());
+    $this->assertEquals('bar', $mixed->bar());
   }
 
   function testMixinClasses()
   {
     $mixed = new lmbMixable();
-    $mixed->mixin('MixinFoo');
-    $mixed->mixin('MixinBar');
-    $this->assertEquals($mixed->foo(), 'foo');
-    $this->assertEquals($mixed->bar(), 'bar');
+    $mixed->mixin(MixinFoo::class);
+    $mixed->mixin(MixinBar::class);
+    $this->assertEquals('foo', $mixed->foo());
+    $this->assertEquals('bar', $mixed->bar());
   }
 
   function testSetOwner()
   {
     $mixed = new lmbMixable();
     $mixed->setOwner(new MixedTestStub());
-    $mixed->mixin('MixinCallingOwnerMethod');
-    $this->assertEquals($mixed->ownerMy(), 'stub');
+    $mixed->mixin(MixinCallingOwnerMethod::class);
+    $this->assertEquals('stub', $mixed->ownerMy());
   }
 
   function testOwnerMethodInvokation()
   {
-    $mixed = new MixableTestVersion(array('MixinFoo', 'MixinBar'));
-    $this->assertEquals($mixed->my(), 'my'); //native method of mixable
-    $this->assertEquals($mixed->foo(), 'foo');
-    $this->assertEquals($mixed->bar(), 'bar');
+    $mixed = new MixableTestVersion(array(MixinFoo::class, MixinBar::class));
+    $this->assertEquals('my', $mixed->my()); //native method of mixable
+    $this->assertEquals('foo', $mixed->foo());
+    $this->assertEquals('bar', $mixed->bar());
   }
 
   function testCallOwnerFromMixinForObjects()
   {
     $mixed = new MixableTestVersion(array(new MixinCallingOwnerMethod()));
-    $this->assertEquals($mixed->ownerMy(), 'my');
+    $this->assertEquals('my', $mixed->ownerMy());
   }
 
   function testCallOwnerFromMixinForClasses()
   {
-    $mixed = new MixableTestVersion(array('MixinCallingOwnerMethod'));
-    $this->assertEquals($mixed->ownerMy(), 'my');
+    $mixed = new MixableTestVersion(array(MixinCallingOwnerMethod::class));
+    $this->assertEquals('my', $mixed->ownerMy());
   }
 
   function testGetOwnerVarFromMixin()
   {
     $mixed = new MixableTestVersion(array(new MixinCallingOwnerVar()));
-    $this->assertEquals($mixed->ownerVar(), 'var');
+    $this->assertEquals('var', $mixed->ownerVar());
   }
 
   function testMixinsOverriding()
@@ -134,7 +137,7 @@ class lmbMixableTest extends TestCase
     $mixed = new lmbMixable();
     $mixed->mixin(new MixinFoo());
     $mixed->mixin(new MixinOverridinFoo());
-    $this->assertEquals($mixed->foo(), 'overriden foo');
+    $this->assertEquals('overriden foo', $mixed->foo());
   }
 
   function testNoSuchMethodThrowsException()
@@ -144,11 +147,10 @@ class lmbMixableTest extends TestCase
     try
     {
       $mixed->hey();
-      $this->assertFalse(true);
+      $this->fail();
     }
     catch(lmbException $e){
         $this->assertTrue(true);
     }
   }
 }
-

@@ -55,7 +55,7 @@ class lmbAssert
   static function assert_array_with_key($array, $key_or_keys, $custom_message = null)
   {
     if (null === $custom_message)
-      $custom_message = 'Value is not an array or doesn\'t have a key "' . $key_or_keys . '"';
+      $custom_message = 'Value is not an array or doesn\'t have a key "' . var_export($key_or_keys, true) . '"';
 
     if (!is_array($key_or_keys))
       $key_or_keys = array($key_or_keys);
