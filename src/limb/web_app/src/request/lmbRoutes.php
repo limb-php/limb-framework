@@ -145,7 +145,7 @@ class lmbRoutes
       }
       elseif ($name = $this->_getExtraNamedParam($element))
       {
-        $final_regexp_parts[] = self :: EXTRA_PARAM_REGEXP;
+        $final_regexp_parts[] = self::EXTRA_PARAM_REGEXP;
         $named_params[] = $name;
       }
       else
@@ -248,5 +248,3 @@ class lmbRoutes
     return $this->_applyUrlFilter($route, $path);
   }
 }
-
-

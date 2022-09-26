@@ -206,8 +206,8 @@ class lmbDelegateTest extends TestCase
     $d2 = new lmbDelegate($s2, 'instanceReturningMethod');
     $d3 = new lmbDelegate($s1, 'instanceMethod');
     $d4 = new lmbDelegate($s1, 'instanceReturningMethod');
-    $d5 = new lmbDelegate('DelegateTestingStubFunction');
-    $d6 = new lmbDelegate('DelegateTestingStubFunction');
+    $d5 = new lmbDelegate('tests\core\cases\DelegateTestingStubFunction');
+    $d6 = new lmbDelegate('tests\core\cases\DelegateTestingStubFunction');
     
     $this->assertFalse($d1->equal($d2));
     $this->assertTrue($d1->equal($d3));

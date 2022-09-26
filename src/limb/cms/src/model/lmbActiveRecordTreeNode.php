@@ -3,6 +3,9 @@ namespace limb\cms\src\model;
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\tree\src\lmbMPTree;
+use limb\active_record\src\lmbARException;
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\criteria\lmbSQLCriteria;
 
 abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
 {
@@ -10,7 +13,7 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
 
   function __construct($magic_params = null)
   {
-    parent :: __construct($magic_params);
+    parent::__construct($magic_params);
 
     $this->_tree = $this->getTree();
   }
@@ -22,7 +25,7 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
   function getTree()
   {
     if(!$this->_tree)
-      $this->_tree = lmbToolkit :: instance()->getCmsTree($this->getTableName(), $this->_db_conn);
+      $this->_tree = lmbToolkit::instance()->getCmsTree($this->getTableName(), $this->_db_conn);
 
     return $this->_tree;
   }
@@ -45,7 +48,7 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
     $this->_has_many['kids'] = array('field' => 'parent_id',
                                      'class' => get_class($this));
 
-    parent :: _defineRelations();
+    parent::_defineRelations();
   }
 
   protected function _insertDbRecord($values)
@@ -88,16 +91,16 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
    */
   function getChildren($depth = 1)
   {
-    return lmbActiveRecord :: decorateRecordSet($this->getTree()->getChildren($this->getId(), $depth),
-                                                get_class($this),
-                                                $this->_db_conn);
+    return lmbActiveRecord::decorateRecordSet($this->getTree()->getChildren($this->getId(), $depth),
+                                              get_class($this),
+                                              $this->_db_conn);
   }
 
   function getChildrenAll()
   {
-    return lmbActiveRecord :: decorateRecordSet($this->getTree()->getChildrenAll($this->getId()),
-                                                get_class($this),
-                                                $this->_db_conn);
+    return lmbActiveRecord::decorateRecordSet($this->getTree()->getChildrenAll($this->getId()),
+                                              get_class($this),
+                                              $this->_db_conn);
   }
 
   function move($target)
@@ -108,9 +111,9 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
   static function findRoot($class_name = '')
   {
     if(!$class_name)
-      $class_name = self :: _getCallingClass();
+      $class_name = self::_getCallingClass();
 
-    return lmbActiveRecord :: findOne($class_name, lmbSQLCriteria::equal('parent_id', 0));
+    return lmbActiveRecord::findOne($class_name, lmbSQLCriteria::equal('parent_id', 0));
   }
 
   /**

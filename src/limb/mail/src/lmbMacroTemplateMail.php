@@ -96,13 +96,13 @@ class lmbMacroTemplateMail
     {
       $doc = simplexml_load_string('<?xml version="1.0"?><mail>'.$content.'</mail>');
     }
-    catch (Exception $e)
+    catch (\Exception $e)
     {
       throw new lmbException('Error while parsing template: '.$e->getMessage()); 
     }
     
     if (count($doc->mailpart) < 2)
-      throw new Exception('{{mailpart name="subject"}}, {{mailpart name="html_body"}} or {{mailpart name="txt_body"}} tags must be defined in template');
+      throw new \Exception('{{mailpart name="subject"}}, {{mailpart name="html_body"}} or {{mailpart name="txt_body"}} tags must be defined in template');
       
     $fields = array();
     foreach ($doc->mailpart as $mailpart)

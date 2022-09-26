@@ -15,6 +15,7 @@ use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
+use limb\core\src\exception\lmbException;
 
 lmbEnv::setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
 

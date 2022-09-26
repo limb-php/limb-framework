@@ -8,9 +8,7 @@
  */
 namespace limb\i18n\src\charset;
 
-use limb\i18n\src\charset\lmbSingleByteCharsetDriver;
-use limb\i18n\src\charset\lmbUTF8BaseDriver;
-use limb\i18n\src\charset\lmbUTF8MbstringDriver;
+use limb\core\src\lmbEnv;
 
 /**
  * class lmbI18nString.
@@ -34,7 +32,7 @@ class lmbI18nString
     if( self::$charset_driver )
       return self::$charset_driver;
 
-    if(!defined('LIMB_UTF8_IGNORE_MBSTRING') && function_exists('mb_strlen'))
+    if(!lmbEnv::get('LIMB_UTF8_IGNORE_MBSTRING') && function_exists('mb_strlen'))
     {
       self::useCharsetDriver(new lmbUTF8MbstringDriver());
     }
@@ -226,7 +224,7 @@ class lmbI18nString
    */
   static function str_split($str, $split_len=1)
   {
-    return self::getCharsetDriver()->_str_split($strX, $strY);
+    return self::getCharsetDriver()->_str_split($str, $split_len);
   }
   /**
    * This is multibyte aware alternative to preg_match

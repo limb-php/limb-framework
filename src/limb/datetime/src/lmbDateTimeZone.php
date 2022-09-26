@@ -26,7 +26,7 @@ namespace limb\datetime\src;
  *
  * This class includes time zone data (from zoneinfo) in the form of a global array, $_DATE_TIMEZONE_DATA.
  * @package datetime
- * @version $Id: lmbDateTimeZone.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDateTimeZone.php 7486 2009-01-26 19:13:20Z
  */
 class lmbDateTimeZone
 {
@@ -78,18 +78,17 @@ class lmbDateTimeZone
 
   function getDefault()
   {
-    global $_DATE_TIMEZONE_DEFAULT;
-    return new lmbDateTimeZone($_DATE_TIMEZONE_DEFAULT);
+    return new lmbDateTimeZone();
   }
 
-  function setDefault($id)
+  static function setDefault($id)
   {
     global $_DATE_TIMEZONE_DEFAULT;
     if (lmbDateTimeZone::isValidId($id))
       $_DATE_TIMEZONE_DEFAULT = $id;
   }
 
-  function isValidId($id)
+  static function isValidId($id)
   {
     global $_DATE_TIMEZONE_DATA;
     if (isset($_DATE_TIMEZONE_DATA[$id]))

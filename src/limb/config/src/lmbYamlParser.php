@@ -8,8 +8,6 @@
  */
 namespace limb\config\src;
 
-use limb\config\src\lmbYamlInline;
-
 if (!defined('PREG_BAD_UTF8_OFFSET_ERROR'))
 {
   define('PREG_BAD_UTF8_OFFSET_ERROR', 5);
@@ -49,7 +47,7 @@ class lmbYamlParser
    *
    * @return mixed  A PHP value
    *
-   * @throws InvalidArgumentException If the YAML is not valid
+   * @throws \InvalidArgumentException If the YAML is not valid
    */
   public function parse($value)
   {
@@ -68,7 +66,7 @@ class lmbYamlParser
       // tab?
       if (preg_match('#^\t+#', $this->currentLine))
       {
-        throw new InvalidArgumentException(sprintf('A YAML file cannot contain tabs as indentation at line %d (%s).', $this->getRealCurrentLineNb() + 1, $this->currentLine));
+        throw new \InvalidArgumentException(sprintf('A YAML file cannot contain tabs as indentation at line %d (%s).', $this->getRealCurrentLineNb() + 1, $this->currentLine));
       }
 
       $isRef = $isInPlace = $isProcessed = false;
@@ -128,7 +126,7 @@ class lmbYamlParser
             $isInPlace = substr($values['value'], 1);
             if (!array_key_exists($isInPlace, $this->refs))
             {
-              throw new InvalidArgumentException(sprintf('Reference "%s" does not exist at line %s (%s).', $isInPlace, $this->getRealCurrentLineNb() + 1, $this->currentLine));
+              throw new \InvalidArgumentException(sprintf('Reference "%s" does not exist at line %s (%s).', $isInPlace, $this->getRealCurrentLineNb() + 1, $this->currentLine));
             }
           }
           else
@@ -149,7 +147,7 @@ class lmbYamlParser
             $merged = array();
             if (!is_array($parsed))
             {
-              throw new InvalidArgumentException(sprintf("YAML merge keys used with a scalar value instead of an array at line %s (%s)", $this->getRealCurrentLineNb() + 1, $this->currentLine));
+              throw new \InvalidArgumentException(sprintf("YAML merge keys used with a scalar value instead of an array at line %s (%s)", $this->getRealCurrentLineNb() + 1, $this->currentLine));
             }
             else if (isset($parsed[0]))
             {
@@ -158,7 +156,7 @@ class lmbYamlParser
               {
                 if (!is_array($parsedItem))
                 {
-                  throw new InvalidArgumentException(sprintf("Merge items must be arrays at line %s (%s).", $this->getRealCurrentLineNb() + 1, $parsedItem));
+                  throw new \InvalidArgumentException(sprintf("Merge items must be arrays at line %s (%s).", $this->getRealCurrentLineNb() + 1, $parsedItem));
                 }
                 $merged = array_merge($parsedItem, $merged);
               }
@@ -255,7 +253,7 @@ class lmbYamlParser
             $error = 'Unable to parse line';
         }
 
-        throw new InvalidArgumentException(sprintf('%s %d (%s).', $error, $this->getRealCurrentLineNb() + 1, $this->currentLine));
+        throw new \InvalidArgumentException(sprintf('%s %d (%s).', $error, $this->getRealCurrentLineNb() + 1, $this->currentLine));
       }
 
       if ($isRef)
@@ -300,7 +298,7 @@ class lmbYamlParser
 
     if (!$this->isCurrentLineEmpty() && 0 == $newIndent)
     {
-      throw new InvalidArgumentException(sprintf('Indentation problem at line %d (%s)', $this->getRealCurrentLineNb() + 1, $this->currentLine));
+      throw new \InvalidArgumentException(sprintf('Indentation problem at line %d (%s)', $this->getRealCurrentLineNb() + 1, $this->currentLine));
     }
 
     $data = array(substr($this->currentLine, $newIndent));
@@ -336,7 +334,7 @@ class lmbYamlParser
       }
       else
       {
-        throw new InvalidArgumentException(sprintf('Indentation problem at line %d (%s)', $this->getRealCurrentLineNb() + 1, $this->currentLine));
+        throw new \InvalidArgumentException(sprintf('Indentation problem at line %d (%s)', $this->getRealCurrentLineNb() + 1, $this->currentLine));
       }
     }
 
@@ -388,7 +386,7 @@ class lmbYamlParser
 
       if (!array_key_exists($value, $this->refs))
       {
-        throw new InvalidArgumentException(sprintf('Reference "%s" does not exist (%s).', $value, $this->currentLine));
+        throw new \InvalidArgumentException(sprintf('Reference "%s" does not exist (%s).', $value, $this->currentLine));
       }
       return $this->refs[$value];
     }

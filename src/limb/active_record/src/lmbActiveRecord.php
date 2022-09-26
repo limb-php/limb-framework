@@ -17,13 +17,6 @@ use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\validation\src\lmbValidator;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\exception\lmbValidationException;
-use limb\active_record\src\lmbARException;
-use limb\active_record\src\lmbARNotFoundException;
-use limb\active_record\src\lmbAROneToManyCollection;
-use limb\active_record\src\lmbARManyToManyCollection;
-use limb\active_record\src\lmbARQuery;
-use limb\active_record\src\lmbARRecordSetDecorator;
-use limb\active_record\src\lmbARMetaInfo;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbNoSuchPropertyException;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
@@ -32,7 +25,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
 /**
  * Base class responsible for ActiveRecord design pattern implementation. Inspired by Rails ActiveRecord class.
  *
- * @version $Id: lmbActiveRecord.class.php 8171 2010-04-20 10:34:12Z serega $
+ * @version $Id: lmbActiveRecord.php 8171 2010-04-20 10:34:12Z
  * @package active_record
  */
 class lmbActiveRecord extends lmbObject
@@ -2379,5 +2372,3 @@ class lmbActiveRecord extends lmbObject
     return $vars;
   }
 }
-
-
