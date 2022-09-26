@@ -6,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\fs\cases;
 
-require ('.setup.php');
+require_once ('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFileLocationsInterface;
@@ -20,61 +21,58 @@ class lmbFileLocatorTest extends TestCase
   function testLocateException()
   {
       $mock = $this->createMock(lmbFileLocationsInterface::class);
-      $mock->method('expectOnce');
 
-    $locator = new lmbFileLocator($mock);
+      $locator = new lmbFileLocator($mock);
 
-    $params = array('whatever');
-    $mock->expectOnce('getLocations', array($params));
-    $mock->setReturnValue('getLocations', array());
+      $params = array('whatever');
+      $mock
+          ->method('getLocations', array($params))
+          ->willReturn(array());
 
-    try
-    {
-      $locator->locate('whatever', $params);
-      $this->assertTrue(false);
-    }
-    catch(lmbFileNotFoundException $e){}
+      try
+      {
+        $locator->locate('whatever', $params);
+        $this->fail();
+      }
+      catch(lmbFileNotFoundException $e){}
   }
 
   function testLocateUsingLocations()
   {
       $mock = $this->createMock(lmbFileLocationsInterface::class);
-      $mock->method('expectOnce');
 
       $locator = new lmbFileLocator($mock);
 
-    $mock->expectOnce('getLocations');
-    $mock->setReturnValue('getLocations',
-                          array(dirname(__FILE__) . '/design/_en/',
+      $mock
+        ->method('getLocations')
+        ->willReturn( array(dirname(__FILE__) . '/design/_en/',
                                      dirname(__FILE__) . '/design/'));
 
-    $this->assertEquals(lmbFs :: normalizePath($locator->locate('test1.html')),
-                       lmbFs :: normalizePath(dirname(__FILE__) . '/design/_en/test1.html'));
+    $this->assertEquals(lmbFs::normalizePath($locator->locate('test1.html')),
+                        lmbFs::normalizePath(dirname(__FILE__) . '/design/_en/test1.html'));
   }
 
   function testSkipAbsoluteAliases()
   {
       $mock = $this->createMock(lmbFileLocationsInterface::class);
-      $mock->method('expectOnce');
 
-    $locator = new lmbFileLocator($mock);
+      $locator = new lmbFileLocator($mock);
 
-    $mock->expectNever('getLocations');
+      $mock->method('getLocations');
 
-    $this->assertEquals(lmbFs :: normalizePath($locator->locate(dirname(__FILE__) . '/design/_en/test1.html')),
+      $this->assertEquals(lmbFs :: normalizePath($locator->locate(dirname(__FILE__) . '/design/_en/test1.html')),
                        lmbFs :: normalizePath(dirname(__FILE__) . '/design/_en/test1.html'));
   }
 
   function testLocateAll()
   {
       $mock = $this->createMock(lmbFileLocationsInterface::class);
-      $mock->method('expectOnce');
 
     $locator = new lmbFileLocator($mock);
 
-    $mock->expectOnce('getLocations');
-    $mock->setReturnValue('getLocations',
-                          array(dirname(__FILE__) . '/design/',
+    $mock
+        ->method('getLocations')
+        ->willReturn( array(dirname(__FILE__) . '/design/',
                                 dirname(__FILE__) . '/design/_en/'));
 
 
@@ -87,5 +85,3 @@ class lmbFileLocatorTest extends TestCase
                        lmbFs :: normalizePath(dirname(__FILE__) . '/design/_en/test1.html'));
   }
 }
-
-

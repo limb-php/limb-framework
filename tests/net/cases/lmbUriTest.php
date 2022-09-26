@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\net\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbUri;
@@ -19,22 +20,22 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEquals($uri->getProtocol(), 'http');
-    $this->assertEquals($uri->getHost(), 'localhost');
-    $this->assertEquals($uri->getUser(), 'admin');
-    $this->assertEquals($uri->getPassword(), 'test');
-    $this->assertEquals($uri->getPort(), '81');
-    $this->assertEquals($uri->getAnchor(), '23');
+    $this->assertEquals('http', $uri->getProtocol());
+    $this->assertEquals('localhost', $uri->getHost());
+    $this->assertEquals('admin', $uri->getUser());
+    $this->assertEquals('test', $uri->getPassword());
+    $this->assertEquals('81', $uri->getPort());
+    $this->assertEquals('23', $uri->getAnchor());
 
-    $this->assertEquals($uri->getQueryItem('foo'), 'bar');
-    $this->assertEquals($uri->countQueryItems(), 1);
+    $this->assertEquals('bar', $uri->getQueryItem('foo'));
+    $this->assertEquals(1, $uri->countQueryItems());
 
-    $this->assertEquals($uri->getPath(), '/test.php/test');
-    $this->assertEquals($uri->countPath(), 3);
-    $this->assertEquals($uri->getPathElements(), array('', 'test.php', 'test'));
-    $this->assertEquals($uri->getPathElement(0), '');
-    $this->assertEquals($uri->getPathElement(1), 'test.php');
-    $this->assertEquals($uri->getPathElement(2), 'test');
+    $this->assertEquals('/test.php/test', $uri->getPath());
+    $this->assertEquals(3, $uri->countPath());
+    $this->assertEquals(array('', 'test.php', 'test'), $uri->getPathElements());
+    $this->assertEquals('', $uri->getPathElement(0));
+    $this->assertEquals('test.php', $uri->getPathElement(1));
+    $this->assertEquals('test', $uri->getPathElement(2));
   }
 
   function testCreate_FileProtocolWithoutHost_OnUnix()

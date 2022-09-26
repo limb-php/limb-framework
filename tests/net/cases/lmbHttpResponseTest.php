@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\net\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbHttpRedirectStrategy;
@@ -20,13 +21,13 @@ Mock :: generatePartial(
         '_sendFile')
 );
 
-Mock::generate('lmbHttpRedirectStrategy', 'MockHttpRedirectStrategy');
+Mock::generate(lmbHttpRedirectStrategy::class, 'MockHttpRedirectStrategy');
 
 class lmbHttpResponseTest extends TestCase
 {
   var $response;
 
-  function setUp()
+  function setUp(): void
   {
     $this->response = new SpecialMockResponse();
   }

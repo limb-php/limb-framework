@@ -6,12 +6,14 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\fs\cases;
 
-require ('.setup.php');
+require_once ('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFsRecursiveIterator;
 use limb\fs\src\lmbFs;
+use limb\core\src\lmbEnv;
 use limb\fs\src\exception\lmbFsException;
 
 class lmbFsRecursiveIteratorTest extends TestCase
@@ -20,25 +22,25 @@ class lmbFsRecursiveIteratorTest extends TestCase
 
   function lmbFsRecursiveIteratorTest()
   {
-    $this->dir = LIMB_VAR_DIR . '/tmp/';
-    parent :: TestCase();
+    $this->dir = lmbEnv::get('LIMB_VAR_DIR') . '/tmp/';
+    parent::TestCase();
   }
 
   function _createFileSystem()
   {
-    lmbFs :: mkdir($this->dir);
+    lmbFs::mkdir($this->dir);
     touch($this->dir . '/a');
 
-    lmbFs :: mkdir($this->dir . '/nested/.sub-nested/');
+    lmbFs::mkdir($this->dir . '/nested/.sub-nested/');
     touch($this->dir . '/nested/.sub-nested/d');
 
-    lmbFs :: mkdir($this->dir . '/nested/b');
+    lmbFs::mkdir($this->dir . '/nested/b');
     touch($this->dir . '/nested/c');
   }
 
   function _removeFileSystem()
   {
-    lmbFs :: rm($this->dir);
+    lmbFs::rm($this->dir);
   }
 
   function testExceptionIterate()
@@ -48,15 +50,15 @@ class lmbFsRecursiveIteratorTest extends TestCase
     try
     {
       $it->rewind();
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbFsException $e){}
   }
 
   function testSimpleIterate()
   {
-    lmbFs :: rm($this->dir);
-    lmbFs :: mkdir($this->dir);
+    lmbFs::rm($this->dir);
+    lmbFs::mkdir($this->dir);
 
     $it = new lmbFsRecursiveIterator($this->dir);
 
@@ -70,7 +72,7 @@ class lmbFsRecursiveIteratorTest extends TestCase
     $it->next();
     $this->assertFalse($it->valid());
 
-    lmbFs :: rm($this->dir);
+    lmbFs::rm($this->dir);
   }
 
   function testComplexIterate()
@@ -85,20 +87,20 @@ class lmbFsRecursiveIteratorTest extends TestCase
 
     $res = array_map(array('lmbFs', 'normalizePath'), $res);
     $expected =
-      array(lmbFs :: normalizePath($this->dir . '/.'),
-          lmbFs :: normalizePath($this->dir . '/..'),
-          lmbFs :: normalizePath($this->dir . '/a'),
-          lmbFs :: normalizePath($this->dir . '/nested'),
-          lmbFs :: normalizePath($this->dir . '/nested/.'),
-          lmbFs :: normalizePath($this->dir . '/nested/..'),
-          lmbFs :: normalizePath($this->dir . '/nested/.sub-nested'),
-          lmbFs :: normalizePath($this->dir . '/nested/.sub-nested/.'),
-          lmbFs :: normalizePath($this->dir . '/nested/.sub-nested/..'),
-          lmbFs :: normalizePath($this->dir . '/nested/.sub-nested/d'),
-          lmbFs :: normalizePath($this->dir . '/nested/b'),
-          lmbFs :: normalizePath($this->dir . '/nested/b/.'),
-          lmbFs :: normalizePath($this->dir . '/nested/b/..'),
-          lmbFs :: normalizePath($this->dir . '/nested/c'),
+      array(lmbFs::normalizePath($this->dir . '/.'),
+          lmbFs::normalizePath($this->dir . '/..'),
+          lmbFs::normalizePath($this->dir . '/a'),
+          lmbFs::normalizePath($this->dir . '/nested'),
+          lmbFs::normalizePath($this->dir . '/nested/.'),
+          lmbFs::normalizePath($this->dir . '/nested/..'),
+          lmbFs::normalizePath($this->dir . '/nested/.sub-nested'),
+          lmbFs::normalizePath($this->dir . '/nested/.sub-nested/.'),
+          lmbFs::normalizePath($this->dir . '/nested/.sub-nested/..'),
+          lmbFs::normalizePath($this->dir . '/nested/.sub-nested/d'),
+          lmbFs::normalizePath($this->dir . '/nested/b'),
+          lmbFs::normalizePath($this->dir . '/nested/b/.'),
+          lmbFs::normalizePath($this->dir . '/nested/b/..'),
+          lmbFs::normalizePath($this->dir . '/nested/c'),
           );
     sort($res);
     sort($expected);
@@ -115,21 +117,21 @@ class lmbFsRecursiveIteratorTest extends TestCase
     $this->assertFalse($it->isDot(), '%s ' . $line);
     $this->assertTrue($it->isDir(), '%s ' . $line);
     $this->assertFalse($it->isFile(), '%s ' . $line);
-    $this->assertEquals(lmbFs :: normalizePath($it->getPath()),
-                       lmbFs :: normalizePath($path), '%s ' . $line);
+    $this->assertEquals(lmbFs::normalizePath($it->getPath()),
+                       lmbFs::normalizePath($path), '%s ' . $line);
   }
 
   function _assertDotDir($it, $posible_paths, $line='')
   {
     $posible_paths = array(
-        lmbFs :: normalizePath($this->dir.'/.'),
-        lmbFs :: normalizePath($this->dir.'/..'),
+        lmbFs::normalizePath($this->dir.'/.'),
+        lmbFs::normalizePath($this->dir.'/..'),
     );
 
     $this->assertTrue($it->valid(), '%s ' . $line);
     $this->assertTrue($it->isDir(), '%s ' . $line);
     $this->assertFalse($it->isFile(), '%s ' . $line);
-    $this->assertTrue(in_array(lmbFs :: normalizePath($it->getPath()),
+    $this->assertTrue(in_array(lmbFs::normalizePath($it->getPath()),
                        $posible_paths), '%s ' . $line);
   }
 
@@ -139,8 +141,8 @@ class lmbFsRecursiveIteratorTest extends TestCase
     $this->assertFalse($it->isDot(), '%s ' . $line);
     $this->assertFalse($it->isDir(), '%s ' . $line);
     $this->assertTrue($it->isFile(), '%s ' . $line);
-    $this->assertEquals(lmbFs :: normalizePath($it->getPath()),
-                       lmbFs :: normalizePath($path), '%s ' . $line);
+    $this->assertEquals(lmbFs::normalizePath($it->getPath()),
+                       lmbFs::normalizePath($path), '%s ' . $line);
   }
 }
 

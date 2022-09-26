@@ -6,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\fs\cases;
 
-require ('.setup.php');
+require_once ('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFileLocationsInterface;
@@ -19,10 +20,10 @@ class lmbFileLocationsListTest extends TestCase
   function testGetLocations()
   {
       $mock = $this->createMock(lmbFileLocationsInterface::class);
-      $mock->method('expectOnce');
 
-    $mock->expectOnce('getLocations');
-    $mock->setReturnValue('getLocations', array('path1', 'path2'));
+      $mock
+          ->method('getLocations')
+          ->willReturn(array('path1', 'path2'));
 
     $locations = new lmbFileLocationsList('path0', $mock, 'path3');
 
@@ -38,10 +39,10 @@ class lmbFileLocationsListTest extends TestCase
   function testGetLocationsUseArrayInConstructor()
   {
       $mock = $this->createMock(lmbFileLocationsInterface::class);
-      $mock->method('expectOnce');
 
-    $mock->expectOnce('getLocations');
-    $mock->setReturnValue('getLocations', array('path2', 'path3'));
+      $mock
+        ->method('getLocations')
+        ->willReturn(array('path2', 'path3'));
 
     $locations = new lmbFileLocationsList(array('path0', 'path1', $mock));
 
@@ -57,16 +58,16 @@ class lmbFileLocationsListTest extends TestCase
   function testGetLocationsComplicatedTest()
   {
       $mock1 = $this->createMock(lmbFileLocationsInterface::class);
-      $mock1->method('expectOnce');
 
-    $mock1->expectOnce('getLocations');
-    $mock1->setReturnValue('getLocations', array('path2', 'path3'));
+      $mock1
+        ->method('getLocations')
+        ->willReturn('getLocations', array('path2', 'path3'));
 
       $mock2 = $this->createMock(lmbFileLocationsInterface::class);
-      $mock2->method('expectOnce');
 
-    $mock2->expectOnce('getLocations');
-    $mock2->setReturnValue('getLocations', array('path4', 'path5'));
+      $mock2
+          ->method('getLocations')
+          ->willReturn(array('path4', 'path5'));
 
     $locations = new lmbFileLocationsList(array('path0', 'path1', $mock1), $mock2, 'path6');
 
@@ -84,10 +85,8 @@ class lmbFileLocationsListTest extends TestCase
 
   function assertPathsEqual($path1, $path2, $msg=false)
   {
-    $this->assertEquals(rtrim(lmbFs :: normalizePath($path1), '/\\'),
-                       rtrim(lmbFs :: normalizePath($path2), '/\\'),
+    $this->assertEquals(rtrim(lmbFs::normalizePath($path1), '/\\'),
+                       rtrim(lmbFs::normalizePath($path2), '/\\'),
                        $msg);
   }
 }
-
-

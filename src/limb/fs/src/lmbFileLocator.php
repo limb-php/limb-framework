@@ -28,7 +28,7 @@ class lmbFileLocator
 
   function locate($alias, $params = array())
   {
-    if(lmbFs :: isPathAbsolute($alias))
+    if(lmbFs::isPathAbsolute($alias))
     {
        if(file_exists($alias))
          return $alias;

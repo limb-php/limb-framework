@@ -46,6 +46,11 @@ class lmbMockToolsWrapper implements lmbToolkitToolsInterface
     $this->use_only_methods = $use_only_methods;
   }
 
+  static function getRequiredTools()
+  {
+      return [];
+  }
+
   /**
   * @see lmbToolkitTools :: getToolsSignatures()
   */
@@ -62,5 +67,3 @@ class lmbMockToolsWrapper implements lmbToolkitToolsInterface
     return $signatures;
   }
 }
-
-

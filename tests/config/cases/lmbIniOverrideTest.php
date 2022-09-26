@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\config\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbIni;
@@ -15,12 +16,12 @@ class lmbIniOverrideTest extends TestCase
 {
   function setUp(): void
   {
-    lmbFs :: mkdir(lmb_var_dir() . '/tmp_ini');
+    lmbFs::mkdir(lmb_var_dir() . '/tmp_ini');
   }
 
   function tearDown(): void
   {
-    lmbFs :: rm(lmb_var_dir() . '/tmp_ini');
+    lmbFs::rm(lmb_var_dir() . '/tmp_ini');
   }
 
   function _createIniFileNames()

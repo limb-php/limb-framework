@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\net\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbMimeType;
@@ -47,18 +48,17 @@ class lmbMimeTypeTest extends TestCase
 
   function testGetMimeTypeForFile()
   {
-    $this->assertEquals(lmbMimeType :: getFileMimeType('test.html'), 'text/html');
-    $this->assertEquals(lmbMimeType :: getFileMimeType('test.rtf'), 'text/rtf');
+    $this->assertEquals(lmbMimeType::getFileMimeType('test.html'), 'text/html');
+    $this->assertEquals(lmbMimeType::getFileMimeType('test.rtf'), 'text/rtf');
   }
 
 
   function testGetSameExtensionForDifferentMimeTypes()
   {
-    $this->assertEquals(lmbMimeType :: getExtension('application/x-zip-compressed'), 'zip');
-    $this->assertEquals(lmbMimeType :: getExtension('application/zip'), 'zip');
-    $this->assertEquals(lmbMimeType :: getExtension('application/x-rar-compressed'), 'rar');
-    $this->assertEquals(lmbMimeType :: getExtension('application/rar'), 'rar');
+    $this->assertEquals(lmbMimeType::getExtension('application/x-zip-compressed'), 'zip');
+    $this->assertEquals(lmbMimeType::getExtension('application/zip'), 'zip');
+    $this->assertEquals(lmbMimeType::getExtension('application/x-rar-compressed'), 'rar');
+    $this->assertEquals(lmbMimeType::getExtension('application/rar'), 'rar');
   }
 
 }
-
