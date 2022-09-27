@@ -34,7 +34,7 @@ abstract class lmbDbBaseLexer implements lmbQueryLexerInterface
         return 'UPDATE %table% SET %fields% %where%';
     }
 
-    function getbDeleteQueryTemplate()
+    function getDeleteQueryTemplate()
     {
         return 'DELETE FROM %table% %where%';
     }

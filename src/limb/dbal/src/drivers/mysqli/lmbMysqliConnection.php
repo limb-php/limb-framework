@@ -15,7 +15,7 @@ use limb\dbal\src\exception\lmbDbException;
  * class lmbMysqlConnection.
  *
  * @package dbal
- * @version $Id: lmbMysqlConnection.php 6848 2008-03-21 13:44:08Z svk $
+ * @version $Id: lmbMysqlConnection.php 6848 2008-03-21 13:44:08Z
  */
 class lmbMysqliConnection extends lmbDbBaseConnection
 {
@@ -32,6 +32,11 @@ class lmbMysqliConnection extends lmbDbBaseConnection
             return $this->extension;
 
         return $this->extension = new lmbMysqliExtension($this);
+    }
+
+    function getLexer()
+    {
+        return new lmbMysqliLexer();
     }
 
   function getConnectionId()

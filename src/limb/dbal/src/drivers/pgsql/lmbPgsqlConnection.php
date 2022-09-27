@@ -15,7 +15,7 @@ use limb\dbal\src\drivers\lmbDbBaseConnection;
  * class lmbPgsqlConnection.
  *
  * @package dbal
- * @version $Id: lmbPgsqlConnection.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPgsqlConnection.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPgsqlConnection extends lmbDbBaseConnection
 {
@@ -33,6 +33,11 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
             return $this->extension;
 
         return $this->extension = new lmbPgsqlExtension($this);
+    }
+
+    function getLexer()
+    {
+        return new lmbPgsqlLexer();
     }
 
   function getConnectionId()

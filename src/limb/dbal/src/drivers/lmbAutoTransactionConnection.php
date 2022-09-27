@@ -12,150 +12,153 @@ namespace limb\dbal\src\drivers;
  * class lmbAutoTransactionConnection.
  *
  * @package dbal
- * @version $Id: lmbAutoTransactionConnection.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbAutoTransactionConnection.php 7486 2009-01-26 19:13:20Z
  */
 
 class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
 {
-  protected $modifying_statements = array('UPDATE',
-                                          'DELETE',
-                                          'INSERT',
-                                          'CREATE',
-                                          'ALTER',
-                                          'DROP');//do we need more?
-  protected $is_in_transaction = false;
+    protected $modifying_statements = array('UPDATE',
+                                            'DELETE',
+                                            'INSERT',
+                                            'CREATE',
+                                            'ALTER',
+                                            'DROP');//do we need more?
+    protected $is_in_transaction = false;
 
-  function newStatement($sql)
-  {
-    if($this->_isModifyingSQL($sql))
-      $this->beginTransaction();
-
-    return $this->connection->newStatement($sql);
-  }
-
-  protected function _isModifyingSQL($sql)
-  {
-    $sql_trimmed = ltrim($sql);
-
-    foreach($this->modifying_statements as $stmt)
+    function newStatement($sql)
     {
-      if(stripos($sql_trimmed, $stmt . ' ') === 0)
-        return true;
+        if($this->_isModifyingSQL($sql))
+            $this->beginTransaction();
+
+        return $this->connection->newStatement($sql);
     }
-    return false;
-  }
 
-  function beginTransaction()
-  {
-    if($this->is_in_transaction)
-      return;
-    $this->connection->beginTransaction();
-    $this->is_in_transaction = true;
-  }
-
-  function commitTransaction()
-  {
-    if($this->is_in_transaction)
+    protected function _isModifyingSQL($sql)
     {
-      $this->connection->commitTransaction();
-      $this->is_in_transaction = false;
-    }
-  }
+        $sql_trimmed = ltrim($sql);
 
-  function rollbackTransaction()
-  {
-    if($this->is_in_transaction)
+        foreach($this->modifying_statements as $stmt)
+        {
+            if(stripos($sql_trimmed, $stmt . ' ') === 0)
+              return true;
+        }
+        return false;
+    }
+
+    function beginTransaction()
     {
-      $this->connection->rollbackTransaction();
-      $this->is_in_transaction = false;
+        if($this->is_in_transaction)
+            return;
+        $this->connection->beginTransaction();
+        $this->is_in_transaction = true;
     }
-  }
 
-  function isInTransaction()
-  {
-    return $this->is_in_transaction;
-  }
+    function commitTransaction()
+    {
+        if($this->is_in_transaction)
+        {
+            $this->connection->commitTransaction();
+            $this->is_in_transaction = false;
+        }
+    }
 
-  /* */
-  function execute($sql)
-  {
-    return $this->connection->execute($sql);
-  }
+    function rollbackTransaction()
+    {
+        if($this->is_in_transaction)
+        {
+            $this->connection->rollbackTransaction();
+            $this->is_in_transaction = false;
+        }
+    }
 
-  function executeStatement($stmt)
-  {
-    return $this->connection->executeStatement($stmt);
-  }
+    function isInTransaction()
+    {
+      return $this->is_in_transaction;
+    }
 
-  function getConnectionId()
-  {
-    return $this->connection->getConnectionId();
-  }
+    /* */
+    function execute($sql)
+    {
+        return $this->connection->execute($sql);
+    }
 
-  function getHash()
-  {
-    return $this->connection->getHash();
-  }
+    function executeStatement($stmt)
+    {
+        return $this->connection->executeStatement($stmt);
+    }
 
-  function getDsnString()
-  {
-    return $this->connection->getDsnString();
-  }
+    function getConnectionId()
+    {
+        return $this->connection->getConnectionId();
+    }
 
-  function connect()
-  {
-    $this->connection->connect();
-  }
+    function getHash()
+    {
+        return $this->connection->getHash();
+    }
 
-  function getTypeInfo()
-  {
-    return $this->connection->getTypeInfo();
-  }
+    function getDsnString()
+    {
+        return $this->connection->getDsnString();
+    }
 
-  function getDatabaseInfo()
-  {
-    return $this->connection->getDatabaseInfo();
-  }
+    function connect()
+    {
+        $this->connection->connect();
+    }
 
-  function getStatementNumber()
-  {
-      return $this->connection->getStatementNumber();
-  }
+    function getTypeInfo()
+    {
+        return $this->connection->getTypeInfo();
+    }
 
-  function getSequenceValue($table, $colname)
-  {
-    return $this->connection->getSequenceValue($table, $colname);
-  }
+    function getDatabaseInfo()
+    {
+        return $this->connection->getDatabaseInfo();
+    }
 
-  function quoteIdentifier($id)
-  {
-    return $this->connection->quoteIdentifier($id);
-  }
+    function getStatementNumber()
+    {
+        return $this->connection->getStatementNumber();
+    }
 
-  function escape($string)
-  {
-    return $this->connection->escape($string);
-  }
+    function getSequenceValue($table, $colname)
+    {
+        return $this->connection->getSequenceValue($table, $colname);
+    }
 
-  function getExtension()
-  {
-    return $this->connection->getExtension();
-  }
+    function quoteIdentifier($id)
+    {
+        return $this->connection->quoteIdentifier($id);
+    }
 
-  function getType()
-  {
-    return $this->connection->getType();
-  }
+    function escape($string)
+    {
+        return $this->connection->escape($string);
+    }
 
-  function disconnect()
-  {
-    $this->connection->disconnect();
-  }
+    function getExtension()
+    {
+        return $this->connection->getExtension();
+    }
+
+    function getLexer()
+    {
+        return $this->connection->getLexer();
+    }
+
+    function getType()
+    {
+        return $this->connection->getType();
+    }
+
+    function disconnect()
+    {
+        $this->connection->disconnect();
+    }
 
     function _raiseError($msg)
     {
         $this->connection->_raiseError($msg);
     }
 }
-
-

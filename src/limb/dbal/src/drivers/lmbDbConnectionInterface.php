@@ -12,7 +12,7 @@ namespace limb\dbal\src\drivers;
  * interface lmbDbConnectionInterface.
  *
  * @package dbal
- * @version $Id: lmbDbConnectionInterface.class.php 7961 2009-06-24 06:42:39Z pachanga $
+ * @version $Id: lmbDbConnectionInterface.php 7961 2009-06-24 06:42:39Z
  */
 interface lmbDbConnectionInterface
 {
@@ -34,7 +34,6 @@ interface lmbDbConnectionInterface
   function quoteIdentifier($id);
   function escape($string);
   function getExtension();
+  function getLexer();
   function _raiseError($msg);
 }
-
-

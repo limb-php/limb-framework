@@ -15,7 +15,7 @@ use limb\dbal\src\drivers\lmbDbBaseConnection;
  * class lmbOciConnection.
  *
  * @package dbal
- * @version $Id: lmbOciConnection.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciConnection.php 7486 2009-01-26 19:13:20Z
  */
 class lmbOciConnection extends lmbDbBaseConnection
 {
@@ -35,6 +35,11 @@ class lmbOciConnection extends lmbDbBaseConnection
             return $this->extension;
 
         return $this->extension = new lmbOciExtension($this);
+    }
+
+    function getLexer()
+    {
+        return new lmbOciLexer();
     }
 
   function getConnectionId()

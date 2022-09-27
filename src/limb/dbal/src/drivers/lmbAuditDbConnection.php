@@ -141,6 +141,11 @@ class lmbAuditDbConnection extends lmbDbConnectionDecorator
         return $this->connection->getExtension();
     }
 
+    function getLexer()
+    {
+        return $this->connection->getLexer();
+    }
+
     function getType()
     {
         return $this->connection->getType();

@@ -16,7 +16,7 @@ use limb\core\src\lmbEnv;
  * class lmbMssqlConnection.
  *
  * @package dbal
- * @version $Id: lmbMssqlConnection.class.php,v 1.1.1.1 2009/06/08 11:57:21 mike Exp $
+ * @version $Id: lmbMssqlConnection.php, 1.1.1.1 2009/06/08 11:57:21
  */
 class lmbMssqlConnection extends lmbDbBaseConnection
 {
@@ -34,6 +34,11 @@ class lmbMssqlConnection extends lmbDbBaseConnection
             return $this->extension;
 
         return $this->extension = new lmbMssqlExtension($this);
+    }
+
+    function getLexer()
+    {
+        return new lmbMssqlLexer();
     }
 
   function getConnectionId()

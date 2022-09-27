@@ -42,6 +42,11 @@ class lmbLinterConnection extends lmbDbBaseConnection
         return $this->extension = new lmbLinterExtension($this);
     }
 
+    function getLexer()
+    {
+        return new lmbLinterLexer();
+    }
+
   function getConnectionId()
   {
     if(!isset($this->connectionId))

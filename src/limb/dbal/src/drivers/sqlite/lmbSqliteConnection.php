@@ -35,6 +35,11 @@ class lmbSqliteConnection extends lmbDbBaseConnection
         return $this->extension = new lmbSqliteExtension($this);
     }
 
+    function getLexer()
+    {
+        return new lmbSqliteLexer();
+    }
+
     function getConnectionId()
     {
         return $this->getConnection();

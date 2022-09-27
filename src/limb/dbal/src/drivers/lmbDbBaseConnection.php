@@ -44,6 +44,8 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
 
   abstract function getExtension();
 
+  abstract function getLexer();
+
   function getDsnString()
   {
     return $this->dsn_string;
