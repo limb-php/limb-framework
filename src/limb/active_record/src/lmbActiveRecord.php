@@ -582,6 +582,11 @@ class lmbActiveRecord extends lmbObject
     }
   }
 
+  public function newQuery()
+  {
+      return lmbARQuery::create($this, array(), $this->_db_conn);
+  }
+
   public static function __callStatic($method, $parameters)
   {
     return (new static)->$method(...$parameters);
@@ -591,14 +596,23 @@ class lmbActiveRecord extends lmbObject
   {
     try
     {
-      return parent::__call($method, $args);
+        return parent::__call($method, $args);
     }
     catch(lmbNoSuchMethodException $e)
     {
-      if($property = $this->mapAddToProperty($method))
-        $this->_addToProperty($property, $args[0]);
+      if($property = $this->mapAddToProperty($method)) {
+          $this->_addToProperty($property, $args[0]);
+      }
       else
-        throw $e;
+      {
+          try {
+              return $this->newQuery()->{$method}(...$args);
+          }
+          catch(\Error|\BadMethodCallException $e)
+          {
+              throw $e;
+          }
+      }
     }
   }
 
