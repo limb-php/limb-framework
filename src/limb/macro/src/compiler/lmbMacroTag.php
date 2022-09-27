@@ -8,9 +8,6 @@
  */
 namespace limb\macro\src\compiler;
 
-use limb\macro\src\compiler\lmbMacroTagAttribute;
-use limb\macro\src\compiler\lmbMacroNode;
-
 /**
  * class lmbMacroTag.
  *
@@ -29,7 +26,7 @@ class lmbMacroTag extends lmbMacroNode
     $this->tag = $tag;
     $this->tag_info = $tag_info;
 
-    parent :: __construct($location);
+    parent::__construct($location);
   }
 
   function getTag()
@@ -69,7 +66,7 @@ class lmbMacroTag extends lmbMacroNode
   function get($name)
   {
     if(!array_key_exists(strtolower($name), $this->attributes))
-      return;
+      return null;
 
     return $this->attributes[strtolower($name)]->getValue();
   }
@@ -77,7 +74,7 @@ class lmbMacroTag extends lmbMacroNode
   function getAttributeObject($name)
   {
     if(!array_key_exists(strtolower($name), $this->attributes))
-      return;
+      return null;
 
     return $this->attributes[strtolower($name)];
   }
@@ -85,7 +82,7 @@ class lmbMacroTag extends lmbMacroNode
   function getEscaped($name)
   {
     if(!$this->has($name))
-      return;
+      return null;
 
     $value = $this->get($name);
     if($this->isDynamic($name))
@@ -178,11 +175,11 @@ class lmbMacroTag extends lmbMacroNode
     $this->_generateAfterContent($code_writer);
   }
 
-  // children can override this method if they need to generate some code around content in simple cases
+  // children can override this method if they need to generate some code around content in simple cases,
   // but it's recommended to override generateBeforeContent() and generateAfterContent() instead.
   protected function _generateContent($code_writer)
   {
-    parent :: generate($code_writer);
+    parent::generate($code_writer);
   }
 
   protected function _generateBeforeContent($code_writer)
@@ -207,7 +204,7 @@ class lmbMacroTag extends lmbMacroNode
   function raise($error, $vars = array())
   {
     $vars['tag'] = $this->tag;
-    parent :: raise($error, $vars);
+    parent::raise($error, $vars);
   }
 
   function raiseRequiredAttribute($attribute_name)
@@ -282,4 +279,3 @@ class lmbMacroTag extends lmbMacroNode
     return $arg_str;
   }
 }
-
