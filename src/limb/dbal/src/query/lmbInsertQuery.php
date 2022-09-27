@@ -8,13 +8,11 @@
  */
 namespace limb\dbal\src\query;
 
-use limb\dbal\src\query\lmbTemplateQuery;
-
 /**
  * class lmbInsertQuery.
  *
  * @package dbal
- * @version $Id: lmbInsertQuery.class.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: lmbInsertQuery.php 7486 2009-01-26 19:13:20Z
  */
 class lmbInsertQuery extends lmbTemplateQuery
 {
@@ -22,11 +20,13 @@ class lmbInsertQuery extends lmbTemplateQuery
   protected $_fields = array();
   protected $_set_values = array();
 
-  function __construct($table, $conn)
+  function __construct($table, $conn = null)
   {
     $this->_table = $table;
 
-    parent::__construct("INSERT INTO %table% (%fields%) VALUES (%values%)", $conn);
+    $this->setConnection($conn);
+
+    parent::__construct($this->getLexer()->getInsertQueryTemplate());
 
     $this->_registerHint('table');
     $this->_registerHint('values');

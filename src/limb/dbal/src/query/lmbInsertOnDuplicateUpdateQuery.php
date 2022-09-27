@@ -8,8 +8,6 @@
  */
 namespace limb\dbal\src\query;
 
-use limb\dbal\src\query\lmbTemplateQuery;
-
 /**
  * class lmbInsertOnDuplicateUpdateQuery.
  *
@@ -28,7 +26,7 @@ class lmbInsertOnDuplicateUpdateQuery extends lmbTemplateQuery
 
     $this->setConnection($conn);
 
-    parent::__construct("INSERT INTO %table% (%fields%) VALUES (%values%) ON DUPLICATE KEY UPDATE %new_values%");
+    parent::__construct($this->getLexer()->getInsertOnDuplicateQueryTemplate());
     
     $this->_registerHint('table');
     $this->_registerHint('values');

@@ -8,22 +8,24 @@
  */
 namespace limb\dbal\src\query;
 
-use limb\dbal\src\query\lmbCriteriaQuery;
-
 /**
  * class lmbDeleteQuery.
  *
  * @package dbal
- * @version $Id: lmbDeleteQuery.class.php 7890 2009-04-17 14:55:29Z vasiatka $
+ * @version $Id: lmbDeleteQuery.php 7890 2009-04-17 14:55:29Z
  */
 class lmbDeleteQuery extends lmbCriteriaQuery
 {
   protected $_table;
 
-  function __construct($table, $conn=null)
+  function __construct($table, $conn = null)
   {
     $this->_table = $table;
-    parent :: __construct("DELETE FROM %table% %where%", $conn);
+
+    $this->setConnection($conn);
+
+    parent::__construct($this->getLexer()->getDeleteQueryTemplate());
+
     $this->_registerHint('table');
   }
 

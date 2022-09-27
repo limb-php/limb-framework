@@ -9,13 +9,12 @@
 namespace limb\dbal\src\query;
 
 use limb\core\src\exception\lmbException;
-use limb\dbal\src\query\lmbTemplateQuery;
 
 /**
  * class lmbInsertQuery.
  *
  * @package dbal
- * @version $Id: lmbInsertQuery.class.php 6221 2007-08-07 07:24:35Z pachanga $
+ * @version $Id: lmbInsertQuery.php 6221 2007-08-07 07:24:35Z
  */
 class lmbBulkInsertQuery extends lmbTemplateQuery
 {
@@ -23,10 +22,14 @@ class lmbBulkInsertQuery extends lmbTemplateQuery
   protected $_fields = array();
   protected $_sets = array();
 
-  function __construct($table, $conn)
+  function __construct($table, $conn = null)
   {
     $this->_table = $table;
-    parent :: __construct("INSERT INTO %table% (%fields%) VALUES %values%", $conn);
+
+    $this->setConnection($conn);
+
+    parent::__construct($this->getLexer()->getInsertQueryTemplate());
+
     $this->_registerHint('table');
     $this->_registerHint('values');
     $this->_registerHint('fields');
@@ -92,7 +95,7 @@ class lmbBulkInsertQuery extends lmbTemplateQuery
   function execute()
   {
     if(count($this->_sets))
-      return parent :: execute();
+      return parent::execute();
   }
 
   /**
@@ -104,4 +107,3 @@ class lmbBulkInsertQuery extends lmbTemplateQuery
     return in_array($connection->getType(), $supported_types);
   }
 }
-

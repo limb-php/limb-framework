@@ -15,7 +15,7 @@ interface lmbQueryLexerInterface
 
     function getUpdateQueryTemplate();
 
-    function getbDeleteQueryTemplate();
+    function getDeleteQueryTemplate();
 
     function getInsertOnDuplicateQueryTemplate();
 }

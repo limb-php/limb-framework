@@ -16,20 +16,19 @@ use limb\core\src\lmbString;
  * class lmbTemplateQuery.
  *
  * @package dbal
- * @version $Id: lmbTemplateQuery.class.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: lmbTemplateQuery.php 7486 2009-01-26 19:13:20Z
  */
-class lmbTemplateQuery
+abstract class lmbTemplateQuery
 {
   protected $_template_sql;
   protected $_no_hints_sql;
   protected $_conn;
   protected $_hints = array();
+  protected $_lexer;
 
-  function __construct($template_sql, $conn = null)
+  function __construct($template_sql)
   {
     $this->_template_sql = $template_sql;
-
-    $this->_conn = $conn;
   }
   
   function _registerHint($hint)
@@ -39,7 +38,7 @@ class lmbTemplateQuery
 
   function getConnection()
   {
-      return $this->_conn ?? lmbToolkit::instance()->getDefaultDbConnection();
+      return $this->_conn ?? $this->_conn = lmbToolkit::instance()->getDefaultDbConnection();
   }
 
   function setConnection($conn)
@@ -47,6 +46,11 @@ class lmbTemplateQuery
       $this->_conn = $conn;
 
       return $this;
+  }
+
+  protected function getLexer()
+  {
+    return $this->_lexer ?? $this->_lexer = $this->getConnection()->getLexer();
   }
 
   protected function _findHintsInTemplateSql()

@@ -8,10 +8,6 @@
  */
 namespace limb\dbal\src\query;
 
-use limb\dbal\src\query\lmbSelectRawQuery;
-
-//TODO: use primitive lexer for parsing sql templates someday...
-
 /**
  * class lmbSelectQuery.
  *
@@ -22,7 +18,10 @@ class lmbSelectQuery extends lmbSelectRawQuery
 {
   function __construct($table, $conn = null)
   {
-    parent::__construct(lmbSelectRawQuery::DEFAULT_SQL_TEMPLATE, $conn);
+    $this->setConnection($conn);
+
+    parent::__construct($this->getLexer()->getSelectQueryTemplate());
+
     $this->addTable($table);
   }
 }

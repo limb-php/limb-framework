@@ -8,13 +8,11 @@
  */
 namespace limb\dbal\src\query;
 
-use limb\dbal\src\query\lmbCriteriaQuery;
-
 /**
  * class lmbUpdateQuery.
  *
  * @package dbal
- * @version $Id: lmbUpdateQuery.class.php 7890 2009-04-17 14:55:29Z
+ * @version $Id: lmbUpdateQuery.php 7890 2009-04-17 14:55:29Z
  */
 class lmbUpdateQuery extends lmbCriteriaQuery
 {
@@ -27,7 +25,9 @@ class lmbUpdateQuery extends lmbCriteriaQuery
   {
     $this->_table = $table;
 
-    parent::__construct("UPDATE %table% SET %fields% %where%", $conn);
+    $this->setConnection($conn);
+
+    parent::__construct($this->getLexer()->getUpdateQueryTemplate());
 
     $this->_registerHint('table');
   }
@@ -112,4 +112,3 @@ class lmbUpdateQuery extends lmbCriteriaQuery
   }
 
 }
-

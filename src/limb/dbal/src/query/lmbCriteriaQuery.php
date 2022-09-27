@@ -8,14 +8,13 @@
  */
 namespace limb\dbal\src\query;
 
-use limb\dbal\src\query\lmbTemplateQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 
 /**
  * class lmbCriteriaQuery.
  *
  * @package dbal
- * @version $Id: lmbCriteriaQuery.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbCriteriaQuery.php 7486 2009-01-26 19:13:20Z
  */
 class lmbCriteriaQuery extends lmbTemplateQuery
 {
@@ -24,7 +23,7 @@ class lmbCriteriaQuery extends lmbTemplateQuery
 
   function addCriteria($criteria)
   {
-    $this->_criterias[] = lmbSQLCriteria :: objectify($criteria);
+    $this->_criterias[] = lmbSQLCriteria::objectify($criteria);
     $this->_registerHint('where');
     return $this;
   }
@@ -41,7 +40,7 @@ class lmbCriteriaQuery extends lmbTemplateQuery
 
   function getStatement()
   {
-    $stmt = parent :: getStatement();
+    $stmt = parent::getStatement();
 
     foreach($this->_stmt_values as $key => $value)
       $stmt->set($key, $value);

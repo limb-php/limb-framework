@@ -11,19 +11,14 @@ namespace limb\dbal\src\query;
 use limb\core\src\exception\lmbException;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 
-//TODO: use primitive lexer for parsing sql templates someday...
-
 /**
  * class lmbSelectRawQuery.
  *
  * @package dbal
- * @version $Id: lmbSelectRawQuery.class.php 6005 2007-06-19 21:14:49Z
+ * @version $Id: lmbSelectRawQuery.php 6005 2007-06-19 21:14:49Z
  */
 class lmbSelectRawQuery extends lmbCriteriaQuery
 {
-  //const DEFAULT_SQL_TEMPLATE = "SELECT %fields% FROM (%tables%) %left_join% %where% %group% %having% %order%";
-  const DEFAULT_SQL_TEMPLATE = "SELECT %fields% FROM %tables% %left_join% %where% %group% %having% %order%";
-
   protected $_fields = array();
   protected $_raw_fields = array();
   protected $_tables = array();
@@ -34,10 +29,16 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
 
   function __construct($sql_or_conn = null, $conn = null)
   {
-    if(is_object($sql_or_conn))
-      parent::__construct(self::DEFAULT_SQL_TEMPLATE, $sql_or_conn);
-    else
-      parent::__construct($sql_or_conn, $conn);
+    if(is_object($sql_or_conn)) {
+        $this->setConnection($sql_or_conn);
+
+        parent::__construct($this->getLexer()->getSelectQueryTemplate());
+    }
+    else {
+        $this->setConnection($conn);
+
+        parent::__construct($sql_or_conn);
+    }
   }
 
   function addField($field, $alias = null)
