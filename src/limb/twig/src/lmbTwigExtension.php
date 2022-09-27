@@ -1,6 +1,7 @@
 <?php
 namespace limb\twig\src;
 
+use limb\core\src\lmbEnv;
 use limb\toolkit\src\lmbToolkit;
 use limb\twig\src\Wysiwyg_TokenParser;
 
@@ -21,6 +22,7 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
           new \Twig\TwigFunction('current_uri', static::class.'::current_uri'),
           new \Twig\TwigFunction('is_allowed', static::class.'::is_allowed'),
           new \Twig\TwigFunction('pager_url', static::class.'::pager_url'),
+          new \Twig\TwigFunction('env_get', static::class.'::env_get'),
       ];
   }
 
@@ -154,4 +156,9 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
 
     return $curi->toString();
   }
+
+    public static function env_get($name, $default = null)
+    {
+        return lmbEnv::get($name, $default);
+    }
 }
