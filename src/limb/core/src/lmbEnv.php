@@ -23,9 +23,6 @@ class lmbEnv
         return true;
     }
 
-    if(defined($name))
-      return true;
-
     return false;
   }
 
@@ -39,9 +36,6 @@ class lmbEnv
         return $_ENV[$name];
     }
 
-    if(defined($name))
-      return constant($name);
-
     return $def;
   }
 
@@ -49,15 +43,7 @@ class lmbEnv
   {
     if(!array_key_exists($name, $_ENV))
     {
-      if(defined($name))
-      {
-        $_ENV[$name] = constant($name);
-      }
-      else
-      {
-        $_ENV[$name] = $value;
-        define($name, $value);
-      }
+      $_ENV[$name] = $value;
     }
 
     if(self::trace_has($name))
@@ -67,9 +53,6 @@ class lmbEnv
   static function set($name, $value)
   {
     $_ENV[$name] = $value;
-
-    if(!defined($name))
-      define($name, $value);
 
     if(self::trace_has($name))
       self::trace_show();

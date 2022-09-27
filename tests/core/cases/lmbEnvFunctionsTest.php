@@ -35,7 +35,7 @@ class lmbEnvFunctionsTest extends TestCase
 
   function testGetWithDefinedConstant()
   {
-      define($this->_('foo'), 'bar');
+      lmbEnv::set($this->_('foo'), 'bar');
       $this->assertEquals(lmbEnv::get($this->_('foo')), 'bar');
   }
 
@@ -56,7 +56,7 @@ class lmbEnvFunctionsTest extends TestCase
 
   function testSetOrWithDefinedConstant()
   {
-      define($this->_('foo'), 'bar');
+      lmbEnv::set($this->_('foo'), 'bar');
 
       lmbEnv::setor($this->_('foo'), 'baz');
       $this->assertEquals(lmbEnv::get($this->_('foo')), 'bar');
@@ -78,9 +78,9 @@ class lmbEnvFunctionsTest extends TestCase
 
   function testSetDefinesConstant()
   {
-    $this->assertFalse(defined($this->_('foo')));
+    $this->assertFalse(lmbEnv::has($this->_('foo')));
     lmbEnv::set($this->_('foo'), 'bar');
-    $this->assertEquals(constant($this->_('foo')), 'bar');
+    $this->assertEquals(lmbEnv::get($this->_('foo')), 'bar');
   }
 
   function testHasAndGetFallbackToConstant()
@@ -90,7 +90,7 @@ class lmbEnvFunctionsTest extends TestCase
     $this->assertFalse(lmbEnv::has($name));
     $this->assertNull(lmbEnv::get($name, null));
 
-    define($name, 'bar');
+    lmbEnv::set($name, 'bar');
     $this->assertTrue(lmbEnv::has($name));
     $this->assertEquals(lmbEnv::get($name), 'bar');
   }
