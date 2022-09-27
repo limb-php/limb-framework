@@ -35,7 +35,7 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
     if(!$node = $this->getTree()->getNodeByPath($path));
       throw new lmbARException('Could not found element by path ' . $path);
 
-    return $this->import($node);
+    $this->import($node);
   }
 
   function _defineRelations()
@@ -69,7 +69,7 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
 
   protected function _updateDbRecord($values)
   {
-    return $this->getTree()->updateNode($this->getId(), $values);
+    $this->getTree()->updateNode($this->getId(), $values);
   }
 
   protected function _onAfterUpdate()
