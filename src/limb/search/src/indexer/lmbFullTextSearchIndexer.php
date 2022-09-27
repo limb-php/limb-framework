@@ -12,12 +12,13 @@ use limb\dbal\src\query\lmbInsertQuery;
 use limb\dbal\src\query\lmbSelectQuery;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\query\lmbUpdateQuery;
+use limb\toolkit\src\lmbToolkit;
 
 /**
  * class lmbFullTextSearchIndexer.
  *
  * @package search
- * @version $Id: lmbFullTextSearchIndexer.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbFullTextSearchIndexer.php 7686 2009-03-04 19:57:12Z
  */
 class lmbFullTextSearchIndexer
 {
@@ -32,7 +33,7 @@ class lmbFullTextSearchIndexer
   function __construct($normalizer)
   {
     $this->normalizer = $normalizer;
-    $this->conn = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->conn = lmbToolkit::instance()->getDefaultDbConnection();
   }
 
   function useNOINDEX($status = true)
@@ -81,7 +82,7 @@ class lmbFullTextSearchIndexer
 
   function _insertNewIndexRecord($uri, $content, $title)
   {
-    $query = new lmbInsertQuery(FULL_TEXT_SEARCH_INDEXER_TABLE, $this->conn);
+    $query = new lmbInsertQuery(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'), $this->conn);
     $query->addField('uri', $uri->toString());
     $query->addField('content', $content);
     $query->addField('last_modified', time());
@@ -92,7 +93,7 @@ class lmbFullTextSearchIndexer
 
   function _updateIndexRecordById($id, $content, $title)
   {
-    $query = new lmbUpdateQuery(FULL_TEXT_SEARCH_INDEXER_TABLE, $this->conn);
+    $query = new lmbUpdateQuery(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'), $this->conn);
     $query->addField('content', $content);
     $query->addField('last_modified', time());
     $query->addField('title', $title);
@@ -103,7 +104,7 @@ class lmbFullTextSearchIndexer
 
   function findIndexRecordByUri($uri)
   {
-    $query = new lmbSelectQuery(FULL_TEXT_SEARCH_INDEXER_TABLE, $this->conn);
+    $query = new lmbSelectQuery(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'), $this->conn);
     $query->addCriteria(new lmbSQLFieldCriteria('uri', $uri->toString()));
     $rs = $query->getRecordSet();
     $rs->rewind();
@@ -111,5 +112,3 @@ class lmbFullTextSearchIndexer
       return $rs->current();
   }
 }
-
-

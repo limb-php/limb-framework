@@ -6,33 +6,37 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/net/src/lmbUri.class.php');
-lmb_require('limb/dbal/src/lmbSimpleDb.class.php');
-lmb_require('limb/search/src/indexer/lmbFullTextSearchIndexer.class.php');
-lmb_require('limb/search/src/indexer/lmbSearchTextNormalizer.class.php');
+namespace tests\search\cases\indexer;
 
-Mock :: generate('lmbSearchTextNormalizer', 'MockSearchTextNormalizer');
+use PHPUnit\Framework\TestCase;
+use limb\net\src\lmbUri;
+use limb\dbal\src\lmbSimpleDb;
+use limb\search\src\indexer\lmbFullTextSearchIndexer;
+use limb\search\src\indexer\lmbSearchTextNormalizer;
+use limb\toolkit\src\lmbToolkit;
+
+Mock::generate('lmbSearchTextNormalizer', 'MockSearchTextNormalizer');
 
 class lmbFullTextSearchIndexerTest extends TestCase
 {
   protected $db;
 
-  function setUp()
+  function setUp(): void
   {
-    $conn = lmbToolkit :: instance()->getDefaultDbConnection();
+    $conn = lmbToolkit::instance()->getDefaultDbConnection();
     $this->db = new lmbSimpleDb($conn);
 
     $this->_cleanUp();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->_cleanUp();
   }
 
   function _cleanUp()
   {
-    $this->db->delete(FULL_TEXT_SEARCH_INDEXER_TABLE);
+    $this->db->delete(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'));
   }
 
   function testNormalizeContent()
@@ -49,7 +53,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
 
     $indexer->index($uri, $content);
 
-    $rs = $this->db->select(FULL_TEXT_SEARCH_INDEXER_TABLE);
+    $rs = $this->db->select(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'));
     $arr = $rs->getArray();
 
     $this->assertEquals($arr[0]['content'], $processed_content);
@@ -116,7 +120,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $indexer = new lmbFullTextSearchIndexer(new lmbSearchTextNormalizer());
     $indexer->index($uri, $content);
 
-    $rs = $this->db->select(FULL_TEXT_SEARCH_INDEXER_TABLE);
+    $rs = $this->db->select(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'));
     $arr = $rs->getArray();
 
     $this->assertEquals(sizeof($arr), 1);
@@ -133,7 +137,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $indexer = new lmbFullTextSearchIndexer(new lmbSearchTextNormalizer());
     $indexer->index($uri, $content);
 
-    $rs = $this->db->select(FULL_TEXT_SEARCH_INDEXER_TABLE);
+    $rs = $this->db->select(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'));
     $arr = $rs->getArray();
 
     $this->assertEquals(sizeof($arr), 1);
@@ -152,7 +156,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $indexer->useNOINDEX();
     $indexer->index($uri, $content);
 
-    $rs = $this->db->select(FULL_TEXT_SEARCH_INDEXER_TABLE);
+    $rs = $this->db->select(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'));
     $arr = $rs->getArray();
 
     $this->assertEquals(sizeof($arr), 1);
@@ -166,7 +170,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
   {
     $uri = new lmbUri('index.html');
 
-    $this->db->insert(FULL_TEXT_SEARCH_INDEXER_TABLE,
+    $this->db->insert(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'),
                           array('uri' => $uri->toString(),
                                 'content' => 'content1',
                                 'title' => 'title1',
@@ -177,7 +181,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $indexer = new lmbFullTextSearchIndexer(new lmbSearchTextNormalizer());
     $indexer->index($uri, $new_content);
 
-    $rs = $this->db->select(FULL_TEXT_SEARCH_INDEXER_TABLE);
+    $rs = $this->db->select(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'));
     $arr = $rs->getArray();
 
     $this->assertEquals(sizeof($arr), 1);
@@ -211,5 +215,3 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $this->assertEquals($record['title'], 'title2');
   }
 }
-
-

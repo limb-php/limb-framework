@@ -8,8 +8,6 @@
  */
 namespace limb\wysiwyg\src\macro;
 
-use limb\wysiwyg\src\macro\lmbMacroBaseWysiwygWidget;
-
 /**
  * @package wysiwyg
  * @version $Id$

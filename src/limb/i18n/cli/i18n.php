@@ -1,11 +1,12 @@
 <?php
 use limb\fs\src\lmbFs;
+use limb\core\src\lmbEnv;
 
 /* See details in README file */
 
 $project_dir = realpath(dirname(__FILE__).'/../../../../');
 
-define("LIMB_VAR_DIR", $project_dir . '/var/i18n');
+lmbEnv::set("LIMB_VAR_DIR", $project_dir . '/var/i18n');
 
 require_once($project_dir . '/setup.php');
 
