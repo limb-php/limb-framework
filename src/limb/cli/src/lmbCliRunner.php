@@ -8,11 +8,11 @@
  */
 namespace limb\cli\src;
 
-use limb\cli\src\lmbCliBaseCmd;
 use limb\core\src\lmbString;
 use limb\core\src\exception\lmbException;
+use limb\core\src\lmbEnv;
 
-@define('LIMB_CLI_INCLUDE_PATH', 'cli;limb/*/cli');
+lmbEnv::setor('LIMB_CLI_INCLUDE_PATH', 'cli;limb/*/cli');
 
 /**
  * class lmbCliRunner.
@@ -32,7 +32,7 @@ class lmbCliRunner
   {
     $this->input = $input;
     $this->output = $output;
-    $this->search_path = LIMB_CLI_INCLUDE_PATH;
+    $this->search_path = lmbEnv::get('LIMB_CLI_INCLUDE_PATH');
   }
 
   static function commandToClass($name)
@@ -118,4 +118,3 @@ class lmbCliRunner
     }
   }
 }
-
