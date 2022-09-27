@@ -8,7 +8,7 @@
  */
 namespace limb\dbal\src\drivers\mysqli;
 
-use limb\dbal\src\drivers\mysql\lmbMysqlLexer;
+use limb\dbal\src\drivers\lmbDbBaseLexer;
 
 /**
  * class lmbMysqlLexer
@@ -16,7 +16,7 @@ use limb\dbal\src\drivers\mysql\lmbMysqlLexer;
  * @package dbal
  * @version $Id$
  */
-class lmbMysqliLexer extends lmbMysqlLexer
+class lmbMysqliLexer extends lmbDbBaseLexer
 {
 
 }
