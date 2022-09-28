@@ -6,12 +6,16 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/log/src/lmbLogFirePHPWriter.class.php');
-lmb_require('limb/toolkit/src/lmbToolkit.class.php');
-lmb_require('limb/net/src/lmbNetTools.class.php');
-lmb_require('limb/net/src/lmbHttpResponse.class.php');
 
-class lmbLogFirePHPWriterTest extends TestCase {
+use PHPUnit\Framework\TestCase;
+use limb\log\src\lmbLogFirePHPWriter;
+use limb\toolkit\src\lmbToolkit;
+use limb\net\src\lmbNetTools;
+use limb\net\src\lmbHttpResponse;
+use limb\log\src\lmbLogEntry;
+
+class lmbLogFirePHPWriterTest extends TestCase
+{
 
   function testWrite()
   {
@@ -25,11 +29,11 @@ class lmbLogFirePHPWriterTest extends TestCase {
   }
 }
 
-class lmbHttpResponseForLogTest extends lmbHttpResponse {
+class lmbHttpResponseForLogTest extends lmbHttpResponse
+{
 
     function getHeaders()
     {
         return $this->headers;
     }
 }
-

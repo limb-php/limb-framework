@@ -8,7 +8,6 @@
  */
 namespace limb\log\src;
 
-use limb\log\src\lmbLogFileWriter;
 use limb\net\src\lmbUri;
 
 /**

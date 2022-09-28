@@ -3,10 +3,10 @@ namespace limb\log\src;
 
 use limb\log\lib\FirePHPCore\FirePHP;
 
-use limb\log\src\lmbLogWriterInterface;
 use limb\net\src\lmbHttpResponse;
+use limb\net\src\lmbUri;
 
-class lmbLogFirePHPWriter extends FirePHP implements lmbLogWriter
+class lmbLogFirePHPWriter extends FirePHP implements lmbLogWriterInterface
 {
   protected $check_client_extension;
 

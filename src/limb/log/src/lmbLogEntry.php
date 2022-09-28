@@ -94,5 +94,3 @@ class lmbLogEntry
     return '<pre>' . htmlspecialchars($this->asText()) . '</pre>';
   }
 }
-
-

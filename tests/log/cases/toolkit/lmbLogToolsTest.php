@@ -6,22 +6,24 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-require('limb/log/toolkit.inc.php');
+require_once('./../../../../src/limb/log/toolkit.inc.php');
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbEnv;
 use limb\toolkit\src\lmbToolkit;
+use limb\log\src\toolkit\lmbLogTools;
 
 class lmbLogToolsTest extends TestCase
 {
   protected $toolkit;
 
-  function setUp()
+  function setUp(): void
   {
     lmbToolkit::save();
     $this->toolkit = lmbToolkit::merge(new lmbLogTools());
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     lmbToolkit::restore();
   }

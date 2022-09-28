@@ -6,17 +6,23 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
+use PHPUnit\Framework\TestCase;
 use limb\log\src\lmbLog;
 use limb\log\src\lmbLogWriterInterface;
+use limb\net\src\lmbUri;
+use limb\core\src\exception\lmbException;
+use limb\log\src\lmbLogEntry;
 
-class lmbLogTest extends TestCase {
+class lmbLogTest extends TestCase
+{
 
   /**
    * @var lmbLog
    */
   protected $log;
 
-  function setUp()
+  function setUp(): void
   {
     $this->log = new lmbLog();
     $this->log->registerWriter(new lmbLogWriterForLogTests(new lmbUri()));
@@ -79,7 +85,8 @@ class lmbLogTest extends TestCase {
   }
 }
 
-class lmbLogWriterForLogTests implements lmbLogWriter {
+class lmbLogWriterForLogTests implements lmbLogWriterInterface
+{
 
     protected $entry;
 

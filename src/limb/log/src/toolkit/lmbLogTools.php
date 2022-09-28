@@ -19,7 +19,7 @@ use limb\fs\src\exception\lmbFileNotFoundException;
  * class lmbLogTools.
  *
  * @package log
- * @version $Id: lmbWebAppTools.class.php 8011 2009-12-25 08:51:27Z korchasa $
+ * @version $Id: lmbWebAppTools.php 8011 2009-12-25 08:51:27Z
  */
 class lmbLogTools extends lmbAbstractTools
 {
@@ -52,11 +52,9 @@ class lmbLogTools extends lmbAbstractTools
       $dsn = new lmbUri($dsn);
 
     $writer_name = 'lmbLog'.ucfirst($dsn->getProtocol()).'Writer';
-    //$writer_file = 'limb/log/src/'.$writer_name.'.php';
     $writerClassName = "limb\\log\\src\\".$writer_name;
     try
     {
-      //require_once($writer_file);
       $writer = new $writerClassName($dsn);
       return $writer;
     }

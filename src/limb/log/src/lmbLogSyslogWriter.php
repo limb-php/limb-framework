@@ -9,6 +9,7 @@
 namespace limb\log\src;
 
 use limb\log\src\lmbLogWriterInterface;
+use limb\net\src\lmbUri;
 
 /**
  * class lmbLogEchoWriter.

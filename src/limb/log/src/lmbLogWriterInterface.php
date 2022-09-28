@@ -8,7 +8,6 @@
  */
 namespace limb\log\src;
 
-use limb\log\src\lmbLogEntry;
 use limb\net\src\lmbUri;
 
 interface lmbLogWriterInterface

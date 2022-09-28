@@ -9,7 +9,6 @@
 namespace limb\log\src;
 
 use limb\fs\src\lmbFs;
-use limb\log\src\lmbLogWriterInterface;
 use limb\fs\src\exception\lmbFsException;
 use limb\net\src\lmbUri;
 
@@ -35,7 +34,7 @@ class lmbLogFileWriter implements lmbLogWriterInterface
 
   protected function _appendToFile($file_name, $message, $stamp)
   {
-    lmbFs :: mkdir(dirname($file_name), 0775);
+    lmbFs::mkdir(dirname($file_name), 0775);
     $file_existed = file_exists($file_name);
 
     if($fh = fopen($file_name, 'a'))
@@ -75,5 +74,3 @@ class lmbLogFileWriter implements lmbLogWriterInterface
     return $this->log_file;
   }
 }
-
-

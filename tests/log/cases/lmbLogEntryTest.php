@@ -6,9 +6,13 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/log/src/lmbLogEntry.class.php');
 
-class lmbLogEntryTest extends TestCase {
+use PHPUnit\Framework\TestCase;
+use limb\log\src\lmbLogEntry;
+use limb\core\src\lmbBacktrace;
+
+class lmbLogEntryTest extends TestCase
+{
 
   function testGetters()
   {
