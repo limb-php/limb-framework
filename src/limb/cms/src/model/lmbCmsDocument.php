@@ -8,7 +8,7 @@
  */
 namespace limb\cms\src\model;
 
-use limb\cms\src\model\lmbActiveRecordTreeNode;
+use limb\active_record\src\lmbActiveRecord;
 use limb\validation\src\lmbValidator;
 use limb\cms\src\validation\rule\lmbTreeIdentifierRule;
 use limb\dbal\src\lmbDBAL;
@@ -59,7 +59,7 @@ class lmbCmsDocument extends lmbActiveRecordTreeNode
       $parent_id = lmbCmsDocument :: findRoot()->getId();
 
     $sql = "SELECT MAX(priority) FROM " . $this->_db_table_name . " WHERE parent_id = " . $parent_id;
-    $max_priority = lmbDBAL :: fetchOneValue($sql);
+    $max_priority = lmbDBAL::fetchOneValue($sql);
     $this->setPriority($max_priority + 10);
   }
 
@@ -85,12 +85,12 @@ class lmbCmsDocument extends lmbActiveRecordTreeNode
       $criteria->addOr($identifier_criteria);
       $level++;
     }
-    $documents = lmbActiveRecord :: find('lmbCmsDocument', $criteria);
+    $documents = lmbActiveRecord::find(lmbCmsDocument::class, $criteria);
     
     $parent_id = 0;
     foreach($identifiers as $identifier)
     {
-      if(!$document = self :: _getNodeByParentIdAndIdentifier($documents, $parent_id, $identifier))
+      if(!$document = self::_getNodeByParentIdAndIdentifier($documents, $parent_id, $identifier))
         return false;
       $parent_id = $document->getId();
     }
@@ -107,5 +107,3 @@ class lmbCmsDocument extends lmbActiveRecordTreeNode
     return false;
   }
 }
-
-

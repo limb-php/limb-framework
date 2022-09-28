@@ -80,4 +80,3 @@ class lmbCmsNodeBasedRequestDispatcher implements lmbRequestDispatcherInterface
     return $level;
   }
 }
-

@@ -8,13 +8,14 @@
  */
 namespace limb\cms\src;
 
+use limb\active_record\src\lmbActiveRecord;
 use limb\cms\src\model\lmbCmsNode;
 
 /**
  * class lmbCmsTreeBrowser.
  *
  * @package cms
- * @version $Id: lmbCmsTreeBrowser.class.php 5988 2007-06-13 07:50:57Z tony $
+ * @version $Id: lmbCmsTreeBrowser.php 5988 2007-06-13 07:50:57Z
  */
 class lmbCmsTreeBrowser
 {
@@ -46,7 +47,7 @@ class lmbCmsTreeBrowser
     $result = '';
 
     if($this->current_folder->getId())
-       $folders = lmbCmsNode :: find('parent_id = '. $this->current_folder->getId());
+       $folders = lmbActiveRecord::find(lmbCmsNode::class, 'parent_id = '. $this->current_folder->getId());
     else
       $folders = $this->current_folder->getRoots();
 
@@ -59,4 +60,3 @@ class lmbCmsTreeBrowser
     return $result;
   }
 }
-

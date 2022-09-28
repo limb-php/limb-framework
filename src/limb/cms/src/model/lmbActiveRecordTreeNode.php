@@ -87,7 +87,6 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
 
   /**
    * @param integer $depth
-   * @return lmbCollection
    */
   function getChildren($depth = 1)
   {

@@ -10,7 +10,6 @@ namespace limb\cms\src\model;
 
 use limb\core\src\lmbObject;
 use limb\active_record\src\lmbActiveRecord;
-use src\cms\src\model\lmbCmsUser;
 
 /**
  * class lmbCmsClassName.
@@ -32,7 +31,7 @@ class lmbCmsSessionUser extends lmbObject
 
     if($this->_isValidSession())
     {
-      $this->user = lmbActiveRecord :: findById('lmbCmsUser', $this->user_id);
+      $this->user = lmbActiveRecord :: findById(lmbCmsUser::class, $this->user_id);
       $this->user->setLoggedIn($this->is_logged_in);
     }
     else
@@ -60,5 +59,3 @@ class lmbCmsSessionUser extends lmbObject
     return array('user_id', 'is_logged_in');
   }
 }
-
-

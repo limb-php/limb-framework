@@ -11,7 +11,7 @@ class lmbCmsFileStorage
   function __construct($root_dir)
   {
     $this->root_dir = $root_dir;
-    lmbFs :: mkdir($this->root_dir);
+    lmbFs::mkdir($this->root_dir);
   }
 
   function storeFile($source, $mime_type = null)
@@ -61,8 +61,8 @@ class lmbCmsFileStorage
 
   function getFileUrl($file_id)
   {
-    $result = str_replace(strtolower($_SERVER['DOCUMENT_ROOT']), '',
-                          strtolower(lmbFs :: normalizePath($this->getFilePath($file_id))));
+    $result = str_replace($_SERVER['DOCUMENT_ROOT'], '',
+                          lmbFs::normalizePath($this->getFilePath($file_id)));
     return '/' . ltrim($result, '/');
   }
 
@@ -77,4 +77,3 @@ class lmbCmsFileStorage
     return uniqid() . '.' . lmbMimeType :: getExtension($mime_type);
   }
 }
-

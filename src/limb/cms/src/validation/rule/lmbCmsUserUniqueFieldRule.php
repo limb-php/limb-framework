@@ -27,9 +27,8 @@ class lmbCmsUserUniqueFieldRule extends lmbSingleFieldRule
 
     if(lmbActiveRecord::findOne(get_class($this->user), $criteria, $this->user->getConnection()))
     {
-      $error = $this->custom_error ? $this->custom_error : lmbI18n::translate('User with {Field} already exists', 'cms');
+      $error = $this->custom_error ?? lmbI18n::translate('User with {Field} already exists', 'cms');
       $this->error( $error );
     }
   }
 }
-

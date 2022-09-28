@@ -11,7 +11,6 @@
  */
 namespace limb\cms\src\controller;
 
-use limb\cms\src\controller\lmbAdminObjectController;
 use limb\cms\src\model\lmbCmsDocument;
 use limb\active_record\src\lmbActiveRecord;
 use limb\dbal\src\criteria\lmbSQLCriteria;
@@ -19,7 +18,7 @@ use limb\core\src\exception\lmbException;
 
 class AdminDocumentController extends lmbAdminObjectController
 {
-  protected $_object_class_name = 'lmbCmsDocument';
+  protected $_object_class_name = lmbCmsDocument::class;
 
   function doDisplay()
   {
@@ -80,7 +79,7 @@ class AdminDocumentController extends lmbAdminObjectController
   {
     try
     {
-      parent :: _validateAndSave($is_create);
+      parent::_validateAndSave($is_create);
     }
     catch (lmbException $e)
     {
@@ -89,5 +88,3 @@ class AdminDocumentController extends lmbAdminObjectController
   }
 
 }
-
-

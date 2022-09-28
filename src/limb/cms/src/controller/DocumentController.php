@@ -1,13 +1,12 @@
 <?php
 namespace limb\cms\src\controller;
 
-use limb\cms\src\controller\lmbObjectController;
 use limb\cms\src\model\lmbCmsDocument;
 use limb\cms\src\model\Seo;
 
 class DocumentController extends lmbObjectController
 {
-  protected $_object_class_name = 'limb\cms\src\model\lmbCmsDocument';
+  protected $_object_class_name = lmbCmsDocument::class;
 
   function doItem()
   {
@@ -26,5 +25,3 @@ class DocumentController extends lmbObjectController
   }
 
 }
-
-

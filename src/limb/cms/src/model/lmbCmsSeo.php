@@ -4,6 +4,9 @@ namespace limb\cms\src\model;
 use limb\core\src\lmbObject;
 use limb\active_record\src\lmbActiveRecord;
 use limb\cms\src\validation\rule\lmbCmsUniqueFieldRule;
+use limb\validation\src\lmbValidator;
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\lmbDBAL;
 
 class lmbCmsSeo extends lmbActiveRecord
 {
@@ -17,7 +20,7 @@ class lmbCmsSeo extends lmbActiveRecord
     $validator->addRequiredRule('title', '"Title" обязательное поле');
 
     $validator->addRequiredRule('url', '"Url" обязательное поле');
-    $validator->addRule(new lmbCmsUniqueFieldRule('url', 'lmbCmsSeo', $this, '"Url" должен быть уникальным'));
+    $validator->addRule(new lmbCmsUniqueFieldRule('url', lmbCmsSeo::class, $this, '"Url" должен быть уникальным'));
 
     return $validator;
   }
@@ -56,14 +59,14 @@ class lmbCmsSeo extends lmbActiveRecord
 
   public static function getMetaForUrl($uri)
   {
-    self :: _getMetaDataForUrl($uri);
-    return self :: $_meta;
+    self::_getMetaDataForUrl($uri);
+    return self::$_meta;
   }
 
   protected static function _getMetadataForUrl($uri = null)
   {
     if(!$uri)
-      $uri = lmbToolkit :: instance()->getRequest()->getUri();
+      $uri = lmbToolkit::instance()->getRequest()->getUri();
 
     $count_path = $uri->countPath();
     $meta = null;
@@ -73,11 +76,11 @@ class lmbCmsSeo extends lmbActiveRecord
       $sql .= ' url = \'' . self :: getDefaultConnection()->escape($uri->getPathToLevel($i)) . '\'' . ($i < $count_path - 1? ' OR ':'');
 
     $sql .= ' ORDER BY url DESC LIMIT 1';
-    $meta = lmbDBAL :: fetchOneRow($sql);
+    $meta = lmbDBAL::fetchOneRow($sql);
 
     if(!empty($meta))
-      self :: $_meta = $meta;
+      self::$_meta = $meta;
     else
-      self :: $_meta = new lmbObject(array('title' => '', 'description' => '', 'keywords' => ''));
+      self::$_meta = new lmbObject(array('title' => '', 'description' => '', 'keywords' => ''));
   }
 }

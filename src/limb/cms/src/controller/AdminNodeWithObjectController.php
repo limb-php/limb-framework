@@ -23,7 +23,7 @@ abstract class AdminNodeWithObjectController extends lmbController
 {
   protected $_form_name = 'object_form';
   protected $_controller_name = '';
-  protected $_node_class_name = 'limb\cms\src\model\lmbCmsNode';
+  protected $_node_class_name = lmbCmsNode::class;
   protected $_object_class_name = '';
   protected $_generate_identifier = false;
 
@@ -189,5 +189,3 @@ abstract class AdminNodeWithObjectController extends lmbController
   protected function _onBeforeValidate() {}
   protected function _onAfterValidate() {}
 }
-
-

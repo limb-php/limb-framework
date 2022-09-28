@@ -9,17 +9,16 @@
 namespace limb\cms\src\model;
 
 use limb\active_record\src\lmbActiveRecord;
-use limb\cms\src\model\lmbCmsClassName;
-use limb\cms\src\model\lmbCmsRootNode;
 use limb\toolkit\src\lmbToolkit;
 use limb\validation\src\lmbValidator;
 use limb\cms\src\validation\rule\lmbCmsTreeIdentifierRule;
+use limb\dbal\src\criteria\lmbSQLRawCriteria;
 
 /**
  * class limb\cms\src\model\lmbCmsNode.
  *
  * @package cms
- * @version $Id: lmbCmsNode.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbCmsNode.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class lmbCmsNode extends lmbActiveRecord
 {
@@ -34,23 +33,23 @@ class lmbCmsNode extends lmbActiveRecord
   protected $controller_name;
 
   protected $_has_one = array('parent' => array('field' => 'parent_id',
-                                                'class' => 'limb\cms\src\model\lmbCmsNode',
+                                                'class' => lmbCmsNode::class,
                                                 'can_be_null' => true,
                                                 'cascade_delete' => false));
 
   protected $_has_many = array('kids' => array('field' => 'parent_id',
-                                               'class' => 'limb\cms\src\model\lmbCmsNode'));
+                                               'class' => lmbCmsNode::class));
 
   function __construct($magic_params = null)
   {
-    $this->_tree = lmbToolkit :: instance()->getCmsTree();
+    $this->_tree = lmbToolkit::instance()->getCmsTree();
 
-    parent :: __construct($magic_params);
+    parent::__construct($magic_params);
   }
 
   static function getGatewayPath()
   {
-    return self :: $_gateway_path;
+    return self::$_gateway_path;
   }
 
   static function setGatewayPath($gateway_path)
@@ -193,53 +192,53 @@ class lmbCmsNode extends lmbActiveRecord
 
   static function findByPath($path, $conn = null)
   {
-    $tree = lmbToolkit :: instance()->getCmsTree();
+    $tree = lmbToolkit::instance()->getCmsTree();
     $node = $tree->getNodeByPath($path);
     if($node)
-      return lmbActiveRecord :: findById('limb\cms\src\model\lmbCmsNode', $node['id'], $conn);
+      return lmbActiveRecord::findById(lmbCmsNode::class, $node['id'], $conn);
   }
 
   static function findById($node_id, $conn = null, $_ = null, $__ = null)
   {
-    $tree = lmbToolkit :: instance()->getCmsTree();
+    $tree = lmbToolkit::instance()->getCmsTree();
     if($node_id && $node = $tree->getNode($node_id))
-      return lmbActiveRecord :: findById('limb\cms\src\model\lmbCmsNode', $node['id'], true, $conn);
+      return lmbActiveRecord::findById(lmbCmsNode::class, $node['id'], true, $conn);
   }
 
   static function findByIdOrPath($node_id, $path, $conn = null)
   {
-    if($node_ar = lmbCmsNode :: findById($node_id, $conn))
+    if($node_ar = lmbCmsNode::findById($node_id, $conn))
      return $node_ar;
 
-    $tree = lmbToolkit :: instance()->getCmsTree();
+    $tree = lmbToolkit::instance()->getCmsTree();
 
     if($node = $tree->getNodeByPath($path))
-      return lmbActiveRecord :: findById('limb\cms\src\model\lmbCmsNode', $node['id'], true, $conn);
+      return lmbActiveRecord::findById(lmbCmsNode::class, $node['id'], true, $conn);
   }
 
   static function findRequested()
   {
-    if($path = lmbToolkit :: instance()->getRequest()->getUriPath())
-      return lmbCmsNode :: findByPath($path);
+    if($path = lmbToolkit::instance()->getRequest()->getUriPath())
+      return lmbCmsNode::findByPath($path);
   }
 
   static function findChildren($node_id, $depth = 1, $conn = null)
   {
     if($node_id)
     {
-      $tree = lmbToolkit :: instance()->getCmsTree();
-      return lmbActiveRecord :: decorateRecordSet($tree->getChildren($node_id, $depth),
-                                                  'limb\cms\src\model\lmbCmsNode',
-                                                  $conn);
+      $tree = lmbToolkit::instance()->getCmsTree();
+      return lmbActiveRecord::decorateRecordSet($tree->getChildren($node_id, $depth),
+                                                lmbCmsNode::class,
+                                                $conn);
     }
   }
 
   static function findChildrenByPath($path, $depth = 1, $conn = null)
   {
-    $tree = lmbToolkit :: instance()->getCmsTree();
+    $tree = lmbToolkit::instance()->getCmsTree();
     if($path && $parent = $tree->getNodeByPath($path))
       return lmbActiveRecord :: decorateRecordSet($tree->getChildren($parent['id'], $depth),
-                                                  'limb\cms\src\model\lmbCmsNode',
+                                                  lmbCmsNode::class,
                                                   $conn);
   }
 
@@ -257,7 +256,7 @@ class lmbCmsNode extends lmbActiveRecord
   function getChildren($depth = 1)
   {
     return lmbActiveRecord :: decorateRecordSet($this->_tree->getChildren($this->getId(), $depth),
-                                                'limb\cms\src\model\lmbCmsNode',
+                                                lmbCmsNode::class,
                                                 $this->_db_conn);
   }
 
@@ -269,7 +268,7 @@ class lmbCmsNode extends lmbActiveRecord
   function getRoots()
   {
     return lmbActiveRecord :: decorateRecordSet($this->_tree->getChildren('/'),
-                                                'limb\cms\src\model\lmbCmsNode',
+                                                lmbCmsNode::class,
                                                 $this->_db_conn);
   }
 
@@ -313,5 +312,3 @@ class lmbCmsNode extends lmbActiveRecord
   }
 
 }
-
-

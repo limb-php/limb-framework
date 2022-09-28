@@ -6,6 +6,7 @@ use limb\core\src\lmbEnv;
 use limb\mail\src\lmbMailer;
 use limb\cms\src\model\lmbCmsUser;
 use limb\view\src\lmbMacroView;
+use limb\active_record\src\lmbActiveRecord;
 
 class UserController extends lmbController
 {
@@ -14,7 +15,7 @@ class UserController extends lmbController
     if(!$this->request->hasPost())
       return;
 
-    if(!$user = lmbActiveRecord :: findFirst('lmbCmsUser', array('email = ?', $this->request->get('email'))))
+    if(!$user = lmbActiveRecord :: findFirst(lmbCmsUser::class, array('email = ?', $this->request->get('email'))))
       return $this->flashError("Пользователь с таким значением email не найден", array('Field' => 'email'));
 
     $this->useForm('password_form');
@@ -42,7 +43,10 @@ class UserController extends lmbController
   function doApprove()
   {
     if(!$user = lmbCmsUser::findFirst( array('generated_password = ?', $this->request->get('id'))))
-      return $this->flashAndRedirect('Вы прошли по неверной ссылке! Убедитесь, что она соответствует ссылке в отправленном вам письме', '/user/forgot_password');
+    {
+        $this->flashAndRedirect('Вы прошли по неверной ссылке! Убедитесь, что она соответствует ссылке в отправленном вам письме', '/user/forgot_password');
+        return;
+    }
 
     $user->setHashedPassword($user->getGeneratedPassword());
     $user->setGeneratedPassword('');

@@ -16,6 +16,7 @@ use limb\web_app\src\controller\lmbController;
  * @package cms
  * @version $Id$
  */
-class AdminController extends lmbController {}
+class AdminController extends lmbController
+{
 
-
+}

@@ -13,6 +13,7 @@ use limb\tree\src\lmbMPTree;
 use limb\cms\src\model\lmbCmsSessionUser;
 use limb\web_app\src\toolkit\lmbWebAppTools;
 use limb\web_app\src\toolkit\lmbProfileTools;
+use limb\toolkit\src\lmbToolkit;
 
 /**
  * class lmbCmsTools.
@@ -53,7 +54,7 @@ class lmbCmsTools extends lmbAbstractTools
     if(is_object($this->user))
       return $this->user;
 
-    $session = lmbToolkit :: instance()->getSession();
+    $session = lmbToolkit::instance()->getSession();
     if(!is_object($session_user = $session->get('lmbCmsSessionUser')))
     {
       $session_user = new lmbCmsSessionUser();
@@ -68,7 +69,7 @@ class lmbCmsTools extends lmbAbstractTools
   function resetCmsUser()
   {
     $this->setCmsUser(null);
-    $session = lmbToolkit :: instance()->getSession();
+    $session = lmbToolkit::instance()->getSession();
     $session->destroy('lmbCmsSessionUser');
   }
 
@@ -77,5 +78,3 @@ class lmbCmsTools extends lmbAbstractTools
     $this->user = $user;
   }
 }
-
-

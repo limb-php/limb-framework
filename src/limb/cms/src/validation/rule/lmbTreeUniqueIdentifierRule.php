@@ -3,7 +3,6 @@ namespace limb\cms\src\validation\rule;
 
 use limb\validation\src\rule\lmbSingleFieldRule;
 use limb\dbal\src\criteria\lmbSQLCriteria;
-use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\active_record\src\lmbActiveRecord;
 
 class lmbTreeUniqueIdentifierRule extends lmbSingleFieldRule
@@ -18,7 +17,7 @@ class lmbTreeUniqueIdentifierRule extends lmbSingleFieldRule
     $this->node = $node;
     $this->field_name = $field_name;
     $this->error_message = $error_message;
-    $this->parent_id = $parent_id ? $parent_id : $this->node->getParent()->getId();
+    $this->parent_id = $parent_id ?? $this->node->getParent()->getId();
 
     parent::__construct($field_name);
   }
@@ -34,4 +33,3 @@ class lmbTreeUniqueIdentifierRule extends lmbSingleFieldRule
       $this->error($this->error_message);
   }
 }
-

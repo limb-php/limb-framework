@@ -21,15 +21,13 @@ use limb\web_app\src\request\lmbRoutesRequestDispatcher;
  */
 class lmbCmsRequestDispatchingFilter extends lmbRequestDispatchingFilter
 {
-  function __construct($default_controller_name = 'not_found')
+  function __construct($default_controller_name = 'NotFoundController')
   {
     $dispatcher = new lmbCompositeRequestDispatcher();
     
     $dispatcher->addDispatcher(new lmbCmsDocumentRequestDispatcher());
     $dispatcher->addDispatcher(new lmbRoutesRequestDispatcher());
     
-    parent :: __construct($dispatcher, $default_controller_name);
+    parent::__construct($dispatcher, $default_controller_name);
   }
 }
-
-

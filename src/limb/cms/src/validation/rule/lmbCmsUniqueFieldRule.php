@@ -30,7 +30,7 @@ class lmbCmsUniqueFieldRule extends lmbSingleFieldRule
 
   function check($value)
   {
-    $criteria = lmbSQLCriteria :: equal($this->field_name, $value);
+    $criteria = lmbSQLCriteria::equal($this->field_name, $value);
     if(!$this->object->isNew())
       $criteria->addAnd(new lmbSQLFieldCriteria($this->object->getPrimaryKeyName(), $this->object->getId(), lmbSQLFieldCriteria::NOT_EQUAL));
 

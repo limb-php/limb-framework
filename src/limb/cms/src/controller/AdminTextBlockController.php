@@ -1,13 +1,14 @@
 <?php
 namespace limb\cms\src\controller;
 
-use limb\cms\src\controller\lmbAdminObjectController;
+use limb\active_record\src\lmbActiveRecord;
 use limb\cms\src\model\lmbCmsTextBlock;
+use limb\core\src\lmbCollection;
 
 class AdminTextBlockController extends lmbAdminObjectController
 {
   protected $_form_name = 'object_form';
-  protected $_object_class_name = 'limb\cms\src\model\lmbCmsTextBlock';
+  protected $_object_class_name = lmbCmsTextBlock::class;
 
   public function doDisplay()
   {
@@ -16,7 +17,7 @@ class AdminTextBlockController extends lmbAdminObjectController
 
   protected function _getBlocks()
   {
-    $blocks = lmbCollection::toFlatArray(lmbActiveRecord::find('lmbCmsTextBlock'), 'identifier');
+    $blocks = lmbCollection::toFlatArray(lmbActiveRecord::find(lmbCmsTextBlock::class), 'identifier');
 
     $result = array();
     foreach($this->toolkit->getConf('text_blocks') as $identifier => $default_properties)
@@ -61,5 +62,3 @@ class AdminTextBlockController extends lmbAdminObjectController
       $this->forwardTo404();
   }
 }
-
-

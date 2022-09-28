@@ -1,10 +1,7 @@
 <?php
 namespace limb\cms\src\macro;
 
-use limb\macro\src\compiler\lmbMacroNode;
 use limb\macro\src\compiler\lmbMacroTag;
-use limb\acl\src\lmbAcl;
-use limb\toolkit\src\lmbToolkit;
 
 /**
  * class limb\cms\src\macro\AllowedTag.
@@ -31,7 +28,7 @@ class AllowedTag extends lmbMacroTag
       $code->writePHP(', '.$privelege);
       
     $code->writePHP(')) {'.PHP_EOL);          
-    parent :: _generateContent($code);
+    parent::_generateContent($code);
     $code->writePHP('}'.PHP_EOL);
   }
 }

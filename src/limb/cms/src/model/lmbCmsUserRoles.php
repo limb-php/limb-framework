@@ -8,7 +8,8 @@
  */
 namespace limb\cms\src\model;
 
-use limb\cms\src\model\lmbCmsUserRole;
+use limb\core\src\lmbCollection;
+
 /**
  * class lmbCmsUserRoles.
  *
@@ -38,18 +39,18 @@ class lmbCmsUserRoles
 
   function createAdminRole()
   {
-    return new lmbCmsUserRole(self :: ADMIN, 'Администратор', 'Админ');
+    return new lmbCmsUserRole(self::ADMIN, 'Admin', 'Admin');
   }
 
   function createEditorRole()
   {
-    return new lmbCmsUserRole(self :: EDITOR, 'Редактор', 'Ред');
+    return new lmbCmsUserRole(self::EDITOR, 'Editor', 'Editor');
   }
 
   function getRoles()
   {
-    return array(self :: ADMIN => self :: createAdminRole(),
-                 self :: EDITOR => self :: createEditorRole());
+    return array(self::ADMIN => self::createAdminRole(),
+                 self::EDITOR => self::createEditorRole());
   }
 
   function fetch()
@@ -78,5 +79,3 @@ class lmbCmsUserRoles
       return '';
   }
 }
-
-

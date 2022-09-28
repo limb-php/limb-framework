@@ -22,8 +22,8 @@ class lmbTreeIdentifierRule extends lmbSingleFieldRule
   function check($value)
   {
     if(!preg_match('~^[a-zA-Z0-9-_\.]+$~', $value))
-      return $this->error(lmbI18n::translate('{Field} may contain only digits, Latin characters and special characters `-`, `_`, `.`'));
+    {
+        $this->error(lmbI18n::translate('{Field} may contain only digits, Latin characters and special characters `-`, `_`, `.`'));
+    }
   }
 }
-
-

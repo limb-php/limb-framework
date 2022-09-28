@@ -13,7 +13,7 @@ class lmbCmsAdminFilterHelper
   function __construct($filter_name)
   {
     $this->filter_name = $filter_name;
-    $this->toolkit = lmbToolkit :: instance();
+    $this->toolkit = lmbToolkit::instance();
     $this->request = $this->toolkit->getRequest();
     $this->session = $this->toolkit->getSession();
   }
@@ -67,5 +67,3 @@ class lmbCmsAdminFilterHelper
      $this->session->set($this->filter_name, array());
   }
 }
-
-

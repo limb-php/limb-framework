@@ -74,5 +74,3 @@ class lmbCmsAccessPolicyFilter implements lmbInterceptingFilterInterface
     return true;
   }
 }
-
-

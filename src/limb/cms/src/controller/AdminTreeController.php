@@ -2,8 +2,11 @@
 namespace limb\cms\src\controller;
 
 use limb\web_app\src\controller\lmbController;
+use limb\active_record\src\lmbActiveRecord;
 use limb\cms\src\lmbCmsTreeBrowser;
 use limb\cms\src\model\lmbCmsNode;
+use limb\core\src\exception\lmbException;
+use limb\toolkit\src\lmbToolkit;
 
 class AdminTreeController extends lmbController
 {
@@ -25,7 +28,7 @@ class AdminTreeController extends lmbController
 
   function doEditNode()
   {
-    $node = lmbActiveRecord :: findById('lmbCmsNode', $this->request->getInteger('id'));
+    $node = lmbActiveRecord::findById(lmbCmsNode::class, $this->request->getInteger('id'));
     $this->useForm('node_form');
     $this->setFormDatasource($this->request);
 
@@ -102,7 +105,7 @@ class AdminTreeController extends lmbController
 
       foreach($this->request->getArray('ids') as $id)
       {
-        $tree = lmbToolkit :: instance()->getCmsTree();
+        $tree = lmbToolkit::instance()->getCmsTree();
         $tree->moveNode($id, $parent_id);
       }
       $this->closePopup();
@@ -142,5 +145,3 @@ class AdminTreeController extends lmbController
     $this->response->addHeader( 'Content-Type:text/xml; charset=utf-8' ) ;
   }
 }
-
-

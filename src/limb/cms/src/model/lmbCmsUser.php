@@ -15,10 +15,12 @@ namespace limb\cms\src\model;
  * @version $Id$
  */
 
-use limb\cms\src\model\lmbCmsUserRoles;
+use limb\active_record\src\lmbActiveRecord;
 use limb\cms\src\validation\rule\lmbCmsUserUniqueFieldRule;
+use limb\validation\src\lmbValidator;
 use limb\validation\src\rule\lmbEmailRule;
 use limb\validation\src\rule\lmbMatchRule;
+use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 
 class lmbCmsUser extends lmbActiveRecord
 {
@@ -68,7 +70,7 @@ class lmbCmsUser extends lmbActiveRecord
   {
 
     $criteria = new lmbSQLFieldCriteria('login', $login);
-    $user = lmbActiveRecord ::findFirst('lmbCmsUser', array('criteria' => $criteria));
+    $user = lmbActiveRecord::findFirst(lmbCmsUser::class, array('criteria' => $criteria));
 
     if($user && $user->isPasswordCorrect($password))
     {
@@ -133,7 +135,7 @@ class lmbCmsUser extends lmbActiveRecord
 
   function getIsAdmin()
   {
-    return $this->getRoleType() == lmbCmsUserRoles :: ADMIN;
+    return $this->getRoleType() == lmbCmsUserRoles::ADMIN;
   }
 
   static function getRoleTypeList()
