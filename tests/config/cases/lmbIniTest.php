@@ -10,21 +10,20 @@ namespace tests\config\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbIni;
-use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;
 
-lmbEnv::setor('INI_TEST_UNIQUE_CONSTANT', '*constant*');
+define('INI_TEST_UNIQUE_CONSTANT', '*constant*');
 
 class lmbIniTest extends TestCase
 {
   function setUp(): void
   {
-    lmbFs :: mkdir(lmb_var_dir() . '/tmp_ini');
+    lmbFs::mkdir(lmb_var_dir() . '/tmp_ini');
   }
 
   function tearDown(): void
   {
-    lmbFs :: rm(lmb_var_dir() . '/tmp_ini');
+    lmbFs::rm(lmb_var_dir() . '/tmp_ini');
   }
 
   function _createIni($contents)
@@ -378,5 +377,3 @@ class lmbIniTest extends TestCase
                           );
   }
 }
-
-

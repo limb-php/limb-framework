@@ -8,11 +8,10 @@
  */
 namespace tests\config\cases;
 
-use PHPUnit\Framework\TestCase;
+require_once '.setup.php';
+
 use limb\config\src\lmbCachedIni;
 use limb\fs\src\lmbFs;
-
-require ('lmbIniTest.php');
 
 class lmbCachedIniTest extends lmbIniTest
 {
@@ -32,5 +31,3 @@ class lmbCachedIniTest extends lmbIniTest
     return new lmbCachedIni($file, $this->cache_dir);
   }
 }
-
-

@@ -1,10 +1,11 @@
 <?php
-lmb_require('limb/cache2/tests/cases/logs/lmbCacheLogTest.class.php');
-lmb_require('limb/cache2/src/logs/lmbCacheLogMemory.class.php');
+
+use limb\cache2\tests\cases\logs\lmbCacheLogTest;
+use limb\cache2\src\logs\lmbCacheLogMemory;
 
 class lmbCacheLogMemoryTest extends lmbCacheLogTest
 {
-  function setUp()
+  function setUp(): void
   {
     $this->logger = new lmbCacheLogMemory();
     parent::setUp();

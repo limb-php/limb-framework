@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-lmb_require('limb/cache2/src/lmbMintCache.class.php');
-lmb_require('limb/cache2/src/drivers/lmbCacheAbstractConnection.class.php');
+use limb\cache2\src\lmbMintCache;
+use limb\cache2\src\drivers\lmbCacheAbstractConnection;
 
-Mock :: generate('lmbCacheAbstractConnection', 'MockCacheConnection');
+Mock::generate(lmbCacheAbstractConnection::class, 'MockCacheConnection');
 
 class lmbMintCacheTest extends TestCase
 {

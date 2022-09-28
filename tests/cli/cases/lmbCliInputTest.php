@@ -6,23 +6,29 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\cli\cases;
+
+require_once ('.setup.php');
+
+use PHPUnit\Framework\TestCase;
 use limb\cli\src\lmbCliInput;
 use limb\cli\src\lmbCliOption;
+use limb\cli\src\lmbCliException;
 
 class lmbCliInputTest extends TestCase
 {
   function testReadEmpty()
   {
     $cli = new lmbCliInput();
-    $this->assertEquals($cli->getOptions(), array());
-    $this->assertEquals($cli->getArguments(), array());
+    $this->assertEquals(array(), $cli->getOptions());
+    $this->assertEquals(array(), $cli->getArguments());
 
     $this->assertNull($cli->getOption('f'));
     $this->assertNull($cli->getOptionValue('f'));
     $this->assertFalse($cli->hasOption('f'));
-    $this->assertEquals($cli->getOptionValue('f', 'wow'), 'wow');
+    $this->assertEquals('wow', $cli->getOptionValue('f', 'wow'));
     $this->assertNull($cli->getArgument(0));
-    $this->assertEquals($cli->getArgument(0, 'wow'), 'wow');
+    $this->assertEquals('wow', $cli->getArgument(0, 'wow'));
   }
 
   function testUseStringOptionsDescription()
@@ -30,10 +36,10 @@ class lmbCliInputTest extends TestCase
     $cli = new lmbCliInput('i|input=;b;foo=;c=');
     $opts = $cli->getOptions();
 
-    $this->assertEquals($opts[0], new lmbCliOption('i', 'input', lmbCliOption :: VALUE_REQ));
+    $this->assertEquals($opts[0], new lmbCliOption('i', 'input', lmbCliOption::VALUE_REQ));
     $this->assertEquals($opts[1], new lmbCliOption('b'));
-    $this->assertEquals($opts[2], new lmbCliOption('foo', lmbCliOption :: VALUE_REQ));
-    $this->assertEquals($opts[3], new lmbCliOption('c', lmbCliOption :: VALUE_REQ));
+    $this->assertEquals($opts[2], new lmbCliOption('foo', lmbCliOption::VALUE_REQ));
+    $this->assertEquals($opts[3], new lmbCliOption('c', lmbCliOption::VALUE_REQ));
   }
 
   function testUseStringOptionsDescriptionWithEndingSeparator()
@@ -51,9 +57,9 @@ class lmbCliInputTest extends TestCase
     $cli = new lmbCliInput('f=;bar=');
 
     $this->assertTrue($cli->read($argv));
-    $this->assertEquals($cli->getOptionValue('f'), 'wow');
-    $this->assertEquals($cli->getOptionValue('bar'), '1');
-    $this->assertEquals($cli->getArguments(), array('foo', 'bar'));
+    $this->assertEquals('wow', $cli->getOptionValue('f'));
+    $this->assertEquals('1', $cli->getOptionValue('bar'));
+    $this->assertEquals(array('foo', 'bar'), $cli->getArguments());
   }
 
   function testReadOptionsHoldingSpaces()
@@ -63,17 +69,17 @@ class lmbCliInputTest extends TestCase
     $cli = new lmbCliInput('foo=;bar=;f=');
 
     $this->assertTrue($cli->read($argv));
-    $this->assertEquals($cli->getOptionValue('foo'), 'wow hey test');
-    $this->assertEquals($cli->getOptionValue('f'), 'spaces spaces');
-    $this->assertEquals($cli->getOptionValue('bar'), 1);
-    $this->assertEquals($cli->getArguments(), array('foo', 'bar'));
+    $this->assertEquals('wow hey test', $cli->getOptionValue('foo'));
+    $this->assertEquals('spaces spaces', $cli->getOptionValue('f'));
+    $this->assertEquals(1, $cli->getOptionValue('bar'));
+    $this->assertEquals(array('foo', 'bar'), $cli->getArguments());
   }
 
   function testNoValueOptionValuesBecomeArguments()
   {
     $cli = new lmbCliInput('f');
     $this->assertTrue($cli->read(array('foo.php', '-f', 'foo', 'bar')));
-    $this->assertEquals($cli->getArguments(), array('foo', 'bar'));
+    $this->assertEquals(array('foo', 'bar'), $cli->getArguments());
   }
 
   function testReadOptionValueRequiredError()
@@ -84,7 +90,7 @@ class lmbCliInputTest extends TestCase
     try
     {
       $cli->read(array('foo.php', '--foo'));
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbCliException $e){}
 
@@ -100,7 +106,7 @@ class lmbCliInputTest extends TestCase
     try
     {
       $cli->read(array('foo.php', '--foo=1'));
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbCliException $e){}
 
@@ -122,10 +128,10 @@ class lmbCliInputTest extends TestCase
     $cli = new lmbCliInput('f|foo=;b|bar=');
 
     $this->assertTrue($cli->read($argv));
-    $this->assertEquals($cli->getOptionValue('f'), 1);
-    $this->assertEquals($cli->getOptionValue('foo'), 1);
-    $this->assertEquals($cli->getOptionValue('b'), 4);
-    $this->assertEquals($cli->getOptionValue('bar'), 4);
+    $this->assertEquals(1, $cli->getOptionValue('f'));
+    $this->assertEquals(1, $cli->getOptionValue('foo'));
+    $this->assertEquals(4, $cli->getOptionValue('b'));
+    $this->assertEquals(4, $cli->getOptionValue('bar'));
   }
 
   function testReadWithEqualSignPresent()
@@ -135,8 +141,8 @@ class lmbCliInputTest extends TestCase
     $cli = new lmbCliInput('f|foo=;b|bar=');
 
     $this->assertTrue($cli->read($argv));
-    $this->assertEquals($cli->getOptionValue('f'), 1);
-    $this->assertEquals($cli->getOptionValue('b'), 2);
+    $this->assertEquals(1, $cli->getOptionValue('f'));
+    $this->assertEquals(2, $cli->getOptionValue('b'));
   }
 
   function testReadOptionsWithEqualSignMissing()
@@ -146,8 +152,8 @@ class lmbCliInputTest extends TestCase
     $cli = new lmbCliInput('f|foo=;b|bar=');
 
     $this->assertTrue($cli->read($argv));
-    $this->assertEquals($cli->getOptionValue('f'), 1);
-    $this->assertEquals($cli->getOptionValue('b'), 2);
+    $this->assertEquals(1, $cli->getOptionValue('f'));
+    $this->assertEquals(2, $cli->getOptionValue('b'));
   }
 
   function testReadMixedOptions()
@@ -157,9 +163,9 @@ class lmbCliInputTest extends TestCase
     $cli = new lmbCliInput('f|foo=;b|bar=;z|zoo=');
 
     $this->assertTrue($cli->read($argv));
-    $this->assertEquals($cli->getOptionValue('f'), 1);
-    $this->assertEquals($cli->getOptionValue('b'), 2);
-    $this->assertEquals($cli->getOptionValue('z'), 3);
+    $this->assertEquals(1, $cli->getOptionValue('f'));
+    $this->assertEquals(2, $cli->getOptionValue('b'));
+    $this->assertEquals(3, $cli->getOptionValue('z'));
   }
 
   function testLongOptionsWithNonAlphabeticChars()
@@ -169,9 +175,9 @@ class lmbCliInputTest extends TestCase
     $cli = new lmbCliInput('f|foo-Bar=;b|bar-foo_now=;z|zoo=');
 
     $this->assertTrue($cli->read($argv));
-    $this->assertEquals($cli->getOptionValue('f'), 1);
-    $this->assertEquals($cli->getOptionValue('b'), 2);
-    $this->assertEquals($cli->getOptionValue('z'), 3);
+    $this->assertEquals(1, $cli->getOptionValue('f'));
+    $this->assertEquals(2, $cli->getOptionValue('b'));
+    $this->assertEquals(3, $cli->getOptionValue('z'));
   }
 
   function testShortOptionsWithUppercaseChars()
@@ -182,7 +188,7 @@ class lmbCliInputTest extends TestCase
 
     $this->assertTrue($cli->read($argv));
     $this->assertTrue($cli->hasOption('B'));
-    $this->assertEquals($cli->getOptionValue('C'), 2);
+    $this->assertEquals(2, $cli->getOptionValue('C'));
   }
 
   function testShortOptionsWithNumberChars()
@@ -203,8 +209,8 @@ class lmbCliInputTest extends TestCase
     $cli = new lmbCliInput('opt1=');
 
     $this->assertTrue($cli->read($argv));
-    $this->assertEquals($cli->getOptionValue('opt1'), 'opt1');
-    $this->assertEquals($cli->getArguments(), array('arg1', 'arg2'));
+    $this->assertEquals('opt1', $cli->getOptionValue('opt1'));
+    $this->assertEquals(array('arg1', 'arg2'), $cli->getArguments());
   }
 
   function testShortOptionsGluing()
@@ -229,7 +235,7 @@ class lmbCliInputTest extends TestCase
     $this->assertTrue($cli->read($argv));
     $this->assertNull($cli->getOptionValue('i'));
     $this->assertNull($cli->getOptionValue('b'));
-    $this->assertEquals($cli->getOptionValue('k'), 2);
+    $this->assertEquals(2, $cli->getOptionValue('k'));
   }
 
   function testUseRelaxedMode()
@@ -239,7 +245,6 @@ class lmbCliInputTest extends TestCase
     $cli->strictMode(false);
     $this->assertTrue($cli->read($argv));
     $this->assertTrue($cli->hasOption('opt1'));
-    $this->assertEquals($cli->getArguments(), array('arg1', 'arg2', 'arg3'));
+    $this->assertEquals(array('arg1', 'arg2', 'arg3'), $cli->getArguments());
   }
 }
-

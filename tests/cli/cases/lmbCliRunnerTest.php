@@ -6,25 +6,34 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\cli\cases;
 
+require_once ('.setup.php');
+
+use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFs;
 use limb\cli\src\lmbCliResponse;
 use limb\cli\src\lmbCliInput;
 use limb\cli\src\lmbCliRunner;
+use limb\core\src\exception\lmbException;
+use limb\core\src\lmbEnv;
+
+class FooCliCmd {}
+class FooBarCliCmd {}
 
 class lmbCliRunnerTest extends TestCase
 {
   var $tmp_dir;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->tmp_dir = LIMB_VAR_DIR . '/tmp_cmd/';
-    lmbFs :: mkdir($this->tmp_dir);
+    $this->tmp_dir = lmbEnv::get('LIMB_VAR_DIR') . '/tmp_cmd/';
+    lmbFs::mkdir($this->tmp_dir);
   }
 
-  function tearDown()
+  function tearDown(): void
   {
-    lmbFs :: rm($this->tmp_dir);
+    lmbFs::rm($this->tmp_dir);
   }
 
   function testExecuteFailureNoCommand()
@@ -39,9 +48,11 @@ class lmbCliRunnerTest extends TestCase
     try
     {
       $runner->execute();
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testCantMapToCmdObject()
@@ -58,16 +69,16 @@ class lmbCliRunnerTest extends TestCase
     try
     {
       $runner->execute();
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbException $e){}
   }
 
   function testCommandToClass()
   {
-    $this->assertEquals(lmbCliRunner :: commandToClass('foo'), 'FooCliCmd');
-    $this->assertEquals(lmbCliRunner :: commandToClass('foo_bar'), 'FooBarCliCmd');
-    $this->assertEquals(lmbCliRunner :: commandToClass('foo-bar'), 'FooBarCliCmd');
+    $this->assertEquals('FooCliCmd', lmbCliRunner::commandToClass('foo'));
+    $this->assertEquals('FooBarCliCmd', lmbCliRunner::commandToClass('foo_bar'));
+    $this->assertEquals('FooBarCliCmd', lmbCliRunner::commandToClass('foo-bar'));
   }
 
   function testDefaultAction()
@@ -84,7 +95,7 @@ class lmbCliRunnerTest extends TestCase
 
     $this->_createCommandClass($cmd);
 
-    $this->assertEquals($runner->execute(), 0);
+    $this->assertEquals(0, $runner->execute());
   }
 
   function testFallbackToDefaultAction()
@@ -135,7 +146,7 @@ class lmbCliRunnerTest extends TestCase
 
     $this->_createCommandClass($cmd, 'function fooBar(){return 1;}');
 
-    $this->assertEquals($runner->execute(), 1);
+    $this->assertEquals(1, $runner->execute());
   }
 
   function testPassArgvToAction()
@@ -175,7 +186,7 @@ EOD;
 
   function _createCommandClass($name, $body='')
   {
-    $class = lmbCliRunner :: commandToClass($name);
+    $class = lmbCliRunner::commandToClass($name);
 
     $php = <<<EOD
 <?php
@@ -185,7 +196,7 @@ class $class extends lmbCliBaseCmd
 }
 ?>
 EOD;
-    file_put_contents(LIMB_VAR_DIR . '/tmp_cmd/' . $class . '.class.php', $php);
+    file_put_contents(lmbEnv::get('LIMB_VAR_DIR') . '/tmp_cmd/' . $class . '.php', $php);
   }
 
   function _randomName()
@@ -193,5 +204,3 @@ EOD;
     return 'foo' . mt_rand();
   }
 }
-
-

@@ -6,8 +6,13 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-use limb\cli\src\lmbCliOption;
+namespace tests\cli\cases;
 
+require_once ('.setup.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\cli\src\lmbCliOption;
+use limb\cli\src\lmbCliException;
 
 class lmbCliOptionTest extends TestCase
 {
@@ -16,48 +21,50 @@ class lmbCliOptionTest extends TestCase
     try
     {
       $opt = new lmbCliOption('foo', 'f');
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbCliException $e){}
+    catch(lmbCliException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testCreateWithShortNameOnly()
   {
-    $opt = new lmbCliOption('s', lmbCliOption :: VALUE_REQ);
+    $opt = new lmbCliOption('s', lmbCliOption::VALUE_REQ);
     $this->assertNull($opt->getLongName());
     $this->assertEquals($opt->getShortName(), 's');
-    $this->assertEquals($opt->getValueMode(), lmbCliOption :: VALUE_REQ);
+    $this->assertEquals($opt->getValueMode(), lmbCliOption::VALUE_REQ);
     $this->assertEquals($opt->toString(), '-s');
   }
 
   function testCreateWithLongNameOnly()
   {
-    $opt = new lmbCliOption('foo', lmbCliOption :: VALUE_REQ);
+    $opt = new lmbCliOption('foo', lmbCliOption::VALUE_REQ);
     $this->assertNull($opt->getShortName());
     $this->assertEquals($opt->getLongName(), 'foo');
-    $this->assertEquals($opt->getValueMode(), lmbCliOption :: VALUE_REQ);
+    $this->assertEquals($opt->getValueMode(), lmbCliOption::VALUE_REQ);
     $this->assertEquals($opt->toString(), '--foo');
   }
 
   function testCreateWithBothNames()
   {
-    $opt = new lmbCliOption('f', 'foo', lmbCliOption :: VALUE_REQ);
+    $opt = new lmbCliOption('f', 'foo', lmbCliOption::VALUE_REQ);
     $this->assertEquals($opt->getShortName(), 'f');
     $this->assertEquals($opt->getLongName(), 'foo');
-    $this->assertEquals($opt->getValueMode(), lmbCliOption :: VALUE_REQ);
+    $this->assertEquals($opt->getValueMode(), lmbCliOption::VALUE_REQ);
     $this->assertEquals($opt->toString(), '-f|--foo');
   }
 
   function testDefaultValueMode()
   {
     $opt = new lmbCliOption('s');
-    $this->assertEquals($opt->getValueMode(), lmbCliOption :: VALUE_NO);
+    $this->assertEquals($opt->getValueMode(), lmbCliOption::VALUE_NO);
 
     $opt = new lmbCliOption('foo');
-    $this->assertEquals($opt->getValueMode(), lmbCliOption :: VALUE_NO);
+    $this->assertEquals($opt->getValueMode(), lmbCliOption::VALUE_NO);
 
     $opt = new lmbCliOption('f', 'foo');
-    $this->assertEquals($opt->getValueMode(), lmbCliOption :: VALUE_NO);
+    $this->assertEquals($opt->getValueMode(), lmbCliOption::VALUE_NO);
   }
 
   function testValueMode()
@@ -65,10 +72,10 @@ class lmbCliOptionTest extends TestCase
     $opt = new lmbCliOption('s');
     $this->assertTrue($opt->isValueForbidden());
 
-    $opt = new lmbCliOption('s', lmbCliOption :: VALUE_REQ);
+    $opt = new lmbCliOption('s', lmbCliOption::VALUE_REQ);
     $this->assertTrue($opt->isValueRequired());
 
-    $opt = new lmbCliOption('s', lmbCliOption :: VALUE_OPT);
+    $opt = new lmbCliOption('s', lmbCliOption::VALUE_OPT);
     $this->assertTrue($opt->isValueOptional());
   }
 
@@ -120,19 +127,21 @@ class lmbCliOptionTest extends TestCase
 
   function testValidateRequiredValue()
   {
-    $opt = new lmbCliOption('f', lmbCliOption :: VALUE_REQ);
+    $opt = new lmbCliOption('f', lmbCliOption::VALUE_REQ);
 
     try
     {
       $opt->validate();
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbCliException $e){}
+    catch(lmbCliException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testValidateForbiddenValue()
   {
-    $opt = new lmbCliOption('f', lmbCliOption :: VALUE_NO);
+    $opt = new lmbCliOption('f', lmbCliOption::VALUE_NO);
     $opt->validate(); //should pass
 
     $opt->setValue(1);
@@ -140,10 +149,11 @@ class lmbCliOptionTest extends TestCase
     try
     {
       $opt->validate();
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbCliException $e){}
+    catch(lmbCliException $e){
+        $this->assertTrue(true);
+    }
   }
 
 }
-

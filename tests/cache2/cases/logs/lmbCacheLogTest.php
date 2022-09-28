@@ -1,6 +1,6 @@
 <?php
 
-lmb_require('limb/cache2/src/lmbCache.interface.php');
+use limb\cache2\src\lmbCacheInterface;
 
 abstract class lmbCacheLogTest extends TestCase
 {

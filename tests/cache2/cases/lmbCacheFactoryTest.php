@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Limb PHP Framework
  *
@@ -7,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/core/src/lmbObject.class.php');
-lmb_require('limb/cache2/src/lmbCacheFactory.class.php');
+
+use limb\core\src\lmbObject;
+use limb\cache2\src\lmbCacheFactory;
 
 class lmbCacheFactoryTest extends TestCase
 {

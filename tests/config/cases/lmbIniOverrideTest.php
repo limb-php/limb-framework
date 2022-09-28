@@ -8,6 +8,8 @@
  */
 namespace tests\config\cases;
 
+require_once '.setup.php';
+
 use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbIni;
 use limb\fs\src\lmbFs;
@@ -54,5 +56,3 @@ class lmbIniOverrideTest extends TestCase
     $this->assertEquals($ini->getOption('force_compile', 'Templates'), 1);
   }
 }
-
-

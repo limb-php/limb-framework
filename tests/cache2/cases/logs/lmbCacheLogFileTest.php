@@ -1,11 +1,12 @@
 <?php
-lmb_require('limb/cache2/tests/cases/logs/lmbCacheLogTest.class.php');
-lmb_require('limb/cache2/src/logs/lmbCacheLogFile.class.php');
-lmb_require('limb/fs/src/lmbFs.class.php');
+
+use limb\cache2\tests\cases\logs\lmbCacheLogTest;
+use limb\cache2\src\logs\lmbCacheLogFile;
+use limb\fs\src\lmbFs;
 
 class lmbCacheLogFileTest extends lmbCacheLogTest
 {
-  function setUp()
+  function setUp(): void
   {
     lmbFs::rm(LIMB_VAR_DIR);
     lmbFs::mkdir(LIMB_VAR_DIR);
@@ -15,7 +16,7 @@ class lmbCacheLogFileTest extends lmbCacheLogTest
     parent::setUp();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     unset($this->logger);
     lmbFs::rm(LIMB_VAR_DIR);

@@ -8,6 +8,8 @@
  */
 namespace tests\config\cases;
 
+require_once '.setup.php';
+
 use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbConf;
 use limb\fs\src\lmbFs;
@@ -17,8 +19,6 @@ use limb\core\src\exception\lmbInvalidArgumentException;
 
 class lmbConfTest extends TestCase
 {
-
-
   protected function _getConfigPath($config_name)
   {
     return lmb_var_dir().'/configs/'.$config_name;

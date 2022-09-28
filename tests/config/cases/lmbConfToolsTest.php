@@ -8,6 +8,8 @@
 */
 namespace tests\config\cases;
 
+require_once '.setup.php';
+
 use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbToolkit;
 use limb\config\src\toolkit\lmbConfTools;
@@ -26,7 +28,7 @@ class lmbConfToolsTest extends TestCase
 
   function setUp(): void
   {
-    lmbToolkit :: save();
+    lmbToolkit::save();
     $this->toolkit = lmbToolkit :: merge(new lmbConfTools());
 
     $this->application_configs_dir = lmb_var_dir() . '/app/settings';
@@ -41,7 +43,7 @@ class lmbConfToolsTest extends TestCase
 
   function tearDown(): void
   {
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
     lmbFs::rm($this->application_configs_dir);
     lmbFs::rm($this->package_configs_dir);
   }
