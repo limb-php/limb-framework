@@ -8,11 +8,9 @@ use limb\toolkit\src\lmbToolkit;
 
 class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
 {
-  protected $toolkit;
-
   function run($filter_chain)
   {
-    $this->toolkit = lmbToolkit::instance();
+    $toolkit = lmbToolkit::instance();
 
     if( 'devel' !== lmbEnv::get('LIMB_APP_MODE') )
     {
@@ -20,17 +18,19 @@ class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
       return;
     }
 
-    $conn = new lmbAuditDbConnection( $this->toolkit->getDefaultDbConnection() );
-    $this->toolkit->setDefaultDbConnection($conn);
+    $conn = new lmbAuditDbConnection( $toolkit->getDefaultDbConnection() );
+    $toolkit->setDefaultDbConnection($conn);
 
     $filter_chain->next();
 
-    if( $this->toolkit->getResponse()->getContentType() == 'text/html' )
-      $this->_printStat( $conn->getStats() );
+    $this->_printStat( $toolkit->getResponse(), $conn->getStats() );
   }
 
-  protected function _printStat($info_arr)
+  protected function _printStat($response, $info_arr)
   {
+    if( $response->getContentType() != 'text/html' )
+        return;
+
     $output = "<!--";
     $total_time = 0;
     $i = 1;
@@ -43,7 +43,7 @@ class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
     }
     $output .= "Total Time: " . $total_time . " -->";
 
-    $this->toolkit->getResponse()->append($output);
+    $response->append($output);
   }
 }
 
