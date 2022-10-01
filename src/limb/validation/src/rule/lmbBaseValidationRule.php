@@ -8,7 +8,7 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbValidationRuleInterface;
+use limb\core\src\lmbObject;
 
 /**
  * A base class for validation rules.
@@ -51,6 +51,10 @@ abstract class lmbBaseValidationRule implements lmbValidationRuleInterface
   function validate($datasource, $error_list)
   {
     $this->error_list = $error_list;
+
+      // for BC
+      if(is_array($datasource))
+          $datasource = new lmbObject($datasource);
 
     $this->_doValidate($datasource);
 
