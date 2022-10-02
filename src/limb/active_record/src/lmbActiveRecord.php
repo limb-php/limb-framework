@@ -212,25 +212,8 @@ class lmbActiveRecord extends lmbObject
 
     $this->_db_conn_dsn = $this->_db_conn->getDsnString();
 
-    $class_name = (new \ReflectionClass($this))->getShortName();
+    $this->_db_table_fields = $this->getDbMetaInfo()->getDbColumnsNames();
 
-    if(!$this->_db_table_name)
-      $this->_db_table_name = lmbString::under_scores($class_name);
-
-    if(isset(self::$_metas[$class_name]))
-      $meta = self::$_metas[$class_name];
-    else
-    {
-      $meta = new lmbARMetaInfo($this, $this->_db_conn);
-      self::$_metas[$class_name] = $meta;
-    }
-    $this->_db_meta_info = $meta;
-
-    $this->_db_table_fields = $this->_db_meta_info->getDbColumnsNames();
-
-    $this->_db_table = $this->_db_meta_info->getDbTable();
-    $this->_db_table->setConnection($this->_db_conn);
-    $this->_db_table->setPrimaryKeyName($this->_primary_key_name);
     $this->_error_list = new lmbErrorList();
 
     if($magic_params)
@@ -270,19 +253,18 @@ class lmbActiveRecord extends lmbObject
     self::$_default_db_conn = $conn;
     return $prev;
   }
-  /**
-   *  Returns current default database connection object
-   *  @return object instance of concrete lmbDbConnection interface implementation
-   *  @see lmbDbConnection
-   */
-  static function getDefaultConnection()
-  {
-    if(is_object(self::$_default_db_conn))
-      return self::$_default_db_conn;
+    /**
+     *  Returns current default database connection object
+     *  @return object instance of concrete lmbDbConnection interface implementation
+     *  @see lmbDbConnection
+     */
+    static function getDefaultConnection()
+    {
+        if(is_object(self::$_default_db_conn))
+            return self::$_default_db_conn;
 
-    $toolkit = lmbToolkit::instance();
-    return $toolkit->getDefaultDbConnection();
-  }
+        return lmbToolkit::instance()->getDefaultDbConnection();
+    }
 
     function setConnection($conn)
     {
@@ -294,6 +276,23 @@ class lmbActiveRecord extends lmbObject
     function getConnection()
     {
         return $this->_db_conn;
+    }
+
+    function getDbMetaInfo()
+    {
+        if($this->_db_meta_info)
+            return $this->_db_meta_info;
+
+        $table_name = $this->getTableName();
+        if(isset(self::$_metas[$table_name])) {
+            $meta = self::$_metas[$table_name];
+        }
+        else {
+            $meta = new lmbARMetaInfo($this, $this->_db_conn);
+            self::$_metas[$table_name] = $meta;
+        }
+
+        return $this->_db_meta_info = $meta;
     }
 
   /**
@@ -312,14 +311,14 @@ class lmbActiveRecord extends lmbObject
   {
     return self::$_inheritance_field = $field;
   }
-  /**
-   *  Returns name of database table
-   *  @return string
-   */
-  function getTableName()
-  {
-    return $this->_db_table_name;
-  }
+    /**
+     *  Returns name of database table
+     *  @return string
+     */
+    function getTableName()
+    {
+        return $this->_db_table_name ?? $this->_db_table_name = lmbString::under_scores( (new \ReflectionClass($this))->getShortName() );
+    }
   /**
    *  Returns primary key name of the database table
    *  @return string
@@ -328,27 +327,34 @@ class lmbActiveRecord extends lmbObject
   {
     return $this->_primary_key_name;
   }
-  /**
-   *  Returns table gateway instance used for all db interactions
-   *  @return object
-   */
-  function getDbTable()
-  {
-    return $this->_db_table;
-  }
-  /**
-   *  Returns error list object with all validation errors
-   *  @return object
-   */
-  function getErrorList()
-  {
-    return $this->_error_list;
-  }
+    /**
+     *  Returns table gateway instance used for all db interactions
+     *  @return object
+     */
+    function getDbTable()
+    {
+        if($this->_db_table)
+            return $this->_db_table;
 
-  function setErrorList($error_list)
-  {
-    $this->_error_list = $error_list;
-  }
+        $this->_db_table = $this->getDbMetaInfo()->getDbTable();
+        $this->_db_table->setConnection($this->_db_conn);
+        $this->_db_table->setPrimaryKeyName($this->_primary_key_name);
+
+        return $this->_db_table;
+    }
+    /**
+     *  Returns error list object with all validation errors
+     *  @return object
+     */
+    function getErrorList()
+    {
+        return $this->_error_list ?? $this->_error_list = new lmbErrorList();
+    }
+
+    function setErrorList($error_list)
+    {
+      $this->_error_list = $error_list;
+    }
 
   protected function _defineRelations(){}
 
@@ -632,7 +638,7 @@ class lmbActiveRecord extends lmbObject
 
   protected function _loadLazyAttribute($property)
   {
-    $record = $this->_db_table->selectRecordById($this->getId(), array($property));
+    $record = $this->getDbTable()->selectRecordById($this->getId(), array($property));
     $processed = $this->_decodeDbValues($record);
     $this->_setRaw($property, $processed[$property]);
   }
@@ -805,8 +811,8 @@ class lmbActiveRecord extends lmbObject
 
     // if property is a table field and was not really changed, don't mark it dirty
     // if '==' no update if in DB has '+'. if '===' always update, in request always type string, but in DB can be integer
-    //if(!($this->_db_meta_info->hasColumn($property) && ($old_value == $value)))
-    if(!($this->_db_meta_info->hasColumn($property) && ($old_value === $value)))
+    //if(!($this->getDbMetaInfo()->hasColumn($property) && ($old_value == $value)))
+    if(!($this->getDbMetaInfo()->hasColumn($property) && ($old_value === $value)))
       $this->_markDirtyProperty($property);
   }
 
@@ -821,7 +827,7 @@ class lmbActiveRecord extends lmbObject
 
   protected function _canPropertyBeDirty($property)
   {
-    if($this->_db_meta_info->hasColumn($property))
+    if($this->getDbMetaInfo()->hasColumn($property))
       return true;
 
     if($this->_canRelationPropertyBeDirty($property, $this->_many_belongs_to))
@@ -1161,12 +1167,12 @@ class lmbActiveRecord extends lmbObject
   protected function _updateDbRecord($values)
   {
     if(!empty($values))
-      return $this->_db_table->updateById($this->id, $values);
+      return $this->getDbTable()->updateById($this->id, $values);
   }
 
   protected function _insertDbRecord($values)
   {
-    return $this->_db_table->insert($values);
+    return $this->getDbTable()->insert($values);
   }
 
   protected function _checkDirtinessOfAggregatedObjectsFields()
@@ -1238,12 +1244,12 @@ class lmbActiveRecord extends lmbObject
 
   protected function _hasUpdateTime()
   {
-    return $this->_db_meta_info->hasColumn(self::$_utime_field);
+    return $this->getDbMetaInfo()->hasColumn(self::$_utime_field);
   }
 
   protected function _hasCreateTime()
   {
-    return $this->_db_meta_info->hasColumn(self::$_ctime_field);
+    return $this->getDbMetaInfo()->hasColumn(self::$_ctime_field);
   }
 
   protected function _isInheritable()
@@ -1251,7 +1257,7 @@ class lmbActiveRecord extends lmbObject
     if(!is_null($this->_is_inheritable))
       return $this->_is_inheritable;
 
-    $this->_is_inheritable = $this->_db_meta_info->hasColumn(self::$_inheritance_field);
+    $this->_is_inheritable = $this->getDbMetaInfo()->hasColumn(self::$_inheritance_field);
     return $this->_is_inheritable;
   }
 
@@ -1261,9 +1267,9 @@ class lmbActiveRecord extends lmbObject
   */
   function inc($property, $amount = 1)
   {
-    $this->_db_meta_info->hasColumn($property);
+    $this->getDbMetaInfo()->hasColumn($property);
     {
-      $this->_db_table->updateById($this->id, "$property = $property + ($amount)");
+      $this->getDbTable()->updateById($this->id, "$property = $property + ($amount)");
     }
 
     $this->$property += $amount;
@@ -1307,7 +1313,7 @@ class lmbActiveRecord extends lmbObject
     catch(\Exception $e)
     {
       if($error_list)
-        $error_list->addError('ActiveRecord :: save() exception: ' . $e->getMessage());
+        $error_list->addError('ActiveRecord::save() exception: ' . $e->getMessage());
       return false;
     }
     return true;
@@ -1731,7 +1737,7 @@ class lmbActiveRecord extends lmbObject
     if(self::_isCriteria($magic_params))
       $params = array('criteria' => $magic_params);
     elseif(is_int($magic_params) || (is_array($magic_params) && isset($magic_params['id'])))
-      return self :: findById($class_name, $magic_params, false, $conn);
+      return self::findById($class_name, $magic_params, false, $conn);
     elseif(is_null($magic_params))
       $params = array();
     elseif(!is_array($magic_params))
@@ -1795,8 +1801,7 @@ class lmbActiveRecord extends lmbObject
   {
     $magic_params = array_merge($params, array('criteria' => $criteria));
 
-    //$query = lmbARQuery::create(get_class($this), $magic_params, $this->_db_conn);
-    $query = lmbARQuery::create(self::_getCallingClass(), $magic_params);
+    $query = lmbARQuery::create(self::_getCallingClass(), $magic_params, $this->_db_conn);
     return $query->fetch($decorate = false);
   }
 
@@ -1874,7 +1879,7 @@ class lmbActiveRecord extends lmbObject
 
   protected function _decodeDbValues($record)
   {
-    return $this->_db_meta_info->castDbValues($record);
+    return $this->getDbMetaInfo()->castDbValues($record);
   }
   /**
    *  Returns id of object typecasted to integer explicitly
@@ -1938,7 +1943,7 @@ class lmbActiveRecord extends lmbObject
 
   protected function _deleteDbRecord()
   {
-    $this->_db_table->deleteById($this->getId());
+    $this->getDbTable()->deleteById($this->getId());
   }
   /**
    *  Finds all objects which satisfy the passed criteria and destroys them one by one
@@ -2146,7 +2151,7 @@ class lmbActiveRecord extends lmbObject
    */
   function importRaw($source)
   {
-    parent :: import($source);
+    parent::import($source);
 
     $this->markDirty(true);
   }
@@ -2193,8 +2198,10 @@ class lmbActiveRecord extends lmbObject
 
   protected function _importAggregatedObject($property, $obj)
   {
-    if(is_object($obj))
-      return $this->set($property, $obj);
+    if(is_object($obj)) {
+        $this->set($property, $obj);
+        return;
+    }
 
     $this->set($property, $this->_loadAggregatedObject($property));
   }
@@ -2216,7 +2223,7 @@ class lmbActiveRecord extends lmbObject
    */
   function exportRaw()
   {
-    return parent :: export();
+    return parent::export();
   }
   /**
    *  Registers instance listener of specified type
@@ -2294,61 +2301,61 @@ class lmbActiveRecord extends lmbObject
    */
   static function registerGlobalCallback($type, $callback)
   {
-    self :: $_global_listeners[$type][] = lmbDelegate::objectify($callback);
+    self::$_global_listeners[$type][] = lmbDelegate::objectify($callback);
   }
 
   static function registerGlobalOnBeforeSaveCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self::ON_BEFORE_SAVE, $args);
+    self::registerGlobalCallback(self::ON_BEFORE_SAVE, $args);
   }
 
   static function registerGlobalOnAfterSaveCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self::ON_AFTER_SAVE, $args);
+    self::registerGlobalCallback(self::ON_AFTER_SAVE, $args);
   }
 
   static function registerGlobalOnBeforeUpdateCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self::ON_BEFORE_UPDATE, $args);
+    self::registerGlobalCallback(self::ON_BEFORE_UPDATE, $args);
   }
 
   static function registerGlobalOnUpdateCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self::ON_UPDATE, $args);
+    self::registerGlobalCallback(self::ON_UPDATE, $args);
   }
 
   static function registerGlobalOnAfterUpdateCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self::ON_AFTER_UPDATE, $args);
+    self::registerGlobalCallback(self::ON_AFTER_UPDATE, $args);
   }
 
   static function registerGlobalOnBeforeCreateCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self::ON_BEFORE_CREATE, $args);
+    self::registerGlobalCallback(self::ON_BEFORE_CREATE, $args);
   }
 
   static function registerGlobalOnCreateCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self::ON_CREATE, $args);
+    self::registerGlobalCallback(self::ON_CREATE, $args);
   }
 
   static function registerGlobalOnAfterCreateCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self::ON_AFTER_CREATE, $args);
+    self::registerGlobalCallback(self::ON_AFTER_CREATE, $args);
   }
 
   static function registerGlobalOnBeforeDestroyCallback($callback)
   {
     $args = func_get_args();
-    self :: registerGlobalCallback(self::ON_BEFORE_DESTROY, $args);
+    self::registerGlobalCallback(self::ON_BEFORE_DESTROY, $args);
   }
 
   static function registerGlobalOnAfterDestroyCallback($callback)
@@ -2371,11 +2378,11 @@ class lmbActiveRecord extends lmbObject
     $toolkit = lmbToolkit::instance();
     $this->_db_conn = $toolkit->getDbConnectionByDsn($this->_db_conn_dsn);
 
-    $this->_db_meta_info = $toolkit->getActiveRecordMetaInfo($this, $this->_db_conn);
-    $this->_db_table_fields = $this->_db_meta_info->getDbColumnsNames();
+    //$this->_db_meta_info = $toolkit->getActiveRecordMetaInfo($this, $this->_db_conn);
+    $this->_db_table_fields = $this->getDbMetaInfo()->getDbColumnsNames();
 
-    $this->_db_table = $this->_db_meta_info->getDbTable();
-    $this->_db_table->setPrimaryKeyName($this->_primary_key_name);
+    //$this->_db_table = $this->getDbMetaInfo()->getDbTable();
+    //$this->_db_table->setPrimaryKeyName($this->_primary_key_name);
     //$this->_db_table_name = $this->_db_table->getTableName();
   }
 
