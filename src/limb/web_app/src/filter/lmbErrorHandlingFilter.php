@@ -63,8 +63,8 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
 
   function handleException($e)
   {
-    if(function_exists('debugBreak'))
-      debugBreak();
+    if(function_exists('\debugBreak'))
+      \debugBreak();
 
     $this->toolkit->getLog()->logException($e);
     $this->toolkit->getResponse()->reset();
@@ -100,7 +100,7 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
       ob_end_clean();
 
     $session = htmlspecialchars($this->toolkit->getSession()->dump());
-    echo $this->_renderTemplate($message, $trace, $file, $line, $context, $request, $session);
+    echo $this->_renderTemplate($message, array(), $trace, $file, $line, $context, $request, $session);
   }
 
   protected function _echoExceptionBacktrace($e)
@@ -135,7 +135,7 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
     echo $this->_renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session);
   }
 
-  protected function _renderTemplate($error, $trace, $file, $line, $context, $request, $session)
+  protected function _renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session)
   {
     $formatted_error = nl2br($error);
     $formatted_file = nl2br($file);
@@ -182,6 +182,8 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
 </head>
 <body>
 <h2 id='Title'>{$formatted_error}</h2>
+
+<p>{$params}</p>
 
 <a href="#" onclick="document.getElementById('Trace').style.display='none';document.getElementById('Context').style.display='block'; return false;">Context</a> |
 
