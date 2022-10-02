@@ -58,8 +58,8 @@ class lmbErrorHandler
 
   function handleException($e)
   {
-      if(function_exists('debugBreak'))
-        debugBreak();
+      if(function_exists('\debugBreak'))
+        \debugBreak();
 
       $this->toolkit = lmbToolkit::instance();
       $this->toolkit->getLog()->logException($e);
@@ -96,7 +96,7 @@ class lmbErrorHandler
       ob_end_clean();
 
     $session = htmlspecialchars($this->toolkit->getSession()->dump());
-    echo $this->_renderTemplate($message, $trace, $file, $line, $context, $request, $session);
+    echo $this->_renderTemplate($message, array(), $trace, $file, $line, $context, $request, $session);
   }
 
   protected function _echoExceptionBacktrace($e)
@@ -131,7 +131,7 @@ class lmbErrorHandler
     echo $this->_renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session);
   }
 
-  protected function _renderTemplate($error, $trace, $file, $line, $context, $request, $session)
+  protected function _renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session)
   {
     $formatted_error = nl2br($error);
     $formatted_file = nl2br($file);
@@ -178,6 +178,8 @@ class lmbErrorHandler
 </head>
 <body>
 <h2 id='Title'>{$formatted_error}</h2>
+
+<p>{$params}</p>
 
 <a href="#" onclick="document.getElementById('Trace').style.display='none';document.getElementById('Context').style.display='block'; return false;">Context</a> |
 
