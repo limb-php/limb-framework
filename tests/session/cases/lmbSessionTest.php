@@ -6,9 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/session/src/lmbSession.class.php');
-lmb_require('limb/core/src/lmbSerializable.class.php');
-lmb_require('limb/core/src/lmbObject.class.php');
+namespace tests\session\cases;
+
+use PHPUnit\Framework\TestCase;
+use limb\session\src\lmbSession;
+use limb\core\src\lmbSerializable;
+use limb\core\src\lmbObject;
 
 class lmbSerializableObjectForTests extends lmbSerializable {}
 
@@ -16,12 +19,12 @@ class lmbSessionTest extends TestCase
 {
   protected $session;
 
-  function setUp()
+  function setUp(): void
   {
     $this->session = new lmbSession();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->session->destroyTouched();
   }

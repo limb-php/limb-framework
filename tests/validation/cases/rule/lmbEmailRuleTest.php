@@ -9,6 +9,7 @@
 namespace limb\validation\tests\cases\rule;
 
 use limb\validation\src\rule\lmbEmailRule;
+use limb\core\src\lmbSet;
 
 class lmbEmailRuleTest extends lmbValidationRuleTestCase
 {

@@ -55,7 +55,7 @@ class lmbHttpRequestTest extends TestCase
     $this->assertNull($request->getRequest('b'), 1);
 
     $this->assertEquals($request->getRequest('b', 1), 1); // test for default values
-    $this->assertIdentical($request->getRequest('b', 0), 0);
+    $this->assertEquals($request->getRequest('b', 0), 0);
 
     $this->assertEquals($request->getRequest(array('b', 'c', 'd')), array('b' => null, 'c' => 1, 'd' => 2));
   }
@@ -69,7 +69,7 @@ class lmbHttpRequestTest extends TestCase
     $this->assertNull($request->getGet('b'), 1);
 
     $this->assertEquals($request->getGet('sambo', 'cool'), 'cool'); // test for default values
-    $this->assertIdentical($request->getGet('sambo', 0), 0);
+    $this->assertEquals($request->getGet('sambo', 0), 0);
 
     $field_names = array('ju', 'kung', 'sambo');
 
@@ -85,7 +85,7 @@ class lmbHttpRequestTest extends TestCase
     $this->assertNull($request->getPost('b'), 1);
 
     $this->assertEquals($request->getPost('sambo', 'cool'), 'cool'); // test for default values
-    $this->assertIdentical($request->getPost('sambo', 0), 0);
+    $this->assertEquals($request->getPost('sambo', 0), 0);
 
     $field_names = array('ju', 'kung', 'sambo');
 
@@ -143,7 +143,7 @@ class lmbHttpRequestTest extends TestCase
     $this->assertNull($request->getCookie('b'), 1);
 
     $this->assertEquals($request->getCookie('sambo', 'cool'), 'cool'); // test for default values
-    $this->assertIdentical($request->getCookie('sambo', 0), 0);
+    $this->assertEquals($request->getCookie('sambo', 0), 0);
 
     $field_names = array('ju', 'kung', 'sambo');
 
@@ -313,5 +313,3 @@ class lmbHttpRequestTest extends TestCase
     $this->assertEquals($request['get']['z'], '1');
   }
 }
-
-

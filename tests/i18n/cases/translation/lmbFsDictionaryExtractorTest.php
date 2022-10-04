@@ -6,17 +6,18 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\i18n\cases\translation;
 
 /**
  * TODO replace cli by taskman
  */
 return;
 
-lmb_require('limb/cli/src/lmbCliResponse.class.php');
-lmb_require('limb/fs/src/lmbFsRecursiveIterator.class.php');
-lmb_require('limb/i18n/src/translation/lmbSourceDictionaryExtractor.class.php');
-lmb_require('limb/i18n/src/translation/lmbFsDictionaryExtractor.class.php');
-lmb_require('limb/i18n/src/translation/lmbDictionary.class.php');
+use limb\cli\src\lmbCliResponse;
+use limb\fs\src\lmbFsRecursiveIterator;
+use limb\i18n\src\translation\lmbSourceDictionaryExtractor;
+use limb\i18n\src\translation\lmbFsDictionaryExtractor;
+use limb\i18n\src\translation\lmbDictionary;
 
 Mock :: generate('lmbSourceDictionaryExtractor', 'MockBaseDictionaryParser');
 Mock :: generate('lmbFsRecursiveIterator', 'MockFsRecursiveIterator');

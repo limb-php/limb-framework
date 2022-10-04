@@ -6,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/tree/src/lmbNSTree.class.php');
-lmb_require(dirname(__FILE__) . '/lmbTreeTestBase.class.php');
+namespace tests\tree\cases;
+
+use limb\tree\src\lmbNSTree;
 
 class lmbNSTreeTest extends lmbTreeTestBase
 {
@@ -61,4 +62,3 @@ class lmbNSTreeTest extends lmbTreeTestBase
     $this->assertEquals($this->imp->getNode($node_2)->export(), $moved_node);
   }
 }
-

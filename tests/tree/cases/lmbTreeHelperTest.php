@@ -6,8 +6,11 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/tree/src/lmbTreeHelper.class.php');
-lmb_require('limb/core/src/lmbCollection.class.php');
+namespace tests\tree\cases;
+
+use PHPUnit\Framework\TestCase;
+use limb\tree\src\lmbTreeHelper;
+use limb\core\src\lmbCollection;
 
 class lmbTreeHelperTest extends TestCase
 {
@@ -35,8 +38,8 @@ class lmbTreeHelperTest extends TestCase
         array('id' => 7, 'parent_id' => 6, 'sort1' => 'tom', 'sort2' => 0),
     );
 
-    $sorted = lmbTreeHelper :: sort(new lmbCollection($raw_tree_array),
-                                      array('sort1' => 'DESC', 'sort2' => 'ASC'));
+    $sorted = lmbTreeHelper::sort(new lmbCollection($raw_tree_array),
+                                  array('sort1' => 'DESC', 'sort2' => 'ASC'));
 
     $to_check = array();
     foreach($sorted as $record)

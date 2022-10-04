@@ -6,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/validation/src/lmbErrorList.class.php');
-lmb_require('limb/core/src/lmbSet.class.php');
+
+use limb\validation\src\lmbErrorList;
+use limb\core\src\lmbSet;
 
 Mock::generate('lmbErrorList', 'MockErrorList');
 

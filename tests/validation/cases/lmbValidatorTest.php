@@ -6,9 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/validation/src/lmbValidator.class.php');
-lmb_require('limb/validation/src/rule/lmbValidationRule.interface.php');
-lmb_require('limb/validation/src/lmbErrorList.class.php');
+
+use limb\validation\src\lmbValidator;
+use limb\validation\src\rule\lmbValidationRuleInterface;
+use limb\validation\src\lmbErrorList;
 
 Mock::generate('lmbValidationRule', 'MockValidationRule');
 Mock::generate('lmbErrorList', 'MockFieldsErrorList');

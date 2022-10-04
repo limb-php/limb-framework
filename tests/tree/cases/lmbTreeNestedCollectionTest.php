@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/core/src/lmbCollection.class.php');
-lmb_require('limb/tree/src/lmbTreeNestedCollection.class.php');
+namespace tests\tree\cases;
+
+use PHPUnit\Framework\TestCase;
+use limb\tree\src\lmbTreeNestedCollection;
 
 class lmbTreeNestedCollectionTest extends TestCase
 {
@@ -21,7 +23,7 @@ class lmbTreeNestedCollectionTest extends TestCase
       array('id' => 1, 'parent_id' => 0),
       );
 
-    $raw = new ArrayIterator($raw_tree_array);
+    $raw = new \ArrayIterator($raw_tree_array);
     $nested = new lmbTreeNestedCollection($raw);
     $arr = $this->toArray($nested);
 
@@ -46,7 +48,7 @@ class lmbTreeNestedCollectionTest extends TestCase
       array('id' => 4, 'parent_id' => 100)
       );
 
-    $raw = new ArrayIterator($raw_tree_array);
+    $raw = new \ArrayIterator($raw_tree_array);
     $nested = new lmbTreeNestedCollection($raw);
     $arr = $this->toArray($nested);
 
@@ -91,7 +93,7 @@ class lmbTreeNestedCollectionTest extends TestCase
       array('id' => 8, 'parent_id' => 200),
     );
 
-    $raw = new ArrayIterator($raw_tree_array);
+    $raw = new \ArrayIterator($raw_tree_array);
     $nested = new lmbTreeNestedCollection($raw);
     $arr = $this->toArray($nested);
 
@@ -106,5 +108,3 @@ class lmbTreeNestedCollectionTest extends TestCase
     return $result;
   }
 }
-
-

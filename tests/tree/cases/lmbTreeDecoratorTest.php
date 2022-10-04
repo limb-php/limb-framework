@@ -6,6 +6,8 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\tree\cases;
+
 use limb\tree\src\lmbTreeDecorator;
 use limb\tree\src\lmbMPTree;
 
@@ -13,7 +15,7 @@ class TreeTestVersionForDecorator extends lmbMPTree
 {
   function __construct()
   {
-    parent :: __construct('test_materialized_path_tree');
+    parent::__construct('test_materialized_path_tree');
   }
 }
 

@@ -6,7 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/i18n/src/datetime/lmbLocaleDateTime.class.php');
+namespace tests\i18n\cases\datetime;
+
+use limb\i18n\src\datetime\lmbLocaleDateTime;
+use PHPUnit\Framework\TestCase;
 
 class lmbLocaleDateTimeTest extends TestCase
 {

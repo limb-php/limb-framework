@@ -6,9 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-use limb\toolkit\src\lmbToolkitToolsInterface;
+namespace tests\toolkit\cases;
+
+use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\toolkit\src\lmbToolkit;
+use limb\core\src\exception\lmbException;
 
 class TestTools extends lmbAbstractTools
 {
@@ -74,7 +77,7 @@ class lmbToolkitTest extends TestCase
     try
     {
       $toolkit->noSuchMethod();
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbException $e){}
   }
@@ -86,7 +89,7 @@ class lmbToolkitTest extends TestCase
     try
     {
       $toolkit->setNonExistingStuff("bar");
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbException $e){}
   }
@@ -98,7 +101,7 @@ class lmbToolkitTest extends TestCase
     try
     {
       $toolkit->getNonExistingStuff();
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbException $e){}
   }
@@ -222,7 +225,7 @@ class lmbToolkitTest extends TestCase
     {
       $toolkit->get('commonMethod');
       $this->fail();
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $this->pass();
     }
    
@@ -268,5 +271,3 @@ class lmbToolkitTest extends TestCase
     lmbToolkit :: restore();
   }
 }
-
-

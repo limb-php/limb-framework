@@ -7,16 +7,20 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use limb\toolkit\src\lmbToolkit;
+use limb\macro\src\lmbMacroTemplate;
+use limb\fs\src\lmbFs;
+
 class lmbMacroTestCase extends TestCase
 {
   protected $toolkit;
   
   function setUp()
   {
-    $this->toolkit = lmbToolkit :: save();
+    $this->toolkit = lmbToolkit::save();
 
-    lmbFs :: rm(LIMB_VAR_DIR . '/tpl');
-    lmbFs :: mkdir(LIMB_VAR_DIR . '/tpl/compiled');
+    lmbFs::rm(LIMB_VAR_DIR . '/tpl');
+    lmbFs::mkdir(LIMB_VAR_DIR . '/tpl/compiled');
   }
   
   function tearDown()
@@ -45,4 +49,3 @@ class lmbMacroTestCase extends TestCase
     return $this->_createMacro($file);
   }
 }
-

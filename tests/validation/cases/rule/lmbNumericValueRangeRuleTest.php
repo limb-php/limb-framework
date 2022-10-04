@@ -6,7 +6,8 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/validation/src/rule/lmbNumericValueRangeRule.class.php');
+
+use limb\validation\src\rule\lmbNumericValueRangeRule;
 
 class lmbNumericValueRangeRuleTest extends lmbValidationRuleTestCase
 {

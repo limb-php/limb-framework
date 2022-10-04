@@ -6,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/validation/src/lmbErrorList.class.php');
-lmb_require('limb/validation/src/exception/lmbValidationException.class.php');
+
+use limb\validation\src\lmbErrorList;
+use limb\validation\src\exception\lmbValidationException;
 
 class lmbValidationExceptionTest extends TestCase
 {

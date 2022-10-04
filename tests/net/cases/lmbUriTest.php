@@ -109,7 +109,7 @@ class lmbUriTest extends TestCase
     try
     {
       $uri = new lmbUri('http:///');
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbException $e){}
   }
@@ -524,7 +524,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertIdentical(false,
+    $this->assertEquals(false,
       $uri->comparePath(
         new lmbUri('http://localhost2/test.php/test/test2')
       )
@@ -635,5 +635,3 @@ class lmbUriTest extends TestCase
     $this->assertEquals($q_items['var'], $test_value);
   }
 }
-
-

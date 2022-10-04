@@ -6,8 +6,11 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/session/src/lmbSessionDbStorage.class.php');
-lmb_require('limb/dbal/src/lmbSimpleDb.class.php');
+namespace tests\session\cases;
+
+use limb\session\src\lmbSessionDbStorage;
+use limb\dbal\src\lmbSimpleDb;
+use limb\toolkit\src\lmbToolkit;
 
 Mock :: generate('TestSessionObject');
 
@@ -19,7 +22,7 @@ class lmbSessionDbStorageTest extends TestCase
 
   function setUp()
   {
-    $toolkit = lmbToolkit :: save();
+    $toolkit = lmbToolkit::save();
     $this->conn = $toolkit->getDefaultDbConnection();
     $this->db = new lmbSimpleDb($this->conn);
 
@@ -32,7 +35,7 @@ class lmbSessionDbStorageTest extends TestCase
   {
     $this->db->delete('lmb_session');
 
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testStorageOpen()
@@ -73,7 +76,7 @@ class lmbSessionDbStorageTest extends TestCase
                                 'last_activity_time' => 10), null);
 
 
-    $this->assertIdentical(false, $this->driver->storageRead('no_such_session'));
+    $this->assertEquals(false, $this->driver->storageRead('no_such_session'));
   }
 
   function testStorageWriteInsert()
@@ -211,5 +214,3 @@ class lmbSessionDbStorageTest extends TestCase
     $this->assertFalse(!$rs->valid());
   }
 }
-
-

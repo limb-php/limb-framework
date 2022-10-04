@@ -7,8 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-lmb_require('limb/validation/src/lmbValidator.class.php');
-lmb_require('limb/validation/src/lmbValidatorBuilder.class.php');
+use limb\validation\src\lmbValidator;
+use limb\validation\src\lmbValidatorBuilder;
 
 Mock::generate('lmbValidator', 'MockValidator');
 

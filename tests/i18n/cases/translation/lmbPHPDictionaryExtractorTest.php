@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/i18n/src/translation/lmbPHPDictionaryExtractor.class.php');
-lmb_require('limb/i18n/src/translation/lmbI18NDictionary.class.php');
+namespace tests\i18n\cases\translation;
+
+use limb\i18n\src\translation\lmbPHPDictionaryExtractor;
+use limb\i18n\src\translation\lmbI18NDictionary;
 
 class lmbPHPDictionaryExtractorTest extends TestCase
 {

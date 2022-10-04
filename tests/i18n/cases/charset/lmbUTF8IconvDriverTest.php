@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/i18n/src/charset/lmbUTF8IconvDriver.class.php');
-lmb_require(dirname(__FILE__) . '/lmbMultiByteStringDriverTestBase.class.php');
+namespace tests\i18n\cases\charset;
+
+use limb\i18n\src\charset\lmbUTF8IconvDriver;
+use PHPUnit\Framework\TestCase;
 
 class lmbUTF8IconvDriverTest extends lmbMultiByteStringDriverTestBase
 {

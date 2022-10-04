@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/validation/src/rule/lmbCallbackRule.class.php');
+
+use limb\validation\src\rule\lmbCallbackRule;
+use limb\core\src\lmbSet;
 
 class lmbCallbackRuleTest extends lmbValidationRuleTestCase
 {
@@ -38,5 +40,3 @@ class lmbCallbackRuleTest extends lmbValidationRuleTestCase
     return $this->validate_callback_result;
   }
 }
-
-

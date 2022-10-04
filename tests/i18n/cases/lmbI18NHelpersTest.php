@@ -7,6 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+namespace tests\i18n\cases;
+
+use PHPUnit\Framework\TestCase;
+
 class lmbI18NHelpersTest extends TestCase
 {
   function testTraslitEmpty()

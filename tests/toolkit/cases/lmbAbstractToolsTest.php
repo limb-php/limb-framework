@@ -6,7 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/toolkit/src/lmbAbstractTools.class.php');
+namespace tests\toolkit\cases;
+
+use limb\toolkit\src\lmbAbstractTools;
+use PHPUnit\Framework\TestCase;
 
 class TestAbstractTools extends lmbAbstractTools
 {

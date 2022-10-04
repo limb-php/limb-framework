@@ -6,6 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\i18n\cases\charset;
+
+use PHPUnit\Framework\TestCase;
 
 abstract class lmbMultiByteStringDriverTestBase extends TestCase
 {

@@ -6,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-require_once('limb/i18n/utf8.inc.php');
-lmb_require('limb/core/src/lmbSet.class.php');
+namespace tests\i18n\cases\macro;
+
+use limb\core\src\lmbSet;
 
 class lmbI18NClipMacroFilterTest extends lmbBaseMacroTest
 {

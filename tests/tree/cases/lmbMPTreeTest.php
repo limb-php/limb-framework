@@ -6,9 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/tree/src/lmbMPTree.class.php');
-lmb_require(dirname(__FILE__) . '/lmbTreeTestBase.class.php');
+namespace tests\tree\cases;
 
+use limb\tree\src\lmbMPTree;
+use limb\core\src\lmbArrayHelper;
 
 class lmbMPTreeTest extends lmbTreeTestBase
 {
@@ -29,10 +30,10 @@ class lmbMPTreeTest extends lmbTreeTestBase
 
   function _checkProperNesting($nodes, $line='')
   {
-    $this->assertEquals(lmbArrayHelper :: sortArray($nodes, array('path' => 'ASC')),
+    $this->assertEquals(lmbArrayHelper::sortArray($nodes, array('path' => 'ASC')),
                        $nodes);
 
-    $path = lmbArrayHelper :: getMinColumnValue('path', $nodes, $index);
+    $path = lmbArrayHelper::getMinColumnValue('path', $nodes, $index);
     $parent_paths[] = $this->_getParentPath($path);
 
     $counter = 0;
