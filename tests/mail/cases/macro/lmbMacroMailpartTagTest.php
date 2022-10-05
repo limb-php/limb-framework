@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use lmbBaseMacroTest;
+
 class lmbMacroMailpartTagTest extends lmbBaseMacroTest
 {
   function testSinglePart()

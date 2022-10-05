@@ -6,10 +6,11 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/filter_chain/src/lmbFilterChain.class.php');
-lmb_require('limb/net/src/lmbHttpResponse.class.php');
-lmb_require('limb/web_app/src/filter/lmbViewRenderingFilter.class.php');
-lmb_require('limb/view/src/lmbView.class.php');
+
+use limb\filter_chain\src\lmbFilterChain;
+use limb\net\src\lmbHttpResponse;
+use limb\web_app\src\filter\lmbViewRenderingFilter;
+use limb\view\src\lmbView;
 
 Mock :: generate('lmbHttpResponse', 'MockHttpResponse');
 Mock :: generate('lmbFilterChain', 'MockFilterChain');

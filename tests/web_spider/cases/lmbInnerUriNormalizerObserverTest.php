@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/web_spider/src/lmbInnerUriNormalizerObserver.class.php');
-lmb_require('limb/web_spider/src/lmbUriContentReader.class.php');
+
+use limb\web_spider\src\lmbInnerUriNormalizerObserver;
+use limb\web_spider\src\lmbUriContentReader;
+use limb\net\src\lmbUri;
 
 Mock :: generate('lmbUriContentReader', 'MockUriContentReader');
 

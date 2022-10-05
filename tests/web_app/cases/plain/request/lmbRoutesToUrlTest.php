@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/web_app/src/request/lmbRoutes.class.php');
-lmb_require('limb/net/src/lmbUri.class.php');
+
+use limb\web_app\src\request\lmbRoutes;
+use limb\net\src\lmbUri;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbRoutesToUrlTest extends TestCase
 {

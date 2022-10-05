@@ -9,6 +9,7 @@
 
 use limb\validation\src\lmbValidator;
 use limb\validation\src\lmbValidatorBuilder;
+use limb\core\src\lmbHandle;
 
 Mock::generate('lmbValidator', 'MockValidator');
 

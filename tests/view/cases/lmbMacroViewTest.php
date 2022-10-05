@@ -14,13 +14,14 @@ use limb\view\src\lmbMacroView;
 use limb\fs\src\lmbFs;
 use limb\validation\src\lmbErrorList;
 use limb\core\src\lmbSet;
+use limb\core\src\lmbEnv;
 
 class lmbMacroViewTest extends TestCase
 {
   function setUp(): void
   {
-    lmbFs::rm(LIMB_VAR_DIR . '/tpl/');
-    lmbFs::mkdir(LIMB_VAR_DIR . '/tpl/');
+    lmbFs::rm(lmbEnv::get('LIMB_VAR_DIR') . '/tpl/');
+    lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR') . '/tpl/');
   }
 
   function testRenderSimpleVars()
@@ -66,10 +67,8 @@ class lmbMacroViewTest extends TestCase
 
   protected function _createTemplate($code, $name)
   {
-    $file = LIMB_VAR_DIR . '/tpl/' . $name;
+    $file = lmbEnv::get('LIMB_VAR_DIR') . '/tpl/' . $name;
     file_put_contents($file, $code);
     return $file;
   }
 }
-
-

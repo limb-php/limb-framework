@@ -8,12 +8,13 @@
  */
 
 use limb\view\src\lmbPHPView;
+use limb\core\src\lmbEnv;
 
 class lmbPHPViewTest extends TestCase
 {
   function testRender()
   {
-    file_put_contents($file = LIMB_VAR_DIR . '/tpl.php', '<?php echo "$msg, $name"; ?>');
+    file_put_contents($file = lmbEnv::get('LIMB_VAR_DIR') . '/tpl.php', '<?php echo "$msg, $name"; ?>');
     $template = new lmbPHPView($file);
     $template->set('msg', 'Hello');
     $template->set('name', 'world');
@@ -21,5 +22,3 @@ class lmbPHPViewTest extends TestCase
     unlink($file);
   }
 }
-
-

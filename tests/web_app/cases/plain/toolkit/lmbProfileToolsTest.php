@@ -11,8 +11,8 @@
  * @package web_app
  * @version $Id$
  */
-lmb_require('limb/toolkit/src/lmbMockToolsWrapper.class.php');
-lmb_require('limb/web_app/src/toolkit/lmbProfileTools.class.php');
+use limb\toolkit\src\lmbMockToolsWrapper;
+use limb\web_app\src\toolkit\lmbProfileTools;
 
 class lmbProfileToolsTest extends TestCase
 {

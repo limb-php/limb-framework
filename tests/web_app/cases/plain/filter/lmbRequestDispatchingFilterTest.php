@@ -6,12 +6,13 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/filter_chain/src/lmbFilterChain.class.php');
-lmb_require('limb/web_app/src/filter/lmbRequestDispatchingFilter.class.php');
-lmb_require('limb/web_app/src/request/lmbRequestDispatcher.interface.php');
-lmb_require('limb/toolkit/src/lmbMockToolsWrapper.class.php');
-lmb_require('limb/web_app/src/toolkit/lmbWebAppTools.class.php');
-lmb_require('limb/web_app/src/controller/lmbController.class.php');
+
+use limb\filter_chain\src\lmbFilterChain;
+use limb\web_app\src\filter\lmbRequestDispatchingFilter;
+use limb\web_app\src\request\lmbRequestDispatcherInterface;
+use limb\toolkit\src\lmbMockToolsWrapper;
+use limb\web_app\src\toolkit\lmbWebAppTools;
+use limb\web_app\src\controller\lmbController;
 
 Mock :: generate('lmbFilterChain', 'MockFilterChain');
 Mock :: generate('lmbRequestDispatcher', 'MockRequestDispatcher');

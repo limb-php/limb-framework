@@ -7,9 +7,11 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-require_once(dirname(__FILE__).'/../../src/lmbMailer.class.php');
+use PHPUnit\Framework\TestCase;
+use limb\mail\src\lmbMailer;
 
-class lmbMailerTest extends TestCase {
+class lmbMailerTest extends TestCase
+{
 
   function testConstructorConfiguration()
   {

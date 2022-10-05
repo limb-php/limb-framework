@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-lmb_require('limb/dbal/src/lmbSimpleDb.class.php');
+use limb\dbal\src\lmbSimpleDb;
 
 class lmbWebAppTestCase extends TestCase
 {

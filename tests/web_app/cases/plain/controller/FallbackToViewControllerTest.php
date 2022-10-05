@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/web_app/src/controller/FallbackToViewController.class.php');
-lmb_require('limb/net/src/lmbHttpRequest.class.php');
+
+use limb\web_app\src\controller\FallbackToViewController;
+use limb\net\src\lmbHttpRequest;
+use limb\toolkit\src\lmbToolkit;
 
 class FallbackToViewControllerTest extends TestCase
 {
@@ -15,12 +17,12 @@ class FallbackToViewControllerTest extends TestCase
 
   function setUp()
   {
-    $this->toolkit = lmbToolkit :: save();
+    $this->toolkit = lmbToolkit::save();
   }
 
   function tearDown()
   {
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testAlwaysActionExists()

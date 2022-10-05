@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
  
-lmb_require('limb/web_app/src/util/lmbMessageBox.class.php');
+use limb\web_app\src\util\lmbMessageBox;
 
 class lmbMessageBoxTest extends TestCase
 {

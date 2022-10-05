@@ -6,28 +6,30 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/validation/tests/cases/rule/lmbValidationRuleTestCase.class.php');
-lmb_require('limb/dbal/src/lmbSimpleDb.class.php');
-lmb_require('limb/web_app/src/validation/rule/lmbUniqueTableFieldRule.class.php');
+
+use tests\validation\cases\rule\lmbValidationRuleTestCase;
+use limb\dbal\src\lmbSimpleDb;
+use limb\web_app\src\validation\rule\lmbUniqueTableFieldRule;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbUniqueTableFieldRuleTest extends lmbValidationRuleTestCase
 {
   var $db = null;
 
-  function setUp()
+  function setUp(): void
   {
-    parent :: setUp();
+    parent::setUp();
 
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
     $conn = $toolkit->getDefaultDbConnection();
     $this->db = new lmbSimpleDb($conn);
     $this->db->insert('test_table', array('field1' => 1, 'field2' => 'wow'), null);
     $this->db->insert('test_table', array('field1' => 2, 'field2' => 'blah'), null);
   }
 
-  function tearDown()
+  function tearDown(): void
   {
-    parent :: tearDown();
+    parent::tearDown();
   }
 
   function testFieldValid()

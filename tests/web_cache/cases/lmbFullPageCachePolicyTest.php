@@ -6,9 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/web_cache/src/lmbFullPageCacheRule.class.php');
-lmb_require('limb/web_cache/src/lmbFullPageCachePolicy.class.php');
-lmb_require('limb/core/src/lmbObject.class.php');
+use limb\web_cache\src\lmbFullPageCacheRule;
+use limb\web_cache\src\lmbFullPageCachePolicy;
+use limb\core\src\lmbObject;
 
 Mock :: generate('lmbFullPageCacheRule', 'MockFullPageCacheRule');
 

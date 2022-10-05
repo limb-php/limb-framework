@@ -1,12 +1,14 @@
 <?php
-lmb_require('limb/mail/src/lmbMacroTemplateMail.class.php');
-lmb_require('limb/macro/tests/cases/lmbBaseMacroTest.class.php');
+
+use limb\mail\src\lmbMacroTemplateMail;
+use tests\macro\cases\lmbBaseMacroTest;
 
 class lmbMacroTemplateMailTest extends lmbBaseMacroTest
 {
-  function setUp()
+  function setUp(): void
   {
     parent::setUp();
+
     lmbFs::mkdir($this->tpl_dir . '/_mail');
     $toolkit = lmbToolkit::instance();
     $toolkit->setConf('macro', $this->_createMacroConfig());
@@ -15,7 +17,8 @@ class lmbMacroTemplateMailTest extends lmbBaseMacroTest
     $toolkit->setConf('mail', $mail_config);
   }
   
-  function tearDown(){}
+  function tearDown(): void
+  {}
 
   function testSimpleMailTemplate()
   {

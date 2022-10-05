@@ -6,9 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/web_app/src/controller/lmbController.class.php');
-lmb_require('limb/macro/src/lmbMacroTemplateLocator.class.php');
-lmb_require('limb/validation/src/rule/lmbValidationRule.interface.php');
+
+use limb\web_app\src\controller\lmbController;
+use limb\macro\src\lmbMacroTemplateLocator;
+use limb\validation\src\rule\lmbValidationRuleInterface;
 
 Mock :: generate('lmbMacroTemplateLocator', 'MockMacroTemplateLocator');
 Mock :: generate('lmbValidationRule', 'MockValidationRule');

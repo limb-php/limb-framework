@@ -10,9 +10,10 @@
 use PHPUnit\Framework\TestCase;
 use limb\log\src\lmbLogFirePHPWriter;
 use limb\toolkit\src\lmbToolkit;
-use limb\net\src\lmbNetTools;
 use limb\net\src\lmbHttpResponse;
 use limb\log\src\lmbLogEntry;
+use limb\net\src\toolkit\lmbNetTools;
+use limb\net\src\lmbUri;
 
 class lmbLogFirePHPWriterTest extends TestCase
 {
@@ -31,7 +32,6 @@ class lmbLogFirePHPWriterTest extends TestCase
 
 class lmbHttpResponseForLogTest extends lmbHttpResponse
 {
-
     function getHeaders()
     {
         return $this->headers;

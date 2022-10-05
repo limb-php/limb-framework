@@ -7,7 +7,9 @@
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
 
+use PHPUnit\Framework\TestCase;
 use limb\view\src\lmbBlitzView;
+use limb\core\src\lmbEnv;
 
 class lmbBlitzViewTest extends TestCase
 {
@@ -19,7 +21,7 @@ class lmbBlitzViewTest extends TestCase
 
     private function _createTemplateFile($name, $source)
     {
-        file_put_contents($path = LIMB_VAR_DIR . $name, $source);
+        file_put_contents($path = lmbEnv::get('LIMB_VAR_DIR') . $name, $source);
         return $path;
     }
 

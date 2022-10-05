@@ -8,6 +8,7 @@
 */
 
 use limb\view\src\lmbJsonView;
+use limb\core\src\lmbObject;
 
 class lmbJsonViewTest extends TestCase
 {

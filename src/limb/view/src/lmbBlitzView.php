@@ -9,6 +9,7 @@
 namespace limb\view\src;
 
 use limb\view\src\lmbView;
+use limb\core\src\exception\lmbException;
 
 /**
  * class lmbBlitzView.
@@ -38,7 +39,7 @@ class lmbBlitzView extends lmbView
             )
           );
     }
-    return call_user_method_array($methodName, $tpl, $params);        
+    return call_user_func($methodName, $tpl, $params);
   }
 
   function getTemplateInstance()
@@ -48,7 +49,7 @@ class lmbBlitzView extends lmbView
       if(!class_exists('Blitz'))
         throw new lmbException("Blitz extension is not loaded");
 
-      $this->templateInstance = new Blitz($this->getTemplate());
+      $this->templateInstance = new \Blitz($this->getTemplate());
     }
     return $this->templateInstance;
   }

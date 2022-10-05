@@ -6,13 +6,14 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/net/src/lmbUri.class.php');
-lmb_require('limb/web_spider/src/lmbWebSpider.class.php');
-lmb_require('limb/web_spider/src/lmbContentTypeFilter.class.php');
-lmb_require('limb/web_spider/src/lmbUriFilter.class.php');
-lmb_require('limb/web_spider/src/lmbUriExtractor.class.php');
-lmb_require('limb/web_spider/src/lmbUriNormalizer.class.php');
-lmb_require('limb/web_spider/src/lmbUriContentReader.class.php');
+
+use limb\net\src\lmbUri;
+use limb\web_spider\src\lmbWebSpider;
+use limb\web_spider\src\lmbContentTypeFilter;
+use limb\web_spider\src\lmbUriFilter;
+use limb\web_spider\src\lmbUriExtractor;
+use limb\web_spider\src\lmbUriNormalizer;
+use limb\web_spider\src\lmbUriContentReader;
 
 class TestingSpiderObserver
 {

@@ -6,10 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/web_cache/src/lmbFullPageCacheRequest.class.php');
-lmb_require('limb/web_cache/src/lmbFullPageCacheUser.class.php');
-lmb_require('limb/web_cache/src/lmbFullPageCacheUserRule.class.php');
-lmb_require('limb/net/src/lmbHttpRequest.class.php');
+use limb\web_cache\src\lmbFullPageCacheRequest;
+use limb\web_cache\src\lmbFullPageCacheUser;
+use limb\web_cache\src\lmbFullPageCacheUserRule;
+use limb\net\src\lmbHttpRequest;
 
 class lmbFullPageCacheUserRuleTest extends TestCase
 {
