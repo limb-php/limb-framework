@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\validation\cases\rule;
 
+use tests\validation\cases\rule\lmbValidationRuleTestCase;
 use limb\validation\src\rule\lmbCallbackRule;
 use limb\core\src\lmbSet;
 

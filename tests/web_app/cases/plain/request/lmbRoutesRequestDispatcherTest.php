@@ -6,24 +6,27 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_app\cases\plain\request;
 
+use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutesRequestDispatcher;
 use limb\web_app\src\request\lmbRoutes;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbRoutesRequestDispatcherTest extends TestCase
 {
   protected $request;
   protected $toolkit;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->toolkit = lmbToolkit :: save();
+    $this->toolkit = lmbToolkit::save();
     $this->request = $this->toolkit->getRequest();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testDispatch()

@@ -6,8 +6,13 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\cms\cases\request;
+
+use tests\cms\cases\lmbCmsTestCase;
 use limb\cms\src\request\lmbCmsDocumentRequestDispatcher;
 use limb\web_app\src\request\lmbRoutes;
+use limb\cms\src\model\lmbCmsDocument;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
 {
@@ -54,5 +59,3 @@ class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
     $this->assertEquals($result['id'], $document->getId());
   }
 }
-
-

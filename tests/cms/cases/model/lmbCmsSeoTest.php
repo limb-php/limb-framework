@@ -1,12 +1,15 @@
 <?php
+namespace tests\cms\cases\model;
 
+use tests\cms\cases\lmbCmsTestCase;
 use limb\cms\src\model\lmbCmsSeo;
+use limb\net\src\lmbUri;
 
 class lmbCmsSeoTest extends lmbCmsTestCase
 {
-  function setUp()
+  function setUp(): void
   {
-    parent :: setUp();
+    parent::setUp();
 
     $items = $this->_getItemsArray();
 
@@ -26,7 +29,7 @@ class lmbCmsSeoTest extends lmbCmsTestCase
     $items = $this->_getItemsArray();
     foreach($items as $item)
     {
-      $meta = lmbCmsSeo :: getMetaForUrl(new lmbUri($item['url']));
+      $meta = lmbCmsSeo::getMetaForUrl(new lmbUri($item['url']));
 
       $this->assertEquals($meta->get('title'), $item['title']);
       $this->assertEquals($meta->get('keywords'), $item['keywords']);
@@ -89,5 +92,4 @@ class lmbCmsSeoTest extends lmbCmsTestCase
                    );
     return $items;
   }
-
 }

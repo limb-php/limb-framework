@@ -10,16 +10,18 @@
 /**
  * @package web_agent
  */
-lmb_require('limb/web_agent/src/lmbWebServerResponse.class.php');
-lmb_require('limb/web_agent/src/lmbWebServerCookieCollection.class.php');
+
+use limb\web_agent\src\lmbWebServerResponse;
+use limb\web_agent\src\lmbWebServerCookieCollection;
 
 /**
  * Web server response
  *
  * @package web_agent
- * @version $Id: lmbWebServerResponseTest.class.php 40 2007-10-04 15:52:39Z CatMan $
+ * @version $Id: lmbWebServerResponseTest.php 40 2007-10-04 15:52:39Z CatMan $
  */
-class lmbWebServerResponseTest extends TestCase {
+class lmbWebServerResponseTest extends TestCase
+{
 
   function testGetResponseParams()
   {

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-lmb_require('limb/web_agent/src/lmbWebAgentHeaders.class.php');
+use limb\web_agent\src\lmbWebAgentHeaders;
 
 /**
  * @package web_agent

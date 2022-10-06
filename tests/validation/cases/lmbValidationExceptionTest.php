@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\validation\cases;
 
+use PHPUnit\Framework\TestCase;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\exception\lmbValidationException;
 

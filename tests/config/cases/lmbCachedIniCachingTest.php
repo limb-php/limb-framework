@@ -21,14 +21,14 @@ class lmbCachedIniCachingTest extends TestCase
   function setUp(): void
   {
     $this->cache_dir = lmb_var_dir() . '/ini/';
-    lmbFs :: rm($this->cache_dir);
-    lmbFs :: mkdir(lmb_var_dir() . '/tmp_ini/');
+    lmbFs::rm($this->cache_dir);
+    lmbFs::mkdir(lmb_var_dir() . '/tmp_ini/');
   }
 
   function tearDown(): void
   {
-    lmbFs :: rm(lmb_var_dir() . '/tmp_ini/');
-    lmbFs :: rm($this->cache_dir);
+    lmbFs::rm(lmb_var_dir() . '/tmp_ini/');
+    lmbFs::rm($this->cache_dir);
   }
 
   function _createIniFile($contents, &$override_file = null)
@@ -86,5 +86,3 @@ class lmbCachedIniCachingTest extends TestCase
     $this->assertEquals($ini2->get('test'), 2);
   }
 }
-
-

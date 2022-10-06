@@ -7,9 +7,11 @@ $mark = microtime(true);
 
 require_once('limb/core/common.inc.php');
 require_once('limb/web_app/common.inc.php');
-require_once('limb/web_app/src/lmbWebApplication.class.php');
 
-class DefaultController extends lmbController
+use limb\web_app\src\lmbWebApplication;
+use limb\web_app\src\controller\LmbController;
+
+class DefaultController extends LmbController
 {
   function doDisplay()
   {

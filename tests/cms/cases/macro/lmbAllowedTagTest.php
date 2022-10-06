@@ -1,7 +1,9 @@
 <?php
+namespace tests\cms\cases\macro;
+
 use limb\cms\src\macro\AllowedTag;
 use limb\macro\src\lmbMacroTemplate;
-use limb\macro\tests\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTest;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\acl\src\lmbRoleProviderInterface;
 

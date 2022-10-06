@@ -1,6 +1,9 @@
 <?php
-lmb_require('limb/web_app/tests/cases/lmbWebAppTestCase.class.php');
-lmb_require('limb/dbal/src/drivers/lmbAuditDbConnection.class.php');
+
+use tests\web_app\cases\lmbWebAppTestCase;
+use limb\dbal\src\drivers\lmbAuditDbConnection;
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\lmbSimpleDb;
 
 class CronModuleTestCase extends lmbWebAppTestCase
 {
@@ -9,9 +12,9 @@ class CronModuleTestCase extends lmbWebAppTestCase
   protected $tables_to_cleanup = array();
   protected $creator;
 
-  function setUp()
+  function setUp(): void
   {
-    parent :: setUp();
+    parent::setUp();
 
     $this->conn = new lmbAuditDbConnection(lmbToolkit::instance()->getDefaultDbConnection());
     lmbToolkit::instance()->setDefaultDbConnection($this->conn);
@@ -23,7 +26,7 @@ class CronModuleTestCase extends lmbWebAppTestCase
     $this->_cleanUp();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->_cleanUp();
     $this->conn->disconnect();

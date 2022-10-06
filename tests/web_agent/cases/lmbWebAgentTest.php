@@ -10,7 +10,7 @@
 /**
  * @package web_agent
  */
-lmb_require('limb/web_agent/src/lmbWebAgent.class.php');
+use limb\web_agent\src\lmbWebAgent;
 
 /**
  * @package web_agent

@@ -1,6 +1,7 @@
 <?php
+namespace tests\cms\cases\validation\rules;
 
-use limb\cms\tests\cases\lmbCmsTestCase;
+use tests\cms\cases\lmbCmsTestCase;
 use limb\validation\src\lmbErrorList;
 use limb\cms\src\validation\rule\lmbTreeUniqueIdentifierRule;
 
@@ -11,9 +12,9 @@ class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
   protected $error_list; 
   protected $tables_to_cleanup = array('lmb_cms_document');
 
-  function setUp()
+  function setUp(): void
   {
-    parent :: setUp();
+    parent::setUp();
 
     $this->error_list = new MockErrorList();
     $this->_initCmsDocumentTable();

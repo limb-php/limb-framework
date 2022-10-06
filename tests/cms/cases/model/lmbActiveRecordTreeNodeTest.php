@@ -1,6 +1,9 @@
 <?php
+namespace tests\cms\cases\model;
 
-use limb\cms\tests\cases\lmbCmsTestCase;
+use tests\cms\cases\lmbCmsTestCase;
+use limb\active_record\src\lmbActiveRecord;
+use limb\cms\src\model\lmbCmsDocument;
 
 class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
 {
@@ -10,7 +13,7 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
   {
     $document = $this->_createDocument($identifier = 'foo');
 
-    $must_be_document = lmbActiveRecord :: findById('lmbCmsDocument', $document->getId());
+    $must_be_document = lmbActiveRecord::findById(lmbCmsDocument::class, $document->getId());
     $this->assertEquals($must_be_document->identifier, $identifier);
     $this->assertEquals($must_be_document->id, $document->getId());
     $this->assertEquals($must_be_document->parent_id, $document->getTree()->getRootNode()->get('id'));
@@ -30,7 +33,7 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
     $nodes = array($parent, $child);
     $this->assertEquals(count($root->getChildren(2)), count($nodes));
 
-    $parent = lmbActiveRecord :: findById('lmbCmsDocument', $parent->getId());
+    $parent = lmbActiveRecord::findById(lmbCmsDocument::class, $parent->getId());
     $parent->destroy();
 
     $this->assertEquals(count($root->getChildren(2)), 0);
@@ -86,7 +89,7 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
     //force tree init
     $node = $this->_createDocument('root', $parent_node = null);
 
-    $root = lmbActiveRecord :: findOne('lmbCmsDocument', array('sort' => 'id'));
+    $root = lmbActiveRecord :: findOne(lmbCmsDocument::class, array('sort' => 'id'));
 
     $this->assertTrue($root->isRoot());
   }
@@ -138,7 +141,7 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
     );
     foreach($child_2_2_3->getParents() as $node){
       $this->assertTrue(in_array($node['id'], $assert));
-      $this->assertEquals('lmbCmsDocument', get_class($node));
+      $this->assertEquals(lmbCmsDocument::class, get_class($node));
     }
 
   }

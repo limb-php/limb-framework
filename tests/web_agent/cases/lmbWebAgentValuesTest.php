@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-lmb_require('limb/web_agent/src/lmbWebAgentValues.class.php');
+use limb\web_agent\src\lmbWebAgentValues;
 
 /**
  * @package web_agent

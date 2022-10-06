@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-lmb_require('limb/web_agent/src/lmbWebServerCookiesCollection.class.php');
+use limb\web_agent\src\lmbWebServerCookiesCollection;
 
 /**
  * @package web_agent

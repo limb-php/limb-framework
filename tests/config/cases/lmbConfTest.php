@@ -8,14 +8,14 @@
  */
 namespace tests\config\cases;
 
-require_once '.setup.php';
-
 use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbConf;
 use limb\fs\src\lmbFs;
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\core\src\exception\lmbNoSuchPropertyException;
 use limb\core\src\exception\lmbInvalidArgumentException;
+
+require_once '.setup.php';
 
 class lmbConfTest extends TestCase
 {

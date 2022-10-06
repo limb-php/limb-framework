@@ -6,7 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/datetime/src/lmbDateTimePeriod.class.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\datetime\src\lmbDateTimePeriod;
+use limb\core\src\exception\lmbException;
 
 class lmbDateTimePeriodTest extends TestCase
 {
@@ -15,7 +18,7 @@ class lmbDateTimePeriodTest extends TestCase
     try
     {
       $period = new lmbDateTimePeriod('2005-12-01 13:45:12', '2005-12-01 13:45:10');
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbException $e){}
   }
@@ -67,5 +70,3 @@ class lmbDateTimePeriodTest extends TestCase
     $this->assertFalse($period3->intersects($period1));
   }
 }
-
-

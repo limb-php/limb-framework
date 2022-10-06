@@ -6,7 +6,9 @@
 * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
+namespace tests\view\cases;
 
+use PHPUnit\Framework\TestCase;
 use limb\view\src\lmbJsonView;
 use limb\core\src\lmbObject;
 
@@ -17,7 +19,7 @@ class lmbJsonViewTest extends TestCase
    */
   protected $view;
   
-  function setUp()
+  function setUp(): void
   {
     $this->view = new lmbJsonView();
   }
@@ -67,5 +69,4 @@ class lmbJsonViewTest extends TestCase
     $this->view->set('object', $object);
     $this->_checkValue('{"object":{"foo":42}}');
   }
-
 }

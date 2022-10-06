@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_app\cases\plain\request;
 
+use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbCompositeRequestDispatcher;
 use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\net\src\lmbHttpRequest;
@@ -17,7 +19,7 @@ class lmbCompositeRequestDispatcherTest extends TestCase
 {
   protected $request;
 
-  function setUp()
+  function setUp(): void
   {
     $this->request = new lmbHttpRequest();
   }

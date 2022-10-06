@@ -6,20 +6,23 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\web_app\cases\plain\request;
 
+use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutes;
 use limb\net\src\lmbUri;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbRoutesDispatchTest extends TestCase
 {
-  function setUp()
+  function setUp(): void
   {
-    lmbToolkit :: save();
+    lmbToolkit::save();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testControllerAndDefaultAction()

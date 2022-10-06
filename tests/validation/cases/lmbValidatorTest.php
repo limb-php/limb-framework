@@ -6,10 +6,13 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\validation\cases;
 
+use PHPUnit\Framework\TestCase;
 use limb\validation\src\lmbValidator;
 use limb\validation\src\rule\lmbValidationRuleInterface;
 use limb\validation\src\lmbErrorList;
+use limb\core\src\lmbSet;
 
 Mock::generate('lmbValidationRule', 'MockValidationRule');
 Mock::generate('lmbErrorList', 'MockFieldsErrorList');
@@ -19,7 +22,7 @@ class lmbValidatorTest extends TestCase
   var $error_list;
   var $validator;
 
-  function setUp()
+  function setUp(): void
   {
     $this->error_list = new MockFieldsErrorList();
     $this->validator = new lmbValidator();
@@ -61,5 +64,3 @@ class lmbValidatorTest extends TestCase
     $this->assertTrue($this->validator->validate($ds));
   }
 }
-
-

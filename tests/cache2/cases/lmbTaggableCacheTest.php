@@ -1,4 +1,5 @@
 <?php
+namespace tests\cache2\cases;
 
 use limb\cache2\src\lmbTaggableCache;
 use limb\cache2\src\lmbCacheFactory;

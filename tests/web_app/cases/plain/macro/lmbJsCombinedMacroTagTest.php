@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Limb PHP Framework
  *
@@ -7,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_app\cases\plain\macro;
 
 use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;

@@ -6,8 +6,11 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_app\cases;
 
+use PHPUnit\Framework\TestCase;
 use limb\dbal\src\lmbSimpleDb;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbWebAppTestCase extends TestCase
 {
@@ -17,9 +20,9 @@ class lmbWebAppTestCase extends TestCase
   protected $db;
   protected $connection;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->toolkit = lmbToolkit :: save();
+    $this->toolkit = lmbToolkit::save();
     $this->request = $this->toolkit->getRequest();
     $this->response = $this->toolkit->getResponse();
     $this->session = $this->toolkit->getSession();
@@ -28,9 +31,9 @@ class lmbWebAppTestCase extends TestCase
     $this->db = new lmbSimpleDb($this->connection);
   }
 
-  function tearDown()
+  function tearDown(): void
   {
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function assertCommandValid($command, $line)
@@ -47,4 +50,3 @@ class lmbWebAppTestCase extends TestCase
     return false;
   }
 }
-

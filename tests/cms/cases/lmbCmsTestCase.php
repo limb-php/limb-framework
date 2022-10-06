@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\cms\cases;
 
+use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\lmbSimpleDb;
 use limb\cms\src\model\lmbCmsDocument;
@@ -19,20 +21,21 @@ class lmbCmsTestCase extends TestCase
   protected $tables_to_cleanup = array('lmb_cms_seo');
   protected $identifier = 0;
 
-  function setUp()
+  function setUp(): void
   {
-    parent :: setUp();
+    parent::setUp();
 
     $this->conn = lmbToolkit::instance()->getDefaultDbConnection();
     $this->db = new lmbSimpleDb($this->conn);
     $this->_cleanUp();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->_cleanUp();
     $this->conn->disconnect();
-    parent :: tearDown();
+
+    parent::tearDown();
   }
 
   protected function _initCmsDocumentTable()

@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\validation\cases\rule;
 
 use limb\validation\src\rule\lmbAtleastOneFieldRequiredRule;
+use limb\core\src\lmbSet;
 
 class lmbAtleastOneFieldRequiredRuleTest extends lmbValidationRuleTestCase
 {
@@ -75,5 +77,3 @@ class lmbAtleastOneFieldRequiredRuleTest extends lmbValidationRuleTestCase
     $rule->validate($dataspace, $this->error_list);
   }
 }
-
-

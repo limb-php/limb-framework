@@ -6,9 +6,13 @@
  * @copyright Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\cms\cases\controller;
+
+use PHPUnit\Framework\TestCase;
 use limb\cms\src\controller\lmbObjectController;
 use limb\active_record\src\lmbActiveRecord;
 use limb\net\src\lmbHttpRequest;
+use limb\toolkit\src\lmbToolkit;
 use limb\web_app\src\tests\lmbWebApplicationSandbox;
 
 class ObjectForTesting extends lmbActiveRecord
@@ -26,16 +30,16 @@ class lmbObjectControllerTest extends TestCase
 {
   protected $toolkit;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->toolkit = lmbToolkit :: save();
+    $this->toolkit = lmbToolkit::save();
     $this->_cleanUp();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->_cleanUp();
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function _cleanUp()

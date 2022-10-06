@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\validation\cases;
 
+use PHPUnit\Framework\TestCase;
 use limb\validation\src\lmbValidator;
 use limb\validation\src\lmbValidatorBuilder;
 use limb\core\src\lmbHandle;
@@ -17,7 +19,7 @@ class lmbValidatorBuilderTest extends TestCase
 {
   var $validator;
 
-  function setUp()
+  function setUp(): void
   {
     $this->validator = new MockValidator();
 

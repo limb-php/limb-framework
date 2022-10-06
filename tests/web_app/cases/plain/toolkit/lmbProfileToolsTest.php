@@ -6,25 +6,28 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\web_app\cases\plain\toolkit;
 
 /**
  * @package web_app
  * @version $Id$
  */
+use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbMockToolsWrapper;
 use limb\web_app\src\toolkit\lmbProfileTools;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbProfileToolsTest extends TestCase
 {
 
-  function setUp()
+  function setUp(): void
   {
     lmbToolkit :: save();
     lmbToolkit :: merge(new lmbProfileTools());
     $this->toolkit = lmbToolkit :: instance();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     lmbToolkit :: restore();
   }
@@ -63,21 +66,21 @@ class lmbProfileToolsTest extends TestCase
       $this->toolkit->getProfilePoint('first');
       $this->fail("point first must be cleared!");
     }
-    catch (Exception $e)
+    catch (\Exception $e)
     {}
     try
     {
       $this->toolkit->clearProfilePoint('__start__');
       $this->fail("clearProfilePoint MUST NOT clear system points!");
     }
-    catch (Exception $e)
+    catch (\Exception $e)
     {}
     try
     {
       $this->toolkit->clearProfilePoint('__end__');
       $this->fail("clearProfilePoint MUST NOT clear system points!");
     }
-    catch (Exception $e)
+    catch (\Exception $e)
     {}
   }
 
@@ -98,7 +101,7 @@ class lmbProfileToolsTest extends TestCase
       $this->toolkit->getProfileTimeDiff('non-existing point');
       $this->fail('Non existing point must throw an exception');
     }
-    catch (Exception $e)
+    catch (\Exception $e)
     {}
   }
 
@@ -176,5 +179,3 @@ Total: {$this->toolkit->getProfileTotal()} sec.</pre>";
     $this->assertEquals($this->toolkit->getProfileStat(false), $stat);
   }
 }
-
-

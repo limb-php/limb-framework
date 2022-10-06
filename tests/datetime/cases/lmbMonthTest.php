@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/datetime/src/lmbMonth.class.php');
-lmb_require('limb/datetime/src/lmbDateTime.class.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\datetime\src\lmbMonth;
+use limb\datetime\src\lmbDateTime;
 
 class lmbMonthTest extends TestCase
 {
@@ -198,4 +200,3 @@ class lmbMonthTest extends TestCase
     $this->assertEquals(new lmbMonth(2006, 12), $prev);
   }
 }
-

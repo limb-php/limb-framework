@@ -6,15 +6,19 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_app\cases\db\validation\rule;
 
 use tests\validation\cases\rule\lmbValidationRuleTestCase;
 use limb\dbal\src\lmbSimpleDb;
 use limb\web_app\src\validation\rule\lmbUniqueTableFieldRule;
 use limb\toolkit\src\lmbToolkit;
+use limb\core\src\lmbSet;
 
 class lmbUniqueTableFieldRuleTest extends lmbValidationRuleTestCase
 {
   var $db = null;
+
+  protected $error_list;
 
   function setUp(): void
   {
@@ -89,5 +93,3 @@ class lmbUniqueTableFieldRuleTest extends lmbValidationRuleTestCase
     $rule->validate($data, $this->error_list);
   }
 }
-
-

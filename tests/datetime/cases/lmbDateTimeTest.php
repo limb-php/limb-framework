@@ -6,10 +6,16 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/datetime/src/lmbDateTime.class.php');
-lmb_require('limb/datetime/src/lmbDateTimeZone.class.php');
 
-class FooDateTime extends lmbDateTime {}
+use PHPUnit\Framework\TestCase;
+use limb\datetime\src\lmbDateTime;
+use limb\datetime\src\lmbDateTimeZone;
+use limb\core\src\exception\lmbException;
+
+class FooDateTime extends lmbDateTime
+{
+
+}
 
 class lmbDateTimeTest extends TestCase
 {
@@ -18,7 +24,7 @@ class lmbDateTimeTest extends TestCase
     try
     {
       $date = new lmbDateTime(400, 500, 5000, 9000);
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbException $e){}
   }
@@ -36,32 +42,32 @@ class lmbDateTimeTest extends TestCase
     try
     {
       $date = new lmbDateTime('baba-duba');
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbException $e){}
   }
 
   function testValidate()
   {
-    $this->assertTrue(lmbDateTime :: validate('2005-12-01 12:45:12'));
-    $this->assertTrue(lmbDateTime :: validate('2005-12-01 12:45'));
-    $this->assertTrue(lmbDateTime :: validate('2005-12-01'));
-    $this->assertTrue(lmbDateTime :: validate('12:45:12'));
-    $this->assertTrue(lmbDateTime :: validate('12:45'));
-    $this->assertTrue(lmbDateTime :: validate(' 12:45:12 '));
+    $this->assertTrue(lmbDateTime::validate('2005-12-01 12:45:12'));
+    $this->assertTrue(lmbDateTime::validate('2005-12-01 12:45'));
+    $this->assertTrue(lmbDateTime::validate('2005-12-01'));
+    $this->assertTrue(lmbDateTime::validate('12:45:12'));
+    $this->assertTrue(lmbDateTime::validate('12:45'));
+    $this->assertTrue(lmbDateTime::validate(' 12:45:12 '));
   }
 
   function testValidateFalse()
   {
-    $this->assertFalse(lmbDateTime :: validate('baba-duba'));
-    $this->assertFalse(lmbDateTime :: validate('2005-12-01 12.'));
-    $this->assertFalse(lmbDateTime :: validate(2006, 13, 11));
+    $this->assertFalse(lmbDateTime::validate('baba-duba'));
+    $this->assertFalse(lmbDateTime::validate('2005-12-01 12.'));
+    $this->assertFalse(lmbDateTime::validate(2006, 13, 11));
   }
 
   function testCreate()
   {
     $date = new lmbDateTime(2005, 12, 1, 12, 45, 12);
-    $this->assertEquals(lmbDateTime :: create(2005, 12, 1, 12, 45, 12), $date);
+    $this->assertEquals(lmbDateTime::create(2005, 12, 1, 12, 45, 12), $date);
 
     $this->assertEquals($date->getDay(), 1);
     $this->assertEquals($date->getMonth(), 12);
@@ -219,7 +225,7 @@ class lmbDateTimeTest extends TestCase
   {
     $date = new lmbDateTime('2005-12-01');
     $days = $date->getDateDays();
-    $this->assertEquals(lmbDateTime :: createByDays($days), $date);
+    $this->assertEquals(lmbDateTime::createByDays($days), $date);
   }
 
   function testGetStamp()
@@ -622,4 +628,3 @@ class lmbDateTimeTest extends TestCase
     $this->assertIsA($foo->addDay(), 'FooDateTime');
   }
 }
-
