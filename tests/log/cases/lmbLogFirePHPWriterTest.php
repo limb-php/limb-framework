@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\log\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\log\src\lmbLogFirePHPWriter;
@@ -25,8 +26,8 @@ class lmbLogFirePHPWriterTest extends TestCase
     $writer = new lmbLogFirePHPWriter(new lmbUri('firePHP://localhost/?check_extension=0'));
     $writer->write(new lmbLogEntry(LOG_ERR, 'foo'));
     $headers = lmbToolkit::instance()->getResponse()->getHeaders();
-    $this->assertPattern('/Error/', $headers[4]);
-    $this->assertPattern('/foo/', $headers[4]);
+    $this->assertMatchesRegularExpression('/Error/', $headers[4]);
+    $this->assertMatchesRegularExpression('/foo/', $headers[4]);
   }
 }
 

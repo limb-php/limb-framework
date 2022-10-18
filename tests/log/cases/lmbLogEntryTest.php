@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\log\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\log\src\lmbLogEntry;
@@ -46,14 +47,14 @@ class lmbLogEntryTest extends TestCase
   function testAsText()
   {
     $entry = new lmbLogEntry(LOG_ERR,'foo&');
-    $this->assertPattern('/Error/', $entry->asText());
-    $this->assertPattern('/foo&/', $entry->asText());
+    $this->assertMatchesRegularExpression('/Error/', $entry->asText());
+    $this->assertMatchesRegularExpression('/foo&/', $entry->asText());
   }
 
   function testAsHtml()
   {
     $entry = new lmbLogEntry(LOG_ERR,'foo&');
-    $this->assertPattern('/Error/', $entry->asHtml());
-    $this->assertPattern('/foo&amp;/', $entry->asHtml());
+    $this->assertMatchesRegularExpression('/Error/', $entry->asHtml());
+    $this->assertMatchesRegularExpression('/foo&amp;/', $entry->asHtml());
   }
 }

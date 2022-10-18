@@ -17,16 +17,19 @@ class lmbCacheMemcacheBackendTest extends lmbCacheBackendTest
 
   private $_port = 11211;
 
-  function skip()
+  function setUp() :void
   {
-    $this->skipIf(!extension_loaded('memcache'), 'Memcache extension not found. Test skipped.');
-    $this->skipIf(!class_exists('Memcache'), 'Memcache class not found. Test skipped.');
-    if (class_exists('Memcache'))
-    {
-      $memcache = new Memcache();
-      $this->skipIf(!@$memcache->connect($this->_host, $this->_port), "memcached is not running on $this->_host:$this->_port. Test skipped.");
-      @$memcache->close();
-    }
+      if( !extension_loaded('memcache') )
+            $this->markTestSkipped('Memcache extension not found. Test skipped.');
+      if( !class_exists('Memcache') )
+            $this->markTestSkipped('Memcache class not found. Test skipped.');
+      if (class_exists('Memcache'))
+      {
+          $memcache = new \Memcache();
+          if( !@$memcache->connect($this->_host, $this->_port) )
+            $this->markTestSkipped("memcached is not running on $this->_host:$this->_port. Test skipped.");
+          @$memcache->close();
+      }
   }
   
   function _createPersisterImp()

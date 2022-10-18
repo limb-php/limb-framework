@@ -6,15 +6,19 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\macro\cases\compiler;
+
+use PHPUnit\Framework\TestCase;
+use limb\fs\src\lmbFs;
 
 Mock :: generate('lmbMacroAnnotationParserListener', 'MockMacroAnnotationParserListener');
 
 class lmbMacroAnnotationParserTest extends TestCase
 {
-  function setUp()
+  function setUp(): void
   {
-    lmbFs :: rm(LIMB_VAR_DIR . '/tags/');
-    lmbFs :: mkdir(LIMB_VAR_DIR . '/tags/');
+    lmbFs::rm(LIMB_VAR_DIR . '/tags/');
+    lmbFs::mkdir(LIMB_VAR_DIR . '/tags/');
   }
 
   function testExtractOneFromFile()
@@ -59,4 +63,3 @@ EOD;
     $info = lmbMacroAnnotationParser :: extractFromFile($file, $listener);
   }
 }
-

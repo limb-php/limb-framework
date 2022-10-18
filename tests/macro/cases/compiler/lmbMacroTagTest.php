@@ -6,6 +6,13 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\macro\cases\compiler;
+
+use PHPUnit\Framework\TestCase;
+use limb\macro\src\compiler\lmbMacroTag;
+use limb\macro\src\compiler\lmbMacroTagInfo;
+use limb\macro\src\compiler\lmbMacroSourceLocation;
+use limb\macro\src\lmbMacroException;
 
 class MacroTagClass1CompilerTest extends lmbMacroTag{}
 class MacroTagClass2CompilerTest extends lmbMacroTag{}
@@ -21,7 +28,7 @@ class lmbMacroTagTest extends TestCase
   protected $tag_info;
   protected $source_location;
 
-  function setUp()
+  function setUp(): void
   {
     $this->tag_info = new lmbMacroTagInfo('MacroTag', 'whatever');
     $this->source_location = new lmbMacroSourceLocation('my_file', 10);
@@ -135,7 +142,7 @@ class lmbMacroTagTest extends TestCase
   function testGetNodeId_DontUseDynamicIdAttribute()
   {
     $this->node->set('id', '$my_tag');
-    $this->assertNotEqual($this->node->getNodeId(), '$my_tag');
+    $this->assertNotEquals($this->node->getNodeId(), '$my_tag');
   }
   
   function testGenerate()
@@ -233,4 +240,3 @@ class lmbMacroTagTest extends TestCase
     }
   }
 }
-

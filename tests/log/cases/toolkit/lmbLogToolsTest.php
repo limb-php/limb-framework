@@ -6,12 +6,15 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\log\cases;
+
 require_once('./../../../../src/limb/log/toolkit.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbEnv;
 use limb\toolkit\src\lmbToolkit;
 use limb\log\src\toolkit\lmbLogTools;
+use limb\log\src\lmbLogFirePHPWriter;
 
 class lmbLogToolsTest extends TestCase
 {
@@ -48,7 +51,7 @@ class lmbLogToolsTest extends TestCase
     $this->toolkit->setConf('common', $logs_conf);
 
     $writer = current($this->toolkit->getLog()->getWriters());
-    $this->assertIsA($writer, 'lmbLogFirePHPWriter');
+    $this->assertInstanceOf($writer, lmbLogFirePHPWriter::class);
     $this->assertFalse($writer->isClientExtensionCheckEnabled());
   }
 }

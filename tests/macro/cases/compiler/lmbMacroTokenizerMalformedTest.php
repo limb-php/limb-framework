@@ -6,6 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\macro\cases\compiler;
+
+use PHPUnit\Framework\TestCase;
 
 Mock::generate('lmbMacroTokenizerListener', 'MockMacroTokenizerListener');
 
@@ -14,7 +17,7 @@ class lmbMacroTokenizerMalformedTest extends TestCase
   protected $parser;
   protected $listener;
 
-  function setUp()
+  function setUp(): void
   {
     $this->listener = new MockMacroTokenizerListener();
     $this->parser = new lmbMacroTokenizer($this->listener);

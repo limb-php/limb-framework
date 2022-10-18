@@ -8,16 +8,18 @@
  */
 namespace tests\cache\cases;
 
-use lim\cache\src\lmbCacheGroupDecorator;
+use PHPUnit\Framework\TestCase;
+use limb\toolkit\src\lmbToolkit;
+use limb\cache\src\lmbCacheGroupDecorator;
 use limb\cache\src\lmbCacheFileBackend;
 
 require_once('limb/cache/common.inc.php');
 
 class SomeClass
 {
-  static function  Foo($param)
+  static function Foo($param)
   {
-    $cache=lmbToolkit::instance()->getCache();
+    $cache = lmbToolkit::instance()->getCache();
     if($value=$cache->get('bar'.$param,array('group'=>'bar_group')))
     {
       return $value;

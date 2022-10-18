@@ -6,9 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\macro\cases;
 
- use limb\macro\src\lmbMacroTemplate;
- use limb\macro\src\lmbMacroConfig;
+use PHPUnit\Framework\TestCase;
+use limb\macro\src\lmbMacroTemplate;
+use limb\macro\src\lmbMacroConfig;
+use limb\fs\src\lmbFs;
 
 class lmbBaseMacroTest extends TestCase
 {
@@ -18,7 +21,7 @@ class lmbBaseMacroTest extends TestCase
   public $tags_dir;
   public $filters_dir;
 
-  function setUp()
+  function setUp(): void
   {
     $this->base_dir = lmb_var_dir() . '/tpl';
     $this->tpl_dir = $this->base_dir;
@@ -26,11 +29,11 @@ class lmbBaseMacroTest extends TestCase
     $this->tags_dir = dirname(__FILE__).'/../../src/tags';
     $this->filters_dir = dirname(__FILE__).'/../../src/filters';
 
-    lmbFs :: rm(lmb_var_dir());
-    lmbFs :: mkdir(lmb_var_dir());
-    lmbFs :: mkdir($this->base_dir);
-    lmbFs :: mkdir($this->tpl_dir);
-    lmbFs :: mkdir($this->cache_dir);
+    lmbFs::rm(lmb_var_dir());
+    lmbFs::mkdir(lmb_var_dir());
+    lmbFs::mkdir($this->base_dir);
+    lmbFs::mkdir($this->tpl_dir);
+    lmbFs::mkdir($this->cache_dir);
   }
 
   /**

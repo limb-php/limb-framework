@@ -6,10 +6,14 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\macro\cases\compiler;
+
+use PHPUnit\Framework\TestCase;
+use limb\macro\src\compiler\lmbMacroHtmlTagWidget;
 
 class lmbMacroHtmlTagWidgetTest extends TestCase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->widget = new lmbMacroHtmlTagWidget('TestId');
   }
@@ -104,5 +108,3 @@ class lmbMacroHtmlTagWidgetTest extends TestCase
     $this->assertNull($this->widget->getAttribute('foo'));
   }
 }
-
-

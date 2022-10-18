@@ -6,6 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\macro\cases\compiler;
+
+use PHPUnit\Framework\TestCase;
+use limb\macro\src\lmbMacroException;
 
 Mock::generate('lmbMacroNode', 'MockMacroNode');
 Mock::generate('lmbMacroCompiler', 'MockMacroCompiler');
@@ -17,7 +21,7 @@ class lmbMacroTreeBuilderTest extends TestCase
   protected $component;
   protected $tag_dictionary;
 
-  function setUp()
+  function setUp(): void
   {
     $this->compiler = new MockMacroCompiler();
     $this->tag_dictionary = new lmbMacroTagDictionary();

@@ -6,6 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\macro\cases\compiler;
+
+use tests\macro\cases\lmbBaseMacroTest;
+use limb\core\src\lmbObject;
 
 class lmbMacroOutputExpressionTestClass
 {
@@ -250,4 +254,3 @@ class lmbMacroOutputExpressionsTest extends lmbBaseMacroTest
     $this->assertEquals($tpl->render(), $expected);
   }
 }
-

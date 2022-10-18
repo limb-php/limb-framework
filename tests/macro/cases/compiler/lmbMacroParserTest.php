@@ -1,4 +1,8 @@
 <?php
+namespace tests\macro\cases\compiler;
+
+use tests\macro\cases\lmbBaseMacroTest;
+use limb\fs\src\exception\lmbFileNotFoundException;
 
 Mock::generate('lmbMacroTreeBuilder', 'MockMacroTreeBuilder');
 Mock::generate('lmbMacroTagDictionary', 'MockMacroTagDictionary');

@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\log\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\log\src\lmbLog;
@@ -71,7 +72,7 @@ class lmbLogTest extends TestCase
   {
     $this->log->setBacktraceDepth(LOG_NOTICE, $depth = 0);
     $this->log->log('info', LOG_INFO);
-    $this->assertNotEqual($depth, count($this->_getLastLogEntry()->getBacktrace()->get()));
+    $this->assertNotEquals($depth, count($this->_getLastLogEntry()->getBacktrace()->get()));
     $this->log->log('notice', LOG_NOTICE);
     $this->assertEquals($depth, count($this->_getLastLogEntry()->getBacktrace()->get()));
   }

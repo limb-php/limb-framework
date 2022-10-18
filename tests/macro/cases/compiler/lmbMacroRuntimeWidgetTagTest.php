@@ -6,14 +6,17 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\macro\cases\compiler;
+
+use tests\macro\cases\lmbBaseMacroTest;
 
 class lmbMacroRuntimeWidgetTagTest extends lmbBaseMacroTest
 {
   protected $tag;
   
-  function setUp()
+  function setUp(): void
   {
-    parent :: setUp();
+    parent::setUp();
     
     $tag_info = new lmbMacroTagInfo('lmbMacroRuntimeWidgetTag', 'whatever');     
     $source_location = new lmbMacroSourceLocation('my_file', 10); 
@@ -55,7 +58,7 @@ class lmbMacroRuntimeWidgetTagTest extends lmbBaseMacroTest
   function testGetRuntimeId_ByCleanedNameAttribute()
   {
     $this->tag->set('name', 'my_id[]');
-    $this->assertNotEqual($this->tag->getRuntimeId(), 'my_id[]');
+    $this->assertNotEquals($this->tag->getRuntimeId(), 'my_id[]');
   }
   
   function testGetRuntimeId_PreferRuntimeIdOverOtherWays()

@@ -6,10 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\macro\tests\cases\compiler;
+namespace tests\macro\cases\compiler;
 
+use tests\macro\cases\lmbBaseMacroTest;
 use limb\macro\src\compiler\lmbMacroFilter;
 use limb\macro\src\compiler\lmbMacroFilterInfo;
+use limb\macro\src\compiler\lmbMacroFilterDictionary;
 
 class MacroFilterFooTest extends lmbMacroFilter
 {
@@ -35,8 +37,8 @@ $foo_filter_info->setFile(__FILE__);
 $zoo_filter_info = new lmbMacroFilterInfo('trim', 'MacroFilterZooTest');
 $zoo_filter_info->setFile(__FILE__);
 
-lmbMacroFilterDictionary :: instance()->register($foo_filter_info);
-lmbMacroFilterDictionary :: instance()->register($zoo_filter_info);
+lmbMacroFilterDictionary::instance()->register($foo_filter_info);
+lmbMacroFilterDictionary::instance()->register($zoo_filter_info);
 
 class lmbMacroFiltersTest extends lmbBaseMacroTest
 {

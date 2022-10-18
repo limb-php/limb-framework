@@ -8,6 +8,8 @@
  */
 namespace tests\cache\cases;
 
+use limb\toolkit\src\lmbToolkit;
+
 class lmbCacheToolkitTest extends lmbCacheGroupDecoratorTest
 {
   function _createPersisterImp()

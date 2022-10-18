@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\log\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\log\src\lmbLogPHPLogWriter;
@@ -23,7 +24,7 @@ class lmbLogPHPLogWriterTest extends TestCase {
     $writer->write(new lmbLogEntry(LOG_ERR, 'foo'));
 
     $content = file_get_contents($php_log);
-    $this->assertPattern('/Error/', $content);
-    $this->assertPattern('/foo/', $content);
+    $this->assertMatchesRegularExpression('/Error/', $content);
+    $this->assertMatchesRegularExpression('/foo/', $content);
   }
 }

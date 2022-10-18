@@ -6,6 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\macro\cases\compiler;
+
+use PHPUnit\Framework\TestCase;
+use limb\macro\src\compiler\lmbMacroNode;
+use limb\macro\src\compiler\lmbMacroSourceLocation;
+use limb\macro\src\lmbMacroException;
 
 Mock::generate('lmbMacroNode', 'MockMacroNode');
 
@@ -17,7 +23,7 @@ class lmbMacroNodeTest extends TestCase
   protected $tag_info;
   protected $source_location;
 
-  function setUp()
+  function setUp(): void
   {
     $this->source_location = new lmbMacroSourceLocation('my_file', 10);
     $this->node = new lmbMacroNode($this->source_location);

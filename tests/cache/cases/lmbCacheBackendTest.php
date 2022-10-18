@@ -9,6 +9,7 @@
 namespace tests\cache\cases;
 
 use limb\core\src\lmbObject;
+use PHPUnit\Framework\TestCase;
 
 class CacheableFooBarClass{}
 
@@ -18,13 +19,13 @@ abstract class lmbCacheBackendTest extends TestCase
 
   abstract function _createPersisterImp();
 
-  function setUp()
+  function setUp() :void
   {
     $this->cache = $this->_createPersisterImp();
     $this->cache->flush();
   }
 
-  function tearDown()
+  function tearDown() :void
   {
     $this->cache->flush();
   }
