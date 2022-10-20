@@ -64,7 +64,7 @@ class lmbMysqliConnection extends lmbDbBaseConnection
 
     if(!empty($this->config['charset']))
     {
-      $this->execute("SET NAMES '{$this->config['charset']}'");
+        mysqli_set_charset($this->getConnectionId(), $this->config['charset']);
     }
   }
 
@@ -75,9 +75,9 @@ class lmbMysqliConnection extends lmbDbBaseConnection
 
   function disconnect()
   {
-    if($this->connectionId)
+    if($this->getConnectionId())
     {
-      mysqli_close($this->connectionId);
+      mysqli_close($this->getConnectionId());
       $this->connectionId = null;
     }
   }
@@ -190,7 +190,7 @@ class lmbMysqliConnection extends lmbDbBaseConnection
 
   function getSequenceValue($table, $colname)
   {
-    return mysqli_insert_id($this->connectionId);//???
+    return mysqli_insert_id($this->getConnectionId());//???
 
   }
 }
