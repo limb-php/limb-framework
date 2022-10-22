@@ -11,6 +11,8 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbBaseValidationRule;
 use limb\core\src\lmbSet;
 
+require_once('.setup.php');
+
 class lmbStubBaseValidationRule extends lmbBaseValidationRule
 {
   public $result = true;

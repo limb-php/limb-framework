@@ -11,6 +11,8 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbI18NSizeRangeRule;
 use limb\core\src\lmbSet;
 
+require_once('.setup.php');
+
 class lmbI18NSizeRangeTest extends lmbValidationRuleTestCase
 {
   function testSizeRangeRuleEmpty()

@@ -13,6 +13,8 @@ use limb\core\src\lmbSet;
 use limb\config\src\lmbIni;
 use limb\i18n\src\locale\lmbLocale;
 
+require_once('.setup.php');
+
 class lmbLocaleDateRuleTest extends lmbValidationRuleTestCase
 {
   function testLocaleDateRuleCorrect()

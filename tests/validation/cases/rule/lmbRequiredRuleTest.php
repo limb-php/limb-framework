@@ -143,7 +143,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
         ->method('addError')
         ->with(
             lmb_i18n('{Field} is required', 'validation'),
-            array('Field'=>'testfield'),
+            array('Field' => 'testfield'),
             array()
         );
 

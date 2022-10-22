@@ -11,6 +11,8 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbUrlRule;
 use limb\core\src\lmbSet;
 
+require_once('.setup.php');
+
 class lmbUrlRuleTest extends lmbValidationRuleTestCase
 {
   function testUrlRule()

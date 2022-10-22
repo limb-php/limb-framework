@@ -11,6 +11,8 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbDateRule;
 use limb\core\src\lmbSet;
 
+require_once('.setup.php');
+
 class lmbDateRuleTest extends lmbValidationRuleTestCase
 {
   function testValidForISO()

@@ -40,7 +40,7 @@ class lmbRequiredRule extends lmbBaseValidationRule
   * Constructor
   * @param string Field name
   */
-  function __construct($field_name, $custom_error = '')
+  function __construct($field_name, $custom_error = null)
   {
     $this->field_name = $field_name;
     $this->custom_error = $custom_error;
