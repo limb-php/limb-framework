@@ -18,7 +18,7 @@ use limb\validation\src\rule\lmbSizeRangeRule;
  * Holds the list of validation rules along with errors happened during validation.
  * Validates a datasource against added validation rules.
  * @package validation
- * @version $Id: lmbValidator.php 7486 2009-01-26 
+ * @version $Id: lmbValidator.php 7486 2009-01-26
  */
 class lmbValidator
 {
