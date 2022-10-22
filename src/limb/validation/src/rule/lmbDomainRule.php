@@ -8,8 +8,6 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
-
 /**
  * Checks that field value is a valid domain name.
  * @package validation
@@ -61,4 +59,3 @@ class lmbDomainRule extends lmbSingleFieldRule
     }
   }
 }
-

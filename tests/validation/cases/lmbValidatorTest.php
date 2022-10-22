@@ -14,9 +14,6 @@ use limb\validation\src\rule\lmbValidationRuleInterface;
 use limb\validation\src\lmbErrorList;
 use limb\core\src\lmbSet;
 
-Mock::generate('lmbValidationRule', 'MockValidationRule');
-Mock::generate('lmbErrorList', 'MockFieldsErrorList');
-
 class lmbValidatorTest extends TestCase
 {
   var $error_list;
@@ -24,9 +21,11 @@ class lmbValidatorTest extends TestCase
 
   function setUp(): void
   {
-    $this->error_list = new MockFieldsErrorList();
-    $this->validator = new lmbValidator();
-    $this->validator->setErrorList($this->error_list);
+      parent::setUp();
+
+      $this->error_list = $this->createMock(lmbErrorList::class);
+      $this->validator = new lmbValidator();
+      $this->validator->setErrorList($this->error_list);
   }
 
   function testValidateEmpty()
@@ -37,9 +36,10 @@ class lmbValidatorTest extends TestCase
 
   function testIsValid()
   {
-    $this->error_list->expectCallCount('isValid', 2);
-    $this->error_list->setReturnValueAt(0, 'isValid', false);
-    $this->error_list->setReturnValueAt(1, 'isValid', true);
+    $this->error_list
+        ->expects($this->exactly(2))
+        ->method('isValid')
+        ->will($this->onConsecutiveCalls(false, true));
 
     $this->assertFalse($this->validator->isValid());
     $this->assertTrue($this->validator->isValid());
@@ -49,17 +49,22 @@ class lmbValidatorTest extends TestCase
   {
     $ds = new lmbSet(array('foo'));
 
-    $r1 = new MockValidationRule();
-    $r2 = new MockValidationRule();
+    $r1 = $this->createMock(lmbValidationRuleInterface::class);
+    $r2 = $this->createMock(lmbValidationRuleInterface::class);
 
     $this->validator->addRule($r1);
     $this->validator->addRule($r2);
 
-    $r1->expectOnce('validate', array($ds, $this->error_list));
-    $r2->expectOnce('validate', array($ds, $this->error_list));
+    $r1->expects($this->once())
+        ->method('validate')
+        ->with($ds, $this->error_list);
+    $r2->expects($this->once())
+        ->method('validate')
+        ->with($ds, $this->error_list);
 
-    $this->error_list->expectOnce('isValid');
-    $this->error_list->setReturnValue('isValid', true);
+    $this->error_list->expects($this->once())
+        ->method('isValid')
+        ->willReturn(true);
 
     $this->assertTrue($this->validator->validate($ds));
   }

@@ -28,7 +28,7 @@ class lmbI18NSizeRangeRule extends lmbSingleFieldRule
    */
   protected $max_length;
 
-  function __construct($field_name, $min_or_max_length, $max_length = NULL, $custom_error = '')
+  function __construct($field_name, $min_or_max_length, $max_length = null, $custom_error = null)
   {
     if(is_null($max_length))
     {
@@ -41,7 +41,7 @@ class lmbI18NSizeRangeRule extends lmbSingleFieldRule
       $this->max_length = $max_length;
     }
 
-    parent :: __construct($field_name, $custom_error);
+    parent::__construct($field_name, $custom_error);
   }
 
   function check($value)
@@ -63,4 +63,3 @@ class lmbI18NSizeRangeRule extends lmbSingleFieldRule
     }
   }
 }
-

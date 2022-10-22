@@ -8,8 +8,6 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\core\src\lmbObject;
-
 /**
  * A base class for validation rules.
  * Implements Composite.
@@ -52,9 +50,9 @@ abstract class lmbBaseValidationRule implements lmbValidationRuleInterface
   {
     $this->error_list = $error_list;
 
-      // for BC
-      if(is_array($datasource))
-          $datasource = new lmbObject($datasource);
+    // for BC
+    //if(is_array($datasource))
+        //$datasource = new lmbObject($datasource);
 
     $this->_doValidate($datasource);
 
@@ -63,4 +61,3 @@ abstract class lmbBaseValidationRule implements lmbValidationRuleInterface
 
   abstract protected function _doValidate($datasource);
 }
-

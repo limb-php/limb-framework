@@ -14,7 +14,7 @@ use limb\core\src\lmbHandle;
 use limb\fs\src\lmbFs;
 use limb\core\src\exception\lmbException;
 
-lmbEnv::setor('LIMB_RULES_INCLUDE_PATH', 'src/rule;limb/*/src/rule;limb/web_app/src/validation/rule');
+lmbEnv::setor('LIMB_RULES_INCLUDE_PATH', 'src/validation/rule;limb/*/src/rule;limb/web_app/src/validation/rule');
 
 /**
  * Builds new or fills with the rules existing lmbValidator object, simplifying constructing rules
@@ -85,7 +85,7 @@ class lmbValidatorBuilder
           $rule = $rule_name;
         }
 
-        if($object_rule = self :: parseRule($field, $rule, $args))
+        if($object_rule = self::parseRule($field, $rule, $args))
         {
           $validator->addRule($object_rule);
         }
@@ -147,11 +147,11 @@ class lmbValidatorBuilder
 
   static function getPathByRuleName($rule_name) 
   {
-    $start_dirs = explode(';', LIMB_RULES_INCLUDE_PATH);
-    $rule_file_name = self :: getLmbRule($rule_name);    
+    $start_dirs = explode(';', lmbEnv::get('LIMB_RULES_INCLUDE_PATH'));
+    $rule_file_name = self::getLmbRule($rule_name);
     foreach($start_dirs as $dir)
     {      
-      $full_path = $dir . '/' . $rule_file_name;
+      $full_path = $dir . '/' . $rule_file_name . '.php';
             
       if(lmbFs::glob($full_path))
       {
@@ -159,7 +159,7 @@ class lmbValidatorBuilder
       }        
     }
     
-    throw new lmbException("Rule $rule_name was not found in " . LIMB_RULES_INCLUDE_PATH);    
+    throw new lmbException("Rule $rule_name ($rule_file_name) was not found in " . lmbEnv::get('LIMB_RULES_INCLUDE_PATH'));
   }
 
   static function getLmbRule($underscored_name) 
@@ -169,7 +169,7 @@ class lmbValidatorBuilder
       $underscored_name = self::$rules_shortcuts[$underscored_name];
     }
     
-    return 'Lmb' . lmbString::camel_case($underscored_name) . 'Rule';
+    return 'lmb' . lmbString::camel_case($underscored_name) . 'Rule';
   }
 
   static function trim($arr) 

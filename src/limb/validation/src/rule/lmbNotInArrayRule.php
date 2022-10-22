@@ -8,8 +8,6 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
-
 /**
  * Checks that field is not not in a list of restricted values 
  * Example of usage:
@@ -33,9 +31,9 @@ class lmbNotInArrayRule extends lmbSingleFieldRule
   * @param array List of restricted values
   * @param string Custom error message
   */   
-  function __construct($field_name, $restricted_values, $custom_error = '')
+  function __construct($field_name, $restricted_values, $custom_error = null)
   {
-    parent :: __construct($field_name, $custom_error);
+    parent::__construct($field_name, $custom_error);
     
     $this->restricted_values = $restricted_values;
   }
@@ -46,4 +44,3 @@ class lmbNotInArrayRule extends lmbSingleFieldRule
       $this->error('{Field} has not allowed value.');
   }
 }
-

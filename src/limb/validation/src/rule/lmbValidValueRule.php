@@ -8,25 +8,23 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
-
 /**
  * Checks that field value is equal some valid value
  * Example of usage:
  * <code>
- * use limb/validation/src/rule/lmbValidValueRule;
+ * use limb\validation\src\rule\lmbValidValueRule;
  * $validator->addRule(new lmbValidValueRule("CAPTCHA", 'asdh21'));
  * </code>
  * @package validation
- * @version $Id: lmbInvalidValueRule.class.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbInvalidValueRule.php 6243 2007-08-29 11:53:10Z
  */
 class lmbValidValueRule extends lmbSingleFieldRule
 {
   protected $valid_value;
 
-  function __construct($field_name, $valid_value, $custom_error = '')
+  function __construct($field_name, $valid_value, $custom_error = null)
   {
-    parent :: __construct($field_name, $custom_error);
+    parent::__construct($field_name, $custom_error);
 
     $this->valid_value = $valid_value;
   }
@@ -39,5 +37,3 @@ class lmbValidValueRule extends lmbSingleFieldRule
     }
   }
 }
-
-

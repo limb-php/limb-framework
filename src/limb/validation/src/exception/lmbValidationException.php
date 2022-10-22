@@ -13,9 +13,9 @@ use limb\core\src\exception\lmbException;
 /**
  * Validation exception.
  * Uses in some classes where validation process is very important for performing an operation successfully
- * @see lmbActiveRecord :: save()
+ * @see lmbActiveRecord::save()
  * @package validation
- * @version $Id: lmbValidationException.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbValidationException.php 7486 2009-01-26 19:13:20Z
  */
 class lmbValidationException extends lmbException
 {

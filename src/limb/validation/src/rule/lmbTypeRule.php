@@ -1,7 +1,6 @@
 <?php
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
 use limb\core\src\exception\lmbInvalidArgumentException;
 use limb\core\src\lmbAssert;
 

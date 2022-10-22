@@ -8,8 +8,6 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
-
 /**
  * Checks that field value is not equal some invalid value
  * Example of usage:
@@ -18,15 +16,15 @@ use limb\validation\src\rule\lmbSingleFieldRule;
  * $validator->addRule(new lmbInvalidValueRule("region", -1));
  * </code>
  * @package validation
- * @version $Id: lmbInvalidValueRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbInvalidValueRule.php 7486 2009-01-26 19:13:20Z
  */
 class lmbInvalidValueRule extends lmbSingleFieldRule
 {
   protected $invalid_value;
 
-  function __construct($field_name, $invalid_value, $custom_error = '')
+  function __construct($field_name, $invalid_value, $custom_error = null)
   {
-    parent :: __construct($field_name, $custom_error);
+    parent::__construct($field_name, $custom_error);
 
     $this->invalid_value = $invalid_value;
   }
@@ -43,5 +41,3 @@ class lmbInvalidValueRule extends lmbSingleFieldRule
     }
   }
 }
-
-

@@ -8,18 +8,16 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
-
 /**
  * Checks that field value match some regexp.
  * In other words this rule triggers validation error if field value doesn't match regexp.
  * Example of usage:
  * <code>
- * use limb/validation/src/rule/lmbPatternRule;
+ * use limb\validation\src\rule\lmbPatternRule;
  * $validator->addRule(new lmbPatternRule("title", "/^[a-zA-Z0-9.-]+$/i"));
  * </code>
  * @package validation
- * @version $Id: lmbPatternRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPatternRule.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPatternRule extends lmbSingleFieldRule
 {
@@ -28,9 +26,9 @@ class lmbPatternRule extends lmbSingleFieldRule
    */
   protected $pattern;
 
-  function __construct($field_name, $pattern, $custom_error = '')
+  function __construct($field_name, $pattern, $custom_error = null)
   {
-    parent :: __construct($field_name, $custom_error);
+    parent::__construct($field_name, $custom_error);
 
     $this->pattern = $pattern;
   }
@@ -41,4 +39,3 @@ class lmbPatternRule extends lmbSingleFieldRule
       $this->error('{Field} value is wrong');
   }
 }
-

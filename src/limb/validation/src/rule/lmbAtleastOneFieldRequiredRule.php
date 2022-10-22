@@ -18,7 +18,7 @@ use limb\i18n\src\lmbI18n;
  * $validator->addRule(new lmbAtleastOneFieldRequiredRule(array('name', 'nickname', 'fullname')));
  * </code>
  * @package validation
- * @version $Id: lmbAtleastOneFieldRequiredRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbAtleastOneFieldRequiredRule.php 7486 2009-01-26 19:13:20Z
  */
 class lmbAtleastOneFieldRequiredRule extends lmbBaseValidationRule
 {
@@ -31,7 +31,7 @@ class lmbAtleastOneFieldRequiredRule extends lmbBaseValidationRule
   */
   protected $custom_error;
 
-  function __construct($field_names, $custom_error = '')
+  function __construct($field_names, $custom_error = null)
   {
     $this->field_names = $field_names;
     $this->custom_error = $custom_error;
@@ -44,7 +44,7 @@ class lmbAtleastOneFieldRequiredRule extends lmbBaseValidationRule
   {
     if(!$this->_findAtleastOneField($datasource))
     {
-      $error = $this->custom_error ? $this->custom_error : $this->_generateErrorMessage();
+      $error = $this->custom_error ?? $this->_generateErrorMessage();
       $this->error($error, $this->field_names, array());
     }
   }
@@ -70,4 +70,3 @@ class lmbAtleastOneFieldRequiredRule extends lmbBaseValidationRule
                     'validation');
   }
 }
-

@@ -11,18 +11,17 @@ namespace limb\validation\src\rule;
 /**
  * Interface for defining rules to validate against
  * @package validation
- * @version $Id: lmbValidationRuleInterface.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbValidationRuleInterface.php 7486 2009-01-26 19:13:20Z
  */
 interface lmbValidationRuleInterface
 {
   /**
   * Performs validation
-  * Validation rules must call {@link lmbErrorList :: addError()} to report about error
-  * @see lmbErrorList :: addError()
+  * Validation rules must call {@link lmbErrorList::addError()} to report about error
+  * @see lmbErrorList::addError()
   * @param lmbSetInterface Datasource to validate
   * @param lmbErrorList List of validation errors
   * @return void
   */
   function validate($datasource, $error_list);
 }
-

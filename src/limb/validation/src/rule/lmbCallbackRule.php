@@ -27,11 +27,10 @@ class lmbCallbackRule extends lmbBaseValidationRule
   }
 
   /**
-  * @see lmbBaseValidationRule :: _doValidate()
+  * @see lmbBaseValidationRule::_doValidate()
   */
   protected function _doValidate($datasource)
   {
     $this->is_valid = $this->callback->invoke($datasource, $this->error_list);
   }
 }
-

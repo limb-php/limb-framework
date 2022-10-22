@@ -39,5 +39,3 @@ class lmbLocaleDateRule extends lmbSingleFieldRule
       $this->error(lmbI18n::translate('{Field} must have a valid date format', 'validation'));
   }
 }
-
-

@@ -18,7 +18,7 @@ use limb\i18n\src\lmbI18n;
  *  $validator->addRule(new lmbMatchRule('password', 'repeat_password'));
  * </code>
  * @package validation
- * @version $Id: lmbMatchRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbMatchRule.php 7486 2009-01-26 19:13:20Z
  */
 class lmbMatchRule extends lmbBaseValidationRule
 {
@@ -41,7 +41,7 @@ class lmbMatchRule extends lmbBaseValidationRule
   * @param string Field name to validate
   * @param string Reference field name in datasource to match against
   */
-  function __construct($field_name, $reference_field, $custom_error = '')
+  function __construct($field_name, $reference_field, $custom_error = null)
   {
     $this->field_name = $field_name;
     $this->reference_field = $reference_field;
@@ -49,7 +49,7 @@ class lmbMatchRule extends lmbBaseValidationRule
   }
 
   /**
-  * @see lmbBaseValidationRule :: _doValidate()
+  * @see lmbBaseValidationRule::_doValidate()
   */
   protected function _doValidate($datasource)
   {
@@ -58,9 +58,8 @@ class lmbMatchRule extends lmbBaseValidationRule
 
     if(isset($value1) && isset($value2) && strcmp($value1, $value2))
     {
-      $error = $this->custom_error ? $this->custom_error : lmbI18n::translate('{Field} does not match {MatchField}.', 'validation');
+      $error = $this->custom_error ?? lmbI18n::translate('{Field} does not match {MatchField}.', 'validation');
       $this->error($error, array('Field' => $this->field_name, 'MatchField' => $this->reference_field));
     }
   }
 }
-

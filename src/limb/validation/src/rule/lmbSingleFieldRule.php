@@ -13,7 +13,7 @@ use limb\i18n\src\lmbI18n;
 /**
  * A base class for rules responsbile for validating a single field should inherit this class.
  * @package validation
- * @version $Id: lmbSingleFieldRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSingleFieldRule.php 7486 2009-01-26 19:13:20Z
  */
 abstract class lmbSingleFieldRule extends lmbBaseValidationRule
 {
@@ -30,7 +30,7 @@ abstract class lmbSingleFieldRule extends lmbBaseValidationRule
   /**
   * @param string Field name
   */
-  function __construct($field_name, $custom_error = '')
+  function __construct($field_name, $custom_error = null)
   {
     $this->field_name = $field_name;
     $this->custom_error = $custom_error;
@@ -51,13 +51,14 @@ abstract class lmbSingleFieldRule extends lmbBaseValidationRule
   * If $custom_error attribute is not set will apply lmb_i18n function to $message
   * @param string Error message
   * @param array Array of values
-  * @see lmbErrorList :: addError()
+  * @see lmbErrorList::addError()
   * @return void
   */
   function error($message, $values = array(), $i18n_params = array())
   {
-    $error = $this->custom_error ? $this->custom_error : lmbI18n::translate($message, $i18n_params, 'validation');
-    parent :: error($error, array('Field' => $this->field_name), $values);
+    $error = $this->custom_error ?? lmbI18n::translate($message, $i18n_params, 'validation');
+
+    parent::error($error, array('Field' => $this->field_name), $values);
   }
 
   /**
@@ -66,11 +67,11 @@ abstract class lmbSingleFieldRule extends lmbBaseValidationRule
   * Child classes must implement check($value) method to perform real validation.
   * To check field for existance and having none empty value use {@link lmbRequiredRule}
   * Fills {@link $error_list}
-  * @see lmbBaseValidationRule :: _doValidate()
+  * @see lmbBaseValidationRule::_doValidate()
   */
   protected function _doValidate($datasource)
   {
-    $value = $datasource->get($this->field_name);
+    $value = $datasource[$this->field_name] ?? null;
     if(isset($value) && $value !== '')
       $this->check($value);
   }
@@ -82,4 +83,3 @@ abstract class lmbSingleFieldRule extends lmbBaseValidationRule
   */
   abstract function check($value);
 }
-

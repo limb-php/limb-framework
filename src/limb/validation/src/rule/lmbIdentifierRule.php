@@ -8,12 +8,10 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
-
 /**
  * Checks that field value is an alpha-numeric string
  * @package validation
- * @version $Id: lmbIdentifierRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbIdentifierRule.php 7486 2009-01-26 19:13:20Z
  */
 class lmbIdentifierRule extends lmbSingleFieldRule
 {
@@ -25,4 +23,3 @@ class lmbIdentifierRule extends lmbSingleFieldRule
         $this->error('{Field} must contain only letters and numbers');
   }
 }
-

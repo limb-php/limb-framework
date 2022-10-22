@@ -9,13 +9,12 @@
 namespace limb\validation\src;
 
 use limb\core\src\lmbCollection;
-use limb\validation\src\lmbErrorMessage;
 
 /**
  * Holds a list of validation errors
  * @see limb\validation\src\lmbErrorMessage
  * @package validation
- * @version $Id: lmbErrorList.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbErrorList.php 7486 2009-01-26 19:13:20Z
  */
 class lmbErrorList extends lmbCollection
 {

@@ -8,8 +8,6 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
-
 /**
  * Checks that field value doesn't match some regexp.
  * In other words this rule triggers validation error if field value matches regexp.
@@ -19,7 +17,7 @@ use limb\validation\src\rule\lmbSingleFieldRule;
  * $validator->addRule(new lmbExcludePatternRule("title", "/[^a-zA-Z0-9.-]+/i"));
  * </code>
  * @package validation
- * @version $Id: lmbExcludePatternRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbExcludePatternRule.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class lmbExcludePatternRule extends lmbSingleFieldRule
 {
@@ -32,9 +30,9 @@ class lmbExcludePatternRule extends lmbSingleFieldRule
   * @param string Field name
   * @param string Pattern to match against
   */
-  function __construct($field_name, $pattern, $custom_error = '')
+  function __construct($field_name, $pattern, $custom_error = null)
   {
-    parent :: __construct($field_name, $custom_error);
+    parent::__construct($field_name, $custom_error);
 
     $this->pattern = $pattern;
   }
@@ -47,4 +45,3 @@ class lmbExcludePatternRule extends lmbSingleFieldRule
     }
   }
 }
-

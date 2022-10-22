@@ -9,8 +9,6 @@
 namespace tests\validation\cases\rule;
 
 use limb\validation\src\rule\lmbBaseValidationRule;
-use limb\validation\src\rule\lmbValidationRuleInterface;
-use limb\validation\src\lmbValidator;
 use limb\core\src\lmbSet;
 
 class lmbStubBaseValidationRule extends lmbBaseValidationRule

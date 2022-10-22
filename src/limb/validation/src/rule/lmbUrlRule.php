@@ -8,12 +8,10 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbDomainRule;
-
 /**
  * Checks that field value is a valid url.
  * @package validation
- * @version $Id: lmbUrlRule.class.php 7951 2009-06-16 17:48:42Z pachanga $
+ * @version $Id: lmbUrlRule.php 7951 2009-06-16 17:48:42Z
  */
 class lmbUrlRule extends lmbDomainRule
 {

@@ -8,12 +8,10 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbDomainRule;
-
 /**
  * Checks that field value is a valid Email address.
  * @package validation
- * @version $Id: lmbEmailRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbEmailRule.php 7486 2009-01-26
  */
 class lmbEmailRule extends lmbDomainRule
 {
@@ -53,6 +51,6 @@ class lmbEmailRule extends lmbDomainRule
 
   protected function _checkDomain($value)
   {
-    parent :: check($value);
+    parent::check($value);
   }
 }

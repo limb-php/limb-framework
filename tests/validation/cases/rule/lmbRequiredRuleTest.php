@@ -11,6 +11,8 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbRequiredRule;
 use limb\core\src\lmbSet;
 
+require_once('.setup.php');
+
 class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 {
   function testRequiredRule()
@@ -20,7 +22,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', TRUE);
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
     $this->assertTrue($rule->isValid());
@@ -33,7 +35,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 0);
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
     $this->assertTrue($rule->isValid());
@@ -46,7 +48,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '0');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -58,10 +60,23 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', FALSE);
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
+
+    function testRequiredRuleDatasourceAsArray()
+    {
+        $rule = new lmbRequiredRule('testfield');
+
+        $dataspace = [];
+        $dataspace['testfield'] = 0;
+
+        $this->error_list->expects($this->never())->method('addError');
+
+        $rule->validate($dataspace, $this->error_list);
+        $this->assertTrue($rule->isValid());
+    }
 
   function testRequiredRuleZeroLengthString()
   {
@@ -70,9 +85,13 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '');
 
-    $this->error_list->expectOnce('addError', array(lmb_i18n('{Field} is required', 'validation'),
-                                                         array('Field'=>'testfield'),
-                                                         array()));
+    $this->error_list->expects($this->once())
+        ->method('addError')
+        ->with(
+            lmb_i18n('{Field} is required', 'validation'),
+            array('Field'=>'testfield'),
+            array()
+        );
 
     $rule->validate($dataspace, $this->error_list);
     $this->assertFalse($rule->isValid());
@@ -85,9 +104,13 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', NULL);
 
-    $this->error_list->expectOnce('addError', array(lmb_i18n('{Field} is required', 'validation'),
-                                                         array('Field'=>'testfield'),
-                                                         array()));
+    $this->error_list->expects($this->once())
+        ->method('addError')
+        ->with(
+            lmb_i18n('{Field} is required', 'validation'),
+            array('Field'=>'testfield'),
+            array()
+        );
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -99,9 +122,13 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', "\n\t   \n\t");
 
-    $this->error_list->expectOnce('addError', array(lmb_i18n('{Field} is required', 'validation'),
-                                                         array('Field'=>'testfield'),
-                                                         array()));
+    $this->error_list->expects($this->once())
+        ->method('addError')
+        ->with(
+            lmb_i18n('{Field} is required', 'validation'),
+            array('Field'=>'testfield'),
+            array()
+        );
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -112,9 +139,13 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 
     $dataspace = new lmbSet();
 
-    $this->error_list->expectOnce('addError', array(lmb_i18n('{Field} is required', 'validation'),
-                                                         array('Field'=>'testfield'),
-                                                         array()));
+    $this->error_list->expects($this->once())
+        ->method('addError')
+        ->with(
+            lmb_i18n('{Field} is required', 'validation'),
+            array('Field'=>'testfield'),
+            array()
+        );
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -125,9 +156,13 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 
     $dataspace = new lmbSet();
 
-    $this->error_list->expectOnce('addError', array('Custom_Error',
-                                                    array('Field'=>'testfield'),
-                                                         array()));
+    $this->error_list->expects($this->once())
+        ->method('addError')
+        ->with(
+            'Custom_Error',
+            array('Field'=>'testfield'),
+            array()
+        );
 
     $rule->validate($dataspace, $this->error_list);
   }

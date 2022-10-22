@@ -38,5 +38,3 @@ class lmbDateRuleTest extends lmbValidationRuleTestCase
   }
 
 }
-
-

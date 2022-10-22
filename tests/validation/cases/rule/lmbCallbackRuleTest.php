@@ -8,7 +8,6 @@
  */
 namespace tests\validation\cases\rule;
 
-use tests\validation\cases\rule\lmbValidationRuleTestCase;
 use limb\validation\src\rule\lmbCallbackRule;
 use limb\core\src\lmbSet;
 

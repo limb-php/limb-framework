@@ -14,14 +14,14 @@ use limb\i18n\src\lmbI18n;
  * Checks that field is present in datasource and it's value is an object of some or any class
  * Example of usage:
  * <code>
- *  use limb/validation/src/rule/lmbRequiredObjectRule;
+ *  use limb\validation\src\rule\lmbRequiredObjectRule;
  *  $validator->addRule(new lmbRequiredObjectRule('author', 'Author'));
  *  // or
  *  $validator->addRequiredObjectRule('folder');
  * </code>
  * @see lmbValidator :: addRequiredObjectRule()
  * @package validation
- * @version $Id: lmbRequiredObjectRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbRequiredObjectRule.php 7486 2009-01-26 19:13:20Z
  */
 class lmbRequiredObjectRule extends lmbBaseValidationRule
 {
@@ -42,7 +42,7 @@ class lmbRequiredObjectRule extends lmbBaseValidationRule
   * @param string Field name
   * @param string Required class name
   */
-  function __construct($field_name, $class = null, $custom_error = '')
+  function __construct($field_name, $class = null, $custom_error = null)
   {
     $this->field_name = $field_name;
     $this->class = $class;
@@ -50,7 +50,7 @@ class lmbRequiredObjectRule extends lmbBaseValidationRule
   }
 
   /**
-  * @see lmbBaseValidationRule :: _doValidate()
+  * @see lmbBaseValidationRule::_doValidate()
   */
   protected function _doValidate($datasource)
   {
@@ -58,10 +58,9 @@ class lmbRequiredObjectRule extends lmbBaseValidationRule
 
     if(!is_object($value) || ($this->class && !($value instanceof $this->class)))
     {
-      $error = $this->custom_error ? $this->custom_error : lmbI18n::translate('Object {Field} is required', 'validation');
+      $error = $this->custom_error ?? lmbI18n::translate('Object {Field} is required', 'validation');
       $this->error($error, array('Field' => $this->field_name));
       return;
     }
   }
 }
-

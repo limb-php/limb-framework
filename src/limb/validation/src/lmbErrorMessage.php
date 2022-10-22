@@ -17,9 +17,9 @@ use limb\core\src\lmbObject;
  */
 class lmbErrorMessage extends lmbObject
 {
-    protected $message;
-    protected $fields = array();
-    protected $values = array();
+    public $message;
+    public $fields = array();
+    public $values = array();
 
     function __construct($message, $fields = array(), $values = array())
     {

@@ -18,7 +18,7 @@ namespace limb\validation\src\rule;
  *  // 100.2 with match this rule, 100.300 or 100000 - not.
  * </code>
  * @package validation
- * @version $Id: lmbNumericPrecisionRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbNumericPrecisionRule.php 7486 2009-01-26 19:13:20Z
  */
 class lmbNumericPrecisionRule extends lmbSingleFieldRule
 {
@@ -36,7 +36,7 @@ class lmbNumericPrecisionRule extends lmbSingleFieldRule
   * @param int Number of whole digits allowed
   * @param int Number of decimal digits allowed
   */
-  function __construct($field_name, $whole_digits, $decimal_digits = 0, $custom_error = '')
+  function __construct($field_name, $whole_digits, $decimal_digits = 0, $custom_error = null)
   {
     parent::__construct($field_name, $custom_error);
 
@@ -68,4 +68,3 @@ class lmbNumericPrecisionRule extends lmbSingleFieldRule
     }
   }
 }
-

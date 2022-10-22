@@ -21,9 +21,9 @@ use limb\i18n\src\lmbI18n;
  *  // or
  *  $validator->addRequiredRule('title');
  * </code>
- * @see lmbValidator :: addRequiredRule()
+ * @see lmbValidator::addRequiredRule()
  * @package validation
- * @version $Id: lmbRequiredRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbRequiredRule.php 7486 2009-01-26
  */
 class lmbRequiredRule extends lmbBaseValidationRule
 {
@@ -47,16 +47,15 @@ class lmbRequiredRule extends lmbBaseValidationRule
   }
 
   /**
-  * @see lmbBaseValidationRule :: _doValidate()
+  * @see lmbBaseValidationRule::_doValidate()
   */
   protected function _doValidate($datasource)
   {
-    $value = $datasource->get($this->field_name);
+    $value = $datasource[$this->field_name] ?? null;
     if(is_null($value) || (is_string($value) && trim($value) === ''))
     {
-      $error = $this->custom_error ? $this->custom_error : lmbI18n::translate('{Field} is required', 'validation');
+      $error = $this->custom_error ?? lmbI18n::translate('{Field} is required', 'validation');
       $this->error($error, array('Field' => $this->field_name));
     }
   }
 }
-

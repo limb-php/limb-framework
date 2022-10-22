@@ -8,7 +8,6 @@
  */
 namespace limb\validation\src\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
 use limb\datetime\src\lmbDateTime;
 
 /**
@@ -22,9 +21,9 @@ class lmbDateRule extends lmbSingleFieldRule
 
   protected $type;
 
-  function __construct($field_name, $type = lmbDateRule :: TYPE_ISO, $custom_error = '')
+  function __construct($field_name, $type = lmbDateRule::TYPE_ISO, $custom_error = null)
   {
-    parent :: __construct($field_name, $custom_error);
+    parent::__construct($field_name, $custom_error);
 
     $this->type = $type;
   }
@@ -33,7 +32,7 @@ class lmbDateRule extends lmbSingleFieldRule
   {
     if($this->type == lmbDateRule::TYPE_ISO)
     {
-      if(!lmbDateTime :: validate((string)$value))
+      if(!lmbDateTime::validate((string)$value))
         $this->error('{Field} is not a valid ISO formatted date(YYYY-MM-DD HH:MM).');
     }
   }
