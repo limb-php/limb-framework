@@ -12,8 +12,13 @@ use PHPUnit\Framework\TestCase;
 use limb\validation\src\lmbValidator;
 use limb\validation\src\lmbValidatorBuilder;
 use limb\core\src\lmbHandle;
-
-Mock::generate('lmbValidator', 'MockValidator');
+use limb\validation\src\rule\lmbRequiredRule;
+use limb\validation\src\rule\lmbMatchRule;
+use limb\validation\src\rule\lmbSizeRangeRule;
+use limb\validation\src\rule\lmbIdentifierRule;
+use limb\validation\src\rule\lmbEmailRule;
+use limb\validation\src\rule\lmbPatternRule;
+use limb\web_app\src\validation\rule\lmbUniqueTableFieldRule;
 
 class lmbValidatorBuilderTest extends TestCase
 {
@@ -21,62 +26,22 @@ class lmbValidatorBuilderTest extends TestCase
 
   function setUp(): void
   {
-    $this->validator = new MockValidator();
-
+    $this->validator = $this->createMock(lmbValidator::class);
   }
 
   function testAddRulesFromSimpleString()
   {
     $rules = array();
     $rules['login'] = "required|matches[bbb]|size_range[5, 8]|identifier";
-    
-    $calls_counter = 0;
-    
-    // no params
-    $this->validator->expectAt(
-      $calls_counter++,
-      "addRule", 
-      array(
-        new EqualExpectation(
-          new lmbHandle('limb/*/src/rule/lmbRequiredRule.class.php', array('login'))
-        )
-      )
-    );
-    
-    // 1 param
-    $this->validator->expectAt(
-      $calls_counter++,
-      "addRule", 
-      array(
-        new EqualExpectation(
-          new lmbHandle('limb/*/src/rule/lmbMatchRule.class.php', array('login', 'bbb'))
-        )
-      )
-    );
-    
-    // 2 (or more) params
-    $this->validator->expectAt(
-      $calls_counter++,
-      "addRule", 
-      array(
-        new EqualExpectation(
-          new lmbHandle('limb/*/src/rule/lmbSizeRangeRule.class.php', array('login', 5, 8))
-        )
-      )
-    );
-    
-    // rule name is exactly matches to file name
-    $this->validator->expectAt(
-      $calls_counter++,
-      "addRule", 
-      array(
-        new EqualExpectation(
-          new lmbHandle('limb/*/src/rule/lmbIdentifierRule.class.php', array('login'))
-        )
-      )
-    );
-        
-    lmbValidatorBuilder :: addRules($rules, $this->validator);
+
+    $this->validator
+        ->method("addRule")
+        ->with(new lmbHandle(lmbRequiredRule::class, array('login')))
+        ->with(new lmbHandle(lmbMatchRule::class, array('login', 'bbb')))
+        ->with(new lmbHandle(lmbSizeRangeRule::class, array('login', 5, 8)))
+        ->with(new lmbHandle(lmbIdentifierRule::class, array('login')));
+
+    lmbValidatorBuilder::addRules($rules, $this->validator);
   }
     
   function testAddRulesFromArrayWithCustomArguments()
@@ -100,62 +65,16 @@ class lmbValidatorBuilderTest extends TestCase
         'error' => $errors['size_range']  // keys (min, max, error) are ignored, the order of args is still important
       )
     );
-    
-    $calls_counter = 0;
-    
-    // no params
-    $this->validator->expectAt(
-      $calls_counter++,
-      "addRule", 
-      array(
-        new EqualExpectation(
-          new lmbHandle('limb/*/src/rule/lmbRequiredRule.class.php', array('login'))
-        )
-      )
-    );
 
-   $this->validator->expectAt(
-      $calls_counter++,
-      "addRule", 
-      array(
-        new EqualExpectation(
-          new lmbHandle('limb/*/src/rule/lmbSizeRangeRule.class.php', array('login', 5, 8))
-        )
-      )
-    );
-    
-    $this->validator->expectAt(
-      $calls_counter++,
-      "addRule", 
-      array(
-        new EqualExpectation(
-          new lmbHandle('limb/*/src/rule/lmbEmailRule.class.php', array('login', $errors['email']))
-        )
-      )
-    );
-        
-    $this->validator->expectAt(
-      $calls_counter++,
-      "addRule", 
-      array(
-        new EqualExpectation(
-          new lmbHandle('limb/*/src/rule/lmbPatternRule.class.php', array('login', '/\d+/', $errors['pattern']))
-        )
-      )
-    );
-        
-   $this->validator->expectAt(
-      $calls_counter++,
-      "addRule", 
-      array(
-        new EqualExpectation(
-          new lmbHandle('limb/*/src/rule/lmbSizeRangeRule.class.php', array('login', 10, 15, $errors['size_range']))
-        )
-      )
-    );
-    
-        
-    lmbValidatorBuilder :: addRules($rules, $this->validator);
+    $this->validator
+        ->method("addRule")
+        ->with(new lmbHandle(lmbRequiredRule::class, array('login')))
+        ->with(new lmbHandle(lmbSizeRangeRule::class, array('login', 5, 8)))
+        ->with(new lmbHandle(lmbEmailRule::class, array('login', $errors['email'])))
+        ->with(new lmbHandle(lmbPatternRule::class, array('login', '/\d+/', $errors['pattern'])))
+        ->with(new lmbHandle(lmbSizeRangeRule::class, array('login', 10, 15, $errors['size_range'])));
+
+    lmbValidatorBuilder::addRules($rules, $this->validator);
   }
   
   function testAddCustomRules()
@@ -168,18 +87,10 @@ class lmbValidatorBuilderTest extends TestCase
       )
     );
     
-    $calls_counter = 0;
+    $this->validator
+        ->method("addRule")
+        ->with(new lmbHandle(lmbUniqueTableFieldRule::class, array('login', 'user', 'login')));
 
-    $this->validator->expectAt(
-      $calls_counter++,
-      "addRule", 
-      array(
-        new EqualExpectation(
-          new lmbHandle('limb/web_app/src/validation/rule/lmbUniqueTableFieldRule.class.php', array('login', 'user', 'login'))
-        )
-      )
-    );
-    
-    lmbValidatorBuilder :: addRules($rules, $this->validator);    
+    lmbValidatorBuilder::addRules($rules, $this->validator);
   }
 }
