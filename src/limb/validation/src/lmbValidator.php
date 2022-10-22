@@ -8,14 +8,17 @@
  */
 namespace limb\validation\src;
 
-use limb\validation\src\lmbErrorList;
 use limb\core\src\lmbHandle;
+use limb\validation\src\rule\lmbRequiredRule;
+use limb\validation\src\rule\lmbAtleastOneFieldRequiredRule;
+use limb\validation\src\rule\lmbRequiredObjectRule;
+use limb\validation\src\rule\lmbSizeRangeRule;
 
 /**
  * Holds the list of validation rules along with errors happened during validation.
  * Validates a datasource against added validation rules.
  * @package validation
- * @version $Id: lmbValidator.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbValidator.php 7486 2009-01-26 
  */
 class lmbValidator
 {
@@ -76,13 +79,13 @@ class lmbValidator
   */
   function addRequiredRule($field, $custom_error = '')
   {
-    $this->addRule(new lmbHandle('limb\validation\src\rule\lmbRequiredRule',
+    $this->addRule(new lmbHandle(lmbRequiredRule::class,
                                  array($field, $custom_error)));
   }
 
   function addAtLeastOneRequiredRule($fields, $custom_error = '')
   {
-    $this->addRule(new lmbHandle('limb\validation\src\rule\lmbAtleastOneFieldRequiredRule',
+    $this->addRule(new lmbHandle(lmbAtleastOneFieldRequiredRule::class,
                                  array($fields, $custom_error)));
   }
 
@@ -92,7 +95,7 @@ class lmbValidator
   */
   function addRequiredObjectRule($field, $class = null, $custom_error = '')
   {
-    $this->addRule(new lmbHandle('limb\validation\src\rule\lmbRequiredObjectRule',
+    $this->addRule(new lmbHandle(lmbRequiredObjectRule::class,
                                  array($field, $class, $custom_error)));
   }
 
@@ -102,7 +105,7 @@ class lmbValidator
   */
   function addSizeRangeRule($field, $min_or_max_length, $max_length = NULL, $custom_error = '')
   {
-    $this->addRule(new lmbHandle('limb\validation\src\rule\lmbSizeRangeRule',
+    $this->addRule(new lmbHandle(lmbSizeRangeRule::class,
                                  array($field, $min_or_max_length, $max_length, $custom_error)));
   }
 
@@ -128,5 +131,3 @@ class lmbValidator
     return $this->isValid();
   }
 }
-
-

@@ -17,45 +17,49 @@ use limb\core\src\lmbObject;
  */
 class lmbErrorMessage extends lmbObject
 {
-  function __construct($message, $fields = array(), $values = array())
-  {
-     parent::__construct(array('message' => $message, 'fields' => $fields, 'values' => $values));
-  }
+    protected $message;
+    protected $fields = array();
+    protected $values = array();
 
-  function getReadable()
-  {
-    $text = $this->getMessage();
-    foreach($this->getFields() as $key => $fieldName)
+    function __construct($message, $fields = array(), $values = array())
     {
-      $replacement = '"' . $fieldName . '"';
-      $text = str_replace('{' . $key . '}', $replacement, $text);
+        parent::__construct(array('message' => $message, 'fields' => $fields, 'values' => $values));
     }
 
-    foreach($this->getValues() as $key => $replacement)
-      $text = str_replace('{' . $key . '}', $replacement, $text);
-
-    return $text;
-  }
-
-  function renameFields($new_field_names)
-  {
-    if(!is_array($new_field_names))
+    function getReadable()
     {
-      return;
+        $text = $this->getMessage();
+        foreach($this->getFields() as $key => $fieldName)
+        {
+          $replacement = '"' . $fieldName . '"';
+          $text = str_replace('{' . $key . '}', $replacement, $text);
+        }
+
+        foreach($this->getValues() as $key => $replacement)
+          $text = str_replace('{' . $key . '}', $replacement, $text);
+
+        return $text;
     }
 
-    $new_fields = array();
-
-    foreach($this->getFields() as $key => $field)
+    function renameFields($new_field_names)
     {
-      $new_fields[$key] = (isset($new_field_names[$field]) ? $new_field_names[$field] : $field);
+        if(!is_array($new_field_names))
+        {
+          return;
+        }
+
+        $new_fields = array();
+
+        foreach($this->getFields() as $key => $field)
+        {
+          $new_fields[$key] = $new_field_names[$field] ?? $field;
+        }
+
+        $this->setFields($new_fields);
     }
 
-    $this->setFields($new_fields);
-  }
-
-  function __toString()
-  {
-      return $this->getReadable();
-  }
+    function __toString()
+    {
+        return $this->getReadable();
+    }
 }
