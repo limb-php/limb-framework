@@ -6,17 +6,17 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\dbal\src\drivers\mysqli;
+namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbBaseExtension;
 
 /**
- * class lmbMysqliExtension
+ * class lmbMysqlExtension
  *
  * @package dbal
  * @version $Id$
  */
-class lmbMysqliExtension extends lmbDbBaseExtension
+class lmbMysqlExtension extends lmbDbBaseExtension
 {
     function in($column_name, $values)
     {

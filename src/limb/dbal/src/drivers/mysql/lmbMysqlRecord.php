@@ -6,17 +6,17 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\dbal\src\drivers\mysqli;
+namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbBaseRecord;
 
 /**
- * class lmbMysqliRecord.
+ * class lmbMysqlRecord.
  *
  * @package dbal
- * @version $Id: lmbMysqliRecord.php 6844 2008-03-18 17:10:33Z pachanga $
+ * @version $Id: lmbMysqlRecord.php 6844 2008-03-18 17:10:33Z
  */
-class lmbMysqliRecord extends lmbDbBaseRecord
+class lmbMysqlRecord extends lmbDbBaseRecord
 {
     function __construct($data = array())
     {

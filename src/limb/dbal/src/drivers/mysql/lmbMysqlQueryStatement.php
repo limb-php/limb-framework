@@ -6,21 +6,21 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-namespace limb\dbal\src\drivers\mysqli;
+namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
 
 /**
- * class lmbMysqliQueryStatement.
+ * class lmbMysqlQueryStatement.
  *
  * @package dbal
- * @version $Id: lmbMysqliQueryStatement.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbMysqlQueryStatement.php 6243 2007-08-29 11:53:10Z
  */
-class lmbMysqliQueryStatement extends lmbMysqliStatement implements lmbDbQueryStatementInterface
+class lmbMysqlQueryStatement extends lmbMysqlStatement implements lmbDbQueryStatementInterface
 {
   function getOneRecord()
   {
-    $record = new lmbMysqliRecord();
+    $record = new lmbMysqlRecord();
     $queryId = $this->connection->execute($this->getSQL());
     $values = Mysqli_fetch_assoc($queryId);
     $record->import($values);
@@ -50,6 +50,6 @@ class lmbMysqliQueryStatement extends lmbMysqliStatement implements lmbDbQuerySt
 
   function getRecordSet()
   {
-    return new lmbMysqliRecordSet($this->connection, $this->getSQL());
+    return new lmbMysqlRecordSet($this->connection, $this->getSQL());
   }
 }

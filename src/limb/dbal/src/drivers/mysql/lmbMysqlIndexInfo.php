@@ -7,17 +7,17 @@
  *
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\dbal\src\drivers\mysqli;
+namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbIndexInfo;
 
 /**
- * class lmbMysqliIndexInfo.
+ * class lmbMysqlIndexInfo.
  *
  * @package dbal
- * @version $Id: lmbMysqliIndexInfo.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbMysqlIndexInfo.php 6243 2007-08-29 11:53:10Z
  */
-class lmbMysqliIndexInfo extends lmbDbIndexInfo
+class lmbMysqlIndexInfo extends lmbDbIndexInfo
 {
 
 }

@@ -6,22 +6,22 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\dbal\src\drivers\mysqli;
+namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\dbal\src\exception\lmbDbException;
 
 /**
- * class lmbMysqliStatement.
+ * class lmbMysqlStatement.
  *
  * @package dbal
- * @version $Id: lmbMysqliStatement.php 6848 2008-03-21 13:44:08Z svk $
+ * @version $Id: lmbMysqlStatement.php 6848 2008-03-21 13:44:08Z
  */
-class lmbMysqliStatement implements lmbDbStatementInterface
+class lmbMysqlStatement implements lmbDbStatementInterface
 {
     protected $statement;
     /**
-     * @var lmbMysqliConnection
+     * @var lmbMysqlConnection
      */
     protected $connection;
     protected $parameters = array();

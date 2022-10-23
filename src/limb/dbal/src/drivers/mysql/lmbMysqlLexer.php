@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\dbal\src\drivers\mysqli;
+namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbBaseLexer;
 
@@ -16,7 +16,7 @@ use limb\dbal\src\drivers\lmbDbBaseLexer;
  * @package dbal
  * @version $Id$
  */
-class lmbMysqliLexer extends lmbDbBaseLexer
+class lmbMysqlLexer extends lmbDbBaseLexer
 {
 
 }

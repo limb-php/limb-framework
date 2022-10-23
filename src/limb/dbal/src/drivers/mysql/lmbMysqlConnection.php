@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\dbal\src\drivers\mysqli;
+namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbBaseConnection;
 use limb\dbal\src\exception\lmbDbException;
@@ -17,13 +17,13 @@ use limb\dbal\src\exception\lmbDbException;
  * @package dbal
  * @version $Id: lmbMysqlConnection.php 6848 2008-03-21 13:44:08Z
  */
-class lmbMysqliConnection extends lmbDbBaseConnection
+class lmbMysqlConnection extends lmbDbBaseConnection
 {
     protected $connectionId;
 
     function getType()
     {
-        return 'mysqli';
+        return 'mysql';
     }
 
     function getExtension()
@@ -31,12 +31,12 @@ class lmbMysqliConnection extends lmbDbBaseConnection
         if(is_object($this->extension))
             return $this->extension;
 
-        return $this->extension = new lmbMysqliExtension($this);
+        return $this->extension = new lmbMysqlExtension($this);
     }
 
     function getLexer()
     {
-        return new lmbMysqliLexer();
+        return new lmbMysqlLexer();
     }
 
   function getConnectionId()
@@ -150,25 +150,25 @@ class lmbMysqliConnection extends lmbDbBaseConnection
       case 'SHOW':
       case 'DESCRIBE':
       case 'EXPLAIN':
-      return new lmbMysqliQueryStatement($this, $sql);
+      return new lmbMysqlQueryStatement($this, $sql);
       case 'INSERT':
-      return new lmbMysqliInsertStatement($this, $sql);
+      return new lmbMysqlInsertStatement($this, $sql);
       case 'UPDATE':
       case 'DELETE':
-      return new lmbMysqliManipulationStatement($this, $sql);
+      return new lmbMysqlManipulationStatement($this, $sql);
       default:
-      return new lmbMysqliStatement($this, $sql);
+      return new lmbMysqlStatement($this, $sql);
     }
   }
 
   function getTypeInfo()
   {
-    return new lmbMysqliTypeInfo();
+    return new lmbMysqlTypeInfo();
   }
 
   function getDatabaseInfo()
   {
-    return new lmbMysqliDbInfo($this, $this->config['database'], true);
+    return new lmbMysqlDbInfo($this, $this->config['database'], true);
   }
 
   function quoteIdentifier($id)

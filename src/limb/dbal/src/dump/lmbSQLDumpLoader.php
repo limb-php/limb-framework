@@ -15,7 +15,7 @@ use limb\fs\src\exception\lmbFileNotFoundException;
  * class lmbSQLDumpLoader.
  *
  * @package dbal
- * @version $Id: lmbSQLDumpLoader.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSQLDumpLoader.php 7486 2009-01-26 19:13:20Z
  */
 class lmbSQLDumpLoader
 {
@@ -117,4 +117,3 @@ class lmbSQLDumpLoader
       return $sql;
   }
 }
-

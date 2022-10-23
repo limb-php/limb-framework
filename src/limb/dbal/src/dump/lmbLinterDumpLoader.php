@@ -111,4 +111,3 @@ class lmbLinterDumpLoader
     return $sql;
   }
 }
-

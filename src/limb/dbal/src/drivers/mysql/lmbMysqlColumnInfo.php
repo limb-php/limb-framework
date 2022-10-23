@@ -6,15 +6,15 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\dbal\src\drivers\mysqli;
+namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbColumnInfo;
 
 /**
- * class lmbMysqliColumnInfo.
+ * class lmbMysqlColumnInfo.
  *
  * @package dbal
- * @version $Id: lmbMysqliColumnInfo.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbMysqlColumnInfo.php 6243 2007-08-29 11:53:10Z
  */
 class lmbMysqliColumnInfo extends lmbDbColumnInfo
 {
@@ -37,7 +37,7 @@ class lmbMysqliColumnInfo extends lmbDbColumnInfo
     $this->nativeType = $this->canonicalizeNativeType($nativeType);
     $this->isAutoIncrement = $this->canonicalizeIsAutoincrement($isAutoIncrement);
 
-    $typeinfo = new lmbMysqliTypeInfo();
+    $typeinfo = new lmbMysqlTypeInfo();
     $typemap = $typeinfo->getNativeToColumnTypeMapping();
     $type = $typemap[$nativeType];
 
@@ -61,11 +61,8 @@ class lmbMysqliColumnInfo extends lmbDbColumnInfo
     return $this->isAutoIncrement === true;
   }
 
-
   function canonicalizeIsAutoIncrement($isAutoIncrement)
   {
     return is_null($isAutoIncrement) ?  null : (bool) $isAutoIncrement;
   }
 }
-
-

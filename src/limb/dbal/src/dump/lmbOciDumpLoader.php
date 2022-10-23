@@ -8,13 +8,11 @@
  */
 namespace limb\dbal\src\dump;
 
-use limb\dbal\src\dump\lmbSQLDumpLoader;
-
 /**
  * class lmbOciDumpLoader.
  *
  * @package dbal
- * @version $Id: lmbOciDumpLoader.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciDumpLoader.php 7486 2009-01-26 19:13:20Z
  */
 class lmbOciDumpLoader extends lmbSQLDumpLoader
 {
@@ -44,4 +42,3 @@ class lmbOciDumpLoader extends lmbSQLDumpLoader
       return $sql;
   }
 }
-

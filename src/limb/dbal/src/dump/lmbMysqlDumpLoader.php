@@ -8,13 +8,11 @@
  */
 namespace limb\dbal\src\dump;
 
-use limb\dbal\src\dump\lmbSQLDumpLoader;
-
 /**
  * class lmbMysqlDumpLoader.
  *
  * @package dbal
- * @version $Id: lmbMysqlDumpLoader.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbMysqlDumpLoader.php 7486 2009-01-26 19:13:20Z
  */
 class lmbMysqlDumpLoader extends lmbSQLDumpLoader
 {
@@ -105,7 +103,7 @@ class lmbMysqlDumpLoader extends lmbSQLDumpLoader
       {
         // starting position of the comment depends on the comment type
         $start_of_comment = (($sql[$i] == '#') ? $i : $i-2);
-        $end_of_comment = self :: _getEndOfCommentPosition($sql, $i+2);
+        $end_of_comment = self::_getEndOfCommentPosition($sql, $i+2);
 
         if(!$end_of_comment)
         {
@@ -173,4 +171,3 @@ class lmbMysqlDumpLoader extends lmbSQLDumpLoader
     return trim($table, '`');
   }
 }
-

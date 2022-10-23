@@ -6,18 +6,18 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\dbal\src\drivers\mysqli;
+namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbInfo;
 use limb\dbal\src\exception\lmbDbException;
 
 /**
- * class lmbMysqliDbInfo.
+ * class lmbMysqlDbInfo.
  *
  * @package dbal
- * @version $Id: lmbMysqliDbInfo.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbMysqlDbInfo.php 6243 2007-08-29 11:53:10Z
  */
-class lmbMysqliDbInfo extends lmbDbInfo
+class lmbMysqlDbInfo extends lmbDbInfo
 {
   protected $connection;
   protected $isExisting = false;
@@ -60,7 +60,7 @@ class lmbMysqliDbInfo extends lmbDbInfo
     }
     if(is_null($this->tables[$name]))
     {
-      $this->tables[$name] = new lmbMysqliTableInfo($this, $name, true);
+      $this->tables[$name] = new lmbMysqlTableInfo($this, $name, true);
     }
     return $this->tables[$name];
   }

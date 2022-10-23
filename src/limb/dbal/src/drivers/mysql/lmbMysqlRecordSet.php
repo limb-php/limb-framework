@@ -6,17 +6,17 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-namespace limb\dbal\src\drivers\mysqli;
+namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbBaseRecordSet;
 
 /**
- * class lmbMysqliRecordSet.
+ * class lmbMysqlRecordSet.
  *
  * @package dbal
- * @version $Id: lmbMysqliRecordSet.php 6891 2008-04-01 21:44:38Z pachanga $
+ * @version $Id: lmbMysqlRecordSet.php 6891 2008-04-01 21:44:38Z
  */
-class lmbMysqliRecordSet extends lmbDbBaseRecordSet
+class lmbMysqlRecordSet extends lmbDbBaseRecordSet
 {
   protected $query;
   protected $connection;
@@ -86,7 +86,7 @@ class lmbMysqliRecordSet extends lmbDbBaseRecordSet
 
   function next()
   {
-    $this->current = new lmbMysqliRecord();
+    $this->current = new lmbMysqlRecord();
     $values = Mysqli_fetch_assoc($this->queryId);
     $this->current->import($values);
     $this->valid = is_array($values);
@@ -126,7 +126,7 @@ class lmbMysqliRecordSet extends lmbDbBaseRecordSet
     Mysqli_free_result($queryId);
     if($res)
     {
-      $record = new lmbMysqliRecord();
+      $record = new lmbMysqlRecord();
       $record->import($res);
       return $record;
     }

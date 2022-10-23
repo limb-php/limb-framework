@@ -6,18 +6,18 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\dbal\src\drivers\mysqli;
+namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbTableInfo;
 use limb\dbal\src\drivers\lmbDbIndexInfo;
 
 /**
- * class lmbMysqliTableInfo.
+ * class lmbMysqlTableInfo.
  *
  * @package dbal
- * @version $Id: lmbMysqliTableInfo.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbMysqlTableInfo.php 6243 2007-08-29 11:53:10Z
  */
-class lmbMysqliTableInfo extends lmbDbTableInfo
+class lmbMysqlTableInfo extends lmbDbTableInfo
 {
   protected $isExisting = false;
   protected $isColumnsLoaded = false;
@@ -100,7 +100,7 @@ class lmbMysqliTableInfo extends lmbDbTableInfo
     while($row = mysqli_fetch_assoc($queryId))
     {
 
-      $index = new lmbMysqliIndexInfo();
+      $index = new lmbMysqlIndexInfo();
       $index->column_name = $row['Column_name'];
 
       $index->name = $row['Key_name'];
