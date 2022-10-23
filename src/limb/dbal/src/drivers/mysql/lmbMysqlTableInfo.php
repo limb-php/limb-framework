@@ -81,7 +81,7 @@ class lmbMysqlTableInfo extends lmbDbTableInfo
         // BLOBs can't have any default values in Mysqli
         $default = preg_match('~blob|text~', $nativeType) ?  null : $row['Default'];
 
-        $this->columns[$name] = new lmbMysqliColumnInfo($this,
+        $this->columns[$name] = new lmbMysqlColumnInfo($this,
                     $name, $nativeType, $size, $precision, $isNullable, $default, $isAutoIncrement);
       }
       $this->isColumnsLoaded = true;

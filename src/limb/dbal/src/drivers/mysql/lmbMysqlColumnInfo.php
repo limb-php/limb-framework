@@ -16,7 +16,7 @@ use limb\dbal\src\drivers\lmbDbColumnInfo;
  * @package dbal
  * @version $Id: lmbMysqlColumnInfo.php 6243 2007-08-29 11:53:10Z
  */
-class lmbMysqliColumnInfo extends lmbDbColumnInfo
+class lmbMysqlColumnInfo extends lmbDbColumnInfo
 {
   protected $nativeType;
   protected $isAutoIncrement;
