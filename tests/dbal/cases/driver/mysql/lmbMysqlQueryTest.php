@@ -6,22 +6,23 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\dbal\cases\driver\mysql;
 
-require_once(dirname(__FILE__) . '/../DriverTypeInfoTestBase.class.php');
+require_once(dirname(__FILE__) . '/../DriverQueryTestBase.class.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
-class lmbMysqliTypeInfoTest extends DriverTypeInfoTestBase
+class lmbMysqlQueryTest extends DriverQueryTestBase
 {
 
-  function lmbMysqliTypeInfoTest()
+  function lmbMysqliQueryTest()
   {
-    parent :: DriverTypeInfoTestBase('lmbMysqliStatement', 'lmbMysqliRecord');
+    parent :: DriverQueryTestBase('lmbMysqliRecord');
   }
 
   function setUp()
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    $this->typeInfo = $this->connection->getTypeInfo();
+    DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

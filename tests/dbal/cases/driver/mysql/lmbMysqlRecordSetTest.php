@@ -6,16 +6,22 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\dbal\cases\driver\mysql;
 
-require_once(dirname(__FILE__) . '/../DriverDeleteTestBase.class.php');
+require_once(dirname(__FILE__) . '/../DriverRecordSetTestBase.class.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
-class lmbMysqliDeleteTest extends DriverDeleteTestBase
+class lmbMysqlRecordSetTest extends DriverRecordSetTestBase
 {
+  function lmbMysqliRecordSetTest()
+  {
+    parent :: DriverRecordSetTestBase('lmbMysqliRecord');
+  }
+
   function setUp()
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverMysqliSetup($this->connection->getConnectionId());
+    DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

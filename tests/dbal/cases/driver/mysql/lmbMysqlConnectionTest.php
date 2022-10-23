@@ -6,20 +6,21 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\dbal\cases\driver\mysql;
 
 require_once(dirname(__FILE__) . '/../DriverConnectionTestBase.class.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
-class lmbMysqliConnectionTest extends DriverConnectionTestBase
+class lmbMysqlConnectionTest extends DriverConnectionTestBase
 {
   /**
-   * @var lmbMysqliConnection
+   * @var lmbMysqlConnection
    */
   var $connection;
 
-  function lmbMysqliConnectionTest()
+  function lmbMysqlConnectionTest()
   {
-    parent :: DriverConnectionTestBase('lmbMysqliQueryStatement', 'lmbMysqliInsertStatement', 'lmbMysqliManipulationStatement', 'lmbMysqliStatement');
+    parent :: DriverConnectionTestBase('lmbMysqlQueryStatement', 'lmbMysqlInsertStatement', 'lmbMysqlManipulationStatement', 'lmbMysqlStatement');
   }
 
   function setUp()
@@ -53,7 +54,7 @@ class lmbMysqliConnectionTest extends DriverConnectionTestBase
     try {
       $this->connection->execute('select \''.$unescaped_string.'\';');
       $this->fail();
-    } catch (Exception $e)
+    } catch (\Exception $e)
     {
       $this->pass();
     }
@@ -61,7 +62,7 @@ class lmbMysqliConnectionTest extends DriverConnectionTestBase
     try {
       $this->connection->execute('select \''.$escaped_string.'\';');
       $this->pass();
-    } catch (Exception $e)
+    } catch (\Exception $e)
     {
       $this->fail();
     }

@@ -6,22 +6,17 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\dbal\cases\driver\mysql;
 
-require_once(dirname(__FILE__) . '/../DriverInsertTestBase.class.php');
+require_once(dirname(__FILE__) . '/../DriverDatabaseInfoTestBase.class.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
-class lmbMysqliInsertTest extends DriverInsertTestBase
+class lmbMysqlDbInfoTest extends DriverDatabaseInfoTestBase
 {
-
-  function lmbMysqliInsertTest()
-  {
-    parent :: DriverInsertTestBase('lmbMysqliInsertStatement');
-  }
-
   function setUp()
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverMysqliSetup($this->connection->getConnectionId());
+    DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
