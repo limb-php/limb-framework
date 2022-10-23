@@ -8,8 +8,8 @@
  */
 namespace limb\filter_chain\tests\cases;
 
-lmb_require('limb/filter_chain/src/lmbInterceptingFilter.interface.php');
-lmb_require('limb/filter_chain/src/lmbFilterChain.class.php');
+use PHPUnit\Framework\TestCase;
+use limb\filter_chain\src\lmbFilterChain;
 
 class InterceptingFilterStub
 {
@@ -58,7 +58,7 @@ class OutputFilter3
 class lmbFilterChainTest extends TestCase
 {
   var $fc;
-  function setUp()
+  function setUp(): void
   {
     $this->fc = new lmbFilterChain();
   }
@@ -75,7 +75,7 @@ class lmbFilterChainTest extends TestCase
 
     $this->assertTrue($mock_filter->run);
 
-    $this->assertIsA($mock_filter->captured['filter_chain'], 'lmbFilterChain');
+    $this->assertInstanceOf(lmbFilterChain::class, $mock_filter->captured['filter_chain']);
   }
 
   function testProcessProperNesting()
@@ -122,5 +122,3 @@ class lmbFilterChainTest extends TestCase
     $this->assertEquals($str, '<filter1></filter1><filter2></filter2>');
   }
 }
-
-
