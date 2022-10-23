@@ -26,7 +26,7 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
   {
     $this->_cache_dir = lmbFs::normalizePath($cache_dir);
 
-    lmbFs :: mkdir($this->_cache_dir);
+    lmbFs::mkdir($this->_cache_dir);
   }
 
   function getCacheDir()
@@ -70,13 +70,13 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
 
     if (isset($meta['raw']))
     {
-      lmbFs :: safeWrite($file, $value);
+      lmbFs::safeWrite($file, $value);
       return true;
     }
     else
     {
       $container = new lmbSerializable($value);
-      lmbFs :: safeWrite($file, serialize($container));
+      lmbFs::safeWrite($file, serialize($container));
       return true;
     }
   }
@@ -143,7 +143,7 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
   {
     if($key === false)
     {
-      $files = lmbFs :: find($this->getCacheDir(), 'f');
+      $files = lmbFs::findRecursive($this->getCacheDir(), 'f');
       foreach($files as $file)
         unlink($file);
     }
@@ -181,7 +181,7 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
   protected function _setMetaData($key,$data)
   {
     $file=$this->_getMetaFilePath($key);
-    lmbFs :: safeWrite($file, serialize($data));
+    lmbFs::safeWrite($file, serialize($data));
   }
 
   protected function _removeFileMeta($key = false)

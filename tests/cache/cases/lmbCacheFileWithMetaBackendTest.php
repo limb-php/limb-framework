@@ -8,7 +8,10 @@
  */
 namespace tests\cache\cases;
 
+require ('.setup.php');
+
 use limb\cache\src\lmbCacheFileWithMetaBackend;
+use limb\core\src\lmbEnv;
 
 class lmbCacheFileWithMetaBackendTest extends lmbCacheFileBackendTest
 {
@@ -16,7 +19,7 @@ class lmbCacheFileWithMetaBackendTest extends lmbCacheFileBackendTest
 
   function _createPersisterImp()
   {
-    $this->cache_dir = LIMB_VAR_DIR . '/cache';
+    $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/cache';
     return new lmbCacheFileWithMetaBackend($this->cache_dir);
   }
 

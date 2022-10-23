@@ -8,6 +8,8 @@
  */
 namespace tests\cache\cases;
 
+require ('.setup.php');
+
 use limb\cache\src\lmbCacheApcBackend;
 
 class lmbCacheApcBackendTest extends lmbCacheBackendTest
@@ -15,11 +17,11 @@ class lmbCacheApcBackendTest extends lmbCacheBackendTest
     function setUp() :void
     {
         if( !extension_loaded('apc') )
-            $this->skipIf('APC extension not found. Test skipped.');
+            $this->markTestSkipped('APC extension not found. Test skipped.');
         if( !ini_get('apc.enabled') )
-            $this->skipIf('APC extension not enabled. Test skipped.');
+            $this->markTestSkipped('APC extension not enabled. Test skipped.');
         if( (!ini_get('apc.enable_cli') and php_sapi_name() == 'cli') )
-            $this->skipIf('APC CLI not enabled. Test skipped.');
+            $this->markTestSkipped('APC CLI not enabled. Test skipped.');
     }
 
     function _createPersisterImp()

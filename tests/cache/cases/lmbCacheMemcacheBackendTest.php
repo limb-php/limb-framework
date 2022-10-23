@@ -8,6 +8,8 @@
  */
 namespace tests\cache\cases;
 
+require ('.setup.php');
+
 use limb\cache\src\lmbCacheMemcacheBackend;
 
 class lmbCacheMemcacheBackendTest extends lmbCacheBackendTest

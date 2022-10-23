@@ -8,6 +8,8 @@
  */
 namespace tests\cache\cases;
 
+require ('.setup.php');
+
 use limb\core\src\lmbObject;
 use PHPUnit\Framework\TestCase;
 
@@ -53,7 +55,7 @@ abstract class lmbCacheBackendTest extends TestCase
     $this->assertTrue($this->cache->add(2, 'value2'));
     
     $this->cache->set(2, 'new value');
-    $this->assertEquals($this->cache->get(2), 'new value');
+    $this->assertEquals('new value', $this->cache->get(2));
   }
 
   function testSetToCache()

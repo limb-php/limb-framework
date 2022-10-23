@@ -8,6 +8,8 @@
  */
 namespace tests\cache\cases;
 
+require ('.setup.php');
+
 use limb\toolkit\src\lmbToolkit;
 
 class lmbCacheToolkitTest extends lmbCacheGroupDecoratorTest
@@ -19,7 +21,7 @@ class lmbCacheToolkitTest extends lmbCacheGroupDecoratorTest
 
   function testCachedDiskFiles()
   {
-    return;
+      $this->assertTrue(true, 'This should already work.');
   }
 
   function testPutToCacheWithGroup()

@@ -8,12 +8,13 @@
  */
 namespace tests\cache\cases;
 
+require ('.setup.php');
+
+use limb\core\src\lmbEnv;
 use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbToolkit;
 use limb\cache\src\lmbCacheGroupDecorator;
 use limb\cache\src\lmbCacheFileBackend;
-
-require_once('limb/cache/common.inc.php');
 
 class SomeClass
 {
@@ -38,7 +39,7 @@ class lmbCacheGroupDecoratorSecondTest extends TestCase
 {
 	function _createBackend()
   {
-    $this->cache_dir = LIMB_VAR_DIR . '/cache';
+    $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/cache';
     return new lmbCacheFileBackend($this->cache_dir);
   }
 
@@ -106,7 +107,7 @@ class lmbCacheGroupDecoratorSecondTest extends TestCase
     $a=SomeClass::Foo('a');
     $b=SomeClass::Foo('b');
 
-    //This need too destroy cache in toolkit
+    //This need to destroy cache in toolkit
     lmbToolkit::instance()->setCache($this->_createPersisterImp());
 
 

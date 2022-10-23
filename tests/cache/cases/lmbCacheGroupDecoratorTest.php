@@ -8,6 +8,8 @@
  */
 namespace tests\cache\cases;
 
+require ('.setup.php');
+
 use limb\cache\src\lmbCacheGroupDecorator;
 
 class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTest
@@ -67,6 +69,9 @@ class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTest
   }
   
   //skip specific fileBackend test
-  function testCachedDiskFiles(){}
+  function testCachedDiskFiles()
+  {
+      $this->assertTrue(true, 'This should already work.');
+  }
 
 }

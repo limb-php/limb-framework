@@ -158,7 +158,7 @@ class lmbFs
       array_pop($path_elements);
     }
 
-    if(self :: isPathAbsolute($path))
+    if(self::isPathAbsolute($path))
       return false;
     else
       return 0;
