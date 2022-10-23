@@ -8,9 +8,7 @@
  */
 namespace tests\cache2\cases\drivers;
 
-use limb\cache2\src\drivers\lmbCacheDbConnection;
-
-require_once('limb/dbal/tests/cases/init.inc.php');
+require_once('tests/dbal/cases/init.inc.php');
 
 class lmbCacheDbConnectionTest extends lmbCacheConnectionTest
 {

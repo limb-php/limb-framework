@@ -1,4 +1,6 @@
 <?php
+namespace limb\cache2\src\logs;
+
 interface lmbCacheLogInterface
 {
   static function instance();

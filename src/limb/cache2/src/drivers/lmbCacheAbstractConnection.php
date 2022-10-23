@@ -8,7 +8,6 @@
  */
 namespace limb\cache2\src\drivers;
 
-use limb\cache2\src\drivers\lmbCacheConnectionInterface;
 use limb\net\src\lmbUri;
 use limb\core\src\lmbSerializable;
 

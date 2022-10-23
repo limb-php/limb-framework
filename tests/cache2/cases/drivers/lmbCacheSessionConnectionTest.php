@@ -8,8 +8,6 @@
  */
 namespace tests\cache2\cases\drivers;
 
-use limb\cache2\src\drivers\lmbCacheSessionConnection;
-
 class lmbCacheSessionConnectionTest extends lmbCacheConnectionTest
 {
   protected $storage_init_file = 'limb/web_app/common.inc.php';

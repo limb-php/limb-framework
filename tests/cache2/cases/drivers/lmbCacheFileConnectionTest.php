@@ -8,8 +8,6 @@
  */
 namespace tests\cache2\cases\drivers;
 
-use limb\cache2\src\drivers\lmbCacheFileConnection;
-
 class lmbCacheFileConnectionTest extends lmbCacheConnectionTest
 {
   function __construct()

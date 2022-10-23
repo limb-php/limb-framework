@@ -10,8 +10,7 @@ namespace tests\cache2\cases;
 
 use limb\cache2\src\lmbMintCache;
 use limb\cache2\src\drivers\lmbCacheAbstractConnection;
-
-Mock::generate(lmbCacheAbstractConnection::class, 'MockCacheConnection');
+use PHPUnit\Framework\TestCase;
 
 class lmbMintCacheTest extends TestCase
 {
@@ -20,9 +19,9 @@ class lmbMintCacheTest extends TestCase
   protected $fake_ttl = 1000;
   protected $cooled_ttl = 30;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->cache_backend = new MockCacheConnection();
+    $this->cache_backend = $this->createMock(lmbCacheAbstractConnection::class);
     $this->cache = new lmbMintCache($this->cache_backend, 300, $this->fake_ttl, $this->cooled_ttl);
   }
 

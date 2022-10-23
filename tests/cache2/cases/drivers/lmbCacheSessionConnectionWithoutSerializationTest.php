@@ -6,14 +6,14 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-
-use limb\cache2\src\drivers\lmbCacheSessionConnection;
+namespace tests\cache2\cases\drivers;
 
 class lmbCacheSessionConnectionWithoutSerializationTest extends lmbCacheSessionConnectionTest
 { 
   function __construct()
   { 
-    parent::__construct();   
+    parent::__construct();
+
     $this->dsn = 'session:?need_serialization=0';    
   } 
   

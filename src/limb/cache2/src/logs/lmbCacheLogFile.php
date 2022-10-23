@@ -1,8 +1,6 @@
 <?php
 namespace limb\cache2\src\logs;
 
-use limb\cache2\src\logs\lmbCacheLogInterface;
-
 class lmbCacheLogFile implements lmbCacheLogInterface
 {
   protected static $instance = null;

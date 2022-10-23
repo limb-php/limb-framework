@@ -8,14 +8,17 @@
  */
 namespace tests\cache2\cases\tools;
 
+use limb\core\src\lmbEnv;
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbObject;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbCacheToolsTest extends TestCase
 {
   function setUp(): void
   {
   	parent::setUp();
-    lmbToolkit :: save();
+    lmbToolkit::save();
   }
 
   function tearDown(): void
@@ -138,7 +141,7 @@ class lmbCacheToolsTest extends TestCase
   function testGetCacheDefault()
   {
     $config = $this->_getConfig($without_dsn = true);
-    $config->set('default_cache_dsn',"file:///" . LIMB_VAR_DIR . "/cache2/");
+    $config->set('default_cache_dsn',"file:///" . lmbEnv::get('LIMB_VAR_DIR') . "/cache2/");
     lmbToolkit::instance()->setConf('cache',$config);
     $connection = lmbToolkit::instance()->getCache();
     $this->assertEquals($connection->getType(),'file');
@@ -162,7 +165,7 @@ class lmbCacheToolsTest extends TestCase
     $config = new lmbObject();
     $config->set('cache_enabled', true);
     if (!$without_dsn)
-      $config->set('dsn_cache_dsn',"file:///" . LIMB_VAR_DIR . "/cache2/");
+      $config->set('dsn_cache_dsn',"file:///" . lmbEnv::get('LIMB_VAR_DIR') . "/cache2/");
     return $config;
   }
 

@@ -10,13 +10,13 @@ namespace limb\cache2\src;
 
 use limb\net\src\lmbUri;
 use limb\core\src\exception\lmbException;
-use limb\cache2\src\lmbLoggedCache;
+use limb\cache2\src\drivers\lmbCacheAbstractConnection;
 
 /**
  * class lmbCache.
  *
  * @package cache
- * @version $Id: lmbDBAL.class.php 6930 2008-04-14 11:22:49Z pachanga $
+ * @version $Id: lmbDBAL.php 6930 2008-04-14 11:22:49Z
  */
 class lmbCacheFactory
 {

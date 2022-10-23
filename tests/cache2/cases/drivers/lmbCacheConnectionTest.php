@@ -8,6 +8,7 @@
 */
 namespace tests\cache2\cases\drivers;
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbObject;
 use limb\cache2\src\lmbCacheFactory;
@@ -34,12 +35,12 @@ abstract class lmbCacheConnectionTest extends TestCase
       require($this->storage_init_file);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->cache = lmbCacheFactory::createConnection($this->dsn);
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     @unlink(lmb_var_dir() . '/diff_thread.php');
     $this->cache->flush();

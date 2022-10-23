@@ -10,6 +10,7 @@ namespace tests\cache2\cases;
 
 use limb\core\src\lmbObject;
 use limb\cache2\src\lmbCacheFactory;
+use PHPUnit\Framework\TestCase;
 
 class lmbCacheFactoryTest extends TestCase
 {

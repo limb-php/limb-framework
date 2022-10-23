@@ -1,7 +1,6 @@
 <?php
 namespace limb\cache2\src;
 
-use limb\cache2\src\lmbCacheBaseWrapper;
 use limb\cache2\src\drivers\lmbCacheConnectionInterface;
 
 class lmbTaggableCache extends lmbCacheBaseWrapper
@@ -58,7 +57,7 @@ class lmbTaggableCache extends lmbCacheBaseWrapper
     if($this->_isTagsValid($container['tags']))
       return $container['value'];
     else
-      return NULL;
+      return null;
   }
 
   protected function _prepareValue($value, $tags_keys)
@@ -82,7 +81,7 @@ class lmbTaggableCache extends lmbCacheBaseWrapper
   function get($key)
   {
     if(is_null($container = $this->wrapped_cache->get($key)))
-      return NULL;
+      return null;
 
     if(is_null($value = $this->_getFromContainer($container)))
       $this->wrapped_cache->delete($key);

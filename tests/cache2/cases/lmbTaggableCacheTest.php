@@ -1,6 +1,7 @@
 <?php
 namespace tests\cache2\cases;
 
+use PHPUnit\Framework\TestCase;
 use limb\cache2\src\lmbTaggableCache;
 use limb\cache2\src\lmbCacheFactory;
 use limb\core\src\lmbEnv;
@@ -12,12 +13,13 @@ class lmbTaggableCacheTest extends TestCase
    */
   protected $cache;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->cache = new lmbTaggableCache(lmbCacheFactory::createConnection('file:///'.lmbEnv::get('LIMB_VAR_DIR').'/cache'));
+      $dsn = 'file:///'.lmbEnv::get('LIMB_VAR_DIR').'/cache';
+      $this->cache = new lmbTaggableCache(lmbCacheFactory::createConnection($dsn));
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->cache->flush();
   }

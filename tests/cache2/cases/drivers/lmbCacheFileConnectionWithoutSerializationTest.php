@@ -8,13 +8,13 @@
  */
 namespace tests\cache2\cases\drivers;
 
-use limb\cache2\src\drivers\lmbCacheMemoryConnection;
+use limb\core\src\lmbEnv;
 
 class lmbCacheFileConnectionWithoutSerializationTest extends lmbCacheFileConnectionTest
 {
   function __construct()
   {
-    $dir = LIMB_VAR_DIR . '/cache';
+    $dir = lmbEnv::get('LIMB_VAR_DIR') . '/cache';
     $this->dsn = 'file:///' . $dir . '?need_serialization=0';
   }
   

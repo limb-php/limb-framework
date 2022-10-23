@@ -1,6 +1,7 @@
 <?php
 namespace tests\cache2\cases\logs;
 
+use PHPUnit\Framework\TestCase;
 use limb\cache2\src\lmbCacheInterface;
 
 abstract class lmbCacheLogTest extends TestCase
@@ -14,8 +15,8 @@ abstract class lmbCacheLogTest extends TestCase
    */
   function testAddRecord_GetRecords()
   {
-    $this->logger->addRecord($key1 = 'foo1', $operation1 = lmbCache::OPERATION_ADD, $time1 = 42, $result1 = true);
-    $this->logger->addRecord($key2 = 'foo2', $operation2 = lmbCache::OPERATION_DECREMENT, $time2 = 43, $result2 = false);
+    $this->logger->addRecord($key1 = 'foo1', $operation1 = lmbCacheInterface::OPERATION_ADD, $time1 = 42, $result1 = true);
+    $this->logger->addRecord($key2 = 'foo2', $operation2 = lmbCacheInterface::OPERATION_DECREMENT, $time2 = 43, $result2 = false);
 
     $records = $this->logger->getRecords();
 
