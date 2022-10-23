@@ -258,8 +258,8 @@ class lmbWebAppTools extends lmbAbstractTools
         return array($file_src, '00');
       else
         throw new lmbException('Not set require env LIMB_DOCUMENT_ROOT!');
-    if(strpos($file_src, LIMB_HTTP_BASE_PATH) === 0)
-      $file = substr($file_src, strlen(LIMB_HTTP_BASE_PATH), strlen($file_src));
+    if(strpos($file_src, lmbEnv::get('LIMB_HTTP_BASE_PATH')) === 0)
+      $file = substr($file_src, strlen(lmbEnv::get('LIMB_HTTP_BASE_PATH')), strlen($file_src));
     else
       $file = $file_src;
 
@@ -281,4 +281,3 @@ class lmbWebAppTools extends lmbAbstractTools
     return '//' . $domains[floor(fmod(abs(crc32($file_src)), count($domains)))] . '/_/' . $version . '/' . ltrim($file_src, '/');
   }
 }
-
