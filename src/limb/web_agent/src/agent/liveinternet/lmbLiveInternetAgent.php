@@ -9,7 +9,6 @@
 namespace limb\web_agent\src\agent\liveinternet;
 
 use limb\web_agent\src\lmbWebAgent;
-use lmbLiveInternetValues;
 
 /**
  * Liveinternet agent
@@ -17,7 +16,8 @@ use lmbLiveInternetValues;
  * @package web_agent
  * @version $Id: lmbLiveInternetAgent.class.php 81 2007-10-11 15:41:36Z CatMan $
  */
-class lmbLiveInternetAgent extends lmbWebAgent {
+class lmbLiveInternetAgent extends lmbWebAgent
+{
 
   protected $project;
 

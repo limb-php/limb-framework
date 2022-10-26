@@ -15,7 +15,7 @@ use limb\web_agent\src\lmbWebAgentHeaders;
  * Abstract class of webagent request
  *
  * @package web_agent
- * @version $Id: lmbAbstractWebAgentRequest.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbAbstractWebAgentRequest.php 7686 2009-03-04 19:57:12Z korchasa $
  */
 abstract class lmbAbstractWebAgentRequest
 {

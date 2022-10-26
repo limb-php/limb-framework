@@ -14,7 +14,7 @@ use limb\core\src\lmbObject;
  * Web agent values
  *
  * @package web_agent
- * @version $Id: lmbWebAgentValues.class.php 89 2007-10-12 15:28:50Z CatMan $
+ * @version $Id: lmbWebAgentValues.php 89 2007-10-12 15:28:50Z CatMan $
  */
 class lmbWebAgentValues extends lmbObject
 {

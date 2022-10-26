@@ -12,9 +12,11 @@ namespace limb\web_agent\src;
  * Web agent cookie
  *
  * @package web_agent
- * @version $Id: lmbWebServerCookie.class.php 40 2007-10-04 15:52:39Z CatMan $
+ * @version $Id: lmbWebServerCookie.php 40 2007-10-04 15:52:39Z CatMan $
  */
-class lmbWebServerCookie {
+class lmbWebServerCookie
+{
+
   protected $vars = array(
     'name' => '',
     'value' => '',
@@ -32,7 +34,9 @@ class lmbWebServerCookie {
   protected function parse($server_cookie)
   {
     $cook_params = explode(';', $server_cookie);
-    if(!$cook_params[0]) continue;
+    if(!$cook_params[0])
+        return;
+
     $cookie_name = '';
     foreach($cook_params as $n => $param)
     {

@@ -12,11 +12,12 @@ namespace limb\web_agent\src;
  * Web agent kit
  *
  * @package web_agent
- * @version $Id: lmbWebAgentKit.class.php 40 2007-10-04 15:52:39Z CatMan $
+ * @version $Id: lmbWebAgentKit.php 40 2007-10-04 15:52:39Z CatMan $
  */
-class lmbWebAgentKit {
+class lmbWebAgentKit
+{
 
-  function createRequest($req = 'socket')
+  static function createRequest($req = 'socket')
   {
     $class = 'lmb'.ucfirst($req).'WebAgentRequest';
 

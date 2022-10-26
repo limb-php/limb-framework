@@ -8,9 +8,8 @@
  */
 namespace limb\web_agent\src\request;
 
-use lmbAbstractWebAgentRequest;
 use limb\web_agent\src\lmbWebServerResponse;
-use limb\web_agent\src\lmbWebAgentCookies;
+use limb\web_agent\src\lmbWebServerCookie;
 use limb\web_agent\src\lmbWebAgentHeaders;
 use limb\web_agent\src\lmbWebServerCookiesCollection;
 
@@ -18,9 +17,10 @@ use limb\web_agent\src\lmbWebServerCookiesCollection;
  * Web request through file_get_contents
  *
  * @package web_agent
- * @version $Id: lmbNativeWebAgentRequest.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbNativeWebAgentRequest.php 7686 2009-03-04 19:57:12Z korchasa $
  */
-class lmbNativeWebAgentRequest extends lmbAbstractWebAgentRequest {
+class lmbNativeWebAgentRequest extends lmbAbstractWebAgentRequest
+{
   protected $request_data = null;
   protected $request_headers = null;
   protected $url = null;

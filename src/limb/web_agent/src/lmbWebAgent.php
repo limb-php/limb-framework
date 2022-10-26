@@ -9,17 +9,10 @@
 namespace limb\web_agent\src;
 
 /**
- * @package web_agent
- */
-use lmbWebAgentKit;
-use lmbWebServerCookiesCollection;
-use lmbWebAgentValues;
-
-/**
  * Web agent
  *
  * @package web_agent
- * @version $Id: lmbWebAgent.class.php 89 2007-10-12 15:28:50Z CatMan $
+ * @version $Id: lmbWebAgent.php 89 2007-10-12 15:28:50Z CatMan $
  */
 class lmbWebAgent {
   protected $request;

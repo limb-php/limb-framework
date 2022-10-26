@@ -8,9 +8,8 @@
  */
 namespace limb\web_agent\src\request;
 
-use lmbAbstractWebAgentRequest;
 use limb\web_agent\src\lmbWebServerResponse;
-use limb\web_agent\src\lmbWebAgentCookies;
+use limb\web_agent\src\lmbWebServerCookie;
 use limb\web_agent\src\lmbWebAgentHeaders;
 use limb\web_agent\src\lmbWebServerCookiesCollection;
 
@@ -20,7 +19,8 @@ use limb\web_agent\src\lmbWebServerCookiesCollection;
  * @package web_agent
  * @version $Id: lmbSocketWebAgentRequest.class.php 7686 2009-03-04 19:57:12Z korchasa $
  */
-class lmbSocketWebAgentRequest extends lmbAbstractWebAgentRequest {
+class lmbSocketWebAgentRequest extends lmbAbstractWebAgentRequest
+{
   protected $request_data = '';
   protected $request_headers = null;
   protected $request_method = '';

@@ -8,15 +8,14 @@
  */
 namespace limb\web_agent\src;
 
-use lmbWebAgentCookieIterator;
-
 /**
  * Web agent cookies
  *
  * @package web_agent
- * @version $Id: lmbWebAgentCookies.class.php 40 2007-10-04 15:52:39Z CatMan $
+ * @version $Id: lmbWebAgentCookies.php 40 2007-10-04 15:52:39Z CatMan $
  */
-class lmbWebAgentCookies implements IteratorAggregate {
+class lmbWebAgentCookies implements \IteratorAggregate
+{
 
   protected $cookies;
 

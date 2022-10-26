@@ -12,9 +12,10 @@ namespace limb\web_agent\src;
  * Web agent cookies
  *
  * @package web_agent
- * @version $Id: lmbWebAgentCookieIterator.class.php 39 2007-10-03 21:08:36Z CatMan $
+ * @version $Id: lmbWebAgentCookieIterator.php 39 2007-10-03 21:08:36Z CatMan $
  */
-class lmbWebAgentCookieIterator implements Iterator {
+class lmbWebAgentCookieIterator implements \Iterator
+{
 
   protected $cookies;
 

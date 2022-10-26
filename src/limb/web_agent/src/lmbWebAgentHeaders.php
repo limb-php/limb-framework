@@ -12,9 +12,10 @@ namespace limb\web_agent\src;
  * Web agent headers
  *
  * @package web_agent
- * @version $Id: lmbWebAgentHeaders.class.php 40 2007-10-04 15:52:39Z CatMan $
+ * @version $Id: lmbWebAgentHeaders.php 40 2007-10-04 15:52:39Z CatMan $
  */
-class lmbWebAgentHeaders {
+class lmbWebAgentHeaders
+{
 
   const last = -1;
 

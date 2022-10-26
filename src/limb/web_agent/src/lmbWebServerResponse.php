@@ -8,16 +8,14 @@
  */
 namespace limb\web_agent\src;
 
-use lmbWebServerCookiesCollection;
-use lmbWebAgentHeaders;
-
 /**
  * Web server response
  *
  * @package web_agent
- * @version $Id: lmbWebServerResponse.class.php 40 2007-10-04 15:52:39Z CatMan $
+ * @version $Id: lmbWebServerResponse.php 40 2007-10-04 15:52:39Z CatMan $
  */
-class lmbWebServerResponse {
+class lmbWebServerResponse
+{
   protected $content;
   protected $status;
   protected $mediatype;

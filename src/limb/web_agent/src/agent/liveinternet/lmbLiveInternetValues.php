@@ -14,7 +14,7 @@ use limb\web_agent\src\lmbWebAgentValues;
  * Values of Liveinternet agent
  *
  * @package web_agent
- * @version $Id: lmbLiveInternetValues.class.php 89 2007-10-12 15:28:50Z CatMan $
+ * @version $Id: lmbLiveInternetValues.php 89 2007-10-12 15:28:50Z CatMan $
  */
 class lmbLiveInternetValues extends lmbWebAgentValues {
 

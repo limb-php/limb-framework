@@ -8,8 +8,6 @@
  */
 namespace limb\filter_chain\src;
 
-use limb\filter_chain\src\lmbInterceptingFilterInterface;
-
 /**
  *  lmbFilterChain is an implementation of InterceptinfFilter design pattern.
  *
@@ -125,5 +123,3 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
     $filter_chain->next();
   }
 }
-
-
