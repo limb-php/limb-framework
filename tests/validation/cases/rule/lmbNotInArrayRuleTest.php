@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbNotInArrayRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbNotInArrayRuleTest extends lmbValidationRuleTestCase
 {
@@ -22,7 +22,7 @@ class lmbNotInArrayRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 'peaches');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($data, $this->error_list);
   }
@@ -34,10 +34,12 @@ class lmbNotInArrayRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 'www');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} has not allowed value.', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} has not allowed value.', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array()));
+                                        array());
  
     $rule->validate($data, $this->error_list);
   }
@@ -49,12 +51,13 @@ class lmbNotInArrayRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 'www');
 
-    $this->error_list->expectOnce('addError',
-                                  array($error,
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with($error,
                                         array('Field'=>'testfield'),
-                                        array()));
+                                        array());
  
     $rule->validate($data, $this->error_list);
   }
 }
-

@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbDateRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbDateRuleTest extends lmbValidationRuleTestCase
 {
@@ -22,7 +22,9 @@ class lmbDateRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '2007-01-12 12:30');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -34,7 +36,9 @@ class lmbDateRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'blah 12:30');
 
-    $this->error_list->expectOnce('addError');
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }

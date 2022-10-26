@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbNumericPrecisionRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
 {
@@ -22,7 +22,7 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '111.22');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -34,7 +34,7 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '0');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -46,7 +46,9 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 0);
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -58,10 +60,12 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'not a number');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} must be a valid number.', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} must be a valid number.', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array()));
+                                        array());
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -73,10 +77,12 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '1111');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('You have entered too many whole digits ({digits}) in {Field} (max {maxdigits}).', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('You have entered too many whole digits ({digits}) in {Field} (max {maxdigits}).', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array('maxdigits'=> 3, 'digits'=> 4)));
+                                        array('maxdigits'=> 3, 'digits'=> 4));
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -88,10 +94,12 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '111.222');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('You have entered too many decimal digits ({digits}) in {Field} (max {maxdigits}).', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('You have entered too many decimal digits ({digits}) in {Field} (max {maxdigits}).', 'validation'),
                                         array('Field' => 'testfield'),
-                                        array('maxdigits' => 2, 'digits' => 3)));
+                                        array('maxdigits' => 2, 'digits' => 3));
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -103,12 +111,13 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'not a number');
 
-    $this->error_list->expectOnce('addError',
-                                  array('Custom_Error',
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with('Custom_Error',
                                         array('Field'=>'testfield'),
-                                        array()));
+                                        array());
 
     $rule->validate($dataspace, $this->error_list);
   }
 }
-

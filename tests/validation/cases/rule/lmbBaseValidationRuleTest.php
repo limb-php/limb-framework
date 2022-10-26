@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbBaseValidationRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbStubBaseValidationRule extends lmbBaseValidationRule
 {
@@ -26,7 +26,7 @@ class lmbStubBaseValidationRule extends lmbBaseValidationRule
   }
 }
 
-class lmbConditionalValidationTest extends lmbValidationRuleTestCase
+class lmbBaseValidationRuleTest extends lmbValidationRuleTestCase
 {
   function testValidate()
   {

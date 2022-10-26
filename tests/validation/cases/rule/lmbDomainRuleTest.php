@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbDomainRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbDomainRuleTest extends lmbValidationRuleTestCase
 {
@@ -21,7 +21,9 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
     $dataspace = new lmbSet(array('testfield' => 'sourceforge.net'));
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -32,7 +34,9 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
     $dataspace = new lmbSet(array('testfield' => ''));
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -43,10 +47,12 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
     $dataspace = new lmbSet(array('testfield' => 'source#&%forge.net'));
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} must contain only letters, numbers, hyphens, and periods.', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} must contain only letters, numbers, hyphens, and periods.', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array()));
+                                        array());
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -57,10 +63,12 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
     $dataspace = new lmbSet(array('testfield' => 'source--forge.net'));
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} may not contain double hyphens (--).', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} may not contain double hyphens (--).', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array()));
+                                        array());
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -74,10 +82,12 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', $segment . '.net');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} segment {segment} is too large (it must be 63 characters or less).', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} segment {segment} is too large (it must be 63 characters or less).', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array('segment'=>$segment)));
+                                        array('segment'=>$segment));
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -91,10 +101,12 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', $segment . '.net');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} segment {segment} may not begin or end with a hyphen.', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} segment {segment} may not begin or end with a hyphen.', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array('segment'=>$segment)));
+                                        array('segment'=>$segment));
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -108,10 +120,12 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', $segment . '.net');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} segment {segment} may not begin or end with a hyphen.', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} segment {segment} may not begin or end with a hyphen.', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array('segment'=>$segment)));
+                                        array('segment'=>$segment));
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -159,7 +173,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'microsoft.co.uk');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -171,9 +185,8 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'localhost');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
 }
-

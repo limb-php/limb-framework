@@ -21,7 +21,7 @@ class lmbAtleastOneFieldRequiredRuleTest extends lmbValidationRuleTestCase
 
     $rule = new lmbAtleastOneFieldRequiredRule(array('field1', 'field2'));
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -46,7 +46,7 @@ class lmbAtleastOneFieldRequiredRuleTest extends lmbValidationRuleTestCase
 
     $rule = new lmbAtleastOneFieldRequiredRule(array('field1', 'field2', 'field3'));
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }

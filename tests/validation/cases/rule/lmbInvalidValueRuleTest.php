@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbInvalidValueRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
 {
@@ -22,7 +22,7 @@ class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 1);
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($data, $this->error_list);
   }
@@ -34,7 +34,7 @@ class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 'whatever');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($data, $this->error_list);
   }
@@ -46,7 +46,7 @@ class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 'null');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($data, $this->error_list);
 
@@ -59,7 +59,7 @@ class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 'false');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($data, $this->error_list);
 
@@ -72,10 +72,12 @@ class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 1);
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} value is wrong', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} value is wrong', 'validation'),
                                         array('Field' => 'testfield'),
-                                        array()));
+                                        array());
 
     $rule->validate($data, $this->error_list);
   }
@@ -87,14 +89,14 @@ class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', '1');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} value is wrong', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} value is wrong', 'validation'),
                                         array('Field' => 'testfield'),
-                                        array()));
+                                        array());
 
     $rule->validate($data, $this->error_list);
   }
 
 }
-
-

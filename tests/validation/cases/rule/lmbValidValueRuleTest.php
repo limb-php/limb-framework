@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbValidValueRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbValidValueRuleTest extends lmbValidationRuleTestCase
 {
@@ -22,7 +22,7 @@ class lmbValidValueRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 1);
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($data, $this->error_list);
   }
@@ -50,7 +50,7 @@ class lmbValidValueRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', '1');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($data, $this->error_list);
   }  
@@ -62,7 +62,7 @@ class lmbValidValueRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 0);
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($data, $this->error_list);
 

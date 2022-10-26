@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbPatternRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbPatternRuleTest extends lmbValidationRuleTestCase
 {
@@ -22,7 +22,7 @@ class lmbPatternRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 'SimpletestisCool');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($data, $this->error_list);
   }
@@ -34,10 +34,11 @@ class lmbPatternRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 'Simpletest is Cool!');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} value is wrong', 'validation'),
+    $this->error_list->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} value is wrong', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array()));
+                                        array());
 
     $rule->validate($data, $this->error_list);
   }
@@ -49,12 +50,12 @@ class lmbPatternRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 'Simpletest is Cool!');
 
-    $this->error_list->expectOnce('addError',
-                                  array('Custom_Error',
+    $this->error_list->expects($this->once())
+        ->method('addError')
+        ->with('Custom_Error',
                                         array('Field'=>'testfield'),
-                                        array()));
+                                        array());
 
     $rule->validate($data, $this->error_list);
   }
 }
-

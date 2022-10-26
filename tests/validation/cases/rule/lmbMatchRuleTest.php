@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbMatchRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbMatchRuleTest extends lmbValidationRuleTestCase
 {
@@ -23,7 +23,7 @@ class lmbMatchRuleTest extends lmbValidationRuleTestCase
     $dataspace->set('testfield', 'peaches');
     $dataspace->set('testmatch', 'peaches');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -34,7 +34,7 @@ class lmbMatchRuleTest extends lmbValidationRuleTestCase
 
     $dataspace = new lmbSet();
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -46,7 +46,7 @@ class lmbMatchRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'peaches');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -58,7 +58,7 @@ class lmbMatchRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testmatch', 'peaches');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -71,10 +71,12 @@ class lmbMatchRuleTest extends lmbValidationRuleTestCase
     $dataspace->set('testfield', 'peaches');
     $dataspace->set('testmatch', 'cream');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} does not match {MatchField}.', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} does not match {MatchField}.', 'validation'),
                                         array('Field' => 'testfield', 'MatchField' => 'testmatch'),
-                                        array()));
+                                        array());
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -87,12 +89,13 @@ class lmbMatchRuleTest extends lmbValidationRuleTestCase
     $dataspace->set('testfield', 'peaches');
     $dataspace->set('testmatch', 'cream');
 
-    $this->error_list->expectOnce('addError',
-                                  array('Custom_Error',
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with('Custom_Error',
                                         array('Field' => 'testfield', 'MatchField' => 'testmatch'),
-                                        array()));
+                                        array());
 
     $rule->validate($dataspace, $this->error_list);
   }
 }
-

@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbIdentifierRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbIdentifierRuleTest extends lmbValidationRuleTestCase
 {
@@ -22,7 +22,9 @@ class lmbIdentifierRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('test', 'test');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($data, $this->error_list);
 
@@ -35,7 +37,9 @@ class lmbIdentifierRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('test', 'test456');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($data, $this->error_list);
 
@@ -48,10 +52,12 @@ class lmbIdentifierRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('test', 'test test');
 
-    $this->error_list->expectOnce('addError',
-                                 array(lmb_i18n('{Field} must contain only letters and numbers', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} must contain only letters and numbers', 'validation'),
                                        array('Field' => 'test'),
-                                       array()));
+                                       array());
 
     $rule->validate($data, $this->error_list);
   }
@@ -63,12 +69,13 @@ class lmbIdentifierRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('test', 'test/test');
 
-    $this->error_list->expectOnce('addError',
-                                 array(lmb_i18n('{Field} must contain only letters and numbers', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} must contain only letters and numbers', 'validation'),
                                        array('Field' => 'test'),
-                                       array()));
+                                       array());
 
     $rule->validate($data, $this->error_list);
   }
 }
-

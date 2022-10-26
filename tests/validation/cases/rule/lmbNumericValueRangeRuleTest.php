@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbNumericValueRangeRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbNumericValueRangeRuleTest extends lmbValidationRuleTestCase
 {
@@ -22,7 +22,7 @@ class lmbNumericValueRangeRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 1);
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -34,10 +34,12 @@ class lmbNumericValueRangeRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', -10);
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} must be not less than {value}.', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} must be not less than {value}.', 'validation'),
                                         array('Field' => 'testfield'),
-                                        array('value' => 1)));
+                                        array('value' => 1));
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -49,10 +51,12 @@ class lmbNumericValueRangeRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 10);
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} must be not greater than {value}.', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} must be not greater than {value}.', 'validation'),
                                         array('Field' => 'testfield'),
-                                        array('value' => 5)));
+                                        array('value' => 5));
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -64,10 +68,12 @@ class lmbNumericValueRangeRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '4fdfasd');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} must be a valid number.', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} must be a valid number.', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array()));
+                                        array());
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -79,12 +85,13 @@ class lmbNumericValueRangeRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', -10);
 
-    $this->error_list->expectOnce('addError',
-                                  array('Custom_Error',
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with('Custom_Error',
                                         array('Field' => 'testfield'),
-                                        array('value' => 1)));
+                                        array('value' => 1));
 
     $rule->validate($dataspace, $this->error_list);
   }
 }
-

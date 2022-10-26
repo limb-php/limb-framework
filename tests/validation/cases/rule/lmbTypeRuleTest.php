@@ -9,9 +9,10 @@
 namespace tests\validation\cases\rule;
 
 use limb\validation\src\rule\lmbTypeRule;
+use limb\validation\src\lmbErrorList;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbTypeRuleTest extends lmbValidationRuleTestCase
 {
@@ -22,7 +23,10 @@ class lmbTypeRuleTest extends lmbValidationRuleTestCase
 
     $dataspace = new lmbSet(array($column => 1.1));
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
+
     $rule->validate($dataspace, $this->error_list);
   }
 
@@ -33,7 +37,10 @@ class lmbTypeRuleTest extends lmbValidationRuleTestCase
 
     $dataspace = new lmbSet(array($column => 1));
 
-    $this->error_list->expectOnce('addError');
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError');
+
     $rule->validate($dataspace, $this->error_list);
   }
 
@@ -49,4 +56,3 @@ class lmbTypeRuleTest extends lmbValidationRuleTestCase
     $this->assertEquals(current($error_list->getReadable()), '"field" error');
   }
 }
-

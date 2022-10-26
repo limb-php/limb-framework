@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbEmailRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbEmailRuleTest extends lmbValidationRuleTestCase
 {
@@ -22,7 +22,9 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'billgates@microsoft.com');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -34,10 +36,12 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'billgatesmicrosoft.com');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} must contain a @ character.', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('Invalid {Field}.', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array()));
+                                        array());
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -49,10 +53,12 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'bill(y!)gates@microsoft.com');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('Invalid user in {Field}.', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('Invalid {Field}.', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array()));
+                                        array());
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -64,10 +70,12 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'billgates@micro$oft.com');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} must contain only letters, numbers, hyphens, and periods.', 'validation'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} must contain only letters, numbers, hyphens, and periods.', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array()));
+                                        array());
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -79,7 +87,9 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'BillGates@Microsoft.com');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -91,7 +101,9 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'bill_gates.the-boss@microsoft.com');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -103,7 +115,9 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'bill_gates_@microsoft.com');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -115,10 +129,12 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'not@wrong.mail');
 
-    $this->error_list->expectOnce('addError',
-                                  array($error,
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with($error,
                                   array('Field'=>'testfield'),
-                                  array()));
+                                  array());
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -128,9 +144,10 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
   	$dataspace = new lmbSet();
   	$dataspace->set('testfield', '__ps__@gmail.com');
 
-  	$this->error_list->expectNever('addError');
+  	$this->error_list
+        ->expects($this->never())
+        ->method('addError');
+
   	$rule->validate($dataspace, $this->error_list);
   }
 }
-
-

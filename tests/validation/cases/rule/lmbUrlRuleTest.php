@@ -11,7 +11,7 @@ namespace tests\validation\cases\rule;
 use limb\validation\src\rule\lmbUrlRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require('.setup.php');
 
 class lmbUrlRuleTest extends lmbValidationRuleTestCase
 {
@@ -22,15 +22,15 @@ class lmbUrlRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'http://www.sourceforge.net/');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
     $rule->validate($dataspace, $this->error_list);
     
     $dataspace->set('testfield', 'https://www.sourceforge.net/');
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
     $rule->validate($dataspace, $this->error_list);
         
     $dataspace->set('testfield', 'ftp://www.sourceforge.net/');
-    $this->error_list->expectNever('addError');
+    $this->error_list->expects($this->never())->method('addError');
     $rule->validate($dataspace, $this->error_list);
   }
   
@@ -41,14 +41,13 @@ class lmbUrlRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'www.sourceforge.net/');
 
-    $this->error_list->expectOnce(
-      'addError',
-      array(
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(
         '{Field} is not an url.',
         array('Field'=>'testfield'),
-        array()
-      )
-    );
+        array());
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -60,14 +59,14 @@ class lmbUrlRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'http://www.source--forge.net/');
 
-    $this->error_list->expectOnce(
-      'addError',
-      array(
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(
         lmb_i18n('{Field} may not contain double hyphens (--).', 'validation'),
         array('Field'=>'testfield'),
         array()
-      )
-    );
+        );
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -79,14 +78,14 @@ class lmbUrlRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'http://www.source--forge.net/');
 
-    $this->error_list->expectOnce(
-      'addError',
-      array(
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(
         'Custom_Error',
         array('Field'=>'testfield'),
         array()
-      )
-    );
+        );
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -98,9 +97,10 @@ class lmbUrlRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'as@#$@$%ADGasjdkjf');
         
-    $this->error_list->expectOnce('addError');
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError');
     
     $rule->validate($dataspace, $this->error_list);
   }
-  
 }
