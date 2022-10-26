@@ -9,7 +9,6 @@
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbColumnInfo;
-use limb\dbal\src\drivers\sqlite\lmbSqliteTypeInfo;
 
 /**
  * class lmbSqliteColumnInfo.
@@ -61,11 +60,8 @@ class lmbSqliteColumnInfo extends lmbDbColumnInfo
     return $this->isAutoIncrement === true;
   }
 
-
   function canonicalizeIsAutoIncrement($isAutoIncrement)
   {
     return is_null($isAutoIncrement) ?  null : (bool) $isAutoIncrement;
   }
 }
-
-

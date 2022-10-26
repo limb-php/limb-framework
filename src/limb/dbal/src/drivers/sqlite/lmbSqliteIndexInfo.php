@@ -20,4 +20,3 @@ class lmbSqliteIndexInfo extends lmbDbIndexInfo
 {
 
 }
-

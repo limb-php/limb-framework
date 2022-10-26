@@ -28,5 +28,3 @@ class lmbSqliteInsertStatement extends lmbSqliteManipulationStatement implements
       return $this->connection->getSequenceValue(null, null);
   }
 }
-
-

@@ -47,28 +47,28 @@ class lmbSqliteTableInfo extends lmbDbTableInfo
     {
       $connection = $this->database->getConnection();
       $sql = "PRAGMA table_info('" . $this->name . "')";
-      $queryId = $connection->execute($sql);
+      $rset = $connection->execute($sql);
 
-      while($row = sqlite_fetch_array($queryId, SQLITE_ASSOC))
+      while($row = $rset->fetchArray(SQLITE3_ASSOC))
       {
         $name = $row['name'];
 
         $fulltype = $row['type'];
         $size = null;
         $scale = null;
-        if(preg_match('/^([^\(]+)\(\s*(\d+)\s*,\s*(\d+)\s*\)$/', $fulltype, $matches))
-        {
-          $type = $matches[1];
-          $size = $matches[2];
-          $scale = $matches[3]; // aka precision
+
+        if(preg_match('/^([^\(]+)\(\s*(\d+)\s*,\s*(\d+)\s*\)$/', $fulltype, $matches)) {
+            $type = trim($matches[1]);
+            $size = $matches[2];
+            $scale = $matches[3]; // aka precision
         }
-        elseif(preg_match('/^([^\(]+)\(\s*(\d+)\s*\)$/', $fulltype, $matches))
-        {
-          $type = $matches[1];
-          $size = $matches[2];
+        elseif(preg_match('/^([^\(]+)\(\s*(\d+)\s*\)$/', $fulltype, $matches)) {
+            $type = trim($matches[1]);
+            $size = $matches[2];
         }
-        else
-          $type = $fulltype;
+        else {
+            $type = $fulltype;
+        }
 
         // If column is primary key and of type INTEGER, it is auto increment
         // See: http://sqlite.org/faq.html#q1
@@ -86,6 +86,7 @@ class lmbSqliteTableInfo extends lmbDbTableInfo
           $this->pk[] = $name;
         }
       }
+
       $this->isColumnsLoaded = true;
     }
   }
@@ -97,18 +98,20 @@ class lmbSqliteTableInfo extends lmbDbTableInfo
 
     $this->loadColumns();
 
-    $connection_id = $this->database->getConnection()->getConnectionId();
+    $connection = $this->database->getConnection();
+    $rset = $connection->query("PRAGMA index_list('$this->name')");
 
-    $rs = sqlite_array_query($connection_id, "PRAGMA index_list('$this->name')", SQLITE_ASSOC);
+    $rs = $rset->fetchArray(SQLITE3_ASSOC);
 
     foreach($rs as $item)
     {
-
       $index = new lmbSqliteIndexInfo();
       $index->table = $this;
       $index->name = $item['name'];
 
-      list($index_info) = sqlite_array_query($connection_id, "PRAGMA index_info('$index->name')", SQLITE_ASSOC);
+      $rset2 = $connection->query("PRAGMA index_info('$index->name')");
+
+      list($index_info) = $rset2->fetchArray(SQLITE3_ASSOC);
       $index->column_name = $index_info['name'];
 
       if (1 == $item['unique'])

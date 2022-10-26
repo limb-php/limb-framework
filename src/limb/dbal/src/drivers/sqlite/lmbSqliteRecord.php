@@ -165,5 +165,3 @@ class lmbSqliteRecord extends lmbDbBaseRecord
     return $this->get($name);
   }
 }
-
-

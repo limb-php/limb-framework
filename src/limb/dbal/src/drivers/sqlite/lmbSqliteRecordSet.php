@@ -9,7 +9,6 @@
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbBaseRecordSet;
-use limb\dbal\src\drivers\sqlite\lmbSqliteRecord;
 
 /**
  * class lmbSqliteRecordSet.
@@ -19,8 +18,10 @@ use limb\dbal\src\drivers\sqlite\lmbSqliteRecord;
  */
 class lmbSqliteRecordSet extends lmbDbBaseRecordSet
 {
-  protected $query;
   protected $connection;
+  protected $query;
+  /** @var $rs \SQLite3Result */
+  protected $rs;
 
   protected $current;
   protected $valid;
@@ -34,20 +35,20 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
 
   function freeQuery()
   {
-    if(isset($this->queryId) && is_resource($this->queryId))
-      $this->queryId = null;
+    if(isset($this->rs) && is_resource($this->rs))
+      $this->rs = null;
   }
 
   function rewind()
   {
-    if(isset($this->queryId) && is_resource($this->queryId) && sqlite_num_rows($this->queryId))
+    if(isset($this->rs) && is_resource($this->rs))
     {
-      if(sqlite_seek($this->queryId, 0) === false)
+      if($this->rs->fetchArray(SQLITE3_ASSOC) === false)
       {
         $this->connection->_raiseError();
       }
     }
-    elseif(!$this->queryId)
+    elseif(!$this->rs)
     {
       $query = $this->query;
 
@@ -70,7 +71,7 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
         $this->offset;
       }
 
-      $this->queryId = $this->connection->execute($query);
+      $this->rs = $this->connection->execute($query);
     }
     $this->key = 0;
     $this->next();
@@ -79,7 +80,9 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
   function next()
   {
     $this->current = new lmbSqliteRecord();
-    $values = sqlite_fetch_array($this->queryId, SQLITE_ASSOC);
+
+    $values = $this->rs->fetchArray(SQLITE3_ASSOC);
+
     if($this->valid = is_array($values))
       $this->current->importRaw($values);
     $this->key++;
@@ -112,9 +115,9 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
       $query = rtrim($query, ',');
     }
 
-    $queryId = $this->connection->execute($query . " LIMIT 1 OFFSET $pos");
+    $rset = $this->connection->execute($query . " LIMIT 1 OFFSET $pos");
 
-    $res = sqlite_fetch_array($queryId, SQLITE_ASSOC);
+    $res = $rset->fetchArray(SQLITE3_ASSOC);
     if(is_array($res))
     {
       $record = new lmbSqliteRecord();
@@ -123,11 +126,23 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
     }
   }
 
+  protected function numRows()
+  {
+      $nrows = 0;
+      $this->rs->reset();
+      while ($this->rs->fetchArray())
+          $nrows++;
+      $this->rs->reset();
+
+      return $nrows;
+  }
+
   function countPaginated()
   {
-    if(is_null($this->queryId))
+    if(is_null($this->rs))
       $this->rewind();
-    return sqlite_num_rows($this->queryId);
+
+    return $this->numRows();
   }
 
   function count()
@@ -136,21 +151,20 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
        preg_match("/^\s*SELECT\s+.+\s+FROM\s+/Uis", $this->query))
     {
       //optimization for non paginated queries
-      if(!$this->limit && $this->queryId && $this->valid())
-        return sqlite_num_rows($this->queryId);
+      if(!$this->limit && $this->rs && $this->valid())
+        return $this->numRows();
 
       $rewritesql = preg_replace('/^\s*SELECT\s.*\s+FROM\s/Uis','SELECT COUNT(*) FROM ', $this->query);
       $rewritesql = preg_replace('/(\sORDER\s+BY\s.*)/is','', $rewritesql);
 
-      $queryId = $this->connection->execute($rewritesql);
-      return sqlite_fetch_single($queryId);
+      $rset = $this->connection->execute($rewritesql);
+      $count = $rset->fetchArray(SQLITE3_ASSOC);
+
+      return current($count);
     }
 
     // could not re-write the query, try a different method.
-    $queryId = $this->connection->execute($this->query);
-    $count = sqlite_num_rows($queryId);
-    return $count;
+    $rs = $this->connection->execute($this->query);
+    return $rs->numRows();
   }
 }
-
-

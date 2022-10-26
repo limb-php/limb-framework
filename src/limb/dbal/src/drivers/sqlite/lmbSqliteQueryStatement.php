@@ -21,8 +21,8 @@ class lmbSqliteQueryStatement extends lmbSqliteStatement implements lmbDbQuerySt
   function getOneRecord()
   {
     $record = new lmbSqliteRecord();
-    $queryId = $this->connection->execute($this->getSQL());
-    $values = sqlite_fetch_array($queryId, SQLITE_ASSOC);       
+    $rset = $this->connection->execute($this->getSQL());
+    $values = $rset->fetchArray(SQLITE3_ASSOC);
     if(is_array($values))
     {
       $record->import($values);
@@ -32,17 +32,18 @@ class lmbSqliteQueryStatement extends lmbSqliteStatement implements lmbDbQuerySt
 
   function getOneValue()
   {
-    $queryId = $this->connection->execute($this->getSQL());
-    return sqlite_fetch_single($queryId);    
+      $rset = $this->connection->execute($this->getSQL());
+      $values = $rset->fetchArray(SQLITE3_ASSOC);
+      return current($values);
   }
 
   function getOneColumnAsArray()
   {
-    $column = array();
-    $queryId = $this->connection->execute($this->getSQL());
-    while($value = sqlite_fetch_single($queryId))
-      $column[] = $value;
-    return $column;
+      $column = array();
+      $rset = $this->connection->execute($this->getSQL());
+      while($value = $rset->fetchArray(SQLITE3_ASSOC))
+          $column[] = current($value);
+      return $column;
   }
 
   function getRecordSet()
@@ -50,5 +51,3 @@ class lmbSqliteQueryStatement extends lmbSqliteStatement implements lmbDbQuerySt
     return new lmbSqliteRecordSet($this->connection, $this->getSQL());
   }
 }
-
-

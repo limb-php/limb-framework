@@ -47,7 +47,7 @@ class lmbSqliteConnection extends lmbDbBaseConnection
 
   function getConnection()
   {
-    if(!is_resource($this->connection))
+    if(!$this->connection)
       $this->connect();
 
     return $this->connection;
@@ -55,10 +55,10 @@ class lmbSqliteConnection extends lmbDbBaseConnection
 
   function connect()
   {
-    $this->connection = new \SQLite3($this->config['database'], 0666);
+      if( !file_exists($this->config['database']) )
+          $this->_raiseError();
 
-    if($this->connection === false)
-      $this->_raiseError();
+      $this->connection = new \SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE);
   }
 
   function __wakeup()
@@ -70,8 +70,7 @@ class lmbSqliteConnection extends lmbDbBaseConnection
   {
     if(is_resource($this->connection))
     {
-      \SQLite3::close($this->connection);
-      $this->connection = null;
+      $this->connection->close();
     }
   }
 
@@ -80,7 +79,7 @@ class lmbSqliteConnection extends lmbDbBaseConnection
     if(!$this->connection)
       throw new lmbDbException('Could not connect to database "' . $this->config['database'] . '"');
 
-    $errno = $this->getConnection()->lastErrorCode();
+    $errno = $this->connection->lastErrorCode();
 
     $info = array('driver' => 'sqlite');
     $info['errorno'] = $errno;
@@ -89,7 +88,7 @@ class lmbSqliteConnection extends lmbDbBaseConnection
     if(!is_null($sql))
       $info['sql'] = $sql;
 
-    throw new lmbDbException($this->getConnection()->lastErrorMsg($errno) . ' SQL: '. $sql, $info);
+    throw new lmbDbException($this->connection->lastErrorMsg($errno) . ' SQL: '. $sql, $info);
   }
 
   function execute($sql)
@@ -184,6 +183,6 @@ class lmbSqliteConnection extends lmbDbBaseConnection
 
   function getSequenceValue($table, $colname)
   {
-    return \SQLite3::lastInsertRowID();//???
+    return $this->getConnection()->lastInsertRowID();//???
   }
 }

@@ -9,6 +9,7 @@
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbStatementInterface;
+use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbSqliteStatement.
@@ -177,8 +178,6 @@ class lmbSqliteStatement implements lmbDbStatementInterface
 
   protected function _escape($value)
   {
-    return sqlite_escape_string((string) $value);
+    return $this->connection->escape($value);
   }
 }
-
-

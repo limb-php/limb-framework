@@ -22,11 +22,9 @@ class lmbSqliteDropStatement extends lmbSqliteStatement
   {
     try
     {
-      $this->queryId = @$this->connection->execute($this->getSQL());
+      $this->queryId = $this->connection->execute($this->getSQL());
       return (bool) $this->queryId;
     }
     catch(lmbException $e){}
   }
 }
-
-

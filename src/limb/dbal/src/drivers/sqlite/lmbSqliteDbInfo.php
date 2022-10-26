@@ -9,7 +9,6 @@
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbInfo;
-use limb\dbal\src\drivers\sqlite\lmbSqliteTableInfo;
 use limb\dbal\src\exception\lmbDbException;
 
 /**
@@ -40,12 +39,14 @@ class lmbSqliteDbInfo extends lmbDbInfo
   {
     if($this->isExisting)
     {
-      $sql = "SELECT name FROM sqlite_master WHERE type='table' UNION ALL " .
+      $sql = "SELECT name FROM sqlite_master WHERE type='table'" .
+             " UNION ALL " .
              "SELECT name FROM sqlite_temp_master WHERE type='table' ORDER BY name;";
 
       $results = $this->getConnection()->execute($sql);
-      while($row = $results->fetchArray())
-        $this->tables[$row] = null;
+      while($row = $results->fetchArray(SQLITE3_ASSOC)) {
+          $this->tables[$row['name']] = null;
+      }
 
       $this->isTablesLoaded = true;
     }
@@ -62,5 +63,3 @@ class lmbSqliteDbInfo extends lmbDbInfo
     return $this->tables[$name];
   }
 }
-
-

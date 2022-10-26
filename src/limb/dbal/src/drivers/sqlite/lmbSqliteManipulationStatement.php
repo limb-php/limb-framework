@@ -20,7 +20,7 @@ class lmbSqliteManipulationStatement extends lmbSqliteStatement implements lmbDb
 {
   function getAffectedRowCount()
   {
-    return sqlite_changes($this->connection->getConnectionId());
+    return $this->connection->getConnection()->changes();
   }
 
   function execute()
@@ -28,7 +28,7 @@ class lmbSqliteManipulationStatement extends lmbSqliteStatement implements lmbDb
     $sql = ltrim($this->getSQL());
 
     //TODO: make it less fragile
-    //this is a dirty hack for sqlite_changes which
+    //this is a dirty hack for changes which
     //doesn't return proper value if there was no where condition
     if((stripos($sql, 'delete ') === 0 || stripos($sql, 'update ') === 0)
        && !preg_match('~\swhere\s~i', $sql))
@@ -37,5 +37,3 @@ class lmbSqliteManipulationStatement extends lmbSqliteStatement implements lmbDb
     return (bool)$this->connection->execute($sql);
   }
 }
-
-
