@@ -1,5 +1,6 @@
 {
     "name": "limb/view",
+    "description": "A thin view layer between controller and templating subsystem",
     "require": {
         "php": ">=7.2",
         "limb/core": "^4.2",

@@ -1,5 +1,6 @@
 {
     "name": "limb/datetime",
+    "description": "Datetime package. Tools for date and time manipulation",
     "require": {
         "php": ">=7.2",
         "limb/core": "^4.2"

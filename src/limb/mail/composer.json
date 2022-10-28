@@ -1,5 +1,6 @@
 {
     "name": "limb/mail",
+    "description": "Mailing library. A wrapper around PHPMailer library(http://phpmailer.sourceforge.net/)",
     "require": {
         "php": ">=7.2",
         "limb/core": "^4.2",

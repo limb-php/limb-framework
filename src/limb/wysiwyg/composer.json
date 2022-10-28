@@ -1,5 +1,6 @@
 {
     "name": "limb/wysiwyg",
+    "description": "WYSIWYG tag support for templates.",
     "require": {
         "php": ">=7.2",
         "limb/core": "^4.2",

@@ -1,5 +1,6 @@
 {
     "name": "limb/calendar",
+    "description": "Calendar widget. Calendar widget based on DHML Calendar library(www.dynarch.com/projects/calendar)",
     "require": {
         "php": ">=7.2",
         "limb/core": "^4.2"

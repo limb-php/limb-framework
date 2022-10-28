@@ -1,5 +1,6 @@
 {
     "name": "limb/core",
+    "description": "Limb4 core package. This is a core Limb4 package which provides tools for lazy loading of PHP code, iterators support,generic object containers, decorators generators, transparent object proxies, etc",
     "require": {
         "php": ">=7.2"
     },

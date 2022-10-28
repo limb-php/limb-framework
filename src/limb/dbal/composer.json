@@ -1,5 +1,6 @@
 {
   "name": "limb/dbal",
+  "description": "DataBase Abstraction Layer. This package provides means for accessing different databases(MySQL, Postgres, Oracle, SQLite) using convenient OO API.",
   "require": {
     "php": ">=7.2",
     "limb/core": "^4.2",

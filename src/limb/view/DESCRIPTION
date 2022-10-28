@@ -1,1 +1,0 @@
-This package is a thin layer between controller and low level templating subsystems(e.g. {{macro}} and TWIG)

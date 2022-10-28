@@ -1,5 +1,6 @@
 {
     "name": "limb/validation",
+    "description": "Tools for data validation. This package allows to validate generic data with custom validation rules",
     "require": {
         "php": ">=7.2",
         "limb/core": "^4.2",

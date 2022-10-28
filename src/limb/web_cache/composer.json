@@ -1,5 +1,6 @@
 {
     "name": "limb/web_cache",
+    "description": "Web cache package. Web cache to perform full page caching in you Limb based applications.",
     "require": {
         "php": ">=7.2",
         "limb/core": "^4.2",

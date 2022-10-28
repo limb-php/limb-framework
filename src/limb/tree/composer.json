@@ -1,5 +1,6 @@
 {
     "name": "limb/tree",
+    "description": "Tools for storing trees in relational databases. This package allows you to store hierarchies in database using materialized path tree and nested sets algorithms.",
     "require": {
         "php": ">=7.2",
         "limb/core": "^4.2",

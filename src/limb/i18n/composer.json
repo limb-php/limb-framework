@@ -1,5 +1,6 @@
 {
     "name": "limb/i18n",
+    "description": "I18N tools. This package provides basic tools for i18n content: translations, multibyte strings handling(utf-8), etc",
     "require": {
         "php": ">=7.2",
         "limb/core": "^4.2",

@@ -1,5 +1,6 @@
 {
     "name": "limb/web_app",
+    "description": "Rapid web application development package. This package provides tools for rapid web applications development similar to Rails in some ways",
     "require": {
         "php": ">=7.2",
         "limb/core": "^4.2",
