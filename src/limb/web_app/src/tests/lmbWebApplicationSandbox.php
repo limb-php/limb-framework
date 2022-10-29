@@ -12,6 +12,7 @@ use limb\filter_chain\src\lmbFilterChain;
 use limb\net\src\lmbFakeHttpResponse;
 use limb\session\src\lmbFakeSession;
 use limb\web_app\src\lmbWebApplication;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbWebApplicationSandbox extends lmbFilterChain
 {
@@ -27,7 +28,7 @@ class lmbWebApplicationSandbox extends lmbFilterChain
 
   function imitate($request)
   {
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
     $toolkit->setRequest($request);
     $toolkit->setResponse(new lmbFakeHttpResponse());
     $toolkit->setSession(new lmbFakeSession());

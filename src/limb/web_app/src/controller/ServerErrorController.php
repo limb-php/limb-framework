@@ -8,8 +8,6 @@
  */
 namespace limb\web_app\src\controller;
 
-use limb\web_app\src\controller\LmbController;
-
 /**
  * class ServerErrorController.
  *

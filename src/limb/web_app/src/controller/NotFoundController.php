@@ -8,13 +8,11 @@
  */
 namespace limb\web_app\src\controller;
 
-use limb\web_app\src\controller\LmbController;
-
 /**
  * class NotFoundController.
  *
  * @package web_app
- * @version $Id: NotFoundController.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: NotFoundController.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class NotFoundController extends LmbController
 {

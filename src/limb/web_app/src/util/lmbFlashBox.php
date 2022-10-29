@@ -8,8 +8,6 @@
  */
 namespace limb\web_app\src\util;
 
-use limb\web_app\src\util\lmbMessageBox;
-
 /**
  * class lmbFlashBox.
  *
@@ -28,5 +26,3 @@ class lmbFlashBox extends lmbMessageBox
     return $obj;
   }
 }
-
-

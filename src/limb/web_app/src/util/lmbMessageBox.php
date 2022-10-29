@@ -28,48 +28,48 @@ class lmbMessageBox
 
   function reset()
   {
-    $this->messages = array(self :: ERRORS => array(),
-                            self :: MESSAGES => array());
+    $this->messages = array(self::ERRORS => array(),
+                            self::MESSAGES => array());
   }
 
   function resetMessages()
   {
-    $this->messages[self :: MESSAGES] = array();
+    $this->messages[self::MESSAGES] = array();
   }
 
   function resetErrors()
   {
-    $this->messages[self :: ERRORS] = array();
+    $this->messages[self::ERRORS] = array();
   }
 
   function addError($error)
   {
-    $this->messages[self :: ERRORS][] = $error;
+    $this->messages[self::ERRORS][] = $error;
   }
 
   function addMessage($message)
   {
-    $this->messages[self :: MESSAGES][] = $message;
+    $this->messages[self::MESSAGES][] = $message;
   }
 
   function getErrors()
   {
-    return $this->messages[self :: ERRORS];
+    return $this->messages[self::ERRORS];
   }
 
   function getMessages()
   {
-    return $this->messages[self :: MESSAGES];
+    return $this->messages[self::MESSAGES];
   }
 
   function hasErrors()
   {
-    return sizeof($this->messages[self :: ERRORS]) > 0;
+    return sizeof($this->messages[self::ERRORS]) > 0;
   }
 
   function hasMessages()
   {
-    return sizeof($this->messages[self :: MESSAGES]) > 0;
+    return sizeof($this->messages[self::MESSAGES]) > 0;
   }
   
   function getUnifiedList()
@@ -86,5 +86,3 @@ class lmbMessageBox
     return $result;
   }
 }
-
-

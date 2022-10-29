@@ -8,13 +8,11 @@
  */
 namespace limb\web_app\src\request;
 
-use limb\web_app\src\request\lmbRequestDispatcherInterface;
-
 /**
  * class lmbCompositeRequestDispatcher.
  *
  * @package web_app
- * @version $Id: lmbCompositeRequestDispatcher.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbCompositeRequestDispatcher.php 7486 2009-01-26 19:13:20Z
  */
 class lmbCompositeRequestDispatcher implements lmbRequestDispatcherInterface
 {
@@ -37,5 +35,3 @@ class lmbCompositeRequestDispatcher implements lmbRequestDispatcherInterface
     $this->dispatchers[] = $dispatcher;
   }
 }
-
-

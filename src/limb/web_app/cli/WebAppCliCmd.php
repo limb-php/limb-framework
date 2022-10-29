@@ -9,6 +9,8 @@
 namespace limb\web_app\cli;
 
 use limb\fs\src\lmbFs;
+use limb\cli\src\lmbCliBaseCmd;
+use limb\cli\src\lmbCliInput;
 
 /**
  * class WebAppCliCmd.
@@ -42,7 +44,7 @@ class WebAppCliCmd extends lmbCliBaseCmd
 
     echo "Copying skeleton Limb3 WEB_APP application to '$dst_dir'...\n";
 
-    lmbFs :: cp(dirname(__FILE__) . '/../skel', $dst_dir, '~^\.svn~');
+    lmbFs::cp(dirname(__FILE__) . '/../skel', $dst_dir, '~^\.svn~');
 
     echo "Generating code from templates...\n";
 
@@ -71,5 +73,3 @@ EOD;
     unlink($template);
   }
 }
-
-

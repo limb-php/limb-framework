@@ -8,7 +8,6 @@
  */
 namespace limb\web_app\src\fetcher;
 
-use limb\web_app\src\fetcher\lmbFetcher;
 use limb\core\src\lmbCollection;
 use limb\active_record\src\lmbActiveRecord;
 use limb\core\src\exception\lmbException;
@@ -98,7 +97,7 @@ class lmbActiveRecordFetcher extends lmbFetcher
           $record = call_user_func_array($callback, array($this->record_id));
         }
         else
-          $record = lmbActiveRecord :: findById($this->class_name, $this->record_id);
+          $record = lmbActiveRecord::findById($this->class_name, $this->record_id);
       }
       catch(lmbARNotFoundException $e)
       {
@@ -109,7 +108,7 @@ class lmbActiveRecordFetcher extends lmbFetcher
     }
     elseif($this->record_ids)
     {
-      return lmbActiveRecord :: findByIds($this->class_name, $this->record_ids);
+      return lmbActiveRecord::findByIds($this->class_name, $this->record_ids);
     }
 
     return new lmbCollection();
@@ -120,5 +119,3 @@ class lmbActiveRecordFetcher extends lmbFetcher
     return new lmbCollection(array($ar));
   }
 }
-
-

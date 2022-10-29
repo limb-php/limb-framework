@@ -16,7 +16,7 @@ use limb\i18n\src\lmbI18n;
  * class lmbUniqueTableFieldRule.
  *
  * @package web_app
- * @version $Id: lmbUniqueTableFieldRule.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbUniqueTableFieldRule.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class lmbUniqueTableFieldRule extends lmbSingleFieldRule
 {
@@ -26,10 +26,10 @@ class lmbUniqueTableFieldRule extends lmbSingleFieldRule
 
   function __construct($field_name, $table_name, $table_field = '', $error_message = '')
   {
-    parent :: __construct($field_name);
+    parent::__construct($field_name);
 
     $this->table_name = $table_name;
-    $this->table_field = $table_field ? $table_field : $field_name;
+    $this->table_field = $table_field ?? $field_name;
     $this->error_message = $error_message;
   }
 
@@ -55,4 +55,3 @@ class lmbUniqueTableFieldRule extends lmbSingleFieldRule
                    array('Value' => $value));
   }
 }
-

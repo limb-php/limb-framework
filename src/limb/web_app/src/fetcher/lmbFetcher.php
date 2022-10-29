@@ -9,7 +9,6 @@
 namespace limb\web_app\src\fetcher;
 
 use limb\core\src\lmbCollection;
-use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
 use limb\core\src\lmbString;
 
@@ -17,7 +16,7 @@ use limb\core\src\lmbString;
  * abstract class lmbFetcher.
  *
  * @package web_app
- * @version $Id: lmbFetcher.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbFetcher.php 7486 2009-01-26 19:13:20Z
  */
 abstract class lmbFetcher
 {
@@ -49,7 +48,7 @@ abstract class lmbFetcher
       return;
     }
     else
-      $this->order_params = self :: extractOrderPairsFromString($order);
+      $this->order_params = self::extractOrderPairsFromString($order);
   }
 
   function addDecorator($decorator, $params = array())
@@ -59,8 +58,6 @@ abstract class lmbFetcher
 
   protected function _applyDecorators($dataset)
   {
-    $toolkit = lmbToolkit::instance();
-
     foreach($this->decorators as $decorator_data)
     {
       $refl = new \ReflectionClass($decorator_data[0]);
@@ -156,4 +153,3 @@ abstract class lmbFetcher
     return $order_pairs;
   }
 }
-
