@@ -23,7 +23,7 @@ lmbEnv::setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
  * class lmbController.
  *
  * @package web_app
- * @version $Id: lmbController.class.php 8117 2010-01-31 11:20:22Z Forumsky $
+ * @version $Id: lmbController.php 8117 2010-01-31 11:20:22Z
  */
 class LmbController
 {
@@ -181,37 +181,31 @@ class LmbController
 
   function performAction()
   {
-    if($this->is_forwarded)
-    {
-      return false;
-    }
-
-    if(method_exists($this, $method = $this->_mapCurrentActionToMethod()))
-    {
-      if($template_path = $this->findTemplateForAction($this->current_action))
-      {
-        $this->setTemplate($template_path);
+      if($this->is_forwarded) {
+          return false;
       }
 
-      $res = $this->$method();
+      if($template_path = $this->findTemplateForAction($this->current_action)) {
+          $this->setTemplate($template_path);
+      }
+
+      $res = null;
+
+      if(method_exists($this, $method = $this->_mapCurrentActionToMethod())) {
+          $res = $this->$method();
+
+          if(is_string($res))
+              $this->response->write($res);
+      }
+      elseif(!$template_path) {
+          throw new lmbException('No method defined in controller "' .
+              $this->getName() . '" for action "' . $this->current_action . '" ' .
+              'and no appropriate template found');
+      }
 
       $this->_passLocalAttributesToView();
-
-      if(is_string($res))
-        $this->response->write($res);
 
       return $res;
-    }
-    elseif($template_path = $this->findTemplateForAction($this->current_action))
-    {
-      $this->setTemplate($template_path);
-      $this->_passLocalAttributesToView();
-      return;
-    }
-
-    throw new lmbException('No method defined in controller "' .
-                           $this->getName(). '" for action "' . $this->current_action . '" ' .
-                           'and no appropriate template found');
   }
 
   function useForm($form_id, $datasource = null)
@@ -236,7 +230,7 @@ class LmbController
   {
     foreach(get_object_vars($this) as $name => $value)
     {
-      if($name{0} == '_')
+      if($name[0] == '_')
         continue;
       $this->view->set($name, $value);
     }
@@ -328,12 +322,12 @@ class LmbController
 
   function forwardTo404()
   {
-    return $this->forward('NotFoundController', 'display');
+    return $this->forward(NotFoundController::class, 'display');
   }
 
   function forwardTo500()
   {
-    return $this->forward('ServerErrorController', 'display');
+    return $this->forward(ServerErrorController::class, 'display');
   }
 
 
@@ -357,8 +351,8 @@ class LmbController
   {
     if($this->map_changed && $this->isCacheEnabled())
     {
-      lmbFs :: safeWrite(lmbEnv::get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache',
-                         serialize($this->action_template_map));
+      lmbFs::safeWrite(lmbEnv::get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache',
+                       serialize($this->action_template_map));
     }
   }
 
@@ -399,5 +393,3 @@ class LmbController
     return false;
   }
 }
-
-
