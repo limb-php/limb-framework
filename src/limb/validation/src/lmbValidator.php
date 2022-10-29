@@ -77,13 +77,13 @@ class lmbValidator
   * Alias for adding lmbRequiredRule to validator
   * @return void
   */
-  function addRequiredRule($field, $custom_error = '')
+  function addRequiredRule($field, $custom_error = null)
   {
     $this->addRule(new lmbHandle(lmbRequiredRule::class,
                                  array($field, $custom_error)));
   }
 
-  function addAtLeastOneRequiredRule($fields, $custom_error = '')
+  function addAtLeastOneRequiredRule($fields, $custom_error = null)
   {
     $this->addRule(new lmbHandle(lmbAtleastOneFieldRequiredRule::class,
                                  array($fields, $custom_error)));
@@ -93,7 +93,7 @@ class lmbValidator
   * Alias for adding lmbRequiredObjectRule to validator
   * @return void
   */
-  function addRequiredObjectRule($field, $class = null, $custom_error = '')
+  function addRequiredObjectRule($field, $class = null, $custom_error = null)
   {
     $this->addRule(new lmbHandle(lmbRequiredObjectRule::class,
                                  array($field, $class, $custom_error)));
@@ -103,7 +103,7 @@ class lmbValidator
   * Alias for adding lmbSizeRangeRule to validator
   * @return void
   */
-  function addSizeRangeRule($field, $min_or_max_length, $max_length = NULL, $custom_error = '')
+  function addSizeRangeRule($field, $min_or_max_length, $max_length = null, $custom_error = null)
   {
     $this->addRule(new lmbHandle(lmbSizeRangeRule::class,
                                  array($field, $min_or_max_length, $max_length, $custom_error)));
