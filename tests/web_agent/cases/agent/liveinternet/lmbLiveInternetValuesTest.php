@@ -6,14 +6,17 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\web_agent\cases\agent\liveinternet;
 
-lmb_require('limb/web_agent/src/agent/liveinternet/lmbLiveInternetValues.class.php');
+use PHPUnit\Framework\TestCase;
+use limb\web_agent\src\agent\liveinternet\lmbLiveInternetValues;
 
 /**
  * @package web_agent
  * @version $Id: lmbLiveInternetValuesTest.class.php 43 2007-10-05 15:33:11Z CatMan $
  */
-class lmbLiveInternetValuesTest extends TestCase {
+class lmbLiveInternetValuesTest extends TestCase
+{
 
   function testBuildQuery()
   {

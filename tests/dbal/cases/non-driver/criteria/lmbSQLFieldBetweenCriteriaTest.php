@@ -6,15 +6,19 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-require_once('limb/dbal/tests/common.inc.php');
-lmb_require('limb/dbal/src/criteria/lmbSQLFieldBetweenCriteria.class.php');
+namespace tests\dbal\cases\nondriver\criteria;
+
+require('limb/dbal/tests/common.inc.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\dbal\src\criteria\lmbSQLFieldBetweenCriteria;
 
 class lmbSQLFieldBetweenCriteriaTest extends TestCase
 {
   var $conn;
   var $query;
 
-  function setUp()
+  function setUp(): void
   {
     $this->conn = new ConnectionTestStub();
   }
@@ -45,5 +49,3 @@ class lmbSQLFieldBetweenCriteriaTest extends TestCase
                                       'pta1' => 30));
   }
 }
-
-

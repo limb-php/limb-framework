@@ -6,12 +6,16 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/dbal/tests/common.inc.php');
-lmb_require('limb/dbal/src/criteria/lmbSQLRawCriteria.class.php');
-lmb_require('limb/dbal/src/criteria/lmbSQLTableFieldCriteria.class.php');
-lmb_require('limb/dbal/src/query/lmbSelectRawQuery.class.php');
-lmb_require('limb/dbal/src/drivers/lmbDbConnection.interface.php');
-lmb_require('limb/dbal/src/drivers/lmbDbStatement.interface.php');
+namespace tests\dbal\cases\query;
+
+require('limb/dbal/tests/common.inc.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\dbal\src\criteria\lmbSQLRawCriteria;
+use limb\dbal\src\criteria\lmbSQLTableFieldCriteria;
+use limb\dbal\src\query\lmbSelectRawQuery;
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 
 Mock :: generate('lmbDbConnection', 'MockConnection');
 Mock :: generate('lmbDbStatement', 'MockStatement');
@@ -20,7 +24,7 @@ class lmbSelectRawQueryTest extends TestCase
 {
   protected $conn;
 
-  function setUp()
+  function setUp(): void
   {
     //this stub uses ' quoting for simpler testing
     $this->conn = new ConnectionTestStub();

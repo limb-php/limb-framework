@@ -6,7 +6,11 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/dbal/src/lmbDbDSN.class.php');
+namespace tests\dbal\cases\nondriver;
+
+use PHPUnit\Framework\TestCase;
+use limb\dbal\src\lmbDbDSN;
+use limb\core\src\exception\lmbException;
 
 class lmbDbDSNTest extends TestCase
 {
@@ -109,5 +113,3 @@ class lmbDbDSNTest extends TestCase
     $this->assertEquals($dsn->buildUri()->toString(), 'mysql://somehost/');
   }
 }
-
-

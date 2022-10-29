@@ -6,6 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\macro\cases\tags\list;
+
+use tests\macro\cases\lmbBaseMacroTest;
+use limb\core\src\lmbArrayIterator;
 
 class lmbMacroListTagTest extends lmbBaseMacroTest
 {
@@ -348,7 +352,7 @@ class lmbMacroListTagTest extends lmbBaseMacroTest
     $list_tpl = $this->_createTemplate($list, 'list.html');
 
     $macro = $this->_createMacro($list_tpl);
-    lmb_require('limb/core/src/lmbArrayIterator.class.php');
+
     $list = new lmbArrayIterator(array('John', 'Pavel', 'Serega', 'Viktor'));
     $list->paginate(0, 3);
     $macro->set('list', $list);

@@ -11,13 +11,13 @@ namespace tests\i18n\cases\utility;
 /**
  * TODO replace cli by taskman
  */
-return;
 
-lmb_require('limb/cli/src/lmbCliResponse.class.php');
-lmb_require('limb/fs/src/lmbFs.class.php');
-lmb_require('limb/i18n/src/translation/lmbDictionary.class.php');
-lmb_require('limb/i18n/src/translation/lmbQtDictionaryBackend.class.php');
-lmb_require('limb/i18n/src/translation/lmbDictionaryUpdater.class.php');
+use PHPUnit\Framework\TestCase;
+use limb\cli\src\lmbCliResponse;
+use limb\fs\src\lmbFs;
+use limb\i18n\src\translation\lmbDictionary;
+use limb\i18n\src\translation\lmbQtDictionaryBackend;
+use limb\i18n\src\translation\lmbDictionaryUpdater;
 
 Mock :: generate('lmbCliResponse', 'MockCliResponse');
 
@@ -29,7 +29,7 @@ class lmbDictionaryUpdaterTest extends TestCase
     $this->skipIf(true, 'TODO: replace cli by taskman');
   }
   
-  function setUp()
+  function setUp(): void
   {
     $this->_cleanUp();
     lmbFs :: mkdir(LIMB_VAR_DIR. '/translations');
@@ -38,7 +38,7 @@ class lmbDictionaryUpdaterTest extends TestCase
     lmbFs :: mkdir(LIMB_VAR_DIR. '/parse2');
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->_cleanUp();
   }

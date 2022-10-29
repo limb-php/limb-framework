@@ -6,7 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/dbal/src/query/lmbBulkInsertQuery.class.php');
+namespace tests\dbal\cases\query;
+
+use lmbQueryBaseTestCase;
+use limb\dbal\src\query\lmbBulkInsertQuery;
+use limb\toolkit\src\lmbToolkit;
+use limb\core\src\exception\lmbException;
 
 class lmbBulkInsertQueryTest extends lmbQueryBaseTestCase
 {

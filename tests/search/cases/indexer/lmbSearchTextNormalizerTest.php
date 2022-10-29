@@ -6,7 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/search/src/indexer/lmbSearchTextNormalizer.class.php');
+namespace tests\search\cases\dataset;
+
+use PHPUnit\Framework\TestCase;
+use limb\search\src\indexer\lmbSearchTextNormalizer;
 
 class lmbSearchTextNormalizerTest extends TestCase
 {

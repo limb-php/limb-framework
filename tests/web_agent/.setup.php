@@ -6,12 +6,14 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\web_agent;
 
-require_once(dirname(__FILE__) . '/../common.inc.php');
-lmb_require('limb/web_agent/src/request/lmbAbstractWebAgentRequest.class.php');
-lmb_require('limb/web_agent/src/lmbWebServerResponse.class.php');
-lmb_require('limb/web_agent/src/lmbWebAgentCookies.class.php');
-lmb_require('limb/web_agent/src/lmbWebServerCookiesCollection.class.php');
+require(dirname(__FILE__) . '/../common.inc.php');
+
+use limb\web_agent\src\request\lmbAbstractWebAgentRequest;
+use limb\web_agent\src\lmbWebServerResponse;
+use limb\web_agent\src\lmbWebAgentCookies;
+use limb\web_agent\src\lmbWebServerCookiesCollection;
 
 /**
  * @package web_agent

@@ -1,7 +1,10 @@
 <?php
+namespace tests\wysiwyg\cases;
 
-lmb_require('limb/core/src/lmbSet.class.php');
-lmb_require('limb/wysiwyg/src/lmbWysiwygConfigurationHelper.class.php');
+use PHPUnit\Framework\TestCase;
+use limb\core\src\lmbSet;
+use limb\wysiwyg\src\lmbWysiwygConfigurationHelper;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbWysiwygConfigurationHelperTest extends TestCase
 {
@@ -10,7 +13,7 @@ class lmbWysiwygConfigurationHelperTest extends TestCase
    */
   protected $_helper;
     
-  function setUp()
+  function setUp(): void
   {
     parent::setUp();
    

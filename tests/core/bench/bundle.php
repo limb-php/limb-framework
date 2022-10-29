@@ -1,11 +1,11 @@
 <?php
-
 set_include_path(dirname(__FILE__) . '/../../../../');
-require_once('limb/core/common.inc.php');
-require_once('limb/fs/src/lmbFs.class.php');
+require('limb/core/common.inc.php');
+
+use limb\fs\src\lmbFs;
 
 /*--------------------------------------*/
-lmbFs :: mkDir(dirname(__FILE__) . '/temp/');
+lmbFs::mkDir(dirname(__FILE__) . '/temp/');
 
 generateBundle('cc');
 
@@ -30,13 +30,12 @@ $dir = dirname(__FILE__) . '/temp/';
 for($i=0;$i<300;$i++)
 {
   $class_name = 'MyClass'. $i . 'aa';
-  lmb_require($dir. $class_name . '.class.php');
   $object = new $class_name();
 }
 
-echo "lmb_require $i files: " . (microtime(true) - $mark) . "\n";
+echo "require $i files: " . (microtime(true) - $mark) . "\n";
 
-lmbFs :: rm(dirname(__FILE__) . '/temp/');
+lmbFs::rm(dirname(__FILE__) . '/temp/');
 
 /*--------------------------------------*/
 
@@ -58,7 +57,7 @@ function generateFiles($sufffix)
   for($i = 0; $i < 300; $i++)
   {
     $content = getContent($i . $sufffix);
-    file_put_contents(dirname(__FILE__) . '/temp/MyClass' . $i . $sufffix .'.class.php', '<?php ' . $content . ' ?>');
+    file_put_contents(dirname(__FILE__) . '/temp/MyClass' . $i . $sufffix .'.php', '<?php ' . $content . ' ?>');
   }
 }
 

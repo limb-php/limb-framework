@@ -1,44 +1,25 @@
 <?php
-
 set_include_path(dirname(__FILE__) . '/../../../../' . PATH_SEPARATOR. '.');
-require_once('limb/core/common.inc.php');
+require('limb/core/common.inc.php');
 
-$path = dirname(__FILE__) . '/MyClass.class.php';
+$path = dirname(__FILE__) . '/MyClass.php';
 
 $mark = microtime(true);
-
-for($i=0;$i<1000;$i++)
-{
-  lmb_require('Boo.class.php');
-}
 
 echo "lmb_require same class, no autoload: " . (microtime(true) - $mark) . "\n";
 
 $mark = microtime(true);
 
-for($i=0;$i<1000;$i++)
-{
-  lmb_require('Boo' . $i . '.class.php');
-}
-
 echo "lmb_require unique class, no autoload: " . (microtime(true) - $mark) . "\n";
 
 $mark = microtime(true);
 
-for($i=0;$i<1000;$i++)
-{
-  lmb_require($path);
-}
 $object = new MyClass();
 
 echo "lmb_require absolute, same class, autoload: " . (microtime(true) - $mark) . "\n";
 
 $mark = microtime(true);
 
-for($i=0;$i<1000;$i++)
-{
-  lmb_require('MyClass.class.php');
-}
 $object = new MyClass();
 
 echo "lmb_require relative, same class, autoload: " . (microtime(true) - $mark) . "\n";
@@ -53,7 +34,6 @@ $mark = microtime(true);
 for($i=0;$i<1000;$i++)
 {
   $class = 'UniqueClass' . $i;
-  lmb_require(dirname(__FILE__) . '/tmp/'. $class . '.class.php');
   $object = new $class;
 }
 
@@ -64,7 +44,6 @@ $mark = microtime(true);
 for($i=0;$i<1000;$i++)
 {
   $class = 'UniqueClass' . $i;
-  lmb_require(dirname(__FILE__) . '/tmp/'. $class . '.class.php');
   $object = new $class;
 }
 
@@ -84,7 +63,7 @@ $mark = microtime(true);
 
 for($i=0;$i<1000;$i++)
 {
-  require_once('MyClass.class.php');
+  require_once('MyClass.php');
 }
 $object = new MyClass();
 
@@ -100,7 +79,7 @@ $mark = microtime(true);
 for($i=0;$i<1000;$i++)
 {
   $class = 'UniqueClazz' . $i;
-  require_once(dirname(__FILE__) . '/tmp/' . $class . '.class.php');
+  require_once(dirname(__FILE__) . '/tmp/' . $class . '.php');
   $object = new $class();
 }
 
@@ -111,7 +90,7 @@ $mark = microtime(true);
 for($i=0;$i<1000;$i++)
 {
   $class = 'UniqueClazz' . $i;
-  require_once(dirname(__FILE__) . '/tmp/' . $class . '.class.php');
+  require_once(dirname(__FILE__) . '/tmp/' . $class . '.php');
   $object = new $class();
 }
 
@@ -123,6 +102,6 @@ function make_class($name)
 {
   if(!is_dir('./tmp'))
     mkdir('./tmp');
-  file_put_contents('./tmp/' . $name . '.class.php', 
+  file_put_contents('./tmp/' . $name . '.php',
                     '<?php class ' . $name . ' {}; ?>');
 }

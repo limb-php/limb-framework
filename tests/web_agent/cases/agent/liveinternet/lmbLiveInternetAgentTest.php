@@ -6,11 +6,14 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\web_agent\cases\agent\liveinternet;
 
 /**
  * @package web_agent
  */
-lmb_require('limb/web_agent/src/agent/liveinternet/lmbLiveInternetAgent.class.php');
+
+use PHPUnit\Framework\TestCase;
+use limb\web_agent\src\agent\liveinternet\lmbLiveInternetAgent;
 
 /**
  * @package web_agent
@@ -20,7 +23,7 @@ class lmbLiveInternetAgentTest extends TestCase {
   protected $agent;
   protected $request;
 
-  function setUp()
+  function setUp(): void
   {
     $this->request = new lmbFakeWebAgentRequest();
   	$this->agent = new lmbLiveInternetAgent('test.ru', $this->request);

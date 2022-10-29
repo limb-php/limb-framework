@@ -6,14 +6,16 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/dbal/src/dump/lmbMysqlDumpLoader.class.php');
-lmb_require(dirname(__FILE__) . '/lmbSQLDumpLoaderTestBase.class.php');
+namespace tests\dbal\cases\nondriver\dump;
+
+use limb\dbal\src\dump\lmbMysqlDumpLoader;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbMysqlDumpLoaderTest extends lmbSQLDumpLoaderTestBase
 {
   function skip()
   {
-    $this->skipIf(!lmbToolkit :: instance()->getDefaultDbConnection() instanceof lmbMysqlConnection,
+    $this->skipIf(!lmbToolkit::instance()->getDefaultDbConnection() instanceof lmbMysqlConnection,
                   "lmbMysqlDumpLoader tests skipped, mysql connection required");
   }
 
@@ -83,5 +85,3 @@ EOD;
     $this->assertEquals($loader->getAffectedTables(), array('article'));
   }
 }
-
-

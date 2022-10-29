@@ -10,6 +10,7 @@
 namespace tests\dbal\cases\driver;
 
 use PHPUnit\Framework\TestCase;
+use limb\core\src\lmbSys;
 
 abstract class DriverConnectionTestBase extends TestCase
 {
@@ -38,7 +39,6 @@ abstract class DriverConnectionTestBase extends TestCase
   }
 
   function testSocketConnection() {
-    lmb_require('core/src/lmbSys.class.php');
     $this->skipIf(lmbSys::isWin32(), "Windows platform doesn't support sockets.");
 
     $config = $this->connection->getConfig()->export();
@@ -47,7 +47,7 @@ abstract class DriverConnectionTestBase extends TestCase
     try {
       $connection = new $connection_class($config);
       $connection->connect();
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $this->fail("Connection through socket $config[socket] failed.");
     }
 
@@ -105,5 +105,3 @@ abstract class DriverConnectionTestBase extends TestCase
     $this->assertIsA($di, 'lmbDbInfo');
   }
 }
-
-

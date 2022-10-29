@@ -6,9 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\imagekit\cases;
 
-lmb_require('limb/imagekit/src/gd/lmbGdImageContainer.class.php');
-lmb_require('limb/imagekit/tests/cases/lmbImageKitTestCase.class.php');
+use limb\imagekit\src\gd\lmbGdImageContainer;
+use tests\imagekit\cases\lmbImageKitTestCase;
 
 abstract class lmbBaseImageContainerTest extends lmbImageKitTestCase
 {

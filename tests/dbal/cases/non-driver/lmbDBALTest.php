@@ -6,9 +6,14 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/dbal/src/lmbDBAL.class.php');
-lmb_require('limb/dbal/src/drivers/lmbDbConnection.interface.php');
-lmb_require('limb/dbal/src/drivers/lmbDbQueryStatement.interface.php');
+namespace tests\dbal\cases\nondriver;
+
+use PHPUnit\Framework\TestCase;
+use limb\dbal\src\lmbDBAL;
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
+use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\lmbDbDSN;
 
 Mock::generate('lmbDbConnection', 'MockDbConnection');
 Mock::generate('lmbDbQueryStatement', 'MockDbQueryStatement');
@@ -19,14 +24,14 @@ class lmbDBALTest extends TestCase
   protected $dsn;
   protected $conn;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->toolkit = lmbToolkit :: save();
+    $this->toolkit = lmbToolkit::save();
     $this->dsn = $this->toolkit->getDefaultDbDSN();
     $this->conn = new MockDbConnection();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     lmbToolkit :: restore();
   }

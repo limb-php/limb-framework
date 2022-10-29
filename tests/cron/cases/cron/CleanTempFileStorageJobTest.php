@@ -1,16 +1,21 @@
 <?php
-lmb_require('bit-cms/cron/src/cron/CleanTempFileStorageJob.class.php');
+namespace tests\cron\cases\cron;
+
+use limb\cron\src\cron\CleanTempFileStorageJob;
+use CronModuleTestCase;
+use limb\toolkit\src\lmbToolkit;
+use limb\fs\src\lmbFs;
 
 class CleanTempFileStorageJobTest extends CronModuleTestCase
 {
   function testRun()
   {
-    $conf = lmbToolkit :: instance()->getConf('common')->get('temp_file_storage');
+    $conf = lmbToolkit::instance()->getConf('common')->get('temp_file_storage');
     $temp_storage = $conf['store_rules']['path'];
 
     $cron_job = new CleanTempFileStorageJob();
 
-    lmbFs :: mkdir ($temp_storage);
+    lmbFs::mkdir ($temp_storage);
 
     $file1 = tempnam($temp_storage, 'f1');
     $file2 = tempnam($temp_storage, 'f2');

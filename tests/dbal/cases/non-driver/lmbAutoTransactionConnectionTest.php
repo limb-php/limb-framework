@@ -6,8 +6,11 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/dbal/src/drivers/lmbAutoTransactionConnection.class.php');
-lmb_require('limb/dbal/src/drivers/lmbDbConnection.interface.php');
+namespace tests\dbal\cases\nondriver;
+
+use PHPUnit\Framework\TestCase;
+use limb\dbal\src\drivers\lmbAutoTransactionConnection;
+use limb\dbal\src\drivers\lmbDbConnectionIinterface;
 
 Mock :: generate('lmbDbConnection', 'MockDbConnection');
 
@@ -16,7 +19,7 @@ class lmbAutoTransactionConnectionTest extends TestCase
   protected $wrapped;
   protected $connection;
 
-  function setUp()
+  function setUp(): void
   {
     $this->wrapped = new MockDbConnection();
     $this->connection = new lmbAutoTransactionConnection($this->wrapped);

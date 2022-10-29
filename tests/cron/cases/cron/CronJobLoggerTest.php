@@ -1,6 +1,7 @@
 <?php
+namespace tests\cron\cases\cron;
 
-lmb_require('bit-cms/cron/tests/cases/CronModuleTestCase.class.php');
+use tests\cron\cases\CronModuleTestCase;
 
 class CronJobLoggerTest extends CronModuleTestCase
 {
@@ -14,7 +15,7 @@ class CronJobLoggerTest extends CronModuleTestCase
     $rs = $rs[0];
 
     $this->assertEquals($rs['name'], 'TestCron');
-    $this->assertEquals($rs['status'], CronJobLogger :: STATUS_START);
+    $this->assertEquals($rs['status'], CronJobLogger::STATUS_START);
     $this->assertEquals($rs['info'], '');
   }
 
@@ -27,7 +28,7 @@ class CronJobLoggerTest extends CronModuleTestCase
     $rs = $rs[0];
 
     $this->assertEquals($rs['name'], 'TestCron');
-    $this->assertEquals($rs['status'], CronJobLogger :: STATUS_START);
+    $this->assertEquals($rs['status'], CronJobLogger::STATUS_START);
     $this->assertEquals($rs['info'], $output_message);
   }
 

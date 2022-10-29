@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\imagekit\cases;
 
-lmb_require(dirname(__FILE__).'/../../src/lmbImageKit.class.php');
+use PHPUnit\Framework\TestCase;
+use limb\imagekit\src\lmbImageKit;
 
 class lmbImageKitTest extends TestCase
 {
@@ -63,7 +65,7 @@ class lmbImageKitTest extends TestCase
       ->test();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     @unlink($this->_getOutputImage());
   }

@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/imagekit/src/im/filters/lmbImRotateImageFilter.class.php');
-lmb_require('limb/imagekit/tests/cases/filters/lmbBaseRotateImageFilterTest.class.php');
+namespace tests\imagekit\cases\im\filters;
+
+use limb\imagekit\src\im\filters\lmbImRotateImageFilter;
+use tests\imagekit\cases\filters\lmbBaseRotateImageFilterTest;
 
 /**
  * @package imagekit

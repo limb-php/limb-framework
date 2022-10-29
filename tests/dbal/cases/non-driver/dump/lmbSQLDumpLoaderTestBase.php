@@ -6,8 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/dbal/src/lmbSimpleDb.class.php');
-lmb_require('limb/dbal/src/dump/lmbSQLDumpLoader.class.php');
+namespace tests\dbal\cases\nondriver\dump;
+
+use PHPUnit\Framework\TestCase;
+use limb\dbal\src\lmbSimpleDb;
+use limb\dbal\src\dump\lmbSQLDumpLoader;
+use limb\toolkit\src\lmbToolkit;
 
 abstract class lmbSQLDumpLoaderTestBase extends TestCase
 {
@@ -15,9 +19,9 @@ abstract class lmbSQLDumpLoaderTestBase extends TestCase
   var $conn;
   var $file_path;
 
-  function setUp()
+  function setUp(): void
   {
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
     $this->conn = $toolkit->getDefaultDbConnection();
     $this->db = new lmbSimpleDb($this->conn);
 

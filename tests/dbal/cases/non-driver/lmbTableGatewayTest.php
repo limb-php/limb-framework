@@ -6,29 +6,34 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-require_once('limb/dbal/src/drivers/lmbDbTypeInfo.class.php');
-lmb_require('limb/dbal/src/criteria/lmbSQLFieldCriteria.class.php');
-lmb_require('limb/dbal/src/lmbTableGateway.class.php');
+namespace tests\dbal\cases\nondriver;
+
+use PHPUnit\Framework\TestCase;
+use limb\dbal\src\drivers\lmbDbTypeInfo;
+use limb\dbal\src\criteria\lmbSQLFieldCriteria;
+use limb\dbal\src\lmbTableGateway;
+use limb\toolkit\src\lmbToolkit;
+use limb\core\src\exception\lmbException;
 
 class lmbTableGatewayTest extends TestCase
 {
   var $conn = null;
   var $db_table_test = null;
 
-  function setUp()
+  function setUp(): void
   {
-    $toolkit = lmbToolkit :: save();
+    $toolkit = lmbToolkit::save();
     $this->conn = $toolkit->getDefaultDbConnection();
     $this->db_table_test = new lmbTableGateway('test_db_table', $this->conn);
 
     $this->_cleanUp();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->_cleanUp();
 
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function _cleanUp()

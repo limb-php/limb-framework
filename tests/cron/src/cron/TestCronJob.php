@@ -1,6 +1,7 @@
 <?php
+namespace tests\cron\src\cron;
 
-lmb_require('limb/cron/src/CronJob.class.php');
+use limb\cron\src\CronJob;
 
 class TestCronJob extends CronJob
 {

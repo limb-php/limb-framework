@@ -6,7 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb/imagekit/src/lmbImageKit.class.php');
+namespace tests\imagekit\cases;
+
+use PHPUnit\Framework\TestCase;
+use limb\imagekit\src\lmbImageKit;
 
 abstract class lmbImageKitTestCase extends TestCase
 {
@@ -39,15 +42,15 @@ abstract class lmbImageKitTestCase extends TestCase
 
   function _getConvertor($params = array())
   {
-    $class_name = $this->_getClass('lmb%ImageConvertor');
-    lmb_require('limb/imagekit/src/'.$this->driver.'/'.$class_name.'.class.php');
+    $class_name = 'limb/imagekit/src/'.$this->driver.'/'.$this->_getClass('lmb%ImageConvertor');
+
     return new $class_name($params);
   }
 
   function _getContainer()
   {
-    $class_name = $this->_getClass('lmb%ImageContainer');
-    lmb_require('limb/imagekit/src/'.$this->driver.'/'.$class_name.'.class.php');
+    $class_name = 'limb/imagekit/src/'.$this->driver.'/'.$this->_getClass('lmb%ImageContainer');
+
     $cont = new $class_name;
     $cont->load($this->_getInputImage());
     return $cont;
@@ -55,14 +58,14 @@ abstract class lmbImageKitTestCase extends TestCase
 
   function _getPalleteContainer()
   {
-    $class_name = $this->_getClass('lmb%ImageContainer');
-    lmb_require('limb/imagekit/src/'.$this->driver.'/'.$class_name.'.class.php');
+    $class_name = 'limb/imagekit/src/'.$this->driver.'/'.$this->_getClass('lmb%ImageContainer');
+
     $cont = new $class_name;
     $cont->load($this->_getInputPalleteImage());
     return $cont;
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     @unlink($this->_getOutputImage());
   }

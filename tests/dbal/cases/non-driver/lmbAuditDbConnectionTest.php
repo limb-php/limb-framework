@@ -6,9 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-lmb_require('limb/dbal/src/drivers/lmbAuditDbConnection.class.php');
-lmb_require('limb/dbal/src/drivers/lmbDbConnection.interface.php');
-lmb_require('limb/dbal/src/drivers/lmbDbStatement.interface.php');
+namespace tests\dbal\cases\nondriver;
+
+use PHPUnit\Framework\TestCase;
+use limb\dbal\src\drivers\lmbAuditDbConnection;
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 
 Mock :: generate('lmbDbConnection', 'MockDbConnection');
 Mock :: generate('lmbDbStatement', 'MockDbStatement');
@@ -18,7 +21,7 @@ class lmbAuditDbConnectionTest extends TestCase
   protected $wrapped;
   protected $connection;
 
-  function setUp()
+  function setUp(): void
   {
     $this->wrapped = new MockDbConnection();
     $this->connection = new lmbAuditDbConnection($this->wrapped);
