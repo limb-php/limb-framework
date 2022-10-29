@@ -9,7 +9,7 @@
 namespace limb\dbal\src\drivers\linter;
 
 use limb\dbal\src\drivers\lmbDbTableInfo;
-use limb\dbal\src\drivers\linter\lmbLinterColumnInfo;
+use limb\core\src\exception\lmbNotYetImplementedException;
 
 /**
  * class lmbLinterTableInfo.
@@ -73,9 +73,6 @@ class lmbLinterTableInfo extends lmbDbTableInfo
 
   function loadIndexes()
   {
-    lmb_require('limb/core/src/exception/lmbNotYetImplementedException.class.php');
     throw new lmbNotYetImplementedException();
   }
 }
-
-

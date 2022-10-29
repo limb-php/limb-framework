@@ -10,8 +10,6 @@ namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbTableInfo;
 use limb\dbal\src\drivers\lmbDbIndexInfo;
-use limb\dbal\src\drivers\sqlite\lmbSqliteColumnInfo;
-use limb\dbal\src\drivers\sqlite\lmbSqliteIndexInfo;
 
 /**
  * class lmbSqliteTableInfo.

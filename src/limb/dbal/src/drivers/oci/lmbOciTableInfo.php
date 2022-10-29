@@ -9,13 +9,13 @@
 namespace limb\dbal\src\drivers\oci;
 
 use limb\dbal\src\drivers\lmbDbTableInfo;
-
+use limb\core\src\exception\lmbNotYetImplementedException;
 
 /**
  * class lmbOciTableInfo.
  *
  * @package dbal
- * @version $Id: lmbOciTableInfo.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciTableInfo.php 7486 2009-01-26 19:13:20Z
  */
 class lmbOciTableInfo extends lmbDbTableInfo
 {
@@ -68,9 +68,6 @@ class lmbOciTableInfo extends lmbDbTableInfo
 
   function loadIndexes()
   {
-    lmb_require('limb/core/src/exception/lmbNotYetImplementedException.class.php');
     throw new lmbNotYetImplementedException();
   }
 }
-
-
