@@ -9,6 +9,7 @@
 namespace limb\dbal\src\toolkit;
 
 use limb\config\src\toolkit\lmbConfTools;
+use limb\dbal\src\drivers\lmbDbConnectionFactory;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbEnv;
@@ -16,13 +17,12 @@ use limb\dbal\src\lmbDbDSN;
 use limb\dbal\src\drivers\lmbDbCachedInfo;
 use limb\dbal\src\lmbTableGateway;
 use limb\core\src\exception\lmbException;
-use limb\fs\src\exception\lmbFileNotFoundException;
 
 /**
  * class lmbDbTools.
  *
  * @package dbal
- * @version $Id: lmbDbTools.class.php 8007 2009-12-15 20:31:12Z idler $
+ * @version $Id: lmbDbTools.php 8007 2009-12-15 20:31:12Z
  */
 class lmbDbTools extends lmbAbstractTools
 {
@@ -79,7 +79,7 @@ class lmbDbTools extends lmbAbstractTools
 
   protected function _getDbDsnHash($dsn)
   {
-    $dsn = self :: castToDsnObject($dsn);
+    $dsn = self::castToDsnObject($dsn);
     return md5($dsn->toString());
   }
 
@@ -109,7 +109,7 @@ class lmbDbTools extends lmbAbstractTools
       ? $conf->get($name)
       : $this->_tryLoadDsnFromEnvironment($conf, $name);
 
-    $dsn = self :: castToDsnObject($dsn);
+    $dsn = self::castToDsnObject($dsn);
     $this->setDbDSNByName($name, $dsn);
 
     return $dsn->toString();
@@ -117,7 +117,7 @@ class lmbDbTools extends lmbAbstractTools
 
   function setDbDSNByName($name, $dsn)
   {
-    $dsn = self :: castToDsnObject($dsn);
+    $dsn = self::castToDsnObject($dsn);
 
     $this->dsnes_names[$name] = $this->_getDbDsnHash($dsn);
     $this->dsnes_available[$this->dsnes_names[$name]] = $dsn;
@@ -191,22 +191,9 @@ class lmbDbTools extends lmbAbstractTools
 
   function createDbConnection($dsn)
   {
-    $dsn = self :: castToDsnObject($dsn);
+      $dsn = self::castToDsnObject($dsn);
 
-    $driver = $dsn->getDriver();
-    $class = 'lmb' . ucfirst($driver) . 'Connection';
-    $className = "limb\dbal\src\drivers\\" . $driver . "\\" . $class;
-
-    try
-    {
-      $connectionClass = new $className($dsn, $dsn->toString());
-
-      return $connectionClass;
-    }
-    catch(lmbFileNotFoundException $e)
-    {
-      throw new lmbException("Driver '$driver' file not found for DSN '" . $dsn->toString() . "'!");
-    }
+      return (new lmbDbConnectionFactory())->make($dsn);
   }
 
   protected function _isDbInfoCacheEnabled()
