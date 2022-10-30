@@ -27,8 +27,6 @@ class lmbActionPerformingFilter implements lmbInterceptingFilterInterface
       if(!is_object($dispatched))
         throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
 
-      $response = lmbToolkit::instance()->getResponse();
-
       $result = $dispatched->performAction();
       if( $result ) {
           if( is_a($result, lmbView::class) ) {
