@@ -8,7 +8,6 @@
  */
 namespace limb\view\src;
 
-use limb\view\src\lmbView;
 use limb\core\src\exception\lmbException;
 
 /**

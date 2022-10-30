@@ -24,7 +24,7 @@ class lmbTwigView extends lmbView
 {
   private $templateInstance;
 
-  function __construct($template_name)
+  function __construct($template_name, $vars = array())
   {
     $pos = strrpos($template_name, '.');
     if($pos === false)
@@ -32,7 +32,7 @@ class lmbTwigView extends lmbView
       $template_name .= '.twig';
     }
 
-    $this->template_name = $template_name;
+    parent::__construct($template_name, $vars);
   }
 
   function __call($methodName, $params)

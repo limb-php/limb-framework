@@ -8,8 +8,6 @@
  */
 namespace limb\view\src;
 
-use limb\view\src\lmbView;
-
 /**
  * class lmbJsonView.
  *
@@ -20,7 +18,10 @@ class lmbJsonView extends lmbView
 {  
   protected $use_emulation = false;
   
-  function __construct() {}
+  function __construct($vars = array())
+  {
+      parent::__construct(null, $vars);
+  }
   
   function useEmulation($value)
   {
@@ -78,4 +79,3 @@ class lmbJsonView extends lmbView
       return json_encode($this->getVariables());     
   }
 }
-

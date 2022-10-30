@@ -74,11 +74,11 @@ class lmbViewTools extends lmbAbstractTools
     return call_user_func(array($class, 'locateTemplateByAlias'), $alias);
   }
 
-  function createViewByTemplate($template_name)
+  function createViewByTemplate($template_name, $vars = array())
   {
     $class = $this->_findViewClassByTemplate($template_name);
 
-    $view = new $class($template_name);
+    $view = new $class($template_name, $vars);
     return $view;
   }
 

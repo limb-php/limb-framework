@@ -8,8 +8,6 @@
  */
 namespace limb\view\src;
 
-use limb\view\src\lmbView;
-
 /**
  * class lmbPHPView.
  *
@@ -28,4 +26,3 @@ class lmbPHPView extends lmbView
     return $res;
   }
 }
-

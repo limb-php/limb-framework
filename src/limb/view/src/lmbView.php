@@ -21,9 +21,10 @@ abstract class lmbView
   protected $forms_datasources = array();
   protected $forms_errors = array();
 
-  function __construct($template_name)
+  function __construct($template_name, $vars = array())
   {
     $this->template_name = $template_name;
+    $this->variables = $vars;
   }
 
   abstract function render();

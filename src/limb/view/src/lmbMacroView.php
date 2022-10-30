@@ -10,7 +10,6 @@ namespace limb\view\src;
 
 use limb\core\src\exception\lmbException;
 use limb\macro\src\lmbMacroTemplate;
-use limb\view\src\lmbView;
 use limb\toolkit\src\lmbToolkit;
 
 /**
@@ -23,7 +22,7 @@ class lmbMacroView extends lmbView
 {
   protected $macro_template;
 
-  function __construct($template_name)
+  function __construct($template_name, $vars = array())
   {
     $pos = strrpos($template_name, '.');
     if($pos === false)
@@ -31,7 +30,7 @@ class lmbMacroView extends lmbView
       $template_name .= '.phtml';
     }
 
-    $this->template_name = $template_name;
+    parent::__construct($template_name, $vars);
   }
 
   static function locateTemplateByAlias($alias)
@@ -92,4 +91,3 @@ class lmbMacroView extends lmbView
       $template->set('form_' . $form_id . '_error_list', $error_list->getArray());
   }
 }
-
