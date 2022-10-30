@@ -9,13 +9,12 @@
 namespace limb\net\src;
 
 use limb\core\src\exception\lmbException;
-use limb\net\src\lmbHttpRedirectStrategy;
 
 /**
  * class lmbHttpResponse.
  *
  * @package net
- * @version $Id: lmbHttpResponse.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbHttpResponse.php 7486 2009-01-26 19:13:20Z
  */
 class lmbHttpResponse
 {
@@ -249,28 +248,34 @@ class lmbHttpResponse
     $this->setCookie($name, '', 1, $path, $domain, $secure);
   }
 
-  function readFile($file_path)
+  public function readFile($file_path)
   {
     $this->_ensureTransactionStarted();
 
     $this->response_file_path = $file_path;
   }
 
-  function write($string)
+  public function write($data)
   {
     $this->_ensureTransactionStarted();
 
-    $this->response_string = $string;
+    if( is_array($data) ) {
+        $data = $this->_convertToJson($data);
+
+        $this->addHeader('Content-type: application/json');
+    }
+
+    $this->response_string = $data;
   }
 
-  function append($string)
+  public function append($string)
   {
     $this->_ensureTransactionStarted();
 
     $this->response_string .= $string;
   }
 
-  function commit()
+  public function commit()
   {
     $this->_ensureTransactionStarted();
 
@@ -286,6 +291,22 @@ class lmbHttpResponse
       $this->_sendString($this->response_string);
 
     $this->transaction_started = false;
+  }
+
+  protected function _convertToJson($data)
+  {
+      $json = json_encode($data);
+      if($json === false) {
+          $error = json_last_error_msg();
+          throw new lmbException('JSON encode error: ' . $error);
+      }
+
+      return $json;
+  }
+
+  public function send()
+  {
+      $this->commit();
   }
 
   protected function _sendHeader($header)

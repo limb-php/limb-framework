@@ -16,20 +16,21 @@ use limb\core\src\exception\lmbException;
  * class lmbActionPerformingFilter.
  *
  * @package web_app
- * @version $Id: lmbActionPerformingFilter.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbActionPerformingFilter.php 7486 2009-01-26 19:13:20Z
  */
 class lmbActionPerformingFilter implements lmbInterceptingFilterInterface
 {
   function run($filter_chain)
   {
-    $dispatched = lmbToolkit :: instance()->getDispatchedController();
-    if(!is_object($dispatched))
-      throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
+      $dispatched = lmbToolkit::instance()->getDispatchedController();
+      if(!is_object($dispatched))
+        throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
 
-    $dispatched->performAction();
+      $result = $dispatched->performAction();
+      if( $result ) {
+          $filter_chain->response->write($result);
+      }
 
-    $filter_chain->next();
+      $filter_chain->next();
   }
 }
-
-

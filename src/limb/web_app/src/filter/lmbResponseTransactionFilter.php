@@ -15,17 +15,16 @@ use limb\toolkit\src\lmbToolkit;
  * class lmbResponseTransactionFilter.
  *
  * @package web_app
- * @version $Id: lmbResponseTransactionFilter.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbResponseTransactionFilter.php 7486 2009-01-26 19:13:20Z
  */
 class lmbResponseTransactionFilter implements lmbInterceptingFilterInterface
 {
   function run($filter_chain)
   {
-    $filter_chain->next();
+      $response = lmbToolkit::instance()->getResponse();
 
-    $response = lmbToolkit :: instance()->getResponse();
-    $response->commit();
+      $filter_chain->next();
+
+      $response->send();
   }
 }
-
-

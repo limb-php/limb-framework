@@ -15,21 +15,20 @@ use limb\toolkit\src\lmbToolkit;
  * class lmbViewRenderingFilter.
  *
  * @package web_app
- * @version $Id: lmbViewRenderingFilter.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbViewRenderingFilter.php 7486 2009-01-26 19:13:20Z
  */
 class lmbViewRenderingFilter implements lmbInterceptingFilterInterface
 {
   function run($filter_chain)
   {
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
     $response = $toolkit->getResponse();
 
-    if($response->isEmpty() && is_object($view = $toolkit->getView()))
-    {
-      $view->set('request', $toolkit->getRequest());
-      $view->set('session', $toolkit->getSession());
-      $view->set('controller', $toolkit->getDispatchedController());
-      $view->set('toolkit', $toolkit);
+    if($response->isEmpty() && is_object($view = $toolkit->getView())) {
+      //$view->set('request', $toolkit->getRequest());
+      //$view->set('session', $toolkit->getSession());
+      //$view->set('controller', $toolkit->getDispatchedController());
+      //$view->set('toolkit', $toolkit);
 
       $response->write($view->render());
     }
@@ -37,5 +36,3 @@ class lmbViewRenderingFilter implements lmbInterceptingFilterInterface
     $filter_chain->next();
   }
 }
-
-
