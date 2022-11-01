@@ -14,15 +14,17 @@ namespace limb\filter_chain\src;
  * @version $Id: lmbInterceptingFilterInterface.php 7486 2009-01-26 19:13:20Z
  * @package filter_chain
  */
-interface lmbInterceptingFilterInterface
+interface lmbWebInterceptingFilterInterface
 {
   /**
    * Runs the filter.
    * Filters should decide whether to pass control to the next filter in the chain or not.
+   * @param $filter_chain lmbWebFilterChain
+   * @param $request \limb\net\src\lmbHttpRequest
+   * @param $response \limb\net\src\lmbHttpResponse
+   * @return \limb\net\src\lmbHttpResponse
    * @see lmbFilterChain::next()
    *
-   * @param lmbFilterChain filters chain
-   * @return void
    */
-  function run($filter_chain);
+  function run($filter_chain, $request, $response);
 }
