@@ -8,8 +8,6 @@
  */
 namespace limb\core\src;
 
-use limb\core\src\lmbProxy;
-
 /**
  * class lmbHandle.
  *
@@ -21,26 +19,34 @@ class lmbHandle extends lmbProxy
   protected $class;
   protected $args;
 
-  function __construct($class, $args = array())
+  function __construct($class, ...$args)
   {
-    $this->class = $class;
-    $this->args = $args;
+      $this->class = $class;
+
+      if( count($args) > 1 ) {
+          $this->args = $args;
+      }
+      else {
+          $this->args = $args[0] ?? array();
+
+          if( !is_array($this->args) )
+              $this->args = array($this->args);
+      }
   }
 
   function isHandle()
   {
-    return true;
+      return true;
   }
 
   function getClass()
   {
-    return $this->class;
+      return $this->class;
   }
 
   protected function _createOriginalObject()
   {
-    $refl = new \ReflectionClass($this->class);
-    return call_user_func_array(array($refl, 'newInstance'), $this->args);
+      $refl = new \ReflectionClass($this->class);
+      return call_user_func_array(array($refl, 'newInstance'), $this->args);
   }
 }
-

@@ -16,10 +16,12 @@ use limb\core\src\lmbHandle;
 class lmbHandleDeclaredInSameFile
 {
   var $test_var;
+  var $test_var2;
 
-  function __construct($var = 'default')
+  function __construct($var = 'default', $var2 = 'default')
   {
-    $this->test_var = $var;
+      $this->test_var = $var;
+      $this->test_var2 = $var2;
   }
 
   function foo()
@@ -55,6 +57,20 @@ class lmbHandleTest extends TestCase
   {
     $handle = new lmbHandle(lmbHandleDeclaredInSameFile::class, array('some_value'));
     $this->assertEquals('some_value', $handle->test_var);
+  }
+
+  function testPassArgumentsDeclaredInSameFile2()
+  {
+      $handle = new lmbHandle(lmbHandleDeclaredInSameFile::class, array('some_value', 'some_value2'));
+      $this->assertEquals('some_value', $handle->test_var);
+      $this->assertEquals('some_value2', $handle->test_var2);
+  }
+
+  function testPassArgumentsDeclaredInSameFile3()
+  {
+      $handle = new lmbHandle(lmbHandleDeclaredInSameFile::class, 'some_value', 'some_value2');
+      $this->assertEquals('some_value', $handle->test_var);
+      $this->assertEquals('some_value2', $handle->test_var2);
   }
 
   function testShortClassPath()
