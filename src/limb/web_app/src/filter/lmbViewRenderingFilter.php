@@ -21,18 +21,18 @@ class lmbViewRenderingFilter implements lmbInterceptingFilterInterface
 {
   function run($filter_chain)
   {
-    $toolkit = lmbToolkit::instance();
-    $response = $toolkit->getResponse();
+      $filter_chain->next();
 
-    if($response->isEmpty() && is_object($view = $toolkit->getView())) {
-      //$view->set('request', $toolkit->getRequest());
-      //$view->set('session', $toolkit->getSession());
-      //$view->set('controller', $toolkit->getDispatchedController());
-      //$view->set('toolkit', $toolkit);
+      $toolkit = lmbToolkit::instance();
+      $response = $toolkit->getResponse();
 
-      $response->write($view->render());
-    }
+      if($response->isEmpty() && is_object($view = $toolkit->getView())) {
+          //$view->set('request', $toolkit->getRequest());
+          //$view->set('session', $toolkit->getSession());
+          //$view->set('controller', $toolkit->getDispatchedController());
+          //$view->set('toolkit', $toolkit);
 
-    $filter_chain->next();
+          $response->write($view->render());
+      }
   }
 }

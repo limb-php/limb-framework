@@ -11,6 +11,7 @@ namespace limb\web_app\src\filter;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
+use limb\view\src\lmbStringView;
 use limb\view\src\lmbView;
 
 /**
@@ -28,15 +29,16 @@ class lmbActionPerformingFilter implements lmbInterceptingFilterInterface
         throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
 
       $result = $dispatched->performAction();
+
+      $filter_chain->next();
+
       if( $result ) {
           if( is_a($result, lmbView::class) ) {
               lmbToolkit::instance()->setView($result);
           }
           else {
-              lmbToolkit::instance()->getResponse()->write($result);
+              lmbToolkit::instance()->setView(new lmbStringView($result));
           }
       }
-
-      $filter_chain->next();
   }
 }

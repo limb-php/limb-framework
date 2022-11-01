@@ -8,6 +8,8 @@
  */
 namespace limb\view\src;
 
+use limb\toolkit\src\lmbToolkit;
+
 /**
  * class lmbJsonView.
  *
@@ -73,6 +75,8 @@ class lmbJsonView extends lmbView
 
   function render()
   {
+    lmbToolkit::instance()->getResponse()->addHeader('Content-type: application/json');
+
     if(!function_exists('json_encode') || $this->use_emulation)
       return $this->_encodeEmulation($this->getVariables());
     else
