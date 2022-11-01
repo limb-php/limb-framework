@@ -16,3 +16,8 @@ Here is the list of the most notable packages at the moment:
     * tests_runner: unit testing tools built around excellent PHPUnit library
     * session: transparent PHP session wrappers with painless persistence of objects
     
+Migrate from Limb3 to Limb4:
+
+    * rename class files (remove '.class' extension)
+    * add namespaces to all classes
+    * change all lmb_require() to use
