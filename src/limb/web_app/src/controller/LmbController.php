@@ -16,6 +16,7 @@ use limb\validation\src\lmbValidator;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
 use limb\core\src\exception\lmbException;
+use limb\view\src\lmbView;
 
 lmbEnv::setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
 
@@ -185,17 +186,12 @@ class LmbController
           return false;
       }
 
-      if($template_path = $this->findTemplateForAction($this->current_action)) {
-          $this->setTemplate($template_path);
-      }
+      $template_path = $this->findTemplateForAction($this->current_action);
 
-      $res = null;
+      $result = null;
 
       if(method_exists($this, $method = $this->_mapCurrentActionToMethod())) {
-          $res = $this->$method();
-
-          if(is_string($res))
-              $this->response->write($res);
+          $result = $this->$method();
       }
       elseif(!$template_path) {
           throw new lmbException('No method defined in controller "' .
@@ -203,9 +199,16 @@ class LmbController
               'and no appropriate template found');
       }
 
-      $this->_passLocalAttributesToView();
+      if(is_a($result, lmbView::class)) {
+          $this->toolkit->setView($result);
+      }
+      else {
+          $this->setTemplate($template_path);
 
-      return $res;
+          $this->_passLocalAttributesToView();
+      }
+
+      return $result;
   }
 
   function useForm($form_id, $datasource = null)
