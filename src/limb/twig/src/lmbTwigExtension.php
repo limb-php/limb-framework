@@ -135,7 +135,7 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
     if( !empty($replace_params) )
     {
       foreach ($replace_params as $name => $value)
-        $uri->addQueryItem($name, $value);
+          $uri = $uri->withQueryItem($name, $value);
     }
 
     return $uri;
@@ -150,9 +150,8 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
   public static function pager_url($name = 'pager', $page = 1)
   {
     $uri = lmbToolkit::instance()->getRequest()->getUri();
-    $curi = clone($uri);
 
-    $curi->addQueryItem($name, $page);
+    $curi = $uri->withQueryItem($name, $page);
 
     return $curi->toString();
   }
