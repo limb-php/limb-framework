@@ -19,10 +19,12 @@ interface lmbInterceptingFilterInterface
   /**
    * Runs the filter.
    * Filters should decide whether to pass control to the next filter in the chain or not.
+   * @param $filter_chain lmbFilterChain
+   * @param $request \limb\net\src\lmbHttpRequest
+   * @param $response \limb\net\src\lmbHttpResponse
+   * @return \limb\net\src\lmbHttpResponse
    * @see lmbFilterChain::next()
    *
-   * @param lmbFilterChain filters chain
-   * @return void
    */
-  function run($filter_chain);
+  function run($filter_chain, $request, $response);
 }

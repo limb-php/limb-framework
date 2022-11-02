@@ -51,11 +51,11 @@ namespace limb\filter_chain\src;
  *  $chain->process();
  *  </code>
  *
- * @version $Id: lmbWebFilterChain.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: lmbChain.php 7486 2009-01-26 19:13:20Z
  * @package filter_chain
  */
 
-class lmbWebFilterChain implements lmbWebInterceptingFilterInterface
+class lmbChain implements lmbChainInterface
 {
   /**
    * @var array registered filters (or filter handles (see {@link lmbHandle}))
@@ -89,46 +89,37 @@ class lmbWebFilterChain implements lmbWebInterceptingFilterInterface
   /**
    * Runs next filter in the chain.
    *
-   * @return mixed
+   * @return void
    */
-  function next($request, $response)
+  function next()
   {
     $this->counter++;
 
     if(isset($this->filters[$this->counter]))
     {
-        return $this->filters[$this->counter]->run($this, $request, $response);
+      $this->filters[$this->counter]->run($this);
     }
-
-    return $response;
   }
   /**
    * Executes the chain
    *
-   * @return mixed
+   * @return void
    */
-  function process($request, $response)
+  function process()
   {
     $this->counter = -1;
-    return $this->next($request, $response);
+    $this->next();
   }
   /**
    * Implements lmbInterceptingFilter interface.
    * Filter chain can be an intercepting filter.
    *
-   * @param $filter_chain lmbWebFilterChain
-   * @param $request \limb\net\src\lmbHttpRequest
-   * @param $response \limb\net\src\lmbHttpResponse
-   * @return \limb\net\src\lmbHttpResponse
-   * @see lmbFilterChain::next()
-   *
+   * @param object Filter chain instance
+   * @return void
    */
-  function run($filter_chain, $request, $response)
+  function run($filter_chain)
   {
-    $response = $this->process($request, $response);
-
-    $response = $filter_chain->next($request, $response);
-
-    return $response;
+    $this->process();
+    $filter_chain->next();
   }
 }
