@@ -180,18 +180,20 @@ class LmbController
     return false;
   }
 
-  function performAction()
+  function performAction($request)
   {
       if($this->is_forwarded) {
           return false;
       }
 
       $template_path = $this->findTemplateForAction($this->current_action);
+      if($template_path)
+          $this->setTemplate($template_path); // Set View by default. Can be overrided in action method
 
       $result = null;
 
       if(method_exists($this, $method = $this->_mapCurrentActionToMethod())) {
-          $result = $this->$method();
+          $result = $this->$method($request);
       }
       elseif(!$template_path) {
           throw new lmbException('No method defined in controller "' .
@@ -203,8 +205,6 @@ class LmbController
           $this->toolkit->setView($result);
       }
       else {
-          $this->setTemplate($template_path);
-
           $this->_passLocalAttributesToView();
       }
 

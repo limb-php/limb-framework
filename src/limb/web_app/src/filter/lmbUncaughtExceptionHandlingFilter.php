@@ -8,17 +8,15 @@
  */
 namespace limb\web_app\src\filter;
 
-use limb\web_app\src\filter\lmbErrorHandlingFilter;
-
 /**
  * class lmbUncaughtExceptionHandlingFilter.
  *
  * @package web_app
  * @deprecated
  * @see lmbErrorHandlingFilter
- * @version $Id: lmbUncaughtExceptionHandlingFilter.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbUncaughtExceptionHandlingFilter.php 7486 2009-01-26 19:13:20Z
  */
 class lmbUncaughtExceptionHandlingFilter extends lmbErrorHandlingFilter
-{}
+{
 
-
+}

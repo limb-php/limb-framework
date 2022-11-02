@@ -15,24 +15,23 @@ use limb\toolkit\src\lmbToolkit;
  * class lmbDefaultLocaleFilter.
  *
  * @package web_app
- * @version $Id: lmbDefaultLocaleFilter.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDefaultLocaleFilter.php 7486 2009-01-26 19:13:20Z
  */
 class lmbDefaultLocaleFilter implements lmbInterceptingFilterInterface
 {
   protected $default_locale;
-  protected $toolkit;
 
   function __construct($default_locale)
   {
-    $this->default_locale = $default_locale;
-    $this->toolkit = lmbToolkit::instance();
+      $this->default_locale = $default_locale;
   }
 
-  function run($filter_chain)
+  function run($filter_chain, $request = null, $response = null)
   {
-    $this->toolkit->setLocale($this->default_locale);
-    $filter_chain->next();
+      lmbToolkit::instance()->setLocale($this->default_locale);
+
+      $response = $filter_chain->next($request, $response);
+
+      return $response;
   }
 }
-
-

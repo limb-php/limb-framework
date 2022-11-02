@@ -14,18 +14,18 @@ use limb\filter_chain\src\lmbInterceptingFilterInterface;
  * class lmbTimingFilter.
  *
  * @package web_app
- * @version $Id: lmbTimingFilter.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbTimingFilter.php 7486 2009-01-26 19:13:20Z
  */
 class lmbTimingFilter implements lmbInterceptingFilterInterface
 {
-  public function run($filter_chain)
+  public function run($filter_chain, $request = null, $response = null)
   {
     $start_time = microtime(true);
 
-    $filter_chain->next();
+    $response = $filter_chain->next($request, $response);
 
     echo '<small>' . round(microtime(true) - $start_time, 2) . '</small>';
+
+    return $response;
   }
 }
-
-

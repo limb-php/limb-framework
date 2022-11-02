@@ -17,7 +17,7 @@ use limb\toolkit\src\lmbToolkit;
  * class lmbErrorHandlingFilter.
  *
  * @package web_app
- * @version $Id: lmbErrorHandlingFilter.class.php 6019 2007-06-27 14:29:40Z serega $
+ * @version $Id: lmbErrorHandlingFilter.php 6019 2007-06-27 14:29:40Z
  */
 class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
 {
@@ -36,14 +36,16 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
     $this->error_page = $error500_page;
   }
 
-  function run($filter_chain)
+  function run($filter_chain, $request = null, $response = null)
   {
     $this->toolkit = lmbToolkit::instance();
 
     lmbErrorGuard::registerFatalErrorHandler($this, 'handleFatalError');
     lmbErrorGuard::registerExceptionHandler($this, 'handleException');
 
-    $filter_chain->next();
+    $response = $filter_chain->next($request, $response);
+
+    return $response;
   }
 
   function handleFatalError($error)

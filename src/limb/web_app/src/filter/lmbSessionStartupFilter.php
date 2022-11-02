@@ -8,6 +8,7 @@
  */
 namespace limb\web_app\src\filter;
 
+use limb\core\src\lmbEnv;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\session\src\lmbSessionNativeStorage;
 use limb\session\src\lmbSessionDbStorage;
@@ -26,7 +27,7 @@ use limb\toolkit\src\lmbToolkit;
  * @see lmbSessionMemcachedStorage
  * @see lmbSessionDbStorage
  *
- * @version $Id: lmbSessionStartupFilter.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSessionStartupFilter.php 7486 2009-01-26 19:13:20Z
  * @package web_app
  */
 class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
@@ -39,14 +40,14 @@ class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
    */
   function __construct($session_type = 'native', $session_lifetime = null)
   {
-    $this->session_type = $session_type;
-    $this->session_lifetime = $session_lifetime;
+    $this->session_type = $session_type ?? lmbEnv::get('LIMB_SESSION_DRIVER');
+    $this->session_lifetime = $session_lifetime ?? lmbEnv::get('LIMB_SESSION_MAX_LIFE_TIME');
   }
 
   /**
    * @see lmbInterceptingFilter::run()
    */
-  function run($filter_chain)
+  function run($filter_chain, $request = null, $response = null)
   {
     if($this->session_type == 'db')
       $storage =  $this->_createDBSessionStorage($this->session_lifetime);
@@ -60,9 +61,11 @@ class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
     $session = lmbToolkit::instance()->getSession();
     $session->start($storage);
 
-    $filter_chain->next();
+    $response = $filter_chain->next($request, $response);
 
     $session->close();
+
+    return $response;
   }
 
   protected function _createNativeSessionStorage()
@@ -94,4 +97,3 @@ class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
     return new lmbSessionDbStorage($db_connection, $lifetime);
   }
 }
-

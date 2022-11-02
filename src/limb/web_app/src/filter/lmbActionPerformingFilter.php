@@ -22,15 +22,15 @@ use limb\view\src\lmbView;
  */
 class lmbActionPerformingFilter implements lmbInterceptingFilterInterface
 {
-  function run($filter_chain)
+  function run($filter_chain, $request = null, $response = null)
   {
       $dispatched = lmbToolkit::instance()->getDispatchedController();
       if(!is_object($dispatched))
         throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
 
-      $result = $dispatched->performAction();
+      $result = $dispatched->performAction($request);
 
-      $filter_chain->next();
+      $response = $filter_chain->next($request, $response);
 
       if( $result ) {
           if( is_a($result, lmbView::class) ) {
@@ -40,5 +40,7 @@ class lmbActionPerformingFilter implements lmbInterceptingFilterInterface
               lmbToolkit::instance()->setView(new lmbStringView($result));
           }
       }
+
+      return $response;
   }
 }

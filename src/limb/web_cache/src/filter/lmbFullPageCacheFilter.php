@@ -21,7 +21,7 @@ use limb\toolkit\src\lmbToolkit;
  * class lmbFullPageCacheFilter.
  *
  * @package web_cache
- * @version $Id: lmbFullPageCacheFilter.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbFullPageCacheFilter.php 7686 2009-03-04 19:57:12Z
  */
 class lmbFullPageCacheFilter implements lmbInterceptingFilterInterface
 {
@@ -34,7 +34,7 @@ class lmbFullPageCacheFilter implements lmbInterceptingFilterInterface
   {
     $this->rules_ini = $rules_ini;
 
-    $this->cache_dir = $cache_dir ? $cache_dir : lmbToolkit::instance()->getConf('web_cache')->get('cache_dir');
+    $this->cache_dir = $cache_dir ?? lmbToolkit::instance()->getConf('web_cache')->get('cache_dir');
 
     if(!is_object($user))
       $this->user = new lmbFullPageCacheUser();
@@ -42,14 +42,19 @@ class lmbFullPageCacheFilter implements lmbInterceptingFilterInterface
       $this->user = $user;
   }
 
-  function run($filter_chain)
+  function run($filter_chain, $request = null, $response = null)
   {
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
 
     if( $toolkit->isWebAppDebugEnabled() )
-      return $filter_chain->next();
+    {
+        $response = $filter_chain->next($request, $response);
 
-    $request = $toolkit->getRequest();
+        return $response;
+    }
+
+    if(!$request)
+        $request = $toolkit->getRequest();
 
     $this->cache = new lmbFullPageCache($this->_createCacheWriter(),
                                         $this->_createCachePolicy());
@@ -57,21 +62,27 @@ class lmbFullPageCacheFilter implements lmbInterceptingFilterInterface
     $cache_request = new lmbFullPageCacheRequest($request, $this->user);
     if(!$this->cache->openSession($cache_request))
     {
-      $filter_chain->next();
-      return;
+        $response = $filter_chain->next($request, $response);
+
+        return $response;
     }
 
-    $response = $toolkit->getResponse();
+    if(!$response)
+        $response = $toolkit->getResponse();
+
     if($content = $this->cache->get())
     {
       $response->write($content);
     }
     else
     {
-      $filter_chain->next();
+      $response = $filter_chain->next($request, $response);
+
       $content = $response->getResponseString();
       $this->cache->save($content);
     }
+
+    return $response;
   }
 
   protected function _createCachePolicy()

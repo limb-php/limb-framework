@@ -19,7 +19,7 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbCmsAccessPolicyFilter implements lmbInterceptingFilterInterface
 {
-  function run($filter_chain)
+  function run($filter_chain, $request = null, $response = null)
   {
     $this->toolkit = lmbToolkit::instance();
     $this->current_controller = $this->toolkit->getDispatchedController();
@@ -36,7 +36,8 @@ class lmbCmsAccessPolicyFilter implements lmbInterceptingFilterInterface
       {
         $this->toolkit->flashMessage("Not authorized");
         $this->toolkit->redirect(array('controller' => 'user', 'action' => 'login'), null, '?redirect=' . $current_path);
-        return;
+
+        return $response;
       }
       elseif(!$this->_allowAccess($user))
       {
@@ -47,11 +48,13 @@ class lmbCmsAccessPolicyFilter implements lmbInterceptingFilterInterface
         else
           $this->toolkit->redirect(array('controller' => 'admin', 'action' => 'display'));
 
-        return;
+        return $response;
       }
     }
 
-    $filter_chain->next();
+    $response = $filter_chain->next($request, $response);
+
+    return $response;
   }
 
   protected function _allowAccess($user)

@@ -7,21 +7,22 @@ use limb\macro\src\compiler\lmbMacroCompiler;
 
 class lmbOptimizationFilter implements lmbInterceptingFilterInterface
 {
-  public function run($filter_chain)
+  public function run($filter_chain, $request = null, $response = null)
   {
-    $conf = lmbToolkit :: instance()->getConf('optimization');
+    $conf = lmbToolkit::instance()->getConf('optimization');
 
     // minify html template
     if( $conf->has('HTML_MINIFY') && ($conf->get('HTML_MINIFY') === true) )
     {
-      lmbMacroCompiler :: registerOnCompileCallback(array($this, 'onCompileTemplate'));
+      lmbMacroCompiler::registerOnCompileCallback(array($this, 'onCompileTemplate'));
 
-      //TwigCompiler :: registerOnCompileCallback(array($this, 'onCompileTemplate'));
+      //TwigCompiler::registerOnCompileCallback(array($this, 'onCompileTemplate'));
     }
 
-    $filter_chain->next();
+    $response = $filter_chain->next($request, $response);
 
-    $response = lmbToolkit :: instance()->getResponse();
+    if(!$response)
+        $response = lmbToolkit::instance()->getResponse();
 
     // gzip output html
     if( $conf->has('HTML_GZIP') && ($conf->get('HTML_GZIP') === true) && ($response->getContentType() == 'text/html') )
@@ -35,6 +36,8 @@ class lmbOptimizationFilter implements lmbInterceptingFilterInterface
     }
 
     $response->commit();
+
+    return $response;
   }
 
   function onCompileTemplate($data)

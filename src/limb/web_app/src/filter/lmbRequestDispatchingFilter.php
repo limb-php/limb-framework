@@ -38,7 +38,7 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
     $this->default_controller_name = $default_controller_name;
   }
 
-  function run($filter_chain)
+  function run($filter_chain, $request = null, $response = null)
   {
     $dispatched_params = $this->dispatcher->dispatch($this->toolkit->getRequest());
 
@@ -55,7 +55,9 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
 
     $this->toolkit->setDispatchedController($controller);
 
-    $filter_chain->next();
+    $response = $filter_chain->next($request, $response);
+
+    return $response;
   }
 
   protected function _createController($dispatched_params)

@@ -19,12 +19,15 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbResponseTransactionFilter implements lmbInterceptingFilterInterface
 {
-  function run($filter_chain)
+  function run($filter_chain, $request = null, $response = null)
   {
-      $response = lmbToolkit::instance()->getResponse();
+      if(!$response)
+        $response = lmbToolkit::instance()->getResponse();
 
-      $filter_chain->next();
+      $response = $filter_chain->next($request, $response);
 
       $response->send();
+
+      return $response;
   }
 }
