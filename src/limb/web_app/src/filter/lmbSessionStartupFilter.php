@@ -88,7 +88,7 @@ class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
   /**
    * Creates object of {@link lmbSessionDbStorage} class.
    * If constant LIMB_SESSION_MAX_LIFE_TIME is defined passed it's value as session max life time
-   * @see lmbInterceptingFilter :: run()
+   * @see lmbInterceptingFilter::run()
    * @uses LIMB_SESSION_MAX_LIFE_TIME
    */
   protected function _createDBSessionStorage($lifetime)

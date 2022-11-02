@@ -9,7 +9,6 @@
 namespace limb\web_app\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
-use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
@@ -18,7 +17,7 @@ use limb\web_app\src\exception\lmbControllerNotFoundException;
  * class lmbRequestDispatchingFilter.
  *
  * @package web_app
- * @version $Id: lmbRequestDispatchingFilter.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbRequestDispatchingFilter.php 7486 2009-01-26 19:13:20Z
  */
 class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
 {
@@ -28,7 +27,7 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
 
   function __construct($dispatcher, $default_controller_name = 'limb\web_app\src\controller\NotFoundController')
   {
-    $this->toolkit = lmbToolkit :: instance();
+    $this->toolkit = lmbToolkit::instance();
     $this->dispatcher = $dispatcher;
     $this->setDefaultControllerName($default_controller_name);
   }
@@ -90,5 +89,3 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
     $this->toolkit->getRequest()->merge($dispatched_params);
   }
 }
-
-

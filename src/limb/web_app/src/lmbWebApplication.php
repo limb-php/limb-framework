@@ -15,7 +15,6 @@ use limb\web_app\src\request\lmbRoutesRequestDispatcher;
 use limb\web_app\src\filter\lmbErrorHandlingFilter;
 use limb\web_app\src\filter\lmbSessionStartupFilter;
 use limb\web_app\src\filter\lmbRequestDispatchingFilter;
-use limb\web_app\src\filter\lmbResponseTransactionFilter;
 use limb\web_app\src\filter\lmbActionPerformingFilter;
 use limb\web_app\src\filter\lmbViewRenderingFilter;
 
@@ -65,10 +64,11 @@ class lmbWebApplication extends lmbFilterChain
     $this->pre_view_filters[] = $filter;
   }
 
-  function process()
+  function process($request, $response)
   {
-    $this->_registerFilters();
-    parent :: process();
+      $this->_registerFilters();
+
+      return parent::process($request, $response);
   }
 
   protected function _registerFilters()
@@ -82,15 +82,14 @@ class lmbWebApplication extends lmbFilterChain
     $this->registerFilter(new lmbHandle(lmbRequestDispatchingFilter::class,
                                         array($this->_getRequestDispatcher(),
                                               $this->default_controller_name)));
-    $this->registerFilter(new lmbHandle(lmbResponseTransactionFilter::class));
-
-    $this->_addFilters($this->pre_action_filters);
-
-    $this->registerFilter(new lmbHandle(lmbActionPerformingFilter::class));
 
     $this->_addFilters($this->pre_view_filters);
 
     $this->registerFilter(new lmbHandle(lmbViewRenderingFilter::class));
+
+    $this->_addFilters($this->pre_action_filters);
+
+    $this->registerFilter(new lmbHandle(lmbActionPerformingFilter::class));
   }
 
   protected function _addFilters($filters)

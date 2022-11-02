@@ -237,15 +237,13 @@ EOD;
     foreach(file($file) as $line)
     {
       $i++;
-      if($i >= $line_number - self :: CONTEXT_RADIUS && $i <= $line_number + self :: CONTEXT_RADIUS)
+      if($i >= $line_number - self::CONTEXT_RADIUS && $i <= $line_number + self::CONTEXT_RADIUS)
         $context[] = $i . "\t" . $line;
 
-      if($i > $line_number + self :: CONTEXT_RADIUS)
+      if($i > $line_number + self::CONTEXT_RADIUS)
         break;
     }
 
     return "\n" . implode("", $context);
   }
 }
-
-
