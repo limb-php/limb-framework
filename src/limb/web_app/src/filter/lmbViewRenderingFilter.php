@@ -36,5 +36,7 @@ class lmbViewRenderingFilter implements lmbInterceptingFilterInterface
 
           $response->write($view->render());
       }
+
+      return $response;
   }
 }
