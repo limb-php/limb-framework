@@ -15,11 +15,11 @@ use limb\toolkit\src\lmbToolkit;
  * class lmbAutoDbTransactionFilter.
  *
  * @package dbal
- * @version $Id: lmbAutoDbTransactionFilter.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbAutoDbTransactionFilter.php 7486 2009-01-26 19:13:20Z
  */
 class lmbAutoDbTransactionFilter
 {
-  function run($chain)
+  function run($filter_chain, $request = null, $response = null)
   {
     $toolkit = lmbToolkit::instance();
     $old_conn = $toolkit->getDefaultDbConnection();
@@ -28,9 +28,10 @@ class lmbAutoDbTransactionFilter
 
     try
     {
-      $chain->next();
-      $conn->commitTransaction();
-      $toolkit->setDefaultDbConnection($old_conn);
+        $response = $filter_chain->next($request, $response);
+
+        $conn->commitTransaction();
+        $toolkit->setDefaultDbConnection($old_conn);
     }
     catch(\Exception $e)
     {
@@ -38,6 +39,8 @@ class lmbAutoDbTransactionFilter
       $toolkit->setDefaultDbConnection($old_conn);
       throw $e;
     }
+
+    return $response;
   }
 }
 
