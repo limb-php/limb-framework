@@ -197,8 +197,7 @@ abstract class lmbCacheConnectionTest extends TestCase
 
     $cache = lmbCacheFactory::createConnection($dsn);
 
-    $dsn_with_prefix = clone($dsn);
-    $dsn_with_prefix->addQueryItem('prefix', 'foo');
+    $dsn_with_prefix = $dsn->withQueryItem('prefix', 'foo');
     $cache_with_prefix = lmbCacheFactory::createConnection($dsn_with_prefix);
 
     $id = $this->_getUniqueId('testWithPrefix_NotIntercepting');

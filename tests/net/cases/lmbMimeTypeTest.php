@@ -15,35 +15,35 @@ class lmbMimeTypeTest extends TestCase
 {
   function getExtensionFailed()
   {
-    $this->assertNull(lmbMimeType :: getExtension('foo'));
+    $this->assertNull(lmbMimeType::getExtension('foo'));
   }
 
   function testGetExtension()
   {
-    $this->assertEquals(lmbMimeType :: getExtension('text/html'), 'html');
-    $this->assertEquals(lmbMimeType :: getExtension('text/rtf'), 'rtf');
+    $this->assertEquals(lmbMimeType::getExtension('text/html'), 'html');
+    $this->assertEquals(lmbMimeType::getExtension('text/rtf'), 'rtf');
   }
 
   function testGetMimeTypeForExtensionFailed()
   {
-    $this->assertNull(lmbMimeType :: getMimeType('booo'));
+    $this->assertNull(lmbMimeType::getMimeType('booo'));
   }
 
   function testGetMimeTypeForExtension()
   {
-    $this->assertEquals(lmbMimeType :: getMimeType('html'), 'text/html');
-    $this->assertEquals(lmbMimeType :: getMimeType('rtf'), 'text/rtf');
+    $this->assertEquals(lmbMimeType::getMimeType('html'), 'text/html');
+    $this->assertEquals(lmbMimeType::getMimeType('rtf'), 'text/rtf');
   }
 
   function testGetMimeTypeExtensionWithDot()
   {
-    $this->assertEquals(lmbMimeType :: getMimeType('.html'), 'text/html');
-    $this->assertEquals(lmbMimeType :: getMimeType('.rtf'), 'text/rtf');
+    $this->assertEquals(lmbMimeType::getMimeType('.html'), 'text/html');
+    $this->assertEquals(lmbMimeType::getMimeType('.rtf'), 'text/rtf');
   }
 
   function testGetMimeTypeForFileFailed()
   {
-    $this->assertNull(lmbMimeType :: getFileMimeType('booo.fg'));
+    $this->assertNull(lmbMimeType::getFileMimeType('booo.fg'));
   }
 
   function testGetMimeTypeForFile()

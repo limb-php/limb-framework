@@ -12,8 +12,6 @@ use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbHttpResponse;
 use limb\net\src\lmbHttpCache;
 
-Mock :: generate(lmbHttpResponse::class, 'MockHttpResponse');
-
 class lmbHttpCacheTest extends TestCase
 {
   var $response;
@@ -22,7 +20,7 @@ class lmbHttpCacheTest extends TestCase
 
   function setUp(): void
   {
-    $this->response = new MockHttpResponse();
+    $this->response = $this->createMock(lmbHttpResponse::class);
     $this->cache = new lmbHttpCache();
     $this->server_vars = $_SERVER;
   }

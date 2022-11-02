@@ -21,8 +21,6 @@ Mock :: generatePartial(
         '_sendFile')
 );
 
-Mock::generate(lmbHttpRedirectStrategy::class, 'MockHttpRedirectStrategy');
-
 class lmbHttpResponseTest extends TestCase
 {
   var $response;
@@ -107,7 +105,7 @@ class lmbHttpResponseTest extends TestCase
 
   function testRedirectOnlyOnce()
   {
-    $strategy = new MockHttpRedirectStrategy();
+    $strategy = $this->createMock(lmbHttpRedirectStrategy::class);
 
     $this->response->setRedirectStrategy($strategy);
 

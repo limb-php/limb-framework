@@ -11,14 +11,15 @@ namespace limb\net\src;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbArrayHelper;
 use limb\core\src\exception\lmbException;
+use Psr\Http\Message\UriInterface;
 
 /**
  * class lmbUri.
  *
  * @package net
- * @version $Id: lmbUri.class.php 8124 2010-02-03 17:03:21Z 3dmax $
+ * @version $Id: lmbUri.php 8124 2010-02-03 17:03:21Z 3dmax $
  */
-class lmbUri extends lmbSet
+class lmbUri extends lmbSet implements UriInterface
 {
   protected $protocol = '';
   protected $user = '';
@@ -26,11 +27,12 @@ class lmbUri extends lmbSet
   protected $host = '';
   protected $port = '';
   protected $path = '';
-  protected $anchor = '';
-  protected $query_items = array();
   protected $path_elements = array();
+  protected $anchor = '';
+  protected $query = '';
+  protected $query_items = array();
 
-  function __construct($str='')
+  function __construct($str = '')
   {
     if($str)
       $this->reset($str);
@@ -62,14 +64,15 @@ class lmbUri extends lmbSet
 
   function reset($str = null)
   {
-    $this->user        = '';
-    $this->password    = '';
-    $this->host        = '';
-    $this->port        = '';
-    $this->path        = '';
-    $this->query_items = array();
-    $this->anchor      = '';
+    $this->user = '';
+    $this->password = '';
+    $this->host = '';
+    $this->port = '';
+    $this->path = '';
     $this->path_elements = array();
+    $this->query = '';
+    $this->query_items = array();
+    $this->anchor = '';
 
     if(!$str)
       return;
@@ -187,7 +190,7 @@ class lmbUri extends lmbSet
 
   function setHost($host)
   {
-    $this->host = $host;
+    $this->host = strtolower($host);
   }
 
   function setPort($port)
@@ -198,7 +201,7 @@ class lmbUri extends lmbSet
   function setPath($path)
   {
     $this->path = $path;
-    $this->path_elements = explode('/',$this->path);
+    $this->path_elements = explode('/', $this->path);
   }
 
   function setAnchor($anchor)
@@ -308,7 +311,7 @@ class lmbUri extends lmbSet
 
     if(in_array('query', $parts))
     {
-      $query_string = $this->getQueryString();
+      $query_string = $this->getQuery();
       $string .= !empty($query_string) ? '?' . $query_string : '';
     }
 
@@ -320,7 +323,7 @@ class lmbUri extends lmbSet
 
   function getPathElement($level)
   {
-    return isset($this->path_elements[$level]) ? $this->path_elements[$level] : '';
+    return $this->path_elements[$level] ?? '';
   }
 
   function getPathElements()
@@ -356,17 +359,6 @@ class lmbUri extends lmbSet
     return implode('/', $items);
   }
 
-
-  function addEncodedQueryItem($name, $value)
-  {
-    $this->query_items[$name] = $value;
-  }
-
-  function addQueryItem($name, $value)
-  {
-    $this->query_items[$name] = $value;
-  }
-
   function getQueryItem($name)
   {
     if (isset($this->query_items[$name]))
@@ -380,24 +372,36 @@ class lmbUri extends lmbSet
     return $this->query_items;
   }
 
-  function setQueryItems($items)
+  function withQueryItem($name, $value)
   {
-    $this->query_items = $items;
+    $query_items = $this->query_items;
+    $query_items[$name] = $value;
+
+    return $this->withQuery( $this->_queryItemsToString($query_items) );
+  }
+
+  function withQueryItems($items)
+  {
+    return $this->withQuery( $this->_queryItemsToString($items) );
   }
 
   /**
   * Removes a query_string item
   *
   */
-  function removeQueryItem($name, $index = null)
+  function withoutQueryItem($name, $index = null)
   {
-    if (isset($this->query_items[$name]))
+    $query_items = $this->query_items;
+
+    if (isset($query_items[$name]))
     {
-      if( is_array($this->query_items[$name]) && $index )
-        unset($this->query_items[$name][$index]);
+      if( is_array($query_items[$name]) && $index )
+        unset($query_items[$name][$index]);
       else
-        unset($this->query_items[$name]);
+        unset($query_items[$name]);
     }
+
+    return $this->withQuery( $this->_queryItemsToString($query_items) );
   }
 
   /**
@@ -405,15 +409,16 @@ class lmbUri extends lmbSet
   */
   function setQueryString($query_string)
   {
-    $this->query_items = $this->_parseQueryString($query_string);
+      $this->query = $query_string;
+      $this->query_items = $this->_parseQueryString($query_string);
   }
 
   /**
   * Removes query items
   */
-  function removeQueryItems()
+  function withoutQueryItems()
   {
-    $this->query_items = array();
+    return $this->withQuery('');
   }
 
   /**
@@ -422,25 +427,29 @@ class lmbUri extends lmbSet
   */
   function getQueryString()
   {
-    $query_string = '';
-    $query_items = array();
-    $flat_array = array();
-
-    lmbArrayHelper::toFlatArray($this->query_items, $flat_array);
-    ksort($flat_array);
-    foreach($flat_array as $key => $value)
-    {
-      if($value != '' ||  is_null($value))
-        $query_items[] = $key . '=' . urlencode($value);
-      else
-        $query_items[] = $key;
-    }
-
-    if($query_items)
-      $query_string = implode('&', $query_items);
-
-    return $query_string;
+      return $this->_queryItemsToString($this->query_items);
   }
+
+    protected function _queryItemsToString($init_query_items = array())
+    {
+        $query_string = '';
+        $query_items = array();
+        $flat_array = array();
+
+        lmbArrayHelper::toFlatArray($init_query_items, $flat_array);
+        foreach($flat_array as $key => $value)
+        {
+            if(!is_null($value))
+                $query_items[] = $key . '=' . urlencode($value);
+            else
+                $query_items[] = $key;
+        }
+
+        if($query_items)
+            $query_string = implode('&', $query_items);
+
+        return $query_string;
+    }
 
   /**
   * Parses raw query_string and returns an array of it
@@ -500,5 +509,115 @@ class lmbUri extends lmbSet
     $this->path = implode('/', $path);
     $this->path_elements = explode('/',$this->path);
   }
-}
 
+    public function getScheme()
+    {
+        return $this->getProtocol();
+    }
+
+    public function getAuthority()
+    {
+        $authority = $this->getHost();
+        if($this->getUserInfo() !== '') {
+            $authority = $this->getUserInfo() . '@' . $authority;
+        }
+        if($this->getPort()) {
+            $authority .= ':' . $this->getPort();
+        }
+        return $authority;
+    }
+
+    public function getUserInfo()
+    {
+        $userInfo = $this->getUser();
+        if($this->getPassword())
+            $userInfo .= ':' . $this->getPassword();
+
+        return $userInfo;
+    }
+
+    public function getQuery()
+    {
+        return $this->query;
+    }
+
+    public function getFragment()
+    {
+        return $this->getAnchor();
+    }
+
+    public function withScheme($scheme)
+    {
+        if( $this->getScheme() === $scheme )
+            return $this;
+
+        $clone = clone($this);
+        $clone->setProtocol($scheme);
+
+        return $clone;
+    }
+
+    public function withUserInfo($user, $password = null)
+    {
+        $clone = clone($this);
+        $clone->setUser($user);
+        $clone->setPassword($password);
+
+        return $clone;
+    }
+
+    public function withHost($host)
+    {
+        if( $this->getHost() === $host )
+            return $this;
+
+        $clone = clone($this);
+        $clone->setHost($host);
+
+        return $clone;
+    }
+
+    public function withPort($port)
+    {
+        if( $this->getPort() === $port )
+            return $this;
+
+        $clone = clone($this);
+        $clone->setPort($port);
+
+        return $clone;
+    }
+
+    public function withPath($path)
+    {
+        if( $this->getPath() === $path )
+            return $this;
+
+        $clone = clone($this);
+        $clone->setPath($path);
+
+        return $clone;
+    }
+
+    public function withQuery($query)
+    {
+        if( $this->getQuery() === $query )
+            return $this;
+
+        $clone = clone($this);
+        $clone->setQueryString($query);
+
+        return $clone;
+    }
+
+    public function withFragment($fragment)
+    {
+        if( $this->getAnchor() === $fragment )
+            return $this;
+
+        $clone = clone($this);
+        $clone->setAnchor($fragment);
+
+        return $clone;
+    }
+}

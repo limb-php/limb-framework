@@ -77,7 +77,7 @@ class lmbCacheTools extends lmbAbstractTools
         if($conf->get('cache_log_enabled', false))
           $wrapper['logged'] = 'lmbLoggedCache';
 
-        $dsn->addQueryItem('wrapper', $wrapper);
+        //$dsn->addQueryItem('wrapper', $wrapper);
 
         return $this->createCacheConnectionByDSN($dsn);
       }

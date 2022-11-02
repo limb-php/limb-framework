@@ -111,7 +111,9 @@ class lmbUriTest extends TestCase
       $uri = new lmbUri('http:///');
       $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testToStringDefault()
@@ -121,16 +123,6 @@ class lmbUriTest extends TestCase
     $uri = new lmbUri($str);
 
     $this->assertEquals($uri->toString(), $str);
-  }
-
-  function testToStringQueryItemsSort()
-  {
-    $str = 'http://localhost/test.php?b=1&a=2&c[1]=456';
-    $expected_url = 'http://localhost/test.php?a=2&b=1&c[1]=456';
-
-    $uri = new lmbUri($str);
-
-    $this->assertEquals($uri->toString(), $expected_url);
   }
 
   function testToStringNoProtocol()
@@ -271,9 +263,21 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $uri->addQueryItem('bar', 'foo');
-    $this->assertEquals($uri->getQueryString(), 'bar=foo&foo=bar');
+    $actual_uri = $uri->withQuery( $uri->getQuery() . '&bar=foo' );
+
+    $this->assertEquals('foo=bar&bar=foo', $actual_uri->getQueryString());
   }
+
+    function testAddQueryItem1()
+    {
+        $str = 'http://admin:test@localhost:81/test.php?foo=bar#23';
+
+        $uri = new lmbUri($str);
+
+        $actual_uri = $uri->withQueryItem('bar', 'foo');
+
+        $this->assertEquals('foo=bar&bar=foo', $actual_uri->getQueryString());
+    }
 
   function testAddQueryItem2()
   {
@@ -281,8 +285,9 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $uri->addQueryItem('foo', 'foo');
-    $this->assertEquals($uri->getQueryString(), 'foo=foo');
+    $actual_uri = $uri->withQueryItem('foo', 'foo');
+
+    $this->assertEquals('foo=foo', $actual_uri->getQueryString());
   }
 
   function testAddQueryItem3()
@@ -291,9 +296,11 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $uri->addQueryItem('foo', array('i1' => 'bar'));
-    $uri->addQueryItem('bar', 1);
-    $this->assertEquals($uri->getQueryString(), 'bar=1&foo[i1]=bar');
+    $actual_uri = $uri
+        ->withQueryItem('foo', array('i1' => 'bar'))
+        ->withQueryItem('bar', 1);
+
+    $this->assertEquals('foo[i1]=bar&bar=1', $actual_uri->getQueryString());
   }
 
   function testAddQueryItem4()
@@ -302,9 +309,11 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $uri->addQueryItem('foo', array('i1' => array('i2' => 'bar')));
-    $uri->addQueryItem('bar', 1);
-    $this->assertEquals($uri->getQueryString(), 'bar=1&foo[i1][i2]=bar');
+    $actual_uri = $uri
+        ->withQueryItem('foo', array('i1' => array('i2' => 'bar')))
+        ->withQueryItem('bar', 1);
+
+    $this->assertEquals('foo[i1][i2]=bar&bar=1', $actual_uri->getQueryString());
   }
 
   function testAddQueryItemUrlencode()
@@ -313,8 +322,9 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $uri->addQueryItem('foo', ' foo ');
-    $this->assertEquals($uri->getQueryString(), 'foo=+foo+');
+    $actual_uri = $uri->withQueryItem('foo', ' foo ');
+
+    $this->assertEquals('foo=+foo+', $actual_uri->getQueryString());
   }
 
   function testAddQueryItemUrlencode2()
@@ -323,8 +333,9 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $uri->addQueryItem('foo', array('i1' => ' bar '));
-    $this->assertEquals($uri->getQueryString(), 'foo[i1]=+bar+');
+    $actual_uri = $uri->withQueryItem('foo', array('i1' => ' bar '));
+
+    $this->assertEquals('foo[i1]=+bar+', $actual_uri->getQueryString());
   }
 
   function testCompareQueryEqual()
@@ -537,22 +548,34 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $uri->removeQueryItem('bar');
+    $actual_uri = $uri->withoutQueryItem('bar');
 
-    $this->assertEquals('foo=bar', $uri->getQueryString());
-    $this->assertEquals('http://localhost/test.php?foo=bar', $uri->toString());
+    $this->assertEquals('foo=bar', $actual_uri->getQueryString());
+    $this->assertEquals('http://localhost/test.php?foo=bar', $actual_uri->toString());
   }
 
-  function testRemoveQueryItems()
+    function testRemoveQueryItems()
+    {
+        $str = 'http://localhost/test.php?foo=bar&bar=foo';
+
+        $uri = new lmbUri($str);
+
+        $actual_uri = $uri->withoutQueryItems();
+
+        $this->assertEquals('', $actual_uri->getQueryString());
+        $this->assertEquals('http://localhost/test.php', $actual_uri->toString());
+    }
+
+  function testRemoveQueryItems2()
   {
     $str = 'http://localhost/test.php?foo=bar&bar=foo';
 
     $uri = new lmbUri($str);
 
-    $uri->removeQueryItems();
+    $actual_uri = $uri->withQuery('');
 
-    $this->assertEquals('', $uri->getQueryString());
-    $this->assertEquals('http://localhost/test.php', $uri->toString());
+    $this->assertEquals('', $actual_uri->getQueryString());
+    $this->assertEquals('http://localhost/test.php', $actual_uri->toString());
   }
 
   function testIsAbsolute()
