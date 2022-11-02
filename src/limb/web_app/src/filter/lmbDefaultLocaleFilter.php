@@ -21,7 +21,7 @@ class lmbDefaultLocaleFilter implements lmbInterceptingFilterInterface
 {
   protected $default_locale;
 
-  function __construct($default_locale)
+  function __construct($default_locale = 'en_US')
   {
       $this->default_locale = $default_locale;
   }
