@@ -309,9 +309,8 @@ class lmbHttpRequest extends lmbSet
       $query .= $key . '=' . urlencode($value) . '&';
     }
 
-    //TODO: this is quite ugly but it works...
-    $uri = clone($this->__uri);
-    $uri->removeQueryItems();
+    $uri = $this->__uri->withoutQueryItems();
+
     return rtrim($uri->toString() . '?' . rtrim($query, '&'), '?');
   }
 

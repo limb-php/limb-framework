@@ -8,18 +8,14 @@
  */
 namespace limb\web_spider\src;
 
-use limb\web_spider\src\lmbUriFilter;
-use limb\web_spider\src\lmbContentTypeFilter;
-use limb\web_spider\src\lmbUriExtractor;
-use limb\web_spider\src\lmbUriNormalizer;
-use limb\web_spider\src\lmbUriContentReader;
 use limb\net\src\lmbUri;
+use limb\core\src\exception\lmbException;
 
 /**
  * class lmbWebSpider.
  *
  * @package web_spider
- * @version $Id: lmbWebSpider.class.php 7686 2009-03-04 19:57:12Z 3d-max $
+ * @version $Id: lmbWebSpider.php 7686 2009-03-04 19:57:12Z 3d-max $
  */
 class lmbWebSpider
 {
@@ -87,19 +83,19 @@ class lmbWebSpider
   {
     if(!$uri->getHost())
     {
-      $uri->setHost($context_uri->getHost());
+      $uri = $uri->withHost($context_uri->getHost());
 
       if(($path = $context_uri->getPath()) && $uri->isRelative())
       {
         $path = preg_replace('~(.*)(/[^/]*)$~', '$1/', $path);
-        $uri->setPath($path . $uri->getPath());
+        $uri = $uri->withPath($path . $uri->getPath());
       }
     }
 
     if(!$uri->getProtocol())
-      $uri->setProtocol($context_uri->getProtocol());
+        $uri = $uri->withProtocol($context_uri->getProtocol());
 
-    $uri->setAnchor('');
+    $uri = $uri->withAnchor('');
 
     $uri->normalizePath();
   }

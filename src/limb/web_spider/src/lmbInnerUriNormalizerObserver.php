@@ -11,7 +11,7 @@
  * class lmbInnerUriNormalizerObserver.
  *
  * @package web_spider
- * @version $Id: lmbInnerUriNormalizerObserver.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbInnerUriNormalizerObserver.php 7686 2009-03-04 19:57:12Z
  */
 namespace limb\web_spider\src;
 
@@ -34,10 +34,9 @@ class lmbInnerUriNormalizerObserver
     if($uri->getProtocol() != $this->base_uri->getProtocol())
       return;
 
-    $uri->setHost('');
-    $uri->setPort('');
-    $uri->setProtocol('');
+    $uri = $uri
+        ->withHost('')
+        ->withPort('')
+        ->withScheme('');
   }
 }
-
-

@@ -16,7 +16,7 @@ use limb\core\src\exception\lmbException;
  * class lmbDbDSN.
  *
  * @package dbal
- * @version $Id: lmbDbDSN.class.php 8069 2010-01-20 08:16:38Z korchasa $
+ * @version $Id: lmbDbDSN.php 8069 2010-01-20 08:16:38Z
  */
 class lmbDbDSN extends lmbObject
 {
@@ -72,17 +72,13 @@ class lmbDbDSN extends lmbObject
 
   function buildUri()
   {
-  	$uri = new lmbUri();
-    $uri->setProtocol($this->driver);
-    $uri->setHost($this->host);
-    $uri->setUser($this->get('user', ''));
-    $uri->setPassword($this->get('password', ''));
-    $uri->setPath('/' . $this->get('database', ''));
-
-    if(isset($this->port))
-      $uri->setPort($this->port);
-    if(count($this->extra))
-      $uri->setQueryItems($this->extra);
+  	$uri = (new lmbUri())
+      ->withScheme($this->driver)
+      ->withHost($this->host)
+      ->withUserInfo($this->get('user', ''), $this->get('password', ''))
+      ->withPath('/' . $this->get('database', ''))
+      ->withPort($this->port)
+      ->withQueryItems($this->extra);
 
     return $uri;
   }
@@ -92,5 +88,3 @@ class lmbDbDSN extends lmbObject
     return $this->_getUri()->toString();
   }
 }
-
-
