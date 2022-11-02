@@ -320,7 +320,7 @@ class LmbController
     $this->is_forwarded = true;
     $controller = $this->toolkit->createController($controller_name);
     $controller->setCurrentAction($action);
-    return $controller->performAction();
+    return $controller->performAction( $this->toolkit->getRequest() );
   }
 
   function forwardTo404()

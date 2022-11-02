@@ -19,11 +19,11 @@ use limb\web_app\src\controller\LmbController;
  *  </code>
  *
  * @package web_app
- * @version $Id: lmbController.class.php 6497 2007-11-07 13:27:32Z serega $
+ * @version $Id: lmbController.php 6497 2007-11-07 13:27:32Z
  */
 class FallbackToViewController extends LmbController
 {
-  function performAction()
+  function performAction($request = null)
   {
     $path = trim($this->request->getUriPath(), '/');
     if($template_path = $this->findTemplateByAlias($path))
