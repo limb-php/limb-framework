@@ -209,28 +209,28 @@ class lmbUriTest extends TestCase
     );
   }
 
-  function testSetQueryString()
+  function testWithQuery()
   {
     $str = 'http://localhost';
 
     $uri = new lmbUri($str);
 
-    $uri->setQueryString('foo=bar&bar=foo');
+    $actual_uri = $uri->withQuery('foo=bar&bar=foo');
 
-    $this->assertEquals($uri->countQueryItems(), 2);
-    $this->assertEquals($uri->getQueryItem('foo'), 'bar');
-    $this->assertEquals($uri->getQueryItem('bar'), 'foo');
+    $this->assertEquals(2, $actual_uri->countQueryItems());
+    $this->assertEquals('bar', $actual_uri->getQueryItem('foo'));
+    $this->assertEquals('foo', $actual_uri->getQueryItem('bar'));
   }
 
-  function testSetQueryString2()
+  function testWithQuery2()
   {
     $str = 'http://localhost';
 
     $uri = new lmbUri($str);
-    $uri->setQueryString('foo[i1]=1&foo[i2]=2');
+    $actual_uri = $uri->withQuery('foo[i1]=1&foo[i2]=2');
 
-    $this->assertEquals($uri->countQueryItems(), 1);
-    $this->assertEquals($uri->getQueryItem('foo'), array('i1' => '1', 'i2' => '2'));
+    $this->assertEquals(1, $actual_uri->countQueryItems());
+    $this->assertEquals(array('i1' => '1', 'i2' => '2'), $actual_uri->getQueryItem('foo'));
   }
 
   function testNormalizePath()
@@ -239,19 +239,19 @@ class lmbUriTest extends TestCase
     $uri->normalizePath();
     $this->assertEquals($uri, new lmbUri('/foo/boo.php'));
 
-    $uri->reset('/foo/bar/../../boo.php');
+    $uri = new lmbUri('/foo/bar/../../boo.php');
     $uri->normalizePath();
     $this->assertEquals($uri, new lmbUri('/boo.php'));
 
-    $uri->reset('/foo/bar/../boo.php');
+    $uri = new lmbUri('/foo/bar/../boo.php');
     $uri->normalizePath();
     $this->assertEquals($uri, new lmbUri('/foo/boo.php'));
 
-    $uri->reset('/foo//bar//boo.php');
+    $uri = new lmbUri('/foo//bar//boo.php');
     $uri->normalizePath();
     $this->assertEquals($uri, new lmbUri('/foo/bar/boo.php'));
 
-    $uri->reset('/foo//bar///boo.php');
+    $uri = new lmbUri('/foo//bar///boo.php');
     $uri->normalizePath();
     $this->assertEquals($uri, $uri = new lmbUri('/foo/bar/boo.php'));
     $this->assertEquals($uri->getPath(), $uri->getPath());

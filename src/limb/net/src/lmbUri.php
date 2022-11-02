@@ -8,126 +8,86 @@
  */
 namespace limb\net\src;
 
-use limb\core\src\lmbSet;
+use Psr\Http\Message\UriInterface;
 use limb\core\src\lmbArrayHelper;
 use limb\core\src\exception\lmbException;
-use Psr\Http\Message\UriInterface;
 
 /**
  * class lmbUri.
  *
  * @package net
- * @version $Id: lmbUri.php 8124 2010-02-03 17:03:21Z 3dmax $
+ * @version $Id: lmbUri.php 8124 2010-02-03 17:03:21Z
  */
-class lmbUri extends lmbSet implements UriInterface
+class lmbUri implements UriInterface
 {
-  protected $protocol = '';
-  protected $user = '';
-  protected $password = '';
-  protected $host = '';
-  protected $port = '';
-  protected $path = '';
-  protected $path_elements = array();
-  protected $anchor = '';
-  protected $query = '';
-  protected $query_items = array();
+    private $protocol = '';
+    private $user = '';
+    private $password = '';
+    private $host = '';
+    private $port = '';
+    private $path = '';
+    private $path_elements = array();
+    private $query = '';
+    private $query_items = array();
+    private $anchor = '';
 
-  function __construct($str = '')
+  public function __construct($str = '')
   {
-    if($str)
-      $this->reset($str);
-  }
+    if($str) {
+        $this->user = '';
+        $this->password = '';
+        $this->host = '';
+        $this->port = '';
+        $this->path = '';
+        $this->path_elements = array();
+        $this->query = '';
+        $this->query_items = array();
+        $this->anchor = '';
 
-  static function addQueryItems($url, $items=array())
-  {
-    $str_params = '';
+        if('file' == substr($str, 0, 4))
+            $str = $this->_fixFileProtocol($str);
 
-    if(strpos($url, '?') === false)
-      $url .= '?';
-    else
-      $url .= '&';
+        if(!$parsed_url = @parse_url($str))
+            throw new lmbException("URI '$str' is not valid");
 
-    $str_params_arr = array();
-    foreach($items as $key => $val)
-    {
-      $url = preg_replace("/&*{$key}=[^&]*/", '', $url);
-      $str_params_arr[] = "$key=$val";
+        foreach($parsed_url as $key => $value)
+        {
+            switch($key)
+            {
+                case 'scheme':
+                    $this->setProtocol($value);
+                    break;
+
+                case 'user':
+                    $this->setUser($value);
+                    break;
+
+                case 'host':
+                    $this->setHost($value);
+                    break;
+
+                case 'port':
+                    $this->setPort($value);
+                    break;
+
+                case 'pass':
+                    $this->setPassword($value);
+                    break;
+
+                case 'path':
+                    $this->setPath($value);
+                    break;
+
+                case 'query':
+                    $this->setQueryString($value);
+                    break;
+
+                case 'fragment':
+                    $this->setAnchor($value);
+                    break;
+            }
+        }
     }
-
-    $items = explode('#', $url);
-
-    $url = $items[0];
-    $fragment = isset($items[1]) ? '#' . $items[1] : '';
-
-    return $url . implode('&', $str_params_arr) . $fragment;
-  }
-
-  function reset($str = null)
-  {
-    $this->user = '';
-    $this->password = '';
-    $this->host = '';
-    $this->port = '';
-    $this->path = '';
-    $this->path_elements = array();
-    $this->query = '';
-    $this->query_items = array();
-    $this->anchor = '';
-
-    if(!$str)
-      return;
-
-    if('file' == substr($str, 0, 4))
-      $str = $this->_fixFileProtocol($str);
-
-    if(!$urlinfo = @parse_url($str))
-      throw new lmbException("URI '$str' is not valid");
-
-    foreach($urlinfo as $key => $value)
-    {
-      switch($key)
-      {
-        case 'scheme':
-          $this->setProtocol($value);
-        break;
-
-        case 'user':
-          $this->setUser($value);
-        break;
-
-        case 'host':
-          $this->setHost($value);
-        break;
-
-        case 'port':
-          $this->setPort($value);
-        break;
-
-        case 'pass':
-          $this->setPassword($value);
-        break;
-
-        case 'path':
-          $this->setPath($value);
-        break;
-
-        case 'query':
-          $this->setQueryString($value);
-        break;
-
-        case 'fragment':
-          $this->setAnchor($value);
-        break;
-      }
-    }
-  }
-
-  /**
-   * @deprecated
-   */
-  function parse($uri)
-  {
-    $this->reset($uri);
   }
 
   protected function _fixFileProtocol($url)
@@ -173,41 +133,50 @@ class lmbUri extends lmbSet implements UriInterface
     return $this->anchor;
   }
 
-  function setProtocol($protocol)
+  private function setProtocol($protocol)
   {
     $this->protocol = $protocol;
   }
 
-  function setUser($user)
+  private function setUser($user)
   {
     $this->user = $user;
   }
 
-  function setPassword($password)
+  private function setPassword($password)
   {
     $this->password = $password;
   }
 
-  function setHost($host)
+  private function setHost($host)
   {
     $this->host = strtolower($host);
   }
 
-  function setPort($port)
+  private function setPort($port)
   {
     $this->port = $port;
   }
 
-  function setPath($path)
+  private function setPath($path)
   {
     $this->path = $path;
     $this->path_elements = explode('/', $this->path);
   }
 
-  function setAnchor($anchor)
+  private function setAnchor($anchor)
   {
     $this->anchor = $anchor;
   }
+
+    /**
+     * Sets the query_string to literally what you supply
+     */
+    private function setQueryString($query_string)
+    {
+        $this->query = $query_string;
+        $this->query_items = $this->_parseQueryString($query_string);
+    }
 
   function isAbsolute()
   {
@@ -402,15 +371,6 @@ class lmbUri extends lmbSet implements UriInterface
     }
 
     return $this->withQuery( $this->_queryItemsToString($query_items) );
-  }
-
-  /**
-  * Sets the query_string to literally what you supply
-  */
-  function setQueryString($query_string)
-  {
-      $this->query = $query_string;
-      $this->query_items = $this->_parseQueryString($query_string);
   }
 
   /**
