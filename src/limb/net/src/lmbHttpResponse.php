@@ -255,17 +255,15 @@ class lmbHttpResponse
     $this->response_file_path = $file_path;
   }
 
-  public function write($data)
+  public function write($string)
   {
-    $this->_ensureTransactionStarted();
+      if( !is_string($string) ) {
+          throw new lmbException('Wrong data type');
+      }
 
-    if( is_array($data) ) {
-        $data = $this->_convertToJson($data);
+      $this->_ensureTransactionStarted();
 
-        $this->addHeader('Content-type: application/json');
-    }
-
-    $this->response_string = $data;
+      $this->response_string = $string;
   }
 
   public function append($string)
