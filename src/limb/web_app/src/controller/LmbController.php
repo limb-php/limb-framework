@@ -44,7 +44,7 @@ class LmbController
   protected $name;
 
   /**
-   * @var string default action that will be performed by performAction() if no current_action was speficified
+   * @var string default action that will be performed by performAction() if no current_action was specified
    */
   protected $default_action = 'display';
 
@@ -54,7 +54,7 @@ class LmbController
   protected $current_action;
 
   /**
-   * @var array a action to template cached map
+   * @var array a pairs of action to template cached map
    */
   protected $action_template_map = array();
 
@@ -69,25 +69,25 @@ class LmbController
   protected $toolkit;
   /**
    *
-   * @var lmbHttpRequest
+   * @var \limb\net\src\lmbHttpRequest
    */
   protected $request;
 
   /**
    *
-   * @var lmbHttpResponse
+   * @var \limb\net\src\lmbHttpResponse
    */
   protected $response;
   /**
    *
-   * @var lmbSession
+   * @var \limb\session\src\lmbSession
    */
   protected $session;
   /**
    *
    * @var lmbView
    */
-  protected $view;
+  protected $_view;
   /**
    *
    * @var array
@@ -100,6 +100,7 @@ class LmbController
   protected $validator;
 
   protected $form_id;
+  protected $form_datasource = [];
   protected $in_popup = true;
   protected $is_forwarded = false;
 
@@ -113,12 +114,11 @@ class LmbController
     if(!$this->name)
      $this->name = $this->_guessName();
 
-    $this->toolkit = lmbToolkit :: instance();
+    $this->toolkit = lmbToolkit::instance();
 
     $this->request = $this->toolkit->getRequest();
     $this->response = $this->toolkit->getResponse();
     $this->session = $this->toolkit->getSession();
-    $this->view = $this->toolkit->getView();//this is a dummy view, which will be replaced with a concrete one with setTemplate() method
     $this->error_list = new lmbErrorList();
     $this->validator = new lmbValidator($this->error_list);
 
@@ -145,8 +145,8 @@ class LmbController
     $refController = new \ReflectionClass($this);
     $ctrlClassName = $refController->getShortName();
 
-    if($pos = strpos($ctrlClassName, 'Controller'))
-      return lmbString::under_scores(substr($ctrlClassName, 0, $pos));
+    $pos = strpos($ctrlClassName, 'Controller');
+    return lmbString::under_scores(substr($ctrlClassName, 0, $pos));
   }
 
   /**
@@ -160,7 +160,10 @@ class LmbController
 
   function getView()
   {
-    return $this->view;
+      if($this->_view)
+          return $this->_view;
+
+      return $this->_view = $this->toolkit->getView();
   }
 
   function validate($dataspace)
@@ -214,7 +217,6 @@ class LmbController
   function useForm($form_id, $datasource = null)
   {
     $this->form_id = $form_id;
-    $this->view->setFormErrors($form_id, $this->error_list);
 
     if ($datasource)
       $this->setFormDatasource($datasource);
@@ -222,31 +224,36 @@ class LmbController
 
   function setTemplate($template_path)
   {
-    $view = $this->toolkit->createViewByTemplate($template_path);
-    //copying stuff from dummy view, do we need this?
-    $view->copy($this->view);
-    $this->view = $view;
-    $this->toolkit->setView($view);
+      $this->_view = $this->toolkit->createViewByTemplate($template_path);
+
+      $this->toolkit->setView($this->_view);
   }
 
   protected function _passLocalAttributesToView()
   {
-    foreach(get_object_vars($this) as $name => $value)
-    {
-      if($name[0] == '_')
-        continue;
-      $this->view->set($name, $value);
-    }
+      if($this->form_id && $this->error_list) {
+          $this->getView()->setFormErrors($this->form_id, $this->error_list);
+      }
+
+      foreach($this->form_datasource as $form_id => $datasource)
+          $this->getView()->setFormDatasource($form_id, $datasource);
+
+      foreach(get_object_vars($this) as $name => $value)
+      {
+          if($name[0] == '_')
+            continue;
+          $this->getView()->set($name, $value);
+      }
   }
 
   function passToView($var, $value)
   {
-    $this->view->set($var, $value);
+    $this->getView()->set($var, $value);
   }
 
   function resetView()
   {
-    $this->view->reset();
+    $this->getView()->reset();
   }
 
   function setFormDatasource($datasource, $form_id = null)
@@ -257,7 +264,7 @@ class LmbController
     if(!$form_id)
       $form_id = $this->form_id;
 
-    $this->view->setFormDatasource($form_id, $datasource);
+    $this->form_datasource[$form_id] = $datasource;
   }
 
   function redirect($params_or_url = array(), $route_url = null)
