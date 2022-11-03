@@ -73,12 +73,12 @@ class lmbDbDSN extends lmbObject
   function buildUri()
   {
   	$uri = (new lmbUri())
-      ->withScheme($this->driver)
-      ->withHost($this->host)
-      ->withUserInfo($this->get('user', ''), $this->get('password', ''))
-      ->withPath('/' . $this->get('database', ''))
-      ->withPort($this->port)
-      ->withQueryItems($this->extra);
+        ->withScheme($this->driver)
+        ->withHost($this->host)
+        ->withUserInfo($this->get('user', ''), $this->get('password', ''))
+        ->withPath('/' . $this->get('database', ''))
+        ->withPort($this->port ?? null)
+        ->withQueryItems($this->extra ?? []);
 
     return $uri;
   }
