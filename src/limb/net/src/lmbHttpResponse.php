@@ -104,7 +104,7 @@ class lmbHttpResponse
     /**
      * @var string
      */
-    protected $statusText;
+    protected $statusText = '';
 
     public function __construct($content = '', $status = 200, $headers = [])
     {
@@ -179,15 +179,16 @@ class lmbHttpResponse
 
   protected function _checkStatusInHeader($header)
   {
-      $status = null;
-
       if(preg_match('/^HTTP\/1.\d[^\d]+(\d+)[^\d]*/i', $header, $matches)) {
-          if( isset($matches[1]) )
+          if( isset($matches[1]) ) {
               $status = (int)$matches[1];
+              $this->statusCode = $status;
+
+              return true;
+          }
       }
 
-      if($status)
-          $this->statusCode = $status;
+      return false;
   }
 
   function getStatus()
@@ -202,14 +203,15 @@ class lmbHttpResponse
   function getDirective($directive_name)
   {
     $directive = null;
-    $regex = '~^' . preg_quote($directive_name). "\s*:(.*)$~i";
-    foreach($this->headers as $header)
+
+    $regex = '/^' . preg_quote($directive_name). "\s*/i";
+    foreach($this->headers as $header => $value)
     {
       if(preg_match($regex, $header, $matches))
-        $directive = trim($matches[1]);
+        $directive = $value;
     }
 
-    return $directive ? $directive : false;
+    return $directive ?? false;
   }
 
   function getContentType()
@@ -275,14 +277,15 @@ class lmbHttpResponse
   {
       $this->_ensureTransactionStarted();
 
-      if($value === null)
-          $full_header = $header;
-      else
-          $full_header = $header . ': ' . $value;
+      $isStatus = $this->_checkStatusInHeader($header);
+      if($isStatus)
+          return;
 
-      $this->headers[] = $full_header;
+      if($value === null && !is_array($header)) {
+          @list($header, $value) = explode(':', $header);
+      }
 
-      $this->_checkStatusInHeader($full_header);
+      $this->headers[$header] = !empty($value) ? trim($value) : null;
   }
 
   function setCookie($name, $value, $expire = 0, $path = '/', $domain = '', $secure = false)
@@ -343,11 +346,7 @@ class lmbHttpResponse
   {
     $this->_ensureTransactionStarted();
 
-    foreach($this->headers as $header)
-      $this->_sendHeader($header);
-
-    foreach($this->cookies as $cookie)
-      $this->_sendCookie($cookie);
+    $this->sendHeaders();
 
     if(!empty($this->response_file_path))
       $this->_sendFile($this->response_file_path);
@@ -361,11 +360,39 @@ class lmbHttpResponse
       $this->commit();
   }
 
+  /**
+  * Sends HTTP headers.
+  *
+  * @return $this
+  */
+  public function sendHeaders()
+  {
+      // headers have already been sent by the developer
+      if (headers_sent()) {
+          return $this;
+      }
+
+      // status
+      header(sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText), true, $this->statusCode);
+
+      // headers
+      foreach($this->headers as $header => $value) {
+          $this->_sendHeader($header, $value);
+      }
+
+      // cookies
+      foreach($this->cookies as $cookie) {
+          $this->_sendCookie($cookie);
+      }
+
+      return $this;
+  }
+
   public function json($data)
   {
-      $json = json_encode($data);
+      $json = \json_encode($data);
       if($json === false) {
-          $error = json_last_error_msg();
+          $error = \json_last_error_msg();
           throw new lmbException('JSON encode error: ' . $error);
       }
 
@@ -374,9 +401,9 @@ class lmbHttpResponse
       $this->write($json);
   }
 
-  protected function _sendHeader($header)
+  protected function _sendHeader($header, $value)
   {
-    header($header);
+      header($header . ': ' . $value);
   }
 
   protected function _sendCookie($cookie)

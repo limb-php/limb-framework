@@ -224,10 +224,10 @@ class lmbHttpResponseTest extends TestCase
   function testGetDirective()
   {
     $this->response->addHeader('Cache-Control: protected, max-age=0, must-revalidate');
-    $this->assertEquals($this->response->getDirective('cache-control'), 'protected, max-age=0, must-revalidate');
+    $this->assertEquals('protected, max-age=0, must-revalidate', $this->response->getDirective('cache-control'));
 
     $this->response->addHeader('Cache-Control :    protected, max-age=10  ');
-    $this->assertEquals($this->response->getDirective('cache-control'), 'protected, max-age=10');
+    $this->assertEquals('protected, max-age=10', $this->response->getDirective('cache-control'));
   }
 
   function testGetContentDefaultType()
@@ -248,5 +248,14 @@ class lmbHttpResponseTest extends TestCase
   {
     $this->response->addHeader('Content-Type: text/html; charset=UTF-8');
     $this->assertEquals('text/html', $this->response->getContentType());
+  }
+
+  function testAddHeader()
+  {
+      $this->response->addHeader('Content-Type: text/html');
+      $this->assertEquals('text/html', $this->response->getContentType());
+
+      $this->response->addHeader('Content-Type', 'image/png');
+      $this->assertEquals('image/png', $this->response->getContentType());
   }
 }
