@@ -511,4 +511,69 @@ class lmbHttpResponse
     if(!$this->transaction_started)
       $this->start();
   }
+
+    public function getProtocolVersion()
+    {
+        return $this->version;
+    }
+
+    public function withProtocolVersion($version)
+    {
+        // TODO: Implement withProtocolVersion() method.
+    }
+
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
+
+    public function hasHeader($name)
+    {
+        // TODO: Implement hasHeader() method.
+    }
+
+    public function getHeader($name)
+    {
+        // TODO: Implement getHeader() method.
+    }
+
+    public function getHeaderLine($name)
+    {
+        // TODO: Implement getHeaderLine() method.
+    }
+
+    public function withHeader($name, $value)
+    {
+        // TODO: Implement withHeader() method.
+    }
+
+    public function withAddedHeader($name, $value)
+    {
+        // TODO: Implement withAddedHeader() method.
+    }
+
+    public function withoutHeader($name)
+    {
+        // TODO: Implement withoutHeader() method.
+    }
+
+    public function getBody()
+    {
+        return $this->getResponseString();
+    }
+
+    public function withBody($body)
+    {
+        // TODO: Implement withBody() method.
+    }
+
+    public function withStatus($code, $reasonPhrase = '')
+    {
+        // TODO: Implement withStatus() method.
+    }
+
+    public function getReasonPhrase()
+    {
+        return $this->statusText;
+    }
 }
