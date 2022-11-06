@@ -370,7 +370,9 @@ class lmbHttpResponse
           @list($header, $value) = explode(':', $header);
       }
 
-      $this->headers[$header] = !empty($value) ? trim($value) : null;
+      $trimmed = trim($value, " \t");
+
+      $this->headers[$header] = !empty($value) ? $trimmed : null;
   }
 
   function setCookie($name, $value, $expire = 0, $path = '/', $domain = '', $secure = false)
@@ -519,7 +521,13 @@ class lmbHttpResponse
 
     public function withProtocolVersion($version)
     {
-        // TODO: Implement withProtocolVersion() method.
+        if ($this->version === $version) {
+            return $this;
+        }
+
+        $new = clone($this);
+        $new->version = $version;
+        return $new;
     }
 
     public function getHeaders()
@@ -527,14 +535,16 @@ class lmbHttpResponse
         return $this->headers;
     }
 
-    public function hasHeader($name)
+    public function hasHeader($name): bool
     {
-        // TODO: Implement hasHeader() method.
+        return isset($this->headers[strtolower($name)]);
     }
 
     public function getHeader($name)
     {
-        // TODO: Implement getHeader() method.
+        $name = strtolower($name);
+
+        return $this->headers[$name] ?? null;
     }
 
     public function getHeaderLine($name)
@@ -544,7 +554,12 @@ class lmbHttpResponse
 
     public function withHeader($name, $value)
     {
-        // TODO: Implement withHeader() method.
+        $normalized = strtolower($name);
+
+        $new = clone($this);
+        $new->headers[$normalized] = $value;
+
+        return $new;
     }
 
     public function withAddedHeader($name, $value)
@@ -554,7 +569,12 @@ class lmbHttpResponse
 
     public function withoutHeader($name)
     {
-        // TODO: Implement withoutHeader() method.
+        $normalized = strtolower($name);
+
+        $new = clone($this);
+        unset($new->headers[$normalized]);
+
+        return $new;
     }
 
     public function getBody()
@@ -564,12 +584,27 @@ class lmbHttpResponse
 
     public function withBody($body)
     {
-        // TODO: Implement withBody() method.
+        if ($body === $this->response_string) {
+            return $this;
+        }
+
+        $new = clone($this);
+        $new->response_string = $body;
+
+        return $new;
     }
 
     public function withStatus($code, $reasonPhrase = '')
     {
-        // TODO: Implement withStatus() method.
+        if ($code === $this->statusCode) {
+            return $this;
+        }
+
+        $new = clone($this);
+        $new->statusCode = $code;
+        $new->statusText = $reasonPhrase;
+
+        return $new;
     }
 
     public function getReasonPhrase()

@@ -217,10 +217,16 @@ class lmbHttpRequestTest extends TestCase
     );
 
     $request = new lmbHttpRequest('http://test.com', array(), array(), array(), $files);
-    $this->assertEquals($request->hasFiles(), true);
-    $this->assertEquals($request->hasFiles('form'), true);
-    $this->assertEquals($request->hasFiles('not_existed_form'), false);
+    $this->assertEquals(true, $request->hasFiles());
+    $this->assertEquals(true, $request->hasFiles('form'));
+    $this->assertEquals(false, $request->hasFiles('not_existed_form'));
   }
+
+    function testHasNoFiles()
+    {
+        $request = new lmbHttpRequest('http://test.com', array(), array(), array(), array());
+        $this->assertEquals(false, $request->hasFiles());
+    }
 
   function testInitByServerVariables()
   {
@@ -309,7 +315,7 @@ class lmbHttpRequestTest extends TestCase
   function testArrayAccess()
   {
     $request = new lmbHttpRequest('http://test.com/wow?z=1');
-    $this->assertEquals($request['uri']['path'], '/wow');
-    $this->assertEquals($request['get']['z'], '1');
+    $this->assertEquals('/wow', $request['uri']->getPath());
+    $this->assertEquals('1', $request['get']['z']);
   }
 }

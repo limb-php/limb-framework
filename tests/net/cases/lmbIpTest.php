@@ -79,21 +79,27 @@ class lmbIpTest extends TestCase
       lmbIp::encodeIpRange('bla', 'foo');
       $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
 
     try
     {
       lmbIp::encodeIpRange('127.0.0.1', 'foo');
       $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
 
     try
     {
       lmbIp::encodeIpRange('bla', '127.0.0.1');
       $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testEncodeIpRangeSigned()
@@ -101,11 +107,11 @@ class lmbIpTest extends TestCase
     $ip_list = lmbIp::encodeIpRange('192.168.0.1', '192.168.10.10', lmbIp::SIGNED);
 
     $this->assertEquals((pow(256, 1)*10 + pow(256, 0)*10) - (pow(256, 1) * 0 + pow(256, 0) * 1)+1, sizeof($ip_list));
-    $this->assertEquals(false, array_search(lmbIp::encode('192.168.0.0', lmbIp::SIGNED), $ip_list));
-    $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.0.1', lmbIp::SIGNED), $ip_list));
-    $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.0.255', lmbIp::SIGNED), $ip_list));
-    $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.10.10', lmbIp::SIGNED), $ip_list));
-    $this->assertEquals(false, array_search(lmbIp::encode('192.168.10.11', lmbIp::SIGNED), $ip_list));
+    $this->assertEquals(array_search(lmbIp::encode('192.168.0.0', lmbIp::SIGNED), $ip_list), false);
+    $this->assertEquals(array_search(lmbIp::encode('192.168.0.1', lmbIp::SIGNED), $ip_list), 0);
+    $this->assertNotEquals(array_search(lmbIp::encode('192.168.0.255', lmbIp::SIGNED), $ip_list), false);
+    $this->assertNotEquals(array_search(lmbIp::encode('192.168.10.10', lmbIp::SIGNED), $ip_list), false);
+    $this->assertEquals(array_search(lmbIp::encode('192.168.10.11', lmbIp::SIGNED), $ip_list), false);
   }
 
   function testEncodeIpRangeUnsigned()
@@ -113,11 +119,11 @@ class lmbIpTest extends TestCase
     $ip_list = lmbIp::encodeIpRange('192.168.0.1', '192.168.10.10', lmbIp::UNSIGNED);
 
     $this->assertEquals((pow(256, 1)*10 + pow(256, 0)*10) - (pow(256, 1) * 0 + pow(256, 0) * 1)+1, sizeof($ip_list));
-    $this->assertEquals(false, array_search(lmbIp::encode('192.168.0.0', lmbIp::UNSIGNED), $ip_list));
-    $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.0.1', lmbIp::UNSIGNED), $ip_list));
-    $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.0.255', lmbIp::UNSIGNED), $ip_list));
-    $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.10.10', lmbIp::UNSIGNED), $ip_list));
-    $this->assertEquals(false, array_search(lmbIp::encode('192.168.10.11', lmbIp::UNSIGNED), $ip_list));
+    $this->assertEquals(array_search(lmbIp::encode('192.168.0.0', lmbIp::UNSIGNED), $ip_list), false);
+    $this->assertEquals(array_search(lmbIp::encode('192.168.0.1', lmbIp::UNSIGNED), $ip_list), 0);
+    $this->assertNotEquals(array_search(lmbIp::encode('192.168.0.255', lmbIp::UNSIGNED), $ip_list), false);
+    $this->assertNotEquals(array_search(lmbIp::encode('192.168.10.10', lmbIp::UNSIGNED), $ip_list), false);
+    $this->assertEquals(array_search(lmbIp::encode('192.168.10.11', lmbIp::UNSIGNED), $ip_list), false);
   }
 
   function testEncodeIpRangeUnsignedString()
@@ -125,11 +131,11 @@ class lmbIpTest extends TestCase
     $ip_list = lmbIp::encodeIpRange('192.168.0.1', '192.168.10.10', lmbIp::USTRING);
 
     $this->assertEquals((pow(256, 1)*10 + pow(256, 0)*10) - (pow(256, 1) * 0 + pow(256, 0) * 1)+1, sizeof($ip_list));
-    $this->assertEquals(false, array_search(lmbIp::encode('192.168.0.0', lmbIp::USTRING), $ip_list));
-    $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.0.1', lmbIp::USTRING), $ip_list));
-    $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.0.255', lmbIp::USTRING), $ip_list));
-    $this->assertNotIdentical(false, array_search(lmbIp::encode('192.168.10.10', lmbIp::USTRING), $ip_list));
-    $this->assertEquals(false, array_search(lmbIp::encode('192.168.10.11', lmbIp::USTRING), $ip_list));
+    $this->assertEquals(array_search(lmbIp::encode('192.168.0.0', lmbIp::USTRING), $ip_list), false);
+    $this->assertEquals(array_search(lmbIp::encode('192.168.0.1', lmbIp::USTRING), $ip_list), 0);
+    $this->assertNotEquals(array_search(lmbIp::encode('192.168.0.255', lmbIp::USTRING), $ip_list), false);
+    $this->assertNotEquals(array_search(lmbIp::encode('192.168.10.10', lmbIp::USTRING), $ip_list), false);
+    $this->assertEquals(array_search(lmbIp::encode('192.168.10.11', lmbIp::USTRING), $ip_list), false);
   }
 
   protected function _is64bit()

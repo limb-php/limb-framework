@@ -111,7 +111,9 @@ class lmbHttpRequest extends lmbSet
 
   function hasFiles($key = null)
   {
-    return $this->_get($this->__files, $key);
+      $has = $this->_get($this->__files, $key);
+
+      return !empty($has);
   }
 
   function getFiles($key = null)
