@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\macro\cases\tags\pager;
 
-require_once('limb/macro/src/tags/pager/lmbMacroPagerHelper.class.php');
+use PHPUnit\Framework\TestCase;
+use limb\macro\src\tags\pager\lmbMacroPagerHelper;
 
 class lmbMacroPagerHelperTest extends TestCase
 {
@@ -16,7 +18,7 @@ class lmbMacroPagerHelperTest extends TestCase
   protected $old_get;
   protected $old_server;
 
-  function setUp()
+  function setUp(): void
   {
     $this->old_get = $_GET;
     $this->old_server = $_SERVER;
@@ -28,7 +30,7 @@ class lmbMacroPagerHelperTest extends TestCase
     $this->pager = new lmbMacroPagerHelper($this->pager_id);
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $_GET = $this->old_get;
     $_SERVER = $this->old_server;
