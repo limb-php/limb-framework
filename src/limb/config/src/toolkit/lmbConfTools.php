@@ -26,7 +26,7 @@ lmbEnv::setor('LIMB_CONF_INCLUDE_PATH', 'settings;limb/*/settings');
  * class lmbConfTools.
  *
  * @package config
- * @version $Id: lmbConfTools.class.php 8142 2010-03-01 20:48:06Z idler $
+ * @version $Id: lmbConfTools.php 8142 2010-03-01 20:48:06Z
  */
 class lmbConfTools extends lmbAbstractTools
 {
@@ -125,4 +125,3 @@ class lmbConfTools extends lmbAbstractTools
     return new lmbObject($yml);
   }
 }
-

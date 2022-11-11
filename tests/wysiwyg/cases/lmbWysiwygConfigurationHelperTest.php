@@ -6,6 +6,8 @@ use limb\core\src\lmbSet;
 use limb\wysiwyg\src\lmbWysiwygConfigurationHelper;
 use limb\toolkit\src\lmbToolkit;
 
+require '.setup.php';
+
 class lmbWysiwygConfigurationHelperTest extends TestCase
 {
   /**
@@ -36,31 +38,30 @@ class lmbWysiwygConfigurationHelperTest extends TestCase
   
   function testSetGetProfileName()
   {    
-    $this->assertEquals($this->_helper->getProfileName(), 'foo_profile');
+    $this->assertEquals('foo_profile', $this->_helper->getProfileName());
     
     $this->_helper->setProfileName('bar_profile');
-    $this->assertEquals($this->_helper->getProfileName(), 'bar_profile');
+    $this->assertEquals('bar_profile', $this->_helper->getProfileName());
   }
   
   function testGetOption_DefaultProfile()
   {    
-    $this->assertEquals($this->_helper->getOption('baz'), 42);
+    $this->assertEquals(42, $this->_helper->getOption('baz'));
   }
   
   function testGetOption_CustomProfile()
   {    
     $this->_helper->setProfileName('bar_profile');
-    $this->assertEquals($this->_helper->getOption('baz'), 111);
+    $this->assertEquals(111, $this->_helper->getOption('baz'));
   }
   
   function testGetMacroWidgetInfo()
   {    
-    $this->assertIdentical(
-      $this->_helper->getMacroWidgetInfo(),
-      array(
-        'file' => 'limb/wysiwyg/src/macro/lmbMacroFCKEditorWidget.class.php',
-        'class' => 'lmbMacroFCKEditorWidget'
-      )
+    $this->assertEquals(
+        array(
+            'class' => 'limb\wysiwyg\src\macro\lmbMacroFCKEditorWidget'
+        ),
+        $this->_helper->getMacroWidgetInfo(),
     );
   }
 }
