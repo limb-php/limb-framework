@@ -1,13 +1,13 @@
 <?php
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\lmbDbDump;
 
-require_once(dirname(__FILE__) . '/../../common.inc.php');
-require_once('limb/core/tests/cases/init.inc.php');
+require(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
+require(dirname(__FILE__) . '/../../core/cases/init.inc.php');
 
 lmb_tests_init_var_dir(dirname(__FILE__) . '/../../../var');
 
-require_once('limb/dbal/src/lmbDbDump.class.php');
-
-$type = lmbToolkit :: instance()->getDefaultDbConnection()->getType();
+$type = lmbToolkit::instance()->getDefaultDbConnection()->getType();
 $file = dirname(__FILE__) . '/../../init/init_tests.' . $type;
 if(file_exists($file))
 {

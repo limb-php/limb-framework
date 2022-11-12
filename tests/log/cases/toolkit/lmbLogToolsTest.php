@@ -8,7 +8,7 @@
  */
 namespace tests\log\cases;
 
-require_once('./../../../../src/limb/log/toolkit.inc.php');
+require(dirname(__FILE__) . '/../.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbEnv;
