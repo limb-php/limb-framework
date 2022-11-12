@@ -1,9 +1,7 @@
 <?php
 namespace limb\log\src;
 
-use limb\log\lib\FirePHPCore\FirePHP;
-
-use limb\net\src\lmbHttpResponse;
+use FirePHP;
 use limb\net\src\lmbUri;
 
 class lmbLogFirePHPWriter extends FirePHP implements lmbLogWriterInterface

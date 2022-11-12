@@ -9,7 +9,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9",
-        "robmorgan/phinx": "^0.12.12"
+        "robmorgan/phinx": "^0.12.12",
+        "urands/firephp": "^1.0"
     },
     "replace": {
         "limb/acl": "self.version",
