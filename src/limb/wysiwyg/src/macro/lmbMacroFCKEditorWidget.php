@@ -29,7 +29,7 @@ class lmbMacroFCKEditorWidget extends lmbMacroBaseWysiwygWidget
 
   protected function _renderEditor()
   {
-    include_once(LIMB_FCKEDITOR_DIR . '/fckeditor.php');
+    include_once(lmbEnv::get('LIMB_FCKEDITOR_DIR') . '/fckeditor.php');
 
     $editor = new \FCKeditor($this->getAttribute('name')) ;
     

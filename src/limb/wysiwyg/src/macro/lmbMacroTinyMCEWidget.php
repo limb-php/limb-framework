@@ -8,8 +8,6 @@
  */
 namespace limb\wysiwyg\src\macro;
 
-use limb\wysiwyg\src\macro\lmbMacroBaseWysiwygWidget;
-
 /**
  * @package wysiwyg
  * @version $Id$
@@ -29,15 +27,15 @@ class lmbMacroTinyMCEWidget extends lmbMacroBaseWysiwygWidget
     
     $this->_renderEditor();
   
-    parent :: renderWysiwyg();
+    parent::renderWysiwyg();
   }
 
   protected function _renderEditor()
   {
-    if(!self :: $is_included)
+    if(!self::$is_included)
     {
       echo '<script language="javascript" type="text/javascript" src="' . $this->_base_path . 'tiny_mce.js"></script>';
-      self :: $is_included = true;
+      self::$is_included = true;
     }
     echo '
     <script language="javascript" type="text/javascript">

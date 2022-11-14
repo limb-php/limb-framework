@@ -27,7 +27,7 @@ class lmbMacroCKEditorWidget extends lmbMacroBaseWysiwygWidget
 
   protected function _renderEditor()
   {
-    include_once(LIMB_CKEDITOR_DIR . '/ckeditor.php');
+    include_once(lmbEnv::get('LIMB_CKEDITOR_DIR') . '/ckeditor.php');
 
     $editor = new \CKeditor();
 
