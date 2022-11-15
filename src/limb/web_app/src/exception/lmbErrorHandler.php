@@ -96,7 +96,7 @@ class lmbErrorHandler
       ob_end_clean();
 
     $session = htmlspecialchars($this->toolkit->getSession()->dump());
-    echo $this->_renderTemplate($message, array(), $trace, $file, $line, $context, $request, $session);
+    echo $this->_renderTemplate($message, '', $trace, $file, $line, $context, $request, $session);
   }
 
   protected function _echoExceptionBacktrace($e)
