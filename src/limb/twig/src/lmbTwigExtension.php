@@ -118,7 +118,7 @@ class lmbTwigExtension extends \Twig\Extension\AbstractExtension
     $view = lmbToolkit::instance()->getView();
     $datasource = $view->getFormDatasource($form_id);
 
-    return $datasource[ $name ];
+    return $datasource[$name] ?? null;
   }
 
   public static function route_url($params, $route = '', $skip_controller = false)
