@@ -8,7 +8,7 @@
  */
 namespace tests\fs\cases;
 
-require_once ('.setup.php');
+require_once('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\toolkit\lmbFsTools;

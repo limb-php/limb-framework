@@ -36,7 +36,7 @@ class lmbFileLocationsList implements lmbFileLocationsInterface
     $result = array();
     foreach($locations as $location)
     {
-      if(is_object($location) && $location instanceof lmbFileLocations)
+      if(is_object($location) && $location instanceof lmbFileLocationsInterface)
       {
         foreach($location->getLocations($params) as $sub_location)
           $result[] = $sub_location;
@@ -49,5 +49,3 @@ class lmbFileLocationsList implements lmbFileLocationsInterface
     return $result;
   }
 }
-
-

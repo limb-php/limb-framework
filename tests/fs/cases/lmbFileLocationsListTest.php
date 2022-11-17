@@ -61,7 +61,7 @@ class lmbFileLocationsListTest extends TestCase
 
       $mock1
         ->method('getLocations')
-        ->willReturn('getLocations', array('path2', 'path3'));
+        ->willReturn(array('path2', 'path3'));
 
       $mock2 = $this->createMock(lmbFileLocationsInterface::class);
 

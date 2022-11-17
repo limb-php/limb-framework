@@ -34,7 +34,9 @@ class lmbFileLocatorTest extends TestCase
         $locator->locate('whatever', $params);
         $this->fail();
       }
-      catch(lmbFileNotFoundException $e){}
+      catch(lmbFileNotFoundException $e){
+          $this->assertTrue(true);
+      }
   }
 
   function testLocateUsingLocations()

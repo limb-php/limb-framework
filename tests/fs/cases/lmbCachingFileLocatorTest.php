@@ -8,7 +8,7 @@
  */
 namespace tests\fs\cases;
 
-require_once ('.setup.php');
+require_once('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFileLocator;
@@ -34,7 +34,8 @@ class lmbCachingFileLocatorTest extends TestCase
   {
     $this->wrapped_locator
         ->method('locate')
-        ->willReturn('located-path-to-file', array('path-to-file', array()));
+        ->with('path-to-file', array())
+        ->willReturn('located-path-to-file');
 
     $this->assertEquals('located-path-to-file', $this->locator->locate('path-to-file'));
   }
@@ -43,7 +44,8 @@ class lmbCachingFileLocatorTest extends TestCase
   {
     $this->wrapped_locator
         ->method('locate')
-        ->willReturn('located-path-to-file', array('path-to-file', array()));
+        ->with('path-to-file', array())
+        ->willReturn('located-path-to-file');
 
     $this->locator->locate('path-to-file');
 
@@ -53,24 +55,28 @@ class lmbCachingFileLocatorTest extends TestCase
 
   function testLocaleNotCacheHitOnOtherParams()
   {
-    $this->wrapped_locator
+    /*$this->wrapped_locator
+        ->expects($this->any())
         ->method('locate')
-        ->willReturn('located-path-to-file1', array('path-to-file', array()));
+        ->with('path-to-file', array())
+        ->willReturn('located-path-to-file1');*/
     $this->wrapped_locator
+        ->expects($this->any())
         ->method('locate')
-        ->willReturn('located-path-to-file2', array('path-to-file', array('param' => 'value')));
+        ->with('path-to-file', array('param' => 'value'))
+        ->willReturn('located-path-to-file2');
 
-    $this->locator->locate('path-to-file');
+    $path2 = $this->locator->locate('path-to-file', array('param' => 'value'));
 
-    $path = $this->locator->locate('path-to-file', array('param' => 'value'));
-    $this->assertEquals('located-path-to-file2', $path);
+    $this->assertEquals('located-path-to-file2', $path2);
   }
 
   function testWriteToCacheOnDestroy()
   {
     $this->wrapped_locator
         ->method('locate')
-        ->willReturn('located-path-to-file', array('path-to-file', array()));
+        ->with('path-to-file', array())
+        ->willReturn('located-path-to-file');
     $this->locator->locate('path-to-file');
 
     unset($this->locator);
@@ -88,7 +94,8 @@ class lmbCachingFileLocatorTest extends TestCase
   {
     $this->wrapped_locator
         ->method('locate')
-        ->willReturn('located-path-to-file', array('path-to-file', array()));
+        ->with('path-to-file', array())
+        ->willReturn('located-path-to-file');
     $this->locator->locate('path-to-file');
 
     unset($this->locator);
@@ -109,7 +116,8 @@ class lmbCachingFileLocatorTest extends TestCase
   {
     $this->wrapped_locator
         ->method('locate')
-        ->willReturn('located-path-to-file', array('path-to-file', array()));
+        ->with('path-to-file', array())
+        ->willReturn('located-path-to-file');
     $this->locator->locate('path-to-file');
 
     $this->locator->saveCache();

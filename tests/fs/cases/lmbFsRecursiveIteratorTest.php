@@ -8,7 +8,7 @@
  */
 namespace tests\fs\cases;
 
-require_once ('.setup.php');
+require('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFsRecursiveIterator;
@@ -20,10 +20,9 @@ class lmbFsRecursiveIteratorTest extends TestCase
 {
   var $dir;
 
-  function lmbFsRecursiveIteratorTest()
+  function setUp(): void
   {
     $this->dir = lmbEnv::get('LIMB_VAR_DIR') . '/tmp/';
-    parent::TestCase();
   }
 
   function _createFileSystem()
@@ -52,7 +51,9 @@ class lmbFsRecursiveIteratorTest extends TestCase
       $it->rewind();
       $this->fail();
     }
-    catch(lmbFsException $e){}
+    catch(lmbFsException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testSimpleIterate()
@@ -85,9 +86,10 @@ class lmbFsRecursiveIteratorTest extends TestCase
     foreach($it as $path)
       $res[] = $path;
 
-    $res = array_map(array('lmbFs', 'normalizePath'), $res);
+    $res = array_map(array(lmbFs::class, 'normalizePath'), $res);
     $expected =
-      array(lmbFs::normalizePath($this->dir . '/.'),
+      array(
+          lmbFs::normalizePath($this->dir . '/.'),
           lmbFs::normalizePath($this->dir . '/..'),
           lmbFs::normalizePath($this->dir . '/a'),
           lmbFs::normalizePath($this->dir . '/nested'),
@@ -105,7 +107,7 @@ class lmbFsRecursiveIteratorTest extends TestCase
     sort($res);
     sort($expected);
 
-    //make this test more bullet proof
+    //make this test more bulletproof
     $this->assertEquals($res, $expected);
 
     $this->_removeFileSystem();
