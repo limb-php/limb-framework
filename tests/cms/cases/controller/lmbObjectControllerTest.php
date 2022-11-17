@@ -13,7 +13,8 @@ use limb\cms\src\controller\lmbObjectController;
 use limb\active_record\src\lmbActiveRecord;
 use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
-use limb\web_app\src\tests\lmbWebApplicationSandbox;
+
+require_once(dirname(__FILE__) . '/../.setup.php');
 
 class ObjectForTesting extends lmbActiveRecord
 { 
@@ -22,7 +23,7 @@ class ObjectForTesting extends lmbActiveRecord
 
 class TestObjectController extends lmbObjectController
 {
-  protected $_object_class_name = 'ObjectForTesting';
+  protected $_object_class_name = ObjectForTesting::class;
   protected $in_popup = false;
 }
 
@@ -44,7 +45,7 @@ class lmbObjectControllerTest extends TestCase
 
   function _cleanUp()
   {
-    lmbActiveRecord :: delete('ObjectForTesting');
+    lmbActiveRecord::delete(ObjectForTesting::class);
   }
 
   function testDoDisplay()
@@ -59,9 +60,10 @@ class lmbObjectControllerTest extends TestCase
     $controller = new TestObjectController();
     $controller->doDisplay();
     
-    if($this->assertEquals(count($controller->items), 1))
-      if($this->assertIsA($controller->items[0], 'ObjectForTesting'))
-        $this->assertEquals($controller->items[0]->getId(), $object->getId());
+    if($this->assertEquals(1, count($controller->items))) {
+        if ($this->assertInstanceOf(ObjectForTesting::class, $controller->items[0]))
+            $this->assertEquals($controller->items[0]->getId(), $object->getId());
+    }
   }
   
   function testDoItem()
@@ -76,9 +78,7 @@ class lmbObjectControllerTest extends TestCase
     $controller = new TestObjectController();
     $controller->doItem();
         
-    if($this->assertIsA($controller->item, 'ObjectForTesting'))
+    if($this->assertInstanceOf($controller->item, 'ObjectForTesting'))
         $this->assertEquals($controller->item->getId(), $object->getId());
   }
 }
-
-

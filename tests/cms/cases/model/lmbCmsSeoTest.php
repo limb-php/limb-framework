@@ -42,7 +42,7 @@ class lmbCmsSeoTest extends lmbCmsTestCase
     $items = $this->_getItemsArray();
     foreach($items as $item)
     {
-      $meta = lmbCmsSeo :: getMetaForUrl(new lmbUri($item['url'] . '/'));
+      $meta = lmbCmsSeo::getMetaForUrl(new lmbUri($item['url'] . '/'));
 
       $this->assertEquals($meta->get('title'), $item['title']);
       $this->assertEquals($meta->get('keywords'), $item['keywords']);
@@ -55,7 +55,7 @@ class lmbCmsSeoTest extends lmbCmsTestCase
     $items = $this->_getItemsArray();
     foreach($items as $item)
     {
-      $meta = lmbCmsSeo :: getMetaForUrl(new lmbUri($item['url'] . '/test/test'));
+      $meta = lmbCmsSeo::getMetaForUrl(new lmbUri($item['url'] . '/test/test'));
 
       $this->assertEquals($meta->get('title'), $item['title']);
       $this->assertEquals($meta->get('keywords'), $item['keywords']);

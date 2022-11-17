@@ -46,7 +46,7 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
     $object3 = $this->_createDocument('child1', $object2);
     $object4 = $this->_createDocument('child2', $object2);
 
-    $object5 = lmbActiveRecord :: findById('lmbCmsDocument', $object2->getId());
+    $object5 = lmbActiveRecord::findById(lmbCmsDocument::class, $object2->getId());
     $children = $object5->getKids();
     $children->rewind();
     $this->assertTrue($children->valid());
@@ -64,8 +64,9 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
     //force creation of root node
     $this->_createDocument();
 
-    if($this->assertNotNull($must_be_root = lmbCmsDocument::findRoot()))
-      $this->assertNull($must_be_root->getParent());
+    if($this->assertNotNull($must_be_root = lmbCmsDocument::findRoot())) {
+        $this->assertNull($must_be_root->getParent());
+    }
   }
 
   /**
@@ -89,7 +90,7 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
     //force tree init
     $node = $this->_createDocument('root', $parent_node = null);
 
-    $root = lmbActiveRecord :: findOne(lmbCmsDocument::class, array('sort' => 'id'));
+    $root = lmbActiveRecord::findOne(lmbCmsDocument::class, array('sort' => 'id'));
 
     $this->assertTrue($root->isRoot());
   }
@@ -139,7 +140,7 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
       $parent2['id'],
       $child_2_2['id']
     );
-    foreach($child_2_2_3->getParents() as $node){
+    foreach($child_2_2_3->getParents() as $node) {
       $this->assertTrue(in_array($node['id'], $assert));
       $this->assertEquals(lmbCmsDocument::class, get_class($node));
     }

@@ -1,11 +1,11 @@
 <?php
 namespace tests\cms\cases\macro;
 
-use limb\cms\src\macro\AllowedTag;
-use limb\macro\src\lmbMacroTemplate;
 use tests\macro\cases\lmbBaseMacroTest;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\acl\src\lmbRoleProviderInterface;
+use limb\toolkit\src\lmbToolkit;
+use limb\acl\src\lmbAcl;
 
 class TestsRoleProvider implements lmbRoleProviderInterface
 {
@@ -54,7 +54,7 @@ class lmbAllowedTagTest extends lmbBaseMacroTest
 {
   protected $_cache_storage;
 
-  function setUp()
+  function setUp(): void
   {
     parent::setUp();
 

@@ -16,6 +16,8 @@ use limb\web_app\src\tests\lmbWebApplicationSandbox;
 use limb\validation\src\lmbValidator;
 use limb\toolkit\src\lmbToolkit;
 
+require_once(dirname(__FILE__) . '/../.setup.php');
+
 class AdminObjectForTesting extends lmbActiveRecord
 {
   protected $_db_table_name = 'cms_object_for_testing';

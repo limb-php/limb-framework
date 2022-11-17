@@ -1,11 +1,10 @@
 <?php
 namespace tests\cms\cases\validation\rules;
 
-use tests\cms\cases\lmbCmsTestCase;
 use limb\validation\src\lmbErrorList;
+use tests\cms\cases\lmbCmsTestCase;
 use limb\cms\src\validation\rule\lmbTreeUniqueIdentifierRule;
-
-Mock::generate('lmbErrorList', 'MockErrorList');
+use limb\cms\src\model\lmbCmsDocument;
 
 class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
 {
@@ -16,7 +15,7 @@ class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
   {
     parent::setUp();
 
-    $this->error_list = new MockErrorList();
+    $this->error_list = $this->createMock(lmbErrorList::class);
     $this->_initCmsDocumentTable();
   }
 
@@ -28,7 +27,9 @@ class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
 
     $rule = new lmbTreeUniqueIdentifierRule('identifier', $new_document, 'документ с таким идентификатором уже существует');
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($new_document, $this->error_list);
   }
@@ -40,7 +41,9 @@ class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
 
     $rule = new lmbTreeUniqueIdentifierRule('identifier', $new_document, 'документ с таким идентификатором уже существует');
 
-    $this->error_list->expectOnce('addError');
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError');
 
     $rule->validate($new_document, $this->error_list);
   }
@@ -53,7 +56,9 @@ class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
 
     $rule = new lmbTreeUniqueIdentifierRule('identifier', $new_document, 'документ с таким идентификатором уже существует', $saved_document1->getId());
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($new_document, $this->error_list);
 
@@ -67,7 +72,9 @@ class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
 
     $rule = new lmbTreeUniqueIdentifierRule('identifier', $new_document, 'документ с таким идентификатором уже существует', $saved_document1->getId());
 
-    $this->error_list->expectOnce('addError');
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError');
 
     $rule->validate($new_document, $this->error_list);
 
