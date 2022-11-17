@@ -15,7 +15,7 @@ use limb\core\src\exception\lmbException;
  * class lmbDateTime.
  *
  * @package datetime
- * @version $Id: lmbDateTime.class.php 6532 2007-11-20 15:55:48Z serega $
+ * @version $Id: lmbDateTime.php 6532 2007-11-20 15:55:48Z
  */
 class lmbDateTime extends lmbObject
 {
@@ -139,12 +139,12 @@ class lmbDateTime extends lmbObject
 
   static function setWeekStartsAt($n)
   {
-    self :: $week_starts_at = $n;
+    self::$week_starts_at = $n;
   }
 
   static function getWeekStartsAt()
   {
-    return self :: $week_starts_at;
+    return self::$week_starts_at;
   }
 
   static function stampToIso($stamp)
@@ -177,9 +177,9 @@ class lmbDateTime extends lmbObject
     if($this->second < 0 || $this->second > 59) return false;
 
     //dirty hack for checkdate...
-    return checkdate($this->month ? $this->month : 1,
-                     $this->day ? $this->day : 1,
-                     $this->year ? $this->year : 1);
+    return checkdate($this->month ?: 1,
+                     $this->day ?: 1,
+                     $this->year ?: 1);
   }
 
   static function validate($year_or_date=null, $month_or_tz=null, $day=null, $hour=0, $minute=0, $second=0, $tz='')
@@ -200,7 +200,7 @@ class lmbDateTime extends lmbObject
 
   protected function _setByString($string)
   {
-    if(!preg_match(self :: DATE_ISO_REGEX, trim($string), $regs))
+    if(!preg_match(self::DATE_ISO_REGEX, trim($string), $regs))
       throw new lmbException("Could not setup date using string '$string'");
 
     if(isset($regs[1]))
@@ -310,7 +310,7 @@ class lmbDateTime extends lmbObject
     else
       $date = $this->addSecond(intval(abs($tz->getOffset($this)) / 1000));
 
-    return $date->setTimeZone('UTC');
+    return $date->withTimeZone('UTC');
   }
 
   /**
@@ -381,7 +381,7 @@ class lmbDateTime extends lmbObject
 
   function getDayOfWeek()
   {
-    return $this->_correctDayOfWeek($this->getPhpDayOfWeek(), self :: $week_starts_at);
+    return $this->_correctDayOfWeek($this->getPhpDayOfWeek(), self::$week_starts_at);
   }
 
   function getIntlDayOfWeek()
@@ -442,15 +442,15 @@ class lmbDateTime extends lmbObject
   function getBeginOfWeek()
   {
     $this_weekday = $this->getPhpDayOfWeek();
-    $interval = (7 - self :: $week_starts_at + $this_weekday) % 7;
-    return self :: createByDays($this->getDateDays() - $interval);
+    $interval = (7 - self::$week_starts_at + $this_weekday) % 7;
+    return self::createByDays($this->getDateDays() - $interval);
   }
 
   function getEndOfWeek()
   {
     $this_weekday = $this->getPhpDayOfWeek();
-    $interval = (6 + self :: $week_starts_at - $this_weekday) % 7;
-    return self :: createByDays($this->getDateDays() + $interval)->getEndOfDay();
+    $interval = (6 + self::$week_starts_at - $this_weekday) % 7;
+    return self::createByDays($this->getDateDays() + $interval)->getEndOfDay();
   }
 
   function getBeginOfMonth()
@@ -491,18 +491,18 @@ class lmbDateTime extends lmbObject
     }
 
     $dayofweek = $this->getPhpDayOfWeek();
-    $firstday  = self :: create($year, 1, 1)->getPhpDayOfWeek();
+    $firstday  = self::create($year, 1, 1)->getPhpDayOfWeek();
     if(($month == 1) && (($firstday < 1) || ($firstday > 4)) && ($day < 4))
     {
-      $firstday  = self :: create($year - 1, 1, 1)->getPhpDayOfWeek();
+      $firstday  = self::create($year - 1, 1, 1)->getPhpDayOfWeek();
       $month     = 12;
       $day       = 31;
     }
-    elseif(($month == 12) && ((self :: create($year + 1, 1, 1)->getPhpDayOfWeek() < 5) &&
-            (self :: create($year + 1, 1, 1)->getPhpDayOfWeek() > 0)))
+    elseif(($month == 12) && ((self::create($year + 1, 1, 1)->getPhpDayOfWeek() < 5) &&
+            (self::create($year + 1, 1, 1)->getPhpDayOfWeek() > 0)))
         return 1;
 
-    return intval(((self :: create($year, 1, 1)->getPhpDayOfWeek() < 5) && (self :: create($year, 1, 1)->getPhpDayOfWeek() > 0)) +
+    return intval(((self::create($year, 1, 1)->getPhpDayOfWeek() < 5) && (self::create($year, 1, 1)->getPhpDayOfWeek() > 0)) +
            4 * ($month - 1) + (2 * ($month - 1) + ($day - 1) + $firstday - $dayofweek + 6) * 36 / 256);
   }
 
@@ -611,8 +611,13 @@ class lmbDateTime extends lmbObject
 
   function setTimeZone($tz)
   {
-    $class = get_class($this);
-    return new $class($this->year, $this->month, $this->day, $this->hour, $this->minute, $this->second, $tz);
+    return $this->withTimeZone($tz);
+  }
+
+  function withTimeZone($tz)
+  {
+      $class = get_class($this);
+      return new $class($this->year, $this->month, $this->day, $this->hour, $this->minute, $this->second, $tz);
   }
 
   function addYear($n=1)
@@ -676,4 +681,3 @@ class lmbDateTime extends lmbObject
     return new $class(null, null, null, $this->hour, $this->minute, $this->second, $this->tz);
   }
 }
-

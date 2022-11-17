@@ -76,7 +76,7 @@ class lmbDateTimeZone
     }
   }
 
-  function getDefault()
+  static function getDefault()
   {
     return new lmbDateTimeZone();
   }

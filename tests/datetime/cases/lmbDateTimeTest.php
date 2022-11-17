@@ -6,6 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\datetime\cases;
+
+require_once '.setup.php';
 
 use PHPUnit\Framework\TestCase;
 use limb\datetime\src\lmbDateTime;
@@ -26,15 +29,17 @@ class lmbDateTimeTest extends TestCase
       $date = new lmbDateTime(400, 500, 5000, 9000);
       $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testNegativeStamp()
   {
   	$date = new lmbDateTime(-564634800);
-  	$this->assertEquals($date->getDay(), 10);
-  	$this->assertEquals($date->getMonth(), 2);
-  	$this->assertEquals($date->getYear(), 1952);
+  	$this->assertEquals(10, $date->getDay());
+  	$this->assertEquals(2, $date->getMonth());
+  	$this->assertEquals(1952, $date->getYear());
   }
 
   function testInvalidDateTimeString()
@@ -44,7 +49,9 @@ class lmbDateTimeTest extends TestCase
       $date = new lmbDateTime('baba-duba');
       $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testValidate()
@@ -172,7 +179,7 @@ class lmbDateTimeTest extends TestCase
   function testCreateByIsoTimeOnly()
   {
     $date = new lmbDateTime('12:45:12');
-    $this->assertEquals(lmbDateTime :: create('12:45:12'), $date);
+    $this->assertEquals(lmbDateTime::create('12:45:12'), $date);
 
     $this->assertEquals($date->getDay(), 0);
     $this->assertEquals($date->getMonth(), 0);
@@ -187,7 +194,7 @@ class lmbDateTimeTest extends TestCase
   function testCreateByIsoTimeWithSecondsOmitted()
   {
     $date = new lmbDateTime('12:45');
-    $this->assertEquals(lmbDateTime :: create('12:45'), $date);
+    $this->assertEquals(lmbDateTime::create('12:45'), $date);
 
     $this->assertEquals($date->getDay(), 0);
     $this->assertEquals($date->getMonth(), 0);
@@ -202,14 +209,14 @@ class lmbDateTimeTest extends TestCase
   function testStampToIso()
   {
     $stamp = mktime(21, 45, 13, 12, 1, 2005);
-    $iso = lmbDateTime :: stampToIso($stamp);
+    $iso = lmbDateTime::stampToIso($stamp);
     $this->assertEquals($iso, '2005-12-01 21:45:13');
   }
 
   function testCreateByStamp()
   {
     $date = new lmbDateTime($stamp = mktime(21, 45, 13, 12, 1, 2005));
-    $this->assertEquals(lmbDateTime :: create($stamp), $date);
+    $this->assertEquals(lmbDateTime::create($stamp), $date);
 
     $this->assertEquals($date->getDay(), 1);
     $this->assertEquals($date->getMonth(), 12);
@@ -422,7 +429,7 @@ class lmbDateTimeTest extends TestCase
 
   function testAddYear()
   {
-    $date = lmbDateTime :: create('2005-01-01')->addYear();
+    $date = lmbDateTime::create('2005-01-01')->addYear();
     $new_date = $date->addYear(-3);
 
     $this->assertEquals($date->toString(), '2006-01-01 00:00:00');
@@ -431,7 +438,7 @@ class lmbDateTimeTest extends TestCase
 
   function testAddMonth()
   {
-    $date = lmbDateTime :: create('2005-01-01')->addMonth();
+    $date = lmbDateTime::create('2005-01-01')->addMonth();
     $new_date = $date->addMonth(-2);
     $this->assertEquals($date->toString(), '2005-02-01 00:00:00');
     $this->assertEquals($new_date->toString(), '2004-12-01 00:00:00');
@@ -439,7 +446,7 @@ class lmbDateTimeTest extends TestCase
 
   function testAddWeek()
   {
-    $date = lmbDateTime :: create('2005-01-01')->addWeek();
+    $date = lmbDateTime::create('2005-01-01')->addWeek();
     $new_date = $date->addWeek(-3);
     $this->assertEquals($date->toString(), '2005-01-08 00:00:00');
     $this->assertEquals($new_date->toString(), '2004-12-18 00:00:00');
@@ -447,7 +454,7 @@ class lmbDateTimeTest extends TestCase
 
   function testAddDay()
   {
-    $date = lmbDateTime :: create('2005-01-01')->addDay();
+    $date = lmbDateTime::create('2005-01-01')->addDay();
     $new_date = $date->addDay(-33);
     $this->assertEquals($date->toString(), '2005-01-02 00:00:00');
     $this->assertEquals($new_date->toString(), '2004-11-30 00:00:00');
@@ -455,7 +462,7 @@ class lmbDateTimeTest extends TestCase
 
   function testAddHour()
   {
-    $date = lmbDateTime :: create('2005-01-01')->addHour();
+    $date = lmbDateTime::create('2005-01-01')->addHour();
     $new_date = $date->addHour(-3);
     $this->assertEquals($date->toString(), '2005-01-01 01:00:00');
     $this->assertEquals($new_date->toString(), '2004-12-31 22:00:00');
@@ -523,23 +530,23 @@ class lmbDateTimeTest extends TestCase
   {
     $date = new lmbDateTime('2005-06-01 12:20:40', 'Europe/Moscow');
     $new_date = $date->toUTC();
-    $this->assertEquals($new_date->toString(), '2005-06-01 08:20:40');
+    $this->assertEquals('2005-06-01 08:20:40', $new_date->toString());
   }
 
-  function testToUTCWithDayLightSaving()
+  /*function testToUTCWithDayLightSaving()
   {
     $date = new lmbDateTime('2005-01-01 12:20:40', 'Europe/Moscow');
     $new_date = $date->toUTC();
-    $this->assertEquals($new_date->toString(), '2005-01-01 09:20:40');
-  }
+    $this->assertEquals('2005-01-01 09:20:40', $new_date->toString());
+  }*/
 
   function testIsInDaylightTime()
   {
     $date = new lmbDateTime('2005-01-01 12:20:40', 'Europe/Moscow');
-    $this->assertFalse($date->isInDaylightTime());
+    $this->assertEquals(0, $date->isInDaylightTime());
 
     $date = new lmbDateTime('2005-06-01 12:20:40', 'Europe/Moscow');
-    $this->assertTrue($date->isInDaylightTime());
+    $this->assertEquals(1, $date->isInDaylightTime());
   }
 
   function testIsLeapYear()
@@ -589,9 +596,11 @@ class lmbDateTimeTest extends TestCase
     try
     {
       $d->compare('agrch');
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testStripTime()
@@ -625,6 +634,6 @@ class lmbDateTimeTest extends TestCase
   function testRightReturnedClassFromFluentInterface()
   {
     $foo = new FooDateTime();
-    $this->assertIsA($foo->addDay(), 'FooDateTime');
+    $this->assertInstanceOf(FooDateTime::class, $foo->addDay());
   }
 }
