@@ -12,12 +12,12 @@ namespace limb\validation\src\rule;
  * Checks that field has minimux and (or) maximum length
  * Example of usage:
  * <code>
- *  use limb/validation/src/rule/lmbNumericValueRangeRule;
+ *  use limb\validation\src\rule\lmbNumericValueRangeRule;
  *  // restricts "length" field to have values less than 10.5 and more than 50
  *  $validator->addRule(new lmbNumericValueRangeRule('length', 10.5, 50));
  * </code>
  * @package validation
- * @version $Id: lmbNumericValueRangeRule.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbNumericValueRangeRule.php 7486 2009-01-26 19:13:20Z
  */
 class lmbNumericValueRangeRule extends lmbSingleFieldRule
 {

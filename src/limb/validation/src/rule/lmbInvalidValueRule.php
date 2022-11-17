@@ -12,7 +12,7 @@ namespace limb\validation\src\rule;
  * Checks that field value is not equal some invalid value
  * Example of usage:
  * <code>
- * use limb/validation/src/rule/lmbInvalidValueRule;
+ * use limb\validation\src\rule\lmbInvalidValueRule;
  * $validator->addRule(new lmbInvalidValueRule("region", -1));
  * </code>
  * @package validation

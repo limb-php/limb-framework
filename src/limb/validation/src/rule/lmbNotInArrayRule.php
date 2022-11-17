@@ -12,7 +12,7 @@ namespace limb\validation\src\rule;
  * Checks that field is not not in a list of restricted values 
  * Example of usage:
  * <code>
- *  use limb/validation/src/rule/lmbNotInArrayRule;
+ *  use limb\validation\src\rule\lmbNotInArrayRule;
  *  $validator->addRule(new lmbMatchRule('login', array('www', 'mail', 'smtp')));
  * </code>
  * @package validation

@@ -54,7 +54,7 @@ class lmbRequiredObjectRule extends lmbBaseValidationRule
   */
   protected function _doValidate($datasource)
   {
-    $value = $datasource->get($this->field_name);
+    $value = $datasource[$this->field_name];
 
     if(!is_object($value) || ($this->class && !($value instanceof $this->class)))
     {

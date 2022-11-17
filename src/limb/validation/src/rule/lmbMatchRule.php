@@ -14,7 +14,7 @@ use limb\i18n\src\lmbI18n;
  * Checks that field value exactly match a reference field value
  * Example of usage:
  * <code>
- *  use limb/validation/src/rule/lmbMatchRule;
+ *  use limb\validation\src\rule\lmbMatchRule;
  *  $validator->addRule(new lmbMatchRule('password', 'repeat_password'));
  * </code>
  * @package validation
@@ -53,8 +53,8 @@ class lmbMatchRule extends lmbBaseValidationRule
   */
   protected function _doValidate($datasource)
   {
-    $value1 = $datasource->get($this->field_name);
-    $value2 = $datasource->get($this->reference_field);
+    $value1 = $datasource[$this->field_name];
+    $value2 = $datasource[$this->reference_field];
 
     if(isset($value1) && isset($value2) && strcmp($value1, $value2))
     {
