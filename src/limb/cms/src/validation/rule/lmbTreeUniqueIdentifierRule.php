@@ -14,7 +14,7 @@ class lmbTreeUniqueIdentifierRule extends lmbSingleFieldRule
 
   function __construct($field_name, $node, $error_message, $parent_id = false)
   {
-    $this->node = $node;
+    $this->node = is_object($node) ?: new $node();
     $this->field_name = $field_name;
     $this->error_message = $error_message;
     $this->parent_id = $parent_id ?? $this->node->getParent()->getId();

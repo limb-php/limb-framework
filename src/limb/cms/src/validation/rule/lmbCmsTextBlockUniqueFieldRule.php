@@ -11,7 +11,8 @@ class lmbCmsTextBlockUniqueFieldRule extends lmbSingleFieldRule
 
   function __construct($field_name, $text_block)
   {
-    $this->text_block = $text_block;
+    $this->text_block = is_object($text_block) ?: new $text_block();
+
     parent::__construct($field_name);
   }
 
