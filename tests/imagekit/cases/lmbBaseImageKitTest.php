@@ -9,7 +9,6 @@
 namespace tests\imagekit\cases;
 
 use limb\imagekit\src\lmbImageKit;
-use tests\imagekit\cases\lmbImageKitTestCase;
 
 abstract class lmbBaseImageKitTest extends lmbImageKitTestCase
 {
@@ -21,8 +20,8 @@ abstract class lmbBaseImageKitTest extends lmbImageKitTestCase
       save($this->_getOutputImage());
 
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 30);
-    $this->assertEquals($height, 40);
+    $this->assertEquals(30, $width);
+    $this->assertEquals(40, $height);
   }
 
   function testTraversingByOverloading()
@@ -33,8 +32,8 @@ abstract class lmbBaseImageKitTest extends lmbImageKitTestCase
       save($this->_getOutputImage());
 
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 30);
-    $this->assertEquals($height, 40);
+    $this->assertEquals(30, $width);
+    $this->assertEquals(40, $height);
   }
 
   function testPassingParamsToConvertor()

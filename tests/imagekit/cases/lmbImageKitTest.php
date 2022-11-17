@@ -10,13 +10,17 @@ namespace tests\imagekit\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\imagekit\src\lmbImageKit;
+use limb\imagekit\src\gd\lmbGdImageConvertor;
 
 class lmbImageKitTest extends TestCase
 {
   function skip()
   {
-    $this->skipIf(!extension_loaded('gd'), 'GD extension not found. Test skipped.');
-    $this->skipIf(!function_exists('imagerotate'), 'imagerotate() function does not exist. Test skipped.');
+      if(!extension_loaded('gd'))
+        $this->markTestSkipped('GD extension not found. Test skipped.');
+
+      if(!function_exists('imagerotate'))
+        $this->markTestSkipped('imagerotate() function does not exist. Test skipped.');
   }
 
   function _getInputImage()
@@ -32,7 +36,7 @@ class lmbImageKitTest extends TestCase
   function testCreateGdConvertor()
   {
     $conv = lmbImageKit::create('gd');
-    $this->assertIsA($conv, 'lmbGdImageConvertor');
+    $this->assertInstanceOf(lmbGdImageConvertor::class, $conv);
   }
 
   function testTraversing()
@@ -43,8 +47,8 @@ class lmbImageKitTest extends TestCase
       save($this->_getOutputImage());
 
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 60);
-    $this->assertEquals($height, 50);
+    $this->assertEquals(60, $width);
+    $this->assertEquals(50, $height);
   }
 
   function testTraversingByOverloading()
@@ -55,8 +59,8 @@ class lmbImageKitTest extends TestCase
       save($this->_getOutputImage());
 
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 60);
-    $this->assertEquals($height, 50);
+    $this->assertEquals(60, $width);
+    $this->assertEquals(50, $height);
   }
 
   function testPassingParamsToConvertor()

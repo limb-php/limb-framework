@@ -8,12 +8,11 @@
  */
 namespace tests\imagekit\cases\gd\filters;
 
-use limb\imagekit\src\gd\filters\lmbGdWaterMarkImageFilter;
 use tests\imagekit\cases\filters\lmbBaseWaterMarkImageFilterTest;
 
 /**
  * @package imagekit
- * @version $Id: lmbGdWaterMarkImageFilterTest.class.php 8065 2010-01-20 04:18:19Z korchasa $
+ * @version $Id: lmbGdWaterMarkImageFilterTest.php 8065 2010-01-20 04:18:19Z korchasa $
  */
 class lmbGdWaterMarkImageFilterTest extends lmbBaseWaterMarkImageFilterTest
 {

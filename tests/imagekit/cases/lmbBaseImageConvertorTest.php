@@ -8,9 +8,6 @@
  */
 namespace tests\imagekit\cases;
 
-use limb\imagekit\src\gd\lmbGdImageConvertor;
-use tests\imagekit\cases\lmbImageKitTestCase;
-
 abstract class lmbBaseImageConvertorTest extends lmbImageKitTestCase
 {
   function testApply()

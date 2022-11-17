@@ -8,9 +8,6 @@
  */
 namespace tests\imagekit\cases;
 
-use limb\imagekit\src\gd\lmbGdImageContainer;
-use tests\imagekit\cases\lmbImageKitTestCase;
-
 abstract class lmbBaseImageContainerTest extends lmbImageKitTestCase
 {
   function testLoadSave()
@@ -36,7 +33,7 @@ abstract class lmbBaseImageContainerTest extends lmbImageKitTestCase
 
     $this->assertEquals($width, $width2);
     $this->assertEquals($height, $height2);
-    $this->assertNotEqual($type, $type2);
+    $this->assertNotEquals($type, $type2);
     $this->assertEquals($type, IMAGETYPE_JPEG);
     $this->assertEquals($type2, IMAGETYPE_GIF);
   }

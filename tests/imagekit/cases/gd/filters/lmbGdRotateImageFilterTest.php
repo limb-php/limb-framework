@@ -8,12 +8,11 @@
  */
 namespace tests\imagekit\cases\gd\filters;
 
-use limb\imagekit\src\gd\filters\lmbGdRotateImageFilter;
 use tests\imagekit\cases\filters\lmbBaseRotateImageFilterTest;
 
 /**
  * @package imagekit
- * @version $Id: lmbGdRotateImageFilterTest.class.php 8065 2010-01-20 04:18:19Z korchasa $
+ * @version $Id: lmbGdRotateImageFilterTest.php 8065 2010-01-20 04:18:19Z korchasa $
  */
 class lmbGdRotateImageFilterTest extends lmbBaseRotateImageFilterTest
 {
@@ -21,7 +20,7 @@ class lmbGdRotateImageFilterTest extends lmbBaseRotateImageFilterTest
 
   function skip()
   {
-    $this->skipIf(!function_exists('imagerotate'), 'imagerotate() function does not exist. Test skipped.');
+      if(!function_exists('imagerotate'))
+        $this->markTestSkipped('imagerotate() function does not exist. Test skipped.');
   }
-
 }

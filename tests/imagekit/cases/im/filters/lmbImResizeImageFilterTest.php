@@ -8,12 +8,11 @@
  */
 namespace tests\imagekit\cases\im\filters;
 
-use limb\imagekit\src\im\filters\lmbImResizeImageFilter;
 use tests\imagekit\cases\filters\lmbBaseResizeImageFilterTest;
 
 /**
  * @package imagekit
- * @version $Id: lmbGdCropImageFilterTest.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbGdCropImageFilterTest.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class lmbImResizeImageFilterTest extends lmbBaseResizeImageFilterTest
 {

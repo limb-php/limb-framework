@@ -9,7 +9,6 @@
 namespace tests\imagekit\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\imagekit\src\lmbImageKit;
 
 abstract class lmbImageKitTestCase extends TestCase
 {
@@ -42,14 +41,14 @@ abstract class lmbImageKitTestCase extends TestCase
 
   function _getConvertor($params = array())
   {
-    $class_name = 'limb/imagekit/src/'.$this->driver.'/'.$this->_getClass('lmb%ImageConvertor');
+    $class_name = 'limb\\imagekit\\src\\'.$this->driver.'\\'.$this->_getClass('lmb%ImageConvertor');
 
     return new $class_name($params);
   }
 
   function _getContainer()
   {
-    $class_name = 'limb/imagekit/src/'.$this->driver.'/'.$this->_getClass('lmb%ImageContainer');
+    $class_name = 'limb\\imagekit\\src\\'.$this->driver.'\\'.$this->_getClass('lmb%ImageContainer');
 
     $cont = new $class_name;
     $cont->load($this->_getInputImage());
@@ -58,7 +57,7 @@ abstract class lmbImageKitTestCase extends TestCase
 
   function _getPalleteContainer()
   {
-    $class_name = 'limb/imagekit/src/'.$this->driver.'/'.$this->_getClass('lmb%ImageContainer');
+    $class_name = 'limb\\imagekit\\src\\'.$this->driver.'\\'.$this->_getClass('lmb%ImageContainer');
 
     $cont = new $class_name;
     $cont->load($this->_getInputPalleteImage());
