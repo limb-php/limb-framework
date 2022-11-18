@@ -222,7 +222,7 @@ class lmbFs
     if(!file_exists($file))
       return false;
 
-    self :: _doRm(self :: normalizePath($file), self :: separator());
+    self::_doRm(self::normalizePath($file), self::separator());
     clearstatcache();
 
     return true;
@@ -250,8 +250,9 @@ class lmbFs
 
     closedir($handle);
 
-    if(!@rmdir($item))
-      throw new lmbFsException('failed to remove directory', array('dir' => $item));
+    if(!@rmdir($item)) {
+        throw new lmbFsException('failed to remove directory', array('dir' => $item));
+    }
   }
 
   static function mv($src, $dest)
@@ -278,7 +279,8 @@ class lmbFs
 
       if(@copy($src, $dest) === false)
         throw new lmbFsException('failed to copy file', array('src' => $src, 'dest' => $dest));
-      return;
+
+      return false;
     }
 
     self::mkdir($dest);
@@ -290,13 +292,13 @@ class lmbFs
     if($as_child)
     {
       $separator_regex = preg_quote($separator);
-      if(preg_match( "#^.+{$separator_regex}([^{$separator_regex}]+)$#", $src, $matches))
-      {
+      if(preg_match( "#^.+{$separator_regex}([^{$separator_regex}]+)$#", $src, $matches)) {
         self::_doMkdir($dest . $separator . $matches[1], 0777);
         $dest .= $separator . $matches[1];
       }
-      else
-        return false;
+      else {
+          return false;
+      }
     }
     $items = self::find($src, 'df', $include_regex, $exclude_regex, false, $include_hidden);
 
@@ -308,8 +310,9 @@ class lmbFs
       foreach($current_items as $item)
       {
         $full_path = $src . $separator . $item;
-        if(is_file( $full_path))
-          copy($full_path, $dest . $separator . $item);
+        if(is_file( $full_path)) {
+            copy($full_path, $dest . $separator . $item);
+        }
         elseif(is_dir( $full_path))
         {
           self::_doMkdir($dest . $separator . $item, 0777);
@@ -319,7 +322,7 @@ class lmbFs
           $items = array_merge($items, $new_items);
           $total_items = array_merge($total_items, $new_items);
 
-         unset($new_items);
+          unset($new_items);
         }
       }
     }
@@ -624,4 +627,3 @@ class lmbFs
       (strlen($path) > 2 && $path[1] == ':'));
   }
 }
-

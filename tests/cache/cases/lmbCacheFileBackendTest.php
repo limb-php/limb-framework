@@ -37,6 +37,6 @@ class lmbCacheFileBackendTest extends lmbCacheBackendTest
     $this->assertEquals($this->cache->get(1), $cache_value);
 
     $this->cache->flush();
-    rmdir($this->cache_dir);
+    lmbFs::rm($this->cache_dir);
   }
 }

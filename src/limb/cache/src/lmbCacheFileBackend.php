@@ -26,7 +26,7 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
   {
     $this->_cache_dir = lmbFs::normalizePath($cache_dir);
 
-    lmbFs :: mkdir($this->_cache_dir);
+    lmbFs::mkdir($this->_cache_dir);
   }
 
   function getCacheDir()
@@ -42,13 +42,13 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
 
     if (array_key_exists("raw", $params))
     {
-      lmbFs :: safeWrite($file, $value);
+      lmbFs::safeWrite($file, $value);
       return true;
     }
     else
     {
       $container = new lmbSerializable($value);
-      lmbFs :: safeWrite($file, serialize($container));
+      lmbFs::safeWrite($file, serialize($container));
       return true;
     }
   }
@@ -61,13 +61,13 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
 
     if (array_key_exists("raw", $params))
     {
-      lmbFs :: safeWrite($file, $value);
+      lmbFs::safeWrite($file, $value);
       return true;
     }
     else
     {
       $container = new lmbSerializable($value);
-      lmbFs :: safeWrite($file, serialize($container));
+      lmbFs::safeWrite($file, serialize($container));
       return true;
     }
   }
@@ -114,12 +114,14 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
   {
     if($key === false)
     {
-      $files = lmbFs :: find($this->getCacheDir(), 'f');
-      foreach($files as $file)
-        @unlink($file);
+      $files = lmbFs::find($this->getCacheDir(), 'f');
+      foreach($files as $file) {
+          @unlink($file);
+      }
     }
-    else
-      @unlink($this->_findCacheFile($key));
+    else {
+        @unlink($this->_findCacheFile($key));
+    }
   }
 
   protected function _getCacheFileName($key, $params)

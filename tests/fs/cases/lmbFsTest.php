@@ -315,7 +315,7 @@ class lmbFsTest extends TestCase
   {
     $this->_createFileSystem();
 
-    lmbFs :: mv(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow',
+    lmbFs::mv(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow',
         lmbEnv::get('LIMB_VAR_DIR') . '/tmp/whatever');
 
     $this->assertFalse(is_dir(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow'));
@@ -326,7 +326,7 @@ class lmbFsTest extends TestCase
   {
     $this->_createFileSystem();
 
-    lmbFs :: mv(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow',
+    lmbFs::mv(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow',
         lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow');
 
     $this->assertTrue(is_dir(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow'));
@@ -338,7 +338,7 @@ class lmbFsTest extends TestCase
 
     try
     {
-      lmbFs :: mv(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/blaaah',
+      lmbFs::mv(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/blaaah',
           lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp');
       $this->assertFalse(true);
     }
@@ -351,16 +351,16 @@ class lmbFsTest extends TestCase
   {
     $this->_createFileSystem();
 
-    $res = lmbFs :: cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow',
+    $res = lmbFs::cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow',
         lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp');
 
     $this->assertEquals(
       $this->_sort($res),
       $this->_sort(array(
       'hey',
-      lmbFs :: normalizePath('hey/test3_1'),
-      lmbFs :: normalizePath('hey/test3_2'),
-      lmbFs :: normalizePath('hey/test3_3'),
+      lmbFs::normalizePath('hey/test3_1'),
+      lmbFs::normalizePath('hey/test3_2'),
+      lmbFs::normalizePath('hey/test3_3'),
       'test2_1',
       'test2_2',
       'test2_3',
@@ -382,16 +382,16 @@ class lmbFsTest extends TestCase
   {
     $this->_createFileSystem();
 
-    lmbFs :: cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow',
+    lmbFs::cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow',
         lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp', null, null, true);
 
     $this->assertEquals(
-      lmbFs :: ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp/wow/'),
-      lmbFs :: ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow'));
+      lmbFs::ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp/wow/'),
+      lmbFs::ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow'));
 
     $this->assertEquals(
-      lmbFs :: ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp/wow/hey'),
-      lmbFs :: ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey'));
+      lmbFs::ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp/wow/hey'),
+      lmbFs::ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey'));
 
     $this->_removeFileSystem();
   }
@@ -400,7 +400,7 @@ class lmbFsTest extends TestCase
   {
     $this->_createFileSystem();
 
-    $res = lmbFs :: cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow',
+    $res = lmbFs::cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow',
         lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp',
                        '/hey/');
     $this->assertEquals(
@@ -410,7 +410,7 @@ class lmbFsTest extends TestCase
 
     $this->assertEquals(
       $this->_sort($res),
-      $this->_sort(lmbFs :: ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp/'))
+      $this->_sort(lmbFs::ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp/'))
     );
 
     $this->assertFalse(is_dir(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp/hey'));
@@ -422,7 +422,7 @@ class lmbFsTest extends TestCase
   {
     $this->_createFileSystem();
 
-    $res = lmbFs :: cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow',
+    $res = lmbFs::cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow',
         lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp', null, '/test2/');
 
     $this->assertEquals(
@@ -432,7 +432,7 @@ class lmbFsTest extends TestCase
 
     $this->assertEquals(
       $this->_sort($res),
-      $this->_sort(lmbFs :: ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp/'))
+      $this->_sort(lmbFs::ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp/'))
     );
 
     $this->assertFalse(is_dir(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp/hey'));
@@ -446,8 +446,10 @@ class lmbFsTest extends TestCase
 
     $this->assertFalse(file_exists(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1_1'));
 
-    $res = lmbFs :: cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1',
-        lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1_1');
+    $res = lmbFs::cp(
+        lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1',
+        lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1_1'
+    );
 
     $this->assertTrue(file_exists(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1_1'));
 
