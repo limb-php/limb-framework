@@ -43,12 +43,12 @@ class lmbUriNormalizer
 
   function process($uri)
   {
-    if($this->strip_anchor)
-      $uri->setAnchor('');
+    if($this->strip_anchor) {
+        $uri->setAnchor('');
+    }
 
-    foreach($this->stripped_query_items as $key)
-      $uri->removeQueryItem($key);
+    foreach($this->stripped_query_items as $key) {
+        $uri = $uri->withoutQueryItem($key);
+    }
   }
 }
-
-
