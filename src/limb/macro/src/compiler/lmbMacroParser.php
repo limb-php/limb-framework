@@ -10,10 +10,6 @@ namespace limb\macro\src\compiler;
 
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\macro\src\lmbMacroException;
-use limb\macro\src\compiler\lmbMacroTokenizerListenerInterface;
-use \limb\macro\src\compiler\lmbMacroTokenizer;
-use \limb\macro\src\compiler\lmbMacroPreprocessor;
-use \limb\macro\src\compiler\lmbMacroTagParsingState;
 
 /**
  * class lmbMacroParser.
@@ -152,5 +148,3 @@ class lmbMacroParser implements lmbMacroTokenizerListenerInterface
     $this->active_parsing_state->invalidAttributeSyntax($text);
   }
 }
-
-

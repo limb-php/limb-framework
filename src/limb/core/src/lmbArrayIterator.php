@@ -8,7 +8,6 @@
  */
 namespace limb\core\src;
 
-use limb\core\src\lmbCollectionInterface;
 use limb\core\src\exception\lmbException;
 
 /**
@@ -27,7 +26,7 @@ class lmbArrayIterator extends \ArrayIterator implements lmbCollectionInterface
   function rewind()
   {
     $this->position = 0;
-    parent :: rewind();
+    parent::rewind();
     
     // goto offset item if possible
     if($this->offset)
@@ -114,4 +113,3 @@ class lmbArrayIterator extends \ArrayIterator implements lmbCollectionInterface
       return $total - $this->offset;
   }
 }
-

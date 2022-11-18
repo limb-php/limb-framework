@@ -43,6 +43,4 @@ class lmbSessionTools extends lmbAbstractTools
   {
     $this->session = $session;
   }
-
 }
-

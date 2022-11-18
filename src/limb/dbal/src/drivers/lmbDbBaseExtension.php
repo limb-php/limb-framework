@@ -8,7 +8,6 @@
  */
 namespace limb\dbal\src\drivers;
 
-use limb\dbal\src\drivers\lmbDbBaseConnection;
 use limb\dbal\src\exception\lmbDbException;
 
 /**

@@ -8,8 +8,6 @@
  */
 namespace limb\macro\src\compiler;
 
-use limb\macro\src\compiler\lmbMacroSourceLocation;
-
 /**
  * class lmbMacroTokenizer.
  *
@@ -318,4 +316,3 @@ class lmbMacroTokenizer
     while($this->position < $this->length);
   }
 }
-

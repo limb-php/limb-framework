@@ -8,10 +8,8 @@
  */
 namespace limb\core\src;
 
-use limb\core\src\lmbSetInterface;
 use limb\core\src\exception\lmbNoSuchMethodException;
 use limb\core\src\exception\lmbNoSuchPropertyException;
-use limb\core\src\lmbString;
 
 /**
  * Generic container for data with magic accessors.

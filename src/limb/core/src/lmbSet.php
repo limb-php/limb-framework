@@ -8,8 +8,6 @@
  */
 namespace limb\core\src;
 
-use limb\core\src\lmbSetInterface;
-
 /**
  * class lmbSet.
  *
@@ -81,7 +79,7 @@ class lmbSet implements lmbSetInterface
 
   function merge($values)
   {
-    if(is_array($values) || ($values instanceof ArrayAccess))
+    if(is_array($values) || ($values instanceof \ArrayAccess))
     {
       foreach($values as $name => $value)
         $this->set($name, $value);
@@ -196,6 +194,3 @@ class lmbSet implements lmbSetInterface
     return key($this->__properties);
   }
 }
-
-
-

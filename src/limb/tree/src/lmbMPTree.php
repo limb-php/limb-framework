@@ -11,7 +11,6 @@ namespace limb\tree\src;
 use limb\core\src\lmbCollection;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\lmbTableGateway;
-use limb\tree\src\lmbTreeInterface;
 use limb\tree\src\exception\lmbTreeException;
 use limb\tree\src\exception\lmbTreeInvalidNodeException;
 use limb\tree\src\exception\lmbTreeConsistencyException;

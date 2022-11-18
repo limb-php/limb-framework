@@ -8,7 +8,6 @@
  */
 namespace limb\search\src\indexer;
 
-
 /**
  * interface lmbSearchIndexer.
  *
@@ -19,5 +18,3 @@ interface lmbSearchIndexerInterface
 {
   function index($uri, $content);
 }
-
-

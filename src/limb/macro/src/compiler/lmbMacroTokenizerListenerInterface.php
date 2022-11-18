@@ -25,4 +25,3 @@ interface lmbMacroTokenizerListenerInterface
   function invalidEntitySyntax($data);
   function invalidAttributeSyntax($data);
 }
-

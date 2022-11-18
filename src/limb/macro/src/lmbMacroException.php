@@ -20,7 +20,6 @@ class lmbMacroException extends lmbException
 {
   function __construct($message, $params = array())
   {
-    parent :: __construct('MACRO exception: ' . $message, $params);
+    parent::__construct('MACRO exception: ' . $message, $params);
   }
 }
-

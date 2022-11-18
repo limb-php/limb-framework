@@ -12,7 +12,6 @@ namespace limb\tree\src;
  * @package tree
  * @version $Id: lmbTreeDecorator.php
  */
-use limb\tree\src\lmbTreeInterface;
 
 abstract class lmbTreeDecorator implements lmbTreeInterface
 {

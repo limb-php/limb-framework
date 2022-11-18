@@ -10,14 +10,12 @@ namespace limb\net\src;
 
 use limb\core\src\lmbSet;
 use limb\core\src\lmbArrayHelper;
-use limb\net\src\lmbUri;
-use limb\net\src\lmbUploadedFilesParser;
 
 /**
  * class lmbHttpRequest.
  *
  * @package net
- * @version $Id: lmbHttpRequest.class.php 8122 2010-02-02 09:54:14Z hidrarg $
+ * @version $Id: lmbHttpRequest.php 8122 2010-02-02 09:54:14Z
  */
 class lmbHttpRequest extends lmbSet
 {

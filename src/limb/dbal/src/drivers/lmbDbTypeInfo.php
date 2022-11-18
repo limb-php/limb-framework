@@ -12,7 +12,7 @@ namespace limb\dbal\src\drivers;
  * class lmbDbTypeInfo.
  *
  * @package dbal
- * @version $Id: lmbDbTypeInfo.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDbTypeInfo.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class lmbDbTypeInfo
 {

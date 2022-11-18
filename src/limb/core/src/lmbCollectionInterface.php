@@ -24,5 +24,3 @@ interface lmbCollectionInterface extends \Iterator, \Countable, \ArrayAccess
   function getLimit();
   function countPaginated();
 }
-
-

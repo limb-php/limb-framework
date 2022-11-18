@@ -24,7 +24,7 @@ use limb\core\src\lmbString;
  * class lmbTableGateway.
  *
  * @package dbal
- * @version $Id: lmbTableGateway.class.php 8170 2010-04-20 10:33:14Z serega $
+ * @version $Id: lmbTableGateway.php 8170 2010-04-20 10:33:14Z serega $
  */
 class lmbTableGateway
 {
@@ -38,7 +38,7 @@ class lmbTableGateway
 
   function __construct($table_name = null, $conn = null)
   {
-    $this->_toolkit = lmbToolkit :: instance();
+    $this->_toolkit = lmbToolkit::instance();
 
     if(is_object($conn))
       $this->_conn = $conn;
@@ -326,7 +326,7 @@ class lmbTableGateway
 
   function deleteById($id)
   {
-    return $this->delete(new lmbSQLFieldCriteria($this->_primary_key_name, $id));
+    $this->delete(new lmbSQLFieldCriteria($this->_primary_key_name, $id));
   }
 
   protected function _mapTableNameToClass($table_name)
@@ -367,7 +367,7 @@ class lmbTableGateway
 
   function __wakeup()
   {
-    $this->_toolkit = lmbToolkit :: instance();
+    $this->_toolkit = lmbToolkit::instance();
   }
 
   function __sleep()
@@ -378,5 +378,3 @@ class lmbTableGateway
     return $vars;
   }
 }
-
-

@@ -8,8 +8,6 @@
  */
 namespace limb\config\src;
 
-use limb\config\src\lmbYamlParser;
-use limb\config\src\lmbYamlDumper;
 use limb\core\src\exception\lmbException;
 
 /**
@@ -98,9 +96,9 @@ class lmbYaml
     {
       $ret = $yaml->parse($input);
     }
-    catch (Exception $e)
+    catch (\Exception $e)
     {
-      throw new InvalidArgumentException(sprintf('Unable to parse %s: %s', $file ? sprintf('file "%s"', $file) : 'string', $e->getMessage()));
+      throw new \InvalidArgumentException(sprintf('Unable to parse %s: %s', $file ? sprintf('file "%s"', $file) : 'string', $e->getMessage()));
     }
 
     return $ret;

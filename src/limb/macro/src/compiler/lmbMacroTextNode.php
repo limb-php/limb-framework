@@ -21,23 +21,23 @@ class lmbMacroTextNode extends lmbMacroNode
 
   function __construct($location, $text)
   {
-    parent :: __construct($location);
+    parent::__construct($location);
     $this->contents = $text;
   }
 
   function generate($code_writer)
   {
-    if(self :: $trim)
+    if(self::$trim)
       $code_writer->writeHtml(trim($this->contents));
     else
       $code_writer->writeHtml($this->contents);
 
-    parent :: generate($code_writer);
+    parent::generate($code_writer);
   }
 
   static function setTrim($flag = true)
   {
-    self :: $trim = $flag;
+    self::$trim = $flag;
   }
 
   function getText()
@@ -45,5 +45,3 @@ class lmbMacroTextNode extends lmbMacroNode
     return $this->contents;
   }
 }
-
-

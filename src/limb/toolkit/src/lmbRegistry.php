@@ -17,7 +17,7 @@ use limb\core\src\exception\lmbException;
  * Completely static class
  * @link http://www.phppatterns.com/docs/design/the_registry
  * @package toolkit
- * @version $Id: lmbRegistry.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbRegistry.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class lmbRegistry
 {
@@ -30,7 +30,7 @@ class lmbRegistry
   */
   static function set($name, $value)
   {
-    self :: $cache[$name][0] = $value;
+    self::$cache[$name][0] = $value;
   }
 
   /**
@@ -40,8 +40,8 @@ class lmbRegistry
   */
   static function get($name)
   {
-    if(isset(self :: $cache[$name][0]))
-      return self :: $cache[$name][0];
+    if(isset(self::$cache[$name][0]))
+      return self::$cache[$name][0];
   }
 
   /**
@@ -51,8 +51,8 @@ class lmbRegistry
   */
   static function save($name)
   {
-    if(isset(self :: $cache[$name]))
-      array_unshift(self :: $cache[$name], array());
+    if(isset(self::$cache[$name]))
+      array_unshift(self::$cache[$name], array());
     else
       throw new lmbException("No such registry entry '$name'");
   }
@@ -64,10 +64,9 @@ class lmbRegistry
   */
   static function restore($name)
   {
-    if(isset(self :: $cache[$name]))
-      array_shift(self :: $cache[$name]);
+    if(isset(self::$cache[$name]))
+      array_shift(self::$cache[$name]);
     else
       throw new lmbException("No such registry entry '$name'");
   }
 }
-

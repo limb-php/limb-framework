@@ -13,12 +13,13 @@ use limb\dbal\src\query\lmbSelectQuery;
 use limb\dbal\src\query\lmbUpdateQuery;
 use limb\dbal\src\query\lmbDeleteQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\dbal\src\query\lmbInsertOnDuplicateUpdateQuery;
 
 /**
  * class lmbSimpleDb.
  *
  * @package dbal
- * @version $Id: lmbSimpleDb.class.php 8083 2010-01-22 00:57:23Z korchasa $
+ * @version $Id: lmbSimpleDb.php 8083 2010-01-22 00:57:23Z korchasa $
  */
 class lmbSimpleDb
 {
@@ -205,5 +206,3 @@ class lmbSimpleDb
     return $this->conn->quoteIdentifier($id);
   }
 }
-
-

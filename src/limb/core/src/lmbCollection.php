@@ -8,10 +8,6 @@
  */
 namespace limb\core\src;
 
-use limb\core\src\lmbCollectionInterface;
-use limb\core\src\lmbArrayHelper;
-use limb\core\src\lmbSet;
-
 /**
  * class lmbCollection.
  *
@@ -80,7 +76,7 @@ class lmbCollection implements lmbCollectionInterface
   {
     if(count($this->dataset))
     {
-      $this->dataset = lmbArrayHelper :: sortArray($this->dataset, $params, false);
+      $this->dataset = lmbArrayHelper::sortArray($this->dataset, $params, false);
       $this->iteratedDataset = null;
     }
     return $this;
@@ -235,4 +231,3 @@ class lmbCollection implements lmbCollectionInterface
   function offsetUnset($offset){}
   //end
 }
-

@@ -8,15 +8,7 @@
  */
 namespace limb\macro\src\compiler;
 
-use limb\macro\src\compiler\lmbMacroBaseParsingState;
-use limb\macro\src\compiler\lmbMacroTokenizerListenerInterface;
-use limb\macro\src\compiler\lmbMacroParser;
 use limb\macro\src\lmbMacroException;
-use limb\macro\src\compiler\lmbMacroTagAttribute;
-use limb\macro\src\compiler\lmbMacroTagAttributeBlockAnalizerListener;
-use limb\macro\src\compiler\lmbMacroBlockAnalizer;
-use limb\macro\src\compiler\lmbMacroTreeBuilder;
-use limb\macro\src\compiler\lmbMacroTagDictionary;
 
 /**
  * class lmbMacroTagParsingState.
@@ -30,7 +22,7 @@ class lmbMacroTagParsingState extends lmbMacroBaseParsingState implements lmbMac
 
   function __construct(lmbMacroParser $parser, lmbMacroTreeBuilder $tree_builder, lmbMacroTagDictionary $tag_dictionary)
   {
-    parent :: __construct($parser, $tree_builder);
+    parent::__construct($parser, $tree_builder);
     $this->tag_dictionary = $tag_dictionary;
   }
   
@@ -185,4 +177,3 @@ class lmbMacroTagParsingState extends lmbMacroBaseParsingState implements lmbMac
     $this->tree_builder->addTextNode($text);
   }
 }
-

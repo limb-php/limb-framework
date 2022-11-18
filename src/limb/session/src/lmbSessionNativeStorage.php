@@ -8,13 +8,12 @@
  */
 namespace limb\session\src;
 
-use limb\session\src\lmbSessionStorageInterface;
 use limb\core\src\lmbSerializable;
 
 /**
  * lmbSessionNativeStorage does nothing thus keeping native file-based php session storage to be used.
  * @see lmbSessionStartupFilter
- * @version $Id: lmbSessionNativeStorage.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSessionNativeStorage.php 7486 2009-01-26 19:13:20Z pachanga $
  * @package session
  */
 class lmbSessionNativeStorage implements lmbSessionStorageInterface

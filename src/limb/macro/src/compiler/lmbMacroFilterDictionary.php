@@ -91,7 +91,7 @@ class lmbMacroFilterDictionary
 
   function registerFromFile($file)
   {
-    $infos = lmbMacroAnnotationParser::extractFromFile($file, 'limb\macro\src\compiler\lmbMacroFilterInfo');
+    $infos = lmbMacroAnnotationParser::extractFromFile($file, lmbMacroFilterInfo::class);
     foreach($infos as $info)
       $this->register($info, $file);
   }

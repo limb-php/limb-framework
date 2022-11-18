@@ -8,8 +8,6 @@
  */
 namespace limb\core\src;
 
-use limb\core\src\lmbCollectionInterface;
-
 /**
  * class lmbCollectionDecorator.
  *

@@ -11,17 +11,17 @@ namespace limb\tree\src;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\lmbTableGateway;
 use limb\core\src\lmbCollection;
-use limb\tree\src\lmbTreeInterface;
 use limb\tree\src\exception\lmbTreeException;
 use limb\tree\src\exception\lmbTreeInvalidNodeException;
 use limb\tree\src\exception\lmbTreeConsistencyException;
+use limb\toolkit\src\lmbToolkit;
 
 /**
  * Base class implementing a Nested Sets approach for storing tree-like structures in database tables.
  * @package tree
  * @version $Id$
  */
-class lmbNSTree implements lmbTree
+class lmbNSTree implements lmbTreeInterface
 {
   protected $_conn;
 
@@ -49,7 +49,7 @@ class lmbNSTree implements lmbTree
     if($conn)
       $this->_conn = $conn;
     else
-      $this->_conn = lmbToolkit :: instance()->getDefaultDbConnection();
+      $this->_conn = lmbToolkit::instance()->getDefaultDbConnection();
 
     $this->_node_table = $node_table;
     $this->_db_table = new lmbTableGateway($this->_node_table, $this->_conn);
@@ -585,5 +585,3 @@ class lmbNSTree implements lmbTree
     return true;
   }
 }
-
-

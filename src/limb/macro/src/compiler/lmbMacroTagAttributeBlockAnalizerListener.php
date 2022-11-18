@@ -8,9 +8,6 @@
  */
 namespace limb\macro\src\compiler;
 
-use limb\macro\src\compiler\lmbMacroBlockAnalizerListenerInterface;
-use \limb\macro\src\compiler\lmbMacroExpression;
-
 /**
  * class lmbMacroTagAttributeBlockAnalizerListener.
  *

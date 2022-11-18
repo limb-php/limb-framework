@@ -8,14 +8,11 @@
  */
 namespace limb\toolkit\src;
 
-use limb\toolkit\src\lmbToolkitToolsInterface;
-use limb\toolkit\src\lmbToolkit;
-
 /**
  * Base class for most real applications tools
  * @see lmbToolkit
  * @package toolkit
- * @version $Id: lmbAbstractTools.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbAbstractTools.php 7486 2009-01-26 19:13:20Z
  */
 abstract class lmbAbstractTools implements lmbToolkitToolsInterface
 {
@@ -65,5 +62,3 @@ abstract class lmbAbstractTools implements lmbToolkitToolsInterface
     return $this->toolkit->getRaw($var);
   }
 }
-
-

@@ -12,7 +12,7 @@ namespace limb\tree\src;
  * interface lmbTreeInterface.
  *
  * @package tree
- * @version $Id: lmbTree.interface.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbTreeInterface.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 interface lmbTreeInterface
 {
@@ -36,5 +36,3 @@ interface lmbTreeInterface
   function getNodeByPath($path);
   function getPathToNode($node);
 }
-
-

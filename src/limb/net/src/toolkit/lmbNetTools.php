@@ -16,7 +16,7 @@ use limb\net\src\lmbHttpResponse;
  * class lmbNetTools.
  *
  * @package net
- * @version $Id: lmbNetTools.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbNetTools.php 7486 2009-01-26 19:13:20Z
  */
 class lmbNetTools extends lmbAbstractTools
 {
@@ -53,4 +53,3 @@ class lmbNetTools extends lmbAbstractTools
     $this->response = $response;
   }
 }
-

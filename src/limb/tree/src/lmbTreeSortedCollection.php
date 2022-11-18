@@ -8,13 +8,15 @@
  */
 namespace limb\tree\src;
 
-use limb\tree\src\lmbTreeHelper;
+use limb\core\src\lmbCollectionDecorator;
+use limb\core\src\lmbCollection;
+use limb\core\src\exception\lmbException;
 
 /**
  * class lmbTreeSortedCollection.
  *
  * @package tree
- * @version $Id: lmbTreeSortedCollection.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbTreeSortedCollection.php 7486 2009-01-26 19:13:20Z
  */
 class lmbTreeSortedCollection extends lmbCollectionDecorator
 {
@@ -60,7 +62,7 @@ class lmbTreeSortedCollection extends lmbCollectionDecorator
     {
       $nested_array = array();
 
-      $iterator = lmbTreeHelper :: sort($this->iterator, $this->order_pairs, $this->node_field, $this->parent_field);
+      $iterator = lmbTreeHelper::sort($this->iterator, $this->order_pairs, $this->node_field, $this->parent_field);
     }
     else
       $iterator = new lmbCollection();
@@ -70,5 +72,3 @@ class lmbTreeSortedCollection extends lmbCollectionDecorator
     return $this->iterator->rewind();
   }
 }
-
-

@@ -8,16 +8,12 @@
  */
 namespace limb\web_app\src\controller;
 
-use limb\web_app\src\controller\LmbController;
-
 /**
  * class MainPageController.
  *
  * @package web_app
- * @version $Id: MainPageController.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: MainPageController.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class MainPageController extends LmbController
 {
 }
-
-

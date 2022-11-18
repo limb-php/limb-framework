@@ -9,8 +9,6 @@
 namespace limb\macro\src\tags\core;
 
 use limb\macro\src\compiler\lmbMacroTag;
-use limb\macro\src\tags\core\lmbMacroTemplateTag;
-use limb\macro\src\tags\core\lmbMacroApplyIntoTag;
 
 /**
  * class lmbMacroTemplateSlotTag.
@@ -23,10 +21,10 @@ class lmbMacroTemplateSlotTag extends lmbMacroTag
 {
   protected function _generateContent($code)
   {
-    $parent_template_tag = $this->findParentByClass('limb\macro\src\tags\core\lmbMacroTemplateTag');
+    $parent_template_tag = $this->findParentByClass(lmbMacroTemplateTag::class);
     $apply_tag = $parent_template_tag->getCurrentApplyTag();
     
-    $intos = $apply_tag->findChildrenByClass('limb\macro\src\tags\core\lmbMacroApplyIntoTag');
+    $intos = $apply_tag->findChildrenByClass(lmbMacroApplyIntoTag::class);
     foreach($intos as $into)
     {
       if($into->get('slot') == $this->getNodeId())
@@ -34,4 +32,3 @@ class lmbMacroTemplateSlotTag extends lmbMacroTag
     }
   }
 }
-

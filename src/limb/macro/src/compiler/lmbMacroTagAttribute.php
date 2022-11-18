@@ -83,5 +83,3 @@ class lmbMacroTagAttribute implements lmbMacroExpressionInterface
     return $res;
   }
 }
-
-

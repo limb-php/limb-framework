@@ -24,5 +24,3 @@ interface lmbSetInterface extends \ArrayAccess, \Iterator
   function import($values);
   function has($name);
 }
-
-

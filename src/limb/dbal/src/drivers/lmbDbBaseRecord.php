@@ -8,8 +8,6 @@
  */
 namespace limb\dbal\src\drivers;
 
-use limb\dbal\src\drivers\lmbDbRecordInterface;
-
 /**
  * abstract class lmbDbBaseRecord.
  *

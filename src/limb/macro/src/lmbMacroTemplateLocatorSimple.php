@@ -8,8 +8,6 @@
  */
 namespace limb\macro\src;
 
-use limb\macro\src\lmbMacroTemplateLocatorInterface;
-use limb\macro\src\lmbMacroConfig;
 use limb\fs\src\lmbFs;
 
 /**
@@ -51,4 +49,3 @@ class lmbMacroTemplateLocatorSimple implements lmbMacroTemplateLocatorInterface
     return $this->config->cache_dir . '/' . lmbMacroTemplate::encodeCacheFileName($file_name);
   }
 }
-

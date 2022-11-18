@@ -92,5 +92,4 @@ class lmbAssert
 
     throw new lmbInvalidArgumentException($custom_message, array(), 0, 1);
   }
-
 }

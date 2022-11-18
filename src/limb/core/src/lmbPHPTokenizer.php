@@ -181,5 +181,3 @@ class lmbPHPTokenizer
     return $this->line;
   }
 }
-
-

@@ -8,8 +8,6 @@
  */
 namespace limb\macro\src\compiler;
 
-use limb\macro\src\compiler\lmbMacroTag;
-
 /**
  * class lmbMacroPassiveTag.
  *
@@ -25,7 +23,6 @@ class lmbMacroPassiveTag extends lmbMacroTag
   
   function generateNow($code_writer)
   {
-    parent :: generate($code_writer);
+    parent::generate($code_writer);
   }
 }
-

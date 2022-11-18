@@ -8,15 +8,13 @@
  */
 namespace limb\datetime\src;
 
-use limb\datetime\src\lmbDateTime;
-
 /**
  * class lmbDateTime.
  *
  * This class is OBSOLETE, use lmbDateTime instead!
  *
  * @package datetime
- * @version $Id: lmbDate.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDate.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class lmbDate extends lmbDateTime
 {

@@ -8,13 +8,11 @@
  */
 namespace limb\core\src;
 
-use limb\core\src\lmbDelegate;
-
 /**
  * Delegates chain
  * 
  * @package core
- * @version $Id: lmbDelegatesChain.class.php 7996 2009-09-30 13:52:25Z cmz $
+ * @version $Id: lmbDelegatesChain.php 7996 2009-09-30 13:52:25Z cmz $
  */
 class lmbDelegatesChain 
 {
@@ -85,5 +83,4 @@ class lmbDelegatesChain
     $args = func_get_args();
     return lmbDelegate::invokeChain($this->delegates, $args); 
   }
-  
 }

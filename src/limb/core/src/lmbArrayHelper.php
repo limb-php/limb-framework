@@ -28,7 +28,7 @@ class lmbArrayHelper
     $args = func_get_args();
     $res = $a1;
     for($i=1;$i<sizeof($args);$i++)
-      $res = self :: _arrayMerge($res, $args[$i]);
+      $res = self::_arrayMerge($res, $args[$i]);
     return $res;
   }
 
@@ -37,7 +37,7 @@ class lmbArrayHelper
     $n = $a1;
     foreach($a2 as $k => $v)
       if(is_array($v) &&  isset($n[$k]) &&  is_array($n[$k]))
-        $n[$k] = self :: _arrayMerge($n[$k], $v);
+        $n[$k] = self::_arrayMerge($n[$k], $v);
       else
         $n[$k] = $v;
     return $n;
@@ -62,7 +62,7 @@ class lmbArrayHelper
 
       if(is_array($res_array) &&  isset($res_array[$key]))
         if($size > 1)
-          return lmbArrayHelper :: arrayGet($arr_def, $res_array[$key]);
+          return lmbArrayHelper::arrayGet($arr_def, $res_array[$key]);
         elseif($size == 1)
           return $res_array[$key];
     }
@@ -101,7 +101,7 @@ class lmbArrayHelper
   {
     $index = 0;
 
-    if(!$values = lmbArrayHelper :: getColumnValues($column_name, $array))
+    if(!$values = lmbArrayHelper::getColumnValues($column_name, $array))
       return false;
 
     $max = max($values);
@@ -113,7 +113,7 @@ class lmbArrayHelper
   {
     $index = 0;
 
-    if(!$values = lmbArrayHelper :: getColumnValues($column_name, $array))
+    if(!$values = lmbArrayHelper::getColumnValues($column_name, $array))
       return false;
 
     $min = min($values);
@@ -128,7 +128,7 @@ class lmbArrayHelper
       $string_key = ($prefix) ? '[' . $key . ']' : $key;
 
       if(is_array($value))
-        lmbArrayHelper :: toFlatArray($value, $result, $prefix . $string_key);
+        lmbArrayHelper::toFlatArray($value, $result, $prefix . $string_key);
       else
         $result[$prefix . $string_key] = $value;
     }
@@ -212,5 +212,3 @@ class lmbArrayHelper
     }
   }
 }
-
-

@@ -14,7 +14,7 @@ namespace limb\net\src;
  * class lmbHttpCache.
  *
  * @package net
- * @version $Id: lmbHttpCache.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbHttpCache.php 7486 2009-01-26 19:13:20Z
  */
 class lmbHttpCache
 {
@@ -204,5 +204,3 @@ class lmbHttpCache
     return $this->cache_type;
   }
 }
-
-

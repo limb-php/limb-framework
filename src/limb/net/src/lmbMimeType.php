@@ -78,8 +78,8 @@ class lmbMimeType
   static function getExtension($mime_type)
   {
     $mime_type = strtolower($mime_type);
-    return isset(self :: $mime_types[$mime_type])
-      ? self :: $mime_types[$mime_type]
+    return isset(self::$mime_types[$mime_type])
+      ? self::$mime_types[$mime_type]
       : null;
   }
 
@@ -94,7 +94,7 @@ class lmbMimeType
   static function getMimeType($extension)
   {
     $extension = ltrim(strtolower($extension), '.');
-    $mime_type = array_search($extension,self :: $mime_types);
+    $mime_type = array_search($extension,self::$mime_types);
 
     return $mime_type ? $mime_type : null;
   }
@@ -104,7 +104,7 @@ class lmbMimeType
     if($info = pathinfo($file))
     {
       if(isset($info['extension']))
-        return self :: getMimeType($info['extension']);
+        return self::getMimeType($info['extension']);
     }
   }
 }

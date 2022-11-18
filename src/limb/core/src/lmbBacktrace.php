@@ -47,7 +47,7 @@ class lmbBacktrace
 
   function getContext()
   {
-    reurn (sizeof($this->backtrace)) ? $this->backtrace[0] : '';
+    return (sizeof($this->backtrace)) ? $this->backtrace[0] : '';
   }
 
   function toString()
@@ -122,5 +122,3 @@ class lmbBacktrace
     return $trace_string;
   }
 }
-
-

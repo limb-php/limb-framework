@@ -13,8 +13,8 @@ use limb\core\src\lmbSerializable;
 /**
  * Wrapper class for global $_SESSION variable
  *
- * @see lmbWebAppTools :: getSession()
- * @version $Id: lmbSession.class.php 8111 2010-01-28 17:19:42Z korchasa $
+ * @see lmbWebAppTools::getSession()
+ * @version $Id: lmbSession.php 8111 2010-01-28 17:19:42Z korchasa $
  * @package session
  */
 class lmbSession implements \ArrayAccess,\Iterator,\Countable

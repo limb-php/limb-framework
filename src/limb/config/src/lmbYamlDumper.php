@@ -8,8 +8,6 @@
  */
 namespace limb\config\src;
 
-use limb\config\src\lmbYamlInline;
-
 /**
  * lmbYamlDumper dumps PHP variables to YAML strings.
  *

@@ -10,11 +10,6 @@ namespace limb\macro\src\compiler;
 
 use limb\fs\src\lmbFs;
 use limb\core\src\lmbDelegate;
-use limb\macro\src\compiler\lmbMacroNode;
-use limb\macro\src\compiler\lmbMacroSourceLocation;
-use limb\macro\src\compiler\lmbMacroTreeBuilder;
-use limb\macro\src\compiler\lmbMacroCodeWriter;
-use limb\macro\src\compiler\lmbMacroParser;
 use limb\macro\src\lmbMacroException;
 
 /**
@@ -128,7 +123,7 @@ class lmbMacroCompiler
   static function writeFile($file, $data)
   {
     $dirname = dirname($file);
-    lmbFs :: mkdir($dirname);
+    lmbFs::mkdir($dirname);
 
     file_put_contents($file, $data);
   }
@@ -140,7 +135,6 @@ class lmbMacroCompiler
    */
   static function registerOnCompileCallback($callback)
   {
-    self::$_listeners['on_compile'] = lmbDelegate :: objectify($callback);
+    self::$_listeners['on_compile'] = lmbDelegate::objectify($callback);
   }
 }
-

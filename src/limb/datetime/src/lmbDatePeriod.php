@@ -8,14 +8,13 @@
  */
 namespace limb\datetime\src;
 
-use limb\datetime\src\lmbDateTime;
 use limb\core\src\exception\lmbException;
 
 /**
  * class lmbDatePeriod.
  *
  * @package datetime
- * @version $Id: lmbDatePeriod.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDatePeriod.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class lmbDatePeriod
 {

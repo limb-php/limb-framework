@@ -8,13 +8,11 @@
  */
 namespace limb\net\src;
 
-use limb\net\src\lmbUploadedFile;
-
 /**
  * class lmbUploadedFilesParser.
  *
  * @package net
- * @version $Id: lmbUploadedFilesParser.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbUploadedFilesParser.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class lmbUploadedFilesParser
 {
@@ -87,5 +85,3 @@ class lmbUploadedFilesParser
     }
   }
 }
-
-

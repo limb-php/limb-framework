@@ -8,6 +8,8 @@
  */
 namespace limb\macro\src\compiler;
 
+use limb\macro\src\lmbMacroException;
+
 /**
  * Acts on the root lmbMacroNode in response to events within the lmbMacroParser
  *
@@ -186,4 +188,3 @@ class lmbMacroTreeBuilder
     return $this->compiler->getFilterDictionary();
   }
 }
-

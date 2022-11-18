@@ -1,11 +1,12 @@
 <?php
 namespace limb\optimization\src\controller;
 
-use limb\web_app\src\controller\AdminObjectController;
+use limb\cms\src\controller\AdminObjectController;
+use limb\optimization\src\model\MetaInfo;
 
 class AdminSeoController extends AdminObjectController
 {
-  protected $_object_class_name = 'MetaInfo';
+  protected $_object_class_name = MetaInfo::class;
 
   /* */
   public function doDisplay()

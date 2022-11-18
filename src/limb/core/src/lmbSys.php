@@ -33,7 +33,7 @@ class lmbSys
 
   static function isModule()
   {
-    return !self :: isCgi() && isset($_SERVER['GATEWAY_INTERFACE']);
+    return !self::isCgi() && isset($_SERVER['GATEWAY_INTERFACE']);
   }
 
   static function isCgi()
@@ -46,5 +46,3 @@ class lmbSys
     return PHP_SAPI == 'cli';
   }
 }
-
-

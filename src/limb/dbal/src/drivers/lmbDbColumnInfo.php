@@ -8,7 +8,6 @@
  */
 namespace limb\dbal\src\drivers;
 
-use limb\dbal\src\drivers\lmbDbTypeInfo;
 use limb\dbal\src\exception\lmbDbException;
 
 /**
@@ -130,5 +129,3 @@ class lmbDbColumnInfo
     return $name;
   }
 }
-
-

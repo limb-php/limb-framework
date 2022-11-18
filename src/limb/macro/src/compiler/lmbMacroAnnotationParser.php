@@ -10,7 +10,6 @@ namespace limb\macro\src\compiler;
 
 use limb\core\src\lmbPHPTokenizer;
 use limb\macro\src\lmbMacroException;
-use limb\macro\src\compiler\lmbMacroTagInfo;
 
 /**
  * class lmbMacroAnnotationParser.
@@ -85,4 +84,3 @@ class lmbMacroAnnotationParser
     return $annotations;
   }
 }
-

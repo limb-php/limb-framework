@@ -8,8 +8,6 @@
  */
 namespace limb\macro\src\compiler;
 
-use limb\macro\src\compiler\lmbMacroTag;
-
 /**
  * @package macro
  * @version $Id$

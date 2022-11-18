@@ -9,10 +9,7 @@
 namespace limb\macro\src;
 
 use limb\fs\src\lmbFs;
-use limb\macro\src\lmbMacroTemplateLocatorInterface;
 use limb\toolkit\src\lmbToolkit;
-use limb\macro\src\lmbMacroConfig;
-use limb\macro\src\lmbMacroTemplate;
 
 /**
  * class lmbMacroTemplateLocator.
@@ -46,4 +43,3 @@ class lmbMacroTemplateLocator implements lmbMacroTemplateLocatorInterface
     return $this->cache_dir . '/' . lmbMacroTemplate::encodeCacheFileName($file_name);
   }
 }
-

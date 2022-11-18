@@ -8,7 +8,6 @@
  */
 namespace limb\session\src;
 
-use limb\session\src\lmbSessionStorageInterface;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\lmbSimpleDb;
 
@@ -19,7 +18,7 @@ use limb\dbal\src\lmbSimpleDb;
  * @todo Check client ip while reading session.
  * @todo Allow to set any db table name to store session data in.
  * @see lmbSessionStartupFilter
- * @version $Id: lmbSessionDbStorage.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSessionDbStorage.php 7486 2009-01-26 19:13:20Z pachanga $
  * @package session
  */
 class lmbSessionDbStorage implements lmbSessionStorageInterface
@@ -147,4 +146,3 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     return true;
   }
 }
-

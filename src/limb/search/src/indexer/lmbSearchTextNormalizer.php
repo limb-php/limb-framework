@@ -71,6 +71,3 @@ class lmbSearchTextNormalizer
     return $content;
   }
 }
-
-
-

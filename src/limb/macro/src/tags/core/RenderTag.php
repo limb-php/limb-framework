@@ -1,7 +1,6 @@
 <?php
 namespace limb\macro\src\tags\core;
 
-use limb\macro\src\compiler\lmbMacroNode;
 use limb\macro\src\compiler\lmbMacroTag;
 
 /**

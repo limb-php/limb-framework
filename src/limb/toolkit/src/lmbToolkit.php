@@ -10,8 +10,6 @@ namespace limb\toolkit\src;
 
 use limb\core\src\lmbObject;
 use limb\core\src\lmbString;
-use limb\toolkit\src\lmbToolkitToolsInterface;
-use limb\toolkit\src\lmbRegistry;
 use limb\core\src\exception\lmbNoSuchMethodException;
 
 /**
@@ -77,11 +75,11 @@ class lmbToolkit extends lmbObject
   */
   static function instance()
   {
-    if(is_object(self :: $_instance))
-      return self :: $_instance;
+    if(is_object(self::$_instance))
+      return self::$_instance;
 
-    self :: $_instance = new lmbToolkit();
-    return self :: $_instance;
+    self::$_instance = new lmbToolkit();
+    return self::$_instance;
   }
 
   /**
@@ -106,7 +104,7 @@ class lmbToolkit extends lmbObject
   */
   static function setup($tools)
   {
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
     $toolkit->setTools($tools);
 
     return $toolkit;
@@ -119,19 +117,19 @@ class lmbToolkit extends lmbObject
   */
   static function save()
   {
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
 
     $tools = $toolkit->_tools;
     $tools_copy = array();
     foreach($toolkit->_tools as $tool)
       $tools_copy[] = clone($tool);
 
-    lmbRegistry :: set('__tools' . $toolkit->_id, $tools);
-    lmbRegistry :: save('__tools' . $toolkit->_id);
+    lmbRegistry::set('__tools' . $toolkit->_id, $tools);
+    lmbRegistry::save('__tools' . $toolkit->_id);
     $toolkit->setTools($tools_copy);
 
-    lmbRegistry :: set('__props' . $toolkit->_id, $toolkit->export());
-    lmbRegistry :: save('__props' . $toolkit->_id);
+    lmbRegistry::set('__props' . $toolkit->_id, $toolkit->export());
+    lmbRegistry::save('__props' . $toolkit->_id);
 
     return $toolkit;
   }
@@ -142,12 +140,12 @@ class lmbToolkit extends lmbObject
   */
   static function restore()
   {
-    $toolkit = lmbToolkit :: instance();
+    $toolkit = lmbToolkit::instance();
 
-    lmbRegistry :: restore('__tools' . $toolkit->_id);
+    lmbRegistry::restore('__tools' . $toolkit->_id);
     $tools = lmbRegistry :: get('__tools' . $toolkit->_id);
-    lmbRegistry :: restore('__props' . $toolkit->_id);
-    $props = lmbRegistry :: get('__props' . $toolkit->_id);
+    lmbRegistry::restore('__props' . $toolkit->_id);
+    $props = lmbRegistry::get('__props' . $toolkit->_id);
 
     if($props !== null)
     {
@@ -208,7 +206,7 @@ class lmbToolkit extends lmbObject
     if($method = $this->_mapPropertyToSetMethod($var))
       return $this->$method($value);
     else
-      return parent :: set($var, $value);
+      return parent::set($var, $value);
   }
 
   /**
@@ -311,4 +309,3 @@ class lmbToolkit extends lmbObject
       return $method;
   }
 }
-

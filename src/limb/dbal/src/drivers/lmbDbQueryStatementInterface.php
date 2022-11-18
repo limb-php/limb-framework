@@ -8,13 +8,11 @@
  */
 namespace limb\dbal\src\drivers;
 
-use limb\dbal\src\drivers\lmbDbStatementInterface;
-
 /**
  * interface lmbDbQueryStatement.
  *
  * @package dbal
- * @version $Id: lmbDbStatementInterface.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDbStatementInterface.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 interface lmbDbQueryStatementInterface extends lmbDbStatementInterface
 {
@@ -23,5 +21,3 @@ interface lmbDbQueryStatementInterface extends lmbDbStatementInterface
   function getOneColumnAsArray();
   function getRecordSet();
 }
-
-

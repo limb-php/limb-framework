@@ -28,7 +28,7 @@ class lmbMacroPagerCurrentTag extends lmbMacroTag
     $code->writePhp("\$href = {$pager}->getCurrentPageUri();\n");
     $code->writePhp("\$number = {$pager}->getPage();\n");
 
-    parent :: _generateContent($code);
+    parent::_generateContent($code);
 
     $code->writePhp("}\n");
   }

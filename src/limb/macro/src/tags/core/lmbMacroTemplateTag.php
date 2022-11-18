@@ -26,7 +26,7 @@ class lmbMacroTemplateTag extends lmbMacroPassiveTag
     if($this->has('name'))
       $this->set('id', 'template_' . $this->get('name'));
 
-    parent :: preParse($compiler);
+    parent::preParse($compiler);
   }
   
   function generateNow($code, $wrap_with_method = true)
@@ -69,4 +69,3 @@ class lmbMacroTemplateTag extends lmbMacroPassiveTag
     return $this->method;
   }
 }
-

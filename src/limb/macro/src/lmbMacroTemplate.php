@@ -8,10 +8,6 @@
  */
 namespace limb\macro\src;
 
-use limb\macro\src\lmbMacroTemplateLocatorInterface;
-use limb\macro\src\lmbMacroTemplateLocatorSimple;
-use limb\macro\src\lmbMacroException;
-use limb\macro\src\lmbMacroConfig;
 use limb\macro\src\compiler\lmbMacroTagDictionary;
 use limb\macro\src\compiler\lmbMacroFilterDictionary;
 use limb\macro\src\compiler\lmbMacroCompiler;
@@ -118,4 +114,3 @@ class lmbMacroTemplate
     return basename(dirname($file_name)) . '-' . basename($file_name) . '.' . crc32($file_name) . '.php';
   }
 }
-

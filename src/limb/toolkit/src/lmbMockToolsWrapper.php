@@ -8,8 +8,6 @@
  */
 namespace limb\toolkit\src;
 
-use limb\toolkit\src\lmbToolkitToolsInterface;
-
 /**
  * Helps in introducing mock tools (mock objects generated for real tools) into lmbToolkit
  * Created for testing purposes only.
@@ -23,7 +21,7 @@ use limb\toolkit\src\lmbToolkitToolsInterface;
  * lmbToolkit :: merge($tools);
  * </code>
  * @package toolkit
- * @version $Id: lmbMockToolsWrapper.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbMockToolsWrapper.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 class lmbMockToolsWrapper implements lmbToolkitToolsInterface
 {

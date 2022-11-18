@@ -9,12 +9,13 @@
 namespace limb\tree\src;
 
 use limb\core\src\lmbCollectionDecorator;
+use limb\core\src\lmbCollection;
 
 /**
  * class lmbTreeNestedCollection.
  *
  * @package tree
- * @version $Id: lmbTreeNestedCollection.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbTreeNestedCollection.php 7486 2009-01-26 19:13:20Z
  */
 class lmbTreeNestedCollection extends lmbCollectionDecorator
 {
@@ -39,12 +40,12 @@ class lmbTreeNestedCollection extends lmbCollectionDecorator
   
   function rewind()
   {
-    parent :: rewind();
+    parent::rewind();
 
     if($this->iterator->valid())
     {
       $nested_array = array();
-      self :: _doMakeNested($this->iterator, $nested_array);
+      self::_doMakeNested($this->iterator, $nested_array);
       $iterator = new lmbCollection($nested_array);
     }
     else
@@ -75,7 +76,7 @@ class lmbTreeNestedCollection extends lmbCollectionDecorator
       {
         $children = array();
         $pos = sizeof($nested_array) - 1;
-        self :: _doMakeNested($rs, $children, $prev_item_id, $level + 1);
+        self::_doMakeNested($rs, $children, $prev_item_id, $level + 1);
         $nested_array[$pos][$this->children_field] = $children;
       }
       else
@@ -85,5 +86,3 @@ class lmbTreeNestedCollection extends lmbCollectionDecorator
     }
   }
 }
-
-

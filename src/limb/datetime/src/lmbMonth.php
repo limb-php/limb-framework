@@ -8,8 +8,6 @@
  */
 namespace limb\datetime\src;
 
-use limb\datetime\src\lmbDateTime;
-
 /**
  * class lmbMonth.
  *

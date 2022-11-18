@@ -38,16 +38,15 @@ class lmbMacroBlockAnalizer
 
     while (preg_match($regexp, $text, $match))
     {
-      if (strlen($match[self :: BEFORE_CONTENT]) > 0)
-        $observer->addLiteralFragment($match[self :: BEFORE_CONTENT]);
+      if (strlen($match[self::BEFORE_CONTENT]) > 0)
+        $observer->addLiteralFragment($match[self::BEFORE_CONTENT]);
 
-      $observer->addExpressionFragment('$' . $match[self :: EXPRESSION]);
+      $observer->addExpressionFragment('$' . $match[self::EXPRESSION]);
 
-      $text = $match[self :: AFTER_CONTENT];
+      $text = $match[self::AFTER_CONTENT];
     }
 
     if (strlen($text) > 0)
       $observer->addLiteralFragment($text);
   }
 }
-

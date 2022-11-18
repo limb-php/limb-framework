@@ -11,7 +11,7 @@ namespace limb\session\src;
 /**
  * lmbSessionMemcachedStorage store session data in Memcache.
  * @see lmbSessionStartupFilter
- * @version $Id: lmbSessionMemcachedStorage.class.php 7486 2009-01-26 19:13:20Z 3dmax $
+ * @version $Id: lmbSessionMemcachedStorage.php 7486 2009-01-26 19:13:20Z
  * @package session
  */
 class lmbSessionMemcachedStorage implements lmbSessionStorageInterface

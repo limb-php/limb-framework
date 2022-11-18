@@ -14,11 +14,9 @@ use limb\core\src\lmbCollectionInterface;
  * interface lmbDbRecordSet.
  *
  * @package dbal
- * @version $Id: lmbDbRecordSetInterface.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDbRecordSetInterface.php 7486 2009-01-26 19:13:20Z pachanga $
  */
 interface lmbDbRecordSetInterface extends lmbCollectionInterface
 {
   function freeQuery();
 }
-
-

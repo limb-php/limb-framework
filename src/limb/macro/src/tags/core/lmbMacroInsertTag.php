@@ -2,7 +2,6 @@
 namespace limb\macro\src\tags\core;
 
 use limb\macro\src\compiler\lmbMacroTag;
-use limb\macro\src\tags\core\lmbMacroInsertIntoTag;
 
 /**
  * class limb\macro\src\tags\core\lmbMacroInsertTag.
@@ -133,7 +132,7 @@ class lmbMacroInsertTag extends lmbMacroTag
     {
       list($keys, $vals) = $this->attributesIntoArgs();
   
-      $method = $code->beginMethod('__staticInclude' . (++self :: $static_includes_counter), $keys);
+      $method = $code->beginMethod('__staticInclude' . (++self::$static_includes_counter), $keys);
       parent :: _generateContent($code);
       $code->endMethod();
   

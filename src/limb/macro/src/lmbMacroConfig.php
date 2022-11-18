@@ -26,9 +26,9 @@ class lmbMacroConfig
   public $forcescan = false;
   //duplicates forcecompile for BC
   public $is_force_scan;
-  public $tpl_scan_dirs = array();
-  public $tags_scan_dirs = array();
-  public $filters_scan_dirs = array();
+  public $tpl_scan_dirs;
+  public $tags_scan_dirs;
+  public $filters_scan_dirs;
 
   function __construct($options = array())
   {
@@ -75,4 +75,3 @@ class lmbMacroConfig
     throw new lmbException("Invalid lmbMacroConfig option '$name'");
   }
 }
-

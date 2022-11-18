@@ -11,7 +11,7 @@
  * class lmbMetaRedirectStrategy.
  *
  * @package net
- * @version $Id: lmbMetaRedirectStrategy.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbMetaRedirectStrategy.php 7486 2009-01-26 19:13:20Z
  */
 class lmbMetaRedirectStrategy
 {
@@ -34,5 +34,3 @@ class lmbMetaRedirectStrategy
   }
 
 }
-
-

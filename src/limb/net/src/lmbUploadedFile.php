@@ -53,5 +53,3 @@ class lmbUploadedFile extends lmbObject
     unlink($this->getTmpName());
   }
 }
-
-

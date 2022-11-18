@@ -13,8 +13,8 @@ class lmbMacroTrimTag extends lmbMacroTag
 {
   protected function _generateContent($code)
   {
-    lmbMacroTextNode :: setTrim(true);
-    parent :: _generateContent($code);
-    lmbMacroTextNode :: setTrim(false);
+    lmbMacroTextNode::setTrim(true);
+    parent::_generateContent($code);
+    lmbMacroTextNode::setTrim(false);
   }
 }

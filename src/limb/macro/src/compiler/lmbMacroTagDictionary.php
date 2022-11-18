@@ -9,7 +9,6 @@
 namespace limb\macro\src\compiler;
 
 use limb\fs\src\lmbFs;
-use limb\macro\src\compiler\lmbMacroAnnotationParser;
 
 /**
  * class lmbMacroTagDictionary.
@@ -124,5 +123,3 @@ class lmbMacroTagDictionary
       return $this->info[$tag];
   }
 }
-
-

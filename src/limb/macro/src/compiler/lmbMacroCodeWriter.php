@@ -23,7 +23,7 @@ class lmbMacroCodeWriter
 
   protected $parent;
 
-  protected $current_mode = self :: MODE_PHP;
+  protected $current_mode = self::MODE_PHP;
 
   protected $current_method;
 
@@ -44,7 +44,6 @@ class lmbMacroCodeWriter
     $this->class = $class;
     $this->render_func = $render_func;
     $this->parent = 'limb\\macro\\src\\compiler\\lmbMacroTemplateExecutor';
-    //$this->registerInclude('limb/macro/src/compiler/lmbMacroTemplateExecutor.class.php');
 
     $this->beginMethod($render_func, array('$args = array()'));
     $this->writePHP('if($args) extract($args);'."\n");
@@ -63,18 +62,18 @@ class lmbMacroCodeWriter
 
   protected function switchToPHP()
   {
-    if($this->current_mode == self :: MODE_HTML)
+    if($this->current_mode == self::MODE_HTML)
     {
-      $this->current_mode = self :: MODE_PHP;
+      $this->current_mode = self::MODE_PHP;
       $this->_append('<?php ');
     }
   }
 
   protected function switchToHTML($context = null)
   {
-    if($this->current_mode == self :: MODE_PHP)
+    if($this->current_mode == self::MODE_PHP)
     {
-      $this->current_mode = self :: MODE_HTML;
+      $this->current_mode = self::MODE_HTML;
       if($context === "\n")
         $this->_append(" ?>\n");
       else
@@ -176,7 +175,7 @@ class lmbMacroCodeWriter
 
     //we don't need to switch to PHP, since methods can be declared inside PHP only
     $this->writeRaw('function ' . $name . '(' . implode(',', $param_list) .") {\n");
-    $this->current_mode = self :: MODE_PHP;
+    $this->current_mode = self::MODE_PHP;
     return $name;
   }
 
@@ -240,4 +239,3 @@ class lmbMacroCodeWriter
     return $include_code;
   }
 }
-

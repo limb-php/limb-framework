@@ -93,5 +93,3 @@ class lmbCurlRequest
     $this->setOpt(CURLOPT_POSTFIELDS, $var_string);
   }
 }
-
-

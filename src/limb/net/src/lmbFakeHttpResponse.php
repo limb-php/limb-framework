@@ -8,8 +8,6 @@
  */
 namespace limb\net\src;
 
-use limb\net\src\lmbHttpResponse;
-
 /**
  * class lmbFakeHttpResponse.
  *

@@ -10,7 +10,7 @@ namespace limb\session\src;
 
 /**
  * Very simple interface for session storage driver classes.
- * @version $Id: lmbSessionStorage.interface.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSessionStorageInterface.php 7486 2009-01-26 19:13:20Z pachanga $
  * @package session
  */
 interface lmbSessionStorageInterface
@@ -20,4 +20,3 @@ interface lmbSessionStorageInterface
    */
   function install();
 }
-

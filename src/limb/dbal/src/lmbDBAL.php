@@ -8,7 +8,6 @@
  */
 namespace limb\dbal\src;
 
-use limb\dbal\src\lmbSimpleDb;
 use limb\dbal\src\query\lmbSelectQuery;
 use limb\dbal\src\query\lmbUpdateQuery;
 use limb\dbal\src\query\lmbDeleteQuery;
@@ -17,12 +16,13 @@ use limb\dbal\src\query\lmbBulkInsertQuery;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
 use limb\dbal\src\exception\lmbDbException;
+use limb\dbal\src\query\lmbInsertOnDuplicateUpdateQuery;
 
 /**
  * class lmbDBAL.
  *
  * @package dbal
- * @version $Id: lmbDBAL.class.php 8187 2010-04-28 17:48:33Z korchasa $
+ * @version $Id: lmbDBAL.php 8187 2010-04-28 17:48:33Z
  */
 class lmbDBAL
 {
@@ -187,7 +187,7 @@ class lmbDBAL
   static function fetchOneValue($sql, $conn = null)
   {
     if(!$conn)
-      $conn = lmbToolkit :: instance()->getDefaultDbConnection();
+      $conn = lmbToolkit::instance()->getDefaultDbConnection();
     return $conn->newStatement($sql)->getOneValue();
   }
 
@@ -198,9 +198,7 @@ class lmbDBAL
   static function execute($sql, $conn = null)
   {
     if(!$conn)
-      $conn = lmbToolkit :: instance()->getDefaultDbConnection();
+      $conn = lmbToolkit::instance()->getDefaultDbConnection();
     $conn->execute($sql);
   }
 }
-
-
