@@ -8,8 +8,6 @@
  */
 namespace tests\cache\cases;
 
-require ('.setup.php');
-
 use limb\core\src\lmbObject;
 use PHPUnit\Framework\TestCase;
 
@@ -24,12 +22,13 @@ abstract class lmbCacheBackendTest extends TestCase
   function setUp() :void
   {
     $this->cache = $this->_createPersisterImp();
+
     $this->cache->flush();
   }
 
   function tearDown() :void
   {
-    $this->cache->flush();
+      $this->cache->flush();
   }
 
   

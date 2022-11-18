@@ -8,7 +8,7 @@
  */
 namespace tests\cache\cases;
 
-require ('.setup.php');
+require_once('.setup.php');
 
 use limb\cache\src\lmbCacheFileBackend;
 use limb\fs\src\lmbFs;
@@ -35,8 +35,5 @@ class lmbCacheFileBackendTest extends lmbCacheBackendTest
     $this->assertEquals(1, sizeof($items));
 
     $this->assertEquals($this->cache->get(1), $cache_value);
-
-    $this->cache->flush();
-    lmbFs::rm($this->cache_dir);
   }
 }

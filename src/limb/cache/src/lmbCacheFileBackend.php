@@ -8,7 +8,6 @@
  */
 namespace limb\cache\src;
 
-use limb\cache\src\lmbCacheBackendInterface;
 use limb\core\src\lmbSerializable;
 use limb\fs\src\lmbFs;
 
@@ -120,7 +119,9 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
       }
     }
     else {
-        @unlink($this->_findCacheFile($key));
+        $file = $this->_findCacheFile($key);
+        if($file)
+            @unlink($file);
     }
   }
 
