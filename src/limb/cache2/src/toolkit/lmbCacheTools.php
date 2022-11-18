@@ -21,7 +21,7 @@ use limb\net\src\lmbUri;
  * class lmbCacheTools.
  *
  * @package cache2
- * @version $Id: lmbCacheTools.class.php $
+ * @version $Id: lmbCacheTools.php $
  */
 class lmbCacheTools extends lmbAbstractTools
 {
@@ -77,7 +77,7 @@ class lmbCacheTools extends lmbAbstractTools
         if($conf->get('cache_log_enabled', false))
           $wrapper['logged'] = 'lmbLoggedCache';
 
-        //$dsn->addQueryItem('wrapper', $wrapper);
+        $dsn = $dsn->withQueryItem('wrapper', $wrapper);
 
         return $this->createCacheConnectionByDSN($dsn);
       }
