@@ -18,9 +18,6 @@ use limb\cli\src\lmbCliRunner;
 use limb\core\src\exception\lmbException;
 use limb\core\src\lmbEnv;
 
-class FooCliCmd {}
-class FooBarCliCmd {}
-
 class lmbCliRunnerTest extends TestCase
 {
   var $tmp_dir;
@@ -71,7 +68,9 @@ class lmbCliRunnerTest extends TestCase
       $runner->execute();
       $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testCommandToClass()
@@ -112,7 +111,7 @@ class lmbCliRunnerTest extends TestCase
 
     $this->_createCommandClass($cmd);
 
-    $this->assertEquals($runner->execute(), 0);
+    $this->assertEquals(0, $runner->execute());
   }
 
   function testConcreteAction()
@@ -129,7 +128,7 @@ class lmbCliRunnerTest extends TestCase
 
     $this->_createCommandClass($cmd, 'function foo(){return 1;}');
 
-    $this->assertEquals($runner->execute(), 1);
+    $this->assertEquals(1, $runner->execute());
   }
 
   function testSanitizeActionName()

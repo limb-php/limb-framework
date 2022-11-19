@@ -88,7 +88,12 @@ class lmbCliRunner
         array_shift($argv);
       }
     }
-    return $this->_exit((int)$command->$action($argv));
+
+    if(!method_exists($command, $action))
+        throw new lmbException('Undefined method ' . $action);
+
+    $result = (int)$command->$action($argv);
+    return $this->_exit($result);
   }
 
   protected function _exit($code = 0)
@@ -116,5 +121,7 @@ class lmbCliRunner
 
       return new $class($this->output);
     }
+
+    return false;
   }
 }

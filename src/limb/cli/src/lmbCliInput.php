@@ -11,7 +11,7 @@
  * class lmbCliInput.
  *
  * @package cli
- * @version $Id: lmbCliInput.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbCliInput.php 7686 2009-03-04 19:57:12Z
  */
 namespace limb\cli\src;
 
@@ -45,7 +45,7 @@ class lmbCliInput
     try
     {
       if(is_null($argv))
-        $this->argv = self :: readPHPArgv();
+        $this->argv = self::readPHPArgv();
       else
         $this->argv = $argv;
 
@@ -172,7 +172,7 @@ class lmbCliInput
 
       if(preg_match('~^(?:((\w)\|([a-zA-Z0-9-_]+))|(\w\b)|([a-zA-Z0-9-_]+)?)(=)?~', $item, $m))
       {
-        $req = isset($m[6]) ? lmbCliOption :: VALUE_REQ : lmbCliOption :: VALUE_NO;
+        $req = isset($m[6]) ? lmbCliOption::VALUE_REQ : lmbCliOption::VALUE_NO;
 
         if($m[1])
           $opt = new lmbCliOption($m[2], $m[3], $req);
@@ -319,5 +319,3 @@ class lmbCliInput
     return array($glued, $last);
   }
 }
-
-
