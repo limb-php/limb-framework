@@ -21,10 +21,10 @@ class lmbMacroTemplateSlotTag extends lmbMacroTag
 {
   protected function _generateContent($code)
   {
-    $parent_template_tag = $this->findParentByClass(lmbMacroTemplateTag::class);
+    $parent_template_tag = $this->findParentByClass('limb\macro\src\tags\core\lmbMacroTemplateTag');
     $apply_tag = $parent_template_tag->getCurrentApplyTag();
     
-    $intos = $apply_tag->findChildrenByClass(lmbMacroApplyIntoTag::class);
+    $intos = $apply_tag->findChildrenByClass('limb\macro\src\tags\core\lmbMacroApplyIntoTag');
     foreach($intos as $into)
     {
       if($into->get('slot') == $this->getNodeId())
