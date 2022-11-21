@@ -2,9 +2,6 @@
 namespace limb\mail\src;
 
 use limb\core\src\lmbSet;
-use limb\mail\src\lmbMailer;
-use limb\mail\src\lmbMemoryMailer;
-use limb\mail\src\lmbResponseMailer;
 use limb\macro\src\lmbMacroTemplate;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
@@ -12,9 +9,7 @@ use limb\core\src\exception\lmbException;
 class lmbMailService
 {
   protected $template_id;
-  /**
-   * @var Member
-   */
+
   protected $member;
 
   protected $dto;
@@ -33,7 +28,7 @@ class lmbMailService
   function __construct($template_id)
   {
     $this->template_id = $template_id;
-    $this->dto = new lmbSet;
+    $this->dto = new lmbSet();
     $this->separator = "\n\n";
   }
 

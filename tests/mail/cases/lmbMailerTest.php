@@ -6,9 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\mail\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\mail\src\lmbMailer;
+
+require '.setup.php';
 
 class lmbMailerTest extends TestCase
 {
@@ -18,14 +21,14 @@ class lmbMailerTest extends TestCase
     $config = array('smtp_port' => '252525');
 
     $mailer = new lmbMailer($config);
-    $this->assertEquals($mailer->smtp_host, 'localhost');
-    $this->assertEquals($mailer->smtp_port, '252525');
+    $this->assertEquals('localhost', $mailer->smtp_host);
+    $this->assertEquals('252525', $mailer->smtp_port);
   }
 
   function testSetDefaultConfig()
   {
     $mailer = new lmbMailer();
-    $this->assertEquals($mailer->smtp_host, 'localhost');
+    $this->assertEquals('localhost', $mailer->smtp_host);
   }
 
   function testSetConfig()
@@ -37,8 +40,8 @@ class lmbMailerTest extends TestCase
     $config = array('smtp_port' => 'baz');
     $mailer->setConfig($config);
 
-    $this->assertEquals($mailer->smtp_host, 'foo');
-    $this->assertEquals($mailer->smtp_port, 'baz');
+    $this->assertEquals('foo', $mailer->smtp_host);
+    $this->assertEquals('baz', $mailer->smtp_port);
   }
 
   function testProcessMailRecepients()
@@ -46,55 +49,57 @@ class lmbMailerTest extends TestCase
     $mailer = new lmbMailer(array());
     
     $recs = $mailer->processMailRecipients("bob@localhost");
-    $this->assertEquals(sizeof($recs), 1);
-    $this->assertEquals($recs[0]['address'], "bob@localhost");
-    $this->assertEquals($recs[0]['name'], "");
+    $this->assertEquals(1, sizeof($recs));
+    $this->assertEquals("bob@localhost", $recs[0]['address']);
+    $this->assertEquals("", $recs[0]['name']);
 
     $recs = $mailer->processMailRecipients("Bob<bob@localhost>");
-    $this->assertEquals(sizeof($recs), 1);
-    $this->assertEquals($recs[0]['address'], "bob@localhost");
-    $this->assertEquals($recs[0]['name'], "Bob");
+    $this->assertEquals(1, sizeof($recs));
+    $this->assertEquals("bob@localhost", $recs[0]['address']);
+    $this->assertEquals("Bob", $recs[0]['name']);
 
     $recs = $mailer->processMailRecipients(array("bob@localhost"));
-    $this->assertEquals(sizeof($recs), 1);
-    $this->assertEquals($recs[0]['address'], "bob@localhost");
-    $this->assertEquals($recs[0]['name'], "");
+    $this->assertEquals(1, sizeof($recs));
+    $this->assertEquals("bob@localhost", $recs[0]['address']);
+    $this->assertEquals("", $recs[0]['name']);
 
     $recs = $mailer->processMailRecipients(array("name" => "Bob", "address" => "bob@localhost"));
-    $this->assertEquals(sizeof($recs), 1);
-    $this->assertEquals($recs[0]['address'], "bob@localhost");
-    $this->assertEquals($recs[0]['name'], "Bob");
+    $this->assertEquals(1, sizeof($recs));
+    $this->assertEquals("bob@localhost", $recs[0]['address']);
+    $this->assertEquals("Bob", $recs[0]['name']);
 
     $recs = $mailer->processMailRecipients(array("Bob<bob@localhost>"));
-    $this->assertEquals(sizeof($recs), 1);
-    $this->assertEquals($recs[0]['address'], "bob@localhost");
-    $this->assertEquals($recs[0]['name'], "Bob");
+    $this->assertEquals(1, sizeof($recs));
+    $this->assertEquals("bob@localhost", $recs[0]['address']);
+    $this->assertEquals("Bob", $recs[0]['name']);
 
     $recs = $mailer->processMailRecipients(array("bob@localhost", "todd@localhost"));
-    $this->assertEquals(sizeof($recs), 2);
-    $this->assertEquals($recs[0]['address'], "bob@localhost");
-    $this->assertEquals($recs[0]['name'], "");
-    $this->assertEquals($recs[1]['address'], "todd@localhost");
-    $this->assertEquals($recs[1]['name'], "");
+    $this->assertEquals(2, sizeof($recs));
+    $this->assertEquals("bob@localhost", $recs[0]['address']);
+    $this->assertEquals("", $recs[0]['name']);
+    $this->assertEquals("todd@localhost", $recs[1]['address']);
+    $this->assertEquals("", $recs[1]['name']);
 
     $recs = $mailer->processMailRecipients(array("Bob<bob@localhost>", "todd@localhost"));
-    $this->assertEquals(sizeof($recs), 2);
-    $this->assertEquals($recs[0]['address'], "bob@localhost");
-    $this->assertEquals($recs[0]['name'], "Bob");
-    $this->assertEquals($recs[1]['address'], "todd@localhost");
-    $this->assertEquals($recs[1]['name'], "");
+    $this->assertEquals(2, sizeof($recs));
+    $this->assertEquals("bob@localhost", $recs[0]['address']);
+    $this->assertEquals("Bob", $recs[0]['name']);
+    $this->assertEquals("todd@localhost", $recs[1]['address']);
+    $this->assertEquals("", $recs[1]['name']);
 
     $recs = $mailer->processMailRecipients(array(array("name" => "Bob", "address" => "bob@localhost"), "todd@localhost"));
-    $this->assertEquals(sizeof($recs), 2);
-    $this->assertEquals($recs[0]['address'], "bob@localhost");
-    $this->assertEquals($recs[0]['name'], "Bob");
-    $this->assertEquals($recs[1]['address'], "todd@localhost");
-    $this->assertEquals($recs[1]['name'], "");
+    $this->assertEquals(2, sizeof($recs));
+    $this->assertEquals("bob@localhost", $recs[0]['address']);
+    $this->assertEquals("Bob", $recs[0]['name']);
+    $this->assertEquals("todd@localhost", $recs[1]['address']);
+    $this->assertEquals("", $recs[1]['name']);
   }
 
   function testBugWithUndefinedPhpMailVersionVariable()
   {
     $mailer = new lmbMailer(array('use_phpmail' => true));
+
+    $this->assertTrue(true);
   }
 
 }

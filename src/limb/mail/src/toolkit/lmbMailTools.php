@@ -45,9 +45,10 @@ class lmbMailTools extends lmbAbstractTools
   		default:
   		case 'only_body':
   		case 'mailpart': 
-  		  $template_parser_class = 'lmbMacroTemplateMail'; break;
+  		    $template_parser_class = lmbMacroTemplateMail::class;
+            break;
   		case 'newline':
-  		  $template_parser_class = 'lmbMailService';
+  		    $template_parser_class = lmbMailService::class;
   		break;
   	}
   	
@@ -59,14 +60,14 @@ class lmbMailTools extends lmbAbstractTools
   function getMailer()
   {
   	$conf = $this->toolkit->getConf('mail');  	
-  	$mailer_class = 'lmbMailer';
+  	$mailer_class = lmbMailer::class;
   	
   	if (isset($conf['mode']))
     {
       if ($conf['mode'] == 'testing')
-        $mailer_class = 'lmbMemoryMailer';
+        $mailer_class = lmbMemoryMailer::class;
       elseif ($conf['mode'] == 'devel')
-        $mailer_class = 'lmbResponseMailer';
+        $mailer_class = lmbResponseMailer::class;
     }
     
     $mailer = new $mailer_class;

@@ -1,9 +1,12 @@
 <?php
+namespace tests\mail\cases;
 
-use limb\macro\tests\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTest;
 use limb\mail\src\lmbMailService;
 use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;
+
+require '.setup.php';
 
 class lmbMailServiceTest extends lmbBaseMacroTest
 {
@@ -15,7 +18,10 @@ class lmbMailServiceTest extends lmbBaseMacroTest
     lmbToolkit::instance()->setConf('macro', $this->_createMacroConfig());
   }
 
-  function tearDown(){}
+  function tearDown(): void
+  {
+
+  }
 
   function testGetMailHtmlContent()
   {

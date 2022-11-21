@@ -8,16 +8,17 @@
  */
 namespace limb\mail\src;
 
-use limb\core\src\lmbEnv;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
-use phpmailerException;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 /**
  * class lmbMailer.
  *
  * @package mail
- * @version $Id: lmbMailer.class.php 8145 2010-03-05 19:53:29Z Forumsky $
+ * @version $Id: lmbMailer.php 8145 2010-03-05 19:53:29Z
  */
 class lmbMailer implements lmbBaseMailerInterface
 {
@@ -25,7 +26,6 @@ class lmbMailer implements lmbBaseMailerInterface
   protected $images = array();
   protected $replyTo = array();
 
-  public $phpmailer_dir;
   public $use_phpmail;
   public $smtp_host;
   public $smtp_port;
@@ -45,13 +45,10 @@ class lmbMailer implements lmbBaseMailerInterface
     $this->smtp_auth = $conf['smtp_auth'];
     $this->smtp_user = $conf['smtp_user'];
     $this->smtp_password = $conf['smtp_password'];
-    $this->smtp_secure = isset($conf['smtp_secure']) ? $conf['smtp_secure'] : '';
-    $this->smtp_debug = isset($conf['smtp_debug']) ? $conf['smtp_debug'] : false;
+    $this->smtp_secure = $conf['smtp_secure'] ?? '';
+    $this->smtp_debug = $conf['smtp_debug'] ?? false;
 
     $this->setConfig($config);
-
-    $php_mailer_version = lmbEnv::get('PHPMAILER_VERSION_NAME', 'phpmailer-5.1');
-    include_once('limb/mail/lib/' .  $php_mailer_version . '/class.phpmailer.php');
   }
 
   public function setConfig($config)
@@ -62,23 +59,23 @@ class lmbMailer implements lmbBaseMailerInterface
 
   protected function _createMailer()
   {
-    $mailer = new \PHPMailer(true);
+    $mailer = new PHPMailer(true);
     $mailer->set('LE', "\r\n");
 
     if($this->use_phpmail)
       return $mailer;
 
-    $mailer->IsSMTP();
+    $mailer->isSMTP();
     $mailer->Host = $this->smtp_host;
     $mailer->Port = $this->smtp_port;
-    $mailer->SMTPSecure = $this->smtp_secure;
-    $mailer->SMTPDebug = $this->smtp_debug;
+    $mailer->SMTPSecure = $this->smtp_secure ? PHPMailer::ENCRYPTION_SMTPS : false ;
+    $mailer->SMTPDebug = $this->smtp_debug ? SMTP::DEBUG_SERVER : false ;
 
-    if($this->smtp_auth == true)
+    if($this->smtp_auth)
     {
-      $mailer->SMTPAuth = true;
-      $mailer->Username = $this->smtp_user;
-      $mailer->Password = $this->smtp_password;
+        $mailer->SMTPAuth = true;
+        $mailer->Username = $this->smtp_user;
+        $mailer->Password = $this->smtp_password;
     }
     return $mailer;
   }
@@ -107,7 +104,7 @@ class lmbMailer implements lmbBaseMailerInterface
   function sendPlainMail($recipients, $sender, $subject, $body, $charset = 'utf-8')
   {
     try
-  {
+    {
       $mailer = $this->_createMailer();
 
       $mailer->IsHTML(false);
@@ -136,8 +133,8 @@ class lmbMailer implements lmbBaseMailerInterface
       $mailer->Body    = $body;
 
       return $mailer->Send();
-  }
-    catch (phpmailerException $e)
+    }
+    catch (Exception $e)
     {
       throw new lmbException($e->getMessage());
     }
@@ -152,39 +149,39 @@ class lmbMailer implements lmbBaseMailerInterface
   {
     try
     {
-    $mailer = $this->_createMailer();
+        $mailer = $this->_createMailer();
 
-    $mailer->IsHTML(true);
-    $mailer->CharSet = $charset;
+        $mailer->IsHTML(true);
+        $mailer->CharSet = $charset;
 
-    $mailer->Body = $html;
+        $mailer->Body = $html;
 
-    if(!empty($this->attachments))
-      $this->_addAttachments($mailer);
+        if(!empty($this->attachments))
+            $this->_addAttachments($mailer);
 
-    if(!empty($this->images))
-      $this->_addEmbeddedImages($mailer);
+        if(!empty($this->images))
+            $this->_addEmbeddedImages($mailer);
 
-    $this->_addRepliesTo($mailer);
+        $this->_addRepliesTo($mailer);
 
-    if(!is_null($text))
-      $mailer->AltBody = $text;
+        if(!is_null($text))
+            $mailer->AltBody = $text;
 
-    $recipients = $this->processMailRecipients($recipients);
+        $recipients = $this->processMailRecipients($recipients);
 
-    foreach($recipients as $recipient)
-      $mailer->AddAddress($recipient['address'], $recipient['name']);
+        foreach($recipients as $recipient)
+            $mailer->AddAddress($recipient['address'], $recipient['name']);
 
-    $sender = $this->processMailAddressee($sender);
-    if(!$sender)
-      return false;
+        $sender = $this->processMailAddressee($sender);
+        if(!$sender)
+            return false;
 
-    $mailer->From = $sender['address'];
-    $mailer->FromName = $sender['name'];
-    $mailer->Sender = $sender['address'];
-    $mailer->Subject = $subject;
+        $mailer->From = $sender['address'];
+        $mailer->FromName = $sender['name'];
+        $mailer->Sender = $sender['address'];
+        $mailer->Subject = $subject;
 
-      return $mailer->Send();
+        return $mailer->Send();
     }
     catch (Exception $e)
     {
