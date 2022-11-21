@@ -9,9 +9,6 @@ use limb\macro\src\compiler\lmbMacroParser;
 use limb\macro\src\compiler\lmbMacroNode;
 use limb\macro\src\compiler\lmbMacroSourceLocation;
 
-Mock::generate('lmbMacroTreeBuilder', 'MockMacroTreeBuilder');
-Mock::generate('lmbMacroTagDictionary', 'MockMacroTagDictionary');
-
 class lmbMacroParserTest extends lmbBaseMacroTest
 {
   function testParse_raiseExceptionWhenFileNotExist()

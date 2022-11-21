@@ -13,9 +13,6 @@ use limb\macro\src\tags\form\lmbMacroFormErrorList;
 use limb\macro\src\tags\form\lmbMacroFormWidget;
 use limb\macro\src\tags\form\lmbMacroFormElementWidget;
 
-Mock :: generate('lmbMacroFormWidget', 'MockMacroFormWidget');
-Mock :: generate('lmbMacroFormElementWidget', 'MockMacroFormFieldWidget');
-
 class lmbMacroFormErrorListTest extends lmbBaseMacroTest
 {
   function testAddSimpleError()
