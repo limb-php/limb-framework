@@ -17,15 +17,14 @@ class lmbMacroTemplateExecutorTest extends lmbBaseMacroTest
   {
     $tpl = new lmbMacroTemplateExecutor($this->_createMacroConfig(), array('foo' => 'foo', 'bar' => 'bar'));
     $tpl->set('zoo', 'zoo');
-    $this->assertEquals($tpl->foo, 'foo');
-    $this->assertEquals($tpl->bar, 'bar');
-    $this->assertEquals($tpl->zoo, 'zoo');
+    $this->assertEquals('foo', $tpl->foo);
+    $this->assertEquals('bar', $tpl->bar);
+    $this->assertEquals('zoo', $tpl->zoo);
   }
 
   function testMissingVarIsEmpty()
   {
     $tpl = new lmbMacroTemplateExecutor($this->_createMacroConfig());
-    $this->assertNoErrors();
-    $this->assertIdentical($tpl->junk, '');
+    $this->assertEquals('', $tpl->junk);
   }
 }

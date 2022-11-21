@@ -101,6 +101,8 @@ class lmbMacroFilterDictionary
     $name = strtolower($name);
     if(isset($this->info[$name]))
       return $this->info[$name];
+
+    return null;
   }
 }
 

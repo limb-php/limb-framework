@@ -29,7 +29,7 @@ class lmbMacroTagDictionaryTest extends lmbBaseMacroTest
     $dictionary = new lmbMacroTagDictionary();
     $dictionary->register($tag_info, $file = 'whatever');
 
-    $this->assertIsA($dictionary->findTagInfo('test_tag'), 'lmbMacroTagInfo');
+    $this->assertInstanceOf(lmbMacroTagInfo::class, $dictionary->findTagInfo('test_tag'));
   }
   
   function testFindFilterInfoByAlias()
@@ -39,9 +39,9 @@ class lmbMacroTagDictionaryTest extends lmbBaseMacroTest
     $dictionary = new lmbMacroTagDictionary();
     $dictionary->register($tag_info, $file = 'whatever');
 
-    $this->assertIsA($dictionary->findTagInfo('testtag'), 'lmbMacroTagInfo');
-    $this->assertIsA($dictionary->findTagInfo('testtag_alias'), 'lmbMacroTagInfo');
-    $this->assertIsA($dictionary->findTagInfo('testtag_alias2'), 'lmbMacroTagInfo');
+    $this->assertInstanceOf(lmbMacroTagInfo::class, $dictionary->findTagInfo('testtag'));
+    $this->assertInstanceOf(lmbMacroTagInfo::class, $dictionary->findTagInfo('testtag_alias'));
+    $this->assertInstanceOf(lmbMacroTagInfo::class, $dictionary->findTagInfo('testtag_alias2'));
   }
 
   function testRegisterTagInfoOnceOnly()
@@ -61,7 +61,7 @@ class lmbMacroTagDictionaryTest extends lmbBaseMacroTest
     $dictionary = new lmbMacroTagDictionary();
     $dictionary->register($tag_info, $file = 'whatever');
 
-    $this->assertFalse($dictionary->findTagInfo('junk'));
+    $this->assertNull( $dictionary->findTagInfo('junk') );
   }
 
   function testRegisterFromFile()
@@ -127,8 +127,8 @@ EOD;
 class Bar{$rnd}Tag extends lmbMacroTag{}
 EOD;
 
-    file_put_contents($file1 = LIMB_VAR_DIR . '/tpl/tags/foo_' . $rnd . '.tag.php', $content1);
-    file_put_contents($file2 = LIMB_VAR_DIR . '/tpl/tags/subfolder/bar_' . $rnd . '.tag.php', $content2);
+    file_put_contents($file1 = lmbEnv::get('LIMB_VAR_DIR') . '/tpl/tags/foo' . $rnd . 'Tag.php', $content1);
+    file_put_contents($file2 = lmbEnv::get('LIMB_VAR_DIR') . '/tpl/tags/subfolder/bar' . $rnd . 'Tag.php', $content2);
 
     $tag_info1 = new lmbMacroTagInfo("foo_$rnd", "Foo{$rnd}Tag");
     $tag_info1->setFile($file1);
@@ -136,12 +136,11 @@ EOD;
     $tag_info2->setFile($file2);    
     
     $config = $this->_createMacroConfig();
-    $config->tags_scan_dirs = array(LIMB_VAR_DIR . '/tpl/tags/');
+    $config->tags_scan_dirs = array(lmbEnv::get('LIMB_VAR_DIR') . '/tpl/tags/');
     $dictionary = new lmbMacroTagDictionary();
     $dictionary->load($config);
 
     $this->assertEquals($dictionary->findTagInfo("foo_$rnd")->getTag(), $tag_info1->getTag());
     $this->assertEquals($dictionary->findTagInfo("bar_$rnd")->getTag(), $tag_info2->getTag());
   }
-  
 }

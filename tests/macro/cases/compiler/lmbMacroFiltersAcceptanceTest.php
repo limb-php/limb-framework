@@ -32,15 +32,15 @@ class MacroFilterZooTest extends lmbMacroFilter
   }
 }
 
-$foo_filter_info = new lmbMacroFilterInfo('uppercase', 'MacroFilterFooTest');
+$foo_filter_info = new lmbMacroFilterInfo('uppercase', MacroFilterFooTest::class);
 $foo_filter_info->setFile(__FILE__);
-$zoo_filter_info = new lmbMacroFilterInfo('trim', 'MacroFilterZooTest');
+$zoo_filter_info = new lmbMacroFilterInfo('trim', MacroFilterZooTest::class);
 $zoo_filter_info->setFile(__FILE__);
 
 lmbMacroFilterDictionary::instance()->register($foo_filter_info);
 lmbMacroFilterDictionary::instance()->register($zoo_filter_info);
 
-class lmbMacroFiltersTest extends lmbBaseMacroTest
+class lmbMacroFiltersAcceptanceTest extends lmbBaseMacroTest
 {
   function testFilter()
   {
@@ -48,7 +48,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 'hello');
     $out = $tpl->render();
-    $this->assertEquals($out, 'HELLO');
+    $this->assertEquals('HELLO', $out);
   }
 
   function testFilterChain()
@@ -57,7 +57,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '  hello  ');
     $out = $tpl->render();
-    $this->assertEquals($out, 'HELLO');
+    $this->assertEquals('HELLO', $out);
   }
   
   function testFilterWithParams()
@@ -66,7 +66,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '  /hello/  ');
     $out = $tpl->render();
-    $this->assertEquals($out, 'HELLO');
+    $this->assertEquals('HELLO', $out);
   }
 
   function testFilterWithVariablesInParams()
@@ -76,7 +76,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl->set('var', '  /hello/  ');
     $tpl->set('foo', '/');
     $out = $tpl->render();
-    $this->assertEquals($out, 'HELLO');
+    $this->assertEquals('HELLO', $out);
   }
 
   function testFilterWithPHPCodeInParams()
@@ -87,7 +87,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl->set('foo', '/');
     $tpl->set('bar', '#');
     $out = $tpl->render();
-    $this->assertEquals($out, 'HELLO');
+    $this->assertEquals('HELLO', $out);
   }
   
   function testApplyHtmlFilterByDefault()
@@ -96,7 +96,7 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '<>');
     $out = $tpl->render();
-    $this->assertEquals($out, '&lt;&gt;');
+    $this->assertEquals('&lt;&gt;', $out);
   }  
 
   function testDoesNotApplyHtmlFilterIfOutFilterPresent()
@@ -105,6 +105,6 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '<>');
     $out = $tpl->render();
-    $this->assertEquals($out, '<>');
+    $this->assertEquals('<>', $out);
   }    
 }

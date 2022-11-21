@@ -165,7 +165,7 @@ class lmbMacroNode
   }
 
 
-  function findChildByClass($class)
+  function findChildByClass($class): ?lmbMacroNode
   {
     foreach($this->children as $child)
     {
@@ -177,6 +177,8 @@ class lmbMacroNode
           return $result;
       }
     }
+
+    return null;
   }
 
   function findChildrenByClass($class)
@@ -194,13 +196,15 @@ class lmbMacroNode
     return $ret;
   }
 
-  function findImmediateChildByClass($class)
+  function findImmediateChildByClass($class): ?lmbMacroNode
   {
     foreach($this->children as $child)
     {
       if($child instanceof $class)
         return $child;
     }
+
+    return null;
   }
 
   function findImmediateChildrenByClass($class)

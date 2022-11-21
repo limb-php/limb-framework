@@ -13,6 +13,8 @@ use limb\macro\src\compiler\lmbMacroSourceLocation;
 use limb\macro\src\compiler\lmbMacroNode;
 use limb\macro\src\compiler\lmbMacroFilterParser;
 
+require (dirname(__FILE__) . '/../.setup.php');
+
 class lmbMacroFilterParserTest extends TestCase
 {
   protected $parser;
@@ -44,11 +46,11 @@ class lmbMacroFilterParserTest extends TestCase
     try
     {
       $filters = $this->parser->parse($expression = '"filter"');
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(\Exception $e)
     {
-      $this->assertWantedPattern('/Filter name expected/', $e->getMessage());
+      $this->assertMatchesRegularExpression('/Filter name expected/', $e->getMessage());
     }
   }
 
@@ -57,11 +59,11 @@ class lmbMacroFilterParserTest extends TestCase
     try
     {
       $filters = $this->parser->parse($expression = 'filter:');
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(\Exception $e)
     {
-      $this->assertWantedPattern('/Filter params expected after ":" symbol/', $e->getMessage());
+      $this->assertMatchesRegularExpression('/Filter params expected after ":" symbol/', $e->getMessage());
     }
   }
 
@@ -70,11 +72,11 @@ class lmbMacroFilterParserTest extends TestCase
     try
     {
       $filters = $this->parser->parse($expression = 'filter,');
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(\Exception $e)
     {
-      $this->assertWantedPattern('/Unexpected symbol after filter name/', $e->getMessage());
+      $this->assertMatchesRegularExpression('/Unexpected symbol after filter name/', $e->getMessage());
     }
   }
 

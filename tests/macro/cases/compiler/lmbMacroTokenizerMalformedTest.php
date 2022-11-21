@@ -12,6 +12,8 @@ use PHPUnit\Framework\TestCase;
 use limb\macro\src\compiler\lmbMacroTokenizerListenerInterface;
 use limb\macro\src\compiler\lmbMacroTokenizer;
 
+require (dirname(__FILE__) . '/../.setup.php');
+
 class lmbMacroTokenizerMalformedTest extends TestCase
 {
   protected $parser;
@@ -25,36 +27,81 @@ class lmbMacroTokenizerMalformedTest extends TestCase
 
   function testOpenElementMalformedClose()
   {
-    $this->listener->expectOnce('characters', array('stuff'));
-    $this->listener->expectOnce('invalidEntitySyntax', array('{{tag attribute=\'value\'/}morestuff'));
-    $this->listener->expectNever('startElement');
+    $this->listener
+        ->expects($this->once())
+        ->method('characters', array('stuff'));
+
+    $this->listener
+        ->expects($this->once())
+        ->method('invalidEntitySyntax', array('{{tag attribute=\'value\'/}morestuff'));
+
+    $this->listener
+        ->expects($this->never())
+        ->method('startElement');
+
     $this->parser->parse('stuff{{tag attribute=\'value\'/}morestuff');
   }
 
   function testElementNestedSingleQuote()
   {
-    $this->listener->expectOnce('startElement', array('tag', array('attribute' => '', "'" => NULL)));
-    $this->listener->expectOnce('invalidAttributeSyntax');
-    $this->listener->expectNever('characters');
-    $this->listener->expectNever('endElement');
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement', array('tag', array('attribute' => '', "'" => NULL)));
+
+    $this->listener
+        ->expects($this->once())
+        ->method('invalidAttributeSyntax');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('characters');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('endElement');
+
     $this->parser->parse('{{tag attribute=\'\'\'}}');
   }
 
   function testElementNestedDoubleQuote()
   {
-    $this->listener->expectOnce('startElement', array('tag', array('attribute' => '', '"' => NULL)));
-    $this->listener->expectOnce('invalidAttributeSyntax');
-    $this->listener->expectNever('characters');
-    $this->listener->expectNever('endElement');
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement', array('tag', array('attribute' => '', '"' => NULL)));
+
+    $this->listener
+        ->expects($this->once())
+        ->method('invalidAttributeSyntax');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('characters');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('endElement');
+
     $this->parser->parse('{{tag attribute="""}}');
   }
 
   function testElementMalformedAttribute()
   {
-    $this->listener->expectOnce('startElement', array('tag', array('attribute' => 'test', 'extra' => NULL)));
-    $this->listener->expectOnce('invalidAttributeSyntax');
-    $this->listener->expectNever('characters');
-    $this->listener->expectNever('endElement');
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement', array('tag', array('attribute' => 'test', 'extra' => NULL)));
+
+    $this->listener
+        ->expects($this->once())
+        ->method('invalidAttributeSyntax');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('characters');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('endElement');
+
     $this->parser->parse('{{tag attribute="test"extra}}');
   }
 }

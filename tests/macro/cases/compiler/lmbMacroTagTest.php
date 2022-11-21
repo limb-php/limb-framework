@@ -18,6 +18,8 @@ use limb\macro\src\compiler\lmbMacroTagAttribute;
 use limb\macro\src\compiler\lmbMacroCompiler;
 use limb\macro\src\lmbMacroException;
 
+require (dirname(__FILE__) . '/../.setup.php');
+
 class MacroTagClass1CompilerTest extends lmbMacroTag{}
 class MacroTagClass2CompilerTest extends lmbMacroTag{}
 
@@ -42,8 +44,8 @@ class lmbMacroTagTest extends TestCase
   function testGetAttribute()
   {
     $this->node->set('foo', 'bar');
-    $this->assertEquals($this->node->get('foo'), 'bar');
-    $this->assertEquals($this->node->get('FOO'), 'bar');
+    $this->assertEquals('bar', $this->node->get('foo'));
+    $this->assertEquals('bar', $this->node->get('FOO'));
   }
 
   function testHasAttribute()
@@ -72,7 +74,7 @@ class lmbMacroTagTest extends TestCase
     $this->node->set('foo', 'value1');
     $this->node->set('zoo', 'value2');
     $this->node->set('tricky', '$this->bar');
-    $this->assertEquals($this->node->getConstantAttributes(), array('foo' => 'value1', 'zoo' => 'value2'));
+    $this->assertEquals(array('foo' => 'value1', 'zoo' => 'value2'), $this->node->getConstantAttributes());
   }
 
   function testRemoveAttribute()
@@ -94,7 +96,7 @@ class lmbMacroTagTest extends TestCase
     $this->assertTrue($this->node->getBool('C'));
 
     //false cases
-    $this->node->set('A', NULL);
+    $this->node->set('A', null);
     $this->assertFalse($this->node->getBool('A'));
 
     $this->node->set('D', 'False');
@@ -135,20 +137,22 @@ class lmbMacroTagTest extends TestCase
   function testGetNodeId_ByIdAttribute()
   {
     $this->node->set('id', 'my_tag');
-    $this->assertEquals($this->node->getNodeId(), 'my_tag');
+    $this->assertEquals('my_tag', $this->node->getNodeId());
   }
 
   function testGetNodeId_DontUseDynamicIdAttribute()
   {
     $this->node->set('id', '$my_tag');
-    $this->assertNotEquals($this->node->getNodeId(), '$my_tag');
+    $this->assertNotEquals('$my_tag', $this->node->getNodeId());
   }
   
   function testGenerate()
   {
     $code_writer = $this->createMock(lmbMacroCodeWriter::class);
     $child = $this->createMock(lmbMacroNode::class);
-    $child->expectCallCount('generate', 1);
+    $child
+        ->expects($this->exactly(1))
+        ->method('generate');
     $this->node->addChild($child);
     $this->node->generate($code_writer);
   }
@@ -157,7 +161,9 @@ class lmbMacroTagTest extends TestCase
   {
     $code_writer = $this->createMock(lmbMacroCodeWriter::class);
     $attribute = $this->createMock(lmbMacroTagAttribute::class);
-    $attribute->expectOnce('preGenerate');
+    $attribute
+        ->expects($this->once())
+        ->method('preGenerate');
     $this->node->add($attribute);
     $this->node->generate($code_writer);
   }
@@ -167,6 +173,8 @@ class lmbMacroTagTest extends TestCase
     $this->tag_info->setRequiredAttributes(array('bar'));
     $this->node->set('bar', null);
     $this->node->preParse($this->createMock(lmbMacroCompiler::class));
+
+    $this->assertTrue(true);
   }
 
   function testPreparseAndCheckForMissedRequiredAttributes()
@@ -176,12 +184,12 @@ class lmbMacroTagTest extends TestCase
     try
     {
       $this->node->preParse($this->createMock(lmbMacroCompiler::class));
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbMacroException $e)
     {
-      $this->assertWantedPattern('/Missing required attribute/', $e->getMessage());
-      $this->assertEquals($e->getParam('attribute'), 'bar');
+      $this->assertMatchesRegularExpression('/Missing required attribute/', $e->getMessage());
+      $this->assertEquals('bar', $e->getParam('attribute'));
     }
   }
 
@@ -198,11 +206,11 @@ class lmbMacroTagTest extends TestCase
     try
     {
       $node->preParse($this->createMock(lmbMacroCompiler::class));
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbMacroException $e)
     {
-      $this->assertWantedPattern('/Tag cannot be nested within the same tag/', $e->getMessage());
+      $this->assertMatchesRegularExpression('/Tag cannot be nested within the same tag/', $e->getMessage());
       $this->assertEquals($e->getParam('same_tag_file'), 'my_file');
       $this->assertEquals($e->getParam('same_tag_line'), 10);
     }
@@ -210,17 +218,19 @@ class lmbMacroTagTest extends TestCase
 
   function testCheckParentTagClassOk()
   {
-    $this->tag_info->setParentClass('MacroTagClass1CompilerTest');
+    $this->tag_info->setParentClass(MacroTagClass1CompilerTest::class);
 
     $parent = new MacroTagClass1CompilerTest(null, null, null);
     $this->node->setParent($parent);
 
     $this->node->preParse($this->createMock(lmbMacroCompiler::class));
+
+    $this->assertTrue(true);
   }
 
   function testCheckParentTagClassException()
   {
-    $this->tag_info->setParentClass('MacroTagClass1CompilerTest');
+    $this->tag_info->setParentClass(MacroTagClass1CompilerTest::class);
 
     $parent = new MacroTagClass2CompilerTest(null, null, null);
     $this->node->setParent($parent);
@@ -228,12 +238,12 @@ class lmbMacroTagTest extends TestCase
     try
     {
       $this->node->preParse($this->createMock(lmbMacroCompiler::class));
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbMacroException $e)
     {
-      $this->assertWantedPattern('/Tag must be enclosed by a proper parent tag/', $e->getMessage());
-      $this->assertEquals($e->getParam('required_parent_tag_class'), 'MacroTagClass1CompilerTest');
+      $this->assertMatchesRegularExpression('/Tag must be enclosed by a proper parent tag/', $e->getMessage());
+      $this->assertEquals(MacroTagClass1CompilerTest::class, $e->getParam('required_parent_tag_class'));
       $this->assertEquals($e->getParam('file'), $this->source_location->getFile());
       $this->assertEquals($e->getParam('line'), $this->source_location->getLine());
     }

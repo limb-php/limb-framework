@@ -38,11 +38,11 @@ class MacroTagZooTest extends lmbMacroTag
   }
 }
 
-$foo_info = new lmbMacroTagInfo('foo', 'MacroTagFooTest');
+$foo_info = new lmbMacroTagInfo('foo', MacroTagFooTest::class);
 $foo_info->setFile(__FILE__);
-$bar_info = new lmbMacroTagInfo('bar', 'MacroTagBarTest');
+$bar_info = new lmbMacroTagInfo('bar', MacroTagBarTest::class);
 $bar_info->setFile(__FILE__);
-$zoo_info = new lmbMacroTagInfo('zoo', 'MacroTagZooTest');
+$zoo_info = new lmbMacroTagInfo('zoo', MacroTagZooTest::class);
 $zoo_info->setFile(__FILE__);
 
 lmbMacroTagDictionary::instance()->register($foo_info);
@@ -56,7 +56,7 @@ class lmbMacroTagAcceptanceTest extends lmbBaseMacroTest
     $code = '<h1>{{foo/}}{{bar/}}</h1>';
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $out = $tpl->render();
-    $this->assertEquals($out, '<h1>foo!bar</h1>');
+    $this->assertEquals('<h1>foo!bar</h1>', $out);
   }
 
  function testTagsInsideXmlBlock_WithOtherPhpBlockNearby()
@@ -64,7 +64,7 @@ class lmbMacroTagAcceptanceTest extends lmbBaseMacroTest
     $code = '<?xml version="1.0" encoding="utf-8" ?><h1><?php echo "hi!"; ?>{{foo/}}{{bar/}}</h1>';
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $out = $tpl->render();
-    $this->assertEquals($out, '<?xml version="1.0" encoding="utf-8" ?><h1>hi!foo!bar</h1>');
+    $this->assertEquals('<?xml version="1.0" encoding="utf-8" ?><h1>hi!foo!bar</h1>', $out);
   }
 
   function testCompositeTagAttributes()
@@ -74,7 +74,7 @@ class lmbMacroTagAcceptanceTest extends lmbBaseMacroTest
     $tpl->set('var', 'Result');
     $tpl->set('foo', 'Attribute');
     $out = $tpl->render();
-    $this->assertEquals($out, '<h1>Test_Result_Attribute</h1>');
+    $this->assertEquals('<h1>Test_Result_Attribute</h1>', $out);
   }
 
   function testTagAttributeWithPathBasedVariable()
@@ -83,6 +83,6 @@ class lmbMacroTagAcceptanceTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', array('title' => 'Result'));
     $out = $tpl->render();
-    $this->assertEquals($out, '<h1>Result</h1>');
+    $this->assertEquals('<h1>Result</h1>', $out);
   }
 }

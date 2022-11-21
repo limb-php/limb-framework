@@ -11,6 +11,8 @@ namespace tests\macro\cases\compiler;
 use PHPUnit\Framework\TestCase;
 use limb\macro\src\compiler\lmbMacroHtmlTagWidget;
 
+require (dirname(__FILE__) . '/../.setup.php');
+
 class lmbMacroHtmlTagWidgetTest extends TestCase
 {
   function setUp(): void

@@ -26,12 +26,9 @@ class lmbMacroParserTest extends lmbBaseMacroTest
   	}
   	catch(lmbFileNotFoundException $e)
   	{
-  	  if($this->pass())
-  	  {
-  	    $this->assertIdentical($e->getFilePath(), $not_existed_file);
-  	    $this->assertIdentical($e->getParam('parent_file'), $parent_file);
-  	    $this->assertIdentical($e->getParam('parent_file_line'), $line);
-  	  }	
+  	    $this->assertEquals($e->getFilePath(), $not_existed_file);
+  	    $this->assertEquals($e->getParam('parent_file'), $parent_file);
+  	    $this->assertEquals($e->getParam('parent_file_line'), $line);
   	}
   }
 }

@@ -142,10 +142,10 @@ class lmbMacroTag extends lmbMacroNode
     if(!isset($this->attributes[strtolower($name)]))
       return $default;
 
-    return self :: getBooleanValue($this->attributes[strtolower($name)]->getValue());
+    return self::getBooleanValue($this->attributes[strtolower($name)]->getValue());
   }
 
-  static function getBooleanValue($value)
+  static function getBooleanValue($value): bool
   {
     if(!$value)
       return $value;
@@ -158,6 +158,7 @@ class lmbMacroTag extends lmbMacroNode
       case 'NONE':
       case 'NA':
       case '0':
+      case '': // ?
         return false;
       default:
         return true;

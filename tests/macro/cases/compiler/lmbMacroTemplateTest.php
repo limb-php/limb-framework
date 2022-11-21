@@ -16,7 +16,7 @@ class lmbMacroTemplateTest extends lmbBaseMacroTest
   {
     $view = $this->_createMacroTemplate('Hello, <?php echo $this->name;?>');
     $view->set('name', 'Bob');
-    $this->assertEquals($view->render(), 'Hello, Bob');
+    $this->assertEquals('Hello, Bob', $view->render());
   }
 
   function testPreprocessor_ProcessPHPShortTags()
@@ -25,7 +25,7 @@ class lmbMacroTemplateTest extends lmbBaseMacroTest
        echo __METHOD__ . "() does not check anything, since short tags are ON\n";
      
     $view = $this->_createMacroTemplate('Hello, <?echo "Bob";?>');    
-    $this->assertEquals($view->render(), 'Hello, Bob');
+    $this->assertEquals('Hello, Bob', $view->render());
   }
   
   function testPreprocessor_LeaveXmlTagAsIs()
@@ -34,7 +34,7 @@ class lmbMacroTemplateTest extends lmbBaseMacroTest
        echo __METHOD__ . "() does not check anything, since short tags are OFF\n";
     
     $view = $this->_createMacroTemplate("<?xml version='1.0' encoding=\"utf-8\"?>");    
-    $this->assertEquals($view->render(), "<?xml version='1.0' encoding=\"utf-8\"?>");
+    $this->assertEquals("<?xml version='1.0' encoding=\"utf-8\"?>", $view->render());
   }  
   
   function testPreprocessor_ProcessPHPShortOutputTags()
@@ -44,13 +44,13 @@ class lmbMacroTemplateTest extends lmbBaseMacroTest
     
     $view = $this->_createMacroTemplate('Hello, <?=$this->name?>');
     $view->set('name', 'Bob');
-    $this->assertEquals($view->render(), 'Hello, Bob');
+    $this->assertEquals('Hello, Bob', $view->render());
   }  
 
   function testPreprocessor_ReplaceGlobalVars()
   {
     $view = $this->_createMacroTemplate('Hello, <?php echo $#name?>');
     $view->set('name', 'Bob');
-    $this->assertEquals($view->render(), 'Hello, Bob');
+    $this->assertEquals('Hello, Bob', $view->render());
   }  
 }

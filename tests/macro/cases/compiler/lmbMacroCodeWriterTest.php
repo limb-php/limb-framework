@@ -8,8 +8,10 @@
  */
 namespace tests\macro\cases\compiler;
 
+use limb\core\src\lmbEnv;
 use tests\macro\cases\lmbBaseMacroTest;
 use limb\macro\src\compiler\lmbMacroCodeWriter;
+use limb\macro\src\compiler\lmbMacroTemplateExecutor;
 
 class lmbMacroCodeWriterTest extends lmbBaseMacroTest
 {
@@ -18,6 +20,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
   function setUp(): void
   {
     parent::setUp();
+
     $this->class = 'Foo' . mt_rand();
     $this->writer = new lmbMacroCodeWriter($this->class);
   }
@@ -25,7 +28,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
   function testRenderEmpty()
   {
     $object = $this->_instantiate();
-    $this->assertIsA($object, 'lmbMacroTemplateExecutor');
+    $this->assertInstanceOf(lmbMacroTemplateExecutor::class, $object);
     $this->assertNull($object->render());
   }
 
@@ -33,13 +36,13 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
   {
     $this->writer->writePHP('return "Hello World!";');
     $object = $this->_instantiate();
-    $this->assertEquals($object->render(), 'Hello World!');
+    $this->assertEquals('Hello World!', $object->render());
   }
 
   function testWriteHTML()
   {
     $this->writer->writeHTML('<p>Hello World!</p>');
-    $this->assertEquals($this->_render(),'<p>Hello World!</p>');
+    $this->assertEquals('<p>Hello World!</p>', $this->_render());
   }
 
   function testSwithBetweenPHPAndHTML()
@@ -48,7 +51,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
     $this->writer->writeHTML('<p>Hello World!</p>');
     $this->writer->writePHP('echo ("Hello World!");');
 
-    $this->assertEquals($this->_render(), "Hello World!<p>Hello World!</p>Hello World!");
+    $this->assertEquals("Hello World!<p>Hello World!</p>Hello World!", $this->_render());
   }
 
   function testFunction()
@@ -59,7 +62,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
     $this->writer->endFunction();
     $this->writer->writePHP("$func('a', 'b');");
 
-    $this->assertEquals($this->_render(), 'ab');
+    $this->assertEquals('ab', $this->_render());
   }
 
   function testMethod()
@@ -70,7 +73,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
     $this->writer->endMethod();
     $this->writer->writePHP("\$this->$func('a', 'b');");
 
-    $this->assertEquals($this->_render(), 'ab');
+    $this->assertEquals('ab', $this->_render());
   }
 
   function testNestedMethods()
@@ -90,7 +93,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
 
     $this->writer->writePHP("echo \$this->$foo('a', 'b');");
 
-    $this->assertEquals($this->_render(), 'abba');
+    $this->assertEquals('abba', $this->_render());
   }
 
   function testWriteIntoConstructor()
@@ -106,20 +109,20 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
     $this->writer->writePHP("\$this->$bar();");
     $this->writer->writeToInit("\$this->$foo();");
 
-    $this->assertEquals($this->_render(), 'a-a-ab-b-b');
+    $this->assertEquals('a-a-ab-b-b', $this->_render());
   }
 
   function testgenerateTempName()
   {
     $var = $this->writer->generateTempName();
-    $this->assertWantedPattern('/[a-z][a-z0-9]*/i', $var);
+    $this->assertMatchesRegularExpression('/[a-z][a-z0-9]*/i', $var);
   }
 
   function testGetSecondTempVariable()
   {
     $A = $this->writer->generateTempName();
     $B = $this->writer->generateTempName();
-    $this->assertNotEqual($A, $B);
+    $this->assertNotEquals($A, $B);
   }
 
   function testgenerateTempNamesMany()
@@ -127,7 +130,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
     for($i = 1; $i <= 300; $i++)
     {
       $var = $this->writer->generateTempName();
-      $this->assertWantedPattern('/[a-z][a-z0-9]*/i', $var);
+      $this->assertMatchesRegularExpression('/[a-z][a-z0-9]*/i', $var);
     }
   }
 
@@ -151,7 +154,7 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
 
   function _writeAndInclude($code)
   {
-    file_put_contents($file = LIMB_VAR_DIR . '/' . mt_rand() . '.php', $code);
+    file_put_contents($file = lmbEnv::get('LIMB_VAR_DIR') . '/' . mt_rand() . '.php', $code);
     include($file);
     unlink($file);
   }

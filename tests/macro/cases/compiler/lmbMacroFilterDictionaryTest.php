@@ -8,6 +8,7 @@
  */
 namespace tests\macro\cases\compiler;
 
+use limb\core\src\lmbEnv;
 use tests\macro\cases\lmbBaseMacroTest;
 use limb\fs\src\lmbFs;
 use limb\macro\src\compiler\lmbMacroFilterInfo;
@@ -17,17 +18,17 @@ class lmbMacroFilterDictionaryTest extends lmbBaseMacroTest
 {
   function setUp(): void
   {
-    lmbFs::rm(LIMB_VAR_DIR . '/filters/');
-    lmbFs::mkdir(LIMB_VAR_DIR . '/filters/');
+    lmbFs::rm(lmbEnv::get('LIMB_VAR_DIR') . '/filters/');
+    lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR') . '/filters/');
   }
 
   function testFindFilterInfo()
   {
     $filter_info = new lmbMacroFilterInfo('testfilter', 'SomeFilterClass');
     $dictionary = new lmbMacroFilterDictionary();
-    $dictionary->register($filter_info, $file = 'whatever');
+    $dictionary->register($filter_info);
 
-    $this->assertIsA($dictionary->findFilterInfo('testfilter'), 'lmbMacroFilterInfo');
+    $this->assertInstanceOf(lmbMacroFilterInfo::class, $dictionary->findFilterInfo('testfilter'));
   }
 
   function testFindFilterInfoByAlias()
@@ -35,11 +36,11 @@ class lmbMacroFilterDictionaryTest extends lmbBaseMacroTest
     $filter_info = new lmbMacroFilterInfo('testfilter', 'SomeFilterClass');
     $filter_info->setAliases(array('testfilter_alias', 'testfilter_alias2'));
     $dictionary = new lmbMacroFilterDictionary();
-    $dictionary->register($filter_info, $file = 'whatever');
+    $dictionary->register($filter_info);
 
-    $this->assertIsA($dictionary->findFilterInfo('testfilter'), 'lmbMacroFilterInfo');
-    $this->assertIsA($dictionary->findFilterInfo('testfilter_alias'), 'lmbMacroFilterInfo');
-    $this->assertIsA($dictionary->findFilterInfo('testfilter_alias2'), 'lmbMacroFilterInfo');
+    $this->assertInstanceOf(lmbMacroFilterInfo::class, $dictionary->findFilterInfo('testfilter'));
+    $this->assertInstanceOf(lmbMacroFilterInfo::class, $dictionary->findFilterInfo('testfilter_alias'));
+    $this->assertInstanceOf(lmbMacroFilterInfo::class, $dictionary->findFilterInfo('testfilter_alias2'));
   }
   
   function testRegisterFilterInfoOnceOnly()
@@ -47,8 +48,8 @@ class lmbMacroFilterDictionaryTest extends lmbBaseMacroTest
     $dictionary = new lmbMacroFilterDictionary();
     $filter_info1 = new lmbMacroFilterInfo('some_filter', 'SomeFilterClass');
     $filter_info2 = new lmbMacroFilterInfo('some_filter', 'SomeFilterClass');
-    $dictionary->register($filter_info1, $file1 = 'whatever1');
-    $dictionary->register($filter_info2, $file2 = 'whatever2');
+    $dictionary->register($filter_info1);
+    $dictionary->register($filter_info2);
 
     $this->assertEquals($dictionary->findFilterInfo('some_filter'), $filter_info1);
   }
@@ -57,9 +58,9 @@ class lmbMacroFilterDictionaryTest extends lmbBaseMacroTest
   {
     $filter_info = new lmbMacroFilterInfo('testfilter', 'SomeFilterClass');
     $dictionary = new lmbMacroFilterDictionary();
-    $dictionary->register($filter_info, $file = 'whatever');
+    $dictionary->register($filter_info);
 
-    $this->assertFalse($dictionary->findFilterInfo('junk'));
+    $this->assertNull( $dictionary->findFilterInfo('junk') );
   }
 
   function testRegisterFromFile()
@@ -78,7 +79,7 @@ class Foo{$rnd}Filter extends lmbMacroFilter{}
  */
 class Bar{$rnd}Filter extends lmbMacroFilter{}
 EOD;
-    file_put_contents($file = LIMB_VAR_DIR . '/filters/' . $rnd . '.filter.php', $contents);
+    file_put_contents($file = lmbEnv::get('LIMB_VAR_DIR') . '/filters/' . $rnd . '.filter.php', $contents);
 
     $filter_info1 = new lmbMacroFilterInfo("foo_$rnd", "Foo{$rnd}Filter");
     $filter_info1->setAliases(array("foo1_$rnd", "foo2_$rnd"));

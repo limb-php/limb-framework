@@ -14,6 +14,8 @@ use limb\macro\src\compiler\lmbMacroSourceLocation;
 use limb\macro\src\lmbMacroException;
 use limb\macro\src\compiler\lmbMacroCodeWriter;
 
+require (dirname(__FILE__) . '/../.setup.php');
+
 class MyTestingMacroNode extends lmbMacroNode{}
 
 class lmbMacroNodeTest extends TestCase
@@ -60,7 +62,7 @@ class lmbMacroNodeTest extends TestCase
   {
     $child = $this->_createNode('Test', $this->node);
     $children = $this->node->getChildren();
-    $this->assertReference($child, $children[0]);
+    $this->assertEquals($child, $children[0]);
   }
 
   function testFindChild()
@@ -68,19 +70,19 @@ class lmbMacroNodeTest extends TestCase
     $child = $this->_createNode();
     $child->setNodeId('Test');
     $this->node->addChild($child);
-    $this->assertReference($this->node->findChild('Test'), $child);
+    $this->assertEquals($this->node->findChild('Test'), $child);
   }
 
   function testFindChildInMany()
   {
     $child1 = $this->_createNode('foo', $this->node);
     $child2 = $this->_createNode('bar', $this->node);
-    $this->assertReference($this->node->findChild('bar'), $child2);
+    $this->assertEquals($this->node->findChild('bar'), $child2);
   }
 
   function testFindChildNotFound()
   {
-    $this->assertFalse($this->node->findChild('Test'));
+    $this->assertNull($this->node->findChild('Test'));
   }
 
   function testGetChild()
@@ -88,7 +90,7 @@ class lmbMacroNodeTest extends TestCase
     $child1 = $this->_createNode('test1', $this->node);
     $child2 = $this->_createNode('test2', $this->node);
     
-    $this->assertReference($this->node->getChild('test2'), $child2);
+    $this->assertEquals($this->node->getChild('test2'), $child2);
   }
   
   function testGetChildThrowExceptionIfNoSuchChild()
@@ -96,7 +98,7 @@ class lmbMacroNodeTest extends TestCase
     try
     {
       $this->node->getChild('no_such_child');
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbMacroException $e)
     {
@@ -112,9 +114,9 @@ class lmbMacroNodeTest extends TestCase
     $node1 = $this->_createNode('foo', $parent1);
     $node2 = $this->_createNode('bar', $parent2);
     
-    $this->assertReference($node2->findUpChild('foo'), $node1);
-    $this->assertReference($parent1->findUpChild('parent2'), $parent2);
-    $this->assertReference($parent1->findUpChild('foo'), $node1);
+    $this->assertEquals($node2->findUpChild('foo'), $node1);
+    $this->assertEquals($parent1->findUpChild('parent2'), $parent2);
+    $this->assertEquals($parent1->findUpChild('foo'), $node1);
   }
 
   function testFindChildByClassAmongImmediateChildren()
@@ -123,7 +125,7 @@ class lmbMacroNodeTest extends TestCase
     $special_child = new MyTestingMacroNode();
     $this->node->addChild($special_child);
     
-    $this->assertReference($this->node->findChildByClass('MyTestingMacroNode'), $special_child);
+    $this->assertEquals($this->node->findChildByClass(MyTestingMacroNode::class), $special_child);
   }
 
   function testFindChildByClassInDeeperLevels()
@@ -133,7 +135,7 @@ class lmbMacroNodeTest extends TestCase
     $parent->addChild($special_child);
     $common_child = $this->_createNode('bar', $parent);
     
-    $this->assertReference($this->node->findChildByClass('MyTestingMacroNode'), $special_child);
+    $this->assertEquals($this->node->findChildByClass(MyTestingMacroNode::class), $special_child);
   }
 
   function testFindChildByClassNotFound()
@@ -153,9 +155,9 @@ class lmbMacroNodeTest extends TestCase
     $parent2->addChild($child3);
     $parent2->addChild($child4);
     
-    $children = $this->node->findChildrenByClass('MyTestingMacroNode');
-    $this->assertReference($children[0], $child3);
-    $this->assertReference($children[1], $child4);
+    $children = $this->node->findChildrenByClass(MyTestingMacroNode::class);
+    $this->assertEquals($children[0], $child3);
+    $this->assertEquals($children[1], $child4);
   }
 
   function testFindParentByClass()
@@ -166,10 +168,10 @@ class lmbMacroNodeTest extends TestCase
     $parent = $this->_createNode('parent', $grandpa);
     $child = $this->_createNode('child', $parent);
     
-    $this->assertReference($child->findParentByClass('lmbMacroNode'), $parent);
-    $this->assertReference($child->findParentByClass('MyTestingMacroNode'), $grandpa);
-    $this->assertReference($parent->findParentByClass('lmbMacroNode'), $grandpa);
-    $this->assertReference($child->findParentByClass('MyTestingMacroNode'), $grandpa);
+    $this->assertEquals($child->findParentByClass(lmbMacroNode::class), $parent);
+    $this->assertEquals($child->findParentByClass(MyTestingMacroNode::class), $grandpa);
+    $this->assertEquals($parent->findParentByClass(lmbMacroNode::class), $grandpa);
+    $this->assertEquals($child->findParentByClass(MyTestingMacroNode::class), $grandpa);
   }
 
   function testFindParentByClassNotFound()
@@ -179,13 +181,13 @@ class lmbMacroNodeTest extends TestCase
   
   function testFindRoot_StartingFromRoot()
   {
-    $this->assertReference($this->node->findRoot(), $this->node);
+    $this->assertEquals($this->node->findRoot(), $this->node);
   }
 
   function testFindRoot_StartingFromChild()
   {
     $child = $this->_createNode('parent', $this->node);
-    $this->assertReference($child->findRoot(), $this->node);
+    $this->assertEquals($child->findRoot(), $this->node);
   }
   
   function findImmediateChildByClass()
@@ -198,9 +200,9 @@ class lmbMacroNodeTest extends TestCase
     $special_child2 = new MyTestingMacroNode();
     $this->node->addChild($special_child2);
     
-    $this->assertReference($child->findImmediateChildByClass('MyTestingMacroNode'), $special_child2);
+    $this->assertEquals($common_child->findImmediateChildByClass(MyTestingMacroNode::class), $special_child2);
     // just to show the differences
-    $this->assertReference($child->findChildByClass('MyTestingMacroNode'), $special_child);    
+    $this->assertEquals($common_child->findChildByClass(MyTestingMacroNode::class), $special_child);
   }
 
   function findImmediateChildrenByClass()
@@ -212,15 +214,15 @@ class lmbMacroNodeTest extends TestCase
     $this->node->addChild($special_child1);
     $this->node->addChild($special_child2);
 
-    $children = $child->findImmediateChildrenByClass('MyTestingMacroNode');
-    $this->assertReference($children, $special_child1);
-    $this->assertReference($children, $special_child2);
+    $children = $child->findImmediateChildrenByClass(MyTestingMacroNode::class);
+    $this->assertEquals($children, $special_child1);
+    $this->assertEquals($children, $special_child2);
   }
   
   function testRemoveChild()
   {
     $child = $this->_createNode('Test', $this->node);
-    $this->assertReference($this->node->removeChild('Test'), $child);
+    $this->assertEquals($this->node->removeChild('Test'), $child);
     $this->assertNull($this->node->findChild('Test'));
   }
 
@@ -230,6 +232,8 @@ class lmbMacroNodeTest extends TestCase
     $child2 = $this->_createNode('id2', $this->node);
 
     $this->node->checkChildrenIds();
+
+    $this->assertTrue(true);
   }
 
   function testDuplicateIdsError()
@@ -246,16 +250,16 @@ class lmbMacroNodeTest extends TestCase
     try
     {
       $root->checkChildrenIds();
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbMacroException $e)
     {
-      $this->assertWantedPattern('/Duplicate "id" attribute/', $e->getMessage());
+      $this->assertMatchesRegularExpression('/Duplicate "id" attribute/', $e->getMessage());
       $params = $e->getParams();
-      $this->assertEquals($params['file'], 'my_file2');
-      $this->assertEquals($params['line'], 15);
-      $this->assertEquals($params['duplicate_node_file'], 'my_file');
-      $this->assertEquals($params['duplicate_node_line'], 10);
+      $this->assertEquals('my_file2', $params['file']);
+      $this->assertEquals(15, $params['line']);
+      $this->assertEquals('my_file', $params['duplicate_node_file']);
+      $this->assertEquals(10, $params['duplicate_node_line']);
     }
   }
 
@@ -266,14 +270,22 @@ class lmbMacroNodeTest extends TestCase
     $child2 = $this->_createNode('my_tag', $this->node);
 
     $this->node->checkChildrenIds();
+
+    $this->assertTrue(true);
   }
 
   function testGenerate()
   {
     $code_writer = new lmbMacroCodeWriter('template');
     $child = $this->createMock(lmbMacroNode::class);
-    $child->expectCallCount('generate', 1);
-    $child->expectArguments('generate', array($code_writer));
+    $child
+        ->expects($this->exactly(1))
+        ->method('generate');
+
+    $child
+      ->method('generate')
+      ->willReturn($code_writer);
+
     $this->node->addChild($child);
     $this->node->generate($code_writer);
   }

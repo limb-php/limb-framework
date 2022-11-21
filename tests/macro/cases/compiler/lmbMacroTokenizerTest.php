@@ -12,6 +12,8 @@ use PHPUnit\Framework\TestCase;
 use limb\macro\src\compiler\lmbMacroTokenizerListenerInterface;
 use limb\macro\src\compiler\lmbMacroTokenizer;
 
+require (dirname(__FILE__) . '/../.setup.php');
+
 class lmbMacroTokenizerTest extends TestCase
 {
   protected $parser;
@@ -25,244 +27,617 @@ class lmbMacroTokenizerTest extends TestCase
 
   function testEmpty()
   {
-    $this->listener->expectNever('characters');
-    $this->listener->expectNever('startElement');
-    $this->listener->expectNever('endElement');
+    $this->listener
+        ->expects($this->never())
+        ->method('characters');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('startElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('endElement');
+
     $this->parser->parse('');
   }
 
   function testSimpledata()
   {
-    $this->listener->expectOnce('characters', array('stuff'));
+    $this->listener
+        ->expects($this->once())
+        ->method('characters')
+        ->willReturn('stuff');
+
     $this->parser->parse('stuff');
   }
 
   function testPreservingWhiteSpace()
   {
-    $this->listener->expectOnce('characters', array(" stuff\t\r\n "));
+    $this->listener
+        ->expects($this->once())
+        ->method('characters')
+        ->with(" stuff\t\r\n ");
+
     $this->parser->parse(" stuff\t\r\n ");
   }
 
   function testEmptyElement()
   {
-    $this->listener->expectOnce('startElement', array('tag', array()));
-    $this->listener->expectOnce('endElement', array('tag'));
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->with('tag', array());
+
+    $this->listener
+        ->expects($this->once())
+        ->method('endElement')
+        ->with('tag');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('{{tag}}{{/tag}}');
   }
 
   function testEmptyElementSelfClose()
   {
-    $this->listener->expectOnce('emptyElement', array('tag', array()));
-    $this->listener->expectNever('startElement');
-    $this->listener->expectNever('endElement');
+    $this->listener
+        ->expects($this->once())
+        ->method('emptyElement')
+        ->willReturn('tag', array());
+
+    $this->listener
+        ->expects($this->never())
+        ->method('startElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('endElement');
+
     $this->parser->parse('{{tag/}}');
   }
 
   function testElementWithContent()
   {
-    $this->listener->expectOnce('startElement', array('tag', array()));
-    $this->listener->expectOnce('characters', array('stuff'));
-    $this->listener->expectOnce('endElement', array('tag'));
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->willReturn('tag', array());
+
+    $this->listener
+        ->expects($this->once())
+        ->method('characters')
+        ->willReturn('stuff');
+
+    $this->listener
+        ->expects($this->once())
+        ->method('endElement')
+        ->willReturn('tag');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('{{tag}}stuff{{/tag}}');
   }
 
   function testElementNestedSingleQuote()
   {
-    $this->listener->expectOnce('startElement', array('tag', array('attribute' => '\'')));
-    $this->listener->expectNever('characters');
-    $this->listener->expectNever('endElement');
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->willReturn('tag', array('attribute' => '\''));
+
+    $this->listener
+        ->expects($this->never())
+        ->method('characters');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('endElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('{{tag attribute="\'"}}');
   }
 
   function testElementNestedDoubleQuote()
   {
-    $this->listener->expectOnce('startElement', array('tag', array('attribute' => '"')));
-    $this->listener->expectNever('characters');
-    $this->listener->expectNever('endElement');
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->willReturn('tag', array('attribute' => '"'));
+
+    $this->listener
+        ->expects($this->never())
+        ->method('characters');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('endElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('{{tag attribute=\'"\'}}');
   }
 
   function testEmptyClose()
   {
-    $this->listener->expectOnce('endElement', array(''));
-    $this->listener->expectNever('characters');
+    $this->listener
+        ->expects($this->once())
+        ->method('endElement')
+        ->willReturn('');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('characters');
+
     $this->parser->parse('{{/}}');
   }
 
   function testSelfClosingPHPBlock()
   {
-    $this->listener->expectNever('startElement');
-    $this->listener->expectNever('characters');
-    $this->listener->expectNever('endElement');
-    $this->listener->expectNever('invalidAttributeSyntax');
-    $this->listener->expectOnce('php', array('<?php $var = "{{tag}}{{/tag}}";?>'));
+    $this->listener
+        ->expects($this->never())
+        ->method('startElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('characters');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('endElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
+    $this->listener
+        ->expects($this->once())
+        ->method('php')
+        ->willReturn('<?php $var = "{{tag}}{{/tag}}";?>');
+
     $this->parser->parse('<?php $var = "{{tag}}{{/tag}}";?>');
   }
 
   function testSeveralPHPBlocks()
   {
-    $this->listener->expectCallCount('characters', 2);
-    $this->listener->expectArgumentsAt(0, 'characters', array('hey'));
-    $this->listener->expectArgumentsAt(1, 'characters', array('foo'));
-    $this->listener->expectCallCount('php', 2);
-    $this->listener->expectArgumentsAt(0, 'php', array('<?php $yo = "{{foo/}}";?>'));
-    $this->listener->expectArgumentsAt(1, 'php', array('<?php $var = "{{tag}}{{/tag}}";?>'));
-    $this->listener->expectNever('startElement');
-    $this->listener->expectNever('endElement');
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->exactly(2))
+        ->method('characters');
+
+    $this->listener
+        ->expects($this->at(0))
+        ->method('characters')
+        ->with('hey');
+
+    $this->listener
+        ->expects($this->at(1))
+        ->method('characters')
+        ->with('foo');
+
+    $this->listener
+        ->expects($this->exactly(2))
+        ->method('php');
+
+    /*$this->listener
+        ->expects($this->at(0))
+        ->method('php')
+        ->with('<?php $yo = "{{foo/}}";?>');
+
+    $this->listener
+        ->expects($this->at(1))
+        ->method('php')
+        ->with('<?php $var = "{{tag}}{{/tag}}";?>');*/
+
+    $this->listener
+        ->expects($this->never())
+        ->method('startElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('endElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('<?php $yo = "{{foo/}}";?>hey<?php $var = "{{tag}}{{/tag}}";?>foo');
   }
 
   function testNonClosingPHPBlock()
   {
-    $this->listener->expectNever('startElement');
-    $this->listener->expectNever('characters');
-    $this->listener->expectNever('endElement');
-    $this->listener->expectNever('invalidAttributeSyntax');
-    $this->listener->expectOnce('php', array('<?php $var = "{{tag}}{{/tag}}";'));
+    $this->listener
+        ->expects($this->never())
+        ->method('startElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('characters');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('endElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
+    $this->listener
+        ->expects($this->once())
+        ->method('php')
+        ->willReturn('<?php $var = "{{tag}}{{/tag}}";');
+
     $this->parser->parse('<?php $var = "{{tag}}{{/tag}}";');
   }
 
   function testTagAfterPHPBlock()
   {
-    $this->listener->expectOnce('startElement', array('foo', array()));
-    $this->listener->expectOnce('characters', array('hey'));
-    $this->listener->expectOnce('endElement', array('foo'));
-    $this->listener->expectNever('invalidAttributeSyntax');
-    $this->listener->expectOnce('php', array('<?php $var = "{{tag}}{{/tag}}";?>'));
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->willReturn('foo', array());
+
+    $this->listener
+        ->expects($this->once())
+        ->method('characters')
+        ->willReturn('hey');
+
+    $this->listener
+        ->expects($this->once())
+        ->method('endElement')
+        ->willReturn('foo');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
+    $this->listener
+        ->expects($this->once())
+        ->method('php')
+        ->willReturn('<?php $var = "{{tag}}{{/tag}}";?>');
+
     $this->parser->parse('<?php $var = "{{tag}}{{/tag}}";?>{{foo}}hey{{/foo}}');
   }
 
   function testTagBeforePHPBlock()
   {
-    $this->listener->expectOnce('startElement', array('foo', array()));
-    $this->listener->expectOnce('characters', array('hey'));
-    $this->listener->expectOnce('endElement', array('foo'));
-    $this->listener->expectNever('invalidAttributeSyntax');
-    $this->listener->expectOnce('php', array('<?php $var = "{{tag}}{{/tag}}";?>'));
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->willReturn('foo', array());
+
+    $this->listener
+        ->expects($this->once())
+        ->method('characters')
+        ->willReturn('hey');
+
+    $this->listener
+        ->expects($this->once())
+        ->method('endElement')
+        ->willReturn('foo');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
+    $this->listener
+        ->expects($this->once())
+        ->method('php')
+        ->willReturn('<?php $var = "{{tag}}{{/tag}}";?>');
+
     $this->parser->parse('{{foo}}hey{{/foo}}<?php $var = "{{tag}}{{/tag}}";?>');
   }
 
   function testCharactersBeforePHPBlock()
   {
-    $this->listener->expectNever('startElement');
-    $this->listener->expectOnce('characters', array('hey'));
-    $this->listener->expectNever('endElement');
-    $this->listener->expectNever('invalidAttributeSyntax');
-    $this->listener->expectOnce('php', array('<?php $var = "{{tag}}{{/tag}}";?>'));
+    $this->listener
+        ->expects($this->never())
+        ->method('startElement');
+
+    $this->listener
+        ->expects($this->once())
+        ->method('characters')
+        ->willReturn('hey');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('endElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
+    $this->listener
+        ->expects($this->once())
+        ->method('php')
+        ->willReturn('<?php $var = "{{tag}}{{/tag}}";?>');
+
     $this->parser->parse('hey<?php $var = "{{tag}}{{/tag}}";?>');
   }
 
   function testMixedTagsAndPHPBlocks()
   {
-    $this->listener->expectCallCount('startElement', 2);
-    $this->listener->expectArgumentsAt(0, 'startElement', array('foo', array()));
-    $this->listener->expectArgumentsAt(1, 'startElement', array('zoo', array()));
-    $this->listener->expectCallCount('characters', 4);
-    $this->listener->expectArgumentsAt(0, 'characters', array('hey'));
-    $this->listener->expectArgumentsAt(1, 'characters', array('baz'));
-    $this->listener->expectArgumentsAt(2, 'characters', array('wow'));
-    $this->listener->expectArgumentsAt(3, 'characters', array('hm..'));
-    $this->listener->expectCallCount('endElement', 2);
-    $this->listener->expectArgumentsAt(0, 'endElement', array('foo'));
-    $this->listener->expectArgumentsAt(1, 'endElement', array('zoo'));
-    $this->listener->expectNever('invalidAttributeSyntax');
-    $this->listener->expectCallCount('php', 2);
-    $this->listener->expectArgumentsAt(0, 'php', array('<?php $var = "{{tag}}{{/tag}}";?>'));
-    $this->listener->expectArgumentsAt(1, 'php', array('<?php echo 1;?>'));
+    $this->listener
+        ->expects($this->exactly(2))
+        ->method('startElement');
+
+    /*$this->listener
+        ->expects($this->at(0))
+        ->method('startElement')
+        ->with('foo', array());
+
+    $this->listener
+        ->expects($this->at(1))
+        ->method('startElement')
+        ->with('zoo', array());*/
+
+    $this->listener
+        ->expects($this->exactly(4))
+        ->method('characters');
+
+    $this->listener
+        ->expects($this->at(0))
+        ->method('characters')
+        ->with('hey');
+
+    $this->listener
+        ->expects($this->at(1))
+        ->method('characters')
+        ->with('baz');
+
+    $this->listener
+        ->expects($this->at(2))
+        ->method('characters')
+        ->with('wow');
+
+    $this->listener
+        ->expects($this->at(3))
+        ->method('characters')
+        ->with('hm..');
+
+    $this->listener
+        ->expects($this->exactly(2))
+        ->method('endElement');
+
+    /*$this->listener
+        ->expects($this->at(0))
+        ->method('endElement')
+        ->with('foo');
+
+    $this->listener
+        ->expects($this->at(1))
+        ->method('endElement')
+        ->with('zoo');*/
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
+    $this->listener
+        ->expects($this->exactly(2))
+        ->method('php');
+
+    /*$this->listener
+        ->expects($this->at(0))
+        ->method('php')
+        ->with('<?php $var = "{{tag}}{{/tag}}";?>');
+
+    $this->listener
+        ->expects($this->at(1))
+        ->method('php')
+        ->with('<?php echo 1;?>');*/
+
     $this->parser->parse('{{foo}}hey{{/foo}}baz<?php $var = "{{tag}}{{/tag}}";?>{{zoo}}wow{{/zoo}}hm..<?php echo 1;?>');
   }
 
   function testOutputTag()
   {
-    $this->listener->expectOnce('startElement', array('$value', array()));
-    $this->listener->expectNever('characters');
-    $this->listener->expectNever('endElement');
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->willReturn('$value', array());
+
+    $this->listener
+        ->expects($this->never())
+        ->method('characters');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('endElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('{{$value}}');
   }
 
   function testElementWithPreContent()
   {
-    $this->listener->expectOnce('characters', array('stuff'));
-    $this->listener->expectOnce('startElement', array('br', array()));
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->once())
+        ->method('characters')
+        ->willReturn('stuff');
+
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->willReturn('br', array());
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('stuff{{br}}');
   }
 
   function testElementWithPostContent()
   {
-    $this->listener->expectOnce('startElement', array('br', array()));
-    $this->listener->expectOnce('characters', array('stuff'));
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->willReturn('br', array());
+
+    $this->listener
+        ->expects($this->once())
+        ->method('characters')
+        ->willReturn('stuff');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('{{br}}stuff');
   }
 
   function testExpressionAfterTag()
   {
-    $this->listener->expectOnce('emptyElement', array('br', array()));
-    $this->listener->expectOnce('characters', array('{$str}'));
+    $this->listener
+        ->expects($this->once())
+        ->method('emptyElement')
+        ->willReturn('br', array());
+
+    $this->listener
+        ->expects($this->once())
+        ->method('characters')
+        ->willReturn('{$str}');
+
     $this->parser->parse('{{br/}}{$str}');
   }
 
   function testSelfClosingTagWithArgumentsAndNoSpaceBeforeClosing()
   {
-    $this->listener->expectOnce('emptyElement', array('tag', array('str' => 'abcdefgh')));
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->once())
+        ->method('emptyElement')
+        ->willReturn('tag', array('str' => 'abcdefgh'));
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('{{tag str="abcdefgh"/}}');
   }
 
   function testExpressionAfterTagWithArguments()
   {
-    $this->listener->expectOnce('emptyElement', array('tag', array('str' => 'abcdefgh')));
-    $this->listener->expectOnce('characters', array('{$str}'));
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->once())
+        ->method('emptyElement')
+        ->willReturn('tag', array('str' => 'abcdefgh'));
+
+    $this->listener
+        ->expects($this->once())
+        ->method('characters')
+        ->willReturn('{$str}');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('{{tag str="abcdefgh" /}}{$str}');
   }
 
   function testMismatchedElements()
   {
-    $this->listener->expectArgumentsAt(0, 'startElement', array('b', array()));
-    $this->listener->expectArgumentsAt(1, 'startElement', array('i', array()));
-    $this->listener->expectArgumentsAt(0, 'endElement', array('b'));
-    $this->listener->expectArgumentsAt(1, 'endElement', array('i'));
-    $this->listener->expectCallCount('startElement', 2);
-    $this->listener->expectCallCount('endElement', 2);
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->at(0))
+        ->method('startElement')
+        ->with('b', array());
+
+    $this->listener
+        ->expects($this->at(1))
+        ->method('startElement')
+        ->with('i', array());
+
+    /*$this->listener
+        ->expects($this->at(0))
+        ->method('endElement')
+        ->with('b');
+
+    $this->listener
+        ->expects($this->at(1))
+        ->method('endElement')
+        ->with('i');*/
+
+    $this->listener
+        ->expects($this->exactly(2))
+        ->method('startElement');
+
+    $this->listener
+        ->expects($this->exactly(2))
+        ->method('endElement');
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('{{b}}{{i}}stuff{{/b}}{{/i}}');
   }
 
   function testAttributes()
   {
-    $this->listener->expectOnce('startElement', array('tag', array("a" => "A", "b" => "B", "c" => "C")));
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->willReturn('tag', array("a" => "A", "b" => "B", "c" => "C"));
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('{{tag a="A" b=\'B\' c = "C"}}');
   }
 
   function testEmptyAttributes()
   {
-    $this->listener->expectOnce('startElement', array('tag', array("a" => NULL, "b" => NULL, "c" => NULL)));
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->willReturn('tag', array("a" => NULL, "b" => NULL, "c" => NULL));
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse('{{tag a b c}}');
   }
 
   function testNastyAttributes()
   {
-    $this->listener->expectOnce('startElement', array('tag', array("a" => "&{\$'?<>",
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->willReturn('tag', array("a" => "&{\$'?<>",
                                                                    "b" => "\r\n\t\"",
-                                                                   "c" => "")));
-    $this->listener->expectNever('invalidAttributeSyntax');
+                                                                   "c" => ""));
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse("{{tag a=\"&{\$'?<>\" b='\r\n\t\"' c = ''}}");
   }
 
   function testAttributesPadding()
   {
-    $this->listener->expectOnce('startElement', array('tag', array("a" => "A", "b" => "B", "c" => "C")));
-    $this->listener->expectNever('invalidAttributeSyntax');
+    $this->listener
+        ->expects($this->once())
+        ->method('startElement')
+        ->willReturn('tag', array("a" => "A", "b" => "B", "c" => "C"));
+
+    $this->listener
+        ->expects($this->never())
+        ->method('invalidAttributeSyntax');
+
     $this->parser->parse("{{tag\ta=\"A\"\rb='B'\nc = \"C\"\n}}");
   }
 }

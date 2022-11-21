@@ -10,15 +10,18 @@ namespace tests\macro\cases\compiler;
 
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFs;
+use limb\core\src\lmbEnv;
 use limb\macro\src\compiler\lmbMacroAnnotationParser;
 use limb\macro\src\compiler\lmbMacroAnnotationParserListenerInterface;
+
+require (dirname(__FILE__) . '/../.setup.php');
 
 class lmbMacroAnnotationParserTest extends TestCase
 {
   function setUp(): void
   {
-    lmbFs::rm(LIMB_VAR_DIR . '/tags/');
-    lmbFs::mkdir(LIMB_VAR_DIR . '/tags/');
+    lmbFs::rm(lmbEnv::get('LIMB_VAR_DIR') . '/tags/');
+    lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR') . '/tags/');
   }
 
   function testExtractOneFromFile()
@@ -31,10 +34,13 @@ class lmbMacroAnnotationParserTest extends TestCase
  */
 class Foo{$rnd}Tag extends lmbMacroTag{}
 EOD;
-    file_put_contents($file = LIMB_VAR_DIR . '/tags/' . $rnd . '.tag.php', $contents);
+    file_put_contents($file = lmbEnv::get('LIMB_VAR_DIR') . '/tags/' . $rnd . '.tag.php', $contents);
 
     $listener = $this->createMock(lmbMacroAnnotationParserListenerInterface::class);
-    $listener->expectOnce('createByAnnotations', array($file, "Foo{$rnd}Tag", array('tag' => "foo_{$rnd}")));
+    $listener
+        ->expects($this->once())
+        ->method('createByAnnotations')
+        ->with($file, "Foo{$rnd}Tag", array('tag' => "foo_{$rnd}"));
     $info = lmbMacroAnnotationParser::extractFromFile($file, $listener);
   }
 
@@ -53,12 +59,22 @@ class Foo{$rnd}Tag extends lmbMacroTag{}
  */
 class Bar{$rnd}Tag extends lmbMacroTag{}
 EOD;
-    file_put_contents($file = LIMB_VAR_DIR . '/tags/' . $rnd . '.tag.php', $contents);
+    file_put_contents($file = lmbEnv::get('LIMB_VAR_DIR') . '/tags/' . $rnd . '.tag.php', $contents);
 
     $listener = $this->createMock(lmbMacroAnnotationParserListenerInterface::class);
-    $listener->expectCallCount('createByAnnotations', 2);
-    $listener->expectArgumentsAt(0, 'createByAnnotations', array($file, "Foo{$rnd}Tag", array('tag' => "foo_{$rnd}")));
-    $listener->expectArgumentsAt(1, 'createByAnnotations', array($file, "Bar{$rnd}Tag", array('tag' => "bar_{$rnd}")));
+    $listener
+        ->expects($this->exactly(2))
+        ->method('createByAnnotations');
+
+    $listener
+        ->expects($this->at(0))
+        ->method('createByAnnotations')
+        ->with($file, "Foo{$rnd}Tag", array('tag' => "foo_{$rnd}"));
+
+    $listener
+        ->expects($this->at(1))
+        ->method('createByAnnotations')
+        ->with($file, "Bar{$rnd}Tag", array('tag' => "bar_{$rnd}"));
 
     $info = lmbMacroAnnotationParser::extractFromFile($file, $listener);
   }
