@@ -9,15 +9,17 @@
 namespace tests\macro\cases\compiler;
 
 use tests\macro\cases\lmbBaseMacroTest;
+use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
+use lmbMacroFunctionBasedFilterTestClass;
 
-class lmbMacroFunctionBasedFilterTestFunctionFilter extends lmbMacroFunctionBasedFilter 
+class lmbMacroFunctionBasedFilterTestFunctionFilter extends lmbMacroFunctionBasedFilter
 {
   protected $function = 'lmb_macro_function_based_filter_test_function';
 }
 
 class lmbMacroFunctionBasedFilterTestCallbackFilter extends lmbMacroFunctionBasedFilter 
 {
-  protected $function = array('lmbMacroFunctionBasedFilterTestClass', 'test');
+  protected $function = array(lmbMacroFunctionBasedFilterTestClass::class, 'test');
 }
 
 class FakeBase

@@ -12,15 +12,14 @@ use PHPUnit\Framework\TestCase;
 use limb\macro\src\compiler\lmbMacroTag;
 use limb\macro\src\compiler\lmbMacroTagInfo;
 use limb\macro\src\compiler\lmbMacroSourceLocation;
+use limb\macro\src\compiler\lmbMacroCodeWriter;
+use limb\macro\src\compiler\lmbMacroNode;
+use limb\macro\src\compiler\lmbMacroTagAttribute;
+use limb\macro\src\compiler\lmbMacroCompiler;
 use limb\macro\src\lmbMacroException;
 
 class MacroTagClass1CompilerTest extends lmbMacroTag{}
 class MacroTagClass2CompilerTest extends lmbMacroTag{}
-
-Mock::generate('lmbMacroNode', 'MockMacroNode');
-Mock::generate('lmbMacroCodeWriter', 'MockMacroCodeWriter');
-Mock::generate('lmbMacroCompiler', 'MockMacroCompiler');
-Mock::generate('lmbMacroTagAttribute', 'MockMacroTagAttribute');
 
 class lmbMacroTagTest extends TestCase
 {
@@ -147,8 +146,8 @@ class lmbMacroTagTest extends TestCase
   
   function testGenerate()
   {
-    $code_writer = new MockMacroCodeWriter();
-    $child = new MockMacroNode();
+    $code_writer = $this->createMock(lmbMacroCodeWriter::class);
+    $child = $this->createMock(lmbMacroNode::class);
     $child->expectCallCount('generate', 1);
     $this->node->addChild($child);
     $this->node->generate($code_writer);
@@ -156,8 +155,8 @@ class lmbMacroTagTest extends TestCase
 
   function testGenerateCallsPreGenerateForAttributes()
   {
-    $code_writer = new MockMacroCodeWriter();
-    $attribute = new MockMacroTagAttribute();
+    $code_writer = $this->createMock(lmbMacroCodeWriter::class);
+    $attribute = $this->createMock(lmbMacroTagAttribute::class);
     $attribute->expectOnce('preGenerate');
     $this->node->add($attribute);
     $this->node->generate($code_writer);
@@ -167,7 +166,7 @@ class lmbMacroTagTest extends TestCase
   {
     $this->tag_info->setRequiredAttributes(array('bar'));
     $this->node->set('bar', null);
-    $this->node->preParse(new MockMacroCompiler());
+    $this->node->preParse($this->createMock(lmbMacroCompiler::class));
   }
 
   function testPreparseAndCheckForMissedRequiredAttributes()
@@ -176,7 +175,7 @@ class lmbMacroTagTest extends TestCase
 
     try
     {
-      $this->node->preParse(new MockMacroCompiler());
+      $this->node->preParse($this->createMock(lmbMacroCompiler::class));
       $this->assertTrue(false);
     }
     catch(lmbMacroException $e)
@@ -198,7 +197,7 @@ class lmbMacroTagTest extends TestCase
 
     try
     {
-      $node->preParse(new MockMacroCompiler());
+      $node->preParse($this->createMock(lmbMacroCompiler::class));
       $this->assertTrue(false);
     }
     catch(lmbMacroException $e)
@@ -216,7 +215,7 @@ class lmbMacroTagTest extends TestCase
     $parent = new MacroTagClass1CompilerTest(null, null, null);
     $this->node->setParent($parent);
 
-    $this->node->preParse(new MockMacroCompiler());
+    $this->node->preParse($this->createMock(lmbMacroCompiler::class));
   }
 
   function testCheckParentTagClassException()
@@ -228,7 +227,7 @@ class lmbMacroTagTest extends TestCase
 
     try
     {
-      $this->node->preParse(new MockMacroCompiler());
+      $this->node->preParse($this->createMock(lmbMacroCompiler::class));
       $this->assertTrue(false);
     }
     catch(lmbMacroException $e)

@@ -54,5 +54,3 @@ class lmbMacroTemplateTest extends lmbBaseMacroTest
     $this->assertEquals($view->render(), 'Hello, Bob');
   }  
 }
-
-

@@ -108,4 +108,3 @@ class lmbMacroFiltersTest extends lmbBaseMacroTest
     $this->assertEquals($out, '<>');
   }    
 }
-

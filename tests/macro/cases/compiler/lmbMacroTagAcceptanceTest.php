@@ -8,6 +8,11 @@
  */
 namespace tests\macro\cases\compiler;
 
+use limb\macro\src\compiler\lmbMacroTag;
+use limb\macro\src\compiler\lmbMacroTagDictionary;
+use limb\macro\src\compiler\lmbMacroTagInfo;
+use tests\macro\cases\lmbBaseMacroTest;
+
 class MacroTagFooTest extends lmbMacroTag
 {
   function generate($code)
@@ -40,9 +45,9 @@ $bar_info->setFile(__FILE__);
 $zoo_info = new lmbMacroTagInfo('zoo', 'MacroTagZooTest');
 $zoo_info->setFile(__FILE__);
 
-lmbMacroTagDictionary :: instance()->register($foo_info);
-lmbMacroTagDictionary :: instance()->register($bar_info);
-lmbMacroTagDictionary :: instance()->register($zoo_info);
+lmbMacroTagDictionary::instance()->register($foo_info);
+lmbMacroTagDictionary::instance()->register($bar_info);
+lmbMacroTagDictionary::instance()->register($zoo_info);
 
 class lmbMacroTagAcceptanceTest extends lmbBaseMacroTest
 {
@@ -80,6 +85,4 @@ class lmbMacroTagAcceptanceTest extends lmbBaseMacroTest
     $out = $tpl->render();
     $this->assertEquals($out, '<h1>Result</h1>');
   }
-  
 }
-

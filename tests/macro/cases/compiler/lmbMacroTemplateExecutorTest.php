@@ -9,6 +9,7 @@
 namespace tests\macro\cases\compiler;
 
 use tests\macro\cases\lmbBaseMacroTest;
+use limb\macro\src\compiler\lmbMacroTemplateExecutor;
 
 class lmbMacroTemplateExecutorTest extends lmbBaseMacroTest
 {
@@ -28,4 +29,3 @@ class lmbMacroTemplateExecutorTest extends lmbBaseMacroTest
     $this->assertIdentical($tpl->junk, '');
   }
 }
-

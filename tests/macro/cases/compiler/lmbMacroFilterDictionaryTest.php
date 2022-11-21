@@ -9,13 +9,16 @@
 namespace tests\macro\cases\compiler;
 
 use tests\macro\cases\lmbBaseMacroTest;
+use limb\fs\src\lmbFs;
+use limb\macro\src\compiler\lmbMacroFilterInfo;
+use limb\macro\src\compiler\lmbMacroFilterDictionary;
 
 class lmbMacroFilterDictionaryTest extends lmbBaseMacroTest
 {
   function setUp(): void
   {
-    lmbFs :: rm(LIMB_VAR_DIR . '/filters/');
-    lmbFs :: mkdir(LIMB_VAR_DIR . '/filters/');
+    lmbFs::rm(LIMB_VAR_DIR . '/filters/');
+    lmbFs::mkdir(LIMB_VAR_DIR . '/filters/');
   }
 
   function testFindFilterInfo()
@@ -91,4 +94,3 @@ EOD;
     $this->assertEquals($dictionary->findFilterInfo("bar_$rnd"), $filter_info2);
   }
 }
-

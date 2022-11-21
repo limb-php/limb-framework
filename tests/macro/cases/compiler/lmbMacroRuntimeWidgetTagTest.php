@@ -9,6 +9,9 @@
 namespace tests\macro\cases\compiler;
 
 use tests\macro\cases\lmbBaseMacroTest;
+use limb\macro\src\compiler\lmbMacroTagInfo;
+use limb\macro\src\compiler\lmbMacroSourceLocation;
+use limb\macro\src\compiler\lmbMacroRuntimeWidgetTag;
 
 class lmbMacroRuntimeWidgetTagTest extends lmbBaseMacroTest
 {

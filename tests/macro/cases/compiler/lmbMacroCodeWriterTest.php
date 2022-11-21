@@ -9,6 +9,7 @@
 namespace tests\macro\cases\compiler;
 
 use tests\macro\cases\lmbBaseMacroTest;
+use limb\macro\src\compiler\lmbMacroCodeWriter;
 
 class lmbMacroCodeWriterTest extends lmbBaseMacroTest
 {
@@ -155,4 +156,3 @@ class lmbMacroCodeWriterTest extends lmbBaseMacroTest
     unlink($file);
   }
 }
-

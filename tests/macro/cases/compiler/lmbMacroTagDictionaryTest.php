@@ -8,13 +8,19 @@
  */
 namespace tests\macro\cases\compiler;
 
+use tests\macro\cases\lmbBaseMacroTest;
+use limb\macro\src\compiler\lmbMacroTagInfo;
+use limb\macro\src\compiler\lmbMacroTagDictionary;
+use limb\fs\src\lmbFs;
+use limb\core\src\lmbEnv;
+
 class lmbMacroTagDictionaryTest extends lmbBaseMacroTest
 {
-  function setUp()
+  function setUp(): void
   { 
     parent::setUp();
-    lmbFs :: mkdir(LIMB_VAR_DIR . '/tpl/tags/');   
-    lmbFs :: mkdir(LIMB_VAR_DIR . '/tpl/tags/subfolder/');
+    lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR') . '/tpl/tags/');
+    lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR') . '/tpl/tags/subfolder/');
   }
 
   function testFindTagInfo()
@@ -139,4 +145,3 @@ EOD;
   }
   
 }
-

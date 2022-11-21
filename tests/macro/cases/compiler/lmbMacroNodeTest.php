@@ -12,8 +12,7 @@ use PHPUnit\Framework\TestCase;
 use limb\macro\src\compiler\lmbMacroNode;
 use limb\macro\src\compiler\lmbMacroSourceLocation;
 use limb\macro\src\lmbMacroException;
-
-Mock::generate('lmbMacroNode', 'MockMacroNode');
+use limb\macro\src\compiler\lmbMacroCodeWriter;
 
 class MyTestingMacroNode extends lmbMacroNode{}
 
@@ -272,11 +271,10 @@ class lmbMacroNodeTest extends TestCase
   function testGenerate()
   {
     $code_writer = new lmbMacroCodeWriter('template');
-    $child = new MockMacroNode();
+    $child = $this->createMock(lmbMacroNode::class);
     $child->expectCallCount('generate', 1);
     $child->expectArguments('generate', array($code_writer));
     $this->node->addChild($child);
     $this->node->generate($code_writer);
   }
 }
-

@@ -9,6 +9,9 @@
 namespace tests\macro\cases\compiler;
 
 use tests\macro\cases\lmbBaseMacroTest;
+use limb\macro\src\lmbMacroTemplateLocatorSimple;
+use limb\macro\src\lmbMacroException;
+use limb\macro\src\lmbMacroTemplate;
 
 class lmbMacroTemplateLocatorSimpleTest extends lmbBaseMacroTest
 {  
@@ -27,15 +30,15 @@ class lmbMacroTemplateLocatorSimpleTest extends lmbBaseMacroTest
     } 
     catch (lmbMacroException $e) 
     {      
-      $this->pass();
+      $this->assertTrue(true);
     }
     
     $this->_createMacroTemplate('bar',$this->template_name); 
     
     try
     {
-      $template = $template_locator->locateSourceTemplate($this->template_name);
-      $this->pass();
+        $template = $template_locator->locateSourceTemplate($this->template_name);
+        $this->assertTrue(true);
     } 
     catch (lmbMacroException $e) 
     {      
@@ -57,5 +60,3 @@ class lmbMacroTemplateLocatorSimpleTest extends lmbBaseMacroTest
   }
   
 }
-
-

@@ -10,8 +10,8 @@ namespace tests\macro\cases\compiler;
 
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFs;
-
-Mock :: generate('lmbMacroAnnotationParserListener', 'MockMacroAnnotationParserListener');
+use limb\macro\src\compiler\lmbMacroAnnotationParser;
+use limb\macro\src\compiler\lmbMacroAnnotationParserListenerInterface;
 
 class lmbMacroAnnotationParserTest extends TestCase
 {
@@ -33,9 +33,9 @@ class Foo{$rnd}Tag extends lmbMacroTag{}
 EOD;
     file_put_contents($file = LIMB_VAR_DIR . '/tags/' . $rnd . '.tag.php', $contents);
 
-    $listener = new MockMacroAnnotationParserListener();
+    $listener = $this->createMock(lmbMacroAnnotationParserListenerInterface::class);
     $listener->expectOnce('createByAnnotations', array($file, "Foo{$rnd}Tag", array('tag' => "foo_{$rnd}")));
-    $info = lmbMacroAnnotationParser :: extractFromFile($file, $listener);
+    $info = lmbMacroAnnotationParser::extractFromFile($file, $listener);
   }
 
   function testExtractSeveralFromFile()
@@ -55,11 +55,11 @@ class Bar{$rnd}Tag extends lmbMacroTag{}
 EOD;
     file_put_contents($file = LIMB_VAR_DIR . '/tags/' . $rnd . '.tag.php', $contents);
 
-    $listener = new MockMacroAnnotationParserListener();
+    $listener = $this->createMock(lmbMacroAnnotationParserListenerInterface::class);
     $listener->expectCallCount('createByAnnotations', 2);
     $listener->expectArgumentsAt(0, 'createByAnnotations', array($file, "Foo{$rnd}Tag", array('tag' => "foo_{$rnd}")));
     $listener->expectArgumentsAt(1, 'createByAnnotations', array($file, "Bar{$rnd}Tag", array('tag' => "bar_{$rnd}")));
 
-    $info = lmbMacroAnnotationParser :: extractFromFile($file, $listener);
+    $info = lmbMacroAnnotationParser::extractFromFile($file, $listener);
   }
 }

@@ -8,11 +8,16 @@
  */
 namespace tests\macro\cases\compiler;
 
+use PHPUnit\Framework\TestCase;
+use limb\macro\src\compiler\lmbMacroSourceLocation;
+use limb\macro\src\compiler\lmbMacroNode;
+use limb\macro\src\compiler\lmbMacroFilterParser;
+
 class lmbMacroFilterParserTest extends TestCase
 {
   protected $parser;
 
-  function setUp()
+  function setUp(): void
   {
     $location = new lmbMacroSourceLocation('my_testing_file', 10);
     $context_node = new lmbMacroNode($location);
@@ -41,7 +46,7 @@ class lmbMacroFilterParserTest extends TestCase
       $filters = $this->parser->parse($expression = '"filter"');
       $this->assertTrue(false);
     }
-    catch(Exception $e)
+    catch(\Exception $e)
     {
       $this->assertWantedPattern('/Filter name expected/', $e->getMessage());
     }
@@ -54,7 +59,7 @@ class lmbMacroFilterParserTest extends TestCase
       $filters = $this->parser->parse($expression = 'filter:');
       $this->assertTrue(false);
     }
-    catch(Exception $e)
+    catch(\Exception $e)
     {
       $this->assertWantedPattern('/Filter params expected after ":" symbol/', $e->getMessage());
     }
@@ -67,7 +72,7 @@ class lmbMacroFilterParserTest extends TestCase
       $filters = $this->parser->parse($expression = 'filter,');
       $this->assertTrue(false);
     }
-    catch(Exception $e)
+    catch(\Exception $e)
     {
       $this->assertWantedPattern('/Unexpected symbol after filter name/', $e->getMessage());
     }
@@ -130,4 +135,3 @@ class lmbMacroFilterParserTest extends TestCase
                                              'params' => array(' arg3'))));
   }
 }
-

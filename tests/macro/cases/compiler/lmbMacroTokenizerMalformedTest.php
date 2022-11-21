@@ -9,8 +9,8 @@
 namespace tests\macro\cases\compiler;
 
 use PHPUnit\Framework\TestCase;
-
-Mock::generate('lmbMacroTokenizerListener', 'MockMacroTokenizerListener');
+use limb\macro\src\compiler\lmbMacroTokenizerListenerInterface;
+use limb\macro\src\compiler\lmbMacroTokenizer;
 
 class lmbMacroTokenizerMalformedTest extends TestCase
 {
@@ -19,7 +19,7 @@ class lmbMacroTokenizerMalformedTest extends TestCase
 
   function setUp(): void
   {
-    $this->listener = new MockMacroTokenizerListener();
+    $this->listener = $this->createMock(lmbMacroTokenizerListenerInterface::class);
     $this->parser = new lmbMacroTokenizer($this->listener);
   }
 
@@ -58,5 +58,3 @@ class lmbMacroTokenizerMalformedTest extends TestCase
     $this->parser->parse('{{tag attribute="test"extra}}');
   }
 }
-
-

@@ -9,10 +9,14 @@
 namespace tests\macro\cases\compiler;
 
 use PHPUnit\Framework\TestCase;
+use limb\macro\src\compiler\lmbMacroCompiler;
+use limb\macro\src\compiler\lmbMacroTagDictionary;
+use limb\macro\src\compiler\lmbMacroTag;
+use limb\macro\src\compiler\lmbMacroNode;
+use limb\macro\src\compiler\lmbMacroSourceLocation;
+use limb\macro\src\compiler\lmbMacroTagInfo;
+use limb\macro\src\compiler\lmbMacroTreeBuilder;
 use limb\macro\src\lmbMacroException;
-
-Mock::generate('lmbMacroNode', 'MockMacroNode');
-Mock::generate('lmbMacroCompiler', 'MockMacroCompiler');
 
 class lmbMacroTreeBuilderTest extends TestCase
 {
@@ -23,7 +27,7 @@ class lmbMacroTreeBuilderTest extends TestCase
 
   function setUp(): void
   {
-    $this->compiler = new MockMacroCompiler();
+    $this->compiler = $this->createMock(lmbMacroCompiler::class);
     $this->tag_dictionary = new lmbMacroTagDictionary();
     $this->component = new lmbMacroTag(new lmbMacroSourceLocation('my_file', 1),
                                            $tag_name = 'my_tag',
@@ -37,7 +41,7 @@ class lmbMacroTreeBuilderTest extends TestCase
     $this->assertEquals($this->component->getChildren(), array());
     $this->assertReference($this->component, $this->tree_builder->getCursor());
 
-    $child_component = new MockMacroNode();
+    $child_component = $this->createMock(lmbMacroNode::class);
     $child_component->expectOnce('preParse', array($this->compiler));
 
     $this->tree_builder->pushNode($child_component);
@@ -227,4 +231,3 @@ class lmbMacroTreeBuilderTest extends TestCase
     $this->assertEquals($this->tree_builder->getExpectedTagCount(), 0);
   }
 }
-
