@@ -69,4 +69,9 @@ class lmbErrorList extends lmbCollection
     foreach($this as $message)
       $message->renameFields($new_field_names);      
   }
+
+  function __sleep()
+  {
+      return array_keys(get_object_vars($this));
+  }
 }

@@ -74,11 +74,14 @@ abstract class lmbView
     $this->forms_datasources[$form_name] = $datasource;
   }
 
-  function getFormDatasource($form_name)
+  function getFormDatasource($form_name = null)
   {
-    if(isset($this->forms_datasources[$form_name]))
-      return $this->forms_datasources[$form_name];
-    else
+      if(!$form_name)
+          return $this->forms_datasources;
+
+      if(isset($this->forms_datasources[$form_name]))
+          return $this->forms_datasources[$form_name];
+
       return null;
   }
 
@@ -87,10 +90,15 @@ abstract class lmbView
     $this->forms_errors[$form_name] = $error_list;
   }
 
-  function getFormErrors($form_name)
+  function getFormErrors($form_name = null)
   {
-    if( isset($this->forms_errors[$form_name]) )
-      return $this->forms_errors[$form_name];
+      if(!$form_name)
+          return $this->forms_errors;
+
+      if( isset($this->forms_errors[$form_name]) )
+          return $this->forms_errors[$form_name];
+
+      return null;
   }
 
   function getForms()
