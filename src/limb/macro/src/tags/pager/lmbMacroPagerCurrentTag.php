@@ -33,5 +33,3 @@ class lmbMacroPagerCurrentTag extends lmbMacroTag
     $code->writePhp("}\n");
   }
 }
-
-

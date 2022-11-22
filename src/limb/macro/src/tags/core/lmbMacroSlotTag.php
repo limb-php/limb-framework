@@ -37,14 +37,13 @@ class lmbMacroSlotTag extends lmbMacroTag
       
       $code->writePHP("if($args) extract($args);");
       
-      parent :: _generateContent($code);
+      parent::_generateContent($code);
       
       $code->endMethod();
       //$arg_str = $this->attributesIntoArrayString($skip = array('id', 'inline'));
       $code->writePHP('$this->' . $method . '(' . $arg_str . ');');
     }
     else
-      parent :: _generateContent($code);
+      parent::_generateContent($code);
   }
 }
-

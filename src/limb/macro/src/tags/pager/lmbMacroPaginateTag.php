@@ -67,5 +67,3 @@ class lmbMacroPaginateTag extends lmbMacroTag
     }
   }
 }
-
-

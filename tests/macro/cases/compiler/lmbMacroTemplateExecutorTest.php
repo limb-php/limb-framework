@@ -8,10 +8,10 @@
  */
 namespace tests\macro\cases\compiler;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\macro\src\compiler\lmbMacroTemplateExecutor;
 
-class lmbMacroTemplateExecutorTest extends lmbBaseMacroTest
+class lmbMacroTemplateExecutorTest extends lmbBaseMacroTestCase
 {
   function testPassVars()
   {

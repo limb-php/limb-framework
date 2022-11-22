@@ -8,8 +8,6 @@
  */
 namespace limb\macro\src\tags\form;
 
-use limb\macro\src\tags\form\lmbMacroFormWidget;
-
 /**
  * Form error list container
  * @package macro
@@ -43,7 +41,7 @@ class lmbMacroFormErrorList extends \ArrayIterator
 
   function current()
   {
-    $error = parent :: current();
+    $error = parent::current();
 
     $text = $error['message'];
     
@@ -68,4 +66,3 @@ class lmbMacroFormErrorList extends \ArrayIterator
     return $error;
   }
 }
-

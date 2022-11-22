@@ -32,9 +32,8 @@ class lmbMacroRepeatTag extends lmbMacroTag
     if($user_counter = $this->get('counter'))
       $code->writePHP($user_counter . ' = ' . $this->counter_var . '+1;');
 
-    parent :: _generateContent($code);
+    parent::_generateContent($code);
 
     $code->writePhp("}\n");
   }
 }
-

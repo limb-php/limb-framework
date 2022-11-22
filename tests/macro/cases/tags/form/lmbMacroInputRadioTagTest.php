@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroInputRadioTagTest extends lmbBaseMacroTest
+class lmbMacroInputRadioTagTest extends lmbBaseMacroTestCase
 {
 
   function testIsChecked_If_ValueAttribute_IsEqual_To_FormDatasourceFieldValue()

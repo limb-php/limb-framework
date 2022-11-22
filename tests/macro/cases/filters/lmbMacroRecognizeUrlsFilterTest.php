@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\filters;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroRecognizeUrlsFilterTest extends lmbBaseMacroTest
+class lmbMacroRecognizeUrlsFilterTest extends lmbBaseMacroTestCase
 {
   function testSimple()
   {
@@ -18,7 +18,7 @@ class lmbMacroRecognizeUrlsFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('str', 'foo http://aaa.com bar');
     $out = $tpl->render();
-    $this->assertEquals($out, 'foo <a href="http://aaa.com">http://aaa.com</a> bar');
+    $this->assertEquals('foo <a href="http://aaa.com">http://aaa.com</a> bar', $out);
   }
 
   function testUrlWithWithoutHttpAndWithWWW()
@@ -27,7 +27,6 @@ class lmbMacroRecognizeUrlsFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('str', 'foo www.aaa.com bar');
     $out = $tpl->render();
-    $this->assertEquals($out, 'foo <a href="http://www.aaa.com">www.aaa.com</a> bar');
+    $this->assertEquals('foo <a href="http://www.aaa.com">www.aaa.com</a> bar', $out);
   }
 }
-

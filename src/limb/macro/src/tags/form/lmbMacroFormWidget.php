@@ -9,8 +9,6 @@
 namespace limb\macro\src\tags\form;
 
 use limb\macro\src\compiler\lmbMacroHtmlTagWidget;
-use limb\macro\src\tags\form\lmbMacroFormLabelWidget;
-use limb\macro\src\tags\form\lmbMacroFormErrorList;
 
 /**
  * class lmbMacroFormWidget.
@@ -29,7 +27,7 @@ class lmbMacroFormWidget extends lmbMacroHtmlTagWidget
 
   function __construct($id)
   {
-    parent :: __construct($id);
+    parent::__construct($id);
 
     $this->datasource = array();
   }
@@ -63,6 +61,8 @@ class lmbMacroFormWidget extends lmbMacroHtmlTagWidget
       if (($child instanceof lmbMacroFormLabelWidget) && ($child->getAttribute('for') == $field_id))
         return $child;
     }
+
+    return null;
   }
 
   function setErrorList($error_list)
@@ -142,4 +142,3 @@ class lmbMacroFormWidget extends lmbMacroHtmlTagWidget
     $result[] = $field_error;
   }
 }
-

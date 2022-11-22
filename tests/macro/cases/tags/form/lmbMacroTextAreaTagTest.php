@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroTextAreaTagTest extends lmbBaseMacroTest
+class lmbMacroTextAreaTagTest extends lmbBaseMacroTestCase
 {
   function testRenderEscapedValue()
   {
@@ -31,6 +31,6 @@ class lmbMacroTextAreaTagTest extends lmbBaseMacroTest
     $page->set('form_data', array('my_textarea' => "<>"));
  
     $out = $page->render();
-    $this->assertEquals($out, '<form name="my_form"><textarea name="my_textarea">&lt;&gt;</textarea></form>');
+    $this->assertEquals('<form name="my_form"><textarea name="my_textarea">&lt;&gt;</textarea></form>', $out);
   }    
 }

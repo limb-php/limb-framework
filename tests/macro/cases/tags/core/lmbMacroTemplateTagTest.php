@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\core;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroTemplateTagTest extends lmbBaseMacroTest
+class lmbMacroTemplateTagTest extends lmbBaseMacroTestCase
 {
   function testApplyTemplate()
   {
@@ -32,7 +32,7 @@ class lmbMacroTemplateTagTest extends lmbBaseMacroTest
     $macro->set('foo', 'FOO');
 
     $out = $macro->render();
-    $this->assertEquals($out, 'FOOHEYBAR');
+    $this->assertEquals('FOOHEYBAR', $out);
   }
 
   function testApplyTemplateInline()
@@ -52,7 +52,7 @@ class lmbMacroTemplateTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($tpl);
 
     $out = $macro->render();
-    $this->assertEquals($out, 'FOOHEYBAR');
+    $this->assertEquals('FOOHEYBAR', $out);
   }
 
   function testApplyTemplateWithIntoTags()
@@ -69,7 +69,7 @@ class lmbMacroTemplateTagTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($tpl);
 
     $out = $macro->render();
-    $this->assertEquals($out, 'HEYHello!Wow!AAA');
+    $this->assertEquals('HEYHello!Wow!AAA', $out);
   }
 
   function testApplyTemplateDynamic()
@@ -94,8 +94,6 @@ class lmbMacroTemplateTagTest extends lmbBaseMacroTest
     $macro->set('foo', 'FOO');
 
     $out = $macro->render();
-    $this->assertEquals($out, 'FOOHEYBAR');
+    $this->assertEquals('FOOHEYBAR', $out);
   }
-
 }
-

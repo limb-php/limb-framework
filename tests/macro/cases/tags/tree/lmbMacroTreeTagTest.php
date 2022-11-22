@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\tree;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroTreeTagTest extends lmbBaseMacroTest
+class lmbMacroTreeTagTest extends lmbBaseMacroTestCase
 {
   function testRenderTree()
   {
@@ -31,7 +31,7 @@ class lmbMacroTreeTagTest extends lmbBaseMacroTest
                               array('title' => 'hey')));
 
     $out = $macro->render();
-    $this->assertEquals($out, '<ul><li>foo</li><li>bar<ul><li>bar1</li><li>bar2</li></ul></li><li>hey</li></ul>');
+    $this->assertEquals('<ul><li>foo</li><li>bar<ul><li>bar1</li><li>bar2</li></ul></li><li>hey</li></ul>', $out);
   }
 
   function testCounter()
@@ -54,7 +54,7 @@ class lmbMacroTreeTagTest extends lmbBaseMacroTest
                               array('title' => 'hey')));
 
     $out = $macro->render();
-    $this->assertEquals($out, '<ul><li>1)foo</li><li>2)bar<ul><li>1)bar1</li><li>2)bar2</li></ul></li><li>3)hey</li></ul>');
+    $this->assertEquals('<ul><li>1)foo</li><li>2)bar<ul><li>1)bar1</li><li>2)bar2</li></ul></li><li>3)hey</li></ul>', $out);
   }
 
   function testPassExtraParamsIntoTreeMethod()
@@ -77,7 +77,7 @@ class lmbMacroTreeTagTest extends lmbBaseMacroTest
                               array('title' => 'hey')));
 
     $out = $macro->render();
-    $this->assertEquals($out, '<ul><li>1.1)foo</li><li>1.2)bar<ul><li>1.2.1)bar1</li><li>1.2.2)bar2</li></ul></li><li>1.3)hey</li></ul>');
+    $this->assertEquals('<ul><li>1.1)foo</li><li>1.2)bar<ul><li>1.2.1)bar1</li><li>1.2.2)bar2</li></ul></li><li>1.3)hey</li></ul>', $out);
   }
 
   function testCheckBC()
@@ -99,7 +99,7 @@ class lmbMacroTreeTagTest extends lmbBaseMacroTest
                               array('title' => 'hey')));
 
     $out = $macro->render();
-    $this->assertEquals($out, '<ul><li>foo</li><li>bar<ul><li>bar1</li><li>bar2</li></ul></li><li>hey</li></ul>');
+    $this->assertEquals('<ul><li>foo</li><li>bar<ul><li>bar1</li><li>bar2</li></ul></li><li>hey</li></ul>', $out);
   }
 
   function testTreeWithoutData()
@@ -119,6 +119,6 @@ class lmbMacroTreeTagTest extends lmbBaseMacroTest
     $macro->set('tree', array());
 
     $out = $macro->render();
-    $this->assertEquals($out, 'kids not found');
+    $this->assertEquals('kids not found', $out);
   }
 }

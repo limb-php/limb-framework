@@ -17,7 +17,7 @@ use limb\macro\src\compiler\lmbMacroTag;
  * @package macro
  * @version $Id$
  */
-class lmbMacroPagerPrevTagDisabled extends lmbMacroTag
+class lmbMacroPagerPrevDisabledTag extends lmbMacroTag
 {
   protected function _generateContent($code)
   {
@@ -25,10 +25,8 @@ class lmbMacroPagerPrevTagDisabled extends lmbMacroTag
 
     $code->writePhp("if (!{$pager}->hasPrev()) {\n");
 
-    parent :: _generateContent($code);
+    parent::_generateContent($code);
 
     $code->writePhp("}\n");
   }
 }
-
-

@@ -26,10 +26,8 @@ class lmbMacroPagerLastDisabledTag extends lmbMacroTag
     $code->writePhp("if ({$pager}->isLast()) {\n");
     $code->writePhp("\$href = {$pager}->getLastPageUri();\n");
 
-    parent :: _generateContent($code);
+    parent::_generateContent($code);
 
     $code->writePhp("}\n");
   }
 }
-
-

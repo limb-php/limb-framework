@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroInputCheckboxTagTest extends lmbBaseMacroTest
+class lmbMacroInputCheckboxTagTest extends lmbBaseMacroTestCase
 {
   function testIsChecked_If_ValueAttribute_IsEqual_To_FormDatasourceFieldValue()
   {
@@ -22,7 +22,7 @@ class lmbMacroInputCheckboxTagTest extends lmbBaseMacroTest
     $page->set('form_my_form_datasource', array("my_input" => 'foo'));     
     
     $expected = '<form id="my_form"><input type="checkbox" name="my_input" value="foo" checked="checked" /></form>';
-    $this->assertEquals($page->render(), $expected);
+    $this->assertEquals($expected, $page->render());
   }
 
   function testRemoveCheckedIfNotChecked()
@@ -34,7 +34,7 @@ class lmbMacroInputCheckboxTagTest extends lmbBaseMacroTest
     $page->set('form_my_form_datasource', array("my_input" => 'foo'));     
 
     $expected = '<form id="my_form"><input type="checkbox" name="my_input" value="bar" /></form>';
-    $this->assertEquals($page->render(), $expected);
+    $this->assertEquals($expected, $page->render());
   }
 
   function testIsChecked_With_CheckedValueAttribute()
@@ -46,7 +46,7 @@ class lmbMacroInputCheckboxTagTest extends lmbBaseMacroTest
     $page->set('bar', '1');
 
     $expected = '<input type="checkbox" id="test" name="my_input" checked="checked" />';
-    $this->assertEquals($page->render(), $expected);
+    $this->assertEquals($expected, $page->render());
   }
 
   function testNotChecked_With_CheckedValueAttribute_And_ValueAttribute()
@@ -58,7 +58,7 @@ class lmbMacroInputCheckboxTagTest extends lmbBaseMacroTest
     $page->set('bar', '2');
 
     $expected = '<input type="checkbox" id="test" name="my_input" value="1" />';
-    $this->assertEquals($page->render(), $expected);
+    $this->assertEquals($expected, $page->render());
   }
   
 function testNotCheckedInputs_When_FirstInputChecked()
@@ -76,6 +76,7 @@ function testNotCheckedInputs_When_FirstInputChecked()
 
     $expected = '<form id="my_form"><input type="checkbox" id="test_3" name="test_3" value="aa" checked="checked" /><input type="checkbox" id="test_4" name="test_4" value="bb" /></form>';
 
-    $this->assertEquals(preg_match('~\s{2,}~', '', $page->render()), $expected);
+    $content = $page->render();
+    $this->assertEquals($expected, preg_replace('/[\s]{2,}/ui', '', $content));
   }
 }

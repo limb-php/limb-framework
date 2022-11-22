@@ -383,5 +383,3 @@ class lmbMacroPagerHelper
     return $this->getPageUri($this->total_page_count);
   }
 }
-
-

@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\filters;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroDecodeIpFilterTest extends lmbBaseMacroTest
+class lmbMacroDecodeIpFilterTest extends lmbBaseMacroTestCase
 {
   function testSimple()
   {
@@ -18,6 +18,6 @@ class lmbMacroDecodeIpFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('encoded_ip', '-1062666387');
     $out = $tpl->render();
-    $this->assertEquals($out, '192.168.255.109');
+    $this->assertEquals('192.168.255.109', $out);
   }
 }

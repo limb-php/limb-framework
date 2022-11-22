@@ -29,10 +29,8 @@ class lmbMacroPagerSectionTag extends lmbMacroTag
     $code->writePhp("\$section_begin_page = {$pager}->getSectionBeginPage();\n");
     $code->writePhp("\$section_end_page = {$pager}->getSectionEndPage();\n");
 
-    parent :: _generateContent($code);
+    parent::_generateContent($code);
 
     $code->writePhp("}\n");
   }
 }
-
-

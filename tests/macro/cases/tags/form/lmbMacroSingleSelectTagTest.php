@@ -8,10 +8,10 @@
  */
 namespace tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\core\src\lmbObject;
 
-class lmbMacroSingleSelectTagTest extends lmbBaseMacroTest
+class lmbMacroSingleSelectTagTest extends lmbBaseMacroTestCase
 {
   function testRenderOptionsInSimplestCase()
   {

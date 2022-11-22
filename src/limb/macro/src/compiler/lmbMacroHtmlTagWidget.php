@@ -133,4 +133,3 @@ class lmbMacroHtmlTagWidget
     return $attrib;
   }
 }
-

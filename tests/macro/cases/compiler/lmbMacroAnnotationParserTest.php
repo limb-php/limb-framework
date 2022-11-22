@@ -67,14 +67,11 @@ EOD;
         ->method('createByAnnotations');
 
     $listener
-        ->expects($this->at(0))
         ->method('createByAnnotations')
-        ->with($file, "Foo{$rnd}Tag", array('tag' => "foo_{$rnd}"));
-
-    $listener
-        ->expects($this->at(1))
-        ->method('createByAnnotations')
-        ->with($file, "Bar{$rnd}Tag", array('tag' => "bar_{$rnd}"));
+        ->withConsecutive(
+            [$file, "Foo{$rnd}Tag", array('tag' => "foo_{$rnd}")],
+            [$file, "Bar{$rnd}Tag", array('tag' => "bar_{$rnd}")]
+        );
 
     $info = lmbMacroAnnotationParser::extractFromFile($file, $listener);
   }

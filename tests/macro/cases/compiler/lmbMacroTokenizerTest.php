@@ -549,23 +549,15 @@ class lmbMacroTokenizerTest extends TestCase
   function testMismatchedElements()
   {
     $this->listener
-        ->expects($this->at(0))
         ->method('startElement')
-        ->with('b', array());
-
-    $this->listener
-        ->expects($this->at(1))
-        ->method('startElement')
-        ->with('i', array());
+        ->withConsecutive(
+            ['b', array()],
+            ['i', array()]
+        );
 
     /*$this->listener
-        ->expects($this->at(0))
         ->method('endElement')
-        ->with('b');
-
-    $this->listener
-        ->expects($this->at(1))
-        ->method('endElement')
+        ->with('b')
         ->with('i');*/
 
     $this->listener

@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\core;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroCurlyBracesTagTest extends lmbBaseMacroTest
+class lmbMacroCurlyBracesTagTest extends lmbBaseMacroTestCase
 {
   function testBraces()
   {
@@ -18,6 +18,6 @@ class lmbMacroCurlyBracesTagTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEquals($page->render(), "{{macro}}");
+    $this->assertEquals("{{macro}}", $page->render());
   }
 }

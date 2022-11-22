@@ -8,13 +8,13 @@
  */
 namespace tests\macro\cases\compiler;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\macro\src\compiler\lmbMacroTagInfo;
 use limb\macro\src\compiler\lmbMacroTagDictionary;
 use limb\fs\src\lmbFs;
 use limb\core\src\lmbEnv;
 
-class lmbMacroTagDictionaryTest extends lmbBaseMacroTest
+class lmbMacroTagDictionaryTest extends lmbBaseMacroTestCase
 {
   function setUp(): void
   { 

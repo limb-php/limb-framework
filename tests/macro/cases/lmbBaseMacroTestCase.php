@@ -13,7 +13,7 @@ use limb\macro\src\lmbMacroTemplate;
 use limb\macro\src\lmbMacroConfig;
 use limb\fs\src\lmbFs;
 
-class lmbBaseMacroTest extends TestCase
+class lmbBaseMacroTestCase extends TestCase
 {
   public $base_dir;
   public $tpl_dir;

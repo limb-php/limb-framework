@@ -8,13 +8,13 @@
  */
 namespace tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\macro\src\tags\form\lmbMacroFormWidget;
 use limb\macro\src\tags\form\lmbMacroFormElementWidget;
 use limb\macro\src\tags\form\lmbMacroFormLabelWidget;
 use limb\macro\src\tags\form\lmbMacroFormErrorList;
 
-class lmbMacroFormWidgetTest extends lmbBaseMacroTest
+class lmbMacroFormWidgetTest extends lmbBaseMacroTestCase
 {
   function testAddAndGetChild()
   {
@@ -24,7 +24,7 @@ class lmbMacroFormWidgetTest extends lmbBaseMacroTest
     $form->addChild($field1);
     $form->addChild($field2);
     
-    $this->assertReference($form->getChild('Input3'), $field2);
+    $this->assertEquals($form->getChild('Input3'), $field2);
     $this->assertNull($form->getChild('NoSuchInput'));
   }
   
@@ -44,8 +44,8 @@ class lmbMacroFormWidgetTest extends lmbBaseMacroTest
     $form->addChild($label1);
     $form->addChild($label2);
     
-    $this->assertReference($form->getLabelFor('Input3'), $label2);
-    $this->assertReference($form->getLabelFor('Input1'), $label1);
+    $this->assertEquals($form->getLabelFor('Input3'), $label2);
+    $this->assertEquals($form->getLabelFor('Input1'), $label1);
     $this->assertNull($form->getLabelFor('NoSuchInput'));
   }
   
@@ -76,8 +76,8 @@ class lmbMacroFormWidgetTest extends lmbBaseMacroTest
     $form->setErrorList($errors);
     
     $error_list = $form->getErrorList();
-    $this->assertIsA($error_list, 'lmbMacroFormErrorList');
-    $this->assertEquals(count($error_list), 1);
+    $this->assertInstanceOf(lmbMacroFormErrorList::class, $error_list);
+    $this->assertCount(1, $error_list);
   }
 
   function testSetErrorsNotifyFieldsAndLabelsAboutErrors()
@@ -117,14 +117,14 @@ class lmbMacroFormWidgetTest extends lmbBaseMacroTest
     $form->setErrorList($error_list);
 
     $errors = $form->getErrorsListForFields();
-    $this->assertEquals(sizeof($errors), 3);
+    $this->assertEquals(3, sizeof($errors));
     
     $errors = $form->getErrorsListForFields('Input1');
 
-    $this->assertEquals($errors[0]['message'], 'message1');
-    $this->assertEquals($errors[1]['message'], 'message2');
+    $this->assertEquals('message1', $errors[0]['message']);
+    $this->assertEquals('message2', $errors[1]['message']);
 
     $errors = $form->getErrorsListForFields('Input2');
-    $this->assertEquals($errors[0]['message'], 'message2');
+    $this->assertEquals('message2', $errors[0]['message']);
   }
 }

@@ -8,12 +8,12 @@
  */
 namespace tests\macro\cases\compiler;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\macro\src\lmbMacroTemplateLocatorSimple;
 use limb\macro\src\lmbMacroException;
 use limb\macro\src\lmbMacroTemplate;
 
-class lmbMacroTemplateLocatorSimpleTest extends lmbBaseMacroTest
+class lmbMacroTemplateLocatorSimpleTest extends lmbBaseMacroTestCase
 {  
   public $template_name = 'foo.phtml';
    

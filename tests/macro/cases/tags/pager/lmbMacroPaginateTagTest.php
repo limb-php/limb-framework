@@ -8,11 +8,11 @@
  */
 namespace tests\macro\cases\tags\pager;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\core\src\lmbArrayIterator;
 use limb\macro\src\lmbMacroException;
 
-class lmbMacroPaginateTagTest extends lmbBaseMacroTest
+class lmbMacroPaginateTagTest extends lmbBaseMacroTestCase
 {
   protected $old_get;
   protected $old_server;

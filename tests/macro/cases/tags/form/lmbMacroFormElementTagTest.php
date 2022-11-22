@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroFormElementTagTest extends lmbBaseMacroTest
+class lmbMacroFormElementTagTest extends lmbBaseMacroTestCase
 {
   function testCheckWhatWidgetVarsAreEniqueForWidgetsWithSameIds()
   {

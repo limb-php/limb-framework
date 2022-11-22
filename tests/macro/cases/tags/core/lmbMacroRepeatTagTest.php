@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\core;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroRepeatTagTest extends lmbBaseMacroTest
+class lmbMacroRepeatTagTest extends lmbBaseMacroTestCase
 {
   function testRepeatTimesIsStaticNumber()
   {
@@ -18,7 +18,7 @@ class lmbMacroRepeatTagTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEquals($page->render(), 'FFF');
+    $this->assertEquals('FFF', $page->render());
   }
   
   function testRepeatTimesIsVariableValue()
@@ -28,7 +28,6 @@ class lmbMacroRepeatTagTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     $page->set('count', 2);
     
-    $this->assertEquals($page->render(), 'FF');
+    $this->assertEquals('FF', $page->render());
   }
 }
-

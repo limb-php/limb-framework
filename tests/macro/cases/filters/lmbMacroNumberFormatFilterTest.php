@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\filters;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroNumberFormatFilterTest extends lmbBaseMacroTest
+class lmbMacroNumberFormatFilterTest extends lmbBaseMacroTestCase
 {
   function testNoParams()
   {
@@ -18,7 +18,7 @@ class lmbMacroNumberFormatFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 1234.56);
     $out = $tpl->render();
-    $this->assertEquals($out, '1,235');
+    $this->assertEquals('1,235', $out);
   }
   
   function testWithParams()
@@ -27,7 +27,7 @@ class lmbMacroNumberFormatFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 1234.56);
     $out = $tpl->render();
-    $this->assertEquals($out, '1 234,56');
+    $this->assertEquals('1 234,56', $out);
   }
 
   function testAlias()
@@ -36,6 +36,6 @@ class lmbMacroNumberFormatFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 1234.56);
     $out = $tpl->render();
-    $this->assertEquals($out, '1 234,56');
+    $this->assertEquals('1 234,56', $out);
   }
 }

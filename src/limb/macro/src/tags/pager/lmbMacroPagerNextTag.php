@@ -26,10 +26,8 @@ class lmbMacroPagerNextTag extends lmbMacroTag
     $code->writePhp("if ({$pager}->hasNext()) {\n");
     $code->writePhp("\$href = {$pager}->getPageUri({$pager}->getCurrentPage() + 1 );\n");
 
-    parent :: _generateContent($code);
+    parent::_generateContent($code);
 
     $code->writePhp("}\n");
   }
 }
-
-

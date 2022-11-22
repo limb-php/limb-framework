@@ -8,10 +8,10 @@
  */
 namespace tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\macro\src\tags\form\lmbMacroFormErrorList;
 
-class lmbMacroFormErrorsTagTest extends lmbBaseMacroTest
+class lmbMacroFormErrorsTagTest extends lmbBaseMacroTestCase
 {
   function testSimpleCase()
   {

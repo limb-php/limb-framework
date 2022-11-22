@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\core;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroAssignTagTest extends lmbBaseMacroTest
+class lmbMacroAssignTagTest extends lmbBaseMacroTestCase
 {
   function testAssignTag()
   {
@@ -19,6 +19,6 @@ class lmbMacroAssignTagTest extends lmbBaseMacroTest
 
     $page->set('buffer', 'baz');
 
-    $this->assertEquals($page->render(), 'baz');
+    $this->assertEquals('baz', $page->render());
   }
 }

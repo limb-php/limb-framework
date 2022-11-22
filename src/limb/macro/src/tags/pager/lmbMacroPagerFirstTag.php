@@ -28,10 +28,8 @@ class lmbMacroPagerFirstTag extends lmbMacroTag
     $code->writePhp("if (!{$pager}->isFirst()) {\n");
     $code->writePhp("\$href = {$pager}->getFirstPageUri();\n");
 
-    parent :: _generateContent($code);
+    parent::_generateContent($code);
 
     $code->writePhp("}\n");
   }
 }
-
-

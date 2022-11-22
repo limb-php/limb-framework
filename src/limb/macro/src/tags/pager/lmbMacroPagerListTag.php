@@ -15,7 +15,7 @@ use limb\macro\src\compiler\lmbMacroTag;
  * @restrict_self_nesting
  * @parent_tag_class limb\macro\src\tags\pager\lmbMacroPagerTag
  * @package macro
- * @version $Id: list.tag.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: listTag.php 6243 2007-08-29 11:53:10Z
  */
 class lmbMacroPagerListTag extends lmbMacroTag
 {

@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\filters;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroTrimFilterTest extends lmbBaseMacroTest
+class lmbMacroTrimFilterTest extends lmbBaseMacroTestCase
 {
   function testNoParams()
   {
@@ -18,7 +18,7 @@ class lmbMacroTrimFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '  hello  ');
     $out = $tpl->render();
-    $this->assertEquals($out, 'hello');
+    $this->assertEquals('hello', $out);
   }
   
   function testWithParam()
@@ -27,7 +27,6 @@ class lmbMacroTrimFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '/hello/');
     $out = $tpl->render();
-    $this->assertEquals($out, 'hello');
+    $this->assertEquals('hello', $out);
   }
 }
-

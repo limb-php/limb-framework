@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\core;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroCopyAndCutTagsTest extends lmbBaseMacroTest
+class lmbMacroCopyAndCutTagsTest extends lmbBaseMacroTestCase
 {
   function testCopyTag()
   {
@@ -18,7 +18,7 @@ class lmbMacroCopyAndCutTagsTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEquals($page->render(), 'F|N|F|');
+    $this->assertEquals('F|N|F|', $page->render());
   }
 
   function testCutTag()
@@ -27,6 +27,6 @@ class lmbMacroCopyAndCutTagsTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEquals($page->render(), 'N|F|');
+    $this->assertEquals('N|F|', $page->render());
   }
 }

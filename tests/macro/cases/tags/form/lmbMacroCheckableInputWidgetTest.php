@@ -8,12 +8,12 @@
  */
 namespace tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\core\src\lmbSet;
 use limb\macro\src\tags\form\lmbMacroFormWidget;
 use limb\macro\src\tags\form\lmbMacroCheckableInputWidget;
 
-class lmbMacroCheckableInputWidgetTest extends lmbBaseMacroTest
+class lmbMacroCheckableInputWidgetTest extends lmbBaseMacroTestCase
 {
   protected $checkbox;
   protected $form;
@@ -35,24 +35,24 @@ class lmbMacroCheckableInputWidgetTest extends lmbBaseMacroTest
   function testGetValue_ByCheckedValueAttribute()
   {
     $this->checkbox->setAttribute('checked_value', 1111);
-    $this->assertEquals($this->checkbox->getValue(), 1111);
+    $this->assertEquals(1111, $this->checkbox->getValue());
 
     // checked_value has bigger priority
     $this->datasource->set('my_checkbox', 'whatever');
-    $this->assertEquals($this->checkbox->getValue(), 1111);
+    $this->assertEquals(1111, $this->checkbox->getValue());
   }
   
   function testGetValue_FromFormDatasource()
   {
     $this->datasource->set('my_checkbox', 'whatever');
-    $this->assertEquals($this->checkbox->getValue(), 'whatever');
+    $this->assertEquals('whatever', $this->checkbox->getValue());
   }
 
   function testGetValue_FromFormDatasource_ByCleanedNameAttribute()
   {
     $this->checkbox->setAttribute('name', 'items[]');
     $this->datasource->set('items', 'whatever');
-    $this->assertEquals($this->checkbox->getValue(), 'whatever');
+    $this->assertEquals('whatever', $this->checkbox->getValue());
   }
   
   function testCheckedIfNotValueAndCheckedAttribute()

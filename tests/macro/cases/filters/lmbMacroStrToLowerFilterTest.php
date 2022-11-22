@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\filters;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroStrToLowerFilterTest extends lmbBaseMacroTest
+class lmbMacroStrToLowerFilterTest extends lmbBaseMacroTestCase
 {
   function testSimple()
   {
@@ -18,7 +18,7 @@ class lmbMacroStrToLowerFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 'HELLO');
     $out = $tpl->render();
-    $this->assertEquals($out, 'hello');
+    $this->assertEquals('hello', $out);
   }
 
   function testAlias()
@@ -27,7 +27,6 @@ class lmbMacroStrToLowerFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', 'HELLO');
     $out = $tpl->render();
-    $this->assertEquals($out, 'hello');
+    $this->assertEquals('hello', $out);
   }  
 }
-

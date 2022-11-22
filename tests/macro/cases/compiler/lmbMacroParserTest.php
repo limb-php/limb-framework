@@ -1,7 +1,7 @@
 <?php
 namespace tests\macro\cases\compiler;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\macro\src\compiler\lmbMacroTreeBuilder;
 use limb\macro\src\compiler\lmbMacroTagDictionary;
@@ -9,7 +9,7 @@ use limb\macro\src\compiler\lmbMacroParser;
 use limb\macro\src\compiler\lmbMacroNode;
 use limb\macro\src\compiler\lmbMacroSourceLocation;
 
-class lmbMacroParserTest extends lmbBaseMacroTest
+class lmbMacroParserTest extends lmbBaseMacroTestCase
 {
   function testParse_raiseExceptionWhenFileNotExist()
   {  	

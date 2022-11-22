@@ -8,9 +8,8 @@
  */
 namespace tests\macro\cases\compiler;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
-use lmbMacroFunctionBasedFilterTestClass;
 
 class lmbMacroFunctionBasedFilterTestFunctionFilter extends lmbMacroFunctionBasedFilter
 {
@@ -19,7 +18,7 @@ class lmbMacroFunctionBasedFilterTestFunctionFilter extends lmbMacroFunctionBase
 
 class lmbMacroFunctionBasedFilterTestCallbackFilter extends lmbMacroFunctionBasedFilter 
 {
-  protected $function = array(lmbMacroFunctionBasedFilterTestClass::class, 'test');
+  protected $function = array(lmbMacroFunctionBasedFilterTest::class, 'test');
 }
 
 class FakeBase
@@ -32,7 +31,7 @@ class FakeBase
   }
 }
 
-class lmbMacroFunctionBasedFilterTest extends lmbBaseMacroTest
+class lmbMacroFunctionBasedFilterTest extends lmbBaseMacroTestCase
 {
   function testFunction()
   {
@@ -47,6 +46,6 @@ class lmbMacroFunctionBasedFilterTest extends lmbBaseMacroTest
     $fake_base = new FakeBase();
     $obj = new lmbMacroFunctionBasedFilterTestCallbackFilter($fake_base);
     $obj->setParams(array('"foo"'));
-    $this->assertEquals('lmbMacroFunctionBasedFilterTestClass::test(42,"foo")', $obj->getValue());
+    $this->assertEquals('tests\macro\cases\compiler\lmbMacroFunctionBasedFilterTest::test(42,"foo")', $obj->getValue());
   }
 }

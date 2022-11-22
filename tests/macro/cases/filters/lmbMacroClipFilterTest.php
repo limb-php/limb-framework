@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\filters;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroClipFilterTest extends lmbBaseMacroTest
+class lmbMacroClipFilterTest extends lmbBaseMacroTestCase
 {
   function testStatic()
   {
@@ -18,7 +18,7 @@ class lmbMacroClipFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('str', '12');
     $out = $tpl->render();
-    $this->assertEquals($out, '11212');
+    $this->assertEquals('11212', $out);
   }  
   
   function testDinamic()
@@ -28,7 +28,6 @@ class lmbMacroClipFilterTest extends lmbBaseMacroTest
     $tpl->set('str', 'foo');
     $tpl->set('cnt', '1');
     $out = $tpl->render();
-    $this->assertEquals($out, 'f');
+    $this->assertEquals('f', $out);
   }  
-  
 }

@@ -8,7 +8,7 @@
  */
 namespace tests\macro\cases\compiler;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\macro\src\compiler\lmbMacroFilter;
 use limb\macro\src\compiler\lmbMacroFilterInfo;
 use limb\macro\src\compiler\lmbMacroFilterDictionary;
@@ -40,7 +40,7 @@ $zoo_filter_info->setFile(__FILE__);
 lmbMacroFilterDictionary::instance()->register($foo_filter_info);
 lmbMacroFilterDictionary::instance()->register($zoo_filter_info);
 
-class lmbMacroFiltersAcceptanceTest extends lmbBaseMacroTest
+class lmbMacroFiltersAcceptanceTest extends lmbBaseMacroTestCase
 {
   function testFilter()
   {

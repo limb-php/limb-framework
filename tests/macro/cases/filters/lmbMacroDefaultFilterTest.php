@@ -8,15 +8,15 @@
  */
 namespace tests\macro\cases\filters;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroDefaultFilterTest extends lmbBaseMacroTest
+class lmbMacroDefaultFilterTest extends lmbBaseMacroTestCase
 {
   function testNotDefinedLocalVariable()
   {
     $code = '{$var|default:"val"}';
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $out = $tpl->render();
-    $this->assertEquals($out, 'val');
+    $this->assertEquals('val', $out);
   }
 }

@@ -70,12 +70,12 @@ class lmbMacroPagerTag extends lmbMacroRuntimeWidgetTag
 
     $this->_generatePagerVariables($code, $pager);
 
-    parent :: _generateContent($code);
+    parent::_generateContent($code);
   }
 
   protected function _generateWidget($code)
   {
-    parent :: _generateWidget($code);
+    parent::_generateWidget($code);
 
     $pager = $this->getRuntimeVar();
   }
@@ -90,4 +90,3 @@ class lmbMacroPagerTag extends lmbMacroRuntimeWidgetTag
      $code->writePhp("\$end_item_number = {$pager}->getCurrentPageEndItem();\n");
   }
 }
-

@@ -9,7 +9,6 @@
 namespace limb\macro\src\tags\core;
 
 use limb\macro\src\compiler\lmbMacroTag;
-use limb\macro\src\tags\core\lmbMacroTemplateTag;
 
 /**
  * @tag apply

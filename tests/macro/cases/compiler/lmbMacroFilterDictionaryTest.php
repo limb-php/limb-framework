@@ -9,12 +9,12 @@
 namespace tests\macro\cases\compiler;
 
 use limb\core\src\lmbEnv;
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\fs\src\lmbFs;
 use limb\macro\src\compiler\lmbMacroFilterInfo;
 use limb\macro\src\compiler\lmbMacroFilterDictionary;
 
-class lmbMacroFilterDictionaryTest extends lmbBaseMacroTest
+class lmbMacroFilterDictionaryTest extends lmbBaseMacroTestCase
 {
   function setUp(): void
   {

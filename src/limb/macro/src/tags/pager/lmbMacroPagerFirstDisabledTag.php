@@ -31,5 +31,3 @@ class lmbMacroPagerFirstDisabledTag extends lmbMacroTag
     $code->writePhp("}\n");
   }
 }
-
-

@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\core;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroIncludeTagBCTest extends lmbBaseMacroTest
+class lmbMacroIncludeTagBCTest extends lmbBaseMacroTestCase
 {
   function testSimpleStaticInclude()
   {

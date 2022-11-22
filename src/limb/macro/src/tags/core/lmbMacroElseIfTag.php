@@ -7,7 +7,7 @@ use limb\macro\src\lmbMacroException;
 /**
  * class lmbMacroElseIfTag.
  * @tag elseif
- * @parent_tag_class limb\macro\src\tags\corelmbMacroIfTag
+ * @parent_tag_class limb\macro\src\tags\core\lmbMacroIfTag
  * @forbid_end_tag
  */
 class lmbMacroElseIfTag extends lmbMacroTag

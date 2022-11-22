@@ -11,7 +11,7 @@ namespace tests\macro\cases\compiler;
 use limb\macro\src\compiler\lmbMacroTag;
 use limb\macro\src\compiler\lmbMacroTagDictionary;
 use limb\macro\src\compiler\lmbMacroTagInfo;
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
 class MacroTagFooTest extends lmbMacroTag
 {
@@ -49,7 +49,7 @@ lmbMacroTagDictionary::instance()->register($foo_info);
 lmbMacroTagDictionary::instance()->register($bar_info);
 lmbMacroTagDictionary::instance()->register($zoo_info);
 
-class lmbMacroTagAcceptanceTest extends lmbBaseMacroTest
+class lmbMacroTagAcceptanceTest extends lmbBaseMacroTestCase
 {
   function testTemplateRendering()
   {

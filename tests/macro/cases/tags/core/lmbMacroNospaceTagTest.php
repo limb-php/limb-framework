@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\core;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroNospaceTagTest extends lmbBaseMacroTest
+class lmbMacroNospaceTagTest extends lmbBaseMacroTestCase
 {
   function testNospace()
   {
@@ -22,7 +22,7 @@ class lmbMacroNospaceTagTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEquals($page->render(), " Todd  Bob Hey\n Tomm");
+    $this->assertEquals(" Todd  Bob Hey\n Tomm", $page->render());
   }
 
   function testTrimSpace()
@@ -31,7 +31,7 @@ class lmbMacroNospaceTagTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEquals($page->render(), 'Bob');
+    $this->assertEquals('Bob', $page->render());
   }
 
   function testMixTrimAndNoTrim()
@@ -40,7 +40,7 @@ class lmbMacroNospaceTagTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEquals($page->render(), ' Todd Bob Hey');
+    $this->assertEquals(' Todd Bob Hey', $page->render());
   }
 
   function testSpace()
@@ -49,7 +49,7 @@ class lmbMacroNospaceTagTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEquals($page->render(), ' Bob ');
+    $this->assertEquals(' Bob ', $page->render());
   }
 
   function testNewline()
@@ -58,7 +58,7 @@ class lmbMacroNospaceTagTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEquals($page->render(), "\nBob\n");
+    $this->assertEquals("\nBob\n", $page->render());
   }
 
   function testTab()
@@ -67,6 +67,6 @@ class lmbMacroNospaceTagTest extends lmbBaseMacroTest
 
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     
-    $this->assertEquals($page->render(), "\tBob\t");
+    $this->assertEquals("\tBob\t", $page->render());
   }
 }

@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\filters;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroDateFilterTest extends lmbBaseMacroTest
+class lmbMacroDateFilterTest extends lmbBaseMacroTestCase
 {
   function testSimple()
   {
@@ -19,6 +19,6 @@ class lmbMacroDateFilterTest extends lmbBaseMacroTest
     $time = mktime(0, 0, 0, 5, 2, 2007);
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEquals($out, '2007-05-02');
+    $this->assertEquals('2007-05-02', $out);
   }
 }

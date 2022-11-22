@@ -23,5 +23,3 @@ use limb\macro\src\compiler\lmbMacroPassiveTag;
 class lmbMacroPagerElipsesTag extends lmbMacroPassiveTag
 {
 }
-
-

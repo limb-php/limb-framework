@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\filters;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroRawFilterTest extends lmbBaseMacroTest
+class lmbMacroRawFilterTest extends lmbBaseMacroTestCase
 {
   function testSimple()
   {
@@ -18,7 +18,6 @@ class lmbMacroRawFilterTest extends lmbBaseMacroTest
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', '<>');
     $out = $tpl->render();
-    $this->assertEquals($out, '<>');
+    $this->assertEquals('<>', $out);
   }
 }
-

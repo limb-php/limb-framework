@@ -28,10 +28,8 @@ class lmbMacroPagerNumberTag extends lmbMacroTag
     $code->writePhp("\$href = {$pager}->getPageUri();\n");
     $code->writePhp("\$number = {$pager}->getPage();\n");
 
-    parent :: _generateContent($code);
+    parent::_generateContent($code);
 
     $code->writePhp("}\n");
   }
 }
-
-

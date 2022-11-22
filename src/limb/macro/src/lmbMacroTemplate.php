@@ -26,6 +26,7 @@ class lmbMacroTemplate
   protected $vars = array();
   protected $child_executor;
   protected $config;
+  protected $locator;
 
   function __construct($file, $config = array(), lmbMacroTemplateLocatorInterface $locator = null)
   {
@@ -34,7 +35,7 @@ class lmbMacroTemplate
       $this->config = $config;
     else
       $this->config = new lmbMacroConfig($config);        
-    $this->locator = $locator ? $locator : new lmbMacroTemplateLocatorSimple($this->config);
+    $this->locator = $locator ?? new lmbMacroTemplateLocatorSimple($this->config);
   }
 
   function setVars($vars)
@@ -101,8 +102,8 @@ class lmbMacroTemplate
 
   protected function _createCompiler()
   {
-    $tag_dictionary = lmbMacroTagDictionary :: instance();
-    $filter_dictionary = lmbMacroFilterDictionary :: instance();
+    $tag_dictionary = lmbMacroTagDictionary::instance();
+    $filter_dictionary = lmbMacroFilterDictionary::instance();
     $tag_dictionary->load($this->config);
     $filter_dictionary->load($this->config);
 

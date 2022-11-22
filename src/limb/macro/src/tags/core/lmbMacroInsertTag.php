@@ -29,7 +29,7 @@ class lmbMacroInsertTag extends lmbMacroTag
       $this->add($att);
     }
 
-    parent :: preParse($compiler);
+    parent::preParse($compiler);
     
     if($this->isDynamic('file'))
       $this->is_dynamic = true;
@@ -104,7 +104,7 @@ class lmbMacroInsertTag extends lmbMacroTag
       $args = $code->generateVar(); 
       $slots[$this->get('into')][] = $code->beginMethod('__slotHandler'. self::generateUniqueId(), array($args . '= array()'));
       $code->writePHP("if($args) extract($args);"); 
-      parent :: _generateContent($code);
+      parent::_generateContent($code);
       $code->endMethod();
     }
 
@@ -127,17 +127,16 @@ class lmbMacroInsertTag extends lmbMacroTag
   function _generateStaticaly($code)
   {
     if($this->getBool('inline'))
-      parent :: _generateContent($code);
+      parent::_generateContent($code);
     else
     {
       list($keys, $vals) = $this->attributesIntoArgs();
   
       $method = $code->beginMethod('__staticInclude' . (++self::$static_includes_counter), $keys);
-      parent :: _generateContent($code);
+      parent::_generateContent($code);
       $code->endMethod();
   
       $code->writePHP('$this->' . $method . '(' . implode(', ', $vals) . ');');
     }
   }
 }
-

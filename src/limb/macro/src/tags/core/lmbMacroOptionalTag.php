@@ -20,7 +20,7 @@ class lmbMacroOptionalTag extends lmbMacroTag
     $code->writePHP('if (is_scalar(' . $tempvar .' )) ' . $tempvar . '= trim(' . $tempvar . ');');
     $code->writePHP('if (!empty(' . $tempvar . ')){');
 
-    parent :: _generateContent($code);
+    parent::_generateContent($code);
 
     $code->writePHP('}');
   }

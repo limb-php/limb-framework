@@ -26,7 +26,7 @@ class lmbMacroInsertIntoTag extends lmbMacroTag
   
   function preParse($compiler)
   {
-    parent :: preParse($compiler);
+    parent::preParse($compiler);
     
     if($slot_node = $this->parent->findUpChild($this->get('slot')))
       $this->is_dynamic = false;
@@ -43,12 +43,11 @@ class lmbMacroInsertIntoTag extends lmbMacroTag
   function generate($code)
   {
     if(!$this->is_dynamic)
-      parent :: generate($code);
+      parent::generate($code);
   }
 
   function generateNow($code)
   {
-    parent :: generate($code); 
+    parent::generate($code);
   }
 }
-

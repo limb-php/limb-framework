@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\compiler;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroTemplateTest extends lmbBaseMacroTest
+class lmbMacroTemplateTest extends lmbBaseMacroTestCase
 {  
   function testPreprocessor_LeavePHPFullTagsAsIs()
   {
@@ -21,8 +21,9 @@ class lmbMacroTemplateTest extends lmbBaseMacroTest
 
   function testPreprocessor_ProcessPHPShortTags()
   {
-    if(ini_get('short_open_tag') == 1)
-       echo __METHOD__ . "() does not check anything, since short tags are ON\n";
+    if(ini_get('short_open_tag') == 1) {
+        //echo __METHOD__ . "() does not check anything, since short tags are ON\n";
+    }
      
     $view = $this->_createMacroTemplate('Hello, <?echo "Bob";?>');    
     $this->assertEquals('Hello, Bob', $view->render());
@@ -30,8 +31,9 @@ class lmbMacroTemplateTest extends lmbBaseMacroTest
   
   function testPreprocessor_LeaveXmlTagAsIs()
   {
-    if(ini_get('short_open_tag') == 0)
-       echo __METHOD__ . "() does not check anything, since short tags are OFF\n";
+    if(ini_get('short_open_tag') == 0) {
+        //echo __METHOD__ . "() does not check anything, since short tags are OFF\n";
+    }
     
     $view = $this->_createMacroTemplate("<?xml version='1.0' encoding=\"utf-8\"?>");    
     $this->assertEquals("<?xml version='1.0' encoding=\"utf-8\"?>", $view->render());
@@ -39,8 +41,9 @@ class lmbMacroTemplateTest extends lmbBaseMacroTest
   
   function testPreprocessor_ProcessPHPShortOutputTags()
   {
-    if(ini_get('short_open_tag') == 1)
-       echo __METHOD__ . "() does not check anything, since short tags are ON\n";
+    if(ini_get('short_open_tag') == 1) {
+        //echo __METHOD__ . "() does not check anything, since short tags are ON\n";
+    }
     
     $view = $this->_createMacroTemplate('Hello, <?=$this->name?>');
     $view->set('name', 'Bob');

@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\core;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
+class lmbMacroWrapTagBCTest extends lmbBaseMacroTestCase
 {
   function testSimpleStaticWrap()
   {
@@ -23,7 +23,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($bar_tpl);
 
     $out = $macro->render();
-    $this->assertEquals($out, '<p>Hello, Bob</p>');
+    $this->assertEquals('<p>Hello, Bob</p>', $out);
   }
 
   function testStaticWrapWithVariables()
@@ -38,7 +38,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro->set('bob', 'Bob');
 
     $out = $macro->render();
-    $this->assertEquals($out, '<p>Hello, Bob</p>');
+    $this->assertEquals('<p>Hello, Bob</p>', $out);
   }
 
   function testNestedStaticWrap()
@@ -55,7 +55,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro->set('bob', 'Bob');
 
     $out = $macro->render();
-    $this->assertEquals($out, '<body><p>Hello, Bob</p></body>');
+    $this->assertEquals('<body><p>Hello, Bob</p></body>', $out);
   }
   
   function testSimpleStaticIntoRoot()
@@ -69,7 +69,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($main_tpl);
 
     $out = $macro->render();
-    $this->assertEquals($out, '<p>Hello, Bob</p>');
+    $this->assertEquals('<p>Hello, Bob</p>', $out);
   }
 
   function testMultiStaticWrap()
@@ -83,7 +83,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($bar_tpl);
 
     $out = $macro->render();
-    $this->assertEquals($out, '<p>Hello, Thorton Bob</p>');
+    $this->assertEquals('<p>Hello, Thorton Bob</p>', $out);
   }
 
   function testSimpleDynamicWrap()
@@ -98,7 +98,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro->set('layout', 'foo.html');
 
     $out = $macro->render();
-    $this->assertEquals($out, '<p>Hello, Bob</p>');
+    $this->assertEquals('<p>Hello, Bob</p>', $out);
   }
 
   function testMultiDynamicWrap()
@@ -113,7 +113,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro->set('layout', 'foo.html');
 
     $out = $macro->render();
-    $this->assertEquals($out, '<p>Hello, Thorton Bob</p>');
+    $this->assertEquals('<p>Hello, Thorton Bob</p>', $out);
   }
 
   function testMixStaticAndDynamicWrap()
@@ -131,7 +131,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro->set('bob', 'Bob');
 
     $out = $macro->render();
-    $this->assertEquals($out, '<body><p>Hello, Bob</p></body>');
+    $this->assertEquals('<body><p>Hello, Bob</p></body>', $out);
   }
 
   function testNestedDynamicWrap()
@@ -150,7 +150,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro->set('bob', 'Bob');
 
     $out = $macro->render();
-    $this->assertEquals($out, '<body><p>Hello, Bob</p></body>');
+    $this->assertEquals('<body><p>Hello, Bob</p></body>', $out);
   }
 
   function testStaticallyWrappedChildAccessesParentData()
@@ -164,7 +164,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($bar_tpl);
 
     $out = $macro->render();
-    $this->assertEquals($out, '<p>Hello, Bob</p>');
+    $this->assertEquals('<p>Hello, Bob</p>', $out);
   }
 
   function testDynamicallyWrappedChildAccessesParentData()
@@ -179,7 +179,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro->set('layout', 'foo.html');
 
     $out = $macro->render();
-    $this->assertEquals($out, '<p>Hello, Bob</p>');
+    $this->assertEquals('<p>Hello, Bob</p>', $out);
   }
 
   function testStaticallyWrappedChildLocalVarsAreIsolated()
@@ -193,7 +193,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($bar_tpl);
 
     $out = $macro->render();
-    $this->assertEquals($out, 'Bob');
+    $this->assertEquals('Bob', $out);
   }
 
   function testDynamicallyWrappedChildLocalVarsAreIsolated()
@@ -208,7 +208,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro->set('layout', 'foo.html');
 
     $out = $macro->render();
-    $this->assertEquals($out, 'Bob');
+    $this->assertEquals('Bob', $out);
   }
   
   function testMultiStaticWrapFromIncludedFile()
@@ -224,7 +224,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($main_tpl);
 
     $out = $macro->render();
-    $this->assertEquals($out, '<p>Hello, Thorton Bob</p>');
+    $this->assertEquals('<p>Hello, Thorton Bob</p>', $out);
   }
 
   function testPassVariablesIntoLocalContextOfSlotTag()
@@ -238,7 +238,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($bar_tpl);
 
     $out = $macro->render();
-    $this->assertEquals($out, 'Bob');
+    $this->assertEquals('Bob', $out);
   }
 
   function testSlotWithInlineAttributeDoesNotCreateAMethodAround()
@@ -252,7 +252,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro = $this->_createMacro($bar_tpl);
 
     $out = $macro->render();
-    $this->assertEquals($out, 'Tedd');
+    $this->assertEquals('Tedd', $out);
   }
 
   function testMixDynamicWrapWithStaticIncludeWithChildIntoTags()
@@ -279,7 +279,7 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
     $macro->set('layout', 'layout.html');
 
     $out = $macro->render();
-    $this->assertEquals($out, '<body>Main: <p>Numbers: <b>1</b> <u>2</u></p>  Extra: Wow!</body>');
+    $this->assertEquals('<body>Main: <p>Numbers: <b>1</b> <u>2</u></p>  Extra: Wow!</body>', $out);
   }
 
   function testIncludeAfterSlot()
@@ -294,7 +294,6 @@ class lmbMacroWrapTagBCTest extends lmbBaseMacroTest
 
     $macro = $this->_createMacro($content_tpl);
     $out = $macro->render();
-    $this->assertEquals($out, 'Slot:Hi! Include:Bob');
+    $this->assertEquals('Slot:Hi! Include:Bob', $out);
   }
 }
-

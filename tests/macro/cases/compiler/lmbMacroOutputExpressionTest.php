@@ -8,7 +8,7 @@
  */
 namespace tests\macro\cases\compiler;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\core\src\lmbObject;
 
 class lmbMacroOutputExpressionTestClass
@@ -35,7 +35,7 @@ class lmbMacroOutputExpressionTestClass
   }
 }
 
-class lmbMacroOutputExpressionTest extends lmbBaseMacroTest
+class lmbMacroOutputExpressionTest extends lmbBaseMacroTestCase
 {
   function testSimpleOutput()
   {
@@ -225,14 +225,14 @@ class lmbMacroOutputExpressionTest extends lmbBaseMacroTest
   // Test that concat operation in function call is just concat operation 
   function testComplexFuncParamsWithConcatOperationInOutputExpression()
   {
-    $code = '<h1>{$#bar->func3($#foo["var1.var3"]["var"] . $#foo["var2"]).extra}</h1>';
+    $code = '<h1>{$#bar->func3($#foo["var1.var3"] . $#foo["var2"]).extra}</h1>';
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('bar', new lmbMacroOutputExpressionTestClass());
     $tpl->set('foo', array('var1.var3' => 10, 'var2' => 20));
     
     $out = $tpl->render();
 
-    $this->assertEquals('<h1>20</h1>', $out);
+    $this->assertEquals('<h1>1020</h1>', $out);
   }
 
   function testNestedFunctionCalls()

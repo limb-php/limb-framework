@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroJsCheckboxTagTest extends lmbBaseMacroTest
+class lmbMacroJsCheckboxTagTest extends lmbBaseMacroTestCase
 {
   function testRenderHiddenWithCheckbox()
   {
@@ -38,7 +38,7 @@ class lmbMacroJsCheckboxTagTest extends lmbBaseMacroTest
     $html = new \SimpleXMLElement('<foo>'.$page->render().'</foo>');
 
     $this->assertEquals('hidden', $html->input[1]['type']);
-    $this->assertEquals(1, $html->input[1]['value']);
+    $this->assertEquals('1', $html->input[1]['value']);
   }
 
   function testChecked_With_CheckedValueAttribute()
@@ -51,7 +51,7 @@ class lmbMacroJsCheckboxTagTest extends lmbBaseMacroTest
     $html = new \SimpleXMLElement('<foo>'.$page->render().'</foo>');
 
     $this->assertEquals('checked', $html->input[0]['checked']);
-    $this->assertEquals(1, $html->input[1]['value']);
+    $this->assertEquals('1', $html->input[1]['value']);
   }
 
   function testNotChecked_With_CheckedValueAttribute_And_ValueAttribute()
@@ -64,10 +64,10 @@ class lmbMacroJsCheckboxTagTest extends lmbBaseMacroTest
     $html = new \SimpleXMLElement('<foo>'.$page->render().'</foo>');
 
     $this->assertEquals('checkbox', $html->input[0]['type']);
-    $this->assertEquals(1, $html->input[0]['value']);
+    $this->assertEquals('1', $html->input[0]['value']);
 
     $this->assertEquals('hidden', $html->input[1]['type']);
-    $this->assertEquals(0, $html->input[1]['value']);
+    $this->assertEquals('0', $html->input[1]['value']);
   }
 
   function testIdConformsW3C()
@@ -79,6 +79,7 @@ class lmbMacroJsCheckboxTagTest extends lmbBaseMacroTest
 
     $html = new \SimpleXMLElement('<foo>'.$page->render().'</foo>');
     $error_message = 'Id must start from letter, that must be followed by letters, digits, underscores, colons and dots';
-    $this->assertRegExp('~[a-z][a-z\d_:.]~i', $html->input[1]['id'], $error_message);
+
+    $this->assertMatchesRegularExpression('~[a-z][a-z\d_:.]~i', $html->input[1]['id'], $error_message);
   }
 }

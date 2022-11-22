@@ -8,12 +8,12 @@
  */
 namespace tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\macro\src\tags\form\lmbMacroFormErrorList;
 use limb\macro\src\tags\form\lmbMacroFormWidget;
 use limb\macro\src\tags\form\lmbMacroFormElementWidget;
 
-class lmbMacroFormErrorListTest extends lmbBaseMacroTest
+class lmbMacroFormErrorListTest extends lmbBaseMacroTestCase
 {
   function testAddSimpleError()
   {
@@ -38,19 +38,20 @@ class lmbMacroFormErrorListTest extends lmbBaseMacroTest
   function testErrorsIfFormWidgetIsSet()
   {
     $form = $this->createMock(lmbMacroFormWidget::class);
+
     $field1 = $this->createMock(lmbMacroFormElementWidget::class);
     $field2 = $this->createMock(lmbMacroFormElementWidget::class);
-    
+
+    $field1->setAttribute('title', 'TitleField');
+    $field2->setAttribute('title', 'NameField');
+
+    $form->addChild($field1);
+    $form->addChild($field2);
+
     $error_list = new lmbMacroFormErrorList();
     $error_list->addError('Error in {Field}', array('Field' => 'title'));
     $error_list->addError('Other error in {Field}', array('Field' => 'name'));
-    
-    $form->setReturnValue('getChild', $field1, array('title'));
-    $form->setReturnValue('getChild', $field2, array('name'));
 
-    $field1->setReturnValue('getDisplayName', 'TitleField');
-    $field2->setReturnValue('getDisplayName', 'NameField');
-    
     $error_list->setForm($form);
     
     $this->assertErrorsInList($error_list, array(array('message' => 'Error in "TitleField"',
@@ -80,6 +81,6 @@ class lmbMacroFormErrorListTest extends lmbBaseMacroTest
     foreach($error_list as $error)
       $errors[] = $error;
 
-    $this->assertEquals($errors, $etalon);
+    $this->assertEquals($etalon, $errors);
   }
 }

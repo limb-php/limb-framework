@@ -1,14 +1,14 @@
 <?php
 namespace tests\mail\cases;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\mail\src\lmbMailService;
 use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;
 
 require '.setup.php';
 
-class lmbMailServiceTest extends lmbBaseMacroTest
+class lmbMailServiceTest extends lmbBaseMacroTestCase
 {
   function setUp(): void
   {

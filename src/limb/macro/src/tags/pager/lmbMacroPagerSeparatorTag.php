@@ -20,5 +20,3 @@ use limb\macro\src\compiler\lmbMacroPassiveTag;
 class lmbMacroPagerSeparatorTag extends lmbMacroPassiveTag
 {
 }
-
-

@@ -8,11 +8,11 @@
  */
 namespace tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\macro\src\tags\form\lmbMacroFormWidget;
 use limb\macro\src\tags\form\lmbMacroFormElementWidget;
 
-class lmbMacroFormElementWidgetTest extends lmbBaseMacroTest
+class lmbMacroFormElementWidgetTest extends lmbBaseMacroTestCase
 {
   function testGetValue_FromValueAttribute()
   {

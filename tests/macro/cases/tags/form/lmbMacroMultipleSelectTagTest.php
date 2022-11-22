@@ -8,9 +8,9 @@
  */
 namespace tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTest;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
-class lmbMacroMultipleSelectTagTest extends lmbBaseMacroTest
+class lmbMacroMultipleSelectTagTest extends lmbBaseMacroTestCase
 {
   function testRenderOptionsInSimplestCase()
   {
