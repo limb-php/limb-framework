@@ -133,7 +133,7 @@ CREATE TABLE  `lmb_cms_user` (
   `generated_password` varchar(64) default NULL,
   `login` varchar(50) default NULL,
   `role_type` varchar(10) NOT NULL default '0',
-  `ctime` int(11) NOT NULL default 0,
+  `ctime` int unsigned NOT NULL default 0,
   PRIMARY KEY  (`id`),
   KEY `login` (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -174,4 +174,3 @@ INSERT INTO `lmb_cms_seo` (`id`, `url`, `title`, `description`, `keywords`) VALU
   'Описание',
   'Ключевые слова'
 );
-

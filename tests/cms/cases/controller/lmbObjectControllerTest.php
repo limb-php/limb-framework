@@ -16,11 +16,6 @@ use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/../.setup.php');
 
-class ObjectForTesting extends lmbActiveRecord
-{ 
-  protected $_db_table_name = 'cms_object_for_testing';
-}
-
 class TestObjectController extends lmbObjectController
 {
   protected $_object_class_name = ObjectForTesting::class;

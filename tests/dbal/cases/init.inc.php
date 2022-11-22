@@ -28,7 +28,7 @@ function lmb_tests_init_db_dsn()
   }
   else
   {
-    $default_value = 'sqlite://localhost/' . lmb_var_dir() . '/sqlite_tests.db';
+    $default_value = 'sqlite://localhost/' . lmb_var_dir() . '/init_tests.sqlite';
     $dsn = lmbEnv::get('LIMB_TEST_DB_DSN', $default_value);
     lmbToolkit::instance()->setDefaultDbDSN($dsn);
     echo "INFO: Using default test database '$dsn'\n";
@@ -37,7 +37,7 @@ function lmb_tests_init_db_dsn()
 
 function lmb_tests_db_dump_does_not_exist($prefix, $package)
 {
-  $type = lmbToolkit :: instance()->getDefaultDbConnection()->getType();
+  $type = lmbToolkit::instance()->getDefaultDbConnection()->getType();
   $skip = !file_exists($prefix.$type);
 
   if($skip)
@@ -48,7 +48,7 @@ function lmb_tests_db_dump_does_not_exist($prefix, $package)
 
 function lmb_tests_setup_db($prefix)
 {
-  $type = lmbToolkit :: instance()->getDefaultDbConnection()->getType();
+  $type = lmbToolkit::instance()->getDefaultDbConnection()->getType();
   if(!file_exists($prefix.$type))
     return;
 
@@ -62,7 +62,7 @@ function lmb_tests_setup_db($prefix)
 
 function lmb_tests_teardown_db()
 {
-  $conn = lmbToolkit :: instance()->getDefaultDbConnection();
+  $conn = lmbToolkit::instance()->getDefaultDbConnection();
 
   $db = new lmbSimpleDb($conn);
   $db->truncateDb();

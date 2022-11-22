@@ -50,7 +50,7 @@ class FakeMemberAndAclTools extends lmbAbstractTools
 
 lmbToolkit::merge(new FakeMemberAndAclTools());
 
-class lmbAllowedTagTestCase extends lmbBaseMacroTestCase
+class lmbAllowedTagTest extends lmbBaseMacroTestCase
 {
   protected $_cache_storage;
 

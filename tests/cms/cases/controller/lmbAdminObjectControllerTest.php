@@ -78,7 +78,7 @@ class lmbAdminObjectControllerTest extends TestCase
 
   function _cleanUp()
   {
-    lmbActiveRecord::delete('ObjectForTesting');
+    lmbActiveRecord::delete(ObjectForTesting::class);
   }
 
   function testEventsOnPerformCreateActionFirstTime()
