@@ -3,6 +3,7 @@
 require_once('tests/core/cases/init.inc.php');
 
 use limb\core\src\lmbEnv;
+use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\lmbDbDump;
 use limb\dbal\src\lmbSimpleDb;
@@ -49,8 +50,13 @@ function lmb_tests_db_dump_does_not_exist($prefix, $package)
 function lmb_tests_setup_db($prefix)
 {
   $type = lmbToolkit::instance()->getDefaultDbConnection()->getType();
-  if(!file_exists($prefix.$type))
-    return;
+  if( !file_exists($prefix.$type) )
+      return;
+
+  $dsn = lmbToolkit::instance()->getDefaultDbDSN();
+  if(!file_exists($dsn->database)) {
+      lmbFs::safeWrite($dsn->database, '');
+  }
 
   $file = realpath($prefix.$type);
 
