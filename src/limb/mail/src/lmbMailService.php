@@ -29,7 +29,7 @@ class lmbMailService
   {
     $this->template_id = $template_id;
     $this->dto = new lmbSet();
-    $this->separator = "\n\n";
+    $this->separator = "\r\n\r\n";
   }
 
   function set($name, $value)
@@ -50,8 +50,10 @@ class lmbMailService
 
     $parts = explode($this->separator, $raw_content);
 
-    if(1 === count($parts))
-      throw new lmbException('Subject must be on the top of mail template separated by "'.$this->separator.'"');
+    if(1 === count($parts)) {
+        throw new lmbException('Subject must be on the top of mail template separated by "' . $this->separator . '"',
+        ['content_parts' => $parts]);
+    }
 
     $this->subject = $parts[0];
     $this->text_content = $parts[1];
