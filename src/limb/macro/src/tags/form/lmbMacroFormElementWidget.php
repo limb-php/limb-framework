@@ -24,7 +24,7 @@ class lmbMacroFormElementWidget extends lmbMacroHtmlTagWidget
   
   function __construct($id)
   {
-    parent :: __construct($id);
+    parent::__construct($id);
     
     $this->skip_render = array_merge($this->skip_render, array('error_class', 'error_style'));
   }
@@ -96,7 +96,6 @@ class lmbMacroFormElementWidget extends lmbMacroHtmlTagWidget
       if(!$this->getBoolAttribute($attribute, false))
         $this->removeAttribute($attribute);
     }
-    parent :: renderAttributes();
+    parent::renderAttributes();
   }
 }
-

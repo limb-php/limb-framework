@@ -19,7 +19,7 @@ class lmbMacroPaginateTagTest extends lmbBaseMacroTest
 
   function setUp(): void
   {
-    parent :: setUp();
+    parent::setUp();
 
     $this->old_get = $_GET;
     $this->old_server = $_SERVER;
@@ -33,7 +33,7 @@ class lmbMacroPaginateTagTest extends lmbBaseMacroTest
     $_GET = $this->old_get;
     $_SERVER = $this->old_server;
 
-    parent :: tearDown();
+    parent::tearDown();
   }
 
   function testPaginateWithoutPager()
@@ -57,7 +57,7 @@ class lmbMacroPaginateTagTest extends lmbBaseMacroTest
     {
       $page = $this->_createMacroTemplate($template, 'tpl.html');
       $page->render();
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbMacroException $e)
     {
@@ -88,8 +88,7 @@ class lmbMacroPaginateTagTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     $page->set('test_iterator', new lmbArrayIterator(array('Ivan', 'Pavel', 'Mike', 'Bob', 'Todd')));
 
-    $expected = 'MikeBob';
-    $this->assertEquals($page->render(), $expected);
+    $this->assertEquals('MikeBob', $page->render());
   }
   
   function testPaginateWithPagerOverwritesPagerItemsPerPageByLimitAttribute()
@@ -103,8 +102,7 @@ class lmbMacroPaginateTagTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     $page->set('test_iterator', new lmbArrayIterator(array('Ivan', 'Pavel', 'Mike', 'Bob', 'Todd', 'Serega')));
 
-    $expected = 'BobToddSerega';
-    $this->assertEquals($page->render(), $expected);
+    $this->assertEquals('BobToddSerega', $page->render());
   }  
 
   function testPaginateWithPager_TotalItemsByAttribute()
@@ -118,7 +116,6 @@ class lmbMacroPaginateTagTest extends lmbBaseMacroTest
     $page = $this->_createMacroTemplate($template, 'tpl.html');
     $page->set('test_iterator', new lmbArrayIterator(array('Ivan', 'Pavel', 'Mike', 'Bob', 'Todd')));
 
-    $expected = 'IvanPavel'; // since forced to know about only 2 elements in array 
-    $this->assertEquals($page->render(), $expected);
+    $this->assertEquals('IvanPavel', $page->render());
   }
 }

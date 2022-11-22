@@ -355,10 +355,11 @@ class lmbMacroInsertTagTest extends lmbBaseMacroTest
     try
     {
       $out = $macro->render();
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbMacroException $e)
     {
+        $this->assertTrue(true);
     }
   }
   

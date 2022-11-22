@@ -21,11 +21,11 @@ class lmbMacroJsCheckboxTagTest extends lmbBaseMacroTest
 
     $html = new \SimpleXMLElement('<foo>'.$page->render().'</foo>');
 
-    $this->assertEquals($html->input[0]['type'], 'checkbox');
+    $this->assertEquals('checkbox', $html->input[0]['type']);
 
-    $this->assertEquals($html->input[1]['type'], 'hidden');
-    $this->assertEquals($html->input[1]['name'], 'my_checkbox');
-    $this->assertEquals($html->input[1]['value'], '0');
+    $this->assertEquals('hidden', $html->input[1]['type']);
+    $this->assertEquals('my_checkbox', $html->input[1]['name']);
+    $this->assertEquals('0', $html->input[1]['value']);
   }
 
   function testRenderHiddenWithCheckedCheckbox()
@@ -37,8 +37,8 @@ class lmbMacroJsCheckboxTagTest extends lmbBaseMacroTest
 
     $html = new \SimpleXMLElement('<foo>'.$page->render().'</foo>');
 
-    $this->assertEquals($html->input[1]['type'], 'hidden');
-    $this->assertEquals($html->input[1]['value'], 1);
+    $this->assertEquals('hidden', $html->input[1]['type']);
+    $this->assertEquals(1, $html->input[1]['value']);
   }
 
   function testChecked_With_CheckedValueAttribute()
@@ -50,8 +50,8 @@ class lmbMacroJsCheckboxTagTest extends lmbBaseMacroTest
 
     $html = new \SimpleXMLElement('<foo>'.$page->render().'</foo>');
 
-    $this->assertEquals($html->input[0]['checked'], 'checked');
-    $this->assertEquals($html->input[1]['value'], 1);
+    $this->assertEquals('checked', $html->input[0]['checked']);
+    $this->assertEquals(1, $html->input[1]['value']);
   }
 
   function testNotChecked_With_CheckedValueAttribute_And_ValueAttribute()
@@ -63,11 +63,11 @@ class lmbMacroJsCheckboxTagTest extends lmbBaseMacroTest
 
     $html = new \SimpleXMLElement('<foo>'.$page->render().'</foo>');
 
-    $this->assertEquals($html->input[0]['type'], 'checkbox');
-    $this->assertEquals($html->input[0]['value'], 1);
+    $this->assertEquals('checkbox', $html->input[0]['type']);
+    $this->assertEquals(1, $html->input[0]['value']);
 
-    $this->assertEquals($html->input[1]['type'], 'hidden');
-    $this->assertEquals($html->input[1]['value'], 0);
+    $this->assertEquals('hidden', $html->input[1]['type']);
+    $this->assertEquals(0, $html->input[1]['value']);
   }
 
   function testIdConformsW3C()
@@ -79,6 +79,6 @@ class lmbMacroJsCheckboxTagTest extends lmbBaseMacroTest
 
     $html = new \SimpleXMLElement('<foo>'.$page->render().'</foo>');
     $error_message = 'Id must start from letter, that must be followed by letters, digits, underscores, colons and dots';
-    $this->assertPattern('~[a-z][a-z\d_:.]~i', $html->input[1]['id'], $error_message);
+    $this->assertRegExp('~[a-z][a-z\d_:.]~i', $html->input[1]['id'], $error_message);
   }
 }

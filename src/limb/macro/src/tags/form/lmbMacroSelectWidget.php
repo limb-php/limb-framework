@@ -8,8 +8,6 @@
  */
 namespace limb\macro\src\tags\form;
 
-use limb\macro\src\tags\form\lmbMacroFormElementWidget;
-
 /**
  * @package macro
  * @version $Id$
@@ -22,7 +20,7 @@ abstract class lmbMacroSelectWidget extends lmbMacroFormElementWidget
 
   function getName()
   {
-    $name = parent :: getName();
+    $name = parent::getName();
     return str_replace('[]', '', $name) ;
   }
 
@@ -73,15 +71,13 @@ abstract class lmbMacroSelectWidget extends lmbMacroFormElementWidget
         echo " selected=\"selected\"";
     }
     echo '>';
-    if ( (!isset($option)) || ($option === null) || ($option === false) ) {
-        echo $key;
+    if ( (!isset($option)) || ($option === false) ) {
+        echo htmlspecialchars($key, ENT_QUOTES);
     } elseif (is_array($option) && isset($option['text']) ) {
-        echo $option['text'];
+        echo htmlspecialchars($option['text'], ENT_QUOTES);
     } else {
-        echo $option;
+        echo htmlspecialchars($option, ENT_QUOTES);
     }
     echo '</option>';
   }
 }
-
-

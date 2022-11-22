@@ -49,7 +49,7 @@ class lmbMacroSelectTag extends lmbMacroFormTagElement
     // always has closing tag
     $this->has_closing_tag = true;
 
-    parent :: preParse($compiler);
+    parent::preParse($compiler);
   }
 
   protected function _generateBeforeOpeningTag($code)

@@ -57,7 +57,7 @@ class lmbMacroHtmlTagWidget
     if (!isset($this->attributes[strtolower($attrib)]))
       return $default;
 
-    return self :: getBooleanValue($this->attributes[strtolower($attrib)]);
+    return self::getBooleanValue($this->attributes[strtolower($attrib)]);
   }
 
   static function getBooleanValue($value)
