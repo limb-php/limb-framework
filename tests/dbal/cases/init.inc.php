@@ -28,7 +28,7 @@ function lmb_tests_init_db_dsn()
   }
   else
   {
-    $default_value = 'sqlite://localhost/' . lmb_var_dir() . '/init_tests.sqlite';
+    $default_value = 'sqlite://localhost/' . lmb_var_dir() . '/sqlite_tests.db';
     $dsn = lmbEnv::get('LIMB_TEST_DB_DSN', $default_value);
     lmbToolkit::instance()->setDefaultDbDSN($dsn);
     echo "INFO: Using default test database '$dsn'\n";
