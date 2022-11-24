@@ -8,11 +8,12 @@
  */
 namespace tests\cms\cases\controller;
 
+use limb\net\src\lmbFakeHttpResponse;
 use PHPUnit\Framework\TestCase;
 use limb\cms\src\controller\lmbAdminObjectController;
 use limb\active_record\src\lmbActiveRecord;
 use limb\net\src\lmbHttpRequest;
-use limb\web_app\src\tests\lmbWebApplicationSandbox;
+use tests\web_app\cases\lmbWebApplicationSandbox;
 use limb\validation\src\lmbValidator;
 use limb\toolkit\src\lmbToolkit;
 
@@ -84,9 +85,10 @@ class lmbAdminObjectControllerTest extends TestCase
   function testEventsOnPerformCreateActionFirstTime()
   {
     $request = new lmbHttpRequest('/test_admin_object/create');
+    $response = new lmbFakeHttpResponse();
 
     $app = new lmbWebApplicationSandbox();
-    $response = $app->imitate($request);
+    $response = $app->imitate($request, $response);
 
     $this->assertEquals($response->getResponseString(), 'onCreate|initCreateForm|');
   }
@@ -94,9 +96,10 @@ class lmbAdminObjectControllerTest extends TestCase
   function testEventsOnPerformCreateActionWithPost()
   {
     $request = new lmbHttpRequest('/test_admin_object/create', array(), array('field' => 'test'));
+    $response = new lmbFakeHttpResponse();
 
     $app = new lmbWebApplicationSandbox();
-    $response = $app->imitate($request);
+    $response = $app->imitate($request, $response);
 
     $expected_callchain = 'onCreate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|onBeforeCreate|onBeforeSave|onAfterSave|onAfterCreate|';
     $this->assertEquals($response->getResponseString(), $expected_callchain);
@@ -105,9 +108,10 @@ class lmbAdminObjectControllerTest extends TestCase
   function testEventsOnPerformCreateActionWithPostNotValid()
   {
     $request = new lmbHttpRequest('/test_admin_object/create', array(), array('field' => ''));
+    $response = new lmbFakeHttpResponse();
 
     $app = new lmbWebApplicationSandbox();
-    $response = $app->imitate($request);
+    $response = $app->imitate($request, $response);
 
     $expected_callchain = 'onCreate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|';
     $this->assertEquals($response->getResponseString(), $expected_callchain);
@@ -120,9 +124,10 @@ class lmbAdminObjectControllerTest extends TestCase
     $object->save();
 
     $request = new lmbHttpRequest('/test_admin_object/edit/' . $object->getId());
+    $response = new lmbFakeHttpResponse();
 
     $app = new lmbWebApplicationSandbox();
-    $response = $app->imitate($request);
+    $response = $app->imitate($request, $response);
 
     $this->assertEquals($response->getResponseString(), 'onUpdate|initEditForm|');
   }
@@ -134,9 +139,10 @@ class lmbAdminObjectControllerTest extends TestCase
     $object->save();
 
     $request = new lmbHttpRequest('/test_admin_object/edit/' . $object->getId(), array(), array('id' => $object->getId(), 'field' => ''));
+    $response = new lmbFakeHttpResponse();
 
     $app = new lmbWebApplicationSandbox();
-    $response = $app->imitate($request);
+    $response = $app->imitate($request, $response);
 
     $expected_callchain = 'onUpdate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|';
     $this->assertEquals($response->getResponseString(), $expected_callchain);
@@ -149,9 +155,10 @@ class lmbAdminObjectControllerTest extends TestCase
     $object->save();
 
     $request = new lmbHttpRequest('/test_admin_object/edit/' . $object->getId(), array(), array('id' => $object->getId()));
+    $response = new lmbFakeHttpResponse();
 
     $app = new lmbWebApplicationSandbox();
-    $response = $app->imitate($request);
+    $response = $app->imitate($request, $response);
 
     $expected_callchain = 'onUpdate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|onBeforeUpdate|onBeforeSave|onAfterSave|onAfterUpdate|';
     $this->assertEquals($response->getResponseString(), $expected_callchain);
@@ -164,9 +171,10 @@ class lmbAdminObjectControllerTest extends TestCase
     $object->save();
 
     $request = new lmbHttpRequest('/test_admin_object/delete/' . $object->getId(), array(), array('id' => $object->getId()));
+    $response = new lmbFakeHttpResponse();
 
     $app = new lmbWebApplicationSandbox();
-    $response = $app->imitate($request);
+    $response = $app->imitate($request, $response);
 
     $expected_callchain = 'onBeforeDelete|onAfterDelete|';
     $this->assertEquals($response->getResponseString(), $expected_callchain);

@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\web_app\src\tests;
+namespace tests\web_app\cases;
 
 use limb\filter_chain\src\lmbFilterChain;
 use limb\net\src\lmbFakeHttpResponse;
@@ -26,17 +26,15 @@ class lmbWebApplicationSandbox extends lmbFilterChain
     $this->app = $app;
   }
 
-  function imitate($request)
+  function imitate($request, $response)
   {
     $toolkit = lmbToolkit::instance();
     $toolkit->setRequest($request);
     $toolkit->setResponse(new lmbFakeHttpResponse());
     $toolkit->setSession(new lmbFakeSession());
 
-    $this->app->process();
+    $response = $this->app->process($request, $response);
 
-    return $toolkit->getResponse();
+    return $response;
   }
 }
-
-

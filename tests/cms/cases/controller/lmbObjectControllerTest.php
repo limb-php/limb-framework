@@ -55,10 +55,9 @@ class lmbObjectControllerTest extends TestCase
     $controller = new TestObjectController();
     $controller->doDisplay();
     
-    if($this->assertEquals(1, count($controller->items))) {
-        if ($this->assertInstanceOf(ObjectForTesting::class, $controller->items[0]))
-            $this->assertEquals($controller->items[0]->getId(), $object->getId());
-    }
+    $this->assertEquals(1, count($controller->items));
+    $this->assertInstanceOf(ObjectForTesting::class, $controller->items[0]);
+    $this->assertEquals($controller->items[0]->getId(), $object->getId());
   }
   
   function testDoItem()

@@ -16,9 +16,8 @@ namespace limb\net\src;
  */
 class lmbFakeHttpResponse extends lmbHttpResponse
 {
-  protected function _sendHeader($header){}
+  protected function _sendHeader($header, $value){}
   protected function _sendCookie($cookie){}
   protected function _sendString($string){}
   protected function _sendFile($file_path){}
 }
-
