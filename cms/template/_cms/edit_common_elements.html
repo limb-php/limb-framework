@@ -1,0 +1,5 @@
+<div class='form_buttons'>
+  <input id='edit'  type="submit" value='{$"Apply"|i18n:"cms"}' class='button' runat='client'/>
+  <script>var are_you_sure_text = "{$'Are you sure'|i18n:'cms'}?";</script>
+  <input id='cancel' type="button" value='{$"Cancel"|i18n:"cms"}' class='button' onclick='if(confirm(are_you_sure_text)){window.close();}' runat='client'/>
+</div>
