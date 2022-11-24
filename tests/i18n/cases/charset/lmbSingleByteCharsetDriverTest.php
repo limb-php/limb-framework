@@ -174,5 +174,3 @@ class lmbSingleByteCharsetDriverTest extends TestCase
       $this->assertEquals($pieces[1], " bar");
   }
 }
-
-

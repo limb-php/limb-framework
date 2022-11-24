@@ -8,17 +8,19 @@
  */
 namespace tests\i18n\cases\translation;
 
+use PHPUnit\Framework\TestCase;
 use limb\i18n\src\translation\lmbQtDictionaryBackend;
 use limb\fs\src\lmbFs;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbI18NTranslationTest extends TestCase
 {
-  function setUp()
+  function setUp(): void
   {
     lmbFs :: mkdir(LIMB_VAR_DIR . '/translations');
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     lmbFs :: rm(LIMB_VAR_DIR . '/translations');
   }
@@ -127,5 +129,3 @@ EOD;
     lmbToolkit :: restore();
   }
 }
-
-

@@ -9,7 +9,7 @@
 namespace tests\i18n\cases\charset;
 
 use limb\i18n\src\charset\lmbUTF8BaseDriver;
-use PHPUnit\Framework\TestCase;
+use limb\i18n\src\charset\lmbI18nString;
 
 class lmbUTF8BaseDriverTest extends lmbMultiByteStringDriverTestBase
 {
@@ -31,13 +31,11 @@ class lmbUTF8BaseDriverTest extends lmbMultiByteStringDriverTestBase
 
   function test_utf8_to_win1251()
   {
-    $this->assertEquals(lmb_utf8_to_win1251("тесты"), chr(0xF2).chr(0xE5).chr(0xF1).chr(0xF2).chr(0xFB));
+    $this->assertEquals(lmbI18nString::utf8_to_win1251("тесты"), chr(0xF2).chr(0xE5).chr(0xF1).chr(0xF2).chr(0xFB));
   }
 
   function test_win1251_to_utf8()
   {
-    $this->assertEquals(lmb_win1251_to_utf8(chr(0xF2).chr(0xE5).chr(0xF1).chr(0xF2).chr(0xFB)), "тесты");
+    $this->assertEquals(lmbI18nString::win1251_to_utf8(chr(0xF2).chr(0xE5).chr(0xF1).chr(0xF2).chr(0xFB)), "тесты");
   }
 }
-
-

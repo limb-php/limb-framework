@@ -8,22 +8,27 @@
  */
 namespace tests\i18n\cases\macro;
 
+use tests\macro\cases\lmbBaseMacroTestCase;
+use limb\i18n\src\charset\lmbUTF8BaseDriver;
 use limb\core\src\lmbSet;
+use limb\i18n\src\charset\lmbI18nString;
 
-class lmbI18NClipMacroFilterTest extends lmbBaseMacroTest
+class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
 {
   var $prev_driver;
 
-  function setUp()
+  function setUp(): void
   {
     parent :: setUp();
-    $this->prev_driver = lmb_use_charset_driver(new lmbUTF8BaseDriver());
+
+    $this->prev_driver = lmbI18nString::useCharsetDriver(new lmbUTF8BaseDriver());
   }
 
-  function tearDown()
+  function tearDown(): void
   {
-    lmb_use_charset_driver($this->prev_driver);
-    parent :: tearDown();
+      lmbI18nString::useCharsetDriver($this->prev_driver);
+
+      parent :: tearDown();
   }
 
   function testLengthLimit()

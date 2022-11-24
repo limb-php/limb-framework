@@ -8,18 +8,19 @@
  */
 namespace tests\i18n\cases\translation;
 
+use PHPUnit\Framework\TestCase;
 use limb\i18n\src\translation\lmbI18NDictionary;
 use limb\i18n\src\translation\lmbQtDictionaryBackend;
 use limb\fs\src\lmbFs;
 
 class lmbQtDictionaryBackendTest extends TestCase
 {
-  function setUp()
+  function setUp(): void
   {
     lmbFs :: mkdir(LIMB_VAR_DIR);
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     lmbFs :: rm(LIMB_VAR_DIR);
   }
@@ -175,5 +176,3 @@ EOD;
     $this->assertFalse($translations->item(1)->hasAttribute('type'));
   }
 }
-
-

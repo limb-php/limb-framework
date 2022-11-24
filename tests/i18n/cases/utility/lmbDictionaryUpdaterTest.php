@@ -15,11 +15,8 @@ namespace tests\i18n\cases\utility;
 use PHPUnit\Framework\TestCase;
 use limb\cli\src\lmbCliResponse;
 use limb\fs\src\lmbFs;
-use limb\i18n\src\translation\lmbDictionary;
 use limb\i18n\src\translation\lmbQtDictionaryBackend;
 use limb\i18n\src\translation\lmbDictionaryUpdater;
-
-Mock :: generate('lmbCliResponse', 'MockCliResponse');
 
 class lmbDictionaryUpdaterTest extends TestCase
 {	
@@ -85,7 +82,7 @@ EOD;
 EOD;
     file_put_contents($html_file, $html);
 
-    $cli_responce = new MockCliResponse();
+    $cli_responce = $this->createMock(lmbCliResponse::class);
     $backend = new lmbQtDictionaryBackend();
     $backend->setSearchPath($translations_dir);
 
@@ -139,7 +136,7 @@ EOD;
 EOD;
     file_put_contents($html_file, $html);
 
-    $cli_responce = new MockCliResponse();
+    $cli_responce = $this->createMock(lmbCliResponse::class);
     $backend = new lmbQtDictionaryBackend();
     $backend->setSearchPath($translations_dir);
 
@@ -157,4 +154,3 @@ EOD;
     $this->assertTrue($de_dictionary->has('Dog'));
   }
 }
-

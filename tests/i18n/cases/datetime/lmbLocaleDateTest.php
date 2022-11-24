@@ -10,6 +10,9 @@ namespace tests\i18n\cases\datetime;
 
 use limb\i18n\src\datetime\lmbLocaleDateTime;
 use PHPUnit\Framework\TestCase;
+use limb\i18n\src\locale\lmbLocale;
+use limb\config\src\lmbIni;
+use limb\core\src\exception\lmbException;
 
 class lmbLocaleDateTimeTest extends TestCase
 {
@@ -17,7 +20,7 @@ class lmbLocaleDateTimeTest extends TestCase
   {
     $locale = new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/../en.ini'));
 
-    $date = lmbLocaleDateTime :: localStringToDate($locale, 'Thursday 20 January 2005', '%A %d %B %Y');
+    $date = lmbLocaleDateTime::localStringToDate($locale, 'Thursday 20 January 2005', '%A %d %B %Y');
 
     $this->assertEquals($date->getMonth(), 1);
     $this->assertEquals($date->getYear(), 2005);
@@ -28,7 +31,7 @@ class lmbLocaleDateTimeTest extends TestCase
   {
     $locale = new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/../en.ini'));
 
-    $date = lmbLocaleDateTime :: localStringToDate($locale, 'Thu 20 Jan 2005', '%a %d %b %Y');
+    $date = lmbLocaleDateTime::localStringToDate($locale, 'Thu 20 Jan 2005', '%a %d %b %Y');
 
     $this->assertEquals($date->getMonth(), 1);
     $this->assertEquals($date->getYear(), 2005);
@@ -41,24 +44,25 @@ class lmbLocaleDateTimeTest extends TestCase
 
     try
     {
-      $date = lmbLocaleDateTime :: localStringToDate($locale, '02-29-2003', '%a %d %b %Y');
+      $date = lmbLocaleDateTime::localStringToDate($locale, '02-29-2003', '%a %d %b %Y');
       $this->assertTrue(false);
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testIsLocalStringValid()
   {
     $locale = new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/../en.ini'));
 
-    $this->assertTrue(lmbLocaleDateTime :: isLocalStringValid($locale, 'Mon 01', '%a %d'));
+    $this->assertTrue(lmbLocaleDateTime::isLocalStringValid($locale, 'Mon 01', '%a %d'));
   }
 
   function testIsLocalStringNotValid()
   {
     $locale = new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/../en.ini'));
 
-    $this->assertFalse(lmbLocaleDateTime :: isLocalStringValid($locale, '02-29-2003', '%a %d %b %Y'));
+    $this->assertFalse(lmbLocaleDateTime::isLocalStringValid($locale, '02-29-2003', '%a %d %b %Y'));
   }
 }
-

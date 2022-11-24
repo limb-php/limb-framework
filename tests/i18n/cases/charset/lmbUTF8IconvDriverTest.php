@@ -9,7 +9,6 @@
 namespace tests\i18n\cases\charset;
 
 use limb\i18n\src\charset\lmbUTF8IconvDriver;
-use PHPUnit\Framework\TestCase;
 
 class lmbUTF8IconvDriverTest extends lmbMultiByteStringDriverTestBase
 {
@@ -20,5 +19,3 @@ class lmbUTF8IconvDriverTest extends lmbMultiByteStringDriverTestBase
       return new lmbUTF8IconvDriver();
   }
 }
-
-

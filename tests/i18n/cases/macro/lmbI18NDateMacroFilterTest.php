@@ -8,9 +8,12 @@
  */
 namespace tests\i18n\cases\macro;
 
-use limb\i18n\src\datetime\lmbLocaleDate;
+use tests\macro\cases\lmbBaseMacroTestCase;
+use limb\datetime\src\lmbDateTime;
+use limb\toolkit\src\lmbToolkit;
+use limb\i18n\src\locale\lmbLocale;
 
-class lmbI18NDateMacroFilterTest extends lmbBaseMacroTest
+class lmbI18NDateMacroFilterTest extends lmbBaseMacroTestCase
 {
   function testSetDateByString()
   {
@@ -128,4 +131,3 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTest
     $this->assertEquals($out, '12/20/2004');
   }
 }
-

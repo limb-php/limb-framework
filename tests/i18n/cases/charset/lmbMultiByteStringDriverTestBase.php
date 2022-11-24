@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 abstract class lmbMultiByteStringDriverTestBase extends TestCase
 {
-    function & _createDriver() {
+    function _createDriver() {
         return null;
     }
 

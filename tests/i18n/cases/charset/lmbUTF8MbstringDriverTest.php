@@ -9,7 +9,6 @@
 namespace tests\i18n\cases\charset;
 
 use limb\i18n\src\charset\lmbUTF8MbstringDriver;
-use PHPUnit\Framework\TestCase;
 
 class lmbUTF8MbstringDriverTest extends lmbMultiByteStringDriverTestBase
 {
@@ -20,5 +19,3 @@ class lmbUTF8MbstringDriverTest extends lmbMultiByteStringDriverTestBase
         return new lmbUTF8MbstringDriver();
     }
 }
-
-

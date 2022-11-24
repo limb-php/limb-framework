@@ -8,6 +8,7 @@
  */
 namespace tests\i18n\cases\locale;
 
+use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbIni;
 use limb\i18n\src\locale\lmbLocaleSpec;
 use limb\i18n\src\locale\lmbLocale;
@@ -137,4 +138,3 @@ class lmbLocaleTest extends TestCase
     $this->assertEquals($locale->getMeridiemName(22), 'pm');
   }
 }
-

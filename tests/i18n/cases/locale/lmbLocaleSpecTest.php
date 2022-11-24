@@ -8,6 +8,7 @@
  */
 namespace tests\i18n\cases\locale;
 
+use PHPUnit\Framework\TestCase;
 use limb\i18n\src\locale\lmbLocaleSpec;
 
 class lmbLocaleSpecTest extends TestCase
@@ -60,5 +61,3 @@ class lmbLocaleSpecTest extends TestCase
     $this->assertEquals($spec->getLocale(), 'eng_GB');
   }
 }
-
-

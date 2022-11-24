@@ -13,11 +13,11 @@ namespace tests\i18n\cases\translation;
  */
 return;
 
+use PHPUnit\Framework\TestCase;
 use limb\cli\src\lmbCliResponse;
 use limb\fs\src\lmbFsRecursiveIterator;
 use limb\i18n\src\translation\lmbSourceDictionaryExtractor;
 use limb\i18n\src\translation\lmbFsDictionaryExtractor;
-use limb\i18n\src\translation\lmbDictionary;
 
 Mock :: generate('lmbSourceDictionaryExtractor', 'MockBaseDictionaryParser');
 Mock :: generate('lmbFsRecursiveIterator', 'MockFsRecursiveIterator');
@@ -64,4 +64,3 @@ class lmbFsDictionaryExtractorTest extends TestCase
     $loader->traverse($it, $dictionaries, $response);
   }
 }
-
