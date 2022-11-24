@@ -181,17 +181,12 @@ class lmbHttpCacheTest extends TestCase
 
 
     $this->response
-        ->expects($this->at(0))
         ->method('addHeader')
-        ->with('HTTP/1.1 412 Precondition Failed');
-    $this->response
-        ->expects($this->at(1))
-        ->method('addHeader')
-        ->with('Cache-Control: protected, max-age=0, must-revalidate');
-    $this->response
-        ->expects($this->at(2))
-        ->method('addHeader')
-        ->with('Content-Type: text/plain');
+        ->withConsecutive(
+            ['HTTP/1.1 412 Precondition Failed'],
+            ['Cache-Control: protected, max-age=0, must-revalidate'],
+            ['Content-Type: text/plain']
+        );
 
     /*$this->response
         ->expects($this->once())
@@ -212,29 +207,15 @@ class lmbHttpCacheTest extends TestCase
         ->method('addHeader');
 
     $this->response
-        ->expects($this->at(0))
         ->method('addHeader')
-        ->with('HTTP/1.0 304 Not Modified');
-    $this->response
-        ->expects($this->at(1))
-        ->method('addHeader')
-        ->with('Etag: etag');
-    $this->response
-        ->expects($this->at(2))
-        ->method('addHeader')
-        ->with('Pragma: ');
-    $this->response
-        ->expects($this->at(3))
-        ->method('addHeader')
-        ->with('Cache-Control: ');
-    $this->response
-        ->expects($this->at(4))
-        ->method('addHeader')
-        ->with('Last-Modified: ');
-    $this->response
-        ->expects($this->at(5))
-        ->method('addHeader')
-        ->with('Expires: ');
+        ->withConsecutive(
+            ['HTTP/1.0 304 Not Modified'],
+            ['Etag: etag'],
+            ['Pragma: '],
+            ['Cache-Control: '],
+            ['Last-Modified: '],
+            ['Expires: ']
+        );
 
     $this->assertTrue($this->cache->checkAndWrite($this->response));
   }
@@ -256,25 +237,14 @@ class lmbHttpCacheTest extends TestCase
         ->method('addHeader');
 
     $this->response
-        ->expects($this->at(0))
         ->method('addHeader')
-        ->with('Cache-Control: protected, must-revalidate, max-age=0');
-    $this->response
-        ->expects($this->at(1))
-        ->method('addHeader')
-        ->with('Last-Modified: ' . $this->cache->formatLastModifiedTime());
-    $this->response
-        ->expects($this->at(2))
-        ->method('addHeader')
-        ->with('Etag: ' . $this->cache->getEtag());
-    $this->response
-        ->expects($this->at(3))
-        ->method('addHeader')
-        ->with('Pragma: ');
-    $this->response
-        ->expects($this->at(4))
-        ->method('addHeader')
-        ->with('Expires: ');
+        ->withConsecutive(
+            ['Cache-Control: protected, must-revalidate, max-age=0'],
+            ['Last-Modified: ' . $this->cache->formatLastModifiedTime()],
+            ['Etag: ' . $this->cache->getEtag()],
+            ['Pragma: '],
+            ['Expires: ']
+        );
 
     $this->assertTrue($this->cache->checkAndWrite($this->response));
   }
@@ -286,28 +256,19 @@ class lmbHttpCacheTest extends TestCase
     $this->cache->setLastModifiedTime($time = time());
     $this->cache->setCacheTime(100);
 
-    //$this->response->expectCallCount('addHeader', 5);
+    $this->response
+      ->expects($this->exactly(5))
+      ->method('addHeader');
 
     $this->response
-        ->expects($this->at(0))
         ->method('addHeader')
-        ->with('Cache-Control: protected, max-age=100');
-    $this->response
-        ->expects($this->at(1))
-        ->method('addHeader')
-        ->with('Last-Modified: ' . $this->cache->formatLastModifiedTime());
-    $this->response
-        ->expects($this->at(2))
-        ->method('addHeader')
-        ->with('Etag: ' . $this->cache->getEtag());
-    $this->response
-        ->expects($this->at(3))
-        ->method('addHeader')
-        ->with('Pragma: ');
-    $this->response
-        ->expects($this->at(4))
-        ->method('addHeader')
-        ->with('Expires: ');
+        ->withConsecutive(
+            ['Cache-Control: protected, max-age=100'],
+            ['Last-Modified: ' . $this->cache->formatLastModifiedTime()],
+            ['Etag: ' . $this->cache->getEtag()],
+            ['Pragma: '],
+            ['Expires: ']
+        );
 
     $this->assertTrue($this->cache->checkAndWrite($this->response));
   }
@@ -325,25 +286,14 @@ class lmbHttpCacheTest extends TestCase
         ->method('addHeader');
 
     $this->response
-        ->expects($this->at(0))
         ->method('addHeader')
-        ->with('Cache-Control: public, max-age=100');
-    $this->response
-        ->expects($this->at(1))
-        ->method('addHeader')
-        ->with('Last-Modified: ' . $this->cache->formatLastModifiedTime());
-    $this->response
-        ->expects($this->at(2))
-        ->method('addHeader')
-        ->with('Etag: ' . $this->cache->getEtag());
-    $this->response
-        ->expects($this->at(3))
-        ->method('addHeader')
-        ->with('Pragma: ');
-    $this->response
-        ->expects($this->at(4))
-        ->method('addHeader')
-        ->with('Expires: ');
+        ->withConsecutive(
+            ['Cache-Control: public, max-age=100'],
+            ['Last-Modified: ' . $this->cache->formatLastModifiedTime()],
+            ['Etag: ' . $this->cache->getEtag()],
+            ['Pragma: '],
+            ['Expires: ']
+        );
 
     $this->assertTrue($this->cache->checkAndWrite($this->response));
   }
