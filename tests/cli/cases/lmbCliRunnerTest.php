@@ -180,6 +180,8 @@ array(3) {
 
 EOD;
 
+    $expected = str_replace("\r", "", $expected);
+
     $this->assertEquals($expected, $str);
   }
 
@@ -189,13 +191,17 @@ EOD;
 
     $php = <<<EOD
 <?php
-class $class extends lmbCliBaseCmd
+class $class extends limb\cli\src\lmbCliBaseCmd
 {
   $body
 }
 ?>
 EOD;
-    file_put_contents(lmbEnv::get('LIMB_VAR_DIR') . '/tmp_cmd/' . $class . '.php', $php);
+    $class_path = lmbEnv::get('LIMB_VAR_DIR') . '/tmp_cmd/' . $class . '.php';
+
+    file_put_contents($class_path, $php);
+
+    include($class_path);
   }
 
   function _randomName()

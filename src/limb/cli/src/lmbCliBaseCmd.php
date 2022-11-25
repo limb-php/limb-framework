@@ -8,8 +8,6 @@
  */
 namespace limb\cli\src;
 
-use limb\cli\src\lmbCliInput;
-
 /**
  * abstract class lmbCliBaseCmd.
  *
@@ -44,4 +42,3 @@ abstract class lmbCliBaseCmd
     exit(1);
   }
 }
-
