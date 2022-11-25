@@ -1,10 +1,11 @@
 <?php
 namespace limb\log\src;
 
-use FirePHP;
 use limb\net\src\lmbUri;
 
-class lmbLogFirePHPWriter extends FirePHP implements lmbLogWriterInterface
+require dirname(__FILE__) . '/../lib/FirePHPCore/FirePHP.php';
+
+class lmbLogFirePHPWriter extends \FirePHP implements lmbLogWriterInterface
 {
   protected $check_client_extension;
 

@@ -51,7 +51,7 @@ class lmbLogToolsTest extends TestCase
     $this->toolkit->setConf('common', $logs_conf);
 
     $writer = current($this->toolkit->getLog()->getWriters());
-    $this->assertInstanceOf($writer, lmbLogFirePHPWriter::class);
+    $this->assertInstanceOf(lmbLogFirePHPWriter::class, $writer);
     $this->assertFalse($writer->isClientExtensionCheckEnabled());
   }
 }
