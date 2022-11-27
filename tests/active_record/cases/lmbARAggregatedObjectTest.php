@@ -6,12 +6,11 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\active_record\cases;
 
 use limb\core\src\lmbObject;
 use limb\datetime\src\lmbDateTime;
 use limb\active_record\src\lmbActiveRecord;
-
-include 'lmbARBaseTestCase.php';
 
 // Aggregate must implement lmbSet interface.
 class NameForAggregateTest extends lmbObject

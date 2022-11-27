@@ -1,4 +1,6 @@
 <?php
+namespace tests\active_record\cases;
+
 class TestOneTableObject extends lmbActiveRecord
 {
   protected $_db_table_name = 'test_one_table_object';

@@ -6,8 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-require_once('limb/validation/src/lmbErrorList.class.php');
-require_once(dirname(__FILE__) . '/lmbActiveRecordTest.class.php');//need TestOneTableObjectFailing
+namespace tests\active_record\cases;
+
+use limb\validation\src\lmbErrorList;
 
 Mock :: generate('lmbValidator', 'MockValidator');
 Mock :: generate('lmbErrorList', 'MockErrorList');
