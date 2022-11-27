@@ -10,8 +10,8 @@ namespace limb\web_app\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
-use limb\core\src\exception\lmbException;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
+use limb\web_app\src\controller\NotFoundController;
 
 /**
  * class lmbRequestDispatchingFilter.
@@ -25,7 +25,7 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
   protected $dispatcher;
   protected $default_controller_name;
 
-  function __construct($dispatcher, $default_controller_name = 'limb\web_app\src\controller\NotFoundController')
+  function __construct($dispatcher, $default_controller_name = NotFoundController::class)
   {
     $this->toolkit = lmbToolkit::instance();
     $this->dispatcher = $dispatcher;
