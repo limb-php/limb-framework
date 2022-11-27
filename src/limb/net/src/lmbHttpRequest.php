@@ -10,6 +10,9 @@ namespace limb\net\src;
 
 use limb\core\src\lmbSet;
 use limb\core\src\lmbArrayHelper;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * class lmbHttpRequest.
@@ -29,14 +32,22 @@ class lmbHttpRequest extends lmbSet
   protected $__pretend_post = false;
   protected $__reserved_attrs = array('__uri', '__headers', '__request', '__get', '__post', '__cookies', '__files', '__pretend_post', '__reserved_attrs');
 
+  /**
+   * @var string
+   */
+  protected $version;
+
   function __construct($uri_string = null, $get = null, $post = null, $cookies = null, $files = null, $headers = null)
   {
     parent::__construct();
+
     $this->_initRequestProperties($uri_string, $get, $post, $cookies, $files, $headers);
   }
 
   protected function _initRequestProperties($uri_string, $get, $post, $cookies, $files, $headers)
   {
+    $this->version = '1.0';
+
     $this->__uri = !is_null($uri_string) ? new lmbUri($uri_string) : new lmbUri($this->getRawUriString());
 
     $this->__get = !is_null($get) ? $get : $_GET;
@@ -146,8 +157,7 @@ class lmbHttpRequest extends lmbSet
     if($this->__pretend_post)
       return true;
 
-    return sizeof($this->__post) > 0 ||
-      (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST');
+    return sizeof($this->__post) > 0 || $this->getMethod() == 'POST';
   }
 
     public function getHeaders()
@@ -165,12 +175,12 @@ class lmbHttpRequest extends lmbSet
     if ($this->has('DNT'))
       return true;
 
-    return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')? true : false;
+    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
   }
 
   function isPjax()
   {
-    return (isset($_SERVER['HTTP_X_PJAX']))? true : false;
+    return isset($_SERVER['HTTP_X_PJAX']);
   }
 
   function pretendPost($flag = true)
@@ -185,7 +195,7 @@ class lmbHttpRequest extends lmbSet
 
   function getSafe($var,$default = null)
   {
-    return htmlspecialchars(parent::get($var,$default));
+    return htmlspecialchars($this->get($var, $default));
   }
 
   function getFiltered($key, $filter, $default = null)
@@ -229,14 +239,46 @@ class lmbHttpRequest extends lmbSet
     return $default;
   }
 
-  function get($key, $default = null)
-  {
-    $_key = "__$key";
-    if(in_array($_key, $this->__reserved_attrs))
-      return $this->$_key;
+    function get($key, $default = null)
+    {
+        $_key = "__$key";
+        if(in_array($_key, $this->__reserved_attrs)) // fix. $this->get('request') return __request
+            return $this->$_key;
 
-    return parent::get($key, $default);
-  }
+        if(in_array($key, $this->__reserved_attrs))
+            return null;
+
+        return $this->$key ?? $default;
+
+        //return parent::get($key, $default);
+    }
+
+    function set($key, $value)
+    {
+        $this->$key = $value;
+    }
+
+    function merge($data = [])
+    {
+        foreach($data as $key => $value)
+            $this->$key = $value;
+    }
+
+    function has($key)
+    {
+        return isset($this->$key);
+    }
+
+    function export()
+    {
+        $exported = array();
+
+        $object_vars = get_object_vars($this);
+        foreach($object_vars as $name => $var)
+            $exported[$name] = $var;
+
+        return $exported;
+    }
 
   function getBoolean($name, $default = false)
   {
@@ -248,6 +290,15 @@ class lmbHttpRequest extends lmbSet
     return $this->__uri;
   }
 
+    public function withUri(UriInterface $uri, $preserveHost = false)
+    {
+        $clone = clone($this);
+        $clone->__headers['host'] = $uri->getHost();
+        $clone->__uri = $uri;
+
+        return $clone;
+    }
+
   function getUriPath()
   {
     return $this->__uri->getPath();
@@ -256,17 +307,19 @@ class lmbHttpRequest extends lmbSet
   function getRawUriString()
   {
     $host = 'localhost';
+
     if(!empty($_SERVER['HTTP_HOST']))
     {
       $items = explode(':', $_SERVER['HTTP_HOST']);
       $host = $items[0];
-      $port = isset($items[1]) ? $items[1] : null;
+      $port = $items[1] ?? null;
     }
+
     elseif(!empty($_SERVER['SERVER_NAME']))
     {
       $items = explode(':', $_SERVER['SERVER_NAME']);
       $host = $items[0];
-      $port = isset($items[1]) ? $items[1] : null;
+      $port = $items[1] ?? null;
     }
 
     if(isset($_SERVER['HTTPS']) && !strcasecmp($_SERVER['HTTPS'], 'on'))
@@ -275,7 +328,7 @@ class lmbHttpRequest extends lmbSet
       $protocol = 'http';
 
     if(!isset($port) || $port != intval($port))
-      $port = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : 80;
+      $port = $_SERVER['SERVER_PORT'] ?? 80;
 
     if($protocol == 'http' && $port == 80)
       $port = null;
@@ -295,7 +348,7 @@ class lmbHttpRequest extends lmbSet
     return $server . $url;
   }
 
-  function toString()
+  function toString(): string
   {
     $flat = array();
     $query = '';
@@ -318,6 +371,75 @@ class lmbHttpRequest extends lmbSet
   {
     return $this->toString();
   }
+
+    public function getProtocolVersion()
+    {
+        return $this->version;
+    }
+
+    public function withProtocolVersion($version)
+    {
+        if ($this->version === $version) {
+            return $this;
+        }
+
+        $new = clone($this);
+        $new->version = $version;
+        return $new;
+    }
+
+    public function hasHeader($name)
+    {
+        // TODO: Implement hasHeader() method.
+    }
+
+    public function getHeaderLine($name)
+    {
+        // TODO: Implement getHeaderLine() method.
+    }
+
+    public function withHeader($name, $value)
+    {
+        // TODO: Implement withHeader() method.
+    }
+
+    public function withAddedHeader($name, $value)
+    {
+        // TODO: Implement withAddedHeader() method.
+    }
+
+    public function withoutHeader($name)
+    {
+        // TODO: Implement withoutHeader() method.
+    }
+
+    public function getBody()
+    {
+        return stream_get_contents(STDIN);
+    }
+
+    public function withBody(StreamInterface $body)
+    {
+        // TODO: Implement withBody() method.
+    }
+
+    public function getRequestTarget()
+    {
+        // TODO: Implement getRequestTarget() method.
+    }
+
+    public function withRequestTarget($requestTarget)
+    {
+        // TODO: Implement withRequestTarget() method.
+    }
+
+    public function getMethod()
+    {
+        return $_SERVER['REQUEST_METHOD'] ?? 'GET';
+    }
+
+    public function withMethod($method)
+    {
+        // TODO: Implement withMethod() method.
+    }
 }
-
-
