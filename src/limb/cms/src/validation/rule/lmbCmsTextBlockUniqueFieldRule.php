@@ -11,7 +11,7 @@ class lmbCmsTextBlockUniqueFieldRule extends lmbSingleFieldRule
 
   function __construct($field_name, $text_block)
   {
-    $this->text_block = is_object($text_block) ?: new $text_block();
+    $this->text_block = is_object($text_block) ? $text_block : new $text_block();
 
     parent::__construct($field_name);
   }
@@ -23,8 +23,6 @@ class lmbCmsTextBlockUniqueFieldRule extends lmbSingleFieldRule
       $criteria->addAnd('id <> '. $this->text_block->getId());
 
     if(lmbCmsTextBlock::findFirst($criteria))
-      $this->error('Text block with field {Field} elready exist');
+      $this->error('Text block with field {Field} already exist');
   }
 }
-
-

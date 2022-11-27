@@ -13,10 +13,9 @@ class lmbCmsUserUniqueFieldRule extends lmbSingleFieldRule
 
   function __construct($field, $user, $custom_error = '')
   {
-      $this->user = is_object($user) ?: new $user();
-      $this->custom_error = $custom_error;
+      $this->user = is_object($user) ? $user : new $user();
 
-      parent::__construct($field);
+      parent::__construct($field, $custom_error);
   }
 
   function check($value)

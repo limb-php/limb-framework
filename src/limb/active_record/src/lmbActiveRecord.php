@@ -2117,11 +2117,12 @@ class lmbActiveRecord extends lmbObject
     {
       if($source instanceof lmbActiveRecord)
       {
-        $this->importRaw($source->exportRaw());
-        $this->setIsNew($source->isNew());
+          $this->importRaw($source->exportRaw());
+          $this->setIsNew($source->isNew());
       }
-      else
-        $this->import($source->export());
+      else {
+          $this->import($source->export());
+      }
       return;
     }
 
