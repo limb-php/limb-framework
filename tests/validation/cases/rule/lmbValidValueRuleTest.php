@@ -34,11 +34,14 @@ class lmbValidValueRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('testfield', 0);
 
-    $this->error_list->expectOnce('addError', array(
-      lmb_i18n('{Field} value is wrong', 'validation'),
-      array('Field' => 'testfield'),
-      array()
-    ));
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(
+            lmb_i18n('{Field} value is wrong', 'validation'),
+            array('Field' => 'testfield'),
+            array()
+        );
 
     $rule->validate($data, $this->error_list);
   }

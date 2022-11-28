@@ -33,7 +33,7 @@ class lmbRequiredObjectRuleTest extends lmbValidationRuleTestCase
 
   function testValid_ForChildClass()
   {
-    $rule = new lmbRequiredObjectRule('testfield', 'TestObjectForThisRule');
+    $rule = new lmbRequiredObjectRule('testfield', TestObjectForThisRule::class);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', new TestChildObjectForThisRule());
@@ -77,7 +77,7 @@ class lmbRequiredObjectRuleTest extends lmbValidationRuleTestCase
 
   function testNotValidWithClassRestriction()
   {
-    $rule = new lmbRequiredObjectRule('testfield', 'Foo');
+    $rule = new lmbRequiredObjectRule('testfield', Foo::class);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', new TestObjectForThisRule());
@@ -93,7 +93,7 @@ class lmbRequiredObjectRuleTest extends lmbValidationRuleTestCase
 
   function testNotValidWithClassRestrictionWithCustomError()
   {
-    $rule = new lmbRequiredObjectRule('testfield', 'Foo', 'Custom_Error');
+    $rule = new lmbRequiredObjectRule('testfield', Foo::class, 'Custom_Error');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', new TestObjectForThisRule());

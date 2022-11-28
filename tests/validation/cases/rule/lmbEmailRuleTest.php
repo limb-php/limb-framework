@@ -41,7 +41,8 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
         ->method('addError')
         ->with(lmb_i18n('Invalid {Field}.', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array());
+                                        array()
+        );
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -58,7 +59,8 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
         ->method('addError')
         ->with(lmb_i18n('Invalid {Field}.', 'validation'),
                                         array('Field'=>'testfield'),
-                                        array());
+                                        array()
+        );
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -73,9 +75,10 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
     $this->error_list
         ->expects($this->once())
         ->method('addError')
-        ->with(lmb_i18n('{Field} must contain only letters, numbers, hyphens, and periods.', 'validation'),
-                                        array('Field'=>'testfield'),
-                                        array());
+        ->with(lmb_i18n('Invalid {Field}.', 'validation'),
+                                        array('Field' => 'testfield'),
+                                        array()
+        );
 
     $rule->validate($dataspace, $this->error_list);
   }
@@ -124,7 +127,7 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
 
   function testEmailRuleDoubleErrorWithCustomMessage()
   {
-    $rule = new lmbEmailRule('testfield',$error="my custom error");
+    $rule = new lmbEmailRule('testfield', $error="my custom error");
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'not@wrong.mail');
@@ -132,9 +135,11 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
     $this->error_list
         ->expects($this->once())
         ->method('addError')
-        ->with($error,
-                                  array('Field'=>'testfield'),
-                                  array());
+        ->with(
+            $error,
+            array('Field' => 'testfield'),
+            array()
+        );
 
     $rule->validate($dataspace, $this->error_list);
   }

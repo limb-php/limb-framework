@@ -36,10 +36,12 @@ class lmbValidatorBuilderTest extends TestCase
 
     $this->validator
         ->method("addRule")
-        ->with(new lmbHandle(lmbRequiredRule::class, array('login')))
-        ->with(new lmbHandle(lmbMatchRule::class, array('login', 'bbb')))
-        ->with(new lmbHandle(lmbSizeRangeRule::class, array('login', 5, 8)))
-        ->with(new lmbHandle(lmbIdentifierRule::class, array('login')));
+        ->withConsecutive(
+            [new lmbHandle(lmbRequiredRule::class, array('login'))],
+            [new lmbHandle(lmbMatchRule::class, array('login', 'bbb'))],
+            [new lmbHandle(lmbSizeRangeRule::class, array('login', 5, 8))],
+            [new lmbHandle(lmbIdentifierRule::class, array('login'))]
+        );
 
     lmbValidatorBuilder::addRules($rules, $this->validator);
   }
@@ -68,11 +70,13 @@ class lmbValidatorBuilderTest extends TestCase
 
     $this->validator
         ->method("addRule")
-        ->with(new lmbHandle(lmbRequiredRule::class, array('login')))
-        ->with(new lmbHandle(lmbSizeRangeRule::class, array('login', 5, 8)))
-        ->with(new lmbHandle(lmbEmailRule::class, array('login', $errors['email'])))
-        ->with(new lmbHandle(lmbPatternRule::class, array('login', '/\d+/', $errors['pattern'])))
-        ->with(new lmbHandle(lmbSizeRangeRule::class, array('login', 10, 15, $errors['size_range'])));
+        ->withConsecutive(
+            [new lmbHandle(lmbRequiredRule::class, array('login'))],
+            [new lmbHandle(lmbSizeRangeRule::class, array('login', 5, 8))],
+            [new lmbHandle(lmbEmailRule::class, array('login', $errors['email']))],
+            [new lmbHandle(lmbPatternRule::class, array('login', '/\d+/', $errors['pattern']))],
+            [new lmbHandle(lmbSizeRangeRule::class, array('login', 10, 15, $errors['size_range']))]
+        );
 
     lmbValidatorBuilder::addRules($rules, $this->validator);
   }

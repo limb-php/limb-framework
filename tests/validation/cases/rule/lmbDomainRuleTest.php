@@ -137,31 +137,34 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '.n..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.');
 
-    $this->error_list->expectCallCount('addError', 4);
+    $this->error_list
+        ->expects($this->exactly(4))
+        ->method('addError');
 
-    $this->error_list->expectArgumentsAt(0,
-                                        'addError',
-                                         array(lmb_i18n('{Field} cannot start with a period.', 'validation'),
-                                               array('Field'=>'testfield'),
-                                               array()));
-
-    $this->error_list->expectArgumentsAt(1,
-                                        'addError',
-                                         array(lmb_i18n('{Field} cannot end with a period.', 'validation'),
-                                               array('Field'=>'testfield'),
-                                               array()));
-
-    $this->error_list->expectArgumentsAt(2,
-                                        'addError',
-                                         array(lmb_i18n('{Field} may not contain double periods (..).', 'validation'),
-                                               array('Field'=>'testfield'),
-                                               array()));
-
-    $this->error_list->expectArgumentsAt(3,
-                                        'addError',
-                                        array(lmb_i18n('{Field} segment {segment} is too large (it must be 63 characters or less).', 'validation'),
-                                              array('Field'=>'testfield'),
-                                              array('segment' => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')));
+    $this->error_list
+        ->method('addError')
+        ->withConsecutive(
+            [
+                lmb_i18n('{Field} cannot start with a period.', 'validation'),
+                array('Field'=>'testfield'),
+                array()
+            ],
+            [
+                lmb_i18n('{Field} cannot end with a period.', 'validation'),
+                array('Field'=>'testfield'),
+                array()
+            ],
+            [
+                lmb_i18n('{Field} may not contain double periods (..).', 'validation'),
+                array('Field'=>'testfield'),
+                array()
+            ],
+            [
+                lmb_i18n('{Field} segment {segment} is too large (it must be 63 characters or less).', 'validation'),
+                array('Field'=>'testfield'),
+                array('segment' => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+            ]
+        );
 
     $rule->validate($dataspace, $this->error_list);
   }

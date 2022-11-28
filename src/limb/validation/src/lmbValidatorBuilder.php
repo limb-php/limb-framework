@@ -153,9 +153,9 @@ class lmbValidatorBuilder
     {      
       $full_path = $dir . '/' . $rule_file_name . '.php';
             
-      if(lmbFs::glob($full_path))
+      if($path_to_file = lmbFs::glob($full_path))
       {
-        return $full_path;
+        return $path_to_file[0];
       }        
     }
     
