@@ -107,7 +107,7 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
    *
    * @return mixed
    */
-  function process($request, $response)
+  function process($request = null, $response = null)
   {
     $this->counter = -1;
     return $this->next($request, $response);

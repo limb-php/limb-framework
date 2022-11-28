@@ -8,6 +8,8 @@
  */
 namespace limb\filter_chain\tests\cases;
 
+use limb\net\src\lmbHttpRequest;
+use limb\net\src\lmbHttpResponse;
 use PHPUnit\Framework\TestCase;
 use limb\filter_chain\src\lmbFilterChain;
 
@@ -16,51 +18,61 @@ class InterceptingFilterStub
   var $captured = array();
   var $run = false;
 
-  function run($fc)
+  function run($fc, $request, $response)
   {
     $this->run = true;
     $this->captured['filter_chain'] = $fc;
 
-    $fc->next();
+    return $fc->next($request, $response);
   }
 }
 
 class OutputFilter1
 {
-  function run($fc)
+  function run($fc, $request, $response)
   {
     echo '<filter1>';
-    $fc->next();
+    $response = $fc->next($request, $response);
     echo '</filter1>';
+
+    return $response;
   }
 }
 
 class OutputFilter2
 {
-  function run($fc)
+  function run($fc, $request, $response)
   {
     echo '<filter2>';
-    $fc->next();
+    $response = $fc->next($request, $response);
     echo '</filter2>';
+
+    return $response;
   }
 }
 
 class OutputFilter3
 {
-  function run($fc)
+  function run($fc, $request, $response)
   {
     echo '<filter3>';
-    $fc->next();
+    $response = $fc->next($request, $response);
     echo '</filter3>';
+
+    return $response;
   }
 }
 
 class lmbFilterChainTest extends TestCase
 {
   var $fc;
+
   function setUp(): void
   {
-    $this->fc = new lmbFilterChain();
+      $this->request = new lmbHttpRequest();
+      $this->response = new lmbHttpResponse();
+
+      $this->fc = new lmbFilterChain();
   }
 
   function testProcess()
@@ -71,7 +83,7 @@ class lmbFilterChainTest extends TestCase
 
     $this->assertFalse($mock_filter->run);
 
-    $this->fc->process();
+    $this->fc->process($this->request, $this->response);
 
     $this->assertTrue($mock_filter->run);
 
@@ -88,7 +100,7 @@ class lmbFilterChainTest extends TestCase
 
     ob_start();
 
-    $this->fc->process();
+    $this->fc->process($this->request, $this->response);
 
     $str = ob_get_contents();
     ob_end_clean();
