@@ -60,7 +60,6 @@ class lmbMailer implements lmbBaseMailerInterface
   protected function _createMailer()
   {
     $mailer = new PHPMailer(true);
-    $mailer->set('LE', "\r\n");
 
     if($this->use_phpmail)
       return $mailer;
