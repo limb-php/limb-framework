@@ -22,10 +22,18 @@ class lmbLogFirePHPWriterTest extends TestCase
   function testWrite()
   {
     lmbToolkit::merge(new lmbNetTools());
-    lmbToolkit::instance()->setResponse(new lmbHttpResponseForLogTest());
+
+    //lmbToolkit::instance()->setResponse(new lmbHttpResponseForLogTest());
+    ob_start();
+
     $writer = new lmbLogFirePHPWriter(new lmbUri('firePHP://localhost/?check_extension=0'));
     $writer->write(new lmbLogEntry(LOG_ERR, 'foo'));
-    $headers = lmbToolkit::instance()->getResponse()->getHeaders();
+
+    $headers = headers_list();
+
+    ob_end_clean();
+    //$headers = lmbToolkit::instance()->getResponse()->getHeaders();
+
     $this->assertMatchesRegularExpression('/Error/', $headers[4]);
     $this->assertMatchesRegularExpression('/foo/', $headers[4]);
   }

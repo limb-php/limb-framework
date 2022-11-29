@@ -11,7 +11,7 @@ class lmbLogFirePHPWriter extends \FirePHP implements lmbLogWriterInterface
 
   function __construct(lmbUri $dsn)
   {
-    $this->check_client_extension = $dsn->getQueryItem('check_extension', 1);
+    $this->check_client_extension = (bool)$dsn->getQueryItem('check_extension', true);
   }
 
   function write(lmbLogEntry $entry)

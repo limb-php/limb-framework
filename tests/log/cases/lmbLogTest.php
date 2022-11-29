@@ -43,7 +43,7 @@ class lmbLogTest extends TestCase
 
   function testLog()
   {
-    $this->log->log('imessage', LOG_INFO, 'iparam', 'ibacktrace');
+    $this->log->log(LOG_INFO, 'imessage', 'iparam', 'ibacktrace');
     $this->assertTrue($this->_getLastLogEntry()->isLevel(LOG_INFO));
     $this->assertEquals('imessage', $this->_getLastLogEntry()->getMessage());
     $this->assertEquals('iparam', $this->_getLastLogEntry()->getParams());
@@ -63,18 +63,20 @@ class lmbLogTest extends TestCase
   function testSetErrorLevel()
   {
     $this->log->setErrorLevel(LOG_WARNING);
-    $this->log->log('info', LOG_INFO);
-    $this->log->log('notice', LOG_NOTICE);
+    $this->log->log(LOG_INFO, 'info');
+    $this->log->log(LOG_NOTICE, 'notice');
     $this->assertNull($this->_getLastLogEntry());
   }
 
   function testSetBacktraceDepth()
   {
     $this->log->setBacktraceDepth(LOG_NOTICE, $depth = 0);
-    $this->log->log('info', LOG_INFO);
-    $this->assertNotEquals($depth, count($this->_getLastLogEntry()->getBacktrace()->get()));
-    $this->log->log('notice', LOG_NOTICE);
-    $this->assertEquals($depth, count($this->_getLastLogEntry()->getBacktrace()->get()));
+
+    $this->log->log(LOG_INFO, 'info');
+    $this->assertCount($depth, $this->_getLastLogEntry()->getBacktrace()->get());
+
+    $this->log->log(LOG_NOTICE, 'notice');
+    $this->assertCount($depth, $this->_getLastLogEntry()->getBacktrace()->get());
   }
 
   /**
