@@ -46,33 +46,37 @@ class lmbLogTools extends lmbAbstractTools
     return $conf['logs'];
   }
 
-  protected function _createLogWriter($dsn)
+  public function createLogWriter($dsn)
   {
     if(!is_object($dsn))
       $dsn = new lmbUri($dsn);
 
     $writer_name = 'lmbLog'.ucfirst($dsn->getProtocol()).'Writer';
     $writerClassName = "limb\\log\\src\\".$writer_name;
-    try
-    {
-      $writer = new $writerClassName($dsn);
-      return $writer;
+
+    try {
+        $writer = new $writerClassName($dsn);
+    } catch (\Exception $e) {
+        throw new lmbFileNotFoundException($writerClassName, 'Log writer not found');
     }
-    catch(lmbFileNotFoundException $e)
-    {
-      throw new lmbFileNotFoundException($writerClassName, 'Log writer not found');
-    }
+
+    return $writer;
   }
 
-  function getLog()
+  public function getLog()
   {
     if($this->log)
       return $this->log;
 
     $this->log = new lmbLog();
     foreach($this->getLogDSNes() as $dsn)
-      $this->log->registerWriter($this->_createLogWriter($dsn));
+      $this->log->registerWriter($this->createLogWriter($dsn));
 
     return $this->log;
+  }
+
+  public function setLog($log)
+  {
+      $this->log = $log;
   }
 }
