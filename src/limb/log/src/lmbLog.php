@@ -20,99 +20,143 @@ use limb\core\src\exception\lmbException;
  */
 class lmbLog
 {
-  protected $logs = array();
-  protected $log_writers = array();
-  protected $level = PHP_INT_MAX;
+    protected $logs = array();
+    protected $log_writers = array();
+    protected $level = PHP_INT_MAX;
 
-  protected $backtrace_depth = array(
-    LOG_NOTICE  => 1,
-    LOG_WARNING => 1,
-    LOG_INFO    => 3,
-    LOG_ERR     => 5
-  );
+    protected $backtrace_depth = array(
+        LOG_EMERG  => 5,
+        LOG_ALERT  => 3,
+        LOG_CRIT  => 5,
+        LOG_ERR     => 5,
+        LOG_WARNING => 1,
+        LOG_NOTICE  => 1,
+        LOG_INFO    => 3,
+        LOG_DEBUG  => 5,
+    );
 
-  function registerWriter($writer)
-  {
-    $this->log_writers[] = $writer;
-  }
+    function registerWriter($writer)
+    {
+        $this->log_writers[] = $writer;
+    }
 
-  function getWriters()
-  {
-    return $this->log_writers;
-  }
+    function getWriters()
+    {
+        return $this->log_writers;
+    }
 
-  function resetWriters()
-  {
-    $this->log_writers = array();
-  }
+    function resetWriters()
+    {
+        $this->log_writers = array();
+    }
 
-  function isLogEnabled()
-  {
-    return (bool) lmbEnv::get('LIMB_LOG_ENABLE', true);
-  }
+    function isLogEnabled()
+    {
+        return (bool) lmbEnv::get('LIMB_LOG_ENABLE', true);
+    }
 
-  function setErrorLevel($level)
-  {
-    $this->level = $level;
-  }
+    function setErrorLevel($level)
+    {
+        $this->level = $level;
+    }
 
-  function setBacktraceDepth($log_level, $depth) {
-    $this->backtrace_depth[$log_level] = $depth;
-  }
+    function setBacktraceDepth($log_level, $depth) {
+        $this->backtrace_depth[$log_level] = $depth;
+    }
 
-  function log($message, $level = LOG_INFO, $params = array(), $backtrace = null)
-  {
-    if(!$this->isLogEnabled())
-      return;
+    public function emergency($message, array $context = array())
+    {
+        $this->log(LOG_EMERG, $message, $context);
+    }
 
-    if(!$backtrace)
-      $backtrace = new lmbBacktrace($this->backtrace_depth[$level]);
+    public function alert($message, array $context = array())
+    {
+        $this->log(LOG_ALERT, $message, $context);
+    }
 
-    $this->_write($level, $message, $params, $backtrace);
-  }
+    public function critical($message, array $context = array())
+    {
+        $this->log(LOG_CRIT, $message, $context);
+    }
 
-  function logException($exception)
-  {
-    if(!$this->isLogEnabled())
-      return;
+    public function error($message, array $context = array())
+    {
+        $this->log(LOG_ERR, $message, $context);
+    }
 
-    $backtrace_depth = $this->backtrace_depth[LOG_ERR];
+    public function warning($message, array $context = array())
+    {
+        $this->log(LOG_WARNING, $message, $context);
+    }
 
-    if($exception instanceof lmbException)
-      $this->log(
-        $exception->getMessage(),
-        LOG_ERR,
-        $exception->getParams(),
-        new lmbBacktrace($exception->getTrace(), $backtrace_depth)
-      );
-    else
-      $this->log(
-        $exception->getMessage(),
-        LOG_ERR,
-        array(),
-        new lmbBacktrace($exception->getTrace(), $backtrace_depth)
-      );
-  }
+    public function notice($message, array $context = array())
+    {
+        $this->log(LOG_NOTICE, $message, $context);
+    }
 
-  protected function _write($level, $string, $params = array(), $backtrace = null)
-  {
-    if(!$this->_isAllowedLevel($level))
-      return;
+    public function info($message, array $context = array())
+    {
+        $this->log(LOG_INFO, $message, $context);
+    }
 
-    $entry = new lmbLogEntry($level, $string, $params, $backtrace);
-    $this->logs[] = $entry;
+    public function debug($message, array $context = array())
+    {
+        $this->log(LOG_DEBUG, $message, $context);
+    }
 
-    $this->_writeLogEntry($entry);
-  }
+    public function log($level, $message, $context = array(), $backtrace = null)
+    {
+        if(!$this->isLogEnabled())
+            return;
 
-  protected function _isAllowedLevel($level)
-  {
-    return $level <= $this->level;
-  }
+        if(!$backtrace)
+            $backtrace = new lmbBacktrace($this->backtrace_depth[$level]);
 
-  protected function _writeLogEntry($entry)
-  {
-    foreach($this->log_writers as $writer)
-      $writer->write($entry);
-  }
+        $this->_write($level, $message, $context, $backtrace);
+    }
+
+    function logException($exception)
+    {
+        if(!$this->isLogEnabled())
+            return;
+
+        $backtrace_depth = $this->backtrace_depth[LOG_ERR];
+
+        if($exception instanceof lmbException)
+            $this->log(
+                LOG_ERR,
+                $exception->getMessage(),
+                $exception->getParams(),
+                new lmbBacktrace($exception->getTrace(), $backtrace_depth)
+            );
+        else
+            $this->log(
+                LOG_ERR,
+                $exception->getMessage(),
+                array(),
+                new lmbBacktrace($exception->getTrace(), $backtrace_depth)
+            );
+    }
+
+    protected function _write($level, $string, $context = array(), $backtrace = null)
+    {
+        if(!$this->_isAllowedLevel($level))
+            return;
+
+        $entry = new lmbLogEntry($level, $string, $context, $backtrace);
+        $this->logs[] = $entry;
+
+        $this->_writeLogEntry($entry);
+    }
+
+    protected function _isAllowedLevel($level)
+    {
+        return $level <= $this->level;
+    }
+
+    protected function _writeLogEntry($entry)
+    {
+        foreach($this->log_writers as $writer)
+            $writer->write($entry);
+    }
 }
