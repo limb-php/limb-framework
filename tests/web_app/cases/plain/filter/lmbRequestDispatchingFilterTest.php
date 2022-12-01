@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_app\cases\plain\filter;
 
 use limb\filter_chain\src\lmbFilterChain;
 use limb\web_app\src\filter\lmbRequestDispatchingFilter;

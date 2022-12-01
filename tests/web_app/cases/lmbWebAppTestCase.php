@@ -38,15 +38,14 @@ class lmbWebAppTestCase extends TestCase
 
   function assertCommandValid($command, $line)
   {
-    if($this->assertTrue($command->isValid()))
-      return true;
+    $this->assertTrue($command->isValid());
+
+    // else
 
     $errors = array();
     foreach($command->getErrorList() as $error)
       $errors[] .= ' ' .  $error->get();
     $error_text = implode(', ', $errors);
-    $this->assertTrue(false, 'Command is not valid with following errors: '. $error_text . ' at line '. $line);
-
-    return false;
+    $this->fail('Command is not valid with following errors: ' . $error_text . ' at line ' . $line);
   }
 }

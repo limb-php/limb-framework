@@ -6,21 +6,23 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\web_app\cases\plain\controller;
 
 use limb\web_app\src\controller\FallbackToViewController;
 use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
+use PHPUnit\Framework\TestCase;
 
 class FallbackToViewControllerTest extends TestCase
 {
   protected $toolkit;
 
-  function setUp()
+  function setUp(): void
   {
     $this->toolkit = lmbToolkit::save();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     lmbToolkit::restore();
   }

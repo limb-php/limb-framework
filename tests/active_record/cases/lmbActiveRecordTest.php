@@ -118,7 +118,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
       $object->get('foo');
       $this->fail();
     }
-    catch (Exception $e)
+    catch (\Exception $e)
     {
       $this->pass();
     }

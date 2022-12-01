@@ -6,12 +6,15 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\web_app\cases\db\validation\rule;
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\web_app\src\fetcher\lmbActiveRecordFetcher;
+use limb\core\src\lmbSet;
+use limb\core\src\lmbCollection;
+use limb\core\src\exception\lmbException;
 use tests\web_app\cases\lmbWebAppTestCase;
-use tests\active_record\cases\lmbARBaseTestCase;
-use tests\active_record\cases\lmbAROneToManyRelationsTest;
+use tests\active_record\cases\CourseForTest;
 
 class CourseForFetcherTestVersion extends CourseForTest
 {
@@ -34,19 +37,19 @@ class CourseForFetcherTestVersion extends CourseForTest
 
 class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->_cleanUp();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->_cleanUp();
   }
 
   function _cleanUp()
   {
-    lmbActiveRecord :: delete('CourseForTest');
+    lmbActiveRecord :: delete(CourseForTest::class);
   }
 
   function _createCourse()
@@ -64,9 +67,11 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     try
     {
       $fetcher->fetch();
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testFetchAllObjectsIfNoParams()
@@ -89,7 +94,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
   function testFetchWithSpecifiedFindMethod()
   {
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassName('CourseForFetcherTestVersion');
+    $fetcher->setClassName(CourseForFetcherTestVersion::class);
     $fetcher->setFind('special');
     $rs = $fetcher->fetch();
     $rs->rewind();
@@ -100,7 +105,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
   function testFetchWithStaticFindWithParams()
   {
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassName('CourseForFetcherTestVersion');
+    $fetcher->setClassName(CourseForFetcherTestVersion::class);
     $fetcher->setFind('with_params');
     $fetcher->addFindParam('Value1');
     $fetcher->addFindParam('Value2');
@@ -118,7 +123,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $course2 = $this->_createCourse();
 
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassName('CourseForTest');
+    $fetcher->setClassName(CourseForTest::class);
     $fetcher->setRecordId($course1->getId());
 
     $rs = $fetcher->fetch();
@@ -135,7 +140,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $course1 = $this->_createCourse();
 
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassName('CourseForFetcherTestVersion');
+    $fetcher->setClassName(CourseForFetcherTestVersion::class);
     $fetcher->setFind('special_by_id');
     $fetcher->setRecordId($course1->getId());
 
@@ -153,7 +158,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $course2 = $this->_createCourse();
 
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassName('CourseForTest');
+    $fetcher->setClassName(CourseForTest::class);
     $fetcher->setRecordId('');
 
     $rs = $fetcher->fetch();
@@ -168,7 +173,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $course3 = $this->_createCourse();
 
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassName('CourseForTest');
+    $fetcher->setClassName(CourseForTest::class);
     $fetcher->setRecordIds(null);
 
     $rs = $fetcher->fetch();
@@ -183,7 +188,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $course3 = $this->_createCourse();
 
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassName('CourseForTest');
+    $fetcher->setClassName(CourseForTest::class);
     $fetcher->setRecordIds(array($course1->getId(), $course3->getId()));
 
     $rs = $fetcher->fetch();
@@ -197,4 +202,3 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $this->assertFalse($rs->valid());
   }
 }
-

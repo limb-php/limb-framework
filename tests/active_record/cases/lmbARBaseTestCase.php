@@ -22,7 +22,7 @@ class lmbARBaseTestCase extends TestCase
 
   protected function setUp(): void
   {
-    $toolkit = lmbToolkit :: save();
+    $toolkit = lmbToolkit::save();
     $this->conn = new lmbAuditDbConnection($toolkit->getDefaultDbConnection());
     $toolkit->setDefaultDbConnection($this->conn);
     $this->db = new lmbSimpleDb($this->conn);
@@ -37,9 +37,9 @@ class lmbARBaseTestCase extends TestCase
 
     $this->conn->disconnect();
 
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
     
-    $connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $connection = lmbToolkit::instance()->getDefaultDbConnection();
     
     if(method_exists($connection, 'isValid'))
       if(!$connection->isValid())
@@ -53,4 +53,3 @@ class lmbARBaseTestCase extends TestCase
       $this->db->delete($table_name);
   }
 }
-

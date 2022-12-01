@@ -43,7 +43,9 @@ class lmbUniqueTableFieldRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('test', -10000);
 
-    $this->error_list->expectNever('addError');
+    $this->error_list
+        ->expects($this->never())
+        ->method('addError');
 
     $rule->validate($data, $this->error_list);
   }
@@ -55,10 +57,12 @@ class lmbUniqueTableFieldRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('test', 'wow');
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} must have other value since {Value} already exists', 'web_app'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} must have other value since {Value} already exists', 'web_app'),
                                         array('Field' => 'test'),
-                                        array('Value' => 'wow')));
+                                        array('Value' => 'wow'));
 
 
     $rule->validate($data, $this->error_list);
@@ -71,10 +75,12 @@ class lmbUniqueTableFieldRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('test', "001");
 
-    $this->error_list->expectOnce('addError',
-                                  array(lmb_i18n('{Field} must have other value since {Value} already exists', 'web_app'),
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with(lmb_i18n('{Field} must have other value since {Value} already exists', 'web_app'),
                                         array('Field' => 'test'),
-                                        array('Value' => '001')));
+                                        array('Value' => '001'));
 
 
     $rule->validate($data, $this->error_list);
@@ -87,8 +93,10 @@ class lmbUniqueTableFieldRuleTest extends lmbValidationRuleTestCase
     $data = new lmbSet();
     $data->set('test', 'wow');
 
-    $this->error_list->expectOnce('addError',
-                                  array($message, array('Field' => 'test'), array('Value' => 'wow')));
+    $this->error_list
+        ->expects($this->once())
+        ->method('addError')
+        ->with($message, array('Field' => 'test'), array('Value' => 'wow'));
 
     $rule->validate($data, $this->error_list);
   }
