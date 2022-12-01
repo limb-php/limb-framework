@@ -22,6 +22,7 @@ use Psr\Http\Message\UriInterface;
  */
 class lmbHttpRequest extends lmbSet
 {
+  protected $__method;
   protected $__uri;
   protected $__headers = array();
   protected $__request = array();
@@ -29,8 +30,9 @@ class lmbHttpRequest extends lmbSet
   protected $__post = array();
   protected $__cookies = array();
   protected $__files = array();
+  protected $__attributes = array();
   protected $__pretend_post = false;
-  protected $__reserved_attrs = array('__uri', '__headers', '__request', '__get', '__post', '__cookies', '__files', '__pretend_post', '__reserved_attrs');
+  protected $__reserved_attrs = array('__method', '__uri', '__headers', '__request', '__get', '__post', '__cookies', '__files', '__attributes', '__pretend_post', '__reserved_attrs');
 
   /**
    * @var string
@@ -47,6 +49,8 @@ class lmbHttpRequest extends lmbSet
   protected function _initRequestProperties($uri_string, $get, $post, $cookies, $files, $headers)
   {
     $this->version = '1.0';
+
+    $this->__method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
     $this->__uri = !is_null($uri_string) ? new lmbUri($uri_string) : new lmbUri($this->getRawUriString());
 
@@ -446,7 +450,7 @@ class lmbHttpRequest extends lmbSet
         return stream_get_contents(STDIN);
     }
 
-    public function withBody(StreamInterface $body)
+    public function withBody($body)
     {
         // TODO: Implement withBody() method.
     }
@@ -463,11 +467,17 @@ class lmbHttpRequest extends lmbSet
 
     public function getMethod()
     {
-        return $_SERVER['REQUEST_METHOD'] ?? 'GET';
+        return $this->__method;
     }
 
     public function withMethod($method)
     {
-        // TODO: Implement withMethod() method.
+        if ($this->__method === $method) {
+            return $this;
+        }
+
+        $new = clone($this);
+        $new->__method = $method;
+        return $new;
     }
 }
