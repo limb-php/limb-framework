@@ -10,8 +10,8 @@ namespace limb\web_app\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
+use limb\core\src\exception\lmbException;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
-use limb\web_app\src\controller\NotFoundController;
 
 /**
  * class lmbRequestDispatchingFilter.
@@ -25,7 +25,7 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
   protected $dispatcher;
   protected $default_controller_name;
 
-  function __construct($dispatcher, $default_controller_name = NotFoundController::class)
+  function __construct($dispatcher, $default_controller_name = 'limb\web_app\src\controller\NotFoundController')
   {
     $this->toolkit = lmbToolkit::instance();
     $this->dispatcher = $dispatcher;
@@ -39,24 +39,26 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
 
   function run($filter_chain, $request = null, $response = null)
   {
-    $dispatched_params = $this->dispatcher->dispatch($this->toolkit->getRequest());
+      if(!$request)
+          $request = $this->toolkit->getRequest();
 
-    $this->_putOtherParamsToRequest($dispatched_params);
+      $dispatched_params = $this->dispatcher->dispatch($request);
+      $request->merge($dispatched_params);
 
-    $controller = $this->_createController($dispatched_params);
+      $controller = $this->_createController($dispatched_params);
 
-    if(isset($dispatched_params['action']) && $controller->actionExists($dispatched_params['action']))
-      $controller->setCurrentAction($dispatched_params['action']);
-    elseif(!isset($dispatched_params['action']))
-      $controller->setCurrentAction($controller->getDefaultAction());
-    else
-      $controller = $this->_createDefaultController();
+      if(isset($dispatched_params['action']) && $controller->actionExists($dispatched_params['action']))
+          $controller->setCurrentAction($dispatched_params['action']);
+      elseif(!isset($dispatched_params['action']))
+          $controller->setCurrentAction($controller->getDefaultAction());
+      else
+          $controller = $this->_createDefaultController();
 
-    $this->toolkit->setDispatchedController($controller);
+      $this->toolkit->setDispatchedController($controller);
 
-    $response = $filter_chain->next($request, $response);
+      $response = $filter_chain->next($request, $response);
 
-    return $response;
+      return $response;
   }
 
   protected function _createController($dispatched_params)
@@ -82,10 +84,5 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
     $controller->setCurrentAction($controller->getDefaultAction());
 
     return $controller;
-  }
-
-  protected function _putOtherParamsToRequest($dispatched_params)
-  {
-    $this->toolkit->getRequest()->merge($dispatched_params);
   }
 }
