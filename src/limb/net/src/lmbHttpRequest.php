@@ -170,6 +170,11 @@ class lmbHttpRequest extends lmbSet
         return $this->__headers[$header_name] ?? $default_value;
     }
 
+    public function hasHeader($name)
+    {
+        return isset($this->__headers[$name]);
+    }
+
   function isAjax()
   {
     if ($this->has('DNT'))
@@ -292,11 +297,39 @@ class lmbHttpRequest extends lmbSet
 
     public function withUri(UriInterface $uri, $preserveHost = false)
     {
-        $clone = clone($this);
-        $clone->__headers['host'] = $uri->getHost();
-        $clone->__uri = $uri;
+        if ($uri === $this->getUri()) {
+            return $this;
+        }
 
-        return $clone;
+        $new = clone($this);
+        $new->__uri = $uri;
+
+        if (!$preserveHost || !$this->hasHeader('host')) {
+            $new->updateHostFromUri();
+        }
+
+        return $new;
+    }
+
+    private function updateHostFromUri(): void
+    {
+        $host = $this->__uri->getHost();
+
+        if ($host == '') {
+            return;
+        }
+
+        if (($port = $this->__uri->getPort()) !== null) {
+            $host .= ':' . $port;
+        }
+
+        if ($this->hasHeader('host')) {
+            $header = $this->getHeader('host');
+        } else {
+            $header = 'Host';
+        }
+
+        $this->__headers = [$header => [$host]] + $this->__headers;
     }
 
   function getUriPath()
@@ -386,11 +419,6 @@ class lmbHttpRequest extends lmbSet
         $new = clone($this);
         $new->version = $version;
         return $new;
-    }
-
-    public function hasHeader($name)
-    {
-        // TODO: Implement hasHeader() method.
     }
 
     public function getHeaderLine($name)
