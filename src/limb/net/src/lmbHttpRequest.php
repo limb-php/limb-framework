@@ -480,4 +480,36 @@ class lmbHttpRequest extends lmbSet
         $new->__method = $method;
         return $new;
     }
+
+    public function getAttributes()
+    {
+        return $this->__attributes;
+    }
+
+    public function getAttribute($name, $default = null)
+    {
+        return $this->__attributes[$name] ?? $default;
+    }
+
+    public function withAttribute($name, $value)
+    {
+        if( isset($new->__attributes[$name]) && $new->__attributes[$name] === $value ) {
+            return $this;
+        }
+
+        $new = clone($this);
+        $new->__attributes[$name] = $value;
+        return $new;
+    }
+
+    public function withoutAttribute($name)
+    {
+        if( !isset($new->__attributes[$name]) ) {
+            return $this;
+        }
+
+        $new = clone($this);
+        unset($new->__attributes[$name]);
+        return $new;
+    }
 }
