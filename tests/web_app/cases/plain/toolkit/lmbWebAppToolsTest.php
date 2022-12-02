@@ -17,6 +17,7 @@ use limb\toolkit\src\lmbToolkit;
 use limb\fs\src\lmbFs;
 use limb\core\src\lmbObject;
 use limb\core\src\exception\lmbException;
+use limb\web_app\src\toolkit\lmbWebAppTools;
 
 class lmbWebAppToolsTest extends TestCase
 {
@@ -37,11 +38,11 @@ class lmbWebAppToolsTest extends TestCase
                                 'defaults' => array('action' => 'display')));
     $routes = new lmbRoutes($config_array);
 
-    $toolkit = lmbToolkit :: merge(new lmbWebAppTools());
+    $toolkit = lmbToolkit::merge(new lmbWebAppTools());
     $toolkit->setRoutes($routes);
 
     $to_url_params = array('controller' => 'news', 'action' => 'archive');
-    $this->assertEquals($toolkit->getRoutesUrl($to_url_params), LIMB_HTTP_GATEWAY_PATH . ltrim($routes->toUrl($to_url_params), '/'));
+    $this->assertEquals($toolkit->getRoutesUrl($to_url_params), lmbEnv::get('LIMB_HTTP_GATEWAY_PATH') . ltrim($routes->toUrl($to_url_params), '/'));
   }
 
   function testToRouteUrlSkipController()
@@ -57,7 +58,7 @@ class lmbWebAppToolsTest extends TestCase
 
     $to_url_params = array('action' => 'archive');
     $this->assertEquals($toolkit->getRoutesUrl($to_url_params, null, $skip_controller = true),
-                       LIMB_HTTP_GATEWAY_PATH . 'news/archive');
+        lmbEnv::get('LIMB_HTTP_GATEWAY_PATH') . 'news/archive');
   }
 
   function testIsWebAppDebugEnabled()
@@ -78,12 +79,12 @@ class lmbWebAppToolsTest extends TestCase
 
   function testAddVersionToUrl()
   {
-    $toolkit = lmbToolkit :: merge(new lmbWebAppTools());
+    $toolkit = lmbToolkit::merge(new lmbWebAppTools());
     lmbEnv::set('LIMB_DOCUMENT_ROOT', null);
     try 
     {
       $toolkit->addVersionToUrl('js/main.js');
-      $this->assertTrue(false);
+      $this->fail();
     } catch (lmbException $e)  {
       $this->assertTrue(true);
     }
@@ -94,12 +95,12 @@ class lmbWebAppToolsTest extends TestCase
     try 
     {
       $toolkit->addVersionToUrl('js/main.js');
-      $this->assertTrue(false);
+      $this->fail();
     } catch (lmbException $e)  {
       $this->assertTrue(true);
     }
 
-    lmbFs :: safeWrite(lmbEnv::get('LIMB_DOCUMENT_ROOT').'/js/main.js', '(function() {})()');
+    lmbFs::safeWrite(lmbEnv::get('LIMB_DOCUMENT_ROOT').'/js/main.js', '(function() {})()');
     $url = $toolkit->addVersionToUrl('js/main.js');
     $url_abs = $toolkit->addVersionToUrl(lmbEnv::get('LIMB_HTTP_BASE_PATH') . 'js/main.js');
     $this->assertEquals($url, $url_abs);

@@ -279,4 +279,3 @@ class lmbRoutesDispatchTest extends TestCase
       $dispatched['controller'] = lmb_camel_case($dispatched['controller']);
   }
 }
-

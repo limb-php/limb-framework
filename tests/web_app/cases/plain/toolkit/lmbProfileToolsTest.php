@@ -22,14 +22,14 @@ class lmbProfileToolsTest extends TestCase
 
   function setUp(): void
   {
-    lmbToolkit :: save();
-    lmbToolkit :: merge(new lmbProfileTools());
+    lmbToolkit::save();
+    lmbToolkit::merge(new lmbProfileTools());
     $this->toolkit = lmbToolkit :: instance();
   }
 
   function tearDown(): void
   {
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testProfileStartPoint()

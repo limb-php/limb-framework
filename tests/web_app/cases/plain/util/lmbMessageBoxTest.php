@@ -8,6 +8,7 @@
  */
 namespace tests\web_app\cases\plain\util;
 
+use PHPUnit\Framework\TestCase;
 use limb\web_app\src\util\lmbMessageBox;
 
 class lmbMessageBoxTest extends TestCase
@@ -21,15 +22,14 @@ class lmbMessageBoxTest extends TestCase
     $message_box->addError('Error2');
     
     $list = $message_box->getUnifiedList();
-    $this->assertEquals(sizeof($list), 4);
-    $this->assertEquals($list[0], array('message' => 'Error1', 'is_error' => true, 'is_message' => false));
-    $this->assertEquals($list[1], array('message' => 'Error2', 'is_error' => true, 'is_message' => false));
-    $this->assertEquals($list[2], array('message' => 'Message1', 'is_error' => false, 'is_message' => true));
-    $this->assertEquals($list[3], array('message' => 'Message2', 'is_error' => false, 'is_message' => true));
+    $this->assertEquals(4, sizeof($list));
+    $this->assertEquals(array('message' => 'Error1', 'is_error' => true, 'is_message' => false), $list[0]);
+    $this->assertEquals(array('message' => 'Error2', 'is_error' => true, 'is_message' => false), $list[1]);
+    $this->assertEquals(array('message' => 'Message1', 'is_error' => false, 'is_message' => true), $list[2]);
+    $this->assertEquals(array('message' => 'Message2', 'is_error' => false, 'is_message' => true), $list[3]);
 
     // message box is cleaned after  getUnifiedList() is called   
     $list = $message_box->getUnifiedList();
-    $this->assertEquals(sizeof($list), 0);
+    $this->assertEquals(0, sizeof($list));
   }
 }
-

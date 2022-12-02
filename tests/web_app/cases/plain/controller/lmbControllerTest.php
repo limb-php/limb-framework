@@ -8,7 +8,10 @@
  */
 namespace tests\web_app\cases\plain\controller;
 
+use PHPUnit\Framework\TestCase;
 use limb\web_app\src\controller\lmbController;
+use limb\toolkit\src\lmbToolkit;
+use limb\core\src\lmbSet;
 use limb\macro\src\lmbMacroTemplateLocator;
 use limb\validation\src\rule\lmbValidationRuleInterface;
 
@@ -24,7 +27,7 @@ class TestingController extends lmbController
   function doDisplay()
   {
     $this->display_performed = true;
-    $this->template_name = $this->view->getTemplate();
+    $this->template_name = $this->getView()->getTemplate();
   }
 
   function doWrite()
@@ -80,14 +83,14 @@ class lmbControllerTest extends TestCase
 {
   protected $toolkit;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->toolkit = lmbToolkit :: save();
+    $this->toolkit = lmbToolkit::save();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testActionExists()
@@ -107,7 +110,7 @@ class lmbControllerTest extends TestCase
   {
     $controller = new TestingController();
     $controller->setCurrentAction('display');
-    $controller->performAction();
+    $controller->performAction($this->toolkit->getRequest());
     $this->assertTrue($controller->display_performed);
   }
 
@@ -115,7 +118,7 @@ class lmbControllerTest extends TestCase
   {
     $controller = new TestingController();
     $controller->setCurrentAction('write');
-    $controller->performAction();
+    $controller->performAction($this->toolkit->getRequest());
     $this->assertEquals($this->toolkit->getResponse()->getResponseString(), "Hi!");
   }
 
@@ -126,7 +129,7 @@ class lmbControllerTest extends TestCase
     $controller = new TestingController();
     $controller->setCurrentAction('detail');
 
-    $controller->performAction();
+    $controller->performAction($this->toolkit->getRequest());
     $this->assertTrue($this->toolkit->getView()->getTemplate(), 'testing/detail.html');
   }
 
@@ -137,7 +140,7 @@ class lmbControllerTest extends TestCase
     $controller = new TestingController();
     $controller->setCurrentAction('detail%28');
 
-    $controller->performAction();
+    $controller->performAction($this->toolkit->getRequest());
     $this->assertTrue($this->toolkit->getView()->getTemplate(), 'testing/detail%28.html');
   }
 
@@ -151,7 +154,7 @@ class lmbControllerTest extends TestCase
     $controller->set('_nope', 'NO');
     $controller->setCurrentAction('set_vars');
 
-    $controller->performAction();
+    $controller->performAction($this->toolkit->getRequest());
     $view = $this->toolkit->getView();
     $this->assertEquals($view->get('item'), 'item');//this one is set in action
     $this->assertEquals($view->get('foo'), 'FOO');
@@ -205,14 +208,14 @@ class lmbControllerTest extends TestCase
   {
     $testController = new TestingForwardController();
     $this->assertEquals($this->toolkit->getResponse()->getResponseString(), 'Hi!');
-    $this->assertFalse($testController->performAction());
+    $this->assertFalse($testController->performAction($this->toolkit->getRequest()));
   }
 
   function testClosePopup()
   {
     $controller = new TestingController();
     $controller->setCurrentAction('popup');
-    $controller->performAction();
+    $controller->performAction($this->toolkit->getRequest());
     $this->assertPattern('~^<html><script>~', $this->toolkit->getResponse()->getResponseString());
   }
 
@@ -220,10 +223,8 @@ class lmbControllerTest extends TestCase
   {
     $controller = new TestingController();
     $controller->setCurrentAction('without_popup');
-    $controller->performAction();
+    $controller->performAction($this->toolkit->getRequest());
     $this->assertEquals('', $this->toolkit->getResponse()->getResponseString());
   }
 
 }
-
-

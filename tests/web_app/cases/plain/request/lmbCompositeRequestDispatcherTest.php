@@ -13,8 +13,6 @@ use limb\web_app\src\request\lmbCompositeRequestDispatcher;
 use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\net\src\lmbHttpRequest;
 
-Mock :: generate('lmbRequestDispatcher', 'MockRequestDispatcher');
-
 class lmbCompositeRequestDispatcherTest extends TestCase
 {
   protected $request;
@@ -26,8 +24,8 @@ class lmbCompositeRequestDispatcherTest extends TestCase
 
   protected function _setUpMocks($dispatcher, $result1, $result2)
   {
-    $mock_dispatcher1 = new MockRequestDispatcher();
-    $mock_dispatcher2 = new MockRequestDispatcher();
+    $mock_dispatcher1 = $this->createMock(lmbRequestDispatcherInterface::class);
+    $mock_dispatcher2 = $this->createMock(lmbRequestDispatcherInterface::class);
 
     $dispatcher->addDispatcher($mock_dispatcher1);
     $dispatcher->addDispatcher($mock_dispatcher2);
@@ -72,5 +70,3 @@ class lmbCompositeRequestDispatcherTest extends TestCase
     $this->assertEquals($dispatcher->dispatch($this->request), array());
   }
 }
-
-

@@ -23,5 +23,3 @@ class ServerErrorController extends LmbController
     $this->setTemplate('server_error.html');
   }
 }
-
-

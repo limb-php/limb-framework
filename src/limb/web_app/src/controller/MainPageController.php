@@ -12,7 +12,7 @@ namespace limb\web_app\src\controller;
  * class MainPageController.
  *
  * @package web_app
- * @version $Id: MainPageController.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: MainPageController.php 7486 2009-01-26 19:13:20Z
  */
 class MainPageController extends LmbController
 {

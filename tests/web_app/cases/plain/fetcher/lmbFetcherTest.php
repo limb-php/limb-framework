@@ -8,6 +8,7 @@
  */
 namespace tests\web_app\cases\plain\fetcher;
 
+use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbCollection;
 use limb\core\src\lmbCollectionDecorator;
 use limb\web_app\src\fetcher\lmbFetcher;

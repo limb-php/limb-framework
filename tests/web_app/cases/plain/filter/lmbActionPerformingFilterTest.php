@@ -8,55 +8,56 @@
  */
 namespace tests\web_app\cases\plain\filter;
 
+use PHPUnit\Framework\TestCase;
+use limb\toolkit\src\lmbToolkit;
 use limb\filter_chain\src\lmbFilterChain;
 use limb\web_app\src\filter\lmbActionPerformingFilter;
 use limb\web_app\src\controller\lmbController;
-
-Mock :: generate('lmbFilterChain', 'MockFilterChain');
-Mock :: generate('lmbController', 'MockController');
+use limb\core\src\exception\lmbException;
 
 class lmbActionPerformingFilterTest extends TestCase
 {
   var $toolkit;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->toolkit = lmbToolkit :: save();
+    $this->toolkit = lmbToolkit::save();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testThrowExceptionIfNoDispatchedController()
   {
     $filter = new lmbActionPerformingFilter();
 
-    $fc = new MockFilterChain();
-    $fc->expectNever('next');
+    $fc = $this->createMock(lmbFilterChain::class);
+    $fc->expects($this->never())->method('next');
 
     try
     {
       $filter->run($fc);
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testRunOk()
   {
-    $controller = new MockController();
-    $controller->expectOnce('performAction');
+    $controller = $this->createMock(lmbController::class);
+    $controller->expects($this->once())->method('performAction');
 
     $this->toolkit->setDispatchedController($controller);
 
     $filter = new lmbActionPerformingFilter();
 
-    $fc = new MockFilterChain();
-    $fc->expectOnce('next');
+    $fc = $this->createMock(lmbFilterChain::class);
+    $fc->expects($this->once())->method('next');
 
     $filter->run($fc);
   }
 }
-

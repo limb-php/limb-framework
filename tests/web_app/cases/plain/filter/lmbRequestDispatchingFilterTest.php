@@ -8,23 +8,23 @@
  */
 namespace tests\web_app\cases\plain\filter;
 
+use PHPUnit\Framework\TestCase;
 use limb\filter_chain\src\lmbFilterChain;
 use limb\web_app\src\filter\lmbRequestDispatchingFilter;
 use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\toolkit\src\lmbMockToolsWrapper;
 use limb\web_app\src\toolkit\lmbWebAppTools;
 use limb\web_app\src\controller\lmbController;
-
-Mock :: generate('lmbFilterChain', 'MockFilterChain');
-Mock :: generate('lmbRequestDispatcher', 'MockRequestDispatcher');
-Mock :: generate('lmbWebAppTools', 'MockWebAppTools');
+use limb\core\src\exception\lmbException;
+use limb\toolkit\src\lmbAbstractTools;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbRequestDispatchingTestingController extends lmbController
 {
   function __construct($name)
   {
     $this->name = $name;
-    parent :: __construct();
+    parent::__construct();
   }
 
   function doDisplay()
@@ -36,7 +36,7 @@ class RememberRequestParamsController extends lmbController
 {
   function __construct()
   {
-    parent :: __construct();
+    parent::__construct();
     $this->param = $this->request->get('param', null);
   }
 }
@@ -75,23 +75,23 @@ class lmbRequestDispatchingFilterTest extends TestCase
   protected $filter;
   protected $chain;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->mock_tools = new MockWebAppTools();
+    $this->mock_tools = $this->createMock(lmbWebAppTools::class);
     $tools = new lmbMockToolsWrapper($this->mock_tools, array('createController'));
 
-    lmbToolkit :: save();
-    $this->toolkit = lmbToolkit :: merge($tools);
+    lmbToolkit::save();
+    $this->toolkit = lmbToolkit::merge($tools);
     $this->request = $this->toolkit->getRequest();
 
-    $this->dispatcher = new MockRequestDispatcher();
+    $this->dispatcher = $this->createMock(lmbRequestDispatcherInterface::class);
     $this->filter = new lmbRequestDispatchingFilter($this->dispatcher);
-    $this->chain = new MockFilterChain();
+    $this->chain = $this->createMock(lmbFilterChain::class);
   }
 
-  function tearDown()
+  function tearDown(): void
   {
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testSetDispatchedRequestInToolkit()
@@ -195,8 +195,8 @@ class lmbRequestDispatchingFilterTest extends TestCase
   {
     //this is quite a "hacky" trick which removes the fixture toolkit, this should be refactored
     //alas, this means the whole test suite must be reconsidered as well
-    lmbToolkit :: restore();
-    lmbToolkit :: save();
+    lmbToolkit::restore();
+    lmbToolkit::save();
 
     $dispatched_params = array('controller' => 'RememberRequestParams',
                                'param' => 150);
@@ -209,8 +209,8 @@ class lmbRequestDispatchingFilterTest extends TestCase
     $this->assertEquals($controller->param, $dispatched_params['param']);
 
     //trick again...
-    lmbToolkit :: restore();
-    lmbToolkit :: save();
+    lmbToolkit::restore();
+    lmbToolkit::save();
   }
 
   protected function _assertDispatchedOk($controller, $action, $line)
@@ -222,7 +222,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
   protected function _setUpMocks($dispatched_params, $controller = null)
   {
-    $this->chain->expectOnce('next');
+    $this->chain->expects($this->once())->method('next');
 
     $this->dispatcher->expectOnce('dispatch', array($this->request));
     $this->dispatcher->setReturnValue('dispatch', $dispatched_params);
@@ -235,5 +235,3 @@ class lmbRequestDispatchingFilterTest extends TestCase
   }
 
 }
-
-

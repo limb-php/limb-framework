@@ -8,10 +8,11 @@
  */
 namespace tests\web_app\cases\plain\controller;
 
+use PHPUnit\Framework\TestCase;
 use limb\web_app\src\controller\FallbackToViewController;
 use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
-use PHPUnit\Framework\TestCase;
+use limb\view\src\lmbDummyView;
 
 class FallbackToViewControllerTest extends TestCase
 {
@@ -54,6 +55,3 @@ class FallbackToViewControllerTest extends TestCase
     $this->assertEquals($this->toolkit->getView()->getTemplate(), $controller->findTemplateByAlias('not_found'));
   }
 }
-
-
-

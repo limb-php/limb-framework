@@ -16,8 +16,6 @@ class lmbTestInputFilterStabRule
   function apply($data){}
 }
 
-Mock :: generate('lmbTestInputFilterStabRule', 'MockInputFilterRule');
-
 class lmbInputFilterTest extends TestCase
 {
   function testAddFilter()
@@ -25,11 +23,11 @@ class lmbInputFilterTest extends TestCase
     $input = array('foo' => 'Foo', 'bar' => 'Bar', 'zoo' => 'Zoo');
     $input_filter = new lmbInputFilter();
 
-    $r1 = new MockInputFilterRule();
+    $r1 = $this->createMock(lmbTestInputFilterStabRule::class);
     $r1->expectOnce('apply', array($input));
     $r1->setReturnValue('apply', $sub_res = array('foo' => 'Foo', 'bar' => 'Bar'), array($input));
 
-    $r2 = new MockInputFilterRule();
+    $r2 = $this->createMock(lmbTestInputFilterStabRule::class);
     $r2->expectOnce('apply', array($sub_res));
     $r2->setReturnValue('apply', $expected = array('foo' => 'Foo'), array($sub_res));
 

@@ -8,6 +8,7 @@
  */
 namespace tests\web_app\cases\plain\macro;
 
+use tests\view\lmbMacroTestCase;
 use limb\web_app\src\request\lmbRoutes;
 use limb\web_app\src\controller\lmbController;
 
@@ -99,4 +100,3 @@ class lmbMacroRouteUrlTagTest extends lmbMacroTestCase
     return $routes;
   }
 }
-

@@ -117,5 +117,3 @@ class lmbRoutesRequestDispatcherTest extends TestCase
     $this->assertEquals($result['action'], 'admin_display');
   }
 }
-
-

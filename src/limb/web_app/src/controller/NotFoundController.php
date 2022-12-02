@@ -12,7 +12,7 @@ namespace limb\web_app\src\controller;
  * class NotFoundController.
  *
  * @package web_app
- * @version $Id: NotFoundController.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: NotFoundController.php 7486 2009-01-26 19:13:20Z
  */
 class NotFoundController extends LmbController
 {
@@ -22,5 +22,3 @@ class NotFoundController extends LmbController
     $this->setTemplate($this->findTemplateByAlias('not_found'));
   }
 }
-
-

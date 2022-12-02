@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutes;
 use limb\net\src\lmbUri;
 use limb\toolkit\src\lmbToolkit;
+use limb\core\src\exception\lmbException;
 
 class lmbRoutesToUrlTest extends TestCase
 {
@@ -83,9 +84,11 @@ class lmbRoutesToUrlTest extends TestCase
     try
     {
       $routes->toUrl(array('controller' => 'news'), 'default');
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testThrowExceptionIfNotFoundAnyMatchingRoute()
@@ -97,9 +100,11 @@ class lmbRoutesToUrlTest extends TestCase
     try
     {
       $routes->toUrl(array(), 'default');
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testToUrlTryToGuessRoute()
@@ -138,9 +143,11 @@ class lmbRoutesToUrlTest extends TestCase
     try
     {
       $routes->toUrl(array('action' => 'create'), 'Course');
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testApplyUrlFilter()
@@ -213,4 +220,3 @@ class lmbRoutesToUrlTest extends TestCase
     }    
   }  
 }
-
