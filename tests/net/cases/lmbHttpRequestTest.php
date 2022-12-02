@@ -324,4 +324,16 @@ class lmbHttpRequestTest extends TestCase
         $request = new lmbHttpRequest('http://test.com/wow?z=1');
         $this->assertTrue($request->has('z'));
     }
+
+    function testAttributives()
+    {
+        $request = new lmbHttpRequest('http://test.com/wow?z=1');
+        $request = $request->withAttribute('attr1', '587');
+
+        $this->assertEquals('587', $request->getAttribute('attr1'));
+
+        $request = $request->withAttribute('attr2', '404');
+
+        $this->assertEquals(['attr1' => '587', 'attr2' => '404'], $request->getAttributes());
+    }
 }
