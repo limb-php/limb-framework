@@ -12,8 +12,7 @@ use limb\config\src\toolkit\lmbConfTools;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\core\src\lmbEnv;
 use limb\log\src\lmbLog;
-use limb\net\src\lmbUri;
-use limb\fs\src\exception\lmbFileNotFoundException;
+use limb\log\src\lmbLogWriterFactory;
 
 /**
  * class lmbLogTools.
@@ -46,23 +45,6 @@ class lmbLogTools extends lmbAbstractTools
     return $conf['logs'];
   }
 
-  public function createLogWriter($dsn)
-  {
-    if(!is_object($dsn))
-      $dsn = new lmbUri($dsn);
-
-    $writer_name = 'lmbLog'.ucfirst($dsn->getProtocol()).'Writer';
-    $writerClassName = "limb\\log\\src\\".$writer_name;
-
-    try {
-        $writer = new $writerClassName($dsn);
-    } catch (\Exception $e) {
-        throw new lmbFileNotFoundException($writerClassName, 'Log writer not found');
-    }
-
-    return $writer;
-  }
-
   public function getLog()
   {
     if($this->log)
@@ -70,7 +52,7 @@ class lmbLogTools extends lmbAbstractTools
 
     $this->log = new lmbLog();
     foreach($this->getLogDSNes() as $dsn)
-      $this->log->registerWriter($this->createLogWriter($dsn));
+      $this->log->registerWriter(lmbLogWriterFactory::createLogWriter($dsn));
 
     return $this->log;
   }
