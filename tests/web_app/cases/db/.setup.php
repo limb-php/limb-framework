@@ -2,9 +2,9 @@
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\lmbDbDump;
 
-require(dirname(__FILE__) . '/../../../active_record/cases/init.inc.php');
+require(dirname(__FILE__) . '/../../../active_record/cases/.setup.php');
 
 $type = lmbToolkit::instance()->getDefaultDbConnection()->getType();
-$this->dump = new lmbDbDump(dirname(__FILE__) . '/.fixture/init_tests.' . $type);
-$this->dump->load();
 
+$dump = new lmbDbDump(dirname(__FILE__) . '/.fixture/init_tests.' . $type);
+$dump->load();

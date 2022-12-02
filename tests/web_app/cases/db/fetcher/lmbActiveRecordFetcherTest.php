@@ -8,6 +8,8 @@
  */
 namespace tests\web_app\cases\db\validation\rule;
 
+require dirname(__FILE__) . '/../.setup.php';
+
 use limb\active_record\src\lmbActiveRecord;
 use limb\web_app\src\fetcher\lmbActiveRecordFetcher;
 use limb\core\src\lmbSet;
@@ -49,7 +51,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
 
   function _cleanUp()
   {
-    lmbActiveRecord :: delete(CourseForTest::class);
+    lmbActiveRecord::delete(CourseForTest::class);
   }
 
   function _createCourse()
@@ -80,7 +82,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $course2 = $this->_createCourse();
 
     $fetcher = new lmbActiveRecordFetcher();
-    $fetcher->setClassName('CourseForTest');
+    $fetcher->setClassName(CourseForTest::class);
 
     $rs = $fetcher->fetch();
     $rs->rewind();
@@ -99,7 +101,7 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $rs = $fetcher->fetch();
     $rs->rewind();
     $this->assertTrue($rs->valid());
-    $this->assertEquals($rs->current()->get('special'), 1);
+    $this->assertEquals(1, $rs->current()->get('special'));
   }
 
   function testFetchWithStaticFindWithParams()
@@ -112,9 +114,9 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
     $rs = $fetcher->fetch();
     $rs->rewind();
     $this->assertTrue($rs->valid());
-    $this->assertEquals($rs->current()->get('param'), 'Value1');
+    $this->assertEquals('Value1', $rs->current()->get('param'));
     $rs->next();
-    $this->assertEquals($rs->current()->get('param'), 'Value2');
+    $this->assertEquals('Value2', $rs->current()->get('param'));
   }
 
   function testFetchSingleIfFetchWithIdNotDefined()
