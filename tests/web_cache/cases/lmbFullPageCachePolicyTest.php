@@ -6,17 +6,17 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+
+use PHPUnit\Framework\TestCase;
 use limb\web_cache\src\lmbFullPageCacheRule;
 use limb\web_cache\src\lmbFullPageCachePolicy;
 use limb\core\src\lmbObject;
-
-Mock :: generate('lmbFullPageCacheRule', 'MockFullPageCacheRule');
 
 class lmbFullPageCachePolicyTest extends TestCase
 {
   protected $policy;
 
-  function setUp()
+  function setUp(): void
   {
     $this->policy = new lmbFullPageCachePolicy();
   }
@@ -25,9 +25,9 @@ class lmbFullPageCachePolicyTest extends TestCase
   {
     $rule = new lmbFullPageCacheRule();
 
-    $r1 = new MockFullPageCacheRule();
-    $r2 = new MockFullPageCacheRule();
-    $r3 = new MockFullPageCacheRule();
+    $r1 = $this->createMock(lmbFullPageCacheRule::class);
+    $r2 = $this->createMock(lmbFullPageCacheRule::class);
+    $r3 = $this->createMock(lmbFullPageCacheRule::class);
 
     $request = new lmbObject();
 
@@ -46,5 +46,3 @@ class lmbFullPageCachePolicyTest extends TestCase
     $this->assertReference($r2, $this->policy->findRuleset($request));
   }
 }
-
-

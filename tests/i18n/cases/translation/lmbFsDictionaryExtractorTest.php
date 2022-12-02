@@ -19,9 +19,6 @@ use limb\fs\src\lmbFsRecursiveIterator;
 use limb\i18n\src\translation\lmbSourceDictionaryExtractor;
 use limb\i18n\src\translation\lmbFsDictionaryExtractor;
 
-Mock :: generate('lmbSourceDictionaryExtractor', 'MockBaseDictionaryParser');
-Mock :: generate('lmbFsRecursiveIterator', 'MockFsRecursiveIterator');
-
 class lmbFsDictionaryExtractorTest extends TestCase
 {
 	
@@ -32,9 +29,9 @@ class lmbFsDictionaryExtractorTest extends TestCase
 	
   function testLoad()
   {
-    $it = new MockFsRecursiveIterator();
-    $m1 = new MockBaseDictionaryParser();
-    $m2 = new MockBaseDictionaryParser();
+    $it = $this->createMock(lmbSourceDictionaryExtractor::class);
+    $m1 = $this->createMock(lmbFsRecursiveIterator::class);
+    $m2 = $this->createMock(lmbFsRecursiveIterator::class);
 
     $it->setReturnValueAt(0, 'valid', true);
     $it->setReturnValueAt(0, 'isFile', false);

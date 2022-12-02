@@ -9,9 +9,8 @@
 namespace tests\active_record\cases;
 
 use limb\validation\src\lmbErrorList;
-
-Mock :: generate('lmbValidator', 'MockValidator');
-Mock :: generate('lmbErrorList', 'MockErrorList');
+use limb\active_record\src\lmbActiveRecord;
+use limb\validation\src\lmbValidator;
 
 class lmbActiveRecordValidationStub extends lmbActiveRecord
 {
@@ -53,8 +52,8 @@ class lmbARValidationTest extends lmbARBaseTestCase
   function testValidateNew()
   {
     $error_list = new lmbErrorList();
-    $insert_validator = new MockValidator();
-    $update_validator = new MockValidator();
+    $insert_validator = $this->createMock(lmbValidator::class);
+    $update_validator = $this->createMock(lmbValidator::class);
 
     $object = $this->_createActiveRecord();
     $object->setInsertValidator($insert_validator);
@@ -75,7 +74,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
   function testGetErrorListReturnLastErrorListUsed()
   {
     $error_list = new lmbErrorList();
-    $insert_validator = new MockValidator();
+    $insert_validator = $this->createMock(lmbValidator::class);
     $object = $this->_createActiveRecord();
     $object->setInsertValidator($insert_validator);
     $insert_validator->setReturnValue('validate', true);
@@ -87,7 +86,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
   function testValidateNewFailed()
   {
     $error_list = new lmbErrorList();
-    $insert_validator = new MockValidator();
+    $insert_validator = $this->createMock(lmbValidator::class);
 
     $object = $this->_createActiveRecord();
     $object->setInsertValidator($insert_validator);
@@ -102,8 +101,8 @@ class lmbARValidationTest extends lmbARBaseTestCase
   function testValidateExisting()
   {
     $error_list = new lmbErrorList();
-    $insert_validator = new MockValidator();
-    $update_validator = new MockValidator();
+    $insert_validator = $this->createMock(lmbValidator::class);
+    $update_validator = $this->createMock(lmbValidator::class);
 
     $object = $this->_createActiveRecordWithDataAndSave();
     $object->setInsertValidator($insert_validator);
@@ -122,7 +121,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
   function testValidateExistingFailed()
   {
     $error_list = new lmbErrorList();
-    $update_validator = new MockValidator();
+    $update_validator = $this->createMock(lmbValidator::class);
 
     $object = $this->_createActiveRecordWithDataAndSave();
     $object->setUpdateValidator($update_validator);
@@ -140,7 +139,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
 
     $error_list = new lmbErrorList();
 
-    $validator = new MockValidator();
+    $validator = $this->createMock(lmbValidator::class);
 
     $object->setInsertValidator($validator);
 
@@ -171,7 +170,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
 
     $error_list = new lmbErrorList();
 
-    $validator = new MockValidator();
+    $validator = $this->createMock(lmbValidator::class);
     $object->setInsertValidator($validator);
 
     $object->set('annotation', $annotation = 'Super annotation');
@@ -190,14 +189,14 @@ class lmbARValidationTest extends lmbARBaseTestCase
   {
     $object = $this->_createActiveRecord();
 
-    $validator = new MockValidator();
+    $validator = $this->createMock(lmbValidator::class);
     $object->setInsertValidator($validator);
 
     $object->set('annotation', $annotation = 'Super annotation');
     $object->set('content', $content = 'Super content');
     $object->set('news_date', $news_date = '2005-01-10');
 
-    $error_list = new MockErrorList();
+    $error_list = $this->createMock(lmbErrorList::class);
     $error_list->setReturnValueAt(0, 'isValid', false);
     $error_list->setReturnValueAt(1, 'isValid', true);
     
@@ -225,7 +224,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
 
     $error_list = new lmbErrorList();
 
-    $validator = new MockValidator();
+    $validator = $this->createMock(lmbValidator::class);
     $object->setUpdateValidator($validator);
 
     $object->set('annotation', $annotation = 'New annotation ' . time());
@@ -254,7 +253,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
 
     $error_list = new lmbErrorList();
 
-    $validator = new MockValidator();
+    $validator = $this->createMock(lmbValidator::class);
     $object->setUpdateValidator($validator);
 
     $object->set('annotation', $annotation = 'New annotation ' . time());
@@ -273,12 +272,12 @@ class lmbARValidationTest extends lmbARBaseTestCase
   {
     $object = $this->_createActiveRecordWithDataAndSave();
 
-    $validator = new MockValidator();
+    $validator = $this->createMock(lmbValidator::class);
     $object->setUpdateValidator($validator);
 
     $object->set('annotation', $annotation = 'Other annotation');
 
-    $error_list = new MockErrorList();
+    $error_list = $this->createMock(lmbErrorList::class);
     $error_list->setReturnValueAt(0, 'isValid', false);
     $error_list->setReturnValueAt(1, 'isValid', true);
     
@@ -305,7 +304,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
   {
     $object = $this->_createActiveRecordWithDataAndSave();
 
-    $validator = new MockValidator();
+    $validator = $this->createMock(lmbValidator::class);
     $object->setUpdateValidator($validator);
 
     $object->set('annotation', $annotation = 'New annotation ' . time());

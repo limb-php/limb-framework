@@ -7,6 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbUri;
 use limb\web_spider\src\lmbWebSpider;
 use limb\web_spider\src\lmbContentTypeFilter;
@@ -20,13 +21,6 @@ class TestingSpiderObserver
   function notify($reader){}
 }
 
-Mock :: generate('TestingSpiderObserver', 'MockWebSpiderObserver');
-Mock :: generate('lmbUriExtractor', 'MockUriExtractor');
-Mock :: generate('lmbUriNormalizer', 'MockUriNormalizer');
-Mock :: generate('lmbUriFilter', 'MockUriFilter');
-Mock :: generate('lmbContentTypeFilter', 'MockContentTypeFilter');
-Mock :: generate('lmbUriContentReader', 'MockUriContentReader');
-
 class lmbWebSpiderTest extends TestCase
 {
   var $spider;
@@ -37,14 +31,14 @@ class lmbWebSpiderTest extends TestCase
   var $normalizer;
   var $reader;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->observer = new MockWebSpiderObserver();
-    $this->extractor = new MockUriExtractor();
-    $this->uri_filter = new MockUriFilter();
-    $this->content_type_filter = new MockContentTypeFilter();
-    $this->normalizer = new MockUriNormalizer();
-    $this->reader = new MockUriContentReader();
+    $this->observer = $this->createMock(TestingSpiderObserver::class);
+    $this->extractor = $this->createMock(lmbUriExtractor::class);
+    $this->uri_filter = $this->createMock(lmbUriFilter::class);
+    $this->content_type_filter = $this->createMock(lmbContentTypeFilter::class);
+    $this->normalizer = $this->createMock(lmbUriNormalizer::class);
+    $this->reader = $this->createMock(lmbUriContentReader::class);
 
     $this->spider = new lmbWebSpider();
     $this->spider->registerObserver($this->observer);
@@ -55,7 +49,7 @@ class lmbWebSpiderTest extends TestCase
     $this->spider->setUriContentReader($this->reader);
   }
 
-  function tearDown()
+  function tearDown(): void
   {
   }
 
@@ -82,7 +76,7 @@ class lmbWebSpiderTest extends TestCase
 
   function testNotifyObservers()
   {
-    $one_more_observer = new MockWebSpiderObserver($this);
+    $one_more_observer = $this->createMock(TestingSpiderObserver::class);
     $this->spider->registerObserver($one_more_observer);
 
     $uri = new lmbUri('http://some.host/whatever.html');
@@ -101,8 +95,8 @@ class lmbWebSpiderTest extends TestCase
     $this->extractor->expectOnce('extract', array($content));
     $this->extractor->setReturnValue('extract', array(), array($content));
 
-    $this->observer->expectOnce('notify', array(new IsAExpectation('MockUriContentReader')));
-    $one_more_observer->expectOnce('notify', array(new IsAExpectation('MockUriContentReader')));
+    $this->observer->expectOnce('notify', array(new IsAExpectation( $this->createMock(lmbUriContentReader::class) )));
+    $one_more_observer->expectOnce('notify', array(new IsAExpectation( $this->createMock(lmbUriContentReader::class) )));
 
     $this->spider->crawl($uri);
 
@@ -150,5 +144,3 @@ class lmbWebSpiderTest extends TestCase
     $this->spider->crawl($uri);
   }
 }
-
-

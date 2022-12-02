@@ -15,8 +15,6 @@ use limb\dbal\src\lmbSimpleDb;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\drivers\lmbAutoTransactionConnection;
 
-Mock :: generate('lmbFilterChain', 'MockFilterChain');
-
 class FilterWorkingWithDbStub
 {
   var $sql;
@@ -59,8 +57,8 @@ class lmbAutoDbTransactionFilterTest extends TestCase
     $this->assertFalse($this->conn instanceof lmbAutoTransactionConnection);
 
     $filter = new lmbAutoDbTransactionFilter();
-    $chain = new MockFilterChain();
-    $chain->expectOnce('next');
+    $chain = $this->createMock(lmbFilterChain::class);
+    $chain->expects($this->once())->method('next');
     $filter->run($chain);
 
     $this->assertIdentical($this->conn, $this->toolkit->getDefaultDbConnection());
@@ -101,11 +99,11 @@ class lmbAutoDbTransactionFilterTest extends TestCase
       $chain->process();
       $this->assertTrue(false);
     }
-    catch(\Exception $e){}
+    catch(\Exception $e){
+
+    }
 
     $this->assertEquals($this->db->count('test_db_table'), 0);
     $this->assertIdentical($this->conn, $this->toolkit->getDefaultDbConnection());
   }
-
 }
-

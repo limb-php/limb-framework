@@ -12,13 +12,10 @@ require('limb/dbal/tests/common.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\criteria\lmbSQLRawCriteria;
-use limb\dbal\src\criteria\lmbSQLTableFieldCriteria;
+use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
-use limb\dbal\src\drivers\lmbDbStatementInterface;
-
-Mock :: generate('lmbDbConnection', 'MockConnection');
-Mock :: generate('lmbDbStatement', 'MockStatement');
+use limb\core\src\exception\lmbException;
 
 class lmbSelectRawQueryTest extends TestCase
 {
@@ -480,8 +477,8 @@ class lmbSelectRawQueryTest extends TestCase
 
   function testGetStatement()
   {
-    $conn = new MockConnection();
-    $stmt = new MockStatement();
+    $conn = $this->createMock(lmbDbConnectionInterface::class);
+    $stmt = $this->createMock(lmbDbConnectionInterface::class);
 
     $conn->expectOnce('newStatement');
     $stmt->expectOnce('set', array('p0t_id', 5));

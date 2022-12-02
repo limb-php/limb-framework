@@ -10,9 +10,7 @@ namespace tests\dbal\cases\nondriver;
 
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\drivers\lmbAutoTransactionConnection;
-use limb\dbal\src\drivers\lmbDbConnectionIinterface;
-
-Mock :: generate('lmbDbConnection', 'MockDbConnection');
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 
 class lmbAutoTransactionConnectionTest extends TestCase
 {
@@ -21,7 +19,7 @@ class lmbAutoTransactionConnectionTest extends TestCase
 
   function setUp(): void
   {
-    $this->wrapped = new MockDbConnection();
+    $this->wrapped = $this->createMock(lmbDbConnectionInterface::class);
     $this->connection = new lmbAutoTransactionConnection($this->wrapped);
   }
 

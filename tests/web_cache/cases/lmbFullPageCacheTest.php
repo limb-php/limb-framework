@@ -6,6 +6,8 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+
+use PHPUnit\Framework\TestCase;
 use limb\web_cache\src\lmbFullPageCache;
 use limb\web_cache\src\lmbFullPageCachePolicy;
 use limb\web_cache\src\lmbFullPageCacheRuleset;
@@ -15,10 +17,6 @@ use limb\web_cache\src\lmbFullPageCacheRequest;
 use limb\web_cache\src\lmbFullPageCacheWriter;
 use limb\net\src\lmbHttpRequest;
 
-Mock :: generate('lmbFullPageCachePolicy', 'MockFullPageCachePolicy');
-Mock :: generate('lmbFullPageCacheRequest', 'MockFullPageCacheRequest');
-Mock :: generate('lmbFullPageCacheWriter', 'MockFullPageCacheWriter');
-
 class lmbFullPageCacheTest extends TestCase
 {
   protected $cache;
@@ -26,10 +24,11 @@ class lmbFullPageCacheTest extends TestCase
   protected $user;
   protected $policy;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->writer = new MockFullPageCacheWriter();
-    $this->policy = new MockFullPageCachePolicy();
+    $this->writer = $this->createMock(lmbFullPageCacheWriter::class);
+    $this->policy = $this->createMock(lmbFullPageCachePolicy::class);
+
     $this->user = new lmbFullPageCacheUser();
     $this->cache = new lmbFullPageCache($this->writer, $this->policy);
   }
@@ -70,7 +69,7 @@ class lmbFullPageCacheTest extends TestCase
 
   function testGetOk()
   {
-    $request = new MockFullPageCacheRequest();
+    $request = $this->createMock(lmbFullPageCacheRequest::class);
     $ruleset = new lmbFullPageCacheRuleset();
 
     $this->policy->expectOnce('findRuleset', array($request));
@@ -88,7 +87,7 @@ class lmbFullPageCacheTest extends TestCase
 
   function testGetNotFound()
   {
-    $request = new MockFullPageCacheRequest();
+    $request = $this->createMock(lmbFullPageCacheRequest::class);
     $rule = new lmbFullPageCacheRuleset();
 
     $this->policy->expectOnce('findRuleset', array($request));
@@ -104,7 +103,7 @@ class lmbFullPageCacheTest extends TestCase
 
   function testSaveOk()
   {
-    $request = new MockFullPageCacheRequest();
+    $request = $this->createMock(lmbFullPageCacheRequest::class);
     $rule = new lmbFullPageCacheRuleset();
 
     $this->policy->expectOnce('findRuleset', array($request));
@@ -120,5 +119,3 @@ class lmbFullPageCacheTest extends TestCase
     $this->assertTrue($this->cache->save($content));
   }
 }
-
-

@@ -7,23 +7,22 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\web_spider\src\lmbInnerUriNormalizerObserver;
 use limb\web_spider\src\lmbUriContentReader;
 use limb\net\src\lmbUri;
-
-Mock :: generate('lmbUriContentReader', 'MockUriContentReader');
 
 class lmbInnerUriNormalizerObserverTest extends TestCase
 {
   var $observer;
   var $reader;
 
-  function setUp()
+  function setUp(): void
   {
-    $this->reader = new MockUriContentReader($this);
+    $this->reader = $this->createMock(lmbUriContentReader::class);
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->reader->tally();
   }
@@ -69,5 +68,3 @@ class lmbInnerUriNormalizerObserverTest extends TestCase
   }
 
 }
-
-

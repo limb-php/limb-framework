@@ -12,11 +12,7 @@ use PHPUnit\Framework\TestCase;
 use limb\web_app\src\controller\lmbController;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbSet;
-use limb\macro\src\lmbMacroTemplateLocator;
 use limb\validation\src\rule\lmbValidationRuleInterface;
-
-Mock :: generate('lmbMacroTemplateLocator', 'MockMacroTemplateLocator');
-Mock :: generate('lmbValidationRule', 'MockValidationRule');
 
 class TestingController extends lmbController
 {
@@ -177,10 +173,10 @@ class lmbControllerTest extends TestCase
 
     $ds = new lmbSet();
 
-    $r1 = new MockValidationRule();
+    $r1 = $this->createMock(lmbValidationRuleInterface::class);
     $r1->expectOnce('validate', array($ds, $error_list));
 
-    $r2 = new MockValidationRule();
+    $r2 = $this->createMock(lmbValidationRuleInterface::class);
     $r2->expectOnce('validate', array($ds, $error_list));
 
     $controller->addValidatorRule($r1);

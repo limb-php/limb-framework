@@ -9,6 +9,10 @@
 namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbAROneToManyCollection;
+use limb\active_record\src\lmbActiveRecord;
+use limb\active_record\src\lmbARNotFoundException;
+use limb\active_record\src\lmbARException;
+use limb\core\src\exception\lmbException;
 
 class LecturesForTestCollectionStub extends lmbAROneToManyCollection{}
 
@@ -16,15 +20,16 @@ class CourseForTestWithCustomCollection extends lmbActiveRecord
 {
   protected $_db_table_name = 'course_for_test';
   protected $_has_many = array('lectures' => array('field' => 'course_id',
-                                                   'class' => 'LectureForTest',
-                                                   'collection' => 'LecturesForTestCollectionStub'));
+                                                   'class' => LectureForTest::class,
+                                                   'collection' => LecturesForTestCollectionStub::class
+  ));
 }
 
 class CourseForTestWithNullifyRelationProperty extends lmbActiveRecord
 {
   protected $_db_table_name = 'course_for_test';
   protected $_has_many = array('lectures' => array('field' => 'course_id',
-                                                   'class' => 'LectureForTest',
+                                                   'class' => LectureForTest::class,
                                                    'nullify' => true));
 }
 
@@ -32,7 +37,7 @@ class CourseWithNullableLectures extends lmbActiveRecord
 {
   protected $_db_table_name = 'course_for_test';
   protected $_has_many = array('lectures' => array('field' => 'course_id',
-                                                   'class' => 'LectureIndependentFromCourse',
+                                                   'class' => LectureIndependentFromCourse::class,
                                                    'nullify' => true),
                                );
 }
@@ -41,13 +46,11 @@ class LectureIndependentFromCourse extends lmbActiveRecord
 {
   protected $_db_table_name = 'lecture_for_test';
   protected $_many_belongs_to = array('course' => array('field' => 'course_id',
-                                                        'class' => 'CourseWithNullableLectures',
+                                                        'class' => CourseWithNullableLectures::class,
                                                         'can_be_null' => true,
                                                         'throw_exception_on_not_found' => false),
                                       );
 }
-
-Mock :: generate('LectureForTest', 'MockLectureForTest');
 
 class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
 {
@@ -551,7 +554,10 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
       $course2->import($c2);
       $c2 = $course2->save();
     }
-    catch (lmbARException $e){ }
+    catch (lmbARException $e)
+    {
+
+    }
     $this->assertEquals(lmbActiveRecord :: find("LectureForTest")->count(), 4);
   }
 
@@ -591,4 +597,3 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
   }
 }
 
- 

@@ -7,16 +7,15 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbUri;
 use limb\web_spider\src\lmbUriContentReader;
-
-Mock :: generate('lmbUri', 'MockUri');
 
 class lmbUriContentReaderTest extends TestCase
 {
   function testOpen()
   {
-    $uri = new MockUri();
+    $uri = $this->createMock(lmbUri::class);
     $reader = new lmbUriContentReader();
     $uri->expectOnce('toString');
     $uri->setReturnValue('toString', dirname(__FILE__) . '/../html/index.html');
@@ -30,5 +29,3 @@ class lmbUriContentReaderTest extends TestCase
   {
   }
 }
-
-

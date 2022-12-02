@@ -12,15 +12,6 @@ use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbHttpRedirectStrategy;
 use limb\net\src\lmbHttpResponse;
 
-/*Mock :: generatePartial(
-  lmbHttpResponse::class,
-  'SpecialMockResponse',
-  array('_sendHeader',
-        '_sendCookie',
-        '_sendString',
-        '_sendFile')
-);*/
-
 class lmbHttpResponseTest extends TestCase
 {
   var $response;

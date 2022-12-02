@@ -13,9 +13,6 @@ use limb\dbal\src\drivers\lmbAuditDbConnection;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\dbal\src\drivers\lmbDbStatementInterface;
 
-Mock :: generate('lmbDbConnection', 'MockDbConnection');
-Mock :: generate('lmbDbStatement', 'MockDbStatement');
-
 class lmbAuditDbConnectionTest extends TestCase
 {
   protected $wrapped;
@@ -23,7 +20,7 @@ class lmbAuditDbConnectionTest extends TestCase
 
   function setUp(): void
   {
-    $this->wrapped = new MockDbConnection();
+    $this->wrapped = $this->createMock(lmbDbConnectionInterface::class);
     $this->connection = new lmbAuditDbConnection($this->wrapped);
   }
 
@@ -55,7 +52,7 @@ class lmbAuditDbConnectionTest extends TestCase
     
     $this->wrapped->expectOnce('newStatement', array($sql));
     
-    $statement = new MockDbStatement();
+    $statement = $this->createMock(lmbDbStatementInterface::class);
     $statement->expectOnce('setConnection', array(new ReferenceExpectation($this->connection)));
     $this->wrapped->expectOnce('newStatement', array($sql));
     $this->wrapped->setReturnValue('newStatement', $statement, array($sql));
@@ -76,4 +73,3 @@ class lmbAuditDbConnectionTest extends TestCase
     $this->assertEquals(count($this->connection->getQueries('select program.*')), 2);
   }
 }
-

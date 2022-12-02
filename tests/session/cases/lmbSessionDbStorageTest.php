@@ -8,11 +8,10 @@
  */
 namespace tests\session\cases;
 
+use PHPUnit\Framework\TestCase;
 use limb\session\src\lmbSessionDbStorage;
 use limb\dbal\src\lmbSimpleDb;
 use limb\toolkit\src\lmbToolkit;
-
-Mock :: generate('TestSessionObject');
 
 class lmbSessionDbStorageTest extends TestCase
 {
@@ -20,7 +19,7 @@ class lmbSessionDbStorageTest extends TestCase
   protected $conn;
   protected $driver;
 
-  function setUp()
+  function setUp(): void
   {
     $toolkit = lmbToolkit::save();
     $this->conn = $toolkit->getDefaultDbConnection();
@@ -31,7 +30,7 @@ class lmbSessionDbStorageTest extends TestCase
     $this->driver = new lmbSessionDbStorage($this->conn);
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->db->delete('lmb_session');
 
