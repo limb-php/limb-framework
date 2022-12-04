@@ -251,15 +251,13 @@ class lmbHttpRequest extends lmbSet
     function get($key, $default = null)
     {
         $_key = "__$key";
-        if(in_array($_key, $this->__reserved_attrs)) // fix. $this->get('request') return __request
+        if(in_array($_key, $this->__reserved_attrs))
             return $this->$_key;
 
         if(in_array($key, $this->__reserved_attrs))
             return null;
 
-        return $this->$key ?? $default;
-
-        //return parent::get($key, $default);
+        return $this->$key ?? ($this->__attributes[$key] ?? $default); // remove $this->__attributes[$key] in 4.x
     }
 
     function set($key, $value)
