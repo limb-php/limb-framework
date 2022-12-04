@@ -40,13 +40,14 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
 
   function run($filter_chain, $request = null, $response = null)
   {
-      if(!$request)
-          $request = $this->toolkit->getRequest();
+      $request = $request ?? $this->toolkit->getRequest(); // depricasted. remove in 4.x
 
       $dispatched_params = $this->dispatcher->dispatch($request);
 
       foreach($dispatched_params as $name => $value)
           $request = $request->withAttribute($name, $value);
+
+      $this->toolkit->setRequest($request); // depricasted. remove in 4.x
 
       $controller = $this->_createController($dispatched_params);
 
