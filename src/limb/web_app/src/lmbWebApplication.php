@@ -64,7 +64,7 @@ class lmbWebApplication extends lmbFilterChain
     $this->pre_view_filters[] = $filter;
   }
 
-  function process($request, $response)
+  function process($request = null, $response = null)
   {
       $this->_registerFilters();
 

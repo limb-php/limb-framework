@@ -12,11 +12,9 @@ namespace limb\web_app\src\request;
  * interface lmbRequestDispatcherInterface.
  *
  * @package web_app
- * @version $Id: lmbRequestDispatcher.interface.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbRequestDispatcherInterface.php 7486 2009-01-26 19:13:20Z
  */
 interface lmbRequestDispatcherInterface
 {
   function dispatch($request);
 }
-
-

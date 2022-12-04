@@ -16,6 +16,7 @@ use limb\core\src\exception\lmbException;
  * @package web_app
  * @version $Id$
  */
-class lmbDelegateHaltException extends lmbException{}
+class lmbDelegateHaltException extends lmbException
+{
 
-
+}

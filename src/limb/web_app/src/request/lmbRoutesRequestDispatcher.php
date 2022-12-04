@@ -16,7 +16,7 @@ use limb\core\src\lmbEnv;
  * class lmbRoutesRequestDispatcher.
  *
  * @package web_app
- * @version $Id: lmbRoutesRequestDispatcher.class.php 7676 2009-03-03 22:37:28Z korchasa $
+ * @version $Id: lmbRoutesRequestDispatcher.php 7676 2009-03-03 22:37:28Z
  */
 class lmbRoutesRequestDispatcher implements lmbRequestDispatcherInterface
 {
@@ -70,5 +70,3 @@ class lmbRoutesRequestDispatcher implements lmbRequestDispatcherInterface
     return $level;
   }
 }
-
-

@@ -14,7 +14,7 @@ use limb\core\src\exception\lmbException;
  * class lmbRoutes.
  *
  * @package web_app
- * @version $Id: lmbRoutes.class.php 8086 2010-01-22 01:32:51Z korchasa $
+ * @version $Id: lmbRoutes.php 8086 2010-01-22 01:32:51Z
  */
 class lmbRoutes
 {
@@ -67,7 +67,7 @@ class lmbRoutes
       return $dispatched;
 
     //'rewriter' is going to be obsolete
-    $filter = isset($route['dispatch_filter']) ? $route['dispatch_filter'] : $route['rewriter'];
+    $filter = $route['dispatch_filter'] ?? $route['rewriter'];
 
     if(!is_callable($filter))
       throw new lmbException('Dispatch filter is not callable!', array('filter' => $filter));

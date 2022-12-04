@@ -18,7 +18,7 @@ use limb\core\src\lmbString;
  * class lmbActiveRecordFetcher.
  *
  * @package web_app
- * @version $Id: lmbActiveRecordFetcher.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbActiveRecordFetcher.php 7486 2009-01-26 19:13:20Z
  */
 class lmbActiveRecordFetcher extends lmbFetcher
 {

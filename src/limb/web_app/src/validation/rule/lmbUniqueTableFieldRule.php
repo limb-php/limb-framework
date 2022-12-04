@@ -16,7 +16,7 @@ use limb\i18n\src\lmbI18n;
  * class lmbUniqueTableFieldRule.
  *
  * @package web_app
- * @version $Id: lmbUniqueTableFieldRule.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbUniqueTableFieldRule.php 7486 2009-01-26 19:13:20Z
  */
 class lmbUniqueTableFieldRule extends lmbSingleFieldRule
 {

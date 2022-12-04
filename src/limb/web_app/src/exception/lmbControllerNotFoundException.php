@@ -16,6 +16,7 @@ use limb\core\src\exception\lmbException;
  * @package web_app
  * @version $Id$
  */
-class lmbControllerNotFoundException extends lmbException{}
+class lmbControllerNotFoundException extends lmbException
+{
 
-
+}
