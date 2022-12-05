@@ -8,26 +8,33 @@ use limb\i18n\src\lmbI18n;
 
 class lmbCmsUserUniqueFieldRule extends lmbSingleFieldRule
 {
-  protected $user;
-  protected $custom_error;
+    protected $model_class;
+    protected $ignore_user;
 
-  function __construct($field, $user, $custom_error = null)
-  {
-      $this->user = is_object($user) ? $user : new $user();
+    function __construct($field_name, $model_class, $ignore_user = null, $custom_error = null)
+    {
+        if( is_object($model_class) ) { // for BC
+            $this->ignore_user = $model_class;
+            $this->model_class = get_class($model_class);
+            $custom_error = $ignore_user;
+        }
+        else {
+            $this->ignore_user = $ignore_user;
+            $this->model_class = $model_class;
+        }
 
-      parent::__construct($field, $custom_error);
-  }
+        parent::__construct($field_name, $custom_error);
+    }
 
-  function check($value)
-  {
-      $criteria = new lmbSQLFieldCriteria($this->field_name, $value);
-      if(!$this->user->isNew())
-          $criteria->addAnd($this->user->getPrimaryKeyName() . ' <> '. $this->user->getId());
+    function check($value)
+    {
+        $criteria = new lmbSQLFieldCriteria($this->field_name, $value);
+        $criteria->addAnd(new lmbSQLFieldCriteria($this->ignore_user->getPrimaryKeyName(), $this->ignore_user->getId(), lmbSQLFieldCriteria::NOT_EQUAL));
 
-      if(lmbActiveRecord::findOne(get_class($this->user), $criteria, $this->user->getConnection()))
-      {
-          $error = $this->custom_error ?? lmbI18n::translate('User with {Field} already exists', 'cms');
-          $this->error( $error );
-      }
-  }
+        if( lmbActiveRecord::findFirst($this->model_class, $criteria) )
+        {
+            $error = $this->custom_error ?? lmbI18n::translate('User with {Field} already exists', 'cms');
+            $this->error( $error );
+        }
+    }
 }

@@ -8,21 +8,19 @@ use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 
 class lmbCmsUniqueFieldRule extends lmbSingleFieldRule
 {
-  protected $class;
-  protected $object;
+  protected $model_class;
+  protected $ignore;
 
-  function __construct($field, $class, $object = null, $custom_error = null)
+  function __construct($field, $model_class, $object = null, $custom_error = null)
   {
-    if( is_object($class) )
-    {
-      $this->object = $class;
-      $this->class = get_class($class);
+    if( is_object($model_class) ) {
+      $this->ignore = $model_class;
+      $this->model_class = get_class($model_class);
       $custom_error = $object;
     }
-    else
-    {
-      $this->object = $object;
-      $this->class = $class;
+    else {
+      $this->ignore = $object;
+      $this->model_class = $model_class;
     }
 
     parent::__construct($field, $custom_error);
@@ -30,13 +28,11 @@ class lmbCmsUniqueFieldRule extends lmbSingleFieldRule
 
   function check($value)
   {
-    $criteria = lmbSQLCriteria::equal($this->field_name, $value);
-    if(!$this->object->isNew())
-      $criteria->addAnd(new lmbSQLFieldCriteria($this->object->getPrimaryKeyName(), $this->object->getId(), lmbSQLFieldCriteria::NOT_EQUAL));
+      $criteria = lmbSQLCriteria::equal($this->field_name, $value);
+      $criteria->addAnd(new lmbSQLFieldCriteria($this->ignore->getPrimaryKeyName(), $this->ignore->getId(), lmbSQLFieldCriteria::NOT_EQUAL));
 
-    $records = lmbActiveRecord::find($this->class, $criteria, $this->object->getConnection());
-
-    if($records->count())
-      $this->error('Field {Field} already exists');
+      if( lmbActiveRecord::find($this->model_class, $criteria) ) {
+          $this->error('Field {Field} already exists');
+      }
   }
 }
