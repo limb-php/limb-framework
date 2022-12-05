@@ -26,6 +26,8 @@ class lmbLogFirePHPWriterTest extends TestCase
     //lmbToolkit::instance()->setResponse(new lmbHttpResponseForLogTest());
     ob_start();
 
+    $_SERVER['REQUEST_URI'] = '/';
+    $_SERVER['REQUEST_METHOD'] = 'GET';
     $writer = new lmbLogFirePHPWriter(new lmbUri('firePHP://localhost/?check_extension=0'));
     $writer->write(new lmbLogEntry(LOG_ERR, 'foo'));
 
