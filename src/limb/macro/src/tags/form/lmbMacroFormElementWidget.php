@@ -9,6 +9,7 @@
 namespace limb\macro\src\tags\form;
 
 use limb\macro\src\compiler\lmbMacroHtmlTagWidget;
+use limb\core\src\exception\lmbNoSuchPropertyException;
 
 /**
  * class lmbMacroFormElementWidget.
@@ -85,8 +86,12 @@ class lmbMacroFormElementWidget extends lmbMacroHtmlTagWidget
       $ds = $this->form->getDatasource();
       $id = $this->getName();
 
-      if(is_object($ds)){
-          return $ds->get($id);
+      try {
+          if(is_object($ds)) {
+              return $ds->get($id);
+          }
+      }
+      catch (lmbNoSuchPropertyException $e) {
       }
 
       if(isset($ds[$id]))
