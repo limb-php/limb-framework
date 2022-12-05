@@ -9,11 +9,11 @@ class lmbCmsTextBlockUniqueFieldRule extends lmbSingleFieldRule
 {
   protected $text_block;
 
-  function __construct($field_name, $text_block)
+  function __construct($field_name, $text_block, $custom_error = null)
   {
     $this->text_block = is_object($text_block) ? $text_block : new $text_block();
 
-    parent::__construct($field_name);
+    parent::__construct($field_name, $custom_error);
   }
 
   function check($value)

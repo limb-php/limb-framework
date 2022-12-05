@@ -11,7 +11,7 @@ class lmbCmsUniqueFieldRule extends lmbSingleFieldRule
   protected $class;
   protected $object;
 
-  function __construct($field, $class, $object = null, $custom_error = '')
+  function __construct($field, $class, $object = null, $custom_error = null)
   {
     if( is_object($class) )
     {

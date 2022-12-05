@@ -9,14 +9,13 @@ class lmbTreeUniqueIdentifierRule extends lmbSingleFieldRule
 {
   protected $field_name;
   protected $node;
-  protected $error_message;
   protected $parent_id;
 
-  function __construct($field_name, $node, $error_message, $parent_id = false)
+  function __construct($field_name, $node, $custom_error, $parent_id = false)
   {
     $this->node = is_object($node) ? $node : new $node();
     $this->field_name = $field_name;
-    $this->error_message = $error_message;
+    $this->custom_error = $custom_error;
     $this->parent_id = $parent_id ?? $this->node->getParent()->getId();
 
     parent::__construct($field_name);
@@ -30,6 +29,6 @@ class lmbTreeUniqueIdentifierRule extends lmbSingleFieldRule
       $criteria->addAnd($this->node->getPrimaryKeyName() . ' <> '. $this->node->getId());
 
     if(lmbActiveRecord::findFirst(get_class($this->node), $criteria))
-      $this->error($this->error_message);
+      $this->error($this->custom_error);
   }
 }

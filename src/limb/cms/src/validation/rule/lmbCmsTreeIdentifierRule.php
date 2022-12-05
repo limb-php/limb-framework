@@ -15,7 +15,7 @@ class lmbCmsTreeIdentifierRule extends lmbBaseValidationRule
   * @param string Field name
   * @param string custom error
   */
-  function __construct($field_name, $custom_error = '')
+  function __construct($field_name, $custom_error = null)
   {
     $this->field_name = $field_name;
     $this->custom_error = $custom_error;
@@ -55,7 +55,7 @@ class lmbCmsTreeIdentifierRule extends lmbBaseValidationRule
   {
     if(!preg_match('~^[a-zA-Z0-9-_\.]+$~', $value))
     {
-      $error = $this->custom_error ? $this->custom_error : lmbI18n::translate('{Field} can contain numeric, latin alphabet and `-`, `_`, `.` symbols only', 'cms');
+      $error = $this->custom_error ?? lmbI18n::translate('{Field} can contain numeric, latin alphabet and `-`, `_`, `.` symbols only', 'cms');
       $this->error($error, array('Field' => $this->field_name));
       return false;
     }
