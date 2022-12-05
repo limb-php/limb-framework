@@ -35,6 +35,7 @@ class lmbValidatorBuilderTest extends TestCase
     $rules['login'] = "required|matches[bbb]|size_range[5, 8]|identifier";
 
     $this->validator
+        ->expects($this->exactly(4))
         ->method("addRule")
         ->withConsecutive(
             [new lmbHandle(lmbRequiredRule::class, array('login'))],
@@ -69,6 +70,7 @@ class lmbValidatorBuilderTest extends TestCase
     );
 
     $this->validator
+        ->expects($this->exactly(5))
         ->method("addRule")
         ->withConsecutive(
             [new lmbHandle(lmbRequiredRule::class, array('login'))],
@@ -92,6 +94,7 @@ class lmbValidatorBuilderTest extends TestCase
     );
     
     $this->validator
+        ->expects($this->once())
         ->method("addRule")
         ->with(new lmbHandle(lmbUniqueTableFieldRule::class, array('login', 'user', 'login')));
 

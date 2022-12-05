@@ -36,10 +36,14 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'billgatesmicrosoft.com');
 
+    $message = '{Field} must contain a @ character.';
+    if( function_exists('filter_var') )
+        $message = 'Invalid {Field}.';
+
     $this->error_list
         ->expects($this->once())
         ->method('addError')
-        ->with(lmb_i18n('Invalid {Field}.', 'validation'),
+        ->with(lmb_i18n($message, 'validation'),
                                         array('Field'=>'testfield'),
                                         array()
         );
