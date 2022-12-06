@@ -39,29 +39,38 @@ class lmbHttpRequest extends lmbSet
    */
   protected $version;
 
-  function __construct($uri_string = null, $get = null, $post = null, $cookies = null, $files = null, $headers = null)
+  function __construct($uri_string = null, $method = 'GET', $get = [], $post = [], $cookies = [], $files = [], $headers = [])
   {
     parent::__construct();
 
-    $this->_initRequestProperties($uri_string, $get, $post, $cookies, $files, $headers);
+    $this->_initRequestProperties($uri_string, $method, $get, $post, $cookies, $files, $headers);
   }
 
-  protected function _initRequestProperties($uri_string, $get, $post, $cookies, $files, $headers)
+  static public function createFromGlobals()
+  {
+      $uri_string = self::getRawUriString();
+      $method = $_SERVER['REQUEST_METHOD'] ?? null;
+      $headers = self::_readHeaders();
+
+      return new static($uri_string, $method, $_GET, $_POST, $_COOKIE, $_FILES, $headers);
+  }
+
+  protected function _initRequestProperties($uri_string, $method, $get = [], $post = [], $cookies = [], $files = [], $headers = [])
   {
     $this->version = '1.0';
 
-    $this->__method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+    $this->__method = $method;
 
-    $this->__uri = !is_null($uri_string) ? new lmbUri($uri_string) : new lmbUri($this->getRawUriString());
+    $this->__uri = new lmbUri($uri_string);
 
-    $this->__get = !is_null($get) ? $get : $_GET;
+    $this->__get = $get;
     $items = $this->__uri->getQueryItems();
     foreach($items as $k => $v)
       $this->__get[$k] = $v;
 
-    $this->__post = !is_null($post) ? $post : $_POST;
-    $this->__cookies = !is_null($cookies) ? $cookies : $_COOKIE;
-    $this->__files = !is_null($files) ? $this->_parseUploadedFiles($files) : $this->_parseUploadedFiles($_FILES);
+    $this->__post = $post;
+    $this->__cookies = $cookies;
+    $this->__files = $this->_parseUploadedFiles($files);
 
     if(ini_get('magic_quotes_gpc'))
     {
@@ -79,10 +88,10 @@ class lmbHttpRequest extends lmbSet
       $this->set($k, $v);
     }
 
-    $this->__headers = $headers ?? $this->_readHeaders();
+    $this->__headers = $headers;
   }
 
-    protected function _readHeaders(): array
+    static protected function _readHeaders(): array
     {
         $headers = [];
         foreach ($_SERVER as $key => $value) {
@@ -339,7 +348,7 @@ class lmbHttpRequest extends lmbSet
     return $this->__uri->getPath();
   }
 
-  function getRawUriString()
+  static function getRawUriString()
   {
     $host = 'localhost';
 

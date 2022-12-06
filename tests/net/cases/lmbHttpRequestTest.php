@@ -29,7 +29,7 @@ class lmbHttpRequestTest extends TestCase
 
   function testGet()
   {
-    $request = new lmbHttpRequest('http://test.com', array('c' => 1), array('d' => 2));
+    $request = new lmbHttpRequest('http://test.com', 'GET', array('c' => 1), array('d' => 2));
     $this->assertEquals(1, $request->get('c'));
     $this->assertEquals(2, $request->get('d'));
     $this->assertNull($request->get('foo'));
@@ -37,19 +37,19 @@ class lmbHttpRequestTest extends TestCase
 
   function testMergePostOverGet()
   {
-    $request = new lmbHttpRequest('http://test.com', array('a' => 2), array('a' => 3));
+    $request = new lmbHttpRequest('http://test.com', 'GET', array('a' => 2), array('a' => 3));
     $this->assertEquals(3, $request->get('a'));
   }
 
   function testGetSafe()
   {
-    $request = new lmbHttpRequest('http://test.com', array('c' => '<xss>'));
+    $request = new lmbHttpRequest('http://test.com', 'GET', array('c' => '<xss>'));
     $this->assertEquals($request->getSafe('c'), htmlspecialchars('<xss>'));
   }
 
   function testGetRequest()
   {
-    $request = new lmbHttpRequest('http://test.com', array('c' => 1), array('d' => 2));
+    $request = new lmbHttpRequest('http://test.com', 'GET', array('c' => 1), array('d' => 2));
     $this->assertEquals(array('c' => 1, 'd' => 2), $request->getRequest());
     $this->assertEquals(1, $request->getRequest('c'));
     $this->assertNull($request->getRequest('b'), 1);
@@ -63,7 +63,7 @@ class lmbHttpRequestTest extends TestCase
   function testGetGet()
   {
   	$get = array('c' => 1, 'ju' => 'jitsu', 'kung' => 'fu');
-    $request = new lmbHttpRequest('http://test.com', $get);
+    $request = new lmbHttpRequest('http://test.com', 'GET', $get);
     $this->assertEquals($request->getGet(), $get);
     $this->assertEquals(1, $request->getGet('c'));
     $this->assertNull($request->getGet('b'), 1);
@@ -79,7 +79,7 @@ class lmbHttpRequestTest extends TestCase
   function testGetPost()
   {
   	$post = array('c' => 1, 'ju' => 'jitsu', 'kung' => 'fu');
-    $request = new lmbHttpRequest('http://test.com', array(), $post);
+    $request = new lmbHttpRequest('http://test.com', 'POST', array(), $post);
     $this->assertEquals($request->getPost(), $post);
     $this->assertEquals(1, $request->getPost('c'));
     $this->assertNull($request->getPost('b'), 1);
@@ -94,21 +94,21 @@ class lmbHttpRequestTest extends TestCase
 
   function testGetFiltered()
   {
-    $request = new lmbHttpRequest('http://test.com', array('c' => 'c1'));
+    $request = new lmbHttpRequest('http://test.com', 'GET', array('c' => 'c1'));
     $this->assertEquals(1, $request->getFiltered('c', FILTER_SANITIZE_NUMBER_INT));
     $this->assertEquals(1, $request->getFiltered('d', FILTER_SANITIZE_NUMBER_INT, 1));
   }
 
   function testGetGetFiltered()
   {
-    $request = new lmbHttpRequest('http://test.com', array('c' => 'c1'));
+    $request = new lmbHttpRequest('http://test.com', 'GET', array('c' => 'c1'));
     $this->assertEquals(1, $request->getGetFiltered('c', FILTER_SANITIZE_NUMBER_INT));
     $this->assertEquals(1, $request->getGetFiltered('d', FILTER_SANITIZE_NUMBER_INT, 1));
   }
 
   function testGetGetFiltered_Array()
   {
-    $request = new lmbHttpRequest('http://test.com', array('c' => 'c1', 'ju' => 'jitsu42'));
+    $request = new lmbHttpRequest('http://test.com', 'GET', array('c' => 'c1', 'ju' => 'jitsu42'));
     $vars = $request->getGetFiltered(
         array('c', 'ju'),
         array('c' => FILTER_SANITIZE_NUMBER_INT, 'ju' => FILTER_SANITIZE_NUMBER_INT)
@@ -120,7 +120,7 @@ class lmbHttpRequestTest extends TestCase
   function testGetPostFiltered()
   {
     $post = array('c' => 'c1');
-    $request = new lmbHttpRequest('http://test.com', array(), $post);
+    $request = new lmbHttpRequest('http://test.com', 'GET', array(), $post);
     $this->assertEquals(1, $request->getPostFiltered('c', FILTER_SANITIZE_NUMBER_INT));
     $this->assertEquals(1, $request->getPostFiltered('d', FILTER_SANITIZE_NUMBER_INT, 1));
   }
@@ -128,7 +128,7 @@ class lmbHttpRequestTest extends TestCase
   function testGetPostFiltered_Array()
   {
     $post = array('c' => 'c1', 'ju' => 'jitsu42');
-    $request = new lmbHttpRequest('http://test.com', array(), $post);
+    $request = new lmbHttpRequest('http://test.com', 'GET', array(), $post);
     $vars = $request->getPostFiltered(array('c', 'ju'), FILTER_SANITIZE_NUMBER_INT);
     $this->assertEquals(1, $vars['c']);
     $this->assertEquals(42, $vars['ju']);
@@ -137,7 +137,7 @@ class lmbHttpRequestTest extends TestCase
   function testGetCookie()
   {
   	$cookie = array('c' => 1, 'ju' => 'jitsu', 'kung' => 'fu');
-    $request = new lmbHttpRequest('http://test.com', array(), array(), $cookie);
+    $request = new lmbHttpRequest('http://test.com', 'GET', array(), array(), $cookie);
     $this->assertEquals($request->getCookie(), $cookie);
     $this->assertEquals(1, $request->getCookie('c'));
     $this->assertNull($request->getCookie('b'), 1);
@@ -196,7 +196,7 @@ class lmbHttpRequestTest extends TestCase
          ),
      );
 
-    $request = new lmbHttpRequest('http://test.com', array(), array(), array(), $files);
+    $request = new lmbHttpRequest('http://test.com', 'POST', array(), array(), array(), $files);
     $this->assertEquals($request->getFiles(), $expected);
     $this->assertEquals($request->getFiles('form'), $expected['form']);
 
@@ -216,7 +216,7 @@ class lmbHttpRequestTest extends TestCase
       ),
     );
 
-    $request = new lmbHttpRequest('http://test.com', array(), array(), array(), $files);
+    $request = new lmbHttpRequest('http://test.com', 'POST', array(), array(), array(), $files);
     $this->assertEquals(true, $request->hasFiles());
     $this->assertEquals(true, $request->hasFiles('form'));
     $this->assertEquals(false, $request->hasFiles('not_existed_form'));
@@ -224,7 +224,7 @@ class lmbHttpRequestTest extends TestCase
 
     function testHasNoFiles()
     {
-        $request = new lmbHttpRequest('http://test.com', array(), array(), array(), array());
+        $request = new lmbHttpRequest('http://test.com', 'POST', array(), array(), array(), array());
         $this->assertEquals(false, $request->hasFiles());
     }
 
@@ -238,8 +238,7 @@ class lmbHttpRequestTest extends TestCase
     $_SERVER['HTTP_HOST'] = 'test.com';
     $_SERVER['SERVER_PORT'] = '8080';
 
-    $request = new lmbHttpRequest();
-    $this->assertEquals('http://test.com:8080/', $request->getRawUriString());
+    $this->assertEquals('http://test.com:8080/', lmbHttpRequest::getRawUriString());
 
     $_SERVER['REQUEST_URI'] = $old_uri;
     $_SERVER['HTTP_HOST'] = $old_host;
@@ -255,7 +254,7 @@ class lmbHttpRequestTest extends TestCase
     $_SERVER['HTTP_HOST'] = 'test.com:8787';
 
     $request = new lmbHttpRequest();
-    $this->assertEquals('http://test.com:8787/', $request->getRawUriString());
+    $this->assertEquals('http://test.com:8787/', lmbHttpRequest::getRawUriString());
 
     $_SERVER['REQUEST_URI'] = $old_uri;
     $_SERVER['HTTP_HOST'] = $old_host;
@@ -274,6 +273,7 @@ class lmbHttpRequestTest extends TestCase
      );
 
     $request = new lmbHttpRequest('http://test.com?z=1',
+                        'GET',
                                 array('b' => array('c' => 1)),
                                 array('d' => 2),
                                 //only request data(post, get) should be present in result string
@@ -284,14 +284,14 @@ class lmbHttpRequestTest extends TestCase
 
   function testUriQueryOverridesGets()
   {
-    $request = new lmbHttpRequest('http://test.com?a=1', array('a' => 2), array());
+    $request = new lmbHttpRequest('http://test.com?a=1', 'GET', array('a' => 2), array());
 
     $this->assertEquals(1, $request->get('a'));
   }
 
   function testToString_ValidForConstruct_LmbHttpRequest_IfAttributeNoValidStringURL()
   {
-    $request = new lmbHttpRequest('http://test.com?z=1',
+    $request = new lmbHttpRequest('http://test.com?z=1', 'GET',
                                 array('b' => array('c' => '&m=7')),
                                 array('d' => '?&n=9#top'));
     $request = new lmbHttpRequest($request->toString());

@@ -28,7 +28,7 @@ class lmbNetTools extends lmbAbstractTools
     if(is_object($this->request))
       return $this->request;
 
-    $this->request = new lmbHttpRequest();
+    $this->request = lmbHttpRequest::createFromGlobals();
 
     return $this->request;
   }
