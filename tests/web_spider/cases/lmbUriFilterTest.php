@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\web_spider\cases;
 
+use PHPUnit\Framework\TestCase;
 use limb\web_spider\src\lmbUriFilter;
 use limb\net\src\lmbUri;
 
@@ -14,7 +16,7 @@ class lmbUriFilterTest extends TestCase
 {
   var $filter;
 
-  function setUp()
+  function setUp(): void
   {
     $this->filter = new lmbUriFilter();
   }
@@ -24,12 +26,13 @@ class lmbUriFilterTest extends TestCase
     $links = array(new lmbUri('http://test1.com'),
                    new lmbUri('svn+ssh://test-broken.com'),
                    new lmbUri('https://test1.com'),
-                   new lmbUri('ftp://test-broken.com'));
+                   new lmbUri('ftp://test-broken.com')
+    );
 
     $this->filter->allowHost('test1.com');
-    $this->filter->allowPathRegex('~.*~');
+    $this->filter->allowPathRegex('/.*/');
     $this->filter->allowProtocol('http');
-    $this->filter->allowProtocol('HTTPS');//protocols are lowercased
+    $this->filter->allowProtocol('HTTPS');//protocols are lowercase
 
     $this->assertTrue($this->filter->canPass($links[0]));
     $this->assertFalse($this->filter->canPass($links[1]));
@@ -45,9 +48,9 @@ class lmbUriFilterTest extends TestCase
                    new lmbUri('http://microsoft.com'));
 
     $this->filter->allowProtocol('http');
-    $this->filter->allowPathRegex('~.*~');
+    $this->filter->allowPathRegex('/.*/');
     $this->filter->allowHost('test1.com');
-    $this->filter->allowHost('www.TEST1.com');//hosts are lowercased
+    $this->filter->allowHost('www.TEST1.com');//hosts are lowercase
 
     $this->assertTrue($this->filter->canPass($links[0]));
     $this->assertFalse($this->filter->canPass($links[1]));
@@ -80,7 +83,7 @@ class lmbUriFilterTest extends TestCase
 
     $this->filter->allowProtocol('http');
     $this->filter->allowHost('test1.com');
-    $this->filter->allowPathRegex('~^/some/path.*$~');
+    $this->filter->allowPathRegex('/^\/some\/path.*$/');
 
     $this->assertTrue($this->filter->canPass($links[0]));
     $this->assertFalse($this->filter->canPass($links[1]));
@@ -97,8 +100,8 @@ class lmbUriFilterTest extends TestCase
 
     $this->filter->allowProtocol('http');
     $this->filter->allowHost('test1.com');
-    $this->filter->allowPathRegex('~^/some.*$~');
-    $this->filter->disallowPathRegex('~^/some/path.*$~');
+    $this->filter->allowPathRegex('/^\/some.*$/');
+    $this->filter->disallowPathRegex('/^\/some\/path.*$/');
 
     $this->assertFalse($this->filter->canPass($links[0]));
     $this->assertTrue($this->filter->canPass($links[1]));
@@ -107,5 +110,3 @@ class lmbUriFilterTest extends TestCase
   }
 
 }
-
-

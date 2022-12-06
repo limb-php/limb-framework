@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_spider\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\web_spider\src\lmbInnerUriNormalizerObserver;
@@ -22,49 +23,51 @@ class lmbInnerUriNormalizerObserverTest extends TestCase
     $this->reader = $this->createMock(lmbUriContentReader::class);
   }
 
-  function tearDown(): void
-  {
-    $this->reader->tally();
-  }
-
   function testNotifyInnerUrl()
   {
     $observer = new lmbInnerUriNormalizerObserver(new lmbUri('http://test.com'));
-    $this->reader->expectOnce('getUri');
-    $this->reader->setReturnReference('getUri', $uri = new lmbUri('http://test.com/page.html'));
+    $this->reader
+        ->expects($this->once())
+        ->method('getUri')
+        ->willReturn($uri = new lmbUri('http://test.com/page.html'));
 
     $observer->notify($this->reader);
-    $this->assertEquals($uri->toString(), '/page.html');
+    $this->assertEquals('/page.html', $uri->toString(['path', 'query', 'anchor']));
   }
 
   function testNotifyOtherProtocol()
   {
     $observer = new lmbInnerUriNormalizerObserver(new lmbUri('http://test.com'));
-    $this->reader->expectOnce('getUri');
-    $this->reader->setReturnReference('getUri', $uri = new lmbUri('ftp://test.com/page.html'));
+    $this->reader
+        ->expects($this->once())
+        ->method('getUri')
+        ->willReturn($uri = new lmbUri('ftp://test.com/page.html'));
 
     $observer->notify($this->reader);
-    $this->assertEquals($uri->toString(), 'ftp://test.com/page.html');
+    $this->assertEquals('ftp://test.com/page.html', $uri->toString());
   }
 
   function testNotifyOtherPort()
   {
     $observer = new lmbInnerUriNormalizerObserver(new lmbUri('http://test.com:22'));
-    $this->reader->expectOnce('getUri');
-    $this->reader->setReturnReference('getUri', $uri = new lmbUri('http://test.com/page.html'));
+    $this->reader
+        ->expects($this->once())
+        ->method('getUri')
+        ->willReturn($uri = new lmbUri('http://test.com/page.html'));
 
     $observer->notify($this->reader);
-    $this->assertEquals($uri->toString(), 'http://test.com/page.html');
+    $this->assertEquals('http://test.com/page.html', $uri->toString());
   }
 
   function testNotifyExternalUrl()
   {
     $observer = new lmbInnerUriNormalizerObserver(new lmbUri('http://test.com'));
-    $this->reader->expectOnce('getUri');
-    $this->reader->setReturnReference('getUri', $uri = new lmbUri('http://test2.com/page.html'));
+    $this->reader
+        ->expects($this->once())
+        ->method('getUri')
+        ->willReturn($uri = new lmbUri('http://test2.com/page.html'));
 
     $observer->notify($this->reader);
-    $this->assertEquals($uri->toString(), 'http://test2.com/page.html');
+    $this->assertEquals('http://test2.com/page.html', $uri->toString());
   }
-
 }

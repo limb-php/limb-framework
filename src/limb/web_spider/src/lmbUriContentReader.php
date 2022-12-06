@@ -11,7 +11,7 @@
  * class lmbUriContentReader.
  *
  * @package web_spider
- * @version $Id: lmbUriContentReader.class.php 7686 2009-03-04 19:57:12Z 3d-max $
+ * @version $Id: lmbUriContentReader.php 7686 2009-03-04 19:57:12Z
  */
 namespace limb\web_spider\src;
 
@@ -76,7 +76,7 @@ class lmbUriContentReader
   function getContentType()
   {
     if(!isset($this->http_response_header['wrapper_data']))
-      return;
+      return false;
 
     $match = preg_quote('content-type');
 

@@ -1,5 +1,4 @@
 <?php
 
-require_once(dirname(__FILE__) . '/../../common.inc.php');
-
+require(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
 

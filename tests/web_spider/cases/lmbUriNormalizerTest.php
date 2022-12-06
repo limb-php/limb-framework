@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_spider\cases;
 
+use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbUri;
 use limb\web_spider\src\lmbUriNormalizer;
 
@@ -14,7 +16,7 @@ class lmbUriNormalizerTest extends TestCase
 {
   var $normalizer;
 
-  function setUp()
+  function setUp(): void
   {
     $this->normalizer = new lmbUriNormalizer();
   }
@@ -23,8 +25,8 @@ class lmbUriNormalizerTest extends TestCase
   {
     $links = array(new lmbUri('index.html?a=1&b=2#test'));
 
-    $this->normalizer->process($links[0]);
-    $this->assertEquals($links[0], new lmbUri('index.html?a=1&b=2'));
+    $uri = $this->normalizer->process($links[0]);
+    $this->assertEquals($uri, new lmbUri('index.html?a=1&b=2'));
   }
 
   function testNormalizeStripQuery()
@@ -36,15 +38,13 @@ class lmbUriNormalizerTest extends TestCase
     $this->normalizer->stripQueryItem('PHPSESSID');
     $this->normalizer->stripQueryItem('whatever');
 
-    $this->normalizer->process($links[0]);
-    $this->assertEquals($links[0], new lmbUri('index.html?a=1&b=2'));
+    $uri = $this->normalizer->process($links[0]);
+    $this->assertEquals($uri, new lmbUri('index.html?a=1&b=2'));
 
-    $this->normalizer->process($links[1]);
-    $this->assertEquals($links[1], new lmbUri('http://test.com/page1.html'));
+    $uri = $this->normalizer->process($links[1]);
+    $this->assertEquals($uri, new lmbUri('http://test.com/page1.html'));
 
-    $this->normalizer->process($links[2]);
-    $this->assertEquals($links[2], new lmbUri('http://test.com/page2.html?a=1'));
+    $uri = $this->normalizer->process($links[2]);
+    $this->assertEquals($uri, new lmbUri('http://test.com/page2.html?a=1'));
   }
 }
-
-

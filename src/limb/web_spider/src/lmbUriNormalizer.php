@@ -11,9 +11,11 @@
  * class lmbUriNormalizer.
  *
  * @package web_spider
- * @version $Id: lmbUriNormalizer.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbUriNormalizer.php 7686 2009-03-04 19:57:12Z
  */
 namespace limb\web_spider\src;
+
+use limb\net\src\lmbUri;
 
 class lmbUriNormalizer
 {
@@ -41,14 +43,16 @@ class lmbUriNormalizer
     $this->stripped_query_items[] = $key;
   }
 
-  function process($uri)
+  function process(lmbUri $uri): lmbUri
   {
     if($this->strip_anchor) {
-        $uri->setAnchor('');
+        $uri = $uri->withFragment('');
     }
 
     foreach($this->stripped_query_items as $key) {
         $uri = $uri->withoutQueryItem($key);
     }
+
+    return $uri;
   }
 }

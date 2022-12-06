@@ -43,7 +43,7 @@ class lmbWebSpider
   {
     $this->_normalizeUriUsingContext($uri, $context_uri);
 
-    $this->getUriNormalizer()->process($uri);
+    $uri = $this->getUriNormalizer()->process($uri);
 
     if($this->_isCacheHit($uri))
       return;
@@ -79,7 +79,7 @@ class lmbWebSpider
     }
   }
 
-  function _normalizeUriUsingContext($uri, $context_uri)
+  function _normalizeUriUsingContext(lmbUri $uri, $context_uri)
   {
     if(!$uri->getHost())
     {
@@ -95,7 +95,7 @@ class lmbWebSpider
     if(!$uri->getProtocol())
         $uri = $uri->withProtocol($context_uri->getProtocol());
 
-    $uri = $uri->withAnchor('');
+    $uri = $uri->withFragment('');
 
     $uri->normalizePath();
   }

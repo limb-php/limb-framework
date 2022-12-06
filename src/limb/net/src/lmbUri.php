@@ -83,7 +83,7 @@ class lmbUri implements UriInterface
                     break;
 
                 case 'fragment':
-                    $this->setAnchor($value);
+                    $this->anchor = $value;
                     break;
             }
         }
@@ -162,11 +162,6 @@ class lmbUri implements UriInterface
   {
     $this->path = $path;
     $this->path_elements = explode('/', $this->path);
-  }
-
-  private function setAnchor($anchor)
-  {
-    $this->anchor = $anchor;
   }
 
     /**
@@ -503,7 +498,7 @@ class lmbUri implements UriInterface
 
     public function getFragment()
     {
-        return $this->getAnchor();
+        return $this->anchor;
     }
 
     public function withScheme($scheme)
@@ -576,7 +571,7 @@ class lmbUri implements UriInterface
             return $this;
 
         $clone = clone($this);
-        $clone->setAnchor($fragment);
+        $clone->anchor = $fragment;
 
         return $clone;
     }

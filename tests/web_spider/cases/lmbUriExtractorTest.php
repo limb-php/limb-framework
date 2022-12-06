@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_spider\cases;
 
+use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbUri;
 use limb\web_spider\src\lmbUriExtractor;
 
@@ -14,7 +16,7 @@ class lmbUriExtractorTest extends TestCase
 {
   var $extractor;
 
-  function setUp()
+  function setUp(): void
   {
     $this->extractor = new lmbUriExtractor();
   }
@@ -57,5 +59,3 @@ EOD;
     $this->assertEquals($links[5], new lmbUri('/root/news/4'));
   }
 }
-
-

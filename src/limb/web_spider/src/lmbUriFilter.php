@@ -11,9 +11,11 @@
  * class lmbUriFilter.
  *
  * @package web_spider
- * @version $Id: lmbUriFilter.class.php 7903 2009-04-26 18:36:36Z slevin $
+ * @version $Id: lmbUriFilter.php 7903 2009-04-26 18:36:36Z
  */
 namespace limb\web_spider\src;
+
+use limb\net\src\lmbUri;
 
 class lmbUriFilter
 {
@@ -43,7 +45,7 @@ class lmbUriFilter
     $this->disallowed_path_regexes[] = $regex;
   }
 
-  function canPass($uri)
+  function canPass(lmbUri $uri): bool
   {
     if(!in_array($uri->getProtocol(), $this->allowed_protocols))
       return false;
@@ -54,16 +56,16 @@ class lmbUriFilter
     if(!sizeof($this->allowed_path_regexes))
       return false;
 
-    foreach($this->disallowed_path_regexes as $regex)
-      if(preg_match($regex, $uri->toString()))
+    foreach($this->disallowed_path_regexes as $regex) {
+      if(preg_match($regex, $uri->toString(['path', 'query', 'anchor'])))
         return false;
+    }
 
-    foreach($this->allowed_path_regexes as $regex)
-      if(!preg_match($regex, $uri->toString()))
-        return false;
+    foreach($this->allowed_path_regexes as $regex) {
+        if (!preg_match($regex, $uri->toString(['path', 'query', 'anchor'])))
+            return false;
+    }
 
     return true;
   }
 }
-
-

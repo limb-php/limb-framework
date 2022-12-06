@@ -7,13 +7,16 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_spider\cases;
+
 use limb\web_spider\src\lmbContentTypeFilter;
+use PHPUnit\Framework\TestCase;
 
 class lmbContentTypeFilterTest extends TestCase
 {
   var $filter;
 
-  function setUp()
+  function setUp(): void
   {
     $this->filter = new lmbContentTypeFilter();
   }
@@ -28,5 +31,3 @@ class lmbContentTypeFilterTest extends TestCase
     $this->assertTrue($this->filter->canPass('html/text'));
   }
 }
-
-
