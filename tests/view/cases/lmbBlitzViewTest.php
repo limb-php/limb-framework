@@ -8,16 +8,21 @@
 */
 namespace tests\view\cases;
 
+include_once '.setup.php';
+
 use PHPUnit\Framework\TestCase;
 use limb\view\src\lmbBlitzView;
 use limb\core\src\lmbEnv;
 
 class lmbBlitzViewTest extends TestCase
 {
-    function skip()
+    function setUp(): void
     {
-        $this->skipIf(!extension_loaded('blitz'), 'Blitz extension not found. Test skipped.');
-        $this->skipIf(!class_exists('Blitz'), 'Blitz class not found. Test skipped.');
+        if(!extension_loaded('blitz'))
+            $this->markTestSkipped('Blitz extension not found. Test skipped.');
+
+        if(!class_exists('Blitz'))
+            $this->markTestSkipped('Blitz class not found. Test skipped.');
     }
 
     private function _createTemplateFile($name, $source)

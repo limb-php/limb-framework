@@ -8,7 +8,7 @@
  */
 namespace tests\view\cases;
 
-include '.setup.php';
+include_once '.setup.php';
 
 use PHPUnit\Framework\TestCase;
 use limb\view\src\lmbMacroView;

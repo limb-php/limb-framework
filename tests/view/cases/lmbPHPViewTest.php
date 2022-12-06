@@ -8,6 +8,8 @@
  */
 namespace tests\view\cases;
 
+include_once '.setup.php';
+
 use PHPUnit\Framework\TestCase;
 use limb\view\src\lmbPHPView;
 use limb\core\src\lmbEnv;
