@@ -238,7 +238,8 @@ class lmbHttpRequestTest extends TestCase
     $_SERVER['HTTP_HOST'] = 'test.com';
     $_SERVER['SERVER_PORT'] = '8080';
 
-    $this->assertEquals('http://test.com:8080/', lmbHttpRequest::getRawUriString());
+    $request = lmbHttpRequest::createFromGlobals();
+    $this->assertEquals('http://test.com:8080/', $request->getUri()->toString());
 
     $_SERVER['REQUEST_URI'] = $old_uri;
     $_SERVER['HTTP_HOST'] = $old_host;
@@ -253,8 +254,8 @@ class lmbHttpRequestTest extends TestCase
     $_SERVER['REQUEST_URI'] = '/';
     $_SERVER['HTTP_HOST'] = 'test.com:8787';
 
-    $request = new lmbHttpRequest();
-    $this->assertEquals('http://test.com:8787/', lmbHttpRequest::getRawUriString());
+    $request = lmbHttpRequest::createFromGlobals();
+    $this->assertEquals('http://test.com:8787/', $request->getUri()->toString());
 
     $_SERVER['REQUEST_URI'] = $old_uri;
     $_SERVER['HTTP_HOST'] = $old_host;

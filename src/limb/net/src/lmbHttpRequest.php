@@ -10,8 +10,6 @@ namespace limb\net\src;
 
 use limb\core\src\lmbSet;
 use limb\core\src\lmbArrayHelper;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -22,74 +20,77 @@ use Psr\Http\Message\UriInterface;
  */
 class lmbHttpRequest extends lmbSet
 {
-  protected $__method;
-  protected $__uri;
-  protected $__headers = array();
-  protected $__request = array();
-  protected $__get = array();
-  protected $__post = array();
-  protected $__cookies = array();
-  protected $__files = array();
-  protected $__attributes = array();
-  protected $__pretend_post = false;
-  protected $__reserved_attrs = array('__method', '__uri', '__headers', '__request', '__get', '__post', '__cookies', '__files', '__attributes', '__pretend_post', '__reserved_attrs');
+    protected $__method;
+    protected $__uri;
+    protected $__headers = array();
+    protected $__request = array();
+    protected $__get = array();
+    protected $__post = array();
+    protected $__cookies = array();
+    protected $__files = array();
+    protected $__attributes = array();
+    protected $__pretend_post = false;
+    protected $__reserved_attrs = array('__method', '__uri', '__headers', '__request', '__get', '__post', '__cookies', '__files', '__attributes', '__pretend_post', '__reserved_attrs');
 
-  /**
-   * @var string
-   */
-  protected $version;
+    /**
+     * @var string
+     */
+    protected $version;
 
-  function __construct($uri_string = null, $method = 'GET', $get = [], $post = [], $cookies = [], $files = [], $headers = [])
-  {
-    parent::__construct();
+    /** @var null|string */
+    private $requestTarget;
 
-    $this->_initRequestProperties($uri_string, $method, $get, $post, $cookies, $files, $headers);
-  }
-
-  static public function createFromGlobals()
-  {
-      $uri_string = self::getRawUriString();
-      $method = $_SERVER['REQUEST_METHOD'] ?? null;
-      $headers = self::_readHeaders();
-
-      return new static($uri_string, $method, $_GET, $_POST, $_COOKIE, $_FILES, $headers);
-  }
-
-  protected function _initRequestProperties($uri_string, $method, $get = [], $post = [], $cookies = [], $files = [], $headers = [])
-  {
-    $this->version = '1.0';
-
-    $this->__method = $method;
-
-    $this->__uri = new lmbUri($uri_string);
-
-    $this->__get = $get;
-    $items = $this->__uri->getQueryItems();
-    foreach($items as $k => $v)
-      $this->__get[$k] = $v;
-
-    $this->__post = $post;
-    $this->__cookies = $cookies;
-    $this->__files = $this->_parseUploadedFiles($files);
-
-    if(ini_get('magic_quotes_gpc'))
+    function __construct($uri_string = null, $method = 'GET', $get = [], $post = [], $cookies = [], $files = [], $headers = [])
     {
-      $this->__get = $this->_stripHttpSlashes($this->__get);
-      $this->__post = $this->_stripHttpSlashes($this->__post);
-      $this->__cookies = $this->_stripHttpSlashes($this->__cookies);
+        parent::__construct();
+
+        $this->_initRequestProperties($uri_string, $method, $get, $post, $cookies, $files, $headers);
     }
 
-    $this->__request = lmbArrayHelper::arrayMerge($this->__get, $this->__post, $this->__files);
-
-    foreach($this->__request as $k => $v)
+    protected function _initRequestProperties($uri_string, $method, $get = [], $post = [], $cookies = [], $files = [], $headers = [])
     {
-      if(in_array($k, $this->__reserved_attrs))
-        continue;
-      $this->set($k, $v);
+        $this->version = '1.0';
+
+        $this->__method = $method;
+
+        $this->__uri = new lmbUri($uri_string);
+
+        $this->__get = $get;
+        $items = $this->__uri->getQueryItems();
+        foreach($items as $k => $v)
+            $this->__get[$k] = $v;
+
+        $this->__post = $post;
+        $this->__cookies = $cookies;
+        $this->__files = $this->_parseUploadedFiles($files);
+
+        if(ini_get('magic_quotes_gpc'))
+        {
+            $this->__get = $this->_stripHttpSlashes($this->__get);
+            $this->__post = $this->_stripHttpSlashes($this->__post);
+            $this->__cookies = $this->_stripHttpSlashes($this->__cookies);
+        }
+
+        $this->__request = lmbArrayHelper::arrayMerge($this->__get, $this->__post, $this->__files);
+
+        foreach($this->__request as $k => $v)
+        {
+            if(in_array($k, $this->__reserved_attrs))
+                continue;
+            $this->set($k, $v);
+        }
+
+        $this->__headers = $headers;
     }
 
-    $this->__headers = $headers;
-  }
+    static public function createFromGlobals(): self
+    {
+        $uri_string = self::_getRawUriString();
+        $method = $_SERVER['REQUEST_METHOD'] ?? null;
+        $headers = self::_readHeaders();
+
+        return new static($uri_string, $method, $_GET, $_POST, $_COOKIE, $_FILES, $headers);
+    }
 
     static protected function _readHeaders(): array
     {
@@ -105,31 +106,67 @@ class lmbHttpRequest extends lmbSet
         return $headers;
     }
 
-  protected function _parseUploadedFiles($files)
-  {
-    $parser = new lmbUploadedFilesParser();
-    return $parser->objectify($files);
-  }
-
-  protected function _stripHttpSlashes($data, $result=array())
-  {
-    foreach($data as $k => $v)
+    static protected function _getRawUriString()
     {
-      if(is_array($v))
-        $result[$k] = $this->_stripHttpSlashes($v);
-      else
-        $result[$k] = stripslashes($v);
-    }
-    return $result;
-  }
+        $host = 'localhost';
 
-  /**
-   * @deprecated
-   */
-  function hasAttribute($name)
-  {
-    return $this->has($name);
-  }
+        if(!empty($_SERVER['HTTP_HOST']))
+        {
+            $items = explode(':', $_SERVER['HTTP_HOST']);
+            $host = $items[0];
+            $port = $items[1] ?? null;
+        }
+
+        elseif(!empty($_SERVER['SERVER_NAME']))
+        {
+            $items = explode(':', $_SERVER['SERVER_NAME']);
+            $host = $items[0];
+            $port = $items[1] ?? null;
+        }
+
+        if(isset($_SERVER['HTTPS']) && !strcasecmp($_SERVER['HTTPS'], 'on'))
+            $protocol = 'https';
+        else
+            $protocol = 'http';
+
+        if(!isset($port) || $port != intval($port))
+            $port = $_SERVER['SERVER_PORT'] ?? 80;
+
+        if($protocol == 'http' && $port == 80)
+            $port = null;
+
+        if($protocol == 'https' && $port == 443)
+            $port = null;
+
+        $server = $protocol . '://' . $host . (isset($port) ? ':' . $port : '');
+
+        if(isset($_SERVER['REQUEST_URI']))
+            $url = $_SERVER['REQUEST_URI'];
+        elseif(isset($_SERVER['QUERY_STRING']))
+            $url = basename($_SERVER['PHP_SELF']) . '?' . $_SERVER['QUERY_STRING'];
+        else
+            $url = (($_SERVER['PHP_SELF'][0] == '/') ? '' : '/') . $_SERVER['PHP_SELF'];
+
+        return $server . $url;
+    }
+
+    protected function _parseUploadedFiles($files)
+    {
+        $parser = new lmbUploadedFilesParser();
+        return $parser->objectify($files);
+    }
+
+    protected function _stripHttpSlashes($data, $result=array())
+    {
+        foreach($data as $k => $v)
+        {
+            if(is_array($v))
+                $result[$k] = $this->_stripHttpSlashes($v);
+            else
+                $result[$k] = stripslashes($v);
+        }
+        return $result;
+    }
 
   function hasFiles($key = null)
   {
@@ -148,6 +185,8 @@ class lmbHttpRequest extends lmbSet
     $file = $this->getFiles($name);
     if(is_object($file))
       return $file;
+
+    return false;
   }
 
   function getRequest($key = null, $default = null)
@@ -301,7 +340,7 @@ class lmbHttpRequest extends lmbSet
     return filter_var($this->get($name, $default), FILTER_VALIDATE_BOOLEAN);
   }
 
-  function getUri()
+  function getUri(): lmbUri
   {
     return $this->__uri;
   }
@@ -346,50 +385,6 @@ class lmbHttpRequest extends lmbSet
   function getUriPath()
   {
     return $this->__uri->getPath();
-  }
-
-  static function getRawUriString()
-  {
-    $host = 'localhost';
-
-    if(!empty($_SERVER['HTTP_HOST']))
-    {
-      $items = explode(':', $_SERVER['HTTP_HOST']);
-      $host = $items[0];
-      $port = $items[1] ?? null;
-    }
-
-    elseif(!empty($_SERVER['SERVER_NAME']))
-    {
-      $items = explode(':', $_SERVER['SERVER_NAME']);
-      $host = $items[0];
-      $port = $items[1] ?? null;
-    }
-
-    if(isset($_SERVER['HTTPS']) && !strcasecmp($_SERVER['HTTPS'], 'on'))
-      $protocol = 'https';
-    else
-      $protocol = 'http';
-
-    if(!isset($port) || $port != intval($port))
-      $port = $_SERVER['SERVER_PORT'] ?? 80;
-
-    if($protocol == 'http' && $port == 80)
-      $port = null;
-
-    if($protocol == 'https' && $port == 443)
-      $port = null;
-
-    $server = $protocol . '://' . $host . (isset($port) ? ':' . $port : '');
-
-    if(isset($_SERVER['REQUEST_URI']))
-      $url = $_SERVER['REQUEST_URI'];
-    elseif(isset($_SERVER['QUERY_STRING']))
-      $url = basename($_SERVER['PHP_SELF']) . '?' . $_SERVER['QUERY_STRING'];
-    else
-      $url = (($_SERVER['PHP_SELF'][0] == '/') ? '' : '/') . $_SERVER['PHP_SELF'];
-
-    return $server . $url;
   }
 
   function toString(): string
@@ -464,7 +459,20 @@ class lmbHttpRequest extends lmbSet
 
     public function getRequestTarget()
     {
-        // TODO: Implement getRequestTarget() method.
+        if ($this->requestTarget !== null) {
+            return $this->requestTarget;
+        }
+        $target = $this->getUri()
+            ->getPath();
+        if ($target == '') {
+            $target = '/';
+        }
+        if ($this->getUri()
+                ->getQuery() != '') {
+            $target .= '?' . $this->getUri()
+                    ->getQuery();
+        }
+        return $target;
     }
 
     public function withRequestTarget($requestTarget)
