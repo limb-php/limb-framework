@@ -8,6 +8,9 @@
  */
 namespace tests\active_record\cases;
 
+use limb\active_record\src\lmbActiveRecord;
+use limb\active_record\src\lmbARException;
+use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\criteria\lmbSQLRawCriteria;
 
 class TestOneTableObjectWithCustomProperty extends TestOneTableObject {
@@ -1083,4 +1086,3 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $this->assertEquals($object->getTableName(), 'test_one_table_object');
   }
 }
-

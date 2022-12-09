@@ -9,10 +9,13 @@
 namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
+use limb\active_record\src\lmbARException;
+use limb\active_record\src\lmbARNotFoundException;
 use limb\active_record\src\lmbAROneToManyCollection;
 use limb\cache\src\lmbCacheFileWithMetaBackend;
 use limb\cache\src\lmbCacheGroupDecorator;
 use limb\core\src\lmbCollection;
+use limb\core\src\lmbEnv;
 
 class cachedActiveRecord extends lmbActiveRecord
 {
@@ -23,7 +26,7 @@ class cachedActiveRecord extends lmbActiveRecord
     if($this->_cache)
       return $this->_cache;
 
-    $cache_dir = LIMB_VAR_DIR . '/cache';
+    $cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/cache';
     return $this->_cache = new lmbCacheGroupDecorator(new lmbCacheFileWithMetaBackend($cache_dir));
   }
 
@@ -235,7 +238,7 @@ class lmbARCacheTest extends lmbARBaseTestCase
   {
     parent::setUp();
 
-    $cache_dir = LIMB_VAR_DIR . '/cache';
+    $cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/cache';
     $this->cache = new lmbCacheGroupDecorator(new lmbCacheFileWithMetaBackend($cache_dir));
     //$this->cache->flush();
   }
@@ -373,4 +376,3 @@ class lmbARCacheTest extends lmbARBaseTestCase
     return $lecture;
   }
 }
-

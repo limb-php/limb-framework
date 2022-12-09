@@ -8,6 +8,11 @@
  */
 namespace tests\active_record\cases;
 
+use limb\active_record\src\lmbActiveRecord;
+use limb\active_record\src\lmbARManyToManyCollection;
+use limb\validation\src\lmbErrorList;
+use limb\validation\src\lmbValidator;
+
 class GroupsForTestCollectionStub extends lmbARManyToManyCollection{}
 
 class UserForTestWithCustomCollection extends lmbActiveRecord
@@ -17,8 +22,8 @@ class UserForTestWithCustomCollection extends lmbActiveRecord
   protected $_has_many_to_many = array('groups' => array('field' => 'user_id',
                                                          'foreign_field' => 'group_id',
                                                          'table' => 'user_for_test2group_for_test',
-                                                         'class' => 'GroupForTest',
-                                                         'collection' => 'GroupsForTestCollectionStub'));
+                                                         'class' => GroupForTest::class,
+                                                         'collection' => GroupsForTestCollectionStub::class));
 }
 
 class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
@@ -180,11 +185,11 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
     $user->addToGroups($group2);
     $user->save();
 
-    $user2 = lmbActiveRecord :: findById('UserForTest', $user->getId());
+    $user2 = lmbActiveRecord::findById(UserForTest::class, $user->getId());
     $user2->setGroups(array($group2));
     $user2->save();
 
-    $user3 = lmbActiveRecord :: findById('UserForTest', $user->getId());
+    $user3 = lmbActiveRecord::findById(UserForTest::class, $user->getId());
     $groups = $user3->getGroups();
 
     $this->assertEquals($groups->at(0)->getTitle(), $group2->getTitle());
@@ -207,12 +212,12 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
     $user2->addToGroups($group2);
     $user2->save();
 
-    $user3 = lmbActiveRecord :: findById('UserForTest', $user1->getId());
+    $user3 = lmbActiveRecord::findById(UserForTest::class, $user1->getId());
     $user3->destroy();
 
     $this->assertEquals($this->db->count('user_for_test2group_for_test'), 2);
 
-    $user4 = lmbActiveRecord :: findById('UserForTest', $user2->getId());
+    $user4 = lmbActiveRecord::findById(UserForTest::class, $user2->getId());
     $groups = $user4->getGroups();
     $this->assertEquals($groups->at(0)->getTitle(), $group1->getTitle());
     $this->assertEquals($groups->at(1)->getTitle(), $group2->getTitle());
@@ -260,5 +265,3 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
   }
 
 }
-
-

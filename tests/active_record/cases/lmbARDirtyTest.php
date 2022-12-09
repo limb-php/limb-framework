@@ -8,6 +8,8 @@
  */
 namespace tests\active_record\cases;
 
+use limb\active_record\src\lmbActiveRecord;
+
 class lmbARDirtyTest extends lmbARBaseTestCase
 {
   protected $tables_to_cleanup = array('lecture_for_test', 'course_for_test', 'test_one_table_object', 'member_for_test');
@@ -18,7 +20,7 @@ class lmbARDirtyTest extends lmbARBaseTestCase
     $object->setContent('test');
     $object->save();
 
-    $object2 = lmbActiveRecord :: find('TestOneTableObject', $object->getId());
+    $object2 = lmbActiveRecord :: find(TestOneTableObject::class, $object->getId());
     $this->assertFalse($object2->isDirty());
   }
 
@@ -89,7 +91,7 @@ class lmbARDirtyTest extends lmbARBaseTestCase
 
     $object->save();
 
-    $loaded_object = lmbActiveRecord :: findById('TestOneTableObject', $object->getId());
+    $loaded_object = lmbActiveRecord :: findById(TestOneTableObject::class, $object->getId());
     $this->assertEquals($loaded_object->getAnnotation(), $object->getAnnotation());
     $this->assertEquals($loaded_object->getContent(), $initial_content);
   }
@@ -109,7 +111,7 @@ class lmbARDirtyTest extends lmbARBaseTestCase
 
     $object->save();
 
-    $loaded_object = lmbActiveRecord :: findById('TestOneTableObject', $object->getId());
+    $loaded_object = lmbActiveRecord :: findById(TestOneTableObject::class, $object->getId());
     $this->assertEquals($loaded_object->getAnnotation(), $initial_annotation);
     $this->assertEquals($loaded_object->getContent(), $initial_content);
   }
@@ -276,4 +278,3 @@ class lmbARDirtyTest extends lmbARBaseTestCase
     $this->assertTrue($person->isDirtyProperty('social_security'));
   }
 }
-

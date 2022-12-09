@@ -79,4 +79,3 @@ class lmbMPTreeTest extends lmbTreeTestBase
     $this->assertEquals($arr[2]['id'], $node_2_2);
   }
 }
-

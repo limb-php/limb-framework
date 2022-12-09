@@ -95,16 +95,16 @@ class lmbActiveRecordEventHaldlerStubDelegate
 
   function subscribeGloballyForEvents()
   {
-    lmbActiveRecord :: registerGlobalOnBeforeSaveCallback($this, 'onBeforeSave');
-    lmbActiveRecord :: registerGlobalOnAfterSaveCallback($this, 'onAfterSave');
-    lmbActiveRecord :: registerGlobalOnBeforeUpdateCallback($this, 'onBeforeUpdate');
-    lmbActiveRecord :: registerGlobalOnUpdateCallback($this, 'onUpdate');
-    lmbActiveRecord :: registerGlobalOnAfterUpdateCallback($this, 'onAfterUpdate');
-    lmbActiveRecord :: registerGlobalOnBeforeCreateCallback($this, 'onBeforeCreate');
-    lmbActiveRecord :: registerGlobalOnCreateCallback($this, 'onCreate');
-    lmbActiveRecord :: registerGlobalOnAfterCreateCallback($this, 'onAfterCreate');
-    lmbActiveRecord :: registerGlobalOnBeforeDestroyCallback($this, 'onBeforeDestroy');
-    lmbActiveRecord :: registerGlobalOnAfterDestroyCallback($this, 'onAfterDestroy');
+    lmbActiveRecord::registerGlobalOnBeforeSaveCallback($this, 'onBeforeSave');
+    lmbActiveRecord::registerGlobalOnAfterSaveCallback($this, 'onAfterSave');
+    lmbActiveRecord::registerGlobalOnBeforeUpdateCallback($this, 'onBeforeUpdate');
+    lmbActiveRecord::registerGlobalOnUpdateCallback($this, 'onUpdate');
+    lmbActiveRecord::registerGlobalOnAfterUpdateCallback($this, 'onAfterUpdate');
+    lmbActiveRecord::registerGlobalOnBeforeCreateCallback($this, 'onBeforeCreate');
+    lmbActiveRecord::registerGlobalOnCreateCallback($this, 'onCreate');
+    lmbActiveRecord::registerGlobalOnAfterCreateCallback($this, 'onAfterCreate');
+    lmbActiveRecord::registerGlobalOnBeforeDestroyCallback($this, 'onBeforeDestroy');
+    lmbActiveRecord::registerGlobalOnAfterDestroyCallback($this, 'onAfterDestroy');
   }
 }
 
@@ -214,4 +214,3 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
                        '|onBeforeDestroy TestOneTableObject||onAfterDestroy TestOneTableObject|');
   }
 }
-

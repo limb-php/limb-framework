@@ -128,7 +128,7 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $object->import($source);
     $this->assertEquals($object->getId(), $id);
-    $this->assertNotEqual($object->getId(), 1000);// just one extra check
+    $this->assertNotEquals($object->getId(), 1000);// just one extra check
     $this->assertEquals($object->getAnnotation(), 'Some annotation');
     $this->assertEquals($object->getContent(), 'Some content');
   }
@@ -490,5 +490,3 @@ class lmbARImportTest extends lmbARBaseTestCase
     $this->assertEquals($what, 'Halo!');
   }
 }
-
-

@@ -124,7 +124,7 @@ class lmbCliInput
 
   function getArgument($index, $default = null)
   {
-    return isset($this->arguments[$index]) ? $this->arguments[$index] : $default;
+    return $this->arguments[$index] ?? $default;
   }
 
   function addOption($option)
@@ -248,7 +248,7 @@ class lmbCliInput
       return false;
 
     $option = $m[1];
-    $value = isset($m[3]) ? $m[3] : null;
+    $value = $m[3] ?? null;
     return true;
   }
 
@@ -258,7 +258,7 @@ class lmbCliInput
       return false;
 
     $option = $m[1];
-    $value = isset($m[4]) ? $m[4] : null;
+    $value = $m[4] ?? null;
     return true;
   }
 
@@ -312,7 +312,7 @@ class lmbCliInput
   {
     $glued = array();
     for($j=0;$j<strlen($glue)-1;$j++)
-      $glued[] = $glue{$j};
+      $glued[] = $glue[$j];
 
     $last = substr($glue, -1, 1);
 

@@ -12,6 +12,9 @@ require ('.setup.php');
 
 use limb\active_record\src\lmbARManyToManyCollection;
 use limb\active_record\src\lmbActiveRecord;
+use limb\core\src\exception\lmbException;
+use limb\dbal\src\lmbDBAL;
+use limb\dbal\src\lmbTableGateway;
 
 class GroupForTestStub extends GroupForTest
 {
@@ -87,8 +90,8 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
   function testSaveWithExistingOwnerDoesNothing()
   {
-    $group1 = $this->createMock(MockGroupForTest::class);
-    $group2 = $this->createMock(MockGroupForTest::class);
+    $group1 = $this->createMock(GroupForTest::class);
+    $group2 = $this->createMock(GroupForTest::class);
 
     $user = $this->_createUserAndSave();
 
@@ -287,7 +290,7 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $collection = new lmbARManyToManyCollection('groups', $user);
     $collection->removeAll();
 
-    $user2 = lmbActiveRecord :: findById('UserForTest', $user->getId());
+    $user2 = lmbActiveRecord :: findById(UserForTest::class, $user->getId());
 
     $collection = new lmbARManyToManyCollection('groups', $user2);
     $this->assertEquals(sizeof($collection->getArray()), 0);
@@ -439,9 +442,11 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     try
     {
       $groups = $user->getGroups()->find("id=" . $g1->getId());
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testFindFirstWithExistingOwner()
@@ -509,7 +514,7 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
     $user = $this->_createUserAndSave(array($group1, $group2, $group3));
     
-    $table = lmbDBAL :: table('user_for_test2group_for_test', $this->conn);
+    $table = lmbDBAL::table('user_for_test2group_for_test', $this->conn);
     $records = $table->select()->getArray();
     $this->assertEquals(count($records), 3);
     
@@ -569,5 +574,3 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
   }
 
 }
-
-

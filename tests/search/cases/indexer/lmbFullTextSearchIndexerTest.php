@@ -15,8 +15,6 @@ use limb\search\src\indexer\lmbFullTextSearchIndexer;
 use limb\search\src\indexer\lmbSearchTextNormalizer;
 use limb\toolkit\src\lmbToolkit;
 
-Mock::generate('lmbSearchTextNormalizer', 'MockSearchTextNormalizer');
-
 class lmbFullTextSearchIndexerTest extends TestCase
 {
   protected $db;
@@ -45,7 +43,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $content = 'content';
     $processed_content = 'new content';
 
-    $normalizer = new MockSearchTextNormalizer($this);
+    $normalizer = $this->createMock(lmbSearchTextNormalizer::class);
     $indexer = new lmbFullTextSearchIndexer($normalizer);
 
     $normalizer->expectOnce('process', array($content));
@@ -67,7 +65,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
 
     $expected = "must be indexed\n must be indexed also";
 
-    $normalizer = new MockSearchTextNormalizer($this);
+    $normalizer = $this->createMock(lmbSearchTextNormalizer::class);
     $indexer = new lmbFullTextSearchIndexer($normalizer);
     $indexer->useNOINDEX();
 
@@ -85,7 +83,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
 
     $expected = "must be indexed\n<!-- no index start -->ignored by indexer<!-- no index end -->must be indexed also";
 
-    $normalizer = new MockSearchTextNormalizer($this);
+    $normalizer = $this->createMock(lmbSearchTextNormalizer::class);
     $indexer = new lmbFullTextSearchIndexer($normalizer);
     $indexer->useNOINDEX(false);
 
@@ -103,7 +101,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
 
     $expected = "\nmust be indexed\n\n \n must be indexed also";
 
-    $normalizer = new MockSearchTextNormalizer($this);
+    $normalizer = $this->createMock(lmbSearchTextNormalizer::class);
     $indexer = new lmbFullTextSearchIndexer($normalizer);
     $indexer->useNOINDEX();
 

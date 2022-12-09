@@ -8,7 +8,9 @@
  */
 namespace tests\active_record\cases;
 
+use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbAROneToManyCollection;
+use limb\core\src\exception\lmbException;
 use limb\core\src\lmbCollectionDecorator;
 
 Mock::generate('LectureForTest', 'MockLectureForTest');
@@ -145,8 +147,8 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
 
   function testSaveWithExistingOwnerDoesNothing()
   {
-    $l1 = new MockLectureForTest();
-    $l2 = new MockLectureForTest();
+    $l1 = $this->createMock(LectureForTest::class);
+    $l2 = $this->createMock(LectureForTest::class);
 
     $course = $this->_createCourseAndSave();
 
@@ -342,7 +344,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $collection = new lmbAROneToManyCollection('lectures', $course);
     $collection->removeAll();
 
-    $course2 = lmbActiveRecord :: findById('CourseForTest', $course->getId());
+    $course2 = lmbActiveRecord :: findById(CourseForTest::class, $course->getId());
 
     $collection = new lmbAROneToManyCollection('lectures', $course2);
     $this->assertEquals(sizeof($collection->getArray()), 0);
@@ -540,9 +542,11 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     try
     {
       $lectures = $course->getLectures()->find(lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . "=" . $l1->getId());
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testFindFirstWithExistingOwner()
@@ -566,9 +570,11 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     try
     {
       $lecture = $course->getLectures()->findFirst(lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . "=" . $l1->getId() . " OR " . lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . "=" . $l2->getId());
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testApplyDecoratorWithParams()
@@ -577,7 +583,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $l2 = $this->_createLecture();
     $course = $this->_createCourseAndSave(array($l1, $l2));
     $lectures = $course->getLectures();
-    $lectures->addDecorator('lmbARTestingDSDecorator', array('value' => 'my_value'));
+    $lectures->addDecorator(lmbARTestingDSDecorator::class, array('value' => 'my_value'));
 
     $this->assertEquals($lectures->at(0)->get('value'), 'my_value');
     $this->assertEquals($lectures->at(1)->get('value'), 'my_value');
@@ -662,5 +668,3 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     return $l;
   }
 }
-
-

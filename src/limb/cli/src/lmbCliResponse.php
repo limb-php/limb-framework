@@ -11,7 +11,7 @@
  * class lmbCliResponse.
  *
  * @package cli
- * @version $Id: lmbCliResponse.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbCliResponse.php 7686 2009-03-04 19:57:12Z
  */
 namespace limb\cli\src;
 
@@ -35,5 +35,3 @@ class lmbCliResponse
       echo $msg;
   }
 }
-
-

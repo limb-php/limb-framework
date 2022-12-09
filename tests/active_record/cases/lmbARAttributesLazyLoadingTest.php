@@ -8,6 +8,9 @@
  */
 namespace tests\active_record\cases;
 
+use limb\active_record\src\lmbActiveRecord;
+use limb\active_record\src\lmbARQuery;
+
 class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 {
   protected $tables_to_cleanup = array('test_one_table_object'); 
@@ -15,7 +18,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
   function testLazyFind()
   {
     $object = $this->_createActiveRecord($annotation = 'Some annotation', $content = 'Some content');
-    $object2 = lmbActiveRecord :: findById('LazyTestOneTableObject', $object->getId());
+    $object2 = lmbActiveRecord::findById(LazyTestOneTableObject::class, $object->getId());
 
     $this->_checkLazyness($object2, $annotation, $content);
   }
@@ -35,7 +38,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
     $object1 = $this->_createActiveRecord('Some annotation', 'Some content');
     $object2 = $this->_createActiveRecord('Some other annotation', 'Some other content');
     
-    $query = lmbARQuery :: create('LazyTestOneTableObject', $params = array('with_lazy_attributes' => ''));
+    $query = lmbARQuery::create(LazyTestOneTableObject::class, $params = array('with_lazy_attributes' => ''));
     $arr = $query->fetch()->getArray();
     $this->assertTrue(array_key_exists('annotation', $arr[0]->exportRaw()));
     $this->assertTrue(array_key_exists('content', $arr[0]->exportRaw()));
@@ -48,7 +51,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
     $object1 = $this->_createActiveRecord('Some annotation', 'Some content');
     $object2 = $this->_createActiveRecord('Some other annotation', 'Some other content');
     
-    $query = lmbARQuery :: create('LazyTestOneTableObject', $params = array('with_lazy_attributes' => array('annotation')));
+    $query = lmbARQuery :: create(LazyTestOneTableObject::class, $params = array('with_lazy_attributes' => array('annotation')));
     $arr = $query->fetch()->getArray();
     $this->assertTrue(array_key_exists('annotation', $arr[0]->exportRaw()));
     $this->assertFalse(array_key_exists('content', $arr[0]->exportRaw()));
@@ -66,7 +69,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     $person->save();
     
-    $person_loaded = lmbActiveRecord :: findOne('PersonForLazyAttributesTest', 
+    $person_loaded = lmbActiveRecord :: findOne(PersonForLazyAttributesTest::class,
                                                 array('criteria' => 'person_for_test.id = ' . $person->getId(),
                                                       'join' => 'lazy_object'));
     
@@ -84,7 +87,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     $person->save();
     
-    $person_loaded = lmbActiveRecord :: findOne('PersonForLazyAttributesTest', 
+    $person_loaded = lmbActiveRecord :: findOne(PersonForLazyAttributesTest::class,
                                                 array('criteria' => 'person_for_test.id = ' . $person->getId(),
                                                       'join' => array('lazy_object' => array('with_lazy_attributes' => ''))));
     
@@ -103,7 +106,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     $person->save();
     
-    $person_loaded = lmbActiveRecord :: findOne('PersonForLazyAttributesTest', 
+    $person_loaded = lmbActiveRecord :: findOne(PersonForLazyAttributesTest::class,
                                                 array('criteria' => 'person_for_test.id = ' . $person->getId(),
                                                       'join' => 'lazy_object'));
     $this->assertFalse(array_key_exists('name', $person_loaded->exportRaw()));
@@ -119,7 +122,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     $person->save();
     
-    $person_loaded = lmbActiveRecord :: findOne('PersonForLazyAttributesTest', 
+    $person_loaded = lmbActiveRecord :: findOne(PersonForLazyAttributesTest::class,
                                                 array('criteria' => 'person_for_test.id = ' . $person->getId(),
                                                       'attach' => 'lazy_object'));
     
@@ -130,7 +133,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
   function testExportIsNotLazy()
   {
     $object = $this->_createActiveRecord($annotation = 'Some annotation', $content = 'Some content');
-    $object2 = lmbActiveRecord :: findById('LazyTestOneTableObject', $object->getId());
+    $object2 = lmbActiveRecord :: findById(LazyTestOneTableObject::class, $object->getId());
     $exported = $object2->export();
     $this->assertEquals($exported['annotation'], $annotation);
     $this->assertEquals($exported['content'], $content);
@@ -143,7 +146,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
     $object->setContent($content = "Content");
     $object->save();
 
-    $object2 = lmbActiveRecord :: findById('TestOneTableObject', array('id' => $object->getId(), 'fields' => array('annotation')));
+    $object2 = lmbActiveRecord :: findById(TestOneTableObject::class, array('id' => $object->getId(), 'fields' => array('annotation')));
     $fields = $object2->exportRaw();
     //checking which props were actually loaded
     $this->assertEquals($fields, array('id' => $object->getId(), 'annotation' => $annotation));
@@ -160,7 +163,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
     $object->setContent($content = "Content");
     $object->save();
 
-    $rs = lmbActiveRecord :: find('TestOneTableObject', array('fields' => array('annotation')));
+    $rs = lmbActiveRecord :: find(TestOneTableObject::class, array('fields' => array('annotation')));
     $object2 = $rs->at(0);
     $fields = $object2->exportRaw();
     //checking which props were actually loaded
@@ -178,7 +181,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
     $object->setContent($content = "Content");
     $object->save();
 
-    $object2 = lmbActiveRecord :: findFirst('TestOneTableObject', array('fields' => array('annotation')));
+    $object2 = lmbActiveRecord :: findFirst(TestOneTableObject::class, array('fields' => array('annotation')));
     $fields = $object2->exportRaw();
     //checking which props were actually loaded
     $this->assertEquals($fields, array('id' => $object->getId(), 'annotation' => $annotation));
@@ -269,4 +272,3 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
     return $object;
   }
 }
-

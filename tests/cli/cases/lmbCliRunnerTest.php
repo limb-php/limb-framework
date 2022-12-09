@@ -161,7 +161,7 @@ class lmbCliRunnerTest extends TestCase
     $runner->returnOnExit();
     $runner->throwOnError();
 
-    $this->_createCommandClass($cmd, 'function foo($argv){var_dump($argv);}');
+    $this->_createCommandClass($cmd, 'function foo($argv){print_r($argv);}');
 
     ob_start();
     $runner->execute();
@@ -169,20 +169,17 @@ class lmbCliRunnerTest extends TestCase
     ob_end_clean();
 
     $expected = <<<EOD
-array(3) {
-  [0]=>
-  string(9) "--dry-run"
-  [1]=>
-  string(2) "-c"
-  [2]=>
-  string(3) "bar"
-}
-
+Array(
+    [0] => --dry-run
+    [1] => -c
+    [2] => bar
+)
 EOD;
 
-    $expected = str_replace("\r", "", $expected);
+      $expected = str_replace([PHP_EOL, "\n"], ["", ""], $expected);
+      $str = str_replace([PHP_EOL, "\n", $cmd], ["", "", ""], $str);
 
-    $this->assertEquals($expected, $str);
+      $this->assertEquals($expected, $str);
   }
 
   function _createCommandClass($name, $body='')

@@ -26,7 +26,7 @@ class NameForAggregateTest extends lmbObject
 
 class MemberForTest extends lmbActiveRecord
 {
-  protected $_composed_of = array('name' => array('class' => 'NameForAggregateTest',
+  protected $_composed_of = array('name' => array('class' => NameForAggregateTest::class,
                                                   'mapping' => array('first' => 'first_name',
                                                                      'last' => 'last_name'),
                                                   'setup_method' => 'setupName'));
@@ -70,7 +70,7 @@ class ExtraForAggregateTest extends lmbObject
 
 class PhotoForTest extends lmbActiveRecord
 {
-  protected $_composed_of = array('image' => array('class' => 'ImageForAggregateTest',
+  protected $_composed_of = array('image' => array('class' => ImageForAggregateTest::class,
                                                    'mapping' => array('photo_id' => 'id',
                                                                       'extension' => 'image_extension')),
 
@@ -84,7 +84,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
   function testNewObjectReturnsEmptyAggrigatedObject()
   {
     $member = new MemberForTest();
-    $this->assertIsA($member->getName(), 'NameForAggregateTest');
+    $this->assertIsA($member->getName(), NameForAggregateTest::class);
 
     $this->assertNull($member->getName()->getFirst());
     $this->assertNull($member->getName()->getLast());
@@ -100,7 +100,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
     $member->setName($name);
     $member->save();
 
-    $member2 = lmbActiveRecord :: findById('MemberForTest', $member->getId());
+    $member2 = lmbActiveRecord :: findById(MemberForTest::class, $member->getId());
     $this->assertEquals($member2->getName()->getFirst(), $first);
     $this->assertEquals($member2->getName()->getLast(), $last);
   }
@@ -114,8 +114,8 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
     $photo->setExtra($extra);
     $photo->save();
 
-    $photo2 = lmbActiveRecord :: findById('PhotoForTest', $photo->getId());
-    $this->assertIsA($photo2->getExtra(), 'ExtraForAggregateTest');
+    $photo2 = lmbActiveRecord :: findById(PhotoForTest::class, $photo->getId());
+    $this->assertIsA($photo2->getExtra(), ExtraForAggregateTest::class);
     $this->assertEquals($photo2->getExtra()->getValue(), 'value_as_extra_value');
   }
 
@@ -129,7 +129,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
     $member->setName($name);
     $member->save();
 
-    $member2 = lmbActiveRecord :: findById('MemberForTest', $member->getId());
+    $member2 = lmbActiveRecord :: findById(MemberForTest::class, $member->getId());
     $member2->getName();
     $this->assertEquals($member2->saved_full_name, $name->getFull());
   }
