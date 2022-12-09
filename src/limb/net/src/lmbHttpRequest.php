@@ -303,7 +303,7 @@ class lmbHttpRequest extends lmbSet
         if(in_array($key, $this->__reserved_attrs))
             return null;
 
-        return $this->$key ?? ($this->__attributes[$key] ?? $default); // remove $this->__attributes[$key] in 4.x
+        return $this->$key ?? ($this->__attributes[$key] ?? $default); // remove $this->__attributes[$key] in 5.x
     }
 
     function set($key, $value)
@@ -319,7 +319,7 @@ class lmbHttpRequest extends lmbSet
 
     function has($key)
     {
-        return isset($this->$key);
+        return isset($this->$key) || isset($this->__attributes[$key]);
     }
 
     function export()
