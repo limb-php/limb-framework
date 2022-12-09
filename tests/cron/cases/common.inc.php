@@ -1,5 +1,5 @@
 <?php
-require('limb/core/common.inc.php');
-require('limb/dbal/common.inc.php');
-require('limb/validation/common.inc.php');
-require('limb/web_app/common.inc.php');
+require_once(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
+require(dirname(__FILE__) . '/../../core/cases/init.inc.php');
+require(dirname(__FILE__) . '/../../../src/limb/net/toolkit.inc.php');
+require(dirname(__FILE__) . '/../../../src/limb/dbal/toolkit.inc.php');

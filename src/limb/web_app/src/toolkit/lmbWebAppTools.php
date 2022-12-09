@@ -32,7 +32,7 @@ lmbEnv::setor('LIMB_ENABLE_MOD_REWRITE', true); // we assume mod_rewrite in ON b
  * class lmbWebAppTools.
  *
  * @package web_app
- * @version $Id: lmbWebAppTools.class.php 8176 2010-04-23 16:41:47Z hidrarg $
+ * @version $Id: lmbWebAppTools.php 8176 2010-04-23 16:41:47Z
  */
 class lmbWebAppTools extends lmbAbstractTools
 {

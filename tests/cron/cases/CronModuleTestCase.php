@@ -1,9 +1,14 @@
 <?php
+namespace tests\cron\cases;
 
+use limb\cron\src\cron\CronJobLogger;
+use limb\dbal\src\lmbTableGateway;
 use tests\web_app\cases\lmbWebAppTestCase;
 use limb\dbal\src\drivers\lmbAuditDbConnection;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\lmbSimpleDb;
+
+require '.setup.php';
 
 class CronModuleTestCase extends lmbWebAppTestCase
 {
@@ -20,7 +25,7 @@ class CronModuleTestCase extends lmbWebAppTestCase
     lmbToolkit::instance()->setDefaultDbConnection($this->conn);
     $this->db = new lmbSimpleDb($this->conn);
 
-    $this->cron_job_logger = new CronJobLogger('bit-cms/cron/tests/src/cron/TestCronJob.class.php');
+    $this->cron_job_logger = new CronJobLogger('bit-cms/cron/tests/src/cron/TestCronJob.php');
     $this->db_table = new lmbTableGateway('cron_job_log', $this->conn);
 
     $this->_cleanUp();
@@ -30,7 +35,7 @@ class CronModuleTestCase extends lmbWebAppTestCase
   {
     $this->_cleanUp();
     $this->conn->disconnect();
-    parent :: tearDown();
+    parent::tearDown();
   }
 
   protected function _cleanUp()
@@ -57,5 +62,4 @@ class CronModuleTestCase extends lmbWebAppTestCase
       system($cmd, $ret);
     }
   }
-
 }
