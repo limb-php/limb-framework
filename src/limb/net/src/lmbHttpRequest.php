@@ -20,6 +20,10 @@ use Psr\Http\Message\UriInterface;
  */
 class lmbHttpRequest extends lmbSet
 {
+    /**
+     * @var string
+     */
+    protected $__version;
     protected $__method;
     protected $__uri;
     protected $__headers = array();
@@ -30,15 +34,9 @@ class lmbHttpRequest extends lmbSet
     protected $__files = array();
     protected $__attributes = array();
     protected $__pretend_post = false;
-    protected $__reserved_attrs = array('__method', '__uri', '__headers', '__request', '__get', '__post', '__cookies', '__files', '__attributes', '__pretend_post', '__reserved_attrs');
-
-    /**
-     * @var string
-     */
-    protected $version;
-
     /** @var null|string */
-    private $requestTarget;
+    protected $__requestTarget;
+    protected $__reserved_attrs = array('__version', '__requestTarget', '__method', '__uri', '__headers', '__request', '__get', '__post', '__cookies', '__files', '__attributes', '__pretend_post', '__reserved_attrs');
 
     function __construct($uri_string = null, $method = 'GET', $get = [], $post = [], $cookies = [], $files = [], $headers = [])
     {
@@ -49,7 +47,7 @@ class lmbHttpRequest extends lmbSet
 
     protected function _initRequestProperties($uri_string, $method, $get = [], $post = [], $cookies = [], $files = [], $headers = [])
     {
-        $this->version = '1.0';
+        $this->__version = '1.0';
 
         $this->__method = $method;
 
@@ -413,23 +411,25 @@ class lmbHttpRequest extends lmbSet
 
     public function getProtocolVersion()
     {
-        return $this->version;
+        return $this->__version;
     }
 
     public function withProtocolVersion($version)
     {
-        if ($this->version === $version) {
+        if ($this->__version === $version) {
             return $this;
         }
 
         $new = clone($this);
-        $new->version = $version;
+        $new->__version = $version;
         return $new;
     }
 
     public function getHeaderLine($name)
     {
-        // TODO: Implement getHeaderLine() method.
+        $header_name = strtolower($name);
+
+        return isset($this->__headers[$header_name]) ? ($header_name . ': ' . $this->__headers[$header_name]) : '';
     }
 
     public function withHeader($name, $value)
@@ -459,8 +459,8 @@ class lmbHttpRequest extends lmbSet
 
     public function getRequestTarget()
     {
-        if ($this->requestTarget !== null) {
-            return $this->requestTarget;
+        if ($this->__requestTarget !== null) {
+            return $this->__requestTarget;
         }
         $target = $this->getUri()
             ->getPath();
@@ -477,7 +477,13 @@ class lmbHttpRequest extends lmbSet
 
     public function withRequestTarget($requestTarget)
     {
-        // TODO: Implement withRequestTarget() method.
+        if ($this->__requestTarget === $requestTarget) {
+            return $this;
+        }
+
+        $new = clone($this);
+        $new->__requestTarget = $requestTarget;
+        return $new;
     }
 
     public function getMethod()
