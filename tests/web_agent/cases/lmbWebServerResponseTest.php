@@ -6,19 +6,22 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\web_agent\cases;
 
 /**
  * @package web_agent
  */
 
+use limb\web_agent\src\lmbWebAgentHeaders;
+use limb\web_agent\src\lmbWebServerCookiesCollection;
 use limb\web_agent\src\lmbWebServerResponse;
-use limb\web_agent\src\lmbWebServerCookieCollection;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Web server response
  *
  * @package web_agent
- * @version $Id: lmbWebServerResponseTest.php 40 2007-10-04 15:52:39Z CatMan $
+ * @version $Id: lmbWebServerResponseTest.php 40 2007-10-04 15:52:39Z
  */
 class lmbWebServerResponseTest extends TestCase
 {

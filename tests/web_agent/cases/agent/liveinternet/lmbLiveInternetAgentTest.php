@@ -12,12 +12,14 @@ namespace tests\web_agent\cases\agent\liveinternet;
  * @package web_agent
  */
 
+use limb\web_agent\src\lmbWebServerCookie;
 use PHPUnit\Framework\TestCase;
 use limb\web_agent\src\agent\liveinternet\lmbLiveInternetAgent;
+use tests\web_agent\lmbFakeWebAgentRequest;
 
 /**
  * @package web_agent
- * @version $Id: lmbLiveInternetAgentTest.class.php 89 2007-10-12 15:28:50Z CatMan $
+ * @version $Id: lmbLiveInternetAgentTest.php 89 2007-10-12 15:28:50Z
  */
 class lmbLiveInternetAgentTest extends TestCase {
   protected $agent;

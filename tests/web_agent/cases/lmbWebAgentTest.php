@@ -6,15 +6,19 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\web_agent\cases;
 
 /**
  * @package web_agent
  */
 use limb\web_agent\src\lmbWebAgent;
+use limb\web_agent\src\lmbWebServerCookie;
+use PHPUnit\Framework\TestCase;
+use tests\web_agent\lmbFakeWebAgentRequest;
 
 /**
  * @package web_agent
- * @version $Id: lmbWebAgentTest.class.php 43 2007-10-05 15:33:11Z CatMan $
+ * @version $Id: lmbWebAgentTest.php 43 2007-10-05 15:33:11Z
  */
 class lmbWebAgentTest extends TestCase {
 

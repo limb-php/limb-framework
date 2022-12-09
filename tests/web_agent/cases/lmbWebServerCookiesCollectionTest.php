@@ -6,12 +6,15 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\web_agent\cases;
 
+use limb\web_agent\src\lmbWebServerCookie;
 use limb\web_agent\src\lmbWebServerCookiesCollection;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @package web_agent
- * @version $Id: lmbWebServerCookiesCollectionTest.class.php 43 2007-10-05 15:33:11Z CatMan $
+ * @version $Id: lmbWebServerCookiesCollectionTest.php 43 2007-10-05 15:33:11Z
  */
 class lmbWebServerCookiesCollectionTest extends TestCase {
 
