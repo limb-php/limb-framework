@@ -17,14 +17,30 @@ class TestAbstractTools extends lmbAbstractTools
   function bar(){}
 }
 
-class lmbAbstractToolsTest extends TestCase
+class TestAbstractTools2 extends lmbAbstractTools
 {
-  function testGetToolsSignatures()
-  {
-    $tools = new TestAbstractTools();
-    $this->assertEquals($tools->getToolsSignatures(),
-                       array('foo' => $tools, 'bar' => $tools));
-  }
+    static function getRequiredTools()
+    {
+        return [
+            TestAbstractTools::class
+        ];
+    }
 }
 
+class lmbAbstractToolsTest extends TestCase
+{
+    function testGetToolsSignatures()
+    {
+        $tools = new TestAbstractTools();
+        $this->assertEquals($tools->getToolsSignatures(),
+            array('foo' => $tools, 'bar' => $tools));
+    }
 
+    function testGetMultyToolsSignatures()
+    {
+        $tools2 = new TestAbstractTools2();
+
+        $this->assertEquals($tools2->getRequiredTools(),
+            array(TestAbstractTools::class));
+    }
+}

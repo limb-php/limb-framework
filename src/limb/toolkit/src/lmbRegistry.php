@@ -13,11 +13,11 @@ use limb\core\src\exception\lmbException;
 /**
  * Registry pattern implementation.
  * Allows to store any information and get access to it in any point of application
- * Supports saving and restoring (acts like programming stack) that is usefull for testing
+ * Supports saving and restoring (acts like programming stack) that is usefully for testing
  * Completely static class
  * @link http://www.phppatterns.com/docs/design/the_registry
  * @package toolkit
- * @version $Id: lmbRegistry.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbRegistry.php 7486 2009-01-26 19:13:20Z
  */
 class lmbRegistry
 {
@@ -42,6 +42,8 @@ class lmbRegistry
   {
     if(isset(self::$cache[$name][0]))
       return self::$cache[$name][0];
+
+    return null;
   }
 
   /**
@@ -52,7 +54,7 @@ class lmbRegistry
   static function save($name)
   {
     if(isset(self::$cache[$name]))
-      array_unshift(self::$cache[$name], array());
+      array_unshift(self::$cache[$name], null);
     else
       throw new lmbException("No such registry entry '$name'");
   }

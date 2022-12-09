@@ -8,63 +8,67 @@
  */
 namespace tests\toolkit\cases;
 
+use limb\core\src\exception\lmbException;
+use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbRegistry;
 
 class lmbRegistryTest extends TestCase
 {
   function testGetNull()
   {
-    $this->assertNull(lmbRegistry :: get('Foo'));
+    $this->assertNull(lmbRegistry::get('Foo'));
   }
 
   function testSetGet()
   {
-    lmbRegistry :: set('Foo', 'foo');
-    $this->assertEquals(lmbRegistry :: get('Foo'), 'foo');
+    lmbRegistry::set('Foo', 'foo');
+    $this->assertEquals('foo', lmbRegistry::get('Foo'));
   }
 
   function testSaveRestore()
   {
-    lmbRegistry :: set('Foo', 'foo');
+    lmbRegistry::set('Foo', 'foo');
 
-    lmbRegistry :: save('Foo');
-    $this->assertEquals(lmbRegistry :: get('Foo'), null);
+    lmbRegistry::save('Foo');
+    $this->assertEquals(null, lmbRegistry::get('Foo'));
 
-    lmbRegistry :: set('Foo', 'bar');
-    $this->assertEquals(lmbRegistry :: get('Foo'), 'bar');
+    lmbRegistry::set('Foo', 'bar');
+    $this->assertEquals('bar', lmbRegistry::get('Foo'));
 
-    lmbRegistry :: save('Foo');
-    $this->assertEquals(lmbRegistry :: get('Foo'), null);
+    lmbRegistry::save('Foo');
+    $this->assertEquals(null, lmbRegistry::get('Foo'));
 
-    lmbRegistry :: set('Foo', 'baz');
-    $this->assertEquals(lmbRegistry :: get('Foo'), 'baz');
+    lmbRegistry::set('Foo', 'baz');
+    $this->assertEquals('baz', lmbRegistry::get('Foo'));
 
-    lmbRegistry :: restore('Foo');
-    $this->assertEquals(lmbRegistry :: get('Foo'), 'bar');
+    lmbRegistry::restore('Foo');
+    $this->assertEquals('bar', lmbRegistry::get('Foo'));
 
-    lmbRegistry :: restore('Foo');
-    $this->assertEquals(lmbRegistry :: get('Foo'), 'foo');
+    lmbRegistry::restore('Foo');
+    $this->assertEquals('foo', lmbRegistry::get('Foo'));
   }
 
   function testRestoreException()
   {
     try
     {
-      lmbRegistry :: restore('No-such');
-      $this->assertTrue(false);
+      lmbRegistry::restore('No-such');
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testSaveException()
   {
     try
     {
-      lmbRegistry :: save('No-such');
-      $this->assertTrue(false);
+      lmbRegistry::save('No-such');
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 }
-
-
