@@ -9,7 +9,6 @@
 namespace limb\web_cache\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
-use limb\web_cache\src\lmbFullPageCacheRuleset;
 use limb\web_cache\src\lmbFullPageCache;
 use limb\web_cache\src\lmbFullPageCacheRequest;
 use limb\web_cache\src\lmbFullPageCacheUser;
@@ -97,4 +96,3 @@ class lmbFullPageCacheFilter implements lmbInterceptingFilterInterface
     return $writer;
   }
 }
-

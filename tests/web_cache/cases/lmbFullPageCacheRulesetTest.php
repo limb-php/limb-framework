@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_cache\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\web_cache\src\lmbFullPageCacheRuleset;
@@ -45,8 +46,8 @@ class lmbFullPageCacheRulesetTest extends TestCase
 
   function testIsNotSatisfied()
   {
-    $r1 = new MockFullPageCacheRule();
-    $r2 = new MockFullPageCacheRule();
+    $r1 = $this->createMock(lmbFullPageCacheRule::class);
+    $r2 = $this->createMock(lmbFullPageCacheRule::class);
 
     $r1->expectOnce('isSatisfiedBy', array($request = new lmbObject()));
     $r1->setReturnValue('isSatisfiedBy', false);

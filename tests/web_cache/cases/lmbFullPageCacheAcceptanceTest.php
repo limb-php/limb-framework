@@ -7,9 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-use limb\net\src\lmbUri;
-use limb\web_cache\src\lmbFullPageCacheRuleset;
-use limb\web_cache\src\lmbFullPageCachePolicy;
+namespace tests\web_cache\cases;
+
 use limb\web_cache\src\lmbFullPageCache;
 use limb\web_cache\src\lmbFullPageCacheUser;
 use limb\web_cache\src\lmbFullPageCacheWriter;
@@ -18,6 +17,7 @@ use limb\web_cache\src\lmbFullPageCacheRequest;
 use limb\net\src\lmbHttpRequest;
 use limb\config\src\lmbFakeIni;
 use limb\toolkit\src\lmbToolkit;
+use PHPUnit\Framework\TestCase;
 
 class lmbFullPageCacheAcceptanceTest extends TestCase
 {
@@ -25,7 +25,7 @@ class lmbFullPageCacheAcceptanceTest extends TestCase
   protected $ruleset;
   protected $cache_writer;
 
-  function setUp()
+  function setUp(): void
   {
     $this->toolkit = lmbToolkit :: save();
 
@@ -33,7 +33,7 @@ class lmbFullPageCacheAcceptanceTest extends TestCase
     $this->cache_writer->flushAll();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->cache_writer->flushAll();
     lmbToolkit :: restore();
@@ -116,5 +116,3 @@ class lmbFullPageCacheAcceptanceTest extends TestCase
     $this->policy = $loader->load();
   }
 }
-
-

@@ -8,6 +8,7 @@
  */
 namespace limb\web_cache\src;
 
+use limb\toolkit\src\lmbToolkit;
 use limb\web_cache\src\lmbFullPageCachePolicy;
 use limb\web_cache\src\lmbFullPageCacheRuleset;
 use limb\web_cache\src\lmbFullPageCacheUriPathRule;
@@ -18,7 +19,7 @@ use limb\web_cache\src\lmbFullPageCacheRequestRule;
  * class lmbFullPageCacheIniPolicyLoader.
  *
  * @package web_cache
- * @version $Id: lmbFullPageCacheIniPolicyLoader.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbFullPageCacheIniPolicyLoader.php 7686 2009-03-04 19:57:12Z
  */
 class lmbFullPageCacheIniPolicyLoader
 {
@@ -70,5 +71,3 @@ class lmbFullPageCacheIniPolicyLoader
     return $policy;
   }
 }
-
-

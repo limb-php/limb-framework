@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_cache\cases;
 
+use limb\web_cache\src\lmbFullPageCacheUser;
 use PHPUnit\Framework\TestCase;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\filter_chain\src\lmbFilterChain;

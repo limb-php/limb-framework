@@ -14,7 +14,7 @@ use limb\fs\src\lmbFs;
  * class lmbFullPageCacheWriter.
  *
  * @package web_cache
- * @version $Id: lmbFullPageCacheWriter.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbFullPageCacheWriter.php 7686 2009-03-04 19:57:12Z
  */
 class lmbFullPageCacheWriter
 {
@@ -87,7 +87,7 @@ class lmbFullPageCacheWriter
 
     try {
       lmbFs :: safeWrite($file, $contents);
-    } catch(Exception $e) {};
+    } catch(\Exception $e) {};
   }
 
   function get($cache)
@@ -98,5 +98,3 @@ class lmbFullPageCacheWriter
       return false;
   }
 }
-
-

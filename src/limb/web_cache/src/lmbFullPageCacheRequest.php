@@ -14,7 +14,7 @@ use limb\core\src\lmbArrayHelper;
  * class lmbFullPageCacheRequest.
  *
  * @package web_cache
- * @version $Id: lmbFullPageCacheRequest.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbFullPageCacheRequest.php 7686 2009-03-04 19:57:12Z
  */
 class lmbFullPageCacheRequest
 {
@@ -77,5 +77,3 @@ class lmbFullPageCacheRequest
     return serialize($groups);
   }
 }
-
-

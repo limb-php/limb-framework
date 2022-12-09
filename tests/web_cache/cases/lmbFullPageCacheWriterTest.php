@@ -6,8 +6,11 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_cache\cases;
+
 use limb\web_cache\src\lmbFullPageCacheWriter;
 use limb\fs\src\lmbFs;
+use PHPUnit\Framework\TestCase;
 
 class lmbFullPageCacheWriterTest extends TestCase
 {
@@ -15,14 +18,14 @@ class lmbFullPageCacheWriterTest extends TestCase
 
   var $cache_dir;
 
-  function setUp()
+  function setUp(): void
   {
     $this->cache_dir = LIMB_VAR_DIR . '/fpcache/';
     lmbFs :: mkdir($this->cache_dir);
     $this->writer = new lmbFullPageCacheWriter($this->cache_dir);
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     lmbFs :: rm($this->cache_dir);
   }
@@ -106,5 +109,3 @@ class lmbFullPageCacheWriterTest extends TestCase
     fclose($fh);
   }
 }
-
-

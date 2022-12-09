@@ -6,10 +6,13 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\web_cache\cases;
+
 use limb\web_cache\src\lmbFullPageCacheRequestRule;
 use limb\web_cache\src\lmbFullPageCacheRequest;
 use limb\web_cache\src\lmbFullPageCacheUser;
 use limb\net\src\lmbHttpRequest;
+use PHPUnit\Framework\TestCase;
 
 class lmbFullPageCacheRequestRuleTest extends TestCase
 {
@@ -211,5 +214,3 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
     $this->assertFalse($rule->isSatisfiedBy($request));
   }
 }
-
-
