@@ -12,6 +12,7 @@ namespace tests\i18n\cases\utility;
  * TODO replace cli by taskman
  */
 
+use limb\core\src\lmbEnv;
 use PHPUnit\Framework\TestCase;
 use limb\cli\src\lmbCliResponse;
 use limb\fs\src\lmbFs;
@@ -20,19 +21,17 @@ use limb\i18n\src\translation\lmbDictionaryUpdater;
 
 class lmbDictionaryUpdaterTest extends TestCase
 {	
-	
-  function skip()
-  {
-    $this->skipIf(true, 'TODO: replace cli by taskman');
-  }
-  
+
   function setUp(): void
   {
-    $this->_cleanUp();
-    lmbFs :: mkdir(LIMB_VAR_DIR. '/translations');
-    lmbFs :: mkdir(LIMB_VAR_DIR. '/src');
-    lmbFs :: mkdir(LIMB_VAR_DIR. '/parse1');
-    lmbFs :: mkdir(LIMB_VAR_DIR. '/parse2');
+      $this->markTestSkipped('TODO: replace cli by taskman');
+
+      $this->_cleanUp();
+
+      lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR'). '/translations');
+      lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR'). '/src');
+      lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR'). '/parse1');
+      lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR'). '/parse2');
   }
 
   function tearDown(): void
@@ -42,17 +41,17 @@ class lmbDictionaryUpdaterTest extends TestCase
 
   function _cleanUp()
   {
-    lmbFs :: rm(LIMB_VAR_DIR . '/translations');
-    lmbFs :: rm(LIMB_VAR_DIR . '/src');
+    lmbFs::rm(lmbEnv::get('LIMB_VAR_DIR') . '/translations');
+    lmbFs::rm(lmbEnv::get('LIMB_VAR_DIR') . '/src');
   }
 
   function testUpdateTranslations()
   {
-    $translations_dir = LIMB_VAR_DIR . '/translations';
+    $translations_dir = lmbEnv::get('LIMB_VAR_DIR') . '/translations';
     $ru_file = $translations_dir . '/foo.ru_RU.ts';
     $de_file = $translations_dir . '/foo.de_DE.ts';
 
-    $source_dir = LIMB_VAR_DIR . '/src/';
+    $source_dir = lmbEnv::get('LIMB_VAR_DIR') . '/src/';
     $html_file = $source_dir . '/hourse.html';
     $php_file = $source_dir . '/cat.php';
 
@@ -102,11 +101,11 @@ EOD;
 
   function testUpdateTranslationsForDefaultContext()
   {
-    $translations_dir = LIMB_VAR_DIR . '/translations';
+    $translations_dir = lmbEnv::get('LIMB_VAR_DIR') . '/translations';
     $ru_file = $translations_dir . '/default.ru_RU.ts';
     $de_file = $translations_dir . '/default.de_DE.ts';
 
-    $source_dir = LIMB_VAR_DIR . '/src/';
+    $source_dir = lmbEnv::get('LIMB_VAR_DIR') . '/src/';
     $html_file = $source_dir . '/hourse.html';
     $php_file = $source_dir . '/cat.php';
 

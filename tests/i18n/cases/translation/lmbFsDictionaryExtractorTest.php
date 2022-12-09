@@ -21,10 +21,10 @@ use limb\i18n\src\translation\lmbFsDictionaryExtractor;
 
 class lmbFsDictionaryExtractorTest extends TestCase
 {
-	
-	function skip()
+
+  function setUp(): void
   {
-    $this->skipIf(true, 'TODO: replace cli by taskman');
+    $this->markTestSkipped('TODO: replace cli by taskman');
   }  
 	
   function testLoad()
@@ -33,9 +33,11 @@ class lmbFsDictionaryExtractorTest extends TestCase
     $m1 = $this->createMock(lmbFsRecursiveIterator::class);
     $m2 = $this->createMock(lmbFsRecursiveIterator::class);
 
-    $it->setReturnValueAt(0, 'valid', true);
-    $it->setReturnValueAt(0, 'isFile', false);
-    $it->setReturnValueAt(0, 'current', 'junky');
+    $it->expects($this->at(0))
+        ->method('valid')
+        ->willReturn(true);
+    $it->method('isFile')->setReturnValueAt(false);
+    $it->method('current')->setReturnValueAt('junky');
 
     $file_path1 = 'some.php';
     $file_path2 = 'some.html';
@@ -55,8 +57,12 @@ class lmbFsDictionaryExtractorTest extends TestCase
     $dictionaries = array();
 
     $response = new lmbCliResponse();
-    $m1->expectOnce('extractFromFile', array($file_path1, $dictionaries, $response));
-    $m2->expectOnce('extractFromFile', array($file_path2, $dictionaries, $response));
+    $m1
+        ->expects($this->once())
+        ->method('extractFromFile', array($file_path1, $dictionaries, $response));
+    $m2
+        ->expects($this->once())
+        ->method('extractFromFile', array($file_path2, $dictionaries, $response));
 
     $loader->traverse($it, $dictionaries, $response);
   }

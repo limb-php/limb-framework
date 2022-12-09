@@ -8,6 +8,8 @@
  */
 namespace limb\validation\src\rule;
 
+use limb\net\src\lmbHttpRequest;
+
 /**
  * A base class for validation rules.
  * Implements Composite.
@@ -53,6 +55,8 @@ abstract class lmbBaseValidationRule implements lmbValidationRuleInterface
     // for BC
     //if(is_array($datasource))
         //$datasource = new lmbObject($datasource);
+      if(is_a($datasource, lmbHttpRequest::class))
+          $datasource = $datasource->export();
 
     $this->_doValidate($datasource);
 

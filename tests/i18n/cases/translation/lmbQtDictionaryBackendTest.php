@@ -8,6 +8,7 @@
  */
 namespace tests\i18n\cases\translation;
 
+use limb\core\src\lmbEnv;
 use PHPUnit\Framework\TestCase;
 use limb\i18n\src\translation\lmbI18NDictionary;
 use limb\i18n\src\translation\lmbQtDictionaryBackend;
@@ -17,12 +18,12 @@ class lmbQtDictionaryBackendTest extends TestCase
 {
   function setUp(): void
   {
-    lmbFs :: mkdir(LIMB_VAR_DIR);
+    lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR'));
   }
 
   function tearDown(): void
   {
-    lmbFs :: rm(LIMB_VAR_DIR);
+    lmbFs::rm(lmbEnv::get('LIMB_VAR_DIR'));
   }
 
   function testLoadFromXML()
@@ -80,7 +81,7 @@ EOD;
 </TS>
 EOD;
 
-    file_put_contents($file = LIMB_VAR_DIR . '/dictionary.xml', $xml);
+    file_put_contents($file = lmbEnv::get('LIMB_VAR_DIR') . '/dictionary.xml', $xml);
 
     $d = $back->loadFromFile($file);
 
@@ -92,7 +93,7 @@ EOD;
   function testLoadSave()
   {
     $back = new lmbQtDictionaryBackend();
-    $back->setSearchPath(LIMB_VAR_DIR . '/translations');
+    $back->setSearchPath(lmbEnv::get('LIMB_VAR_DIR') . '/translations');
 
     $xml = <<< EOD
 <?xml version="1.0"?>
@@ -114,8 +115,8 @@ EOD;
 </TS>
 EOD;
 
-    lmbFs :: mkdir(LIMB_VAR_DIR . '/translations/');
-    file_put_contents($file = LIMB_VAR_DIR . '/translations/default.ru_RU.ts', $xml);
+    lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR') . '/translations/');
+    file_put_contents($file = lmbEnv::get('LIMB_VAR_DIR') . '/translations/default.ru_RU.ts', $xml);
 
     $d1 = $back->load('ru_RU', 'default');
 
@@ -136,7 +137,7 @@ EOD;
   function testLoadAll()
   {
     $back = new lmbQtDictionaryBackend();
-    $back->setSearchPath(LIMB_VAR_DIR . '/translations');
+    $back->setSearchPath(lmbEnv::get('LIMB_VAR_DIR') . '/translations');
 
     $xml = <<< EOD
 <?xml version="1.0"?>
@@ -152,9 +153,9 @@ EOD;
 
     $d = $back->loadFromXML($xml);
 
-    lmbFs :: mkdir(LIMB_VAR_DIR . '/translations/');
-    file_put_contents($file1 = LIMB_VAR_DIR . '/translations/default.ru_RU.ts', $xml);
-    file_put_contents($file2 = LIMB_VAR_DIR . '/translations/default.en_US.ts', $xml);
+    lmbFs :: mkdir(lmbEnv::get('LIMB_VAR_DIR') . '/translations/');
+    file_put_contents($file1 = lmbEnv::get('LIMB_VAR_DIR') . '/translations/default.ru_RU.ts', $xml);
+    file_put_contents($file2 = lmbEnv::get('LIMB_VAR_DIR') . '/translations/default.en_US.ts', $xml);
 
     $dicts = $back->loadAll();
     $this->assertTrue($dicts['ru_RU']['default']->isEqual($d));

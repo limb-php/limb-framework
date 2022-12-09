@@ -17,47 +17,47 @@ class lmbLocaleSpecTest extends TestCase
   {
     $spec = new lmbLocaleSpec('ru');
 
-    $this->assertEquals($spec->getLocaleString(), 'ru');
-    $this->assertEquals($spec->getLanguage(), 'ru');
-    $this->assertFalse($spec->getCountry());
-    $this->assertFalse($spec->getCountryVariation());
-    $this->assertFalse($spec->getCharset());
-    $this->assertEquals($spec->getLocale(), 'ru');
+    $this->assertEquals('ru', $spec->getLocaleString());
+    $this->assertEquals('ru', $spec->getLanguage());
+    $this->assertEquals('', $spec->getCountry());
+    $this->assertEquals('', $spec->getCountryVariation());
+    $this->assertEquals('', $spec->getCharset());
+    $this->assertEquals('ru', $spec->getLocale());
   }
 
   function testParseLanguageAndCountry()
   {
     $spec = new lmbLocaleSpec('ru_RU');
 
-    $this->assertEquals($spec->getLocaleString(), 'ru_RU');
-    $this->assertEquals($spec->getLanguage(), 'ru');
-    $this->assertEquals($spec->getCountry(), 'RU');
-    $this->assertFalse($spec->getCountryVariation());
-    $this->assertFalse($spec->getCharset());
-    $this->assertEquals($spec->getLocale(), 'ru_RU');
+    $this->assertEquals('ru_RU', $spec->getLocaleString());
+    $this->assertEquals('ru', $spec->getLanguage());
+    $this->assertEquals('RU', $spec->getCountry());
+    $this->assertEquals('', $spec->getCountryVariation());
+    $this->assertEquals('', $spec->getCharset());
+    $this->assertEquals('ru_RU', $spec->getLocale());
   }
 
   function testParseLanguageAndCountryAndVariation()
   {
     $spec = new lmbLocaleSpec('eng_GB@euro');
 
-    $this->assertEquals($spec->getLocaleString(), 'eng_GB@euro');
-    $this->assertEquals($spec->getLanguage(), 'eng');
-    $this->assertEquals($spec->getCountry(), 'GB');
-    $this->assertEquals($spec->getCountryVariation(), 'euro');
-    $this->assertFalse($spec->getCharset());
-    $this->assertEquals($spec->getLocale(), 'eng_GB');
+    $this->assertEquals('eng_GB@euro', $spec->getLocaleString());
+    $this->assertEquals('eng', $spec->getLanguage());
+    $this->assertEquals('GB', $spec->getCountry());
+    $this->assertEquals('euro', $spec->getCountryVariation());
+    $this->assertEquals('', $spec->getCharset());
+    $this->assertEquals('eng_GB', $spec->getLocale());
   }
 
   function testParseLanguageAndCountryAndVariationAndCharset()
   {
     $spec = new lmbLocaleSpec('eng_GB.utf8@euro');
 
-    $this->assertEquals($spec->getLocaleString(), 'eng_GB.utf8@euro');
-    $this->assertEquals($spec->getLanguage(), 'eng');
-    $this->assertEquals($spec->getCountry(), 'GB');
-    $this->assertEquals($spec->getCountryVariation(), 'euro');
-    $this->assertEquals($spec->getCharset(), 'utf8');
-    $this->assertEquals($spec->getLocale(), 'eng_GB');
+    $this->assertEquals('eng_GB.utf8@euro', $spec->getLocaleString());
+    $this->assertEquals('eng', $spec->getLanguage());
+    $this->assertEquals('GB', $spec->getCountry());
+    $this->assertEquals('euro', $spec->getCountryVariation());
+    $this->assertEquals('utf8', $spec->getCharset());
+    $this->assertEquals('eng_GB', $spec->getLocale());
   }
 }

@@ -112,6 +112,6 @@ EOD;
     $parser = new lmbPHPDictionaryExtractor();
     $parser->extract($src, $dicts);
 
-    $this->assertFalse($dicts);
+    $this->assertEquals(array(), $dicts);
   }
 }

@@ -13,6 +13,8 @@ use limb\i18n\src\charset\lmbUTF8BaseDriver;
 use limb\core\src\lmbSet;
 use limb\i18n\src\charset\lmbI18nString;
 
+require (dirname(__FILE__) . '/../.setup.php');
+
 class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
 {
   var $prev_driver;

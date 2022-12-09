@@ -14,14 +14,14 @@ use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbIni;
 use limb\i18n\src\locale\lmbLocale;
 
-class lmbLocaleDateTimeFormatTest extends TestCase
+class lmbLocaleDateFormatTest extends TestCase
 {
   function testFormatWithoutLocale()
   {
     $date = new lmbLocaleDateTime('2005-01-02 23:05:03');
     $string = $date->localeStrftime('%C %d %D %e %E %H %I %j %m %M %n %R %S %U %y %Y %t %%');
 
-    $this->assertEquals($string, "20 02 01/02/05 2 2453373 23 11 002 01 05 \n 23:05 03 1 05 2005 \t %");
+    $this->assertEquals("20 02 01/02/05 2 2453373 23 11 002 01 05 \n 23:05 03 1 05 2005 \t %", $string);
   }
 
   function testLocalizedFormat()
@@ -36,4 +36,3 @@ class lmbLocaleDateTimeFormatTest extends TestCase
     $this->assertEquals($res, $expected);
   }
 }
-

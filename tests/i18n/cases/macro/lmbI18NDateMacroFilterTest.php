@@ -8,10 +8,14 @@
  */
 namespace tests\i18n\cases\macro;
 
+use limb\config\src\lmbIni;
+use limb\core\src\lmbSet;
 use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\datetime\src\lmbDateTime;
 use limb\toolkit\src\lmbToolkit;
 use limb\i18n\src\locale\lmbLocale;
+
+require (dirname(__FILE__) . '/../.setup.php');
 
 class lmbI18NDateMacroFilterTest extends lmbBaseMacroTestCase
 {
@@ -22,7 +26,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTestCase
     $time = mktime(0, 0, 0, 2, 20, 2002);
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEquals($out, '02/20/2002');
+    $this->assertEquals('02/20/2002', $out);
   }
 
   function testSetDateByStampValue()
@@ -35,7 +39,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTestCase
 
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEquals($out, '12/20/2004');
+    $this->assertEquals('12/20/2004', $out);
   }
 
   function testFormatType()
@@ -48,7 +52,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTestCase
 
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEquals($out, 'Thursday 20 January 2005');
+    $this->assertEquals('Thursday 20 January 2005', $out);
   }
 
   function testSetDateTimeByString()
@@ -60,7 +64,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTestCase
 
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEquals($out, '02/20/2002 10:23:24');
+    $this->assertEquals('02/20/2002 10:23:24', $out);
   }
 
   function testDefinedFormat()
@@ -73,13 +77,13 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTestCase
 
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEquals($out, '2004 12 20');
+    $this->assertEquals('2004 12 20', $out);
   }
 
   function testUseRussianAsCurrentLocale()
   {
-    $toolkit = lmbToolkit :: save();
-    $toolkit->addLocaleObject(new lmbLocale('ru_RU', new lmbIni(dirname(__FILE__).'/../../../i18n/locale/ru_RU.ini')));
+    $toolkit = lmbToolkit::save();
+    $toolkit->addLocaleObject(new lmbLocale('ru_RU', new lmbIni(dirname(__FILE__).'/../../../../src/limb/i18n/i18n/locale/ru_RU.ini')));
 
     $date = new lmbDateTime('2004-12-20 10:15:30');
     $time=$date->getStamp();
@@ -89,9 +93,9 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTestCase
 
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEquals($out, '20.12.2004');
+    $this->assertEquals('20.12.2004', $out);
 
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testComplexPathBasedDBEWithDefinedFormat()
@@ -104,7 +108,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTestCase
 
     $tpl->set('my', $my_dataspace);
     $out = $tpl->render();
-    $this->assertEquals($out, '2005 01 20');
+    $this->assertEquals('2005 01 20', $out);
   }
 
   function testDateByCurrentLocale()
@@ -116,7 +120,7 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTestCase
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEquals($out, '12/20/2004');
+    $this->assertEquals('12/20/2004', $out);
   }
 
   function testWithOutParams()
@@ -128,6 +132,6 @@ class lmbI18NDateMacroFilterTest extends lmbBaseMacroTestCase
     $tpl = $this->_createMacroTemplate($code, 'tpl.html');
     $tpl->set('var', $time);
     $out = $tpl->render();
-    $this->assertEquals($out, '12/20/2004');
+    $this->assertEquals('12/20/2004', $out);
   }
 }

@@ -8,6 +8,7 @@
  */
 namespace tests\i18n\cases\translation;
 
+use limb\core\src\lmbEnv;
 use PHPUnit\Framework\TestCase;
 use limb\i18n\src\translation\lmbQtDictionaryBackend;
 use limb\fs\src\lmbFs;
@@ -17,19 +18,19 @@ class lmbI18NTranslationTest extends TestCase
 {
   function setUp(): void
   {
-    lmbFs :: mkdir(LIMB_VAR_DIR . '/translations');
+    lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR') . '/translations');
   }
 
   function tearDown(): void
   {
-    lmbFs :: rm(LIMB_VAR_DIR . '/translations');
+    lmbFs::rm(lmbEnv::get('LIMB_VAR_DIR') . '/translations');
   }
 
   function testTranslate()
   {
-    $toolkit = lmbToolkit :: save();
+    $toolkit = lmbToolkit::save();
     $back = new lmbQtDictionaryBackend();
-    $back->setSearchPath($translations_dir = LIMB_VAR_DIR . '/translations');
+    $back->setSearchPath($translations_dir = lmbEnv::get('LIMB_VAR_DIR') . '/translations');
     $toolkit->setDictionaryBackend($back);
 
     $xml = <<< EOD
@@ -46,16 +47,16 @@ EOD;
     file_put_contents($translations_dir . '/foo.ru_RU.ts', $xml);
 
     $toolkit->setLocale('ru_RU');
-    $this->assertEquals(lmb_i18n('Hello', 'foo'), 'Привет');
+    $this->assertEquals('Привет', \lmb_i18n('Hello', 'foo'));
 
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testTranslateDefaultContext()
   {
-    $toolkit = lmbToolkit :: save();
+    $toolkit = lmbToolkit::save();
     $back = new lmbQtDictionaryBackend();
-    $back->setSearchPath($translations_dir = LIMB_VAR_DIR . '/translations');
+    $back->setSearchPath($translations_dir = lmbEnv::get('LIMB_VAR_DIR') . '/translations');
     $toolkit->setDictionaryBackend($back);
 
     $xml = <<< EOD
@@ -72,16 +73,16 @@ EOD;
     file_put_contents($translations_dir . '/default.ru_RU.ts', $xml);
 
     $toolkit->setLocale('ru_RU');
-    $this->assertEquals(lmb_i18n('Hello'), 'Привет');
+    $this->assertEquals('Привет', lmb_i18n('Hello'));
 
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testTranslateSubstituteParameters()
   {
-    $toolkit = lmbToolkit :: save();
+    $toolkit = lmbToolkit::save();
     $back = new lmbQtDictionaryBackend();
-    $back->setSearchPath($translations_dir = LIMB_VAR_DIR . '/translations');
+    $back->setSearchPath($translations_dir = lmbEnv::get('LIMB_VAR_DIR') . '/translations');
     $toolkit->setDictionaryBackend($back);
 
     $xml = <<< EOD
@@ -98,16 +99,16 @@ EOD;
     file_put_contents($translations_dir . '/foo.ru_RU.ts', $xml);
 
     $toolkit->setLocale('ru_RU');
-    $this->assertEquals(lmb_i18n('Hello {name}', array('{name}' => 'Bob'), 'foo'), 'Привет Bob');
+    $this->assertEquals('Привет Bob', lmb_i18n('Hello {name}', array('{name}' => 'Bob'), 'foo'));
 
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testTranslateSubstituteParametersDefaultContext()
   {
-    $toolkit = lmbToolkit :: save();
+    $toolkit = lmbToolkit::save();
     $back = new lmbQtDictionaryBackend();
-    $back->setSearchPath($translations_dir = LIMB_VAR_DIR . '/translations');
+    $back->setSearchPath($translations_dir = lmbEnv::get('LIMB_VAR_DIR') . '/translations');
     $toolkit->setDictionaryBackend($back);
 
     $xml = <<< EOD
@@ -124,8 +125,8 @@ EOD;
     file_put_contents($translations_dir . '/default.ru_RU.ts', $xml);
 
     $toolkit->setLocale('ru_RU');
-    $this->assertEquals(lmb_i18n('Hello {name}', array('{name}' => 'Bob')), 'Привет Bob');
+    $this->assertEquals('Привет Bob', lmb_i18n('Hello {name}', array('{name}' => 'Bob')));
 
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 }

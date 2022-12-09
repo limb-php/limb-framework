@@ -12,13 +12,15 @@ use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\i18n\src\charset\lmbUTF8BaseDriver;
 use limb\i18n\src\charset\lmbI18nString;
 
+require (dirname(__FILE__) . '/../.setup.php');
+
 class lmbI18NCapitalizeMacroFilterTest extends lmbBaseMacroTestCase
 {
   var $prev_driver;
 
   function setUp(): void
   {
-    parent :: setUp();
+    parent::setUp();
 
     $this->prev_driver = lmbI18nString::useCharsetDriver(new lmbUTF8BaseDriver());
   }
@@ -27,7 +29,7 @@ class lmbI18NCapitalizeMacroFilterTest extends lmbBaseMacroTestCase
   {
       lmbI18nString::useCharsetDriver($this->prev_driver);
 
-      parent :: tearDown();
+      parent::tearDown();
   }
 
   function testCapitalize()
@@ -37,6 +39,6 @@ class lmbI18NCapitalizeMacroFilterTest extends lmbBaseMacroTestCase
     $var = "что-то";
     $tpl->set('var', $var);
     $out = $tpl->render();
-    $this->assertEquals($out, 'Что-то');
+    $this->assertEquals('Что-то', $out);
   }
 }

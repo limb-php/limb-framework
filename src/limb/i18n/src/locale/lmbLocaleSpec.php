@@ -8,12 +8,11 @@
  */
 namespace limb\i18n\src\locale;
 
-
 /**
  * class lmbLocaleSpec.
  *
  * @package i18n
- * @version $Id: lmbLocaleSpec.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbLocaleSpec.php 7486 2009-01-26 19:13:20Z
  */
 class lmbLocaleSpec
 {
@@ -68,7 +67,7 @@ class lmbLocaleSpec
 
   protected function _parse($locale_string)
   {
-    if(preg_match(self :: REGEX, $locale_string, $regs))
+    if(preg_match(self::REGEX, $locale_string, $regs))
     {
       $this->language = strtolower($regs[1]);
 
@@ -92,5 +91,3 @@ class lmbLocaleSpec
     }
   }
 }
-
-

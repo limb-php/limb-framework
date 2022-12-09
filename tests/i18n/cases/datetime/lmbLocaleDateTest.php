@@ -14,7 +14,7 @@ use limb\i18n\src\locale\lmbLocale;
 use limb\config\src\lmbIni;
 use limb\core\src\exception\lmbException;
 
-class lmbLocaleDateTimeTest extends TestCase
+class lmbLocaleDateTest extends TestCase
 {
   function testCreateByLocaleString()
   {
@@ -22,9 +22,9 @@ class lmbLocaleDateTimeTest extends TestCase
 
     $date = lmbLocaleDateTime::localStringToDate($locale, 'Thursday 20 January 2005', '%A %d %B %Y');
 
-    $this->assertEquals($date->getMonth(), 1);
-    $this->assertEquals($date->getYear(), 2005);
-    $this->assertEquals($date->getDay(), 20);
+    $this->assertEquals(1, $date->getMonth());
+    $this->assertEquals(2005, $date->getYear());
+    $this->assertEquals(20, $date->getDay());
   }
 
   function testCreateByAnotherLocaleString()
@@ -33,9 +33,9 @@ class lmbLocaleDateTimeTest extends TestCase
 
     $date = lmbLocaleDateTime::localStringToDate($locale, 'Thu 20 Jan 2005', '%a %d %b %Y');
 
-    $this->assertEquals($date->getMonth(), 1);
-    $this->assertEquals($date->getYear(), 2005);
-    $this->assertEquals($date->getDay(), 20);
+    $this->assertEquals(1, $date->getMonth());
+    $this->assertEquals(2005, $date->getYear());
+    $this->assertEquals(20, $date->getDay());
   }
 
   function testCreateByWrongStringThrowsException()

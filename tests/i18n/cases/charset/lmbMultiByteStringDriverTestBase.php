@@ -188,36 +188,36 @@ abstract class lmbMultiByteStringDriverTestBase extends TestCase
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertTrue($driver->_preg_match("/^(.)/", "тест", $matches));
-        $this->assertEquals($matches[1], "т");
+        $this->assertEquals(1, $driver->_preg_match("/^(.)/", "тест", $matches));
+        $this->assertEquals("т", $matches[1]);
     }
 
     function test_preg_match_all() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertTrue($driver->_preg_match_all("/(.)/", "тест", $matches));
+        $this->assertEquals(4, $driver->_preg_match_all("/(.)/", "тест", $matches));
 
-        $this->assertEquals($matches[1][0], "т");
-        $this->assertEquals($matches[1][1], "е");
-        $this->assertEquals($matches[1][2], "с");
-        $this->assertEquals($matches[1][3], "т");
+        $this->assertEquals("т", $matches[1][0]);
+        $this->assertEquals("е", $matches[1][1]);
+        $this->assertEquals("с", $matches[1][2]);
+        $this->assertEquals("т", $matches[1][3]);
     }
 
     function test_preg_replace() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEquals($driver->_preg_replace("/кошк./", "собаки", "кошки"), "собаки");
+        $this->assertEquals("собаки", $driver->_preg_replace("/кошк./", "собаки", "кошки"));
     }
 
     function test_preg_replace_callback() {
         if(!is_object($driver = $this->_createDriver()))
             return;
 
-        $this->assertEquals($driver->_preg_replace_callback("/(кошк)(.)/",
-                                                           create_function('$m','return $m[1]."i";'),
-                                                           "кошки"), "кошкi");
+        $this->assertEquals("кошкi", $driver->_preg_replace_callback("/(кошк)(.)/",
+                                                           function($m) { return $m[1]."i"; },
+                                                           "кошки"));
     }
 
     function test_preg_split() {
@@ -225,9 +225,7 @@ abstract class lmbMultiByteStringDriverTestBase extends TestCase
             return;
 
         $pieces = $driver->_preg_split("/д./", "кошки да собаки");
-        $this->assertEquals($pieces[0], "кошки ");
-        $this->assertEquals($pieces[1], " собаки");
+        $this->assertEquals("кошки ", $pieces[0]);
+        $this->assertEquals(" собаки", $pieces[1]);
     }
 }
-
-
