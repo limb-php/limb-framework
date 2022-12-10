@@ -15,9 +15,10 @@ class lmbCacheApcConnectionTest extends lmbCacheConnectionTest
     $this->dsn = 'apc:';
   }
 
-  function skip()
+  function setUp(): void
   {
-    $this->skipIf(!extension_loaded('apc'), 'APC extension not found. Test skipped.');
+      if(!extension_loaded('apc'))
+        $this->markTestSkipped('APC extension not found. Test skipped.');
   }
 
   function testAddNonUnique()

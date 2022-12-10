@@ -22,14 +22,14 @@ abstract class lmbCacheLogTest extends TestCase
 
     $this->assertEquals(2, count($records));
 
-    $this->assertIdentical($records[0], array(
+    $this->assertEquals($records[0], array(
       'key' => $key1,
       'operation' => $operation1,
       'time' => $time1,
       'result' => $result1
     ));
 
-    $this->assertIdentical($records[1], array(
+    $this->assertEquals($records[1], array(
       'key' => $key2,
       'operation' => $operation2,
       'time' => $time2,

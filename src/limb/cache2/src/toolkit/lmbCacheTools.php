@@ -105,4 +105,3 @@ class lmbCacheTools extends lmbAbstractTools
     $this->_cache[$name] = $cache;
   }
 }
-

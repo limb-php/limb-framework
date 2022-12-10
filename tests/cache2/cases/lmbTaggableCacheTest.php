@@ -60,12 +60,12 @@ class lmbTaggableCacheTest extends TestCase
 
     $this->cache->deleteByTag('different_tag');
 
-    $this->assertIdentical($this->cache->get($key), $value);
+    $this->assertEquals($this->cache->get($key), $value);
   }
 
   function testTagCoincidesWithKey()
   {
     $this->assertTrue($this->cache->add($key = $this->_createId(), $value = 'value', false, $key));
-    $this->assertIdentical($this->cache->get($key), $value);
+    $this->assertEquals($this->cache->get($key), $value);
   }
 }

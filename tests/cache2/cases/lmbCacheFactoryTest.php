@@ -8,6 +8,8 @@
  */
 namespace tests\cache2\cases;
 
+use limb\cache2\src\lmbMintCache;
+use limb\cache2\src\lmbTaggableCache;
 use limb\core\src\lmbObject;
 use limb\cache2\src\lmbCacheFactory;
 use PHPUnit\Framework\TestCase;
@@ -38,7 +40,7 @@ class lmbCacheFactoryTest extends TestCase
   {
     $cache_dir = lmb_var_dir() . '/some_dir';
     $cache = lmbCacheFactory::createConnection('file://' . $cache_dir.'?wrapper=lmbMintCache');
-    $this->assertIsA($cache, 'lmbMintCache');
+    $this->assertIsA($cache, lmbMintCache::class);
 
     $this->assertTrue('file' , $cache->getType());
     $this->assertEquals($cache_dir, $cache->getCacheDir());
@@ -50,7 +52,7 @@ class lmbCacheFactoryTest extends TestCase
     $cache = lmbCacheFactory::createConnection(
       'file://' . $cache_dir.'?wrapper[]=lmbMintCache&wrapper[]=lmbTaggableCache'
     );
-    $this->assertIsA($cache, 'lmbTaggableCache');
+    $this->assertIsA($cache, lmbTaggableCache::class);
 
     $this->assertTrue('file' , $cache->getType());
     $this->assertEquals($cache_dir, $cache->getCacheDir());

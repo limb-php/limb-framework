@@ -94,7 +94,7 @@ abstract class lmbCacheConnectionTest extends TestCase
   {
     $this->cache->set($id = $this->_getUniqueId('testGet_Positive_FalseValue'), $v = false);
     $var = $this->cache->get($id);
-    $this->assertIdentical($var, $v);
+    $this->assertEquals($var, $v);
   }
 
   function testAdd()
@@ -116,7 +116,7 @@ abstract class lmbCacheConnectionTest extends TestCase
     {
       $this->cache->set($id = $this->_getUniqueId('testSet'.$position), $v2);
       $cache_value = $this->cache->get($id);
-      $this->assertIdentical($cache_value, $v2);
+      $this->assertEquals($cache_value, $v2);
     }
   }
 
@@ -149,7 +149,7 @@ abstract class lmbCacheConnectionTest extends TestCase
     $this->cache->set($id_long = $this->_getUniqueId('testGetWithTtl_sameThread2'), $value, $ttl = 10);
     sleep(2);
     $this->assertNull($this->cache->get($id_short));
-    $this->assertIdentical($value, $this->cache->get($id_long));
+    $this->assertEquals($value, $this->cache->get($id_long));
   }
 
   function testGetWithTtl_differentThread()
@@ -159,7 +159,7 @@ abstract class lmbCacheConnectionTest extends TestCase
     $this->cache->set($id_long = $this->_getUniqueId('testGetWithTtl_differentThread2'), $value, $ttl = 10);
     sleep(2);
     $this->assertNull($this->_makeGetFromDifferentThread($id_short));
-    $this->assertIdentical($value, $this->_makeGetFromDifferentThread($id_long));
+    $this->assertEquals($value, $this->_makeGetFromDifferentThread($id_long));
 
   }
 
@@ -185,7 +185,7 @@ abstract class lmbCacheConnectionTest extends TestCase
     $obj->set('foo', 'new value');
 
     $cached_obj = $this->cache->get($id);
-    if($this->assertIsA($cached_obj, 'lmbObject'))
+    if($this->assertIsA($cached_obj, lmbObject::class))
       $this->assertEquals($value, $cached_obj->get('foo'));
   }
 

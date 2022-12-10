@@ -15,12 +15,10 @@ class lmbCacheDbConnectionTest extends lmbCacheConnectionTest
   protected $storage_init_file = 'limb/dbal/common.inc.php';
   protected $skip = false;
 
-  function skip()
+  function setUp(): void
   {
-    $this->skipIf(
-      $this->skip,
-      'lmbCacheDbConnection test skipped (no fixture found).'
-    );
+      if( $this->skip )
+          $this->markTestSkipped('lmbCacheDbConnection test skipped (no fixture found).');
   }
 
   function __construct()
