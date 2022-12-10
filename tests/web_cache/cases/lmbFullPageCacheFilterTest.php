@@ -8,6 +8,7 @@
  */
 namespace tests\web_cache\cases;
 
+use limb\core\src\lmbEnv;
 use limb\web_cache\src\lmbFullPageCacheUser;
 use PHPUnit\Framework\TestCase;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
@@ -28,16 +29,16 @@ class lmbFullPageCacheFilterTest extends TestCase
 
   function setUp(): void
   {
-    $this->cache_dir = LIMB_VAR_DIR . '/fpcache/';
-    lmbFs :: rm($this->cache_dir);
+    $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/fpcache/';
+    lmbFs::rm($this->cache_dir);
     $this->filter2 = $this->createMock(lmbInterceptingFilterInterface::class);
     $this->user = new lmbFullPageCacheUser();
-    $this->toolkit = lmbToolkit :: save();
+    $this->toolkit = lmbToolkit::save();
   }
 
   function tearDown(): void
   {
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testRunOkFullCircle()
@@ -55,7 +56,7 @@ class lmbFullPageCacheFilterTest extends TestCase
     ';
     $this->toolkit->setConf('cache.ini', new lmbFakeIni($rules));
 
-    $this->filter2->expectOnce('run');
+    $this->filter2->expects($this->once())->method('run');
 
     $response = $this->toolkit->getResponse();
     $response->start();
@@ -70,6 +71,6 @@ class lmbFullPageCacheFilterTest extends TestCase
     $response->start();
 
     $fc->process();
-    $this->assertEquals($response->getResponseString(), 'some_content');
+    $this->assertEquals('some_content', $response->getResponseString());
   }
 }

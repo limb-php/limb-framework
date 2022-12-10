@@ -31,10 +31,10 @@ class lmbFullPageCacheRulesetTest extends TestCase
     $r1 = $this->createMock(lmbFullPageCacheRule::class);
     $r2 = $this->createMock(lmbFullPageCacheRule::class);
 
-    $r1->expectOnce('isSatisfiedBy', array($request = new lmbObject()));
+    $r1->expects($this->once())->method('isSatisfiedBy')->with($request = new lmbObject());
     $r1->setReturnValue('isSatisfiedBy', true);
 
-    $r2->expectOnce('isSatisfiedBy', array($request = new lmbObject()));
+    $r2->expects($this->once())->method('isSatisfiedBy')->with($request = new lmbObject());
     $r2->setReturnValue('isSatisfiedBy', true);
 
     $set = new lmbFullPageCacheRuleset();
@@ -49,10 +49,10 @@ class lmbFullPageCacheRulesetTest extends TestCase
     $r1 = $this->createMock(lmbFullPageCacheRule::class);
     $r2 = $this->createMock(lmbFullPageCacheRule::class);
 
-    $r1->expectOnce('isSatisfiedBy', array($request = new lmbObject()));
+    $r1->expects($this->once())->method('isSatisfiedBy')->with($request = new lmbObject());
     $r1->setReturnValue('isSatisfiedBy', false);
 
-    $r2->expectNever('isSatisfiedBy');
+    $r2->expects($this->never())->method('isSatisfiedBy');
 
     $set = new lmbFullPageCacheRuleset();
     $set->addRule($r1);

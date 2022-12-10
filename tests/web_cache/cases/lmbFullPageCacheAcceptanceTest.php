@@ -9,6 +9,7 @@
 
 namespace tests\web_cache\cases;
 
+use limb\core\src\lmbEnv;
 use limb\web_cache\src\lmbFullPageCache;
 use limb\web_cache\src\lmbFullPageCacheUser;
 use limb\web_cache\src\lmbFullPageCacheWriter;
@@ -27,16 +28,16 @@ class lmbFullPageCacheAcceptanceTest extends TestCase
 
   function setUp(): void
   {
-    $this->toolkit = lmbToolkit :: save();
+    $this->toolkit = lmbToolkit::save();
 
-    $this->cache_writer = new lmbFullPageCacheWriter(LIMB_VAR_DIR . '/pages');
+    $this->cache_writer = new lmbFullPageCacheWriter(lmbEnv::get('LIMB_VAR_DIR') . '/pages');
     $this->cache_writer->flushAll();
   }
 
   function tearDown(): void
   {
     $this->cache_writer->flushAll();
-    lmbToolkit :: restore();
+    lmbToolkit::restore();
   }
 
   function testAll()

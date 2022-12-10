@@ -8,6 +8,7 @@
  */
 namespace tests\web_cache\cases;
 
+use limb\core\src\lmbEnv;
 use limb\web_cache\src\lmbFullPageCacheWriter;
 use limb\fs\src\lmbFs;
 use PHPUnit\Framework\TestCase;
@@ -20,19 +21,19 @@ class lmbFullPageCacheWriterTest extends TestCase
 
   function setUp(): void
   {
-    $this->cache_dir = LIMB_VAR_DIR . '/fpcache/';
-    lmbFs :: mkdir($this->cache_dir);
+    $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/fpcache/';
+    lmbFs::mkdir($this->cache_dir);
     $this->writer = new lmbFullPageCacheWriter($this->cache_dir);
   }
 
   function tearDown(): void
   {
-    lmbFs :: rm($this->cache_dir);
+    lmbFs::rm($this->cache_dir);
   }
 
   function testGetFailed()
   {
-    $this->assertIdentical(false, $this->writer->get($cache = '123'));
+    $this->assertEquals(false, $this->writer->get($cache = '123'));
   }
 
   function testGetOk()
@@ -40,7 +41,7 @@ class lmbFullPageCacheWriterTest extends TestCase
     $cache = '1/2/3';
     $this->_writeFile($this->cache_dir . '/' . $cache . '/' . $this->writer->getCacheFile(),
                        $content = 'something');
-    $this->assertIdentical($content, $this->writer->get($cache));
+    $this->assertEquals($content, $this->writer->get($cache));
   }
 
   function testSave()
@@ -103,7 +104,7 @@ class lmbFullPageCacheWriterTest extends TestCase
 
   function _writeFile($file, $content = '')
   {
-    lmbFs :: mkdir(dirname($file));
+    lmbFs::mkdir(dirname($file));
     $fh = fopen($file, 'w');
     fwrite($fh, $content);
     fclose($fh);

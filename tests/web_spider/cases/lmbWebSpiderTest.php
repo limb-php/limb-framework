@@ -162,62 +162,58 @@ class lmbWebSpiderTest extends TestCase
     $uri_normalized_by_spider = new lmbUri('http://example.com/level1/page1.html');
 
     $this->uri_filter
-        ->expectCallCount('canPass', 2);
+        ->expects($this->exactly(2))
+        ->method('canPass');
     $this->uri_filter
-        ->setReturnValueAt(0, 'canPass', true, array($uri));
-    $this->uri_filter
-        ->setReturnValueAt(1, 'canPass', true, array($uri_normalized_by_spider));
+        ->method('canPass')
+        ->setReturnValueAt(true, array($uri))
+        ->setReturnValueAt(true, array($uri_normalized_by_spider));
 
     $this->normalizer
-        ->expectCallCount('process', 5);
+        ->expectCallCount(5)
+        ->method('process');
     $this->normalizer
-        ->expectArgumentsAt(0, 'process', array($uri));
-    $this->normalizer
-        ->expectArgumentsAt(1, 'process', array($uri));
-    $this->normalizer
-        ->expectArgumentsAt(2, 'process', array($uri_normalized_by_spider));
-    $this->normalizer
-        ->expectArgumentsAt(3, 'process', array($uri));
-    $this->normalizer
-        ->expectArgumentsAt(4, 'process', array($uri_normalized_by_spider));
+        ->method('process')
+        ->expectArgumentsAt(array($uri))
+        ->expectArgumentsAt(array($uri))
+        ->expectArgumentsAt(array($uri_normalized_by_spider))
+        ->expectArgumentsAt(array($uri))
+        ->expectArgumentsAt(array($uri_normalized_by_spider));
 
     $this->reader
-        ->expectCallCount('open', 2);
+        ->method('open')
+        ->expectCallCount(2);
     $this->reader
-        ->expectArgumentsAt(0, 'open', array($uri));
-    $this->reader
-        ->expectArgumentsAt(1, 'open', array($uri_normalized_by_spider));
+        ->method('open')
+        ->expectArgumentsAt(array($uri))
+        ->expectArgumentsAt(array($uri_normalized_by_spider));
 
     $this->reader
         ->expectCallCount('getContent', 2);
     $this->reader
-        ->setReturnValueAt(0, 'getContent', $content1 = 'whatever1');
-    $this->reader
-        ->setReturnValueAt(0, 'getContentType', $content_type1 = 'type1');
-    $this->reader
-        ->setReturnValueAt(1, 'getContent', $content2 = 'whatever2');
-    $this->reader
+        ->setReturnValueAt(0, 'getContent', $content1 = 'whatever1')
+        ->setReturnValueAt(1, 'getContent', $content2 = 'whatever2')
+        ->setReturnValueAt(0, 'getContentType', $content_type1 = 'type1')
         ->setReturnValueAt(1, 'getContentType', $content_type2 = 'type2');
 
     $this->content_type_filter
         ->expectCallCount('canPass', 2);
     $this->content_type_filter
-        ->setReturnValueAt(0 ,'canPass', true, array($content_type1));
-    $this->content_type_filter
+        ->setReturnValueAt(0 ,'canPass', true, array($content_type1))
         ->setReturnValueAt(1 ,'canPass', true, array($content_type2));
 
     $links1 = array(new lmbUri('index.html'), new lmbUri('level1/page1.html#anchor'));
     $links2 = array(new lmbUri('../index.html'), new lmbUri('page1.html'));
 
     $this->extractor
-        ->method()
-        ->expectCallCount('extract', 2);
+        ->method('extract')
+        ->expectCallCount(2);
     $this->extractor
-        ->method()
-        ->setReturnValue('extract', $links1, array($content1));
+        ->method('extract')
+        ->setReturnValue($links1, array($content1));
     $this->extractor
-        ->method()
-        ->setReturnValue('extract', $links2, array($content2));
+        ->method('extract')
+        ->setReturnValue($links2, array($content2));
 
     $this->spider->crawl($uri);
   }
