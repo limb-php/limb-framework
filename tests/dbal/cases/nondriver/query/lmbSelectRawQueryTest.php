@@ -8,7 +8,7 @@
  */
 namespace tests\dbal\cases\query;
 
-require('limb/dbal/tests/common.inc.php');
+require('tests/dbal/common.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\criteria\lmbSQLRawCriteria;
@@ -24,7 +24,7 @@ class lmbSelectRawQueryTest extends TestCase
   function setUp(): void
   {
     //this stub uses ' quoting for simpler testing
-    $this->conn = new ConnectionTestStub();
+    $this->conn = new \ConnectionTestStub();
   }
 
   function testSimpleSelect()

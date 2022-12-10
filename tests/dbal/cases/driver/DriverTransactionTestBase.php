@@ -8,12 +8,12 @@
  */
 namespace tests\dbal\cases\driver;
 
-require_once(dirname(__FILE__) . '/DriverManipTestBase.class.php');
+use limb\tests\dbal\cases\driver\DriverManipTestBase;
 
 abstract class DriverTransactionTestBase extends DriverManipTestBase
 {
 
-  function setUp()
+  function setUp(): void
   {
     parent :: setUp();
     $stmt = $this->connection->newStatement('DELETE FROM founding_fathers');
@@ -50,5 +50,3 @@ abstract class DriverTransactionTestBase extends DriverManipTestBase
     return $stmt->getOneValue();
   }
 }
-
-

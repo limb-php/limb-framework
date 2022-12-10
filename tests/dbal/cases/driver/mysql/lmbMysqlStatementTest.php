@@ -8,7 +8,9 @@
  */
 namespace tests\dbal\cases\driver\mysql;
 
-require_once(dirname(__FILE__) . '/../DriverStatementTestBase.class.php');
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverStatementTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlStatementTest extends DriverStatementTestBase
@@ -20,5 +22,3 @@ class lmbMysqlStatementTest extends DriverStatementTestBase
     parent::setUp();
   }
 }
-
-

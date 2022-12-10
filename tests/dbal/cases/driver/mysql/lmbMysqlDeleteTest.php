@@ -8,17 +8,17 @@
  */
 namespace tests\dbal\cases\driver\mysql;
 
-require_once(dirname(__FILE__) . '/../DriverDeleteTestBase.class.php');
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverDeleteTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlDeleteTest extends DriverDeleteTestBase
 {
-  function setUp()
+  function setUp():void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

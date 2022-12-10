@@ -36,4 +36,3 @@ class lmbQueryBaseTestCase extends TestCase
     $this->db->delete('test_db_table');
   }
 }
-

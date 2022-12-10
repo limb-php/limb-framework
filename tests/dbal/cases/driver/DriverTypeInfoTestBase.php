@@ -6,6 +6,8 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\dbal\cases\driver;
+use PHPUnit\Framework\TestCase;
 
 abstract class DriverTypeInfoTestBase extends TestCase
 {
@@ -20,7 +22,7 @@ abstract class DriverTypeInfoTestBase extends TestCase
     $this->recordClass = $recordClass;
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->columnList = $this->typeInfo->getColumnTypeList();
   }
@@ -53,5 +55,3 @@ abstract class DriverTypeInfoTestBase extends TestCase
     }
   }
 }
-
-

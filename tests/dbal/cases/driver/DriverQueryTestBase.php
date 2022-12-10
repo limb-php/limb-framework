@@ -8,6 +8,8 @@
  */
 namespace limb\tests\dbal\cases\driver;
 
+use PHPUnit\Framework\TestCase;
+
 abstract class DriverQueryTestBase extends TestCase
 {
 
@@ -44,5 +46,3 @@ abstract class DriverQueryTestBase extends TestCase
     $this->assertEquals($stmt->getOneColumnAsArray($sql), $testarray);
   }
 }
-
-

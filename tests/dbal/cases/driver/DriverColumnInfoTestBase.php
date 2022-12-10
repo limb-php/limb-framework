@@ -24,6 +24,3 @@ abstract class DriverColumnInfoTestBase extends DriverMetaTestBase
     parent::tearDown();
   }
 }
-
-
-

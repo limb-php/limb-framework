@@ -6,7 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-require_once(dirname(__FILE__) . '/DriverMetaTestBase.class.php');
+namespace tests\dbal\cases\driver;
+
+use limb\toolkit\src\lmbToolkit;
 
 abstract class DriverTableInfoTestBase extends DriverMetaTestBase
 {
@@ -19,13 +21,13 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
    */
   var $table_info;
 
-  function setUp()
+  function setUp(): void
   {
     $this->database_info = $this->connection->getDatabaseInfo();
     $this->table_info = $this->database_info->getTable('founding_fathers');
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     unset($this->table);
     parent::tearDown();
@@ -132,5 +134,3 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
 
   }
 }
-
-

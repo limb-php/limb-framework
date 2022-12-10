@@ -90,4 +90,3 @@ class lmbInsertOnDuplicateUpdateQueryTest extends lmbQueryBaseTestCase
 
   }
 }
-

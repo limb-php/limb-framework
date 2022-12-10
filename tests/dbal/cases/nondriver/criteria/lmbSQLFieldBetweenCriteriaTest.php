@@ -8,7 +8,7 @@
  */
 namespace tests\dbal\cases\nondriver\criteria;
 
-require('limb/dbal/tests/common.inc.php');
+require('tests/dbal/common.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\criteria\lmbSQLFieldBetweenCriteria;
@@ -20,7 +20,7 @@ class lmbSQLFieldBetweenCriteriaTest extends TestCase
 
   function setUp(): void
   {
-    $this->conn = new ConnectionTestStub();
+    $this->conn = new \ConnectionTestStub();
   }
 
   function testSimple()

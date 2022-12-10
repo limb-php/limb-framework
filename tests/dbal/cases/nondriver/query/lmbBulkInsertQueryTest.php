@@ -8,7 +8,6 @@
  */
 namespace tests\dbal\cases\query;
 
-use lmbQueryBaseTestCase;
 use limb\dbal\src\query\lmbBulkInsertQuery;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
@@ -62,4 +61,3 @@ class lmbBulkInsertQueryTest extends lmbQueryBaseTestCase
   }
 
 }
-

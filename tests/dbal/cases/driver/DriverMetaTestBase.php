@@ -20,5 +20,3 @@ abstract class DriverMetaTestBase extends TestCase
     unset($this->connection);
   }
 }
-
-

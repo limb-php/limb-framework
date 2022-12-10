@@ -8,13 +8,15 @@
  */
 namespace tests\dbal\cases\driver\mysql;
 
-require_once(dirname(__FILE__) . '/../DriverIndexInfoTestBase.class.php');
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverIndexInfoTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlIndexInfoTest extends DriverIndexInfoTestBase
 {
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverMysqlSetup($this->connection->getConnectionId());

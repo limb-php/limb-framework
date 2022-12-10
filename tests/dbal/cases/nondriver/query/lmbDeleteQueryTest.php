@@ -8,6 +8,7 @@
  */
 namespace tests\dbal\cases\query;
 
+use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\query\lmbDeleteQuery;
 
 class lmbDeleteQueryTest extends lmbQueryBaseTestCase
@@ -57,4 +58,3 @@ class lmbDeleteQueryTest extends lmbQueryBaseTestCase
     $this->assertEquals(sizeof($arr), 1);
   }
 }
-

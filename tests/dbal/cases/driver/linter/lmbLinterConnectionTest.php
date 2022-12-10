@@ -8,6 +8,7 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverConnectionTestBase;
 
 require_once(dirname(__FILE__) . '/fixture.inc.php');
@@ -27,5 +28,3 @@ class lmbLinterConnectionTest extends DriverConnectionTestBase
     parent::setUp();
   }
 }
-
-

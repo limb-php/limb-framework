@@ -129,4 +129,3 @@ class lmbUpdateQueryTest extends lmbQueryBaseTestCase
     $this->assertEquals($record->get('description'), $description);
   }
 }
-

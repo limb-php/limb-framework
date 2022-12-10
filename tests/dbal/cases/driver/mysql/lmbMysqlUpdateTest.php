@@ -8,7 +8,9 @@
  */
 namespace tests\dbal\cases\driver\mysql;
 
-require_once(dirname(__FILE__) . '/../DriverUpdateTestBase.class.php');
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverUpdateTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlUpdateTest extends DriverUpdateTestBase
@@ -26,5 +28,3 @@ class lmbMysqlUpdateTest extends DriverUpdateTestBase
     parent::setUp();
   }
 }
-
-

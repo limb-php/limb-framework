@@ -8,8 +8,6 @@
  */
 namespace limb\tests\dbal\cases\driver;
 
-require_once(dirname(__FILE__) . '/DriverManipTestBase.class.php');
-
 abstract class DriverInsertTestBase extends DriverManipTestBase
 {
   var $insert_stmt_class;
@@ -55,4 +53,3 @@ abstract class DriverInsertTestBase extends DriverManipTestBase
     $this->checkRecord(4);
   }
 }
-

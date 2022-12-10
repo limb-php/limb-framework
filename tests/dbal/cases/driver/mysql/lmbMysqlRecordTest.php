@@ -8,7 +8,9 @@
  */
 namespace tests\dbal\cases\driver\mysql;
 
-require_once(dirname(__FILE__) . '/../DriverRecordTestBase.class.php');
+use dbal\cases\driver\DriverRecordTestBase;
+use limb\toolkit\src\lmbToolkit;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlRecordTest extends DriverRecordTestBase
@@ -18,12 +20,10 @@ class lmbMysqlRecordTest extends DriverRecordTestBase
     parent :: __construct('lmbMysqlRecord');
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

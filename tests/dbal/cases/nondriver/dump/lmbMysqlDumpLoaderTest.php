@@ -8,6 +8,7 @@
  */
 namespace tests\dbal\cases\nondriver\dump;
 
+use limb\dbal\src\drivers\mysql\lmbMysqlConnection;
 use limb\dbal\src\dump\lmbMysqlDumpLoader;
 use limb\toolkit\src\lmbToolkit;
 

@@ -6,9 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-
 namespace tests\dbal\cases\driver;
 
+use limb\dbal\src\drivers\lmbDbInfo;
+use limb\dbal\src\drivers\lmbDbTypeInfo;
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbSys;
 
@@ -96,12 +97,12 @@ abstract class DriverConnectionTestBase extends TestCase
   function testGetTypeInfo()
   {
     $ti = $this->connection->getTypeInfo();
-    $this->assertIsA($ti, 'lmbDbTypeInfo');
+    $this->assertIsA($ti, lmbDbTypeInfo::class);
   }
 
   function testGetDatabaseInfo()
   {
     $di = $this->connection->getDatabaseInfo();
-    $this->assertIsA($di, 'lmbDbInfo');
+    $this->assertIsA($di, lmbDbInfo::class);
   }
 }

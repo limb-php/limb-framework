@@ -22,5 +22,3 @@ class lmbLinterColumnInfoTest extends DriverColumnInfoTestBase
     parent::setUp();
   }
 }
-
-

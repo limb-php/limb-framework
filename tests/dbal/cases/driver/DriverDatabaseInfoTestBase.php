@@ -37,5 +37,3 @@ abstract class DriverDatabaseInfoTestBase extends DriverMetaTestBase
         $this->assertEquals($tables['founding_fathers']->getName(), 'founding_fathers');
   }
 }
-
-

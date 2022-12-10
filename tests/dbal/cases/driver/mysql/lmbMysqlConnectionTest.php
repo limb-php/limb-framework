@@ -8,7 +8,9 @@
  */
 namespace tests\dbal\cases\driver\mysql;
 
-require_once(dirname(__FILE__) . '/../DriverConnectionTestBase.class.php');
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverConnectionTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlConnectionTest extends DriverConnectionTestBase
@@ -23,7 +25,7 @@ class lmbMysqlConnectionTest extends DriverConnectionTestBase
     parent :: DriverConnectionTestBase('lmbMysqlQueryStatement', 'lmbMysqlInsertStatement', 'lmbMysqlManipulationStatement', 'lmbMysqlStatement');
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverMysqliSetup($this->connection->getConnectionId());
@@ -56,12 +58,12 @@ class lmbMysqlConnectionTest extends DriverConnectionTestBase
       $this->fail();
     } catch (\Exception $e)
     {
-      $this->pass();
+      $this->assertTrue(true);
     }
 
     try {
       $this->connection->execute('select \''.$escaped_string.'\';');
-      $this->pass();
+      $this->assertTrue(true);
     } catch (\Exception $e)
     {
       $this->fail();

@@ -6,7 +6,11 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-require_once('limb/dbal/src/drivers/lmbDbTypeInfo.class.php');
+namespace tests\dbal\cases\driver;
+
+use limb\dbal\src\drivers\lmbDbTypeInfo;
+use limb\dbal\src\exception\lmbDbException;
+use PHPUnit\Framework\TestCase;
 
 abstract class DriverStatementTestBase extends TestCase
 {
@@ -136,7 +140,9 @@ abstract class DriverStatementTestBase extends TestCase
     try {
         $this->_checkSmallIntValue('foo');
         $this->fail();
-    } catch(lmbDbException $e) {}
+    } catch(lmbDbException $e) {
+        $this->assertTrue(true);
+    }
   }
 
   function testSetInteger()
@@ -149,7 +155,9 @@ abstract class DriverStatementTestBase extends TestCase
     try {
         $this->_checkIntegerValue('foo');
         $this->fail();
-    } catch(lmbDbException $e) {}
+    } catch(lmbDbException $e) {
+        $this->assertTrue(true);
+    }
   }
 
   function testSetBoolean()
@@ -170,7 +178,9 @@ abstract class DriverStatementTestBase extends TestCase
     try {
         $this->_checkFloatValue('foo');
         $this->fail();
-    } catch(lmbDbException $e) {}
+    } catch(lmbDbException $e) {
+        $this->assertTrue(true);
+    }
   }
 
   function testSetDouble()
@@ -183,7 +193,9 @@ abstract class DriverStatementTestBase extends TestCase
     try {
         $this->_checkDoubleValue('foo');
         $this->fail();
-    } catch(lmbDbException $e) {}
+    } catch(lmbDbException $e) {
+        $this->assertTrue(true);
+    }
   }
 
   function testSetDecimal()
@@ -197,7 +209,9 @@ abstract class DriverStatementTestBase extends TestCase
     try {
         $this->_checkDecimalValue('foo');
         $this->fail();
-    } catch(lmbDbException $e) {}
+    } catch(lmbDbException $e) {
+        $this->assertTrue(true);
+    }
   }
 
   function testSetChar()
@@ -466,5 +480,3 @@ abstract class DriverStatementTestBase extends TestCase
   }
 
 }
-
-

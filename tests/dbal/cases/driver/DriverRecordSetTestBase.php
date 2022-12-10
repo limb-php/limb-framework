@@ -6,6 +6,8 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace tests\dbal\cases\driver;
+use PHPUnit\Framework\TestCase;
 
 abstract class DriverRecordSetTestBase extends TestCase
 {
@@ -16,14 +18,14 @@ abstract class DriverRecordSetTestBase extends TestCase
     $this->record_class = $record_class;
   }
 
-  function setUp()
+  function setUp(): void
   {
     $sql = "SELECT id, first FROM founding_fathers ORDER BY id";
     $this->stmt = $this->connection->newStatement($sql);
     $this->cursor = $this->stmt->getRecordSet();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     $this->connection->disconnect();
   }
@@ -184,5 +186,3 @@ abstract class DriverRecordSetTestBase extends TestCase
     $this->assertIdentical($flat_array, $rs->getFlatArray());
   }
 }
-
-

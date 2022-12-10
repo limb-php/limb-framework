@@ -57,4 +57,3 @@ class lmbInsertQueryTest extends lmbQueryBaseTestCase
 
   }
 }
-

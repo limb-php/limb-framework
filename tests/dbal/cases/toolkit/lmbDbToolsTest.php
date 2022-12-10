@@ -1,5 +1,8 @@
 <?php
+namespace tests\dbal\cases\toolkit;
 
+use limb\dbal\src\drivers\lmbDbCachedInfo;
+use limb\dbal\src\drivers\mysql\lmbMysqlDbInfo;
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbSet;
@@ -11,9 +14,11 @@ use limb\core\src\exception\lmbException;
 
 class ExceptionalDbConfStub extends lmbConf
 {
-  function __construct(){}
+  function __construct(){
 
-  function get($name, $default = LIMB_UNDEFINED)
+  }
+
+  function get($name, $default = null)
   {
     throw new lmbException("Ooops!");
   }
@@ -39,7 +44,7 @@ class lmbDbToolsTest extends TestCase
     $this->tools->setDefaultDbConnection($this->tools->createDbConnection(new lmbDbDSN($this->config['dsn'])));
   }
   
-  function tearDown()
+  function tearDown(): void
   {
     $this->tools->setDefaultDbConnection($this->conn);    
   }
@@ -131,14 +136,14 @@ class lmbDbToolsTest extends TestCase
   {
     lmbEnv::set('LIMB_CACHE_DB_META_IN_FILE', false);
     $conn = $this->tools->getDbConnectionByDsn('mysql://root:test@localhost/hello_from_foo?charset=cp1251&version=1');
-    $this->assertIsA($this->tools->getDbInfo($conn), 'lmbMysqlDbInfo');   
+    $this->assertIsA($this->tools->getDbInfo($conn), lmbMysqlDbInfo::class);
   }
   
   function testGetDbInfo_cache_global_positive()
   {
     lmbEnv::set('LIMB_CACHE_DB_META_IN_FILE', true);
     $conn = $this->tools->getDbConnectionByDsn('mysql://root:test@localhost/hello_from_foo?charset=cp1251&version=2');
-    $this->assertIsA($this->tools->getDbInfo($conn), 'lmbDbCachedInfo');    
+    $this->assertIsA($this->tools->getDbInfo($conn), lmbDbCachedInfo::class);
   }
   
   function testGetDbInfo_cache_in_conf_negative()
@@ -150,7 +155,7 @@ class lmbDbToolsTest extends TestCase
     lmbToolkit::instance()->setConf('db', $config);
         
     $conn = $this->tools->getDbConnectionByDsn('mysql://root:test@localhost/hello_from_foo?charset=cp1251&version=4');
-    $this->assertIsA($this->tools->getDbInfo($conn), 'lmbMysqlDbInfo');
+    $this->assertIsA($this->tools->getDbInfo($conn), lmbMysqlDbInfo::class);
   }
   
   function testGetDbInfo_cache_in_conf_positive()
@@ -162,6 +167,6 @@ class lmbDbToolsTest extends TestCase
     lmbToolkit::instance()->setConf('db', $config);
     
     $conn = $this->tools->getDbConnectionByDsn('mysql://root:test@localhost/hello_from_foo?charset=cp1251&version=3');
-    $this->assertIsA($this->tools->getDbInfo($conn), 'lmbDbCachedInfo');    
+    $this->assertIsA($this->tools->getDbInfo($conn), lmbDbCachedInfo::class);
   }
 }

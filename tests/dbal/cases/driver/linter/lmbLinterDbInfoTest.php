@@ -22,5 +22,3 @@ class lmbLinterDbInfoTest extends DriverDatabaseInfoTestBase
     parent::setUp();
   }
 }
-
-

@@ -6,8 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+namespace tests\dbal\cases\driver;
 
-require_once(dirname(__FILE__) . '/DriverManipTestBase.class.php');
+use limb\tests\dbal\cases\driver\DriverManipTestBase;
+
 
 abstract class DriverUpdateTestBase extends DriverManipTestBase
 {
@@ -56,5 +58,3 @@ abstract class DriverUpdateTestBase extends DriverManipTestBase
     $this->assertEquals($stmt->getAffectedRowCount(), 3);
   }
 }
-
-
