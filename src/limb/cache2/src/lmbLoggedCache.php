@@ -8,12 +8,8 @@
  */
 namespace limb\cache2\src;
 
-use limb\cache2\src\lmbCacheBaseWrapper;
-use limb\cache2\src\lmbCacheLog;
 use limb\core\src\lmbBacktrace;
-use limb\dbal\src\query\lmbInsertQuery;
 use limb\core\src\exception\lmbException;
-
 
 class lmbLoggedCache extends lmbCacheBaseWrapper
 {
@@ -129,6 +125,6 @@ class lmbLoggedCache extends lmbCacheBaseWrapper
     if(!is_callable(array($this->wrapped_cache, $method)))
       throw new lmbException('Decorated cache driver does not support method "' . $method . '"');
 
-    return call_user_func_array(array($this->cache_connection, $method), $args);
+    return call_user_func_array(array($this->wrapped_cache, $method), $args);
   }
 }

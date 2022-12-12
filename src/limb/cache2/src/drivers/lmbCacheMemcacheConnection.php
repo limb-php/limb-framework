@@ -8,15 +8,14 @@
  */
 namespace limb\cache2\src\drivers;
 
-use limb\cache2\src\drivers\lmbCacheAbstractConnection;
 use limb\core\src\exception\lmbException;
 use limb\net\src\lmbUri;
 
 /**
- * class lmbCacheMemcacheBackend.
+ * class lmbCacheMemcacheConnection.
  *
  * @package cache2
- * @version $Id: lmbCacheFilePersister.class.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbCacheMemcacheConnection.php 6243 2007-08-29 11:53:10Z
  */
 
 class lmbCacheMemcacheConnection extends lmbCacheAbstractConnection
@@ -33,10 +32,10 @@ class lmbCacheMemcacheConnection extends lmbCacheAbstractConnection
     parent::__construct($dsn);
 
     if(!$this->dsn->getHost())
-      $this->dsn->setHost($this->default_host);
+        $this->dsn = $this->dsn->withHost($this->default_host);
 
     if(!$this->dsn->getPort())
-      $this->dsn->setPort($this->default_port);
+        $this->dsn = $this->dsn->withPort($this->default_port);
 
     $this->_server_id = $dsn->toString(array('host', 'port'));
   }
@@ -96,12 +95,12 @@ class lmbCacheMemcacheConnection extends lmbCacheAbstractConnection
     return $this->_getMemcache()->delete($this->_resolveKey($key), $ttl);
   }
 
-  function increment($key, $value = 1)
+  function increment($key, $value = 1, $ttl = false)
   {
     return $this->_getMemcache()->increment($this->_resolveKey($key), $value);
   }
 
-  function decrement($key, $value = 1)
+  function decrement($key, $value = 1, $ttl = false)
   {
     return $this->_getMemcache()->decrement($this->_resolveKey($key), $value);
   }

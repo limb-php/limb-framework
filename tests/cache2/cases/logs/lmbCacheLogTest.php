@@ -36,9 +36,5 @@ abstract class lmbCacheLogTest extends TestCase
       'result' => $result2
     ));
   }
-  /**
-   *@todo
-   */
-  function testGetStatistic(){}
 
 }

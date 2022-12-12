@@ -69,13 +69,13 @@ class lmbCacheTools extends lmbAbstractTools
 
         $wrapper = array();
         if ($conf->get('taggable_cache_enabled', false))
-          $wrapper['taggable'] = 'lmbTaggableCache';
+          $wrapper['taggable'] = lmbTaggableCache::class;
 
         if($conf->get('mint_cache_enabled', false))
-          $wrapper['mint'] = 'lmbMintCache';
+          $wrapper['mint'] = lmbMintCache::class;
 
         if($conf->get('cache_log_enabled', false))
-          $wrapper['logged'] = 'lmbLoggedCache';
+          $wrapper['logged'] = lmbLoggedCache::class;
 
         $dsn = $dsn->withQueryItem('wrapper', $wrapper);
 

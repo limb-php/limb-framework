@@ -12,7 +12,9 @@ class lmbCacheMemcacheConnectionTest extends lmbCacheConnectionTest
 {
   function __construct()
   {
-    $this->dsn = 'memcache://localhost/';
+      parent::__construct();
+
+      $this->dsn = 'memcache://localhost/';
   }
 
   function skip()

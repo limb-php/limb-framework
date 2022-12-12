@@ -7,8 +7,6 @@
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html*/
 namespace limb\cache2\src\drivers;
 
-use limb\cache2\src\drivers\lmbCacheAbstractConnection;
-
 /**
  * class lmbCacheFakeConnection.
  *
@@ -38,7 +36,7 @@ class lmbCacheFakeConnection extends lmbCacheAbstractConnection
 
   function get($key)
   {
-    return NULL;
+    return false;
   }
 
   function delete($key)

@@ -14,7 +14,10 @@ use limb\core\src\lmbObject;
 use limb\cache2\src\lmbCacheFactory;
 use limb\net\src\lmbUri;
 
-class CacheableFooBarClass{}
+class CacheableFooBarClass
+{
+
+}
 
 abstract class lmbCacheConnectionTest extends TestCase
 {
@@ -31,8 +34,10 @@ abstract class lmbCacheConnectionTest extends TestCase
 
   function __construct()
   {
-    if($this->storage_init_file)
-      require($this->storage_init_file);
+      parent::__construct();
+
+      if($this->storage_init_file)
+        require($this->storage_init_file);
   }
 
   function setUp(): void
@@ -185,8 +190,8 @@ abstract class lmbCacheConnectionTest extends TestCase
     $obj->set('foo', 'new value');
 
     $cached_obj = $this->cache->get($id);
-    if($this->assertIsA($cached_obj, lmbObject::class))
-      $this->assertEquals($value, $cached_obj->get('foo'));
+    $this->assertInstanceOf($cached_obj, lmbObject::class);
+    $this->assertEquals($value, $cached_obj->get('foo'));
   }
 
   function testWithPrefix_NotIntercepting()

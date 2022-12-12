@@ -12,7 +12,9 @@ class lmbCacheApcConnectionTest extends lmbCacheConnectionTest
 {
   function __construct()
   {
-    $this->dsn = 'apc:';
+      parent::__construct();
+
+      $this->dsn = 'apc:';
   }
 
   function setUp(): void

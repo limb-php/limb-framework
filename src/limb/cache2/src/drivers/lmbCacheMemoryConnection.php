@@ -1,15 +1,12 @@
 <?php
 namespace limb\cache2\src\drivers;
 
-use limb\cache2\src\drivers\lmbCacheAbstractConnection;
-use limb\core\src\lmbSerializable;
-
 class lmbCacheMemoryConnection extends lmbCacheAbstractConnection
 {
   protected $_caches = array();
   protected $_cache_ttls = array();
 
-  function add ($key, $value, $ttl = false)
+  function add($key, $value, $ttl = false)
   {
     $key = $this->_resolveKey($key);
 
@@ -36,13 +33,13 @@ class lmbCacheMemoryConnection extends lmbCacheAbstractConnection
   function _getSingleKeyValue($resolved_key)
   {
     if(!isset($this->_caches[$resolved_key]))
-      return null;
+      return false;
       
     if(
       isset($this->_cache_ttls[$resolved_key])
       && $this->_cache_ttls[$resolved_key] <= time()
     )
-      return null;
+      return false;
 
     $container = $this->_caches[$resolved_key];
     

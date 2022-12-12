@@ -42,7 +42,7 @@ class lmbCacheFactory
   {
     $driver = $dsn->getProtocol();
 
-    $class = 'cache2\\src\\drivers\\lmbCache' . ucfirst($driver) . 'Connection';
+    $class = 'limb\\cache2\\src\\drivers\\lmbCache' . ucfirst($driver) . 'Connection';
 
     if(!class_exists($class))
     {

@@ -8,7 +8,6 @@
  */
 namespace limb\cache2\src\drivers;
 
-use limb\cache2\src\lmbNonTransparentCacheInterface;
 use limb\cache2\src\logs\lmbCacheLogFile;
 use limb\cache2\src\logs\lmbCacheLogMemory;
 use limb\cache2\src\lmbCacheLog;

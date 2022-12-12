@@ -8,8 +8,6 @@
  */
 namespace limb\cache2\src\drivers;
 
-use limb\cache2\src\drivers\lmbCacheAbstractConnection;
-
 /**
  * class lmbCacheApcConnection.
  *
@@ -87,6 +85,4 @@ class lmbCacheApcConnection extends lmbCacheAbstractConnection
 
     return $new_keys;
   }
-
 }
-

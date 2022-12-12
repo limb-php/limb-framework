@@ -12,6 +12,8 @@ use limb\cache2\src\lmbMintCache;
 use limb\cache2\src\drivers\lmbCacheAbstractConnection;
 use PHPUnit\Framework\TestCase;
 
+require '.setup.php';
+
 class lmbMintCacheTest extends TestCase
 {
   protected $cache;
@@ -30,7 +32,7 @@ class lmbMintCacheTest extends TestCase
     $ttl = 10;
     $value = "my_value";
     $key = 'value1';
-    $this->cache_backend->expectOnce('set', array($key, array($value, time() + $ttl), $this->fake_ttl));
+    $this->cache_backend->expects($this->once())->method('set')->with($key, array($value, time() + $ttl), $this->fake_ttl);
     $this->cache->set($key, $value, $ttl);
   }
 
@@ -39,7 +41,7 @@ class lmbMintCacheTest extends TestCase
     $ttl = 10;
     $value = "my_value";
     $key = 'value1';
-    $this->cache_backend->expectOnce('add', array($key, array($value, time() + $ttl), $this->fake_ttl));
+    $this->cache_backend->expects($this->once())->method('add')->with($key, array($value, time() + $ttl), $this->fake_ttl);
     $this->cache->add($key, $value, $ttl);
   }
 
@@ -50,7 +52,7 @@ class lmbMintCacheTest extends TestCase
     $key = 'value1';
     $not_expired_time = time() + 100;
     $this->cache_backend->setReturnValue('get', null, array($key));
-    $this->cache_backend->expectOnce('get', array($key));
+    $this->cache_backend->expects($this->once())->method('get')->with($key);
     $this->assertNull($this->cache->get($key));
   }
 
@@ -61,7 +63,7 @@ class lmbMintCacheTest extends TestCase
     $key = 'value1';
     $not_expired_time = time() + 100;
     $this->cache_backend->setReturnValue('get', array($value, $not_expired_time), array($key));
-    $this->cache_backend->expectOnce('get', array($key));
+      $this->cache_backend->expects($this->once())->method('get')->with($key);
     $this->assertEquals($value, $this->cache->get($key));
   }
 
@@ -71,8 +73,8 @@ class lmbMintCacheTest extends TestCase
     $key = 'value1';
     $expired_time = time() - 10;
     $this->cache_backend->setReturnValue('get', null, array($key));
-    $this->cache_backend->expectOnce('get', array($key));
-    $this->cache_backend->expectNever('set');
+    $this->cache_backend->expects($this->once())->method('get')->with($key);
+    $this->cache_backend->expects($this->never())->method('set');
     $this->assertNull($this->cache->get($key));
   }
 
@@ -81,9 +83,9 @@ class lmbMintCacheTest extends TestCase
     $value = "my_value";
     $key = 'value1';
     $not_expired_time = time() + 100;
-    $this->cache_backend->expectOnce('get', array($key));
+    $this->cache_backend->expects($this->once())->method('get')->with($key);
     $this->cache_backend->setReturnValue('get', array($value, $not_expired_time), array($key));
-    $this->cache_backend->expectOnce('set', array($key, array($value, time() - 1), $this->cooled_ttl));
+    $this->cache_backend->expects($this->once())->method('set')->with($key, array($value, time() - 1), $this->cooled_ttl);
     $this->cache->cooldownKey($key);
   }
 

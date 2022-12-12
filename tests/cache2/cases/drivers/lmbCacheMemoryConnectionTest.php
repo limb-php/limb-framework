@@ -12,7 +12,9 @@ class lmbCacheMemoryConnectionTest extends lmbCacheConnectionTest
 {
   function __construct()
   {
-    $this->dsn = 'memory:/';
+      parent::__construct();
+
+      $this->dsn = 'memory:/';
   }
   
   function testGetWithTtl_differentThread()
