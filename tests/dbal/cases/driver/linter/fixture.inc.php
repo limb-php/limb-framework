@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use limb\dbal\src\exception\lmbDbException;
+
 function DriverLinterSetup($conn)
 {
   $sql = 'DROP TABLE "founding_fathers" CASCADE;';
@@ -99,6 +101,4 @@ function DriverLinterExec($conn, $sql)
     throw new lmbException("Database error: No:" . $err_code.". Description: ".$err_message);
     return true;
   }
-
-
 

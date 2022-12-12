@@ -8,6 +8,10 @@
  */
 namespace tests\dbal\cases\driver\mssql;
 
+use limb\dbal\src\drivers\mssql\lmbMssqlRecord;
+use tests\dbal\cases\driver\DriverQueryTestBase;
+use limb\toolkit\src\lmbToolkit;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlQueryTest extends DriverQueryTestBase
@@ -15,15 +19,13 @@ class lmbMssqlQueryTest extends DriverQueryTestBase
 
   function lmbMssqlQueryTest()
   {
-    parent :: DriverQueryTestBase('lmbMssqlRecord');
+    parent :: DriverQueryTestBase(lmbMssqlRecord::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverMssqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

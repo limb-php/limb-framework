@@ -8,14 +8,17 @@
  */
 namespace tests\dbal\cases\driver\mssql;
 
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverTransactionTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlDriverTransactionTest extends DriverTransactionTestBase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverMssqlSetup($this->connection->getConnectionId());
+    //DriverMssqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
   
@@ -42,7 +45,4 @@ class lmbMssqlDriverTransactionTest extends DriverTransactionTestBase
 
     $this->assertEquals($this->_countRecords(), 0);
   }
-  
 }
-
-

@@ -6,12 +6,14 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-namespace limb\tests\dbal\cases\driver;
+namespace tests\dbal\cases\driver;
 
 use PHPUnit\Framework\TestCase;
 
 abstract class DriverManipTestBase extends TestCase
 {
+    protected $connection;
+
   function checkRecord($id)
   {
     $sql = "SELECT * FROM founding_fathers WHERE id = :id:";

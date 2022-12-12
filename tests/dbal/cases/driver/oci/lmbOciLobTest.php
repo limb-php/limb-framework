@@ -8,12 +8,14 @@
  */
 namespace tests\dbal\cases\driver\oci;
 
-require_once(dirname(__FILE__) . '/../DriverInsertTestBase.class.php');
+use limb\toolkit\src\lmbToolkit;
+use PHPUnit\Framework\TestCase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciLobTest extends TestCase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverOciSetup($this->connection->getConnectionId());
@@ -207,5 +209,3 @@ class lmbOciLobTest extends TestCase
     $this->assertEquals($record->get('type_blob'), $new_clob);
   }
 }
-
-

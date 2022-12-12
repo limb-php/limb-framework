@@ -8,15 +8,17 @@
  */
 namespace tests\dbal\cases\driver\oci;
 
-require_once(dirname(__FILE__) . '/../DriverStatementTestBase.class.php');
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverStatementTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciStatementTest extends DriverStatementTestBase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverOciSetup($this->connection->getConnectionId());
+    //DriverOciSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 
@@ -38,7 +40,4 @@ class lmbOciStatementTest extends DriverStatementTestBase
   {
     echo "Skipping ".__FUNCTION__." (not yet implemented)\n";
   }
-
 }
-
-

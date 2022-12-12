@@ -8,17 +8,17 @@
  */
 namespace tests\dbal\cases\driver\oci;
 
-require_once(dirname(__FILE__) . '/../DriverTransactionTestBase.class.php');
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverTransactionTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciDriverTransactionTest extends DriverTransactionTestBase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverOciSetup($this->connection->getConnectionId());
+    //DriverOciSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

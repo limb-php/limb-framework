@@ -8,7 +8,13 @@
  */
 namespace tests\dbal\cases\driver\pgsql;
 
-require_once(dirname(__FILE__) . '/../DriverConnectionTestBase.class.php');
+use limb\dbal\src\drivers\pgsql\lmbPgsqlInsertStatement;
+use limb\dbal\src\drivers\pgsql\lmbPgsqlManipulationStatement;
+use limb\dbal\src\drivers\pgsql\lmbPgsqlQueryStatement;
+use limb\dbal\src\drivers\pgsql\lmbPgsqlStatement;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverConnectionTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbPgsqlConnectionTest extends DriverConnectionTestBase
@@ -16,15 +22,18 @@ class lmbPgsqlConnectionTest extends DriverConnectionTestBase
 
   function lmbPgsqlConnectionTest()
   {
-    parent :: DriverConnectionTestBase('lmbPgsqlQueryStatement', 'lmbPgsqlInsertStatement', 'lmbPgsqlManipulationStatement', 'lmbPgsqlStatement');
+    parent :: DriverConnectionTestBase(
+        lmbPgsqlQueryStatement::class,
+        lmbPgsqlInsertStatement::class,
+        lmbPgsqlManipulationStatement::class,
+        lmbPgsqlStatement::class
+    );
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

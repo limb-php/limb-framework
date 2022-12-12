@@ -8,7 +8,9 @@
  */
 namespace tests\dbal\cases\driver\pgsql;
 
-require_once(dirname(__FILE__) . '/../DriverQueryTestBase.class.php');
+use tests\dbal\cases\driver\DriverQueryTestBase;
+use limb\toolkit\src\lmbToolkit;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbPgsqlQueryTest extends DriverQueryTestBase
@@ -19,12 +21,10 @@ class lmbPgsqlQueryTest extends DriverQueryTestBase
     parent :: DriverQueryTestBase('lmbPgsqlRecord');
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverPgsqlSetup($this->connection->getConnectionId());
+    //DriverPgsqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

@@ -8,21 +8,23 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use tests\dbal\cases\driver\DriverRecordTestBase;
+use limb\dbal\src\drivers\linter\lmbLinterRecord;
+use limb\toolkit\src\lmbToolkit;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbLinterRecordTest extends DriverRecordTestBase
 {
   function __construct()
   {
-    parent :: __construct('lmbLinterRecord');
+    parent :: __construct(lmbLinterRecord::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

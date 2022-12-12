@@ -8,15 +8,20 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use limb\dbal\src\drivers\linter\lmbLinterRecord;
+use limb\dbal\src\drivers\linter\lmbLinterStatement;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverTypeInfoTestBase;
+
 class lmbLinterTypeInfoTest extends DriverTypeInfoTestBase
 {
 
   function lmbLinterTypeInfoTest()
   {
-    parent :: DriverTypeInfoTestBase('lmbLinterStatement', 'lmbLinterRecord');
+    parent :: DriverTypeInfoTestBase(lmbLinterStatement::class, lmbLinterRecord::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();

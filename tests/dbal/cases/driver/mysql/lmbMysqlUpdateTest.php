@@ -8,6 +8,7 @@
  */
 namespace tests\dbal\cases\driver\mysql;
 
+use limb\dbal\src\drivers\mysql\lmbMysqlManipulationStatement;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverUpdateTestBase;
 
@@ -18,13 +19,13 @@ class lmbMysqlUpdateTest extends DriverUpdateTestBase
 
   function lmbMysqlUpdateTest()
   {
-    parent :: DriverUpdateTestBase('lmbMysqlManipulationStatement');
+    parent :: DriverUpdateTestBase(lmbMysqlManipulationStatement::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverMysqlSetup($this->connection->getConnectionId());
+    //DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-namespace limb\tests\dbal\cases\driver;
+namespace tests\dbal\cases\driver;
 
 abstract class DriverInsertTestBase extends DriverManipTestBase
 {
@@ -42,14 +42,14 @@ abstract class DriverInsertTestBase extends DriverManipTestBase
             :first:, :last:
         )";
     $stmt = $this->connection->newStatement($sql);
-    $this->assertIsA($stmt, $this->insert_stmt_class);
+    $this->assertInstanceOf($stmt, $this->insert_stmt_class);
 
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');
 
     $id = $stmt->insertId('id');
     $this->assertEquals($stmt->getAffectedRowCount(), 1);
-    $this->assertIdentical($id, 4);
+    $this->assertEquals($id, 4);
     $this->checkRecord(4);
   }
 }

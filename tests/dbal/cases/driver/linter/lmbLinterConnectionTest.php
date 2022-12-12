@@ -18,7 +18,12 @@ class lmbLinterConnectionTest extends DriverConnectionTestBase
 
   function lmbLinterConnectionTest()
   {
-    parent :: DriverConnectionTestBase('lmbLinterQueryStatement', 'lmbLinterInsertStatement', 'lmbLinterManipulationStatement', 'lmbLinterStatement');
+    parent :: DriverConnectionTestBase(
+        lmbLinterQueryStatement::class,
+        lmbLinterInsertStatement::class,
+        lmbLinterManipulationStatement::class,
+        lmbLinterStatement::class
+    );
   }
 
   function setUp(): void

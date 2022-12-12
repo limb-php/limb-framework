@@ -8,6 +8,10 @@
  */
 namespace tests\dbal\cases\driver\mssql;
 
+use limb\dbal\src\drivers\mssql\lmbMssqlInsertStatement;
+use tests\dbal\cases\driver\DriverInsertTestBase;
+use limb\toolkit\src\lmbToolkit;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlInsertTest extends DriverInsertTestBase
@@ -15,10 +19,10 @@ class lmbMssqlInsertTest extends DriverInsertTestBase
 
   function lmbMssqlInsertTest()
   {
-    parent :: DriverInsertTestBase('lmbMssqlInsertStatement');
+    parent :: DriverInsertTestBase(lmbMssqlInsertStatement::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverMssqlSetup($this->connection->getConnectionId());
@@ -51,16 +55,14 @@ class lmbMssqlInsertTest extends DriverInsertTestBase
             :first:, :last:
         )";
     $stmt = $this->connection->newStatement($sql);
-    $this->assertIsA($stmt, $this->insert_stmt_class);
+    $this->assertInstanceOf($stmt, $this->insert_stmt_class);
 
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');
 
     $id = $stmt->insertId('id');
     $this->assertEquals($stmt->getAffectedRowCount(), 1);
-    $this->assertIdentical($id, 5);
+    $this->assertEquals($id, 5);
     $this->checkRecord(5);
   }
 }
-
-

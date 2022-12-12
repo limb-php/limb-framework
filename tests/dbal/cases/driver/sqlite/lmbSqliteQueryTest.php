@@ -8,7 +8,10 @@
  */
 namespace tests\dbal\cases\driver\sqlite;
 
-require_once(dirname(__FILE__) . '/../DriverQueryTestBase.class.php');
+use limb\dbal\src\drivers\sqlite\lmbSqliteRecord;
+use tests\dbal\cases\driver\DriverQueryTestBase;
+use limb\toolkit\src\lmbToolkit;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteQueryTest extends DriverQueryTestBase
@@ -16,15 +19,13 @@ class lmbSqliteQueryTest extends DriverQueryTestBase
 
   function lmbSqliteQueryTest()
   {
-    parent :: DriverQueryTestBase('lmbSqliteRecord');
+    parent :: DriverQueryTestBase(lmbSqliteRecord::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverSqliteSetup($this->connection->getConnectionId());
+    //DriverSqliteSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

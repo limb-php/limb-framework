@@ -8,7 +8,8 @@
  */
 namespace tests\dbal\cases\driver\mysql;
 
-use limb\tests\dbal\cases\driver\DriverInsertTestBase;
+use limb\dbal\src\drivers\mysql\lmbMysqlInsertStatement;
+use tests\dbal\cases\driver\DriverInsertTestBase;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/fixture.inc.php');
@@ -18,15 +19,13 @@ class lmbMysqlInsertTest extends DriverInsertTestBase
 
   function lmbMysqliInsertTest()
   {
-    parent :: DriverInsertTestBase('lmbMysqliInsertStatement');
+    parent :: DriverInsertTestBase(lmbMysqlInsertStatement::class);
   }
 
   function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverMysqlSetup($this->connection->getConnectionId());
+    //DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

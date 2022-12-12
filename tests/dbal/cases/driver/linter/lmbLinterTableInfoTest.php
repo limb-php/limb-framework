@@ -8,16 +8,17 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverTableInfoTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbLinterTableInfoTest extends DriverTableInfoTestBase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

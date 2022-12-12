@@ -8,7 +8,10 @@
  */
 namespace tests\dbal\cases\driver\pgsql;
 
-require_once(dirname(__FILE__) . '/../DriverInsertTestBase.class.php');
+use limb\dbal\src\drivers\pgsql\lmbPgsqlInsertStatement;
+use tests\dbal\cases\driver\DriverInsertTestBase;
+use limb\toolkit\src\lmbToolkit;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbPgsqlInsertTest extends DriverInsertTestBase
@@ -16,10 +19,10 @@ class lmbPgsqlInsertTest extends DriverInsertTestBase
 
   function lmbPgsqlInsertTest()
   {
-    parent :: DriverInsertTestBase('lmbPgsqlInsertStatement');
+    parent :: DriverInsertTestBase(lmbPgsqlInsertStatement::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());
@@ -47,5 +50,3 @@ class lmbPgsqlInsertTest extends DriverInsertTestBase
     $this->assertEquals($new_id - $id, 1);
   }
 }
-
-

@@ -8,6 +8,11 @@
  */
 namespace tests\dbal\cases\driver\mssql;
 
+use limb\dbal\src\drivers\mssql\lmbMssqlRecord;
+use limb\dbal\src\drivers\mssql\lmbMssqlStatement;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverTypeInfoTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlTypeInfoTest extends DriverTypeInfoTestBase
@@ -15,15 +20,13 @@ class lmbMssqlTypeInfoTest extends DriverTypeInfoTestBase
 
   function lmbMssqlTypeInfoTest()
   {
-    parent :: DriverTypeInfoTestBase('lmbMssqlStatement', 'lmbMssqlRecord');
+    parent :: DriverTypeInfoTestBase(lmbMssqlStatement::class, lmbMssqlRecord::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();
     parent::setUp();
   }
 }
-
-

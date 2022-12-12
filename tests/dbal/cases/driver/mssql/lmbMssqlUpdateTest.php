@@ -8,6 +8,10 @@
  */
 namespace tests\dbal\cases\driver\mssql;
 
+use limb\dbal\src\drivers\mssql\lmbMssqlManipulationStatement;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverUpdateTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlUpdateTest extends DriverUpdateTestBase
@@ -15,15 +19,13 @@ class lmbMssqlUpdateTest extends DriverUpdateTestBase
 
   function lmbMssqlUpdateTest()
   {
-    parent :: DriverUpdateTestBase('lmbMssqlManipulationStatement');
+    parent :: DriverUpdateTestBase(lmbMssqlManipulationStatement::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverMssqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

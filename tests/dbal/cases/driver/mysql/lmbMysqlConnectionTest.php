@@ -8,6 +8,10 @@
  */
 namespace tests\dbal\cases\driver\mysql;
 
+use limb\dbal\src\drivers\mysql\lmbMysqlInsertStatement;
+use limb\dbal\src\drivers\mysql\lmbMysqlManipulationStatement;
+use limb\dbal\src\drivers\mysql\lmbMysqlQueryStatement;
+use limb\dbal\src\drivers\mysql\lmbMysqlStatement;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverConnectionTestBase;
 
@@ -22,7 +26,12 @@ class lmbMysqlConnectionTest extends DriverConnectionTestBase
 
   function lmbMysqlConnectionTest()
   {
-    parent :: DriverConnectionTestBase('lmbMysqlQueryStatement', 'lmbMysqlInsertStatement', 'lmbMysqlManipulationStatement', 'lmbMysqlStatement');
+    parent :: DriverConnectionTestBase(
+        lmbMysqlQueryStatement::class,
+        lmbMysqlInsertStatement::class,
+        lmbMysqlManipulationStatement::class,
+        lmbMysqlStatement::class
+    );
   }
 
   function setUp(): void

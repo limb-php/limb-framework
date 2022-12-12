@@ -8,22 +8,23 @@
  */
 namespace tests\dbal\cases\driver\pgsql;
 
-require_once(dirname(__FILE__) . '/../DriverRecordTestBase.class.php');
+use limb\dbal\src\drivers\pgsql\lmbPgsqlRecord;
+use tests\dbal\cases\driver\DriverRecordTestBase;
+use limb\toolkit\src\lmbToolkit;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbPgsqlRecordTest extends DriverRecordTestBase
 {
   function __construct()
   {
-    parent :: __construct('lmbPgsqlRecord');
+    parent :: __construct(lmbPgsqlRecord::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverPgsqlSetup($this->connection->getConnectionId());
+    //DriverPgsqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

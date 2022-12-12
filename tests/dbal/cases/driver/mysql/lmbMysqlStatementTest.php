@@ -15,10 +15,10 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlStatementTest extends DriverStatementTestBase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverMysqlSetup($this->connection->getConnectionId());
+    //DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

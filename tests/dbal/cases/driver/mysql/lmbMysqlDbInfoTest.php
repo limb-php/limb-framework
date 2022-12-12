@@ -18,9 +18,7 @@ class lmbMysqlDbInfoTest extends DriverDatabaseInfoTestBase
   function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverMysqlSetup($this->connection->getConnectionId());
+    //DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

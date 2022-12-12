@@ -8,17 +8,17 @@
  */
 namespace tests\dbal\cases\driver\sqlite;
 
-require_once(dirname(__FILE__) . '/../DriverDatabaseInfoTestBase.class.php');
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverDatabaseInfoTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteDbInfoTest extends DriverDatabaseInfoTestBase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverSqliteSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

@@ -8,11 +8,15 @@
  */
 namespace tests\dbal\cases\driver\mssql;
 
+use limb\dbal\src\drivers\mssql\lmbMssqlTypeInfo;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverStatementTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlStatementTest extends DriverStatementTestBase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverMssqlSetup($this->connection->getConnectionId());
@@ -25,7 +29,7 @@ class lmbMssqlStatementTest extends DriverStatementTestBase
     $stmt->setDouble('literal', $value);
     $this->assertEquals($stmt->getOneValue(), $value);
 
-    $record = $this->setTypedValue(LIMB_DB_TYPE_DOUBLE, 'type_double', $value);
+    $record = $this->setTypedValue(lmbMssqlTypeInfo::TYPE_DOUBLE, 'type_double', $value);
     if(is_string($value))
     {
       $this->assertEquals(round($record->getStringFixed('type_double'), 2), round($value, 2));
@@ -45,7 +49,7 @@ class lmbMssqlStatementTest extends DriverStatementTestBase
     $stmt->setDate('literal', $value);
     $this->assertEquals($stmt->getOneValue(), $value);
 
-    $record = $this->setTypedValue(LIMB_DB_TYPE_DATE, 'type_date', $value);
+    $record = $this->setTypedValue(lmbMssqlTypeInfo::TYPE_DATE, 'type_date', $value);
     $this->assertIdentical($record->getStringDate('type_date'), $value);
     $this->assertEquals($record->get('type_date'), $value);
 
@@ -54,7 +58,7 @@ class lmbMssqlStatementTest extends DriverStatementTestBase
     $stmt->setDate('literal', $value);
     $this->assertEquals($stmt->getOneValue(), $value);
 
-    $record = $this->setTypedValue(LIMB_DB_TYPE_DATE, 'type_date', $value);
+    $record = $this->setTypedValue(lmbMssqlTypeInfo::TYPE_DATE, 'type_date', $value);
     $this->assertIdentical($record->getStringDate('type_date'), $value);
     $this->assertEquals($record->getDate('type_date'), $value);
 
@@ -63,7 +67,7 @@ class lmbMssqlStatementTest extends DriverStatementTestBase
     $stmt->setDate('literal', $value);
     $this->assertEquals($stmt->getOneValue(), $value);
 
-    $record = $this->setTypedValue(LIMB_DB_TYPE_DATE, 'type_date', $value);
+    $record = $this->setTypedValue(lmbMssqlTypeInfo::TYPE_DATE, 'type_date', $value);
     $this->assertIdentical($record->getStringDate('type_date'), $value);
     $this->assertEquals($record->getDate('type_date'), $value);
 
@@ -80,7 +84,7 @@ class lmbMssqlStatementTest extends DriverStatementTestBase
     $this->assertEquals($stmt->getOneValue(), $value);
 
     $value = null;
-    $record = $this->setTypedValue(LIMB_DB_TYPE_TIME, 'type_time', $value);
+    $record = $this->setTypedValue(lmbMssqlTypeInfo::TYPE_TIME, 'type_time', $value);
     $this->assertIdentical($record->getStringTime('type_time'), $value);
     $this->assertEquals($record->getTime('type_time'), $value);
 
@@ -89,7 +93,7 @@ class lmbMssqlStatementTest extends DriverStatementTestBase
     $stmt->setDate('literal', $value);
     $this->assertEquals($stmt->getOneValue(), $value);
 
-    $record = $this->setTypedValue(LIMB_DB_TYPE_TIME, 'type_time', $value);
+    $record = $this->setTypedValue(lmbMssqlTypeInfo::TYPE_TIME, 'type_time', $value);
     $this->assertIdentical($record->getStringTime('type_time'), $value);
     $this->assertEquals($record->getTime('type_time'), $value);
 
@@ -98,15 +102,11 @@ class lmbMssqlStatementTest extends DriverStatementTestBase
     $stmt->setDate('literal', $value);
     $this->assertEquals($stmt->getOneValue(), $value);
 
-    $record = $this->setTypedValue(LIMB_DB_TYPE_TIME, 'type_time', $value);
+    $record = $this->setTypedValue(lmbMssqlTypeInfo::TYPE_TIME, 'type_time', $value);
     $this->assertIdentical($record->getStringTime('type_time'), $value);
     $this->assertEquals($record->getTime('type_time'), $value);
 
     $value = 'Bad Time Value';
     // What should the expected behavior be?
   }
-  
-  
 }
-
-

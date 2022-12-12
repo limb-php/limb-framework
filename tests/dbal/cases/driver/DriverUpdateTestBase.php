@@ -8,9 +8,6 @@
  */
 namespace tests\dbal\cases\driver;
 
-use limb\tests\dbal\cases\driver\DriverManipTestBase;
-
-
 abstract class DriverUpdateTestBase extends DriverManipTestBase
 {
 

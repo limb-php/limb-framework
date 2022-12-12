@@ -8,11 +8,14 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverTransactionTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbLinterDriverTransactionTest extends DriverTransactionTestBase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
@@ -44,5 +47,3 @@ class lmbLinterDriverTransactionTest extends DriverTransactionTestBase
   }
   
 }
-
-

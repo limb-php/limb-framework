@@ -8,7 +8,10 @@
  */
 namespace tests\dbal\cases\driver\pgsql;
 
-require_once(dirname(__FILE__) . '/../DriverUpdateTestBase.class.php');
+use limb\dbal\src\drivers\pgsql\lmbPgsqlManipulationStatement;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverUpdateTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbPgsqlUpdateTest extends DriverUpdateTestBase
@@ -16,15 +19,13 @@ class lmbPgsqlUpdateTest extends DriverUpdateTestBase
 
   function lmbPgsqlUpdateTest()
   {
-    parent :: DriverUpdateTestBase('lmbPgsqlManipulationStatement');
+    parent :: DriverUpdateTestBase(lmbPgsqlManipulationStatement::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

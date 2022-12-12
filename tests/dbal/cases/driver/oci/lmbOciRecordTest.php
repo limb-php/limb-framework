@@ -8,22 +8,23 @@
  */
 namespace tests\dbal\cases\driver\oci;
 
-require_once(dirname(__FILE__) . '/../DriverRecordTestBase.class.php');
+use limb\dbal\src\drivers\oci\lmbOciRecord;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverRecordTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciRecordTest extends DriverRecordTestBase
 {
   function __construct()
   {
-    parent :: __construct('lmbOciRecord');
+    parent :: __construct(lmbOciRecord::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverOciSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

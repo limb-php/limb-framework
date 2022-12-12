@@ -8,6 +8,7 @@
  */
 
 use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\criteria\lmbSQLCriteria;
 
 class ConnectionTestStub
 {
@@ -71,7 +72,7 @@ function clearTestingDbTables()
   $GLOBALS['testing_db_tables'] = array();
 }
 
-function parseTestingCriteria($criteria)
+function parseTestingCriteria(lmbSQLCriteria $criteria)
 {
   $str = '';
   $criteria->appendStatementTo($str, $values);
@@ -80,4 +81,3 @@ function parseTestingCriteria($criteria)
   else
     return $str;
 }
-

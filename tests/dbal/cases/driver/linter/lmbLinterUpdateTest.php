@@ -8,6 +8,9 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverUpdateTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbLinterUpdateTest extends DriverUpdateTestBase
@@ -18,7 +21,7 @@ class lmbLinterUpdateTest extends DriverUpdateTestBase
     parent :: DriverUpdateTestBase('lmbLinterManipulationStatement');
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
@@ -53,7 +56,7 @@ class lmbLinterUpdateTest extends DriverUpdateTestBase
               "first" = :first:,
               "last" = :last:';
     $stmt = $this->connection->newStatement($sql);
-    $this->assertIsA($stmt, $this->manip_stmt_class);
+    $this->assertInstanceOf($stmt, $this->manip_stmt_class);
 
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');
@@ -76,9 +79,4 @@ class lmbLinterUpdateTest extends DriverUpdateTestBase
       $this->assertEquals($record->get('last'), 'Nixon');
     }
   }
-  
-  
-  
 }
-
-

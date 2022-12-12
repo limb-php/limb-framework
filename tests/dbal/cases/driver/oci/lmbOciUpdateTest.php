@@ -8,22 +8,23 @@
  */
 namespace tests\dbal\cases\driver\oci;
 
-require_once(dirname(__FILE__) . '/../DriverUpdateTestBase.class.php');
+use limb\dbal\src\drivers\oci\lmbOciUpdateStatement;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverUpdateTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciUpdateTest extends DriverUpdateTestBase
 {
   function lmbOciUpdateTest()
   {
-    parent :: DriverUpdateTestBase('lmbOciUpdateStatement');
+    parent :: DriverUpdateTestBase(lmbOciUpdateStatement::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverOciSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

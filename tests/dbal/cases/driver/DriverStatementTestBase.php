@@ -14,6 +14,8 @@ use PHPUnit\Framework\TestCase;
 
 abstract class DriverStatementTestBase extends TestCase
 {
+    protected $connection;
+
   function setTypedValue($type, $column, $value)
   {
     $setterList = lmbDbTypeInfo::getColumnTypeAccessors();

@@ -8,6 +8,9 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverRecordSetTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbLinterRecordSetTest extends DriverRecordSetTestBase
@@ -18,7 +21,7 @@ class lmbLinterRecordSetTest extends DriverRecordSetTestBase
     parent :: DriverRecordSetTestBase('lmbLinterRecord');
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
@@ -88,7 +91,4 @@ class lmbLinterRecordSetTest extends DriverRecordSetTestBase
     $this->assertEquals($rs->at(1)->get('first'), 'Alexander');
     $this->assertEquals($rs->at(2)->get('first'), 'George');
   }
-  
 }
-
-

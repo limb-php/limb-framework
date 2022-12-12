@@ -8,7 +8,11 @@
  */
 namespace tests\dbal\cases\driver\sqlite;
 
-require_once(dirname(__FILE__) . '/../DriverTypeInfoTestBase.class.php');
+use limb\dbal\src\drivers\sqlite\lmbSqliteRecord;
+use limb\dbal\src\drivers\sqlite\lmbSqliteStatement;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverTypeInfoTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteTypeInfoTest extends DriverTypeInfoTestBase
@@ -16,15 +20,13 @@ class lmbSqliteTypeInfoTest extends DriverTypeInfoTestBase
 
   function lmbSqliteTypeInfoTest()
   {
-    parent :: DriverTypeInfoTestBase('lmbSqliteStatement', 'lmbSqliteRecord');
+    parent :: DriverTypeInfoTestBase(lmbSqliteStatement::class, lmbSqliteRecord::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();
     parent::setUp();
   }
 }
-
-

@@ -8,22 +8,23 @@
  */
 namespace tests\dbal\cases\driver\pgsql;
 
-require_once(dirname(__FILE__) . '/../DriverTypeInfoTestBase.class.php');
+use limb\dbal\src\drivers\pgsql\lmbPgsqlRecord;
+use limb\dbal\src\drivers\pgsql\lmbPgsqlStatement;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverTypeInfoTestBase;
 
 class lmbPgsqlTypeInfoTest extends DriverTypeInfoTestBase
 {
 
   function lmbPgsqlTypeInfoTest()
   {
-    parent :: DriverTypeInfoTestBase('lmbPgsqlStatement', 'lmbPgsqlRecord');
+    parent :: DriverTypeInfoTestBase(lmbPgsqlStatement::class, lmbPgsqlRecord::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();
     parent::setUp();
   }
 }
-
-

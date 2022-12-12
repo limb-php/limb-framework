@@ -8,21 +8,22 @@
  */
 namespace tests\dbal\cases\driver\oci;
 
-require_once(dirname(__FILE__) . '/../DriverTypeInfoTestBase.class.php');
+use limb\dbal\src\drivers\oci\lmbOciRecord;
+use limb\dbal\src\drivers\oci\lmbOciStatement;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverTypeInfoTestBase;
 
 class lmbOciTypeInfoTest extends DriverTypeInfoTestBase
 {
   function lmbOciTypeInfoTest()
   {
-    parent :: DriverTypeInfoTestBase('lmbOciStatement', 'lmbOciRecord');
+    parent :: DriverTypeInfoTestBase(lmbOciStatement::class, lmbOciRecord::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();
     parent::setUp();
   }
 }
-
-

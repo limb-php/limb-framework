@@ -8,16 +8,20 @@
  */
 namespace tests\dbal\cases\driver\mssql;
 
+use limb\dbal\src\drivers\mssql\lmbMssqlRecord;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverRecordSetTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlRecordSetTest extends DriverRecordSetTestBase
 {
   function lmbMssqlRecordSetTest()
   {
-    parent :: DriverRecordSetTestBase('lmbMssqlRecord');
+    parent :: DriverRecordSetTestBase(lmbMssqlRecord::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverMssqlSetup($this->connection->getConnectionId());
@@ -108,7 +112,4 @@ class lmbMssqlRecordSetTest extends DriverRecordSetTestBase
     $stmt = $this->connection->newStatement('SELECT COUNT(*) as cnt FROM founding_fathers');
     return $stmt->getOneValue();
   }
-  
 }
-
-

@@ -8,11 +8,14 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverDeleteTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbLinterDeleteTest extends DriverDeleteTestBase
 {
-  function setUp()
+  function setUp():void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());

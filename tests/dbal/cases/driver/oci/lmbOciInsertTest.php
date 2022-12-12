@@ -8,17 +8,20 @@
  */
 namespace tests\dbal\cases\driver\oci;
 
-require_once(dirname(__FILE__) . '/../DriverInsertTestBase.class.php');
+use limb\dbal\src\drivers\oci\lmbOciInsertStatement;
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverInsertTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciInsertTest extends DriverInsertTestBase
 {
   function lmbOciInsertTest()
   {
-    parent :: DriverInsertTestBase('lmbOciInsertStatement');
+    parent :: DriverInsertTestBase(lmbOciInsertStatement::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverOciSetup($this->connection->getConnectionId());
@@ -46,5 +49,3 @@ class lmbOciInsertTest extends DriverInsertTestBase
     $this->assertEquals($new_id - $id, 1);
   }
 }
-
-

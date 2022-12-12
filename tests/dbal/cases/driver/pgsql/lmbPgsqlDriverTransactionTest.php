@@ -8,12 +8,14 @@
  */
 namespace tests\dbal\cases\driver\pgsql;
 
-require_once(dirname(__FILE__) . '/../DriverTransactionTestBase.class.php');
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverTransactionTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbPgsqlDriverTransactionTest extends DriverTransactionTestBase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());

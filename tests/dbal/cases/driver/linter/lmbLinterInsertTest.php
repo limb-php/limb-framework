@@ -8,6 +8,10 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use limb\dbal\src\drivers\linter\lmbLinterInsertStatement;
+use tests\dbal\cases\driver\DriverInsertTestBase;
+use limb\toolkit\src\lmbToolkit;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbLinterInsertTest extends DriverInsertTestBase
@@ -15,10 +19,10 @@ class lmbLinterInsertTest extends DriverInsertTestBase
 
   function lmbLinterInsertTest()
   {
-    parent :: DriverInsertTestBase('lmbLinterInsertStatement');
+    parent :: DriverInsertTestBase(lmbLinterInsertStatement::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
@@ -71,14 +75,14 @@ class lmbLinterInsertTest extends DriverInsertTestBase
             :first:, :last:
         )';
     $stmt = $this->connection->newStatement($sql);
-    $this->assertIsA($stmt, $this->insert_stmt_class);
+    $this->assertInstanceOf($stmt, $this->insert_stmt_class);
 
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');
 
     $id = $stmt->insertId('id');
     $this->assertEquals($stmt->getAffectedRowCount(), 1);
-    $this->assertIdentical($id, 4);
+    $this->assertEquals($id, 4);
     $this->checkRecord(4);
   }
   
@@ -96,8 +100,4 @@ class lmbLinterInsertTest extends DriverInsertTestBase
       $this->assertEquals($record->get('last'), 'Nixon');
     }
   }
-  
-  
 }
-
-

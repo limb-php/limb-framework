@@ -8,6 +8,8 @@
  */
 namespace tests\dbal\cases\driver\mysql;
 
+use limb\dbal\src\drivers\mysql\lmbMysqlRecord;
+use limb\dbal\src\drivers\mysql\lmbMysqlStatement;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverTypeInfoTestBase;
 
@@ -18,15 +20,13 @@ class lmbMysqlTypeInfoTest extends DriverTypeInfoTestBase
 
   function lmbMysqlTypeInfoTest()
   {
-    parent :: DriverTypeInfoTestBase('lmbMysqlStatement', 'lmbMysqlRecord');
+    parent :: DriverTypeInfoTestBase(lmbMysqlStatement::class, lmbMysqlRecord::class);
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();
     parent::setUp();
   }
 }
-
-

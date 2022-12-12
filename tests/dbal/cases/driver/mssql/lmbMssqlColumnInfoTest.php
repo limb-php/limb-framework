@@ -8,17 +8,17 @@
  */
 namespace tests\dbal\cases\driver\mssql;
 
-require_once(dirname(__FILE__) . '/../DriverColumnInfoTestBase.class.php');
+use limb\toolkit\src\lmbToolkit;
+use tests\dbal\cases\driver\DriverColumnInfoTestBase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlColumnInfoTest extends DriverColumnInfoTestBase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    DriverMssqlSetup($this->connection->getConnectionId());
+    //DriverMssqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }
-
-

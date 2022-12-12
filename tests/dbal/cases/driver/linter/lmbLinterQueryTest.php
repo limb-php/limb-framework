@@ -8,6 +8,9 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use tests\dbal\cases\driver\DriverQueryTestBase;
+use limb\toolkit\src\lmbToolkit;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbLinterQueryTest extends DriverQueryTestBase
@@ -18,7 +21,7 @@ class lmbLinterQueryTest extends DriverQueryTestBase
     parent :: DriverQueryTestBase('lmbLinterRecord');
   }
 
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
@@ -31,7 +34,7 @@ class lmbLinterQueryTest extends DriverQueryTestBase
     $sql = 'SELECT * FROM founding_fathers WHERE "id" = 1';
     $stmt = $this->connection->newStatement($sql);
     $record = $stmt->getOneRecord();
-    $this->assertIsA($record, $this->record_class);
+    $this->assertInstanceOf($record, $this->record_class);
     $this->assertEquals($record->get('id'), 1);
     $this->assertEquals($record->get('first'), 'George');
     $this->assertEquals($record->get('last'), 'Washington');

@@ -8,13 +8,15 @@
  */
 namespace tests\dbal\cases\driver\oci;
 
-require_once(dirname(__FILE__) . '/../DriverQueryTestBase.class.php');
+use limb\dbal\src\drivers\oci\lmbOciQueryStatement;
+use limb\toolkit\src\lmbToolkit;
+use PHPUnit\Framework\TestCase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
-require_once('limb/dbal/src/drivers/oci/lmbOciQueryStatement.class.php');
 
 class lmbOciQueryStatementTest extends TestCase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverOciSetup($this->connection->getConnectionId());
@@ -53,5 +55,3 @@ class lmbOciQueryStatementTest extends TestCase
     $this->assertEquals($rs->count(), 1);
   }
 }
-
-

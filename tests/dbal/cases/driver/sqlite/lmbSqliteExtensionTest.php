@@ -8,11 +8,14 @@
  */
 namespace tests\dbal\cases\driver\sqlite;
 
+use limb\toolkit\src\lmbToolkit;
+use PHPUnit\Framework\TestCase;
+
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteExtensionTest extends TestCase
 {
-  function setUp()
+  function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverSqliteSetup($this->connection->getConnectionId());
@@ -39,5 +42,3 @@ class lmbSqliteExtensionTest extends TestCase
     $this->assertEquals($record->get('c'), "co");
   }
 }
-
-
