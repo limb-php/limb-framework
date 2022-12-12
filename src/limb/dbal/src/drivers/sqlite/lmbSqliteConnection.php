@@ -19,7 +19,8 @@ use limb\dbal\src\exception\lmbDbException;
  */
 class lmbSqliteConnection extends lmbDbBaseConnection
 {
-    protected $connection;
+    /* @var $connection null|\SQLite3 */
+    protected $connection = null;
     protected $in_transaction = false;
 
     function getType()
@@ -88,7 +89,7 @@ class lmbSqliteConnection extends lmbDbBaseConnection
     if(!is_null($sql))
       $info['sql'] = $sql;
 
-    throw new lmbDbException($this->connection->lastErrorMsg($errno) . ' SQL: '. $sql, $info);
+    throw new lmbDbException($this->connection->lastErrorMsg() . ' SQL: '. $sql, $info);
   }
 
   function execute($sql)
@@ -167,7 +168,8 @@ class lmbSqliteConnection extends lmbDbBaseConnection
 
   function quoteIdentifier($id)
   {
-    if(!$id) return '';
+    if(!$id)
+        return '';
 
     $pieces = explode('.', $id);
     $quoted = '"' . $pieces[0] . '"';

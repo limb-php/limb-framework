@@ -27,7 +27,7 @@ class lmbAuditDbConnectionTest extends TestCase
   function testExecuteIncreasesQueryCounter()
   {
     $sql = 'Some sql query'; 
-    $this->wrapped->expectOnce('execute', array($sql));
+    $this->wrapped->expects($this->once())->method('execute')->with($sql);
     $this->connection->execute($sql);
     
     $this->assertEquals($this->connection->countQueries(), 1);

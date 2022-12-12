@@ -8,6 +8,7 @@
  */
 namespace tests\active_record\cases;
 
+use limb\validation\src\exception\lmbValidationException;
 use limb\validation\src\lmbErrorList;
 use limb\active_record\src\lmbActiveRecord;
 use limb\validation\src\lmbValidator;
@@ -354,7 +355,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
 
     $object = new TestOneTableObjectFailing();
     $object->setContent('A-a-a-a');
-    $object->fail = new Exception('yo-yo');
+    $object->fail = new \Exception('yo-yo');
 
     $this->assertFalse($object->trySave($error_list));
     $this->assertFalse($error_list->isEmpty());
