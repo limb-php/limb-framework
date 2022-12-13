@@ -14,7 +14,7 @@ use limb\imagekit\src\lmbAbstractImageContainer;
 /**
  * Resize image filter
  * @package imagekit
- * @version $Id: lmbGdResizeImageFilter.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbGdResizeImageFilter.php 7486 2009-01-26 19:13:20Z
  */
 class lmbGdResizeImageFilter extends lmbAbstractImageFilter
 {

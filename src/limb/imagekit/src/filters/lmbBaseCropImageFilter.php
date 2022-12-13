@@ -68,5 +68,4 @@ abstract class lmbBaseCropImageFilter extends lmbAbstractImageFilter
   {
     return $this->getParam('y', 0);
   }
-
 }

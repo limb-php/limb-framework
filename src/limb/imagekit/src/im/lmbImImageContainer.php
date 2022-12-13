@@ -26,7 +26,7 @@ class lmbImImageContainer extends lmbAbstractImageContainer
   protected static $supported_types = array('GIF', 'JPEG', 'PNG', 'WBMP', 'TIFF', 'gif', 'jpeg', 'png', 'wbmp', 'tiff');
 
   /**
-   * @var Imagick
+   * @var \Imagick
    */
   protected $img;
   protected $img_type;
@@ -180,4 +180,3 @@ class lmbImImageContainer extends lmbAbstractImageContainer
     $this->destroyImage();
   }
 }
-

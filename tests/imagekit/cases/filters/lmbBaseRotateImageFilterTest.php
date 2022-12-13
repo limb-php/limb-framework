@@ -15,7 +15,7 @@ abstract class lmbBaseRotateImageFilterTest extends lmbImageKitTestCase
   function testRotate()
   {
     $cont = $this->_getContainer();
-    $class_name = 'limb\\imagekit\\src\\'.$this->driver.'\\filters\\'.$this->_getClass('lmb%RotateImageFilter');
+    $class_name = $this->_getFilterClass('lmb%RotateImageFilter');
     $filter = new $class_name(array('angle' => 90));
 
     $filter->apply($cont);
@@ -29,7 +29,7 @@ abstract class lmbBaseRotateImageFilterTest extends lmbImageKitTestCase
 
   function testParams()
   {
-    $class_name = 'limb\\imagekit\\src\\'.$this->driver.'\\filters\\'.$this->_getClass('lmb%RotateImageFilter');
+    $class_name = $this->_getFilterClass('lmb%RotateImageFilter');
     $filter = new $class_name(array('angle' => 90, 'bgcolor' => 'FF0000'));
 
     $this->assertEquals($filter->getAngle(), 90);

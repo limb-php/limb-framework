@@ -17,11 +17,10 @@ abstract class lmbBaseOutputImageFilterTest extends lmbImageKitTestCase
     $cont = $this->_getContainer();
     $cont->setOutputType('gif');
 
-    $class_name = 'lmb'.lmb_camel_case($this->driver).'OutputImageFilter';
+    $class_name = $this->_getFilterClass('lmb%OutputImageFilter');
     $filter = new $class_name(array('type' => 'jpeg'));
     $filter->apply($cont);
 
     $this->assertEquals($cont->getOutputType(), 'jpeg');
   }
-
 }

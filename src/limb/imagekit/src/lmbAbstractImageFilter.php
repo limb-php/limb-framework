@@ -8,13 +8,11 @@
  */
 namespace limb\imagekit\src;
 
-use limb\imagekit\src\lmbAbstractImageContainer;
-
 /**
  * Abstract image filter
  *
  * @package imagekit
- * @version $Id: lmbAbstractImageFilter.class.php 8065 2010-01-20 04:18:19Z korchasa $
+ * @version $Id: lmbAbstractImageFilter.php 8065 2010-01-20 04:18:19Z
  */
 abstract class lmbAbstractImageFilter
 {

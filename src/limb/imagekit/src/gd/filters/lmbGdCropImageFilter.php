@@ -14,7 +14,7 @@ use limb\imagekit\src\lmbAbstractImageContainer;
 /**
  * Crop image filter
  * @package imagekit
- * @version $Id: lmbGdCropImageFilter.class.php 8152 2010-03-29 00:04:37Z korchasa $
+ * @version $Id: lmbGdCropImageFilter.php 8152 2010-03-29 00:04:37Z
  */
 class lmbGdCropImageFilter extends lmbAbstractImageFilter
 {

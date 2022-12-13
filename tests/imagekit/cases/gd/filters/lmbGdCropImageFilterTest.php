@@ -12,7 +12,7 @@ use tests\imagekit\cases\filters\lmbBaseCropImageFilterTest;
 
 /**
  * @package imagekit
- * @version $Id: lmbGdCropImageFilterTest.php 8065 2010-01-20 04:18:19Z korchasa $
+ * @version $Id: lmbGdCropImageFilterTest.php 8065 2010-01-20 04:18:19Z
  */
 class lmbGdCropImageFilterTest extends lmbBaseCropImageFilterTest
 {

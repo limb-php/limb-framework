@@ -13,7 +13,7 @@ use limb\imagekit\src\filters\lmbBaseOutputImageFilter;
 /**
  * Change output type
  * @package imagekit
- * @version $Id: lmbGdOutputImageFilter.class.php 8152 2010-03-29 00:04:37Z korchasa $
+ * @version $Id: lmbGdOutputImageFilter.php 8152 2010-03-29 00:04:37Z
  */
 class lmbGdOutputImageFilter extends lmbBaseOutputImageFilter
 {

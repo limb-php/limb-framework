@@ -14,7 +14,7 @@ use limb\imagekit\src\lmbAbstractImageContainer;
 /**
  * Annotate image filter
  * @package imagekit
- * @version $Id: lmbGdAnnotateImageFilter.class.php 7486 2009-01-26 19:13:20Z 3d-max $
+ * @version $Id: lmbGdAnnotateImageFilter.php 7486 2009-01-26 19:13:20Z
  */
 class lmbGdAnnotateImageFilter extends lmbAbstractImageFilter
 {
@@ -75,4 +75,3 @@ class lmbGdAnnotateImageFilter extends lmbAbstractImageFilter
     return $this->getParam('y', 0);
   }
 }
-

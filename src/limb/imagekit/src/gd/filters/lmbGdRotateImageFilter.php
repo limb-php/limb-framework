@@ -14,7 +14,7 @@ use limb\imagekit\src\lmbAbstractImageContainer;
 /**
  * Rotate image filter
  * @package imagekit
- * @version $Id: lmbGdRotateImageFilter.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbGdRotateImageFilter.php 7486 2009-01-26 19:13:20Z
  */
 class lmbGdRotateImageFilter extends lmbAbstractImageFilter
 {

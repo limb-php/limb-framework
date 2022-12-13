@@ -33,10 +33,10 @@ class lmbGdNegateImageFilter extends lmbAbstractImageFilter
       for($y = 0; $y < imagesy($image); ++$y)
       {
         $index = imagecolorat($image, $x, $y);
-        $rgb = imagecolorsforindex($index);
+        $rgb = imagecolorsforindex($image, $index);
         $color = imagecolorallocate($image, 255 - $rgb['red'], 255 - $rgb['green'], 255 - $rgb['blue']);
 
-        imagesetpixel($im, $x, $y, $color);
+        imagesetpixel($image, $x, $y, $color);
       }
     }
   }

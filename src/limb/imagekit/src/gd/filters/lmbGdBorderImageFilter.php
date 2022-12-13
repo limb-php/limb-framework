@@ -8,7 +8,7 @@ use limb\imagekit\src\gd\lmbGdImageContainer;
 /**
  * Border image filter
  * @package imagekit
- * @version $Id: lmbGdBorderImageFilter.class.php 7071 2008-06-25 14:33:29Z 3d-max $
+ * @version $Id: lmbGdBorderImageFilter.php 7071 2008-06-25 14:33:29Z
  */
 class lmbGdBorderImageFilter extends lmbAbstractImageFilter
 {
@@ -68,4 +68,3 @@ class lmbGdBorderImageFilter extends lmbAbstractImageFilter
     return $this->getParam('round_corner_png', '');
   }
 }
-

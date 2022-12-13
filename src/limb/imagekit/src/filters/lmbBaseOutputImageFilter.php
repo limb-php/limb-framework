@@ -9,13 +9,15 @@
 namespace limb\imagekit\src\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
+use limb\imagekit\src\lmbAbstractImageContainer;
 
 /**
  * Base class for output image filter
  * @package imagekit
  * @version $Id:$
  */
-abstract class lmbBaseOutputImageFilter extends lmbAbstractImageFilter {
+abstract class lmbBaseOutputImageFilter extends lmbAbstractImageFilter
+{
 
   function apply(lmbAbstractImageContainer $container)
   {

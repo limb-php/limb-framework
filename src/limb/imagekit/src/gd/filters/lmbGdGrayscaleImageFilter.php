@@ -7,7 +7,7 @@ use limb\imagekit\src\lmbAbstractImageContainer;
 /**
  * Grayscale image filter
  * @package imagekit
- * @version $Id: lmbGdGrayscaleImageFilter.class.php 7071 2008-06-25 14:33:29Z 3d-max $
+ * @version $Id: lmbGdGrayscaleImageFilter.php 7071 2008-06-25 14:33:29Z
  */
 class lmbGdGrayscaleImageFilter extends lmbAbstractImageFilter
 {
@@ -25,4 +25,3 @@ class lmbGdGrayscaleImageFilter extends lmbAbstractImageFilter
     $container->replaceResource($bwimage);
   }
 }
-

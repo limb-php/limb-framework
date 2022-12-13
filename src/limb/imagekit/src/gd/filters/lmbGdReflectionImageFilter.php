@@ -7,7 +7,7 @@ use limb\imagekit\src\lmbAbstractImageContainer;
 /**
  * Reflection image filter
  * @package imagekit
- * @version $Id: lmbGdReflectionImageFilter.class.php 7071 2008-06-25 14:33:29Z 3d-max $
+ * @version $Id: lmbGdReflectionImageFilter.php 7071 2008-06-25 14:33:29Z
  */
 class lmbGdReflectionImageFilter extends lmbAbstractImageFilter
 {
@@ -95,4 +95,3 @@ class lmbGdReflectionImageFilter extends lmbAbstractImageFilter
     return $this->parseHexColor($bg_color);
   }
 }
-

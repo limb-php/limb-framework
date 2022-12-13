@@ -8,13 +8,14 @@
  */
 namespace limb\imagekit\src\gd\filters;
 
+use limb\imagekit\src\gd\lmbGdImageContainer;
 use limb\imagekit\src\lmbAbstractImageFilter;
 use limb\imagekit\src\lmbAbstractImageContainer;
 
 /**
  * Resize image filter
  * @package imagekit
- * @version $Id: lmbGdWaterMarkImageFilter.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbGdWaterMarkImageFilter.php 7486 2009-01-26 19:13:20Z
  */
 class lmbGdWaterMarkImageFilter extends lmbAbstractImageFilter
 {

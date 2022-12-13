@@ -9,7 +9,6 @@
 namespace limb\imagekit\src\gd;
 
 use limb\imagekit\src\lmbAbstractImageConvertor;
-use limb\imagekit\src\gd\lmbGdImageContainer;
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\imagekit\src\exception\lmbImageLibraryNotInstalledException;
 
@@ -17,7 +16,7 @@ use limb\imagekit\src\exception\lmbImageLibraryNotInstalledException;
  * GD image convertor
  *
  * @package imagekit
- * @version $Id: lmbGdImageConvertor.class.php 8110 2010-01-28 14:20:12Z korchasa $
+ * @version $Id: lmbGdImageConvertor.php 8110 2010-01-28 14:20:12Z
  */
 class lmbGdImageConvertor extends lmbAbstractImageConvertor
 {

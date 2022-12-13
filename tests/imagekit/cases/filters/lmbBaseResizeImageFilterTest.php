@@ -15,7 +15,7 @@ abstract class lmbBaseResizeImageFilterTest extends lmbImageKitTestCase
   function testSimpleResize()
   {
     $cont = $this->_getContainer();
-    $class_name = $this->_getClass('lmb%ResizeImageFilter');
+    $class_name = $this->_getFilterClass('lmb%ResizeImageFilter');
     $filter = new $class_name(array('width' => 50, 'height' => 70, 'preserve_aspect_ratio' => false));
 
     $filter->apply($cont);
@@ -27,7 +27,7 @@ abstract class lmbBaseResizeImageFilterTest extends lmbImageKitTestCase
 
   function testPreserveAspectRatio()
   {
-    $class_name = $this->_getClass('lmb%ResizeImageFilter');
+    $class_name = $this->_getFilterClass('lmb%ResizeImageFilter');
     $filter = new $class_name(array());
 
     list($w, $h) = $filter->calcSize(100, 60, 20, 30, true);
@@ -41,7 +41,7 @@ abstract class lmbBaseResizeImageFilterTest extends lmbImageKitTestCase
 
   function testSaveMinSize()
   {
-    $class_name = $this->_getClass('lmb%ResizeImageFilter');
+    $class_name = $this->_getFilterClass('lmb%ResizeImageFilter');
     $filter = new $class_name(array());
 
     list($w, $h) = $filter->calcSize(100, 60, 20, 30, true, true);
@@ -67,7 +67,7 @@ abstract class lmbBaseResizeImageFilterTest extends lmbImageKitTestCase
 
   function testParams()
   {
-    $class_name = $this->_getClass('lmb%ResizeImageFilter');
+    $class_name = $this->_getFilterClass('lmb%ResizeImageFilter');
     $filter = new $class_name(array('width' => 90, 'height' => 100, 'preserve_aspect_ratio' => false, 'save_min_size' => true));
 
     $this->assertEquals($filter->getWidth(), 90);

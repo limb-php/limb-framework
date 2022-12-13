@@ -15,7 +15,7 @@ abstract class lmbBaseWaterMarkImageFilterTest extends lmbImageKitTestCase
   function testWaterMark()
   {
     $cont = $this->_getContainer();
-    $class_name = $this->_getClass('lmb%WaterMarkImageFilter');
+    $class_name = $this->_getFilterClass('lmb%WaterMarkImageFilter');
     $filter = new $class_name(array('water_mark' => $this->_getInputPalleteImage(), 'x' => 5, 'y' => 6));
 
     $filter->apply($cont);
@@ -29,7 +29,7 @@ abstract class lmbBaseWaterMarkImageFilterTest extends lmbImageKitTestCase
 
   function testParams()
   {
-    $class_name = $this->_getClass('lmb%WaterMarkImageFilter');
+    $class_name = $this->_getFilterClass('lmb%WaterMarkImageFilter');
     $filter = new $class_name(array('water_mark' => 'input.jpg', 'x' => 90, 'y' => 100, 'opacity' => 20, 'xcenter' => true, 'ycenter' => true));
 
     $this->assertEquals($filter->getWaterMark(), 'input.jpg');
@@ -44,7 +44,7 @@ abstract class lmbBaseWaterMarkImageFilterTest extends lmbImageKitTestCase
 
   function testCalcPosition()
   {
-    $class_name = $this->_getClass('lmb%WaterMarkImageFilter');
+    $class_name = $this->_getFilterClass('lmb%WaterMarkImageFilter');
     $filter = new $class_name(array());
 
     $result = $filter->calcPosition(10, 100, 150, 250, false, false);

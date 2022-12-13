@@ -18,7 +18,7 @@ use limb\fs\src\exception\lmbFileNotFoundException;
  * GD image container
  *
  * @package imagekit
- * @version $Id: lmbGdImageContainer.class.php 8065 2010-01-20 04:18:19Z korchasa $
+ * @version $Id: lmbGdImageContainer.php 8065 2010-01-20 04:18:19Z
  */
 class lmbGdImageContainer extends lmbAbstractImageContainer
 {
@@ -150,7 +150,7 @@ class lmbGdImageContainer extends lmbAbstractImageContainer
 
   static function getGdType($type)
   {
-    return isset(self::$gd_types[$type]) ? self::$gd_types[$type] : false;
+    return self::$gd_types[$type] ?? false;
   }
 
   static function convertImageType($imagetype)
@@ -168,4 +168,3 @@ class lmbGdImageContainer extends lmbAbstractImageContainer
     $this->destroyImage();
   }
 }
-

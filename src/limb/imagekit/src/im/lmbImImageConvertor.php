@@ -9,7 +9,6 @@
 namespace limb\imagekit\src\im;
 
 use limb\imagekit\src\lmbAbstractImageConvertor;
-use limb\imagekit\src\im\lmbImImageContainer;
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\imagekit\src\exception\lmbImageLibraryNotInstalledException;
 
@@ -17,7 +16,7 @@ use limb\imagekit\src\exception\lmbImageLibraryNotInstalledException;
  * Imagick image convertor
  *
  * @package imagekit
- * @version $Id: lmbImImageConvertor.class.php 8110 2010-01-28 14:20:12Z korchasa $
+ * @version $Id: lmbImImageConvertor.php 8110 2010-01-28 14:20:12Z
  */
 class lmbImImageConvertor extends lmbAbstractImageConvertor
 {

@@ -12,14 +12,14 @@ use tests\imagekit\cases\lmbImageKitTestCase;
 
 /**
  * @package imagekit
- * @version $Id: lmbGdCropImageFilterTest.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbGdCropImageFilterTest.php 7486 2009-01-26 19:13:20Z
  */
 abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
 {
   function testTrueColorCrop()
   {
     $cont = $this->_getContainer();
-    $class_name = $this->_getClass('lmb%CropImageFilter');
+    $class_name = $this->_getFilterClass('lmb%CropImageFilter');
     $filter = new $class_name(array('width' => 50, 'height' => 70, 'x' => 10, 'y' => 20));
 
     $filter->apply($cont);
@@ -34,7 +34,7 @@ abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
   function testPalleteCrop()
   {
     $cont = $this->_getPalleteContainer();
-    $class_name = $this->_getClass('lmb%CropImageFilter');
+    $class_name = $this->_getFilterClass('lmb%CropImageFilter');
     $filter = new $class_name(array('width' => 5, 'height' => 10));
 
     $filter->apply($cont);
@@ -49,7 +49,7 @@ abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
   function testMaxSizeRestriction()
   {
     $cont = $this->_getPalleteContainer();
-    $class_name = $this->_getClass('lmb%CropImageFilter');
+    $class_name = $this->_getFilterClass('lmb%CropImageFilter');
     $filter = new $class_name(array('width' => 100, 'height' => 100));
 
     $filter->apply($cont);
@@ -63,7 +63,7 @@ abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
   function testCropOfInternalArea()
   {
     $cont = $this->_getContainer();
-    $class_name = $this->_getClass('lmb%CropImageFilter');
+    $class_name = $this->_getFilterClass('lmb%CropImageFilter');
     $filter = new $class_name(array('x' => 10, 'y' => 20, 'width' => 40, 'height' => 50));
 
     $filter->apply($cont);
@@ -77,7 +77,7 @@ abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
   function testAutoDetectionOfSize()
   {
     $cont = $this->_getContainer();
-    $class_name = $this->_getClass('lmb%CropImageFilter');
+    $class_name = $this->_getFilterClass('lmb%CropImageFilter');
     $filter = new $class_name(array('x' => 10, 'y' => 20));
 
     $filter->apply($cont);
@@ -90,7 +90,7 @@ abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
 
   function testParams()
   {
-    $class_name = $this->_getClass('lmb%CropImageFilter');
+    $class_name = $this->_getFilterClass('lmb%CropImageFilter');
     $filter = new $class_name(array('width' => 90, 'height' => 100, 'x' => 10, 'y' => 20));
 
     $this->assertEquals($filter->getWidth(), 90);
