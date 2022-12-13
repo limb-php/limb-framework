@@ -16,6 +16,8 @@ class BaseARValidator extends BaseValidator
     public function ignore($ignore)
     {
         $this->ignore = $ignore;
+
+        return $this;
     }
 
     protected function _createInsertValidator(): lmbValidator
