@@ -26,10 +26,10 @@ class lmbWebAgentHeadersTest extends TestCase {
   {
     $headers = $this->_getHeaders();
 
-    $this->assertEquals($headers->get('host'), 'test.ru');
+    $this->assertEquals('test.ru', $headers->get('host'));
 
     $headers->set('User-Agent', 'TestAgent');
-    $this->assertEquals($headers->get('user-agent'), 'TestAgent');
+    $this->assertEquals('TestAgent', $headers->get('user-agent'));
   }
 
   function testSetRaw()
@@ -37,14 +37,14 @@ class lmbWebAgentHeadersTest extends TestCase {
     $headers = $this->_getHeaders();
 
     $headers->setRaw('Content-MD5', 'zxc');
-    $this->assertEquals($headers->get('Content-MD5'), 'zxc');
+    $this->assertEquals('zxc', $headers->get('Content-MD5'));
   }
 
   function testGetFirst()
   {
     $headers = $this->_getHeaders();
 
-    $this->assertEquals($headers->getFirst(), 'GET / HTTP/1.1');
+    $this->assertEquals('GET / HTTP/1.1', $headers->getFirst());
   }
 
   function testHasHeader()
@@ -68,27 +68,27 @@ class lmbWebAgentHeadersTest extends TestCase {
   {
     $headers = $this->_getHeaders();
 
-    $this->assertEquals($headers->countHeaders('host'), 1);
-    $this->assertEquals($headers->countHeaders('user-agent'), 0);
+    $this->assertEquals(1, $headers->countHeaders('host'));
+    $this->assertEquals(0, $headers->countHeaders('user-agent'));
 
     $headers->set('Set-Cookie', 'sid=1');
     $headers->set('Set-Cookie', 'sid2=2');
-    $this->assertEquals($headers->countHeaders('set-cookie'), 2);
+    $this->assertEquals(2, $headers->countHeaders('set-cookie'));
   }
 
   function testGetByNum()
   {
     $headers = $this->_getHeaders();
 
-    $this->assertEquals($headers->get('host', 0), 'test.ru');
+    $this->assertEquals('test.ru', $headers->get('host', 0));
     $this->assertNull($headers->get('host', 1));
 
     $this->assertNull($headers->get('user-agent', 0));
 
     $headers->set('Set-Cookie', 'sid=1');
     $headers->set('Set-Cookie', 'sid2=2');
-    $this->assertEquals($headers->get('set-cookie', 0), 'sid=1');
-    $this->assertEquals($headers->get('set-cookie', 1), 'sid2=2');
+    $this->assertEquals('sid=1', $headers->get('set-cookie', 0));
+    $this->assertEquals('sid2=2', $headers->get('set-cookie', 1));
     $this->assertNull($headers->get('set-cookie', 3));
   }
 
@@ -102,10 +102,10 @@ class lmbWebAgentHeadersTest extends TestCase {
     $this->assertTrue($headers->parse('Set-Cookie: sid2=2'));
     $this->assertFalse($headers->parse("\r\n"));
 
-    $this->assertEquals($headers->getFirst(), 'GET / HTTP/1.1');
-    $this->assertEquals($headers->get('host'), 'test.ru');
-    $this->assertEquals($headers->get('set-cookie', 0), 'sid=1');
-    $this->assertEquals($headers->get('set-cookie', 1), 'sid2=2');
+    $this->assertEquals('GET / HTTP/1.1', $headers->getFirst());
+    $this->assertEquals('test.ru', $headers->get('host'));
+    $this->assertEquals('sid=1', $headers->get('set-cookie', 0));
+    $this->assertEquals('sid2=2', $headers->get('set-cookie', 1));
   }
 
   function testExportHeader()
@@ -114,10 +114,10 @@ class lmbWebAgentHeadersTest extends TestCase {
 
     $headers->set('Set-Cookie', 'sid=1');
     $headers->set('Set-Cookie', 'sid2=2');
-    $this->assertEquals($headers->exportHeader('host'), 'Host: test.ru');
-    $this->assertEquals($headers->exportHeader('set-cookie', 0), 'Set-Cookie: sid=1');
-    $this->assertEquals($headers->exportHeader('set-cookie', 1), 'Set-Cookie: sid2=2');
-    $this->assertNull($headers->exportHeader('set-cookie', 3));
+    $this->assertEquals('Host: test.ru', $headers->exportHeader('host'));
+    $this->assertEquals('Set-Cookie: sid=1', $headers->exportHeader('set-cookie', 0));
+    $this->assertEquals('Set-Cookie: sid2=2', $headers->exportHeader('set-cookie', 1));
+    $this->assertEquals(false, $headers->exportHeader('set-cookie', 3));
   }
 
   function testExportHeaders()
@@ -127,7 +127,7 @@ class lmbWebAgentHeadersTest extends TestCase {
     $headers->set('Set-Cookie', 'sid2=2');
 
     $str = $headers->exportHeaders();
-    $this->assertEquals($str, "GET / HTTP/1.1\r\nHost: test.ru\r\nSet-Cookie: sid=1\r\nSet-Cookie: sid2=2\r\n");
+    $this->assertEquals("GET / HTTP/1.1\r\nHost: test.ru\r\nSet-Cookie: sid=1\r\nSet-Cookie: sid2=2\r\n", $str);
   }
 
   function testRemove()
@@ -138,7 +138,7 @@ class lmbWebAgentHeadersTest extends TestCase {
     $this->assertTrue($headers->has('host'));
     $headers->remove('host');
     $this->assertFalse($headers->has('host'));
-    $this->assertEquals($headers->get('user-agent'), 'TestAgent');
+    $this->assertEquals('TestAgent', $headers->get('user-agent'));
   }
 
   function testCopyTo()
@@ -150,7 +150,7 @@ class lmbWebAgentHeadersTest extends TestCase {
     $headers_dest = new lmbWebAgentHeaders();
     $headers->copyTo($headers_dest);
     $str = $headers_dest->exportHeaders();
-    $this->assertEquals($str, "GET / HTTP/1.1\r\nHost: test.ru\r\nSet-Cookie: sid=1\r\nSet-Cookie: sid2=2\r\n");
+    $this->assertEquals("GET / HTTP/1.1\r\nHost: test.ru\r\nSet-Cookie: sid=1\r\nSet-Cookie: sid2=2\r\n", $str);
   }
 
 }

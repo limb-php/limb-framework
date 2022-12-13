@@ -8,16 +8,14 @@
  */
 namespace tests\web_agent;
 
-require(dirname(__FILE__) . '/../common.inc.php');
-
+use limb\web_agent\src\lmbWebAgentHeaders;
 use limb\web_agent\src\request\lmbAbstractWebAgentRequest;
 use limb\web_agent\src\lmbWebServerResponse;
-use limb\web_agent\src\lmbWebAgentCookies;
 use limb\web_agent\src\lmbWebServerCookiesCollection;
 
 /**
  * @package web_agent
- * @version $Id: .setup.php 43 2007-10-05 15:33:11Z CatMan $
+ * @version $Id: .setup.php 43 2007-10-05 15:33:11Z
  */
 class lmbFakeWebAgentRequest extends lmbAbstractWebAgentRequest 
 {
@@ -57,4 +55,3 @@ class lmbFakeWebAgentRequest extends lmbAbstractWebAgentRequest
     );
   }
 }
-

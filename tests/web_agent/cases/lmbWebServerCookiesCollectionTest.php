@@ -34,13 +34,13 @@ class lmbWebServerCookiesCollectionTest extends TestCase {
     $it = $collect->getIterator();
     $it->rewind();
     $cookie = $it->current();
-    $this->assertIdentical($cookies[1], $cookie);
+    $this->assertEquals($cookies[1], $cookie);
     $it->next();
     $cookie = $it->current();
-    $this->assertIdentical($cookies[2], $cookie);
+    $this->assertEquals($cookies[2], $cookie);
     $it->next();
     $cookie = $it->current();
-    $this->assertIdentical($cookies[3], $cookie);
+    $this->assertEquals($cookies[3], $cookie);
   }
 
   function testSearchCookie()
@@ -56,7 +56,7 @@ class lmbWebServerCookiesCollectionTest extends TestCase {
       $collect->add($cookie);
     }
 
-    $this->assertEquals($collect->search('sid', '/sub', '.test.ru'), 1);
+    $this->assertEquals(1, $collect->search('sid', '/sub', '.test.ru'));
     $this->assertFalse($collect->search('sid', '/sub', '.test1.ru'));
     $this->assertFalse($collect->search('sid1'));
   }
@@ -74,7 +74,7 @@ class lmbWebServerCookiesCollectionTest extends TestCase {
       $collect->add($cookie);
     }
 
-    $this->assertEquals($collect->get(1)->value, 'sid2');
+    $this->assertEquals('sid2', $collect->get(1)->value);
     $this->assertFalse($collect->get(3));
   }
 
@@ -103,22 +103,22 @@ class lmbWebServerCookiesCollectionTest extends TestCase {
     $it = $collect2->getIterator();
     $it->rewind();
     $cookie = $it->current();
-    $this->assertClone($cookies[0], $cookie);
-    $this->assertEquals($cookie->name, 'sid');
-    $this->assertEquals($cookie->value, 'sid1');
-    $this->assertEquals($cookie->path, '/');
+    $this->assertEquals($cookies[0], $cookie);
+    $this->assertEquals('sid', $cookie->name);
+    $this->assertEquals('sid1', $cookie->value);
+    $this->assertEquals('/', $cookie->path);
     $it->next();
     $cookie = $it->current();
-    $this->assertClone($cookies[1], $cookie);
-    $this->assertEquals($cookie->name, 'sid');
-    $this->assertEquals($cookie->value, 'sid2');
-    $this->assertEquals($cookie->path, '/sub');
+    $this->assertEquals($cookies[1], $cookie);
+    $this->assertEquals('sid', $cookie->name);
+    $this->assertEquals('sid2', $cookie->value);
+    $this->assertEquals('/sub', $cookie->path);
     $it->next();
     $cookie = $it->current();
-    $this->assertClone($cookies[2], $cookie);
-    $this->assertEquals($cookie->name, 'sid2');
-    $this->assertEquals($cookie->value, 'sid2');
-    $this->assertEquals($cookie->path, '/');
+    $this->assertEquals($cookies[2], $cookie);
+    $this->assertEquals('sid2', $cookie->name);
+    $this->assertEquals('sid2', $cookie->value);
+    $this->assertEquals('/', $cookie->path);
   }
 
 }

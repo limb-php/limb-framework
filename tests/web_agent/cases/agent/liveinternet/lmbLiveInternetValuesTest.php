@@ -11,6 +11,8 @@ namespace tests\web_agent\cases\agent\liveinternet;
 use PHPUnit\Framework\TestCase;
 use limb\web_agent\src\agent\liveinternet\lmbLiveInternetValues;
 
+require_once dirname(__FILE__) . '/../../../.setup.php';
+
 /**
  * @package web_agent
  * @version $Id: lmbLiveInternetValuesTest.php 43 2007-10-05 15:33:11Z

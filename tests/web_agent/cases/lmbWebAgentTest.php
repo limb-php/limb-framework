@@ -30,7 +30,7 @@ class lmbWebAgentTest extends TestCase {
 
     $agent->doRequest('http://test.ru');
     $agent->doRequest('http://test.ru');
-    $this->assertEquals($request->request_cookies->get('sid'), '12345');
+    $this->assertEquals('12345', $request->request_cookies->get('sid'));
     $agent->doRequest('http://test2.ru');
     $this->assertFalse($request->request_cookies->has('sid'));
   }
@@ -43,9 +43,9 @@ class lmbWebAgentTest extends TestCase {
 
     $agent->doRequest('http://test.ru');
     $agent->doRequest('http://test.ru');
-    $this->assertEquals($request->request_cookies->get('sid'), '12345');
+    $this->assertEquals('12345', $request->request_cookies->get('sid'));
     $agent->doRequest('http://sub.test.ru');
-    $this->assertEquals($request->request_cookies->get('sid'), '12345');
+    $this->assertEquals('12345', $request->request_cookies->get('sid'));
     $agent->doRequest('http://test2.ru');
     $this->assertFalse($request->request_cookies->has('sid'));
   }
@@ -58,7 +58,7 @@ class lmbWebAgentTest extends TestCase {
 
     $agent->doRequest('http://test.ru');
     $agent->doRequest('http://test.ru/test/index.php');
-    $this->assertEquals($request->request_cookies->get('sid'), '12345');
+    $this->assertEquals('12345', $request->request_cookies->get('sid'));
     $agent->doRequest('http://test.ru');
     $this->assertFalse($request->request_cookies->has('sid'));
   }
@@ -70,7 +70,7 @@ class lmbWebAgentTest extends TestCase {
     $request->response_content = 'test content';
 
     $agent->doRequest('http://test.ru');
-    $this->assertEquals($agent->getContent(), 'test content');
+    $this->assertEquals('test content', $agent->getContent());
   }
 
   function testSendValues()
@@ -83,7 +83,7 @@ class lmbWebAgentTest extends TestCase {
     $http_vals = http_build_query(array('name1' => 'value1', 'name2' => 'value2'));
 
     $agent->doRequest('http://test.ru');
-    $this->assertTrue(strpos($request->request_url, $http_vals));
+    $this->assertEquals(15, strpos($request->request_url, $http_vals));
     $agent->doRequest('http://test.ru', 'POST');
     $this->assertEquals($request->request_content, $http_vals);
   }
@@ -95,7 +95,7 @@ class lmbWebAgentTest extends TestCase {
     $agent->setAcceptCharset('utf-8');
 
     $agent->doRequest('http://test.ru');
-    $this->assertEquals($request->request_accept_charset, 'utf-8');
+    $this->assertEquals('utf-8', $request->request_accept_charset);
   }
 
   function testRedirect()
@@ -106,7 +106,7 @@ class lmbWebAgentTest extends TestCase {
     $request->response_headers->set('location', 'http://redirect.ru');
 
     $agent->doRequest('http://test.ru');
-    $this->assertEquals($request->request_url, 'http://redirect.ru');
-    $this->assertEquals($agent->getValues()->getTest(), '1');
+    $this->assertEquals('http://redirect.ru', $request->request_url);
+    $this->assertEquals('1', $agent->getValues()->getTest());
   }
 }

@@ -17,11 +17,14 @@ use PHPUnit\Framework\TestCase;
 use limb\web_agent\src\agent\liveinternet\lmbLiveInternetAgent;
 use tests\web_agent\lmbFakeWebAgentRequest;
 
+require_once dirname(__FILE__) . '/../../../.setup.php';
+
 /**
  * @package web_agent
  * @version $Id: lmbLiveInternetAgentTest.php 89 2007-10-12 15:28:50Z
  */
-class lmbLiveInternetAgentTest extends TestCase {
+class lmbLiveInternetAgentTest extends TestCase
+{
   protected $agent;
   protected $request;
 
