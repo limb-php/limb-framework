@@ -22,7 +22,7 @@ class lmbMacroListTag extends lmbMacroTag
     if(!$this->has('using') && $this->has('for'))
       $this->set('using', $this->get('for'));
 
-    return parent :: preParse($compiler);
+    parent::preParse($compiler);
   }
 
   function countSource()
@@ -71,7 +71,7 @@ class lmbMacroListTag extends lmbMacroTag
         {
           $child->generate($code);
         }
-        //collectng postponed nodes to display later
+        //collecting postponed nodes to display later
         else
           $postponed_nodes[] = $child;
       }
@@ -164,4 +164,3 @@ class lmbMacroListTag extends lmbMacroTag
     }
   }
 }
-

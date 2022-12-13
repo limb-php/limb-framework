@@ -36,7 +36,7 @@ class lmbLiveInternetAgentTest extends TestCase
 
   function testGetProject()
   {
-    $this->assertEquals($this->agent->getProject(), 'test.ru');
+    $this->assertEquals('test.ru', $this->agent->getProject());
   }
 
   function testGetValues()
@@ -48,14 +48,14 @@ class lmbLiveInternetAgentTest extends TestCase
     $vals = $this->agent->getValues();
     $vals->import($arr);
 
-    $this->assertEquals($vals->buildQuery(), 'test=val;test1=val1;id=9;id=7;id=5;id=0');
+    $this->assertEquals('test=val;test1=val1;id=9;id=7;id=5;id=0', $vals->buildQuery());
   }
 
   function testRequestStatPage()
   {
   	$this->agent->requestStatPage('visitors.html');
 
-    $this->assertEquals($this->request->request_url, 'http://www.liveinternet.ru/stat/test.ru/visitors.html');
+    $this->assertEquals('http://www.liveinternet.ru/stat/test.ru/visitors.html', $this->request->request_url);
   }
 
   function testAuth()
@@ -63,9 +63,9 @@ class lmbLiveInternetAgentTest extends TestCase
     $this->request->response_cookies->add(new lmbWebServerCookie('sid=zxc'));
   	$this->agent->auth('***');
 
-    $this->assertEquals($this->request->request_url, 'http://www.liveinternet.ru/stat/test.ru/');
+    $this->assertEquals('http://www.liveinternet.ru/stat/test.ru/', $this->request->request_url);
     $this->assertEquals($this->request->request_content,
       http_build_query(array('url' => 'http://test.ru', 'password' => '***', 'ok' => ' ok ')));
-    $this->assertEquals($this->agent->getCookies()->get(0)->value, 'zxc');
+    $this->assertEquals('zxc', $this->agent->getCookies()->get(0)->value);
   }
 }

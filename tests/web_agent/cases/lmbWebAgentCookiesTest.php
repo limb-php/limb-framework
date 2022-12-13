@@ -21,11 +21,11 @@ class lmbWebAgentCookiesTest extends TestCase {
   {
     $cookies = new lmbWebAgentCookies(array('test1' => 'val1', 'test2' => 'val2'));
 
-    $this->assertEquals($cookies->get('test1'), 'val1');
-    $this->assertEquals($cookies->get('test2'), 'val2');
+    $this->assertEquals('val1', $cookies->get('test1'));
+    $this->assertEquals('val2', $cookies->get('test2'));
 
     $cookies->set('cookie3', 'val3');
-    $this->assertEquals($cookies->get('cookie3'), 'val3');
+    $this->assertEquals('val3', $cookies->get('cookie3'));
   }
 
   function testHasCookie()
@@ -47,7 +47,7 @@ class lmbWebAgentCookiesTest extends TestCase {
       $this->assertEquals($val, 'val'.$n);
       $n ++;
     }
-    $this->assertEquals($n, 3);
+    $this->assertEquals(3, $n);
   }
 
   function testClean()
@@ -63,7 +63,7 @@ class lmbWebAgentCookiesTest extends TestCase {
   {
     $cookies = new lmbWebAgentCookies(array('test1' => 'val1', 'test2' => 'val2'));
 
-    $this->assertEquals($cookies->export(), 'test1=val1; test2=val2');
+    $this->assertEquals('test1=val1; test2=val2', $cookies->export());
   }
 
 

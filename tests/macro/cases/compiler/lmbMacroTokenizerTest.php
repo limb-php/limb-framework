@@ -214,28 +214,22 @@ class lmbMacroTokenizerTest extends TestCase
         ->method('characters');
 
     $this->listener
-        ->expects($this->at(0))
         ->method('characters')
-        ->with('hey');
-
-    $this->listener
-        ->expects($this->at(1))
-        ->method('characters')
-        ->with('foo');
+        ->withConsecutive(
+            ['hey'],
+            ['foo']
+        );
 
     $this->listener
         ->expects($this->exactly(2))
         ->method('php');
 
-    /*$this->listener
-        ->expects($this->at(0))
-        ->method('php')
-        ->with('<?php $yo = "{{foo/}}";?>');
-
     $this->listener
-        ->expects($this->at(1))
         ->method('php')
-        ->with('<?php $var = "{{tag}}{{/tag}}";?>');*/
+        ->withConsecutive(
+            ['<?php $yo = "{{foo/}}";?>'],
+            ['<?php $var = "{{tag}}{{/tag}}";?>']
+        );
 
     $this->listener
         ->expects($this->never())
@@ -369,53 +363,36 @@ class lmbMacroTokenizerTest extends TestCase
         ->expects($this->exactly(2))
         ->method('startElement');
 
-    /*$this->listener
-        ->expects($this->at(0))
-        ->method('startElement')
-        ->with('foo', array());
-
     $this->listener
-        ->expects($this->at(1))
         ->method('startElement')
-        ->with('zoo', array());*/
+        ->withConsecutive(
+            ['foo', array()],
+            ['zoo', array()]
+        );
 
     $this->listener
         ->expects($this->exactly(4))
         ->method('characters');
 
     $this->listener
-        ->expects($this->at(0))
         ->method('characters')
-        ->with('hey');
-
-    $this->listener
-        ->expects($this->at(1))
-        ->method('characters')
-        ->with('baz');
-
-    $this->listener
-        ->expects($this->at(2))
-        ->method('characters')
-        ->with('wow');
-
-    $this->listener
-        ->expects($this->at(3))
-        ->method('characters')
-        ->with('hm..');
+        ->withConsecutive(
+            ['hey'],
+            ['baz'],
+            ['wow'],
+            ['hm..']
+        );
 
     $this->listener
         ->expects($this->exactly(2))
         ->method('endElement');
 
-    /*$this->listener
-        ->expects($this->at(0))
-        ->method('endElement')
-        ->with('foo');
-
     $this->listener
-        ->expects($this->at(1))
         ->method('endElement')
-        ->with('zoo');*/
+        ->withConsecutive(
+            ['foo'],
+            ['zoo']
+        );
 
     $this->listener
         ->expects($this->never())
@@ -425,15 +402,12 @@ class lmbMacroTokenizerTest extends TestCase
         ->expects($this->exactly(2))
         ->method('php');
 
-    /*$this->listener
-        ->expects($this->at(0))
-        ->method('php')
-        ->with('<?php $var = "{{tag}}{{/tag}}";?>');
-
     $this->listener
-        ->expects($this->at(1))
         ->method('php')
-        ->with('<?php echo 1;?>');*/
+        ->withConsecutive(
+            ['<?php $var = "{{tag}}{{/tag}}";?>'],
+            ['<?php echo 1;?>']
+        );
 
     $this->parser->parse('{{foo}}hey{{/foo}}baz<?php $var = "{{tag}}{{/tag}}";?>{{zoo}}wow{{/zoo}}hm..<?php echo 1;?>');
   }

@@ -30,12 +30,15 @@ class lmbArrayIteratorTest extends TestCase
 
     $iterator = new lmbArrayIterator(array('Ivan', 'Pavel', 'Serega'));
     $iterator->rewind();
+
     $this->assertTrue($iterator->valid());
 
-    $this->assertEquals($iterator->current(), 'Ivan');
+    $this->assertEquals('Ivan', $iterator->current());
+
     $iterator->next();
+
     $this->assertTrue($iterator->valid());
-    $this->assertEquals($iterator->current(), 'Pavel');
+    $this->assertEquals('Pavel', $iterator->current());
   }
 
   function testIterateOver()
@@ -44,6 +47,7 @@ class lmbArrayIteratorTest extends TestCase
     $iterator->rewind();
     $iterator->next();
     $iterator->next();
+
     $this->assertFalse($iterator->valid());
     $this->assertNull($iterator->current());
   }
@@ -52,13 +56,17 @@ class lmbArrayIteratorTest extends TestCase
   {
     $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
     $iterator->paginate($offset = 0, $limit = 2);
-    $this->assertEquals($iterator->count(), 5);
-    $this->assertEquals($iterator->countPaginated(), $limit);
+
+    $this->assertEquals(5, $iterator->count());
+    $this->assertEquals($limit, $iterator->countPaginated());
 
     $iterator->rewind();
-    $this->assertEquals($iterator->current(), 'a');
+
+    $this->assertEquals('a', $iterator->current());
+
     $iterator->next();
-    $this->assertEquals($iterator->current(), 'b');
+
+    $this->assertEquals('b', $iterator->current());
   }
 
   function testIterateWithPaginationNonZeroOffset()
@@ -67,9 +75,12 @@ class lmbArrayIteratorTest extends TestCase
     $iterator->paginate($offset = 2, $limit = 2);
 
     $iterator->rewind();
-    $this->assertEquals($iterator->current(), 'c');
+
+    $this->assertEquals('c', $iterator->current());
+
     $iterator->next();
-    $this->assertEquals($iterator->current(), 'd');
+
+    $this->assertEquals('d', $iterator->current());
   }
 
   function testPaginateWithOutOfBounds()
@@ -77,10 +88,11 @@ class lmbArrayIteratorTest extends TestCase
     $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
     $iterator->paginate($offset = 5, $limit = 2);
 
-    $this->assertEquals($iterator->count(), 5);
-    $this->assertEquals($iterator->countPaginated(), 0);
+    $this->assertEquals(5, $iterator->count());
+    $this->assertEquals(0, $iterator->countPaginated());
 
     $iterator->rewind();
+
     $this->assertFalse($iterator->valid());
   }
 
@@ -89,11 +101,24 @@ class lmbArrayIteratorTest extends TestCase
     $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
     $iterator->paginate($offset = -1, $limit = 2);
 
-    $this->assertEquals($iterator->count(), 5);
-    $this->assertEquals($iterator->countPaginated(), 0);
+    $this->assertEquals(5, $iterator->count());
+    $this->assertEquals(0, $iterator->countPaginated());
 
     $iterator->rewind();
+
     $this->assertFalse($iterator->valid());
   }
-}
 
+  function testPaginateGetPartOfIterator()
+  {
+      $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
+      $iterator->paginate($offset = 2, $limit = 2);
+
+      $result = [];
+      foreach($iterator as $item) {
+          $result[] = $item;
+      }
+
+      $this->assertEquals(['c', 'd'], $result);
+  }
+}

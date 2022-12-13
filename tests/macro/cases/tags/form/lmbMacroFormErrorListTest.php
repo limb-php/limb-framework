@@ -37,21 +37,23 @@ class lmbMacroFormErrorListTest extends lmbBaseMacroTestCase
 
   function testErrorsIfFormWidgetIsSet()
   {
-    $form = $this->createMock(lmbMacroFormWidget::class);
+    $form = $this->createStub(lmbMacroFormWidget::class);
+    $field1 = $this->createStub(lmbMacroFormElementWidget::class);
+    $field2 = $this->createStub(lmbMacroFormElementWidget::class);
 
-    $field1 = $this->createMock(lmbMacroFormElementWidget::class);
-    $field2 = $this->createMock(lmbMacroFormElementWidget::class);
-
-    $field1->setAttribute('title', 'TitleField');
-    $field2->setAttribute('title', 'NameField');
-
-    $form->addChild($field1);
-    $form->addChild($field2);
+    $form
+        ->method('getChild')
+        ->willReturn($this->onConsecutiveCalls($field1, $field2));
+    $field1
+        ->method('getDisplayName')
+        ->willReturn('TitleField');
+    $field2
+        ->method('getDisplayName')
+        ->willReturn('NameField');
 
     $error_list = new lmbMacroFormErrorList();
     $error_list->addError('Error in {Field}', array('Field' => 'title'));
     $error_list->addError('Other error in {Field}', array('Field' => 'name'));
-
     $error_list->setForm($form);
     
     $this->assertErrorsInList($error_list, array(array('message' => 'Error in "TitleField"',

@@ -14,7 +14,7 @@ use limb\core\src\exception\lmbException;
  * class lmbArrayIterator.
  *
  * @package core
- * @version $Id: lmbArrayIterator.php 6386 2007-10-05 14:22:21Z serega $
+ * @version $Id: lmbArrayIterator.php 6386 2007-10-05 14:22:21Z
  */
 class lmbArrayIterator extends \ArrayIterator implements lmbCollectionInterface
 {
