@@ -33,6 +33,8 @@ class lmbMacroPaginateTag extends lmbMacroTag
       
       if($this->has('limit'))
         $code->writePhp("{$pager}->setItemsPerPage({$this->get('limit')});\n");
+      elseif ($items = $pager_tag->getEscaped('items'))
+          $code->writePhp("{$pager}->setItemsPerPage({$items});\n");
 
       if($this->has('total_items'))
       {
