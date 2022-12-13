@@ -604,7 +604,7 @@ class lmbActiveRecord extends lmbObject
     {
         return parent::__call($method, $args);
     }
-    catch(lmbNoSuchMethodException $e)
+    catch(lmbNoSuchMethodException $parent_ex)
     {
       if($property = $this->mapAddToProperty($method)) {
           $this->_addToProperty($property, $args[0]);
@@ -614,9 +614,9 @@ class lmbActiveRecord extends lmbObject
           try {
               return $this->newQuery()->{$method}(...$args);
           }
-          catch(\Error|\BadMethodCallException $e)
+          catch(\Error|\BadMethodCallException $query_ex)
           {
-              throw $e;
+              throw $parent_ex;
           }
       }
     }
