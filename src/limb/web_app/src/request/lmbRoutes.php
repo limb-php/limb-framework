@@ -58,7 +58,7 @@ class lmbRoutes
           return $path;
       }
     }
-    throw new lmbException($message = "Route '$route_name' not found for params '" . lmb_var_dump($params) . "'");
+    throw new lmbException($message = "Route '$route_name' not found for params '" . var_export($params) . "'");
   }
 
   protected function _applyDispatchFilter($route, $dispatched)

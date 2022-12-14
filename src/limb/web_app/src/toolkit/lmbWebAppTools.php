@@ -150,6 +150,13 @@ class lmbWebAppTools extends lmbAbstractTools
     return $this->dispatched_controller;
   }
 
+  function getRouteUrlByName($route_name, $params = array())
+  {
+      $routes = $this->toolkit->getRoutes();
+
+      return lmbEnv::get('LIMB_HTTP_GATEWAY_PATH') . ltrim($routes->toUrl($params, $route_name), '/');
+  }
+
   function getRoutesUrl($params = array(), $route_name = '', $skip_controller = false)
   {
     $routes = $this->toolkit->getRoutes();
