@@ -36,8 +36,8 @@ class lmbRoutesToUrlTest extends TestCase
                                               'action' => 'display')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEquals($routes->toUrl(array(), 'blog'), '/blog');
-    $this->assertEquals($routes->toUrl(array(), 'news'), '/news');
+    $this->assertEquals('/blog', $routes->toUrl(array(), 'blog'));
+    $this->assertEquals('/news', $routes->toUrl(array(), 'news'));
   }
 
   function testToUrlUseNamedParam()
@@ -46,7 +46,7 @@ class lmbRoutesToUrlTest extends TestCase
                           'defaults' => array('action' => 'display')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEquals($routes->toUrl(array('controller' => 'news'), 'default'), '/news/display');
+    $this->assertEquals('/news/display', $routes->toUrl(array('controller' => 'news'), 'default'));
   }
 
   function testToUrlWithPrefix()
@@ -55,7 +55,7 @@ class lmbRoutesToUrlTest extends TestCase
                           'defaults' => array('action' => 'display')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEquals($routes->toUrl(array('controller' => 'news', 'action' => 'display', 'id' => 'test')), '/news/display/test.html');
+    $this->assertEquals('/news/display/test.html', $routes->toUrl(array('controller' => 'news', 'action' => 'display', 'id' => 'test')));
   }
 
   function testToUrlApplyDefaultParamValue()
@@ -64,7 +64,7 @@ class lmbRoutesToUrlTest extends TestCase
                           'defaults' => array('action' => 'display')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEquals($routes->toUrl(array('controller' => 'news'), 'default'), '/news/');
+    $this->assertEquals('/news/', $routes->toUrl(array('controller' => 'news'), 'default'));
   }
 
   function testToUrlApplyDefaultParamValueWithNoParamsInPath()
@@ -73,7 +73,7 @@ class lmbRoutesToUrlTest extends TestCase
                           'defaults' => array('controller' => 'news', 'action' => 'display')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEquals($routes->toUrl(array('controller' => 'news', 'action' => 'display', 'id' => 'test')), '/news/display/test');
+    $this->assertEquals('/news/display/test', $routes->toUrl(array('controller' => 'news', 'action' => 'display', 'id' => 'test')));
   }
 
   function testThrowExceptionIfNotEnoughParams()
@@ -115,8 +115,8 @@ class lmbRoutesToUrlTest extends TestCase
                           'defaults' => array('action' => 'display')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEquals($routes->toUrl(array('controller' => 'news',
-                                            'action' => 'archive')), '/news/archive');
+    $this->assertEquals('/news/archive', $routes->toUrl(array('controller' => 'news',
+                                            'action' => 'archive')));
   }
 
   function testNoSuchRoute()
@@ -157,8 +157,8 @@ class lmbRoutesToUrlTest extends TestCase
                                        'url_filter' => array($this, '_processUrlResult')));
 
     $routes = new lmbRoutes($config);
-    $this->assertEquals($routes->toUrl(array('controller' => 'admin_news',
-                                            'action' => 'archive')), '/admin/news/archive');
+    $this->assertEquals('/admin/news/archive', $routes->toUrl(array('controller' => 'admin_news',
+                                            'action' => 'archive')));
   }
 
   function _processUrlResult(&$path, $route)
@@ -179,17 +179,17 @@ class lmbRoutesToUrlTest extends TestCase
         )
       )
     );
-    
+
     $routes = new lmbRoutes($config);
-    
-    $this->assertEquals($routes->toUrl(array()), '/users/');
-    $this->assertEquals($routes->toUrl(array('user' => 'bob')), '/users/bob/');
-    $this->assertEquals($routes->toUrl(array('user' => 'admin')), '/users/');
-    $this->assertEquals($routes->toUrl(array('user' => 'bob', 'action' => 'index')), '/users/bob/blog/index/');
-    $this->assertEquals($routes->toUrl(array('controller' => 'article')), '/users/admin/article/');
-    $this->assertEquals($routes->toUrl(array('controller' => 'article', 'id' => 5)), '/users/admin/article/display/5/');
-    $this->assertEquals($routes->toUrl(array('user' => 'admin', 'action' => 'display', 'id' => 0)), '/users/');
-    $this->assertEquals($routes->toUrl(array('user' => 'admin', 'id' => 19)), '/users/admin/blog/display/19/');
+
+    $this->assertEquals('/users/', $routes->toUrl(array()));
+    $this->assertEquals('/users/bob/', $routes->toUrl(array('user' => 'bob')));
+    $this->assertEquals('/users/', $routes->toUrl(array('user' => 'admin')));
+    $this->assertEquals('/users/bob/blog/index/', $routes->toUrl(array('user' => 'bob', 'action' => 'index')));
+    $this->assertEquals('/users/admin/article/', $routes->toUrl(array('controller' => 'article')));
+    $this->assertEquals('/users/admin/article/display/5/', $routes->toUrl(array('controller' => 'article', 'id' => 5)));
+    $this->assertEquals('/users/', $routes->toUrl(array('user' => 'admin', 'action' => 'display', 'id' => 0)));
+    $this->assertEquals('/users/admin/blog/display/19/', $routes->toUrl(array('user' => 'admin', 'id' => 19)));
   }
   
   function testToUrlChecksRequirements()
@@ -199,24 +199,24 @@ class lmbRoutesToUrlTest extends TestCase
         'path' => '/:controller/:action/',
         'requirements' => array(
           'controller' => '/^blog$/',
-          'action' => '/^[a-z]+$/'        
+          'action' => '/^[a-z]+$/'
         )
-      )    
+      )
     );
-    
+
     $routes = new lmbRoutes($config);
-        
-    $this->assertEquals($routes->toUrl(array('controller' => 'blog', 'action' => 'edit')), '/blog/edit/');
-    
-    try 
+
+    $this->assertEquals('/blog/edit/', $routes->toUrl(array('controller' => 'blog', 'action' => 'edit')));
+
+    try
     {
       $routes->toUrl(array('controller' => 'admin', 'action' => '123edit'));
       $routes->toUrl(array('controller' => 'zzz', 'action' => 'edit'));
       $routes->toUrl(array('controller' => 'blog', 'action' => '@#%'));
       $this->fail("Some routes do NOT match required params!");
-    } catch (lmbException $e) 
-    {      
-      $this->assertPattern('/route .* not found .*/i', $e->getMessage());
-    }    
-  }  
+    } catch (lmbException $e)
+    {
+      $this->assertMatchesRegularExpression('/route .* not found .*/i', $e->getMessage());
+    }
+  }
 }

@@ -165,7 +165,9 @@ class lmbProfileToolsTest extends TestCase
 {$this->toolkit->showProfileStatItem('second')}
 
 Total: {$this->toolkit->getProfileTotal()} sec.</pre>";
-    $this->assertEquals($this->toolkit->getProfileStat(false), $stat);
+    $actual = $this->toolkit->getProfileStat(false);
+    $this->assertEquals($stat, $actual);
+
     $this->toolkit->addProfileDiffView('first', '__end__');
     $this->toolkit->addProfileDiffView('__start__', 'second', 'From start to second');
     $stat = "<pre>{$this->toolkit->showProfileStatItem('first')}
@@ -176,6 +178,7 @@ Custom profile points:
 {$this->toolkit->showProfileStatItem('__start__', 'second', 'From start to second')}
 
 Total: {$this->toolkit->getProfileTotal()} sec.</pre>";
-    $this->assertEquals($this->toolkit->getProfileStat(false), $stat);
+    $actual = $this->toolkit->getProfileStat(false);
+    $this->assertEquals($stat, $actual);
   }
 }

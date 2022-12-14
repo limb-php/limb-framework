@@ -24,12 +24,18 @@ class lmbInputFilterTest extends TestCase
     $input_filter = new lmbInputFilter();
 
     $r1 = $this->createMock(lmbTestInputFilterStabRule::class);
-    $r1->expectOnce('apply', array($input));
-    $r1->setReturnValue('apply', $sub_res = array('foo' => 'Foo', 'bar' => 'Bar'), array($input));
+    $r1
+        ->expects($this->once())
+        ->method('apply')
+        ->with($input)
+        ->willReturn($sub_res = array('foo' => 'Foo', 'bar' => 'Bar'), array($input));
 
     $r2 = $this->createMock(lmbTestInputFilterStabRule::class);
-    $r2->expectOnce('apply', array($sub_res));
-    $r2->setReturnValue('apply', $expected = array('foo' => 'Foo'), array($sub_res));
+    $r2
+        ->expects($this->once())
+        ->method('apply')
+        ->with($sub_res)
+        ->willReturn($expected = array('foo' => 'Foo'), array($sub_res));
 
     $input_filter->addRule($r1);
     $input_filter->addRule($r2);
