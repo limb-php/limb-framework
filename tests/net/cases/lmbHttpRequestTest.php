@@ -50,6 +50,7 @@ class lmbHttpRequestTest extends TestCase
   function testGetRequest()
   {
     $request = new lmbHttpRequest('http://test.com', 'GET', array('c' => 1), array('d' => 2));
+
     $this->assertEquals(array('c' => 1, 'd' => 2), $request->getRequest());
     $this->assertEquals(1, $request->getRequest('c'));
     $this->assertNull($request->getRequest('b'), 1);
@@ -306,19 +307,12 @@ class lmbHttpRequestTest extends TestCase
     $this->assertNull($request->get('n'));
   }
 
-  function testForNotSetReservedParams()
-  {
-    $request = new lmbHttpRequest('http://test.com?__request=1');
-    $this->assertNull($request->get('__request'));
-    $this->assertEquals('1', $request->getGet('__request'));
-  }
-
-  /*function testArrayAccess()
+  function testArrayAccess()
   {
     $request = new lmbHttpRequest('http://test.com/wow?z=1');
     $this->assertEquals('/wow', $request['uri']->getPath());
     $this->assertEquals('1', $request['get']['z']);
-  }*/
+  }
 
     function testHasTest()
     {

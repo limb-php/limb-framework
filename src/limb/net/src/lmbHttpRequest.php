@@ -27,7 +27,6 @@ class lmbHttpRequest extends lmbSet
     protected $__method;
     protected $__uri;
     protected $__headers = array();
-    protected $__request = array();
     protected $__get = array();
     protected $__post = array();
     protected $__cookies = array();
@@ -36,7 +35,7 @@ class lmbHttpRequest extends lmbSet
     protected $__pretend_post = false;
     /** @var null|string */
     protected $__requestTarget;
-    protected $__reserved_attrs = array('__version', '__requestTarget', '__method', '__uri', '__headers', '__request', '__get', '__post', '__cookies', '__files', '__attributes', '__pretend_post', '__reserved_attrs');
+    protected $__reserved_attrs = array('__version', '__requestTarget', '__method', '__uri', '__headers', '__get', '__post', '__cookies', '__files', '__attributes', '__pretend_post', '__reserved_attrs');
 
     function __construct($uri_string = null, $method = 'GET', $get = [], $post = [], $cookies = [], $files = [], $headers = [])
     {
@@ -69,9 +68,8 @@ class lmbHttpRequest extends lmbSet
             $this->__cookies = $this->_stripHttpSlashes($this->__cookies);
         }
 
-        $this->__request = lmbArrayHelper::arrayMerge($this->__get, $this->__post, $this->__files);
-
-        foreach($this->__request as $k => $v)
+        $request = lmbArrayHelper::arrayMerge($this->__get, $this->__post, $this->__files);
+        foreach($request as $k => $v)
         {
             if(in_array($k, $this->__reserved_attrs))
                 continue;
@@ -187,9 +185,11 @@ class lmbHttpRequest extends lmbSet
     return false;
   }
 
+  /* @deprecated */
   function getRequest($key = null, $default = null)
   {
-    return $this->_get($this->__request, $key, $default);
+      $request = lmbArrayHelper::arrayMerge($this->__get, $this->__post, $this->__files);
+      return $this->_get($request, $key, $default);
   }
 
   function getGet($key = null, $default = null)
@@ -351,6 +351,14 @@ class lmbHttpRequest extends lmbSet
 
         $new = clone($this);
         $new->__uri = $uri;
+        $items = $new->__uri->getQueryItems();
+        foreach($items as $k => $v) {
+            $new->__get[$k] = $v;
+
+            if(in_array($k, $new->__reserved_attrs))
+                continue;
+            $new->set($k, $v);
+        }
 
         if (!$preserveHost || !$this->hasHeader('host')) {
             $new->updateHostFromUri();
@@ -390,7 +398,8 @@ class lmbHttpRequest extends lmbSet
     $flat = array();
     $query = '';
 
-    lmbArrayHelper::toFlatArray($this->__request, $flat);
+    $data = lmbArrayHelper::arrayMerge($this->__get, $this->__post);
+    lmbArrayHelper::toFlatArray($data, $flat);
 
     foreach($flat as $key => $value)
     {
