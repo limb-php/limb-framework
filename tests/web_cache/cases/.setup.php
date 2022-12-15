@@ -1,11 +1,8 @@
 <?php
-if(!defined('LIMB_VAR_DIR'))
-{
-  @define('LIMB_VAR_DIR', dirname(__FILE__) . '/../../../var');
-  if(!is_dir(LIMB_VAR_DIR) && !mkdir(LIMB_VAR_DIR))
-    throw new Exception("Could not create LIMB_VAR_DIR at '" . LIMB_VAR_DIR . "' during tests execution");
-}
+require(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
+require(dirname(__FILE__) . '/../../../src/limb/config/toolkit.inc.php');
+require(dirname(__FILE__) . '/../../../src/limb/net/toolkit.inc.php');
+require(dirname(__FILE__) . '/../../../src/limb/web_app/toolkit.inc.php');
+require(dirname(__FILE__) . '/../../core/cases/init.inc.php');
 
-require_once(dirname(__FILE__) . '/../../common.inc.php');
-
-
+lmb_tests_init_var_dir(dirname(__FILE__) . '/../../../var');

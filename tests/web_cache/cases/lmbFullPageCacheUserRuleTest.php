@@ -20,7 +20,7 @@ class lmbFullPageCacheUserRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheUserRule($groups = array('test1', 'test2'));
 
-    $lmbHttpRequest = new lmbHttpRequest('whatever', array(), array());
+    $lmbHttpRequest = new lmbHttpRequest('whatever', 'GET', array(), array());
     $user = new lmbFullPageCacheUser($groups);
     $request = new lmbFullPageCacheRequest($lmbHttpRequest, $user);
 
@@ -31,7 +31,7 @@ class lmbFullPageCacheUserRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheUserRule($groups = array('test1', 'test2'));
 
-    $lmbHttpRequest = new lmbHttpRequest('whatever', array(), array());
+    $lmbHttpRequest = new lmbHttpRequest('whatever', 'GET', array(), array());
     $user = new lmbFullPageCacheUser(array('test1'));
     $request = new lmbFullPageCacheRequest($lmbHttpRequest, $user);
 
@@ -42,7 +42,7 @@ class lmbFullPageCacheUserRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheUserRule(array('!test2'));
 
-    $lmbHttpRequest = new lmbHttpRequest('whatever', array(), array());
+    $lmbHttpRequest = new lmbHttpRequest('whatever', 'GET', array(), array());
     $user = new lmbFullPageCacheUser(array('test1'));
     $request = new lmbFullPageCacheRequest($lmbHttpRequest, $user);
 
@@ -53,7 +53,7 @@ class lmbFullPageCacheUserRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheUserRule(array('!test2'));
 
-    $lmbHttpRequest = new lmbHttpRequest('whatever', array(), array());
+    $lmbHttpRequest = new lmbHttpRequest('whatever', 'GET', array(), array());
     $user = new lmbFullPageCacheUser(array('test2'));
     $request = new lmbFullPageCacheRequest($lmbHttpRequest, $user);
 
@@ -64,7 +64,7 @@ class lmbFullPageCacheUserRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheUserRule($groups = array('test1', '!test2'));
 
-    $lmbHttpRequest = new lmbHttpRequest('whatever', array(), array());
+    $lmbHttpRequest = new lmbHttpRequest('whatever', 'GET', array(), array());
     $user = new lmbFullPageCacheUser(array('test1'));
     $request = new lmbFullPageCacheRequest($lmbHttpRequest, $user);
 

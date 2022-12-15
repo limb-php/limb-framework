@@ -31,7 +31,7 @@ class lmbFullPageCacheFilterTest extends TestCase
   {
     $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/fpcache/';
     lmbFs::rm($this->cache_dir);
-    $this->filter2 = $this->createMock(lmbInterceptingFilterInterface::class);
+    $this->filter2 = $this->createStub(lmbInterceptingFilterInterface::class);
     $this->user = new lmbFullPageCacheUser();
     $this->toolkit = lmbToolkit::save();
   }
@@ -63,14 +63,15 @@ class lmbFullPageCacheFilterTest extends TestCase
     $response->write('some_content'); // I don't want to create a stub for filter2
                                       // to write something to response. I'd like to it here.
 
-    $this->toolkit->setRequest(new lmbHttpRequest('/any_path'));
+    $this->toolkit->setRequest(new lmbHttpRequest('/any_path', 'GET'));
 
-    $fc->process();
+    $fc->process($this->toolkit->getRequest(), $response);
 
     $response->reset();
     $response->start();
 
-    $fc->process();
+    $fc->process($this->toolkit->getRequest(), $response);
+
     $this->assertEquals('some_content', $response->getResponseString());
   }
 }

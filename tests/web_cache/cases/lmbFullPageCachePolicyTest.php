@@ -32,18 +32,26 @@ class lmbFullPageCachePolicyTest extends TestCase
 
     $request = new lmbObject();
 
-    $r1->expects($this->once())->method('isSatisfiedBy')->with($request);
-    $r1->setReturnValue('isSatisfiedBy', false, array($request));
+    $r1
+        ->expects($this->once())
+        ->method('isSatisfiedBy')
+        ->with($request)
+        ->willReturn( false, array($request));
 
-    $r2->expects($this->once())->method('isSatisfiedBy')->with($request);
-    $r2->setReturnValue('isSatisfiedBy', true, array($request));
+    $r2
+        ->expects($this->once())
+        ->method('isSatisfiedBy')
+        ->with($request)
+        ->willReturn(true, array($request));
 
-    $r3->expects($this->never())->method('isSatisfiedBy');
+    $r3
+        ->expects($this->never())
+        ->method('isSatisfiedBy');
 
     $this->policy->addRuleset($r1);
     $this->policy->addRuleset($r2);
     $this->policy->addRuleset($r3);
 
-    $this->assertReference($r2, $this->policy->findRuleset($request));
+    $this->assertEquals($r2, $this->policy->findRuleset($request));
   }
 }

@@ -35,14 +35,14 @@ class lmbFullPageCacheTest extends TestCase
 
   function testGetFailedNoSessionOpened()
   {
-    $this->writer->expectNever('get');
-    $this->assertIdentical(false, $this->cache->get());
+    $this->writer->expects($this->never())->method('get');
+    $this->assertEquals(false, $this->cache->get());
   }
 
   function testSaveFailedNoSessionOpened()
   {
-    $this->writer->expectNever('save');
-    $this->assertIdentical(false, $this->cache->save('whatever'));
+    $this->writer->expects($this->never())->method('save');
+    $this->assertEquals(false, $this->cache->save('whatever'));
   }
 
   function testOpenSessionFailedDenyRule()
@@ -50,8 +50,11 @@ class lmbFullPageCacheTest extends TestCase
     $request = new lmbFullPageCacheRequest(new lmbHttpRequest('whatever'), $this->user);
     $ruleset = new lmbFullPageCacheRuleset(false);
 
-    $this->policy->expectOnce('findRuleset', array($request));
-    $this->policy->setReturnValue('findRuleset', $ruleset, array($request));
+    $this->policy
+        ->expects($this->once())
+        ->method('findRuleset')
+        ->with($request)
+        ->willReturn($ruleset, array($request));
 
     $this->assertFalse($this->cache->openSession($request));
   }
@@ -61,8 +64,11 @@ class lmbFullPageCacheTest extends TestCase
     $request = new lmbFullPageCacheRequest(new lmbHttpRequest('whatever'), $this->user);
     $ruleset = new lmbFullPageCacheRuleset();
 
-    $this->policy->expectOnce('findRuleset', array($request));
-    $this->policy->setReturnValue('findRuleset', $ruleset, array($request));
+    $this->policy
+        ->expects($this->once())
+        ->method('findRuleset')
+        ->with($request)
+        ->willReturn($ruleset, array($request));
 
     $this->assertTrue($this->cache->openSession($request));
   }
@@ -72,15 +78,24 @@ class lmbFullPageCacheTest extends TestCase
     $request = $this->createMock(lmbFullPageCacheRequest::class);
     $ruleset = new lmbFullPageCacheRuleset();
 
-    $this->policy->expectOnce('findRuleset', array($request));
-    $this->policy->setReturnValue('findRuleset', $ruleset, array($request));
+    $this->policy
+        ->expects($this->once())
+        ->method('findRuleset')
+        ->with($request)
+        ->willReturn($ruleset, array($request));
 
     $this->assertTrue($this->cache->openSession($request));
 
-    $request->expectOnce('getHash');
-    $request->setReturnValue('getHash', $hash = '123');
-    $this->writer->expectOnce('get', array($hash));
-    $this->writer->setReturnValue('get', $content = 'whatever', array($hash));
+    $request
+        ->expects($this->once())
+        ->method('getHash')
+        ->willReturn($hash = '123');
+
+    $this->writer
+        ->expects($this->once())
+        ->method('get')
+        ->with($hash)
+        ->willReturn($content = 'whatever', array($hash));
 
     $this->assertEquals($content, $this->cache->get());
   }
@@ -90,15 +105,23 @@ class lmbFullPageCacheTest extends TestCase
     $request = $this->createMock(lmbFullPageCacheRequest::class);
     $rule = new lmbFullPageCacheRuleset();
 
-    $this->policy->expectOnce('findRuleset', array($request));
-    $this->policy->setReturnValue('findRuleset', $rule, array($request));
+    $this->policy
+        ->expects($this->once())
+        ->method('findRuleset')
+        ->with($request)
+        ->willReturn($rule, array($request));
 
     $this->assertTrue($this->cache->openSession($request));
 
-    $request->setReturnValue('getHash', $hash = 'whatever');
-    $this->writer->setReturnValue('get', false, array($hash));
+    $request
+        ->method('getHash')
+        ->willReturn($hash = 'whatever');
 
-    $this->assertIdentical(false, $this->cache->get());
+    $this->writer
+        ->method('get')
+        ->willReturn(false, array($hash));
+
+    $this->assertEquals(false, $this->cache->get());
   }
 
   function testSaveOk()
@@ -106,15 +129,23 @@ class lmbFullPageCacheTest extends TestCase
     $request = $this->createMock(lmbFullPageCacheRequest::class);
     $rule = new lmbFullPageCacheRuleset();
 
-    $this->policy->expectOnce('findRuleset', array($request));
-    $this->policy->setReturnValue('findRuleset', $rule, array($request));
+    $this->policy
+        ->expects($this->once())
+        ->method('findRuleset')
+        ->with($request)
+        ->willReturn($rule, array($request));
 
     $this->assertTrue($this->cache->openSession($request));
 
-    $request->setReturnValue('getHash', $hash = 'whatever');
+    $request
+        ->method('getHash')
+        ->willReturn($hash = 'whatever');
 
-    $this->writer->expectOnce('save', array($hash, $content = 'content'));
-    $this->writer->setReturnValue('save', true, array($hash, $content = 'content'));
+    $this->writer
+        ->expects($this->once())
+        ->method('save')
+        ->with($hash, $content = 'content')
+        ->willReturn(true, array($hash, $content = 'content'));
 
     $this->assertTrue($this->cache->save($content));
   }
