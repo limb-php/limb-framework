@@ -13,6 +13,8 @@ use limb\web_app\src\request\lmbCompositeRequestDispatcher;
 use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\net\src\lmbHttpRequest;
 
+require_once dirname(__FILE__) . '/../../.setup.php';
+
 class lmbCompositeRequestDispatcherTest extends TestCase
 {
   protected $request;
@@ -38,11 +40,15 @@ class lmbCompositeRequestDispatcherTest extends TestCase
   {
     if($result !== null)
     {
-      $mock_dispatcher->expectOnce('dispatch', array($this->request));
-      $mock_dispatcher->setReturnValue('dispatch', $result);
+      $mock_dispatcher
+          ->expects($this->once())
+          ->method('dispatch')
+          ->with($this->request)
+          ->willReturn($result);
     }
-    else
-      $mock_dispatcher->expectNever('dispatch');
+    else {
+        $mock_dispatcher->expects($this->never())->method('dispatch');
+    }
   }
 
   function testDispatchOkByFirstDispatcher()
@@ -67,6 +73,6 @@ class lmbCompositeRequestDispatcherTest extends TestCase
     $this->_setUpMocks($dispatcher,
                        array('any_param1' => 'whatever'),
                        array('any_param1' => 'anything'));
-    $this->assertEquals($dispatcher->dispatch($this->request), array());
+    $this->assertEquals(array(), $dispatcher->dispatch($this->request));
   }
 }

@@ -8,6 +8,7 @@
  */
 namespace tests\web_app\cases\plain\request;
 
+use limb\net\src\lmbUri;
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutesRequestDispatcher;
 use limb\web_app\src\request\lmbRoutes;
@@ -36,13 +37,14 @@ class lmbRoutesRequestDispatcherTest extends TestCase
     $routes = new lmbRoutes($config_array);
     $this->toolkit->setRoutes($routes);
 
-    $this->request->getUri()->reset('/news');
+    $uri = new lmbUri('/news');
+    $this->request = $this->request->withUri($uri);
 
     $dispatcher = new lmbRoutesRequestDispatcher();
     $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEquals($result['controller'], 'news');
-    $this->assertEquals($result['action'], 'display');
+    $this->assertEquals('news', $result['controller']);
+    $this->assertEquals('display', $result['action']);
   }
 
   function testUseActionFromRequestEvenIfMatchedByRoutes()
@@ -51,14 +53,15 @@ class lmbRoutesRequestDispatcherTest extends TestCase
     $routes = new lmbRoutes($config_array);
     $this->toolkit->setRoutes($routes);
 
-    $this->request->getUri()->reset('/news/display');
-    $this->request->set('action', 'admin_display'); // !!!
+    $uri = new lmbUri('/news/display');
+    $uri = $uri->withQueryItem('action', 'admin_display');
+    $this->request = $this->request->withUri($uri);
 
     $dispatcher = new lmbRoutesRequestDispatcher();
     $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEquals($result['controller'], 'news');
-    $this->assertEquals($result['action'], 'admin_display');
+    $this->assertEquals('news', $result['controller']);
+    $this->assertEquals('admin_display', $result['action']);
   }
 
   function testUseControllerNameFromRequestEvenIfMatchedByRoutes()
@@ -67,15 +70,15 @@ class lmbRoutesRequestDispatcherTest extends TestCase
     $routes = new lmbRoutes($config_array);
     $this->toolkit->setRoutes($routes);
 
-    $this->request->getUri()->reset('/news/display');
+    $this->request->getUri()->withPath('/news/display');
     $this->request->set('action', 'admin_display'); // !!!
     $this->request->set('controller', 'my_controller'); // !!!
 
     $dispatcher = new lmbRoutesRequestDispatcher();
     $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEquals($result['controller'], 'my_controller');
-    $this->assertEquals($result['action'], 'admin_display');
+    $this->assertEquals('my_controller', $result['controller']);
+    $this->assertEquals('admin_display', $result['action']);
   }
 
   function testNormalizeUrl()
@@ -86,20 +89,26 @@ class lmbRoutesRequestDispatcherTest extends TestCase
 
     $dispatcher = new lmbRoutesRequestDispatcher();
 
-    $this->request->getUri()->reset('/news/admin_display');
+    $uri = new lmbUri('/news/admin_display');
+    $this->request = $this->request->withUri($uri);
     $result = $dispatcher->dispatch($this->request);
-    $this->assertEquals($result['controller'], 'news');
-    $this->assertEquals($result['action'], 'admin_display');
 
-    $this->request->getUri()->reset('/blog////index');
-    $result = $dispatcher->dispatch($this->request);
-    $this->assertEquals($result['controller'], 'blog');
-    $this->assertEquals($result['action'], 'index');
+    $this->assertEquals('news', $result['controller']);
+    $this->assertEquals('admin_display', $result['action']);
 
-    $this->request->getUri()->reset('/blog/../bar/index/');
+    $uri = new lmbUri('/blog////index');
+    $this->request = $this->request->withUri($uri);
     $result = $dispatcher->dispatch($this->request);
-    $this->assertEquals($result['controller'], 'bar');
-    $this->assertEquals($result['action'], 'index');
+
+    $this->assertEquals('blog', $result['controller']);
+    $this->assertEquals('index', $result['action']);
+
+    $uri = new lmbUri('/blog/../bar/index/');
+    $this->request = $this->request->withUri($uri);
+    $result = $dispatcher->dispatch($this->request);
+
+    $this->assertEquals('bar', $result['controller']);
+    $this->assertEquals('index', $result['action']);
   }
 
   function testDispatchWithOffset()
@@ -111,9 +120,11 @@ class lmbRoutesRequestDispatcherTest extends TestCase
     $dispatcher = new lmbRoutesRequestDispatcher($path_offset = '/www',
                                                  $base_path = 'http://example.com/app/');
 
-    $this->request->getUri()->reset('http://example.com/app/news/admin_display');
+    $uri = new lmbUri('http://example.com/app/news/admin_display');
+    $this->request = $this->request->withUri($uri);
     $result = $dispatcher->dispatch($this->request);
-    $this->assertEquals($result['controller'], 'news');
-    $this->assertEquals($result['action'], 'admin_display');
+
+    $this->assertEquals('news', $result['controller']);
+    $this->assertEquals('admin_display', $result['action']);
   }
 }

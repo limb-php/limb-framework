@@ -164,15 +164,6 @@ class lmbUri implements UriInterface
     $this->path_elements = explode('/', $this->path);
   }
 
-    /**
-     * Sets the query_string to literally what you supply
-     */
-    private function setQueryString($query_string)
-    {
-        $this->query = $query_string;
-        $this->query_items = $this->_parseQueryString($query_string);
-    }
-
   function isAbsolute()
   {
     if(!strlen($this->path))
@@ -321,6 +312,15 @@ class lmbUri implements UriInterface
       $items[] = $this->path_elements[$i];
 
     return implode('/', $items);
+  }
+
+  /**
+   * Sets the query_string to literally what you supply
+   */
+  private function setQueryString($query_string)
+  {
+      $this->query = $query_string;
+      $this->query_items = $this->_parseQueryString($query_string);
   }
 
   function getQueryItem($name)

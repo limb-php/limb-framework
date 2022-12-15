@@ -36,6 +36,7 @@ class lmbRoutesRequestDispatcher implements lmbRequestDispatcherInterface
 
   function dispatch($request)
   {
+    /* @var $routes lmbRoutes */
     $routes = lmbToolkit::instance()->getRoutes();
 
     $uri = $request->getUri();
