@@ -24,7 +24,7 @@ class lmbUri implements UriInterface
     private $user = '';
     private $password = '';
     private $host = '';
-    private $port = '';
+    private $port = null;
     private $path = '';
     private $path_elements = array();
     private $query = '';
@@ -37,7 +37,7 @@ class lmbUri implements UriInterface
         $this->user = '';
         $this->password = '';
         $this->host = '';
-        $this->port = '';
+        $this->port = null;
         $this->path = '';
         $this->path_elements = array();
         $this->query = '';

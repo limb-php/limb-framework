@@ -320,7 +320,7 @@ class lmbHttpRequestTest extends TestCase
         $this->assertTrue($request->has('z'));
     }
 
-    function testAttributives()
+    function testAttributes()
     {
         $request = new lmbHttpRequest('http://test.com/wow?z=1');
         $request = $request->withAttribute('attr1', '587');
@@ -330,5 +330,40 @@ class lmbHttpRequestTest extends TestCase
         $request = $request->withAttribute('attr2', '404');
 
         $this->assertEquals(['attr1' => '587', 'attr2' => '404'], $request->getAttributes());
+
+        $request = $request->withoutAttribute('attr2');
+
+        $this->assertEquals(['attr1' => '587'], $request->getAttributes());
+
+        $request2 = new lmbHttpRequest('http://test.com/wow?attr=100');
+        $request2 = $request2->withAttribute('attr', '200');
+
+        $this->assertEquals(100, $request2->get('attr'));
+        $this->assertEquals(200, $request2->getAttribute('attr'));
+    }
+
+    function testGetWithNewUri()
+    {
+        $request = new lmbHttpRequest('http://test.com/wow?x=2&z=3');
+        $uri = new lmbUri('https://test2.com/foo/bar?x=3&z=4');
+        $request1 = $request->withUri($uri, true);
+        $request2 = $request->withUri($uri);
+
+        $this->assertEquals(3, $request1->get('x'));
+        $this->assertEquals('/foo/bar', $request1->getUriPath());
+
+        $this->assertEquals('test.com', $request1->getHeader('Host'));
+        $this->assertEquals('test2.com', $request2->getHeader('Host'));
+    }
+
+    function testGetBoolean()
+    {
+        $request = new lmbHttpRequest('http://test.com/wow?x=2&checkbox=on');
+        $request2 = new lmbHttpRequest('http://test.com/wow?x=2&checkbox=1');
+        $request3 = new lmbHttpRequest('http://test.com/wow?x=2&checkbox=');
+
+        $this->assertEquals(true, $request->getBoolean('checkbox'));
+        $this->assertEquals(true, $request2->getBoolean('checkbox'));
+        $this->assertEquals(false, $request3->getBoolean('checkbox'));
     }
 }

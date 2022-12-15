@@ -77,6 +77,7 @@ class lmbHttpRequest extends lmbSet
         }
 
         $this->__headers = $headers;
+        $this->updateHostFromUri();
     }
 
     static public function createFromGlobals(): self
@@ -360,7 +361,7 @@ class lmbHttpRequest extends lmbSet
             $new->set($k, $v);
         }
 
-        if (!$preserveHost || !$this->hasHeader('host')) {
+        if (!$preserveHost || !$this->hasHeader('Host')) {
             $new->updateHostFromUri();
         }
 
@@ -379,13 +380,14 @@ class lmbHttpRequest extends lmbSet
             $host .= ':' . $port;
         }
 
-        if ($this->hasHeader('host')) {
-            $header = $this->getHeader('host');
+        /*if ($this->hasHeader('Host')) {
+            $header = $this->getHeader('Host');
         } else {
             $header = 'Host';
-        }
+        }*/
+        $header = 'Host';
 
-        $this->__headers = [$header => [$host]] + $this->__headers;
+        $this->__headers = [$header => $host] + $this->__headers;
     }
 
   function getUriPath()
@@ -443,7 +445,13 @@ class lmbHttpRequest extends lmbSet
 
     public function withHeader($name, $value)
     {
-        // TODO: Implement withHeader() method.
+        if (isset($this->__headers[$name]) && $this->__headers[$name] === $value) {
+            return $this;
+        }
+
+        $new = clone($this);
+        $new->__headers[$name] = $value;
+        return $new;
     }
 
     public function withAddedHeader($name, $value)
@@ -523,7 +531,7 @@ class lmbHttpRequest extends lmbSet
 
     public function withAttribute($name, $value)
     {
-        if( isset($new->__attributes[$name]) && $new->__attributes[$name] === $value ) {
+        if( isset($this->__attributes[$name]) && $this->__attributes[$name] === $value ) {
             return $this;
         }
 
@@ -534,7 +542,7 @@ class lmbHttpRequest extends lmbSet
 
     public function withoutAttribute($name)
     {
-        if( !isset($new->__attributes[$name]) ) {
+        if( !isset($this->__attributes[$name]) ) {
             return $this;
         }
 
