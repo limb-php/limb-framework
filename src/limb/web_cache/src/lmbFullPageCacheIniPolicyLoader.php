@@ -9,11 +9,6 @@
 namespace limb\web_cache\src;
 
 use limb\toolkit\src\lmbToolkit;
-use limb\web_cache\src\lmbFullPageCachePolicy;
-use limb\web_cache\src\lmbFullPageCacheRuleset;
-use limb\web_cache\src\lmbFullPageCacheUriPathRule;
-use limb\web_cache\src\lmbFullPageCacheUserRule;
-use limb\web_cache\src\lmbFullPageCacheRequestRule;
 
 /**
  * class lmbFullPageCacheIniPolicyLoader.
@@ -58,11 +53,12 @@ class lmbFullPageCacheIniPolicyLoader
         $ruleset->addRule($rule);
       }
 
-      if(isset($options['request']) || isset($options['get']) || isset($options['post']))
+      if(isset($options['get']) || isset($options['post']))
       {
-        $rule = new lmbFullPageCacheRequestRule(isset($options['request']) ? $options['request'] : null,
-                                                isset($options['get']) ? $options['get'] : null,
-                                                isset($options['post']) ? $options['post'] : null);
+        $rule = new lmbFullPageCacheRequestRule(
+            $options['get'] ?? null,
+            $options['post'] ?? null
+        );
         $ruleset->addRule($rule);
       }
 

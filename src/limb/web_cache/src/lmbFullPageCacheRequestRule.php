@@ -16,13 +16,11 @@ namespace limb\web_cache\src;
  */
 class lmbFullPageCacheRequestRule
 {
-  protected $request;
   protected $get;
   protected $post;
 
-  function __construct($request = null, $get = null, $post = null)
+  function __construct($get = null, $post = null)
   {
-    $this->request = $request;
     $this->get = $get;
     $this->post = $post;
   }
@@ -30,9 +28,6 @@ class lmbFullPageCacheRequestRule
   function isSatisfiedBy($request)
   {
     $http_request = $request->getHttpRequest();
-
-    if(!$this->_matches($this->request, $http_request->getRequest()))
-      return false;
 
     if(!$this->_matches($this->get, $http_request->getGet()))
       return false;
