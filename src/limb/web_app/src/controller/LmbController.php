@@ -200,7 +200,7 @@ class LmbController
       }
       elseif(!$template_path) {
           throw new lmbException('No method defined in controller "' .
-              $this->getName() . '" for action "' . $this->current_action . '" ' .
+              get_class($this) . '" for action "' . $this->current_action . '" ' .
               'and no appropriate template found');
       }
 
@@ -379,16 +379,18 @@ class LmbController
 
   function findTemplateForAction($action)
   {
-    if( isset($this->action_template_map[$this->name]) && isset($this->action_template_map[$this->name][$action]) )
-      return $this->action_template_map[$this->name][$action];
+      $controller_name = get_class($this);
 
-    $template_format = $this->getName() . '/' . $action;
+      if( isset($this->action_template_map[$controller_name]) && isset($this->action_template_map[$controller_name][$action]) )
+          return $this->action_template_map[$controller_name][$action];
 
-    $template_path = $this->findTemplateByAlias($template_format);
-    $this->action_template_map[$this->name][$action] = $template_path;
-    $this->map_changed = true;
+      $template_format = $this->getName() . '/' . $action;
 
-    return $template_path;
+      $template_path = $this->findTemplateByAlias($template_format);
+      $this->action_template_map[$controller_name][$action] = $template_path;
+      $this->map_changed = true;
+
+      return $template_path;
   }
 
   function findTemplateByAlias($template_format)
