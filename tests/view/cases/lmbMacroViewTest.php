@@ -27,13 +27,23 @@ class lmbMacroViewTest extends TestCase
 
   function testRenderSimpleVars()
   {
-    $tpl = $this->_createTemplate('{$#hello}{$#again}', 'test.phtml');
-    $view = $this->_createView($tpl);
+      $template_name = 'test.phtml';
+      $tpl = $this->_createTemplate('{$#hello}{$#again}', $template_name);
+      $tpl_no_ext = str_replace(lmbMacroView::EXTENSION, '', $tpl);
 
-    $view->set('hello', 'Hello message!');
-    $view->set('again', 'Hello again!');
+      $view = $this->_createView($tpl_no_ext);
 
-    $this->assertEquals($view->render(), 'Hello message!Hello again!');
+      $view->set('hello', 'Hello message!');
+      $view->set('again', 'Hello again!');
+
+      $this->assertEquals('Hello message!Hello again!', $view->render());
+
+      $view = $this->_createView($tpl);
+
+      $view->set('hello', 'Hello message!');
+      $view->set('again', 'Hello again!');
+
+      $this->assertEquals('Hello message!Hello again!', $view->render());
   }
   
   function testRenderForms()

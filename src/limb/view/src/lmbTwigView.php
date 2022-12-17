@@ -28,7 +28,7 @@ class lmbTwigView extends lmbView
 
   function __construct($template_name, $vars = array())
   {
-    $pos = strrpos($template_name, '.');
+    $pos = strrpos($template_name, self::EXTENSION);
     if($pos === false)
     {
       $template_name .= self::EXTENSION;

@@ -18,6 +18,8 @@ use limb\core\src\exception\lmbException;
  */
 class lmbBlitzView extends lmbView
 {
+  const EXTENSION = '.bhtml';
+
   private $templateInstance;
 
   static function locateTemplateByAlias($alias)
