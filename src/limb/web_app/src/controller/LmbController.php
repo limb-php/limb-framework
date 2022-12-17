@@ -402,9 +402,9 @@ class LmbController
 
   function findTemplateByAlias($template_format)
   {
-    foreach($this->toolkit->getSupportedViewExtensions() as $ext)
+    foreach($this->toolkit->getSupportedViewTypes() as $ext => $view_class)
     {
-      if($template_path = $this->toolkit->locateTemplateByAlias($template_format . $ext))
+      if($template_path = $this->toolkit->locateTemplateByAlias($template_format . $ext, $view_class))
       {
         return $template_path;
       }

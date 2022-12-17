@@ -15,6 +15,8 @@ use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
 use limb\macro\src\lmbMacroTemplateLocator;
 use limb\macro\src\lmbMacroConfig;
+use limb\view\src\lmbMacroView;
+use limb\view\src\lmbTwigView;
 
 /**
  * class lmbViewTools.
@@ -25,8 +27,8 @@ use limb\macro\src\lmbMacroConfig;
 class lmbViewTools extends lmbAbstractTools
 {
   protected $view_types = array(
-      '.phtml' => 'limb\view\src\lmbMacroView',
-      '.twig' => 'limb\view\src\lmbTwigView'
+      '.phtml' => lmbMacroView::class,
+      '.twig' => lmbTwigView::class
   );
   protected $macro_config;
   protected $macro_locator;
