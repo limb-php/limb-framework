@@ -151,7 +151,7 @@ class LmbController
       if( $this->name )
           return $this->name;
 
-      return $this->name = $this->name_prefix . $this->_guessName();
+      return $this->name = ($this->name_prefix ? $this->name_prefix . '.' : '') . $this->_guessName();
   }
 
     protected function _guessName()
@@ -391,7 +391,7 @@ class LmbController
       if( isset($this->action_template_map[$controller_name]) && isset($this->action_template_map[$controller_name][$action]) )
           return $this->action_template_map[$controller_name][$action];
 
-      $template_format = $this->getName() . '/' . $action;
+      $template_format = str_replace('.', DIRECTORY_SEPARATOR,  $this->getName() . '.' . $action);
 
       $template_path = $this->findTemplateByAlias($template_format);
       $this->action_template_map[$controller_name][$action] = $template_path;
