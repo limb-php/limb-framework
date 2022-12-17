@@ -38,6 +38,8 @@ class LmbController
    */
   protected $mixed;
 
+  protected $name_prefix = '';
+
   /**
    * @var string name of the controller
    */
@@ -140,23 +142,28 @@ class LmbController
     return $this->current_action;
   }
 
-  protected function _guessName()
-  {
-    $refController = new \ReflectionClass($this);
-    $ctrlClassName = $refController->getShortName();
-
-    $pos = strpos($ctrlClassName, 'Controller');
-    return lmbString::under_scores(substr($ctrlClassName, 0, $pos));
-  }
-
   /**
    *  Returns {@link $name}
    *  @return string
    */
   function getName()
   {
-    return $this->name;
+      if( $this->name )
+          return $this->name;
+
+      return $this->name = $this->name_prefix . $this->_guessName();
   }
+
+    protected function _guessName()
+    {
+        $refController = new \ReflectionClass($this);
+        $ctrlClassName = $refController->getShortName();
+
+        if($pos = strpos($ctrlClassName, 'Controller'))
+            $ctrlClassName = substr($ctrlClassName, 0, $pos);
+
+        return lmbString::under_scores($ctrlClassName);
+    }
 
   function getView()
   {
