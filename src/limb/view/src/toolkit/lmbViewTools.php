@@ -12,12 +12,9 @@ use limb\config\src\toolkit\lmbConfTools;
 use limb\fs\src\toolkit\lmbFsTools;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\toolkit\src\lmbToolkit;
-use limb\core\src\lmbEnv;
 use limb\core\src\exception\lmbException;
 use limb\macro\src\lmbMacroTemplateLocator;
 use limb\macro\src\lmbMacroConfig;
-
-lmbEnv::setor('LIMB_SUPPORTED_VIEW_TYPES', '.phtml=limb\view\src\lmbMacroView;.twig=limb\view\src\lmbTwigView');
 
 /**
  * class lmbViewTools.
@@ -27,22 +24,13 @@ lmbEnv::setor('LIMB_SUPPORTED_VIEW_TYPES', '.phtml=limb\view\src\lmbMacroView;.t
  */
 class lmbViewTools extends lmbAbstractTools
 {
-  protected $view_types = array();
+  protected $view_types = array(
+      '.phtml' => 'limb\view\src\lmbMacroView',
+      '.twig' => 'limb\view\src\lmbTwigView'
+  );
   protected $macro_config;
   protected $macro_locator;
   protected $twig_config;
-
-  function __construct()
-  {
-    parent::__construct();
-
-    $items = explode(';', lmbEnv::get('LIMB_SUPPORTED_VIEW_TYPES'));
-    foreach($items as $item)
-    {
-      list($ext, $class) = explode('=', $item);
-      $this->view_types[$ext] = $class;
-    }
-  }
 
   static function getRequiredTools()
   {
@@ -67,11 +55,12 @@ class lmbViewTools extends lmbAbstractTools
     return array_keys($this->view_types);
   }
 
-  function locateTemplateByAlias($alias)
+  function locateTemplateByAlias($alias, $view_class = null)
   {
-    $class = $this->_findViewClassByTemplate($alias);
+      if( !$view_class )
+          $view_class = $this->_findViewClassByTemplate($alias);
 
-    return call_user_func(array($class, 'locateTemplateByAlias'), $alias);
+      return call_user_func(array($view_class, 'locateTemplateByAlias'), $alias);
   }
 
   function createViewByTemplate($template_name, $vars = array())

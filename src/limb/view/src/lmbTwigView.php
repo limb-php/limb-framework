@@ -22,6 +22,8 @@ use limb\twig\src\lmbTwigExtension;
  */
 class lmbTwigView extends lmbView
 {
+  const EXTENSION = '.twig';
+
   private $templateInstance;
 
   function __construct($template_name, $vars = array())
@@ -29,7 +31,7 @@ class lmbTwigView extends lmbView
     $pos = strrpos($template_name, '.');
     if($pos === false)
     {
-      $template_name .= '.twig';
+      $template_name .= self::EXTENSION;
     }
 
     parent::__construct($template_name, $vars);

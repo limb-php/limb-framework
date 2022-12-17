@@ -20,6 +20,8 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbMacroView extends lmbView
 {
+  const EXTENSION = '.phtml';
+
   protected $macro_template;
 
   function __construct($template_name, $vars = array())
@@ -27,7 +29,7 @@ class lmbMacroView extends lmbView
     $pos = strrpos($template_name, '.');
     if($pos === false)
     {
-      $template_name .= '.phtml';
+      $template_name .= self::EXTENSION;
     }
 
     parent::__construct($template_name, $vars);
