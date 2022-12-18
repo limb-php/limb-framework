@@ -66,6 +66,7 @@ EOD;
     $content = <<<EOD
 <?php
 \$conf['foo'] = 10;
+\$conf['acme'] = 3;
 EOD;
     $this->_createConfig('conf.override.php', $content);
 
@@ -73,6 +74,7 @@ EOD;
 
     $this->assertEquals(10, $config->get('foo'));
     $this->assertEquals(2, $config->get('bar'));
+    $this->assertEquals(3, $config->get('acme'));
   }
 
   function testImplementsIterator()
