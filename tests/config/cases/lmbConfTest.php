@@ -19,12 +19,23 @@ require_once '.setup.php';
 
 class lmbConfTest extends TestCase
 {
-  protected function _getConfigPath($config_name)
-  {
-    return lmb_var_dir().'/configs/'.$config_name;
-  }
+    protected function _getConfigPath($config_name)
+    {
+        return lmb_var_dir() . '/configs/' . $config_name;
+    }
 
-  function _createConfig($name = 'conf.php', $content = false)
+    function setUp(): void
+    {
+        $this->_createConfig('conf.php');
+    }
+
+    function tearDown(): void
+    {
+        lmbFs::rm($this->_getConfigPath('conf.php'));
+        lmbFs::rm($this->_getConfigPath('conf.override.php'));
+    }
+
+  function _createConfig($name, $content = false)
   {
     if(!$content)
     {
@@ -35,40 +46,46 @@ class lmbConfTest extends TestCase
 EOD;
     }
     lmbFs::safeWrite($this->_getConfigPath($name), $content);
-    return new lmbConf($this->_getConfigPath($name));
   }
+
+    function _getConfig($name)
+    {
+        return new lmbConf($this->_getConfigPath($name));
+    }
 
   function testGet()
   {
-    $conf = $this->_createConfig();
-    $this->assertEquals($conf->get('foo'), 1);
-    $this->assertEquals($conf->get('bar'), 2);
+    $conf = $this->_getConfig('conf.php');
+
+    $this->assertEquals(1, $conf->get('foo'));
+    $this->assertEquals(2, $conf->get('bar'));
   }
 
   function testOverride()
   {
     $content = <<<EOD
 <?php
-\$conf['foo'] = 1;
+\$conf['foo'] = 10;
 EOD;
     $this->_createConfig('conf.override.php', $content);
-    $config = $this->_createConfig('conf.php');
 
-    $this->assertEquals($config->get('foo'), 1);
-    $this->assertEquals($config->get('bar'), 2);
+    $config = $this->_getConfig('conf.php');
+
+    $this->assertEquals(10, $config->get('foo'));
+    $this->assertEquals(2, $config->get('bar'));
   }
 
   function testImplementsIterator()
   {
-   $conf = $this->_createConfig();
+   $conf = $this->_getConfig('conf.php');
    $result = array();
    foreach ($conf as $key => $value)
      $result[$key] = $value;
 
-   $this->assertEquals($result, array(
+   $this->assertEquals(array(
      'foo' => 1,
      'bar' => 2
-   ));
+   ), $result);
   }
 
   function testGetNotExistedFile()
@@ -86,7 +103,7 @@ EOD;
 
   function testGetNotExistedOption()
   {
-    $conf = $this->_createConfig();
+    $conf = $this->_getConfig('conf.php');
     try
     {
       $conf->get('some_not_existed_option');
@@ -100,10 +117,10 @@ EOD;
 
   function testGetWithoutOptionName()
   {
-    $conf = $this->_createConfig();
+    $conf = $this->_getConfig('conf.php');
     try
     {
-      $this->assertEquals($conf->get(''), 1);
+      $this->assertEquals(1, $conf->get(''));
       $this->fail();
     }
     catch(lmbInvalidArgumentException $e)
@@ -111,5 +128,4 @@ EOD;
         $this->assertTrue(true);
     }
   }
-
 }

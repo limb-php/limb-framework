@@ -18,7 +18,7 @@ use limb\core\src\exception\lmbInvalidArgumentException;
  * class lmbConf.
  *
  * @package config
- * @version $Id: lmbConf.class.php 8038 2010-01-19 20:19:00Z korchasa $
+ * @version $Id: lmbConf.php 8038 2010-01-19 20:19:00Z
  */
 class lmbConf extends lmbObject
 {
@@ -30,10 +30,13 @@ class lmbConf extends lmbObject
 
     $conf = $this->_attachConfFile($file);
 
-    if($override_file = $this->_getOverrideFile($file))
-       $conf = $this->_attachConfFile($override_file, $conf);
+    foreach(['.override'] as $ending) {
+        if ($override_file = $this->_getOverrideFile($file, $ending)) {
+            $conf = $this->_attachConfFile($override_file, $conf);
+        }
+    }
 
-    parent :: __construct($conf);
+    parent::__construct($conf);
   }
 
   protected function _attachConfFile($file, $existed_conf = array())
@@ -45,14 +48,15 @@ class lmbConf extends lmbObject
     include($file);
 
     if(!is_array($conf))
-      throw new lmbException("Config must be a array", array('file' => $file, 'content' => $conf));
+      throw new lmbException("Config must be an array", array('file' => $file, 'content' => $conf));
+
     return $conf;
   }
 
-  protected function _getOverrideFile($file_path)
+  protected function _getOverrideFile($file_path, $ending = '.override')
   {
     $file_name = substr($file_path, 0, strpos($file_path, '.php'));
-    $override_file_name = $file_name . '.override.php';
+    $override_file_name = $file_name . $ending . '.php';
 
     if(file_exists($override_file_name))
       return $override_file_name;
