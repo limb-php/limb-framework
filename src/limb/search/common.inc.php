@@ -9,7 +9,7 @@
 
 /**
  * @package search
- * @version $Id: common.inc.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: common.inc.php 7686 2009-03-04 19:57:12Z
  */
 
 use limb\core\src\lmbEnv;

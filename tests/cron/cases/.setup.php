@@ -1,9 +1,9 @@
 <?php
 require_once(dirname(__FILE__) . '/common.inc.php');
+require(dirname(__FILE__) . '/../../dbal/cases/init.inc.php');
 
 use limb\core\src\lmbEnv;
 use limb\dbal\src\lmbDbDump;
-use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;
 
 lmb_tests_init_var_dir(dirname(__FILE__) . '/../../../var/cron');
@@ -16,9 +16,12 @@ $_ENV['MAX_ID_VALUE'] = 2147483648;
 
 $_SERVER['REQUEST_URI'] = '/test.php';
 
-$type = lmbToolkit::instance()->getDefaultDbConnection()->getType();
-$this->dump = new lmbDbDump(dirname(__FILE__) . '/../fixture/init_tests.' . $type);
-$this->dump->load();
+lmb_tests_init_db_dsn();
 
-lmbFs::rm(lmbEnv::get('LIMB_VAR_DIR'));
-lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR'));
+lmb_tests_setup_db(dirname(__FILE__) . '/.fixture/init_tests.');
+
+/*$type = lmbToolkit::instance()->getDefaultDbConnection()->getType();
+
+$dump = new lmbDbDump(dirname(__FILE__) . '/../fixture/init_tests.' . $type);
+$dump->load();
+*/

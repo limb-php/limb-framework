@@ -9,7 +9,7 @@
 
 /**
  * @package core
- * @version $Id: common.inc.php 8127 2010-02-10 10:40:35Z conf $
+ * @version $Id: common.inc.php 8127 2010-02-10 10:40:35Z
  */
 
 use limb\core\src\lmbEnv;

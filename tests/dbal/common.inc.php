@@ -10,74 +10,70 @@
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 
-class ConnectionTestStub
-{
-  function quoteIdentifier($id)
-  {
-    return "'$id'";//let's keep tests clean
-  }
-}
-
-function loadTestingDbDump($dump_path)
-{
-  if(!file_exists($dump_path))
-    die('"' . $dump_path . '" sql dump file not found!');
-
-  $tables = array();
-  $sql_array = file($dump_path);
-
-  $toolkit = lmbToolkit::instance();
-  $conn = $toolkit->getDefaultDbConnection();
-
-  foreach($sql_array as $sql)
-  {
-    if(!preg_match("|insert\s+?into\s+?([^\s]+)|i", $sql, $matches))
-      continue;
-
-    if(isset($tables[$matches[1]]))
-      continue;
-
-    $tables[$matches[1]] = $matches[1];
-
-    $stmt = $conn->newStatement('DELETE FROM '. $matches[1]);
-    $stmt->execute();
-  }
-
-  $GLOBALS['testing_db_tables'] = $tables;
-
-  foreach($sql_array as $sql)
-  {
-    if(trim($sql))
+if (!function_exists('loadTestingDbDump')) {
+    function loadTestingDbDump($dump_path)
     {
-      $stmt = $conn->newStatement($sql);
-      $stmt->execute();
+        if (!file_exists($dump_path))
+            die('"' . $dump_path . '" sql dump file not found!');
+
+        $tables = array();
+        $sql_array = file($dump_path);
+
+        $toolkit = lmbToolkit::instance();
+        $conn = $toolkit->getDefaultDbConnection();
+
+        foreach ($sql_array as $sql) {
+            if (!preg_match("|insert\s+?into\s+?([^\s]+)|i", $sql, $matches))
+                continue;
+
+            if (isset($tables[$matches[1]]))
+                continue;
+
+            $tables[$matches[1]] = $matches[1];
+
+            $stmt = $conn->newStatement('DELETE FROM ' . $matches[1]);
+            $stmt->execute();
+        }
+
+        $GLOBALS['testing_db_tables'] = $tables;
+
+        foreach ($sql_array as $sql) {
+            if (trim($sql)) {
+                $stmt = $conn->newStatement($sql);
+                $stmt->execute();
+            }
+        }
     }
-  }
 }
 
-function clearTestingDbTables()
-{
-  if(!isset($GLOBALS['testing_db_tables']))
-    return;
 
-  $toolkit = lmbToolkit :: instance();
-  $conn = $toolkit->getDefaultDbConnection();
+if (!function_exists('clearTestingDbTables')) {
+    function clearTestingDbTables()
+    {
+        if (!isset($GLOBALS['testing_db_tables']))
+            return;
 
-  foreach($GLOBALS['testing_db_tables'] as $table)
-  {
-    $stmt = $conn->newStatement('DELETE FROM '. $table);
-    $stmt->execute();
-  }
+        $toolkit = lmbToolkit:: instance();
+        $conn = $toolkit->getDefaultDbConnection();
 
-  $GLOBALS['testing_db_tables'] = array();
+        foreach ($GLOBALS['testing_db_tables'] as $table) {
+            $stmt = $conn->newStatement('DELETE FROM ' . $table);
+            $stmt->execute();
+        }
+
+        $GLOBALS['testing_db_tables'] = array();
+    }
 }
 
-function parseTestingCriteria(lmbSQLCriteria $criteria)
-{
-  $str = '';
-  $criteria->appendStatementTo($str, $values);
-  if($values)
-    return strtr($str, $values);
-  else
-    return $str;
+
+if (!function_exists('parseTestingCriteria')) {
+    function parseTestingCriteria(lmbSQLCriteria $criteria)
+    {
+        $str = '';
+        $criteria->appendStatementTo($str, $values);
+        if ($values)
+            return strtr($str, $values);
+        else
+            return $str;
+    }
 }

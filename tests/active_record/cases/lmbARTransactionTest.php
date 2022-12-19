@@ -32,7 +32,7 @@ class lmbARTransactionTest extends lmbARBaseTestCase
 
     $obj = new TestOneTableObjectFailing();
     $obj->setContent('hey');
-    $obj->fail = new Exception('whatever');
+    $obj->fail = new \Exception('whatever');
 
     $this->assertFalse($obj->trySave());
 
@@ -41,4 +41,3 @@ class lmbARTransactionTest extends lmbARBaseTestCase
     $this->assertEquals($this->db->count('test_one_table_object'), 0);
   }
 }
-

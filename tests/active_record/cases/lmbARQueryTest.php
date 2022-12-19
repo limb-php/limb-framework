@@ -8,6 +8,10 @@
  */
 namespace tests\active_record\cases;
 
+use limb\active_record\src\lmbARException;
+use limb\active_record\src\lmbARQuery;
+use limb\dbal\src\criteria\lmbSQLCriteria;
+
 class lmbARQueryTest extends lmbARBaseTestCase
 {
   protected $tables_to_cleanup = array('test_one_table_object',
@@ -816,5 +820,3 @@ class lmbARQueryTest extends lmbARBaseTestCase
   	$this->assertEquals($arr[1]->getTitle(), $lecture3->getTitle());
   }
 }
-
-

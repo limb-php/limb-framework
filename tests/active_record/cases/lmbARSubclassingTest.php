@@ -8,6 +8,10 @@
  */
 namespace tests\active_record\cases;
 
+use limb\active_record\src\lmbActiveRecord;
+use limb\active_record\src\lmbARException;
+use limb\dbal\src\criteria\lmbSQLCriteria;
+
 class TestOneTableTypedObject extends lmbActiveRecord
 {
   protected $_db_table_name = 'test_one_table_typed_object';
@@ -190,5 +194,3 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     $this->assertIsA($lectures->at(0), 'BarFooLectureForTest');
   }
 }
-
-

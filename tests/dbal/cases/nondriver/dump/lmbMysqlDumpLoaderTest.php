@@ -14,10 +14,10 @@ use limb\toolkit\src\lmbToolkit;
 
 class lmbMysqlDumpLoaderTest extends lmbSQLDumpLoaderTestBase
 {
-  function skip()
+  function setUp(): void
   {
-    $this->skipIf(!lmbToolkit::instance()->getDefaultDbConnection() instanceof lmbMysqlConnection,
-                  "lmbMysqlDumpLoader tests skipped, mysql connection required");
+      if( !is_a(lmbToolkit::instance()->getDefaultDbConnection(), lmbMysqlConnection::class) )
+        $this->markTestSkipped("lmbMysqlDumpLoader tests skipped, mysql connection required");
   }
 
   function _createLoader($file=null)

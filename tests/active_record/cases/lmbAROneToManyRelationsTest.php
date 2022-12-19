@@ -13,6 +13,7 @@ use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARNotFoundException;
 use limb\active_record\src\lmbARException;
 use limb\core\src\exception\lmbException;
+use limb\validation\src\lmbErrorList;
 
 class LecturesForTestCollectionStub extends lmbAROneToManyCollection{}
 
@@ -596,4 +597,3 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     
   }
 }
-

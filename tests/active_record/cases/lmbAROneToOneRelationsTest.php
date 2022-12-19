@@ -8,6 +8,11 @@
  */
 namespace tests\active_record\cases;
 
+use limb\active_record\src\lmbActiveRecord;
+use limb\active_record\src\lmbARNotFoundException;
+use limb\validation\src\exception\lmbValidationException;
+use limb\validation\src\lmbValidator;
+
 class PersonForTestNoCascadeDelete extends lmbActiveRecord
 {
   protected $_db_table_name = 'person_for_test';
@@ -396,5 +401,3 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $this->assertEquals($person2->getSocialSecurity()->getCode(), $number->getCode());
   }
 }
-
-

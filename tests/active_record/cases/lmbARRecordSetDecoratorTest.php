@@ -9,6 +9,9 @@
 namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbARRecordSetDecorator;
+use limb\core\src\lmbCollection;
+use limb\dbal\src\lmbSimpleDb;
+use limb\toolkit\src\lmbToolkit;
 
 class lmbARRecordSetDecoratorTest extends lmbARBaseTestCase
 {
@@ -72,4 +75,3 @@ class lmbARRecordSetDecoratorTest extends lmbARBaseTestCase
     return $course;
   }
 }
-

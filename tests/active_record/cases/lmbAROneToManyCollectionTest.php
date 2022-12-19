@@ -13,8 +13,6 @@ use limb\active_record\src\lmbAROneToManyCollection;
 use limb\core\src\exception\lmbException;
 use limb\core\src\lmbCollectionDecorator;
 
-Mock::generate('LectureForTest', 'MockLectureForTest');
-
 class lmbARTestingDSDecorator extends lmbCollectionDecorator
 {
   protected $value;
@@ -59,14 +57,15 @@ class LectureForTestStub extends LectureForTest
 class SpecialCourseForTest extends CourseForTest
 {
   protected $_has_many = array('lectures' => array('field' => 'course_id',
-                                                   'class' => 'LectureForTest',
+                                                   'class' => LectureForTest::class,
                                                    'sort_params' => array('id' => 'DESC')));
 }
 
 class VerySpecialCourseForTest extends CourseForTest
 {
   protected $_has_many = array('lectures' => array('field' => 'course_id',
-                                                   'class' => 'SpecialLectureForTest'));
+                                                   'class' => SpecialLectureForTest::class
+  ));
 }
 
 class SpecialLectureForTest extends LectureForTest
@@ -344,7 +343,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $collection = new lmbAROneToManyCollection('lectures', $course);
     $collection->removeAll();
 
-    $course2 = lmbActiveRecord :: findById(CourseForTest::class, $course->getId());
+    $course2 = lmbActiveRecord::findById(CourseForTest::class, $course->getId());
 
     $collection = new lmbAROneToManyCollection('lectures', $course2);
     $this->assertEquals(sizeof($collection->getArray()), 0);

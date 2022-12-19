@@ -9,5 +9,5 @@
 
 /**
  * @package net
- * @version $Id: common.inc.php 8041 2010-01-19 20:49:36Z korchasa $
+ * @version $Id: common.inc.php 8041 2010-01-19 20:49:36Z
  */

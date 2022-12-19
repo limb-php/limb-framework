@@ -42,7 +42,7 @@ EOD;
     $this->_dbCleanUp();
   }
 
-  function tearDown()
+  function tearDown(): void
   {
     unlink($this->file_path);
     $this->_dbCleanUp();

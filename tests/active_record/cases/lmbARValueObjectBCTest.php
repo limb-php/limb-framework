@@ -10,6 +10,8 @@ namespace tests\active_record\cases;
 
 // This test ensures that old value object functionality is still supported.
 
+use limb\active_record\src\lmbActiveRecord;
+
 class TestingValueObject
 {
   var $value;
@@ -203,5 +205,3 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
     $this->assertIsA($lesson->getNotRequiredDate(), 'TestingValueObject');
   }
 }
-
-

@@ -17,7 +17,8 @@ class lmbBulkInsertQueryTest extends lmbQueryBaseTestCase
   function skip()
   {
     $current_connection = lmbToolkit::instance()->getDefaultDbConnection();
-    $this->skipIf(!lmbBulkInsertQuery::isSupportedByDbConnection($current_connection));
+    if(!lmbBulkInsertQuery::isSupportedByDbConnection($current_connection))
+        $this->markTestSkipped();
   }
 
   function testInsert()

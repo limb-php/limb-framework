@@ -8,6 +8,9 @@
  */
 namespace tests\active_record\cases;
 
+use limb\active_record\src\lmbActiveRecord;
+use PHPUnit\Framework\TestCase;
+
 class TestOneTableObjectWithRelationsByMethods extends lmbActiveRecord
 {
   protected $_db_table_name = 'test_one_table_object';
@@ -89,7 +92,7 @@ class lmbARRelationsDefinitionMethodsTest extends TestCase
 {
   protected $object;
 
-  function setUp()
+  function setUp(): void
   {
     $this->object = new TestOneTableObjectWithRelationsByMethods();
     $this->relations = $this->object->relations;
@@ -131,5 +134,3 @@ class lmbARRelationsDefinitionMethodsTest extends TestCase
     $this->assertEquals($this->object->getRelationInfo('other_value_object'), $this->relations['other_value_object']);
   }
 }
-
-
