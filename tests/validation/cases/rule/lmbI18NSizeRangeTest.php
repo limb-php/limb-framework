@@ -64,7 +64,7 @@ class lmbI18NSizeRangeTest extends lmbValidationRuleTestCase
     $this->error_list
         ->expects($this->once())
         ->method('addError')
-        ->with(lmb_i18n('{Field} must be less than {max} and greater than {min} characters.', 'validation'),
+        ->with(lmb_i18n('{Field} must be less than {max} characters.', 'validation'),
                                         array('Field' => 'testfield'),
                                         array('min' => null, 'max' => 3));
 

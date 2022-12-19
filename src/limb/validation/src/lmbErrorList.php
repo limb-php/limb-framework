@@ -12,7 +12,7 @@ use limb\core\src\lmbCollection;
 
 /**
  * Holds a list of validation errors
- * @see limb\validation\src\lmbErrorMessage
+ * @see \limb\validation\src\lmbErrorMessage
  * @package validation
  * @version $Id: lmbErrorList.php 7486 2009-01-26 19:13:20Z
  */

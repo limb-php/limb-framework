@@ -19,122 +19,123 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
   {
     $rule = new lmbEmailRule('testfield');
 
-    $dataspace = new lmbSet();
-    $dataspace->set('testfield', 'billgates@microsoft.com');
+    $data = new lmbSet();
+    $data->set('testfield', 'billgates@microsoft.com');
 
     $this->error_list
         ->expects($this->never())
         ->method('addError');
 
-    $rule->validate($dataspace, $this->error_list);
+    $rule->validate($data, $this->error_list);
   }
 
   function testEmailRuleNoAt()
   {
     $rule = new lmbEmailRule('testfield');
 
-    $dataspace = new lmbSet();
-    $dataspace->set('testfield', 'billgatesmicrosoft.com');
+    $data = new lmbSet();
+    $data->set('testfield', 'billgatesmicrosoft.com');
 
     $message = '{Field} must contain a @ character.';
     if( function_exists('filter_var') )
         $message = 'Invalid {Field}.';
+    $message = lmb_i18n($message, 'validation');
 
     $this->error_list
         ->expects($this->once())
         ->method('addError')
-        ->with(lmb_i18n($message, 'validation'),
-                                        array('Field'=>'testfield'),
-                                        array()
+        ->with($message,
+               array('Field' => 'testfield'),
+               array()
         );
 
-    $rule->validate($dataspace, $this->error_list);
+    $rule->validate($data, $this->error_list);
   }
 
   function testEmailRuleInvalidUser()
   {
     $rule = new lmbEmailRule('testfield');
 
-    $dataspace = new lmbSet();
-    $dataspace->set('testfield', 'bill(y!)gates@microsoft.com');
+    $data = new lmbSet();
+    $data->set('testfield', 'bill(y!)gates@microsoft.com');
 
     $this->error_list
         ->expects($this->once())
         ->method('addError')
         ->with(lmb_i18n('Invalid {Field}.', 'validation'),
-                                        array('Field'=>'testfield'),
-                                        array()
+               array('Field' => 'testfield'),
+               array()
         );
 
-    $rule->validate($dataspace, $this->error_list);
+    $rule->validate($data, $this->error_list);
   }
 
   function testEmailRuleInvalidDomain()
   {
     $rule = new lmbEmailRule('testfield');
 
-    $dataspace = new lmbSet();
-    $dataspace->set('testfield', 'billgates@micro$oft.com');
+    $data = new lmbSet();
+    $data->set('testfield', 'billgates@micro$oft.com');
 
     $this->error_list
         ->expects($this->once())
         ->method('addError')
         ->with(lmb_i18n('Invalid {Field}.', 'validation'),
-                                        array('Field' => 'testfield'),
-                                        array()
+               array('Field' => 'testfield'),
+               array()
         );
 
-    $rule->validate($dataspace, $this->error_list);
+    $rule->validate($data, $this->error_list);
   }
 
   function testEmailRuleMixedCase()
   {
     $rule = new lmbEmailRule('testfield');
 
-    $dataspace = new lmbSet();
-    $dataspace->set('testfield', 'BillGates@Microsoft.com');
+    $data = new lmbSet();
+    $data->set('testfield', 'BillGates@Microsoft.com');
 
     $this->error_list
         ->expects($this->never())
         ->method('addError');
 
-    $rule->validate($dataspace, $this->error_list);
+    $rule->validate($data, $this->error_list);
   }
 
   function testEmailRuleSpecialChars()
   {
     $rule = new lmbEmailRule('testfield');
 
-    $dataspace = new lmbSet();
-    $dataspace->set('testfield', 'bill_gates.the-boss@microsoft.com');
+    $data = new lmbSet();
+    $data->set('testfield', 'bill_gates.the-boss@microsoft.com');
 
     $this->error_list
         ->expects($this->never())
         ->method('addError');
 
-    $rule->validate($dataspace, $this->error_list);
+    $rule->validate($data, $this->error_list);
   }
 
   function testEmailRuleUnderscoreBeforeAt()
   {
     $rule = new lmbEmailRule('testfield');
 
-    $dataspace = new lmbSet();
-    $dataspace->set('testfield', 'bill_gates_@microsoft.com');
+    $data = new lmbSet();
+    $data->set('testfield', 'bill_gates_@microsoft.com');
 
     $this->error_list
         ->expects($this->never())
         ->method('addError');
 
-    $rule->validate($dataspace, $this->error_list);
+    $rule->validate($data, $this->error_list);
   }
 
   function testEmailRuleDoubleErrorWithCustomMessage()
   {
-    $rule = new lmbEmailRule('testfield', $error="my custom error");
+    $rule = new lmbEmailRule('testfield', $error = "my custom error");
 
-    $dataspace = new lmbSet();
-    $dataspace->set('testfield', 'not@wrong.mail');
+    $data = new lmbSet();
+    $data->set('testfield', 'not@wrong.ma@il');
 
     $this->error_list
         ->expects($this->once())
@@ -145,18 +146,19 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
             array()
         );
 
-    $rule->validate($dataspace, $this->error_list);
+    $rule->validate($data, $this->error_list);
   }
 
   function testEmailDoubleUnderscore() {
   	$rule = new lmbEmailRule('testfield');
-  	$dataspace = new lmbSet();
-  	$dataspace->set('testfield', '__ps__@gmail.com');
+
+  	$data = new lmbSet();
+  	$data->set('testfield', '__ps__@gmail.com');
 
   	$this->error_list
         ->expects($this->never())
         ->method('addError');
 
-  	$rule->validate($dataspace, $this->error_list);
+  	$rule->validate($data, $this->error_list);
   }
 }

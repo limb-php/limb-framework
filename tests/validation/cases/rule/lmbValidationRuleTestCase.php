@@ -17,6 +17,6 @@ abstract class lmbValidationRuleTestCase extends TestCase
 
   function setUp(): void
   {
-    $this->error_list = $this->createMock(lmbErrorList::class);
+      $this->error_list = $this->createMock(lmbErrorList::class);
   }
 }

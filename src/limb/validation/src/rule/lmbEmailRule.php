@@ -19,8 +19,10 @@ class lmbEmailRule extends lmbDomainRule
   {
     if( function_exists('filter_var') )
     {
-      if( !filter_var($value, FILTER_VALIDATE_EMAIL) )
-        $this->error('Invalid {Field}.');
+      if( !filter_var($value, FILTER_VALIDATE_EMAIL) ) {
+          $this->error('Invalid {Field}.');
+          return;
+      }
     }
 
     if (is_integer(strpos($value, '@')))
@@ -37,10 +39,10 @@ class lmbEmailRule extends lmbDomainRule
   {
     if(isset($this->custom_error))
     {  if($this->is_valid)
-        parent::error($message, $values = array(), $i18n_params = array());
+        parent::error($message, $values, $i18n_params);
     }
     else
-      parent::error($message, $values = array(), $i18n_params = array());
+      parent::error($message, $values, $i18n_params);
   }
 
   protected function _checkUser($value)

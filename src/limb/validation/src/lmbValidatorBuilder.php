@@ -172,7 +172,7 @@ class lmbValidatorBuilder
         while (!$class) {
             if (feof($fp)) break;
 
-            $buffer .= fread($fp, 512);
+            $buffer .= fread($fp,  8192);
             $tokens = token_get_all($buffer);
 
             if (strpos($buffer, '{') === false) continue;

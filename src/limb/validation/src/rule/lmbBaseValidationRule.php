@@ -9,6 +9,7 @@
 namespace limb\validation\src\rule;
 
 use limb\net\src\lmbHttpRequest;
+use limb\validation\src\lmbErrorList;
 
 /**
  * A base class for validation rules.
