@@ -266,12 +266,35 @@ class lmbRoutesDispatchTest extends TestCase
     $this->assertEquals($result['action'], 'display');
     $this->assertEquals($result['id'], 'test');
 
-  $result = $routes->dispatch('/blogtest6/test.htm');
+    $result = $routes->dispatch('/blogtest6/test.htm');
 
     $this->assertEquals($result['controller'], 'blog');
     $this->assertEquals($result['action'], 'display');
     $this->assertEquals($result['id'], 'test');
   }
+
+    function testAssignRouteName()
+    {
+        $config = array(
+            array(
+                'name' => 'ControllerAction',
+                'path' => '/:controller/:action',
+                'defaults' => array('action' => 'display')
+            ),
+            'ControllerActionId' => array(
+                'path' => '/:controller/:action/:id',
+                'defaults' => array('action' => 'display')
+            )
+        );
+
+        $routes = new lmbRoutes($config);
+
+        $route = $routes->getRouteByName('ControllerAction');
+        $this->assertEquals('ControllerAction', $route->name);
+
+        $route = $routes->getRouteByName('ControllerActionId');
+        $this->assertEquals('ControllerActionId', $route->name);
+    }
 
   function _processDispatchResult(&$dispatched)
   {

@@ -18,18 +18,30 @@ use limb\core\src\exception\lmbException;
  */
 class lmbRoutes
 {
-  protected $config = array();
+  protected $routes = [];
+
   const NAMED_PARAM_REGEXP = '(?:\/([^\/]+))?';
   const EXTRA_PARAM_REGEXP = '(?:\/(.*))?';
 
   function __construct($config)
   {
-    $this->config = $config;
+      foreach($config as $name => $route_config)
+      {
+          $name = $route_config['name'] ?? $name;
+
+          $this->routes[$name] = new lmbRoute($route_config + ['name' => $name]);
+      }
+  }
+
+  function getRouteByName($route_name)
+  {
+      if( isset($this->routes[$route_name]) )
+          return $this->routes[$route_name];
   }
 
   function dispatch($url)
   {
-    foreach($this->config as $route)
+    foreach($this->routes as $route)
     {
       if(($result = $this->_getResultMatchedParams($route, $url)) === null)
         continue;
@@ -45,14 +57,14 @@ class lmbRoutes
 
   function toUrl($params, $route_name = '')
   {
-    if($route_name && isset($this->config[$route_name]))
+    if($route_name && isset($this->routes[$route_name]))
     {
-      if($path = $this->_makeUrlByRoute($params, $this->config[$route_name]))
+      if($path = $this->_makeUrlByRoute($params, $this->routes[$route_name]))
         return $path;
     }
     elseif(!$route_name)
     {
-      foreach($this->config as $name => $route)
+      foreach($this->routes as $name => $route)
       {
         if($path = $this->_makeUrlByRoute($params, $route))
           return $path;
@@ -63,7 +75,7 @@ class lmbRoutes
 
   protected function _applyDispatchFilter($route, $dispatched)
   {
-    if(!isset($route['dispatch_filter']) && !isset($route['rewriter']))
+    if(!$route['dispatch_filter'] && !$route['rewriter'])
       return $dispatched;
 
     //'rewriter' is going to be obsolete
@@ -78,7 +90,7 @@ class lmbRoutes
 
   protected function _applyUrlFilter($route, $path)
   {
-    if(!isset($route['url_filter']))
+    if(!$route['url_filter'])
       return $path;
 
     $filter = $route['url_filter'];
@@ -95,7 +107,7 @@ class lmbRoutes
     if(($matched_params = $this->_getMatchedParams($route, $url)) === null)
       return null;
 
-    if(isset($route['defaults']))
+    if(!empty($route['defaults']))
       return array_merge($route['defaults'], $matched_params);
     else
       return $matched_params;
@@ -105,7 +117,8 @@ class lmbRoutes
   {
     $named_params = array();
 
-    $regexp = $this->_getRouteRegexp($route['path'], $named_params);
+    $path = ($route['prefix'] ? $route['prefix'] . '/' : '') . $route['path'];
+    $regexp = $this->_getRouteRegexp($path, $named_params);
 
     if(!preg_match($regexp, $url, $matched_params))
       return null;
@@ -194,7 +207,7 @@ class lmbRoutes
 
   function _makeUrlByRoute($params, $route)
   {
-    $path = $route['path'];
+    $path = ($route['prefix'] ? $route['prefix'] . '/' : '') . $route['path'];
 
     if(!$this->_routeParamsMeetRequirements($route, $params))
     {
@@ -211,6 +224,10 @@ class lmbRoutes
       if(strpos($path, ':'.$param_name) === false)
         continue;
 
+      if( $route['prefix'] && $param_name === 'controller' ) {
+        $param_value = str_replace($route['prefix'].'.', '', $param_value);
+      }
+
       $path = preg_replace('/\:'. preg_quote($param_name) .'\:?/', $param_value, $path);
       unset($params[$param_name]);
     }
@@ -218,7 +235,7 @@ class lmbRoutes
     if(count($params))
       return '';
 
-    if(isset($route['defaults']))
+    if(!empty($route['defaults']))
     {
       // we define here required default params for building right url,
       // other params at the end of the path can be omitted.

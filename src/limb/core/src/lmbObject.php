@@ -219,16 +219,19 @@ class lmbObject implements lmbSetInterface
    * Magically maps setter to fine-grained method if it exists, e.g. set('foo', $value) => setFoo($value)
    * @param string property name
    * @param mixed value
+   * @return $this
    */
   function set($property, $value)
   {
-    if (!$property)
-      return;
+    if ($property) {
+        if ($method = $this->_mapPropertyToSetMethod($property)) {
+            $this->$method($value);
+        } else {
+            $this->_setRaw($property, $value);
+        }
+    }
 
-    if($method = $this->_mapPropertyToSetMethod($property))
-      return $this->$method($value);
-
-    $this->_setRaw($property, $value);
+    return $this;
   }
 
   protected function _getRaw($name)
