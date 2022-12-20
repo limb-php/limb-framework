@@ -38,14 +38,14 @@ class FallbackToViewControllerTest extends TestCase
 
   function testSetViewIfFoundAppropriateTemplate()
   {
-    $this->toolkit->setSupportedViewTypes(array('.html' => 'lmbDummyView'));
+    $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
     $this->toolkit->setRequest($request = new lmbHttpRequest('http://localhost/about', 'GET'));
 
     $controller = new FallbackToViewController();
     $controller->setCurrentAction('detail');
 
     $controller->performAction($request);
-    $this->assertTrue($this->toolkit->getView()->getTemplate(), 'about.html');
+    $this->assertEquals('about.html', $this->toolkit->getView()->getTemplate());
   }
 
   function testForwardTo404IfTemplateIsNotFound()

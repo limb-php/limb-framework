@@ -15,6 +15,8 @@ use limb\net\src\lmbHttpResponse;
 use limb\web_app\src\filter\lmbViewRenderingFilter;
 use limb\view\src\lmbView;
 
+require dirname(__FILE__) . '/../../.setup.php';
+
 class lmbViewRenderingFilterTest extends TestCase
 {
   var $toolkit;
@@ -32,8 +34,11 @@ class lmbViewRenderingFilterTest extends TestCase
   function testRenderViewIfResponseEmpty()
   {
     $response = $this->createMock(lmbHttpResponse::class);
-    $response->expects($this->once())->method('isEmpty');
-    $response->setReturnValue('isEmpty', true);
+    $response
+        ->expects($this->once())
+        ->method('isEmpty')
+        ->willReturn(true);
+
     $this->toolkit->setResponse($response);
 
     $view = $this->createMock(lmbView::class);
@@ -41,9 +46,15 @@ class lmbViewRenderingFilterTest extends TestCase
 
     $filter = new lmbViewRenderingFilter();
 
-    $view->expects($this->once())->method('render');
-    $view->setReturnValue('render', 'bar');
-    $response->expects($this->once())->method('write', array('bar'));
+    $view
+        ->expects($this->once())
+        ->method('render')
+        ->willReturn('bar');
+
+    $response
+        ->expects($this->once())
+        ->method('write')
+        ->with('bar');
 
     $chain = $this->createMock(lmbFilterChain::class);
     $chain->expects($this->once())->method('next');
@@ -54,8 +65,11 @@ class lmbViewRenderingFilterTest extends TestCase
   function testDoNotRenderViewIfResponseNotEmpty()
   {
     $response = $this->createMock(lmbHttpResponse::class);
-    $response->expects($this->once())->method('isEmpty');
-    $response->setReturnValue('isEmpty', false);
+    $response
+        ->expects($this->once())
+        ->method('isEmpty')
+        ->willReturn(false);
+
     $this->toolkit->setResponse($response);
 
     $view = $this->createMock(lmbView::class);
@@ -63,11 +77,18 @@ class lmbViewRenderingFilterTest extends TestCase
 
     $filter = new lmbViewRenderingFilter();
 
-    $view->expects($this->never())->method('render');
-    $response->expects($this->never())->method('write');
+    $view
+        ->expects($this->never())
+        ->method('render');
+
+    $response
+        ->expects($this->never())
+        ->method('write');
 
     $chain = $this->createMock(lmbFilterChain::class);
-    $chain->expects($this->once())->method('next');
+    $chain
+        ->expects($this->once())
+        ->method('next');
 
     $filter->run($chain);
   }

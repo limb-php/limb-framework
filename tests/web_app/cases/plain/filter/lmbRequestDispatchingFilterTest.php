@@ -8,18 +8,19 @@
  */
 namespace tests\web_app\cases\plain\filter;
 
+use limb\web_app\src\controller\NotFoundController;
 use PHPUnit\Framework\TestCase;
 use limb\filter_chain\src\lmbFilterChain;
 use limb\web_app\src\filter\lmbRequestDispatchingFilter;
 use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\toolkit\src\lmbMockToolsWrapper;
 use limb\web_app\src\toolkit\lmbWebAppTools;
-use limb\web_app\src\controller\lmbController;
+use limb\web_app\src\controller\LmbController;
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\toolkit\src\lmbToolkit;
 
-class lmbRequestDispatchingTestingController extends lmbController
+class lmbRequestDispatchingTestingController extends LmbController
 {
   function __construct($name)
   {
@@ -32,11 +33,12 @@ class lmbRequestDispatchingTestingController extends lmbController
   }
 }
 
-class RememberRequestParamsController extends lmbController
+class RememberRequestParamsController extends LmbController
 {
   function __construct()
   {
     parent::__construct();
+
     $this->param = $this->request->get('param', null);
   }
 }
@@ -49,7 +51,9 @@ class lmbRequestDispatchingFilterTestTools extends lmbAbstractTools
 
   function __construct($exception_controller_name)
   {
-    $this->exception_controller_name = $exception_controller_name;
+      parent::__construct();
+
+      $this->exception_controller_name = $exception_controller_name;
   }
 
   function setController($controller)
@@ -130,12 +134,14 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
     $this->_setUpMocks($dispatched_params, $controller);
 
-    $not_found_controller = new lmbRequestDispatchingTestingController('404');
+    $not_found_controller = new lmbRequestDispatchingTestingController(NotFoundController::class);
 
-    $this->mock_tools->expectArgumentsAt(1, 'createController', array('404'));
-    $this->mock_tools->setReturnValueAt(1, 'createController', $not_found_controller, array('404'));
+    $this->mock_tools
+        ->method('createController')
+        ->with(NotFoundController::class)
+        ->willReturn($not_found_controller, array('404'));
 
-    $this->filter->setDefaultControllerName('404');
+    $this->filter->setDefaultControllerName(NotFoundController::class);
     $this->filter->run($this->chain);
 
     $this->_assertDispatchedOk($not_found_controller, $not_found_controller->getDefaultAction(), __LINE__);
@@ -143,11 +149,11 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
   function testControllerParamIsEmpty()
   {
-    $this->filter->setDefaultControllerName('404');
+    $this->filter->setDefaultControllerName(NotFoundController::class);
 
     $dispatched_params = array('id' => 150);
 
-    $controller = new lmbRequestDispatchingTestingController('404');
+    $controller = new lmbRequestDispatchingTestingController(NotFoundController::class);
 
     $this->_setUpMocks($dispatched_params, $controller);
 
@@ -158,7 +164,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
   function testNoSuchController()
   {
-    $this->filter->setDefaultControllerName($default_controller_name = '404');
+    $this->filter->setDefaultControllerName($default_controller_name = NotFoundController::class);
 
     $dispatched_params = array('controller' => $exception_controller_name = 'no_such_controller'. time());
 
@@ -167,7 +173,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
     $tools = new lmbRequestDispatchingFilterTestTools($exception_controller_name);
     $tools->setController($controller = new lmbRequestDispatchingTestingController($default_controller_name));
 
-    $this->toolkit = lmbToolkit :: merge($tools);
+    $this->toolkit = lmbToolkit::merge($tools);
 
     $this->filter->run($this->chain);
 
@@ -176,9 +182,11 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
   function testPutOtherParamsToRequest()
   {
-    $dispatched_params = array('controller' => 'SomeController',
-                               'id' => 150,
-                               'extra' => 'bla-bla');
+    $dispatched_params = array(
+        'controller' => 'SomeController',
+        'id' => 150,
+        'extra' => 'bla-bla'
+    );
 
     $controller = new lmbRequestDispatchingTestingController('SomeController');
     $this->_setUpMocks($dispatched_params, $controller);
@@ -187,8 +195,8 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
     $this->_assertDispatchedOk($controller, $controller->getDefaultAction(), __LINE__);
 
-    $this->assertEquals($this->request->get('id'), 150);
-    $this->assertEquals($this->request->get('extra'), 'bla-bla');
+    $this->assertEquals(150, $this->request->get('id'));
+    $this->assertEquals('bla-bla', $this->request->get('extra'));
   }
   
   function testIsRequestAvailableInControllerConstructor() 
@@ -198,7 +206,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
     lmbToolkit::restore();
     lmbToolkit::save();
 
-    $dispatched_params = array('controller' => 'RememberRequestParams',
+    $dispatched_params = array('controller' => RememberRequestParamsController::class,
                                'param' => 150);
 
     $this->_setUpMocks($dispatched_params);
@@ -206,7 +214,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
     $this->filter->run($this->chain);
 
     $controller = $this->toolkit->getDispatchedController();
-    $this->assertEquals($controller->param, $dispatched_params['param']);
+    $this->assertEquals($dispatched_params['param'], $controller->param);
 
     //trick again...
     lmbToolkit::restore();
@@ -224,13 +232,18 @@ class lmbRequestDispatchingFilterTest extends TestCase
   {
     $this->chain->expects($this->once())->method('next');
 
-    $this->dispatcher->expectOnce('dispatch', array($this->request));
-    $this->dispatcher->setReturnValue('dispatch', $dispatched_params);
+    $this->dispatcher
+        ->expects($this->once())
+        ->method('dispatch')
+        ->with($this->request)
+        ->willReturn($dispatched_params);
 
     if($controller)
     {
-      $this->mock_tools->expectArgumentsAt(0, 'createController', array($controller->getName()));
-      $this->mock_tools->setReturnValueAt(0, 'createController', $controller, array($controller->getName()));
+      $this->mock_tools
+          ->method('createController')
+          ->with($controller->getName())
+          ->willReturn($controller, array($controller->getName()));
     }
   }
 

@@ -100,7 +100,7 @@ class lmbFetcherTest extends TestCase
     $fetcher = new TestingFetcher();
     $fetcher->use_dataset = new lmbCollection(array(array('name' => 'John', 'job' => 'Carpenter'),
                                                      array('name' => 'Mike', 'job' => 'Fisher')));
-    $fetcher->addDecorator('TestingDatasetDecorator', array('prefix1' => 'PrefixA_',
+    $fetcher->addDecorator(TestingDatasetDecorator::class, array('prefix1' => 'PrefixA_',
                                                             'prefix2' => '_PrefixB'));
     $dataset = $fetcher->fetch();
 
@@ -115,7 +115,7 @@ class lmbFetcherTest extends TestCase
     $fetcher = new TestingFetcher();
     $fetcher->use_dataset = new lmbCollection(array(array('name' => 'John', 'job' => 'Carpenter'),
                                                      array('name' => 'Mike', 'job' => 'Fisher')));
-    $fetcher->addDecorator('TestingDatasetDecorator');
+    $fetcher->addDecorator(TestingDatasetDecorator::class);
     $fetcher->setOrder('title=ASC,name,last_name=DESC');
 
     $dataset = $fetcher->fetch();
@@ -127,14 +127,14 @@ class lmbFetcherTest extends TestCase
 
   function testExtractOrderPairsFromStringSimpleCase()
   {
-    $order = lmbFetcher :: extractOrderPairsFromString('title=DESC,name=ASC');
+    $order = lmbFetcher::extractOrderPairsFromString('title=DESC,name=ASC');
     $this->assertEquals($order, array('title' => 'DESC',
                                      'name' => 'ASC'));
   }
 
   function testExtractOrderPairsFromStringSimpleRandom()
   {
-    $order = lmbFetcher :: extractOrderPairsFromString('title=rand()');
+    $order = lmbFetcher::extractOrderPairsFromString('title=rand()');
     $this->assertEquals($order, array('title' => 'RAND()'));
   }
 
@@ -142,12 +142,12 @@ class lmbFetcherTest extends TestCase
   {
     try
     {
-      lmbFetcher :: extractOrderPairsFromString('title=error');
+      lmbFetcher::extractOrderPairsFromString('title=error');
       $this->assertTrue(false);
     }
     catch(lmbException $e)
     {
-      $this->assertWantedPattern('/Wrong order type/', $e->getMessage());
+      $this->assertMatchesRegularExpression('/Wrong order type/', $e->getMessage());
     }
   }
 }
