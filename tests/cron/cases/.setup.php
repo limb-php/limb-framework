@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__) . '/common.inc.php');
-require(dirname(__FILE__) . '/../../dbal/cases/init.inc.php');
+require_once(dirname(__FILE__) . '/../../dbal/cases/init.inc.php');
 
 use limb\core\src\lmbEnv;
 use limb\dbal\src\lmbDbDump;

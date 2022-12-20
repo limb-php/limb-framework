@@ -14,6 +14,8 @@ use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
 use limb\view\src\lmbDummyView;
 
+require dirname(__FILE__) . '/../../.setup.php';
+
 class FallbackToViewControllerTest extends TestCase
 {
   protected $toolkit;
@@ -37,12 +39,12 @@ class FallbackToViewControllerTest extends TestCase
   function testSetViewIfFoundAppropriateTemplate()
   {
     $this->toolkit->setSupportedViewTypes(array('.html' => 'lmbDummyView'));
-    $this->toolkit->setRequest(new lmbHttpRequest('http://localhost/about'));
+    $this->toolkit->setRequest($request = new lmbHttpRequest('http://localhost/about', 'GET'));
 
     $controller = new FallbackToViewController();
     $controller->setCurrentAction('detail');
 
-    $controller->performAction();
+    $controller->performAction($request);
     $this->assertTrue($this->toolkit->getView()->getTemplate(), 'about.html');
   }
 
@@ -50,8 +52,10 @@ class FallbackToViewControllerTest extends TestCase
   {
     $view = new lmbDummyView('some_other_template.html');
     $this->toolkit->setView($view);
+    $request = new lmbHttpRequest('http://localhost/about', 'GET');
+
     $controller = new FallbackToViewController();
-    $controller->performAction();
+    $controller->performAction($request);
     $this->assertEquals($this->toolkit->getView()->getTemplate(), $controller->findTemplateByAlias('not_found'));
   }
 }

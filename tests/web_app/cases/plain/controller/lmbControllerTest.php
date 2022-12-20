@@ -14,6 +14,8 @@ use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbSet;
 use limb\validation\src\rule\lmbValidationRuleInterface;
 
+require dirname(__FILE__) . '/../../.setup.php';
+
 class TestingController extends lmbController
 {
   protected $name = 'foo';
