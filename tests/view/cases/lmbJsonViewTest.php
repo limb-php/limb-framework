@@ -8,7 +8,7 @@
 */
 namespace tests\view\cases;
 
-include_once '.setup.php';
+require_once '.setup.php';
 
 use PHPUnit\Framework\TestCase;
 use limb\view\src\lmbJsonView;
@@ -40,8 +40,10 @@ class lmbJsonViewTest extends TestCase
     
   function testRender_bool()
   {            
-    $this->view->set('positive', true);
-    $this->view->set('negative', false);
+    $this->view
+        ->set('positive', true)
+        ->set('negative', false);
+
     $this->_checkValue('{"positive":true,"negative":false}');
   }
   

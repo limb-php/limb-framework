@@ -8,7 +8,7 @@
  */
 namespace tests\view\cases;
 
-include_once '.setup.php';
+require_once '.setup.php';
 
 use PHPUnit\Framework\TestCase;
 use limb\view\src\lmbMacroView;
@@ -31,17 +31,15 @@ class lmbMacroViewTest extends TestCase
       $tpl = $this->_createTemplate('{$#hello}{$#again}', $template_name);
       $tpl_no_ext = str_replace(lmbMacroView::EXTENSION, '', $tpl);
 
-      $view = $this->_createView($tpl_no_ext);
-
-      $view->set('hello', 'Hello message!');
-      $view->set('again', 'Hello again!');
+      $view = $this->_createView($tpl_no_ext)
+          ->set('hello', 'Hello message!')
+          ->set('again', 'Hello again!');
 
       $this->assertEquals('Hello message!Hello again!', $view->render());
 
-      $view = $this->_createView($tpl);
-
-      $view->set('hello', 'Hello message!');
-      $view->set('again', 'Hello again!');
+      $view = $this->_createView($tpl)
+          ->set('hello', 'Hello message!')
+          ->set('again', 'Hello again!');
 
       $this->assertEquals('Hello message!Hello again!', $view->render());
   }

@@ -48,14 +48,18 @@ abstract class lmbView
     return $this->template_name;
   }
 
-  function set($variable_name, $value)
+  function set($variable_name, $value): self
   {
     $this->variables[$variable_name] = $value;
+
+    return $this;
   }
 
-  function setVariables($vars)
+  function setVariables($vars): self
   {
     $this->variables = $vars;
+
+    return $this;
   }
 
   function get($variable_name)
@@ -105,5 +109,4 @@ abstract class lmbView
   {
     return $this->forms_datasources;
   }
-
 }
