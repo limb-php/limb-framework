@@ -223,9 +223,9 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
   protected function _assertDispatchedOk($controller, $action, $line)
   {
-    $dispatched_request = $this->toolkit->getDispatchedController();
-    $this->assertEquals($dispatched_request->getName(), $controller->getName(), '%s ' . $line);
-    $this->assertEquals($dispatched_request->getCurrentAction(), $action, '%s ' . $line);
+    $dispatched_controller = $this->toolkit->getDispatchedController();
+    $this->assertEquals($dispatched_controller->getName(), $controller->getName(), '%s ' . $line);
+    $this->assertEquals($dispatched_controller->getCurrentAction(), $action, '%s ' . $line);
   }
 
   protected function _setUpMocks($dispatched_params, $controller = null)

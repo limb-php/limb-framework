@@ -11,16 +11,16 @@ namespace limb\web_app\src\filter;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
-use limb\view\src\lmbStringView;
+use limb\net\src\lmbHttpResponse;
 use limb\view\src\lmbView;
 
 /**
- * class lmbActionPerformingFilter.
+ * class lmbActionPerformingAndViewRenderingFilter.
  *
  * @package web_app
- * @version $Id: lmbActionPerformingFilter.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: lmbActionPerformingAndViewRenderingFilter.php 7486 2009-01-26 19:13:20Z
  */
-class lmbActionPerformingFilter implements lmbInterceptingFilterInterface
+class lmbActionPerformingAndViewRenderingFilter implements lmbInterceptingFilterInterface
 {
   function run($filter_chain, $request = null, $response = null)
   {
@@ -29,13 +29,29 @@ class lmbActionPerformingFilter implements lmbInterceptingFilterInterface
         throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
 
       $result = $dispatched->performAction($request);
+
+      $response = $response ?? lmbToolkit::instance()->getResponse();
+
       if( $result ) {
-          if( is_a($result, lmbView::class) ) {
-              lmbToolkit::instance()->setView($result);
+          if( is_a($result, lmbHttpResponse::class) ) {
+              $response = $result;
           }
-          else {
-              lmbToolkit::instance()->setView(new lmbStringView($result));
+          elseif($response->isEmpty()) {
+              if (is_a($result, lmbView::class)) {
+                  $result = $result->render();
+              }
+
+              $response->write($result);
           }
+      }
+      elseif(is_object($view = lmbToolkit::instance()->getView())){
+          if($response->isEmpty()) {
+              $response->write( $view->render() );
+          }
+      }
+      else
+      {
+          throw new lmbException('Empty controller response');
       }
 
       $response = $filter_chain->next($request, $response);

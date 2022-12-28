@@ -9,7 +9,6 @@
 namespace limb\web_app\src\controller;
 
 use limb\toolkit\src\lmbToolkit;
-use limb\core\src\lmbMixable;
 use limb\fs\src\lmbFs;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;
@@ -28,16 +27,6 @@ lmbEnv::setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
  */
 class LmbController
 {
-  /**
-   * @var array array of mixins
-   */
-  protected $mixins = array();
-
-  /**
-   * @var object lmbMixable instance
-   */
-  protected $mixed;
-
   protected $name_prefix = '';
 
   /**
@@ -47,13 +36,14 @@ class LmbController
 
   /**
    * @var string default action that will be performed by performAction() if no current_action was specified
+   * @deprecated
    */
   protected $default_action = 'display';
 
   /**
    * @var string
    */
-  protected $current_action;
+  protected $current_action = 'display';
 
   /**
    * @var array a pairs of action to template cached map
@@ -94,7 +84,7 @@ class LmbController
    *
    * @var array
    */
-  protected $error_list;
+  protected $error_list = [];
   /**
    *
    * @var lmbValidator
@@ -108,19 +98,14 @@ class LmbController
 
   function __construct()
   {
-    $this->mixed = new lmbMixable();
-    $this->mixed->setOwner($this);
-    foreach($this->mixins as $mixin)
-      $this->mixed->mixin($mixin);
-
     if(!$this->name)
      $this->name = $this->_guessName();
 
     $this->toolkit = lmbToolkit::instance();
-
     $this->request = $this->toolkit->getRequest();
     $this->response = $this->toolkit->getResponse();
     $this->session = $this->toolkit->getSession();
+
     $this->error_list = new lmbErrorList();
     $this->validator = new lmbValidator($this->error_list);
 
@@ -196,29 +181,27 @@ class LmbController
           return false;
       }
 
-      $template_path = $this->findTemplateForAction($this->current_action);
+      $template_path = $this->findTemplateForAction($this->getCurrentAction());
       if($template_path)
-          $this->setTemplate($template_path); // Set View by default. Can be overrided in action method
-
-      $result = null;
+          $this->setTemplate($template_path); // Set View by default. Can be overridden in action method
 
       if(method_exists($this, $method = $this->_mapCurrentActionToMethod())) {
-          $result = $this->$method($request);
+          $response = $this->$method($request);
       }
       elseif(!$template_path) {
           throw new lmbException('No method defined in controller "' .
-              get_class($this) . '" for action "' . $this->current_action . '" ' .
+              get_class($this) . '" for action "' . $this->getCurrentAction() . '" ' .
               'and no appropriate template found');
       }
 
-      if(is_a($result, lmbView::class)) {
-          $this->toolkit->setView($result);
+      if(is_a($response, lmbView::class)) {
+          $this->toolkit->setView($response);
       }
       else {
           $this->_passLocalAttributesToView();
       }
 
-      return $result;
+      return $response;
   }
 
   function useForm($form_id, $datasource = null)
@@ -321,7 +304,7 @@ class LmbController
 
   protected function _mapCurrentActionToMethod()
   {
-    return $this->_mapActionToMethod($this->current_action);
+    return $this->_mapActionToMethod($this->getCurrentAction());
   }
 
   protected function _mapActionToMethod($action)
@@ -366,22 +349,11 @@ class LmbController
 
   function _saveCache()
   {
-    if($this->map_changed && $this->isCacheEnabled())
+    if($this->isCacheEnabled() && $this->map_changed)
     {
       lmbFs::safeWrite(lmbEnv::get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache',
                        serialize($this->action_template_map));
     }
-  }
-
-  /**
-   * Using this hacky method mixins can access controller variables
-   * @param string variable name
-   * @return mixed
-   */
-  function _get($name)
-  {
-    if(isset($this->$name))
-      return $this->$name;
   }
 
   function findTemplateForAction($action)
