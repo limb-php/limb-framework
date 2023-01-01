@@ -201,7 +201,7 @@ class lmbHttpResponse
     $this->_ensureTransactionStarted();
 
     if ($this->is_redirected)
-      return;
+      return $this;
 
     if($this->redirect_strategy === null)
       $strategy = $this->_getDefaultRedirectStrategy();
@@ -212,6 +212,8 @@ class lmbHttpResponse
 
     $this->is_redirected = true;
     $this->redirected_path = $path;
+
+    return $this;
   }
 
   function getRedirectedPath()

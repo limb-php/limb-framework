@@ -11,3 +11,15 @@
  * @package net
  * @version $Id: common.inc.php 8041 2010-01-19 20:49:36Z
  */
+
+use limb\toolkit\src\lmbToolkit;
+
+if(!function_exists('response'))
+{
+
+    function response()
+    {
+        return lmbToolkit::instance()->getResponse();
+    }
+
+}

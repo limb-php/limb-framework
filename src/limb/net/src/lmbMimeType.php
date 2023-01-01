@@ -11,7 +11,7 @@ namespace limb\net\src;
  * class lmbMimeType.
  *
  * @package net
- * @version $Id: lmbMimeType.class.php 7886 2009-04-17 07:39:04Z serega $
+ * @version $Id: lmbMimeType.php 7886 2009-04-17 07:39:04Z
  */
 class lmbMimeType
 {
