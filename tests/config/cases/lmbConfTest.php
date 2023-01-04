@@ -27,55 +27,99 @@ class lmbConfTest extends TestCase
     function setUp(): void
     {
         $this->_createConfig('conf.php');
+        $this->_createConfigWithReturn('conf2.php');
     }
 
     function tearDown(): void
     {
         lmbFs::rm($this->_getConfigPath('conf.php'));
+        lmbFs::rm($this->_getConfigPath('conf2.php'));
         lmbFs::rm($this->_getConfigPath('conf.override.php'));
+        lmbFs::rm($this->_getConfigPath('conf2.override.php'));
     }
 
-  function _createConfig($name, $content = false)
-  {
-    if(!$content)
+    function _createConfig($name, $content = false)
     {
-      $content = <<<EOD
+        if(!$content)
+        {
+            $content = <<<EOD
 <?php
 \$conf = array('foo' => 1,
               'bar' => 2);
 EOD;
+        }
+        lmbFs::safeWrite($this->_getConfigPath($name), $content);
     }
-    lmbFs::safeWrite($this->_getConfigPath($name), $content);
-  }
 
-    function _getConfig($name)
+    function _createConfigWithReturn($name, $content = false)
+    {
+        if(!$content)
+        {
+            $content = <<<EOD
+<?php
+return [
+    'foo' => 100,
+    'bar' => 200
+];
+EOD;
+        }
+        lmbFs::safeWrite($this->_getConfigPath($name), $content);
+    }
+
+    function _getConfig($name): lmbConf
     {
         return new lmbConf($this->_getConfigPath($name));
     }
 
-  function testGet()
-  {
-    $conf = $this->_getConfig('conf.php');
+    function testGet()
+    {
+        $conf = $this->_getConfig('conf.php');
 
-    $this->assertEquals(1, $conf->get('foo'));
-    $this->assertEquals(2, $conf->get('bar'));
-  }
+        $this->assertEquals(1, $conf->get('foo'));
+        $this->assertEquals(2, $conf->get('bar'));
+    }
 
-  function testOverride()
-  {
-    $content = <<<EOD
+    function testGetReturnConfig()
+    {
+        $conf = $this->_getConfig('conf2.php');
+
+        $this->assertEquals(100, $conf->get('foo'));
+        $this->assertEquals(200, $conf->get('bar'));
+    }
+
+    function testOverride()
+    {
+        $content = <<<EOD
 <?php
 \$conf['foo'] = 10;
 \$conf['acme'] = 3;
 EOD;
-    $this->_createConfig('conf.override.php', $content);
+        $this->_createConfig('conf.override.php', $content);
 
-    $config = $this->_getConfig('conf.php');
+        $config = $this->_getConfig('conf.php');
 
-    $this->assertEquals(10, $config->get('foo'));
-    $this->assertEquals(2, $config->get('bar'));
-    $this->assertEquals(3, $config->get('acme'));
-  }
+        $this->assertEquals(10, $config->get('foo'));
+        $this->assertEquals(2, $config->get('bar'));
+        $this->assertEquals(3, $config->get('acme'));
+    }
+
+    function testOverrideReturnConfig()
+    {
+        $content = <<<EOD
+<?php
+return [
+    'foo' => 1000,
+    'acme' => 300
+];
+EOD;
+        $this->_createConfig('conf2.override.php', $content);
+
+        $config = $this->_getConfig('conf2.php');
+
+        $this->assertEquals(1000, $config->get('foo'));
+        $this->assertEquals(200, $config->get('bar'));
+        $this->assertEquals(300, $config->get('acme'));
+    }
 
   function testImplementsIterator()
   {

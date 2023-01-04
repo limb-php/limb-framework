@@ -45,12 +45,19 @@ class lmbConf extends lmbObject
     if(!file_exists($file))
       throw new lmbFileNotFoundException("Config file '$file' not found");
 
-    include($file);
+    $config = include($file);
 
-    if(!is_array($conf))
-      throw new lmbException("Config must be an array", array('file' => $file, 'content' => $conf));
+    if($config === 1) {
+        if (!is_array($conf))
+            throw new lmbException("Config must be an array", array('file' => $file, 'content' => $conf));
 
-    return $conf;
+        return $conf;
+    }
+    elseif(!is_array($config)) {
+        throw new lmbException("Config must return an array", array('file' => $file, 'content' => $config));
+    }
+
+    return array_merge($existed_conf, $config);
   }
 
   protected function _getOverrideFile($file_path, $ending = '.override')
@@ -73,7 +80,7 @@ class lmbConf extends lmbObject
     }
     catch (lmbNoSuchPropertyException $e)
     {
-      throw new lmbNoSuchPropertyException('Option ' . $name . ' not found', array('config' => $this->_file));
+      throw new lmbNoSuchPropertyException('Option "' . $name . '" not found', array('config' => $this->_file));
     }
   }
 }

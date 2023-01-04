@@ -13,7 +13,6 @@ require_once '.setup.php';
 use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbToolkit;
 use limb\config\src\toolkit\lmbConfTools;
-use limb\core\src\lmbSet;
 use limb\fs\src\lmbFs;
 
 class lmbConfToolsTest extends TestCase
@@ -29,7 +28,7 @@ class lmbConfToolsTest extends TestCase
   function setUp(): void
   {
     lmbToolkit::save();
-    $this->toolkit = lmbToolkit :: merge(new lmbConfTools());
+    $this->toolkit = lmbToolkit::merge(new lmbConfTools());
 
     $this->application_configs_dir = lmb_var_dir() . '/app/settings';
     lmbFs::mkdir($this->application_configs_dir);
