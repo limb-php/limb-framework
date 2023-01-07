@@ -8,6 +8,7 @@
  */
 namespace tests\net\cases;
 
+use limb\net\src\lmbMetaRedirectStrategy;
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbHttpRedirectStrategy;
 use limb\net\src\lmbHttpResponse;
@@ -15,6 +16,7 @@ use limb\net\src\lmbHttpResponse;
 class lmbHttpResponseTest extends TestCase
 {
   var $response;
+  var $mock_response;
 
   function setUp(): void
   {
@@ -82,7 +84,7 @@ class lmbHttpResponseTest extends TestCase
 
   function testHeadersSent()
   {
-    $this->response->addHeader("Location:to-some-place");
+    $this->response->addHeader("Location", "to-some-place");
     $this->assertTrue($this->response->isHeadersSent());
   }
 
@@ -104,7 +106,9 @@ class lmbHttpResponseTest extends TestCase
 
     $this->assertFalse($this->response->isRedirected());
 
-    $strategy->expects($this->once())->method('redirect');
+    $strategy
+        ->expects($this->once())
+        ->method('redirect');
 
     $this->response->redirect($path = 'some path');
     $this->response->redirect('some other path');
@@ -113,27 +117,39 @@ class lmbHttpResponseTest extends TestCase
     $this->assertEquals($this->response->getRedirectedPath(), $path);
   }
 
+    function testRedirectMetaStrategy()
+    {
+        $strategy = $this->createMock(lmbMetaRedirectStrategy::class);
+
+        $this->response->setRedirectStrategy($strategy);
+
+        $this->assertFalse($this->response->isRedirected());
+
+        $strategy
+            ->expects($this->once())
+            ->method('redirect');
+
+        $this->response->redirect($path = 'some path');
+
+        $this->assertTrue($this->response->isRedirected());
+        $this->assertEquals($this->response->getRedirectedPath(), $path);
+    }
+
   /*function testSendHeadersOnCommit()
   {
-    $this->mock_response->addHeader("Location:to-some-place");
-    $this->mock_response->addHeader("Location:to-some-place2");
+    $this->mock_response->setCookie('foo', '111');
 
-    //$this->response->expectCallCount('_sendHeader', 2);
-
-    $this->mock_response
-        ->expects($this->at(0))
-        ->method('_sendCookie')
-        ->with("Location:to-some-place");
+    $this->mock_response->addHeader("Location", "to-some-place");
+    $this->mock_response->addHeader("Location", "to-some-place2");
 
     $this->mock_response
-        ->expects($this->at(1))
-        ->method('_sendCookie')
-        ->with("Location:to-some-place2");
+        ->expects($this->exactly(2))
+        ->method('sendHeaders');
 
     $this->mock_response->commit();
-  }
+  }*/
 
-  function testWriteOnCommit()
+  /*function testWriteOnCommit()
   {
     $this->mock_response->write("<b>wow</b>");
     $this->mock_response
@@ -142,9 +158,9 @@ class lmbHttpResponseTest extends TestCase
         ->with("<b>wow</b>");
 
     $this->mock_response->commit();
-  }
+  }*/
 
-  function testReadfileOnCommit()
+  /*function testReadfileOnCommit()
   {
     $this->mock_response->readfile("/path/to/file");
     $this->mock_response
