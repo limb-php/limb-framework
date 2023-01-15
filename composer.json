@@ -54,6 +54,9 @@
     "autoload": {
         "files": [
             "src/limb/core/common.inc.php",
+            "src/limb/i18n/common.inc.php",
+            "src/limb/log/common.inc.php",
+            "src/limb/net/common.inc.php",
             "bootstrap.php"
         ],
         "psr-0": {

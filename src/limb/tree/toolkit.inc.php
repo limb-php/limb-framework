@@ -8,6 +8,11 @@
  */
 
 /**
- * @package filter_chain
- * @version $Id: common.inc.php 8048 2010-01-19 22:12:02Z
+ * @package tree
+ * @version $Id: toolkit.inc.php 2022-11-11
  */
+
+use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\toolkit\lmbDbTools;
+
+lmbToolkit::merge(new lmbDbTools());

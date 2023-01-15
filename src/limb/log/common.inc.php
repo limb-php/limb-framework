@@ -34,8 +34,9 @@ if(!function_exists('lmb_var_dump'))
             else
                 echo $dump;
         }
-        else
+        else {
             return $dump;
+        }
     }
 
 }

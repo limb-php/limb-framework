@@ -8,6 +8,11 @@
  */
 
 /**
- * @package filter_chain
- * @version $Id: common.inc.php 8048 2010-01-19 22:12:02Z
+ * @package wysiwyg
+ * @version $Id: toolkit.inc.php 2022-11-11
  */
+
+use limb\toolkit\src\lmbToolkit;
+use limb\config\src\toolkit\lmbConfTools;
+
+lmbToolkit::merge(new lmbConfTools());
