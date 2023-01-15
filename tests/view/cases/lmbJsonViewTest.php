@@ -41,8 +41,8 @@ class lmbJsonViewTest extends TestCase
   function testRender_bool()
   {            
     $this->view
-        ->set('positive', true)
-        ->set('negative', false);
+        ->with('positive', true)
+        ->with('negative', false);
 
     $this->_checkValue('{"positive":true,"negative":false}');
   }

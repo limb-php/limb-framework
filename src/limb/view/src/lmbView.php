@@ -48,12 +48,17 @@ abstract class lmbView
     return $this->template_name;
   }
 
-  function set($variable_name, $value): self
+  function set($variable_name, $value)
   {
     $this->variables[$variable_name] = $value;
-
-    return $this;
   }
+
+    function with($variable_name, $value): self
+    {
+        $this->variables[$variable_name] = $value;
+
+        return $this;
+    }
 
   function setVariables($vars): self
   {

@@ -32,14 +32,14 @@ class lmbMacroViewTest extends TestCase
       $tpl_no_ext = str_replace(lmbMacroView::EXTENSION, '', $tpl);
 
       $view = $this->_createView($tpl_no_ext)
-          ->set('hello', 'Hello message!')
-          ->set('again', 'Hello again!');
+          ->with('hello', 'Hello message!')
+          ->with('again', 'Hello again!');
 
       $this->assertEquals('Hello message!Hello again!', $view->render());
 
       $view = $this->_createView($tpl)
-          ->set('hello', 'Hello message!')
-          ->set('again', 'Hello again!');
+          ->with('hello', 'Hello message!')
+          ->with('again', 'Hello again!');
 
       $this->assertEquals('Hello message!Hello again!', $view->render());
   }
