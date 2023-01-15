@@ -11,3 +11,15 @@
  * @package view
  * @version $Id$
  */
+
+use limb\toolkit\src\lmbToolkit;
+
+if(!function_exists('view'))
+{
+
+    function view($template_name, $vars = [])
+    {
+        return lmbToolkit::instance()->createViewByTemplate($template_name, $vars);
+    }
+
+}

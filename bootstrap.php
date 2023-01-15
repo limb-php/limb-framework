@@ -5,7 +5,6 @@ $_ENV['LIMB_START_TIME'] = microtime(true);
 
 function lmb_autoload($className)
 {
-  //$basedir = dirname(__FILE__) . '/src/';
   $basedir = '';
 
   $className = ltrim($className, '\\');
@@ -21,7 +20,7 @@ function lmb_autoload($className)
   $fullname = stream_resolve_include_path($basedir . $fileName);
   if ($fullname !== false)
   {
-    require($fullname);
+    require_once($fullname);
   }
 }
 
