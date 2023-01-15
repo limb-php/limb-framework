@@ -265,4 +265,11 @@ class lmbHttpResponseTest extends TestCase
       $this->response->addHeader('Content-Type', 'image/png');
       $this->assertEquals('image/png', $this->response->getContentType());
   }
+
+  function testWithBody()
+  {
+      $this->response = $this->response->withBody($content = 'body content');
+
+      $this->assertEquals($content, $this->response->getBody());
+  }
 }

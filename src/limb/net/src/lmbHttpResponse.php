@@ -198,7 +198,7 @@ class lmbHttpResponse
 
   function redirect($path)
   {
-    $this->_ensureTransactionStarted();
+    //$this->_ensureTransactionStarted();
 
     if ($this->is_redirected)
       return $this;
@@ -362,11 +362,11 @@ class lmbHttpResponse
    */
   function addHeader($header, $value = null)
   {
-      $this->_ensureTransactionStarted();
+      //$this->_ensureTransactionStarted();
 
       $isStatus = $this->_checkStatusInHeader($header);
       if($isStatus)
-          return;
+          return $this;
 
       if($value === null && !is_array($header)) {
           @list($header, $value) = explode(':', $header);
@@ -375,11 +375,13 @@ class lmbHttpResponse
       $trimmed = trim($value, " \t");
 
       $this->headers[$header] = !empty($value) ? $trimmed : null;
+
+      return $this;
   }
 
   function setCookie($name, $value, $expire = 0, $path = '/', $domain = '', $secure = false)
   {
-    $this->_ensureTransactionStarted();
+    //$this->_ensureTransactionStarted();
 
     $this->cookies[$name] = array(
         'name' => $name,
@@ -389,6 +391,8 @@ class lmbHttpResponse
         'domain' => $domain,
         'secure' => $secure
     );
+
+    return $this;
   }
 
   function getCookies()
@@ -412,28 +416,34 @@ class lmbHttpResponse
 
   public function readFile($file_path)
   {
-    $this->_ensureTransactionStarted();
+    //$this->_ensureTransactionStarted();
 
     $this->response_file_path = $file_path;
+
+    return $this;
   }
 
   public function write($string)
   {
-    $this->_ensureTransactionStarted();
+    //$this->_ensureTransactionStarted();
 
     $this->response_string = $string;
+
+    return $this;
   }
 
   public function append($string)
   {
-    $this->_ensureTransactionStarted();
+    //$this->_ensureTransactionStarted();
 
     $this->response_string .= $string;
+
+    return $this;
   }
 
   public function commit()
   {
-    $this->_ensureTransactionStarted();
+    //$this->_ensureTransactionStarted();
 
     $this->sendHeaders();
 
