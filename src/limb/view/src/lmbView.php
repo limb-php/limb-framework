@@ -109,4 +109,9 @@ abstract class lmbView
   {
     return $this->forms_datasources;
   }
+
+    public function __toString()
+    {
+        return $this->render();
+    }
 }
