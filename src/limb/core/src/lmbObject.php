@@ -65,7 +65,7 @@ use limb\core\src\exception\lmbNoSuchPropertyException;
  * $foo->set('bar', '10.0');
  * </code>
  *
- * @version $Id: lmbObject.class.php 5567 2007-04-06 14:37:24Z serega $
+ * @version $Id: lmbObject.php 5567 2007-04-06 14:37:24Z
  * @package core
  */
 class lmbObject implements lmbSetInterface
@@ -79,9 +79,9 @@ class lmbObject implements lmbSetInterface
   /**
    * Constructor.
    * Fills internals properties if any
-   * @param array properties array
+   * @param array $properties
    */
-  function __construct($properties = array())
+  function __construct($properties = [])
   {
     $this->_registerPredefinedVariables();
 
@@ -114,7 +114,7 @@ class lmbObject implements lmbSetInterface
 
   /**
    * Merges existing properties with new ones
-   * @param array
+   * @param array $values
    */
   function import($values)
   {
@@ -197,7 +197,8 @@ class lmbObject implements lmbSetInterface
   /**
    * Returns property value if it exists and not guarded.
    * Magically maps getter to fine-grained method if it exists, e.g. get('foo') => getFoo()
-   * @param string property name
+   * @param string $name property name
+   * @param mixed $default default value
    * @return mixed|null
    */
   function get($name, $default = null)
@@ -217,17 +218,17 @@ class lmbObject implements lmbSetInterface
   /**
    * Sets property value
    * Magically maps setter to fine-grained method if it exists, e.g. set('foo', $value) => setFoo($value)
-   * @param string property name
-   * @param mixed value
+   * @param string $name property name
+   * @param mixed $value
    * @return $this
    */
-  function set($property, $value)
+  function set($name, $value)
   {
-    if ($property) {
-        if ($method = $this->_mapPropertyToSetMethod($property)) {
+    if ($name) {
+        if ($method = $this->_mapPropertyToSetMethod($name)) {
             $this->$method($value);
         } else {
-            $this->_setRaw($property, $value);
+            $this->_setRaw($name, $value);
         }
     }
 
@@ -252,7 +253,7 @@ class lmbObject implements lmbSetInterface
 
   protected function _isGuarded($property)
   {
-    return isset($property[0]) ? $property[0] == '_' : false;
+    return isset($property[0]) && $property[0] == '_';
   }
 
   /**#@+
@@ -290,7 +291,7 @@ class lmbObject implements lmbSetInterface
     elseif($property = $this->_mapSetToProperty($method))
     {
       $this->set($property, $args[0]);
-      return;
+      return $this;
     }
 
     throw new lmbNoSuchMethodException("No such method '$method' in " . get_class($this));
@@ -328,6 +329,7 @@ class lmbObject implements lmbSetInterface
       return $capsed;
     }
     $map[$property] = false;
+    return false;
   }
 
   protected function _mapPropertyToSetMethod($property)
@@ -374,7 +376,7 @@ class lmbObject implements lmbSetInterface
    */
   function __unset($name)
   {
-    return $this->remove($name);
+    $this->remove($name);
   }
 
   function current()
@@ -402,4 +404,3 @@ class lmbObject implements lmbSetInterface
     reset($this->_map['public']);
   }
 }
-

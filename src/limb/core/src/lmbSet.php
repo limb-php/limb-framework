@@ -74,7 +74,7 @@ class lmbSet implements lmbSetInterface
 
   function reset()
   {
-    return $this->removeAll();
+    $this->removeAll();
   }
 
   function merge($values)
