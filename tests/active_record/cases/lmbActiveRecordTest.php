@@ -13,6 +13,8 @@ use limb\active_record\src\lmbARException;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\criteria\lmbSQLRawCriteria;
 
+require_once '.setup.php';
+
 class TestOneTableObjectWithCustomProperty extends TestOneTableObject {
   protected $custom_property = true;
 }

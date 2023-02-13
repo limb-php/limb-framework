@@ -2,6 +2,10 @@
 namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
+use limb\dbal\src\toolkit\lmbDbTools;
+use limb\toolkit\src\lmbToolkit;
+
+lmbToolkit::merge(new lmbDbTools());
 
 class TestOneTableObject extends lmbActiveRecord
 {
