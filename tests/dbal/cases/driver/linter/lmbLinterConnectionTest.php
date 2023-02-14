@@ -18,7 +18,7 @@ class lmbLinterConnectionTest extends DriverConnectionTestBase
 
   function lmbLinterConnectionTest()
   {
-    parent :: DriverConnectionTestBase(
+    parent::DriverConnectionTestBase(
         lmbLinterQueryStatement::class,
         lmbLinterInsertStatement::class,
         lmbLinterManipulationStatement::class,
@@ -28,7 +28,7 @@ class lmbLinterConnectionTest extends DriverConnectionTestBase
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
     parent::setUp();
   }

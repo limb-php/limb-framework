@@ -1,7 +1,4 @@
 <?php
-
-require_once('tests/core/cases/init.inc.php');
-
 use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;

@@ -6,10 +6,12 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace tests\dbal\cases\query;
+namespace tests\dbal\cases\nondriver\query;
 
 use limb\dbal\src\query\lmbUpdateQuery;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
+
+require_once ('.setup.php');
 
 class lmbUpdateQueryTest extends lmbQueryBaseTestCase
 {
