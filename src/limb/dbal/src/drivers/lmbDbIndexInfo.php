@@ -9,8 +9,6 @@
 namespace limb\dbal\src\drivers;
 
 use limb\core\src\lmbObject;
-use limb\dbal\src\drivers\lmbDbTypeInfo;
-use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbDbIndexInfo.
@@ -21,7 +19,7 @@ use limb\dbal\src\exception\lmbDbException;
  * @property integer $type
  *
  * @package dbal
- * @version $Id: lmbDbColumnInfo.class.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbDbColumnInfo.php 6243 2007-08-29 11:53:10Z
  */
 class lmbDbIndexInfo extends lmbObject
 {
@@ -45,5 +43,3 @@ class lmbDbIndexInfo extends lmbObject
     return self::TYPE_PRIMARY === $this->type;
   }
 }
-
-

@@ -14,7 +14,7 @@ use limb\dbal\src\exception\lmbDbException;
  * abstract class lmbDbTableInfo.
  *
  * @package dbal
- * @version $Id: lmbDbTableInfo.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDbTableInfo.php 7486 2009-01-26 19:13:20Z
  */
 abstract class lmbDbTableInfo
 {
@@ -161,5 +161,3 @@ abstract class lmbDbTableInfo
     return null;
   }
 }
-
-

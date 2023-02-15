@@ -8,17 +8,13 @@
  */
 namespace limb\dbal\src\drivers;
 
-use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
-
 /**
  * interface lmbDbInsertStatementInterface.
  *
  * @package dbal
- * @version $Id: lmbDbInsertStatementInterface.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDbInsertStatementInterface.php 7486 2009-01-26 19:13:20Z
  */
 interface lmbDbInsertStatementInterface extends lmbDbManipulationStatementInterface
 {
   function insertId($field_name = 'id');
 }
-
-

@@ -53,8 +53,6 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
 
   function __sleep()
   {
-    return array('config','dsn_string');
+    return array('config', 'dsn_string');
   }
 }
-
-

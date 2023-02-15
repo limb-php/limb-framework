@@ -8,17 +8,13 @@
  */
 namespace limb\dbal\src\drivers;
 
-use limb\dbal\src\drivers\lmbDbStatementInterface;
-
 /**
  * interface lmbDbManipulationStatementInterface.
  *
  * @package dbal
- * @version $Id: lmbDbManipulationStatementInterface.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDbManipulationStatementInterface.php 7486 2009-01-26 19:13:20Z
  */
 interface lmbDbManipulationStatementInterface extends lmbDbStatementInterface
 {
   function getAffectedRowCount();
 }
-
-

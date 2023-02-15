@@ -123,4 +123,3 @@ abstract class lmbTemplateQuery
     return $this->_no_hints_sql;
   }
 }
-

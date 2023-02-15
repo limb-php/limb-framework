@@ -12,7 +12,7 @@ namespace limb\dbal\src\drivers;
  * interface lmbDbStatementInterface.
  *
  * @package dbal
- * @version $Id: lmbDbStatementInterface.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDbStatementInterface.php 7486 2009-01-26 19:13:20Z
  */
 interface lmbDbStatementInterface
 {
@@ -36,5 +36,3 @@ interface lmbDbStatementInterface
   function execute();
   function setConnection($connection);
 }
-
-

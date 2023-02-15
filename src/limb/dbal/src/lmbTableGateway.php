@@ -15,7 +15,6 @@ use limb\dbal\src\query\lmbUpdateQuery;
 use limb\dbal\src\query\lmbInsertOnDuplicateUpdateQuery;
 use limb\dbal\src\query\lmbDeleteQuery;
 use limb\dbal\src\drivers\lmbDbTypeInfo;
-use limb\dbal\src\drivers\lmbDbCachedInfo;
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbString;
@@ -24,7 +23,7 @@ use limb\core\src\lmbString;
  * class lmbTableGateway.
  *
  * @package dbal
- * @version $Id: lmbTableGateway.php 8170 2010-04-20 10:33:14Z serega $
+ * @version $Id: lmbTableGateway.php 8170 2010-04-20 10:33:14Z
  */
 class lmbTableGateway
 {

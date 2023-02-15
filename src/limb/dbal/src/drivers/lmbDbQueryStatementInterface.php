@@ -12,7 +12,7 @@ namespace limb\dbal\src\drivers;
  * interface lmbDbQueryStatement.
  *
  * @package dbal
- * @version $Id: lmbDbStatementInterface.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDbStatementInterface.php 7486 2009-01-26 19:13:20Z
  */
 interface lmbDbQueryStatementInterface extends lmbDbStatementInterface
 {

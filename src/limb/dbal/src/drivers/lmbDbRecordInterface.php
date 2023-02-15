@@ -14,7 +14,7 @@ use limb\core\src\lmbSetInterface;
  * interface lmbDbRecordInterface.
  *
  * @package dbal
- * @version $Id: lmbDbRecordInterface.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDbRecordInterface.php 7486 2009-01-26 19:13:20Z
  */
 interface lmbDbRecordInterface extends lmbSetInterface
 {
@@ -29,5 +29,3 @@ interface lmbDbRecordInterface extends lmbSetInterface
   function getStringFixed($name);//???
   function getBlob($name);
 }
-
-

@@ -67,5 +67,3 @@ abstract class lmbDbBaseRecord implements lmbDbRecordInterface
   }
   //end
 }
-
-

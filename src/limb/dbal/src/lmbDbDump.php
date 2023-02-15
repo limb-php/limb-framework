@@ -15,14 +15,14 @@ use limb\toolkit\src\lmbToolkit;
  * class lmbDbDump.
  *
  * @package dbal
- * @version $Id: lmbDbDump.class.php 8070 2010-01-20 08:19:23Z korchasa $
+ * @version $Id: lmbDbDump.php 8070 2010-01-20 08:19:23Z
  */
 class lmbDbDump
 {
   protected $file;
   protected $loader;
   /**
-   * @var lmbDbConnection
+   * @var \limb\dbal\src\drivers\lmbDbConnectionInterface
    */
   protected $connection;
 

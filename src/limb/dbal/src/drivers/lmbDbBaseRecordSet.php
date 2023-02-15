@@ -78,5 +78,3 @@ abstract class lmbDbBaseRecordSet implements lmbDbRecordSetInterface
   function offsetUnset($offset){}
   //end
 }
-
-

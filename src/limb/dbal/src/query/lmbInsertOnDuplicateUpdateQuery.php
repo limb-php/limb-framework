@@ -14,7 +14,7 @@ namespace limb\dbal\src\query;
  * @package dbal
  * @version $Id: lmbInsertOnDuplicateUpdateQuery.php 7165 2008-08-29 11:15:26Z
  */
-class lmbInsertOnDuplicateUpdateQuery extends lmbTemplateQuery
+class lmbInsertOnDuplicateUpdateQuery extends lmbCriteriaQuery
 {
   protected $_table;
   protected $_fields = array();
@@ -75,7 +75,7 @@ class lmbInsertOnDuplicateUpdateQuery extends lmbTemplateQuery
 
   function getStatement()
   {
-    $stmt = parent :: getStatement();
+    $stmt = parent::getStatement();
     foreach($this->_set_values as $key => $value)
       $stmt->set($key, $value);
 
@@ -83,7 +83,7 @@ class lmbInsertOnDuplicateUpdateQuery extends lmbTemplateQuery
   }
 
   /**
-   * @param lmbDbConnection $connection
+   * @param lmbDbConnectionInterface $connection
    */
   static function isSupportedByDbConnection($connection)
   {

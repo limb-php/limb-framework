@@ -16,7 +16,7 @@ use limb\fs\src\lmbFs;
  * class lmbDbCachedInfo.
  *
  * @package dbal
- * @version $Id: lmbDbCachedInfo.class.php 8051 2010-01-19 22:39:25Z korchasa $
+ * @version $Id: lmbDbCachedInfo.php 8051 2010-01-19 22:39:25Z
  */
 class lmbDbCachedInfo extends lmbProxy
 {
@@ -68,6 +68,8 @@ class lmbDbCachedInfo extends lmbProxy
   {
     if(isset($this->db_info))
       return $this->db_info;
+
+    return false;
   }
 
   protected function _readFromFileCache()
@@ -98,8 +100,6 @@ class lmbDbCachedInfo extends lmbProxy
 
   protected function _writeToFileCache($db_info)
   {
-    lmbFs :: safeWrite($this->cache_file, serialize(new lmbSerializable($db_info)));
+    lmbFs::safeWrite($this->cache_file, serialize(new lmbSerializable($db_info)));
   }
 }
-
-

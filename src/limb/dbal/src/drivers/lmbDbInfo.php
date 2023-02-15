@@ -14,7 +14,7 @@ use limb\dbal\src\exception\lmbDbException;
  * abstract class lmbDbInfo.
  *
  * @package dbal
- * @version $Id: lmbDbInfo.php 8072 2010-01-20 08:33:41Z korchasa $
+ * @version $Id: lmbDbInfo.php 8072 2010-01-20 08:33:41Z
  */
 abstract class lmbDbInfo
 {

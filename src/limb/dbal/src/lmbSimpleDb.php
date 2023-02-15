@@ -19,7 +19,7 @@ use limb\dbal\src\query\lmbInsertOnDuplicateUpdateQuery;
  * class lmbSimpleDb.
  *
  * @package dbal
- * @version $Id: lmbSimpleDb.php 8083 2010-01-22 00:57:23Z korchasa $
+ * @version $Id: lmbSimpleDb.php 8083 2010-01-22 00:57:23Z
  */
 class lmbSimpleDb
 {
@@ -56,7 +56,7 @@ class lmbSimpleDb
     $query = new lmbSelectQuery($table, $this->conn);
 
     if($criteria)
-      $query->addCriteria(lmbSQLCriteria :: objectify($criteria));
+      $query->addCriteria(lmbSQLCriteria::objectify($criteria));
 
     $rs = $query->getRecordSet();
 
@@ -101,7 +101,7 @@ class lmbSimpleDb
     $query = new lmbInsertQuery($table, $this->conn);
 
     foreach($values as $key => $value)
-      $query->addField($key , $value);
+      $query->addField($key, $value);
 
     $stmt = $query->getStatement($this->conn);
 
@@ -124,7 +124,7 @@ class lmbSimpleDb
     $query = new lmbUpdateQuery($table, $this->conn);
 
     if($criteria)
-      $query->addCriteria(lmbSQLCriteria :: objectify($criteria));
+      $query->addCriteria(lmbSQLCriteria::objectify($criteria));
 
     foreach($values as $key => $value)
       $query->addField($key, $value);
@@ -139,7 +139,7 @@ class lmbSimpleDb
         $query = new lmbInsertOnDuplicateUpdateQuery($table, $this->conn);
 
         if($criteria)
-            $query->addCriteria(lmbSQLCriteria :: objectify($criteria));
+            $query->addCriteria(lmbSQLCriteria::objectify($criteria));
 
         foreach($values as $key => $value)
             $query->addField($key, $value);
@@ -154,7 +154,7 @@ class lmbSimpleDb
     $query = new lmbDeleteQuery($table, $this->conn);
 
     if($criteria)
-      $query->addCriteria(lmbSQLCriteria :: objectify($criteria));
+      $query->addCriteria(lmbSQLCriteria::objectify($criteria));
 
     $this->stmt = $query->getStatement($this->conn);
     $this->stmt->execute();
