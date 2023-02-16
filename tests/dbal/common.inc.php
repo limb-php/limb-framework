@@ -53,7 +53,7 @@ if (!function_exists('clearTestingDbTables')) {
         if (!isset($GLOBALS['testing_db_tables']))
             return;
 
-        $toolkit = lmbToolkit:: instance();
+        $toolkit = lmbToolkit::instance();
         $conn = $toolkit->getDefaultDbConnection();
 
         foreach ($GLOBALS['testing_db_tables'] as $table) {

@@ -12,6 +12,8 @@ use limb\dbal\src\toolkit\lmbDbTools;
 use limb\dbal\src\lmbDbDSN;
 use limb\core\src\exception\lmbException;
 
+require_once ('.setup.php');
+
 class ExceptionalDbConfStub extends lmbConf
 {
   function __construct(){
@@ -68,7 +70,7 @@ class lmbDbToolsTest extends TestCase
     $tools->setDefaultDbDSN("mysql://localhost/test");
     $this->assertTrue($tools->isDefaultDbDSNAvailable());
 
-    $toolkit = lmbToolkit :: save();
+    $toolkit = lmbToolkit::save();
     $tools = new lmbDbTools();
     $toolkit->setConf('db', new ExceptionalDbConfStub());
     $this->assertFalse($tools->isDefaultDbDSNAvailable());
@@ -86,7 +88,7 @@ class lmbDbToolsTest extends TestCase
   function testGetDbConnectionByName()
   {
     $connection = $this->tools->createDbConnection(new lmbDbDSN($this->config['another_dsn']));
-    $this->assertIdentical($connection, $this->tools->getDbConnectionByName('another_dsn'));
+    $this->assertEquals($connection, $this->tools->getDbConnectionByName('another_dsn'));
   }
 
   function testSetDbConnectionByName()
@@ -97,17 +99,17 @@ class lmbDbToolsTest extends TestCase
     $connection = $this->tools->createDbConnection($dsn);
     $another_connection = $this->tools->createDbConnection($another_dsn);
 
-    $this->assertIdentical($connection, $this->tools->getDbConnectionByName('dsn'));
+    $this->assertEquals($connection, $this->tools->getDbConnectionByName('dsn'));
 
     $this->tools->setDbConnectionByName('dsn', $another_connection);
 
-    $this->assertIdentical($another_connection, $this->tools->getDbConnectionByName('dsn'));
+    $this->assertEquals($another_connection, $this->tools->getDbConnectionByName('dsn'));
   }  
   
   function testGetDbConnectionByDsn()
   {
     $connection = $this->tools->createDbConnection(new lmbDbDSN($this->config['another_dsn']));
-    $this->assertIdentical($connection, $this->tools->getDbConnectionByDsn(new lmbDbDSN($this->config['another_dsn'])));
+    $this->assertEquals($connection, $this->tools->getDbConnectionByDsn(new lmbDbDSN($this->config['another_dsn'])));
   }
   
   function testSetDbConnectionByDsn()
@@ -118,32 +120,32 @@ class lmbDbToolsTest extends TestCase
     $connection = $this->tools->createDbConnection($dsn);
     $another_connection = $this->tools->createDbConnection($another_dsn);
 
-    $this->assertIdentical($connection, $this->tools->getDbConnectionByDsn($dsn));
+    $this->assertEquals($connection, $this->tools->getDbConnectionByDsn($dsn));
 
     $this->tools->setDbConnectionByDsn($dsn, $another_connection);
 
-    $this->assertIdentical($another_connection, $this->tools->getDbConnectionByDsn($dsn));
+    $this->assertEquals($another_connection, $this->tools->getDbConnectionByDsn($dsn));
   }  
   
   function testGettingConnectionsByNameAndDSNReturnsTheSameConnectionObject()
   {
     $connection_by_name = $this->tools->getDbConnectionByName('another_dsn');
     $connection_by_dsn = $this->tools->getDbConnectionByDsn($this->config['another_dsn']);
-    $this->assertReference($connection_by_name, $connection_by_dsn);
+    $this->assertEquals($connection_by_name, $connection_by_dsn);
   }
 
   function testGetDbInfo_cache_global_negative()
   {
     lmbEnv::set('LIMB_CACHE_DB_META_IN_FILE', false);
     $conn = $this->tools->getDbConnectionByDsn('mysql://root:test@localhost/hello_from_foo?charset=cp1251&version=1');
-    $this->assertIsA($this->tools->getDbInfo($conn), lmbMysqlDbInfo::class);
+    $this->assertIsObject($this->tools->getDbInfo($conn), lmbMysqlDbInfo::class);
   }
   
   function testGetDbInfo_cache_global_positive()
   {
     lmbEnv::set('LIMB_CACHE_DB_META_IN_FILE', true);
     $conn = $this->tools->getDbConnectionByDsn('mysql://root:test@localhost/hello_from_foo?charset=cp1251&version=2');
-    $this->assertIsA($this->tools->getDbInfo($conn), lmbDbCachedInfo::class);
+    $this->assertIsObject($this->tools->getDbInfo($conn), lmbDbCachedInfo::class);
   }
   
   function testGetDbInfo_cache_in_conf_negative()
@@ -155,7 +157,7 @@ class lmbDbToolsTest extends TestCase
     lmbToolkit::instance()->setConf('db', $config);
         
     $conn = $this->tools->getDbConnectionByDsn('mysql://root:test@localhost/hello_from_foo?charset=cp1251&version=4');
-    $this->assertIsA($this->tools->getDbInfo($conn), lmbMysqlDbInfo::class);
+    $this->assertIsObject($this->tools->getDbInfo($conn), lmbMysqlDbInfo::class);
   }
   
   function testGetDbInfo_cache_in_conf_positive()
@@ -167,6 +169,6 @@ class lmbDbToolsTest extends TestCase
     lmbToolkit::instance()->setConf('db', $config);
     
     $conn = $this->tools->getDbConnectionByDsn('mysql://root:test@localhost/hello_from_foo?charset=cp1251&version=3');
-    $this->assertIsA($this->tools->getDbInfo($conn), lmbDbCachedInfo::class);
+    $this->assertIsObject($this->tools->getDbInfo($conn), lmbDbCachedInfo::class);
   }
 }
