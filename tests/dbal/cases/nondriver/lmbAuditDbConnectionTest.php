@@ -50,15 +50,26 @@ class lmbAuditDbConnectionTest extends TestCase
   {
     $sql = 'whatever sql';
     
-    $this->wrapped->expectOnce('newStatement', array($sql));
+    $this->wrapped
+        ->expects($this->once())
+        ->method('newStatement')
+        ->with($sql);
     
     $statement = $this->createMock(lmbDbStatementInterface::class);
-    $statement->expectOnce('setConnection', array(new ReferenceExpectation($this->connection)));
-    $this->wrapped->expectOnce('newStatement', array($sql));
-    $this->wrapped->setReturnValue('newStatement', $statement, array($sql));
+    $statement
+        ->expects($this->once())
+        ->method('setConnection')
+        ->with($this->connection);
+    $this->wrapped
+        ->expects($this->once())
+        ->method('newStatement')
+        ->with($sql);
+    $this->wrapped
+        ->method('newStatement')
+        ->setReturnValue($statement, array($sql));
     
     $refreshed_statement = $this->connection->newStatement($sql);
-    $this->assertReference($statement, $refreshed_statement);
+    $this->assertEquals($statement, $refreshed_statement);
   }
   
   function testGetQueries()

@@ -9,13 +9,13 @@
 //inspired by Propel Criteria(http://propel.phpdb.org)
 namespace limb\dbal\src\criteria;
 
-use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\toolkit\src\lmbToolkit;
 
 /**
  * abstract class lmbSQLBaseCriteria.
  *
  * @package dbal
- * @version $Id: lmbSQLBaseCriteria.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSQLBaseCriteria.php 7486 2009-01-26 19:13:20Z
  */
 abstract class lmbSQLBaseCriteria
 {
@@ -30,7 +30,7 @@ abstract class lmbSQLBaseCriteria
   //'and' & 'or' are keywords in php :(
   function addAnd($criteria)
   {
-    $this->criteria[] = lmbSQLCriteria :: objectify($criteria);
+    $this->criteria[] = lmbSQLCriteria::objectify($criteria);
     $this->conjunctions[] = self::_AND_;
     return $this;
   }
@@ -42,7 +42,7 @@ abstract class lmbSQLBaseCriteria
 
   function addOr($criteria)
   {
-    $this->criteria[] = lmbSQLCriteria :: objectify($criteria);
+    $this->criteria[] = lmbSQLCriteria::objectify($criteria);
     $this->conjunctions[] = self::_OR_;
     return $this;
   }
@@ -84,7 +84,7 @@ abstract class lmbSQLBaseCriteria
   function appendStatementTo(&$str, &$values = array(), $conn = null)
   {
     if(!is_object($conn))
-      $conn = lmbToolkit :: instance()->getDefaultDbConnection();
+      $conn = lmbToolkit::instance()->getDefaultDbConnection();
 
     if($this->not_all)
       $str .= 'NOT(';
@@ -117,4 +117,3 @@ abstract class lmbSQLBaseCriteria
 
   protected function _appendExpressionToStatement(&$str, &$values, $conn){}
 }
-

@@ -68,7 +68,7 @@ class lmbDelegateTest extends TestCase
     $delegate = new lmbDelegate($stub, 'instanceMethod');
     $delegate->invoke('bar');
     $this->assertTrue($stub->instance_called);
-    $this->assertEquals($stub->instance_arg, 'bar');
+    $this->assertEquals('bar', $stub->instance_arg);
   }
 
   function testInvalidObjectDelegatee()
@@ -191,7 +191,7 @@ class lmbDelegateTest extends TestCase
     lmbDelegate::invokeChain(array($d1, $d2, $d3), array('bar'));
 
     $this->assertTrue($s1->instance_called);
-    $this->assertEquals($s1->instance_arg, 'bar');
+    $this->assertEquals('bar', $s1->instance_arg);
     $this->assertTrue($s2->instance_called);
     $this->assertFalse($s3->instance_called);
     $this->assertNull($s3->instance_arg);

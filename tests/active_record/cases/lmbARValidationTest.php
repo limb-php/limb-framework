@@ -63,19 +63,22 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $object->set('annotation', 'blah-blah');
 
     $insert_validator
-        ->expects()
-        ->Once('setErrorList', array($error_list));
+        ->expects($this->once())
+        ->method('setErrorList')
+        ->with($error_list);
     $insert_validator
-        ->expects()
-        ->Once('validate', array(new ReferenceExpectation($object)));
+        ->expects($this->once())
+        ->method('validate')
+        ->with($object);
+
     $insert_validator->setReturnValue('validate', true);
 
     $update_validator
-        ->expects()
-        ->Never('setErrorList');
+        ->expects($this->never())
+        ->method('setErrorList');
     $update_validator
-        ->expects()
-        ->Never('validate');
+        ->expects($this->never())
+        ->method('validate');
 
     $this->assertTrue($object->validate($error_list));
   }
@@ -100,8 +103,14 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $object = $this->_createActiveRecord();
     $object->setInsertValidator($insert_validator);
 
-    $insert_validator->expects()->Once('setErrorList', array($error_list));
-    $insert_validator->expects()->Once('validate', array(new ReferenceExpectation($object)));
+    $insert_validator
+        ->expects($this->once())
+        ->method('setErrorList')
+        ->with($error_list);
+    $insert_validator
+        ->expects($this->once())
+        ->method('validate')
+        ->with($object);
     $error_list->addError('foo');//simulating validation error
 
     $this->assertFalse($object->validate($error_list));
@@ -117,12 +126,23 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $object->setInsertValidator($insert_validator);
     $object->setUpdateValidator($update_validator);
 
-    $update_validator->expects()->Once('setErrorList', array($error_list));
-    $update_validator->expects()->Once('validate', array(new ReferenceExpectation($object)));
+    $update_validator
+        ->expects($this->once())
+        ->method('setErrorList')
+        ->with($error_list);
+    $update_validator
+        ->expects($this->once())
+        ->method('validate')
+        ->with($object);
+
     $update_validator->setReturnValue('validate', true);
 
-    $insert_validator->expects()->Never('setErrorList');
-    $insert_validator->expects()->Never('validate');
+    $insert_validator
+        ->expects($this->never())
+        ->method('setErrorList');
+    $insert_validator
+        ->expects($this->never())
+        ->method('validate');
 
     $this->assertTrue($object->validate($error_list));
   }
@@ -135,8 +155,14 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $object = $this->_createActiveRecordWithDataAndSave();
     $object->setUpdateValidator($update_validator);
 
-    $update_validator->expects()->Once('setErrorList', array($error_list));
-    $update_validator->expects()->Once('validate', array(new ReferenceExpectation($object)));
+    $update_validator
+        ->expects($this->once())
+        ->method('setErrorList')
+        ->with($error_list);
+    $update_validator
+        ->expects($this->once())
+        ->method('validate')
+        ->with($object);
     $error_list->addError('foo');//simulating validation error
 
     $this->assertFalse($object->validate($error_list));
@@ -156,8 +182,15 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $object->set('content', $content = 'Super content');
     $object->set('news_date', $news_date = '2005-01-10');
 
-    $validator->expects()->Once('setErrorList', array($error_list));
-    $validator->expects()->Once('validate', array(new ReferenceExpectation($object)));
+    $validator
+        ->expects($this->once())
+        ->method('setErrorList')
+        ->with($error_list);
+    $validator
+        ->expects($this->once())
+        ->method('validate')
+        ->with($object);
+
     $error_list->addError('foo');//simulating validation error
 
     try
@@ -186,8 +219,14 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $object->set('content', $content = 'Super content');
     $object->set('news_date', $news_date = '2005-01-10');
 
-    $validator->expects()->Once('setErrorList', array($error_list));
-    $validator->expects()->Once('validate', array(new ReferenceExpectation($object)));
+    $validator
+        ->expects($this->once())
+        ->method('setErrorList')
+        ->with($error_list);
+    $validator
+        ->expects($this->once())
+        ->method('validate')
+        ->with($object);
 
     $object->save($error_list);
 
@@ -238,8 +277,15 @@ class lmbARValidationTest extends lmbARBaseTestCase
 
     $object->set('annotation', $annotation = 'New annotation ' . time());
 
-    $validator->expects()->Once('setErrorList', array($error_list));
-    $validator->expects()->Once('validate', array(new ReferenceExpectation($object)));
+    $validator
+        ->expects($this->once())
+        ->method('setErrorList')
+        ->with($error_list);
+    $validator
+        ->expects($this->once())
+        ->method('validate')
+        ->with($object);
+
     $error_list->addError('foo');//simulating validation error
 
     try
@@ -267,8 +313,15 @@ class lmbARValidationTest extends lmbARBaseTestCase
 
     $object->set('annotation', $annotation = 'New annotation ' . time());
 
-    $validator->expects()->Once('setErrorList', array($error_list));
-    $validator->expects()->Once('validate', array(new ReferenceExpectation($object)));
+    $validator
+        ->expects($this->once())
+        ->method('setErrorList')
+        ->with($error_list);
+    $validator
+        ->expects($this->once())
+        ->method('validate')
+        ->with($object);
+
     $validator->setReturnValue('validate', true);
 
     $object->save($error_list);
@@ -318,7 +371,9 @@ class lmbARValidationTest extends lmbARBaseTestCase
 
     $object->set('annotation', $annotation = 'New annotation ' . time());
 
-    $validator->expects()->Never('validate');
+    $validator
+        ->expects($this->never())
+        ->method('validate');
 
     $object->saveSkipValidation();
 
@@ -367,7 +422,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
 
     $this->assertFalse($object->trySave($error_list));
     $this->assertFalse($error_list->isEmpty());
-    $this->assertEquals(sizeof($error_list), 1);
+    $this->assertEquals(1, sizeof($error_list));
     $this->assertPattern('~yo-yo~', $error_list[0]['message']);
   }
 

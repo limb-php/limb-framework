@@ -11,6 +11,7 @@ namespace tests\dbal\cases\nondriver\criteria;
 require('tests/dbal/common.inc.php');
 
 use PHPUnit\Framework\TestCase;
+use tests\dbal\ConnectionTestStub;
 use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 
@@ -21,7 +22,7 @@ class lmbSQLFieldCriteriaTest extends TestCase
 
   function setUp(): void
   {
-    $this->conn = new \ConnectionTestStub();
+    $this->conn = new ConnectionTestStub();
     $this->query = new lmbSelectRawQuery('SELECT * FROM any_table WHERE %where%', $this->conn);
   }
 

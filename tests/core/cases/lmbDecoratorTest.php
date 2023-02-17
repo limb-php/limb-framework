@@ -43,7 +43,7 @@ class lmbDecoratorTest extends TestCase
   function testDecoratorIsInstanceOfDecoratee()
   {
     $rnd = mt_rand();
-    $class = 'DecoratorTestStub' .$rnd;
+    $class = 'DecoratorTestStub' . $rnd;
     $this->assertTrue(lmbDecorator::generate(DecorateeTestStub::class, $class));
     $obj = new $class(new DecorateeTestStub());
     $this->assertTrue($obj instanceof DecorateeTestStub);
@@ -86,7 +86,7 @@ class lmbDecoratorTest extends TestCase
   function testHasMethods()
   {
     $rnd = mt_rand();
-    $class = 'DecoratorTestStub' .$rnd;
+    $class = 'DecoratorTestStub' . $rnd;
     $this->assertTrue(lmbDecorator::generate(DecorateeTestStub::class, $class));
 
     $decorator = new $class(new DecorateeTestStub());
@@ -103,18 +103,18 @@ class lmbDecoratorTest extends TestCase
 
     $refl = new \ReflectionClass($class);
     $params = $refl->getMethod('typehint')->getParameters();
-    $this->assertEquals(sizeof($params), 1);
-    $this->assertEquals($params[0]->getClass()->getName(), DecorateeTestStub::class);
+    $this->assertEquals(1, sizeof($params));
+    $this->assertEquals(DecorateeTestStub::class, $params[0]->getClass()->getName());
   }
 
   function testCallsPassedToDecorated()
   {
     $rnd = mt_rand();
-    $class = 'DecoratorTestStub' .$rnd;
+    $class = 'DecoratorTestStub' . $rnd;
     $this->assertTrue(lmbDecorator::generate(DecorateeTestStub::class, $class));
 
     $decorator = new $class(new DecorateeTestStub());
     $decorator->set('foo');
-    $this->assertEquals($decorator->get(), 'foo');
+    $this->assertEquals('foo', $decorator->get());
   }
 }

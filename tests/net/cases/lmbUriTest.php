@@ -56,10 +56,10 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEquals($uri->getProtocol(), 'file');
-    $this->assertEquals($uri->getHost(), '');
+    $this->assertEquals('file', $uri->getProtocol());
+    $this->assertEquals('', $uri->getHost());
 
-    $this->assertEquals($uri->getPath(), 'c:\dir\another_dir\\');
+    $this->assertEquals('c:\dir\another_dir\\', $uri->getPath());
 
     $str = 'file://c:/dir/another_dir';
 

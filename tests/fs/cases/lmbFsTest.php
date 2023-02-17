@@ -149,40 +149,40 @@ class lmbFsTest extends TestCase
   {
     $path = lmbFs::explodePath('/tmp\../tmp/wow////hey/');
 
-    $this->assertEquals(sizeof($path), 4);
+    $this->assertEquals(4, sizeof($path));
 
-    $this->assertEquals($path[0], '');
-    $this->assertEquals($path[1], 'tmp');
-    $this->assertEquals($path[2], 'wow');
-    $this->assertEquals($path[3], 'hey');
+    $this->assertEquals('', $path[0]);
+    $this->assertEquals('tmp', $path[1]);
+    $this->assertEquals('wow', $path[2]);
+    $this->assertEquals('hey', $path[3]);
 
     $path = lmbFs::explodePath('/tmp\../tmp/wow////hey'); // no trailing slash
 
-    $this->assertEquals(sizeof($path), 4);
+    $this->assertEquals(4, sizeof($path));
 
-    $this->assertEquals($path[0], '');
-    $this->assertEquals($path[1], 'tmp');
-    $this->assertEquals($path[2], 'wow');
-    $this->assertEquals($path[3], 'hey');
+    $this->assertEquals('', $path[0]);
+    $this->assertEquals('tmp', $path[1]);
+    $this->assertEquals('wow', $path[2]);
+    $this->assertEquals('hey', $path[3]);
   }
 
   function testExplodeRelativePath()
   {
     $path = lmbFs::explodePath('tmp\../tmp/wow////hey/');
 
-    $this->assertEquals(sizeof($path), 3);
+    $this->assertEquals(3, sizeof($path));
 
-    $this->assertEquals($path[0], 'tmp');
-    $this->assertEquals($path[1], 'wow');
-    $this->assertEquals($path[2], 'hey');
+    $this->assertEquals('tmp', $path[0]);
+    $this->assertEquals('wow', $path[1]);
+    $this->assertEquals('hey', $path[2]);
 
     $path = lmbFs::explodePath('tmp\../tmp/wow////hey'); // no trailing slash
 
-    $this->assertEquals(sizeof($path), 3);
+    $this->assertEquals(3, sizeof($path));
 
-    $this->assertEquals($path[0], 'tmp');
-    $this->assertEquals($path[1], 'wow');
-    $this->assertEquals($path[2], 'hey');
+    $this->assertEquals('tmp', $path[0]);
+    $this->assertEquals('wow', $path[1]);
+    $this->assertEquals('hey', $path[2]);
   }
 
   function testMkdirAbsolutePath()
@@ -210,10 +210,10 @@ class lmbFsTest extends TestCase
 
   function testDirpath()
   {
-    $this->assertEquals(lmbFs :: dirpath('/wow/test.txt'), lmbFs :: normalizePath('/wow'));
-    $this->assertEquals(lmbFs :: dirpath('wow/hey/test.txt'), lmbFs :: normalizePath('wow/hey'));
-    $this->assertEquals(lmbFs :: dirpath('test.txt'), 'test.txt');
-    $this->assertEquals(lmbFs :: dirpath('/'), '');
+    $this->assertEquals(lmbFs::dirpath('/wow/test.txt'), lmbFs::normalizePath('/wow'));
+    $this->assertEquals(lmbFs::dirpath('wow/hey/test.txt'), lmbFs::normalizePath('wow/hey'));
+    $this->assertEquals(lmbFs::dirpath('test.txt'), 'test.txt');
+    $this->assertEquals(lmbFs::dirpath('/'), '');
   }
 
   function testLs()
@@ -230,19 +230,19 @@ class lmbFsTest extends TestCase
 
   function testPath()
   {
-    $this->assertEquals(lmbFs :: path(array('test')), 'test');
-    $this->assertEquals(lmbFs :: path(array('test', 'wow')), 'test' . lmbFs :: separator() . 'wow');
-    $this->assertEquals(lmbFs :: path(array('test', 'wow/')), 'test' . lmbFs :: separator() . 'wow');
+    $this->assertEquals(lmbFs::path(array('test')), 'test');
+    $this->assertEquals(lmbFs::path(array('test', 'wow')), 'test' . lmbFs :: separator() . 'wow');
+    $this->assertEquals(lmbFs::path(array('test', 'wow/')), 'test' . lmbFs :: separator() . 'wow');
 
-    $this->assertEquals(lmbFs :: path(array('test'), true), 'test' . lmbFs :: separator());
-    $this->assertEquals(lmbFs :: path(array('test', 'wow'), true), 'test' . lmbFs :: separator() . 'wow' . lmbFs :: separator());
+    $this->assertEquals(lmbFs::path(array('test'), true), 'test' . lmbFs :: separator());
+    $this->assertEquals(lmbFs::path(array('test', 'wow'), true), 'test' . lmbFs :: separator() . 'wow' . lmbFs :: separator());
   }
 
   function testChop()
   {
-    $this->assertEquals(lmbFs :: chop('test'), 'test');
-    $this->assertEquals(lmbFs :: chop('test/'), 'test');
-    $this->assertEquals(lmbFs :: chop('test\\'), 'test');
+    $this->assertEquals(lmbFs::chop('test'), 'test');
+    $this->assertEquals(lmbFs::chop('test/'), 'test');
+    $this->assertEquals(lmbFs::chop('test\\'), 'test');
   }
 
   function testWalkDir()
@@ -262,17 +262,17 @@ class lmbFsTest extends TestCase
 
     $this->assertEquals(sizeof($mock->walked), 11);
 
-    $this->assertEquals($mock->walked[0], lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1'));
-    $this->assertEquals($mock->walked[1], lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_2'));
-    $this->assertEquals($mock->walked[2], lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_3'));
-    $this->assertEquals($mock->walked[3], lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow'));
-    $this->assertEquals($mock->walked[4], lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey'));
-    $this->assertEquals($mock->walked[5], lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_1'));
-    $this->assertEquals($mock->walked[6], lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_2'));
-    $this->assertEquals($mock->walked[7], lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_3'));
-    $this->assertEquals($mock->walked[8], lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test2_1'));
-    $this->assertEquals($mock->walked[9], lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test2_2'));
-    $this->assertEquals($mock->walked[10], lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test2_3'));
+    $this->assertEquals($mock->walked[0], lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1'));
+    $this->assertEquals($mock->walked[1], lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_2'));
+    $this->assertEquals($mock->walked[2], lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_3'));
+    $this->assertEquals($mock->walked[3], lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow'));
+    $this->assertEquals($mock->walked[4], lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey'));
+    $this->assertEquals($mock->walked[5], lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_1'));
+    $this->assertEquals($mock->walked[6], lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_2'));
+    $this->assertEquals($mock->walked[7], lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_3'));
+    $this->assertEquals($mock->walked[8], lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test2_1'));
+    $this->assertEquals($mock->walked[9], lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test2_2'));
+    $this->assertEquals($mock->walked[10], lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test2_3'));
 
     $this->_removeFileSystem();
   }
@@ -368,12 +368,12 @@ class lmbFsTest extends TestCase
     );
 
     $this->assertEquals(
-      lmbFs :: ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp'),
-      lmbFs :: ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow'));
+      lmbFs::ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp'),
+      lmbFs::ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow'));
 
     $this->assertEquals(
-      lmbFs :: ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp/hey'),
-      lmbFs :: ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey'));
+      lmbFs::ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/cp/hey'),
+      lmbFs::ls(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey'));
 
     $this->_removeFileSystem();
   }
@@ -462,7 +462,7 @@ class lmbFsTest extends TestCase
 
     $this->assertFalse(file_exists(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test1_1'));
 
-    $res = lmbFs :: cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1',
+    $res = lmbFs::cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1',
         lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow');
 
     $this->assertTrue(file_exists(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test1_1'));
@@ -476,7 +476,7 @@ class lmbFsTest extends TestCase
 
     $this->assertFalse(file_exists(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow2/test1_1.copy'));
 
-    $res = lmbFs :: cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1',
+    $res = lmbFs::cp(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1',
         lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow2/test1_1.copy');
 
     $this->assertTrue(file_exists(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow2/test1_1.copy'));
@@ -493,19 +493,19 @@ class lmbFsTest extends TestCase
     $this->assertEquals(
       $this->_sort($res),
       $this->_sort(array(
-        lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_1'),
-        lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_2'),
-        lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_3')
+        lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_1'),
+        lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_2'),
+        lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_3')
       ))
     );
 
-    $res = lmbFs :: find(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/', 'f', null, '/^test2_1$/');
+    $res = lmbFs::find(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/', 'f', null, '/^test2_1$/');
 
     $this->assertEquals(
       $this->_sort($res),
       $this->_sort(array(
-        lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test2_2'),
-        lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test2_3'),
+        lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test2_2'),
+        lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test2_3'),
       ))
     );
 
@@ -521,9 +521,9 @@ class lmbFsTest extends TestCase
     $this->assertEquals(
       $this->_sort($res),
       $this->_sort(array(
-        lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1'),
-        lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_1'),
-        lmbFs :: normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test2_1'),
+        lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/test1_1'),
+        lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/hey/test3_1'),
+        lmbFs::normalizePath(lmbEnv::get('LIMB_VAR_DIR') . '/tmp/wow/test2_1'),
       ))
     );
 
@@ -536,5 +536,3 @@ class lmbFsTest extends TestCase
     return $a;
   }
 }
-
-

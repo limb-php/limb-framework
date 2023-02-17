@@ -10,12 +10,14 @@ namespace tests\dbal\cases\nondriver\query;
 
 require('tests/dbal/common.inc.php');
 
+use limb\toolkit\src\lmbToolkit;
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\criteria\lmbSQLRawCriteria;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\core\src\exception\lmbException;
+use tests\dbal\ConnectionTestStub;
 
 class lmbSelectRawQueryTest extends TestCase
 {
@@ -24,7 +26,7 @@ class lmbSelectRawQueryTest extends TestCase
   function setUp(): void
   {
     //this stub uses ' quoting for simpler testing
-    $this->conn = new \ConnectionTestStub();
+    $this->conn = new ConnectionTestStub();
   }
 
   function testSimpleSelect()
@@ -511,7 +513,7 @@ class lmbSelectRawQueryTest extends TestCase
 
   function testQueryWithoutWhere()
   {
-    $sql = new lmbSelectRawQuery('SELECT 2', lmbToolkit :: instance()->getDefaultDbConnection());
+    $sql = new lmbSelectRawQuery('SELECT 2', lmbToolkit::instance()->getDefaultDbConnection());
     $rs = $sql->fetch();
     $this->assertEquals($rs->count(), 1);
   }

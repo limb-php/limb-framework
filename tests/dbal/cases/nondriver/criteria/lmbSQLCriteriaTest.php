@@ -20,15 +20,15 @@ class lmbSQLCriteriaTest extends TestCase
   {
     $c = new lmbSQLCriteria('a=1');
 
-    $this->assertEquals($c->toStatementString(), 'a=1');
+    $this->assertEquals('a=1', $c->toStatementString());
   }
 
   function testBuildCriteriaFromStringWithNamedValues()
   {
     $c = new lmbSQLCriteria('a=:id:', array('id' => 2));
 
-    $this->assertEquals($c->toStatementString($values), 'a=:id:');
-    $this->assertEquals($values, array('id' => 2));
+    $this->assertEquals('a=:id:', $c->toStatementString($values));
+    $this->assertEquals(array('id' => 2), $values);
   }
 
   function testBuildCriteriaFromStringWithNonNamedValues()
@@ -43,8 +43,8 @@ class lmbSQLCriteriaTest extends TestCase
 
     $this->assertEquals($str, 'a=:' . $key1 . ': OR b=:' . $key2 . ':');
 
-    $this->assertEquals($values[$key1], 2);
-    $this->assertEquals($values[$key2], 3);
+    $this->assertEquals(2, $values[$key1]);
+    $this->assertEquals(3, $values[$key2]);
   }
 
   function testAndChaining()
@@ -52,7 +52,7 @@ class lmbSQLCriteriaTest extends TestCase
     $a = new lmbSQLCriteria('a');
     $b = new lmbSQLCriteria('b');
     $a->addAnd($b);
-    $this->assertEquals($a->toStatementString(), 'a AND b');
+    $this->assertEquals('a AND b', $a->toStatementString());
   }
 
   function testAndChainingViaAdd()
@@ -60,7 +60,7 @@ class lmbSQLCriteriaTest extends TestCase
     $a = new lmbSQLCriteria('a');
     $b = new lmbSQLCriteria('b');
     $a->add($b);
-    $this->assertEquals($a->toStatementString(), 'a AND b');
+    $this->assertEquals('a AND b', $a->toStatementString());
   }
 
   function testOrChaining()
@@ -68,7 +68,7 @@ class lmbSQLCriteriaTest extends TestCase
     $a = new lmbSQLCriteria('a');
     $b = new lmbSQLCriteria('b');
     $a->addOr($b);
-    $this->assertEquals($a->toStatementString(), 'a OR b');
+    $this->assertEquals('a OR b', $a->toStatementString());
   }
 
   function testComplexCriteriaIsSurroundedWithParenthesis()
@@ -77,7 +77,7 @@ class lmbSQLCriteriaTest extends TestCase
     $b = new lmbSQLCriteria('b');
     $c = new lmbSQLCriteria('c');
     $a->add($b->add($c));
-    $this->assertEquals($a->toStatementString(), 'a AND (b AND c)');
+    $this->assertEquals('a AND (b AND c)', $a->toStatementString());
   }
 
   function testComplexChaining()
@@ -90,33 +90,33 @@ class lmbSQLCriteriaTest extends TestCase
     $g = new lmbSQLCriteria('g');
     $h = new lmbSQLCriteria('h');
     $a->addOr($b->addAnd($c))->addAnd($d->addOr($e)->addAnd($g->addOr($h)));
-    $this->assertEquals($a->toStatementString(), 'a OR (b AND c) AND (d OR e AND (g OR h))');
+    $this->assertEquals('a OR (b AND c) AND (d OR e AND (g OR h))', $a->toStatementString());
   }
 
   function testCreate()
   {
     $criteria = lmbSQLCriteria :: create('2 = 2');
-    $this->assertEquals($criteria->toStatementString(), '2 = 2');
+    $this->assertEquals('2 = 2', $criteria->toStatementString());
   }
 
   function testEmptyCriteriaChainingIsSafe()
   {
     $c = lmbSQLCriteria :: create()->add(new lmbSQLCriteria());
-    $this->assertEquals($c->toStatementString(), '1 = 1 AND 1 = 1');
+    $this->assertEquals('1 = 1 AND 1 = 1', $c->toStatementString());
   }
 
   function testNot()
   {
     $a = new lmbSQLCriteria('a');
     $a->not();
-    $this->assertEquals($a->toStatementString(), 'NOT(a)');
+    $this->assertEquals('NOT(a)', $a->toStatementString());
   }
 
   function testToggleNot()
   {
     $a = new lmbSQLCriteria('a');
     $a->not()->not();
-    $this->assertEquals($a->toStatementString(), 'a');
+    $this->assertEquals('a', $a->toStatementString());
   }
 
   function testNotWithChaining()
@@ -124,21 +124,21 @@ class lmbSQLCriteriaTest extends TestCase
     $a = new lmbSQLCriteria('a');
     $b = new lmbSQLCriteria('b');
     $a->not()->add($b);
-    $this->assertEquals($a->toStatementString(), 'NOT(a) AND b');
+    $this->assertEquals('NOT(a) AND b', $a->toStatementString());
   }
 
   function testNotAll()
   {
     $a = new lmbSQLCriteria('a');
     $a->notAll();
-    $this->assertEquals($a->toStatementString(), 'NOT(a)');
+    $this->assertEquals('NOT(a)', $a->toStatementString());
   }
 
   function testToggleNotAll()
   {
     $a = new lmbSQLCriteria('a');
     $a->notAll()->notAll();
-    $this->assertEquals($a->toStatementString(), 'a');
+    $this->assertEquals('a', $a->toStatementString());
   }
 
   function testNotAllWithChaining()
@@ -146,7 +146,7 @@ class lmbSQLCriteriaTest extends TestCase
     $a = new lmbSQLCriteria('a');
     $b = new lmbSQLCriteria('b');
     $a->notAll()->add($b);
-    $this->assertEquals($a->toStatementString(), 'NOT(a AND b)');
+    $this->assertEquals('NOT(a AND b)', $a->toStatementString());
   }
 
   function testNotAllAndNotAtTheSameTime()
@@ -154,25 +154,25 @@ class lmbSQLCriteriaTest extends TestCase
     $a = new lmbSQLCriteria('a');
     $b = new lmbSQLCriteria('b');
     $a->notAll()->not()->add($b);
-    $this->assertEquals($a->toStatementString(), 'NOT(NOT(a) AND b)');
+    $this->assertEquals('NOT(NOT(a) AND b)', $a->toStatementString());
   }
 
   function testObjectifyString()
   {
     $criteria = lmbSQLCriteria :: objectify("id = 1");
-    $this->assertEquals($criteria->toStatementString(), "id = 1");
+    $this->assertEquals("id = 1", $criteria->toStatementString());
   }
 
   function testObjectifyObject()
   {
     $criteria = lmbSQLCriteria :: objectify(new lmbSQLCriteria("id = 1"));
-    $this->assertEquals($criteria->toStatementString(), "id = 1");
+    $this->assertEquals("id = 1", $criteria->toStatementString());
   }
 
   function testObjectifyNull()
   {
     $criteria = lmbSQLCriteria :: objectify(null);
-    $this->assertEquals($criteria->toStatementString(), "1 = 1");
+    $this->assertEquals("1 = 1", $criteria->toStatementString());
   }
 
   function testObjectifyNotSupportedArrayFormatException()
@@ -189,7 +189,7 @@ class lmbSQLCriteriaTest extends TestCase
   function testPassRawCriteriaToConstructor()
   {
     $criteria = new lmbSQLCriteria('2 = 2');
-    $this->assertEquals($criteria->toStatementString(), '2 = 2');
+    $this->assertEquals('2 = 2', $criteria->toStatementString());
   }
 
   function testBetween()

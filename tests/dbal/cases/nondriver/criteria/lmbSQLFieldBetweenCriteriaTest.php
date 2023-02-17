@@ -11,6 +11,7 @@ namespace tests\dbal\cases\nondriver\criteria;
 require('tests/dbal/common.inc.php');
 
 use PHPUnit\Framework\TestCase;
+use tests\dbal\ConnectionTestStub;
 use limb\dbal\src\criteria\lmbSQLFieldBetweenCriteria;
 
 class lmbSQLFieldBetweenCriteriaTest extends TestCase
@@ -20,18 +21,18 @@ class lmbSQLFieldBetweenCriteriaTest extends TestCase
 
   function setUp(): void
   {
-    $this->conn = new \ConnectionTestStub();
+    $this->conn = new ConnectionTestStub();
   }
 
   function testSimple()
   {
     $c1 = new lmbSQLFieldBetweenCriteria('a', 1, 10);
 
-    $this->assertEquals($c1->toStatementString($values, $this->conn),
-                       "'a' BETWEEN :pfa0: AND :pta0:");
+    $this->assertEquals("'a' BETWEEN :pfa0: AND :pta0:",
+        $c1->toStatementString($values, $this->conn));
 
-    $this->assertEquals($values, array('pfa0' => 1,
-                                      'pta0' => 10));
+    $this->assertEquals(array('pfa0' => 1,
+                                      'pta0' => 10), $values);
   }
 
   function _testNested()
@@ -40,12 +41,12 @@ class lmbSQLFieldBetweenCriteriaTest extends TestCase
     $c2 = new lmbSQLFieldBetweenCriteria('a', 20, 30);
     $c1->addOr($c2);
 
-    $this->assertEquals($c1->toStatementString($values, $this->conn),
-                       "('a' BETWEEN :pfa0: AND :pta0: OR a BETWEEN :pfa1: AND :pta1:)");
+    $this->assertEquals("('a' BETWEEN :pfa0: AND :pta0: OR a BETWEEN :pfa1: AND :pta1:)",
+        $c1->toStatementString($values, $this->conn));
 
-    $this->assertEquals($values, array('pfa0' => 1,
+    $this->assertEquals(array('pfa0' => 1,
                                       'pta0' => 10,
                                       'pfa1' => 20,
-                                      'pta1' => 30));
+                                      'pta1' => 30), $values);
   }
 }

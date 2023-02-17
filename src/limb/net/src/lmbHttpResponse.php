@@ -198,8 +198,6 @@ class lmbHttpResponse
 
   function redirect($path)
   {
-    //$this->_ensureTransactionStarted();
-
     if ($this->is_redirected)
       return $this;
 
@@ -247,12 +245,6 @@ class lmbHttpResponse
     $this->headers = array();
     $this->is_redirected = false;
     $this->transaction_started = false;
-  }
-
-  function start()
-  {
-    $this->reset();
-    $this->transaction_started = true;
   }
 
   protected function _checkStatusInHeader($header)
@@ -362,8 +354,6 @@ class lmbHttpResponse
    */
   function addHeader($header, $value = null)
   {
-      //$this->_ensureTransactionStarted();
-
       $isStatus = $this->_checkStatusInHeader($header);
       if($isStatus)
           return $this;
@@ -381,8 +371,6 @@ class lmbHttpResponse
 
   function setCookie($name, $value, $expire = 0, $path = '/', $domain = '', $secure = false)
   {
-    //$this->_ensureTransactionStarted();
-
     $this->cookies[$name] = array(
         'name' => $name,
         'value' => $value,
@@ -416,8 +404,6 @@ class lmbHttpResponse
 
   public function readFile($file_path)
   {
-    //$this->_ensureTransactionStarted();
-
     $this->response_file_path = $file_path;
 
     return $this;
@@ -434,8 +420,6 @@ class lmbHttpResponse
 
   public function append($string)
   {
-    //$this->_ensureTransactionStarted();
-
     $this->response_string .= $string;
 
     return $this;
@@ -443,16 +427,15 @@ class lmbHttpResponse
 
   public function commit()
   {
-    //$this->_ensureTransactionStarted();
-
     $this->sendHeaders();
 
     if(!empty($this->response_file_path))
       $this->_sendFile($this->response_file_path);
+
     else if(!empty($this->response_string))
       $this->_sendString($this->response_string);
 
-    $this->transaction_started = false;
+    $this->transaction_started = true;
   }
   public function send()
   {
@@ -518,12 +501,6 @@ class lmbHttpResponse
   protected function _sendFile($file_path)
   {
     readfile($file_path);
-  }
-
-  protected function _ensureTransactionStarted()
-  {
-    if(!$this->transaction_started)
-      $this->start();
   }
 
     public function getProtocolVersion()
