@@ -41,7 +41,7 @@ class lmbFullPageCacheFilter implements lmbInterceptingFilterInterface
       $this->user = $user;
   }
 
-  function run($filter_chain, $request = null, $response = null)
+  function run($filter_chain, $request, $response)
   {
     $toolkit = lmbToolkit::instance();
 
