@@ -26,7 +26,7 @@ class lmbLinterStatementTest extends DriverStatementTestBase
 
   function setTypedValue($type, $column, $value)
   {
-    $setterList = lmbDbTypeInfo::getColumnTypeAccessors();
+    $setterList = (new lmbDbTypeInfo)->getColumnTypeAccessors();
     $setter = $setterList[$type];
     $this->assertNotNull($setter);
 
@@ -82,7 +82,7 @@ class lmbLinterStatementTest extends DriverStatementTestBase
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_BOOLEAN, 'type_boolean', $value);
 
     if(is_null($value))
-      $this->assertEquals($record->getBoolean('type_boolean'), null);
+      $this->assertEquals(null, $record->getBoolean('type_boolean'));
     else
       $this->assertEquals($record->getBoolean('type_boolean'), (boolean) $value);
   }
@@ -96,7 +96,7 @@ class lmbLinterStatementTest extends DriverStatementTestBase
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_FLOAT, 'type_float', $value);
 
     if(is_null($value))
-      $this->assertEquals($record->getFloat('type_float'), null);
+      $this->assertEquals(null, $record->getFloat('type_float'));
     else
       $this->assertEquals(round($record->getFloat('type_float'), 2), round((float) $value, 2));
 
@@ -253,7 +253,6 @@ class lmbLinterStatementTest extends DriverStatementTestBase
       $this->assertEquals($record->get('type_blob'), $value);
 
     }
-
   }
 
 
@@ -263,11 +262,11 @@ class lmbLinterStatementTest extends DriverStatementTestBase
 
     $value = null;
     $stmt->setDate('literal', $value);
-    $this->assertEquals($stmt->getOneValue(), null);
+    $this->assertEquals(null, $stmt->getOneValue());
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_DATE, 'type_date', $value);
-    $this->assertEquals($record->getStringDate('type_date'), null);
-    $this->assertEquals($record->get('type_date'), null);
+    $this->assertEquals(null, $record->getStringDate('type_date'));
+    $this->assertEquals(null, $record->get('type_date'));
 
     $value = '2009-12-28';
 
@@ -296,7 +295,7 @@ class lmbLinterStatementTest extends DriverStatementTestBase
 
     $value = null;
     $stmt->setTime('literal', $value);
-    $this->assertEquals($stmt->getOneValue(), null);
+    $this->assertEquals(null, $stmt->getOneValue());
 
     $value = null;
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_TIME, 'type_time', $value);
@@ -363,7 +362,7 @@ class lmbLinterStatementTest extends DriverStatementTestBase
   {
     $stmt = $this->connection->newStatement('SELECT :literal:');
     $stmt->setNull('literal');
-    $this->assertEquals($stmt->getOneValue(), null);
+    $this->assertEquals(null, $stmt->getOneValue());
 
     $sql = '
           INSERT INTO standard_types (
@@ -419,33 +418,33 @@ class lmbLinterStatementTest extends DriverStatementTestBase
     $record = $stmt->getOneRecord();
 
     /* generic gets */
-    $this->assertEquals($record->get('type_smallint'), 0);
-    $this->assertEquals($record->get('type_integer'), 0);
-    $this->assertEquals($record->get('type_boolean'), 0);
-    $this->assertEquals($record->get('type_char'), 0);
-    $this->assertEquals($record->get('type_varchar'), 0);
-    $this->assertEquals($record->get('type_clob'), 0);
-    $this->assertEquals($record->get('type_float'), 0);
-    $this->assertEquals($record->get('type_double'), 0);
-    $this->assertEquals($record->get('type_decimal'), 0);
-    $this->assertEquals($record->get('type_timestamp'), 0);
-    $this->assertEquals($record->get('type_date'), 0);
-    $this->assertEquals($record->get('type_time'), 0);
-    $this->assertEquals($record->get('type_blob'), 0);
+    $this->assertEquals(0, $record->get('type_smallint'));
+    $this->assertEquals(0, $record->get('type_integer'));
+    $this->assertEquals(0, $record->get('type_boolean'));
+    $this->assertEquals(0, $record->get('type_char'));
+    $this->assertEquals(0, $record->get('type_varchar'));
+    $this->assertEquals(0, $record->get('type_clob'));
+    $this->assertEquals(0, $record->get('type_float'));
+    $this->assertEquals(0, $record->get('type_double'));
+    $this->assertEquals(0, $record->get('type_decimal'));
+    $this->assertEquals(0, $record->get('type_timestamp'));
+    $this->assertEquals(0, $record->get('type_date'));
+    $this->assertEquals(0, $record->get('type_time'));
+    $this->assertEquals(0, $record->get('type_blob'));
 
     /* typed gets */
-    $this->assertEquals($record->getInteger('type_smallint'), 0);
-    $this->assertEquals($record->getInteger('type_integer'), 0);
-    $this->assertEquals($record->getBoolean('type_boolean'), 0);
-    $this->assertEquals($record->getString('type_char'), 0);
-    $this->assertEquals($record->getString('type_varchar'), 0);
-    $this->assertEquals($record->getString('type_clob'), 0);
-    $this->assertEquals($record->getFloat('type_float'), 0);
-    $this->assertEquals($record->getStringFixed('type_double'), 0);
-    $this->assertEquals($record->getStringFixed('type_decimal'), 0);
-    $this->assertEquals($record->getStringTimeStamp('type_timestamp'), 0);
-    $this->assertEquals($record->getStringDate('type_date'), 0);
-    $this->assertEquals($record->getStringTime('type_time'), 0);
-    $this->assertEquals($record->getString('type_blob'), 0);
+    $this->assertEquals(0, $record->getInteger('type_smallint'));
+    $this->assertEquals(0, $record->getInteger('type_integer'));
+    $this->assertEquals(0, $record->getBoolean('type_boolean'));
+    $this->assertEquals(0, $record->getString('type_char'));
+    $this->assertEquals(0, $record->getString('type_varchar'));
+    $this->assertEquals(0, $record->getString('type_clob'));
+    $this->assertEquals(0, $record->getFloat('type_float'));
+    $this->assertEquals(0, $record->getStringFixed('type_double'));
+    $this->assertEquals(0, $record->getStringFixed('type_decimal'));
+    $this->assertEquals(0, $record->getStringTimeStamp('type_timestamp'));
+    $this->assertEquals(0, $record->getStringDate('type_date'));
+    $this->assertEquals(0, $record->getStringTime('type_time'));
+    $this->assertEquals(0, $record->getString('type_blob'));
   }
 }

@@ -8,6 +8,8 @@
  */
 namespace tests\dbal\cases\nondriver;
 
+require_once(dirname(__FILE__) . '/.setup.php');
+
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\drivers\lmbAutoTransactionConnection;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
@@ -25,20 +27,26 @@ class lmbAutoTransactionConnectionTest extends TestCase
 
   function testCommitIfTransactionStartedOnly()
   {
-    $this->wrapped->expectNever('commitTransaction');
+    $this->wrapped
+        ->expects($this->never())
+        ->method('commitTransaction');
     $this->connection->commitTransaction();
   }
 
   function testBeginTransactionOnce()
   {
-    $this->wrapped->expectCallCount('beginTransaction', 1);
+    $this->wrapped
+        ->expects($this->exactly(1))
+        ->method('beginTransaction');
     $this->connection->beginTransaction();
     $this->connection->beginTransaction();
   }
 
   function testBeginAndCommitTransaction()
   {
-    $this->wrapped->expectCallCount('beginTransaction', 2);
+    $this->wrapped
+        ->expects($this->exactly(2))
+        ->method('beginTransaction');
     $this->connection->beginTransaction();
     $this->connection->commitTransaction();
     $this->connection->beginTransaction();
@@ -46,13 +54,17 @@ class lmbAutoTransactionConnectionTest extends TestCase
 
   function testRollbackIfTransactionStartedOnly()
   {
-    $this->wrapped->expectNever('rollbackTransaction');
+    $this->wrapped
+        ->expects($this->never())
+        ->method('rollbackTransaction');
     $this->connection->rollbackTransaction();
   }
 
   function testBeginAndRollbackTransaction()
   {
-    $this->wrapped->expectCallCount('beginTransaction', 2);
+    $this->wrapped
+        ->expects($this->exactly(2))
+        ->method('beginTransaction');
     $this->connection->beginTransaction();
     $this->connection->rollbackTransaction();
     $this->connection->beginTransaction();
@@ -60,7 +72,9 @@ class lmbAutoTransactionConnectionTest extends TestCase
 
   function testDontBeginTransactionOnSelect()
   {
-    $this->wrapped->expectNever('beginTransaction');
+    $this->wrapped
+        ->expects($this->never())
+        ->method('beginTransaction');
     $this->connection->newStatement('SELECT ...');
   }
 
@@ -135,10 +149,18 @@ class lmbAutoTransactionConnectionTest extends TestCase
 
   function _assertBeginForStatement($sql)
   {
-    $this->wrapped->expectOnce('newStatement', array($sql));
-    $this->wrapped->setReturnValue('newStatement', $stmt = 'whatever', array($sql));
-    $this->wrapped->expectOnce('beginTransaction');
-    $this->assertEquals($this->connection->newStatement($sql), $stmt);
+    $this->wrapped
+        ->expects($this->once())
+        ->method('newStatement')
+        ->with($sql);
+    $this->wrapped
+        ->method('newStatement')
+        ->willReturn($stmt = 'whatever')
+        ->with($sql);
+    $this->wrapped
+        ->expects($this->once())
+        ->method('beginTransaction');
+
+    $this->assertEquals($stmt, $this->connection->newStatement($sql));
   }
 }
-

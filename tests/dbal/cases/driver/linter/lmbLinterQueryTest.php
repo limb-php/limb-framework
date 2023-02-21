@@ -18,7 +18,7 @@ class lmbLinterQueryTest extends DriverQueryTestBase
 
   function lmbLinterQueryTest()
   {
-    parent :: DriverQueryTestBase('lmbLinterRecord');
+    parent::DriverQueryTestBase('lmbLinterRecord');
   }
 
   function setUp(): void

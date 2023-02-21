@@ -18,7 +18,7 @@ class lmbLinterRecordSetTest extends DriverRecordSetTestBase
 
   function lmbLinterRecordSetTest()
   {
-    parent :: DriverRecordSetTestBase('lmbLinterRecord');
+    parent::DriverRecordSetTestBase('lmbLinterRecord');
   }
 
   function setUp(): void

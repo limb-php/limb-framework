@@ -7,6 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use limb\core\src\exception\lmbException;
 use limb\dbal\src\exception\lmbDbException;
 
 function DriverLinterSetup($conn)
@@ -68,8 +69,8 @@ function DriverLinterExec($conn, $sql)
 }
 
 
-  function _raiseError($code, $conn_id = null, $args=array())
-  {
+function _raiseError($code, $conn_id = null, $args=array())
+{
     if($code == LPE_INVALID_CONNECT)
     {
       $err_code = -1;
@@ -100,5 +101,4 @@ function DriverLinterExec($conn, $sql)
     }
     throw new lmbException("Database error: No:" . $err_code.". Description: ".$err_message);
     return true;
-  }
-
+}

@@ -32,19 +32,21 @@ class lmbBulkInsertQueryTest extends lmbQueryBaseTestCase
     $rs = $this->db->select('test_db_table')->sort(array('id' => 'ASC'));
     $arr = $rs->getArray();
 
-    $this->assertEquals(sizeof($arr), 2);
-    $this->assertEquals($arr[0]['id'], 2);
-    $this->assertEquals($arr[0]['title'], 'some title');
-    $this->assertEquals($arr[0]['description'], 'some description');
-    $this->assertEquals($arr[1]['id'], 4);
-    $this->assertEquals($arr[1]['description'], 'some other description');
-    $this->assertEquals($arr[1]['title'], 'some other title');
+    $this->assertEquals(2, sizeof($arr));
+    $this->assertEquals(2, $arr[0]['id']);
+    $this->assertEquals('some title', $arr[0]['title']);
+    $this->assertEquals('some description', $arr[0]['description']);
+    $this->assertEquals(4, $arr[1]['id']);
+    $this->assertEquals('some other description', $arr[1]['description']);
+    $this->assertEquals('some other title', $arr[1]['title']);
   }
 
   function testExecuteDoesNothingIfNotSetsSpecified()
   {
-    $query = new lmbBulkInsertQuery('test_db_table', $this->conn);
-    $query->execute();
+      $query = new lmbBulkInsertQuery('test_db_table', $this->conn);
+      $query->execute();
+
+      $this->assertTrue(true);
   }
 
   function testGetStatementThrowsExceptionIfNotSetsSpecified()
@@ -53,7 +55,7 @@ class lmbBulkInsertQueryTest extends lmbQueryBaseTestCase
     try
     {
       $query->getStatement();
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbException $e)
     {

@@ -8,6 +8,8 @@
  */
 namespace tests\dbal\cases\nondriver;
 
+require_once(dirname(__FILE__) . '/.setup.php');
+
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\lmbTableGateway;
@@ -50,4 +52,3 @@ class lmbTableGatewayMetadataTest extends TestCase
     $this->assertEquals($table->getColumnNames(), $expected);
   }
 }
-

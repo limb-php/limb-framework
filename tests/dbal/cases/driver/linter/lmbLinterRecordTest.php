@@ -18,7 +18,7 @@ class lmbLinterRecordTest extends DriverRecordTestBase
 {
   function __construct()
   {
-    parent :: __construct(lmbLinterRecord::class);
+    parent::__construct(lmbLinterRecord::class);
   }
 
   function setUp(): void

@@ -8,6 +8,10 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use limb\dbal\src\drivers\linter\lmbLinterInsertStatement;
+use limb\dbal\src\drivers\linter\lmbLinterManipulationStatement;
+use limb\dbal\src\drivers\linter\lmbLinterQueryStatement;
+use limb\dbal\src\drivers\linter\lmbLinterStatement;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverConnectionTestBase;
 

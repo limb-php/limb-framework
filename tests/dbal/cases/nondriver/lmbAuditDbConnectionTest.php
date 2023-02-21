@@ -8,6 +8,8 @@
  */
 namespace tests\dbal\cases\nondriver;
 
+require_once(dirname(__FILE__) . '/.setup.php');
+
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\drivers\lmbAuditDbConnection;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
@@ -30,7 +32,7 @@ class lmbAuditDbConnectionTest extends TestCase
     $this->wrapped->expects($this->once())->method('execute')->with($sql);
     $this->connection->execute($sql);
     
-    $this->assertEquals($this->connection->countQueries(), 1);
+    $this->assertEquals(1, $this->connection->countQueries());
   }
 
   function testResetQueryCounter()
@@ -39,11 +41,11 @@ class lmbAuditDbConnectionTest extends TestCase
     $this->connection->execute($sql);
     $this->connection->execute($sql);
     
-    $this->assertEquals($this->connection->countQueries(), 2);
+    $this->assertEquals(2, $this->connection->countQueries());
     
     $this->connection->resetStats();
     
-    $this->assertEquals($this->connection->countQueries(), 0);
+    $this->assertEquals(0, $this->connection->countQueries());
   }
   
   function testNewStatementSetSelfAsConnection()
@@ -66,7 +68,8 @@ class lmbAuditDbConnectionTest extends TestCase
         ->with($sql);
     $this->wrapped
         ->method('newStatement')
-        ->setReturnValue($statement, array($sql));
+        ->willReturn($statement)
+        ->with($sql);
     
     $refreshed_statement = $this->connection->newStatement($sql);
     $this->assertEquals($statement, $refreshed_statement);
@@ -81,6 +84,6 @@ class lmbAuditDbConnectionTest extends TestCase
     $this->connection->execute($sql2);
     $this->connection->execute($sql3);
    
-    $this->assertEquals(count($this->connection->getQueries('select program.*')), 2);
+    $this->assertCount(2, $this->connection->getQueries('select program.*'));
   }
 }

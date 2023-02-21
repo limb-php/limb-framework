@@ -18,7 +18,7 @@ abstract class DriverStatementTestBase extends TestCase
 
   function setTypedValue($type, $column, $value)
   {
-    $setterList = lmbDbTypeInfo::getColumnTypeAccessors();
+    $setterList = (new lmbDbTypeInfo)->getColumnTypeAccessors();
     $setter = $setterList[$type];
     $this->assertNotNull($setter);
 
@@ -46,7 +46,7 @@ abstract class DriverStatementTestBase extends TestCase
   {
     $stmt = $this->connection->newStatement('SELECT :literal:');
     $stmt->setNull('literal');
-    $this->assertIdentical($stmt->getOneValue(), null);
+    $this->assertEquals($stmt->getOneValue(), null);
 
     $sql = "
           INSERT INTO standard_types (
@@ -226,14 +226,14 @@ abstract class DriverStatementTestBase extends TestCase
     foreach($string_list as $value)
     {
       $stmt->setChar('literal', $value);
-      $this->assertIdentical($stmt->getOneValue(), $value);
+      $this->assertEquals($stmt->getOneValue(), $value);
     }
 
     foreach($string_list as $value)
     {
       $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_CHAR, 'type_char', $value);
       //some databases fill char fields with spaces and we have to trim values
-      $this->assertIdentical(trim($record->getString('type_char')), $value);
+      $this->assertEquals(trim($record->getString('type_char')), $value);
       $this->assertEquals(trim($record->get('type_char')), $value);
     }
 
@@ -243,7 +243,7 @@ abstract class DriverStatementTestBase extends TestCase
 
     $value = null;
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_CHAR, 'type_char', $value);
-    $this->assertIdentical($record->getString('type_char'), $value);
+    $this->assertEquals($record->getString('type_char'), $value);
     $this->assertEquals($record->get('type_char'), $value);
 
     $value = ' trim ';
@@ -262,13 +262,13 @@ abstract class DriverStatementTestBase extends TestCase
     foreach($string_list as $value)
     {
       $stmt->setVarChar('literal', $value);
-      $this->assertIdentical($stmt->getOneValue(), $value);
+      $this->assertEquals($stmt->getOneValue(), $value);
     }
 
     foreach($string_list as $value)
     {
       $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_VARCHAR, 'type_varchar', $value);
-      $this->assertIdentical($record->getString('type_varchar'), $value);
+      $this->assertEquals($record->getString('type_varchar'), $value);
       $this->assertEquals($record->get('type_varchar'), $value);
     }
 
@@ -278,7 +278,7 @@ abstract class DriverStatementTestBase extends TestCase
 
     $value = null;
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_VARCHAR, 'type_varchar', $value);
-    $this->assertIdentical($record->getString('type_varchar'), $value);
+    $this->assertEquals($record->getString('type_varchar'), $value);
     $this->assertEquals($record->get('type_varchar'), $value);
 
     $value = ' trim ';
@@ -300,7 +300,7 @@ abstract class DriverStatementTestBase extends TestCase
     $this->assertEquals($stmt->getOneValue(), $value);
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_DATE, 'type_date', $value);
-    $this->assertIdentical($record->getStringDate('type_date'), $value);
+    $this->assertEquals($record->getStringDate('type_date'), $value);
     $this->assertEquals($record->get('type_date'), $value);
 
     $value = '2009-12-28';
@@ -309,7 +309,7 @@ abstract class DriverStatementTestBase extends TestCase
     $this->assertEquals($stmt->getOneValue(), $value);
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_DATE, 'type_date', $value);
-    $this->assertIdentical($record->getStringDate('type_date'), $value);
+    $this->assertEquals($record->getStringDate('type_date'), $value);
     $this->assertEquals($record->get('type_date'), $value);
 
     $value = '1941-12-07';
@@ -318,7 +318,7 @@ abstract class DriverStatementTestBase extends TestCase
     $this->assertEquals($stmt->getOneValue(), $value);
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_DATE, 'type_date', $value);
-    $this->assertIdentical($record->getStringDate('type_date'), $value);
+    $this->assertEquals($record->getStringDate('type_date'), $value);
     $this->assertEquals($record->get('type_date'), $value);
 
     $value = 'Bad Date Value';
@@ -335,7 +335,7 @@ abstract class DriverStatementTestBase extends TestCase
 
     $value = null;
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_TIME, 'type_time', $value);
-    $this->assertIdentical($record->getString('type_time'), $value);
+    $this->assertEquals($record->getString('type_time'), $value);
     $this->assertEquals($record->get('type_time'), $value);
 
     $value = '06:01:01';
@@ -344,7 +344,7 @@ abstract class DriverStatementTestBase extends TestCase
     $this->assertEquals($stmt->getOneValue(), $value);
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_TIME, 'type_time', $value);
-    $this->assertIdentical($record->getStringDate('type_time'), $value);
+    $this->assertEquals($record->getStringDate('type_time'), $value);
     $this->assertEquals($record->get('type_time'), $value);
 
     $value = '18:01:01';
@@ -353,7 +353,7 @@ abstract class DriverStatementTestBase extends TestCase
     $this->assertEquals($stmt->getOneValue(), $value);
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_TIME, 'type_time', $value);
-    $this->assertIdentical($record->getStringDate('type_time'), $value);
+    $this->assertEquals($record->getStringDate('type_time'), $value);
     $this->assertEquals($record->get('type_time'), $value);
 
     $value = 'Bad Time Value';
@@ -369,8 +369,8 @@ abstract class DriverStatementTestBase extends TestCase
     $this->assertEquals($stmt->getOneValue(), $value);
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_TIMESTAMP, 'type_timestamp', $value);
-    $this->assertIdentical($record->getStringTimeStamp('type_timestamp'), $value);
-    $this->assertIdentical($record->getIntegerTimeStamp('type_timestamp'), $value);
+    $this->assertEquals($record->getStringTimeStamp('type_timestamp'), $value);
+    $this->assertEquals($record->getIntegerTimeStamp('type_timestamp'), $value);
     $this->assertEquals($record->get('type_timestamp'), $value);
 
     $value = '2009-12-28 18:01:01';
@@ -378,7 +378,7 @@ abstract class DriverStatementTestBase extends TestCase
     $this->assertEquals($stmt->getOneValue(), $value);
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_TIMESTAMP, 'type_timestamp', $value);
-    $this->assertIdentical($record->getStringTimeStamp('type_timestamp'), $value);
+    $this->assertEquals($record->getStringTimeStamp('type_timestamp'), $value);
     $this->assertEquals($record->get('type_timestamp'), $value);
 
     $value = '2009-12-28 06:01:01';
@@ -386,8 +386,8 @@ abstract class DriverStatementTestBase extends TestCase
     $this->assertEquals($stmt->getOneValue(), $value);
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_TIMESTAMP, 'type_timestamp', $value);
-    $this->assertIdentical($record->getStringTimeStamp('type_timestamp'), $value);
-    $this->assertIdentical($record->getIntegerTimeStamp('type_timestamp'),
+    $this->assertEquals($record->getStringTimeStamp('type_timestamp'), $value);
+    $this->assertEquals($record->getIntegerTimeStamp('type_timestamp'),
           mktime(6, 1, 1, 12, 28, 2009));
     $this->assertEquals($record->get('type_timestamp'), $value);
 
@@ -402,7 +402,7 @@ abstract class DriverStatementTestBase extends TestCase
     $this->assertEquals($stmt->getOneValue(), $value);
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_SMALLINT, 'type_smallint', $value);
-    $this->assertIdentical($record->getInteger('type_smallint'), $value);
+    $this->assertEquals($record->getInteger('type_smallint'), $value);
     $this->assertEquals($record->get('type_smallint'), $value);
   }
 
@@ -413,7 +413,7 @@ abstract class DriverStatementTestBase extends TestCase
     $this->assertEquals($stmt->getOneValue(), $value);
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_INTEGER, 'type_integer', $value);
-    $this->assertIdentical($record->getInteger('type_integer'), $value);
+    $this->assertEquals($record->getInteger('type_integer'), $value);
     $this->assertEquals($record->get('type_integer'), $value);
   }
 
@@ -430,7 +430,7 @@ abstract class DriverStatementTestBase extends TestCase
     }
     else
     {
-      $this->assertIdentical($record->getBoolean('type_boolean'), (boolean) $value);
+      $this->assertEquals($record->getBoolean('type_boolean'), (boolean) $value);
     }
   }
 
@@ -476,7 +476,7 @@ abstract class DriverStatementTestBase extends TestCase
     }
     else
     {
-      $this->assertIdentical($record->getFloat('type_float'), (float) $value);
+      $this->assertEquals($record->getFloat('type_float'), (float) $value);
     }
     $this->assertEquals($record->get('type_float'), $value);
   }

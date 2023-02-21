@@ -95,13 +95,13 @@ class lmbSQLCriteriaTest extends TestCase
 
   function testCreate()
   {
-    $criteria = lmbSQLCriteria :: create('2 = 2');
+    $criteria = lmbSQLCriteria::create('2 = 2');
     $this->assertEquals('2 = 2', $criteria->toStatementString());
   }
 
   function testEmptyCriteriaChainingIsSafe()
   {
-    $c = lmbSQLCriteria :: create()->add(new lmbSQLCriteria());
+    $c = lmbSQLCriteria::create()->add(new lmbSQLCriteria());
     $this->assertEquals('1 = 1 AND 1 = 1', $c->toStatementString());
   }
 
@@ -159,19 +159,19 @@ class lmbSQLCriteriaTest extends TestCase
 
   function testObjectifyString()
   {
-    $criteria = lmbSQLCriteria :: objectify("id = 1");
+    $criteria = lmbSQLCriteria::objectify("id = 1");
     $this->assertEquals("id = 1", $criteria->toStatementString());
   }
 
   function testObjectifyObject()
   {
-    $criteria = lmbSQLCriteria :: objectify(new lmbSQLCriteria("id = 1"));
+    $criteria = lmbSQLCriteria::objectify(new lmbSQLCriteria("id = 1"));
     $this->assertEquals("id = 1", $criteria->toStatementString());
   }
 
   function testObjectifyNull()
   {
-    $criteria = lmbSQLCriteria :: objectify(null);
+    $criteria = lmbSQLCriteria::objectify(null);
     $this->assertEquals("1 = 1", $criteria->toStatementString());
   }
 
@@ -180,10 +180,12 @@ class lmbSQLCriteriaTest extends TestCase
     try
     {
       //actually this format could be useful as well...
-      $criteria = lmbSQLCriteria :: objectify(array('id' => 1));
-      $this->assertTrue(false);
+      $criteria = lmbSQLCriteria::objectify(array('id' => 1));
+      $this->fail();
     }
-    catch(lmbDbException $e){}
+    catch(lmbDbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testPassRawCriteriaToConstructor()
@@ -194,49 +196,49 @@ class lmbSQLCriteriaTest extends TestCase
 
   function testBetween()
   {
-    $criteria = lmbSQLCriteria :: between('id', 1, 100);
+    $criteria = lmbSQLCriteria::between('id', 1, 100);
     $this->assertEquals($criteria, new lmbSQLFieldBetweenCriteria('id', 1, 100));
   }
 
   function testIn()
   {
-    $criteria = lmbSQLCriteria :: in('id', array(1, 2));
+    $criteria = lmbSQLCriteria::in('id', array(1, 2));
     $this->assertEquals($criteria, new lmbSQLFieldCriteria('id', array(1, 2), lmbSQLFieldCriteria::IN));
   }
 
   function testInWithArrayProcessor()
   {
-    $criteria = lmbSQLCriteria :: in('id', array("10foo", "20bar"), 'intval');
+    $criteria = lmbSQLCriteria::in('id', array("10foo", "20bar"), 'intval');
     $this->assertEquals($criteria, new lmbSQLFieldCriteria('id', array(10, 20), lmbSQLFieldCriteria::IN));
   }
 
   function testEqual()
   {
-    $criteria = lmbSQLCriteria :: equal('id', 1);
+    $criteria = lmbSQLCriteria::equal('id', 1);
     $this->assertEquals($criteria, new lmbSQLFieldCriteria('id', 1, lmbSQLFieldCriteria::EQUAL));
   }
 
   function testLike()
   {
-    $criteria = lmbSQLCriteria :: like('id', '%foo%');
+    $criteria = lmbSQLCriteria::like('id', '%foo%');
     $this->assertEquals($criteria, new lmbSQLFieldCriteria('id', '%foo%', lmbSQLFieldCriteria::LIKE));
   }
 
   function testIsNull()
   {
-    $criteria = lmbSQLCriteria :: isNull('id');
+    $criteria = lmbSQLCriteria::isNull('id');
     $this->assertEquals($criteria, new lmbSQLFieldCriteria('id', null, lmbSQLFieldCriteria::IS_NULL));
   }
 
   function testGreater()
   {
-    $criteria = lmbSQLCriteria :: greater('id', 11);
+    $criteria = lmbSQLCriteria::greater('id', 11);
     $this->assertEquals($criteria, new lmbSQLFieldCriteria('id', 11, lmbSQLFieldCriteria::GREATER));
   }
 
   function testLess()
   {
-    $criteria = lmbSQLCriteria :: less('id', 12);
+    $criteria = lmbSQLCriteria::less('id', 12);
     $this->assertEquals($criteria, new lmbSQLFieldCriteria('id', 12, lmbSQLFieldCriteria::LESS));
   }
 }

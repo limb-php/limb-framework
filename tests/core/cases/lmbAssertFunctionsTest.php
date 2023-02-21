@@ -196,7 +196,7 @@ class lmbAssertFunctionsTest extends TestCase
 
     $stub = $this->createMock(extStdClass::class);
     $stub->
-      method('__toString')->
+        method('__toString')->
         willReturn('abc');
 
     $this->_checkPositive('reg_exp', $stub, '/bc/');

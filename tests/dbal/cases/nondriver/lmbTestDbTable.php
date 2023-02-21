@@ -8,10 +8,11 @@
  */
 namespace tests\dbal\cases\nondriver;
 
+require_once(dirname(__FILE__) . '/.setup.php');
+
 use limb\dbal\src\lmbTableGateway;
 
 class lmbTestDbTable extends lmbTableGateway
 {
   protected $_db_table_name = 'test_db_table';
 }
-

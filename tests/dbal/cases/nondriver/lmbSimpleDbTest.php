@@ -8,6 +8,8 @@
  */
 namespace tests\dbal\cases\nondriver;
 
+require_once(dirname(__FILE__) . '/.setup.php');
+
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\lmbSimpleDb;
@@ -203,4 +205,3 @@ class lmbSimpleDbTest extends TestCase
      $this->assertEquals($this->db->quote('foo'), $this->conn->quoteIdentifier('foo'));
   }
 }
-
