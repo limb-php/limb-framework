@@ -1,5 +1,5 @@
 ################################################################################
-            Limb4 Web Application Framework - http://limb-project.com
+            Limb4 Web Application Framework
 ################################################################################
 
 Limb4 is a general PHP7 only Web Application Framework
@@ -21,3 +21,6 @@ Migrate from Limb3 to Limb4:
     * rename class files (remove '.class' extension)
     * add namespaces to all classes
     * change all lmb_require() to use
+
+Install
+    * composer require limb-framework
