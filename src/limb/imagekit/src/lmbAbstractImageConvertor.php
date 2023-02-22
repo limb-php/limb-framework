@@ -15,7 +15,7 @@ use limb\fs\src\lmbFileLocator;
  * Abstract image convertor
  *
  * @package imagekit
- * @version $Id: lmbAbstractImageConvertor.class.php 8110 2010-01-28 14:20:12Z korchasa $
+ * @version $Id: lmbAbstractImageConvertor.php 8110 2010-01-28 14:20:12Z
  */
 abstract class lmbAbstractImageConvertor
 {

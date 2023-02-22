@@ -16,7 +16,7 @@ use limb\core\src\lmbSet;
  * class lmbIni.
  *
  * @package config
- * @version $Id: lmbIni.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbIni.php 7486 2009-01-26 19:13:20Z
  */
 class lmbIni extends lmbSet
 {
@@ -229,5 +229,3 @@ class lmbIni extends lmbSet
     return $clone;
   }
 }
-
-

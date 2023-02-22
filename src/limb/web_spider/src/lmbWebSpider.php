@@ -15,8 +15,9 @@ use limb\core\src\exception\lmbException;
  * class lmbWebSpider.
  *
  * @package web_spider
- * @version $Id: lmbWebSpider.php 7686 2009-03-04 19:57:12Z 3d-max $
+ * @version $Id: lmbWebSpider.php 7686 2009-03-04 19:57:12Z
  */
+
 class lmbWebSpider
 {
   protected $uri_extractor;

@@ -15,7 +15,7 @@ use limb\dbal\src\exception\lmbDbException;
  * class lmbPgsqlDbInfo.
  *
  * @package dbal
- * @version $Id: lmbPgsqlDbInfo.class.php 8072 2010-01-20 08:33:41Z korchasa $
+ * @version $Id: lmbPgsqlDbInfo.php 8072 2010-01-20 08:33:41Z
  */
 class lmbPgsqlDbInfo extends lmbDbInfo
 {
@@ -72,5 +72,3 @@ class lmbPgsqlDbInfo extends lmbDbInfo
     return $this->tables[$name];
   }
 }
-
-

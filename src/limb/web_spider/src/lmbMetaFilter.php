@@ -6,14 +6,14 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\web_spider\src;
 
 /**
  * class lmbMetaFilter.
  *
  * @package web_spider
- * @version $Id: lmbMetaFilter.class.php 7686 2009-03-04 19:57:12Z 3d-max $
+ * @version $Id: lmbMetaFilter.php 7686 2009-03-04 19:57:12Z
  */
-namespace limb\web_spider\src;
 
 class lmbMetaFilter
 {

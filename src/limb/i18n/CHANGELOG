@@ -11,7 +11,7 @@
 -- adding phpdoc header to modules
 -- DBE support added to i18n.filter.php;
 -- string.filter.php renamed to i18n.filter.php
--- locale files have Sunday as a first day of a week(lmbDate :: getDayOfWeek() returns zero based index, where Sunday is at zero index).
+-- locale files have Sunday as a first day of a week(lmbDate::getDayOfWeek() returns zero based index, where Sunday is at zero index).
 -- lmbLocaleDate fixes due to lmbDate changes
 -- i18n - added function of a transliteration lmb_translit_russian().
 -- lmbDateFormat removed, its functionality moved into new lmbLocaleDate :: localeStrftime(..)
@@ -23,8 +23,8 @@
 
 0.3.0-alpha - 9 April 2007 (r5577)
 ==================================================
--- lmbLocale :: __construct() reverted back to lmbLocale :: __construct($code, $container = null)
--- lmbLocale :: create() moved into lmbI18NTools :: createLocaleObject()
+-- lmbLocale :: __construct() reverted back to lmbLocale::__construct($code, $container = null)
+-- lmbLocale :: create() moved into lmbI18NTools::createLocaleObject()
 -- lmbI18NTools :: createLocaleObject() uses lmbCachedIni only if LIMB_VAR_DIR is defined(LMBF-6)
 -- changes due to CLI package improvements:
   * update-translations now recognizes option -t|--test for dryrun
@@ -49,7 +49,7 @@
 -- lmbLocale :: __construct() now accepts path to ini file
 -- lmbLocaleDate almost all static functions renamed to better/shorter names
 -- lmbLocaleDateRule now accepts locale object rather locale code
--- lpsync.php removed, new cli/I18nCliCmd.class.php added instead
+-- lpsync.php removed, new cli/I18nCliCmd.php added instead
 -- lmbI18NTools :: setDictionary($locale, $domain, $dict) added
 -- lmbI18NTools :: setLocaleObject($obj) => :: addLocaleObject($obj, $code = null), now it's possible to have multiple locale objects
 -- lmbI18NTools :: getLocaleObject($locale = null) fetches default locale object if $locale is not specified

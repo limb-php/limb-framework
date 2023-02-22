@@ -19,7 +19,7 @@ if (!defined('PREG_BAD_UTF8_OFFSET_ERROR'))
  * @package    symfony
  * @subpackage yaml
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: lmbYamlParser.class.php 10832 2008-08-13 07:46:08Z fabien $
+ * @version    SVN: $Id: lmbYamlParser.php 10832 2008-08-13 07:46:08Z
  */
 class lmbYamlParser
 {

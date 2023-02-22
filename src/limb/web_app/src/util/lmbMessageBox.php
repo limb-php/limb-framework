@@ -12,7 +12,7 @@ namespace limb\web_app\src\util;
  * class lmbMessageBox.
  *
  * @package web_app
- * @version $Id: lmbMessageBox.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbMessageBox.php 7486 2009-01-26 19:13:20Z
  */
 class lmbMessageBox
 {

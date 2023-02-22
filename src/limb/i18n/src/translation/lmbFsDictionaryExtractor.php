@@ -12,7 +12,7 @@ namespace limb\i18n\src\translation;
  * class lmbFsDictionaryExtractor.
  *
  * @package i18n
- * @version $Id: lmbFsDictionaryExtractor.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbFsDictionaryExtractor.php 7486 2009-01-26 19:13:20Z
  */
 class lmbFsDictionaryExtractor
 {
@@ -36,5 +36,3 @@ class lmbFsDictionaryExtractor
     }
   }
 }
-
-

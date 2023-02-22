@@ -16,10 +16,8 @@ use limb\i18n\src\datetime\lmbLocaleDateTime;
  * This class is OBSOLETE, use lmbLocaleDateTime instead
  *
  * @package i18n
- * @version $Id: lmbLocaleDate.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbLocaleDate.php 7486 2009-01-26 19:13:20Z
  */
 class lmbLocaleDate extends lmbLocaleDateTime
 {
 }
-
-

@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbColumnInfo;
  * class lmbMssqlColumnInfo.
  *
  * @package dbal
- * @version $Id: lmbMssqlColumnInfo.class.php,v 1.1.1.1 2009/06/08 11:57:21 mike Exp $
+ * @version $Id: lmbMssqlColumnInfo.php,v 1.1.1.1 2009/06/08 11:57:21
  */
 class lmbMssqlColumnInfo extends lmbDbColumnInfo
 {
@@ -67,5 +67,3 @@ class lmbMssqlColumnInfo extends lmbDbColumnInfo
     return is_null($isAutoIncrement) ?  null : (bool) $isAutoIncrement;
   }
 }
-
-

@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\web_spider\src;
 
 /**
  * class lmbUriFilter.
@@ -13,7 +14,6 @@
  * @package web_spider
  * @version $Id: lmbUriFilter.php 7903 2009-04-26 18:36:36Z
  */
-namespace limb\web_spider\src;
 
 use limb\net\src\lmbUri;
 

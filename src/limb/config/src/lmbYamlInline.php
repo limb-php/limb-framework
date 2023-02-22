@@ -14,7 +14,7 @@ namespace limb\config\src;
  * @package    symfony
  * @subpackage yaml
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: lmbYamlInline.class.php 16177 2009-03-11 08:32:48Z fabien $
+ * @version    SVN: $Id: lmbYamlInline.php 16177 2009-03-11 08:32:48Z
  */
 class lmbYamlInline
 {

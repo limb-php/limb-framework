@@ -23,4 +23,4 @@ Migrate from Limb3 to Limb4:
     * change all lmb_require() to use
 
 Install
-    * composer require limb-framework
+    * composer require limb-php/limb-framework

@@ -16,7 +16,7 @@ use limb\toolkit\src\lmbToolkit;
  * class lmbSearchFetcher.
  *
  * @package search
- * @version $Id: lmbSearchFetcher.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbSearchFetcher.php 7686 2009-03-04 19:57:12Z
  */
 class lmbSearchFetcher extends lmbFetcher
 {
@@ -49,5 +49,3 @@ class lmbSearchFetcher extends lmbFetcher
     return explode(' ', htmlspecialchars($query));
   }
 }
-
-

@@ -14,7 +14,7 @@ use limb\web_agent\src\lmbWebAgent;
  * Liveinternet agent
  *
  * @package web_agent
- * @version $Id: lmbLiveInternetAgent.class.php 81 2007-10-11 15:41:36Z CatMan $
+ * @version $Id: lmbLiveInternetAgent.php 81 2007-10-11 15:41:36Z
  */
 class lmbLiveInternetAgent extends lmbWebAgent
 {

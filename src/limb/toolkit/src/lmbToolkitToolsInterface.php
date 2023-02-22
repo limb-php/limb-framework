@@ -12,7 +12,7 @@ namespace limb\toolkit\src;
  * Interface for defining toolkit tools that extends lmbToolkit
  * @see lmbToolkit
  * @package toolkit
- * @version $Id: lmbToolkitToolsInterface.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbToolkitToolsInterface.php 7486 2009-01-26 19:13:20Z
  */
 interface lmbToolkitToolsInterface
 {
@@ -23,4 +23,3 @@ interface lmbToolkitToolsInterface
   */
   function getToolsSignatures();
 }
-

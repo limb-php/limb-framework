@@ -15,7 +15,7 @@ use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
  * class lmbOciManipulationStatement.
  *
  * @package dbal
- * @version $Id: lmbOciManipulationStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciManipulationStatement.php 7486 2009-01-26 19:13:20Z
  */
 class lmbOciManipulationStatement extends lmbOciStatement implements lmbDbManipulationStatementInterface
 {
@@ -147,5 +147,3 @@ class lmbOciManipulationStatement extends lmbOciStatement implements lmbDbManipu
     }
   }
 }
-
-

@@ -12,7 +12,7 @@ namespace limb\dbal\src\drivers\oci;
  * abstract class lmbOciLob.
  *
  * @package dbal
- * @version $Id: lmbOciLob.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciLob.php 7486 2009-01-26 19:13:20Z
  */
 abstract class lmbOciLob
 {
@@ -32,5 +32,3 @@ abstract class lmbOciLob
     return $this->value;
   }
 }
-
-

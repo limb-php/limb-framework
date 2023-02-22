@@ -8,13 +8,13 @@
  */
 namespace limb\dbal\src\criteria;
 
-use limb\dbal\src\criteria\lmbSQLCriteria;
-
 /**
  * class lmbSQLRawCriteria.
  *
  * @package dbal
- * @version $Id: lmbSQLRawCriteria.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSQLRawCriteria.php 7486 2009-01-26 19:13:20Z
  */
-class lmbSQLRawCriteria extends lmbSQLCriteria{}
+class lmbSQLRawCriteria extends lmbSQLCriteria
+{
 
+}

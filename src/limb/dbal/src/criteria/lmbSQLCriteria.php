@@ -17,7 +17,7 @@ use limb\dbal\src\exception\lmbDbException;
  * class lmbSQLCriteria.
  *
  * @package dbal
- * @version $Id: lmbSQLCriteria.class.php 8071 2010-01-20 08:30:55Z korchasa $
+ * @version $Id: lmbSQLCriteria.php 8071 2010-01-20 08:30:55Z
  */
 class lmbSQLCriteria extends lmbSQLBaseCriteria
 {
@@ -174,4 +174,3 @@ class lmbSQLCriteria extends lmbSQLBaseCriteria
     }
   }
 }
-

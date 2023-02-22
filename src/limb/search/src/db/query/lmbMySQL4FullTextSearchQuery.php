@@ -14,7 +14,7 @@ use limb\dbal\src\query\lmbSelectRawQuery;
  * class lmbMySQL4FullTextSearchQuery.
  *
  * @package search
- * @version $Id: lmbMySQL4FullTextSearchQuery.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbMySQL4FullTextSearchQuery.php 7686 2009-03-04 19:57:12Z
  */
 class lmbMySQL4FullTextSearchQuery extends lmbSelectRawQuery
 {
@@ -25,7 +25,8 @@ class lmbMySQL4FullTextSearchQuery extends lmbSelectRawQuery
 
     $sql = "SELECT {$table}.*, {$match} %fields% FROM {$table} %tables% %left_join% ".
            "{$where} %where% %group% %having%  ORDER BY score DESC %order%";
-    parent :: __construct($sql, $conn);
+
+    parent::__construct($sql, $conn);
   }
 
   protected function _buildMatch($words, $use_boolean_mode, $conn)
@@ -63,4 +64,3 @@ class lmbMySQL4FullTextSearchQuery extends lmbSelectRawQuery
       return implode(' ', $words);
   }
 }
-

@@ -15,7 +15,7 @@ namespace limb\i18n\src\charset;
  * class lmbUTF8BaseDriver.
  *
  * @package i18n
- * @version $Id: lmbUTF8BaseDriver.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbUTF8BaseDriver.php 7486 2009-01-26 19:13:20Z
  */
 class lmbUTF8BaseDriver
 {

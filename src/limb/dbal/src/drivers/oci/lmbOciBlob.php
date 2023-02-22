@@ -12,7 +12,7 @@ namespace limb\dbal\src\drivers\oci;
  * class lmbOciBlob.
  *
  * @package dbal
- * @version $Id: lmbOciBlob.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciBlob.php 7486 2009-01-26 19:13:20Z
  */
 class lmbOciBlob extends lmbOciLob
 {
@@ -31,5 +31,3 @@ class lmbOciBlob extends lmbOciLob
     return OCI_B_BLOB;
   }
 }
-
-

@@ -9,12 +9,13 @@
 namespace limb\dbal\src\drivers\oci;
 
 use limb\dbal\src\drivers\lmbDbInfo;
+use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbOciDbInfo.
  *
  * @package dbal
- * @version $Id: lmbOciDbInfo.class.php 8072 2010-01-20 08:33:41Z korchasa $
+ * @version $Id: lmbOciDbInfo.php 8072 2010-01-20 08:33:41Z
  */
 class lmbOciDbInfo extends lmbDbInfo
 {
@@ -65,5 +66,3 @@ class lmbOciDbInfo extends lmbDbInfo
     return $this->tables[$name];
   }
 }
-
-

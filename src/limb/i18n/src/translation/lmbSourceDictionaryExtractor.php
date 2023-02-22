@@ -12,7 +12,7 @@ namespace limb\i18n\src\translation;
  * abstract class lmbSourceDictionaryExtractor.
  *
  * @package i18n
- * @version $Id: lmbSourceDictionaryExtractor.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSourceDictionaryExtractor.php 7486 2009-01-26 19:13:20Z
  */
 abstract class lmbSourceDictionaryExtractor
 {
@@ -23,5 +23,3 @@ abstract class lmbSourceDictionaryExtractor
     $this->extract(file_get_contents($file), $dictionaries, $response);
   }
 }
-
-

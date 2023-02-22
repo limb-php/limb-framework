@@ -14,7 +14,7 @@ use limb\core\src\exception\lmbException;
  * Exception 'Image save is failed'
  * 
  * @package imagekit
- * @version $Id: lmbImageSaveFailedException.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbImageSaveFailedException.php 7486 2009-01-26 19:13:20Z
  */
 class lmbImageSaveFailedException extends lmbException 
 {

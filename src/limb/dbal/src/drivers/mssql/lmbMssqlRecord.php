@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbBaseRecord;
  * class lmbMssqlRecord.
  *
  * @package dbal
- * @version $Id: lmbMssqlRecord.class.php,v 1.1.1.1 2009/06/08 11:57:21 mike Exp $
+ * @version $Id: lmbMssqlRecord.php,v 1.1.1.1 2009/06/08 11:57:21
  */
 class lmbMssqlRecord extends lmbDbBaseRecord
 {
@@ -198,5 +198,3 @@ class lmbMssqlRecord extends lmbDbBaseRecord
     unset($this->properties);
   }
 }
-
-

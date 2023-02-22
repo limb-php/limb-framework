@@ -15,7 +15,7 @@ use limb\i18n\src\charset\lmbI18nString;
  * class lmbSearchResultProcessor.
  *
  * @package search
- * @version $Id: lmbSearchResultProcessor.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbSearchResultProcessor.php 7686 2009-03-04 19:57:12Z
  */
 class lmbSearchResultProcessor extends lmbCollectionDecorator
 {
@@ -67,7 +67,7 @@ class lmbSearchResultProcessor extends lmbCollectionDecorator
   function rewind()
   {
     $this->_formRegex();
-    return parent :: rewind();
+    parent::rewind();
   }
 
   protected function _formRegex()
@@ -81,7 +81,7 @@ class lmbSearchResultProcessor extends lmbCollectionDecorator
 
   function current()
   {
-    $record = parent :: current();
+    $record = parent::current();
 
     $this->_process($record);
 
@@ -161,5 +161,3 @@ class lmbSearchResultProcessor extends lmbCollectionDecorator
    return (lmbI18nString::strlen($a) > lmbI18nString::strlen($b)) ? -1 : 1;
   }
 }
-
-

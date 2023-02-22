@@ -14,7 +14,7 @@ use limb\core\src\exception\lmbException;
  * Exception 'Image type is not supported'
  * 
  * @package imagekit
- * @version $Id: lmbImageTypeNotSupportedException.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbImageTypeNotSupportedException.php 7486 2009-01-26 19:13:20Z
  */
 class lmbImageTypeNotSupportedException extends lmbException 
 {

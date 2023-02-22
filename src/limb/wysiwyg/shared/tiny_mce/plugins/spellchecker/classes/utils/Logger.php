@@ -1,10 +1,10 @@
 <?php
 /**
- * $Id: Logger.class.php 10 2007-05-27 10:55:12Z spocke $
+ * $Id: Logger.php 10 2007-05-27 10:55:12Z
  *
  * @package MCFileManager.filesystems
  * @author Moxiecode
- * @copyright Copyright © 2005, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright (c) 2005, Moxiecode Systems AB, All rights reserved.
  */
 
 // File type contstants

@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
  * class lmbPgsqlManipulationStatement.
  *
  * @package dbal
- * @version $Id: lmbPgsqlManipulationStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPgsqlManipulationStatement.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPgsqlManipulationStatement extends lmbPgsqlStatement implements lmbDbManipulationStatementInterface
 {
@@ -32,5 +32,3 @@ class lmbPgsqlManipulationStatement extends lmbPgsqlStatement implements lmbDbMa
     return $this->queryId;
   }
 }
-
-

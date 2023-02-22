@@ -15,7 +15,7 @@ use limb\fs\src\lmbFs;
  * class lmbCachedIni.
  *
  * @package config
- * @version $Id: lmbCachedIni.class.php 7676 2009-03-03 22:37:28Z korchasa $
+ * @version $Id: lmbCachedIni.php 7676 2009-03-03 22:37:28Z
  */
 class lmbCachedIni extends lmbIni
 {
@@ -101,5 +101,3 @@ class lmbCachedIni extends lmbIni
       unlink($cache_file);
   }
 }
-
-

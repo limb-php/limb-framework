@@ -12,7 +12,7 @@ namespace limb\dbal\src\query;
  * class lmbSelectQuery.
  *
  * @package dbal
- * @version $Id: lmbSelectQuery.class.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: lmbSelectQuery.php 7486 2009-01-26 19:13:20Z
  */
 class lmbSelectQuery extends lmbSelectRawQuery
 {
@@ -25,4 +25,3 @@ class lmbSelectQuery extends lmbSelectRawQuery
     $this->addTable($table);
   }
 }
-

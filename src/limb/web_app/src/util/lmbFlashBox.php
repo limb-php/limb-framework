@@ -12,7 +12,7 @@ namespace limb\web_app\src\util;
  * class lmbFlashBox.
  *
  * @package web_app
- * @version $Id: lmbFlashBox.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbFlashBox.php 7486 2009-01-26 19:13:20Z
  */
 class lmbFlashBox extends lmbMessageBox
 {

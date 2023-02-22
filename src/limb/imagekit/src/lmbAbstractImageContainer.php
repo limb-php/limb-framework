@@ -12,7 +12,7 @@ namespace limb\imagekit\src;
  * Abstract image container
  *
  * @package imagekit
- * @version $Id: lmbAbstractImageContainer.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbAbstractImageContainer.php 7486 2009-01-26 19:13:20Z
  */
 abstract class lmbAbstractImageContainer
 {

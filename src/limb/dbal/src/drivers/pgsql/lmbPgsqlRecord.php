@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbBaseRecord;
  * class lmbPgsqlRecord.
  *
  * @package dbal
- * @version $Id: lmbPgsqlRecord.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPgsqlRecord.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPgsqlRecord extends lmbDbBaseRecord
 {
@@ -156,5 +156,3 @@ class lmbPgsqlRecord extends lmbDbBaseRecord
     return $this->get($name);
   }
 }
-
-

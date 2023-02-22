@@ -13,7 +13,7 @@
  * Scan i18n macro tags and lmb_i18n functions call in specified directory
  *
  * @package i18n
- * @version $Id: lmbI18nScanner.class.php 7994 2009-09-21 13:01:14Z idler $
+ * @version $Id: lmbI18nScanner.php 7994 2009-09-21 13:01:14Z
  */
 class lmbI18nScanner {
 

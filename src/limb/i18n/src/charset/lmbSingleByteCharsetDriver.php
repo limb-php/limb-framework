@@ -12,7 +12,7 @@ namespace limb\i18n\src\charset;
  * class lmbSingleByteCharsetDriver.
  *
  * @package i18n
- * @version $Id: lmbSingleByteCharsetDriver.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSingleByteCharsetDriver.php 7486 2009-01-26 19:13:20Z
  */
 class lmbSingleByteCharsetDriver
 {

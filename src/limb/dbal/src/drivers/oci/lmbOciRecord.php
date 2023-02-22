@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbBaseRecord;
  * class lmbOciRecord.
  *
  * @package dbal
- * @version $Id: lmbOciRecord.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciRecord.php 7486 2009-01-26 19:13:20Z
  */
 class lmbOciRecord extends lmbDbBaseRecord
 {
@@ -138,5 +138,3 @@ class lmbOciRecord extends lmbDbBaseRecord
     return is_null($value) ?  null : (string) $value;
   }
 }
-
-

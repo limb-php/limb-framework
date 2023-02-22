@@ -8,13 +8,13 @@
  */
 namespace limb\dbal\src\drivers\oci;
 
-use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
+use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbOciUpdateStatement.
  *
  * @package dbal
- * @version $Id: lmbOciUpdateStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciUpdateStatement.php 7486 2009-01-26 19:13:20Z
  */
 class lmbOciUpdateStatement extends lmbOciManipulationStatement
 {
@@ -41,5 +41,3 @@ class lmbOciUpdateStatement extends lmbOciManipulationStatement
     return $result;
   }
 }
-
-

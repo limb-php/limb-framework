@@ -14,7 +14,7 @@ use limb\core\src\lmbBacktrace;
  * class lmbException.
  *
  * @package core
- * @version $Id: lmbException.class.php 8022 2010-01-16 01:04:55Z korchasa $
+ * @version $Id: lmbException.php 8022 2010-01-16 01:04:55Z
  */
 class lmbException extends \Exception
 {
@@ -46,7 +46,7 @@ class lmbException extends \Exception
       }
     }
 
-    parent :: __construct($message, $code);
+    parent::__construct($message, $code);
   }
 
   function getOriginalMessage()
@@ -109,4 +109,3 @@ class lmbException extends \Exception
     return $this->toNiceString();
   }
 }
-

@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbStatementInterface;
  * class lmbMssqlStatement.
  *
  * @package dbal
- * @version $Id: lmbMssqlStatement.class.php,v 1.1.1.1 2009/06/08 11:57:21 mike Exp $
+ * @version $Id: lmbMssqlStatement.php,v 1.1.1.1 2009/06/08 11:57:21
  */
 class lmbMssqlStatement implements lmbDbStatementInterface
 {
@@ -202,5 +202,3 @@ class lmbMssqlStatement implements lmbDbStatementInterface
     return $this->connection->executeStatement($this);
   }
 }
-
-

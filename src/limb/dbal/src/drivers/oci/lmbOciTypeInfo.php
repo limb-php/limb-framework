@@ -13,7 +13,7 @@ use limb\dbal\src\drivers\lmbDbTypeInfo;
 /**
  * class lmbOciTypeInfo.
  * @package dbal
- * @version $Id: lmbOciTypeInfo.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciTypeInfo.php 7486 2009-01-26 19:13:20Z
  */
 class lmbOciTypeInfo extends lmbDbTypeInfo
 {
@@ -80,4 +80,3 @@ class lmbOciTypeInfo extends lmbDbTypeInfo
         );
   }
 }
-

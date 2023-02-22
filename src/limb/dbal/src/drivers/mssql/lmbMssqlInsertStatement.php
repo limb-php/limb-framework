@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
  * class lmbMssqlInsertStatement.
  *
  * @package dbal
- * @version $Id: lmbMssqlInsertStatement.class.php,v 1.1.1.1 2009/06/08 11:57:21 mike Exp $
+ * @version $Id: lmbMssqlInsertStatement.php,v 1.1.1.1 2009/06/08 11:57:21
  */
 class lmbMssqlInsertStatement extends lmbMssqlManipulationStatement implements lmbDbInsertStatementInterface
 {
@@ -28,5 +28,3 @@ class lmbMssqlInsertStatement extends lmbMssqlManipulationStatement implements l
       return $this->connection->getSequenceValue(null, null);
   }
 }
-
-

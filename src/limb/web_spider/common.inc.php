@@ -13,4 +13,3 @@
  */
 require_once(dirname(__FILE__) . '/../core/common.inc.php');
 
-

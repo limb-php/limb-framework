@@ -16,7 +16,7 @@ use limb\i18n\src\charset\lmbUTF8BaseDriver;
  * class lmbUTF8IconvDriver.
  *
  * @package i18n
- * @version $Id: lmbUTF8IconvDriver.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbUTF8IconvDriver.php 7486 2009-01-26 19:13:20Z
  */
 class lmbUTF8IconvDriver extends lmbUTF8BaseDriver
 {

@@ -8,13 +8,11 @@
  */
 namespace limb\cli\src;
 
-use limb\cli\src\lmbCliException;
-
 /**
  * class lmbCliOption.
  *
  * @package cli
- * @version $Id: lmbCliOption.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbCliOption.php 7686 2009-03-04 19:57:12Z
  */
 class lmbCliOption
 {

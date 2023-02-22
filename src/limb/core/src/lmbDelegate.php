@@ -13,7 +13,7 @@ use limb\core\src\exception\lmbException;
 /**
  * Object form of invoking an object method
  * @package core
- * @version $Id: lmbDelegate.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbDelegate.php 7486 2009-01-26 19:13:20Z
  */
 class lmbDelegate
 {
@@ -137,6 +137,7 @@ class lmbDelegate
       if(!is_null($result))
         return $result;
     }
+
+    return false;
   }
 }
-

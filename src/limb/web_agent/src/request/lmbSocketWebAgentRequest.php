@@ -17,7 +17,7 @@ use limb\web_agent\src\lmbWebServerCookiesCollection;
  * Web request with sockets
  *
  * @package web_agent
- * @version $Id: lmbSocketWebAgentRequest.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbSocketWebAgentRequest.php 7686 2009-03-04 19:57:12Z
  */
 class lmbSocketWebAgentRequest extends lmbAbstractWebAgentRequest
 {

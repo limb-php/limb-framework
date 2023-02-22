@@ -22,7 +22,7 @@ use limb\core\src\lmbEnv;
  * class lmbCacheTools.
  *
  * @package cache
- * @version $Id: lmbCacheTools.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbCacheTools.php 7486 2009-01-26 19:13:20Z
  */
 class lmbCacheTools extends lmbAbstractTools
 {
@@ -68,4 +68,3 @@ class lmbCacheTools extends lmbAbstractTools
     $this->_cache = $cache;
   }
 }
-

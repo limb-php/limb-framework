@@ -19,7 +19,7 @@ use limb\toolkit\src\lmbToolkit;
  * class lmbCmsTools.
  *
  * @package cms
- * @version $Id: lmbCmsTools.class.php 7619 2009-02-10 15:07:35Z step $
+ * @version $Id: lmbCmsTools.php 7619 2009-02-10 15:07:35Z
  */
 class lmbCmsTools extends lmbAbstractTools
 {

@@ -8,13 +8,11 @@
  */
 namespace limb\dbal\src\criteria;
 
-use limb\dbal\src\criteria\lmbSQLBaseCriteria;
-
 /**
  * class lmbSQLFieldBetweenCriteria.
  *
  * @package dbal
- * @version $Id: lmbSQLFieldBetweenCriteria.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSQLFieldBetweenCriteria.php 7486 2009-01-26 19:13:20Z
  */
 class lmbSQLFieldBetweenCriteria extends lmbSQLBaseCriteria
 {
@@ -46,5 +44,3 @@ class lmbSQLFieldBetweenCriteria extends lmbSQLBaseCriteria
     $values[$to_placeholder] = $this->value_to;
   }
 }
-
-

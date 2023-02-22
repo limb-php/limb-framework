@@ -9,14 +9,13 @@
 namespace limb\dbal\src\drivers\pgsql;
 
 use limb\dbal\src\drivers\lmbDbTableInfo;
-use limb\dbal\src\drivers\pgsql\lmbPgsqlColumnInfo;
 use limb\core\src\exception\lmbNotYetImplementedException;
 
 /**
  * class lmbPgsqlTableInfo.
  *
  * @package dbal
- * @version $Id: lmbPgsqlTableInfo.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPgsqlTableInfo.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPgsqlTableInfo extends lmbDbTableInfo
 {
@@ -161,8 +160,6 @@ class lmbPgsqlTableInfo extends lmbDbTableInfo
 
   function loadIndexes()
   {
-    throw new lmbNotYetImplementedException();
+    throw new lmbNotYetImplementedException("");
   }
 }
-
-

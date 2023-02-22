@@ -17,7 +17,7 @@ use limb\toolkit\src\lmbToolkit;
  * class lmbDbRequestDispatcher.
  *
  * @package web_app
- * @version $Id: lmbRoutesRequestDispatcher.class.php 7114 2008-07-12 14:59:47Z serega $
+ * @version $Id: lmbRoutesRequestDispatcher.php 7114 2008-07-12 14:59:47Z
  */
 class lmbCmsDocumentRequestDispatcher implements lmbRequestDispatcherInterface
 {

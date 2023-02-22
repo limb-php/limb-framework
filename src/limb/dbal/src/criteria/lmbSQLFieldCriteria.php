@@ -8,14 +8,13 @@
  */
 namespace limb\dbal\src\criteria;
 
-use limb\dbal\src\criteria\lmbSQLBaseCriteria;
 use limb\core\src\exception\lmbException;
 
 /**
  * class lmbSQLFieldCriteria.
  *
  * @package dbal
- * @version $Id: lmbSQLFieldCriteria.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSQLFieldCriteria.php 7486 2009-01-26 19:13:20Z
  */
 class lmbSQLFieldCriteria extends lmbSQLBaseCriteria
 {
@@ -120,4 +119,3 @@ class lmbSQLFieldCriteria extends lmbSQLBaseCriteria
     }
   }
 }
-

@@ -13,15 +13,13 @@ use limb\fs\src\exception\lmbFileNotFoundException;
 
 /**
  * @package imagekit
- * @version $Id: lmbImageKit.class.php 8110 2010-01-28 14:20:12Z korchasa $
+ * @version $Id: lmbImageKit.php 8110 2010-01-28 14:20:12Z
  */
 class lmbImageKit
 {
   static function create($library = 'gd', $params = array())
   {
     $image_class_name = 'limb\\imagekit\\src\\' .  $library . '\\lmb' . ucfirst($library) . 'ImageConvertor';
-
-    //$class_path = 'limb/imagekit/src/' .  $library . '/' . $image_class_name . '.php';
 
     try {
       $convertor = new $image_class_name($params);

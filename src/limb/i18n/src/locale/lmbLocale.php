@@ -29,7 +29,7 @@ use limb\core\src\exception\lmbException;
  * currency/funds are specified by the ISO 4217
  * http://www.bsi-global.com/Technical+Information/Publications/_Publications/tig90.xalter
  * @package i18n
- * @version $Id: lmbLocale.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbLocale.php 7486 2009-01-26 19:13:20Z
  */
 class lmbLocale
 {

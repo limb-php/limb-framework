@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
  * class lmbMssqlManipulationStatement.
  *
  * @package dbal
- * @version $Id: lmbMssqlManipulationStatement.class.php,v 1.1.1.1 2009/06/08 11:57:21 mike Exp $
+ * @version $Id: lmbMssqlManipulationStatement.php,v 1.1.1.1 2009/06/08 11:57:21
  */
 class lmbMssqlManipulationStatement extends lmbMssqlStatement implements lmbDbManipulationStatementInterface
 {
@@ -23,5 +23,3 @@ class lmbMssqlManipulationStatement extends lmbMssqlStatement implements lmbDbMa
     return mssql_rows_affected($this->connection->getConnectionId());
   }
 }
-
-

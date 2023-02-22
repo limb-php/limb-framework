@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbStatementInterface;
  * class lmbPgsqlStatement.
  *
  * @package dbal
- * @version $Id: lmbPgsqlStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPgsqlStatement.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPgsqlStatement implements lmbDbStatementInterface
 {
@@ -336,7 +336,4 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
     $this->statement_name = null;
   }
 
-
 }
-
-

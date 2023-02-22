@@ -1,6 +1,6 @@
 <?php
 
-require('cms/src/cron/CronJob.class.php');
+use limb\cms\src\cron\CronJob;
 
 class SimpleCronJob extends CronJob
 {

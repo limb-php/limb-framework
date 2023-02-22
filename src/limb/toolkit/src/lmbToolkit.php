@@ -36,7 +36,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * </code>
  * @see lmbToolkitToolsInterface
  * @package toolkit
- * @version $Id: lmbToolkit.class.php 8177 2010-04-23 18:10:17Z conf $
+ * @version $Id: lmbToolkit.php 8177 2010-04-23 18:10:17Z
  */
 class lmbToolkit extends lmbObject
 {

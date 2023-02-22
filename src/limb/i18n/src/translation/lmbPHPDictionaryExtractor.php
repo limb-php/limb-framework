@@ -9,14 +9,12 @@
 namespace limb\i18n\src\translation;
 
 use limb\core\src\lmbPHPTokenizer;
-use limb\i18n\src\translation\lmbSourceDictionaryExtractor;
-use limb\i18n\src\translation\lmbI18NDictionary;
 
 /**
  * class lmbPHPDictionaryExtractor.
  *
  * @package i18n
- * @version $Id: lmbPHPDictionaryExtractor.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPHPDictionaryExtractor.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPHPDictionaryExtractor extends lmbSourceDictionaryExtractor
 {
@@ -82,5 +80,3 @@ class lmbPHPDictionaryExtractor extends lmbSourceDictionaryExtractor
     }
   }
 }
-
-

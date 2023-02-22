@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbColumnInfo;
  * class lmbPgsqlColumnInfo.
  *
  * @package dbal
- * @version $Id: lmbPgsqlColumnInfo.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPgsqlColumnInfo.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPgsqlColumnInfo extends lmbDbColumnInfo
 {
@@ -71,5 +71,3 @@ class lmbPgsqlColumnInfo extends lmbDbColumnInfo
     return "\"$name\"";
   }
 }
-
-

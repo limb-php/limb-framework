@@ -7,9 +7,9 @@
 
 <p><b>Модуль вкючает в себя:</b></p>
 <ul>
-  <li><code>src/cron/CronJob.class.php</code> - абстрактный класс cron-задачи</li>
-  <li><code>src/cron/CronJobLogger.class.php</code> - журналирование результатов работы cron-задач</li>
-  <li><code>src/controller/AdminCronJobController.class.php</code> - мониторинг журнала cron-задач</li>
+  <li><code>src/cron/CronJob.php</code> - абстрактный класс cron-задачи</li>
+  <li><code>src/cron/CronJobLogger.php</code> - журналирование результатов работы cron-задач</li>
+  <li><code>src/controller/AdminCronJobController.php</code> - мониторинг журнала cron-задач</li>
   <li><code>_install/skel/cli/cron/cron_runner</code> - bash-скрипт стартер cron-задачи</li>
   <li><code>_install/skel/cli/cron/_*.sh</code> - расписание cron-задач</li>
 </ul>
@@ -35,10 +35,10 @@
 
 <p><b>Пример использования:</b></p>
 <ol>
-  <li>разрабатываемый класс cron-задачи должен реализовывать логику абстрактного класса <code>CronJob</code> (пример <code>_install/src/cron/SimpleCronJob.class.php</code>)</li>
+  <li>разрабатываемый класс cron-задачи должен реализовывать логику абстрактного класса <code>CronJob</code> (пример <code>_install/src/cron/SimpleCronJob.php</code>)</li>
   <li>
     добавить запуск разработанного класса cron-задачи в соответствующий файл расписания (<code>_install/skel/cli/cron/_*.sh</code>),
-    например, таким образом: <code>cron_runner src/cron/SimpleCronJob.class.php</code>
+    например, таким образом: <code>cron_runner src/cron/SimpleCronJob.php</code>
   </li>
 </ol>
 

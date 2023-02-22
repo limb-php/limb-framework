@@ -16,7 +16,7 @@ use limb\session\src\lmbSession;
  * class lmbSessionTools.
  *
  * @package session
- * @version $Id: lmbSessionTools.class.php 8176 2022-04-23 16:41:47Z
+ * @version $Id: lmbSessionTools.php 8176 2022-04-23 16:41:47Z
  */
 class lmbSessionTools extends lmbAbstractTools
 {

@@ -8,14 +8,13 @@
  */
 namespace limb\cache\src;
 
-use limb\cache\src\lmbCacheBackendInterface;
 use limb\core\src\lmbSerializable;
 
 /**
  * class lmbCacheMemcacheBackend.
  *
  * @package cache
- * @version $Id: lmbCacheFilePersister.class.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbCacheFilePersister.php 6243 2007-08-29 11:53:10Z
  */
 class lmbCacheMemcacheBackend implements lmbCacheBackendInterface
 {

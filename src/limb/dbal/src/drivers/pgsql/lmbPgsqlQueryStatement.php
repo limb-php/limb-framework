@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
  * class lmbPgsqlQueryStatement.
  *
  * @package dbal
- * @version $Id: lmbPgsqlQueryStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPgsqlQueryStatement.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPgsqlQueryStatement extends lmbPgsqlStatement implements lmbDbQueryStatementInterface
 {
@@ -81,5 +81,3 @@ class lmbPgsqlQueryStatement extends lmbPgsqlStatement implements lmbDbQueryStat
   }
 
 }
-
-

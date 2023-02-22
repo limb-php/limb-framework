@@ -6,14 +6,14 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+namespace limb\web_spider\src;
 
 /**
  * class lmbSearchIndexingObserver.
  *
  * @package web_spider
- * @version $Id: lmbSearchIndexingObserver.class.php 7812 2009-03-24 14:05:00Z conf $
+ * @version $Id: lmbSearchIndexingObserver.php 7812 2009-03-24 14:05:00Z
  */
-namespace limb\web_spider\src;
 
 class lmbSearchIndexingObserver
 {
@@ -38,5 +38,3 @@ class lmbSearchIndexingObserver
     echo "done\n";
   }
 }
-
-

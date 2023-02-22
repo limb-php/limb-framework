@@ -15,7 +15,7 @@ use limb\dbal\src\exception\lmbDbException;
  * class lmbOciInsertStatement.
  *
  * @package dbal
- * @version $Id: lmbOciInsertStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciInsertStatement.php 7486 2009-01-26 19:13:20Z
  */
 class lmbOciInsertStatement extends lmbOciManipulationStatement implements lmbDbInsertStatementInterface
 {
@@ -57,5 +57,3 @@ class lmbOciInsertStatement extends lmbOciManipulationStatement implements lmbDb
     return $m[1];
   }
 }
-
-

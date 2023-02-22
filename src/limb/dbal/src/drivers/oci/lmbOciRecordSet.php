@@ -9,13 +9,12 @@
 namespace limb\dbal\src\drivers\oci;
 
 use limb\dbal\src\drivers\lmbDbBaseRecordSet;
-use limb\dbal\src\drivers\oci\lmbOciRecord;
 
 /**
  * class lmbOciRecordSet.
  *
  * @package dbal
- * @version $Id: lmbOciRecordSet.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciRecordSet.php 7486 2009-01-26 19:13:20Z
  */
 class lmbOciRecordSet extends lmbDbBaseRecordSet
 {
@@ -138,5 +137,3 @@ class lmbOciRecordSet extends lmbDbBaseRecordSet
     return $this->original_stmt->count();
   }
 }
-
-

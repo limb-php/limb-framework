@@ -147,7 +147,7 @@
 -- config stuff moved from lmbWebAppTools to config package toolkit
 -- file_schema stuff moved from lmbWebAppTools to file_schema package toolkit
 -- lmbBaseCommand :: flashError(), flashMessage(), redirect() methods added
--- /src/generator/lmbPHPTemplate => /src/view/lmbPHPView.class.php
+-- /src/generator/lmbPHPTemplate => /src/view/lmbPHPView.php
 -- obsolete generator stuff removed
 -- lmbController :: closePopup() echoes javascript code directly into response, no more close_popup.html dependency
 -- tests were splitted into db related ones and plain tests

@@ -116,7 +116,7 @@
 -- better error message in lmbMysqlConnection
 -- lmbMysqlConnection :: _raiseError() throws correct exception if connection was failed
 -- tests are more isolated
--- minor optimizations in lmbDbTableInfo.class.php
+-- minor optimizations in lmbDbTableInfo.php
 -- lmbDbTools :: createTableGateway() added. This can help improve performance.
 -- lmbDbTableInfo :: getColumnList() returns array there key is equal to value
 

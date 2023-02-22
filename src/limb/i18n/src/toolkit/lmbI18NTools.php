@@ -22,7 +22,7 @@ lmbEnv::setor('LIMB_LOCALE_INCLUDE_PATH', 'i18n/locale;limb/i18n/i18n/locale');
  * class lmbI18NTools.
  *
  * @package i18n
- * @version $Id: lmbI18NTools.class.php 8150 2010-03-26 07:58:18Z Forumsky $
+ * @version $Id: lmbI18NTools.php 8150 2010-03-26 07:58:18Z
  */
 class lmbI18NTools extends lmbAbstractTools
 {

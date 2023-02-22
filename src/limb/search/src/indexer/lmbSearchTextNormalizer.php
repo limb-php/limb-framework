@@ -14,7 +14,7 @@ use limb\i18n\src\charset\lmbI18nString;
  * class lmbSearchTextNormalizer.
  *
  * @package search
- * @version $Id: lmbSearchTextNormalizer.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbSearchTextNormalizer.php 7686 2009-03-04 19:57:12Z
  */
 class lmbSearchTextNormalizer
 {

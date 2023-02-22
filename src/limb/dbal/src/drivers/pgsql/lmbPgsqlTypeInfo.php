@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbTypeInfo;
  * class lmbPgsqlTypeInfo.
  *
  * @package dbal
- * @version $Id: lmbPgsqlTypeInfo.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPgsqlTypeInfo.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPgsqlTypeInfo extends lmbDbTypeInfo
 {
@@ -58,4 +58,3 @@ class lmbPgsqlTypeInfo extends lmbDbTypeInfo
    );
   }
 }
-

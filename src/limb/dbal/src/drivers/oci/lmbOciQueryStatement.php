@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
  * class lmbOciQueryStatement.
  *
  * @package dbal
- * @version $Id: lmbOciQueryStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciQueryStatement.php 7486 2009-01-26 19:13:20Z
  */
 class lmbOciQueryStatement extends lmbOciStatement implements lmbDbQueryStatementInterface
 {
@@ -100,5 +100,3 @@ class lmbOciQueryStatement extends lmbOciStatement implements lmbDbQueryStatemen
     return new lmbOciRecordSet($this->connection, $this);
   }
 }
-
-

@@ -14,11 +14,11 @@ use limb\core\src\exception\lmbException;
  * class lmbPgsqlDropStatement.
  *
  * @package dbal
- * @version $Id: lmbPgsqlDropStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPgsqlDropStatement.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPgsqlDropStatement extends lmbPgsqlStatement
 {
-  function execute()
+  function execute($sql = "")
   {
     try
     {
@@ -30,5 +30,3 @@ class lmbPgsqlDropStatement extends lmbPgsqlStatement
     }
   }
 }
-
-

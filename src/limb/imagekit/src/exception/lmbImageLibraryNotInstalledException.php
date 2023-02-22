@@ -14,7 +14,7 @@ use limb\core\src\exception\lmbException;
  * Exception 'Image create is failed'
  * 
  * @package imagekit
- * @version $Id: lmbImageCreateFailedException.class.php 6553 2007-11-29 15:41:27Z cmz $
+ * @version $Id: lmbImageCreateFailedException.php 6553 2007-11-29 15:41:27Z
  */
 class lmbImageLibraryNotInstalledException extends lmbException 
 {
@@ -23,5 +23,4 @@ class lmbImageLibraryNotInstalledException extends lmbException
   {
   	parent::__construct('Library not installed', array('file' => $lib_name));
   }
-
 }

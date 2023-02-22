@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-
+namespace limb\i18n\src\scanner;
 
 /**
  * class lmbTSDocument.
@@ -14,9 +14,10 @@
  * Dom representation of ts-files (qt translation)
  *
  * @package i18n
- * @version $Id: lmbTSDocument.class.php 7994 2009-09-21 13:01:14Z idler $
+ * @version $Id: lmbTSDocument.php 7994 2009-09-21 13:01:14Z
  */
-class lmbTSDocument extends DOMDocument{
+class lmbTSDocument extends \DOMDocument
+{
 
   function addMessage($message)
   {

@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
  * class lmbMssqlQueryStatement.
  *
  * @package dbal
- * @version $Id: lmbMssqlQueryStatement.class.php,v 1.1.1.1 2009/06/08 11:57:21 mike Exp $
+ * @version $Id: lmbMssqlQueryStatement.php,v 1.1.1.1 2009/06/08 11:57:21
  */
 class lmbMssqlQueryStatement extends lmbMssqlStatement implements lmbDbQueryStatementInterface
 {
@@ -53,5 +53,3 @@ class lmbMssqlQueryStatement extends lmbMssqlStatement implements lmbDbQueryStat
     return new lmbMssqlRecordSet($this->connection, $this->getSQL());
   }
 }
-
-

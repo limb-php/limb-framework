@@ -15,7 +15,7 @@ use limb\datetime\src\lmbDateTime;
  * class lmbLocaleDateTime.
  *
  * @package i18n
- * @version $Id: lmbLocaleDateTime.class.php 6475 2007-10-31 09:30:46Z korchasa $
+ * @version $Id: lmbLocaleDateTime.php 6475 2007-10-31 09:30:46Z
  */
 class lmbLocaleDateTime extends lmbDateTime
 {

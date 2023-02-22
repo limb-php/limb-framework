@@ -8,19 +8,14 @@
  */
 namespace limb\i18n\src\translation;
 
-use limb\i18n\src\translation\lmbPHPDictionaryExtractor;
-use limb\i18n\src\translation\lmbFsDictionaryExtractor;
-use limb\i18n\src\translation\lmbI18NDictionary;
-use limb\i18n\src\translation\lmbQtDictionaryBackend;
 use limb\cli\src\lmbCliResponse;
 use limb\fs\src\lmbFsRecursiveIterator;
-use limb\fs\src\lmbFs;
 
 /**
  * class lmbDictionaryUpdater.
  *
  * @package i18n
- * @version $Id: lmbDictionaryUpdater.class.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbDictionaryUpdater.php 7686 2009-03-04 19:57:12Z
  */
 class lmbDictionaryUpdater
 {
@@ -80,4 +75,3 @@ class lmbDictionaryUpdater
     }
   }
 }
-

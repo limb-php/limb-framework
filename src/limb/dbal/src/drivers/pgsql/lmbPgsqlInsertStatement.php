@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
  * class lmbPgsqlInsertStatement.
  *
  * @package dbal
- * @version $Id: lmbPgsqlInsertStatement.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPgsqlInsertStatement.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPgsqlInsertStatement extends lmbPgsqlManipulationStatement implements lmbDbInsertStatementInterface
 {
@@ -36,5 +36,3 @@ class lmbPgsqlInsertStatement extends lmbPgsqlManipulationStatement implements l
     return $m[1];
   }
 }
-
-

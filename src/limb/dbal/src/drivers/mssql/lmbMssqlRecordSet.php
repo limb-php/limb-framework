@@ -9,13 +9,12 @@
 namespace limb\dbal\src\drivers\mssql;
 
 use limb\dbal\src\drivers\lmbDbBaseRecordSet;
-use limb\dbal\src\drivers\mssql\lmbMssqlRecord;
 
 /**
  * class lmbMssqlRecordSet.
  *
  * @package dbal
- * @version $Id: lmbMssqlRecordSet.class.php,v 1.1.1.1 2009/06/08 11:57:21 mike Exp $
+ * @version $Id: lmbMssqlRecordSet.php,v 1.1.1.1 2009/06/08 11:57:21
  */
 class lmbMssqlRecordSet extends lmbDbBaseRecordSet
 {
@@ -218,5 +217,3 @@ class lmbMssqlRecordSet extends lmbDbBaseRecordSet
     
   }
 }
-
-

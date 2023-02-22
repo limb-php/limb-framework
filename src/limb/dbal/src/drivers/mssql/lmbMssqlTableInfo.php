@@ -9,13 +9,12 @@
 namespace limb\dbal\src\drivers\mssql;
 
 use limb\dbal\src\drivers\lmbDbTableInfo;
-use limb\dbal\src\drivers\mssql\lmbMssqlColumnInfo;
 
 /**
  * class lmbMssqlTableInfo.
  *
  * @package dbal
- * @version $Id: lmbMssqlTableInfo.class.php,v 1.1.1.1 2009/06/08 11:57:21 mike Exp $
+ * @version $Id: lmbMssqlTableInfo.php,v 1.1.1.1 2009/06/08 11:57:21
  */
 class lmbMssqlTableInfo extends lmbDbTableInfo
 {

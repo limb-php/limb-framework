@@ -9,13 +9,12 @@
 namespace limb\dbal\src\drivers\pgsql;
 
 use limb\dbal\src\drivers\lmbDbBaseRecordSet;
-use limb\dbal\src\drivers\pgsql\lmbPgsqlRecord;
 
 /**
  * class lmbPgsqlRecordSet.
  *
  * @package dbal
- * @version $Id: lmbPgsqlRecordSet.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbPgsqlRecordSet.php 7486 2009-01-26 19:13:20Z
  */
 class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
 {
@@ -125,5 +124,3 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
     return $this->stmt->count();
   }
 }
-
-

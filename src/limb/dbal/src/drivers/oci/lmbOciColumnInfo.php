@@ -14,7 +14,7 @@ use limb\dbal\src\drivers\lmbDbColumnInfo;
  * class lmbOciColumnInfo.
  *
  * @package dbal
- * @version $Id: lmbOciColumnInfo.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbOciColumnInfo.php 7486 2009-01-26 19:13:20Z
  */
 class lmbOciColumnInfo extends lmbDbColumnInfo
 {
@@ -71,5 +71,3 @@ class lmbOciColumnInfo extends lmbDbColumnInfo
     return "\"$name\"";
   }
 }
-
-
