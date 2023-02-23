@@ -23,3 +23,13 @@ if(!function_exists('response'))
     }
 
 }
+
+if(!function_exists('request'))
+{
+
+    function request()
+    {
+        return lmbToolkit::instance()->getRequest();
+    }
+
+}
