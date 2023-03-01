@@ -8,6 +8,8 @@
  */
 namespace tests\dbal\cases\driver;
 
+use limb\dbal\src\drivers\lmbDbTableInfo;
+
 abstract class DriverDatabaseInfoTestBase extends DriverMetaTestBase
 {
   var $dbinfo;
@@ -26,14 +28,14 @@ abstract class DriverDatabaseInfoTestBase extends DriverMetaTestBase
   function testGetTable()
   {
     $table = $this->dbinfo->getTable('founding_fathers');
-    $this->assertIsA($table, 'lmbDbTableInfo');
+    $this->assertInstanceOf($table, lmbDbTableInfo::class);
   }
   
   function testGetTables()
   {
     $tables = $this->dbinfo->getTables();
     if($this->assertTrue(isset($tables['founding_fathers'])))
-      if($this->assertIsA($tables['founding_fathers'], 'lmbDbTableInfo'))
+      if($this->assertInstanceOf($tables['founding_fathers'], lmbDbTableInfo::class))
         $this->assertEquals($tables['founding_fathers']->getName(), 'founding_fathers');
   }
 }

@@ -47,7 +47,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
   function testGetErrorListReturnDefaultErrorList()
   {
     $object = $this->_createActiveRecord();
-    $this->assertIsA($object->getErrorList(), lmbErrorList::class);
+    $this->assertInstanceOf($object->getErrorList(), lmbErrorList::class);
   }
 
   function testValidateNew()

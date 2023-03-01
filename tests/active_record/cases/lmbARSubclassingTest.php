@@ -118,14 +118,14 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     $object2->setTitle('Some other title');
     $object2->save();
 
-    $rs = lmbActiveRecord :: find('FooOneTableTestObject');//supertype
+    $rs = lmbActiveRecord::find(FooOneTableTestObject::class);//supertype
     $this->assertEquals($rs->count(), 2);
-    $this->assertIsA($rs->at(0), 'FooOneTableTestObject');
-    $this->assertIsA($rs->at(1), 'BarFooOneTableTestObject');
+    $this->assertInstanceOf($rs->at(0), 'FooOneTableTestObject');
+    $this->assertInstanceOf($rs->at(1), 'BarFooOneTableTestObject');
 
-    $rs = lmbActiveRecord :: find('BarFooOneTableTestObject');//subclass
+    $rs = lmbActiveRecord::find(BarFooOneTableTestObject::class);//subclass
     $this->assertEquals($rs->count(), 1);
-    $this->assertIsA($rs->at(0), 'BarFooOneTableTestObject');
+    $this->assertInstanceOf($rs->at(0), 'BarFooOneTableTestObject');
   }
 
   function testFindWithKind()
@@ -178,19 +178,19 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     $course2 = new CourseForTestForTypedLecture($course->getId());
 
     $this->assertEquals($course2->getLectures()->count(), 2);//supertype by default
-    $this->assertIsA($course2->getLectures()->at(0), 'FooLectureForTest');
-    $this->assertIsA($course2->getLectures()->at(1), 'BarFooLectureForTest');
+    $this->assertInstanceOf($course2->getLectures()->at(0), 'FooLectureForTest');
+    $this->assertInstanceOf($course2->getLectures()->at(1), 'BarFooLectureForTest');
 
     //narrowing selection but again its supertype for BarFooLectureForTest
     $lectures = $course2->getLectures()->find(array('class' => 'FooLectureForTest'));
 
     $this->assertEquals($lectures->count(), 2);
-    $this->assertIsA($lectures->at(0), 'FooLectureForTest');
-    $this->assertIsA($lectures->at(1), 'BarFooLectureForTest');
+    $this->assertInstanceOf($lectures->at(0), 'FooLectureForTest');
+    $this->assertInstanceOf($lectures->at(1), 'BarFooLectureForTest');
 
     //narrowing more
     $lectures = $course2->getLectures()->find(array('class' => 'BarFooLectureForTest'));
     $this->assertEquals($lectures->count(), 1);
-    $this->assertIsA($lectures->at(0), 'BarFooLectureForTest');
+    $this->assertInstanceOf($lectures->at(0), 'BarFooLectureForTest');
   }
 }

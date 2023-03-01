@@ -98,7 +98,7 @@ class lmbDBALTest extends TestCase
         ->setReturnValue('getRecordSet', 'result');
 
     $rs = lmbDBAL::fetch($sql, $this->conn);
-    $this->assertEquals($rs, 'result');
+    $this->assertEquals('result', $rs);
   }
 
   function testFetchUsingDefaultConnection()
@@ -116,7 +116,7 @@ class lmbDBALTest extends TestCase
         ->setReturnValue('getRecordSet', 'result');
 
     $rs = lmbDBAL::fetch($sql);
-    $this->assertEquals($rs, 'result');
+    $this->assertEquals('result', $rs);
   }
 
   function testFetchWithWrongSQL()
@@ -136,20 +136,20 @@ class lmbDBALTest extends TestCase
   function testDbMethod()
   {
     $db = lmbDBAL::db($this->conn);
-    $this->assertIsA($db, 'lmbSimpleDb');
+    $this->assertInstanceOf(lmbSimpleDb::class, $db);
     $this->assertIdentical($db->getConnection(), $this->conn);
   }
 
   function testDbMethodUsingDefaultConnection()
   {
     $db = lmbDBAL::db();
-    $this->assertIsA($db, lmbSimpleDb::class);
+    $this->assertInstanceOf(lmbSimpleDb::class, $db);
   }
 
   function testTableMethod()
   {
     $table = lmbDBAL::table('test_db_table', $this->conn);
-    $this->assertIsA($table, lmbTableGateway::class);
+    $this->assertInstanceOf(lmbTableGateway::class, $table);
     $this->assertEquals($table->getTableName(), 'test_db_table');
     $this->assertIdentical($this->conn, $table->getConnection());
   }
@@ -157,21 +157,21 @@ class lmbDBALTest extends TestCase
   function testTableMethodUsingDefaultConnection()
   {
     $table = lmbDBAL::table('test_db_table');
-    $this->assertIsA($table, lmbTableGateway::class);
+    $this->assertInstanceOf(lmbTableGateway::class, $table);
     $this->assertEquals($table->getTableName(), 'test_db_table');
   }
 
   function testSelectQueryUsingDefaultConnection()
   {
     $query = lmbDBAL::selectQuery('test_db_table');
-    $this->assertIsA($query, lmbSelectQuery::class);
+    $this->assertInstanceOf(lmbSelectQuery::class, $query);
     $this->assertEquals($query->getTables(), array('test_db_table'));
   }
 
   function testSelectQuery()
   {
     $query = lmbDBAL::selectQuery('test_db_table', $this->conn);
-    $this->assertIsA($query, lmbSelectQuery::class);
+    $this->assertInstanceOf(lmbSelectQuery::class, $query);
     $this->assertEquals($query->getTables(), array('test_db_table'));
     $this->assertIdentical($this->conn, $query->getConnection());
   }
@@ -179,22 +179,22 @@ class lmbDBALTest extends TestCase
   function testUpdateQuery()
   {
     $query = lmbDBAL::updateQuery('test_db_table', $this->conn);
-    $this->assertIsA($query, lmbUpdateQuery::class);
-    $this->assertEquals($query->getTable(), 'test_db_table');
+    $this->assertInstanceOf(lmbUpdateQuery::class, $query);
+    $this->assertEquals('test_db_table', $query->getTable());
     $this->assertIdentical($this->conn, $query->getConnection());
   }
 
   function testUpdateQueryUsingDefaultConnection()
   {
     $query = lmbDBAL::updateQuery('test_db_table');
-    $this->assertIsA($query, lmbUpdateQuery::class);
-    $this->assertEquals($query->getTable(), 'test_db_table');
+    $this->assertInstanceOf(lmbUpdateQuery::class, $query);
+    $this->assertEquals('test_db_table', $query->getTable());
   }
 
   function testDeleteQuery()
   {
     $query = lmbDBAL::deleteQuery('test_db_table', $this->conn);
-    $this->assertIsA($query, lmbDeleteQuery::class);
+    $this->assertInstanceOf(lmbDeleteQuery::class, $query);
     $this->assertEquals($query->getTable(), 'test_db_table');
     $this->assertIdentical($this->conn, $query->getConnection());
   }
@@ -202,7 +202,7 @@ class lmbDBALTest extends TestCase
   function testDeleteQueryUsingDefaultConnection()
   {
     $query = lmbDBAL::deleteQuery('test_db_table');
-    $this->assertIsA($query, lmbDeleteQuery::class);
-    $this->assertEquals($query->getTable(), 'test_db_table');
+    $this->assertInstanceOf(lmbDeleteQuery::class, $query);
+    $this->assertEquals('test_db_table', $query->getTable());
   }
 }

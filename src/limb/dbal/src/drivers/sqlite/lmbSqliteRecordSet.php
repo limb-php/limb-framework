@@ -150,10 +150,6 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
     if(!(preg_match("/^\s*SELECT\s+DISTINCT/is", $this->query) || preg_match('/\s+GROUP\s+BY\s+/is',$this->query)) &&
        preg_match("/^\s*SELECT\s+.+\s+FROM\s+/Uis", $this->query))
     {
-      //optimization for non paginated queries
-      if(!$this->limit && $this->rs && $this->valid())
-        return $this->numRows();
-
       $rewritesql = preg_replace('/^\s*SELECT\s.*\s+FROM\s/Uis','SELECT COUNT(*) FROM ', $this->query);
       $rewritesql = preg_replace('/(\sORDER\s+BY\s.*)/is','', $rewritesql);
 
@@ -164,7 +160,7 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
     }
 
     // could not re-write the query, try a different method.
-    $rs = $this->connection->execute($this->query);
-    return $rs->numRows();
+    //$rs = $this->connection->execute($this->query);
+    //return $rs->numRows();
   }
 }

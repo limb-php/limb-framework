@@ -60,7 +60,7 @@ class lmbSessionTest extends TestCase
     $this->assertEquals($this->session->get('some_object'), $object);
 
     $exported = $this->session->export();
-    $this->assertIsA($exported['some_object'], 'lmbSerializable');
+    $this->assertInstanceOf($exported['some_object'], lmbSerializable::class);
     $this->assertEquals($exported['some_object']->getSubject(), $object);
   }
 

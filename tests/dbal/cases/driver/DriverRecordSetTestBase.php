@@ -35,14 +35,14 @@ abstract class DriverRecordSetTestBase extends TestCase
     $this->cursor->rewind();
     $this->assertTrue($this->cursor->valid());
     $record = $this->cursor->current();
-    $this->assertIsA($record, $this->record_class);
+    $this->assertInstanceOf($record, $this->record_class);
     $this->assertEquals($record->get('id'), 1);
     $this->assertEquals($record->get('first'), 'George');
     $this->cursor->next();
     $this->cursor->next();
     $this->cursor->rewind();
     $record = $this->cursor->current();
-    $this->assertIsA($record, $this->record_class);
+    $this->assertInstanceOf($record, $this->record_class);
     $this->assertEquals($record->get('id'), 1);
     $this->assertEquals($record->get('first'), 'George');
   }
@@ -52,7 +52,7 @@ abstract class DriverRecordSetTestBase extends TestCase
     for($this->cursor->rewind(), $i = 0; $this->cursor->valid(); $this->cursor->next(), $i++)
     {
       $record = $this->cursor->current();
-      $this->assertIsA($record, $this->record_class);
+      $this->assertInstanceOf($record, $this->record_class);
     }
     $this->assertEquals($i, 3);
   }
@@ -62,7 +62,7 @@ abstract class DriverRecordSetTestBase extends TestCase
     $i = 0;
     foreach($this->cursor as $record)
     {
-      $this->assertIsA($record, $this->record_class);
+      $this->assertInstanceOf($record, $this->record_class);
       $i++;
     }
     $this->assertEquals($i, 3);

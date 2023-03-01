@@ -10,6 +10,7 @@ namespace tests\dbal\cases\nondriver\query;
 
 require_once('tests/dbal/common.inc.php');
 
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\toolkit\src\lmbToolkit;
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\criteria\lmbSQLRawCriteria;
@@ -482,7 +483,7 @@ class lmbSelectRawQueryTest extends TestCase
   function testGetStatement()
   {
     $conn = $this->createMock(lmbDbConnectionInterface::class);
-    $stmt = $this->createMock(lmbDbConnectionInterface::class);
+    $stmt = $this->createMock(lmbDbStatementInterface::class);
 
     $conn
         ->expects($this->once())

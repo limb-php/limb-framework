@@ -259,7 +259,7 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
     $user->save();
     $user = new UserForTest($user->id);
     $arr = $user->getCgroups()->getArray();
-    $this->assertIsA($arr[0], 'GroupForTest');
+    $this->assertInstanceOf($arr[0], GroupForTest::class);
     $this->assertEquals(sizeof($arr), 1);
     $this->assertEquals($arr[0]->getTitle(), $g3->getTitle());
   }

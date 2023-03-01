@@ -61,48 +61,48 @@ abstract class DriverConnectionTestBase extends TestCase
   function testNewStatementSelect()
   {
     $stmt = $this->connection->newStatement('SELECT ');
-    $this->assertIsA($stmt, $this->query_stmt_class);
+    $this->assertInstanceOf($stmt, $this->query_stmt_class);
     $stmt = $this->connection->newStatement('SeLeCt');
-    $this->assertIsA($stmt, $this->query_stmt_class);
+    $this->assertInstanceOf($stmt, $this->query_stmt_class);
     $stmt = $this->connection->newStatement(' select');
-    $this->assertIsA($stmt, $this->query_stmt_class);
+    $this->assertInstanceOf($stmt, $this->query_stmt_class);
     $stmt = $this->connection->newStatement("\nSELECT");
-    $this->assertIsA($stmt, $this->query_stmt_class);
+    $this->assertInstanceOf($stmt, $this->query_stmt_class);
   }
 
   function testNewStatementInsert()
   {
     $stmt = $this->connection->newStatement('INSERT ');
-    $this->assertIsA($stmt, $this->insert_stmt_class);
+    $this->assertInstanceOf($stmt, $this->insert_stmt_class);
   }
 
   function testNewStatementUpdate()
   {
     $stmt = $this->connection->newStatement('UPDATE ');
-    $this->assertIsA($stmt, $this->manip_stmt_class);
+    $this->assertInstanceOf($stmt, $this->manip_stmt_class);
   }
 
   function testNewStatementDelete()
   {
     $stmt = $this->connection->newStatement('DELETE ');
-    $this->assertIsA($stmt, $this->manip_stmt_class);
+    $this->assertInstanceOf($stmt, $this->manip_stmt_class);
   }
 
   function testNewStatementSet()
   {
     $stmt = $this->connection->newStatement('SET ');
-    $this->assertIsA($stmt, $this->default_stmt_class);
+    $this->assertInstanceOf($stmt, $this->default_stmt_class);
   }
 
   function testGetTypeInfo()
   {
     $ti = $this->connection->getTypeInfo();
-    $this->assertIsA($ti, lmbDbTypeInfo::class);
+    $this->assertInstanceOf($ti, lmbDbTypeInfo::class);
   }
 
   function testGetDatabaseInfo()
   {
     $di = $this->connection->getDatabaseInfo();
-    $this->assertIsA($di, lmbDbInfo::class);
+    $this->assertInstanceOf($di, lmbDbInfo::class);
   }
 }

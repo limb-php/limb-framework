@@ -85,7 +85,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
   function testNewObjectReturnsEmptyAggrigatedObject()
   {
     $member = new MemberForTest();
-    $this->assertIsA($member->getName(), NameForAggregateTest::class);
+    $this->assertInstanceOf($member->getName(), NameForAggregateTest::class);
 
     $this->assertNull($member->getName()->getFirst());
     $this->assertNull($member->getName()->getLast());
@@ -116,7 +116,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
     $photo->save();
 
     $photo2 = lmbActiveRecord :: findById(PhotoForTest::class, $photo->getId());
-    $this->assertIsA($photo2->getExtra(), ExtraForAggregateTest::class);
+    $this->assertInstanceOf($photo2->getExtra(), ExtraForAggregateTest::class);
     $this->assertEquals($photo2->getExtra()->getValue(), 'value_as_extra_value');
   }
 

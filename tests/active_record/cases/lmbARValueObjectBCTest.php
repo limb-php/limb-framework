@@ -202,6 +202,6 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
   {
     $lesson = new LessonForBCTest();
     $lesson->not_required_date = 'test';
-    $this->assertIsA($lesson->getNotRequiredDate(), 'TestingValueObject');
+    $this->assertInstanceOf($lesson->getNotRequiredDate(), TestingValueObject::class);
   }
 }

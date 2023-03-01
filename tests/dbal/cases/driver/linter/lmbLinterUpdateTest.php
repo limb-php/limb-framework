@@ -37,7 +37,7 @@ class lmbLinterUpdateTest extends DriverUpdateTestBase
           WHERE
               "id" = :id:';
     $stmt = $this->connection->newStatement($sql);
-    $this->assertIsA($stmt, $this->manip_stmt_class);
+    $this->assertInstanceOf($stmt, $this->manip_stmt_class);
 
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');

@@ -25,7 +25,7 @@ class TestOneTableObjectWithCustomDestroy extends lmbActiveRecord
 
   function destroy()
   {
-    parent :: destroy();
+    parent::destroy();
     echo "destroyed!";
   }
 }
@@ -266,11 +266,11 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $object1 = $this->creator->createOneTableObject();
     $object2 = $this->creator->createOneTableObject();
 
-    $found = lmbActiveRecord :: findById('TestOneTableObject', $object2->getId());
+    $found = lmbActiveRecord::findById(TestOneTableObject::class, $object2->getId());
     $this->assertEquals($found->export(), $object2->export());
 
     //testing convenient alias
-    $found = TestOneTableObject :: findById($object2->getId());
+    $found = TestOneTableObject::findById($object2->getId());
     $this->assertEquals($found->export(), $object2->export());
   }
 
@@ -278,7 +278,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
   {
     try
     {
-      lmbActiveRecord :: findById('TestOneTableObject', -1000);
+      lmbActiveRecord::findById(TestOneTableObject::class, -1000);
       $this->assertTrue(false);
     }
     catch(lmbARException $e){}
@@ -286,7 +286,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
 
   function testFindByIdReturnsNullIfNotFound()
   {
-    $this->assertNull(lmbActiveRecord :: findById('TestOneTableObject', -1000, false));
+    $this->assertNull(lmbActiveRecord::findById(TestOneTableObject::class, -1000, false));
   }
 
   function testLoadById()
@@ -687,7 +687,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     //make sure we really eager fetching
     $this->db->delete('lecture_for_test');
 
-    $this->assertIsA($arr[0], 'CourseForTest');
+    $this->assertInstanceOf($arr[0], CourseForTest::class);
     $this->assertEquals($arr[0]->getTitle(), $course1->getTitle());
     $lectures = $arr[0]->getLectures();
     $this->assertEquals(count($lectures), 3);
@@ -698,7 +698,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $this->assertEquals($lectures[2]->getId(), $lecture1->getId());
     $this->assertEquals($lectures[2]->getTitle(), 'ZZZ');
 
-    $this->assertIsA($arr[1], 'CourseForTest');
+    $this->assertInstanceOf($arr[1], CourseForTest::class);
     $this->assertEquals($arr[1]->getTitle(), $course2->getTitle());
     $lectures = $arr[1]->getLectures();
     $this->assertEquals(count($lectures), 1);
