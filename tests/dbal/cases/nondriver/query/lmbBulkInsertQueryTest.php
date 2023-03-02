@@ -14,12 +14,14 @@ use limb\core\src\exception\lmbException;
 
 class lmbBulkInsertQueryTest extends lmbQueryBaseTestCase
 {
-  function skip()
-  {
-    $current_connection = lmbToolkit::instance()->getDefaultDbConnection();
-    if(!lmbBulkInsertQuery::isSupportedByDbConnection($current_connection))
-        $this->markTestSkipped();
-  }
+    function setUp() :void
+    {
+        parent::setUp();
+
+        $current_connection = lmbToolkit::instance()->getDefaultDbConnection();
+        if(!lmbBulkInsertQuery::isSupportedByDbConnection($current_connection))
+            $this->markTestSkipped();
+    }
 
   function testInsert()
   {

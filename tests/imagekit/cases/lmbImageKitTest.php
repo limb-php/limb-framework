@@ -14,8 +14,10 @@ use limb\imagekit\src\gd\lmbGdImageConvertor;
 
 class lmbImageKitTest extends TestCase
 {
-  function skip()
+  function setUp() :void
   {
+      parent::setUp();
+
       if(!extension_loaded('gd'))
         $this->markTestSkipped('GD extension not found. Test skipped.');
 

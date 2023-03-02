@@ -77,8 +77,7 @@ class lmbTableGatewayTest extends TestCase
     $is_supported = lmbInsertOnDuplicateUpdateQuery::isSupportedByDbConnection($current_connection);
     if(!$is_supported)
     {
-      echo "Skip: ".$current_connection->getType()." not support insert on duplicate update queries \n";
-      $this->markTestSkipped();
+      $this->markTestSkipped("Skip: ".$current_connection->getType()." not support insert on duplicate update queries");
       return;
     }
 
