@@ -49,30 +49,33 @@ class lmbDBALTest extends TestCase
 
   function testDefaultConnection()
   {
-    $this->assertIdentical($this->toolkit->getDefaultDbConnection(),
+    $this->assertEquals($this->toolkit->getDefaultDbConnection(),
                            lmbDBAL::defaultConnection());
   }
 
   function testNewConnection()
   {
     $conn = lmbDBAL::newConnection($this->dsn);
-    $this->assertIsA($conn, lmbDbConnectionInterface::class);
+    $this->assertInstanceOf(lmbDbConnectionInterface::class, $conn);
   }
 
   function testNewStatement()
   {
     $this->toolkit->setDefaultDbConnection($this->conn);
     $this->conn
-        ->expectOnce('newStatement', array($sql = 'SELECT 1=1'));
-    $this->conn
-        ->setReturnValue('newStatement', 'whatever', array($sql));
-    $this->assertEquals(lmbDBAL::newStatement($sql), 'whatever');
+        ->expects($this->once())
+        ->method('newStatement')
+        ->with($sql = 'SELECT 1=1')
+        ->willReturn('whatever', array($sql));
+    $this->assertEquals('whatever', lmbDBAL::newStatement($sql));
   }
 
   function testExecute()
   {
     $this->conn
-        ->expectOnce('execute', array($sql = 'SELECT 1=1'));
+        ->expects($this->once())
+        ->method('execute')
+        ->with($sql = 'SELECT 1=1');
     lmbDBAL::execute($sql, $this->conn);
   }
 
@@ -80,7 +83,9 @@ class lmbDBALTest extends TestCase
   {
     $this->toolkit->setDefaultDbConnection($this->conn);
     $this->conn
-        ->expectOnce('execute', array($sql = 'SELECT 1=1'));
+        ->expects($this->once())
+        ->method('execute')
+        ->with($sql = 'SELECT 1=1');
     lmbDBAL::execute('SELECT 1=1');
   }
 
@@ -88,14 +93,15 @@ class lmbDBALTest extends TestCase
   {
     $stmt = $this->createMock(lmbDbQueryStatementInterface::class);
     $this->conn
-        ->expectOnce('newStatement', array($sql = 'SELECT 1=1'));
-    $this->conn
-        ->setReturnValue('newStatement', $stmt, array($sql));
+        ->expects($this->once())
+        ->method('newStatement')
+        ->with($sql = 'SELECT 1=1')
+        ->willReturn($stmt, array($sql));
 
     $stmt
-        ->expectOnce('getRecordSet');
-    $stmt
-        ->setReturnValue('getRecordSet', 'result');
+        ->expects($this->once())
+        ->method('getRecordSet')
+        ->willReturn('result');
 
     $rs = lmbDBAL::fetch($sql, $this->conn);
     $this->assertEquals('result', $rs);
@@ -106,14 +112,15 @@ class lmbDBALTest extends TestCase
     $this->toolkit->setDefaultDbConnection($this->conn);
     $stmt = $this->createMock(lmbDbQueryStatementInterface::class);
     $this->conn
-        ->expectOnce('newStatement', array($sql = 'SELECT 1=1'));
-    $this->conn
-        ->setReturnValue('newStatement', $stmt, array($sql));
+        ->expects($this->once())
+        ->method('newStatement')
+        ->with($sql = 'SELECT 1=1')
+        ->willReturn($stmt, array($sql));
 
     $stmt
-        ->expectOnce('getRecordSet');
-    $stmt
-        ->setReturnValue('getRecordSet', 'result');
+        ->expects($this->once())
+        ->method('getRecordSet')
+        ->willReturn('result');
 
     $rs = lmbDBAL::fetch($sql);
     $this->assertEquals('result', $rs);
@@ -128,7 +135,7 @@ class lmbDBALTest extends TestCase
     }
     catch(lmbDbException $e)
     {
-      $this->assertPattern('/The result of this SQL query can not be fetched./', $e->getMessage());
+      $this->assertMatchesRegularExpression('/The result of this SQL query can not be fetched./', $e->getMessage());
       $this->assertEquals($e->getParam('query'), $sql);
     }
   }
@@ -137,7 +144,7 @@ class lmbDBALTest extends TestCase
   {
     $db = lmbDBAL::db($this->conn);
     $this->assertInstanceOf(lmbSimpleDb::class, $db);
-    $this->assertIdentical($db->getConnection(), $this->conn);
+    $this->assertEquals($db->getConnection(), $this->conn);
   }
 
   function testDbMethodUsingDefaultConnection()
@@ -150,30 +157,30 @@ class lmbDBALTest extends TestCase
   {
     $table = lmbDBAL::table('test_db_table', $this->conn);
     $this->assertInstanceOf(lmbTableGateway::class, $table);
-    $this->assertEquals($table->getTableName(), 'test_db_table');
-    $this->assertIdentical($this->conn, $table->getConnection());
+    $this->assertEquals('test_db_table', $table->getTableName());
+    $this->assertEquals($this->conn, $table->getConnection());
   }
 
   function testTableMethodUsingDefaultConnection()
   {
     $table = lmbDBAL::table('test_db_table');
     $this->assertInstanceOf(lmbTableGateway::class, $table);
-    $this->assertEquals($table->getTableName(), 'test_db_table');
+    $this->assertEquals('test_db_table', $table->getTableName());
   }
 
   function testSelectQueryUsingDefaultConnection()
   {
     $query = lmbDBAL::selectQuery('test_db_table');
     $this->assertInstanceOf(lmbSelectQuery::class, $query);
-    $this->assertEquals($query->getTables(), array('test_db_table'));
+    $this->assertEquals(array('test_db_table'), $query->getTables());
   }
 
   function testSelectQuery()
   {
     $query = lmbDBAL::selectQuery('test_db_table', $this->conn);
     $this->assertInstanceOf(lmbSelectQuery::class, $query);
-    $this->assertEquals($query->getTables(), array('test_db_table'));
-    $this->assertIdentical($this->conn, $query->getConnection());
+    $this->assertEquals(array('test_db_table'), $query->getTables());
+    $this->assertEquals($this->conn, $query->getConnection());
   }
 
   function testUpdateQuery()
@@ -181,7 +188,7 @@ class lmbDBALTest extends TestCase
     $query = lmbDBAL::updateQuery('test_db_table', $this->conn);
     $this->assertInstanceOf(lmbUpdateQuery::class, $query);
     $this->assertEquals('test_db_table', $query->getTable());
-    $this->assertIdentical($this->conn, $query->getConnection());
+    $this->assertEquals($this->conn, $query->getConnection());
   }
 
   function testUpdateQueryUsingDefaultConnection()
@@ -195,8 +202,8 @@ class lmbDBALTest extends TestCase
   {
     $query = lmbDBAL::deleteQuery('test_db_table', $this->conn);
     $this->assertInstanceOf(lmbDeleteQuery::class, $query);
-    $this->assertEquals($query->getTable(), 'test_db_table');
-    $this->assertIdentical($this->conn, $query->getConnection());
+    $this->assertEquals('test_db_table', $query->getTable());
+    $this->assertEquals($this->conn, $query->getConnection());
   }
 
   function testDeleteQueryUsingDefaultConnection()

@@ -14,11 +14,14 @@ use limb\toolkit\src\lmbToolkit;
 class lmbInsertOnDuplicateUpdateQueryTest extends lmbQueryBaseTestCase
 {
 
-  function skip()
-  {
-    $current_connection = lmbToolkit::instance()->getDefaultDbConnection();
-    $this->skipIf(!lmbInsertOnDuplicateUpdateQuery::isSupportedByDbConnection($current_connection));
-  }
+    function setUp() :void
+    {
+        parent::setUp();
+
+        $current_connection = lmbToolkit::instance()->getDefaultDbConnection();
+        if( !lmbInsertOnDuplicateUpdateQuery::isSupportedByDbConnection($current_connection) )
+            $this->markTestSkipped('Not extension not found. Test skipped.');
+    }
 
   function testInsert()
   {

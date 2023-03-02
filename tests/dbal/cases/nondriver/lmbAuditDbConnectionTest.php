@@ -51,12 +51,7 @@ class lmbAuditDbConnectionTest extends TestCase
   function testNewStatementSetSelfAsConnection()
   {
     $sql = 'whatever sql';
-    
-    $this->wrapped
-        ->expects($this->once())
-        ->method('newStatement')
-        ->with($sql);
-    
+
     $statement = $this->createMock(lmbDbStatementInterface::class);
     $statement
         ->expects($this->once())
@@ -64,9 +59,6 @@ class lmbAuditDbConnectionTest extends TestCase
         ->with($this->connection);
     $this->wrapped
         ->expects($this->once())
-        ->method('newStatement')
-        ->with($sql);
-    $this->wrapped
         ->method('newStatement')
         ->willReturn($statement)
         ->with($sql);

@@ -485,14 +485,12 @@ class lmbSelectRawQueryTest extends TestCase
     $conn = $this->createMock(lmbDbConnectionInterface::class);
     $stmt = $this->createMock(lmbDbStatementInterface::class);
 
-    $conn
-        ->expects($this->once())
-        ->method('newStatement');
     $stmt
         ->expects($this->once())
         ->method('set')
         ->with(array('p0t_id', 5));
     $conn
+        ->expects($this->once())
         ->method('newStatement')
         ->with($stmt);
 

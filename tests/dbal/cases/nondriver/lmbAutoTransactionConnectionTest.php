@@ -152,11 +152,8 @@ class lmbAutoTransactionConnectionTest extends TestCase
     $this->wrapped
         ->expects($this->once())
         ->method('newStatement')
-        ->with($sql);
-    $this->wrapped
-        ->method('newStatement')
-        ->willReturn($stmt = 'whatever')
-        ->with($sql);
+        ->with($sql)
+        ->willReturn($stmt = 'whatever');
     $this->wrapped
         ->expects($this->once())
         ->method('beginTransaction');
