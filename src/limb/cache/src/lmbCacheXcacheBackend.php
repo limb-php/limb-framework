@@ -8,7 +8,7 @@
  */
 namespace limb\cache\src;
 
-use limb\cache\src\lmbCacheBackendInterface;
+use limb\toolkit\src\lmbToolkit;
 
 /**
  * class lmbCacheXcacheBackend.
@@ -70,7 +70,7 @@ class lmbCacheXcacheBackend implements lmbCacheBackendInterface
   function stat($params = array())
   {
     return xcache_info(
-        isset($params['cache_type']) ? $params['cache_type'] : XC_TYPE_VAR
+        $params['cache_type'] ?? XC_TYPE_VAR
     );
   }
 
@@ -110,10 +110,9 @@ class lmbCacheXcacheBackend implements lmbCacheBackendInterface
           $backup[$key] = $value;
         }
 
-        $xcache_cnf = lmbToolkit :: instance()->getConf('xcache');
+        $xcache_cnf = lmbToolkit::instance()->getConf('xcache');
         $_SERVER[$key] = $xcache_cnf->get($key, 'limb');
       }
     }
   }
 }
-

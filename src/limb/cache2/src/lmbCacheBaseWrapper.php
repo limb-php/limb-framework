@@ -1,7 +1,6 @@
 <?php
 namespace limb\cache2\src;
 
-use limb\cache2\src\lmbCacheWrapperInterface;
 use limb\core\src\exception\lmbException;
 
 abstract class lmbCacheBaseWrapper implements lmbCacheWrapperInterface

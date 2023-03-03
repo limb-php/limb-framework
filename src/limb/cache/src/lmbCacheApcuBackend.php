@@ -8,7 +8,6 @@
  */
 namespace limb\cache\src;
 
-use limb\cache\src\lmbCacheBackendInterface;
 use limb\core\src\lmbSerializable;
 
 /**

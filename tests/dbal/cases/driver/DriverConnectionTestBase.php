@@ -36,11 +36,13 @@ abstract class DriverConnectionTestBase extends TestCase
   }
 
   function getSocket() {
-    $this->skipIf(true, 'Socket guessing is not implemented for this connection');
+      if(true)
+        $this->markTestSkipped('Socket guessing is not implemented for this connection');
   }
 
   function testSocketConnection() {
-    $this->skipIf(lmbSys::isWin32(), "Windows platform doesn't support sockets.");
+      if(lmbSys::isWin32())
+        $this->markTestSkipped("Windows platform doesn't support sockets.");
 
     $config = $this->connection->getConfig()->export();
     $config['socket'] = $this->getSocket();

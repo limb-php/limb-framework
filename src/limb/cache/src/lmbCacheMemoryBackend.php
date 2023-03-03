@@ -8,8 +8,6 @@
  */
 namespace limb\cache\src;
 
-use limb\cache\src\lmbCacheBackendInterface;
-
 /**
  * class lmbCacheMemoryBackend.
  *

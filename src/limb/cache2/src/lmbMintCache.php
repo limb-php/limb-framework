@@ -8,8 +8,6 @@
  */
 namespace limb\cache2\src;
 
-use limb\cache2\src\lmbCacheBaseWrapper;
-
 // inspired by MintCache by gfranxman (see http://www.djangosnippets.org/snippets/155/)
 
 class lmbMintCache extends lmbCacheBaseWrapper
