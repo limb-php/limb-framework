@@ -8,9 +8,9 @@ CREATE TABLE `cron_job_log` (
   `time` int(11) DEFAULT NULL,
   `status` varchar(25) NULL DEFAULT NULL,
   `info` text,
-  `path` varchar(255) default NULL,
+  `path` varchar(255) default NULL,      
   PRIMARY KEY  (`id`),
-  KEY `name` (`name`),
+  KEY `name` (`name`),                        
   KEY `status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB CHARSET=utf8;
 
