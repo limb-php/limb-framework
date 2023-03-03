@@ -41,15 +41,15 @@ class lmbDbDump
     $type = $this->connection->getType();
 
     $default_loader = lmbSQLDumpLoader::class;
-    $loader = 'lmb' . ucfirst($type) . 'DumpLoader';
+    $loaderClass = 'lmb' . ucfirst($type) . 'DumpLoader';
 
-    if(file_exists(dirname(__FILE__) . '/dump/' . $loader . '.php'))
-      require_once(dirname(__FILE__) . '/dump/' . $loader . '.php');
+    if(file_exists(dirname(__FILE__) . '/dump/' . $loaderClass . '.php'))
+        require_once(dirname(__FILE__) . '/dump/' . $loaderClass . '.php');
     else
-      $loader = $default_loader;
+        $loaderClass = $default_loader;
 
-    $file = ($file) ? $file : $this->file;
-    $this->loader = new $loader($file);
+    $file = ($file) ?? $this->file;
+    $this->loader = new $loaderClass($file);
     $this->loader->execute($this->connection);
 
     $this->connection->getDatabaseInfo()->loadTables();

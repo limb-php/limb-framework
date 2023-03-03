@@ -8,8 +8,6 @@
  */
 namespace tests\dbal\cases\nondriver\query;
 
-require_once('tests/dbal/common.inc.php');
-
 use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\toolkit\src\lmbToolkit;
 use PHPUnit\Framework\TestCase;
@@ -488,7 +486,7 @@ class lmbSelectRawQueryTest extends TestCase
     $stmt
         ->expects($this->once())
         ->method('set')
-        ->with(array('p0t_id', 5));
+        ->with('p0t_id', 5);
     $conn
         ->expects($this->once())
         ->method('newStatement')

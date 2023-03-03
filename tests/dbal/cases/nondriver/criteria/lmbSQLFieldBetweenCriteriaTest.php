@@ -26,13 +26,16 @@ class lmbSQLFieldBetweenCriteriaTest extends TestCase
 
   function testSimple()
   {
+    $values = [];
     $c1 = new lmbSQLFieldBetweenCriteria('a', 1, 10);
 
     $this->assertEquals("'a' BETWEEN :pfa0: AND :pta0:",
         $c1->toStatementString($values, $this->conn));
 
-    $this->assertEquals(array('pfa0' => 1,
-                                      'pta0' => 10), $values);
+    $this->assertEquals(
+        array('pfa0' => 1,
+              'pta0' => 10
+        ), $values);
   }
 
   function _testNested()
