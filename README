@@ -21,6 +21,12 @@ Migrate from Limb3 to Limb4:
     * rename class files (remove '.class' extension)
     * add namespaces to all classes
     * change all lmb_require() to use
+    * lmb_env_* methods change to lmbEnv::* calls
+    * App Toolkit should return array of used toolkits by getRequiredTools() method
+    * Application class method process should be compatible with limb\filter_chain\src\lmbFilterChain::process($request = NULL, $response = NULL)
+    * method run all of filter classes must be compatible with limb\filter_chain\src\lmbInterceptingFilterInterface::run($filter_chain, $request, $response); and return HttpResponse; method next() must be compatible with limb\filter_chain\src\lmbInterceptingFilterInterface::next($request, $response)
+    * driver mysqli removed. Use mysql
+
 
 Install
     * composer require limb-php/limb-framework
