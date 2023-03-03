@@ -15,7 +15,7 @@ use limb\dbal\src\drivers\lmbDbTypeInfo;
  * class lmbARMetaInfo.
  *
  * @package active_record
- * @version $Id: lmbARMetaInfo.class.php 7783 2009-03-17 18:57:39Z pachanga $
+ * @version $Id: lmbARMetaInfo.php 7783 2009-03-17 18:57:39Z
  */
 class lmbARMetaInfo
 {
@@ -91,5 +91,3 @@ class lmbARMetaInfo
     }
   }
 }
-
-

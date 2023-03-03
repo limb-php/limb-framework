@@ -15,7 +15,8 @@ require_once("limb/dbal/common.inc.php");
 require_once("limb/web_app/common.inc.php");
 
 require('bench.inc.php');
-require_once('limb/cache2/src/lmbCacheFactory.class.php');
+
+use limb\cache2\src\lmbCacheFactory;
 
 $connection = lmbCacheFactory::createConnection($argv[1]);
 

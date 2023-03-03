@@ -15,7 +15,7 @@ use limb\core\src\lmbSet;
  * class lmbARRecordSetDecorator.
  *
  * @package active_record
- * @version $Id: lmbARRecordSetDecorator.class.php 6691 2008-01-15 14:55:59Z serega $
+ * @version $Id: lmbARRecordSetDecorator.php 6691 2008-01-15 14:55:59Z
  */
 class lmbARRecordSetJoinDecorator extends lmbCollectionDecorator
 {
@@ -109,5 +109,3 @@ class lmbARRecordSetJoinDecorator extends lmbCollectionDecorator
     return $record;
   }
 }
-
-

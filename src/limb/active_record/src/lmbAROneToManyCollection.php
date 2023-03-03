@@ -8,20 +8,19 @@
  */
 namespace limb\active_record\src;
 
-use limb\active_record\src\lmbARRelationCollection;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 
 /**
  * class lmbAROneToManyCollection.
  *
  * @package active_record
- * @version $Id: lmbAROneToManyCollection.class.php 8004 2009-11-27 08:12:16Z slevin $
+ * @version $Id: lmbAROneToManyCollection.php 8004 2009-11-27 08:12:16Z
  */
 class lmbAROneToManyCollection extends lmbARRelationCollection
 {
   protected function _createARQuery($params = array())
   {
-    $query = self :: createFullARQueryForRelation($this->relation_info, $this->conn, $params);
+    $query = self::createFullARQueryForRelation($this->relation_info, $this->conn, $params);
 
     $relation_field = $this->relation_info['field'];
     if(!strstr($relation_field, '.'))
@@ -47,7 +46,7 @@ class lmbAROneToManyCollection extends lmbARRelationCollection
 
   static function createCoreARQueryForRelation($relation_info, $conn, $params = array())
   {
-    return lmbARQuery :: create($relation_info['class'], $params, $conn);
+    return lmbARQuery::create($relation_info['class'], $params, $conn);
   }
 
   function add($object)
@@ -111,5 +110,3 @@ class lmbAROneToManyCollection extends lmbARRelationCollection
 
   }
 }
-
-

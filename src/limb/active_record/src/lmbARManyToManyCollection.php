@@ -8,10 +8,8 @@
  */
 namespace limb\active_record\src;
 
-use limb\active_record\src\lmbARRelationCollection;
 use limb\core\src\lmbCollection;
 use limb\dbal\src\lmbTableGateway;
-use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 
@@ -19,13 +17,13 @@ use limb\dbal\src\criteria\lmbSQLFieldCriteria;
  * class lmbARManyToManyCollection.
  *
  * @package active_record
- * @version $Id: lmbARManyToManyCollection.class.php 7972 2009-07-23 20:30:23Z idler $
+ * @version $Id: lmbARManyToManyCollection.php 7972 2009-07-23 20:30:23Z
  */
 class lmbARManyToManyCollection extends lmbARRelationCollection
 {
   protected function _createARQuery($params = array())
   {
-    $query = self :: createFullARQueryForRelation($this->relation_info, $this->conn, $params);
+    $query = self::createFullARQueryForRelation($this->relation_info, $this->conn, $params);
 
     $join_table = $this->conn->quoteIdentifier($this->relation_info['table']);
     $field = $this->conn->quoteIdentifier($this->relation_info['field']);
@@ -41,7 +39,7 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
   {
     $relation_info['calling_class'] = __CLASS__;
 
-    return parent :: createFullARQueryForRelation($relation_info, $conn, $params);
+    return parent::createFullARQueryForRelation($relation_info, $conn, $params);
   }
 
   static function createCoreARQueryForRelation($relation_info, $conn, $params = array())
@@ -132,5 +130,3 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
     $this->reset();
   }
 }
-
-

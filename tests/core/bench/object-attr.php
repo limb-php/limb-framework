@@ -1,8 +1,9 @@
 <?php
 
+use limb\core\src\lmbObject;
+
 set_include_path(dirname(__FILE__) . '/../../../../');
 require_once('limb/core/common.inc.php');
-require_once('limb/core/src/lmbObject.class.php');
 
 class Foo extends lmbObject
 {

@@ -2,8 +2,9 @@
 
 set_include_path(dirname(__FILE__) . '/../../../../');
 require_once('limb/core/common.inc.php');
-require_once('limb/toolkit/src/lmbToolkit.class.php');
-require_once('limb/toolkit/src/lmbAbstractTools.class.php');
+
+use limb\toolkit\src\lmbToolkit;
+use limb\toolkit\src\lmbAbstractTools;
 
 class BenchTools extends lmbAbstractTools
 {
@@ -14,7 +15,7 @@ class BenchTools extends lmbAbstractTools
 }
 
 /*---------------------------*/
-$toolkit = lmbToolkit :: setup(new BenchTools());
+$toolkit = lmbToolkit::setup(new BenchTools());
 
 $mark = microtime(true);
 

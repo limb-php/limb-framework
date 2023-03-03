@@ -17,7 +17,7 @@ use limb\active_record\src\lmbARMetaInfo;
  * class lmbARTools.
  *
  * @package active_record
- * @version $Id: lmbARTools.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbARTools.php 7486 2009-01-26 19:13:20Z
  */
 class lmbARTools extends lmbAbstractTools
 {
@@ -42,4 +42,3 @@ class lmbARTools extends lmbAbstractTools
     return $meta;
   }
 }
-

@@ -10,13 +10,12 @@ namespace limb\active_record\src;
 
 use limb\core\src\lmbCollectionDecorator;
 use limb\core\src\exception\lmbException;
-use limb\core\src\lmbEnv;
 
 /**
  * class lmbARRecordSetDecorator.
  *
  * @package active_record
- * @version $Id: lmbARRecordSetDecorator.class.php 7832 2009-03-31 03:36:02Z pachanga $
+ * @version $Id: lmbARRecordSetDecorator.php 7832 2009-03-31 03:36:02Z
  */
 class lmbARRecordSetDecorator extends lmbCollectionDecorator
 {
@@ -92,5 +91,3 @@ class lmbARRecordSetDecorator extends lmbCollectionDecorator
     return $object;
   }
 }
-
-

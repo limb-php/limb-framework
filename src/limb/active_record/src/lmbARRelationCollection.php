@@ -19,7 +19,7 @@ use limb\core\src\exception\lmbException;
  * abstract class lmbARRelationCollection.
  *
  * @package active_record
- * @version $Id: lmbARRelationCollection.class.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbARRelationCollection.php 7486 2009-01-26 19:13:20Z
  */
 abstract class lmbARRelationCollection implements lmbCollectionInterface
 {
@@ -388,5 +388,3 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
     }
   }
 }
-
-

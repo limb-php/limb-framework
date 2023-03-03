@@ -14,11 +14,12 @@ if(isset($argv[3]))
 
 set_include_path(dirname(__FILE__) . '/../../../../');
 require_once('limb/core/common.inc.php');
-require_once('limb/core/src/lmbSet.class.php');
-require_once('limb/macro/src/lmbMacroTemplate.class.php');
 require_once(dirname(__FILE__) . '/profile.inc.php');
 
-$tpl = new lmbMacroTemplate($file, array('cache_dir' => '/tmp/macro', 
+use limb\core\src\lmbSet;
+use limb\macro\src\lmbMacroTemplate;
+
+$tpl = new lmbMacroTemplate($file, array('cache_dir' => '/tmp/macro',
                                          'forcecompile' => $forcecompile, 
                                          'forcescan' => $forcescan, 
                                          'tpl_scan_dirs' => array(dirname(__FILE__))));
