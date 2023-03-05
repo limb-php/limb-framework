@@ -8,6 +8,8 @@
  */
 namespace tests\cache2\cases\drivers;
 
+require_once(dirname(__FILE__) . '/../.setup.php');
+
 class lmbCacheSessionConnectionWithoutSerializationTest extends lmbCacheSessionConnectionTest
 { 
   function __construct()

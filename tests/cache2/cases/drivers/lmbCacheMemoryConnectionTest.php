@@ -8,7 +8,7 @@
  */
 namespace tests\cache2\cases\drivers;
 
-class lmbCacheMemoryConnectionTest extends lmbCacheConnectionTest
+class lmbCacheMemoryConnectionTest extends lmbCacheConnectionTestCase
 {
   function __construct()
   {
@@ -19,6 +19,8 @@ class lmbCacheMemoryConnectionTest extends lmbCacheConnectionTest
   
   function testGetWithTtl_differentThread()
   {
-    //memory not share between threads
+      //memory not share between threads
+
+      $this->assertTrue(true);
   }
 }

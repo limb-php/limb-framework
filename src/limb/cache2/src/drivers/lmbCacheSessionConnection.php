@@ -1,6 +1,7 @@
 <?php
 namespace limb\cache2\src\drivers;
 
+use limb\session\src\lmbSession;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbSerializable;
 

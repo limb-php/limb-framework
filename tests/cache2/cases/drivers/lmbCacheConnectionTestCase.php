@@ -8,6 +8,9 @@
 */
 namespace tests\cache2\cases\drivers;
 
+require_once(dirname(__FILE__) . '/../.setup.php');
+
+use limb\cache2\src\drivers\lmbCacheAbstractConnection;
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbObject;
@@ -19,7 +22,7 @@ class CacheableFooBarClass
 
 }
 
-abstract class lmbCacheConnectionTest extends TestCase
+abstract class lmbCacheConnectionTestCase extends TestCase
 {
   /**
    * @var lmbUri
@@ -42,7 +45,9 @@ abstract class lmbCacheConnectionTest extends TestCase
 
   function setUp(): void
   {
-    $this->cache = lmbCacheFactory::createConnection($this->dsn);
+      parent::setUp();
+
+      $this->cache = lmbCacheFactory::createConnection($this->dsn);
   }
 
   function tearDown(): void
@@ -51,14 +56,15 @@ abstract class lmbCacheConnectionTest extends TestCase
     $this->cache->flush();
   }
 
-  protected function _getUniqueId($prefix)
+  protected function _getUniqueId($prefix): string
   {
     return $prefix . mt_rand();
   }
 
   function testGet_Negative()
   {
-    $this->assertNull($this->cache->get($id = $this->_getUniqueId('testGet_Negative')));
+      $id = $this->_getUniqueId('testGet_Negative');
+      $this->assertNull($this->cache->get($id));
   }
 
   function testGet_Positive()
@@ -132,7 +138,7 @@ abstract class lmbCacheConnectionTest extends TestCase
 
     $this->cache->delete($id1);
 
-    $this->assertFalse($this->cache->get($id1));
+    $this->assertNull($this->cache->get($id1));
 
     $cache_value = $this->cache->get($id2);
     $this->assertEquals($cache_value, $v2);
@@ -144,7 +150,7 @@ abstract class lmbCacheConnectionTest extends TestCase
 
     $this->cache->flush();
 
-    $this->assertFalse($this->cache->get($id));
+    $this->assertNull($this->cache->get($id));
   }
 
   function testGetWithTtl_sameThread()
@@ -190,7 +196,7 @@ abstract class lmbCacheConnectionTest extends TestCase
     $obj->set('foo', 'new value');
 
     $cached_obj = $this->cache->get($id);
-    $this->assertInstanceOf($cached_obj, lmbObject::class);
+    $this->assertInstanceOf(lmbObject::class, $cached_obj);
     $this->assertEquals($value, $cached_obj->get('foo'));
   }
 

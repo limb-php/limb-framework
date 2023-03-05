@@ -8,7 +8,9 @@
  */
 namespace tests\cache2\cases\drivers;
 
-class lmbCacheApcConnectionTest extends lmbCacheConnectionTest
+require_once(dirname(__FILE__) . '/../.setup.php');
+
+class lmbCacheApcConnectionTest extends lmbCacheConnectionTestCase
 {
   function __construct()
   {

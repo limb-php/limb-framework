@@ -33,13 +33,13 @@ class lmbCacheMemoryConnection extends lmbCacheAbstractConnection
   function _getSingleKeyValue($resolved_key)
   {
     if(!isset($this->_caches[$resolved_key]))
-      return false;
+      return NULL;
       
     if(
       isset($this->_cache_ttls[$resolved_key])
       && $this->_cache_ttls[$resolved_key] <= time()
     )
-      return false;
+      return NULL;
 
     $container = $this->_caches[$resolved_key];
     

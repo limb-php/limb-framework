@@ -8,7 +8,7 @@
  */
 namespace tests\cache2\cases\drivers;
 
-class lmbCacheMemcacheConnectionTest extends lmbCacheConnectionTest
+class lmbCacheMemcacheConnectionTest extends lmbCacheConnectionTestCase
 {
   function __construct()
   {

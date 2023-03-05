@@ -8,10 +8,14 @@
  */
 namespace tests\cache2\cases\drivers;
 
-class lmbCacheFileConnectionTest extends lmbCacheConnectionTest
+require_once(dirname(__FILE__) . '/../.setup.php');
+
+class lmbCacheFileConnectionTest extends lmbCacheConnectionTestCase
 {
   function __construct()
   {
-    $this->dsn = 'file:///'.lmb_var_dir().'/cache2';
+      parent::__construct();
+
+      $this->dsn = 'file:///'.lmb_var_dir().'/cache2';
   }
 }

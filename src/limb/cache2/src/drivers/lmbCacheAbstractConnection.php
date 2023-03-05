@@ -125,7 +125,7 @@ abstract class lmbCacheAbstractConnection implements lmbCacheConnectionInterface
     if(!$this->lock($key, $this->inc_dec_ttl, 'inc_dec'))
       return false;
 
-    $new_value = $current_value + $value;
+    $new_value = (int)$current_value + $value;
 
     $this->set($key, $new_value, $ttl);
 
@@ -142,7 +142,7 @@ abstract class lmbCacheAbstractConnection implements lmbCacheConnectionInterface
     if(!$this->lock($key, $this->inc_dec_ttl, 'inc_dec'))
       return false;
 
-    $new_value = $current_value - $value;
+    $new_value = (int)$current_value - $value;
 
     if($new_value < 0)
       $new_value = 0;

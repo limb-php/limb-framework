@@ -10,7 +10,7 @@ namespace tests\cache2\cases\drivers;
 
 require_once('tests/dbal/cases/init.inc.php');
 
-class lmbCacheDbConnectionTest extends lmbCacheConnectionTest
+class lmbCacheDbConnectionTest extends lmbCacheConnectionTestCase
 {
   protected $storage_init_file = 'limb/dbal/common.inc.php';
   protected $skip = false;
