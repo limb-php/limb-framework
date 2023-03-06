@@ -15,6 +15,8 @@ use limb\core\src\lmbObject;
 
 class lmbSerializableObjectForTests extends lmbSerializable {}
 
+
+
 class lmbSessionTest extends TestCase
 {
   protected $session;
@@ -47,7 +49,7 @@ class lmbSessionTest extends TestCase
 
     $_SESSION[$key] = 'test';
 
-    $this->assertEquals($this->session->get($key), 'test');
+    $this->assertEquals('test', $this->session->get($key));
 
     $this->session->destroy($key);
   }
@@ -60,7 +62,7 @@ class lmbSessionTest extends TestCase
     $this->assertEquals($this->session->get('some_object'), $object);
 
     $exported = $this->session->export();
-    $this->assertInstanceOf($exported['some_object'], lmbSerializable::class);
+    $this->assertInstanceOf(lmbSerializable::class, $exported['some_object']);
     $this->assertEquals($exported['some_object']->getSubject(), $object);
   }
 
@@ -72,14 +74,15 @@ class lmbSessionTest extends TestCase
 
     $ref = 'ref test';
 
-    $this->assertEquals($this->session->get($key), 'ref test');
+    $this->assertEquals('ref test', $this->session->get($key));
   }
 
   function testSet()
   {
     $key = md5(mt_rand());
 
-    $this->assertNull($this->session->set($key, $value = 1));
+    $this->session->set($key, $value = 1);
+
     $this->assertEquals($this->session->get($key), $value);
   }
 
@@ -112,7 +115,7 @@ class lmbSessionTest extends TestCase
 
     $_SESSION[$key] = 'test';
 
-    $this->assertEquals($this->session->$key,'test');
+    $this->assertEquals('test', $this->session->$key);
 
     $this->session->destroy($key);
   }
@@ -125,7 +128,7 @@ class lmbSessionTest extends TestCase
 
     $this->session->$key = 'test';
 
-    $this->assertEquals($this->session->$key,'test');
+    $this->assertEquals('test', $this->session->$key);
 
     $this->session->destroy($key);
   }
@@ -138,9 +141,9 @@ class lmbSessionTest extends TestCase
 
   	$this->session[$key] = 'test';
 
-  	$this->assertEquals($this->session[$key],'test');
+  	$this->assertEquals('test', $this->session[$key]);
 
-  	$this->assertEquals($_SESSION[$key],'test');
+  	$this->assertEquals('test', $_SESSION[$key]);
 
   	unset($this->session[$key]);
 
@@ -163,8 +166,8 @@ class lmbSessionTest extends TestCase
   		$val .= $v;
   	}
 
-  	$this->assertEquals($key,'abc');
-  	$this->assertEquals($val,'xyz');
+  	$this->assertEquals('abc', $key);
+  	$this->assertEquals('xyz', $val);
 
   }
 
@@ -176,11 +179,11 @@ class lmbSessionTest extends TestCase
 
   	$this->session[$key] = 'test';
 
-  	$this->assertEquals($this->session[$key],'test');
+  	$this->assertEquals('test', $this->session[$key]);
 
   	$this->session->reset();
 
-  	$this->assertEquals(count($this->session),0);
+  	$this->assertCount(0, $this->session);
   }
 
   function testCountableIterface()
@@ -189,7 +192,7 @@ class lmbSessionTest extends TestCase
   	$this->session[$key.'a'] = 'test';
   	$this->session[$key.'b'] = 'test';
   	$this->session[$key.'c'] = 'test';
-  	$this->assertEquals(3,count($this->session));
+  	$this->assertCount(3, $this->session);
   }
 
 }

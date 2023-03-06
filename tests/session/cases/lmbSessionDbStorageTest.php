@@ -8,6 +8,8 @@
  */
 namespace tests\session\cases;
 
+require_once(dirname(__FILE__) . '/.setup.php');
+
 use PHPUnit\Framework\TestCase;
 use limb\session\src\lmbSessionDbStorage;
 use limb\dbal\src\lmbSimpleDb;
@@ -87,7 +89,7 @@ class lmbSessionDbStorageTest extends TestCase
 
     $rs = $this->db->select('lmb_session');
 
-    $this->assertEquals($rs->count(), 1);
+    $this->assertEquals(1, $rs->count());
 
     $rs->rewind();
     $record = $rs->current();
@@ -108,7 +110,7 @@ class lmbSessionDbStorageTest extends TestCase
 
     $rs = $this->db->select('lmb_session');
 
-    $this->assertEquals($rs->count(), 1);
+    $this->assertEquals(1, $rs->count());
 
     $rs->rewind();
     $record = $rs->current();
@@ -163,10 +165,10 @@ class lmbSessionDbStorageTest extends TestCase
 
     $rs = $this->db->select('lmb_session');
 
-    $this->assertEquals($rs->count(), 1);
+    $this->assertEquals(1, $rs->count());
     $rs->rewind();
     $record = $rs->current();
-    $this->assertEquals($record->get('session_id'), 'junk');
+    $this->assertEquals('junk', $record->get('session_id'));
   }
 
   function testStorageGcTrue()
