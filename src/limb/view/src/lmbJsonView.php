@@ -8,6 +8,7 @@
  */
 namespace limb\view\src;
 
+use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
 
 /**
@@ -17,9 +18,15 @@ use limb\toolkit\src\lmbToolkit;
  * @version $Id$
  */
 class lmbJsonView extends lmbView 
-{  
+{
   protected $use_emulation = false;
-  
+
+    // Encode <, >, ', &, and " characters in the JSON, making it also safe to be embedded into HTML.
+    // 15 === JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
+    public const DEFAULT_ENCODING_OPTIONS = 15;
+
+    protected $encodingOptions = self::DEFAULT_ENCODING_OPTIONS;
+
   function __construct($vars = array())
   {
       parent::__construct(null, $vars);
@@ -75,11 +82,17 @@ class lmbJsonView extends lmbView
 
   function render()
   {
-    lmbToolkit::instance()->getResponse()->addHeader('Content-type: application/json');
+      lmbToolkit::instance()->getResponse()->addHeader('Content-type: application/json');
 
-    if(!function_exists('json_encode') || $this->use_emulation)
-      return $this->_encodeEmulation($this->getVariables());
-    else
-      return json_encode($this->getVariables());     
+      if(!function_exists('json_encode') || $this->use_emulation)
+          $data = $this->_encodeEmulation($this->getVariables());
+      else
+          $data = json_encode($this->getVariables(), $this->encodingOptions);
+
+      if ( json_last_error() !== JSON_ERROR_NONE ) {
+          throw new lmbException(json_last_error_msg());
+      }
+
+      return $data;
   }
 }
