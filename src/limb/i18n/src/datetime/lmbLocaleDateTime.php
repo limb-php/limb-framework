@@ -10,6 +10,7 @@ namespace limb\i18n\src\datetime;
 
 use limb\core\src\exception\lmbException;
 use limb\datetime\src\lmbDateTime;
+use limb\toolkit\src\lmbToolkit;
 
 /**
  * class lmbLocaleDateTime.
@@ -71,31 +72,31 @@ class lmbLocaleDateTime extends lmbDateTime
       switch($nextchar)
       {
         case 'a':
-            self :: _ensureLocale($locale);
+            self::_ensureLocale($locale);
             $output .= $locale->getDayName($this->getPhpDayOfWeek(), true);
             break;
         case 'A':
-            self :: _ensureLocale($locale);
+            self::_ensureLocale($locale);
             $output .= $locale->getDayName($this->getPhpDayOfWeek());
             break;
         case 'b':
-            self :: _ensureLocale($locale);
+            self::_ensureLocale($locale);
             $output .= $locale->getMonthName($this->getMonth() - 1, true);
             break;
         case 'B':
-            self :: _ensureLocale($locale);
+            self::_ensureLocale($locale);
             $output .= $locale->getMonthName($this->getMonth() - 1);
             break;
         case 'Q':
-            self :: _ensureLocale($locale);
+            self::_ensureLocale($locale);
             $output .= $locale->getDeclensionMonthName($this->getMonth() - 1);
             break;
         case 'p':
-            self :: _ensureLocale($locale);
+            self::_ensureLocale($locale);
             $output .= $locale->getMeridiemName($this->getHour());
             break;
         case 'P':
-            self :: _ensureLocale($locale);
+            self::_ensureLocale($locale);
             $output .= $locale->getMeridiemName($this->getHour(), true);
             break;
         case 'C':
@@ -204,26 +205,26 @@ class lmbLocaleDateTime extends lmbDateTime
 
   function getShortDateFormatted($locale = null)
   {
-    self :: _ensureLocale($locale);
+    self::_ensureLocale($locale);
     return $this->localeStrftime($locale->short_date_format, $locale);
   }
 
   function getShortDateTimeFormatted($locale = null)
   {
-    self :: _ensureLocale($locale);
+    self::_ensureLocale($locale);
     return $this->localeStrftime($locale->short_date_time_format, $locale);
   }
 
   static function createFromShortDateFormat($string, $locale = null)
   {
-    self :: _ensureLocale($locale);
-    return self :: localStringToDate($locale, $string, $locale->short_date_format);
+    self::_ensureLocale($locale);
+    return self::localStringToDate($locale, $string, $locale->short_date_format);
   }
 
   static function createFromShortDateTimeFormat($string, $locale = null)
   {
-    self :: _ensureLocale($locale);
-    return self :: localStringToDate($locale, $string, $locale->short_date_time_format);
+    self::_ensureLocale($locale);
+    return self::localStringToDate($locale, $string, $locale->short_date_time_format);
   }
 
   /**
@@ -343,13 +344,13 @@ class lmbLocaleDateTime extends lmbDateTime
 
     while(($fmt_pos = strpos($fmt, '%', $fmt_pos)) !== false)
     {
-      $current_time_char = $fmt{++$fmt_pos};
+      $current_time_char = $fmt[++$fmt_pos];
 
       if(($fmt_pos+1) >= $fmt_len)
         $delimiter_pos = $time_string_len;
       elseif($time_string_pos <= $time_string_len)
       {
-        $current_delimiter = $fmt{++$fmt_pos};
+        $current_delimiter = $fmt[++$fmt_pos];
         $delimiter_pos = strpos($time_string, $current_delimiter, $time_string_pos);
         if($delimiter_pos === false)
           $delimiter_pos = $time_string_len;
@@ -373,7 +374,7 @@ class lmbLocaleDateTime extends lmbDateTime
   static protected function _ensureLocale(&$locale)
   {
     if(!is_object($locale))
-      $locale = lmbToolkit :: instance()->getLocaleObject();
+      $locale = lmbToolkit::instance()->getLocaleObject();
   }
 
   static function localStringToDate($locale, $string, $format = null)
@@ -381,7 +382,7 @@ class lmbLocaleDateTime extends lmbDateTime
     if(!$format)
       $format = $locale->getShortDateFormat();
 
-    $arr = self :: parseTimeString($locale, $string, $format);
+    $arr = self::parseTimeString($locale, $string, $format);
     return new lmbLocaleDateTime($arr['year'], $arr['month'], $arr['day'], $arr['hour'], $arr['minute'], $arr['second']);
   }
 
@@ -389,7 +390,7 @@ class lmbLocaleDateTime extends lmbDateTime
   {
     try
     {
-      lmbLocaleDateTime :: localStringToDate($locale, $string, $format);
+      lmbLocaleDateTime::localStringToDate($locale, $string, $format);
       return true;
     }
     catch(lmbException $e)
@@ -398,5 +399,3 @@ class lmbLocaleDateTime extends lmbDateTime
     }
   }
 }
-
-
