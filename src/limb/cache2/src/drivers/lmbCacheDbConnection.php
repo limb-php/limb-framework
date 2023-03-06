@@ -47,7 +47,7 @@ class lmbCacheDbConnection extends lmbCacheAbstractConnection
     return lmbSQLCriteria::equal($column, $resolved_key);
   }
 
-  function lock($key)
+  function lock($key, $ttl = false, $lock_name = false)
   {
     $resolved_key = $this->_resolveKey($key);
 
@@ -69,7 +69,7 @@ class lmbCacheDbConnection extends lmbCacheAbstractConnection
     }
   }
 
-  function unlock($key)
+  function unlock($key, $lock_name = false)
   {
     $resolved_key = $this->_resolveKey($key);
 
