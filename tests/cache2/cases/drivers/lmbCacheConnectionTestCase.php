@@ -291,6 +291,7 @@ abstract class lmbCacheConnectionTestCase extends TestCase
     require_once('$setup_file');
 
     use limb\\cache2\\src\\lmbCacheFactory;
+    use limb\\core\\src\\lmbEnv;
     
     \$cache = lmbCacheFactory::createConnection('{$this->dsn}');
     ob_end_clean();
@@ -299,7 +300,7 @@ EOD;
     $storage_init_file = $limb_db_dsn = $limb_var_dir = '';
 
     if($this->storage_init_file)
-      $storage_init_file = "require('{$this->storage_init_file}');";
+      $storage_init_file = "require_once('{$this->storage_init_file}');";
 
     if(lmbEnv::has('LIMB_DB_DSN'))
       $limb_db_dsn = "lmbEnv::setor('LIMB_DB_DSN', '" . lmbEnv::get('LIMB_DB_DSN') . "');";

@@ -8,6 +8,8 @@
  */
 namespace tests\cache2\cases\drivers;
 
+require_once(dirname(__FILE__) . '/../.setup.php');
+
 class lmbCacheMemcacheConnectionTest extends lmbCacheConnectionTestCase
 {
   function __construct()
