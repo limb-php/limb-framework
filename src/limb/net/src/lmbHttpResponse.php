@@ -427,19 +427,17 @@ class lmbHttpResponse
 
   public function commit()
   {
-    $this->sendHeaders();
+      $this->sendHeaders();
 
-    if(!empty($this->response_file_path))
-      $this->_sendFile($this->response_file_path);
+      $this->sendContent();
 
-    else if(!empty($this->response_string))
-      $this->_sendString($this->response_string);
+      $this->transaction_started = true;
 
-    $this->transaction_started = true;
+      return $this;
   }
   public function send()
   {
-      $this->commit();
+      return $this->commit();
   }
 
   /**
@@ -493,9 +491,14 @@ class lmbHttpResponse
     setcookie($cookie['name'], $cookie['value'], $cookie['expire'], $cookie['path'], $cookie['domain'], $cookie['secure']);
   }
 
-  protected function _sendString($string)
+  public function sendContent()
   {
-    echo $string;
+      if(!empty($this->response_file_path))
+          $this->_sendFile($this->response_file_path);
+      else if(!empty($this->response_string))
+          echo $this->response_string;
+
+      return $this;
   }
 
   protected function _sendFile($file_path)
