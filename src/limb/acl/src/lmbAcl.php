@@ -325,17 +325,16 @@ class lmbAcl
     return $this->_hasRule(true, $role, $resource, $privilege);
   }
 
-  function setRule($role, $resource = null, $privileges = array(), $rule)
+  function setRule($role, $rule, $resource = null, $privileges = [])
   {
     if(!is_array($privileges))
       $privileges = array($privileges);
 
     $this->_checkRole($role);
 
-    if(is_null($resource))
-      return $this->_applyRoleRule($role, $rule, $privileges);
-    else
-    {
+    if(is_null($resource)) {
+        $this->_applyRoleRule($role, $rule, $privileges);
+    } else {
       $this->_checkResource($resource);
 
       if(0 === count($privileges))
@@ -345,14 +344,14 @@ class lmbAcl
     }
   }
 
-  function allow($role, $resource = null, $privileges = array())
+  function allow($role, $resource = null, $privileges = [])
   {
-    $this->setRule($role, $resource, $privileges, true);
+    $this->setRule($role, true, $resource, $privileges);
   }
 
-  function deny($role, $resource = null, $privileges = array())
+  function deny($role, $resource = null, $privileges = [])
   {
-    $this->setRule($role, $resource, $privileges, false);
+    $this->setRule($role, false, $resource, $privileges);
   }
 
   function log($message)
