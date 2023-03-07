@@ -21,8 +21,10 @@ class lmbMailpartTag extends lmbMacroTag
 { 
   function preParse($compiller)
   {
-     if(!$this->has('name')) throw new lmbMacroException('Tag {{mailpart}}, required attribute "name"');
-     parent :: preParse($compiller);
+     if(!$this->has('name'))
+         throw new lmbMacroException('Tag {{mailpart}}, required attribute "name"');
+
+     parent::preParse($compiller);
   }
   
   function _generateBeforeContent($code_writer)

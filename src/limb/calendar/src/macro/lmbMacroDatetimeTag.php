@@ -25,12 +25,12 @@ class lmbMacroDatetimeTag extends lmbMacroFormTagElement
   {
     $this->set('type', 'text');
     
-    parent :: preParse($compiler);
+    parent::preParse($compiler);
   }
 
   protected function _generateAfterClosingTag($code)
   {
-    parent :: _generateAfterClosingTag($code);
+    parent::_generateAfterClosingTag($code);
 
     $widget = $this->getRuntimeVar();
     $code->writePHP("{$widget}->renderCalendar();\n");

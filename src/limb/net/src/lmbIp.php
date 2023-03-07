@@ -14,7 +14,7 @@ use limb\core\src\exception\lmbException;
  * class lmbIp.
  *
  * @package net
- * @version $Id: lmbIp.php 7950 2009-06-16 17:36:02Z pachanga $
+ * @version $Id: lmbIp.php 7950 2009-06-16 17:36:02Z
  */
 class lmbIp
 {

@@ -1,7 +1,6 @@
 <?php
 namespace limb\mail\src;
 
-use limb\mail\src\lmbBaseMailerInterface;
 use limb\toolkit\src\lmbToolkit;
 
 class lmbResponseMailer implements lmbBaseMailerInterface
@@ -28,5 +27,10 @@ class lmbResponseMailer implements lmbBaseMailerInterface
     $content .= '<pre>text: '.$body.'</pre>';
     $content .= '<p>charset: '.$charset.'</p>';
     lmbToolkit::instance()->getResponse()->write($content);
-  }  
+  }
+
+    function setConfig($config)
+    {
+
+    }
 }

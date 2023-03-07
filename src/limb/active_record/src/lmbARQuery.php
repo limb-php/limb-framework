@@ -8,6 +8,7 @@
  */
 namespace limb\active_record\src;
 
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\core\src\exception\lmbException;
@@ -40,12 +41,13 @@ class lmbARQuery extends lmbSelectRawQuery
 
     if(!$sql)
     {
-      parent :: __construct($conn);
+      parent::__construct($conn);
       $this->addTable($this->base_object->getTableName());
       $this->_addFieldsForObject($this->base_object, '', '', $magic_params);
     }
-    else
-      parent :: __construct($sql, $conn);
+    else {
+        parent::__construct($sql, $conn);
+    }
   }
 
   function eagerJoin($relation_name, $params = array())
@@ -121,7 +123,7 @@ class lmbARQuery extends lmbSelectRawQuery
   {
     $this->_applyJoins($this->base_object, $this->join_relations);
 
-    $rs = parent :: fetch();
+    $rs = parent::fetch();
 
     if($decorate)
     {
@@ -215,7 +217,7 @@ class lmbARQuery extends lmbSelectRawQuery
   /**
    * @param string|object $class_name_or_obj
    * @param array $params
-   * @param lmbDbConnection $conn
+   * @param lmbDbConnectionInterface $conn
    * @param string $sql
    * @return lmbARQuery
    */
@@ -230,9 +232,9 @@ class lmbARQuery extends lmbSelectRawQuery
     $query = new lmbARQuery($class_name_or_obj, $conn, $sql, $params);
 
     if(isset($params['criteria']) && $params['criteria'])
-      $criteria = lmbSQLCriteria :: objectify($params['criteria']);
+      $criteria = lmbSQLCriteria::objectify($params['criteria']);
     else
-      $criteria = lmbSQLCriteria :: create();
+      $criteria = lmbSQLCriteria::create();
 
     $has_class_criteria = false;
     if(isset($params['class']))

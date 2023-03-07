@@ -8,11 +8,6 @@
 */
 namespace limb\acl\src;
 
-use limb\acl\src\lmbRoleProviderInterface;
-use limb\acl\src\lmbResourceProviderInterface;
-use limb\acl\src\lmbRolesResolverInterface;
-use limb\acl\src\lmbAclException;
-
 class lmbAcl
 {
   protected $_not_found_policy_allow;

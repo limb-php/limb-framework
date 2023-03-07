@@ -1,7 +1,6 @@
 <?php
 namespace limb\mail\src;
 
-use limb\mail\src\lmbBaseMailerInterface;
 use limb\core\src\exception\lmbException;
 
 class lmbFirePHPMailer implements lmbBaseMailerInterface
@@ -24,7 +23,6 @@ class lmbFirePHPMailer implements lmbBaseMailerInterface
     $mail = array(
       'recipients' => $recipients,
       'sender' => $sender,
-      'subject' => $subject,
       'subject' => $subject,
       'charset' => $charset,
     );

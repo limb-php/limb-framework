@@ -92,7 +92,7 @@ class lmbArrayHelper
   {
     $result = array();
     foreach($array as $item)
-      $result[] = lmbArrayHelper :: getProperty($item, $column_name);
+      $result[] = lmbArrayHelper::getProperty($item, $column_name);
 
     return $result;
   }
@@ -141,7 +141,7 @@ class lmbArrayHelper
       $value =& $in_array[$key];
 
       if(is_array($value))
-        lmbArrayHelper :: arrayMapRecursive($in_func, $value);
+        lmbArrayHelper::arrayMapRecursive($in_func, $value);
       else
         $value = call_user_func_array($in_func, array($value));
     }

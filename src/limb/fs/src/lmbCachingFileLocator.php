@@ -8,9 +8,6 @@
  */
 namespace limb\fs\src;
 
-use limb\fs\src\lmbFileLocatorDecorator;
-use limb\fs\src\lmbFs;
-
 /**
  * class lmbCachingFileLocator.
  *
@@ -28,7 +25,7 @@ class lmbCachingFileLocator extends lmbFileLocatorDecorator
     $this->_cache_name = $cache_name;
     $this->_cache_dir = $cache_dir;
 
-    parent :: __construct($locator);
+    parent::__construct($locator);
 
     $this->_loadCache();
   }
@@ -40,7 +37,7 @@ class lmbCachingFileLocator extends lmbFileLocatorDecorator
 
   function getCacheFile()
   {
-    lmbFs :: mkdir($this->_cache_dir);
+    lmbFs::mkdir($this->_cache_dir);
     $cache_file = $this->_cache_dir . '/' . $this->_cache_name  . '_locator.cache';
     return $cache_file;
   }
@@ -69,7 +66,7 @@ class lmbCachingFileLocator extends lmbFileLocatorDecorator
       return;
 
     $content = serialize($this->_cached_paths);
-    lmbFs :: safeWrite($this->getCacheFile(), $content);
+    lmbFs::safeWrite($this->getCacheFile(), $content);
   }
 
   function locate($alias, $params = array())
@@ -88,5 +85,3 @@ class lmbCachingFileLocator extends lmbFileLocatorDecorator
     return $this->_cached_paths[$hash];
   }
 }
-
-

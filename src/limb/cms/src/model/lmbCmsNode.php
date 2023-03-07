@@ -18,7 +18,7 @@ use limb\dbal\src\criteria\lmbSQLRawCriteria;
  * class limb\cms\src\model\lmbCmsNode.
  *
  * @package cms
- * @version $Id: lmbCmsNode.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbCmsNode.php 7486 2009-01-26 19:13:20Z
  */
 class lmbCmsNode extends lmbActiveRecord
 {
@@ -54,7 +54,7 @@ class lmbCmsNode extends lmbActiveRecord
 
   static function setGatewayPath($gateway_path)
   {
-    lmbCmsNode :: $_gateway_path = $gateway_path;
+    lmbCmsNode::$_gateway_path = $gateway_path;
   }
 
   protected function _createValidator()
@@ -90,7 +90,7 @@ class lmbCmsNode extends lmbActiveRecord
   function updateNodeToObjectLink($object)
   {
     $this->_setRaw('object_id', $object_id = $object->getId());
-    $this->_setRaw('object_class_id', $object_class_id = lmbCmsClassName :: generateIdFor($object));
+    $this->_setRaw('object_class_id', $object_class_id = lmbCmsClassName::generateIdFor($object));
     $this->_updateDbRecord(array('object_id' => $object_id,
                                  'object_class_id' => $object_class_id));
   }
@@ -143,8 +143,8 @@ class lmbCmsNode extends lmbActiveRecord
     if(!isset($this->object_id) || !$this->object_id)
       return null;
 
-    $class_name = lmbCmsClassName :: findById($this->object_class_id, true, $this->_db_conn);
-    return lmbActiveRecord :: findById($class_name->title, $this->object_id, true, $this->_db_conn);
+    $class_name = lmbCmsClassName::findById($this->object_class_id, true, $this->_db_conn);
+    return lmbActiveRecord::findById($class_name->title, $this->object_id, true, $this->_db_conn);
   }
 
   function getControllerName()
@@ -154,7 +154,7 @@ class lmbCmsNode extends lmbActiveRecord
 
     if(!$this->controller_name)
     {
-      $class_name = lmbCmsClassName :: findById($this->controller_id, true, $this->_db_conn);
+      $class_name = lmbCmsClassName::findById($this->controller_id, true, $this->_db_conn);
       $this->controller_name = $class_name->title;
     }
 
@@ -164,7 +164,7 @@ class lmbCmsNode extends lmbActiveRecord
   function setControllerName($controller_name)
   {
     $this->controller_name = $controller_name;
-    $this->_setRaw('controller_id', $controler_id = lmbCmsClassName :: generateIdFor($this->controller_name));
+    $this->_setRaw('controller_id', $controler_id = lmbCmsClassName::generateIdFor($this->controller_name));
   }
 
   function getAbsoluteUrlPath()
@@ -237,7 +237,7 @@ class lmbCmsNode extends lmbActiveRecord
   {
     $tree = lmbToolkit::instance()->getCmsTree();
     if($path && $parent = $tree->getNodeByPath($path))
-      return lmbActiveRecord :: decorateRecordSet($tree->getChildren($parent['id'], $depth),
+      return lmbActiveRecord::decorateRecordSet($tree->getChildren($parent['id'], $depth),
                                                   lmbCmsNode::class,
                                                   $conn);
   }
@@ -247,15 +247,15 @@ class lmbCmsNode extends lmbActiveRecord
     $criteria = new lmbSQLRawCriteria("parent_id = " . (int)$parent_id);
     if($controller)
     {
-      $controller_id = lmbCmsClassName :: generateIdFor($controller);
+      $controller_id = lmbCmsClassName::generateIdFor($controller);
       $criteria->addAnd(new lmbSQLRawCriteria('controller_id ='. $controller_id));
     }
-    return lmbCmsNode :: find(array('criteria' => $criteria), $conn);
+    return lmbCmsNode::find(array('criteria' => $criteria), $conn);
   }
 
   function getChildren($depth = 1)
   {
-    return lmbActiveRecord :: decorateRecordSet($this->_tree->getChildren($this->getId(), $depth),
+    return lmbActiveRecord::decorateRecordSet($this->_tree->getChildren($this->getId(), $depth),
                                                 lmbCmsNode::class,
                                                 $this->_db_conn);
   }
@@ -267,7 +267,7 @@ class lmbCmsNode extends lmbActiveRecord
 
   function getRoots()
   {
-    return lmbActiveRecord :: decorateRecordSet($this->_tree->getChildren('/'),
+    return lmbActiveRecord::decorateRecordSet($this->_tree->getChildren('/'),
                                                 lmbCmsNode::class,
                                                 $this->_db_conn);
   }
@@ -279,13 +279,13 @@ class lmbCmsNode extends lmbActiveRecord
 
   function generateIdentifier($parent_id)
   {
-    $identifier = lmbCmsNode :: getMaxChildIdentifier($parent_id);
+    $identifier = lmbCmsNode::getMaxChildIdentifier($parent_id);
 
     if($identifier === false)
       return 1;
 
     if(preg_match('/(.*?)(\d+)$/', $identifier, $matches))
-      $new_identifier = $matches[1] . ($matches[2] + 1);
+      $new_identifier = $matches[1] . ((int)($matches[2]) + 1);
     else
       $new_identifier = $identifier . '1';
 
@@ -294,10 +294,10 @@ class lmbCmsNode extends lmbActiveRecord
 
   static function getMaxChildIdentifier($node)
   {
-    if(!$parent = lmbCmsNode :: findById($node))
+    if(!$parent = lmbCmsNode::findById($node))
       return false;
 
-    $children = lmbCmsNode :: findChildren($parent['id']);
+    $children = lmbCmsNode::findChildren($parent['id']);
     $identifiers = array();
     foreach($children as $child)
       $identifiers[] = $child['identifier'];

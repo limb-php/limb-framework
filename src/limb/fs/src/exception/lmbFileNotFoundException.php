@@ -8,8 +8,6 @@
  */
 namespace limb\fs\src\exception;
 
-use limb\fs\src\exception\lmbFsException;
-
 /**
  * class lmbFileNotFoundException.
  *
@@ -24,7 +22,7 @@ class lmbFileNotFoundException extends lmbFsException
 
     $params['file_path'] = $file_path;
 
-    parent :: __construct($file_path . ': ' . $message, $params);
+    parent::__construct($file_path . ': ' . $message, $params);
   }
 
   function getFilePath()
@@ -32,5 +30,3 @@ class lmbFileNotFoundException extends lmbFsException
     return $this->_file_path;
   }
 }
-
-

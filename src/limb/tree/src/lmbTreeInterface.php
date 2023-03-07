@@ -12,7 +12,7 @@ namespace limb\tree\src;
  * interface lmbTreeInterface.
  *
  * @package tree
- * @version $Id: lmbTreeInterface.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbTreeInterface.php 7486 2009-01-26 19:13:20Z
  */
 interface lmbTreeInterface
 {

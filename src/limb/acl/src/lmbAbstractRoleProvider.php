@@ -8,8 +8,6 @@
 */
 namespace limb\acl\src;
 
-use limb\acl\src\lmbAclException;
-
 abstract class lmbAbstractRoleProvider
 {
   protected $_role = null;

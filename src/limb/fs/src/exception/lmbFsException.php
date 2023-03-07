@@ -16,4 +16,7 @@ use limb\core\src\exception\lmbException;
  * @package fs
  * @version $Id$
  */
-class lmbFsException extends lmbException{}
+class lmbFsException extends lmbException
+{
+
+}

@@ -14,7 +14,7 @@ use limb\core\src\lmbSerializable;
  * Wrapper class for global $_SESSION variable
  *
  * @see lmbWebAppTools::getSession()
- * @version $Id: lmbSession.php 8111 2010-01-28 17:19:42Z korchasa $
+ * @version $Id: lmbSession.php 8111 2010-01-28 17:19:42Z
  * @package session
  */
 class lmbSession implements \ArrayAccess,\Iterator,\Countable
@@ -215,7 +215,7 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
 
   function offsetSet($offset,$value)
   {
-    return $this->set($offset,$value);
+    $this->set($offset, $value);
   }
 
   function current()

@@ -11,4 +11,6 @@ namespace limb\acl\src;
 use limb\core\src\exception\lmbException;
 
 class lmbAclException extends lmbException
-{}
+{
+
+}

@@ -18,10 +18,10 @@ namespace limb\toolkit\src;
  * $tools->expectOnce('getUser');
  * $tools->setReturnValue('getUser', $user);
  * $tools = new lmbMockToolsWrapper($tools, array('getUser'));
- * lmbToolkit :: merge($tools);
+ * lmbToolkit::merge($tools);
  * </code>
  * @package toolkit
- * @version $Id: lmbMockToolsWrapper.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbMockToolsWrapper.php 7486 2009-01-26 19:13:20Z
  */
 class lmbMockToolsWrapper implements lmbToolkitToolsInterface
 {
@@ -50,7 +50,7 @@ class lmbMockToolsWrapper implements lmbToolkitToolsInterface
   }
 
   /**
-  * @see lmbToolkitTools :: getToolsSignatures()
+  * @see lmbToolkitTools::getToolsSignatures()
   */
   function getToolsSignatures()
   {

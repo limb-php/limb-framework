@@ -9,6 +9,7 @@
 namespace limb\session\src;
 
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\dbal\src\lmbSimpleDb;
 
 /**
@@ -34,7 +35,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
 
   /**
    *  Constructor.
-   *  @param lmbDbConnection database connection object
+   *  @param lmbDbConnectionInterface database connection object
    *  @param integer maximum session life time
    */
   function __construct($db_connection, $max_life_time = null)
@@ -45,7 +46,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
   }
 
   /**
-   * @see lmbSessionStorage :: install()
+   * @see lmbSessionStorage::install()
    */
   function install()
   {

@@ -102,4 +102,3 @@ class CronJobLogger
     $this->_makeRecord(self::STATUS_EXCEPTION, $info);
   }
 }
-

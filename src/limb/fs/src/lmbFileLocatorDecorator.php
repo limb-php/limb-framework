@@ -8,8 +8,6 @@
  */
 namespace limb\fs\src;
 
-use limb\fs\src\lmbFileLocator;
-
 /**
  * class lmbFileLocatorDecorator.
  *
@@ -40,5 +38,3 @@ class lmbFileLocatorDecorator extends lmbFileLocator
     return $this->locator->getFileLocations();
   }
 }
-
-

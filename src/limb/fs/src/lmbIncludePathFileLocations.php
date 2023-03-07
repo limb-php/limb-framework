@@ -8,8 +8,6 @@
  */
 namespace limb\fs\src;
 
-use limb\fs\src\lmbFileLocationsInterface;
-
 /**
  * class lmbIncludePathFileLocations.
  *
@@ -36,5 +34,3 @@ class lmbIncludePathFileLocations implements lmbFileLocationsInterface
     return $resolved;
   }
 }
-
-

@@ -206,7 +206,7 @@ class lmbFs
 
   static function joinPath($arr, $fs_type = self::UNIX)
   {
-    return implode(self :: separator($fs_type), $arr);
+    return implode(self::separator($fs_type), $arr);
   }
 
   static function chop($path)

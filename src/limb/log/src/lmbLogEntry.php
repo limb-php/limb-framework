@@ -76,7 +76,7 @@ class lmbLogEntry
 
   function toString()
   {
-    return lmbSys :: isCli() ? $this->asText() : $this->asHtml();
+    return lmbSys::isCli() ? $this->asText() : $this->asHtml();
   }
 
   function asText()

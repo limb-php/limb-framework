@@ -12,6 +12,6 @@ use limb\net\src\lmbUri;
 
 interface lmbLogWriterInterface
 {
-  function __construct(lmbUri $dsn);
+    function __construct(lmbUri $dsn);
 	function write(lmbLogEntry $entry);
 }

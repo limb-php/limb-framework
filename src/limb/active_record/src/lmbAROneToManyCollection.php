@@ -41,7 +41,7 @@ class lmbAROneToManyCollection extends lmbARRelationCollection
   {
     $relation_info['calling_class'] = __CLASS__;
 
-    return parent :: createFullARQueryForRelation($relation_info, $conn, $params);
+    return parent::createFullARQueryForRelation($relation_info, $conn, $params);
   }
 
   static function createCoreARQueryForRelation($relation_info, $conn, $params = array())
@@ -54,7 +54,7 @@ class lmbAROneToManyCollection extends lmbARRelationCollection
     $property = $object->mapFieldToProperty($this->relation_info['field']);
     $object->set($property, $this->owner);
 
-    parent :: add($object);
+    parent::add($object);
   }
 
   function set($objects)
@@ -88,7 +88,7 @@ class lmbAROneToManyCollection extends lmbARRelationCollection
 
   protected function _removeRelatedRecords()
   {
-    lmbActiveRecord :: delete($this->relation_info['class'],
+    lmbActiveRecord::delete($this->relation_info['class'],
                               new lmbSQLFieldCriteria($this->relation_info['field'], $this->owner->getId()),
                               $this->conn);
   }
@@ -107,6 +107,5 @@ class lmbAROneToManyCollection extends lmbARRelationCollection
       $object->set($this->relation_info['field'], null);
       $object->save();
     }
-
   }
 }

@@ -9,10 +9,10 @@
 namespace limb\search\src\indexer;
 
 /**
- * interface lmbSearchIndexer.
+ * interface lmbSearchIndexerInterface.
  *
  * @package search
- * @version $Id: lmbSearchIndexer.interface.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbSearchIndexerInterface.php 7686 2009-03-04 19:57:12Z
  */
 interface lmbSearchIndexerInterface
 {

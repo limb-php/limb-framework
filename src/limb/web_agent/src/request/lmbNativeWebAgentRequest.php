@@ -17,7 +17,7 @@ use limb\web_agent\src\lmbWebServerCookiesCollection;
  * Web request through file_get_contents
  *
  * @package web_agent
- * @version $Id: lmbNativeWebAgentRequest.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: lmbNativeWebAgentRequest.php 7686 2009-03-04 19:57:12Z
  */
 class lmbNativeWebAgentRequest extends lmbAbstractWebAgentRequest
 {

@@ -1,6 +1,7 @@
 <?php
 namespace limb\cron\src\controller;
 
+use limb\core\src\lmbEnv;
 use limb\web_app\src\controller\lmbController;
 use limb\cron\src\cron\CronJobLogger;
 use limb\dbal\src\lmbTableGateway;
@@ -10,7 +11,7 @@ class AdminCronJobController extends lmbController
 {
   protected function _getCronJobsNames()
   {
-    $schedule_dir = PROJECT_DIR . "/cli/cron/";
+    $schedule_dir = lmbEnv::get('PROJECT_DIR') . "/cli/cron/";
     $schedule_files = array_filter(scandir($schedule_dir), array('AdminCronJobController', 'filter_schedule_files'));
 
     $jobs = array();

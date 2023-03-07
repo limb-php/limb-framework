@@ -56,7 +56,7 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
     $sql = "SELECT %fields% FROM {$table} INNER JOIN {$join_table} ON {$table}.{$primary_field} = {$join_table}.{$foreign_field}" .
            " %tables% %left_join% %where% %group% %having% %order%";
 
-    $query = lmbARQuery :: create($class, $params, $conn, $sql);
+    $query = lmbARQuery::create($class, $params, $conn, $sql);
 
     $fields = $object->getDbTable()->getColumnsForSelect();
     foreach($fields as $field => $alias)
@@ -68,7 +68,7 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
   function set($objects)
   {
     $existing_records = $this->_getExistingRecords($objects);
-    $linked_objects_ids = array_keys($existing_records);
+    //$linked_objects_ids = array_keys($existing_records);
 
     foreach($objects as $object)
     {
@@ -83,7 +83,7 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
     if(count($to_remove_ids))
     {
       $table = new lmbTableGateway($this->relation_info['table'], $this->conn);
-      //$table->delete(lmbSQLCriteria :: in($this->relation_info['foreign_field'], $to_remove_ids));
+      //$table->delete(lmbSQLCriteria::in($this->relation_info['foreign_field'], $to_remove_ids));
       $criteria = new lmbSqlCriteria();
       $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['field'], $this->owner->getId()));
       $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['foreign_field'], $to_remove_ids, lmbSQLFieldCriteria::IN));
@@ -99,7 +99,7 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
     $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['foreign_field'], null, lmbSQLFieldCriteria::IS_NOT_NULL));
     $existing_records = $table->select($criteria);
 
-    return lmbCollection :: toFlatArray($existing_records, $this->relation_info['foreign_field']);
+    return lmbCollection::toFlatArray($existing_records, $this->relation_info['foreign_field']);
   }
 
   protected function _removeRelatedRecords()
@@ -107,7 +107,7 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
     $table = new lmbTableGateway($this->relation_info['table'], $this->conn);
     $criteria = new lmbSQLCriteria();
     $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['field'], $this->owner->getId()));
-    $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['foreign_field'], null, lmbSQLFieldCriteria :: IS_NOT_NULL));
+    $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['foreign_field'], null, lmbSQLFieldCriteria::IS_NOT_NULL));
 
     $table->delete($criteria);
   }
@@ -124,8 +124,8 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
   {
     $table = new lmbTableGateway($this->relation_info['table'], $this->conn);
     $criteria = new lmbSQLCriteria();
-    $criteria->addAnd(lmbSQLCriteria :: equal($this->relation_info['field'], $this->owner->getId()));
-    $criteria->addAnd(lmbSQLCriteria :: equal($this->relation_info['foreign_field'], $object->getId()));
+    $criteria->addAnd(lmbSQLCriteria::equal($this->relation_info['field'], $this->owner->getId()));
+    $criteria->addAnd(lmbSQLCriteria::equal($this->relation_info['foreign_field'], $object->getId()));
     $table->delete($criteria);
     $this->reset();
   }

@@ -30,8 +30,8 @@ class lmbMacroTemplateMail
   
   function sendTo($recipients, $subject = null, $sender = null, $charset = 'utf-8')
   {
-    $tools = lmbToolkit :: instance();
-    $parts = self :: _parseMailpartTags($this->_renderTemplate($tools));
+    $tools = lmbToolkit::instance();
+    $parts = self::_parseMailpartTags($this->_renderTemplate($tools));
     
     if (!$sender)
     { 
@@ -48,8 +48,8 @@ class lmbMacroTemplateMail
       else $subject = $parts['subject'];
     }
     
-    $html = isset($parts['html_body']) ? $parts['html_body'] : null;
-    $text = isset($parts['txt_body']) ? $parts['txt_body'] : null;    
+    $html = $parts['html_body'] ?? null;
+    $text = $parts['txt_body'] ?? null;
     
     $mailer = $tools->getMailer();
     

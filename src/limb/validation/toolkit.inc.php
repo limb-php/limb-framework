@@ -9,7 +9,7 @@
 
 /**
  * @package validation
- * @version $Id: common.inc.php 8048 2010-01-19 22:12:02Z korchasa $
+ * @version $Id: common.inc.php 8048 2010-01-19 22:12:02Z
  */
 
 use limb\toolkit\src\lmbToolkit;

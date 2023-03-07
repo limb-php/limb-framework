@@ -26,12 +26,12 @@ class lmbDate3SelectTag extends lmbMacroFormTagElement
   {
     $this->set('type', 'hidden');
     
-    parent :: preParse($compiler);
+    parent::preParse($compiler);
   }
 
   protected function _generateAfterClosingTag($code)
   {
-    parent :: _generateAfterClosingTag($code);
+    parent::_generateAfterClosingTag($code);
     $widget = $this->getRuntimeVar();
     $code->writePHP("{$widget}->renderDate3Select();\n");
   }

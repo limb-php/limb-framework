@@ -14,7 +14,7 @@ use limb\core\src\exception\lmbException;
  * class lmbDateTimePeriod.
  *
  * @package datetime
- * @version $Id: lmbDateTimePeriod.php 6243 2007-08-29 11:53:10Z pachanga $
+ * @version $Id: lmbDateTimePeriod.php 6243 2007-08-29 11:53:10Z
  */
 class lmbDateTimePeriod
 {
@@ -77,5 +77,3 @@ class lmbDateTimePeriod
            ($this->start->isAfter($period->getStart()) && $this->start->isBefore($period->getEnd()));
   }
 }
-
-

@@ -167,5 +167,3 @@ class lmbFsRecursiveIterator implements \Iterator
     return $this->item;
   }
 }
-
-

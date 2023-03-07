@@ -14,7 +14,7 @@ use limb\web_app\src\controller\lmbController;
  * class SearchController.
  *
  * @package search
- * @version $Id: SearchController.php 7686 2009-03-04 19:57:12Z korchasa $
+ * @version $Id: SearchController.php 7686 2009-03-04 19:57:12Z
  */
 class SearchController extends lmbController
 {

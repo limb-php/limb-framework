@@ -1,8 +1,6 @@
 <?php
 namespace limb\mail\src;
 
-use limb\mail\src\lmbBaseMailerInterface;
-
 class lmbMemoryMailer implements lmbBaseMailerInterface
 {
   var $recipient;
@@ -45,5 +43,8 @@ class lmbMemoryMailer implements lmbBaseMailerInterface
     self::$mail_contents = array();
   }
   
-  function setConfig($config)  {}
+  function setConfig($config)
+  {
+
+  }
 }

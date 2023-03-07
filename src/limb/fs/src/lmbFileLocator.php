@@ -9,7 +9,6 @@
 namespace limb\fs\src;
 
 use limb\fs\src\exception\lmbFileNotFoundException;
-use limb\fs\src\lmbFs;
 
 /**
  * class lmbFileLocator.
@@ -70,5 +69,3 @@ class lmbFileLocator
     throw new lmbFileNotFoundException($alias, 'file alias not resolved');
   }
 }
-
-

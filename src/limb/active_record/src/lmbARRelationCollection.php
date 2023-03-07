@@ -12,6 +12,7 @@ use limb\core\src\lmbCollectionInterface;
 use limb\core\src\lmbCollection;
 use limb\core\src\lmbString;
 use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
 
@@ -89,7 +90,7 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
       throw new lmbException('Not implemented for in memory collection');
 
     if(is_string($magic_params) || is_object($magic_params))
-      $magic_params = array('criteria' => lmbSQLCriteria :: objectify($magic_params));
+      $magic_params = array('criteria' => lmbSQLCriteria::objectify($magic_params));
 
     if(isset($this->default_params['criteria']))
     {
@@ -155,7 +156,7 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
    * @abstract
    * @static
    * @param array $relation_info
-   * @param lmbDbConnection $conn
+   * @param lmbDbConnectionInterface $conn
    * @param array $params
    */
   static function createCoreARQueryForRelation($relation_info, $conn, $params = array())
