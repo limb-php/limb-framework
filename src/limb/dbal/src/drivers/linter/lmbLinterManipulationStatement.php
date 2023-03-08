@@ -9,6 +9,7 @@
 namespace limb\dbal\src\drivers\linter;
 
 use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
+use limb\dbal\src\drivers\lmbDbTypeInfo;
 
 /**
  * class lmbLinterManipulationStatement.
@@ -34,7 +35,7 @@ class lmbLinterManipulationStatement extends lmbLinterStatement implements lmbDb
   }
 
 
-  function execute()
+  function execute($sql = "")
   {
     $this->checkQuery();
     if ($this->isUpdateQuery && $this->hasBlobs)
@@ -132,5 +133,3 @@ class lmbLinterManipulationStatement extends lmbLinterStatement implements lmbDb
     parent::setClob($name, $value);
   }
 }
-
-

@@ -40,11 +40,11 @@ class lmbMssqlDbInfo extends lmbDbInfo
     if($this->isExisting && !$this->isTablesLoaded)
     {
       $queryId = $this->connection->execute("select TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_CATALOG='" . $this->name . "'");
-      while(is_array($row = mssql_fetch_row($queryId)))
+      while(is_array($row = sqlsrv_fetch_row($queryId)))
       {
         $this->tables[$row[0]] = null;
       }
-      mssql_free_result($queryId);
+      sqlsrv_free_result($queryId);
       $this->isTablesLoaded = true;
     }
   }

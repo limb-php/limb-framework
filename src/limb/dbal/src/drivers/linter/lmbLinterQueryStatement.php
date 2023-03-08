@@ -79,8 +79,5 @@ class lmbLinterQueryStatement extends lmbLinterStatement implements lmbDbQuerySt
     $this->connection->closeCursor($queryId);
     return $count;
   }
-  
-   
+
 }
-
-

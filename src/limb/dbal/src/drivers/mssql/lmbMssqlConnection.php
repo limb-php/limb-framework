@@ -55,9 +55,11 @@ class lmbMssqlConnection extends lmbDbBaseConnection
     ini_set("mssql.datetimeconvert", "Off");
     ini_set("mssql.textsize", "2147483647");
     ini_set("mssql.textlimit", "2147483647");
-    $this->connectionId = mssql_connect($this->config['host'],
-                                        $this->config['user'],
-                                        $this->config['password']
+    $this->connectionId = sqlsrv_connect($this->config['host'],
+                                        [
+                                            $this->config['user'],
+                                            $this->config['password']
+                                        ]
                                         );
 
     if($this->connectionId === false)
@@ -65,13 +67,13 @@ class lmbMssqlConnection extends lmbDbBaseConnection
       $this->_raiseError();
     }
 
-    if(mssql_select_db($this->config['database'], $this->connectionId) === false)
+    if(sqlsrv_select_db($this->config['database'], $this->connectionId) === false)
     {
       $this->_raiseError();
     }
-    mssql_query("SET QUOTED_IDENTIFIER ON");
-    mssql_query("SET ANSI_NULL_DFLT_ON ON");
-    mssql_query("SET DATEFORMAT ymd");
+      sqlsrv_query("SET QUOTED_IDENTIFIER ON");
+      sqlsrv_query("SET ANSI_NULL_DFLT_ON ON");
+      sqlsrv_query("SET DATEFORMAT ymd");
 
     //fixme
 //    if(isset($this->config['charset']) && $charset = $this->config['charset'])
@@ -89,8 +91,8 @@ class lmbMssqlConnection extends lmbDbBaseConnection
   {
     if($this->connectionId)
     {
-      mssql_close($this->connectionId);
-      $this->connectionId = null;
+        sqlsrv_close($this->connectionId);
+        $this->connectionId = null;
     }
   }
 
@@ -99,7 +101,7 @@ class lmbMssqlConnection extends lmbDbBaseConnection
     if(!$this->getConnectionId())
       throw new lmbDbException('Could not connect to host "' . $this->config['host'] . '" and database "' . $this->config['database'] . '"');
 
-    $errstr = mssql_get_last_message();
+    $errstr = sqlsrv_get_last_message();
     $id = 'DB_ERROR';
     $info = array('driver' => 'lmbMssql');
     if(!empty($errstr))
@@ -124,7 +126,7 @@ class lmbMssqlConnection extends lmbDbBaseConnection
       //Profiler :: instance()->startIncrementCheckpoint("sql_time");
     }
     $sql = mb_convert_encoding($sql, 'Windows-1251', 'UTF-8');
-    $result = mssql_query($sql, $this->getConnectionId());
+    $result = sqlsrv_query($sql, $this->getConnectionId());
     if (lmbEnv::get('LIMB_APP_MODE') === "devel")
     {
       error_log($sql."\n\n\n", 3, LIMB_VAR_DIR.'/log/query.log');
@@ -223,5 +225,3 @@ class lmbMssqlConnection extends lmbDbBaseConnection
     return (int)($this->newStatement("SELECT @@IDENTITY")->getOneValue());
   }
 }
-
-

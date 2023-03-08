@@ -9,7 +9,7 @@
 namespace limb\dbal\src\drivers\linter;
 
 use limb\dbal\src\drivers\lmbDbInfo;
-use limb\dbal\src\drivers\linter\lmbLinterTableInfo;
+use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbLinterDbInfo.
@@ -56,10 +56,8 @@ class lmbLinterDbInfo extends lmbDbInfo
       throw new lmbDbException('Table does not exist ' . $name);
 
     if(!is_object($this->tables[$name]))
-      $this->tables[$name] = new lmbLinterTableInfo($this, $name, true, $this->tables[$name]);
+      $this->tables[$name] = new lmbLinterTableInfo($this, $name);
 
     return $this->tables[$name];
   }
 }
-
-

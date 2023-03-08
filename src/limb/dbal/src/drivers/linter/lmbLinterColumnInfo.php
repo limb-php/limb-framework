@@ -71,5 +71,3 @@ class lmbLinterColumnInfo extends lmbDbColumnInfo
     return "\"$name\"";
   }
 }
-
-

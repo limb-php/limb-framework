@@ -308,9 +308,5 @@ class lmbLinterStatement implements lmbDbStatementInterface
       
     return linter_get_cursor_opt($this->queryId, CO_ROW_COUNT);
   }
-    
-  
-  
+
 }
-
-

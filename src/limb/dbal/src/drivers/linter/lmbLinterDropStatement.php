@@ -18,7 +18,7 @@ use limb\core\src\exception\lmbException;
  */
 class lmbLinterDropStatement extends lmbLinterStatement
 {
-  function execute()
+  function execute($sql = "")
   {
     try
     {
@@ -30,5 +30,3 @@ class lmbLinterDropStatement extends lmbLinterStatement
     }
   }
 }
-
-

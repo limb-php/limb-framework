@@ -45,4 +45,3 @@ class lmbLinterTypeInfo extends lmbDbTypeInfo
    );
   }
 }
-

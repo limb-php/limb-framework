@@ -20,6 +20,6 @@ class lmbMssqlManipulationStatement extends lmbMssqlStatement implements lmbDbMa
 {
   function getAffectedRowCount()
   {
-    return mssql_rows_affected($this->connection->getConnectionId());
+    return sqlsrv_rows_affected($this->connection->getConnectionId());
   }
 }

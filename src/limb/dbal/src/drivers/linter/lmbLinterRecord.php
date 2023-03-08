@@ -158,5 +158,3 @@ class lmbLinterRecord extends lmbDbBaseRecord
     return $this->get($name);
   }
 }
-
-

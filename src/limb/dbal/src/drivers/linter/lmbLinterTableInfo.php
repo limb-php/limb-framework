@@ -73,6 +73,6 @@ class lmbLinterTableInfo extends lmbDbTableInfo
 
   function loadIndexes()
   {
-    throw new lmbNotYetImplementedException();
+    throw new lmbNotYetImplementedException("loadIndexes not implemented");
   }
 }

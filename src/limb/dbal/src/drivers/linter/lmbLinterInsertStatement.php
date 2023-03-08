@@ -9,7 +9,6 @@
 namespace limb\dbal\src\drivers\linter;
 
 use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
-use limb\dbal\src\drivers\linter\lmbLinterManipulationStatement;
 
 /**
  * class lmbLinterInsertStatement.
@@ -37,5 +36,3 @@ class lmbLinterInsertStatement extends lmbLinterManipulationStatement implements
     return $m[1];
   }
 }
-
-

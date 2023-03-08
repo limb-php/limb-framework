@@ -9,7 +9,6 @@
 namespace limb\dbal\src\drivers\linter;
 
 use limb\dbal\src\drivers\lmbDbBaseRecordSet;
-use limb\dbal\src\drivers\linter\lmbLinterRecord;
 
 /**
  * class lmbLinterRecordSet.
@@ -126,5 +125,3 @@ class lmbLinterRecordSet extends lmbDbBaseRecordSet
   }
   
 }
-
-

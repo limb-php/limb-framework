@@ -391,7 +391,7 @@ class lmbLinterConnection extends lmbDbBaseConnection
       foreach ($fields_arr as $key => $field)
       {
         $field = trim($field);
-        if ($field{0} != '"' && $field{strlen($field)-1} != '"')
+        if ($field[0] != '"' && $field[strlen($field)-1] != '"')
           $fields_arr[$key] = '"' . $field . '"';
       }
       $sql = preg_replace("#(insert into .+\()(.+)(\) values)#siU", "\\1" . implode(", ", $fields_arr) . "\\3", $sql);
@@ -416,14 +416,12 @@ class lmbLinterConnection extends lmbDbBaseConnection
       case "unicode":
       case "UNICODE":
         return "UTF-8";
-        break;
       case "windows-1251";
       case "Windows-1251":
       case "cp1251":
       case "CP1251":
       default:
         return "CP1251";
-        break;
     }
   }
   
@@ -442,14 +440,12 @@ class lmbLinterConnection extends lmbDbBaseConnection
       case "unicode":
       case "UNICODE":
         return "UTF-8";
-        break;
       case "windows-1251";
       case "Windows-1251":
       case "cp1251":
       case "CP1251":
       default:
         return "Windows-1251";
-        break;
     }
     
   }
@@ -462,5 +458,3 @@ class lmbLinterConnection extends lmbDbBaseConnection
     }
   }
 }
-
-
