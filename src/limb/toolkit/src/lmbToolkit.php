@@ -8,6 +8,8 @@
  */
 namespace limb\toolkit\src;
 
+use limb\core\src\exception\lmbException;
+use limb\core\src\exception\lmbNoSuchPropertyException;
 use limb\core\src\lmbObject;
 use limb\core\src\lmbString;
 use limb\core\src\exception\lmbNoSuchMethodException;
@@ -16,18 +18,18 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * Toolkit is an implementation of Dinamic Service Locator pattern
  * The idea behind lmbToolkit class is simple:
  *  1) lmbToolkit is a Singleton
- *  2) lmbToolkit consists of so called tools. Tools is an object of any class that supports {@link lmbToolkitToolsInterface} interface
- *  3) lmbToolkit redirects all non existing methods via magic __call to tools if these methods were named in $tools :: getToolsSignatures() result.
+ *  2) lmbToolkit consists of so-called tools. Tools is an object of any class that supports {@link lmbToolkitToolsInterface} interface
+ *  3) lmbToolkit redirects all non-existing methods via magic __call to tools if these methods were named in $tools :: getToolsSignatures() result.
  *  4) lmbToolkit also acts as a registry. You can put any data into toolkit and get them out at any place of your application
  * As a result we get an easily accessible object that we can extend with any methods we need.
  * We can also replace one tools with others thus we can return to client code completely different results from the same toolkit methods.
  * lmbToolkit also supports magic getters and setters. Say you have tools with getVar() method and you call $toolkit->get('var') then tools->getVar() will be actually called
  * Example of usage:
  * <code>
- * lmbToolkit :: merge(new limb\net\src\lmbNetTools());
- * lmbToolkit :: merge(new limb\net\src\toolkit\lmbDbTools());
- * // somethere in client code
- * $toolkit = lmbToolkit :: instance();
+ * lmbToolkit::merge(new limb\net\src\lmbNetTools());
+ * lmbToolkit::merge(new limb\net\src\toolkit\lmbDbTools());
+ * // somewhere in client code
+ * $toolkit = lmbToolkit::instance();
  * $toolkit->set('my_var', $value)'
  * $request = $toolkit->getRequest(); // supported by lmbNetTools
  * $same_request = $toolkit->get('request'); // will delegate to getRequest()
@@ -37,6 +39,26 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @see lmbToolkitToolsInterface
  * @package toolkit
  * @version $Id: lmbToolkit.php 8177 2010-04-23 18:10:17Z
+ *
+ * @see lmbDbTools
+ * @method setDbEnvironment($env)
+ * @method getDbEnvironment()
+ * @method getDefaultDbDSN()
+ * @method isDefaultDbDSNAvailable()
+ * @method castToDsnObject($dsn)
+ * @method setDbDSNByName($name, $dsn)
+ * @method getDbDSNByName($name)
+ * @method getDbDSN($env)
+ * @method getDbConnectionByDsn($dsn)
+ * @method setDbConnectionByDsn($dsn, $conn)
+ * @method setDbConnectionByName($name, $conn)
+ * @method getDefaultDbConnection()
+ * @method getDbConnectionByName($name)
+ * @method setDefaultDbConnection($conn)
+ * @method createDbConnection($dsn)
+ * @method getDbInfo($conn)
+ * @method createTableGateway($table_name, $conn = null)
+ *
  */
 class lmbToolkit extends lmbObject
 {
@@ -84,7 +106,7 @@ class lmbToolkit extends lmbObject
 
   /**
   * Sets new tools object and clear signatures cache
-  * @param lmbToolkitToolsInterface
+  * @param $tools lmbToolkitToolsInterface|array
   */
   protected function setTools($tools)
   {
@@ -98,11 +120,11 @@ class lmbToolkit extends lmbObject
   }
 
   /**
-  * Fills toolkit instance with suggested tools and registers this tools in {@ling lmbRegisty}
+  * Fills toolkit instance with suggested tools and registers this tools in {@ling lmbRegistry}
   * @see lmbRegistry
   * @return lmbToolkit The only instance of lmbToolkit class
   */
-  static function setup($tools)
+  static function setup($tools): self
   {
     $toolkit = lmbToolkit::instance();
     $toolkit->setTools($tools);
@@ -110,12 +132,13 @@ class lmbToolkit extends lmbObject
     return $toolkit;
   }
 
-  /**
-  * Save current tools object in registry stack and creates a new one using currently saved empty copy of tools object
-  * @see lmbRegistry :: save()
-  * @return lmbToolkit The only instance of lmbToolkit class
-  */
-  static function save()
+    /**
+     * Save current tools object in registry stack and creates a new one using currently saved empty copy of tools object
+     * @return lmbToolkit The only instance of lmbToolkit class
+     * @throws lmbException
+     * @see lmbRegistry::save()
+     */
+  static function save(): self
   {
     $toolkit = lmbToolkit::instance();
 
@@ -134,16 +157,17 @@ class lmbToolkit extends lmbObject
     return $toolkit;
   }
 
-  /**
-  * Restores previously saved tools object instance from {@link lmbRegistry} stack and sets this tools into toolkit instance
-  * @return lmbToolkit The only instance of lmbToolkit class
-  */
-  static function restore()
+    /**
+     * Restores previously saved tools object instance from {@link lmbRegistry} stack and sets this tools into toolkit instance
+     * @return lmbToolkit The only instance of lmbToolkit class
+     * @throws lmbException
+     */
+  static function restore(): self
   {
     $toolkit = lmbToolkit::instance();
 
     lmbRegistry::restore('__tools' . $toolkit->_id);
-    $tools = lmbRegistry :: get('__tools' . $toolkit->_id);
+    $tools = lmbRegistry::get('__tools' . $toolkit->_id);
     lmbRegistry::restore('__props' . $toolkit->_id);
     $props = lmbRegistry::get('__props' . $toolkit->_id);
 
@@ -163,7 +187,7 @@ class lmbToolkit extends lmbObject
   * Extends current tools with new tool
   * @return lmbToolkit The only instance of lmbToolkit class
   */
-  static function merge($tool, $name = '')
+  static function merge($tool, $name = ''): self
   {
     $toolkit = lmbToolkit::instance();
     $toolkit->add($tool, $name);
@@ -201,30 +225,31 @@ class lmbToolkit extends lmbObject
   * Checks if appropriate setter method in tools exists to delegate to
   * @return void
   */
-  function set($var, $value)
+  function set($name, $value)
   {
-    if($method = $this->_mapPropertyToSetMethod($var))
-      return $this->$method($value);
+    if($method = $this->_mapPropertyToSetMethod($name))
+      $this->$method($value);
     else
-      return parent::set($var, $value);
+      parent::set($name, $value);
   }
 
-  /**
-  * Gets variable from toolkit
-  * Checks if appropriate getter method in tools exists to delegate to
-  * @return mixed
-  */
-  function get($var, $default = null)
+    /**
+     * Gets variable from toolkit
+     * Checks if appropriate getter method in tools exists to delegate to
+     * @return mixed
+     * @throws lmbNoSuchPropertyException
+     */
+  function get($name, $default = null)
   {
-    if($method = $this->_mapPropertyToGetMethod($var))
+    if($method = $this->_mapPropertyToGetMethod($name))
       return $this->$method();
     else
-      return parent::get($var, $default);
+      return parent::get($name, $default);
   }
 
-  function has($var)
+  function has($name): bool
   {
-    return $this->_hasGetMethodFor($var) || parent::has($var);
+    return $this->_hasGetMethodFor($name) || parent::has($name);
   }
 
   /**
@@ -245,12 +270,13 @@ class lmbToolkit extends lmbObject
     return parent::_getRaw($var);
   }
 
-  /**
-  * Magic caller. Delegates to {@link $tools} if $tools_signatures has required method
-  * @param string Method name
-  * @param array Method arguments
-  * @return mixed
-  */
+    /**
+     * Magic caller. Delegates to {@link $tools} if $tools_signatures has required method
+     * @param string $method Method name
+     * @param array $args Method arguments
+     * @return mixed
+     * @throws lmbNoSuchMethodException
+     */
   public function __call($method, $args = array())
   {
     $this->_ensureSignatures();
@@ -263,7 +289,7 @@ class lmbToolkit extends lmbObject
 
   /**
   * Caches tools signatures. Fills {@link $tools_signatures}.
-  * @see lmbToolkitToolsInterface :: getToolsSignatures()
+  * @see lmbToolkitToolsInterface::getToolsSignatures()
   * @return void
   */
   protected function _ensureSignatures()
@@ -285,7 +311,7 @@ class lmbToolkit extends lmbObject
     $this->_signatures_loaded = true;
   }
 
-  protected function _hasGetMethodFor($property)
+  protected function _hasGetMethodFor($property): bool
   {
     return (bool) $this->_mapPropertyToGetMethod($property);
   }
@@ -298,6 +324,8 @@ class lmbToolkit extends lmbObject
     $method = 'get' . $capsed;
     if(isset($this->_tools_signatures[$method]))
       return $method;
+
+    return false;
   }
 
   protected function _mapPropertyToSetMethod($property)
@@ -307,5 +335,7 @@ class lmbToolkit extends lmbObject
     $method = 'set' . lmbString::camel_case($property);
     if(isset($this->_tools_signatures[$method]))
       return $method;
+
+    return false;
   }
 }
