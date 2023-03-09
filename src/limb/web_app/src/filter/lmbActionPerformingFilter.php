@@ -9,6 +9,7 @@
 namespace limb\web_app\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
+use limb\net\src\lmbHttpResponse;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
 use limb\view\src\lmbStringView;
@@ -30,7 +31,10 @@ class lmbActionPerformingFilter implements lmbInterceptingFilterInterface
 
       $result = $dispatched->performAction($request);
       if( $result ) {
-          if( is_a($result, lmbView::class) ) {
+          if( is_a($result, lmbHttpResponse::class) ) {
+              $response = $result;
+          }
+          elseif( is_a($result, lmbView::class) ) {
               lmbToolkit::instance()->setView($result);
           }
           else {
