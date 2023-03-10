@@ -19,9 +19,9 @@ use limb\core\src\lmbBacktrace;
 class lmbException extends \Exception
 {
   protected $original_message;
-  protected $params = array();
-  protected $file;
-  protected $line;
+  protected $params = [];
+  //protected $file;
+  //protected $line;
   protected $backtrace;
 
   function __construct($message, $params = array(), $code = 0, $hide_calls_count = 0)
@@ -29,7 +29,6 @@ class lmbException extends \Exception
     $this->original_message = $message;
     if(is_array($params) && sizeof($params))
     {
-      $this->params = $params;
       $message .= "\n[params: " . var_export($params, true) . "]\n";
     }
 
