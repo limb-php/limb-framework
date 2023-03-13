@@ -213,7 +213,7 @@ class lmbActiveRecord extends lmbObject
 
     $this->_db_conn_dsn = $this->_db_conn->getDsnString();
 
-    $this->_db_table_fields = $this->getDbMetaInfo()->getDbColumnsNames();
+    $this->getDbTableFields();
 
     $this->_error_list = new lmbErrorList();
 
@@ -294,6 +294,14 @@ class lmbActiveRecord extends lmbObject
         }
 
         return $this->_db_meta_info = $meta;
+    }
+
+    function getDbTableFields()
+    {
+        if($this->_db_table_fields)
+            return $this->_db_table_fields;
+
+        return $this->_db_table_fields = $this->getDbMetaInfo()->getDbColumnsNames();
     }
 
   /**
@@ -671,7 +679,7 @@ class lmbActiveRecord extends lmbObject
 
   function setLazyAttributesExcept($non_lazy_attributes)
   {
-    $this->setLazyAttributes(array_diff($this->_db_table_fields, $non_lazy_attributes));
+    $this->setLazyAttributes(array_diff($this->getDbTableFields(), $non_lazy_attributes));
   }
 
   /**
@@ -682,7 +690,7 @@ class lmbActiveRecord extends lmbObject
   function has($property)
   {
     return parent::has($property)
-           || in_array($property, $this->_db_table_fields)
+           || in_array($property, $this->getDbTableFields())
            || $this->_izLazyAttribute($property)
            || $this->_hasRelation($property);
   }
@@ -715,7 +723,7 @@ class lmbActiveRecord extends lmbObject
     if(null !== $default)
       return $default;
 
-    if(in_array($property, $this->_db_table_fields))
+    if(in_array($property, $this->getDbTableFields()))
       return null;
 
     if($this->isNew() && $this->_hasSingleObjectRelation($property))
@@ -2391,7 +2399,7 @@ class lmbActiveRecord extends lmbObject
     $this->_db_conn = $toolkit->getDbConnectionByDsn($this->_db_conn_dsn);
 
     //$this->_db_meta_info = $toolkit->getActiveRecordMetaInfo($this, $this->_db_conn);
-    $this->_db_table_fields = $this->getDbMetaInfo()->getDbColumnsNames();
+    $this->getDbTableFields();
 
     //$this->_db_table = $this->getDbMetaInfo()->getDbTable();
     //$this->_db_table->setPrimaryKeyName($this->_primary_key_name);
