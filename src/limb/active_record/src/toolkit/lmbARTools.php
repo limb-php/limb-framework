@@ -31,6 +31,7 @@ class lmbARTools extends lmbAbstractTools
     ];
   }
 
+  /** @deprecated */
   function getActiveRecordMetaInfo($active_record, $conn = null)
   {
     $class_name = get_class($active_record);

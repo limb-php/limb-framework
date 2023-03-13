@@ -33,9 +33,9 @@ class lmbNetTools extends lmbAbstractTools
     return $this->request;
   }
 
-  function setRequest($new_request)
+  function setRequest($request)
   {
-    $this->request = $new_request;
+    $this->request = $request;
   }
 
   function getResponse()

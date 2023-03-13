@@ -3,12 +3,13 @@ namespace limb\optimization\src\toolkit;
 
 use limb\active_record\src\toolkit\lmbARTools;
 use limb\toolkit\src\lmbAbstractTools;
-use limb\toolkit\src\lmbToolkit;
+use limb\optimization\src\model\MetaInfo;
+use limb\optimization\src\model\MetaData;
 
 class optimizationTools extends lmbAbstractTools
 {
-  private $_meta_info_class = 'limb\optimization\src\model\MetaInfo';
-  private $_meta_data_class = 'limb\optimization\src\model\MetaData';
+  private $_meta_info_class = MetaInfo::class;
+  private $_meta_data_class = MetaData::class;
 
   static function getRequiredTools()
   {
@@ -30,13 +31,12 @@ class optimizationTools extends lmbAbstractTools
   /* meta */
   function getMetaInfo()
   {
-    return $this->_meta_info_class :: getMetaForCurrentUrl();
+    return $this->_meta_info_class::getMetaForCurrentUrl();
   }
 
   function getMetaData( $object )
   {
-    return $this->_meta_data_class :: getMetaForObject( $object );
+    return $this->_meta_data_class::getMetaForObject( $object );
   }
 
 }
-

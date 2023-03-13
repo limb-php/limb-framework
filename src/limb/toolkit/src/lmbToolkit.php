@@ -40,6 +40,32 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @package toolkit
  * @version $Id: lmbToolkit.php 8177 2010-04-23 18:10:17Z
  *
+ * @see lmbFsTools
+ * @method getAcl()
+ * @method setAcl($acl)
+ *
+ * @see lmbARTools
+ * @method getActiveRecordMetaInfo($active_record, $conn = null)
+ *
+ * @see lmbCacheTools
+ * @method getCache()
+ * @method setCache($cache)
+ *
+ * @see lmbCmsTools
+ * @method getCmsTree($tree_name = 'node')
+ * @method setCmsTree($tree)
+ * @method getCmsUser()
+ * @method resetCmsUser()
+ * @method setCmsUser($user)
+ *
+ * @see lmbConfTools
+ * @method setConf($name, $conf)
+ * @method hasConf($name)
+ * @method setConfIncludePath($path)
+ * @method getConfIncludePath()
+ * @method getConf($name)
+ * @method parseYamlFile($file)
+ *
  * @see lmbDbTools
  * @method setDbEnvironment($env)
  * @method getDbEnvironment()
@@ -58,6 +84,38 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method createDbConnection($dsn)
  * @method getDbInfo($conn)
  * @method createTableGateway($table_name, $conn = null)
+ *
+ * @see lmbFsTools
+ * @method findFileByAlias($alias, $paths, $locator_name = null, $find_all = false)
+ * @method tryFindFileByAlias($alias, $paths, $locator_name = null)
+ * @method getFileLocator($paths, $locator_name = null)
+ *
+ * @see lmbI18NTools
+ * @method getDictionaryBackend()
+ * @method setDictionaryBackend($backend)
+ * @method getLocale()
+ * @method setLocale($locale)
+ * @method getLocaleObject($locale = null)
+ * @method addLocaleObject($obj, $locale = null)
+ * @method createLocaleObject($locale)
+ * @method getDictionary($locale, $domain)
+ * @method setDictionary($locale, $domain, $dict)
+ * @method translate($text, $arg1 = null, $arg2 = null)
+ *
+ * @see \limb\log\src\toolkit\lmbLogTools
+ * @method getLogDSNes()
+ * @method getLog()
+ * @method setLog($log)
+ *
+ * @see lmbMailTools
+ * @method getMailer()
+ *
+ * @see lmbNetTools
+ * @method getRequest()
+ * @method setRequest($request)
+ * @method getResponse()
+ * @method setResponse($response)
+ *
  *
  */
 class lmbToolkit extends lmbObject
