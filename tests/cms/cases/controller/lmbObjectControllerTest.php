@@ -9,18 +9,11 @@
 namespace tests\cms\cases\controller;
 
 use PHPUnit\Framework\TestCase;
-use limb\cms\src\controller\lmbObjectController;
 use limb\active_record\src\lmbActiveRecord;
 use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/../.setup.php');
-
-class TestObjectController extends lmbObjectController
-{
-  protected $_object_class_name = ObjectForTesting::class;
-  protected $in_popup = false;
-}
 
 class lmbObjectControllerTest extends TestCase
 {
@@ -72,7 +65,7 @@ class lmbObjectControllerTest extends TestCase
     $controller = new TestObjectController();
     $controller->doItem();
         
-    if($this->assertInstanceOf($controller->item, 'ObjectForTesting'))
-        $this->assertEquals($controller->item->getId(), $object->getId());
+    $this->assertInstanceOf(ObjectForTesting::class, $controller->item);
+    $this->assertEquals($controller->item->getId(), $object->getId());
   }
 }

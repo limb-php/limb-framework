@@ -10,55 +10,12 @@ namespace tests\cms\cases\controller;
 
 use limb\net\src\lmbFakeHttpResponse;
 use PHPUnit\Framework\TestCase;
-use limb\cms\src\controller\lmbAdminObjectController;
 use limb\active_record\src\lmbActiveRecord;
 use limb\net\src\lmbHttpRequest;
 use tests\web_app\cases\lmbWebApplicationSandbox;
-use limb\validation\src\lmbValidator;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/../.setup.php');
-
-class AdminObjectForTesting extends lmbActiveRecord
-{
-  protected $_db_table_name = 'cms_object_for_testing';
-  
-  protected function _createValidator()
-  {
-    $validator = new lmbValidator();
-    $validator->addRequiredRule('field');
-    return $validator;
-  }
-}
-
-class TestAdminObjectController extends lmbAdminObjectController
-{
-  protected $_object_class_name = 'AdminObjectForTesting';
-  protected $in_popup = false;
-
-  protected function _onBeforeSave() { $this->response->append('onBeforeSave|'); }
-  protected function _onAfterSave() { $this->response->append('onAfterSave|'); }
-
-  protected function _onBeforeValidate() { $this->response->append('onBeforeValidate|'); }
-  protected function _onAfterValidate() { $this->response->append('onAfterValidate|'); }
-  
-  protected function _onBeforeImport() { $this->response->append('onBeforeImport|'); }
-  protected function _onAfterImport() { $this->response->append('onAfterImport|'); }
-
-  protected function _onBeforeCreate() { $this->response->append('onBeforeCreate|'); }
-  protected function _onAfterCreate() { $this->response->append('onAfterCreate|'); }
-  protected function _onCreate() { $this->response->append('onCreate|'); }
-
-  protected function _onBeforeUpdate() { $this->response->append('onBeforeUpdate|'); }
-  protected function _onUpdate() { $this->response->append('onUpdate|'); }
-  protected function _onAfterUpdate() { $this->response->append('onAfterUpdate|'); }  
-
-  protected function _onBeforeDelete() { $this->response->append('onBeforeDelete|'); }
-  protected function _onAfterDelete() { $this->response->append('onAfterDelete|'); }
-
-  protected function _initCreateForm() { $this->response->append('initCreateForm|'); }
-  protected function _initEditForm() { $this->response->append('initEditForm|'); }
-}
 
 class lmbAdminObjectControllerTest extends TestCase
 {
