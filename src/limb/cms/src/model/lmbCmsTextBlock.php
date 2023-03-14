@@ -26,7 +26,7 @@ class lmbCmsTextBlock extends lmbActiveRecord
 
   static function getRawContent($identifier)
   {
-    $block = lmbActiveRecord :: findOne('lmbCmsTextBlock', lmbSQLCriteria :: equal('identifier', $identifier));
+    $block = lmbActiveRecord::findOne(lmbCmsTextBlock::class, lmbSQLCriteria::equal('identifier', $identifier));
     if($block)
       return $block->getContent();
 
@@ -42,7 +42,7 @@ class lmbCmsTextBlock extends lmbActiveRecord
 
   static function findOneByIdentifier($identifier)
   {
-    if($block = lmbActiveRecord::findOne('lmbCmsTextBlock', lmbSQLCriteria::equal('identifier', $identifier)))
+    if($block = lmbActiveRecord::findOne(lmbCmsTextBlock::class, lmbSQLCriteria::equal('identifier', $identifier)))
       return $block;
 
     if(!$default_content = lmbToolkit::instance()->getConf('text_blocks')->get($identifier))
