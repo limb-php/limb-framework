@@ -13,6 +13,7 @@ use limb\config\src\toolkit\lmbConfTools;
 use limb\i18n\src\toolkit\lmbI18NTools;
 use limb\log\src\toolkit\lmbLogTools;
 use limb\net\src\toolkit\lmbNetTools;
+use limb\session\src\toolkit\lmbSessionTools;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
@@ -36,7 +37,6 @@ lmbEnv::setor('LIMB_ENABLE_MOD_REWRITE', true); // we assume mod_rewrite in ON b
  */
 class lmbWebAppTools extends lmbAbstractTools
 {
-  protected $session;
   protected $view;
   protected $dispatched_controller;
   protected $routes;
@@ -45,12 +45,13 @@ class lmbWebAppTools extends lmbAbstractTools
   static function getRequiredTools()
   {
     return [
-      lmbI18NTools::class,
-      lmbConfTools::class,
-      lmbARTools::class,
-      lmbNetTools::class,
-      lmbViewTools::class,
-      lmbLogTools::class
+        lmbI18NTools::class,
+        lmbConfTools::class,
+        lmbARTools::class,
+        lmbNetTools::class,
+        lmbSessionTools::class,
+        lmbViewTools::class,
+        lmbLogTools::class
     ];
   }
 
@@ -107,21 +108,6 @@ class lmbWebAppTools extends lmbAbstractTools
         exit(1);
       }
     }
-  }
-
-  function getSession()
-  {
-    if(is_object($this->session))
-      return $this->session;
-
-    $this->session = new lmbSession();
-
-    return $this->session;
-  }
-
-  function setSession($session)
-  {
-    $this->session = $session;
   }
 
   function setView($view)
