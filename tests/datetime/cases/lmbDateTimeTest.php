@@ -71,77 +71,80 @@ class lmbDateTimeTest extends TestCase
     $this->assertFalse(lmbDateTime::validate(2006, 13, 11));
   }
 
-  function testCreate()
+    /**
+     * @throws lmbException
+     */
+    function testCreate()
   {
     $date = new lmbDateTime(2005, 12, 1, 12, 45, 12);
     $this->assertEquals(lmbDateTime::create(2005, 12, 1, 12, 45, 12), $date);
 
-    $this->assertEquals($date->getDay(), 1);
-    $this->assertEquals($date->getMonth(), 12);
-    $this->assertEquals($date->getYear(), 2005);
-    $this->assertEquals($date->getHour(), 12);
-    $this->assertEquals($date->getMinute(), 45);
-    $this->assertEquals($date->getSecond(), 12);
+    $this->assertEquals(1, $date->getDay());
+    $this->assertEquals(12, $date->getMonth());
+    $this->assertEquals(2005, $date->getYear());
+    $this->assertEquals(12, $date->getHour());
+    $this->assertEquals(45, $date->getMinute());
+    $this->assertEquals(12, $date->getSecond());
   }
 
   function testGetIsoDate()
   {
     $date = new lmbDateTime(2005, 12, 1, 12, 45, 12);
-    $this->assertEquals($date->getIsoDate(), '2005-12-01 12:45:12');
+    $this->assertEquals('2005-12-01 12:45:12', $date->getIsoDate());
   }
 
   function testGetIsoDateWithoutSeconds()
   {
     $date = new lmbDateTime(2005, 12, 1, 12, 45, 12);
-    $this->assertEquals($date->getIsoDate(false), '2005-12-01 12:45');
+    $this->assertEquals('2005-12-01 12:45', $date->getIsoDate(false));
   }
 
   function testGetIsoShortDate()
   {
     $date = new lmbDateTime(2005, 12, 1, 12, 45, 12);
-    $this->assertEquals($date->getIsoShortDate(), '2005-12-01');
+    $this->assertEquals('2005-12-01', $date->getIsoShortDate());
   }
 
   function testGetIsoTime()
   {
     $date = new lmbDateTime(2005, 12, 1, 12, 45, 12);
-    $this->assertEquals($date->getIsoTime(), '12:45:12');
+    $this->assertEquals('12:45:12', $date->getIsoTime());
   }
 
   function testGetIsoTimeWithoutSeconds()
   {
     $date = new lmbDateTime(2005, 12, 1, 12, 45, 12);
-    $this->assertEquals($date->getIsoTime(false), '12:45');
+    $this->assertEquals('12:45', $date->getIsoTime(false));
   }
 
   function testGetIsoShortTimeWithoutSeconds()
   {
     $date = new lmbDateTime(2005, 12, 1, 12, 45, 12);
-    $this->assertEquals($date->getIsoShortTime(), '12:45');
+    $this->assertEquals('12:45', $date->getIsoShortTime());
   }
 
   function testToStringReturnsIsoDate()
   {
     $date = new lmbDateTime(2005, 12, 1, 12, 45, 12);
-    $this->assertEquals($date->toString(), '2005-12-01 12:45:12');
+    $this->assertEquals('2005-12-01 12:45:12', $date->toString());
   }
 
   function testStrftime()
   {
     $date = new lmbDateTime(2005, 12, 1, 12, 45, 12);
-    $this->assertEquals($date->strftime('%m/%d/%y'), '12/01/05');
+    $this->assertEquals('12/01/05', $date->strftime('%m/%d/%y'));
   }
 
   function testDate()
   {
     $date = new lmbDateTime(2005, 12, 1, 12, 45, 12);
-    $this->assertEquals($date->date('m.d.y'), '12.01.05');
+    $this->assertEquals('12.01.05', $date->date('m.d.y'));
   }
 
   function testCreateByCopy()
   {
     $date = new lmbDateTime($sample = new lmbDateTime(2005, 12, 1, 12, 45, 12));
-    $this->assertEquals(lmbDateTime :: create($sample), $date);
+    $this->assertEquals(lmbDateTime::create($sample), $date);
 
     $this->assertEquals($date, $sample);
   }
@@ -149,16 +152,16 @@ class lmbDateTimeTest extends TestCase
   function testCreateByIso()
   {
     $date = new lmbDateTime('2005-12-01  12:45:12');
-    $this->assertEquals(lmbDateTime :: create('2005-12-01  12:45:12'), $date);
+    $this->assertEquals(lmbDateTime::create('2005-12-01  12:45:12'), $date);
 
-    $this->assertEquals($date->getDay(), 1);
-    $this->assertEquals($date->getMonth(), 12);
-    $this->assertEquals($date->getYear(), 2005);
-    $this->assertEquals($date->getHour(), 12);
-    $this->assertEquals($date->getMinute(), 45);
-    $this->assertEquals($date->getSecond(), 12);
+    $this->assertEquals(1, $date->getDay());
+    $this->assertEquals(12, $date->getMonth());
+    $this->assertEquals(2005, $date->getYear());
+    $this->assertEquals(12, $date->getHour());
+    $this->assertEquals(45, $date->getMinute());
+    $this->assertEquals(12, $date->getSecond());
 
-    $this->assertEquals($date->toString(), '2005-12-01 12:45:12');
+    $this->assertEquals('2005-12-01 12:45:12', $date->toString());
   }
 
   function testCreateByIsoDateOnly()
@@ -166,14 +169,14 @@ class lmbDateTimeTest extends TestCase
     $date = new lmbDateTime('2005-12-01');
     $this->assertEquals(lmbDateTime :: create('2005-12-01'), $date);
 
-    $this->assertEquals($date->getDay(), 1);
-    $this->assertEquals($date->getMonth(), 12);
-    $this->assertEquals($date->getYear(), 2005);
-    $this->assertEquals($date->getHour(), 0);
-    $this->assertEquals($date->getMinute(), 0);
-    $this->assertEquals($date->getSecond(), 0);
+    $this->assertEquals(1, $date->getDay());
+    $this->assertEquals(12, $date->getMonth());
+    $this->assertEquals(2005, $date->getYear());
+    $this->assertEquals(0, $date->getHour());
+    $this->assertEquals(0, $date->getMinute());
+    $this->assertEquals(0, $date->getSecond());
 
-    $this->assertEquals($date->toString(), '2005-12-01 00:00:00');
+    $this->assertEquals('2005-12-01 00:00:00', $date->toString());
   }
 
   function testCreateByIsoTimeOnly()
@@ -181,14 +184,14 @@ class lmbDateTimeTest extends TestCase
     $date = new lmbDateTime('12:45:12');
     $this->assertEquals(lmbDateTime::create('12:45:12'), $date);
 
-    $this->assertEquals($date->getDay(), 0);
-    $this->assertEquals($date->getMonth(), 0);
-    $this->assertEquals($date->getYear(), 0);
-    $this->assertEquals($date->getHour(), 12);
-    $this->assertEquals($date->getMinute(), 45);
-    $this->assertEquals($date->getSecond(), 12);
+    $this->assertEquals(0, $date->getDay());
+    $this->assertEquals(0, $date->getMonth());
+    $this->assertEquals(0, $date->getYear());
+    $this->assertEquals(12, $date->getHour());
+    $this->assertEquals(45, $date->getMinute());
+    $this->assertEquals(12, $date->getSecond());
 
-    $this->assertEquals($date->toString(), '0000-00-00 12:45:12');
+    $this->assertEquals('0000-00-00 12:45:12', $date->toString());
   }
 
   function testCreateByIsoTimeWithSecondsOmitted()
@@ -464,29 +467,29 @@ class lmbDateTimeTest extends TestCase
   {
     $date = lmbDateTime::create('2005-01-01')->addHour();
     $new_date = $date->addHour(-3);
-    $this->assertEquals($date->toString(), '2005-01-01 01:00:00');
-    $this->assertEquals($new_date->toString(), '2004-12-31 22:00:00');
+    $this->assertEquals('2005-01-01 01:00:00', $date->toString());
+    $this->assertEquals('2004-12-31 22:00:00', $new_date->toString());
   }
 
   function testAddMinute()
   {
-    $date = lmbDateTime :: create('2005-01-01')->addMinute();
+    $date = lmbDateTime::create('2005-01-01')->addMinute();
     $new_date = $date->addMinute(-3);
-    $this->assertEquals($date->toString(), '2005-01-01 00:01:00');
-    $this->assertEquals($new_date->toString(), '2004-12-31 23:58:00');
+    $this->assertEquals('2005-01-01 00:01:00', $date->toString());
+    $this->assertEquals('2004-12-31 23:58:00', $new_date->toString());
   }
 
   function testAddSecond()
   {
-    $date = lmbDateTime :: create('2005-01-01')->addSecond();
+    $date = lmbDateTime::create('2005-01-01')->addSecond();
     $new_date = $date->addSecond(-61);
-    $this->assertEquals($date->toString(), '2005-01-01 00:00:01');
-    $this->assertEquals($new_date->toString(), '2004-12-31 23:59:00');
+    $this->assertEquals('2005-01-01 00:00:01', $date->toString());
+    $this->assertEquals('2004-12-31 23:59:00', $new_date->toString());
   }
 
   function testAddMixed()
   {
-    $date = lmbDateTime :: create('2005-01-01')->addMonth()->addWeek(-1)->addDay(2)->addHour(2)->addSecond(-30)->addMinute(2);
+    $date = lmbDateTime::create('2005-01-01')->addMonth()->addWeek(-1)->addDay(2)->addHour(2)->addSecond(-30)->addMinute(2);
 
     $this->assertEquals($date->toString(), '2005-01-27 02:01:30');
   }

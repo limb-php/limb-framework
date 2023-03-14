@@ -40,7 +40,7 @@ class lmbDateTimeZone
 
   var $default; //System Default Time Zone
 
-  function lmbDateTimeZone($id)
+  public function __construct($id = null)
   {
     global $_DATE_TIMEZONE_DATA;
 
@@ -166,7 +166,7 @@ class lmbDateTimeZone
   * Get the DST offset for this time zone
   *
   * Returns the DST offset of this time zone, in milliseconds,
-  * if the zone observes DST, zero otherwise.  Currently the
+  * if the zone observes DST, zero otherwise.  Currently, the
   * DST offset is hard-coded to one hour.
   */
   function getDSTSavings()
