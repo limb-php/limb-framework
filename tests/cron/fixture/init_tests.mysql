@@ -9,4 +9,4 @@ CREATE TABLE `cron_job_log` (
   PRIMARY KEY  (`id`),
   KEY `name` (`name`),
   KEY `status` (`status`)
-) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+) ENGINE=MEMORY CHARSET=utf8;
