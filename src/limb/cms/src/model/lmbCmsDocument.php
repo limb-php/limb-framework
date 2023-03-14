@@ -9,6 +9,7 @@
 namespace limb\cms\src\model;
 
 use limb\active_record\src\lmbActiveRecord;
+use limb\tree\src\lmbMPTree;
 use limb\validation\src\lmbValidator;
 use limb\cms\src\validation\rule\lmbTreeIdentifierRule;
 use limb\dbal\src\lmbDBAL;

@@ -29,7 +29,6 @@ class lmbBaseMacroTestCase extends TestCase
     $this->tags_dir = dirname(__FILE__).'/../../src/tags';
     $this->filters_dir = dirname(__FILE__).'/../../src/filters';
 
-    lmbFs::rm(lmb_var_dir());
     lmbFs::mkdir(lmb_var_dir());
     lmbFs::mkdir($this->base_dir);
     lmbFs::mkdir($this->tpl_dir);

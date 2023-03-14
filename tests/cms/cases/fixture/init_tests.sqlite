@@ -3,3 +3,32 @@ CREATE TABLE "cms_object_for_testing" (
   "id" INTEGER PRIMARY KEY,
   "field" varchar(255) default NULL
 );
+
+DROP TABLE IF EXISTS "lmb_cms_document";
+CREATE TABLE "lmb_cms_document" (
+  "id" INTEGER PRIMARY KEY,
+  "title" varchar(255) NOT NULL default '',
+  "description" varchar(255) NOT NULL default '',
+  "keywords" varchar(255) NOT NULL default '',
+  "content" text,
+  "is_published" tinyint(1) default '0',
+  "parent_id" int(11) NOT NULL default '0',
+  "level" int(11) NOT NULL default '0',
+  "identifier" varchar(128) NOT NULL default '',
+  "priority" integer NOT NULL default 0,
+  "path" varchar(255) NOT NULL default '',
+  "ctime" int(11) NOT NULL default '0',
+  "utime" int(11) NOT NULL default '0'
+);
+CREATE INDEX "level" ON "lmb_cms_document" ("level");
+CREATE INDEX "parent" ON "lmb_cms_document" ("parent_id");
+CREATE INDEX "path" ON "lmb_cms_document" ("identifier", "level");
+
+DROP TABLE IF EXISTS "lmb_cms_seo";
+CREATE TABLE "lmb_cms_seo" (
+  "id" INTEGER PRIMARY KEY,
+  "url" varchar(255) NOT NULL,
+  "title" varchar(255) NOT NULL,
+  "description" text NOT NULL,
+  "keywords" text NOT NULL
+);
