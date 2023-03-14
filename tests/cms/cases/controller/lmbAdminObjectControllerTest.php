@@ -52,7 +52,7 @@ class lmbAdminObjectControllerTest extends TestCase
 
   function testEventsOnPerformCreateActionWithPost()
   {
-    $request = new lmbHttpRequest('/test_admin_object/create', array(), array('field' => 'test'));
+    $request = new lmbHttpRequest('/test_admin_object/create', 'GET', [], array('field' => 'test'));
     $response = new lmbFakeHttpResponse();
 
     $app = new lmbWebApplicationSandbox();
@@ -64,7 +64,7 @@ class lmbAdminObjectControllerTest extends TestCase
 
   function testEventsOnPerformCreateActionWithPostNotValid()
   {
-    $request = new lmbHttpRequest('/test_admin_object/create', array(), array('field' => ''));
+    $request = new lmbHttpRequest('/test_admin_object/create', 'GET', [], array('field' => ''));
     $response = new lmbFakeHttpResponse();
 
     $app = new lmbWebApplicationSandbox();
@@ -95,7 +95,7 @@ class lmbAdminObjectControllerTest extends TestCase
     $object->setField('test');
     $object->save();
 
-    $request = new lmbHttpRequest('/test_admin_object/edit/' . $object->getId(), array(), array('id' => $object->getId(), 'field' => ''));
+    $request = new lmbHttpRequest('/test_admin_object/edit/' . $object->getId(), 'GET', [], array('id' => $object->getId(), 'field' => ''));
     $response = new lmbFakeHttpResponse();
 
     $app = new lmbWebApplicationSandbox();
@@ -111,7 +111,7 @@ class lmbAdminObjectControllerTest extends TestCase
     $object->setField('test');
     $object->save();
 
-    $request = new lmbHttpRequest('/test_admin_object/edit/' . $object->getId(), array(), array('id' => $object->getId()));
+    $request = new lmbHttpRequest('/test_admin_object/edit/' . $object->getId(), 'GET', [], array('id' => $object->getId()));
     $response = new lmbFakeHttpResponse();
 
     $app = new lmbWebApplicationSandbox();
@@ -127,7 +127,7 @@ class lmbAdminObjectControllerTest extends TestCase
     $object->setField('test');
     $object->save();
 
-    $request = new lmbHttpRequest('/test_admin_object/delete/' . $object->getId(), array(), array('id' => $object->getId()));
+    $request = new lmbHttpRequest('/test_admin_object/delete/' . $object->getId(), 'GET', [], array('id' => $object->getId()));
     $response = new lmbFakeHttpResponse();
 
     $app = new lmbWebApplicationSandbox();

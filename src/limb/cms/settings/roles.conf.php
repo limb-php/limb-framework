@@ -2,7 +2,7 @@
 use limb\cms\src\model\lmbCmsUserRoles;
 
 $conf = array(
-  lmbCmsUserRoles :: EDITOR  => array(
+  lmbCmsUserRoles::EDITOR  => array(
     'restricted_controllers' => array(
       'admin_user',
     ),
@@ -14,7 +14,7 @@ $conf = array(
     )
   ),
 
-  lmbCmsUserRoles :: ADMIN  => array(
+  lmbCmsUserRoles::ADMIN  => array(
 
   ),
 );
