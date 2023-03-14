@@ -26,7 +26,9 @@ class lmbProfileTools extends lmbAbstractTools
 
   function __construct()
   {
-    $this->setProfileStartPoint();
+      parent::__construct();
+
+      $this->setProfileStartPoint();
   }
 
   function setProfileStartPoint($time = null)
@@ -65,7 +67,7 @@ class lmbProfileTools extends lmbAbstractTools
 
   function setProfilePoint($point, $time = null)
   {
-    $this->profile_points[$point] = $time ? $time : microtime(true);
+    $this->profile_points[$point] = $time ?: microtime(true);
   }
 
   function clearProfilePoint($point)

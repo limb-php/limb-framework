@@ -26,10 +26,10 @@ use limb\view\src\lmbTwigView;
  */
 class lmbViewTools extends lmbAbstractTools
 {
-  protected $view_types = array(
+  protected $view_types = [
       '.phtml' => lmbMacroView::class,
       '.twig' => lmbTwigView::class
-  );
+  ];
   protected $macro_config;
   protected $macro_locator;
   protected $twig_config;
@@ -65,7 +65,7 @@ class lmbViewTools extends lmbAbstractTools
       return call_user_func(array($view_class, 'locateTemplateByAlias'), $alias);
   }
 
-  function createViewByTemplate($template_name, $vars = array())
+  function createViewByTemplate($template_name, $vars = [])
   {
     $class = $this->_findViewClassByTemplate($template_name);
 
@@ -141,4 +141,3 @@ class lmbViewTools extends lmbAbstractTools
     $this->twig_config = $config;
   }
 }
-
