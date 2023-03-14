@@ -43,7 +43,7 @@ class DelegateTestingStub
     $this->instance_arg2 = $arg2;
   }
 
-  function staticMethod($arg)
+  static function staticMethod($arg)
   {
     self::$static_arg = $arg;
     self::$static_called = true;
