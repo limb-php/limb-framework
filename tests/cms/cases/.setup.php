@@ -6,8 +6,10 @@ require_once(dirname(__FILE__) . '/../../dbal/cases/init.inc.php');
 
 use limb\toolkit\src\lmbToolkit;
 use limb\web_app\src\toolkit\lmbWebAppTools;
+use limb\cms\src\toolkit\lmbCmsTools;
 
 lmbToolkit::merge(new lmbWebAppTools());
+lmbToolkit::merge(new lmbCmsTools());
 
 lmb_tests_init_var_dir(dirname(__FILE__).'/../../../var/cms');
 lmb_tests_init_db_dsn();

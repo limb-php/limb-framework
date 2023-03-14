@@ -13,6 +13,8 @@ use limb\core\src\exception\lmbNoSuchPropertyException;
 use limb\core\src\lmbObject;
 use limb\core\src\lmbString;
 use limb\core\src\exception\lmbNoSuchMethodException;
+use limb\net\src\lmbHttpRequest;
+use limb\net\src\lmbHttpResponse;
 
 /**
  * Toolkit is an implementation of Dinamic Service Locator pattern
@@ -111,9 +113,9 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method getMailer()
  *
  * @see lmbNetTools
- * @method getRequest()
+ * @method lmbHttpRequest getRequest()
  * @method setRequest($request)
- * @method getResponse()
+ * @method lmbHttpResponse getResponse()
  * @method setResponse($response)
  *
  * @see lmbSessionTools

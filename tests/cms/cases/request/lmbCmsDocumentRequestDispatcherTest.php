@@ -21,20 +21,18 @@ class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
   {
     $toolkit = lmbToolkit::instance();
 
-    $config_array = array(array('path' => '/:controller/:action',
-                                'defaults' => array('action' => 'display')));
+    $config_array = array(
+        array('path' => '/:controller/:action',
+              'defaults' => array('action' => 'display')
+        )
+    );
     $routes = new lmbRoutes($config_array);
 
     $toolkit->setRoutes($routes);
 
-    $toolkit->getRequest()->getUri()->reset('/news');
+    $toolkit->getRequest()->getUri()->withPath('/news'); // fix
 
-    $dispatcher = new lmbCmsDocumentRequestDispatcher(
-      $table = 'object_with_uri',
-      $table_column = 'uri',
-      $controller = 'text',
-      $action = 'item'
-    );
+    $dispatcher = new lmbCmsDocumentRequestDispatcher();
 
     $result = $dispatcher->dispatch($toolkit->getRequest());
 
