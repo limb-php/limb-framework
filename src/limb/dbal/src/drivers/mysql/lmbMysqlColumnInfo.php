@@ -56,7 +56,7 @@ class lmbMysqlColumnInfo extends lmbDbColumnInfo
     return $nativeType;
   }
 
-  function isAutoIncrement()
+  function isAutoIncrement(): bool
   {
     return $this->isAutoIncrement === true;
   }

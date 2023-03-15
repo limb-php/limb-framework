@@ -40,12 +40,12 @@ class lmbConfTools extends lmbAbstractTools
     ];
   }
 
-  function setConf($name, $conf)
+  function setConf($name, $conf): void
   {
     $this->confs[$this->_normalizeConfName($name)] = $conf;
   }
 
-  function hasConf($name)
+  function hasConf($name): bool
   {
     try {
       $this->toolkit->getConf($name);
@@ -57,7 +57,7 @@ class lmbConfTools extends lmbAbstractTools
     }
   }
 
-  function setConfIncludePath($path)
+  function setConfIncludePath($path): void
   {
     $this->conf_include_path = $path;
   }
@@ -74,7 +74,7 @@ class lmbConfTools extends lmbAbstractTools
     return $this->toolkit->findFileByAlias($name, $this->toolkit->getConfIncludePath(), 'config', false);
   }
 
-  function getConf($name)
+  function getConf($name): lmbObject
   {
     $name = $this->_normalizeConfName($name);
 
@@ -119,7 +119,7 @@ class lmbConfTools extends lmbAbstractTools
     return "$name.conf.php";
   }
 
-  protected function parseYamlFile($file)
+  protected function parseYamlFile($file): lmbObject
   {
     $yml = lmbYaml::load($file);
     return new lmbObject($yml);

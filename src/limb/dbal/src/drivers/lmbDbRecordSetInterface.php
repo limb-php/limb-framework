@@ -11,7 +11,7 @@ namespace limb\dbal\src\drivers;
 use limb\core\src\lmbCollectionInterface;
 
 /**
- * interface lmbDbRecordSet.
+ * interface lmbDbRecordSetInterface.
  *
  * @package dbal
  * @version $Id: lmbDbRecordSetInterface.php 7486 2009-01-26 19:13:20Z

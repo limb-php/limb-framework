@@ -59,12 +59,12 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method setCmsUser($user)
  *
  * @see lmbConfTools
- * @method setConf($name, $conf)
- * @method hasConf($name)
- * @method setConfIncludePath($path)
+ * @method void setConf($name, $conf)
+ * @method bool hasConf($name)
+ * @method void setConfIncludePath($path)
  * @method getConfIncludePath()
- * @method getConf($name)
- * @method parseYamlFile($file)
+ * @method \limb\core\src\lmbObject getConf($name)
+ * @method \limb\core\src\lmbObject parseYamlFile($file)
  *
  * @see lmbDbTools
  * @method setDbEnvironment($env)

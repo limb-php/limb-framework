@@ -15,6 +15,8 @@ use limb\search\src\indexer\lmbFullTextSearchIndexer;
 use limb\search\src\indexer\lmbSearchTextNormalizer;
 use limb\toolkit\src\lmbToolkit;
 
+require_once (dirname(__FILE__) . '/../.setup.php');
+
 class lmbFullTextSearchIndexerTest extends TestCase
 {
   protected $db;
