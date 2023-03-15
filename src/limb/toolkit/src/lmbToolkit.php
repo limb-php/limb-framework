@@ -41,8 +41,8 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @version $Id: lmbToolkit.php 8177 2010-04-23 18:10:17Z
  *
  * @see lmbFsTools
- * @method getAcl()
- * @method setAcl($acl)
+ * @method \limb\acl\src\lmbAcl getAcl()
+ * @method void setAcl($acl)
  *
  * @see lmbARTools
  * @method getActiveRecordMetaInfo($active_record, $conn = null)
@@ -75,20 +75,20 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method setDbDSNByName($name, $dsn)
  * @method getDbDSNByName($name)
  * @method getDbDSN($env)
- * @method getDbConnectionByDsn($dsn)
+ * @method \limb\dbal\src\drivers\lmbDbConnectionInterface getDbConnectionByDsn($dsn)
  * @method setDbConnectionByDsn($dsn, $conn)
  * @method setDbConnectionByName($name, $conn)
- * @method getDefaultDbConnection()
- * @method getDbConnectionByName($name)
+ * @method \limb\dbal\src\drivers\lmbDbConnectionInterface getDefaultDbConnection()
+ * @method \limb\dbal\src\drivers\lmbDbConnectionInterface getDbConnectionByName($name)
  * @method setDefaultDbConnection($conn)
- * @method createDbConnection($dsn)
+ * @method \limb\dbal\src\drivers\lmbDbConnectionInterface createDbConnection($dsn)
  * @method getDbInfo($conn)
  * @method createTableGateway($table_name, $conn = null)
  *
  * @see lmbFsTools
  * @method findFileByAlias($alias, $paths, $locator_name = null, $find_all = false)
  * @method tryFindFileByAlias($alias, $paths, $locator_name = null)
- * @method getFileLocator($paths, $locator_name = null)
+ * @method \limb\fs\src\lmbFileLocator getFileLocator($paths, $locator_name = null)
  *
  * @see lmbI18NTools
  * @method getDictionaryBackend()
@@ -104,7 +104,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  *
  * @see \limb\log\src\toolkit\lmbLogTools
  * @method getLogDSNes()
- * @method getLog()
+ * @method \limb\log\src\lmbLog getLog()
  * @method setLog($log)
  *
  * @see lmbMailTools

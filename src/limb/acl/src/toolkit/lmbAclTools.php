@@ -21,7 +21,7 @@ class lmbAclTools extends lmbAbstractTools
 {
   protected $acl = null;
 
-  function getAcl()
+  function getAcl(): lmbAcl
   {
     if(is_null($this->acl))
       $this->acl = new lmbAcl();
@@ -29,7 +29,7 @@ class lmbAclTools extends lmbAbstractTools
     return $this->acl;
   }
 
-  function setAcl($acl)
+  function setAcl($acl): void
   {
     $this->acl = $acl;
   }

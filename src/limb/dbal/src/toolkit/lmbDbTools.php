@@ -10,6 +10,7 @@ namespace limb\dbal\src\toolkit;
 
 use limb\config\src\toolkit\lmbConfTools;
 use limb\dbal\src\drivers\lmbDbConnectionFactory;
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbEnv;
@@ -189,11 +190,11 @@ class lmbDbTools extends lmbAbstractTools
     return $this->getDbConnectionByName('dsn');
   }
 
-  function createDbConnection($dsn)
+  function createDbConnection($dsn): lmbDbConnectionInterface
   {
       $dsn = self::castToDsnObject($dsn);
 
-      return (new lmbDbConnectionFactory())->make($dsn);
+      return (new lmbDbConnectionFactory)->make($dsn);
   }
 
   protected function _isDbInfoCacheEnabled()

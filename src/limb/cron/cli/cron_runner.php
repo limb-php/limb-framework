@@ -28,7 +28,7 @@ if($argc < 2)
   die('Usage: cron_runner cron_job_file_path(starting from include_file_path)' . PHP_EOL);
 
 $cron_job_file_path = $argv[1];
-$parsed_cron_job_path = CronJobLogger :: parseCronJobFilePath($cron_job_file_path);
+$parsed_cron_job_path = CronJobLogger::parseCronJobFilePath($cron_job_file_path);
 $logger = new CronJobLogger($parsed_cron_job_path['cron_job_file_path']);
 
 $lock_dir = $_ENV['LIMB_VAR_DIR'] . '/cron_job_lock/';
@@ -80,5 +80,5 @@ fclose($fp);
 if(in_array('-v', $argv))
 {
   echo $output;
-  var_dump(lmbCollection :: toFlatArray($logger->getRecords(10)));
+  var_dump(lmbCollection::toFlatArray($logger->getRecords(10)));
 }

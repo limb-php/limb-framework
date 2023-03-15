@@ -45,7 +45,7 @@ class lmbLogTools extends lmbAbstractTools
     return $conf['logs'];
   }
 
-  public function getLog()
+  public function getLog(): lmbLog
   {
     if($this->log)
       return $this->log;

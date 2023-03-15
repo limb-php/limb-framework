@@ -19,7 +19,7 @@ use limb\dbal\src\lmbSimpleDb;
  * @todo Check client ip while reading session.
  * @todo Allow to set any db table name to store session data in.
  * @see lmbSessionStartupFilter
- * @version $Id: lmbSessionDbStorage.php 7486 2009-01-26 19:13:20Z pachanga $
+ * @version $Id: lmbSessionDbStorage.php 7486 2009-01-26 19:13:20Z
  * @package session
  */
 class lmbSessionDbStorage implements lmbSessionStorageInterface
@@ -35,8 +35,8 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
 
   /**
    *  Constructor.
-   *  @param lmbDbConnectionInterface database connection object
-   *  @param integer maximum session life time
+   *  @param lmbDbConnectionInterface $db_connection database connection object
+   *  @param integer $max_life_time maximum session life time
    */
   function __construct($db_connection, $max_life_time = null)
   {
@@ -82,7 +82,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
 
   /**
    * Read a single row from <b>lmb_session</b> db table and returns <b>session_data</b> column
-   * @param string session ID
+   * @param string $session_id session ID
    * @return mixed
    */
   function storageRead($session_id)
@@ -97,8 +97,8 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
 
   /**
    * Creates new or updates existing row in <b>lmb_session</b> db table
-   * @param string session ID
-   * @param mixed session data
+   * @param string $session_id session ID
+   * @param mixed $value session data
    */
   function storageWrite($session_id, $value)
   {
@@ -121,7 +121,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
 
   /**
    * Removed a row from <b>lmb_session</b> db table
-   * @param string session ID
+   * @param string $session_id session ID
    */
   function storageDestroy($session_id)
   {
@@ -134,7 +134,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
   /**
    * Checks if storage is still valid. If session if not valid - removes it's row from <b>lmb_session</b> db table
    * Prefers class attribute {@link $max_life_time} if it's not NULL.
-   * @param integer system session max life time
+   * @param integer $max_life_time system session max life time
    */
   function storageGc($max_life_time)
   {

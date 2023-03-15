@@ -48,7 +48,7 @@ class lmbFsTools extends lmbAbstractTools
     return $file;
   }
 
-  function getFileLocator($paths, $locator_name = null)
+  function getFileLocator($paths, $locator_name = null): lmbFileLocator
   {
     if(!$locator_name)
       $locator_name = md5($paths);

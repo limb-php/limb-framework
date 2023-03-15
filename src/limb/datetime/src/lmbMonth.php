@@ -71,19 +71,19 @@ class lmbMonth
   {
     $dow = $this->start_date->getPhpDayOfWeek();
 
-    if(lmbDateTime :: getWeekStartsAt() == 1 && $dow == 0)
+    if(lmbDateTime::getWeekStartsAt() == 1 && $dow == 0)
     {
-      $first_week_days = 7 - $dow + lmbDateTime :: getWeekStartsAt();
+      $first_week_days = 7 - $dow + lmbDateTime::getWeekStartsAt();
       $weeks = 1;
     }
-    elseif(lmbDateTime :: getWeekStartsAt() == 0 && $dow == 6)
+    elseif(lmbDateTime::getWeekStartsAt() == 0 && $dow == 6)
     {
-      $first_week_days = 7 - $dow + lmbDateTime :: getWeekStartsAt();
+      $first_week_days = 7 - $dow + lmbDateTime::getWeekStartsAt();
       $weeks = 1;
     }
     else
     {
-      $first_week_days = lmbDateTime :: getWeekStartsAt() - $dow;
+      $first_week_days = lmbDateTime::getWeekStartsAt() - $dow;
       $weeks = 0;
     }
 
@@ -101,7 +101,7 @@ class lmbMonth
 
     for($i=0;$i<=6;$i++)
     {
-      $week_array[$i] = lmbDateTime :: createByDays($curr_day);
+      $week_array[$i] = lmbDateTime::createByDays($curr_day);
       $curr_day++;
     }
     return $week_array;
@@ -127,4 +127,3 @@ class lmbMonth
     return new lmbMonth($date->getYear(), $date->getMonth());
   }
 }
-

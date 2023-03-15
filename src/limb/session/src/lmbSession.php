@@ -26,7 +26,7 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
 
   /**
    * Starts session and installs driver
-   * @param object Concrete session driver
+   * @param object $storage Concrete session driver
    */
   function start($storage = null)
   {
@@ -42,7 +42,7 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
 
   /**
    * Register a variable in session and returns a reference to it.
-   * @param string variable name
+   * @param string $name variable name
    */
   function & registerReference($name)
   {
@@ -84,8 +84,8 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
    * Sets variable into session
    * Automatically wraps objects with {@link lmbSerializable}
    * that helps to prevent <b>"class is not defined"</b> error while restoring session
-   * @param string variable name
-   * @param mixed value
+   * @param string $name variable name
+   * @param mixed $value value
    * @return void
    */
   function set($name, $value)
@@ -104,9 +104,9 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
    * @param mixed $value value
    * @return void
    */
-  function __set($key,$value)
+  function __set($key, $value)
   {
-    $this->set($key,$value);
+    $this->set($key, $value);
   }
 
   /**
@@ -120,7 +120,7 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
 
   /**
    * Returns TRUE if session has such variable
-   * @param string variable name
+   * @param string $name variable name
    * @return boolean
    */
   function exists($name)
@@ -130,7 +130,7 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
 
   /**
    * Removes variable from session
-   * @param string variable name
+   * @param string $name variable name
    * @return void
    */
   function destroy($name)

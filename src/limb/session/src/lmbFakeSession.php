@@ -8,8 +8,6 @@
  */
 namespace limb\session\src;
 
-use limb\session\src\lmbSession;
-
 /**
  * class lmbFakeSession.
  *
@@ -20,4 +18,3 @@ class lmbFakeSession extends lmbSession
 {
   function start($storage = null){}
 }
-

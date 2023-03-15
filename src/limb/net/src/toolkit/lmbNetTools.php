@@ -23,7 +23,7 @@ class lmbNetTools extends lmbAbstractTools
   protected $response;
   protected $request;
 
-  function getRequest()
+  function getRequest(): lmbHttpRequest
   {
     if(is_object($this->request))
       return $this->request;
@@ -33,12 +33,12 @@ class lmbNetTools extends lmbAbstractTools
     return $this->request;
   }
 
-  function setRequest($request)
+  function setRequest($request): void
   {
     $this->request = $request;
   }
 
-  function getResponse()
+  function getResponse(): lmbHttpResponse
   {
     if(is_object($this->response))
       return $this->response;
@@ -48,7 +48,7 @@ class lmbNetTools extends lmbAbstractTools
     return $this->response;
   }
 
-  function setResponse($response)
+  function setResponse($response): void
   {
     $this->response = $response;
   }
