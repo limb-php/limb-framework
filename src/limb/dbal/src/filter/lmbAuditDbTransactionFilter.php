@@ -49,4 +49,3 @@ class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
     $response->append($output);
   }
 }
-

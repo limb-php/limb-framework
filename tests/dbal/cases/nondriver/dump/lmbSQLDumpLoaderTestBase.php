@@ -8,6 +8,7 @@
  */
 namespace tests\dbal\cases\nondriver\dump;
 
+use limb\core\src\lmbEnv;
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\lmbSimpleDb;
 use limb\dbal\src\dump\lmbSQLDumpLoader;
@@ -35,7 +36,7 @@ insert into test_db_table (id, description, title) values (1, 'whatever;', 'what
 insert into test_db_table (id, description, title) values (2, 'whatever;', 'whatever;');
 EOD;
 
-    $this->file_path = LIMB_VAR_DIR . '/sql_dump_loader.tmp';
+    $this->file_path = lmbEnv::get('LIMB_VAR_DIR') . '/sql_dump_loader.tmp';
 
     $this->_writeDump($sql, $this->file_path);
 
@@ -69,31 +70,31 @@ EOD;
   function testCreate()
   {
     $loader = $this->_createLoader($this->file_path);
-    $this->assertEquals($loader->getAffectedTables(), array('test_one_table_object', 'test_db_table'));
-    $this->assertEquals(sizeof($loader->getStatements()), 4);
+    $this->assertEquals(array('test_one_table_object', 'test_db_table'), $loader->getAffectedTables());
+    $this->assertEquals(4, sizeof($loader->getStatements()));
   }
 
   function testCreateWithEmptyFile()
   {
     $loader = $this->_createLoader();
-    $this->assertEquals($loader->getAffectedTables(), array());
-    $this->assertEquals($loader->getStatements(), array());
+    $this->assertEquals(array(), $loader->getAffectedTables());
+    $this->assertEquals(array(), $loader->getStatements());
   }
 
   function testLoad()
   {
     $loader = $this->_createLoader();
     $loader->loadFile($this->file_path);
-    $this->assertEquals($loader->getAffectedTables(), array('test_one_table_object', 'test_db_table'));
-    $this->assertEquals(sizeof($loader->getStatements()), 4);
+    $this->assertEquals(array('test_one_table_object', 'test_db_table'), $loader->getAffectedTables());
+    $this->assertEquals(4, sizeof($loader->getStatements()));
   }
 
   function testLoadTwice()
   {
     $loader = $this->_createLoader();
     $loader->loadFile($this->file_path);
-    $this->assertEquals($loader->getAffectedTables(), array('test_one_table_object', 'test_db_table'));
-    $this->assertEquals(sizeof($loader->getStatements()), 4);
+    $this->assertEquals(array('test_one_table_object', 'test_db_table'), $loader->getAffectedTables());
+    $this->assertEquals(4, sizeof($loader->getStatements()));
 
     $new_sql = <<<EOD
 insert into foo (id, annotation, content) values (1, 'whatever;', 'whatever;');
@@ -104,22 +105,22 @@ EOD;
 
     $loader->loadFile($second_file);
 
-    $this->assertEquals($loader->getAffectedTables(), array('foo'));
-    $this->assertEquals(sizeof($loader->getStatements()), 1);
+    $this->assertEquals(array('foo'), $loader->getAffectedTables());
+    $this->assertEquals(1, sizeof($loader->getStatements()));
   }
 
   function testExecute()
   {
     $loader = $this->_createLoader($this->file_path);
-    $this->assertEquals($loader->getAffectedTables(), array('test_one_table_object', 'test_db_table'));
+    $this->assertEquals(array('test_one_table_object', 'test_db_table'), $loader->getAffectedTables());
 
     $loader->execute($this->conn);
 
     $rs1 = $this->db->select('test_one_table_object');
-    $this->assertEquals($rs1->count(), 2);
+    $this->assertEquals(2, $rs1->count());
 
     $rs2 = $this->db->select('test_db_table');
-    $this->assertEquals($rs2->count(), 2);
+    $this->assertEquals(2, $rs2->count());
   }
 
   function testExecutePattern()
@@ -129,10 +130,10 @@ EOD;
     $loader->execute($this->conn, '/test_one_table_object/');
 
     $rs1 = $this->db->select('test_one_table_object');
-    $this->assertEquals($rs1->count(), 2);
+    $this->assertEquals(2, $rs1->count());
 
     $rs2 = $this->db->select('test_db_table');
-    $this->assertEquals($rs2->count(), 0);
+    $this->assertEquals(0, $rs2->count());
   }
 
   function testFreeDataBase()
@@ -147,14 +148,14 @@ EOD;
 
 
     $loader = $this->_createLoader($this->file_path);
-    $this->assertEquals($loader->getAffectedTables(), array('test_one_table_object', 'test_db_table'));
+    $this->assertEquals(array('test_one_table_object', 'test_db_table'), $loader->getAffectedTables());
 
     $loader->cleanTables($this->conn);
 
     $rs1 = $this->db->select('test_one_table_object');
-    $this->assertEquals($rs1->count(), 0);
+    $this->assertEquals(0, $rs1->count());
 
     $rs2 = $this->db->select('test_db_table');
-    $this->assertEquals($rs2->count(), 0);
+    $this->assertEquals(0, $rs2->count());
   }
 }

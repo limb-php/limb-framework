@@ -104,7 +104,7 @@ class lmbUpdateQuery extends lmbCriteriaQuery
 
   function getStatement()
   {
-    $stmt = parent :: getStatement();
+    $stmt = parent::getStatement();
     foreach($this->_set_values as $key => $value)
       $stmt->set($key, $value);
 

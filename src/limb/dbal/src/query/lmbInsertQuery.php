@@ -66,7 +66,7 @@ class lmbInsertQuery extends lmbTemplateQuery
 
   function getStatement()
   {
-    $stmt = parent :: getStatement();
+    $stmt = parent::getStatement();
     foreach($this->_set_values as $key => $value)
     {
       $stmt->set($key, $value);
@@ -75,4 +75,3 @@ class lmbInsertQuery extends lmbTemplateQuery
   }
 
 }
-

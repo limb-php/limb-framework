@@ -83,7 +83,7 @@ class lmbInsertOnDuplicateUpdateQuery extends lmbCriteriaQuery
   }
 
   /**
-   * @param lmbDbConnectionInterface $connection
+   * @param \limb\dbal\src\drivers\lmbDbConnectionInterface $connection
    */
   static function isSupportedByDbConnection($connection)
   {
@@ -92,4 +92,3 @@ class lmbInsertOnDuplicateUpdateQuery extends lmbCriteriaQuery
   }
 
 }
-

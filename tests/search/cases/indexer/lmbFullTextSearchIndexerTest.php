@@ -46,8 +46,14 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $normalizer = $this->createMock(lmbSearchTextNormalizer::class);
     $indexer = new lmbFullTextSearchIndexer($normalizer);
 
-    $normalizer->expectOnce('process', array($content));
-    $normalizer->setReturnValue('process', $processed_content, array($content));
+    $normalizer
+        ->expects($this->once())
+        ->method('process')
+        ->with($content);
+    $normalizer
+        ->method('process')
+        ->willReturn($processed_content)
+        ->with($content);
 
     $indexer->index($uri, $content);
 
@@ -69,8 +75,13 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $indexer = new lmbFullTextSearchIndexer($normalizer);
     $indexer->useNOINDEX();
 
-    $normalizer->expectOnce('process', array($expected));
-    $normalizer->setReturnValue('process', 'whatever');
+    $normalizer
+        ->expects($this->once())
+        ->method('process')
+        ->with($expected);
+    $normalizer
+        ->method('process')
+        ->willReturn('whatever');
 
     $indexer->index($uri, $content);
   }
@@ -87,9 +98,14 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $indexer = new lmbFullTextSearchIndexer($normalizer);
     $indexer->useNOINDEX(false);
 
-    $normalizer->expectOnce('process', array($expected));
-    $normalizer->setReturnValue('process', 'whatever', array($expected));
-
+    $normalizer
+        ->expects($this->once())
+        ->method('process')
+        ->with($expected);
+    $normalizer
+        ->method('process')
+        ->willReturn('whatever')
+        ->with($expected);
     $indexer->index($uri, $content);
   }
 
@@ -105,8 +121,13 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $indexer = new lmbFullTextSearchIndexer($normalizer);
     $indexer->useNOINDEX();
 
-    $normalizer->expectOnce('process', array($expected));
-    $normalizer->setReturnValue('process', 'whatever');
+    $normalizer
+        ->expects($this->once())
+        ->method('process')
+        ->with($expected);
+    $normalizer
+        ->method('process')
+        ->willReturn('whatever');
 
     $indexer->index($uri, $content);
   }
@@ -121,27 +142,27 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $rs = $this->db->select(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'));
     $arr = $rs->getArray();
 
-    $this->assertEquals(sizeof($arr), 1);
+    $this->assertEquals(1, sizeof($arr));
     $this->assertEquals($arr[0]['uri'], $uri->toString());
-    $this->assertEquals($arr[0]['content'], 'test title content');
-    $this->assertEquals($arr[0]['title'], 'test title');
+    $this->assertEquals('test title content', $arr[0]['content']);
+    $this->assertEquals('test title', $arr[0]['title']);
     $this->assertTrue($arr[0]['last_modified'] > 0 && $arr[0]['last_modified'] <= time());
   }
 
   function testIndexNewUtf8Text()
   {
     $uri = new lmbUri('index.html');
-    $content = '<title>Растения</title>Доставка';
+    $content = '<title>Plants</title>Delivery';
     $indexer = new lmbFullTextSearchIndexer(new lmbSearchTextNormalizer());
     $indexer->index($uri, $content);
 
     $rs = $this->db->select(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'));
     $arr = $rs->getArray();
 
-    $this->assertEquals(sizeof($arr), 1);
+    $this->assertEquals(1, sizeof($arr));
     $this->assertEquals($arr[0]['uri'], $uri->toString());
-    $this->assertEquals($arr[0]['content'], 'растения доставка');
-    $this->assertEquals($arr[0]['title'], 'Растения');
+    $this->assertEquals('plants delivery', $arr[0]['content']);
+    $this->assertEquals('Plants', $arr[0]['title']);
     $this->assertTrue($arr[0]['last_modified'] > 0 && $arr[0]['last_modified'] <= time());
   }
 
@@ -157,10 +178,10 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $rs = $this->db->select(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'));
     $arr = $rs->getArray();
 
-    $this->assertEquals(sizeof($arr), 1);
+    $this->assertEquals(1, sizeof($arr));
     $this->assertEquals($arr[0]['uri'], $uri->toString());
-    $this->assertEquals($arr[0]['content'], 'content');
-    $this->assertEquals($arr[0]['title'], 'test title');
+    $this->assertEquals('content', $arr[0]['content']);
+    $this->assertEquals('test title', $arr[0]['title']);
     $this->assertTrue($arr[0]['last_modified'] > 0 && $arr[0]['last_modified'] <= time());
   }
 
@@ -182,10 +203,10 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $rs = $this->db->select(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'));
     $arr = $rs->getArray();
 
-    $this->assertEquals(sizeof($arr), 1);
+    $this->assertEquals(1, sizeof($arr));
     $this->assertEquals($arr[0]['uri'], $uri->toString());
-    $this->assertEquals($arr[0]['content'], 'title2 content2');
-    $this->assertEquals($arr[0]['title'], 'title2');
+    $this->assertEquals('title2 content2', $arr[0]['content']);
+    $this->assertEquals('title2', $arr[0]['title']);
     $this->assertTrue($arr[0]['last_modified'] > $time1 && $arr[0]['last_modified'] <= time());
   }
 
@@ -204,12 +225,12 @@ class lmbFullTextSearchIndexerTest extends TestCase
 
     $record = $indexer->findIndexRecordByUri($uri1)->export();
     $this->assertEquals($record['uri'], $uri1->toString());
-    $this->assertEquals($record['content'], 'title1 content1');
-    $this->assertEquals($record['title'], 'title1');
+    $this->assertEquals('title1 content1', $record['content']);
+    $this->assertEquals('title1', $record['title']);
 
     $record = $indexer->findIndexRecordByUri($uri2)->export();
     $this->assertEquals($record['uri'], $uri2->toString());
-    $this->assertEquals($record['content'], 'title2 content2');
-    $this->assertEquals($record['title'], 'title2');
+    $this->assertEquals('title2 content2', $record['content']);
+    $this->assertEquals('title2', $record['title']);
   }
 }

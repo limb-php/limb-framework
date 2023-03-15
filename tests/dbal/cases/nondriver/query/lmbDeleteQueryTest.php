@@ -41,7 +41,7 @@ class lmbDeleteQueryTest extends lmbQueryBaseTestCase
     $arr = $rs->getArray();
     $this->assertEquals($arr[0]['id'], $startId+1);
     $this->assertEquals($arr[1]['id'], $startId+2);
-    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals(2, sizeof($arr));
   }
 
   function testChaining()
@@ -55,6 +55,6 @@ class lmbDeleteQueryTest extends lmbQueryBaseTestCase
     $rs = $this->db->select('test_db_table');
     $arr = $rs->getArray();
     $this->assertEquals($arr[0]['id'], $startId+1);
-    $this->assertEquals(sizeof($arr), 1);
+    $this->assertEquals(1, sizeof($arr));
   }
 }

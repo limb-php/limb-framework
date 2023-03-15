@@ -183,12 +183,12 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
     return $this->_left_join_constraints;
   }
 
-  function toString()
+  function toString(): string
   {
     if(!count($this->_fields) && !count($this->_raw_fields) && !$this->_selectFieldsExists() && $this->_fromClauseExists())
       $this->addRawField('*');
 
-    return parent :: toString();
+    return parent::toString();
   }
 
   function getRecordSet()
@@ -400,4 +400,3 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
     return preg_match('~from\s+~si', $this->_getNoHintsSQL());
   }
 }
-

@@ -83,4 +83,3 @@ class lmbCriteriaQuery extends lmbTemplateQuery
     return false;
   }
 }
-

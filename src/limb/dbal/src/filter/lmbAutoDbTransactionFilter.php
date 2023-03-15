@@ -43,4 +43,3 @@ class lmbAutoDbTransactionFilter
     return $response;
   }
 }
-

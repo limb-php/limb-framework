@@ -72,31 +72,37 @@ abstract class lmbTemplateQuery
     return array_map(array($this, '_wrapHint'), $this->_findHintsInTemplateSql());
   }
 
-  function _fillHints()
-  {
-    $result = array();
-    foreach($this->_hints as $hint)
+    /**
+     * @throws lmbException
+     */
+    function _fillHints()
     {
-      $method = '_get' . lmbString::camel_case($hint) . 'Hint';
-      $wrapped_hint = $this->_wrapHint($hint);
-      if(!strpos($this->_template_sql, $wrapped_hint))
-        throw new lmbException('Hint ' . $wrapped_hint . ' is not found in template sql "' . $this->_template_sql . '"');
-      $result[$wrapped_hint] = $this->$method();
-    }
-    
-    $hints_in_template_sql = $this->_findAndWrapHintsFromTemplateSql();
-    foreach($hints_in_template_sql as $hint)
-      if(!isset($result[$hint]))
-        $result[$hint] = "";
-    
-    return $result;
-  }
+        $result = array();
+        foreach($this->_hints as $hint)
+        {
+            $method = '_get' . lmbString::camel_case($hint) . 'Hint';
+            $wrapped_hint = $this->_wrapHint($hint);
+            if(!strpos($this->_template_sql, $wrapped_hint))
+                throw new lmbException('Hint ' . $wrapped_hint . ' is not found in template sql "' . $this->_template_sql . '"');
+            $result[$wrapped_hint] = $this->$method();
+        }
 
-  function toString()
-  {
-    $hints = $this->_fillHints();
-    return trim(strtr($this->_template_sql, $hints));
-  }
+        $hints_in_template_sql = $this->_findAndWrapHintsFromTemplateSql();
+        foreach($hints_in_template_sql as $hint)
+            if(!isset($result[$hint]))
+                $result[$hint] = "";
+
+        return $result;
+    }
+
+    /**
+     * @throws lmbException
+     */
+    function toString(): string
+    {
+        $hints = $this->_fillHints();
+        return trim(strtr($this->_template_sql, $hints));
+    }
 
   function getStatement()
   {
