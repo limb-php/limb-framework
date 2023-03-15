@@ -47,7 +47,7 @@ class lmbAdminObjectControllerTest extends TestCase
     $app = new lmbWebApplicationSandbox();
     $response = $app->imitate($request, $response);
 
-    $this->assertEquals($response->getResponseString(), 'onCreate|initCreateForm|');
+    $this->assertEquals('onCreate|initCreateForm|', $response->getResponseString());
   }
 
   function testEventsOnPerformCreateActionWithPost()

@@ -21,7 +21,6 @@ class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
 
   function testValidWithoutSettingParentId()
   { 
-
     $saved_document = $this->_createDocument($identifier = 'test');
     $new_document = $this->_generateDocument($identifier = 'test2');
 

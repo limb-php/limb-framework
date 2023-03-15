@@ -12,10 +12,10 @@ class lmbTreeUniqueIdentifierRule extends lmbSingleFieldRule
     protected $node;
     protected $parent_id;
 
-  function __construct($field_name, $node_class, $node = null, $custom_error = null, $parent_id = null)
+  function __construct($field_name, $node, $custom_error = null, $parent_id = null)
   {
-    $this->node_class = $node_class;
     $this->node = is_object($node) ? $node : new $node();
+    $this->node_class = get_class($this->node);
     $this->parent_id = $parent_id ?? $this->node->getParent()->getId();
 
     parent::__construct($field_name, $custom_error);

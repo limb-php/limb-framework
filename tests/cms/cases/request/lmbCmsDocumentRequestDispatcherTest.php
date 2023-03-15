@@ -21,20 +21,21 @@ class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
   {
     $toolkit = lmbToolkit::instance();
 
-    $config_array = array(
-        array('path' => '/:controller/:action',
-              'defaults' => array('action' => 'display')
-        )
-    );
+    $config_array = [
+        [
+            'path' => '/:controller/:action',
+            'defaults' => ['action' => 'display']
+        ]
+    ];
     $routes = new lmbRoutes($config_array);
 
     $toolkit->setRoutes($routes);
 
-    $toolkit->getRequest()->getUri()->withPath('/news'); // fix
+    $request = $toolkit->getRequest();
+    $request->withUri( $request->getUri()->withPath('/news') );
 
     $dispatcher = new lmbCmsDocumentRequestDispatcher();
-
-    $result = $dispatcher->dispatch($toolkit->getRequest());
+    $result = $dispatcher->dispatch($request);
 
     return $result;
   }
@@ -52,8 +53,8 @@ class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
 
     $result = $this->_createDispatcher();
 
-    $this->assertEquals($result['controller'], 'document');
-    $this->assertEquals($result['action'], 'item');
-    $this->assertEquals($result['id'], $document->getId());
+    $this->assertEquals('document', $result['controller']);
+    $this->assertEquals('item', $result['action']);
+    $this->assertEquals($document->getId(), $result['id']);
   }
 }
