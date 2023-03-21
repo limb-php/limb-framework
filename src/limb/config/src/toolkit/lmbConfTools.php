@@ -74,7 +74,7 @@ class lmbConfTools extends lmbAbstractTools
     return $this->toolkit->findFileByAlias($name, $this->toolkit->getConfIncludePath(), 'config', false);
   }
 
-  function getConf($name): lmbObject
+  function getConf($name)
   {
     $name = $this->_normalizeConfName($name);
 

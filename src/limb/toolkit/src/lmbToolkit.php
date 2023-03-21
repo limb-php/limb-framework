@@ -63,7 +63,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method bool hasConf($name)
  * @method void setConfIncludePath($path)
  * @method getConfIncludePath()
- * @method \limb\core\src\lmbObject getConf($name)
+ * @method getConf($name)
  * @method \limb\core\src\lmbObject parseYamlFile($file)
  *
  * @see lmbDbTools
