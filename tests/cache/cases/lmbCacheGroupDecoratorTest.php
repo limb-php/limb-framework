@@ -12,7 +12,7 @@ require ('.setup.php');
 
 use limb\cache\src\lmbCacheGroupDecorator;
 
-class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTest
+class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTestCase
 {
   function _createPersisterImp()
   {

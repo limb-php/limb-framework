@@ -14,7 +14,7 @@ use limb\cache\src\lmbCacheFileBackend;
 use limb\fs\src\lmbFs;
 use limb\core\src\lmbEnv;
 
-class lmbCacheFileBackendTest extends lmbCacheBackendTest
+class lmbCacheFileBackendTestCase extends lmbCacheBackendTestCase
 {
   var $cache_dir;
 

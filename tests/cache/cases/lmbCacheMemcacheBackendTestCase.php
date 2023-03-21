@@ -12,7 +12,7 @@ require ('.setup.php');
 
 use limb\cache\src\lmbCacheMemcacheBackend;
 
-class lmbCacheMemcacheBackendTest extends lmbCacheBackendTest
+class lmbCacheMemcacheBackendTestCase extends lmbCacheBackendTestCase
 {
 
   private $_host = 'localhost';

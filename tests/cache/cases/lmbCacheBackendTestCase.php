@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class CacheableFooBarClass{}
 
-abstract class lmbCacheBackendTest extends TestCase
+abstract class lmbCacheBackendTestCase extends TestCase
 {
   protected $cache;
 

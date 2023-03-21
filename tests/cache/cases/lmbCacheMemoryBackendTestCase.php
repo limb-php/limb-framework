@@ -12,7 +12,7 @@ require ('.setup.php');
 
 use limb\cache\src\lmbCacheMemoryBackend;
 
-class lmbCacheMemoryBackendTest extends lmbCacheBackendTest
+class lmbCacheMemoryBackendTestCase extends lmbCacheBackendTestCase
 {
   function _createPersisterImp()
   {

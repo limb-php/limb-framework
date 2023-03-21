@@ -12,7 +12,7 @@ require ('.setup.php');
 
 use limb\cache\src\lmbCacheApcBackend;
 
-class lmbCacheApcBackendTest extends lmbCacheBackendTest
+class lmbCacheApcBackendTestCase extends lmbCacheBackendTestCase
 {
     function setUp() :void
     {
