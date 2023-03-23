@@ -8,8 +8,8 @@
  */
 namespace limb\dbal\src\drivers\pgsql;
 
-use limb\core\src\exception\lmbException;
 use limb\dbal\src\drivers\lmbDbBaseConnection;
+use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbPgsqlConnection.
@@ -56,10 +56,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
   function connect()
   {
-
-    global $php_errormsg;
-
-    $persistent = isset($this->config['persistent']) ? $this->config['persistent'] : null;
+    $persistent = $this->config['persistent'] ?? null;
 
     $connstr = '';
 
@@ -95,7 +92,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
     if(!is_resource($conn))
     {
-      $this->_raiseError($php_errormsg);
+      $this->_raiseError('Could not connect to host "' . $this->config['host'] . '" and database "' . $this->config['database'] . '"');
     }
 
     if(isset($this->config['charset']) && ($charset = $this->config['charset']))
@@ -122,7 +119,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
   function _raiseError($msg)
   {
-    throw new lmbException($msg .($this->connectionId ?  ' last pgsql driver error: ' . pg_last_error($this->connectionId) : ''));
+    throw new lmbDbException($msg .($this->connectionId ?  ' last pgsql driver error: ' . pg_last_error($this->connectionId) : ''));
   }
 
   function execute($sql)
