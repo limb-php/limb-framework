@@ -25,6 +25,7 @@ class lmbHttpRequest extends lmbSet
      */
     protected $__version;
     protected $__method;
+    /** @var lmbUri */
     protected $__uri;
     protected $__headers = array();
     protected $__get = array();
@@ -177,6 +178,7 @@ class lmbHttpRequest extends lmbSet
     return $this->_get($this->__files, $key);
   }
 
+  /** @return \limb\net\src\lmbUploadedFile|false */
   function getFile($name)
   {
     $file = $this->getFiles($name);
@@ -203,7 +205,7 @@ class lmbHttpRequest extends lmbSet
     return $this->_get($this->__post, $key, $default);
   }
 
-  function hasPost()
+  function hasPost(): bool
   {
     if($this->__pretend_post)
       return true;
@@ -226,7 +228,7 @@ class lmbHttpRequest extends lmbSet
         return isset($this->__headers[$name]);
     }
 
-  function isAjax()
+  function isAjax(): bool
   {
     if ($this->has('DNT'))
       return true;
@@ -234,7 +236,7 @@ class lmbHttpRequest extends lmbSet
     return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
   }
 
-  function isPjax()
+  function isPjax(): bool
   {
     return isset($_SERVER['HTTP_X_PJAX']);
   }
@@ -334,15 +336,15 @@ class lmbHttpRequest extends lmbSet
         return $exported;
     }
 
-  function getBoolean($name, $default = false)
-  {
-    return filter_var($this->get($name, $default), FILTER_VALIDATE_BOOLEAN);
-  }
+    function getBoolean($name, $default = false)
+    {
+        return filter_var($this->get($name, $default), FILTER_VALIDATE_BOOLEAN);
+    }
 
-  function getUri(): lmbUri
-  {
-    return $this->__uri;
-  }
+    function getUri(): lmbUri
+    {
+        return $this->__uri;
+    }
 
     public function withUri(UriInterface $uri, $preserveHost = false)
     {
