@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use limb\dbal\src\exception\lmbDbException;
+
 function DriverMssqlSetup($conn)
 {
   DriverMssqlExec($conn, "if EXISTS(select name from sysobjects where name='founding_fathers')DROP TABLE founding_fathers");
@@ -60,5 +62,3 @@ function DriverMssqlExec($conn, $sql)
   if(!$result)
     throw new lmbDbException('MSSQL execute error happened: ' . mssql_get_last_message().". SQL: ".$sql);
 }
-
-
