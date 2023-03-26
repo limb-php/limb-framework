@@ -32,8 +32,8 @@ class lmbUriNormalizerTest extends TestCase
   function testNormalizeStripQuery()
   {
     $links = array(new lmbUri('index.html?a=1&b=2'),
-                   new lmbUri('http://test.com/page1.html?whatever'),
-                   new lmbUri('http://test.com/page2.html?PHPSESSID=id&a=1'));
+                   new lmbUri('https://test.com/page1.html?whatever'),
+                   new lmbUri('https://test.com/page2.html?PHPSESSID=id&a=1'));
 
     $this->normalizer->stripQueryItem('PHPSESSID');
     $this->normalizer->stripQueryItem('whatever');
@@ -42,9 +42,9 @@ class lmbUriNormalizerTest extends TestCase
     $this->assertEquals($uri, new lmbUri('index.html?a=1&b=2'));
 
     $uri = $this->normalizer->process($links[1]);
-    $this->assertEquals($uri, new lmbUri('http://test.com/page1.html'));
+    $this->assertEquals($uri, new lmbUri('https://test.com/page1.html'));
 
     $uri = $this->normalizer->process($links[2]);
-    $this->assertEquals($uri, new lmbUri('http://test.com/page2.html?a=1'));
+    $this->assertEquals($uri, new lmbUri('https://test.com/page2.html?a=1'));
   }
 }

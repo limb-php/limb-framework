@@ -19,11 +19,11 @@ use limb\net\src\lmbUri;
 
 class lmbUriFilter
 {
-  protected $allowed_protocols = array();
-  protected $allowed_hosts = array();
+  protected $allowed_protocols = [];
+  protected $allowed_hosts = [];
 
-  protected $allowed_path_regexes = array();
-  protected $disallowed_path_regexes = array();
+  protected $allowed_path_regexes = [];
+  protected $disallowed_path_regexes = [];
 
   function allowProtocol($protocol)
   {
@@ -47,7 +47,7 @@ class lmbUriFilter
 
   function canPass(lmbUri $uri): bool
   {
-    if(!in_array($uri->getProtocol(), $this->allowed_protocols))
+    if(!in_array($uri->getScheme(), $this->allowed_protocols))
       return false;
 
     if(!in_array($uri->getHost(), $this->allowed_hosts))

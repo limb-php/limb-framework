@@ -34,7 +34,7 @@ class lmbContentTypeFilter
     $this->allowed_types[] = strtolower($type);
   }
 
-  function canPass($type)
+  function canPass($type): bool
   {
     if(!in_array($type, $this->allowed_types))
       return false;

@@ -20,7 +20,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEquals('http', $uri->getProtocol());
+    $this->assertEquals('http', $uri->getScheme());
     $this->assertEquals('localhost', $uri->getHost());
     $this->assertEquals('admin', $uri->getUser());
     $this->assertEquals('test', $uri->getPassword());
@@ -44,7 +44,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEquals('file', $uri->getProtocol());
+    $this->assertEquals('file', $uri->getScheme());
     $this->assertEquals('', $uri->getHost());
 
     $this->assertEquals('/dir', $uri->getPath());
@@ -56,7 +56,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEquals('file', $uri->getProtocol());
+    $this->assertEquals('file', $uri->getScheme());
     $this->assertEquals('', $uri->getHost());
 
     $this->assertEquals('c:\dir\another_dir\\', $uri->getPath());
@@ -65,7 +65,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEquals('file', $uri->getProtocol());
+    $this->assertEquals('file', $uri->getScheme());
     $this->assertEquals('', $uri->getHost());
 
     $this->assertEquals('c:/dir/another_dir', $uri->getPath());
@@ -74,7 +74,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEquals('file', $uri->getProtocol());
+    $this->assertEquals('file', $uri->getScheme());
     $this->assertEquals('', $uri->getHost());
 
     $this->assertEquals('c:\dir/another_dir', $uri->getPath());
@@ -86,7 +86,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEquals('file', $uri->getProtocol());
+    $this->assertEquals('file', $uri->getScheme());
     $this->assertEquals('user', $uri->getUser());
     $this->assertEquals('pass', $uri->getPassword());
     $this->assertEquals('localhost', $uri->getHost());
@@ -96,7 +96,7 @@ class lmbUriTest extends TestCase
 
     $uri = new lmbUri($str);
 
-    $this->assertEquals('file', $uri->getProtocol());
+    $this->assertEquals('file', $uri->getScheme());
     $this->assertEquals('user', $uri->getUser());
     $this->assertEquals('pass', $uri->getPassword());
     $this->assertEquals('localhost', $uri->getHost());
@@ -663,7 +663,7 @@ class lmbUriTest extends TestCase
       $uri = new lmbUri('svn+ssh://ms.org');
 
       $this->assertEquals('svn+ssh://ms.org', $uri->toString());
-      $this->assertEquals('svn+ssh', $uri->getProtocol());
+      $this->assertEquals('svn+ssh', $uri->getScheme());
       $this->assertEquals('ms.org', $uri->getHost());
   }
 

@@ -35,7 +35,7 @@ class lmbMetaFilter
     }
   }
 
-  function canPass($content)
+  function canPass($content): bool
   {
     $robots_meta = $this->_extractMetaRobots($content);
     if( strpos($robots_meta, 'noindex') === 0 )
@@ -44,5 +44,3 @@ class lmbMetaFilter
     return true;
   }
 }
-
-

@@ -98,6 +98,7 @@ class lmbUri implements UriInterface
     return $url;
   }
 
+  /** @deprecated */
   function getProtocol()
   {
     return $this->protocol;

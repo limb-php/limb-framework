@@ -25,11 +25,11 @@ class lmbInnerUriNormalizerObserverTest extends TestCase
 
   function testNotifyInnerUrl()
   {
-    $observer = new lmbInnerUriNormalizerObserver(new lmbUri('http://test.com'));
+    $observer = new lmbInnerUriNormalizerObserver(new lmbUri('https://test.com'));
     $this->reader
         ->expects($this->once())
         ->method('getUri')
-        ->willReturn($uri = new lmbUri('http://test.com/page.html'));
+        ->willReturn($uri = new lmbUri('https://test.com/page.html'));
 
     $observer->notify($this->reader);
     $this->assertEquals('/page.html', $uri->toString(['path', 'query', 'anchor']));
@@ -37,7 +37,7 @@ class lmbInnerUriNormalizerObserverTest extends TestCase
 
   function testNotifyOtherProtocol()
   {
-    $observer = new lmbInnerUriNormalizerObserver(new lmbUri('http://test.com'));
+    $observer = new lmbInnerUriNormalizerObserver(new lmbUri('https://test.com'));
     $this->reader
         ->expects($this->once())
         ->method('getUri')
@@ -49,25 +49,25 @@ class lmbInnerUriNormalizerObserverTest extends TestCase
 
   function testNotifyOtherPort()
   {
-    $observer = new lmbInnerUriNormalizerObserver(new lmbUri('http://test.com:22'));
+    $observer = new lmbInnerUriNormalizerObserver(new lmbUri('https://test.com:22'));
     $this->reader
         ->expects($this->once())
         ->method('getUri')
-        ->willReturn($uri = new lmbUri('http://test.com/page.html'));
+        ->willReturn($uri = new lmbUri('https://test.com/page.html'));
 
     $observer->notify($this->reader);
-    $this->assertEquals('http://test.com/page.html', $uri->toString());
+    $this->assertEquals('https://test.com/page.html', $uri->toString());
   }
 
   function testNotifyExternalUrl()
   {
-    $observer = new lmbInnerUriNormalizerObserver(new lmbUri('http://test.com'));
+    $observer = new lmbInnerUriNormalizerObserver(new lmbUri('https://test.com'));
     $this->reader
         ->expects($this->once())
         ->method('getUri')
-        ->willReturn($uri = new lmbUri('http://test2.com/page.html'));
+        ->willReturn($uri = new lmbUri('https://test2.com/page.html'));
 
     $observer->notify($this->reader);
-    $this->assertEquals('http://test2.com/page.html', $uri->toString());
+    $this->assertEquals('https://test2.com/page.html', $uri->toString());
   }
 }

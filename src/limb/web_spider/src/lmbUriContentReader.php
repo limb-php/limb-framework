@@ -8,6 +8,8 @@
  */
 namespace limb\web_spider\src;
 
+use limb\net\src\lmbUri;
+
 /**
  * class lmbUriContentReader.
  *
@@ -42,7 +44,7 @@ class lmbUriContentReader
     $this->releaseResource();
   }
 
-  function open($uri)
+  function open(lmbUri $uri)
   {
     $this->reset();
 

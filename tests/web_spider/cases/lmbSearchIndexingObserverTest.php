@@ -13,11 +13,6 @@ use limb\net\src\lmbUri;
 use limb\web_spider\src\lmbSearchIndexingObserver;
 use limb\web_spider\src\lmbUriContentReader;
 
-class TestingSpiderIndexer
-{
-  function index($uri, $content){}
-}
-
 class lmbSearchIndexingObserverTest extends TestCase
 {
   var $observer;

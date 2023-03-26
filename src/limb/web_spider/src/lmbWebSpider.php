@@ -25,12 +25,13 @@ class lmbWebSpider
   protected $uri_filter;
   protected $meta_filter;
   protected $uri_normalizer;
+  protected $content_type_filter;
 
-  protected $observers = array();
+  protected $observers = [];
 
-  protected $uri_cache = array();
+  protected $uri_cache = [];
 
-  function crawl($uri)
+  function crawl(lmbUri $uri): bool
   {
     if($uri->getHost() == '')//???
       return false;
@@ -40,9 +41,9 @@ class lmbWebSpider
     return true;
   }
 
-  function _crawlRecursive($uri, $context_uri)
+  function _crawlRecursive(lmbUri $uri, lmbUri $context_uri)
   {
-    $this->_normalizeUriUsingContext($uri, $context_uri);
+    $uri = $this->_normalizeUriUsingContext($uri, $context_uri);
 
     $uri = $this->getUriNormalizer()->process($uri);
 
@@ -76,11 +77,14 @@ class lmbWebSpider
 
         $this->_crawlRecursive($link, $uri);
       }
-      catch(lmbException $e) {};
+      catch(lmbException $e)
+      {
+
+      }
     }
   }
 
-  function _normalizeUriUsingContext(lmbUri $uri, $context_uri)
+  function _normalizeUriUsingContext(lmbUri $uri, lmbUri $context_uri)
   {
     if(!$uri->getHost())
     {
@@ -93,20 +97,22 @@ class lmbWebSpider
       }
     }
 
-    if(!$uri->getProtocol())
-        $uri = $uri->withProtocol($context_uri->getProtocol());
+    if(!$uri->getScheme())
+        $uri = $uri->withScheme($context_uri->getScheme());
 
     $uri = $uri->withFragment('');
 
     $uri->normalizePath();
+
+    return $uri;
   }
 
-  function _isCacheHit($uri)
+  function _isCacheHit($uri): bool
   {
     return isset($this->uri_cache[$uri->toString()]);
   }
 
-  function _markCached($uri)
+  function _markCached($uri): void
   {
     $this->uri_cache[$uri->toString()] = 1;
   }
@@ -122,7 +128,7 @@ class lmbWebSpider
     $this->observers[] =& $observer;
   }
 
-  function getUriExtractor()
+  function getUriExtractor(): lmbUriExtractor
   {
     if(is_object($this->uri_extractor))
       return $this->uri_extractor;
@@ -131,12 +137,12 @@ class lmbWebSpider
     return $this->uri_extractor;
   }
 
-  function setUriExtractor($extractor)
+  function setUriExtractor($extractor): void
   {
     $this->uri_extractor = $extractor;
   }
 
-  function getUriContentReader()
+  function getUriContentReader(): lmbUriContentReader
   {
     if(is_object($this->content_reader))
       return $this->content_reader;
@@ -145,12 +151,12 @@ class lmbWebSpider
     return $this->content_reader;
   }
 
-  function setUriContentReader($reader)
+  function setUriContentReader($reader): void
   {
     $this->content_reader = $reader;
   }
 
-  function getMetaFilter()
+  function getMetaFilter(): lmbMetaFilter
   {
     if(is_object($this->meta_filter))
       return $this->meta_filter;
@@ -159,12 +165,12 @@ class lmbWebSpider
     return $this->meta_filter;
   }
 
-  function setMetaFilter($filter)
+  function setMetaFilter($filter): void
   {
     $this->meta_filter = $filter;
   }
 
-  function getContentTypeFilter()
+  function getContentTypeFilter(): lmbContentTypeFilter
   {
     if(is_object($this->content_type_filter))
       return $this->content_type_filter;
@@ -173,17 +179,17 @@ class lmbWebSpider
     return $this->content_type_filter;
   }
 
-  function setContentTypeFilter($filter)
+  function setContentTypeFilter($filter): void
   {
     $this->content_type_filter = $filter;
   }
 
-  function setUriFilter($filter)
+  function setUriFilter($filter): void
   {
     $this->uri_filter = $filter;
   }
 
-  function getUriFilter()
+  function getUriFilter(): lmbUriFilter
   {
     if(is_object($this->uri_filter))
       return $this->uri_filter;
@@ -192,12 +198,12 @@ class lmbWebSpider
     return $this->uri_filter;
   }
 
-  function setUriNormalizer($normalizer)
+  function setUriNormalizer($normalizer): void
   {
     $this->uri_normalizer = $normalizer;
   }
 
-  function getUriNormalizer()
+  function getUriNormalizer(): lmbUriNormalizer
   {
     if(is_object($this->uri_normalizer))
       return $this->uri_normalizer;
