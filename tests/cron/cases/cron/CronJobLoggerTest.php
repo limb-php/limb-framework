@@ -30,7 +30,7 @@ class CronJobLoggerTest extends CronModuleTestCase
 
     $this->assertEquals('TestCron', $rs['name']);
     $this->assertEquals(CronJobLogger::STATUS_START, $rs['status']);
-    $this->assertEquals($rs['info'], $output_message);
+    $this->assertEquals($output_message, $rs['info']);
   }
 
   function testMakeConflictRecord_WithoutOutput()
@@ -56,7 +56,7 @@ class CronJobLoggerTest extends CronModuleTestCase
 
     $this->assertEquals('TestCron', $rs['name']);
     $this->assertEquals(CronJobLogger::STATUS_CONFLICT, $rs['status']);
-    $this->assertEquals($rs['info'], $output_message);
+    $this->assertEquals($output_message, $rs['info']);
   }
 
   function testMakeEndRecord_SuccessStatus()
@@ -68,7 +68,7 @@ class CronJobLoggerTest extends CronModuleTestCase
 
     $this->assertEquals('TestCron', $rs['name']);
     $this->assertEquals(CronJobLogger::STATUS_SUCCESS, $rs['status']);
-    $this->assertEquals('', $rs['info']);
+    $this->assertEquals(null, $rs['info']);
   }
 
   function testMakeEndRecord_ErrorStatusWithoutOutput()
@@ -82,7 +82,7 @@ class CronJobLoggerTest extends CronModuleTestCase
 
     $this->assertEquals('TestCron', $rs['name']);
     $this->assertEquals(CronJobLogger::STATUS_ERROR, $rs['status']);
-    $this->assertEquals($rs['info'], $error_message);
+    $this->assertEquals($error_message, $rs['info']);
   }
 
   function testMakeEndRecord_ErrorStatusWithOutput()
@@ -97,7 +97,7 @@ class CronJobLoggerTest extends CronModuleTestCase
 
     $this->assertEquals('TestCron', $rs['name']);
     $this->assertEquals(CronJobLogger::STATUS_ERROR, $rs['status']);
-    $this->assertEquals($rs['info'], $error_message . PHP_EOL . $output_message);
+    $this->assertEquals($error_message . PHP_EOL . $output_message, $rs['info']);
   }
 
   function testMakeEndRecord_ErrorStatus_ErrorIsArray()
@@ -118,7 +118,7 @@ EOD;
 
     $this->assertEquals('TestCron', $rs['name']);
     $this->assertEquals(CronJobLogger::STATUS_ERROR, $rs['status']);
-    $this->assertEquals($rs['info'], $expected_info);
+    $this->assertEquals(str_replace("\r", "", $expected_info), $rs['info']);
   }
 
   function testMakeExceptionRecord()
@@ -132,7 +132,7 @@ EOD;
 
     $this->assertEquals('TestCron', $rs['name']);
     $this->assertEquals(CronJobLogger::STATUS_EXCEPTION, $rs['status']);
-    $this->assertEquals($rs['info'], $exception_message);
+    $this->assertEquals($exception_message, $rs['info']);
   }
 
   function testGetRecords_WithoutCount()
@@ -161,6 +161,6 @@ EOD;
 
     $rs = $this->cron_job_logger->getRecords($count = 2)->getArray();
 
-    $this->assertEquals(2, count($rs));
+    $this->assertCount(2, $rs);
   }
 }

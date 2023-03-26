@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS `cron_job_log`;
+CREATE TABLE `cron_job_log` (
+  `id` INTEGER PRIMARY KEY,
+  `name` varchar(50) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  `status` varchar(25) NULL DEFAULT NULL,
+  `info` varchar(255),
+  `path` varchar(255) DEFAULT NULL
+);
+CREATE INDEX IF NOT EXISTS name_ind ON cron_job_log (name);
+CREATE INDEX IF NOT EXISTS status_ind ON cron_job_log (status);

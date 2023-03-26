@@ -175,7 +175,7 @@ class lmbTableGateway
       $values[$key] = $value;
     }
 
-    $this->_stmt = $query->getStatement($this->_conn);
+    $this->_stmt = $query->getStatement();
 
     $this->_bindValuesToStatement($this->_stmt, $values);
 
@@ -200,7 +200,7 @@ class lmbTableGateway
       $values[$key] = $value;
     }
 
-    $this->_stmt = $query->getStatement($this->_conn);
+    $this->_stmt = $query->getStatement();
 
     $this->_bindValuesToStatement($this->_stmt, $values);
 

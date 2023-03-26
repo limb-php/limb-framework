@@ -212,7 +212,7 @@ class lmbDbTools extends lmbAbstractTools
     return $this->is_db_info_cache_enabled;
   }
 
-  function getDbInfo($conn)
+  function getDbInfo(lmbDbConnectionInterface $conn)
   {
     $id = $conn->getHash();
 
