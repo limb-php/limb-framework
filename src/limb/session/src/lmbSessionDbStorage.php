@@ -48,7 +48,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
   /**
    * @see lmbSessionStorage::install()
    */
-  function install()
+  function install(): bool
   {
     return session_set_save_handler(
      array($this, 'storageOpen'),

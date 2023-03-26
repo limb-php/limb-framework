@@ -66,7 +66,7 @@ class lmbSessionDbStorageTest extends TestCase
 
   function testStorageReadBadSessionId()
   {
-    $this->assertFalse($this->driver->storageRead("'bad';DROP lmb_session;"));
+    $this->assertEquals("", $this->driver->storageRead("'bad';DROP lmb_session;"));
   }
 
   function testStorageReadFalse()

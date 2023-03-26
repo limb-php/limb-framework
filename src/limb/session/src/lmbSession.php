@@ -26,9 +26,9 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
 
   /**
    * Starts session and installs driver
-   * @param object $storage Concrete session driver
+   * @param lmbSessionStorageInterface $storage Concrete session driver
    */
-  function start($storage = null)
+  function start(lmbSessionStorageInterface $storage = null)
   {
     if($storage)
       $storage->install();
@@ -55,8 +55,8 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
 
   /**
    * Returns variable value from session
-   * @param string variable name
-   * @param mixed value that should be returned if variable is not registered in session yet
+   * @param string $name variable name
+   * @param mixed $empty_value value that should be returned if variable is not registered in session yet
    * @return mixed
    */
   function get($name, $empty_value = null)
@@ -64,7 +64,7 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
     if(!isset($_SESSION[$name]))
       return $empty_value;
 
-    if(is_object($_SESSION[$name]) && $_SESSION[$name] instanceof lmbSerializable)
+    if($_SESSION[$name] instanceof lmbSerializable)
       return $_SESSION[$name]->getSubject();
     else
       return $_SESSION[$name];

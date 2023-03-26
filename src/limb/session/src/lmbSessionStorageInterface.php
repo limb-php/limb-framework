@@ -18,5 +18,5 @@ interface lmbSessionStorageInterface
   /**
    * Installs specific session storage functions
    */
-  function install();
+  function install(): bool;
 }

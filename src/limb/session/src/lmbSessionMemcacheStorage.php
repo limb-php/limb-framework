@@ -40,10 +40,10 @@ class lmbSessionMemcacheStorage implements lmbSessionStorageInterface
   }
 
   /**
-   * @see lmbSessionStorage :: install()
-   * @return void
+   * @see lmbSessionStorage::install()
+   * @return bool
    */
-  function install()
+  function install(): bool
   {
     return session_set_save_handler(
      array($this, 'storageOpen'),

@@ -20,5 +20,8 @@ class lmbSessionNativeStorage implements lmbSessionStorageInterface
    * Does nothing
    * @see lmbSessionStorage::install()
    */
-  function install(){}
+  function install(): bool
+  {
+      return true;
+  }
 }
