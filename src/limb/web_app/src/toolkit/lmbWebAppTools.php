@@ -170,7 +170,7 @@ class lmbWebAppTools extends lmbAbstractTools
     $this->routes = $routes;
   }
 
-  function getFlashBox()
+  function getFlashBox(): lmbFlashBox
   {
     if(!is_object($this->flash_box))
     {

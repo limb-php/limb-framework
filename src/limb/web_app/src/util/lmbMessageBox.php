@@ -19,7 +19,7 @@ class lmbMessageBox
   const ERRORS = 1;
   const MESSAGES = 2;
 
-  protected $messages = array();
+  protected $messages = [];
 
   function __construct()
   {
@@ -28,18 +28,20 @@ class lmbMessageBox
 
   function reset()
   {
-    $this->messages = array(self::ERRORS => array(),
-                            self::MESSAGES => array());
+    $this->messages = [
+        self::ERRORS => [],
+        self::MESSAGES => []
+    ];
   }
 
   function resetMessages()
   {
-    $this->messages[self::MESSAGES] = array();
+    $this->messages[self::MESSAGES] = [];
   }
 
   function resetErrors()
   {
-    $this->messages[self::ERRORS] = array();
+    $this->messages[self::ERRORS] = [];
   }
 
   function addError($error)
@@ -62,24 +64,25 @@ class lmbMessageBox
     return $this->messages[self::MESSAGES];
   }
 
-  function hasErrors()
+  function hasErrors(): bool
   {
     return sizeof($this->messages[self::ERRORS]) > 0;
   }
 
-  function hasMessages()
+  function hasMessages(): bool
   {
     return sizeof($this->messages[self::MESSAGES]) > 0;
   }
   
-  function getUnifiedList()
+  function getUnifiedList(): array
   {
-    $result = array();
+    $result = [];
+
     foreach($this->getErrors() as $error)
-      $result[] = array('message' => $error, 'is_error' => true, 'is_message' => false);
+      $result[] = ['message' => $error, 'is_error' => true, 'is_message' => false, 'type' => 'error'];
 
     foreach($this->getMessages() as $message)
-      $result[] = array('message' => $message, 'is_message' => true, 'is_error' => false);
+      $result[] = ['message' => $message, 'is_message' => true, 'is_error' => false, 'type' => 'message'];
     
     $this->reset();
     

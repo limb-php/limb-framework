@@ -117,7 +117,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method setResponse($response)
  *
  * @see lmbSessionTools
- * @method getSession()
+ * @method getSession(): \limb\session\src\lmbSession
  * @method setSession($session)
  *
  * @see lmbViewTools
@@ -141,7 +141,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method getRoutesUrl($params = array(), $route_name = '', $skip_controller = false)
  * @method getRoutes()
  * @method setRoutes($routes)
- * @method getFlashBox()
+ * @method getFlashBox(): \limb\web_app\src\util\lmbFlashBox
  * @method flashError($message)
  * @method flashMessage($message)
  * @method createController($controller_name, $namespace = '')

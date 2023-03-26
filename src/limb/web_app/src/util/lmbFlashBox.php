@@ -8,6 +8,8 @@
  */
 namespace limb\web_app\src\util;
 
+use limb\session\src\lmbSession;
+
 /**
  * class lmbFlashBox.
  *
@@ -16,13 +18,13 @@ namespace limb\web_app\src\util;
  */
 class lmbFlashBox extends lmbMessageBox
 {
-  static function create($session)
-  {
-    if(!is_object($obj = $session->get(__CLASS__)))
+    static function create(lmbSession $session): lmbFlashBox
     {
-      $obj = new lmbFlashBox();
-      $session->set(__CLASS__, $obj);
+        if(!is_object($obj = $session->get(__CLASS__)))
+        {
+            $obj = new lmbFlashBox();
+            $session->set(__CLASS__, $obj);
+        }
+        return $obj;
     }
-    return $obj;
-  }
 }

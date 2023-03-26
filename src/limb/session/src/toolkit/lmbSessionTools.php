@@ -29,7 +29,7 @@ class lmbSessionTools extends lmbAbstractTools
     ];
   }
 
-  function getSession()
+  function getSession(): lmbSession
   {
     if(is_object($this->session))
       return $this->session;
