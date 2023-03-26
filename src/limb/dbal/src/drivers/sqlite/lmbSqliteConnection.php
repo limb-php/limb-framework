@@ -161,7 +161,7 @@ class lmbSqliteConnection extends lmbDbBaseConnection
     return new lmbSqliteTypeInfo();
   }
 
-  function getDatabaseInfo()
+  function getDatabaseInfo(): lmbSqliteDbInfo
   {
     return new lmbSqliteDbInfo($this, $this->config['database'], true);
   }

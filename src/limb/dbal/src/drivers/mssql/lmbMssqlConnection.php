@@ -198,7 +198,7 @@ class lmbMssqlConnection extends lmbDbBaseConnection
   }
 
 
-  function getDatabaseInfo()
+  function getDatabaseInfo(): lmbMssqlDbInfo
   {
     return new lmbMssqlDbInfo($this, $this->config['database'], true);
   }

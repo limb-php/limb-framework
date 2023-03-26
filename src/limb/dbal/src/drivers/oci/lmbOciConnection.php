@@ -182,7 +182,7 @@ class lmbOciConnection extends lmbDbBaseConnection
     return new lmbOciTypeInfo();
   }
 
-  function getDatabaseInfo()
+  function getDatabaseInfo(): lmbOciDbInfo
   {
     return new lmbOciDbInfo($this, $this->config['database'], true);
   }

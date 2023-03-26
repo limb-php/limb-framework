@@ -187,7 +187,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     return new lmbPgsqlTypeInfo();
   }
 
-  function getDatabaseInfo()
+  function getDatabaseInfo(): lmbPgsqlDbInfo
   {
     return new lmbPgsqlDbInfo($this, $this->config['database'], true);
   }

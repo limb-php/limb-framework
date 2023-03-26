@@ -348,7 +348,7 @@ class lmbLinterConnection extends lmbDbBaseConnection
     return new lmbLinterTypeInfo();
   }
 
-  function getDatabaseInfo()
+  function getDatabaseInfo(): lmbLinterDbInfo
   {
     return new lmbLinterDbInfo($this, $this->config['database'], true);
   }

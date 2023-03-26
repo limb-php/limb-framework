@@ -24,7 +24,7 @@ class lmbDbCachedInfo extends lmbProxy
   protected $db_info;
   protected $cache_file;
 
-  function __construct($conn, $cache_dir = null)
+  function __construct(lmbDbConnectionInterface $conn, $cache_dir = null)
   {
     $this->conn = $conn;
     if($cache_dir)
