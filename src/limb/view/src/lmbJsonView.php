@@ -8,7 +8,7 @@
  */
 namespace limb\view\src;
 
-use limb\core\src\exception\lmbException;
+use limb\view\src\exception\lmbJsonViewException;
 use limb\toolkit\src\lmbToolkit;
 
 /**
@@ -90,7 +90,7 @@ class lmbJsonView extends lmbView
           $data = json_encode($this->getVariables(), $this->encodingOptions);
 
       if ( json_last_error() !== JSON_ERROR_NONE ) {
-          throw new lmbException(json_last_error_msg());
+          throw new lmbJsonViewException(json_last_error_msg());
       }
 
       return $data;
