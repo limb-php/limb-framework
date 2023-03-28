@@ -9,14 +9,14 @@
 namespace limb\core\src;
 
 /**
- * Base class for creating proxies.
+ * Trait for creating proxies.
  * Proxy acts like real(original) objects until real object is definitely required.
  * In such a case the original object is <b>resolved</b> and since that moment all method
  * and argument calls will be delegated to the real object.
  * @package core
  * @version $Id$
  */
-abstract class lmbProxy
+trait ProxyTrait
 {
   /**
   * @var boolean Flag if real object is resolved already
@@ -30,7 +30,10 @@ abstract class lmbProxy
   /**
   * Creates original object
   */
-  abstract protected function _createOriginalObject();
+  protected function _createOriginalObject()
+  {
+
+  }
 
   /**
   * Resolves original object.

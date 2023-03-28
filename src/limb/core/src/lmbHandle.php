@@ -34,7 +34,7 @@ class lmbHandle extends lmbProxy
       }
   }
 
-  function isHandle()
+  function isHandle(): bool
   {
       return true;
   }
@@ -46,7 +46,7 @@ class lmbHandle extends lmbProxy
 
   protected function _createOriginalObject()
   {
-      $refl = new \ReflectionClass($this->class);
+      $refl = new \ReflectionClass($this->getClass());
       return call_user_func_array(array($refl, 'newInstance'), $this->args);
   }
 }
