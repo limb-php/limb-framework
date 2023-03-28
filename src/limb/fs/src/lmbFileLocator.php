@@ -20,7 +20,7 @@ class lmbFileLocator
 {
   protected $locations;
 
-  function __construct($locations)
+  function __construct(lmbFileLocationsInterface $locations)
   {
     $this->locations = $locations;
   }
