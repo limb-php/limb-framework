@@ -198,9 +198,6 @@ class lmbWebAppTools extends lmbAbstractTools
     if($namespace)
       $controller_name = $namespace . '\\' . lmbString::camel_case($controller_name);
 
-    //$class = str_replace('\\', DIRECTORY_SEPARATOR, $controller_name);
-    //$file = $class . '.php';
-    //if( stream_resolve_include_path($file) === false )
     if ( !class_exists($controller_name) )
     {
       throw new lmbControllerNotFoundException("web_app: Could not find controller class '$controller_name'");
@@ -211,12 +208,10 @@ class lmbWebAppTools extends lmbAbstractTools
 
   function redirect($params_or_url = array(), $route_url = null, $append = '')
   {
-    $toolkit = $this->toolkit;
-
     if(is_array($params_or_url))
-      $toolkit->getResponse()->redirect($toolkit->getRoutesUrl($params_or_url, $route_url) . $append);
+      $this->toolkit->getResponse()->redirect($this->toolkit->getRoutesUrl($params_or_url, $route_url) . $append);
     else
-      $toolkit->getResponse()->redirect($params_or_url . $append);
+      $this->toolkit->getResponse()->redirect($params_or_url . $append);
   }
 
   function isWebAppDebugEnabled()

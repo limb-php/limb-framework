@@ -187,7 +187,7 @@ class lmbToolkit extends lmbObject
   * @see lmbRegistry
   * @return lmbToolkit The only instance of lmbToolkit class
   */
-  static function instance()
+  static function instance(): lmbToolkit
   {
     if(is_object(self::$_instance))
       return self::$_instance;
