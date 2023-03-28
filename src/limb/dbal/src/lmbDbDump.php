@@ -41,11 +41,9 @@ class lmbDbDump
     $type = $this->connection->getType();
 
     $default_loader = lmbSQLDumpLoader::class;
-    $loaderClass = 'lmb' . ucfirst($type) . 'DumpLoader';
+    $loaderClass = 'limb\\dbal\\src\\dump\\lmb' . ucfirst($type) . 'DumpLoader';
 
-    if(file_exists(dirname(__FILE__) . '/dump/' . $loaderClass . '.php'))
-        require_once(dirname(__FILE__) . '/dump/' . $loaderClass . '.php');
-    else
+    if( !class_exists($loaderClass, true) )
         $loaderClass = $default_loader;
 
     $file = ($file) ?? $this->file;
