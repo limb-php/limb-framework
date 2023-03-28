@@ -111,7 +111,7 @@ class lmbAuditDbConnection extends lmbDbConnectionDecorator
         return $this->connection->getTypeInfo();
     }
 
-    function getDatabaseInfo()
+    function getDatabaseInfo(): lmbDbInfo
     {
         return $this->connection->getDatabaseInfo();
     }
