@@ -2,7 +2,7 @@
 use limb\core\src\lmbEnv;
 
 lmbEnv::set('LIMB_CONTROLLERS_INCLUDE_PATH', 'bit-cms/*/tests/src/controller;bit-cms/*/src/controller;limb/*/src/controller');
-lmbEnv::set('LIMB_CONF_INCLUDE_PATH', 'tests/*/settings;bit-cms/*/settings;src/limb/*/settings');
+lmbEnv::set('LIMB_CONF_INCLUDE_PATH', '*/settings;bit-cms/*/settings;limb/*/settings');
 
 lmbEnv::set('BASE_PROJECT_HOST', 'project_for_test.com');
 lmbEnv::set('MAX_ID_VALUE', 2147483648);
