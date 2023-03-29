@@ -340,6 +340,13 @@ class lmbHttpRequestTest extends TestCase
 
         $this->assertEquals(100, $request2->get('attr'));
         $this->assertEquals(200, $request2->getAttribute('attr'));
+
+        $request3 = new lmbHttpRequest('http://test.com/wow3');
+        $request3->setAttribute('foo', 'bar');
+        $request4 = $request3->withAttribute('foo2', 'bar2');
+
+        $this->assertEquals('bar', $request3->get('foo'));
+        $this->assertEquals('bar2', $request4->get('foo2'));
     }
 
     function testGetWithNewUri()
