@@ -46,8 +46,6 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
       foreach($dispatched_params as $name => $value)
           $request = $request->withAttribute($name, $value);
 
-      $this->toolkit->setRequest($request); // deprecated. remove in 5.x (if remove, $request->get($dispatched_param) in Controller does not work)
-
       $controller = $this->_createController($dispatched_params);
 
       if(isset($dispatched_params['action']) && $controller->actionExists($dispatched_params['action']))
