@@ -537,6 +537,11 @@ class lmbHttpRequest extends lmbSet
         return $this->__attributes[$name] ?? $default;
     }
 
+    public function setAttribute($name, $value)
+    {
+        $this->__attributes[$name]  = $value;
+    }
+
     public function withAttribute($name, $value)
     {
         if( isset($this->__attributes[$name]) && $this->__attributes[$name] === $value ) {
