@@ -75,12 +75,20 @@ class lmbErrorHandler
       exit(1);
   }
 
+    protected function _isAcceptJson(): bool
+    {
+        return (strpos($this->toolkit->getRequest()->getHeader('ACCEPT'), 'json') !== false);
+    }
+
   function _echoErrorPage()
   {
-    for($i=0; $i < ob_get_level(); $i++)
-      ob_end_clean();
+      for($i=0; $i < ob_get_level(); $i++)
+          ob_end_clean();
 
-    echo file_get_contents($this->error_page);
+      if( $this->_isAcceptJson() )
+          echo json_encode(['error' => '500 Server error', 'type' => 'exception']);
+      else
+          echo file_get_contents($this->error_page);
   }
 
   protected function _echoErrorBacktrace($error)
@@ -128,7 +136,12 @@ class lmbErrorHandler
     for($i=0; $i < ob_get_level(); $i++)
       ob_end_clean();
 
-    echo $this->_renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session);
+      $html_content = $this->_renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session);
+
+      if( $this->_isAcceptJson() )
+          echo json_encode(['error' => $html_content, 'type' => 'exception']);
+      else
+          echo $html_content;
   }
 
   protected function _renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session)
