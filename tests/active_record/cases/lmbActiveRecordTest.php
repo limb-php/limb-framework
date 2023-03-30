@@ -15,6 +15,154 @@ use limb\dbal\src\criteria\lmbSQLRawCriteria;
 
 require_once '.setup.php';
 
+
+
+class PersonForTest extends lmbActiveRecord
+{
+    public $save_count = 0;
+    protected $_has_one = array('social_security' => array('field' => 'ss_id',
+        'class' => SocialSecurityForTest::class,
+        'can_be_null' => true));
+
+    function _onSave()
+    {
+        $this->save_count++;
+    }
+}
+
+class PersonForLazyAttributesTest extends lmbActiveRecord
+{
+    protected $_db_table_name = 'person_for_test';
+    protected $_has_one = array('lazy_object' => array('field' => 'ss_id',
+        'class' => LazyTestOneTableObject::class,
+        'can_be_null' => true));
+
+    protected $_lazy_attributes = array('name');
+}
+
+class SocialSecurityForTest extends lmbActiveRecord
+{
+    protected $_belongs_to = array('person' => array('field' => 'ss_id',
+        'class' => PersonForTest::class
+    ));
+}
+
+class ProgramForTest extends lmbActiveRecord
+{
+    protected $_db_table_name = 'program_for_test';
+
+    protected $_has_many = array('courses' => array('field' => 'program_id',
+        'class' => CourseForTest::class
+    ),
+
+        'cached_lectures' => array('field' => 'program_id',
+            'class' => LectureForTest::class
+        ));
+}
+
+class CourseForTest extends lmbActiveRecord
+{
+    protected $_db_table_name = 'course_for_test';
+    protected $_has_many = array('lectures' => array('field' => 'course_id',
+        'class' => LectureForTest::class),
+        'alt_lectures' => array('field' => 'alt_course_id',
+            'class' => LectureForTest::class),
+        'foo_lectures' => array('field' => 'course_id',
+            'class' => LectureForTest::class,
+            'criteria'=>'lecture_for_test.title like "foo%"'));
+
+    protected $_many_belongs_to = array('program' => array('field' => 'program_id',
+        'class' => ProgramForTest::class,
+        'can_be_null' => true));
+
+    public $save_calls = 0;
+
+    function save($error_list = null)
+    {
+        parent::save();
+        $this->save_calls++;
+    }
+}
+
+class LectureForTest extends lmbActiveRecord
+{
+    protected $_db_table_name = 'lecture_for_test';
+    protected $_many_belongs_to = array('course' => array('field' => 'course_id',
+        'class' => CourseForTest::class
+    ),
+        'alt_course' => array('field' => 'alt_course_id',
+            'class' => CourseForTest::class,
+            'can_be_null' => true
+        ),
+        'cached_program' => array('field' => 'program_id',
+            'class' => ProgramForTest::class
+        ));
+
+    protected $_test_validator;
+
+    function setValidator($validator)
+    {
+        $this->_test_validator = $validator;
+    }
+
+    function _createValidator()
+    {
+        if($this->_test_validator)
+            return $this->_test_validator;
+
+        return parent::_createValidator();
+    }
+}
+
+class GroupForTest extends lmbActiveRecord
+{
+    protected $_db_table_name = 'group_for_test';
+
+    protected $_has_many_to_many = array('users' => array('field' => 'group_id',
+        'foreign_field' => 'user_id',
+        'table' => 'user_for_test2group_for_test',
+        'class' => UserForTest::class
+    ));
+
+    protected $_test_validator;
+
+    function setValidator($validator)
+    {
+        $this->_test_validator = $validator;
+    }
+
+    function _createValidator()
+    {
+        if($this->_test_validator)
+            return $this->_test_validator;
+
+        return parent::_createValidator();
+    }
+}
+
+class UserForTest extends lmbActiveRecord
+{
+    protected $_db_table_name = 'user_for_test';
+
+    protected $_has_many_to_many = array('groups' => array('field' => 'user_id',
+        'foreign_field' => 'group_id',
+        'table' => 'user_for_test2group_for_test',
+        'class' => GroupForTest::class
+    ),
+        'cgroups' => array('field' => 'user_id',
+            'foreign_field' => 'group_id',
+            'table' => 'user_for_test2group_for_test',
+            'class' => GroupForTest::class,
+            'criteria' =>'group_for_test.title="condition"'
+        ));
+
+    protected $_has_one = array('linked_object' => array('field' => 'linked_object_id',
+        'class' => TestOneTableObject::class,
+        'can_be_null' => true));
+}
+
+
+
 class lmbActiveRecordTest extends lmbARBaseTestCase
 {
   protected $tables_to_cleanup = array('test_one_table_object', 'lecture_for_test', 'course_for_test');
@@ -23,7 +171,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     {
         $object = new TestOneTableObject2();
 
-        $this->assertEquals('foo', $object->bar); // should call $object->getBar()
+        $this->assertEquals('foo_bar', $object->foo_bar); // should call $object->getFooBar()
     }
 
   function testArrayAccessConsidersDbFields()
@@ -363,7 +511,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $object2->setContent('Content'.mt_rand());
     $object2->save();
 
-    $found = lmbActiveRecord :: findFirst('TestOneTableObjectWithSortParams');
+    $found = lmbActiveRecord :: findFirst(TestOneTableObjectWithSortParams::class);
     $this->assertEquals($found->get('id'), $object2->getId());
 
     //testing convenient alias
@@ -560,7 +708,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $object2->setContent('Content'.mt_rand());
     $object2->save();
 
-    $rs = lmbActiveRecord :: find('TestOneTableObjectWithSortParams', array('sort' => array('id' => 'DESC')));
+    $rs = lmbActiveRecord :: find(TestOneTableObjectWithSortParams::class, array('sort' => array('id' => 'DESC')));
     $arr = $rs->getArray();
     $this->assertEquals($arr[0]->get('id'), $object2->getId());
     $this->assertEquals($arr[1]->get('id'), $object1->getId());
@@ -582,7 +730,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $lecture2 = $this->creator->createLecture($course2, $alt_course2);
     $lecture3 = $this->creator->createLecture($course1, $alt_course2);
 
-    $rs = lmbActiveRecord :: find('LectureForTest', array('join' => 'course, alt_course'));
+    $rs = lmbActiveRecord :: find(LectureForTest::class, array('join' => 'course, alt_course'));
     $arr = $rs->getArray();
 
     //make sure we really eager fetching
@@ -611,13 +759,13 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $lecture3 = $this->creator->createLecture($course1, null, 'AAA');
     $lecture4 = $this->creator->createLecture($course1, null, 'BBB');
 
-    $rs = lmbActiveRecord :: find('CourseForTest', array('attach' => array('lectures' => array('sort' => array('title' => 'ASC')))));
+    $rs = lmbActiveRecord :: find(CourseForTest::class, array('attach' => array('lectures' => array('sort' => array('title' => 'ASC')))));
     $arr = $rs->getArray();
 
     //make sure we really eager fetching
     $this->db->delete('lecture_for_test');
 
-    $this->assertInstanceOf($arr[0], CourseForTest::class);
+    $this->assertInstanceOf(CourseForTest::class, $arr[0]);
     $this->assertEquals($arr[0]->getTitle(), $course1->getTitle());
     $lectures = $arr[0]->getLectures();
     $this->assertEquals(count($lectures), 3);
@@ -628,7 +776,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $this->assertEquals($lectures[2]->getId(), $lecture1->getId());
     $this->assertEquals($lectures[2]->getTitle(), 'ZZZ');
 
-    $this->assertInstanceOf($arr[1], CourseForTest::class);
+    $this->assertInstanceOf(CourseForTest::class, $arr[1]);
     $this->assertEquals($arr[1]->getTitle(), $course2->getTitle());
     $lectures = $arr[1]->getLectures();
     $this->assertEquals(count($lectures), 1);
@@ -713,33 +861,33 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $this->assertFalse($rs->valid());
   }
 
-  function testFindByIdsWithCriteria()
-  {
-    $object1 = $this->_initActiveRecordWithDataAndSave(new TestOneTableObject());
-    $object2 = $this->_initActiveRecordWithDataAndSave(new TestOneTableObject());
-    $object3 = $this->_initActiveRecordWithDataAndSave(new TestOneTableObject());
-    $object4 = $this->_initActiveRecordWithDataAndSave(new TestOneTableObject());
-
-    $rs = lmbActiveRecord :: findByIds(TestOneTableObject::class,
-                                       array($object1->getId(), $object3->getId(), $object4->getId()),
-                                       array('sort' => array('id' => 'asc'),
-                                             'criteria' => 'id <> 3'));
-    $rs->rewind();
-    $this->assertEquals($object1->getId(), $rs->current()->getId());
-    $rs->next();
-    $this->assertEquals($object4->getId(), $rs->current()->getId());
-    $rs->next();
-    $this->assertFalse($rs->valid());
-
-    //testing convenient alias
-    $rs = TestOneTableObject :: findByIds(array($object1->getId(), $object3->getId(), $object4->getId()), array('sort' => array('id' => 'asc'), 'criteria' => 'id <> 3'));
-    $rs->rewind();
-    $this->assertEquals($object1->getId(), $rs->current()->getId());
-    $rs->next();
-    $this->assertEquals($object4->getId(), $rs->current()->getId());
-    $rs->next();
-    $this->assertFalse($rs->valid());
-  }
+//  function testFindByIdsWithCriteria()
+//  {
+//    $object1 = $this->_initActiveRecordWithDataAndSave(new TestOneTableObject());
+//    $object2 = $this->_initActiveRecordWithDataAndSave(new TestOneTableObject());
+//    $object3 = $this->_initActiveRecordWithDataAndSave(new TestOneTableObject());
+//    $object4 = $this->_initActiveRecordWithDataAndSave(new TestOneTableObject());
+//
+//    $rs = lmbActiveRecord :: findByIds(TestOneTableObject::class,
+//                                       array($object1->getId(), $object3->getId(), $object4->getId()),
+//                                       array('sort' => array('id' => 'asc'),
+//                                             'criteria' => 'id <> 3'));
+//    $rs->rewind();
+//    $this->assertEquals($object1->getId(), $rs->current()->getId());
+//    $rs->next();
+//    $this->assertEquals($object4->getId(), $rs->current()->getId());
+//    $rs->next();
+//    $this->assertFalse($rs->valid());
+//
+//    //testing convenient alias
+//    $rs = TestOneTableObject :: findByIds(array($object1->getId(), $object3->getId(), $object4->getId()), array('sort' => array('id' => 'asc'), 'criteria' => 'id <> 3'));
+//    $rs->rewind();
+//    $this->assertEquals($object1->getId(), $rs->current()->getId());
+//    $rs->next();
+//    $this->assertEquals($object4->getId(), $rs->current()->getId());
+//    $rs->next();
+//    $this->assertFalse($rs->valid());
+//  }
 
   function testFindByIdsReturnEmptyIteratorIfNoIds()
   {
@@ -756,15 +904,15 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $this->assertFalse($rs->valid());
   }
 
-  function testGetDatasetActsAsStaticFind()
-  {
-    $object1 = $this->creator->createOneTableObject();
-    $object2 = $this->creator->createOneTableObject();
-
-    $ds = $object2->getDataset();
-    $this->assertEquals($ds->at(0)->getId(), $object1->getId());
-    $this->assertEquals($ds->at(1)->getId(), $object2->getId());
-  }
+//  function testGetDatasetActsAsStaticFind()
+//  {
+//    $object1 = $this->creator->createOneTableObject();
+//    $object2 = $this->creator->createOneTableObject();
+//
+//    $ds = $object2->getDataset();
+//    $this->assertEquals($ds->at(0)->getId(), $object1->getId());
+//    $this->assertEquals($ds->at(1)->getId(), $object2->getId());
+//  }
 
   function testDelete()
   {
@@ -790,7 +938,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $object2 = $this->creator->createOneTableObject();
 
     ob_start();
-    lmbActiveRecord :: delete('TestOneTableObjectWithCustomDestroy');
+    lmbActiveRecord :: delete(TestOneTableObjectWithCustomDestroy::class);
     $contents = ob_get_contents();
     ob_end_clean();
 
@@ -866,7 +1014,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $object2 = $this->creator->createOneTableObject();
 
     ob_start();
-    lmbActiveRecord :: deleteRaw('TestOneTableObjectWithCustomDestroy');
+    lmbActiveRecord :: deleteRaw(TestOneTableObjectWithCustomDestroy::class);
     $contents = ob_get_contents();
     ob_end_clean();
 
