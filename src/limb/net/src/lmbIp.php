@@ -34,7 +34,7 @@ class lmbIp
       case self::USTRING:
         return sprintf('%u', ip2long($ip));
       default:
-        throw new lmbException("Unknow ip encode mode '$mode'");
+        throw new lmbException("Unknown ip encode mode '$mode'");
     }
   }
 
@@ -45,7 +45,7 @@ class lmbIp
 
   static function encodeIpRange($ip_begin, $ip_end, $mode = lmbIp::SIGNED)
   {
-    // Returns ip adressess array with in range $ip_begin - $ip_end
+    // Returns ip addresses array with in range $ip_begin - $ip_end
     if(!self::isValid($ip_begin) || !self::isValid($ip_end))
       throw new lmbException("Invalid IP range from '$ip_begin' to '$ip_end'");
 
@@ -61,7 +61,7 @@ class lmbIp
       else if($mode == self::USTRING)
         $ip_list[] = sprintf('%u', ip2long(long2ip($i)));
       else
-        throw new lmbException("Unknow ip encode mode '$mode'");
+        throw new lmbException("Unknown ip encode mode '$mode'");
     }
     return $ip_list;
   }
