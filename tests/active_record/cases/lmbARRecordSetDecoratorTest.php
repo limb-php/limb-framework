@@ -60,12 +60,12 @@ class lmbARRecordSetDecoratorTest extends lmbARBaseTestCase
 
   function _createCourseWithTwoLectures()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle($title = 'General Course');
 
-    $l1 = new LectureForTest();
+    $l1 = new LectureForTestObject();
     $l1->setTitle('Physics');
-    $l2 = new LectureForTest();
+    $l2 = new LectureForTestObject();
     $l2->setTitle('Math');
 
     $course->addToLectures($l1);

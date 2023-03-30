@@ -52,19 +52,19 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
   
   function testHas()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $this->assertTrue(isset($person['social_security']));
   }
 
   function testNewObjectReturnsNullChild()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $this->assertNull($person->getSocialSecurity());
   }
 
   function testNewObjectReturnsNullParent()
   {
-    $number = new SocialSecurityForTest();
+    $number = new SocialSecurityForTestObject();
     $this->assertNull($number->getPerson());
   }
 
@@ -98,10 +98,10 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
 
   function testDontSaveParentSecondTimeIfChildWasChanged()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $person->setName('Jim');
 
-    $number = new SocialSecurityForTest();
+    $number = new SocialSecurityForTestObject();
     $number->setCode('099123');
 
     $person->setSocialSecurity($number);
@@ -116,10 +116,10 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
 
   function testSavingParentSavesChildAsWell()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $person->setName('Jim');
 
-    $number = new SocialSecurityForTest();
+    $number = new SocialSecurityForTestObject();
     $number->setCode('099123');
 
     $person->setSocialSecurity($number);
@@ -128,7 +128,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $number->setCode($new_code = '0022112');
     $person->save();
 
-    $loaded_number = new SocialSecurityForTest($number->getId());
+    $loaded_number = new SocialSecurityForTestObject($number->getId());
     $this->assertEquals($loaded_number->getCode(), $new_code);
   }
 
@@ -143,13 +143,13 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $number2 = $this->creator->initSocialSecurity();
     $number2->save();
     
-    $person2 = new PersonForTest($person->getId());
+    $person2 = new PersonForTestObject($person->getId());
     $this->assertEquals($person2->getSocialSecurity()->getId(), $number1->getId());
 
     $person2->set('ss_id', $number2->getId());
     $person2->save();
 
-    $person3 = new PersonForTest($person->getId());
+    $person3 = new PersonForTestObject($person->getId());
     $this->assertEquals($person3->getSocialSecurity()->getId(), $number2->getId());
   }
 
@@ -165,14 +165,14 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $number2 = $this->creator->initSocialSecurity();
     $number2->save();
 
-    $person2 = new PersonForTest($person->getId());
+    $person2 = new PersonForTestObject($person->getId());
     $this->assertEquals($person2->getSocialSecurity()->getId(), $number1->getId());
 
     $person2->set('ss_id', $number2->getId()); // changing child relation field directly
     $person2->setSocialSecurity($number1); // and making child object dirty
     $person2->save();
 
-    $person3 = new PersonForTest($person->getId());
+    $person3 = new PersonForTestObject($person->getId());
     $this->assertEquals($person3->getSocialSecurity()->getId(), $number1->getId());
   }
 
@@ -338,7 +338,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
 
     $number->destroy();
 
-    $person2 = new PersonForTest($person->getId());
+    $person2 = new PersonForTestObject($person->getId());
     $this->assertNull($person2->get('ss_id'));
   }
 
@@ -378,10 +378,10 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person->setSocialSecurity(null);
     $person_id = $person->save();
 
-    $person2 = new PersonForTest($person_id);
+    $person2 = new PersonForTestObject($person_id);
     $this->assertNull($person2->getSocialSecurity());
 
-    $number2 = new SocialSecurityForTest($number->getId());
+    $number2 = new SocialSecurityForTestObject($number->getId());
     $this->assertEquals($number2->getCode(), $number->getCode());
   }
 
@@ -394,7 +394,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
 
     $source = array('name' => $person->getName());
 
-    $person2 = new PersonForTest($person->getid());
+    $person2 = new PersonForTestObject($person->getid());
     $person2->save();
 
     $this->assertEquals($person2->getName(), $person->getName());

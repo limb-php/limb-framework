@@ -132,9 +132,9 @@ class lmbARDirtyTest extends lmbARBaseTestCase
 
   function testSettingNewParentObjectDoesntMakeNewObjectDirty()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
 
-    $lecture = new LectureForTest();
+    $lecture = new LectureForTestObject();
     $lecture->setCourse($course);
 
     $this->assertTrue($lecture->isNew());
@@ -143,29 +143,29 @@ class lmbARDirtyTest extends lmbARBaseTestCase
 
   function testParentIsSavedEvenForCleanObject()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle('course');
     $course->save();
 
-    $lecture = new LectureForTest();
+    $lecture = new LectureForTestObject();
     $lecture->setCourse($course);
     $lecture->save();
 
-    $lecture2 = new LectureForTest($lecture->getId());
+    $lecture2 = new LectureForTestObject($lecture->getId());
     $this->assertEquals($lecture2->getCourse()->getTitle(), 'course');
   }
 
   function testChangingSavedParentObjectDoesntMakeObjectDirty()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle('course');
     $course->save();
 
-    $lecture = new LectureForTest();
+    $lecture = new LectureForTestObject();
     $lecture->setCourse($course);
     $lecture->save();
 
-    $lecture2 = new LectureForTest($lecture->getId());
+    $lecture2 = new LectureForTestObject($lecture->getId());
     $this->assertFalse($lecture2->isDirty());
 
     $course2 = $lecture2->getCourse();
@@ -176,26 +176,26 @@ class lmbARDirtyTest extends lmbARBaseTestCase
 
   function testSettingExistingParentMakesNewObjectDirty()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle('course');
     $course->save();
 
-    $lecture = new LectureForTest();
+    $lecture = new LectureForTestObject();
     $lecture->setCourse($course);
     $this->assertTrue($lecture->isDirty());
     $lecture->save();
 
-    $lecture2 = new LectureForTest($lecture->getId());
+    $lecture2 = new LectureForTestObject($lecture->getId());
     $this->assertEquals($lecture2->getCourse()->getTitle(), $course->getTitle());
   }
 
   function testSettingExistingParentMakesExistingObjectDirty()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle('course');
     $course->save();
 
-    $lecture = new LectureForTest();
+    $lecture = new LectureForTestObject();
     $lecture->setTitle('test');
     $lecture->save();
 
@@ -203,15 +203,15 @@ class lmbARDirtyTest extends lmbARBaseTestCase
     $this->assertTrue($lecture->isDirty());
     $lecture->save();
 
-    $lecture2 = new LectureForTest($lecture->getId());
+    $lecture2 = new LectureForTestObject($lecture->getId());
     $this->assertEquals($lecture2->getCourse()->getTitle(), $course->getTitle());
   }
 
   function testAddingToCollectionDoesntMakeNewObjectDirty()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
 
-    $lecture = new LectureForTest();
+    $lecture = new LectureForTestObject();
 
     $course->addToLectures($lecture);
     $this->assertFalse($course->isDirty());
@@ -219,11 +219,11 @@ class lmbARDirtyTest extends lmbARBaseTestCase
 
   function testAddingToCollectionDoesntMakeExistingObjectDirty()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle('course');
     $course->save();
 
-    $lecture = new LectureForTest();
+    $lecture = new LectureForTestObject();
 
     $course->addToLectures($lecture);
     $this->assertFalse($course->isDirty());
@@ -231,7 +231,7 @@ class lmbARDirtyTest extends lmbARBaseTestCase
 
   function testGettingCollectionDoesntMakeObjectDirty()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $lectures = $course->getLectures();
     $this->assertFalse($course->isDirty());
   }
@@ -266,9 +266,9 @@ class lmbARDirtyTest extends lmbARBaseTestCase
 
   function testUnsettingOneToOneChildObjectMakesPropertyDirty()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $person->setName('Jim');
-    $number = new SocialSecurityForTest();
+    $number = new SocialSecurityForTestObject();
     $number->setCode('099123');
 
     $person->setSocialSecurity($number);

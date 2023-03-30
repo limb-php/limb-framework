@@ -13,6 +13,8 @@ use limb\dbal\src\drivers\lmbAuditDbConnection;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\lmbSimpleDb;
 
+require_once '.setup.php';
+
 class lmbARBaseTestCase extends TestCase
 {
   protected $conn;

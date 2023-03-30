@@ -20,7 +20,7 @@ class lmbARRecordSetJoinDecoratorTest extends lmbARBaseTestCase
   function testProcessPrefixedFieldsAsRelatedActiveRecords()
   {
     $course = $this->_createCourseWithTwoLectures();
-    $lecture = new LectureForTest();
+    $lecture = new LectureForTestObject();
     $course_info = $lecture->getRelationInfo('course'); 
 
     $conn = lmbToolkit :: instance()->getDefaultDbConnection();
@@ -29,7 +29,7 @@ class lmbARRecordSetJoinDecoratorTest extends lmbARBaseTestCase
             FROM ' . $conn->quoteIdentifier("lecture_for_test") . ' LEFT JOIN ' . $conn->quoteIdentifier("course_for_test") . ' ON ' . $conn->quoteIdentifier("course_for_test.id") . ' = ' . $conn->quoteIdentifier("lecture_for_test.course_id");
     $decorated = lmbDBAL :: fetch($sql);
 
-    $iterator = new lmbARRecordSetJoinDecorator($decorated, new LectureForTest(), null, array('course' => $course_info));
+    $iterator = new lmbARRecordSetJoinDecorator($decorated, new LectureForTestObject(), null, array('course' => $course_info));
     
     // let's fetch all data in order to actually call rewind() and current();
     $arr = $iterator->getArray();
@@ -44,12 +44,12 @@ class lmbARRecordSetJoinDecoratorTest extends lmbARBaseTestCase
 
   function _createCourseWithTwoLectures()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle($title = 'General Course');
 
-    $l1 = new LectureForTest();
+    $l1 = new LectureForTestObject();
     $l1->setTitle('Physics');
-    $l2 = new LectureForTest();
+    $l2 = new LectureForTestObject();
     $l2->setTitle('Math');
 
     $course->addToLectures($l1);

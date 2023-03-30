@@ -148,12 +148,12 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportWhereOne2ManyCollectionIsArrayOfIds()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle('Some course');
 
-    $l1 = new LectureForTest();
+    $l1 = new LectureForTestObject();
     $l1->setTitle('Physics');
-    $l2 = new LectureForTest();
+    $l2 = new LectureForTestObject();
     $l2->setTitle('Math');
 
     $course->addToLectures($l1);
@@ -164,7 +164,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $source = array('title' => $course->getTitle(),
                     'lectures' => array($l1->getId(), $l2->getId()));
 
-    $course2 = new CourseForTest();
+    $course2 = new CourseForTestObject();
     $course2->import($source);
     $this->assertEquals($course2->getTitle(), $course->getTitle());
     $this->assertEquals($course2->getLectures()->count(), 2);
@@ -174,12 +174,12 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportWhereOne2ManyCollectionIsMixedArray()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle('Some course');
 
-    $l1 = new LectureForTest();
+    $l1 = new LectureForTestObject();
     $l1->setTitle('Physics');
-    $l2 = new LectureForTest();
+    $l2 = new LectureForTestObject();
     $l2->setTitle('Math');
 
     $course->addToLectures($l1);
@@ -190,7 +190,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $source = array('title' => $course->getTitle(),
                     'lectures' => array($l1->getId(), $l2));
 
-    $course2 = new CourseForTest();
+    $course2 = new CourseForTestObject();
     $course2->import($source);
     $this->assertEquals($course2->getTitle(), $course->getTitle());
     $this->assertEquals($course2->getLectures()->count(), 2);
@@ -200,12 +200,12 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportResetsExistingOne2ManyCollection()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle('Some course');
 
-    $l1 = new LectureForTest();
+    $l1 = new LectureForTestObject();
     $l1->setTitle('Physics');
-    $l2 = new LectureForTest();
+    $l2 = new LectureForTestObject();
     $l2->setTitle('Math');
 
     $course->addToLectures($l1);
@@ -216,7 +216,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $source = array('title' => $course->getTitle(),
                     'lectures' => array($l2->getId()));
 
-    $course2 = new CourseForTest($course->getId());
+    $course2 = new CourseForTestObject($course->getId());
 
     $course2->import($source);
     $this->assertEquals($course2->getTitle(), $course->getTitle());
@@ -226,12 +226,12 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportResetsExistingMany2ManyCollection()
   {
-    $group = new GroupForTest();
+    $group = new GroupForTestObject();
     $group->setTitle('Some group');
 
-    $u1 = new UserForTest();
+    $u1 = new UserForTestObject();
     $u1->setFirstName('Bob');
-    $u2 = new UserForTest();
+    $u2 = new UserForTestObject();
     $u2->setFirstName('John');
 
     $group->addToUsers($u1);
@@ -242,7 +242,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $source = array('title' => $group->getTitle(),
                     'users' => array($u2->getId()));
 
-    $group2 = new GroupForTest($group->getId());
+    $group2 = new GroupForTestObject($group->getId());
     $group2->import($source);
     $this->assertEquals($group2->getTitle(), $group->getTitle());
     $this->assertEquals($group2->getUsers()->count(), 1);
@@ -251,10 +251,10 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportWhereOne2ManyParentIsNumericId()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle('Some course');
 
-    $l = new LectureForTest();
+    $l = new LectureForTestObject();
     $l->setTitle('Physics');
     $l->setCourse($course);
 
@@ -263,7 +263,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $source = array('title' => $l->getTitle(),
                     'course' => $course->getId());
 
-    $l2 = new LectureForTest();
+    $l2 = new LectureForTestObject();
     $l2->import($source);
 
     $this->assertEquals($l2->getTitle(), $l->getTitle());
@@ -272,10 +272,10 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportWhereOne2ManyParentIsObject()
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle('Some course');
 
-    $l = new LectureForTest();
+    $l = new LectureForTestObject();
     $l->setTitle('Physics');
     $l->setCourse($course);
 
@@ -284,7 +284,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $source = array('title' => $l->getTitle(),
                     'course' => $course);
 
-    $l2 = new LectureForTest();
+    $l2 = new LectureForTestObject();
     $l2->import($source);
     $this->assertEquals($l2->getTitle(), $l->getTitle());
     $this->assertEquals($l2->getCourse()->getTitle(), $course->getTitle());
@@ -292,12 +292,12 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportWhereMany2ManyCollectionIsArrayOfIds()
   {
-    $user1 = new UserForTest();
+    $user1 = new UserForTestObject();
     $user1->setFirstName('Bob');
 
-    $g1 = new GroupForTest();
+    $g1 = new GroupForTestObject();
     $g1->setTitle('vp1');
-    $g2 = new GroupForTest();
+    $g2 = new GroupForTestObject();
     $g2->setTitle('vp1');
 
     $user1->addToGroups($g1);
@@ -307,7 +307,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $source = array('first_name' => $user1->getFirstName(),
                     'groups' => array($g1->getId(), $g2->getId()));
 
-    $user2 = new UserForTest();
+    $user2 = new UserForTestObject();
     $user2->import($source);
     $this->assertEquals($user2->getFirstName(), $user1->getFirstName());
     $this->assertEquals($user2->getGroups()->count(), 2);
@@ -317,12 +317,12 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportWhereMany2ManyCollectionIsMixedArray()
   {
-    $user1 = new UserForTest();
+    $user1 = new UserForTestObject();
     $user1->setFirstName('Bob');
 
-    $g1 = new GroupForTest();
+    $g1 = new GroupForTestObject();
     $g1->setTitle('vp1');
-    $g2 = new GroupForTest();
+    $g2 = new GroupForTestObject();
     $g2->setTitle('vp1');
 
     $user1->addToGroups($g1);
@@ -332,7 +332,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $source = array('first_name' => $user1->getFirstName(),
                     'groups' => array($g1->getId(), $g2));
 
-    $user2 = new UserForTest();
+    $user2 = new UserForTestObject();
     $user2->import($source);
     $this->assertEquals($user2->getFirstName(), $user1->getFirstName());
     $this->assertEquals($user2->getGroups()->count(), 2);
@@ -342,9 +342,9 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportOne2OneWhereParentIsNumericId()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $person->setName('Jim');
-    $number = new SocialSecurityForTest();
+    $number = new SocialSecurityForTestObject();
     $number->setCode('099123');
     $person->setSocialSecurity($number);
     $person->save();
@@ -352,7 +352,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $source = array('code' => $number->getCode(),
                     'person' => $person->getId());
 
-    $number2 = new SocialSecurityForTest();
+    $number2 = new SocialSecurityForTestObject();
     $number2->import($source);
     $this->assertEquals($number2->getCode(), $number->getCode());
     $this->assertEquals($number2->getPerson()->getName(), $person->getName());
@@ -360,9 +360,9 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportOne2OneWhereParentIsObject()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $person->setName('Jim');
-    $number = new SocialSecurityForTest();
+    $number = new SocialSecurityForTestObject();
     $number->setCode('099123');
     $person->setSocialSecurity($number);
     $person->save();
@@ -370,7 +370,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $source = array('code' => $number->getCode(),
                     'person' => $person);
 
-    $number2 = new SocialSecurityForTest();
+    $number2 = new SocialSecurityForTestObject();
     $number2->import($source);
     $this->assertEquals($number2->getCode(), $number->getCode());
     $this->assertEquals($number2->getPerson()->getName(), $person->getName());
@@ -378,9 +378,9 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportOne2OneWhereChildIsId()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $person->setName('Jim');
-    $number = new SocialSecurityForTest();
+    $number = new SocialSecurityForTestObject();
     $number->setCode('099123');
     $person->setSocialSecurity($number);
     $person->save();
@@ -388,7 +388,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $source = array('name' => $person->getName(),
                     'social_security' => $number->getId());
 
-    $person2 = new PersonForTest();
+    $person2 = new PersonForTestObject();
     $person2->import($source);
     $this->assertEquals($person2->getName(), $person->getName());
     $this->assertEquals($person2->getSocialSecurity()->getCode(), $number->getCode());
@@ -396,9 +396,9 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportOne2OneWhereChildIsObject()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $person->setName('Jim');
-    $number = new SocialSecurityForTest();
+    $number = new SocialSecurityForTestObject();
     $number->setCode('099123');
     $person->setSocialSecurity($number);
     $person->save();
@@ -406,7 +406,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $source = array('name' => $person->getName(),
                     'social_security' => $number);
 
-    $person2 = new PersonForTest();
+    $person2 = new PersonForTestObject();
     $person2->import($source);
     $this->assertEquals($person2->getName(), $person->getName());
     $this->assertEquals($person2->getSocialSecurity()->getCode(), $number->getCode());
@@ -414,9 +414,9 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportNullEntity()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $person->setName('Jim');
-    $number = new SocialSecurityForTest();
+    $number = new SocialSecurityForTestObject();
     $number->setCode('099123');
     $person->setSocialSecurity($number);
     $person->save();
@@ -432,9 +432,9 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportNullEntityString()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $person->setName('Jim');
-    $number = new SocialSecurityForTest();
+    $number = new SocialSecurityForTestObject();
     $number->setCode('099123');
     $person->setSocialSecurity($number);
     $person->save();
@@ -450,9 +450,9 @@ class lmbARImportTest extends lmbARBaseTestCase
 
   function testImportNullEntityEmptyString()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $person->setName('Jim');
-    $number = new SocialSecurityForTest();
+    $number = new SocialSecurityForTestObject();
     $number->setCode('099123');
     $person->setSocialSecurity($number);
     $person->save();

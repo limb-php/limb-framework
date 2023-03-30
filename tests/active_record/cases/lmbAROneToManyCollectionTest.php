@@ -42,7 +42,7 @@ class lmbARTestingDSDecorator extends lmbCollectionDecorator
   }
 }
 
-class LectureForTestStub extends LectureForTest
+class LectureForTestObjectStub extends LectureForTestObject
 {
   var $save_calls = 0;
 
@@ -54,21 +54,21 @@ class LectureForTestStub extends LectureForTest
 }
 
 
-class SpecialCourseForTest extends CourseForTest
+class SpecialCourseForTestObject extends CourseForTestObject
 {
   protected $_has_many = array('lectures' => array('field' => 'course_id',
-                                                   'class' => LectureForTest::class,
+                                                   'class' => LectureForTestObject::class,
                                                    'sort_params' => array('id' => 'DESC')));
 }
 
-class VerySpecialCourseForTest extends CourseForTest
+class VerySpecialCourseForTestObject extends CourseForTestObject
 {
   protected $_has_many = array('lectures' => array('field' => 'course_id',
-                                                   'class' => SpecialLectureForTest::class
+                                                   'class' => SpecialLectureForTestObject::class
   ));
 }
 
-class SpecialLectureForTest extends LectureForTest
+class SpecialLectureForTestObject extends LectureForTestObject
 {
   protected $_default_sort_params = array('id' => 'DESC');
 }
@@ -146,8 +146,8 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
 
   function testSaveWithExistingOwnerDoesNothing()
   {
-    $l1 = $this->createMock(LectureForTest::class);
-    $l2 = $this->createMock(LectureForTest::class);
+    $l1 = $this->createMock(LectureForTestObject::class);
+    $l2 = $this->createMock(LectureForTestObject::class);
 
     $course = $this->_createCourseAndSave();
 
@@ -187,9 +187,9 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
 
   function testSavingOwnerDoesntAffectCollection()
   {
-    $l1 = new LectureForTestStub();
+    $l1 = new LectureForTestObjectStub();
     $l1->setTitle('Physics');
-    $l2 = new LectureForTestStub();
+    $l2 = new LectureForTestObjectStub();
     $l2->setTitle('Math');
 
     $course = $this->_createCourse();
@@ -343,7 +343,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $collection = new lmbAROneToManyCollection('lectures', $course);
     $collection->removeAll();
 
-    $course2 = lmbActiveRecord::findById(CourseForTest::class, $course->getId());
+    $course2 = lmbActiveRecord::findById(CourseForTestObject::class, $course->getId());
 
     $collection = new lmbAROneToManyCollection('lectures', $course2);
     $this->assertEquals(sizeof($collection->getArray()), 0);
@@ -460,7 +460,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $l1 = $this->_createLecture();
     $l2 = $this->_createLecture();
 
-    $course = new SpecialCourseForTest();// lectures relation info has sort_params
+    $course = new SpecialCourseForTestObject();// lectures relation info has sort_params
     $course->setTitle('Special cource');
     $course->addToLectures($l1);
     $course->addToLectures($l2);
@@ -473,12 +473,12 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
 
   function testFindForExistingOwnerAppliesSortParamsFromChildObjectByDefault()
   {
-    $l1 = new SpecialLectureForTest();
+    $l1 = new SpecialLectureForTestObject();
     $l1->setTitle('lecture1');
-    $l2 = new SpecialLectureForTest();
+    $l2 = new SpecialLectureForTestObject();
     $l2->setTitle('lecture2');
 
-    $course = new VerySpecialCourseForTest();// lectures relation info has sort_params
+    $course = new VerySpecialCourseForTestObject();// lectures relation info has sort_params
     $course->setTitle('Special cource');
     $course->addToLectures($l1);
     $course->addToLectures($l2);
@@ -494,7 +494,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
     $l1 = $this->_createLecture();
     $l2 = $this->_createLecture();
 
-    $course = new SpecialCourseForTest();// lectures relation info has sort_params
+    $course = new SpecialCourseForTestObject();// lectures relation info has sort_params
     $course->setTitle('Special cource');
     $course->addToLectures($l1);
     $course->addToLectures($l2);
@@ -633,7 +633,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
 
   protected function _initCourse($lectures = array())
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle('Course' . mt_rand());
 
     if(count($lectures))
@@ -662,7 +662,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
   {
     $title = $title ? $title : 'Lecture' . mt_rand();
 
-    $l = new LectureForTest();
+    $l = new LectureForTestObject();
     $l->setTitle($title);
     return $l;
   }

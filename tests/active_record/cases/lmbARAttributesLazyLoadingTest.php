@@ -11,6 +11,8 @@ namespace tests\active_record\cases;
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARQuery;
 
+require_once '.setup.php';
+
 class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 {
   protected $tables_to_cleanup = array('test_one_table_object'); 
@@ -61,7 +63,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
   
   function testLazyWorksOkForEagerJoin_OneToOneRelations()
   {
-    $person = new PersonForLazyAttributesTest();
+    $person = new PersonForLazyAttributesTestObject();
     $person->setName('Some name');
     
     $lazy_object = $this->_createActiveRecord($annotation = 'Some annotation', $content = 'Some content');
@@ -69,7 +71,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     $person->save();
     
-    $person_loaded = lmbActiveRecord :: findOne(PersonForLazyAttributesTest::class,
+    $person_loaded = lmbActiveRecord :: findOne(PersonForLazyAttributesTestObject::class,
                                                 array('criteria' => 'person_for_test.id = ' . $person->getId(),
                                                       'join' => 'lazy_object'));
     
@@ -79,7 +81,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
   function testForceToLoadAllLazyAttributes_ForEagerJoin_OneToOneRelations()
   {
-    $person = new PersonForLazyAttributesTest();
+    $person = new PersonForLazyAttributesTestObject();
     $person->setName('Some name');
     
     $lazy_object = $this->_createActiveRecord($annotation = 'Some annotation', $content = 'Some content');
@@ -87,7 +89,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     $person->save();
     
-    $person_loaded = lmbActiveRecord :: findOne(PersonForLazyAttributesTest::class,
+    $person_loaded = lmbActiveRecord :: findOne(PersonForLazyAttributesTestObject::class,
                                                 array('criteria' => 'person_for_test.id = ' . $person->getId(),
                                                       'join' => array('lazy_object' => array('with_lazy_attributes' => ''))));
     
@@ -98,7 +100,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
   
   function testLazyWorksOkForEagerJoin_ForParentObject_OneToOneRelations()
   {
-    $person = new PersonForLazyAttributesTest();
+    $person = new PersonForLazyAttributesTestObject();
     $person->setName($name = 'Some name');
     
     $lazy_object = $this->_createActiveRecord($annotation = 'Some annotation', $content = 'Some content');
@@ -106,7 +108,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     $person->save();
     
-    $person_loaded = lmbActiveRecord :: findOne(PersonForLazyAttributesTest::class,
+    $person_loaded = lmbActiveRecord :: findOne(PersonForLazyAttributesTestObject::class,
                                                 array('criteria' => 'person_for_test.id = ' . $person->getId(),
                                                       'join' => 'lazy_object'));
     $this->assertFalse(array_key_exists('name', $person_loaded->exportRaw()));
@@ -114,7 +116,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
   function testLazyWorksOkForEagerAttach_OneToOneRelations()
   {
-    $person = new PersonForLazyAttributesTest();
+    $person = new PersonForLazyAttributesTestObject();
     $person->setName('Some name');
     
     $lazy_object = $this->_createActiveRecord($annotation = 'Some annotation', $content = 'Some content');
@@ -122,7 +124,7 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     $person->save();
     
-    $person_loaded = lmbActiveRecord :: findOne(PersonForLazyAttributesTest::class,
+    $person_loaded = lmbActiveRecord :: findOne(PersonForLazyAttributesTestObject::class,
                                                 array('criteria' => 'person_for_test.id = ' . $person->getId(),
                                                       'attach' => 'lazy_object'));
     
@@ -204,17 +206,17 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     //all fields are lazy
     $lectures = $course->getLectures()->find(array('fields' => array()));
-    $this->assertEquals(sizeof($lectures), 2);
+    $this->assertEquals(2, sizeof($lectures));
 
     $fields1 = $lectures[0]->exportRaw();
     $this->assertFalse(isset($fields1['title']));
     //lazy loading kicks in
-    $this->assertEquals($lectures[0]->getTitle(), 'Lecture1');
+    $this->assertEquals('Lecture1', $lectures[0]->getTitle());
 
     $fields2 = $lectures[1]->exportRaw();
     $this->assertFalse(isset($fields2['title']));
     //lazy loading kicks in
-    $this->assertEquals($lectures[1]->getTitle(), 'Lecture2');
+    $this->assertEquals('Lecture2', $lectures[1]->getTitle());
   }
 
   function testLazyFieldsInManyToManyRelations()
@@ -233,17 +235,17 @@ class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 
     //all fields are lazy
     $users = $group->getUsers()->find(array('fields' => array()));
-    $this->assertEquals(sizeof($users), 2);
+    $this->assertEquals(2, sizeof($users));
 
     $fields1 = $users[0]->exportRaw();
     $this->assertFalse(isset($fields1['title']));
     //lazy loading kicks in
-    $this->assertEquals($users[0]->getFirstName(), 'bob1');
+    $this->assertEquals('bob1', $users[0]->getFirstName());
 
     $fields2 = $users[1]->exportRaw();
     $this->assertFalse(isset($fields2['title']));
     //lazy loading kicks in
-    $this->assertEquals($users[1]->getFirstName(), 'bob2');
+    $this->assertEquals('bob2', $users[1]->getFirstName());
   }
 
   protected function _checkLazyness($object, $annotation, $content)

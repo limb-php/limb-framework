@@ -386,7 +386,7 @@ class lmbARQueryTest extends lmbARBaseTestCase
     $arr[0]->setTitle('Changed');
     $arr[0]->save();
     
-    $loaded_course = new CourseForTest($course1->getId());
+    $loaded_course = new CourseForTestObject($course1->getId());
     $lectures = $loaded_course->getLectures();
     $this->assertEquals(count($lectures), 2);
   }

@@ -25,7 +25,7 @@ class lmbARTestingObjectMother
   
   function initPerson()
   {
-    $person = new PersonForTest();
+    $person = new PersonForTestObject();
     $person->setName('Person_' . rand(0, 1000));
     return $person;
   }
@@ -42,7 +42,7 @@ class lmbARTestingObjectMother
   
   function initSocialSecurity()
   {
-    $number = new SocialSecurityForTest();
+    $number = new SocialSecurityForTestObject();
     $number->setCode(rand(0,1000));
     return $number;
   }
@@ -56,7 +56,7 @@ class lmbARTestingObjectMother
   
   function createCourse($program = null)
   {
-    $course = new CourseForTest();
+    $course = new CourseForTestObject();
     $course->setTitle('Course_'. rand(0, 100));
     
     if($program)
@@ -68,7 +68,7 @@ class lmbARTestingObjectMother
   
   function createProgram()
   {
-    $program = new ProgramForTest();
+    $program = new ProgramForTestObject();
     $program->setTitle('Program_'. rand(0, 100));
     $program->save();
     return $program;
@@ -76,7 +76,7 @@ class lmbARTestingObjectMother
 
   function createLecture($course, $alt_course = null, $title = '')
   {
-    $lecture = new LectureForTest();
+    $lecture = new LectureForTestObject();
     $title = $title ? $title : 'Lecture_'. rand(0, 100);
     $lecture->setTitle($title);
     $lecture->setCourse($course);
@@ -90,7 +90,7 @@ class lmbARTestingObjectMother
   
   function initUser($linked_object = null)
   {
-    $user = new UserForTest();
+    $user = new UserForTestObject();
     $user->setFirstName('User_' . rand(0, 1000));
     
     if($linked_object)
@@ -108,7 +108,7 @@ class lmbARTestingObjectMother
   
   function initGroup($title = '')
   {
-    $group = new GroupForTest();
+    $group = new GroupForTestObject();
     $title = $title ? $title : 'Group_' . rand(0, 1000);
     $group->setTitle($title);
     return $group;

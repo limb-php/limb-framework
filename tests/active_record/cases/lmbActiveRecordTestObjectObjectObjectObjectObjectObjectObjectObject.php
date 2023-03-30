@@ -16,12 +16,11 @@ use limb\dbal\src\criteria\lmbSQLRawCriteria;
 require_once '.setup.php';
 
 
-
-class PersonForTest extends lmbActiveRecord
+class PersonForTestObject extends lmbActiveRecord
 {
     public $save_count = 0;
     protected $_has_one = array('social_security' => array('field' => 'ss_id',
-        'class' => SocialSecurityForTest::class,
+        'class' => SocialSecurityForTestObject::class,
         'can_be_null' => true));
 
     function _onSave()
@@ -30,7 +29,7 @@ class PersonForTest extends lmbActiveRecord
     }
 }
 
-class PersonForLazyAttributesTest extends lmbActiveRecord
+class PersonForLazyAttributesTestObject extends lmbActiveRecord
 {
     protected $_db_table_name = 'person_for_test';
     protected $_has_one = array('lazy_object' => array('field' => 'ss_id',
@@ -40,39 +39,39 @@ class PersonForLazyAttributesTest extends lmbActiveRecord
     protected $_lazy_attributes = array('name');
 }
 
-class SocialSecurityForTest extends lmbActiveRecord
+class SocialSecurityForTestObject extends lmbActiveRecord
 {
     protected $_belongs_to = array('person' => array('field' => 'ss_id',
-        'class' => PersonForTest::class
+        'class' => PersonForTestObject::class
     ));
 }
 
-class ProgramForTest extends lmbActiveRecord
+class ProgramForTestObject extends lmbActiveRecord
 {
     protected $_db_table_name = 'program_for_test';
 
     protected $_has_many = array('courses' => array('field' => 'program_id',
-        'class' => CourseForTest::class
+        'class' => CourseForTestObject::class
     ),
 
         'cached_lectures' => array('field' => 'program_id',
-            'class' => LectureForTest::class
+            'class' => LectureForTestObject::class
         ));
 }
 
-class CourseForTest extends lmbActiveRecord
+class CourseForTestObject extends lmbActiveRecord
 {
     protected $_db_table_name = 'course_for_test';
     protected $_has_many = array('lectures' => array('field' => 'course_id',
-        'class' => LectureForTest::class),
+        'class' => LectureForTestObject::class),
         'alt_lectures' => array('field' => 'alt_course_id',
-            'class' => LectureForTest::class),
+            'class' => LectureForTestObject::class),
         'foo_lectures' => array('field' => 'course_id',
-            'class' => LectureForTest::class,
+            'class' => LectureForTestObject::class,
             'criteria'=>'lecture_for_test.title like "foo%"'));
 
     protected $_many_belongs_to = array('program' => array('field' => 'program_id',
-        'class' => ProgramForTest::class,
+        'class' => ProgramForTestObject::class,
         'can_be_null' => true));
 
     public $save_calls = 0;
@@ -84,18 +83,18 @@ class CourseForTest extends lmbActiveRecord
     }
 }
 
-class LectureForTest extends lmbActiveRecord
+class LectureForTestObject extends lmbActiveRecord
 {
     protected $_db_table_name = 'lecture_for_test';
     protected $_many_belongs_to = array('course' => array('field' => 'course_id',
-        'class' => CourseForTest::class
+        'class' => CourseForTestObject::class
     ),
         'alt_course' => array('field' => 'alt_course_id',
-            'class' => CourseForTest::class,
+            'class' => CourseForTestObject::class,
             'can_be_null' => true
         ),
         'cached_program' => array('field' => 'program_id',
-            'class' => ProgramForTest::class
+            'class' => ProgramForTestObject::class
         ));
 
     protected $_test_validator;
@@ -114,45 +113,19 @@ class LectureForTest extends lmbActiveRecord
     }
 }
 
-class GroupForTest extends lmbActiveRecord
-{
-    protected $_db_table_name = 'group_for_test';
-
-    protected $_has_many_to_many = array('users' => array('field' => 'group_id',
-        'foreign_field' => 'user_id',
-        'table' => 'user_for_test2group_for_test',
-        'class' => UserForTest::class
-    ));
-
-    protected $_test_validator;
-
-    function setValidator($validator)
-    {
-        $this->_test_validator = $validator;
-    }
-
-    function _createValidator()
-    {
-        if($this->_test_validator)
-            return $this->_test_validator;
-
-        return parent::_createValidator();
-    }
-}
-
-class UserForTest extends lmbActiveRecord
+class UserForTestObject extends lmbActiveRecord
 {
     protected $_db_table_name = 'user_for_test';
 
     protected $_has_many_to_many = array('groups' => array('field' => 'user_id',
         'foreign_field' => 'group_id',
         'table' => 'user_for_test2group_for_test',
-        'class' => GroupForTest::class
+        'class' => GroupForTestObject::class
     ),
         'cgroups' => array('field' => 'user_id',
             'foreign_field' => 'group_id',
             'table' => 'user_for_test2group_for_test',
-            'class' => GroupForTest::class,
+            'class' => GroupForTestObject::class,
             'criteria' =>'group_for_test.title="condition"'
         ));
 
@@ -730,7 +703,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $lecture2 = $this->creator->createLecture($course2, $alt_course2);
     $lecture3 = $this->creator->createLecture($course1, $alt_course2);
 
-    $rs = lmbActiveRecord :: find(LectureForTest::class, array('join' => 'course, alt_course'));
+    $rs = lmbActiveRecord :: find(LectureForTestObject::class, array('join' => 'course, alt_course'));
     $arr = $rs->getArray();
 
     //make sure we really eager fetching
@@ -759,13 +732,13 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $lecture3 = $this->creator->createLecture($course1, null, 'AAA');
     $lecture4 = $this->creator->createLecture($course1, null, 'BBB');
 
-    $rs = lmbActiveRecord :: find(CourseForTest::class, array('attach' => array('lectures' => array('sort' => array('title' => 'ASC')))));
+    $rs = lmbActiveRecord :: find(CourseForTestObject::class, array('attach' => array('lectures' => array('sort' => array('title' => 'ASC')))));
     $arr = $rs->getArray();
 
     //make sure we really eager fetching
     $this->db->delete('lecture_for_test');
 
-    $this->assertInstanceOf(CourseForTest::class, $arr[0]);
+    $this->assertInstanceOf(CourseForTestObject::class, $arr[0]);
     $this->assertEquals($arr[0]->getTitle(), $course1->getTitle());
     $lectures = $arr[0]->getLectures();
     $this->assertEquals(count($lectures), 3);
@@ -776,7 +749,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
     $this->assertEquals($lectures[2]->getId(), $lecture1->getId());
     $this->assertEquals($lectures[2]->getTitle(), 'ZZZ');
 
-    $this->assertInstanceOf(CourseForTest::class, $arr[1]);
+    $this->assertInstanceOf(CourseForTestObject::class, $arr[1]);
     $this->assertEquals($arr[1]->getTitle(), $course2->getTitle());
     $lectures = $arr[1]->getLectures();
     $this->assertEquals(count($lectures), 1);

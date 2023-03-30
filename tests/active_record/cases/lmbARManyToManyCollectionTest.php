@@ -16,7 +16,7 @@ use limb\core\src\exception\lmbException;
 use limb\dbal\src\lmbDBAL;
 use limb\dbal\src\lmbTableGateway;
 
-class GroupForTestStub extends GroupForTest
+class GroupForTestObjectStub extends GroupForTestObject
 {
   var $save_calls = 0;
 
@@ -34,7 +34,7 @@ class UserForTestWithSpecialRelationTable extends lmbActiveRecord
   protected $_has_many_to_many = array('groups' => array('field' => 'user_id',
                                                          'foreign_field' => 'group_id',
                                                          'table' => 'extended_user_for_test2group_for_test',
-                                                         'class' => GroupForTest::class));
+                                                         'class' => GroupForTestObject::class));
 }
 
 class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
@@ -90,8 +90,8 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
   function testSaveWithExistingOwnerDoesNothing()
   {
-    $group1 = $this->createMock(GroupForTest::class);
-    $group2 = $this->createMock(GroupForTest::class);
+    $group1 = $this->createMock(GroupForTestObject::class);
+    $group2 = $this->createMock(GroupForTestObject::class);
 
     $user = $this->_createUserAndSave();
 
@@ -132,9 +132,9 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
   function testSavingOwnerDoesntAffectCollection()
   {
-    $group1 = new GroupForTestStub();
+    $group1 = new GroupForTestObjectStub();
     $group1->setTitle('Group1');
-    $group2 = new GroupForTestStub();
+    $group2 = new GroupForTestObjectStub();
     $group2->setTitle('Group2');
 
     $user = $this->_initUser();
@@ -226,7 +226,7 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $group1 = $this->_initGroup();
     $group2 = $this->_initGroup();
 
-    $user = new UserForTest();
+    $user = new UserForTestObject();
 
     $collection = new lmbARManyToManyCollection('groups', $user);
     $this->assertEquals($collection->count(), 0);
@@ -290,7 +290,7 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $collection = new lmbARManyToManyCollection('groups', $user);
     $collection->removeAll();
 
-    $user2 = lmbActiveRecord :: findById(UserForTest::class, $user->getId());
+    $user2 = lmbActiveRecord :: findById(UserForTestObject::class, $user->getId());
 
     $collection = new lmbARManyToManyCollection('groups', $user2);
     $this->assertEquals(sizeof($collection->getArray()), 0);
@@ -377,11 +377,11 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
   function testSortWithExistingOwner()
   {
-    $group1 = new GroupForTest();
+    $group1 = new GroupForTestObject();
     $group1->setTitle('A-Group');
-    $group2 = new GroupForTest();
+    $group2 = new GroupForTestObject();
     $group2->setTitle('B-Group');
-    $group3 = new GroupForTest();
+    $group3 = new GroupForTestObject();
     $group3->setTitle('C-Group');
 
     $user = $this->_createUserAndSave(array($group1, $group2, $group3));
@@ -400,11 +400,11 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
   function testSortWithNonSavedOwner()
   {
-    $group1 = new GroupForTest();
+    $group1 = new GroupForTestObject();
     $group1->setTitle('A-Group');
-    $group2 = new GroupForTest();
+    $group2 = new GroupForTestObject();
     $group2->setTitle('B-Group');
-    $group3 = new GroupForTest();
+    $group3 = new GroupForTestObject();
     $group3->setTitle('C-Group');
 
     $user = $this->_initUser();
@@ -547,7 +547,7 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
   protected function _initUser($groups = array())
   {
-    $user = new UserForTest();
+    $user = new UserForTestObject();
     $user->setFirstName('User' . mt_rand());
 
     if(sizeof($groups))
@@ -568,7 +568,7 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 
   protected function _initGroup()
   {
-    $group = new GroupForTest();
+    $group = new GroupForTestObject();
     $group->setTitle('Group' . mt_rand());
     return $group;
   }

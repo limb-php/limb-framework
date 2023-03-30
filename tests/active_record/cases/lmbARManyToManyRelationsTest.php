@@ -22,7 +22,7 @@ class UserForTestWithCustomCollection extends lmbActiveRecord
   protected $_has_many_to_many = array('groups' => array('field' => 'user_id',
                                                          'foreign_field' => 'group_id',
                                                          'table' => 'user_for_test2group_for_test',
-                                                         'class' => GroupForTest::class,
+                                                         'class' => GroupForTestObject::class,
                                                          'collection' => GroupsForTestCollectionStub::class));
 }
 
@@ -32,14 +32,14 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
 
   function testMapPropertyToField()
   {
-    $group = new GroupForTest();
+    $group = new GroupForTestObject();
     $this->assertEquals('users', $group->mapFieldToProperty('group_id'));
     $this->assertNull($group->mapFieldToProperty('blah'));
   }
 
   function testNewObjectReturnsEmptyCollection()
   {
-    $user = new UserForTest();
+    $user = new UserForTestObject();
     $groups = $user->getGroups();
     $groups->rewind();
     $this->assertFalse($groups->valid());
@@ -185,11 +185,11 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
     $user->addToGroups($group2);
     $user->save();
 
-    $user2 = lmbActiveRecord::findById(UserForTest::class, $user->getId());
+    $user2 = lmbActiveRecord::findById(UserForTestObject::class, $user->getId());
     $user2->setGroups(array($group2));
     $user2->save();
 
-    $user3 = lmbActiveRecord::findById(UserForTest::class, $user->getId());
+    $user3 = lmbActiveRecord::findById(UserForTestObject::class, $user->getId());
     $groups = $user3->getGroups();
 
     $this->assertEquals($groups->at(0)->getTitle(), $group2->getTitle());
@@ -212,12 +212,12 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
     $user2->addToGroups($group2);
     $user2->save();
 
-    $user3 = lmbActiveRecord::findById(UserForTest::class, $user1->getId());
+    $user3 = lmbActiveRecord::findById(UserForTestObject::class, $user1->getId());
     $user3->destroy();
 
     $this->assertEquals($this->db->count('user_for_test2group_for_test'), 2);
 
-    $user4 = lmbActiveRecord::findById(UserForTest::class, $user2->getId());
+    $user4 = lmbActiveRecord::findById(UserForTestObject::class, $user2->getId());
     $groups = $user4->getGroups();
     $this->assertEquals($groups->at(0)->getTitle(), $group1->getTitle());
     $this->assertEquals($groups->at(1)->getTitle(), $group2->getTitle());
@@ -234,7 +234,7 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
   {
     $user = $this->creator->initUser();
 
-    $group = new GroupForTest();
+    $group = new GroupForTestObject();
 
     $validator = new lmbValidator();
     $validator->addRequiredRule('title');
@@ -257,9 +257,9 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
 
     $user->setGroups(array($g1, $g2,$g3));
     $user->save();
-    $user = new UserForTest($user->id);
+    $user = new UserForTestObject($user->id);
     $arr = $user->getCgroups()->getArray();
-    $this->assertInstanceOf($arr[0], GroupForTest::class);
+    $this->assertInstanceOf($arr[0], GroupForTestObject::class);
     $this->assertEquals(sizeof($arr), 1);
     $this->assertEquals($arr[0]->getTitle(), $g3->getTitle());
   }

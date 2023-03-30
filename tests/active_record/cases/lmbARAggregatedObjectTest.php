@@ -75,7 +75,7 @@ class PhotoForTest extends lmbActiveRecord
                                                    'mapping' => array('photo_id' => 'id',
                                                                       'extension' => 'image_extension')),
 
-                                  'extra' => array('class' =>'ExtraForAggregateTest'));
+                                  'extra' => array('class' => ExtraForAggregateTest::class));
 }
 
 class lmbARAggregatedObjectTest extends lmbARBaseTestCase
@@ -85,7 +85,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
   function testNewObjectReturnsEmptyAggrigatedObject()
   {
     $member = new MemberForTest();
-    $this->assertInstanceOf($member->getName(), NameForAggregateTest::class);
+    $this->assertInstanceOf(NameForAggregateTest::class, $member->getName());
 
     $this->assertNull($member->getName()->getFirst());
     $this->assertNull($member->getName()->getLast());
@@ -116,8 +116,8 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
     $photo->save();
 
     $photo2 = lmbActiveRecord :: findById(PhotoForTest::class, $photo->getId());
-    $this->assertInstanceOf($photo2->getExtra(), ExtraForAggregateTest::class);
-    $this->assertEquals($photo2->getExtra()->getValue(), 'value_as_extra_value');
+    $this->assertInstanceOf(ExtraForAggregateTest::class, $photo2->getExtra());
+    $this->assertEquals('value_as_extra_value', $photo2->getExtra()->getValue());
   }
 
   function testUsingSetupMethodOnAggregatedObjectLoad()
@@ -147,7 +147,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
     $name->setLast($other_last = 'other_last_name');
     $member->save();
 
-    $member2 = lmbActiveRecord :: findById('MemberForTest', $member->getId());
+    $member2 = lmbActiveRecord :: findById(MemberForTest::class, $member->getId());
     $this->assertEquals($member2->getName()->getLast(), $other_last);
   }
 
@@ -160,19 +160,19 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
     $photo->setImage($image);
 
     $photo->save();
-    $this->assertNotEqual($photo->getImage()->getPhotoId(), $photo->getId());
+    $this->assertNotEquals($photo->getImage()->getPhotoId(), $photo->getId());
 
-    $photo2 = lmbActiveRecord :: findById('PhotoForTest', $photo->getId());
+    $photo2 = lmbActiveRecord::findById(PhotoForTest::class, $photo->getId());
     $this->assertEquals($photo2->getImage()->getPhotoId(), $photo2->getId());
 
     $photo2->getImage()->setExtension($other_extension = 'png');
     $photo2->getImage()->setPhotoId($other_photo_id = ($photo2->getId() + 10)); // we try set AR primary key
     $photo2->save();
 
-    $photo3 = lmbActiveRecord :: findById('PhotoForTest', $photo2->getId());
+    $photo3 = lmbActiveRecord::findById(PhotoForTest::class, $photo2->getId());
     $this->assertEquals($photo3->getImage()->getExtension(), $other_extension);
 
-    $this->assertNotEqual($photo3->getImage()->getPhotoId(), $other_photo_id); // affect setting AR primary key
+    $this->assertNotEquals($photo3->getImage()->getPhotoId(), $other_photo_id); // affect setting AR primary key
     $this->assertEquals($photo3->getImage()->getPhotoId(), $photo3->getId()); // AR primary key not updated
   }
 
