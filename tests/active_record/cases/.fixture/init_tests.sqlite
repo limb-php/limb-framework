@@ -1,5 +1,3 @@
-
-DROP TABLE "test_one_table_object";
 CREATE TABLE "test_one_table_object" (
   "id" INTEGER PRIMARY KEY,
   "annotation" text,
@@ -8,7 +6,6 @@ CREATE TABLE "test_one_table_object" (
   "ordr" int(11) NULL
 );
 
-DROP TABLE "test_auto_times_object";
 CREATE TABLE "test_auto_times_object" (
   "id" INTEGER PRIMARY KEY,
   "content" text,
@@ -16,7 +13,6 @@ CREATE TABLE "test_auto_times_object" (
   "utime" int(11) NULL
 );
 
-DROP TABLE "test_one_table_typed_object";
 CREATE TABLE "test_one_table_typed_object" (
   "id" INTEGER PRIMARY KEY,
   "title" varchar(255) default NULL,
@@ -24,13 +20,11 @@ CREATE TABLE "test_one_table_typed_object" (
 );
 
 
-DROP TABLE "course_for_typed_test";
 CREATE TABLE "course_for_typed_test" (
  "id" INTEGER PRIMARY KEY,
  "title" varchar(255) default NULL
 );
 
-DROP TABLE "lecture_for_typed_test";
 CREATE TABLE "lecture_for_typed_test" (
   "id" INTEGER PRIMARY KEY,
   "title" varchar(255) default NULL,
@@ -39,33 +33,28 @@ CREATE TABLE "lecture_for_typed_test" (
 );
 
 
-DROP TABLE "social_security_for_test";
 CREATE TABLE "social_security_for_test" (
 "id" INTEGER PRIMARY KEY,
 "code" varchar(255) default NULL
 );
 
-DROP TABLE "person_for_test";
 CREATE TABLE "person_for_test" (
 "id" INTEGER PRIMARY KEY,
 "name" varchar(255) default NULL,
 "ss_id" bigint(20) default NULL
 );
 
-DROP TABLE "program_for_test";
 CREATE TABLE "program_for_test" (
  "id" INTEGER PRIMARY KEY,
  "title" varchar(255) default NULL
 );
 
-DROP TABLE "course_for_test";
 CREATE TABLE "course_for_test" (
  "id" INTEGER PRIMARY KEY,
  "program_id" bigint(20) default NULL,
  "title" varchar(255) default NULL
 );
 
-DROP TABLE "lecture_for_test";
 CREATE TABLE "lecture_for_test" (
   "id" INTEGER PRIMARY KEY,
   "title" varchar(255) default NULL,
@@ -74,34 +63,29 @@ CREATE TABLE "lecture_for_test" (
   "program_id" bigint(20) default NULL
 );
 
-DROP TABLE "lesson_for_test";
 CREATE TABLE "lesson_for_test" (
   "id" INTEGER PRIMARY KEY,
   "date_start" bigint(20) default NULL,
   "date_end" bigint(20) default NULL
 );
 
-DROP TABLE "group_for_test";
 CREATE TABLE "group_for_test" (
   "id" INTEGER PRIMARY KEY,
   "title" varchar(255) default NULL
 );
 
-DROP TABLE "user_for_test";
 CREATE TABLE "user_for_test" (
   "id" INTEGER PRIMARY KEY,
   "first_name" varchar(255) default NULL,
   "linked_object_id" bigint(20) default NULL
 );
 
-DROP TABLE "user_for_test2group_for_test";
 CREATE TABLE "user_for_test2group_for_test" (
  "id" INTEGER PRIMARY KEY,
  "user_id" bigint(20) default NULL,
  "group_id" bigint(20) default NULL
 );
 
-DROP TABLE "extended_user_for_test2group_for_test";
 CREATE TABLE "extended_user_for_test2group_for_test" (
  "id" INTEGER PRIMARY KEY,
  "user_id" bigint(20) default NULL,
@@ -109,14 +93,12 @@ CREATE TABLE "extended_user_for_test2group_for_test" (
  "other_id" bigint(20) default NULL
 );
 
-DROP TABLE "member_for_test";
 CREATE TABLE "member_for_test" (
   "id" INTEGER PRIMARY KEY,
   "first_name" varchar(255) default NULL,
   "last_name" varchar(255) default NULL
 );
 
-DROP TABLE "photo_for_test";
 CREATE TABLE "photo_for_test" (
   "id" INTEGER PRIMARY KEY,
   "image_extension" varchar(6) default NULL,

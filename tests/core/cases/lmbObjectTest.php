@@ -90,6 +90,14 @@ class ObjectTestVersion4 extends lmbObject
   }
 }
 
+class ObjectTestVersion5 extends lmbObject
+{
+    function getBar()
+    {
+        return 'foo';
+    }
+}
+
 class ObjectTestWithOverridingConstructor extends lmbObject
 {
   protected $pro = true;
@@ -154,6 +162,13 @@ class lmbObjectTest extends TestCase
     $object = new ObjectTestVersion();
     $this->assertEquals($object->getAttributesNames(), array('bar', 'protected'));
   }
+
+    function testGetDoesNotHaveProperty()
+    {
+        $object = new ObjectTestVersion5();
+
+        $this->assertEquals('foo', $object->bar); // should call $object->getBar()
+    }
 
   function testSetGet()
   {

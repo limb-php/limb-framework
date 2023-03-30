@@ -12,6 +12,16 @@ class TestOneTableObject extends lmbActiveRecord
     protected $_db_table_name = 'test_one_table_object';
 }
 
+class TestOneTableObject2 extends lmbActiveRecord
+{
+    protected $_db_table_name = 'test_one_table_object';
+
+    public function getBar()
+    {
+        return 'foo';
+    }
+}
+
 class TestOneTableObjectFailing extends lmbActiveRecord
 {
     var $fail;
@@ -172,4 +182,87 @@ class UserForTest extends lmbActiveRecord
     protected $_has_one = array('linked_object' => array('field' => 'linked_object_id',
         'class' => TestOneTableObject::class,
         'can_be_null' => true));
+}
+
+class TestOneTableObjectWithCustomProperty extends TestOneTableObject {
+    protected $custom_property = true;
+}
+
+class TestOneTableObjectWithCustomDestroy extends lmbActiveRecord
+{
+    protected $_db_table_name = 'test_one_table_object';
+
+    function destroy()
+    {
+        parent::destroy();
+        echo "destroyed!";
+    }
+}
+
+class TestOneTableObjectWithHooks extends TestOneTableObject
+{
+    protected function _onValidate()
+    {
+        echo '|on_validate|';
+    }
+
+    protected function _onBeforeUpdate()
+    {
+        echo '|on_before_update|';
+    }
+
+    protected function _onBeforeCreate()
+    {
+        echo '|on_before_create|';
+    }
+
+    protected function _onBeforeSave()
+    {
+        echo '|on_before_save|';
+    }
+
+    protected function _onAfterSave()
+    {
+        echo '|on_after_save|';
+    }
+
+    protected function _onSave()
+    {
+        echo '|on_save|';
+    }
+
+    protected function _onUpdate()
+    {
+        echo '|on_update|';
+    }
+
+    protected function _onCreate()
+    {
+        echo '|on_create|';
+    }
+
+    protected function _onAfterUpdate()
+    {
+        echo '|on_after_update|';
+    }
+
+    protected function _onAfterCreate()
+    {
+        echo '|on_after_create|';
+    }
+
+    protected function _onBeforeDestroy()
+    {
+        echo '|on_before_destroy|';
+    }
+
+    protected function _onAfterDestroy()
+    {
+        echo '|on_after_destroy|';
+    }
+}
+
+class TestOneTableObjectWithSortParams extends TestOneTableObject
+{
+    protected $_default_sort_params = array('id' => 'DESC');
 }
