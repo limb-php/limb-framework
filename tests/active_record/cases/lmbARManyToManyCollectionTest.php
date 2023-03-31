@@ -100,8 +100,8 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $collection->add($group1);
     $collection->add($group2);
 
-    $group1->expectNever('save');
-    $group2->expectNever('save');
+    $group1->expects($this->never())->method('save');
+    $group2->expects($this->never())->method('save');
 
     $collection->save();
   }
@@ -470,9 +470,11 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     try
     {
       $group = $user->getGroups()->findFirst(lmbActiveRecord::getDefaultConnection()->quoteIdentifier("group_id") . "=" . $g1->getId() . " OR " . lmbActiveRecord::getDefaultConnection()->quoteIdentifier("group_id") . "=" . $g2->getId());
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbException $e){}
+    catch(lmbException $e){
+        $this->assertTrue(true);
+    }
   }
 
   function testAtWithExistingOwner()

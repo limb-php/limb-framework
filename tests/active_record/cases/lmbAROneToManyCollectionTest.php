@@ -92,7 +92,7 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
 
     $this->assertEquals($arr[0]->getTitle(), $l1->getTitle());
     $this->assertEquals($arr[1]->getTitle(), $l2->getTitle());
-    $this->assertEquals(sizeof($arr), 2);
+    $this->assertEquals(2, sizeof($arr));
 
     $collection2 = new lmbAROneToManyCollection('lectures', $course);
     $arr = $collection2->getArray();

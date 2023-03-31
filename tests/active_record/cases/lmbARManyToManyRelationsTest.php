@@ -8,6 +8,8 @@
  */
 namespace tests\active_record\cases;
 
+require ('.setup.php');
+
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARManyToManyCollection;
 use limb\validation\src\lmbErrorList;
@@ -83,15 +85,15 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
       
     $user1->save();
     $user2->save();
-    $this->assertEquals($user1->getGroups()->count(), 2);
-    $this->assertEquals($user2->getGroups()->count(), 2);
+    $this->assertEquals(2, $user1->getGroups()->count());
+    $this->assertEquals(2, $user2->getGroups()->count());
     
     $user1->getGroups()->set(array($group1));
     $user1->save();
     $user2->save();
      
-    $this->assertEquals($user1->getGroups()->count(), 1);
-    $this->assertEquals($user2->getGroups()->count(), 2);
+    $this->assertEquals(1, $user1->getGroups()->count());
+    $this->assertEquals(2, $user2->getGroups()->count());
   }
   
   function testLoadShouldNotMixTables()
