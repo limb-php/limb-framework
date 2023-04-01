@@ -1032,13 +1032,15 @@ class lmbActiveRecord extends lmbObject
     $class = $this->_composed_of[$property]['class'];
     $object = new $class();
 
-    if(isset($this->_composed_of[$property]['mapping']))
-      $mapping = $this->_composed_of[$property]['mapping'];
-    else
-      $mapping = array($property => $property);
+    if(isset($this->_composed_of[$property]['mapping'])) {
+        $mapping = $this->_composed_of[$property]['mapping'];
 
-    foreach($mapping as $aggregate_field => $ar_field)
-      $object->set($aggregate_field, $this->get($ar_field)); // _getRaw
+        foreach($mapping as $aggregate_field => $ar_field)
+            $object->set($aggregate_field, $this->get($ar_field)); // mapping objects
+    }
+    else {
+        $object->set($property, $this->_getRaw($property));
+    }
 
     if(isset($this->_composed_of[$property]['setup_method']))
     {
