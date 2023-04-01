@@ -1,10 +1,8 @@
 <?php
 
-namespace tests\active_record\cases;
+namespace tests\active_record\cases\src;
 
 use limb\active_record\src\lmbActiveRecord;
-use tests\active_record\cases\CourseForTestObject;
-use tests\active_record\cases\ProgramForTestObject;
 
 class LectureForTestObject extends lmbActiveRecord
 {

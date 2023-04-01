@@ -9,6 +9,14 @@
 namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
+use tests\active_record\cases\src\CourseForTestObject;
+use tests\active_record\cases\src\LectureForTestObject;
+use tests\active_record\cases\src\MemberForTest;
+use tests\active_record\cases\src\NameForAggregateTest;
+use tests\active_record\cases\src\PersonForTestObject;
+use tests\active_record\cases\src\SocialSecurityForTestObject;
+use tests\active_record\cases\src\TestOneTableObject;
+use tests\active_record\cases\src\TestOneTableObjectWithHooks;
 
 class lmbARDirtyTest extends lmbARBaseTestCase
 {

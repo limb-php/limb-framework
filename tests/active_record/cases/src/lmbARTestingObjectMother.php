@@ -1,7 +1,5 @@
 <?php
-namespace tests\active_record\cases;
-
-require 'init.inc.php';
+namespace tests\active_record\cases\src;
 
 class lmbARTestingObjectMother
 {

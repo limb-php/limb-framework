@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\active_record\cases;
+namespace tests\active_record\cases\src;
 
 class TestOneTableObjectWithHooks extends TestOneTableObject
 {

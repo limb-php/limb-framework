@@ -1,9 +1,8 @@
 <?php
 
-namespace tests\active_record\cases;
+namespace tests\active_record\cases\src;
 
 use limb\active_record\src\lmbActiveRecord;
-use tests\active_record\cases\LazyTestOneTableObject;
 
 class PersonForLazyAttributesTestObject extends lmbActiveRecord
 {

@@ -8,75 +8,9 @@
  */
 namespace tests\active_record\cases;
 
-use limb\core\src\lmbObject;
 use limb\active_record\src\lmbActiveRecord;
 
 require_once '.setup.php';
-
-// Aggregate must implement lmbSet interface.
-class NameForAggregateTest extends lmbObject
-{
-  protected $first;
-  protected $last;
-
-  function getFull()
-  {
-    return $this->first . ' ' . $this->last;
-  }
-}
-
-class MemberForTest extends lmbActiveRecord
-{
-  protected $_composed_of = array('name' => array('class' => NameForAggregateTest::class,
-                                                  'mapping' => array('first' => 'first_name',
-                                                                     'last' => 'last_name'),
-                                                  'setup_method' => 'setupName'));
-
-  public $saved_full_name = '';
-
-  function setupName($name_object)
-  {
-    $this->saved_full_name = $name_object->getFull();
-    return $name_object;
-  }
-}
-
-class LazyMemberForTest extends MemberForTest
-{
-  protected $_db_table_name = 'member_for_test';
-
-  protected $_lazy_attributes = array('name');
-}
-
-class ImageForAggregateTest extends lmbObject
-{
-  protected $extension;
-  protected $photo_id;
-
-  function getUrl()
-  {
-    return '/image_' . $this->photo_id . '.' . $this->image_extension;
-  }
-}
-
-class ExtraForAggregateTest extends lmbObject
-{
-  protected $extra;
-
-  function getValue()
-  {
-    return $this->extra . '_as_extra_value';
-  }
-}
-
-class PhotoForTest extends lmbActiveRecord
-{
-  protected $_composed_of = array('image' => array('class' => ImageForAggregateTest::class,
-                                                   'mapping' => array('photo_id' => 'id',
-                                                                      'extension' => 'image_extension')),
-
-                                  'extra' => array('class' => ExtraForAggregateTest::class));
-}
 
 class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 {
