@@ -2130,7 +2130,7 @@ class lmbActiveRecord extends lmbObject
    *  //should print '2'
    *  echo $book->getAuthor()->getId();
    *  </code>
-   *  @param array|object
+   *  @param $source array|\ArrayIterator|\ArrayAccess|\Iterator
    */
   function import($source)
   {
