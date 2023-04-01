@@ -28,30 +28,32 @@ class lmbARBaseTestCase extends TestCase
     $this->conn = new lmbAuditDbConnection($toolkit->getDefaultDbConnection());
     $toolkit->setDefaultDbConnection($this->conn);
     $this->db = new lmbSimpleDb($this->conn);
-    $this->creator = new lmbARTestingObjectMother($this->conn);
+    $this->creator = new lmbARTestingObjectMother();
 
     $this->_cleanUp();
   }
 
   protected function tearDown(): void
   {
-    $this->_cleanUp();
+      parent::tearDown();
 
-    $this->conn->disconnect();
+      $this->_cleanUp();
 
-    lmbToolkit::restore();
-    
-    $connection = lmbToolkit::instance()->getDefaultDbConnection();
-    
-    if(method_exists($connection, 'isValid'))
-      if(!$connection->isValid())
-        $connection->connect();
-    
+      $this->conn->disconnect();
+
+      lmbToolkit::restore();
+
+      $connection = lmbToolkit::instance()->getDefaultDbConnection();
+
+      if(method_exists($connection, 'isValid'))
+          if(!$connection->isValid())
+              $connection->connect();
   }
 
   protected function _cleanUp()
   {
-    foreach($this->tables_to_cleanup as $table_name)
-      $this->db->delete($table_name);
+    foreach($this->tables_to_cleanup as $table_name) {
+      $this->db->truncate($table_name);
+    }
   }
 }

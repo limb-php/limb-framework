@@ -115,7 +115,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
     $photo->setExtra($extra);
     $photo->save();
 
-    $photo2 = lmbActiveRecord :: findById(PhotoForTest::class, $photo->getId());
+    $photo2 = lmbActiveRecord::findById(PhotoForTest::class, $photo->getId());
     $this->assertInstanceOf(ExtraForAggregateTest::class, $photo2->getExtra());
     $this->assertEquals('value_as_extra_value', $photo2->getExtra()->getValue());
   }

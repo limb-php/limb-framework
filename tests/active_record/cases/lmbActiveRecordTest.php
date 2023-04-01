@@ -17,7 +17,7 @@ require_once '.setup.php';
 
 class lmbActiveRecordTest extends lmbARBaseTestCase
 {
-  protected $tables_to_cleanup = array('test_one_table_object', 'lecture_for_test', 'course_for_test');
+    protected $tables_to_cleanup = array('test_one_table_object', 'lecture_for_test', 'course_for_test');
 
     function testGetDoesNotHaveProperty()
     {
@@ -81,14 +81,16 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
 
   function testDontCreateNewRecordTwice()
   {
-    $object = $this->creator->initOneTableObject();
+     $object = $this->creator->initOneTableObject();
 
-    $object->save();
-    $object->save();
+     $object->save();
+     $object->save();
+     $object->save();
+     $object->save();
 
-    $this->assertEquals(1, $object->getId());
+     $this->assertEquals(1, $this->db->count('test_one_table_object'));
 
-    $this->assertEquals(1, $this->db->count('test_one_table_object'));
+     $this->assertEquals(1, $object->getId());
   }
 
   function testIsNew()
