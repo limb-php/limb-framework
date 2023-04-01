@@ -8,6 +8,7 @@
  */
 namespace limb\dbal\src;
 
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\dbal\src\query\lmbInsertQuery;
 use limb\dbal\src\query\lmbSelectQuery;
 use limb\dbal\src\query\lmbUpdateQuery;
@@ -26,7 +27,7 @@ class lmbSimpleDb
   protected $conn;
   protected $stmt;
 
-  function __construct($conn)
+  function __construct(lmbDbConnectionInterface $conn)
   {
     $this->conn = $conn;
   }
@@ -103,7 +104,7 @@ class lmbSimpleDb
     foreach($values as $key => $value)
       $query->addField($key, $value);
 
-    $stmt = $query->getStatement($this->conn);
+    $stmt = $query->getStatement();
 
     if($primary_key)
     {
@@ -129,7 +130,7 @@ class lmbSimpleDb
     foreach($values as $key => $value)
       $query->addField($key, $value);
 
-    $this->stmt = $query->getStatement($this->conn);
+    $this->stmt = $query->getStatement();
     $this->stmt->execute();
     return $this;
   }
@@ -144,7 +145,7 @@ class lmbSimpleDb
         foreach($values as $key => $value)
             $query->addField($key, $value);
 
-        $this->stmt = $query->getStatement($this->conn);
+        $this->stmt = $query->getStatement();
         $this->stmt->execute();
         return $this;
     }
@@ -156,10 +157,17 @@ class lmbSimpleDb
     if($criteria)
       $query->addCriteria(lmbSQLCriteria::objectify($criteria));
 
-    $this->stmt = $query->getStatement($this->conn);
+    $this->stmt = $query->getStatement();
     $this->stmt->execute();
     return $this;
   }
+
+    function truncate($table)
+    {
+        $this->conn->newStatement("TRUNCATE TABLE `$table`")->execute();
+
+        return $this;
+    }
 
   function truncateDb()
   {
