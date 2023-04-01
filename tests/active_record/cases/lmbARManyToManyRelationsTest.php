@@ -11,22 +11,12 @@ namespace tests\active_record\cases;
 require ('.setup.php');
 
 use limb\active_record\src\lmbActiveRecord;
-use limb\active_record\src\lmbARManyToManyCollection;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;
-
-class GroupsForTestCollectionStub extends lmbARManyToManyCollection{}
-
-class UserForTestWithCustomCollection extends lmbActiveRecord
-{
-  protected $_db_table_name = 'user_for_test';
-
-  protected $_has_many_to_many = array('groups' => array('field' => 'user_id',
-                                                         'foreign_field' => 'group_id',
-                                                         'table' => 'user_for_test2group_for_test',
-                                                         'class' => GroupForTestObject::class,
-                                                         'collection' => GroupsForTestCollectionStub::class));
-}
+use tests\active_record\cases\src\GroupForTestObject;
+use tests\active_record\cases\src\GroupsForTestCollectionStub;
+use tests\active_record\cases\src\UserForTestObject;
+use tests\active_record\cases\src\UserForTestWithCustomCollection;
 
 class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
 {
@@ -58,7 +48,7 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
     $user->addToGroups($group2);
     $user->save();
 
-    $user2 = lmbActiveRecord :: findById('UserForTest', $user->getId());
+    $user2 = lmbActiveRecord :: findById(UserForTestObject::class, $user->getId());
     $rs = $user2->getGroups();
 
     $rs->rewind();
@@ -112,7 +102,7 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
     $user2->addToGroups($group2);
     $user2->save();
 
-    $user3 = lmbActiveRecord :: findById('UserForTest', $user2->getId());
+    $user3 = lmbActiveRecord :: findById(UserForTestObject::class, $user2->getId());
     $rs = $user3->getGroups();
 
     $rs->rewind();
@@ -136,7 +126,7 @@ class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
 
     $group->setUsers(array($user1, $user2));    
 
-    $group2 = lmbActiveRecord :: findById('GroupForTest', $group->getId());
+    $group2 = lmbActiveRecord :: findById(GroupForTestObject::class, $group->getId());
     $arr = $group2->getUsers()->join('linked_object')->getArray();
 
     //make sure we really eager fetching

@@ -11,33 +11,12 @@ namespace tests\active_record\cases;
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARException;
 use limb\dbal\src\criteria\lmbSQLCriteria;
-
-class TestOneTableTypedObject extends lmbActiveRecord
-{
-  protected $_db_table_name = 'test_one_table_typed_object';
-}
-
-class FooOneTableTestObject extends TestOneTableTypedObject{}
-class BarFooOneTableTestObject extends FooOneTableTestObject{}
-
-class TypedLectureForTest extends lmbActiveRecord
-{
-  protected $_db_table_name = 'lecture_for_typed_test';
-  protected $_belongs_to = array('course' => array('field' => 'course_id',
-                                                   'class' => 'CourseForTestForTypedLecture'));
-}
-
-class FooLectureForTest extends TypedLectureForTest{}
-class BarFooLectureForTest extends FooLectureForTest{}
-
-class CourseForTestForTypedLecture extends lmbActiveRecord
-{
-  protected $_db_table_name = 'course_for_typed_test';
-  protected $_has_many = array('lectures' => array('field' => 'course_id',
-                                                   'class' => 'TypedLectureForTest'),
-                               'foo_lectures' => array('field' => 'course_id',
-                                                       'class' => 'FooLectureForTest'));
-}
+use tests\active_record\cases\src\BarFooLectureForTestObject;
+use tests\active_record\cases\src\BarFooOneTableTestObject;
+use tests\active_record\cases\src\CourseForTestForTypedLecture;
+use tests\active_record\cases\src\FooLectureForTestObject;
+use tests\active_record\cases\src\FooOneTableTestObject;
+use tests\active_record\cases\src\TestOneTableTypedObject;
 
 class lmbARSubclassingTest extends lmbARBaseTestCase
 {
@@ -60,9 +39,12 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     {
       //..while deeper subclasses are not
       new BarFooOneTableTestObject($object1->getId());
-      $this->assertTrue(false);
+      $this->fail();
     }
-    catch(lmbARException $e){}
+    catch(lmbARException $e)
+    {
+
+    }
   }
 
   function testSupertypeDelete()
@@ -75,13 +57,13 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     $bar->setTitle('Another title');
     $bar->save();
 
-    lmbActiveRecord :: delete('TestOneTableTypedObject');
+    lmbActiveRecord :: delete(TestOneTableTypedObject::class);
 
-    $rs = lmbActiveRecord :: find('FooOneTableTestObject');
-    $this->assertEquals($rs->count(), 0);
+    $rs = lmbActiveRecord :: find(FooOneTableTestObject::class);
+    $this->assertEquals(0, $rs->count());
 
-    $rs = lmbActiveRecord :: find('BarFooOneTableTestObject');
-    $this->assertEquals($rs->count(), 0);
+    $rs = lmbActiveRecord :: find(BarFooOneTableTestObject::class);
+    $this->assertEquals(0, $rs->count());
   }
 
   function testTypedDelete()
@@ -94,18 +76,18 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     $bar->setTitle('Another title');
     $bar->save();
 
-    lmbActiveRecord :: delete('BarFooOneTableTestObject');//removing subclass
+    lmbActiveRecord :: delete(BarFooOneTableTestObject::class);//removing subclass
 
-    $rs = lmbActiveRecord :: find('BarFooOneTableTestObject');
-    $this->assertEquals($rs->count(), 0);
+    $rs = lmbActiveRecord :: find(BarFooOneTableTestObject::class);
+    $this->assertEquals(0, $rs->count());
 
-    $rs = lmbActiveRecord :: find('FooOneTableTestObject');//supertype stays
-    $this->assertEquals($rs->count(), 1);
+    $rs = lmbActiveRecord :: find(FooOneTableTestObject::class);//supertype stays
+    $this->assertEquals(1, $rs->count());
 
-    lmbActiveRecord :: delete('FooOneTableTestObject');//removing supertype
+    lmbActiveRecord :: delete(FooOneTableTestObject::class);//removing supertype
 
-    $rs = lmbActiveRecord :: find('FooOneTableTestObject');
-    $this->assertEquals($rs->count(), 0);
+    $rs = lmbActiveRecord :: find(FooOneTableTestObject::class);
+    $this->assertEquals(0, $rs->count());
   }
 
   function testFind()
@@ -119,13 +101,13 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     $object2->save();
 
     $rs = lmbActiveRecord::find(FooOneTableTestObject::class);//supertype
-    $this->assertEquals($rs->count(), 2);
-    $this->assertInstanceOf($rs->at(0), 'FooOneTableTestObject');
-    $this->assertInstanceOf($rs->at(1), 'BarFooOneTableTestObject');
+    $this->assertEquals(2, $rs->count());
+    $this->assertInstanceOf($rs->at(0), FooOneTableTestObject::class);
+    $this->assertInstanceOf($rs->at(1), BarFooOneTableTestObject::class);
 
     $rs = lmbActiveRecord::find(BarFooOneTableTestObject::class);//subclass
-    $this->assertEquals($rs->count(), 1);
-    $this->assertInstanceOf($rs->at(0), 'BarFooOneTableTestObject');
+    $this->assertEquals(1, $rs->count());
+    $this->assertInstanceOf($rs->at(0), BarFooOneTableTestObject::class);
   }
 
   function testFindWithKind()
@@ -150,8 +132,8 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     $criteria->add(lmbSQLCriteria::equal('title', 'title1'));
     $criteria->addOr(lmbSQLCriteria::equal('title','title2'));
 
-    $records = lmbActiveRecord :: find('BarFooOneTableTestObject', $criteria)->sort(array('id'))->getArray();
-    $this->assertEquals(count($records), 2);
+    $records = lmbActiveRecord :: find(BarFooOneTableTestObject::class, $criteria)->sort(array('id'))->getArray();
+    $this->assertCount(2, $records);
     $this->assertEquals($records[0]->title, $valid_object1->title);
     $this->assertEquals($records[1]->title, $valid_object2->title);
   }
@@ -162,12 +144,12 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     $course->setTitle('Source1');
     $course->save();
 
-    $lecture1 = new FooLectureForTest();
+    $lecture1 = new FooLectureForTestObject();
     $lecture1->setTitle('Some title');
     $lecture1->setCourse($course);
     $lecture1->save();
 
-    $lecture2 = new BarFooLectureForTest();
+    $lecture2 = new BarFooLectureForTestObject();
     $lecture2->setTitle('Some other title');
     $lecture2->setCourse($course);
     $lecture2->save();
@@ -177,20 +159,20 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
 
     $course2 = new CourseForTestForTypedLecture($course->getId());
 
-    $this->assertEquals($course2->getLectures()->count(), 2);//supertype by default
-    $this->assertInstanceOf($course2->getLectures()->at(0), 'FooLectureForTest');
-    $this->assertInstanceOf($course2->getLectures()->at(1), 'BarFooLectureForTest');
+    $this->assertEquals(2, $course2->getLectures()->count());//supertype by default
+    $this->assertInstanceOf($course2->getLectures()->at(0), FooLectureForTestObject::class);
+    $this->assertInstanceOf($course2->getLectures()->at(1), BarFooLectureForTestObject::class);
 
     //narrowing selection but again its supertype for BarFooLectureForTest
-    $lectures = $course2->getLectures()->find(array('class' => 'FooLectureForTest'));
+    $lectures = $course2->getLectures()->find(array('class' => FooLectureForTestObject::class));
 
-    $this->assertEquals($lectures->count(), 2);
-    $this->assertInstanceOf($lectures->at(0), 'FooLectureForTest');
-    $this->assertInstanceOf($lectures->at(1), 'BarFooLectureForTest');
+    $this->assertEquals(2, $lectures->count());
+    $this->assertInstanceOf($lectures->at(0), FooLectureForTestObject::class);
+    $this->assertInstanceOf($lectures->at(1), BarFooLectureForTestObject::class);
 
     //narrowing more
-    $lectures = $course2->getLectures()->find(array('class' => 'BarFooLectureForTest'));
-    $this->assertEquals($lectures->count(), 1);
-    $this->assertInstanceOf($lectures->at(0), 'BarFooLectureForTest');
+    $lectures = $course2->getLectures()->find(array('class' => BarFooLectureForTestObject::class));
+    $this->assertEquals(1, $lectures->count());
+    $this->assertInstanceOf($lectures->at(0), BarFooLectureForTestObject::class);
   }
 }

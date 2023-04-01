@@ -15,27 +15,10 @@ use limb\active_record\src\lmbActiveRecord;
 use limb\core\src\exception\lmbException;
 use limb\dbal\src\lmbDBAL;
 use limb\dbal\src\lmbTableGateway;
-
-class GroupForTestObjectStub extends GroupForTestObject
-{
-  var $save_calls = 0;
-
-  function save($error_list = null)
-  {
-    parent::save($error_list);
-    $this->save_calls++;
-  }
-}
-
-class UserForTestWithSpecialRelationTable extends lmbActiveRecord
-{
-  protected $_db_table_name = 'user_for_test';
-
-  protected $_has_many_to_many = array('groups' => array('field' => 'user_id',
-                                                         'foreign_field' => 'group_id',
-                                                         'table' => 'extended_user_for_test2group_for_test',
-                                                         'class' => GroupForTestObject::class));
-}
+use tests\active_record\cases\src\GroupForTestObject;
+use tests\active_record\cases\src\GroupForTestObjectStub;
+use tests\active_record\cases\src\UserForTestObject;
+use tests\active_record\cases\src\UserForTestWithSpecialRelationTable;
 
 class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 {

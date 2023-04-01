@@ -12,6 +12,8 @@ use limb\active_record\src\lmbARRecordSetDecorator;
 use limb\core\src\lmbCollection;
 use limb\dbal\src\lmbSimpleDb;
 use limb\toolkit\src\lmbToolkit;
+use tests\active_record\cases\src\CourseForTestObject;
+use tests\active_record\cases\src\LectureForTestObject;
 
 class lmbARRecordSetDecoratorTest extends lmbARBaseTestCase
 {
@@ -24,7 +26,7 @@ class lmbARRecordSetDecoratorTest extends lmbARBaseTestCase
     $db = new lmbSimpleDb(lmbToolkit :: instance()->getDefaultDbConnection());
     $decorated = $db->select('lecture_for_test');
 
-    $iterator = new lmbARRecordSetDecorator($decorated, 'LectureForTest');
+    $iterator = new lmbARRecordSetDecorator($decorated, LectureForTestObject::class);
     $iterator->rewind();
 
     $lecture1 = $iterator->current();
@@ -53,7 +55,7 @@ class lmbARRecordSetDecoratorTest extends lmbARBaseTestCase
 
   function testIfRecordIsEmpty()
   {
-    $iterator = new lmbARRecordSetDecorator(new lmbCollection(), 'LectureForTest');
+    $iterator = new lmbARRecordSetDecorator(new lmbCollection(), LectureForTestObject::class);
     $iterator->rewind();
     $this->assertFalse($iterator->valid());
   }

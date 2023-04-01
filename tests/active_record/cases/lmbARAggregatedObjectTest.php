@@ -9,6 +9,12 @@
 namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
+use tests\active_record\cases\src\ExtraForAggregateTest;
+use tests\active_record\cases\src\ImageForAggregateTest;
+use tests\active_record\cases\src\LazyMemberForTest;
+use tests\active_record\cases\src\MemberForTest;
+use tests\active_record\cases\src\NameForAggregateTest;
+use tests\active_record\cases\src\PhotoForTest;
 
 require_once '.setup.php';
 

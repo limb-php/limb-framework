@@ -8,105 +8,8 @@
  */
 namespace tests\active_record\cases;
 
-use limb\active_record\src\lmbActiveRecord;
-
-class lmbActiveRecordEventHaldlerStubDelegate
-{
-  var $calls_order = '';
-
-  function onBeforeSave($active_record)
-  {
-    if($active_record instanceof lmbActiveRecord)
-      $this->calls_order .= '|onBeforeSave ' . get_class($active_record) . '|';
-  }
-
-  function onAfterSave($active_record)
-  {
-    if($active_record instanceof lmbActiveRecord)
-      $this->calls_order .= '|onAfterSave ' . get_class($active_record) . '|';
-  }
-
-  function onBeforeUpdate($active_record)
-  {
-    if($active_record instanceof lmbActiveRecord)
-      $this->calls_order .= '|onBeforeUpdate ' . get_class($active_record) . '|';
-  }
-
-  function onUpdate($active_record)
-  {
-    if($active_record instanceof lmbActiveRecord)
-      $this->calls_order .= '|onUpdate ' . get_class($active_record) . '|';
-  }
-
-  function onAfterUpdate($active_record)
-  {
-    if($active_record instanceof lmbActiveRecord)
-      $this->calls_order .= '|onAfterUpdate ' . get_class($active_record) . '|';
-  }
-
-  function onBeforeCreate($active_record)
-  {
-    if($active_record instanceof lmbActiveRecord)
-      $this->calls_order .= '|onBeforeCreate ' . get_class($active_record) . '|';
-  }
-
-  function onCreate($active_record)
-  {
-    if($active_record instanceof lmbActiveRecord)
-      $this->calls_order .= '|onCreate ' . get_class($active_record) . '|';
-  }
-
-  function onAfterCreate($active_record)
-  {
-    if($active_record instanceof lmbActiveRecord)
-      $this->calls_order .= '|onAfterCreate ' . get_class($active_record) . '|';
-  }
-
-  function onBeforeDestroy($active_record)
-  {
-    if($active_record instanceof lmbActiveRecord)
-      $this->calls_order .= '|onBeforeDestroy ' . get_class($active_record) . '|';
-  }
-
-  function onAfterDestroy($active_record)
-  {
-    if($active_record instanceof lmbActiveRecord)
-      $this->calls_order .= '|onAfterDestroy ' . get_class($active_record) . '|';
-  }
-
-  function getCallsOrder()
-  {
-    return $this->calls_order;
-  }
-
-  function subscribeForEvents($active_record)
-  {
-    $active_record->registerOnBeforeSaveCallback($this, 'onBeforeSave');
-    $active_record->registerOnAfterSaveCallback($this, 'onAfterSave');
-    $active_record->registerOnBeforeUpdateCallback($this, 'onBeforeUpdate');
-    $active_record->registerOnUpdateCallback($this, 'onUpdate');
-    $active_record->registerOnAfterUpdateCallback($this, 'onAfterUpdate');
-    $active_record->registerOnBeforeCreateCallback($this, 'onBeforeCreate');
-    $active_record->registerOnCreateCallback($this, 'onCreate');
-    $active_record->registerOnAfterCreateCallback($this, 'onAfterCreate');
-    $active_record->registerOnBeforeDestroyCallback($this, 'onBeforeDestroy');
-    $active_record->registerOnAfterDestroyCallback($this, 'onAfterDestroy');
-  }
-
-  function subscribeGloballyForEvents()
-  {
-    lmbActiveRecord::registerGlobalOnBeforeSaveCallback($this, 'onBeforeSave');
-    lmbActiveRecord::registerGlobalOnAfterSaveCallback($this, 'onAfterSave');
-    lmbActiveRecord::registerGlobalOnBeforeUpdateCallback($this, 'onBeforeUpdate');
-    lmbActiveRecord::registerGlobalOnUpdateCallback($this, 'onUpdate');
-    lmbActiveRecord::registerGlobalOnAfterUpdateCallback($this, 'onAfterUpdate');
-    lmbActiveRecord::registerGlobalOnBeforeCreateCallback($this, 'onBeforeCreate');
-    lmbActiveRecord::registerGlobalOnCreateCallback($this, 'onCreate');
-    lmbActiveRecord::registerGlobalOnAfterCreateCallback($this, 'onAfterCreate');
-    lmbActiveRecord::registerGlobalOnBeforeDestroyCallback($this, 'onBeforeDestroy');
-    lmbActiveRecord::registerGlobalOnAfterDestroyCallback($this, 'onAfterDestroy');
-  }
-}
+use tests\active_record\cases\src\lmbActiveRecordEventHandlerStubDelegate;
+use tests\active_record\cases\src\TestOneTableObject;
 
 class lmbAREventHandlersTest extends lmbARBaseTestCase
 {
@@ -119,13 +22,13 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
     $object->set('content', 'Super content');
     $object->set('news_date', '2005-01-10');
 
-    $delegate = new lmbActiveRecordEventHaldlerStubDelegate();
+    $delegate = new lmbActiveRecordEventHandlerStubDelegate();
     $delegate->subscribeForEvents($object);
 
     $object->save();
 
-    $this->assertEquals($delegate->getCallsOrder(),
-                       '|onBeforeSave TestOneTableObject||onBeforeCreate TestOneTableObject||onCreate TestOneTableObject||onAfterCreate TestOneTableObject||onAfterSave TestOneTableObject|');
+    $this->assertEquals('|onBeforeSave TestOneTableObject||onBeforeCreate TestOneTableObject||onCreate TestOneTableObject||onAfterCreate TestOneTableObject||onAfterSave TestOneTableObject|',
+        $delegate->getCallsOrder());
   }
 
   function testUpdateRecord()
@@ -136,14 +39,14 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
     $object->set('news_date', '2005-01-10');
     $object->save();
 
-    $delegate = new lmbActiveRecordEventHaldlerStubDelegate();
+    $delegate = new lmbActiveRecordEventHandlerStubDelegate();
     $delegate->subscribeForEvents($object);
 
     $object->set('content', 'New Super content');
     $object->save();
 
-    $this->assertEquals($delegate->getCallsOrder(),
-                       '|onBeforeSave TestOneTableObject||onBeforeUpdate TestOneTableObject||onUpdate TestOneTableObject||onAfterUpdate TestOneTableObject||onAfterSave TestOneTableObject|');
+    $this->assertEquals('|onBeforeSave TestOneTableObject||onBeforeUpdate TestOneTableObject||onUpdate TestOneTableObject||onAfterUpdate TestOneTableObject||onAfterSave TestOneTableObject|',
+        $delegate->getCallsOrder());
   }
 
   function testDestroyRecord()
@@ -154,13 +57,13 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
     $object->set('news_date', '2005-01-10');
     $object->save();
 
-    $delegate = new lmbActiveRecordEventHaldlerStubDelegate();
+    $delegate = new lmbActiveRecordEventHandlerStubDelegate();
     $delegate->subscribeForEvents($object);
 
     $object->destroy();
 
-    $this->assertEquals($delegate->getCallsOrder(),
-                       '|onBeforeDestroy TestOneTableObject||onAfterDestroy TestOneTableObject|');
+    $this->assertEquals('|onBeforeDestroy TestOneTableObject||onAfterDestroy TestOneTableObject|',
+        $delegate->getCallsOrder());
   }
 
   function testSaveNewRecordForGlobalListener()
@@ -170,13 +73,13 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
     $object->set('content', 'Super content');
     $object->set('news_date', '2005-01-10');
 
-    $delegate = new lmbActiveRecordEventHaldlerStubDelegate();
+    $delegate = new lmbActiveRecordEventHandlerStubDelegate();
     $delegate->subscribeGloballyForEvents();
 
     $object->save();
 
-    $this->assertEquals($delegate->getCallsOrder(),
-                       '|onBeforeSave TestOneTableObject||onBeforeCreate TestOneTableObject||onCreate TestOneTableObject||onAfterCreate TestOneTableObject||onAfterSave TestOneTableObject|');
+    $this->assertEquals('|onBeforeSave TestOneTableObject||onBeforeCreate TestOneTableObject||onCreate TestOneTableObject||onAfterCreate TestOneTableObject||onAfterSave TestOneTableObject|',
+        $delegate->getCallsOrder());
   }
 
   function testUpdateRecordForGlobalListener()
@@ -187,14 +90,14 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
     $object->set('news_date', '2005-01-10');
     $object->save();
 
-    $delegate = new lmbActiveRecordEventHaldlerStubDelegate();
+    $delegate = new lmbActiveRecordEventHandlerStubDelegate();
     $delegate->subscribeGloballyForEvents($object);
 
     $object->set('content', 'New Super content');
     $object->save();
 
-    $this->assertEquals($delegate->getCallsOrder(),
-                       '|onBeforeSave TestOneTableObject||onBeforeUpdate TestOneTableObject||onUpdate TestOneTableObject||onAfterUpdate TestOneTableObject||onAfterSave TestOneTableObject|');
+    $this->assertEquals('|onBeforeSave TestOneTableObject||onBeforeUpdate TestOneTableObject||onUpdate TestOneTableObject||onAfterUpdate TestOneTableObject||onAfterSave TestOneTableObject|',
+        $delegate->getCallsOrder());
   }
 
   function testDestroyRecordForGlobalListener()
@@ -205,12 +108,12 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
     $object->set('news_date', '2005-01-10');
     $object->save();
 
-    $delegate = new lmbActiveRecordEventHaldlerStubDelegate();
+    $delegate = new lmbActiveRecordEventHandlerStubDelegate();
     $delegate->subscribeGloballyForEvents($object);
 
     $object->destroy();
 
-    $this->assertEquals($delegate->getCallsOrder(),
-                       '|onBeforeDestroy TestOneTableObject||onAfterDestroy TestOneTableObject|');
+    $this->assertEquals('|onBeforeDestroy TestOneTableObject||onAfterDestroy TestOneTableObject|',
+        $delegate->getCallsOrder());
   }
 }

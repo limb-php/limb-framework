@@ -11,69 +11,10 @@ namespace tests\active_record\cases;
 // This test ensures that old value object functionality is still supported.
 
 use limb\active_record\src\lmbActiveRecord;
-
-class TestingValueObject
-{
-  var $value;
-
-  function __construct($value)
-  {
-    $this->value = $value;
-  }
-
-  function getValue()
-  {
-    return $this->value;
-  }
-}
-
-class TestingNullValueObject extends TestingValueObject
-{
-  function getValue()
-  {
-    return 'i\'m a null';
-  }
-}
-
-class LessonForBCTest extends lmbActiveRecord
-{
-  protected $_db_table_name = 'lesson_for_test';
-
-  protected $_composed_of = array('date_start' => array('field' => 'date_start',
-                                                        'class' => 'TestingValueObject',
-                                                        'getter' => 'getValue'),
-                                  'date_end' => array('field' => 'date_end',
-                                                      'class' => 'TestingValueObject',
-                                                      'getter' => 'getValue'),
-                                  'not_required_date' => array('field' => 'date_end',
-                                                               'class' => 'TestingValueObject',
-                                                               'getter' => 'getValue',
-                                                               'can_be_null' => true));
-}
-
-class LessonWithNullObjectForBCTest extends LessonForBCTest
-{
-  protected $_db_table_name = 'lesson_for_test';
-
-  function getNotRequiredDate()
-  {
-    $null_object = new TestingValueObject('null');
-    return $this->get('not_required_date', $null_object);
-  }
-}
-
-class LazyLessonForBCTest extends lmbActiveRecord
-{
-  protected $_db_table_name = 'lesson_for_test';
-  protected $_lazy_attributes = array('date_start');
-  protected $_composed_of = array('date_start' => array('field' => 'date_start',
-                                                        'class' => 'TestingValueObject',
-                                                        'getter' => 'getValue'),
-                                  'date_end' => array('field' => 'date_end',
-                                                      'class' => 'TestingValueObject',
-                                                      'getter' => 'getValue'));
-
-}
+use tests\active_record\cases\src\LazyLessonForBCTestObject;
+use tests\active_record\cases\src\LessonForBCTestObject;
+use tests\active_record\cases\src\LessonWithNullObjectForBCTestObject;
+use tests\active_record\cases\src\TestingValueObject;
 
 class lmbARValueObjectBCTest extends lmbARBaseTestCase
 {
@@ -81,28 +22,28 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
 
   function testNewObjectReturnsNullValueObjects()
   {
-    $lesson = new LessonForBCTest();
+    $lesson = new LessonForBCTestObject();
     $this->assertNull($lesson->getDateStart());
     $this->assertNull($lesson->getDateEnd());
   }
 
   function testSaveLoadValueObjects()
   {
-    $lesson = new LessonForBCTest();
+    $lesson = new LessonForBCTestObject();
 
     $lesson->setDateStart(new TestingValueObject($v1 = time()));
     $lesson->setDateEnd(new TestingValueObject($v2 = time() + 100));
 
     $lesson->save();
 
-    $lesson2 = lmbActiveRecord :: findById('LessonForBCTest', $lesson->getId());
+    $lesson2 = lmbActiveRecord :: findById(LessonForBCTestObject::class, $lesson->getId());
     $this->assertEquals($lesson2->getDateStart()->getValue(), $v1);
     $this->assertEquals($lesson2->getDateEnd()->getValue(), $v2);
   }
 
   function testGenericGetReturnsAlreadyExistingObject()
   {
-    $lesson = new LessonForBCTest();
+    $lesson = new LessonForBCTestObject();
 
     $lesson->setDateStart(new TestingValueObject($v1 = time() - 100));
     $lesson->setDateEnd(new TestingValueObject($v2 = time() + 100));
@@ -113,14 +54,14 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
 
   function testLazyValueObjects()
   {
-    $lesson = new LessonForBCTest();
+    $lesson = new LessonForBCTestObject();
 
     $lesson->setDateStart(new TestingValueObject($v1 = time()));
     $lesson->setDateEnd(new TestingValueObject($v2 = time() + 100));
 
     $lesson->save();
 
-    $lesson2 = new LazyLessonForBCTest($lesson->getId());
+    $lesson2 = new LazyLessonForBCTestObject($lesson->getId());
 
     $this->assertEquals($lesson2->getDateStart()->getValue(), $v1);
     $this->assertEquals($lesson2->getDateEnd()->getValue(), $v2);
@@ -128,11 +69,11 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
 
   function testValueObjectsAreImportedAndExportedProperly()
   {
-    $lesson = new LessonForBCTest();
+    $lesson = new LessonForBCTestObject();
     $lesson->setDateStart(new TestingValueObject($v1 = time()));
     $lesson->setDateEnd(new TestingValueObject($v2 = time() + 100));
 
-    $lesson2 = new LessonForBCTest($lesson->export());
+    $lesson2 = new LessonForBCTestObject($lesson->export());
 
     $this->assertEquals($lesson2->getDateStart()->getValue(), $v1);
     $this->assertEquals($lesson2->getDateEnd()->getValue(), $v2);
@@ -140,7 +81,7 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
 
   function testImportValueObjectsAreImportedProperly()
   {
-    $lesson = new LessonForBCTest();
+    $lesson = new LessonForBCTestObject();
 
     $imported = array(
       'date_start' => new TestingValueObject($v1 = time()),
@@ -149,7 +90,7 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
 
     $lesson->import($imported);
 
-    $lesson2 = new LessonForBCTest($lesson->export());
+    $lesson2 = new LessonForBCTestObject($lesson->export());
 
     $this->assertEquals($lesson2->getDateStart()->getValue(), $v1);
     $this->assertEquals($lesson2->getDateEnd()->getValue(), $v2);
@@ -157,7 +98,7 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
 
   function testValueObjectsAreImportedNotFromObjects() {
 
-    $lesson = new LessonForBCTest();
+    $lesson = new LessonForBCTestObject();
 
     $imported = array(
       'date_start' => time(),
@@ -166,7 +107,7 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
 
     $lesson->import($imported);
 
-    $lesson2 = new LessonForBCTest($lesson->export());
+    $lesson2 = new LessonForBCTestObject($lesson->export());
 
     $this->assertEquals($lesson2->getDateStart()->getValue(), $imported['date_start']);
     $this->assertEquals($lesson2->getDateEnd()->getValue(), $imported['date_end']);
@@ -175,32 +116,32 @@ class lmbARValueObjectBCTest extends lmbARBaseTestCase
 
   function testAllowNullValuesForValuesObjects()
   {
-    $lesson = new LessonForBCTest();
+    $lesson = new LessonForBCTestObject();
     $lesson->not_required_date = null;
     $this->assertNull($lesson->getNotRequiredDate());
   }
 
   function testGetDefaultObject()
   {
-    $lesson = new LessonWithNullObjectForBCTest();
-    $this->assertIdentical($lesson->getNotRequiredDate()->getValue(), 'null');
+    $lesson = new LessonWithNullObjectForBCTestObject();
+    $this->assertEquals($lesson->getNotRequiredDate()->getValue(), 'null');
     $lesson->not_required_date = new TestingValueObject('not_null');
-    $this->assertIdentical($lesson->getNotRequiredDate()->getValue(), 'not_null');
+    $this->assertEquals($lesson->getNotRequiredDate()->getValue(), 'not_null');
   }
 
   function testEmptyValueForValuesObjects()
   {
-    $lesson = new LessonForBCTest();
+    $lesson = new LessonForBCTestObject();
     $lesson->not_required_date = '';
-    $this->assertIdentical($lesson->getNotRequiredDate(), '');
+    $this->assertEquals($lesson->getNotRequiredDate(), '');
 
     $lesson->not_required_date = 0;
-    $this->assertIdentical($lesson->getNotRequiredDate(), 0);
+    $this->assertEquals($lesson->getNotRequiredDate(), 0);
   }
 
   function testProperWrapForScalrValueWhithNotRequiredFlagForValueObject()
   {
-    $lesson = new LessonForBCTest();
+    $lesson = new LessonForBCTestObject();
     $lesson->not_required_date = 'test';
     $this->assertInstanceOf($lesson->getNotRequiredDate(), TestingValueObject::class);
   }

@@ -8,14 +8,9 @@
  */
 namespace tests\active_record\cases;
 
-use limb\active_record\src\lmbActiveRecord;
+use tests\active_record\cases\src\TestAutoTimesObject;
 
 require_once '.setup.php';
-
-class TestAutoTimesObject extends lmbActiveRecord
-{
-  protected $_db_table_name = 'test_auto_times_object';
-}
 
 class lmbARAutoTimesTest extends lmbARBaseTestCase
 {

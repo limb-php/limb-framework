@@ -11,67 +11,13 @@ namespace tests\active_record\cases;
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbAROneToManyCollection;
 use limb\core\src\exception\lmbException;
-use limb\core\src\lmbCollectionDecorator;
-
-class lmbARTestingDSDecorator extends lmbCollectionDecorator
-{
-  protected $value;
-
-  function setValue($value)
-  {
-    $this->value = $value;
-  }
-
-  protected function _processRecord($record)
-  {
-    $record->set('value', $this->value);
-  }
-
-  function current()
-  {
-    $record = parent :: current();
-    $this->_processRecord($record);
-    return $record;
-  }
-
-  function at($pos)
-  {
-    $record = parent :: at($pos);
-    $this->_processRecord($record);
-    return $record;
-  }
-}
-
-class LectureForTestObjectStub extends LectureForTestObject
-{
-  var $save_calls = 0;
-
-  function save($error_list = null)
-  {
-    parent :: save($error_list);
-    $this->save_calls++;
-  }
-}
-
-
-class SpecialCourseForTestObject extends CourseForTestObject
-{
-  protected $_has_many = array('lectures' => array('field' => 'course_id',
-                                                   'class' => LectureForTestObject::class,
-                                                   'sort_params' => array('id' => 'DESC')));
-}
-
-class VerySpecialCourseForTestObject extends CourseForTestObject
-{
-  protected $_has_many = array('lectures' => array('field' => 'course_id',
-                                                   'class' => SpecialLectureForTestObject::class
-  ));
-}
-
-class SpecialLectureForTestObject extends LectureForTestObject
-{
-  protected $_default_sort_params = array('id' => 'DESC');
-}
+use tests\active_record\cases\src\CourseForTestObject;
+use tests\active_record\cases\src\LectureForTestObject;
+use tests\active_record\cases\src\LectureForTestObjectStub;
+use tests\active_record\cases\src\lmbARTestingDSDecorator;
+use tests\active_record\cases\src\SpecialCourseForTestObject;
+use tests\active_record\cases\src\SpecialLectureForTestObject;
+use tests\active_record\cases\src\VerySpecialCourseForTestObject;
 
 class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
 {

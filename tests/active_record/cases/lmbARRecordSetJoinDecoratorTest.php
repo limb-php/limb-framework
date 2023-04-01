@@ -12,6 +12,8 @@ use limb\active_record\src\lmbARRecordSetJoinDecorator;
 use limb\dbal\src\lmbDBAL;
 use limb\dbal\src\lmbSimpleDb;
 use limb\toolkit\src\lmbToolkit;
+use tests\active_record\cases\src\CourseForTestObject;
+use tests\active_record\cases\src\LectureForTestObject;
 
 class lmbARRecordSetJoinDecoratorTest extends lmbARBaseTestCase
 {

@@ -11,40 +11,11 @@ namespace tests\active_record\cases;
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARNotFoundException;
 use limb\validation\src\exception\lmbValidationException;
-use limb\validation\src\lmbValidator;
-
-class PersonForTestNoCascadeDelete extends lmbActiveRecord
-{
-  protected $_db_table_name = 'person_for_test';
-  protected $_has_one = array('social_security' => array('field' => 'ss_id',
-                                                         'class' => 'SocialSecurityForTest',
-                                                         'can_be_null' => true,
-                                                         'cascade_delete' => false));
-}
-
-class PersonForTestWithNotRequiredSocialSecurity extends lmbActiveRecord
-{
-  protected $_db_table_name = 'person_for_test';
-  protected $_has_one = array('social_security' => array('field' => 'ss_id',
-                                                         'class' => 'SocialSecurityForTest',
-                                                         'can_be_null' => true,
-                                                         'throw_exception_on_not_found' => false));
-}
-
-class PersonForTestWithRequiredSocialSecurity extends lmbActiveRecord
-{
-  protected $_db_table_name = 'person_for_test';
-  protected $_has_one = array('social_security' => array('field' => 'ss_id',
-                                                         'class' => 'SocialSecurityForTest',
-                                                         'can_be_null' => true));
-
-  function _createValidator()
-  {
-    $validator = new lmbValidator();
-    $validator->addRequiredObjectRule('social_security');
-    return $validator;
-  }
-}
+use tests\active_record\cases\src\PersonForTestNoCascadeDelete;
+use tests\active_record\cases\src\PersonForTestObject;
+use tests\active_record\cases\src\PersonForTestWithNotRequiredSocialSecurity;
+use tests\active_record\cases\src\PersonForTestWithRequiredSocialSecurity;
+use tests\active_record\cases\src\SocialSecurityForTestObject;
 
 class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
 {
@@ -183,7 +154,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person->setSocialSecurity($number);
     $person->save();
 
-    $number2 = lmbActiveRecord :: findById('SocialSecurityForTest', $number->getId());
+    $number2 = lmbActiveRecord :: findById(SocialSecurityForTestObject::class, $number->getId());
 
     $person2 = $number2->getPerson();
 
@@ -198,7 +169,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person->setSocialSecurity($number);
     $person->save();
 
-    $number2 = lmbActiveRecord :: findById('SocialSecurityForTest', $number->getId());
+    $number2 = lmbActiveRecord :: findById(SocialSecurityForTestObject::class, $number->getId());
 
     $person2 = $number2->getPerson();
 
@@ -213,7 +184,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person->setSocialSecurity($number);
     $person_id = $person->save();
 
-    $person2 = lmbActiveRecord :: findById('PersonForTest', $person_id);
+    $person2 = lmbActiveRecord :: findById(PersonForTestObject::class, $person_id);
     $number2 = $person2->getSocialSecurity();
 
     $this->assertEquals($person2->getId(), $person_id);
@@ -231,12 +202,12 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     
     $this->db->delete('social_security_for_test', 'id = '. $number->getId());
 
-    $person2 = lmbActiveRecord :: findById('PersonForTest', $person->getId());
+    $person2 = lmbActiveRecord :: findById(PersonForTestObject::class, $person->getId());
 
     try
     {
       $person2->getSocialSecurity();
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbARNotFoundException $e)
     {
@@ -253,7 +224,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     
     $this->db->delete('social_security_for_test', 'id = '. $number->getId());
 
-    $person2 = lmbActiveRecord :: findById('PersonForTestWithNotRequiredSocialSecurity', $person->getId());
+    $person2 = lmbActiveRecord :: findById(PersonForTestWithNotRequiredSocialSecurity::class, $person->getId());
 
     $this->assertNull($person2->getSocialSecurity());
   }
@@ -265,7 +236,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person->setSocialSecurity($number);
     $person_id = $person->save();
 
-    $person2 = lmbActiveRecord :: findById('PersonForTest', $person_id);
+    $person2 = lmbActiveRecord :: findById(PersonForTestObject::class, $person_id);
     $number2 = $person2->get('social_security');
 
     $this->assertEquals($person2->getId(), $person_id);
@@ -281,12 +252,12 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person->setSocialSecurity($number);
 
     $person_id = $person->save();
-    $this->assertTrue($number_id = $number->getId());
+    $this->assertEquals(1, $number_id = $number->getId());
 
     $person->destroy();
 
-    $this->assertNull(lmbActiveRecord :: findFirst('SocialSecurityForTest', array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $number_id)));
-    $this->assertNull(lmbActiveRecord :: findFirst('PersonForTest', array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $person_id)));
+    $this->assertNull(lmbActiveRecord :: findFirst(SocialSecurityForTestObject::class, array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $number_id)));
+    $this->assertNull(lmbActiveRecord :: findFirst(PersonForTestObject::class, array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $person_id)));
   }
 
   function testParentDeleteAllDeletesChildren()
@@ -302,12 +273,12 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $untouched_number = $this->creator->initSocialSecurity();
     $untouched_number->save();
 
-    lmbActiveRecord :: delete('PersonForTest');
+    lmbActiveRecord :: delete(PersonForTestObject::class);
 
-    $this->assertNull(lmbActiveRecord :: findFirst('SocialSecurityForTest', array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $number_id)));
-    $this->assertNull(lmbActiveRecord :: findFirst('PersonForTest', array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $person_id)));
+    $this->assertNull(lmbActiveRecord :: findFirst(SocialSecurityForTestObject::class, array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $number_id)));
+    $this->assertNull(lmbActiveRecord :: findFirst(PersonForTestObject::class, array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $person_id)));
 
-    $number2 = lmbActiveRecord :: findById('SocialSecurityForTest', $untouched_number->getId());
+    $number2 = lmbActiveRecord :: findById(SocialSecurityForTestObject::class, $untouched_number->getId());
     $this->assertEquals($number2->getCode(), $untouched_number->getCode());
   }
 
@@ -320,11 +291,11 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
     $person->setSocialSecurity($number);
     $person_id = $person->save();
     
-    $this->assertTrue($number_id = $number->getId());
+    $this->assertEquals(1, $number_id = $number->getId());
 
     $person->destroy();
 
-    $ss2 = lmbActiveRecord :: findFirst('SocialSecurityForTest', array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $number_id));
+    $ss2 = lmbActiveRecord :: findFirst(SocialSecurityForTestObject::class, array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $number_id));
     $this->assertEquals($ss2->getCode(), $number->getCode());
   }
 
@@ -363,7 +334,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
       $this->assertTrue(true);
     }
 
-    $number2 = lmbActiveRecord :: findFirst('SocialSecurityForTest');
+    $number2 = lmbActiveRecord :: findFirst(SocialSecurityForTestObject::class);
     $this->assertNotNull($number2, 'Removal should not be finished');
     $this->assertEquals($number2->getId(), $number->getId());
   }

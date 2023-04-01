@@ -10,6 +10,15 @@ namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\core\src\lmbSet;
+use tests\active_record\cases\src\CourseForTestObject;
+use tests\active_record\cases\src\GroupForTestObject;
+use tests\active_record\cases\src\LazyTestOneTableObject;
+use tests\active_record\cases\src\LectureForTestObject;
+use tests\active_record\cases\src\MemberForTest;
+use tests\active_record\cases\src\PersonForTestObject;
+use tests\active_record\cases\src\SocialSecurityForTestObject;
+use tests\active_record\cases\src\TestOneTableObject;
+use tests\active_record\cases\src\UserForTestObject;
 
 class LessonForTestWithCustomImport extends lmbActiveRecord
 {
@@ -167,7 +176,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $course2 = new CourseForTestObject();
     $course2->import($source);
     $this->assertEquals($course2->getTitle(), $course->getTitle());
-    $this->assertEquals($course2->getLectures()->count(), 2);
+    $this->assertEquals(2, $course2->getLectures()->count());
     $this->assertEquals($course2->getLectures()->at(0)->getTitle(), $l1->getTitle());
     $this->assertEquals($course2->getLectures()->at(1)->getTitle(), $l2->getTitle());
   }
@@ -193,7 +202,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $course2 = new CourseForTestObject();
     $course2->import($source);
     $this->assertEquals($course2->getTitle(), $course->getTitle());
-    $this->assertEquals($course2->getLectures()->count(), 2);
+    $this->assertEquals(2, $course2->getLectures()->count());
     $this->assertEquals($course2->getLectures()->at(0)->getTitle(), $l1->getTitle());
     $this->assertEquals($course2->getLectures()->at(1)->getTitle(), $l2->getTitle());
   }
@@ -220,7 +229,7 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     $course2->import($source);
     $this->assertEquals($course2->getTitle(), $course->getTitle());
-    $this->assertEquals($course2->getLectures()->count(), 1);
+    $this->assertEquals(1, $course2->getLectures()->count());
     $this->assertEquals($course2->getLectures()->at(0)->getTitle(), $l2->getTitle());
   }
 
@@ -310,7 +319,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $user2 = new UserForTestObject();
     $user2->import($source);
     $this->assertEquals($user2->getFirstName(), $user1->getFirstName());
-    $this->assertEquals($user2->getGroups()->count(), 2);
+    $this->assertEquals(2, $user2->getGroups()->count());
     $this->assertEquals($user2->getGroups()->at(0)->getTitle(), $g1->getTitle());
     $this->assertEquals($user2->getGroups()->at(1)->getTitle(), $g2->getTitle());
   }
@@ -335,7 +344,7 @@ class lmbARImportTest extends lmbARBaseTestCase
     $user2 = new UserForTestObject();
     $user2->import($source);
     $this->assertEquals($user2->getFirstName(), $user1->getFirstName());
-    $this->assertEquals($user2->getGroups()->count(), 2);
+    $this->assertEquals(2, $user2->getGroups()->count());
     $this->assertEquals($user2->getGroups()->at(0)->getTitle(), $g1->getTitle());
     $this->assertEquals($user2->getGroups()->at(1)->getTitle(), $g2->getTitle());
   }
@@ -487,6 +496,6 @@ class lmbARImportTest extends lmbARBaseTestCase
     $what = ob_get_contents();
     ob_end_clean();
 
-    $this->assertEquals($what, 'Halo!');
+    $this->assertEquals('Halo!', $what);
   }
 }

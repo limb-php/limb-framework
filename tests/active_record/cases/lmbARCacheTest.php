@@ -11,7 +11,6 @@ namespace tests\active_record\cases;
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARException;
 use limb\active_record\src\lmbARNotFoundException;
-use limb\active_record\src\lmbAROneToManyCollection;
 use limb\cache\src\lmbCacheFileWithMetaBackend;
 use limb\cache\src\lmbCacheGroupDecorator;
 use limb\core\src\lmbCollection;
@@ -220,14 +219,14 @@ class CourseForTest2 extends cachedActiveRecord
 {
   protected $_db_table_name = 'course_for_test';
   protected $_has_many = array('lectures' => array('field' => 'course_id',
-                                                   'class' => 'LectureForTest2'));
+                                                   'class' => LectureForTest2::class));
 }
 
 class LectureForTest2 extends cachedActiveRecord
 {
   protected $_db_table_name = 'lecture_for_test';
   protected $_many_belongs_to = array('course' => array('field' => 'course_id',
-                                                        'class' => 'CourseForTest2'),
+                                                        'class' => CourseForTest2::class),
                                       );
 }
 
@@ -267,7 +266,7 @@ class lmbARCacheTest extends lmbARBaseTestCase
     }
     else
     {
-      $this->assertTrue(false);
+      $this->fail();
     }
   }
 
@@ -300,7 +299,7 @@ class lmbARCacheTest extends lmbARBaseTestCase
     }
     else
     {
-      $this->assertTrue(false);
+      $this->fail();
     }
 
     if( false !== ($l12 = $this->cache->get($key_l1, array('group' => $group_l1))) )
@@ -311,7 +310,7 @@ class lmbARCacheTest extends lmbARBaseTestCase
     }
     else
     {
-      $this->assertTrue(false);
+      $this->fail();
     }
   }
 
@@ -343,7 +342,7 @@ class lmbARCacheTest extends lmbARBaseTestCase
     }
     else
     {
-      $this->assertTrue(false);
+      $this->fail();
     }
 
     /* */
@@ -360,7 +359,7 @@ class lmbARCacheTest extends lmbARBaseTestCase
     }
     else
     {
-      $this->assertTrue(false);
+      $this->fail();
     }
   }
 
