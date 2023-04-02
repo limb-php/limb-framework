@@ -44,7 +44,7 @@ class lmbARRecordSetDecoratorTest extends lmbARBaseTestCase
     $db = new lmbSimpleDb(lmbToolkit :: instance()->getDefaultDbConnection());
     $decorated = $db->select('lecture_for_test');
 
-    $iterator = new lmbARRecordSetDecorator($decorated, 'LectureForTest');
+    $iterator = new lmbARRecordSetDecorator($decorated, LectureForTestObject::class);
 
     $this->assertEquals($iterator->at(0)->getCourse()->getTitle(), $course->getTitle());
     $this->assertEquals($iterator[0]->getCourse()->getTitle(), $course->getTitle());

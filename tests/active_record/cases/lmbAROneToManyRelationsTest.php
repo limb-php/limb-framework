@@ -314,7 +314,7 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
 
     $course->getLectures()->add($lecture);
 
-    $this->assertReference($lecture->getCourse(), $course);
+    $this->assertEquals($lecture->getCourse(), $course);
   }
 
   function testDeleteCollection()
@@ -429,25 +429,25 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     //make sure we really eager fetching
     $this->db->delete('course_for_test');
     
-    $this->assertInstanceOf($arr[0], LectureForTestObject::class);
+    $this->assertInstanceOf(LectureForTestObject::class, $arr[0]);
     $this->assertEquals($arr[0]->getTitle(), $lecture1->getTitle());
-    $this->assertInstanceOf($arr[0]->getCourse(), CourseForTestObject::class);
+    $this->assertInstanceOf(CourseForTestObject::class, $arr[0]->getCourse());
     $this->assertEquals($arr[0]->getCourse()->getTitle(), $course->getTitle());
-    $this->assertInstanceOf($arr[0]->getAltCourse(), CourseForTestObject::class);
+    $this->assertInstanceOf(CourseForTestObject::class, $arr[0]->getAltCourse());
     $this->assertEquals($arr[0]->getAltCourse()->getTitle(), $alt_course1->getTitle());
 
-    $this->assertInstanceOf($arr[1], LectureForTestObject::class);
+    $this->assertInstanceOf(LectureForTestObject::class, $arr[1]);
     $this->assertEquals($arr[1]->getTitle(), $lecture2->getTitle());
-    $this->assertInstanceOf($arr[1]->getCourse(), CourseForTestObject::class);
+    $this->assertInstanceOf(CourseForTestObject::class, $arr[1]->getCourse());
     $this->assertEquals($arr[1]->getCourse()->getTitle(), $course->getTitle());
-    $this->assertInstanceOf($arr[1]->getAltCourse(), CourseForTestObject::class);
+    $this->assertInstanceOf(CourseForTestObject::class, $arr[1]->getAltCourse());
     $this->assertEquals($arr[1]->getAltCourse()->getTitle(), $alt_course2->getTitle());
 
-    $this->assertInstanceOf($arr[2], LectureForTestObject::class);
+    $this->assertInstanceOf(LectureForTestObject::class, $arr[2]);
     $this->assertEquals($arr[2]->getTitle(), $lecture3->getTitle());
-    $this->assertInstanceOf($arr[2]->getCourse(), CourseForTestObject::class);
+    $this->assertInstanceOf(CourseForTestObject::class, $arr[2]->getCourse());
     $this->assertEquals($arr[2]->getCourse()->getTitle(), $course->getTitle());
-    $this->assertInstanceOf($arr[2]->getAltCourse(), CourseForTestObject::class);
+    $this->assertInstanceOf(CourseForTestObject::class, $arr[2]->getAltCourse());
     $this->assertEquals($arr[2]->getAltCourse()->getTitle(), $alt_course1->getTitle());
   }
   
@@ -468,7 +468,7 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     
     $course2_loaded2 = lmbActiveRecord::findFirst(CourseForTestObject::class, array('criteria' => 'course_for_test.id = '. $course2->getId(), 'attach' => 'lectures'));
     $lectures = $course2_loaded2->getLectures();
-    $this->assertEquals(count($lectures), 2);
+    $this->assertEquals(2, count($lectures));
   }
   
   function testImportAndSaveNullableRelataions()
@@ -483,7 +483,7 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $lecture3->setTitle("Lecture 3");
     $course->setLectures(array($lecture1, $lecture2, $lecture3));
     $course->save();
-    $this->assertEquals(lmbActiveRecord::find(LectureForTestObject::class)->count(), 3);
+    $this->assertEquals(3, lmbActiveRecord::find(LectureForTestObject::class)->count());
     
     $course_arr = $course->export();
     $lect_arr = $course->getLectures()->getIds();
@@ -491,7 +491,7 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     $course_arr['lectures'] = $lect_arr;
     $course->import($course_arr);
     $course->save();
-    $this->assertEquals(lmbActiveRecord::find(LectureForTestObject::class)->count(), 3);
+    $this->assertEquals(3, lmbActiveRecord::find(LectureForTestObject::class)->count());
   }
   
   function testSwapNullableRelations()
@@ -530,7 +530,7 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     {
 
     }
-    $this->assertEquals(lmbActiveRecord::find(LectureForTestObject::class)->count(), 4);
+    $this->assertEquals(4, lmbActiveRecord::find(LectureForTestObject::class)->count());
   }
 
   function _initCourse()

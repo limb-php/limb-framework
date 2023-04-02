@@ -8,14 +8,20 @@ class LessonForBCTestObject extends lmbActiveRecord
 {
     protected $_db_table_name = 'lesson_for_test';
 
-    protected $_composed_of = array('date_start' => array('field' => 'date_start',
-        'class' => TestingValueObject::class,
-        'getter' => 'getValue'),
-        'date_end' => array('field' => 'date_end',
-            'class' => 'TestingValueObject',
+    protected $_composed_of = array(
+        'date_start' => array(
+            'field' => 'date_start',
+            'class' => TestingValueObject::class,
             'getter' => 'getValue'),
-        'not_required_date' => array('field' => 'date_end',
+        'date_end' => array(
+            'field' => 'date_end',
+            'class' => TestingValueObject::class,
+            'getter' => 'getValue'
+        ),
+        'not_required_date' => array(
+            'field' => 'date_end',
             'class' => TestingValueObject::class,
             'getter' => 'getValue',
-            'can_be_null' => true));
+            'can_be_null' => true
+        ));
 }

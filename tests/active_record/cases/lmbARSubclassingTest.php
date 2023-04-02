@@ -160,19 +160,19 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
     $course2 = new CourseForTestForTypedLecture($course->getId());
 
     $this->assertEquals(2, $course2->getLectures()->count());//supertype by default
-    $this->assertInstanceOf($course2->getLectures()->at(0), FooLectureForTestObject::class);
-    $this->assertInstanceOf($course2->getLectures()->at(1), BarFooLectureForTestObject::class);
+    $this->assertInstanceOf(FooLectureForTestObject::class, $course2->getLectures()->at(0));
+    $this->assertInstanceOf(BarFooLectureForTestObject::class, $course2->getLectures()->at(1));
 
     //narrowing selection but again its supertype for BarFooLectureForTest
     $lectures = $course2->getLectures()->find(array('class' => FooLectureForTestObject::class));
 
     $this->assertEquals(2, $lectures->count());
-    $this->assertInstanceOf($lectures->at(0), FooLectureForTestObject::class);
-    $this->assertInstanceOf($lectures->at(1), BarFooLectureForTestObject::class);
+    $this->assertInstanceOf(FooLectureForTestObject::class, $lectures->at(0));
+    $this->assertInstanceOf(BarFooLectureForTestObject::class, $lectures->at(1));
 
     //narrowing more
     $lectures = $course2->getLectures()->find(array('class' => BarFooLectureForTestObject::class));
     $this->assertEquals(1, $lectures->count());
-    $this->assertInstanceOf($lectures->at(0), BarFooLectureForTestObject::class);
+    $this->assertInstanceOf(BarFooLectureForTestObject::class, $lectures->at(0));
   }
 }

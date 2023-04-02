@@ -3,8 +3,6 @@
 namespace tests\active_record\cases\src;
 
 use limb\active_record\src\lmbActiveRecord;
-use tests\active_record\cases\LectureForTestObject;
-use tests\active_record\cases\ProgramForTestObject;
 
 class CourseForTestObject extends lmbActiveRecord
 {

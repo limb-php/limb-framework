@@ -21,11 +21,11 @@ class GroupForTestObject extends lmbActiveRecord
         $this->_test_validator = $validator;
     }
 
-    function _createValidator()
+    function _createInsertValidator()
     {
         if($this->_test_validator)
             return $this->_test_validator;
 
-        return parent::_createValidator();
+        return parent::_createInsertValidator();
     }
 }

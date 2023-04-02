@@ -21,7 +21,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
   function testGetErrorListReturnDefaultErrorList()
   {
     $object = $this->_createActiveRecord();
-    $this->assertInstanceOf($object->getErrorList(), lmbErrorList::class);
+    $this->assertInstanceOf(lmbErrorList::class, $object->getErrorList());
   }
 
   function testValidateNew()
@@ -45,7 +45,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
         ->method('validate')
         ->with($object);
 
-    $insert_validator->setReturnValue('validate', true);
+    $insert_validator->method('validate')->willReturn(true);
 
     $update_validator
         ->expects($this->never())
@@ -63,10 +63,10 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $insert_validator = $this->createMock(lmbValidator::class);
     $object = $this->_createActiveRecord();
     $object->setInsertValidator($insert_validator);
-    $insert_validator->setReturnValue('validate', true);
+    $insert_validator->method('validate')->willReturn(true);
     $object->validate($error_list);
 
-    $this->assertReference($object->getErrorList(), $error_list);
+    $this->assertEquals($object->getErrorList(), $error_list);
   }
 
   function testValidateNewFailed()
@@ -109,7 +109,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
         ->method('validate')
         ->with($object);
 
-    $update_validator->setReturnValue('validate', true);
+    $update_validator->method('validate')->willReturn(true);
 
     $insert_validator
         ->expects($this->never())
@@ -170,14 +170,14 @@ class lmbARValidationTest extends lmbARBaseTestCase
     try
     {
       $object->save($error_list);
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbValidationException $e)
     {
       $this->assertEquals($e->getErrorList(), $error_list);
     }
 
-    $this->assertEquals($this->db->count('test_one_table_object'), 0);
+    $this->assertEquals(0, $this->db->count('test_one_table_object'));
   }
 
   function testInsertOnValidationSuccess()
@@ -204,7 +204,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
 
     $object->save($error_list);
 
-    $this->assertEquals($this->db->count('test_one_table_object'), 1);
+    $this->assertEquals(1, $this->db->count('test_one_table_object'));
   }
 
   function testDoubleInsert_FirstSaveValidationError_But_SecondSaveIsOk()
@@ -219,24 +219,25 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $object->set('news_date', $news_date = '2005-01-10');
 
     $error_list = $this->createMock(lmbErrorList::class);
-    $error_list->setReturnValueAt(0, 'isValid', false);
-    $error_list->setReturnValueAt(1, 'isValid', true);
+    $error_list
+        ->method('isValid')
+        ->willReturn([false, true]);
     
     try
     {
       $object->save($error_list);
-      $this->assertTrue(false);
+      $this->fail();
     }
     catch(lmbValidationException $e)
     {
       $this->assertTrue(true);
     }
 
-    $this->assertEquals($this->db->count('test_one_table_object'), 0);
+    $this->assertEquals(0, $this->db->count('test_one_table_object'));
     
     $object->save($error_list);
 
-    $this->assertEquals($this->db->count('test_one_table_object'), 1);
+    $this->assertEquals(1, $this->db->count('test_one_table_object'));
   }
   
   function testDontUpdateOnValidationError()
@@ -296,7 +297,9 @@ class lmbARValidationTest extends lmbARBaseTestCase
         ->method('validate')
         ->with($object);
 
-    $validator->setReturnValue('validate', true);
+    $validator
+        ->method('validate')
+        ->willReturn(true);
 
     $object->save($error_list);
 
@@ -314,8 +317,9 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $object->set('annotation', $annotation = 'Other annotation');
 
     $error_list = $this->createMock(lmbErrorList::class);
-    $error_list->setReturnValueAt(0, 'isValid', false);
-    $error_list->setReturnValueAt(1, 'isValid', true);
+    $error_list
+        ->method('isValid')
+        ->willReturn([false, true]);
     
     try
     {
@@ -397,7 +401,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $this->assertFalse($object->trySave($error_list));
     $this->assertFalse($error_list->isEmpty());
     $this->assertEquals(1, sizeof($error_list));
-    $this->assertPattern('~yo-yo~', $error_list[0]['message']);
+    $this->assertMatchesRegularExpression('~yo-yo~', $error_list[0]['message']);
   }
 
   function _createActiveRecord()

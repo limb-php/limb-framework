@@ -1030,15 +1030,15 @@ class lmbActiveRecord extends lmbObject
   protected function _loadAggregatedObject($property)
   {
     $class = $this->_composed_of[$property]['class'];
+    $mapping = $this->_composed_of[$property]['mapping'] ?? null;
+
     $object = new $class();
 
-    if(isset($this->_composed_of[$property]['mapping'])) {
-        $mapping = $this->_composed_of[$property]['mapping'];
-
+    if($mapping) {
         foreach($mapping as $aggregate_field => $ar_field)
             $object->set($aggregate_field, $this->get($ar_field)); // mapping objects
     }
-    else {
+    else if( $this->_hasProperty($property) ) {
         $object->set($property, $this->_getRaw($property));
     }
 
@@ -1135,7 +1135,7 @@ class lmbActiveRecord extends lmbObject
   protected function _doSave($need_validation)
   {
     if($this->_is_being_saved)
-      return;
+      return null;
 
     try
     {

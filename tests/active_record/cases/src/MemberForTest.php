@@ -7,8 +7,10 @@ use tests\active_record\cases\src\NameForAggregateTest;
 
 class MemberForTest extends lmbActiveRecord
 {
-    protected $_composed_of = array('name' => array('class' => NameForAggregateTest::class,
-        'mapping' => array('first' => 'first_name',
+    protected $_composed_of = array('name' => array(
+        'class' => NameForAggregateTest::class,
+        'mapping' => array(
+            'first' => 'first_name',
             'last' => 'last_name'),
         'setup_method' => 'setupName'));
 

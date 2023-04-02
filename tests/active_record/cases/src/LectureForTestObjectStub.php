@@ -8,7 +8,7 @@ class LectureForTestObjectStub extends LectureForTestObject
 
     function save($error_list = null)
     {
-        parent :: save($error_list);
+        parent::save($error_list);
         $this->save_calls++;
     }
 }

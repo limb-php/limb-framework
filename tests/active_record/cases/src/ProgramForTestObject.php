@@ -8,11 +8,13 @@ class ProgramForTestObject extends lmbActiveRecord
 {
     protected $_db_table_name = 'program_for_test';
 
-    protected $_has_many = array('courses' => array('field' => 'program_id',
+    protected $_has_many = array('courses' => array(
+        'field' => 'program_id',
         'class' => CourseForTestObject::class
     ),
 
-        'cached_lectures' => array('field' => 'program_id',
+        'cached_lectures' => array(
+            'field' => 'program_id',
             'class' => LectureForTestObject::class
         ));
 }

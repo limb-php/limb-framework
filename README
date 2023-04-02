@@ -26,6 +26,7 @@ Migrate from Limb3 to Limb4:
     * Application class method process should be compatible with limb\filter_chain\src\lmbFilterChain::process($request = NULL, $response = NULL)
     * method run all of filter classes must be compatible with limb\filter_chain\src\lmbInterceptingFilterInterface::run($filter_chain, $request, $response); and return HttpResponse; method next() must be compatible with limb\filter_chain\src\lmbInterceptingFilterInterface::next($request, $response)
     * driver mysqli removed. Use mysql
+    * ActiveRecord value objects no more supports "getter" and "field" params. Use "mapping" or "setup_method"
 
 
 Install

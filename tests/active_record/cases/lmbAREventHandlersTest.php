@@ -27,7 +27,7 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
 
     $object->save();
 
-    $this->assertEquals('|onBeforeSave TestOneTableObject||onBeforeCreate TestOneTableObject||onCreate TestOneTableObject||onAfterCreate TestOneTableObject||onAfterSave TestOneTableObject|',
+    $this->assertEquals('|onBeforeSave ' . TestOneTableObject::class . '||onBeforeCreate ' . TestOneTableObject::class . '||onCreate ' . TestOneTableObject::class . '||onAfterCreate ' . TestOneTableObject::class . '||onAfterSave ' . TestOneTableObject::class . '|',
         $delegate->getCallsOrder());
   }
 
@@ -45,7 +45,7 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
     $object->set('content', 'New Super content');
     $object->save();
 
-    $this->assertEquals('|onBeforeSave TestOneTableObject||onBeforeUpdate TestOneTableObject||onUpdate TestOneTableObject||onAfterUpdate TestOneTableObject||onAfterSave TestOneTableObject|',
+    $this->assertEquals('|onBeforeSave ' . TestOneTableObject::class . '||onBeforeUpdate ' . TestOneTableObject::class . '||onUpdate ' . TestOneTableObject::class . '||onAfterUpdate ' . TestOneTableObject::class . '||onAfterSave ' . TestOneTableObject::class . '|',
         $delegate->getCallsOrder());
   }
 
@@ -62,7 +62,7 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
 
     $object->destroy();
 
-    $this->assertEquals('|onBeforeDestroy TestOneTableObject||onAfterDestroy TestOneTableObject|',
+    $this->assertEquals('|onBeforeDestroy ' . TestOneTableObject::class . '||onAfterDestroy ' . TestOneTableObject::class . '|',
         $delegate->getCallsOrder());
   }
 
@@ -78,7 +78,7 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
 
     $object->save();
 
-    $this->assertEquals('|onBeforeSave TestOneTableObject||onBeforeCreate TestOneTableObject||onCreate TestOneTableObject||onAfterCreate TestOneTableObject||onAfterSave TestOneTableObject|',
+    $this->assertEquals('|onBeforeSave ' . TestOneTableObject::class . '||onBeforeCreate ' . TestOneTableObject::class . '||onCreate ' . TestOneTableObject::class . '||onAfterCreate ' . TestOneTableObject::class . '||onAfterSave ' . TestOneTableObject::class . '|',
         $delegate->getCallsOrder());
   }
 
@@ -96,7 +96,7 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
     $object->set('content', 'New Super content');
     $object->save();
 
-    $this->assertEquals('|onBeforeSave TestOneTableObject||onBeforeUpdate TestOneTableObject||onUpdate TestOneTableObject||onAfterUpdate TestOneTableObject||onAfterSave TestOneTableObject|',
+    $this->assertEquals('|onBeforeSave ' . TestOneTableObject::class . '||onBeforeUpdate ' . TestOneTableObject::class . '||onUpdate ' . TestOneTableObject::class . '||onAfterUpdate ' . TestOneTableObject::class . '||onAfterSave ' . TestOneTableObject::class . '|',
         $delegate->getCallsOrder());
   }
 
@@ -113,7 +113,7 @@ class lmbAREventHandlersTest extends lmbARBaseTestCase
 
     $object->destroy();
 
-    $this->assertEquals('|onBeforeDestroy TestOneTableObject||onAfterDestroy TestOneTableObject|',
+    $this->assertEquals('|onBeforeDestroy ' . TestOneTableObject::class . '||onAfterDestroy ' . TestOneTableObject::class . '|',
         $delegate->getCallsOrder());
   }
 }

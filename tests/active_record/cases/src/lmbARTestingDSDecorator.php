@@ -20,14 +20,14 @@ class lmbARTestingDSDecorator extends lmbCollectionDecorator
 
     function current()
     {
-        $record = parent :: current();
+        $record = parent::current();
         $this->_processRecord($record);
         return $record;
     }
 
     function at($pos)
     {
-        $record = parent :: at($pos);
+        $record = parent::at($pos);
         $this->_processRecord($record);
         return $record;
     }

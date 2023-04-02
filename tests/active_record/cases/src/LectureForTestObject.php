@@ -7,7 +7,8 @@ use limb\active_record\src\lmbActiveRecord;
 class LectureForTestObject extends lmbActiveRecord
 {
     protected $_db_table_name = 'lecture_for_test';
-    protected $_many_belongs_to = array('course' => array('field' => 'course_id',
+    protected $_many_belongs_to = array('course' => array(
+        'field' => 'course_id',
         'class' => CourseForTestObject::class
     ),
         'alt_course' => array('field' => 'alt_course_id',
