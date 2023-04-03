@@ -1,5 +1,5 @@
 <?php
-namespace tests\dbal;
+namespace tests\dbal\src;
 
 use limb\dbal\src\drivers\lmbDbBaseLexer;
 

@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use limb\dbal\src\exception\lmbDbException;
+
 function DriverSqliteSetup($conn)
 {
   DriverSqliteExec($conn, 'DROP TABLE founding_fathers', false);
@@ -60,12 +62,12 @@ function DriverSqliteExec($conn, $sql, $check_result = true)
 {
   if($check_result)
   {
-    if(!$result = sqlite_query($conn, $sql))
+    if(!$result = \SQLite3::query($sql))
       throw new lmbDbException('SQLite error happened: ' . sqlite_error_string(sqlite_last_error($conn)));
   }
-  else
-    $result = @sqlite_query($conn, $sql);
+  else {
+      $result = \SQLite3::query($sql);
+  }
+
   return $result;
 }
-
-

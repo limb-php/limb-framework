@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use limb\dbal\src\exception\lmbDbException;
+
 error_reporting(E_ALL);
 
 function DriverMysqliSetup($conn)

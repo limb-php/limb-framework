@@ -8,6 +8,7 @@
  */
 namespace tests\dbal\cases\driver\mysql;
 
+use limb\dbal\src\drivers\mysql\lmbMysqlConnection;
 use limb\dbal\src\drivers\mysql\lmbMysqlInsertStatement;
 use limb\dbal\src\drivers\mysql\lmbMysqlManipulationStatement;
 use limb\dbal\src\drivers\mysql\lmbMysqlQueryStatement;
@@ -36,8 +37,9 @@ class lmbMysqlConnectionTest extends DriverConnectionTestBase
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverMysqliSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 

@@ -75,7 +75,7 @@ class lmbLinterInsertTest extends DriverInsertTestBase
             :first:, :last:
         )';
     $stmt = $this->connection->newStatement($sql);
-    $this->assertInstanceOf($stmt, $this->insert_stmt_class);
+    $this->assertInstanceOf($this->insert_stmt_class, $stmt);
 
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');

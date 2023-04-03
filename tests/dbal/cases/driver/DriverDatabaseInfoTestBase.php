@@ -28,14 +28,14 @@ abstract class DriverDatabaseInfoTestBase extends DriverMetaTestBase
   function testGetTable()
   {
     $table = $this->dbinfo->getTable('founding_fathers');
-    $this->assertInstanceOf($table, lmbDbTableInfo::class);
+    $this->assertInstanceOf(lmbDbTableInfo::class, $table);
   }
   
   function testGetTables()
   {
     $tables = $this->dbinfo->getTables();
-    if($this->assertTrue(isset($tables['founding_fathers'])))
-      if($this->assertInstanceOf($tables['founding_fathers'], lmbDbTableInfo::class))
-        $this->assertEquals($tables['founding_fathers']->getName(), 'founding_fathers');
+    $this->assertTrue(isset($tables['founding_fathers']));
+    $this->assertInstanceOf(lmbDbTableInfo::class, $tables['founding_fathers']);
+    $this->assertEquals($tables['founding_fathers']->getName(), 'founding_fathers');
   }
 }

@@ -27,7 +27,7 @@ abstract class DriverUpdateTestBase extends DriverManipTestBase
           WHERE
               id = :id:";
     $stmt = $this->connection->newStatement($sql);
-    $this->assertInstanceOf($stmt, $this->manip_stmt_class);
+    $this->assertInstanceOf($this->manip_stmt_class, $stmt);
 
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');
@@ -46,7 +46,7 @@ abstract class DriverUpdateTestBase extends DriverManipTestBase
               first = :first:,
               last = :last:";
     $stmt = $this->connection->newStatement($sql);
-    $this->assertInstanceOf($stmt, $this->manip_stmt_class);
+    $this->assertInstanceOf($this->manip_stmt_class, $stmt);
 
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');

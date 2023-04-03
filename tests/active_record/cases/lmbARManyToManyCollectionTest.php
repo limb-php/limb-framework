@@ -8,7 +8,7 @@
  */
 namespace tests\active_record\cases;
 
-require ('.setup.php');
+require_once '.setup.php';
 
 use limb\active_record\src\lmbARManyToManyCollection;
 use limb\active_record\src\lmbActiveRecord;

@@ -11,7 +11,7 @@ namespace tests\dbal\cases\nondriver\criteria;
 require('tests/dbal/common.inc.php');
 
 use PHPUnit\Framework\TestCase;
-use tests\dbal\ConnectionTestStub;
+use tests\dbal\src\ConnectionTestStub;
 use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 

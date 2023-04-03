@@ -9,8 +9,12 @@ lmbEnv::set('MAX_ID_VALUE', 2147483648);
 
 $_SERVER['REQUEST_URI'] = '/test.php';
 
-require_once(dirname(__FILE__) . '/common.inc.php');
-require_once(dirname(__FILE__) . '/../../dbal/cases/init.inc.php');
+require_once(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
+require_once(dirname(__FILE__) . '/../../core/common.inc.php');
+require_once(dirname(__FILE__) . '/../../../src/limb/net/toolkit.inc.php');
+require_once(dirname(__FILE__) . '/../../../src/limb/dbal/toolkit.inc.php');
+require_once(dirname(__FILE__) . '/../../../src/limb/session/toolkit.inc.php');
+require_once(dirname(__FILE__) . '/../../dbal/common.inc.php');
 
 lmb_tests_init_var_dir(dirname(__FILE__) . '/../../../var/cron');
 

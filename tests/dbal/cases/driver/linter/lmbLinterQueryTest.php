@@ -34,7 +34,7 @@ class lmbLinterQueryTest extends DriverQueryTestBase
     $sql = 'SELECT * FROM founding_fathers WHERE "id" = 1';
     $stmt = $this->connection->newStatement($sql);
     $record = $stmt->getOneRecord();
-    $this->assertInstanceOf($record, $this->record_class);
+    $this->assertInstanceOf($this->record_class, $record);
     $this->assertEquals($record->get('id'), 1);
     $this->assertEquals($record->get('first'), 'George');
     $this->assertEquals($record->get('last'), 'Washington');
