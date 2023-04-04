@@ -29,12 +29,12 @@ class lmbErrorList extends lmbCollection
   *  $error_list->addError('{Field} must contain at least {min} characters.', array('Field' => 'password'), array('min' => 5));
   * </code>
   * After all replacements we can get something like "password must contain at least 5 characters"
-  * @param string Error message with placeholders like {Field} must contain at least {min} characters.
-  * @param array Array of aliases and field names like array('BaseField' => 'password', 'RepeatField' => 'repeat_password')
-  * @param array Array of aliases and field values like array('Min' => 5, 'Max' => 15)
+  * @param $message string Error message with placeholders like {Field} must contain at least {min} characters.
+  * @param $fields array Array of aliases and field names like array('BaseField' => 'password', 'RepeatField' => 'repeat_password')
+  * @param $values array Array of aliases and field values like array('Min' => 5, 'Max' => 15)
   * @return lmbErrorMessage
   */
-  function addError($message, $fields = array(), $values = array())
+  function addError($message, $fields = array(), $values = array()): lmbErrorMessage
   {
     $error = new lmbErrorMessage($message, $fields, $values);
     $this->add($error);
@@ -43,19 +43,19 @@ class lmbErrorList extends lmbCollection
 
   /**
   * Returns FALSE is contains at least one error, otherwise returns TRUE
-  * @return boolean
+  * @return bool
   */
-  function isValid()
+  function isValid(): bool
   {
     return $this->isEmpty();
   }
   
   /**
   * Returns all processed error list with formatted messages
-  * @see lmbErrorList :: addError()
+  * @see lmbErrorList::addError()
   * @return array
   */
-  function getReadable()
+  function getReadable(): array
   {
     $result = array();
     foreach ($this as $error)

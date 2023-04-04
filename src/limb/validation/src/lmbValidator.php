@@ -47,7 +47,7 @@ class lmbValidator
   * Creates an empty lmbErrorList if error list is NULL
   * @return lmbErrorList
   */
-  function getErrorList()
+  function getErrorList(): lmbErrorList
   {
     if(!$this->error_list)
       $this->error_list = new lmbErrorList();
@@ -61,7 +61,7 @@ class lmbValidator
   */
   function setErrorList($error_list)
   {
-    return $this->error_list = $error_list;
+    $this->error_list = $error_list;
   }
 
   /**
@@ -120,10 +120,10 @@ class lmbValidator
   /**
   * Performs validation
   * Passes datasource and list of errors to every validation rule
-  * @param lmbSetInterface Datasource to validate
+  * @param \limb\core\src\lmbSetInterface $datasource Datasource to validate
   * @return boolean True if valid
   */
-  function validate($datasource)
+  function validate($datasource): bool
   {
     foreach($this->rules as $rule)
       $rule->validate($datasource, $this->getErrorList());
