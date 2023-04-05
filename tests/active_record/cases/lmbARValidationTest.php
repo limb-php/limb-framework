@@ -221,7 +221,10 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $error_list = $this->createMock(lmbErrorList::class);
     $error_list
         ->method('isValid')
-        ->willReturn([false, true]);
+        ->willReturnOnConsecutiveCalls(
+            false,
+            true
+        );
     
     try
     {
@@ -319,7 +322,10 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $error_list = $this->createMock(lmbErrorList::class);
     $error_list
         ->method('isValid')
-        ->willReturn([false, true]);
+        ->willReturnOnConsecutiveCalls(
+            false,
+            true
+        );
     
     try
     {
@@ -417,6 +423,7 @@ class lmbARValidationTest extends lmbARBaseTestCase
     $object->set('content', 'Content ' . time());
     $object->set('news_date', date("Y-m-d", time()));
     $object->save();
+
     return $object;
   }
 }

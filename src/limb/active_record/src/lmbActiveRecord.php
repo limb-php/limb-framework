@@ -196,7 +196,7 @@ class lmbActiveRecord extends lmbObject
    *  $b = new Book(1);
    *  </code>
    *  @param array|integer|null $magic_params Depending on argument type the new object is filled with properties or loaded from database
-   *  @param object|null $conn
+   *  @param lmbDbConnectionInterface|null $conn
    */
   function __construct($magic_params = null, $conn = null)
   {
@@ -1844,7 +1844,10 @@ class lmbActiveRecord extends lmbObject
 
   protected function _getInheritanceCriteria()
   {
-    return lmbSQLCriteria::like($this->getInheritanceField(), $this->_getInheritancePath() . "%");
+    return lmbSQLCriteria::like(
+        $this->getInheritanceField(),
+        str_replace("\\", "\\\\", $this->_getInheritancePath()) . "%"
+    );
   }
 
   protected function _getInheritancePath()
@@ -1875,7 +1878,7 @@ class lmbActiveRecord extends lmbObject
 
   /**
    *  Loads current object with data from database, overwrites any previous data, marks object dirty and unsets new status
-   *  @param integer object id
+   *  @param int $id object id
    */
   function loadById($id)
   {

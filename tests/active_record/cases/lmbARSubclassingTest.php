@@ -10,6 +10,7 @@ namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARException;
+use limb\active_record\src\lmbARNotFoundException;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use tests\active_record\cases\src\BarFooLectureForTestObject;
 use tests\active_record\cases\src\BarFooOneTableTestObject;
@@ -102,12 +103,12 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
 
     $rs = lmbActiveRecord::find(FooOneTableTestObject::class);//supertype
     $this->assertEquals(2, $rs->count());
-    $this->assertInstanceOf($rs->at(0), FooOneTableTestObject::class);
-    $this->assertInstanceOf($rs->at(1), BarFooOneTableTestObject::class);
+    $this->assertInstanceOf(FooOneTableTestObject::class, $rs->at(0));
+    $this->assertInstanceOf(BarFooOneTableTestObject::class, $rs->at(1));
 
     $rs = lmbActiveRecord::find(BarFooOneTableTestObject::class);//subclass
     $this->assertEquals(1, $rs->count());
-    $this->assertInstanceOf($rs->at(0), BarFooOneTableTestObject::class);
+    $this->assertInstanceOf(BarFooOneTableTestObject::class, $rs->at(0));
   }
 
   function testFindWithKind()
