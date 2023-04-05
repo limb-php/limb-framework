@@ -42,6 +42,11 @@ abstract class BaseValidator
         return $validator->isValid();
     }
 
+    public function isValid()
+    {
+        return $this->error_list->isValid();
+    }
+
     public function parseData($data)
     {
         $newData = [];
