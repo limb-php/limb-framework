@@ -142,18 +142,18 @@ class lmbObject implements lmbSetInterface
    * Can be overridden in child classes like lmbActiveRecord
    * @return bool returns true even if attribute is null
    */
-  function has($name)
+  function has($name): bool
   {
     return $this->_hasProperty($name) || $this->_mapPropertyToMethod($name);
   }
 
-  protected function _hasProperty($name)
+  protected function _hasProperty($name): bool
   {
     $this->_registerPredefinedVariables();
     return isset($this->_map['public'][$name]);
   }
 
-  function getPropertiesNames()
+  function getPropertiesNames(): array
   {
     $this->_registerPredefinedVariables();
     return array_keys($this->_map['public']);

@@ -324,7 +324,7 @@ class lmbActiveRecord extends lmbObject
      *  Returns name of database table
      *  @return string
      */
-    function getTableName()
+    function getTableName(): string
     {
         return $this->_db_table_name ?? $this->_db_table_name = lmbString::under_scores( (new \ReflectionClass($this))->getShortName() );
     }
@@ -332,7 +332,7 @@ class lmbActiveRecord extends lmbObject
    *  Returns primary key name of the database table
    *  @return string
    */
-  function getPrimaryKeyName()
+  function getPrimaryKeyName(): string
   {
     return $this->_primary_key_name;
   }
@@ -687,7 +687,7 @@ class lmbActiveRecord extends lmbObject
    * @param string $property property name
    * @return bool
    */
-  function has($property)
+  function has($property): bool
   {
     return parent::has($property)
            || in_array($property, $this->getDbTableFields())
@@ -1280,7 +1280,8 @@ class lmbActiveRecord extends lmbObject
 
   /**
   * Increase field value using UPDATE
-  *
+  * @param string $property
+  * @param int $amount
   */
   function inc($property, $amount = 1)
   {
@@ -1294,8 +1295,8 @@ class lmbActiveRecord extends lmbObject
 
   /**
    *  Validates object and saves into database, throws exception if there were any errors
-   *  @param object error list object which will receive all validation errors
-   *  @return integer id of the saved object
+   *  @param lmbErrorList|null $error_list error list object which will receive all validation errors
+   *  @return int id of the saved object
    */
   function save($error_list = null)
   {
@@ -1304,17 +1305,19 @@ class lmbActiveRecord extends lmbObject
 
     return $this->_doSave(true);
   }
+
   /**
    *  Saves object into database skipping any validation, throws exception if there were any errors
-   *  @return integer id of the saved object
+   *  @return int id of the saved object
    */
   function saveSkipValidation()
   {
     return $this->_doSave(false);
   }
+
   /**
    *  Validates object and saves into database, catches all exceptions if there were any errors
-   *  @param object error list object which will receive all validation errors
+   *  @param lmbErrorList|null $error_list error list object which will receive all validation errors
    *  @return boolean success status of operation
    */
   function trySave($error_list = null)
@@ -1337,7 +1340,7 @@ class lmbActiveRecord extends lmbObject
   }
   /**
    *  Returns whether object is new
-   *  @return boolean
+   *  @return bool
    */
   function isNew()
   {
@@ -1345,24 +1348,28 @@ class lmbActiveRecord extends lmbObject
   }
   /**
    *  Forces object to be new or not
-   *  @param boolean new status
+   *  @param bool $value new status
    */
   function setIsNew($value = true)
   {
-    $this->_is_new = (boolean)$value;
+    $this->_is_new = (bool)$value;
   }
+
   /**
    *  Detaches object by making it new and removing its identity
    */
   function detach()
   {
-    $this->setIsNew();
-    $this->remove($this->_primary_key_name);
+      $this->setIsNew();
+      $this->remove($this->getPrimaryKeyName());
+      $this->markDirty();
+      $this->_is_being_saved = false;
   }
+
   /**
    *  Validates object
-   *  @param object error list object which will receive all validation errors
-   *  @return boolean validation status
+   *  @param lmbErrorList|null $error_list error list object which will receive all validation errors
+   *  @return bool validation status
    */
   function validate($error_list = null)
   {
@@ -1469,9 +1476,9 @@ class lmbActiveRecord extends lmbObject
   /**
    *  Finds one instance of object in database, this method is actually a wrapper around find()
    *  @see find()
-   *  @param string class name of the object
-   *  @param mixed misc magic params
-   *  @param object database connection object
+   *  @param string $class_name class name of the object
+   *  @param mixed $magic_params misc magic params
+   *  @param object $conn database connection object
    *  @return lmbActiveRecord|null
    */
   static function findFirst($class_name = null, $magic_params = null, $conn = null)
@@ -1828,8 +1835,8 @@ class lmbActiveRecord extends lmbObject
 
   /**
    *  Adds class name criterion to passed in criteria
-   *  @param string|object $criteria criteria
-   *  @return object
+   *  @param string|array|lmbSQLCriteria $criteria criteria
+   *  @return lmbSQLCriteria
    */
   function addClassCriteria($criteria)
   {
@@ -1888,8 +1895,9 @@ class lmbActiveRecord extends lmbObject
     $this->_is_new = false;
   }
   /**
-   *  Loads current object with data from database record, overwrites any previous data, resets object dirtiness and unsets new status
-   *  @param object $record database record object
+   * Loads current object with data from database record, overwrites any previous data, resets object dirtiness and unsets new status
+   * @param object $record database record object
+   * @return bool
    */
   function loadFromRecord($record)
   {
@@ -1907,7 +1915,7 @@ class lmbActiveRecord extends lmbObject
   }
   /**
    *  Returns id of object typecasted to integer explicitly
-   *  @return integer
+   *  @return int
    */
   function getId()
   {
@@ -1969,11 +1977,12 @@ class lmbActiveRecord extends lmbObject
   {
     $this->getDbTable()->deleteById($this->getId());
   }
+
   /**
    *  Finds all objects which satisfy the passed criteria and destroys them one by one
    *  @param string $class_name class name
-   *  @param string|object $criteria search criteria, if not set all objects are removed
-   *  @param object|null $conn database connection object
+   *  @param string|array|lmbSQLCriteria $criteria search criteria, if not set all objects are removed
+   *  @param lmbDbConnectionInterface|null $conn database connection object
    */
   static function delete($class_name = null, $criteria = null, $conn = null)
   {
@@ -2119,7 +2128,7 @@ class lmbActiveRecord extends lmbObject
 
   function __clone()
   {
-    $this->remove($this->_primary_key_name);
+    $this->remove($this->getPrimaryKeyName());
   }
   /**
    *  Imports magically data into object using relation info. This method is magic because it allows to
@@ -2172,7 +2181,7 @@ class lmbActiveRecord extends lmbObject
   /**
    *  Plain import of data into object
    *  @see lmbObject::import()
-   *  @param array
+   *  @param array $source
    */
   function importRaw($source)
   {
