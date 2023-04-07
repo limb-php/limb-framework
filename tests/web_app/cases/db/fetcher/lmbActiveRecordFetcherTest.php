@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace tests\web_app\cases\db\validation\rule;
+namespace tests\web_app\cases\db\fetcher;
 
 require dirname(__FILE__) . '/../.setup.php';
 
@@ -16,7 +16,7 @@ use limb\core\src\lmbSet;
 use limb\core\src\lmbCollection;
 use limb\core\src\exception\lmbException;
 use tests\web_app\cases\lmbWebAppTestCase;
-use tests\active_record\cases\CourseForTestObject;
+use tests\active_record\cases\src\CourseForTestObject;
 
 class CourseForFetcherTestVersionObject extends CourseForTestObject
 {

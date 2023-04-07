@@ -11,6 +11,7 @@ namespace tests\web_app\cases\plain\macro;
 use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;
 use limb\core\src\exception\lmbException;
+use tests\view\lmbMacroTestCase;
 
 class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
 {
@@ -104,4 +105,3 @@ class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
     $this->assertEquals(file_get_contents($root . '/media/'.$file), $js_content);
   }
 }
-

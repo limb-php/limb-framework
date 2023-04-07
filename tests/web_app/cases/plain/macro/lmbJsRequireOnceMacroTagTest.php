@@ -11,6 +11,7 @@ namespace tests\web_app\cases\plain\macro;
 use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;
 use limb\core\src\exception\lmbException;
+use tests\view\lmbMacroTestCase;
 
 class lmbJsRequireOnceMacroTagTest extends lmbMacroTestCase
 {
@@ -57,4 +58,3 @@ class lmbJsRequireOnceMacroTagTest extends lmbMacroTestCase
     }
   }
 }
-
