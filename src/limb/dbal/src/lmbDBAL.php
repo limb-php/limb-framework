@@ -8,6 +8,9 @@
  */
 namespace limb\dbal\src;
 
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
+use limb\dbal\src\drivers\lmbDbRecordInterface;
+use limb\dbal\src\drivers\lmbDbRecordSetInterface;
 use limb\dbal\src\query\lmbSelectQuery;
 use limb\dbal\src\query\lmbUpdateQuery;
 use limb\dbal\src\query\lmbDeleteQuery;
@@ -31,69 +34,68 @@ class lmbDBAL
    */
   static function setDefaultDSN($dsn)
   {
-    lmbToolkit :: instance()->setDefaultDbDSN($dsn);
+    lmbToolkit::instance()->setDefaultDbDSN($dsn);
   }
 
   static function setEnvironment($env)
   {
-    lmbToolkit :: instance()->setDbEnvironment($env);
+    lmbToolkit::instance()->setDbEnvironment($env);
   }
 
   /**
    * @param lmbDbDSN $dsn
-   * @return lmbDbConnetion
+   * @return lmbDbConnectionInterface
    */
   static function newConnection($dsn)
   {
-    return lmbToolkit :: instance()->createDbConnection($dsn);
+    return lmbToolkit::instance()->createDbConnection($dsn);
   }
 
   /**
-   * @param lmbDbDSN $dsn
-   * @return lmbDbConnetion
+   * @return lmbDbConnectionInterface
    */
-  static function defaultConnection()
+  static function defaultConnection(): lmbDbConnectionInterface
   {
-    return lmbToolkit :: instance()->getDefaultDbConnection();
+    return lmbToolkit::instance()->getDefaultDbConnection();
   }
 
   /**
    * @param string $sql
-   * @param [lmbDbConnection] $conn
-   * @return lmbDbStatement
+   * @param lmbDbConnectionInterface|null $conn
+   * @return lmbDbQueryStatementInterface
    */
   static function newStatement($sql, $conn = null)
   {
     if(!$conn)
-      $conn = lmbToolkit :: instance()->getDefaultDbConnection();
+      $conn = lmbToolkit::instance()->getDefaultDbConnection();
     return $conn->newStatement($sql);
   }
 
   /**
-   * @param [lmbDbConnetion] $conn
+   * @param lmbDbConnectionInterface|null $conn
    * @return lmbSimpleDb
    */
   static function db($conn = null)
   {
     if(!$conn)
-      $conn = lmbToolkit :: instance()->getDefaultDbConnection();
+      $conn = lmbToolkit::instance()->getDefaultDbConnection();
 
     return new lmbSimpleDb($conn);
   }
 
   /**
    * @param string $table
-   * @param [lmbDbConnection] $conn
+   * @param lmbDbConnectionInterface|null $conn
    * @return lmbTableGateway
    */
   static function table($table, $conn = null)
   {
-    return lmbToolkit :: instance()->createTableGateway($table, $conn);
+    return lmbToolkit::instance()->createTableGateway($table, $conn);
   }
 
   /**
    * @param string $table
-   * @param [lmbDbConnection] $conn
+   * @param lmbDbConnectionInterface|null $conn
    * @return lmbSelectQuery
    */
   static function selectQuery($table, $conn = null)
@@ -103,7 +105,7 @@ class lmbDBAL
 
   /**
    * @param string $table
-   * @param [lmbDbConnection] $conn
+   * @param lmbDbConnectionInterface|null $conn
    * @return lmbInsertQuery
    */
   static function insertQuery($table, $conn = null)
@@ -113,7 +115,7 @@ class lmbDBAL
 
   /**
    * @param string $table
-   * @param [lmbDbConnection] $conn
+   * @param lmbDbConnectionInterface|null $conn
    * @return lmbInsertOnDuplicateUpdateQuery
    */
   static function insertOnDuplicateUpdateQuery($table, $conn = null)
@@ -123,7 +125,7 @@ class lmbDBAL
 
   /**
    * @param string $table
-   * @param [lmbDbConnection] $conn
+   * @param lmbDbConnectionInterface|null $conn
    * @return lmbBulkInsertQuery
    */
   static function bulkInsertQuery($table, $conn = null)
@@ -133,7 +135,7 @@ class lmbDBAL
 
   /**
    * @param string $table
-   * @param [lmbDbConnection] $conn
+   * @param lmbDbConnectionInterface|null $conn
    * @return lmbUpdateQuery
    */
   static function updateQuery($table, $conn = null)
@@ -143,7 +145,7 @@ class lmbDBAL
 
   /**
    * @param string $table
-   * @param [lmbDbConnection] $conn
+   * @param lmbDbConnectionInterface|null $conn
    * @return lmbDeleteQuery
    */
   static function deleteQuery($table, $conn = null)
@@ -153,13 +155,13 @@ class lmbDBAL
 
   /**
    * @param string $sql
-   * @param [lmbDbConnection] $conn
-   * @return lmbDbRecordSet
+   * @param lmbDbConnectionInterface|null $conn
+   * @return lmbDbRecordSetInterface
    */
   static function fetch($sql, $conn = null)
   {
     if(!$conn)
-      $conn = lmbToolkit :: instance()->getDefaultDbConnection();
+      $conn = lmbToolkit::instance()->getDefaultDbConnection();
     $stmt = $conn->newStatement($sql);
     if(!$stmt instanceof lmbDbQueryStatementInterface)
       throw new lmbDbException("The result of this SQL query can not be fetched.", array('query' => $sql));
@@ -168,20 +170,20 @@ class lmbDBAL
 
   /**
    * @param string $sql
-   * @param [lmbDbConnection] $conn
-   * @return lmbDbRecord
+   * @param lmbDbConnectionInterface|null $conn
+   * @return lmbDbRecordInterface
    */
   static function fetchOneRow($sql, $conn = null)
   {
     if(!$conn)
-      $conn = lmbToolkit :: instance()->getDefaultDbConnection();
+      $conn = lmbToolkit::instance()->getDefaultDbConnection();
     $stmt = $conn->newStatement($sql);
     return $stmt->getOneRecord();
   }
 
   /**
    * @param string $sql
-   * @param [lmbDbConnection] $conn
+   * @param lmbDbConnectionInterface|null $conn
    * @return string
    */
   static function fetchOneValue($sql, $conn = null)
@@ -193,7 +195,7 @@ class lmbDBAL
 
   /**
    * @param string $sql
-   * @param [lmbDbConnection] $conn
+   * @param lmbDbConnectionInterface|null $conn
    */
   static function execute($sql, $conn = null)
   {

@@ -12,11 +12,11 @@ use PHPUnit\Framework\TestCase;
 
 abstract class DriverMetaTestBase extends TestCase
 {
-  var $connection;
+    protected $connection;
 
-  function tearDown(): void
-  {
-    $this->connection->disconnect();
-    unset($this->connection);
-  }
+    function tearDown(): void
+    {
+        $this->connection->disconnect();
+        unset($this->connection);
+    }
 }

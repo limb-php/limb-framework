@@ -12,7 +12,7 @@ use limb\dbal\src\drivers\mysql\lmbMysqlConnection;
 use limb\dbal\src\dump\lmbMysqlDumpLoader;
 use limb\toolkit\src\lmbToolkit;
 
-class lmbMysqlDumpLoaderTest extends lmbSQLDumpLoaderTestBase
+class lmbMysqlDumpLoaderTest extends lmbSQLDumpLoaderTestCase
 {
   function setUp(): void
   {
@@ -66,23 +66,23 @@ EOD;
 
     $statements = $loader->getStatements();
 
-    $this->assertEquals(sizeof($statements), 7);
+    $this->assertEquals(7, sizeof($statements));
 
-    $this->assertEquals($statements[0], 'SET FOREIGN_KEY_CHECKS=0');
-    $this->assertEquals($statements[1], 'create database if not exists `foo`');
-    $this->assertEquals($statements[2], 'drop table if exists `bar`');
-    $this->assertEquals($statements[3], "CREATE TABLE `bar` (
+    $this->assertEquals('SET FOREIGN_KEY_CHECKS=0', $statements[0]);
+    $this->assertEquals('create database if not exists `foo`', $statements[1]);
+    $this->assertEquals('drop table if exists `bar`', $statements[2]);
+    $this->assertEquals("CREATE TABLE `bar` (
   `id` int(11) NOT null auto_increment,
   `url` varchar(255) NOT null default '',
   `description` varchar(255) default null,
   `img_src` varchar(255) default null,
   PRIMARY KEY  (`id`),
   KEY `id` (`id`,`oid`)
-) TYPE=InnoDB");
-    $this->assertEquals($statements[4], 'LOCK TABLES `baz` WRITE');
-    $this->assertEquals($statements[5], 'UNLOCK TABLES');
-    $this->assertEquals($statements[6], "INSERT INTO `article` VALUES (8,101,2,'TemplateView','Template View','wiki')");
+) TYPE=InnoDB", $statements[3]);
+    $this->assertEquals('LOCK TABLES `baz` WRITE', $statements[4]);
+    $this->assertEquals('UNLOCK TABLES', $statements[5]);
+    $this->assertEquals("INSERT INTO `article` VALUES (8,101,2,'TemplateView','Template View','wiki')", $statements[6]);
 
-    $this->assertEquals($loader->getAffectedTables(), array('article'));
+    $this->assertEquals(array('article'), $loader->getAffectedTables());
   }
 }

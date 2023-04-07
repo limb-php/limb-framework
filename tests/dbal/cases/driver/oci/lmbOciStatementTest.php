@@ -17,8 +17,12 @@ class lmbOciStatementTest extends DriverStatementTestBase
 {
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    //DriverOciSetup($this->connection->getConnectionId());
+      if( lmbToolkit::instance()->getDefaultDbConnection()->getType() != 'oci' )
+          $this->markTestSkipped('no driver oci');
+
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+    DriverOciSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 

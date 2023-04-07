@@ -14,7 +14,7 @@ use limb\dbal\src\lmbSimpleDb;
 use limb\dbal\src\dump\lmbSQLDumpLoader;
 use limb\toolkit\src\lmbToolkit;
 
-abstract class lmbSQLDumpLoaderTestBase extends TestCase
+abstract class lmbSQLDumpLoaderTestCase extends TestCase
 {
   var $db;
   var $conn;

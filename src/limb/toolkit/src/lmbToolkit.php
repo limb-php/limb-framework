@@ -70,6 +70,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method setDbEnvironment($env)
  * @method getDbEnvironment()
  * @method getDefaultDbDSN()
+ * @method setDefaultDbDSN($dsn)
  * @method isDefaultDbDSNAvailable()
  * @method castToDsnObject($dsn)
  * @method setDbDSNByName($name, $dsn)
