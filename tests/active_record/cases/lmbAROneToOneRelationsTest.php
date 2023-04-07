@@ -326,17 +326,20 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
 
     try
     {
-      $number->destroy();
-      $this->fail();
+        $number->destroy();
+        $this->fail();
     }
     catch(lmbValidationException $e)
     {
-      $this->assertTrue(true);
+        $this->assertTrue(true);
     }
 
     $number2 = lmbActiveRecord::findFirst(SocialSecurityForTestObject::class);
     $this->assertNotNull($number2, 'Removal should not be finished');
-    $this->assertEquals($number2->getId(), $number->getId());
+    $this->assertEquals(
+        $number2->getId(),
+        $number->getId()
+    );
   }
 
   function testSettingNullDetachesChildObject()

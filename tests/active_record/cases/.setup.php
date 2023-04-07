@@ -5,6 +5,7 @@ use limb\core\src\lmbEnv;
 lmbEnv::set('LIMB_CONF_INCLUDE_PATH', 'active_record/*/settings;*/settings;bit-cms/*/settings;limb/*/settings');
 
 require_once(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
+require_once(dirname(__FILE__) . '/../../../src/limb/i18n/toolkit.inc.php');
 require_once(dirname(__FILE__) . '/../../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../../dbal/common.inc.php');
 require_once(dirname(__FILE__) . '/init.inc.php');

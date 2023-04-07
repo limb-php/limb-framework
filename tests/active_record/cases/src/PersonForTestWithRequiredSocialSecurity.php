@@ -11,7 +11,8 @@ class PersonForTestWithRequiredSocialSecurity extends lmbActiveRecord
     protected $_has_one = array('social_security' => array(
         'field' => 'ss_id',
         'class' => SocialSecurityForTestObject::class,
-        'can_be_null' => true));
+        'can_be_null' => true
+    ));
 
     function _createValidator()
     {

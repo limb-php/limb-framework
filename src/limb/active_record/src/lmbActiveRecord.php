@@ -2075,7 +2075,7 @@ class lmbActiveRecord extends lmbObject
       if($parent = $this->get($property))
       {
         $parent->set($info['field'], null);
-        $parent->saveSkipValidation(); //$parent->save();
+        $parent->save();
       }
     }
   }
