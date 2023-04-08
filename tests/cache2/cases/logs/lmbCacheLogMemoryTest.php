@@ -3,7 +3,7 @@ namespace tests\cache2\cases\logs;
 
 use limb\cache2\src\logs\lmbCacheLogMemory;
 
-class lmbCacheLogMemoryTest extends lmbCacheLogTest
+class lmbCacheLogMemoryTest extends lmbCacheLogTestCase
 {
   function setUp(): void
   {

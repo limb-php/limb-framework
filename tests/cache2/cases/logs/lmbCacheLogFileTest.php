@@ -7,7 +7,7 @@ use limb\cache2\src\logs\lmbCacheLogFile;
 use limb\fs\src\lmbFs;
 use limb\core\src\lmbEnv;
 
-class lmbCacheLogFileTest extends lmbCacheLogTest
+class lmbCacheLogFileTest extends lmbCacheLogTestCase
 {
   function setUp(): void
   {

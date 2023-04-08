@@ -4,7 +4,7 @@ namespace tests\cache2\cases\logs;
 use PHPUnit\Framework\TestCase;
 use limb\cache2\src\lmbCacheInterface;
 
-abstract class lmbCacheLogTest extends TestCase
+abstract class lmbCacheLogTestCase extends TestCase
 {
   /**
    * @var \limb\cache2\src\lmbCacheLog
