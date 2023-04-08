@@ -8,7 +8,7 @@
  */
 namespace tests\dbal\cases\nondriver\criteria;
 
-require('tests/dbal/common.inc.php');
+require_once(dirname(__FILE__) . '/../.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use tests\dbal\src\ConnectionTestStub;

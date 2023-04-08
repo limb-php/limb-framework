@@ -8,6 +8,8 @@
  */
 namespace tests\dbal\cases\nondriver\query;
 
+require_once('.setup.php');
+
 use limb\dbal\src\query\lmbInsertQuery;
 
 class lmbInsertQueryTest extends lmbQueryBaseTestCase

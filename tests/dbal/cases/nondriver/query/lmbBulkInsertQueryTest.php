@@ -8,6 +8,8 @@
  */
 namespace tests\dbal\cases\nondriver\query;
 
+require_once('.setup.php');
+
 use limb\dbal\src\query\lmbBulkInsertQuery;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;

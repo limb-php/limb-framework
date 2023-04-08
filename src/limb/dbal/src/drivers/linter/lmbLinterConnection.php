@@ -10,6 +10,7 @@ namespace limb\dbal\src\drivers\linter;
 
 use limb\core\src\exception\lmbException;
 use limb\dbal\src\drivers\lmbDbBaseConnection;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 
 /**
  * class lmbLinterConnection.
@@ -317,7 +318,7 @@ class lmbLinterConnection extends lmbDbBaseConnection
     }
   }
   
-  function newStatement($sql)
+  function newStatement($sql): lmbDbStatementInterface
   {
     if(preg_match('/^\s*\(*\s*(\w+).*$/m', $sql, $match))
       $statement = $match[1];

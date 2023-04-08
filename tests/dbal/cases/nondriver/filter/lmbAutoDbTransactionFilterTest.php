@@ -8,7 +8,7 @@
  */
 namespace tests\dbal\cases\nondriver\filter;
 
-require_once('tests/dbal/common.inc.php');
+require_once(dirname(__FILE__) . '/../.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\filter\lmbAutoDbTransactionFilter;
@@ -16,6 +16,7 @@ use limb\filter_chain\src\lmbFilterChain;
 use limb\dbal\src\lmbSimpleDb;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\drivers\lmbAutoTransactionConnection;
+use tests\dbal\cases\src\FilterWorkingWithDbStub;
 
 class lmbAutoDbTransactionFilterTest extends TestCase
 {

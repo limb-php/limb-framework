@@ -7,7 +7,7 @@ class ConnectionTestStub
 {
     function getLexer()
     {
-        return lmbDbBaseLexer::class;
+        return new lmbDbBaseLexer();
     }
 
     function quoteIdentifier($id)

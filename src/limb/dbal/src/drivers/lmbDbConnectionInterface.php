@@ -25,7 +25,7 @@ interface lmbDbConnectionInterface
   function beginTransaction();
   function commitTransaction();
   function rollbackTransaction();
-  function newStatement($sql);
+  function newStatement($sql): lmbDbStatementInterface;
   function execute($sql);
   function executeStatement($stmt);
   function getTypeInfo();

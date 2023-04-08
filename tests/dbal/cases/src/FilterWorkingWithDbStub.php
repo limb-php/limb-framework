@@ -1,5 +1,5 @@
 <?php
-namespace tests\dbal\cases\nondriver\filter;
+namespace tests\dbal\cases\src;
 
 use limb\toolkit\src\lmbToolkit;
 

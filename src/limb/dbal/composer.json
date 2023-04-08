@@ -8,7 +8,11 @@
     "limb/net": "^4.2",
     "limb/fs": "^4.2",
     "limb/config": "^4.2",
-    "ext-mysqli": "*"
+    "ext-mysqli": "*",
+    "ext-sqlsrv": "*",
+    "ext-sqlite3": "*",
+    "ext-pgsql": "*",
+    "ext-oci8": "*"
   },
   "autoload": {
     "psr-0": {

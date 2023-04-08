@@ -9,6 +9,7 @@
 namespace limb\dbal\src\drivers\pgsql;
 
 use limb\dbal\src\drivers\lmbDbBaseConnection;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\dbal\src\exception\lmbDbException;
 
 /**
@@ -153,7 +154,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     $this->execute('ROLLBACK');
   }
 
-  function newStatement($sql)
+  function newStatement($sql): lmbDbStatementInterface
   {
     if(preg_match('/^\s*\(*\s*(\w+).*$/m', $sql, $match))
     {

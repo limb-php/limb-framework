@@ -9,6 +9,7 @@
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbBaseConnection;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\dbal\src\exception\lmbDbException;
 
 /**
@@ -130,7 +131,7 @@ class lmbSqliteConnection extends lmbDbBaseConnection
     }
   }
 
-  function newStatement($sql)
+  function newStatement($sql): lmbDbStatementInterface
   {
     if(preg_match('/^\s*\(*\s*(\w+).*$/m', $sql, $match))
       $statement = $match[1];

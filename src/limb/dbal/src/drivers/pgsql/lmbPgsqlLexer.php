@@ -18,8 +18,8 @@ use limb\dbal\src\drivers\lmbDbBaseLexer;
  */
 class lmbPgsqlLexer extends lmbDbBaseLexer
 {
-    function getInsertOnDuplicateQueryTemplate()
-    {
-        return 'INSERT INTO %table% (%fields%) VALUES (%values%) ON CONFLICT (%conflict_fields%) DO UPDATE SET(%new_values%)';
-    }
+//    function getInsertOnDuplicateQueryTemplate()
+//    {
+//        return 'INSERT INTO %table% (%fields%) VALUES (%values%) ON DUPLICATE KEY UPDATE (%new_values%)';
+//    }
 }

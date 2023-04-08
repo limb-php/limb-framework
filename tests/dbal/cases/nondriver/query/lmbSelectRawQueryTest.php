@@ -8,6 +8,8 @@
  */
 namespace tests\dbal\cases\nondriver\query;
 
+require_once('.setup.php');
+
 use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\toolkit\src\lmbToolkit;
 use PHPUnit\Framework\TestCase;
@@ -490,7 +492,7 @@ class lmbSelectRawQueryTest extends TestCase
     $conn
         ->expects($this->once())
         ->method('newStatement')
-        ->with($stmt);
+        ->willReturn($stmt);
 
     $sql = new lmbSelectRawQuery('SELECT * FROM test %where%', $conn);
     $sql->addCriteria(new lmbSQLFieldCriteria('t.id', 5));

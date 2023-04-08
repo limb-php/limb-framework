@@ -8,6 +8,8 @@
  */
 namespace tests\dbal\cases\nondriver\criteria;
 
+require_once(dirname(__FILE__) . '/../.setup.php');
+
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\criteria\lmbSQLCriteria;

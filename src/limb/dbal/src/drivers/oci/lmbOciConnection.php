@@ -8,6 +8,7 @@
  */
 namespace limb\dbal\src\drivers\oci;
 
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\dbal\src\exception\lmbDbException;
 use limb\dbal\src\drivers\lmbDbBaseConnection;
 
@@ -150,7 +151,7 @@ class lmbOciConnection extends lmbDbBaseConnection
     $this->tstate = OCI_COMMIT_ON_SUCCESS;
   }
 
-  function newStatement($sql)
+  function newStatement($sql): lmbDbStatementInterface
   {
     if(preg_match('/^\s*\(*\s*(\w+).*$/m', $sql, $match))
       $statement = $match[1];
@@ -209,4 +210,3 @@ class lmbOciConnection extends lmbDbBaseConnection
     return (int)$this->newStatement("SELECT $seq.CURRVAL FROM DUAL")->getOneValue();
   }
 }
-

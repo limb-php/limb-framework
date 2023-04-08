@@ -42,7 +42,7 @@ class lmbAuditDbConnection extends lmbDbConnectionDecorator
         return $res;
     }
 
-    function newStatement($sql)
+    function newStatement($sql): lmbDbStatementInterface
     {
         $statement = $this->connection->newStatement($sql);
         $statement->setConnection($this);

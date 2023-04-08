@@ -25,7 +25,7 @@ class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
                                             'DROP');//do we need more?
     protected $is_in_transaction = false;
 
-    function newStatement($sql)
+    function newStatement($sql): lmbDbStatementInterface
     {
         if($this->_isModifyingSQL($sql))
             $this->beginTransaction();

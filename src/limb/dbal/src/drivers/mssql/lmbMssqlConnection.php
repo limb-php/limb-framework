@@ -9,6 +9,7 @@
 namespace limb\dbal\src\drivers\mssql;
 
 use limb\dbal\src\drivers\lmbDbBaseConnection;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\dbal\src\exception\lmbDbException;
 use limb\core\src\lmbEnv;
 
@@ -168,7 +169,7 @@ class lmbMssqlConnection extends lmbDbBaseConnection
     }
   }
 
-  function newStatement($sql)
+  function newStatement($sql): lmbDbStatementInterface
   {
     if(preg_match('/^\s*\(*\s*(\w+).*$/m', $sql, $match))
     {

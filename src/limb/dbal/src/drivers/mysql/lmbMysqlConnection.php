@@ -9,6 +9,7 @@
 namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbBaseConnection;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\dbal\src\exception\lmbDbException;
 
 /**
@@ -134,7 +135,7 @@ class lmbMysqlConnection extends lmbDbBaseConnection
     $this->execute('ROLLBACK');
   }
 
-  function newStatement($sql)
+  function newStatement($sql): lmbDbStatementInterface
   {
     if(preg_match('/^\s*\(*\s*(\w+).*$/m', $sql, $match))
     {

@@ -8,7 +8,7 @@
  */
 namespace limb\dbal\src\drivers;
 
-use limb\core\src\exception\lmbException;
+use limb\dbal\src\exception\lmbDbException;
 use limb\dbal\src\query\lmbQueryLexerInterface;
 
 /**
@@ -17,11 +17,16 @@ use limb\dbal\src\query\lmbQueryLexerInterface;
  * @package dbal
  * @version $Id$
  */
-abstract class lmbDbBaseLexer implements lmbQueryLexerInterface
+class lmbDbBaseLexer implements lmbQueryLexerInterface
 {
     function getSelectQueryTemplate()
     {
         return 'SELECT %fields% FROM %tables% %left_join% %where% %group% %having% %order%';
+    }
+
+    function getBulkInsertQueryTemplate()
+    {
+        return 'INSERT INTO %table% (%fields%) VALUES %values%';
     }
 
     function getInsertQueryTemplate()
@@ -41,6 +46,6 @@ abstract class lmbDbBaseLexer implements lmbQueryLexerInterface
 
     function getInsertOnDuplicateQueryTemplate()
     {
-        throw new lmbException('Not supported on this DB');
+        throw new lmbDbException('Not supported on this DB');
     }
 }

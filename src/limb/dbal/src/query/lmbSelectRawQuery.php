@@ -32,12 +32,12 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
     if(is_object($sql_or_conn)) {
         $this->setConnection($sql_or_conn);
 
-        parent::__construct($this->getLexer()->getSelectQueryTemplate());
+        parent::__construct($sql_or_conn->getLexer()->getSelectQueryTemplate());
     }
     else {
         $this->setConnection($conn);
 
-        parent::__construct($sql_or_conn);
+        parent::__construct($sql_or_conn); // SQL
     }
   }
 

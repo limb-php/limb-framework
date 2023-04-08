@@ -8,10 +8,10 @@
  */
 namespace tests\dbal\cases\nondriver\query;
 
+require_once('.setup.php');
+
 use limb\dbal\src\query\lmbUpdateQuery;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
-
-require_once ('.setup.php');
 
 class lmbUpdateQueryTest extends lmbQueryBaseTestCase
 {

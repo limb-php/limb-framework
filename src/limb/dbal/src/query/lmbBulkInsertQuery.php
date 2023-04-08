@@ -28,7 +28,7 @@ class lmbBulkInsertQuery extends lmbTemplateQuery
 
     $this->setConnection($conn);
 
-    parent::__construct($this->getLexer()->getInsertQueryTemplate());
+    parent::__construct($this->getLexer()->getBulkInsertQueryTemplate());
 
     $this->_registerHint('table');
     $this->_registerHint('values');
@@ -101,9 +101,9 @@ class lmbBulkInsertQuery extends lmbTemplateQuery
   /**
    * @param \limb\dbal\src\drivers\lmbDbConnectionInterface $connection
    */
-  static function isSupportedByDbConnection($connection)
+  static function isSupportedByDbConnection($connection): bool
   {
-    $supported_types = array('mysql', 'mysqli');
+    $supported_types = array('mysql');
     return in_array($connection->getType(), $supported_types);
   }
 }
