@@ -16,11 +16,7 @@ use limb\core\src\lmbEnv;
 use limb\core\src\lmbObject;
 use limb\cache2\src\lmbCacheFactory;
 use limb\net\src\lmbUri;
-
-class CacheableFooBarClass
-{
-
-}
+use tests\cache\cases\CacheableFooBarClass;
 
 abstract class lmbCacheConnectionTestCase extends TestCase
 {
@@ -281,7 +277,7 @@ abstract class lmbCacheConnectionTestCase extends TestCase
     $include_path = get_include_path();
     $cur_process_dir = getcwd();
     $arguments_str = implode("', '", $arguments);
-    $setup_file = realpath($cur_file_dir.'/../../../common.inc.php');
+    $setup_file = realpath($cur_file_dir.'/../../.setup.php');
 
     $request_code = <<<EOD
 <?php

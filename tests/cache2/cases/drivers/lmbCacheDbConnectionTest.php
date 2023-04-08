@@ -27,18 +27,7 @@ class lmbCacheDbConnectionTest extends lmbCacheConnectionTestCase
       if( $this->skip )
           $this->markTestSkipped('lmbCacheDbConnection test skipped (no fixture found).');
 
-      \lmb_tests_init_db_dsn();
-
-      $this->fixture_path = dirname(__FILE__) . '/../../../init/cache.';
-      $this->skip = \lmb_tests_db_dump_does_not_exist($this->fixture_path, 'CACHE2');
-
-      if(!$this->skip)
-          \lmb_tests_setup_db($this->fixture_path);
   }
 
-  function tearDown(): void
-  {
-    if(!$this->skip)
-      \lmb_tests_teardown_db();
-  }
+
 }

@@ -7,7 +7,7 @@ use limb\cache2\src\lmbCacheInterface;
 abstract class lmbCacheLogTestCase extends TestCase
 {
   /**
-   * @var \limb\cache2\src\lmbCacheLog
+   * @var \limb\cache2\src\logs\lmbCacheLogInterface
    */
   protected $logger;
   /**
