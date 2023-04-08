@@ -1,5 +1,5 @@
 <?php
-namespace tests\dbal\src;
+namespace tests\dbal\cases\src;
 
 use limb\dbal\src\drivers\lmbDbBaseLexer;
 
