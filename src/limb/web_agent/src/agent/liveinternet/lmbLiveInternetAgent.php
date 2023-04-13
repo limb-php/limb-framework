@@ -44,7 +44,7 @@ class lmbLiveInternetAgent extends lmbWebAgent
     $agent = new lmbWebAgent($this->request);
     $agent->getValues()->import(
       array(
-        'url' => 'http://'.$this->project,
+        'url' => 'https://'.$this->project,
         'password' => $password,
         'ok' => ' ok '
       )
@@ -55,6 +55,6 @@ class lmbLiveInternetAgent extends lmbWebAgent
 
   function getProjectUrl()
   {
-  	return 'http://www.liveinternet.ru/stat/'.$this->project.'/';
+  	return 'https://www.liveinternet.ru/stat/'.$this->project.'/';
   }
 }

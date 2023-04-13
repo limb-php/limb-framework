@@ -31,12 +31,12 @@ class lmbLiveInternetAgentTest extends TestCase
   function setUp(): void
   {
     $this->request = new lmbFakeWebAgentRequest();
-  	$this->agent = new lmbLiveInternetAgent('test.ru', $this->request);
+  	$this->agent = new lmbLiveInternetAgent('google.com', $this->request);
   }
 
   function testGetProject()
   {
-    $this->assertEquals('test.ru', $this->agent->getProject());
+    $this->assertEquals('google.com', $this->agent->getProject());
   }
 
   function testGetValues()
@@ -55,7 +55,7 @@ class lmbLiveInternetAgentTest extends TestCase
   {
   	$this->agent->requestStatPage('visitors.html');
 
-    $this->assertEquals('http://www.liveinternet.ru/stat/test.ru/visitors.html', $this->request->request_url);
+    $this->assertEquals('https://www.liveinternet.ru/stat/google.com/visitors.html', $this->request->request_url);
   }
 
   function testAuth()
@@ -63,9 +63,9 @@ class lmbLiveInternetAgentTest extends TestCase
     $this->request->response_cookies->add(new lmbWebServerCookie('sid=zxc'));
   	$this->agent->auth('***');
 
-    $this->assertEquals('http://www.liveinternet.ru/stat/test.ru/', $this->request->request_url);
+    $this->assertEquals('https://www.liveinternet.ru/stat/google.com/', $this->request->request_url);
     $this->assertEquals($this->request->request_content,
-      http_build_query(array('url' => 'http://test.ru', 'password' => '***', 'ok' => ' ok ')));
+      http_build_query(array('url' => 'https://google.com', 'password' => '***', 'ok' => ' ok ')));
     $this->assertEquals('zxc', $this->agent->getCookies()->get(0)->value);
   }
 }

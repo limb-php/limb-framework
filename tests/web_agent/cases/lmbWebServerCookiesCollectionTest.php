@@ -22,10 +22,10 @@ class lmbWebServerCookiesCollectionTest extends TestCase {
   {
     $collect = new lmbWebServerCookiesCollection();
     $cookies = array(
-      new lmbWebServerCookie('sid=sid1; expires=date; path=/; domain=.test.ru; secure'),
-      new lmbWebServerCookie('sid=sid2; expires=date; path=/; domain=.test.ru; secure'),
-      new lmbWebServerCookie('sid=sid2; expires=date; path=/sub; domain=.test.ru; secure'),
-      new lmbWebServerCookie('sid2=sid2; expires=date; path=/; domain=.test.ru; secure')
+      new lmbWebServerCookie('sid=sid1; expires=date; path=/; domain=.google.com; secure'),
+      new lmbWebServerCookie('sid=sid2; expires=date; path=/; domain=.google.com; secure'),
+      new lmbWebServerCookie('sid=sid2; expires=date; path=/sub; domain=.google.com; secure'),
+      new lmbWebServerCookie('sid2=sid2; expires=date; path=/; domain=.google.com; secure')
     );
     foreach($cookies as $cookie)
     {
@@ -47,17 +47,17 @@ class lmbWebServerCookiesCollectionTest extends TestCase {
   {
     $collect = new lmbWebServerCookiesCollection();
     $cookies = array(
-      new lmbWebServerCookie('sid=sid1; expires=date; path=/; domain=.test.ru; secure'),
-      new lmbWebServerCookie('sid=sid2; expires=date; path=/sub; domain=.test.ru; secure'),
-      new lmbWebServerCookie('sid2=sid2; expires=date; path=/; domain=.test.ru; secure')
+      new lmbWebServerCookie('sid=sid1; expires=date; path=/; domain=.google.com; secure'),
+      new lmbWebServerCookie('sid=sid2; expires=date; path=/sub; domain=.google.com; secure'),
+      new lmbWebServerCookie('sid2=sid2; expires=date; path=/; domain=.google.com; secure')
     );
     foreach($cookies as $cookie)
     {
       $collect->add($cookie);
     }
 
-    $this->assertEquals(1, $collect->search('sid', '/sub', '.test.ru'));
-    $this->assertFalse($collect->search('sid', '/sub', '.test1.ru'));
+    $this->assertEquals(1, $collect->search('sid', '/sub', '.google.com'));
+    $this->assertFalse($collect->search('sid', '/sub', '.google2.com'));
     $this->assertFalse($collect->search('sid1'));
   }
 
@@ -65,9 +65,9 @@ class lmbWebServerCookiesCollectionTest extends TestCase {
   {
     $collect = new lmbWebServerCookiesCollection();
     $cookies = array(
-      new lmbWebServerCookie('sid=sid1; expires=date; path=/; domain=.test.ru; secure'),
-      new lmbWebServerCookie('sid=sid2; expires=date; path=/sub; domain=.test.ru; secure'),
-      new lmbWebServerCookie('sid2=sid3; expires=date; path=/; domain=.test.ru; secure')
+      new lmbWebServerCookie('sid=sid1; expires=date; path=/; domain=.google.com; secure'),
+      new lmbWebServerCookie('sid=sid2; expires=date; path=/sub; domain=.google.com; secure'),
+      new lmbWebServerCookie('sid2=sid3; expires=date; path=/; domain=.google.com; secure')
     );
     foreach($cookies as $cookie)
     {
@@ -82,9 +82,9 @@ class lmbWebServerCookiesCollectionTest extends TestCase {
   {
     $collect = new lmbWebServerCookiesCollection();
     $cookies = array(
-      new lmbWebServerCookie('sid=sid1; expires=date; path=/; domain=.test.ru; secure'),
-      new lmbWebServerCookie('sid=sid2; expires=date; path=/sub; domain=.test.ru; secure'),
-      new lmbWebServerCookie('sid2=sid2; expires=date; path=/; domain=.test.ru; secure')
+      new lmbWebServerCookie('sid=sid1; expires=date; path=/; domain=.google.com; secure'),
+      new lmbWebServerCookie('sid=sid2; expires=date; path=/sub; domain=.google.com; secure'),
+      new lmbWebServerCookie('sid2=sid2; expires=date; path=/; domain=.google.com; secure')
     );
     foreach($cookies as $cookie)
     {
@@ -92,7 +92,7 @@ class lmbWebServerCookiesCollectionTest extends TestCase {
     }
     $collect2 = new lmbWebServerCookiesCollection();
     $cookies2 = array(
-      new lmbWebServerCookie('sid=sid2; expires=date; path=/; domain=.test.ru; secure'),
+      new lmbWebServerCookie('sid=sid2; expires=date; path=/; domain=.google.com; secure'),
     );
     foreach($cookies2 as $cookie)
     {

@@ -28,10 +28,10 @@ class lmbWebAgentTest extends TestCase {
     $agent = new lmbWebAgent($request);
     $request->response_cookies->add(new lmbWebServerCookie('sid=12345'));
 
-    $agent->doRequest('http://test.ru');
-    $agent->doRequest('http://test.ru');
+    $agent->doRequest('https://google.com');
+    $agent->doRequest('https://google.com');
     $this->assertEquals('12345', $request->request_cookies->get('sid'));
-    $agent->doRequest('http://test2.ru');
+    $agent->doRequest('https://google2.com');
     $this->assertFalse($request->request_cookies->has('sid'));
   }
 
@@ -39,14 +39,14 @@ class lmbWebAgentTest extends TestCase {
   {
     $request = new lmbFakeWebAgentRequest();
     $agent = new lmbWebAgent($request);
-    $request->response_cookies->add(new lmbWebServerCookie('sid=12345; domain=.test.ru'));
+    $request->response_cookies->add(new lmbWebServerCookie('sid=12345; domain=.google.com'));
 
-    $agent->doRequest('http://test.ru');
-    $agent->doRequest('http://test.ru');
+    $agent->doRequest('https://google.com');
+    $agent->doRequest('https://google.com');
     $this->assertEquals('12345', $request->request_cookies->get('sid'));
-    $agent->doRequest('http://sub.test.ru');
+    $agent->doRequest('https://sub.google.com');
     $this->assertEquals('12345', $request->request_cookies->get('sid'));
-    $agent->doRequest('http://test2.ru');
+    $agent->doRequest('https://google2.com');
     $this->assertFalse($request->request_cookies->has('sid'));
   }
 
@@ -56,10 +56,10 @@ class lmbWebAgentTest extends TestCase {
     $agent = new lmbWebAgent($request);
     $request->response_cookies->add(new lmbWebServerCookie('sid=12345; path=/test/'));
 
-    $agent->doRequest('http://test.ru');
-    $agent->doRequest('http://test.ru/test/index.php');
+    $agent->doRequest('https://google.com');
+    $agent->doRequest('https://google.com/test/index.php');
     $this->assertEquals('12345', $request->request_cookies->get('sid'));
-    $agent->doRequest('http://test.ru');
+    $agent->doRequest('https://google.com');
     $this->assertFalse($request->request_cookies->has('sid'));
   }
 
@@ -69,7 +69,7 @@ class lmbWebAgentTest extends TestCase {
     $agent = new lmbWebAgent($request);
     $request->response_content = 'test content';
 
-    $agent->doRequest('http://test.ru');
+    $agent->doRequest('https://google.com');
     $this->assertEquals('test content', $agent->getContent());
   }
 
@@ -82,9 +82,9 @@ class lmbWebAgentTest extends TestCase {
     $values->setName2('value2');
     $http_vals = http_build_query(array('name1' => 'value1', 'name2' => 'value2'));
 
-    $agent->doRequest('http://test.ru');
+    $agent->doRequest('https://google.com');
     $this->assertEquals(15, strpos($request->request_url, $http_vals));
-    $agent->doRequest('http://test.ru', 'POST');
+    $agent->doRequest('https://google.com', 'POST');
     $this->assertEquals($request->request_content, $http_vals);
   }
 
@@ -94,7 +94,7 @@ class lmbWebAgentTest extends TestCase {
     $agent = new lmbWebAgent($request);
     $agent->setAcceptCharset('utf-8');
 
-    $agent->doRequest('http://test.ru');
+    $agent->doRequest('https://google.com');
     $this->assertEquals('utf-8', $request->request_accept_charset);
   }
 
@@ -103,10 +103,10 @@ class lmbWebAgentTest extends TestCase {
     $request = new lmbFakeWebAgentRequest();
     $agent = new lmbWebAgent($request);
     $agent->getValues()->setTest('1');
-    $request->response_headers->set('location', 'http://redirect.ru');
+    $request->response_headers->set('location', 'https://redirect.net');
 
-    $agent->doRequest('http://test.ru');
-    $this->assertEquals('http://redirect.ru', $request->request_url);
+    $agent->doRequest('https://google.com');
+    $this->assertEquals('https://redirect.net', $request->request_url);
     $this->assertEquals('1', $agent->getValues()->getTest());
   }
 }
