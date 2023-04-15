@@ -12,7 +12,7 @@ use limb\net\src\lmbHttpRequest;
 use limb\net\src\lmbHttpResponse;
 
 /**
- *  lmbFilterChain is an implementation of InterceptinfFilter design pattern.
+ *  lmbFilterChain is an implementation of InterceptingFilter design pattern.
  *
  *  lmbFilterChain contains registered filters and controls execution of the chain.
  *  Usually used as a FrontController in Limb based web applications (see web_app package)
@@ -78,32 +78,32 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
    */
   function registerFilter($filter)
   {
-    $this->filters[] = $filter;
+      $this->filters[] = $filter;
   }
   /**
    * Returns registered filters
    *
    * @return array
    */
-  function getFilters()
+  function getFilters(): array
   {
-    return $this->filters;
+      return $this->filters;
   }
   /**
    * Runs next filter in the chain.
    *
-   * @return mixed
+   * @return lmbHttpResponse
    */
   function next($request, $response)
   {
-    $this->counter++;
+      $this->counter++;
 
-    if(isset($this->filters[$this->counter]))
-    {
-        return $this->filters[$this->counter]->run($this, $request, $response);
-    }
+      if(isset($this->filters[$this->counter]))
+      {
+          return $this->filters[$this->counter]->run($this, $request, $response);
+      }
 
-    return $response;
+      return $response;
   }
   /**
    * Executes the chain
@@ -112,8 +112,9 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
    */
   function process($request = null, $response = null)
   {
-    $this->counter = -1;
-    return $this->next($request, $response);
+      $this->counter = -1;
+
+      return $this->next($request, $response);
   }
   /**
    * Implements lmbInterceptingFilter interface.
@@ -128,10 +129,8 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
    */
   function run($filter_chain, $request, $response)
   {
-    $response = $this->process($request, $response);
+      $response = $this->process($request, $response);
 
-    $response = $filter_chain->next($request, $response);
-
-    return $response;
+      return $filter_chain->next($request, $response);
   }
 }
