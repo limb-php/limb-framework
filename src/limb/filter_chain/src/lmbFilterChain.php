@@ -8,6 +8,9 @@
  */
 namespace limb\filter_chain\src;
 
+use limb\net\src\lmbHttpRequest;
+use limb\net\src\lmbHttpResponse;
+
 /**
  *  lmbFilterChain is an implementation of InterceptinfFilter design pattern.
  *
@@ -105,7 +108,7 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
   /**
    * Executes the chain
    *
-   * @return mixed
+   * @return lmbHttpResponse
    */
   function process($request = null, $response = null)
   {
@@ -117,9 +120,9 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
    * Filter chain can be an intercepting filter.
    *
    * @param $filter_chain lmbFilterChain
-   * @param $request \limb\net\src\lmbHttpRequest
-   * @param $response \limb\net\src\lmbHttpResponse
-   * @return \limb\net\src\lmbHttpResponse
+   * @param $request lmbHttpRequest
+   * @param $response lmbHttpResponse
+   * @return lmbHttpResponse
    * @see lmbFilterChain::next()
    *
    */
