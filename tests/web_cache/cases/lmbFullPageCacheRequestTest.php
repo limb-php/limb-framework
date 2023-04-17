@@ -18,7 +18,7 @@ class lmbFullPageCacheRequestTest extends TestCase
   function testGetHash()
   {
     $user = new lmbFullPageCacheUser();
-    $http_request = new lmbHttpRequest('http://test.com', 'GET', array(), array(), array(), array());
+    $http_request = new lmbHttpRequest('https://test.com', 'GET', array(), array(), array(), array());
 
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -28,7 +28,7 @@ class lmbFullPageCacheRequestTest extends TestCase
   function testGetHashAlphabeticSorting()
   {
     $user = new lmbFullPageCacheUser(array(2 => 'test', 3 => 'admin'));
-    $http_request = new lmbHttpRequest('http://test.com/path?z=3&a=1&c[d]=2', 'GET', array(), array(), array(), array());
+    $http_request = new lmbHttpRequest('https://test.com/path?z=3&a=1&c[d]=2', 'GET', array(), array(), array(), array());
 
     $request = new lmbFullPageCacheRequest($http_request, $user);
 

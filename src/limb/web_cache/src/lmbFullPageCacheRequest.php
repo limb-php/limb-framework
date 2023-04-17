@@ -9,6 +9,8 @@
 namespace limb\web_cache\src;
 
 use limb\core\src\lmbArrayHelper;
+use limb\net\src\lmbHttpRequest;
+use limb\net\src\lmbUri;
 
 /**
  * class lmbFullPageCacheRequest.
@@ -28,12 +30,12 @@ class lmbFullPageCacheRequest
     $this->user = $user;
   }
 
-  function getUri()
+  function getUri(): lmbUri
   {
     return $this->http_request->getUri();
   }
 
-  function getHttpRequest()
+  function getHttpRequest(): lmbHttpRequest
   {
     return $this->http_request;
   }
@@ -43,7 +45,7 @@ class lmbFullPageCacheRequest
     return $this->user;
   }
 
-  function getHash()
+  function getHash(): string
   {
     $path = $this->http_request->getUriPath();
 
@@ -53,7 +55,7 @@ class lmbFullPageCacheRequest
     return $path . ($extra ? '_' . md5($extra) : '') . '/';
   }
 
-  protected function _serializeHttpAttributes()
+  protected function _serializeHttpAttributes(): string
   {
     $uri = $this->http_request->getUri();
 
@@ -61,12 +63,12 @@ class lmbFullPageCacheRequest
       return '';
 
     $flat = array();
-    lmbArrayHelper :: toFlatArray($query, $flat);
+    lmbArrayHelper::toFlatArray($query, $flat);
     ksort($flat);
     return serialize($flat);
   }
 
-  protected function _serializeUserInfo()
+  protected function _serializeUserInfo(): string
   {
     $groups = $this->user->getGroups();
 

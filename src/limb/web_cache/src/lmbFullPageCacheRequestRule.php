@@ -25,8 +25,9 @@ class lmbFullPageCacheRequestRule
     $this->post = $post;
   }
 
-  function isSatisfiedBy($request)
+  function isSatisfiedBy($request): bool
   {
+    /** @var \limb\net\src\lmbHttpRequest $http_request */
     $http_request = $request->getHttpRequest();
 
     if(!$this->_matches($this->get, $http_request->getGet()))
@@ -38,7 +39,7 @@ class lmbFullPageCacheRequestRule
     return true;
   }
 
-  function _matches($expected, $variable)
+  function _matches($expected, $variable): bool
   {
     if(is_array($expected))
     {

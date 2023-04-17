@@ -20,7 +20,7 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheRequestRule('*');
 
-    $http_request = new lmbHttpRequest('http://dot.com?req1=1', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com?req1=1', 'GET');
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -31,7 +31,7 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheRequestRule('*');
 
-    $http_request = new lmbHttpRequest('http://dot.com', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com', 'GET');
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -42,7 +42,7 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheRequestRule('!');
 
-    $http_request = new lmbHttpRequest('http://dot.com?req1=1', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com?req1=1', 'GET');
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -53,7 +53,7 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheRequestRule(array('req1' => '1', 'req2' => '2'));
 
-    $http_request = new lmbHttpRequest('http://dot.com?req1=1&req2=2', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com?req1=1&req2=2', 'GET');
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -64,7 +64,7 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheRequestRule(array('req1' => '*'));
 
-    $http_request = new lmbHttpRequest('http://dot.com?req1=1', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com?req1=1', 'GET');
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -75,7 +75,7 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheRequestRule(array('req2' => 'b'));
 
-    $http_request = new lmbHttpRequest('http://dot.com?req2=a', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com?req2=a', 'GET');
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -84,9 +84,9 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
 
   function testGetGlobMatch()
   {
-    $rule = new lmbFullPageCacheRequestRule('*', '*');
+    $rule = new lmbFullPageCacheRequestRule('*', null);
 
-    $http_request = new lmbHttpRequest('http://dot.com?req1=1', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com?req1=1', 'GET');
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -97,18 +97,7 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheRequestRule('*', '*');
 
-    $http_request = new lmbHttpRequest('http://dot.com', 'GET', array(), array());
-    $user = new lmbFullPageCacheUser();
-    $request = new lmbFullPageCacheRequest($http_request, $user);
-
-    $this->assertFalse($rule->isSatisfiedBy($request));
-  }
-
-  function testGetNonmatch()
-  {
-    $rule = new lmbFullPageCacheRequestRule('*', '!');
-
-    $http_request = new lmbHttpRequest('http://dot.com?req1=1', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com', 'GET', array(), array());
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -117,9 +106,9 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
 
   function testGetAttributesMatch()
   {
-    $rule = new lmbFullPageCacheRequestRule('*', array('req1' => '1', 'req2' => '2'));
+    $rule = new lmbFullPageCacheRequestRule(array('req1' => '1', 'req2' => '2'), null);
 
-    $http_request = new lmbHttpRequest('http://dot.com?req1=1&req2=2', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com?req1=1&req2=2', 'GET');
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -128,9 +117,9 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
 
   function testGetAttributeGlobMatch()
   {
-    $rule = new lmbFullPageCacheRequestRule('*', array('req1' => '*'));
+    $rule = new lmbFullPageCacheRequestRule(array('req1' => '*'), null);
 
-    $http_request = new lmbHttpRequest('http://dot.com?req1=1', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com?req1=1', 'GET');
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -141,7 +130,7 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
   {
     $rule = new lmbFullPageCacheRequestRule('*', array('req2' => 'b'));
 
-    $http_request = new lmbHttpRequest('http://dot.com?req2=a', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com?req2=a', 'GET');
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -150,9 +139,9 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
 
   function testPostGlobMatch()
   {
-    $rule = new lmbFullPageCacheRequestRule(null, null, '*');
+    $rule = new lmbFullPageCacheRequestRule(null, '*');
 
-    $http_request = new lmbHttpRequest('http://dot.com', 'GET', array(), array('req1' => 1));
+    $http_request = new lmbHttpRequest('https://dot.com', 'GET', array(), array('req1' => 1));
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -161,9 +150,9 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
 
   function testPostGlobNonmatch()
   {
-    $rule = new lmbFullPageCacheRequestRule(null, null, '*');
+    $rule = new lmbFullPageCacheRequestRule(null, '*');
 
-    $http_request = new lmbHttpRequest('http://dot.com', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com', 'GET', array(), array());
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -172,9 +161,9 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
 
   function testPostNonmatch()
   {
-    $rule = new lmbFullPageCacheRequestRule('*', '*', '!');
+    $rule = new lmbFullPageCacheRequestRule('*', '!');
 
-    $http_request = new lmbHttpRequest('http://dot.com', 'GET', array(), array('req1' => 1));
+    $http_request = new lmbHttpRequest('https://dot.com', 'GET', array(), array('req1' => 1));
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -183,9 +172,9 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
 
   function testPostAttributesMatch()
   {
-    $rule = new lmbFullPageCacheRequestRule(null, null, array('req1' => '1', 'req2' => '2'));
+    $rule = new lmbFullPageCacheRequestRule(null, array('req1' => '1', 'req2' => '2'));
 
-    $http_request = new lmbHttpRequest('http://dot.com', 'GET', array(), array('req1' => 1, 'req2' => 2));
+    $http_request = new lmbHttpRequest('https://dot.com', 'GET', array(), array('req1' => 1, 'req2' => 2));
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -194,9 +183,9 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
 
   function testPostAttributeGlobMatch()
   {
-    $rule = new lmbFullPageCacheRequestRule(null, null, array('req1' => '*'));
+    $rule = new lmbFullPageCacheRequestRule(null, array('req1' => '*'));
 
-    $http_request = new lmbHttpRequest('http://dot.com', 'GET', array(), array('req1' => 1));
+    $http_request = new lmbHttpRequest('https://dot.com', 'GET', array(), array('req1' => 1));
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 
@@ -205,9 +194,9 @@ class lmbFullPageCacheRequestRuleTest extends TestCase
 
   function testPostAttributeNonmatch()
   {
-    $rule = new lmbFullPageCacheRequestRule('*', '*', array('req2' => 'b'));
+    $rule = new lmbFullPageCacheRequestRule('*', array('req2' => 'b'));
 
-    $http_request = new lmbHttpRequest('http://dot.com', 'GET', array(), array('req2' => 'a'));
+    $http_request = new lmbHttpRequest('https://dot.com', 'GET', array(), array('req2' => 'a'));
     $user = new lmbFullPageCacheUser();
     $request = new lmbFullPageCacheRequest($http_request, $user);
 

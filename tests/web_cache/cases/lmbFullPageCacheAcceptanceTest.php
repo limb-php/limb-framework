@@ -54,7 +54,7 @@ class lmbFullPageCacheAcceptanceTest extends TestCase
                            );
 
     $user = new lmbFullPageCacheUser();
-    $http_request = new lmbHttpRequest('http://dot.com/path?id1=test1&id2=test2', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com/path?id1=test1&id2=test2', 'GET', array(), array());
     $valid_request = new lmbFullPageCacheRequest($http_request, $user);
 
     $cache = new lmbFullPageCache($this->cache_writer, $this->policy);
@@ -70,7 +70,7 @@ class lmbFullPageCacheAcceptanceTest extends TestCase
 
     //invalid request
     $user = new lmbFullPageCacheUser();
-    $http_request = new lmbHttpRequest('http://dot.com', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com', 'GET', array(), array());
     $invalid_request = new lmbFullPageCacheRequest($http_request, $user);
 
     $this->assertFalse($cache->openSession($invalid_request));
@@ -92,12 +92,12 @@ class lmbFullPageCacheAcceptanceTest extends TestCase
     $cache = new lmbFullPageCache($this->cache_writer, $this->policy);
 
     //cache deny, because rule should go first
-    $http_request = new lmbHttpRequest('http://dot.com/path-more-detailed?id1=test1&id2=test2', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com/path-more-detailed?id1=test1&id2=test2', 'GET', array(), array());
     $not_cached_request = new lmbFullPageCacheRequest($http_request, $user);
     $this->assertFalse($cache->openSession($not_cached_request));
 
     //valid
-    $http_request = new lmbHttpRequest('http://dot.com/path?id1=test1&id2=test2', 'GET', array(), array());
+    $http_request = new lmbHttpRequest('https://dot.com/path?id1=test1&id2=test2', 'GET', array(), array());
     $cached_request = new lmbFullPageCacheRequest($http_request, $user);
 
     //first time reading

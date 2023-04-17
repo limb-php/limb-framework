@@ -16,23 +16,23 @@ namespace limb\web_cache\src;
  */
 class lmbFullPageCacheUserRule
 {
-  protected $user_groups = array();
+  protected $user_groups = [];
 
   function __construct($user_groups)
   {
     $this->user_groups = $user_groups;
   }
 
-  function isSatisfiedBy($request)
+  function isSatisfiedBy($request): bool
   {
     $user = $request->getUser();
 
-    $positive_groups = array();
-    $negative_groups = array();
+    $positive_groups = [];
+    $negative_groups = [];
 
     foreach($this->user_groups as $group)
     {
-      if($group{0} == '!')
+      if($group[0] == '!')
         $negative_groups[] = substr($group, 1);
       else
         $positive_groups[] = $group;
@@ -46,6 +46,6 @@ class lmbFullPageCacheUserRule
     if($res && $negative_groups)
       $res &= !(array_intersect($negative_groups, $user->getGroups()) == $negative_groups);
 
-    return $res;
+    return (bool)$res;
   }
 }

@@ -29,11 +29,17 @@ class lmbFullPageCacheFilterTest extends TestCase
 
   function setUp(): void
   {
-    $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/fpcache/';
-    lmbFs::rm($this->cache_dir);
-    $this->filter2 = $this->createStub(lmbInterceptingFilterInterface::class);
-    $this->user = new lmbFullPageCacheUser();
-    $this->toolkit = lmbToolkit::save();
+      $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/web_cache/';
+
+      lmbFs::rm($this->cache_dir);
+
+      $this->toolkit = lmbToolkit::save();
+
+      $this->filter2 = $this->createConfiguredMock(lmbInterceptingFilterInterface::class, [
+          'run' =>  $this->toolkit->getResponse()
+      ]);
+
+      $this->user = new lmbFullPageCacheUser();
   }
 
   function tearDown(): void
@@ -50,7 +56,7 @@ class lmbFullPageCacheFilterTest extends TestCase
     $fc->registerFilter($this->filter2);
 
     $rules = '
-     [rull-all-to-all]
+     [rule-all-to-all]
      path_regex = ~^.*$~
      policy = allow
     ';
@@ -59,7 +65,7 @@ class lmbFullPageCacheFilterTest extends TestCase
     $this->filter2->expects($this->once())->method('run');
 
     $response = $this->toolkit->getResponse();
-    $response->start();
+    $response->send();
     $response->write('some_content'); // I don't want to create a stub for filter2
                                       // to write something to response. I'd like to it here.
 
@@ -68,7 +74,7 @@ class lmbFullPageCacheFilterTest extends TestCase
     $fc->process($this->toolkit->getRequest(), $response);
 
     $response->reset();
-    $response->start();
+    $response->send();
 
     $fc->process($this->toolkit->getRequest(), $response);
 

@@ -21,7 +21,7 @@ class lmbFullPageCacheWriterTest extends TestCase
 
   function setUp(): void
   {
-    $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/fpcache/';
+    $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/web_cache/';
     lmbFs::mkdir($this->cache_dir);
     $this->writer = new lmbFullPageCacheWriter($this->cache_dir);
   }
@@ -33,7 +33,7 @@ class lmbFullPageCacheWriterTest extends TestCase
 
   function testGetFailed()
   {
-    $this->assertEquals(false, $this->writer->get($cache = '123'));
+    $this->assertFalse($this->writer->get($cache = '123'));
   }
 
   function testGetOk()
@@ -62,9 +62,9 @@ class lmbFullPageCacheWriterTest extends TestCase
     //directory name conflicts with cache file name
     $this->writer->save($cache4 = '1/2/3/' . $this->writer->getCacheFile(), 'bar');
 
-    $this->assertEquals($this->writer->get($cache1), 'foo');
-    $this->assertEquals($this->writer->get($cache2), 'bar');
-    $this->assertEquals($this->writer->get($cache3), 'zoo');
+    $this->assertEquals('foo', $this->writer->get($cache1));
+    $this->assertEquals('bar', $this->writer->get($cache2));
+    $this->assertEquals('zoo', $this->writer->get($cache3));
     $this->assertFalse($this->writer->get($cache4));
   }
 

@@ -36,13 +36,13 @@ class lmbFullPageCacheTest extends TestCase
   function testGetFailedNoSessionOpened()
   {
     $this->writer->expects($this->never())->method('get');
-    $this->assertEquals(false, $this->cache->get());
+    $this->assertFalse($this->cache->get());
   }
 
   function testSaveFailedNoSessionOpened()
   {
     $this->writer->expects($this->never())->method('save');
-    $this->assertEquals(false, $this->cache->save('whatever'));
+    $this->assertFalse($this->cache->save('whatever'));
   }
 
   function testOpenSessionFailedDenyRule()
@@ -121,7 +121,7 @@ class lmbFullPageCacheTest extends TestCase
         ->method('get')
         ->willReturn(false, array($hash));
 
-    $this->assertEquals(false, $this->cache->get());
+    $this->assertFalse($this->cache->get());
   }
 
   function testSaveOk()
@@ -145,7 +145,7 @@ class lmbFullPageCacheTest extends TestCase
         ->expects($this->once())
         ->method('save')
         ->with($hash, $content = 'content')
-        ->willReturn(true, array($hash, $content = 'content'));
+        ->willReturn(true, array($hash, $content));
 
     $this->assertTrue($this->cache->save($content));
   }
