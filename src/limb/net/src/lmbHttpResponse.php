@@ -196,7 +196,7 @@ class lmbHttpResponse
     $this->redirect_strategy = $strategy;
   }
 
-  function redirect($path)
+  function redirect($path): self
   {
     if ($this->is_redirected)
       return $this;
@@ -227,7 +227,7 @@ class lmbHttpResponse
     return $this->getRedirectedPath();
   }
 
-  protected function _getDefaultRedirectStrategy()
+  protected function _getDefaultRedirectStrategy(): lmbHttpRedirectStrategy
   {
     return new lmbHttpRedirectStrategy();
   }
@@ -247,7 +247,7 @@ class lmbHttpResponse
     $this->transaction_started = false;
   }
 
-  protected function _checkStatusInHeader($header)
+  protected function _checkStatusInHeader($header): bool
   {
       if(preg_match('/^HTTP\/1.\d[^\d]+(\d+)[^\d]*/i', $header, $matches)) {
           if( isset($matches[1]) ) {
@@ -270,7 +270,7 @@ class lmbHttpResponse
       return $this->getStatus();
   }
 
-  function setStatusCode($code, $text = null)
+  function setStatusCode($code, $text = null): self
   {
       $this->statusCode = $code;
 
@@ -293,7 +293,7 @@ class lmbHttpResponse
     return $directive ?? false;
   }
 
-  function getContentType()
+  function getContentType(): string
   {
     if($directive = $this->getDirective('content-type'))
     {
@@ -304,7 +304,7 @@ class lmbHttpResponse
       return 'text/html';
   }
 
-  function getMimeType()
+  function getMimeType(): string
   {
     return $this->getContentType();
   }
@@ -319,7 +319,7 @@ class lmbHttpResponse
     return $this->transaction_started;
   }
 
-  function isEmpty()
+  function isEmpty(): bool
   {
     $status = $this->getStatus();
 
@@ -332,12 +332,12 @@ class lmbHttpResponse
     return $res;
   }
 
-  function isHeadersSent()
+  function isHeadersSent(): bool
   {
     return sizeof($this->headers) > 0;
   }
 
-  function isFileSent()
+  function isFileSent(): bool
   {
     return !empty($this->response_file_path);
   }

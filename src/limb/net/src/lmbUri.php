@@ -165,7 +165,7 @@ class lmbUri implements UriInterface
     $this->path_elements = explode('/', $this->path);
   }
 
-  function isAbsolute()
+  function isAbsolute(): bool
   {
     if(!strlen($this->path))
       return true;
@@ -173,7 +173,7 @@ class lmbUri implements UriInterface
     return ('/' == $this->path[0]);
   }
 
-  function isRelative()
+  function isRelative(): bool
   {
     return !$this->isAbsolute();
   }

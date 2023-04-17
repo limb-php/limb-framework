@@ -104,6 +104,8 @@ class lmbSet implements lmbSetInterface
   {
     if(!$this->_isGuarded($name))
       return property_exists($this, $name);
+
+    return false;
   }
 
   function isEmpty()

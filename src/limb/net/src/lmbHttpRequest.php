@@ -8,6 +8,7 @@
  */
 namespace limb\net\src;
 
+use limb\core\src\exception\lmbException;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbArrayHelper;
 use Psr\Http\Message\UriInterface;
@@ -45,7 +46,10 @@ class lmbHttpRequest extends lmbSet
         $this->_initRequestProperties($uri_string, $method, $get, $post, $cookies, $files, $headers);
     }
 
-    protected function _initRequestProperties($uri_string, $method, $get = [], $post = [], $cookies = [], $files = [], $headers = [])
+    /**
+     * @throws lmbException
+     */
+    protected function _initRequestProperties($uri_string, $method, $get, $post, $cookies, $files, $headers)
     {
         $this->__version = '1.0';
 
@@ -148,13 +152,13 @@ class lmbHttpRequest extends lmbSet
         return $server . $url;
     }
 
-    protected function _parseUploadedFiles($files)
+    protected function _parseUploadedFiles($files): array
     {
         $parser = new lmbUploadedFilesParser();
         return $parser->objectify($files);
     }
 
-    protected function _stripHttpSlashes($data, $result=array())
+    protected function _stripHttpSlashes($data, $result = [])
     {
         foreach($data as $k => $v)
         {
@@ -166,7 +170,7 @@ class lmbHttpRequest extends lmbSet
         return $result;
     }
 
-  function hasFiles($key = null)
+  function hasFiles($key = null): bool
   {
       $has = $this->_get($this->__files, $key);
 
@@ -223,7 +227,7 @@ class lmbHttpRequest extends lmbSet
         return $this->__headers[$header_name] ?? $default_value;
     }
 
-    public function hasHeader($name)
+    public function hasHeader($name): bool
     {
         return isset($this->__headers[$name]);
     }
@@ -251,7 +255,7 @@ class lmbHttpRequest extends lmbSet
     return $this->_get($this->__cookies, $key, $default);
   }
 
-  function getSafe($var,$default = null)
+  function getSafe($var, $default = null)
   {
     return htmlspecialchars($this->get($var, $default));
   }
@@ -279,7 +283,7 @@ class lmbHttpRequest extends lmbSet
       return filter_var($value, $filter);
   }
 
-  protected function _get(&$arr, $key = null, $default = null)
+  protected function _get($arr, $key = null, $default = null)
   {
     if(is_null($key))
       return $arr;
@@ -326,12 +330,12 @@ class lmbHttpRequest extends lmbSet
             $this->$key = $value;
     }
 
-    function has($key)
+    function has($key): bool
     {
         return isset($this->$key) || isset($this->__attributes[$key]);
     }
 
-    function export()
+    function export(): array
     {
         $exported = array();
 
@@ -398,7 +402,7 @@ class lmbHttpRequest extends lmbSet
         $this->__headers = [$header => $host] + $this->__headers;
     }
 
-  function getUriPath()
+  function getUriPath(): string
   {
     return $this->__uri->getPath();
   }
@@ -423,12 +427,12 @@ class lmbHttpRequest extends lmbSet
     return rtrim($uri->toString() . '?' . rtrim($query, '&'), '?');
   }
 
-  function dump()
+  function dump(): string
   {
     return $this->toString();
   }
 
-    public function getProtocolVersion()
+    public function getProtocolVersion(): string
     {
         return $this->__version;
     }

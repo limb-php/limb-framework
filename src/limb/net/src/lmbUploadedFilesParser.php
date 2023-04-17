@@ -16,7 +16,7 @@ namespace limb\net\src;
  */
 class lmbUploadedFilesParser
 {
-  function parse($files)
+  function parse($files): array
   {
     $result = array();
 
@@ -35,7 +35,7 @@ class lmbUploadedFilesParser
     return $this->_wrapWithObjects($this->parse($files));
   }
 
-  protected function _isSimple($chunk)
+  protected function _isSimple($chunk): bool
   {
     if((isset($chunk['name']) && !is_array($chunk['name'])) &&
        (isset($chunk['error']) && !is_array($chunk['error'])) &&
@@ -47,7 +47,7 @@ class lmbUploadedFilesParser
       return false;
   }
 
-  function _wrapWithObjects($chunks)
+  function _wrapWithObjects($chunks): array
   {
     $result = array();
     foreach($chunks as $key => $chunk)
@@ -60,7 +60,7 @@ class lmbUploadedFilesParser
     return $result;
   }
 
-  protected function _parseComplexChunk($chunk)
+  protected function _parseComplexChunk($chunk): array
   {
     $result = array();
     foreach($chunk as $property_name => $data_set)
