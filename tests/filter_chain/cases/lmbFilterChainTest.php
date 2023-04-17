@@ -8,6 +8,8 @@
  */
 namespace limb\filter_chain\tests\cases;
 
+require_once ('.setup.php');
+
 use limb\net\src\lmbHttpRequest;
 use limb\net\src\lmbHttpResponse;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +20,7 @@ class InterceptingFilterStub
   var $captured = array();
   var $run = false;
 
-  function run($fc, $request, $response)
+  function run($fc, $request, $response): lmbHttpResponse
   {
     $this->run = true;
     $this->captured['filter_chain'] = $fc;
@@ -29,7 +31,7 @@ class InterceptingFilterStub
 
 class OutputFilter1
 {
-  function run($fc, $request, $response)
+  function run($fc, $request, $response): lmbHttpResponse
   {
     echo '<filter1>';
     $response = $fc->next($request, $response);
@@ -41,7 +43,7 @@ class OutputFilter1
 
 class OutputFilter2
 {
-  function run($fc, $request, $response)
+  function run($fc, $request, $response): lmbHttpResponse
   {
     echo '<filter2>';
     $response = $fc->next($request, $response);
@@ -53,7 +55,7 @@ class OutputFilter2
 
 class OutputFilter3
 {
-  function run($fc, $request, $response)
+  function run($fc, $request, $response): lmbHttpResponse
   {
     echo '<filter3>';
     $response = $fc->next($request, $response);
@@ -105,7 +107,7 @@ class lmbFilterChainTest extends TestCase
     $str = ob_get_contents();
     ob_end_clean();
 
-    $this->assertEquals($str, '<filter1><filter2></filter2></filter1>');
+    $this->assertEquals('<filter1><filter2></filter2></filter1>', $str);
   }
 
   function testFilterChainAsAFilter()
@@ -126,11 +128,14 @@ class lmbFilterChainTest extends TestCase
 
     ob_start();
 
-    $fc->process();
+    $fc->process(
+        request(),
+        response()
+    );
 
     $str = ob_get_contents();
     ob_end_clean();
 
-    $this->assertEquals($str, '<filter1></filter1><filter2></filter2>');
+    $this->assertEquals('<filter1></filter1><filter2></filter2>', $str);
   }
 }
