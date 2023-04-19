@@ -184,15 +184,25 @@ class lmbCollection implements lmbCollectionInterface
     return (is_array($values) || is_object($values));
   }
 
-  function add($item, $offset = NULL)
+  function add($item, $key = null)
   {
-    if(NULL !== $offset)
-      $this->dataset[$offset] = $item;
+    if(null !== $key)
+      $this->dataset[$key] = $item;
     else
       $this->dataset[] = $item;
 
     $this->iteratedDataset = null;
   }
+
+    function addTo($item, $key)
+    {
+        if( !isset($this->dataset[$key]) ) {
+            $this->dataset[$key] = [];
+        }
+        $this->dataset[$key][] = $item;
+
+        $this->iteratedDataset = null;
+    }
 
   function isEmpty()
   {
