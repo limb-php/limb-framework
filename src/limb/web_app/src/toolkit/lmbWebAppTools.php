@@ -19,6 +19,7 @@ use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\view\src\lmbDummyView;
+use limb\view\src\lmbView;
 use limb\view\src\toolkit\lmbViewTools;
 use limb\web_app\src\util\lmbFlashBox;
 use limb\web_app\src\request\lmbRoutes;
@@ -109,12 +110,12 @@ class lmbWebAppTools extends lmbAbstractTools
     }
   }
 
-  function setView($view)
+  function setView($view): void
   {
     $this->view = $view;
   }
 
-  function getView()
+  function getView(): lmbView
   {
     if(is_object($this->view))
       return $this->view;
@@ -125,7 +126,7 @@ class lmbWebAppTools extends lmbAbstractTools
     return $this->view;
   }
 
-  function setDispatchedController($dispatched)
+  function setDispatchedController($dispatched): void
   {
     $this->dispatched_controller = $dispatched;
   }

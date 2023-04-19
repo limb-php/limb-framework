@@ -135,7 +135,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  *
  * @see lmbWebAppTools
  * @method setView($view)
- * @method getView()
+ * @method \limb\view\src\lmbView getView()
  * @method setDispatchedController($dispatched)
  * @method getDispatchedController()
  * @method getRouteUrlByName($route_name, $params = array())

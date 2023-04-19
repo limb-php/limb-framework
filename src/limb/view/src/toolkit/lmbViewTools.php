@@ -52,7 +52,7 @@ class lmbViewTools extends lmbAbstractTools
     return $this->view_types;
   }
 
-  function getSupportedViewExtensions()
+  function getSupportedViewExtensions(): array
   {
     return array_keys($this->view_types);
   }
@@ -107,7 +107,7 @@ class lmbViewTools extends lmbAbstractTools
     return $this->macro_config;
   }
 
-  function getMacroLocator()
+  function getMacroLocator(): lmbMacroTemplateLocator
   {
     if(is_object($this->macro_locator))
       return $this->macro_locator;
@@ -118,7 +118,7 @@ class lmbViewTools extends lmbAbstractTools
     return $this->macro_locator;
   }
 
-  function setMacroConfig($config)
+  function setMacroConfig($config): void
   {
     $this->macro_config = $config;
   }
@@ -136,7 +136,7 @@ class lmbViewTools extends lmbAbstractTools
     return $this->twig_config;
   }
 
-  function setTwigConfig($config)
+  function setTwigConfig($config): void
   {
     $this->twig_config = $config;
   }
