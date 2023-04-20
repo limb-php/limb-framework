@@ -95,12 +95,12 @@ class lmbTwigExtension extends AbstractExtension
         return call_user_func($method, $options);
     }
 
-    public static function file_exists($path, $options = array())
+    public static function file_exists($path, $options = array()): bool
     {
         return file_exists($path);
     }
 
-    public static function copy_year($start_year)
+    public static function copy_year($start_year): string
     {
         return $start_year . ((date('Y') != $start_year) ? '&ndash;' . date('Y') : '');
     }
@@ -124,11 +124,9 @@ class lmbTwigExtension extends AbstractExtension
         return $datasource[$name] ?? null;
     }
 
-    public static function route_url($params, $route = '', $skip_controller = false)
+    public static function route_url($params, $route = '', $skip_controller = false): string
     {
-        $routes = lmbToolkit::instance()->getRoutesUrl($params, $route, $skip_controller);
-
-        return $routes;
+        return lmbToolkit::instance()->getRoutesUrl($params, $route, $skip_controller);
     }
 
     public static function current_uri($replace_params = array())
@@ -155,13 +153,13 @@ class lmbTwigExtension extends AbstractExtension
         return lmbIp::decode($encoded_ip);
     }
 
-    public static function pager_url($name = 'pager', $page = 1)
+    public static function pager_url($name = 'pager', $page = 1): string
     {
         $uri = lmbToolkit::instance()->getRequest()->getUri();
 
-        $curi = $uri->withQueryItem($name, $page);
+        $new_uri = $uri->withQueryItem($name, $page);
 
-        return $curi->toString();
+        return $new_uri->toString();
     }
 
     public static function env_get($name, $default = null)

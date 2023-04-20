@@ -143,7 +143,7 @@ class lmbWebAppTools extends lmbAbstractTools
       return lmbEnv::get('LIMB_HTTP_GATEWAY_PATH') . ltrim($routes->toUrl($params, $route_name), '/');
   }
 
-  function getRoutesUrl($params = array(), $route_name = '', $skip_controller = false)
+  function getRoutesUrl($params = array(), $route_name = '', $skip_controller = false): string
   {
     $routes = $this->toolkit->getRoutes();
 
@@ -154,7 +154,7 @@ class lmbWebAppTools extends lmbAbstractTools
     return lmbEnv::get('LIMB_HTTP_GATEWAY_PATH') . ltrim($routes->toUrl($params, $route_name), '/');
   }
 
-  function getRoutes()
+  function getRoutes(): lmbRoutes
   {
     if(!$this->routes)
     {
@@ -215,7 +215,7 @@ class lmbWebAppTools extends lmbAbstractTools
       $this->toolkit->getResponse()->redirect($params_or_url . $append);
   }
 
-  function isWebAppDebugEnabled()
+  function isWebAppDebugEnabled(): bool
   {
     $mode = false;
     if('devel' === lmbEnv::get('LIMB_APP_MODE'))

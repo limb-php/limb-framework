@@ -19,8 +19,8 @@ interface lmbValidationRuleInterface
   * Performs validation
   * Validation rules must call {@link lmbErrorList::addError()} to report about error
   * @see lmbErrorList::addError()
-  * @param lmbSetInterface Datasource to validate
-  * @param lmbErrorList List of validation errors
+  * @param lmbSetInterface $datasource Datasource to validate
+  * @param lmbErrorList $error_list List of validation errors
   * @return void
   */
   function validate($datasource, $error_list);

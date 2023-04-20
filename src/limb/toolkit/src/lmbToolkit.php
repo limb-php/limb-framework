@@ -118,7 +118,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method setResponse($response)
  *
  * @see lmbSessionTools
- * @method getSession(): \limb\session\src\lmbSession
+ * @method \limb\session\src\lmbSession getSession()
  * @method setSession($session)
  *
  * @see lmbViewTools
@@ -139,15 +139,15 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method setDispatchedController($dispatched)
  * @method getDispatchedController()
  * @method getRouteUrlByName($route_name, $params = array())
- * @method getRoutesUrl($params = array(), $route_name = '', $skip_controller = false)
- * @method getRoutes()
+ * @method string getRoutesUrl($params = array(), $route_name = '', $skip_controller = false)
+ * @method \limb\web_app\src\request\lmbRoutes getRoutes()
  * @method setRoutes($routes)
- * @method getFlashBox(): \limb\web_app\src\util\lmbFlashBox
+ * @method \limb\web_app\src\util\lmbFlashBox getFlashBox()
  * @method flashError($message)
  * @method flashMessage($message)
  * @method createController($controller_name, $namespace = '')
  * @method redirect($params_or_url = array(), $route_url = null, $append = '')
- * @method isWebAppDebugEnabled()
+ * @method bool isWebAppDebugEnabled()
  * @method addVersionToUrl($file_src, $safe = false)
  * @method getNormalizeUrlAndVersion($file_src, $safe = false)
  * @method selectDomainForFile($domains, $file_src, $safe = false)

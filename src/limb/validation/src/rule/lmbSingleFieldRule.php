@@ -11,7 +11,7 @@ namespace limb\validation\src\rule;
 use limb\i18n\src\lmbI18n;
 
 /**
- * A base class for rules responsbile for validating a single field should inherit this class.
+ * A base class for rules responsible for validating a single field should inherit this class.
  * @package validation
  * @version $Id: lmbSingleFieldRule.php 7486 2009-01-26 19:13:20Z
  */
@@ -28,7 +28,8 @@ abstract class lmbSingleFieldRule extends lmbBaseValidationRule
   protected $custom_error;
 
   /**
-  * @param string Field name
+  * @param string $field_name Field name
+  * @param string|null $custom_error
   */
   function __construct($field_name, $custom_error = null)
   {
@@ -49,8 +50,8 @@ abstract class lmbSingleFieldRule extends lmbBaseValidationRule
   * Fills field array with array('Field' => $this->field_name) that is ok for single field rules
   * If $custom_error attribute is set will use $custom_error regardless of $message
   * If $custom_error attribute is not set will apply lmb_i18n function to $message
-  * @param string Error message
-  * @param array Array of values
+  * @param string $message Error message
+  * @param array $values Array of values
   * @see lmbErrorList::addError()
   * @return void
   */
@@ -78,7 +79,7 @@ abstract class lmbSingleFieldRule extends lmbBaseValidationRule
 
   /**
   * Performs real validation
-  * @param mixed Field value check
+  * @param mixed $value Field value check
   * @return void
   */
   abstract function check($value);

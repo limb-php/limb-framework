@@ -67,10 +67,9 @@ class lmbViewTools extends lmbAbstractTools
 
   function createViewByTemplate($template_name, $vars = [])
   {
-    $class = $this->_findViewClassByTemplate($template_name);
+      $class = $this->_findViewClassByTemplate($template_name);
 
-    $view = new $class($template_name, $vars);
-    return $view;
+      return new $class($template_name, $vars);
   }
 
   protected function _findViewClassByTemplate($template_name)

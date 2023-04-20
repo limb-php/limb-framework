@@ -43,8 +43,9 @@ class lmbCollection implements lmbCollectionInterface
   function getArray()
   {
     $result = array();
-    foreach($this as $object)
+    foreach($this as $key => $object)
       $result[] = $object;
+
     return $result;
   }
 

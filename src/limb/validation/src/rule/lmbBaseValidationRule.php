@@ -30,13 +30,13 @@ abstract class lmbBaseValidationRule implements lmbValidationRuleInterface
   */
   protected $error_list;
 
-  function isValid()
+  function isValid(): bool
   {
     return $this->is_valid;
   }
 
   /**
-  * Addes an error to error list.
+  * Adds an error to error list.
   * Sets "is_valid" flag to false.
   */
   function error($message, $fields = array(), $values = array())
@@ -47,7 +47,7 @@ abstract class lmbBaseValidationRule implements lmbValidationRuleInterface
 
   /**
   * Validates datasource
-  * @see lmbValidationRule :: validate
+  * @see lmbValidationRule::validate
   */
   function validate($datasource, $error_list)
   {

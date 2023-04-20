@@ -35,7 +35,7 @@ class lmbValidator
 
   /**
   * Constructor
-  * @param lmbErrorList
+  * @param lmbErrorList|null $error_list
   */
   function __construct($error_list = null)
   {

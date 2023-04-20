@@ -88,7 +88,7 @@ class lmbRoutes
     return $dispatched;
   }
 
-  protected function _applyUrlFilter($route, $path)
+  protected function _applyUrlFilter($route, $path): string
   {
     if(!$route['url_filter'])
       return $path;
