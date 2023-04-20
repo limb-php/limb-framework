@@ -52,13 +52,13 @@ class Acl_Tests_Member implements lmbRoleProviderInterface
 class Acl_Tests_Article implements lmbRolesResolverInterface, lmbResourceProviderInterface
 {  
 
-  function getRoleFor($object)
+  function getRoleFor($user)
   {
     $roles = array();   
     
-    if('Bob' === $object->name)
+    if('Bob' === $user->name)
       $roles[] = 'owner';
-    if('Valtazar' === $object->name)
+    if('Valtazar' === $user->name)
     {
       $roles[] = 'approver';
       $roles[] = 'daemon';

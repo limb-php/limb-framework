@@ -10,5 +10,5 @@ namespace limb\acl\src;
 
 interface lmbRolesResolverInterface
 {
-  function getRoleFor($object);
+  function getRoleFor($user);
 }
