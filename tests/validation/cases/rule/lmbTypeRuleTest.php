@@ -53,6 +53,6 @@ class lmbTypeRuleTest extends lmbValidationRuleTestCase
     $error_list = new lmbErrorList();
     $rule->validate($dataspace, $error_list);
 
-    $this->assertEquals(current($error_list->getReadable()), '"field" error');
+    $this->assertEquals('"field" error', current($error_list->getReadable()));
   }
 }

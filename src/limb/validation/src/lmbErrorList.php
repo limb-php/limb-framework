@@ -37,7 +37,14 @@ class lmbErrorList extends lmbCollection
   function addError($message, $fields = array(), $values = array()): lmbErrorMessage
   {
     $error = new lmbErrorMessage($message, $fields, $values);
-    $this->add($error);
+    if( count($fields) === 1 ) {
+        //$this->addTo($error, $fields[0]);
+        $this->add($error, current($fields));
+    }
+    else {
+        $this->add($error);
+    }
+
     return $error;
   }
 
@@ -58,8 +65,9 @@ class lmbErrorList extends lmbCollection
   function getReadable(): array
   {
     $result = array();
-    foreach ($this as $error)
-      $result[] = $error->getReadable();
+    foreach ($this as $error) {
+        $result[] = $error->getReadable();
+    }
 
     return $result;
   }
@@ -68,6 +76,17 @@ class lmbErrorList extends lmbCollection
   {   
     foreach($this as $message)
       $message->renameFields($new_field_names);      
+  }
+
+  function getByKey($key)
+  {
+      $result = [];
+      foreach($this as $k => $object) {
+          if( $key == $k )
+            $result[] = $object;
+      }
+
+      return $result;
   }
 
   function __sleep()
