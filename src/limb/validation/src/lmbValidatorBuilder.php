@@ -135,7 +135,7 @@ class lmbValidatorBuilder
 
     if(is_string($args) && $args) // if $args is a string, then it's a custom error message
     {
-      array_push($params, $args); // and must be the last in the $params 
+      $params[] = $args; // and must be the last in the $params
     }
     
     $params = self::trim($params);
@@ -153,7 +153,7 @@ class lmbValidatorBuilder
     $rule_file_name = self::getLmbRule($rule_name);
     foreach($start_dirs as $dir)
     {      
-      $full_path = $dir . '/' . $rule_file_name . '.php';
+      $full_path = $dir . DIRECTORY_SEPARATOR . $rule_file_name . '.php';
             
       if($path_to_file = lmbFs::glob($full_path))
       {
@@ -170,25 +170,30 @@ class lmbValidatorBuilder
         $class = $namespace = $buffer = '';
         $i = 0;
         while (!$class) {
-            if (feof($fp)) break;
+            if (feof($fp))
+                break;
 
-            $buffer .= fread($fp,  8192);
+            $buffer .= fread($fp,  16000);
             $tokens = token_get_all($buffer);
 
-            if (strpos($buffer, '{') === false) continue;
+            if (strpos($buffer, '{') === false)
+                continue;
 
             for (;$i<count($tokens);$i++) {
                 if ($tokens[$i][0] === T_NAMESPACE) {
                     for ($j=$i+1;$j<count($tokens); $j++) {
                         if ($tokens[$j][0] === T_STRING) {
                             $namespace .= $tokens[$j][1] . '\\';
-                        } else if ($tokens[$j] === '{' || $tokens[$j] === ';') {
+                        }
+                        elseif ($tokens[$j][0] === 314) {
+                            $namespace = $tokens[$j][1] . '\\';
+                        }
+                        else if ($tokens[$j] === '{' || $tokens[$j] === ';') {
                             break;
                         }
                     }
                 }
-
-                if ($tokens[$i][0] === T_CLASS) {
+                elseif ($tokens[$i][0] === T_CLASS) {
                     for ($j=$i+1;$j<count($tokens);$j++) {
                         if ($tokens[$j] === '{') {
                             $class = $tokens[$i+2][1];
@@ -201,7 +206,7 @@ class lmbValidatorBuilder
         return $namespace . $class;
     }
 
-  static function getLmbRule($underscored_name) 
+  static function getLmbRule($underscored_name): string
   {
     if(isset(self::$rules_shortcuts[$underscored_name]))
     {
@@ -211,7 +216,7 @@ class lmbValidatorBuilder
     return 'lmb' . lmbString::camel_case($underscored_name) . 'Rule';
   }
 
-  static function trim($arr) 
+  static function trim($arr)
   {
     $trimmed = array();
     

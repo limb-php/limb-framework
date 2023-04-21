@@ -96,7 +96,9 @@ class lmbValidatorBuilderTest extends TestCase
     $this->validator
         ->expects($this->once())
         ->method("addRule")
-        ->with(new lmbHandle(lmbUniqueTableFieldRule::class, array('login', 'user', 'login')));
+        ->with(
+            new lmbHandle(lmbUniqueTableFieldRule::class, array('login', 'user', 'login'))
+        );
 
     lmbValidatorBuilder::addRules($rules, $this->validator);
   }
