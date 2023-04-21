@@ -37,8 +37,8 @@ class lmbErrorList extends lmbCollection
   function addError($message, $fields = array(), $values = array()): lmbErrorMessage
   {
     $error = new lmbErrorMessage($message, $fields, $values);
-    if( count($fields) === 1 ) {
-        //$this->addTo($error, $fields[0]);
+    if( count($fields) >= 1 ) {
+        //$this->addTo($error, current($fields));
         $this->add($error, current($fields));
     }
     else {

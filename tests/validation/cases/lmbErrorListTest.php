@@ -45,6 +45,21 @@ class lmbErrorListTest extends TestCase
         $this->assertEquals('error_group', $errors_for_foo[0]->getReadable());
     }
 
+    function testAddSameMultiFieldError()
+    {
+        $list = new lmbErrorList();
+
+        $list->addError($message = 'error_group1', array('foo'), array('FOO1'));
+        $list->addError($message = 'error_group2', array('foo'), array('FOO2'));
+        $errors = $list->export();
+
+        $this->assertEquals(2, sizeof($errors));
+
+        $errors_for_foo = $list->getByKey('foo');
+        $this->assertEquals('error_group2', $errors_for_foo[0]->getReadable());
+        $this->assertEquals('error_group1', $errors_for_foo[1]->getReadable());
+    }
+
   function testRenameFields()
   {
     $list = new lmbErrorList();
@@ -66,8 +81,8 @@ class lmbErrorListTest extends TestCase
 
     $errors = $list->export();
 
-    $this->assertEquals(array('Field_1' => 'custom_login', 'Field_2' => 'custom_password'), $errors[0]['fields']);
-    $this->assertEquals(array('Field_1' => 'Shakespeare', 'Field_2' => 'Romeo', 'Field_3' => 'Juliet'), $errors[1]['fields']);
+    $this->assertEquals(array('Field_1' => 'custom_login', 'Field_2' => 'custom_password'), $errors['login']['fields']);
+    $this->assertEquals(array('Field_1' => 'Shakespeare', 'Field_2' => 'Romeo', 'Field_3' => 'Juliet'), $errors['that man']['fields']);
   }
 
   function testRenameFieldsWithSimilarNames() {
@@ -85,8 +100,7 @@ class lmbErrorListTest extends TestCase
 
     $errors = $list->export();
 
-    $this->assertEquals($errors[0]['fields'], array('Field_1' => $new_field_names['passretype'], 'Field_2' => $new_field_names['pass']));
+    $this->assertEquals(array('Field_1' => $new_field_names['passretype'], 'Field_2' => $new_field_names['pass']), $errors['passretype']['fields']);
   }
-
 
 }
