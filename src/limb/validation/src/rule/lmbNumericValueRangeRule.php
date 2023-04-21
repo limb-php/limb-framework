@@ -45,14 +45,16 @@ class lmbNumericValueRangeRule extends lmbSingleFieldRule
 
   function check($value)
   {
-    if (!preg_match('/^[+-]?(\d*)$/', $value, $match))
-      $this->error('{Field} must be a valid number.');
+    if (!preg_match('/^[+-]?(\d*)$/', $value, $match)) {
+        $this->error('{Field} must be a valid number.');
+        return;
+    }
 
-    if($value < $this->min_value)
-      $this->error('{Field} must be not less than {value}.', array('value' => $this->min_value));
+    if($value < $this->min_value) {
+        $this->error('{Field} must be not less than {value}.', array('value' => $this->min_value));
+    }
 
-    if($value > $this->max_value)
-    {
+    if($value > $this->max_value) {
       $this->error('{Field} must be not greater than {value}.', array('value' => $this->max_value));
     }
   }

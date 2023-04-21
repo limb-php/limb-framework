@@ -65,8 +65,8 @@ class lmbErrorList extends lmbCollection
   function getReadable(): array
   {
     $result = array();
-    foreach ($this as $error) {
-        $result[] = $error->getReadable();
+    foreach ($this as $k => $error) {
+        $result[$k] = $error->getReadable();
     }
 
     return $result;
