@@ -78,9 +78,17 @@ class lmbMacroFormWidget extends lmbMacroHtmlTagWidget
 
   protected function _notifyFieldsAboutErrors()
   {
-    foreach($this->error_list as $error)
+    foreach($this->error_list as $key => $error)
     {
-      $fields = $error['fields'];
+        $fields = [];
+        if( $error instanceof \ArrayAccess ) {
+            foreach($error as $item_error) {
+                $fields = array_merge($fields, $item_error['fields'] ?? []);
+            }
+        } else {
+            $fields = $error['fields'];
+        }
+
       foreach($fields as $field_name)
       {
         if(!$field = $this->getChild($field_name))
