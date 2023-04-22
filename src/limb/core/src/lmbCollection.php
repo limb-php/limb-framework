@@ -195,25 +195,15 @@ class lmbCollection implements lmbCollectionInterface
     $this->iteratedDataset = null;
   }
 
-    function addTo($item, $key)
-    {
-        if( !isset($this->dataset[$key]) ) {
-            $this->dataset[$key] = [];
-        }
-        $this->dataset[$key][] = $item;
-
-        $this->iteratedDataset = null;
-    }
-
-  function isEmpty()
+  function isEmpty(): bool
   {
-    return sizeof($this->dataset) == 0;
+    return count($this->dataset) == 0;
   }
 
   //Countable interface
-  function count()
+  function count(): int
   {
-    return sizeof($this->dataset);
+    return count($this->dataset);
   }
   //
 
