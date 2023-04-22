@@ -89,6 +89,14 @@ class lmbCollection implements lmbCollectionInterface
       return $this->dataset[$pos];
   }
 
+    /**
+     * Run a map over each of the items.
+     */
+    public function map(callable $callback)
+    {
+        return new static(lmbArrayHelper::mapCallback($this->dataset, $callback));
+    }
+
   function rewind()
   {
     $this->_setupIteratedDataset();
