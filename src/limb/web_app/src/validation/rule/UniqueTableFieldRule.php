@@ -13,12 +13,12 @@ use limb\toolkit\src\lmbToolkit;
 use limb\i18n\src\lmbI18n;
 
 /**
- * class lmbUniqueTableFieldRule.
+ * class UniqueTableFieldRule.
  *
  * @package web_app
- * @version $Id: lmbUniqueTableFieldRule.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: UniqueTableFieldRule.php 7486 2009-01-26 19:13:20Z
  */
-class lmbUniqueTableFieldRule extends lmbSingleFieldRule
+class UniqueTableFieldRule extends lmbSingleFieldRule
 {
   protected $table_name = '';
   protected $table_field = '';

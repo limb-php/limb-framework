@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbIdentifierRule;
+use limb\validation\src\rule\IdentifierRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbIdentifierRuleTest extends lmbValidationRuleTestCase
 {
   function testValid()
   {
-    $rule = new lmbIdentifierRule('test');
+    $rule = new IdentifierRule('test');
 
     $data = new lmbSet();
     $data->set('test', 'test');
@@ -32,7 +32,7 @@ class lmbIdentifierRuleTest extends lmbValidationRuleTestCase
 
   function testValid2()
   {
-    $rule = new lmbIdentifierRule('test');
+    $rule = new IdentifierRule('test');
 
     $data = new lmbSet();
     $data->set('test', 'test456');
@@ -47,7 +47,7 @@ class lmbIdentifierRuleTest extends lmbValidationRuleTestCase
 
   function testNotValidContainsSpace()
   {
-    $rule = new lmbIdentifierRule('test');
+    $rule = new IdentifierRule('test');
 
     $data = new lmbSet();
     $data->set('test', 'test test');
@@ -64,7 +64,7 @@ class lmbIdentifierRuleTest extends lmbValidationRuleTestCase
 
   function testNotValidContainsSlash()
   {
-    $rule = new lmbIdentifierRule('test');
+    $rule = new IdentifierRule('test');
 
     $data = new lmbSet();
     $data->set('test', 'test/test');

@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbRequiredRule;
+use limb\validation\src\rule\RequiredRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 {
   function testRequiredRule()
   {
-    $rule = new lmbRequiredRule('testfield');
+    $rule = new RequiredRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', TRUE);
@@ -30,7 +30,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 
   function testRequiredRuleZero()
   {
-    $rule = new lmbRequiredRule('testfield');
+    $rule = new RequiredRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 0);
@@ -43,7 +43,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 
   function testRequiredRuleZeroString()
   {
-    $rule = new lmbRequiredRule('testfield');
+    $rule = new RequiredRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '0');
@@ -55,7 +55,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 
   function testRequiredRuleFalse()
   {
-    $rule = new lmbRequiredRule('testfield');
+    $rule = new RequiredRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', FALSE);
@@ -67,7 +67,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 
     function testRequiredRuleDatasourceAsArray()
     {
-        $rule = new lmbRequiredRule('testfield');
+        $rule = new RequiredRule('testfield');
 
         $dataspace = [];
         $dataspace['testfield'] = 0;
@@ -80,7 +80,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 
   function testRequiredRuleZeroLengthString()
   {
-    $rule = new lmbRequiredRule('testfield');
+    $rule = new RequiredRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '');
@@ -99,7 +99,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 
   function testRequiredRuleWithNull()
   {
-    $rule = new lmbRequiredRule('testfield');
+    $rule = new RequiredRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', NULL);
@@ -117,7 +117,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 
   function testRequiredRuleWithSpacedString()
   {
-    $rule = new lmbRequiredRule('testfield');
+    $rule = new RequiredRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', "\n\t   \n\t");
@@ -135,7 +135,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 
   function testRequiredRuleFailure()
   {
-    $rule = new lmbRequiredRule('testfield');
+    $rule = new RequiredRule('testfield');
 
     $dataspace = new lmbSet();
 
@@ -152,7 +152,7 @@ class lmbRequiredRuleTest extends lmbValidationRuleTestCase
 
   function testRequiredRuleFailureWithCustomError()
   {
-    $rule = new lmbRequiredRule('testfield', 'Custom_Error');
+    $rule = new RequiredRule('testfield', 'Custom_Error');
 
     $dataspace = new lmbSet();
 

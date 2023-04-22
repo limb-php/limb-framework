@@ -11,9 +11,9 @@ namespace limb\validation\src\rule;
 /**
  * Checks that field value is a valid domain name.
  * @package validation
- * @version $Id: lmbDomainRule.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: DomainRule.php 7486 2009-01-26 19:13:20Z
  */
-class lmbDomainRule extends lmbSingleFieldRule
+class DomainRule extends lmbSingleFieldRule
 {
   function check($value)
   {

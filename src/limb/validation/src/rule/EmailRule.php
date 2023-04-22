@@ -11,9 +11,9 @@ namespace limb\validation\src\rule;
 /**
  * Checks that field value is a valid Email address.
  * @package validation
- * @version $Id: lmbEmailRule.php 7486 2009-01-26
+ * @version $Id: EmailRule.php 7486 2009-01-26
  */
-class lmbEmailRule extends lmbDomainRule
+class EmailRule extends DomainRule
 {
   function check($value)
   {

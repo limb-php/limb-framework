@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbTypeRule;
+use limb\validation\src\rule\TypeRule;
 use limb\validation\src\lmbErrorList;
 use limb\core\src\lmbSet;
 
@@ -19,7 +19,7 @@ class lmbTypeRuleTest extends lmbValidationRuleTestCase
   function testPositive()
   {
     $column = 'field';
-    $rule = new lmbTypeRule($column, 'double');
+    $rule = new TypeRule($column, 'double');
 
     $dataspace = new lmbSet(array($column => 1.1));
 
@@ -33,7 +33,7 @@ class lmbTypeRuleTest extends lmbValidationRuleTestCase
   function testNegative()
   {
     $column = 'field';
-    $rule = new lmbTypeRule($column, 'double');
+    $rule = new TypeRule($column, 'double');
 
     $dataspace = new lmbSet(array($column => 1));
 
@@ -47,7 +47,7 @@ class lmbTypeRuleTest extends lmbValidationRuleTestCase
   function testCustomError()
   {
     $column = 'field';
-    $rule = new lmbTypeRule($column, 'double', '{Field} error');
+    $rule = new TypeRule($column, 'double', '{Field} error');
 
     $dataset = new lmbSet(array($column => 1));
     $error_list = new lmbErrorList();

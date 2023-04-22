@@ -10,7 +10,7 @@ namespace tests\web_app\cases\db\validation\rule;
 
 use tests\validation\cases\rule\lmbValidationRuleTestCase;
 use limb\dbal\src\lmbSimpleDb;
-use limb\web_app\src\validation\rule\lmbUniqueTableFieldRule;
+use limb\web_app\src\validation\rule\UniqueTableFieldRule;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbSet;
 
@@ -38,7 +38,7 @@ class lmbUniqueTableFieldRuleTest extends lmbValidationRuleTestCase
 
   function testFieldValid()
   {
-    $rule = new lmbUniqueTableFieldRule('test', 'test_table', 'field1');
+    $rule = new UniqueTableFieldRule('test', 'test_table', 'field1');
 
     $data = new lmbSet();
     $data->set('test', -10000);
@@ -52,7 +52,7 @@ class lmbUniqueTableFieldRuleTest extends lmbValidationRuleTestCase
 
   function testFieldNotValid()
   {
-    $rule = new lmbUniqueTableFieldRule('test', 'test_table', 'field2');
+    $rule = new UniqueTableFieldRule('test', 'test_table', 'field2');
 
     $data = new lmbSet();
     $data->set('test', 'wow');
@@ -70,7 +70,7 @@ class lmbUniqueTableFieldRuleTest extends lmbValidationRuleTestCase
   }
   function testFieldNotValid2()
   {
-    $rule = new lmbUniqueTableFieldRule('test', 'test_table', 'field1');
+    $rule = new UniqueTableFieldRule('test', 'test_table', 'field1');
 
     $data = new lmbSet();
     $data->set('test', "001");
@@ -88,7 +88,7 @@ class lmbUniqueTableFieldRuleTest extends lmbValidationRuleTestCase
 
   function testFieldNotValidSelfError()
   {
-    $rule = new lmbUniqueTableFieldRule('test', 'test_table', 'field2', $message = "ERROR_DUPLICATE_WOW");
+    $rule = new UniqueTableFieldRule('test', 'test_table', 'field2', $message = "ERROR_DUPLICATE_WOW");
 
     $data = new lmbSet();
     $data->set('test', 'wow');

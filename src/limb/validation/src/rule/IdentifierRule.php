@@ -11,9 +11,9 @@ namespace limb\validation\src\rule;
 /**
  * Checks that field value is an alpha-numeric string
  * @package validation
- * @version $Id: lmbIdentifierRule.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: IdentifierRule.php 7486 2009-01-26 19:13:20Z
  */
-class lmbIdentifierRule extends lmbSingleFieldRule
+class IdentifierRule extends lmbSingleFieldRule
 {
   function check($value)
   {

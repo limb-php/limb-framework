@@ -13,12 +13,12 @@ use limb\toolkit\src\lmbToolkit;
 use limb\i18n\src\lmbI18n;
 
 /**
- * class lmbLocaleDateRule.
+ * class LocaleDateRule.
  *
  * @package validation
  * @version $Id$
  */
-class lmbLocaleDateRule extends lmbSingleFieldRule
+class LocaleDateRule extends lmbSingleFieldRule
 {
   protected $locale;
 

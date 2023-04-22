@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbNotInArrayRule;
+use limb\validation\src\rule\NotInArrayRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbNotInArrayRuleTest extends lmbValidationRuleTestCase
 {
   function testNotInArrayOk()
   {
-    $rule = new lmbNotInArrayRule('testfield', array('www', 'ftp', 'smtp', 'mail'));
+    $rule = new NotInArrayRule('testfield', array('www', 'ftp', 'smtp', 'mail'));
 
     $data = new lmbSet();
     $data->set('testfield', 'peaches');
@@ -29,7 +29,7 @@ class lmbNotInArrayRuleTest extends lmbValidationRuleTestCase
 
   function testInArrayError()
   {
-    $rule = new lmbNotInArrayRule('testfield', array('www', 'ftp', 'smtp', 'mail'));
+    $rule = new NotInArrayRule('testfield', array('www', 'ftp', 'smtp', 'mail'));
 
     $data = new lmbSet();
     $data->set('testfield', 'www');
@@ -46,7 +46,7 @@ class lmbNotInArrayRuleTest extends lmbValidationRuleTestCase
 
   function testInArrayCustomError()
   {
-    $rule = new lmbNotInArrayRule('testfield', array('www', 'ftp', 'smtp', 'mail'), $error = 'my_custom_error');
+    $rule = new NotInArrayRule('testfield', array('www', 'ftp', 'smtp', 'mail'), $error = 'my_custom_error');
 
     $data = new lmbSet();
     $data->set('testfield', 'www');

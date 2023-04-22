@@ -13,14 +13,14 @@ namespace limb\validation\src\rule;
  * within allowable parameters.
  * Example of usage:
  * <code>
- *  use limb\validation\src\rule\lmbNumericPrecisionRule;
- *  $validator->addRule(new lmbNumericPrecisionRule('price', 5, 2));
+ *  use limb\validation\src\rule\NumericPrecisionRule;
+ *  $validator->addRule(new NumericPrecisionRule('price', 5, 2));
  *  // 100.2 with match this rule, 100.300 or 100000 - not.
  * </code>
  * @package validation
- * @version $Id: lmbNumericPrecisionRule.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: NumericPrecisionRule.php 7486 2009-01-26 19:13:20Z
  */
-class lmbNumericPrecisionRule extends lmbSingleFieldRule
+class NumericPrecisionRule extends lmbSingleFieldRule
 {
   /**
   * @var int Number of decimal digits allowed
@@ -32,9 +32,9 @@ class lmbNumericPrecisionRule extends lmbSingleFieldRule
   protected $whole_digits;
 
   /**
-  * @param string Field name
-  * @param int Number of whole digits allowed
-  * @param int Number of decimal digits allowed
+  * @param string $field_name Field name
+  * @param int $whole_digits Number of whole digits allowed
+  * @param int $decimal_digits Number of decimal digits allowed
   */
   function __construct($field_name, $whole_digits, $decimal_digits = 0, $custom_error = null)
   {

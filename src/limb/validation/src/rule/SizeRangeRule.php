@@ -16,18 +16,18 @@ namespace limb\validation\src\rule;
  * Checks that field has minimux and (or) maximum length
  * Example of usage:
  * <code>
- *  use limb\validation\src\rule\lmbSizeRangeRule;
+ *  use limb\validation\src\rule\SizeRangeRule;
  *  // restricts "title" field to be more than 50 characters (minimum length is 0)
- *  $validator->addRule(new lmbSizeRangeRule('title', 50));
+ *  $validator->addRule(new SizeRangeRule('title', 50));
  *  //same as above
- *  $validator->addRule(new lmbHandle('limb\validation\src\rule\lmbSizeRangeRule', array('title', 10)));
+ *  $validator->addRule(new lmbHandle('limb\validation\src\rule\SizeRangeRule', array('title', 10)));
  *  // checks that "title" field have length between 10 and 50 characters
- *  $validator->addRule(new lmbSizeRangeRule('title', 10, 50));
+ *  $validator->addRule(new SizeRangeRule('title', 10, 50));
  * </code>
  * @package validation
- * @version $Id: lmbSizeRangeRule.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: SizeRangeRule.php 7486 2009-01-26 19:13:20Z
  */
-class lmbSizeRangeRule extends lmbSingleFieldRule
+class SizeRangeRule extends lmbSingleFieldRule
 {
   /**
   * @var int Minumum length
@@ -42,9 +42,9 @@ class lmbSizeRangeRule extends lmbSingleFieldRule
   * Constructor
   * If only two agruments given - use second argument as maximun field length
   * If all three agruments given - use second argument as manimum field length and third - as maximum field length
-  * @param string fieldname to validate
-  * @param int Minumum or maximum length
-  * @param int Maximum length (optional)
+  * @param string $field_name field name to validate
+  * @param int $min_or_max_length Minumum or maximum length
+  * @param int $max_length Maximum length (optional)
   */
   function __construct($field_name, $min_or_max_length, $max_length = null, $custom_error = null)
   {

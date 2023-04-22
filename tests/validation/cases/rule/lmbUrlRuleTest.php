@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbUrlRule;
+use limb\validation\src\rule\UrlRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbUrlRuleTest extends lmbValidationRuleTestCase
 {
   function testUrlRule()
   {
-    $rule = new lmbUrlRule('testfield');
+    $rule = new UrlRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'http://www.sourceforge.net/');
@@ -36,7 +36,7 @@ class lmbUrlRuleTest extends lmbValidationRuleTestCase
   
   function testUrlRuleWithoutSchema()
   {
-    $rule = new lmbUrlRule('testfield');
+    $rule = new UrlRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'www.sourceforge.net/');
@@ -54,7 +54,7 @@ class lmbUrlRuleTest extends lmbValidationRuleTestCase
   
   function testUrlRuleDomain()
   {
-    $rule = new lmbUrlRule('testfield');
+    $rule = new UrlRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'http://www.source--forge.net/');
@@ -73,7 +73,7 @@ class lmbUrlRuleTest extends lmbValidationRuleTestCase
 
   function testUrlRuleDomainWithCustomError()
   {
-    $rule = new lmbUrlRule('testfield', 'Custom_Error');
+    $rule = new UrlRule('testfield', 'Custom_Error');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'http://www.source--forge.net/');
@@ -92,7 +92,7 @@ class lmbUrlRuleTest extends lmbValidationRuleTestCase
   
   function testUrlRuleWithGarbage()
   {    
-    $rule = new lmbUrlRule('testfield');
+    $rule = new UrlRule('testfield');
     
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'as@#$@$%ADGasjdkjf');

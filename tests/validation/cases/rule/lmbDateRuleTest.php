@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbDateRule;
+use limb\validation\src\rule\DateRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbDateRuleTest extends lmbValidationRuleTestCase
 {
   function testValidForISO()
   {
-    $rule = new lmbDateRule('testfield');
+    $rule = new DateRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '2007-01-12 12:30');
@@ -31,7 +31,7 @@ class lmbDateRuleTest extends lmbValidationRuleTestCase
 
   function testInvalidForISO()
   {
-    $rule = new lmbDateRule('testfield');
+    $rule = new DateRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'blah 12:30');

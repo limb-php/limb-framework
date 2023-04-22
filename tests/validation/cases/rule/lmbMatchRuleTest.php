@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbMatchRule;
+use limb\validation\src\rule\MatchRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbMatchRuleTest extends lmbValidationRuleTestCase
 {
   function testMatchRule()
   {
-    $rule = new lmbMatchRule('testfield', 'testmatch');
+    $rule = new MatchRule('testfield', 'testmatch');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'peaches');
@@ -30,7 +30,7 @@ class lmbMatchRuleTest extends lmbValidationRuleTestCase
 
   function testMatchRuleEmpty()
   {
-    $rule = new lmbMatchRule('testfield', 'testmatch');
+    $rule = new MatchRule('testfield', 'testmatch');
 
     $dataspace = new lmbSet();
 
@@ -41,7 +41,7 @@ class lmbMatchRuleTest extends lmbValidationRuleTestCase
 
   function testMatchRuleEmpty2()
   {
-    $rule = new lmbMatchRule('testfield', 'testmatch');
+    $rule = new MatchRule('testfield', 'testmatch');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'peaches');
@@ -53,7 +53,7 @@ class lmbMatchRuleTest extends lmbValidationRuleTestCase
 
   function testMatchRuleEmpty3()
   {
-    $rule = new lmbMatchRule('testfield', 'testmatch');
+    $rule = new MatchRule('testfield', 'testmatch');
 
     $dataspace = new lmbSet();
     $dataspace->set('testmatch', 'peaches');
@@ -65,7 +65,7 @@ class lmbMatchRuleTest extends lmbValidationRuleTestCase
 
   function testMatchRuleFailure()
   {
-    $rule = new lmbMatchRule('testfield', 'testmatch');
+    $rule = new MatchRule('testfield', 'testmatch');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'peaches');
@@ -83,7 +83,7 @@ class lmbMatchRuleTest extends lmbValidationRuleTestCase
 
   function testMatchRuleFailureWithCustomError()
   {
-    $rule = new lmbMatchRule('testfield', 'testmatch', 'Custom_Error');
+    $rule = new MatchRule('testfield', 'testmatch', 'Custom_Error');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'peaches');

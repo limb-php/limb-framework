@@ -12,13 +12,13 @@ use PHPUnit\Framework\TestCase;
 use limb\validation\src\lmbValidator;
 use limb\validation\src\lmbValidatorBuilder;
 use limb\core\src\lmbHandle;
-use limb\validation\src\rule\lmbRequiredRule;
-use limb\validation\src\rule\lmbMatchRule;
-use limb\validation\src\rule\lmbSizeRangeRule;
-use limb\validation\src\rule\lmbIdentifierRule;
-use limb\validation\src\rule\lmbEmailRule;
-use limb\validation\src\rule\lmbPatternRule;
-use limb\web_app\src\validation\rule\lmbUniqueTableFieldRule;
+use limb\validation\src\rule\RequiredRule;
+use limb\validation\src\rule\MatchRule;
+use limb\validation\src\rule\SizeRangeRule;
+use limb\validation\src\rule\IdentifierRule;
+use limb\validation\src\rule\EmailRule;
+use limb\validation\src\rule\PatternRule;
+use limb\web_app\src\validation\rule\UniqueTableFieldRule;
 
 class lmbValidatorBuilderTest extends TestCase
 {
@@ -38,10 +38,10 @@ class lmbValidatorBuilderTest extends TestCase
         ->expects($this->exactly(4))
         ->method("addRule")
         ->withConsecutive(
-            [new lmbHandle(lmbRequiredRule::class, array('login'))],
-            [new lmbHandle(lmbMatchRule::class, array('login', 'bbb'))],
-            [new lmbHandle(lmbSizeRangeRule::class, array('login', 5, 8))],
-            [new lmbHandle(lmbIdentifierRule::class, array('login'))]
+            [new lmbHandle(RequiredRule::class, array('login'))],
+            [new lmbHandle(MatchRule::class, array('login', 'bbb'))],
+            [new lmbHandle(SizeRangeRule::class, array('login', 5, 8))],
+            [new lmbHandle(IdentifierRule::class, array('login'))]
         );
 
     lmbValidatorBuilder::addRules($rules, $this->validator);
@@ -73,11 +73,11 @@ class lmbValidatorBuilderTest extends TestCase
         ->expects($this->exactly(5))
         ->method("addRule")
         ->withConsecutive(
-            [new lmbHandle(lmbRequiredRule::class, array('login'))],
-            [new lmbHandle(lmbSizeRangeRule::class, array('login', 5, 8))],
-            [new lmbHandle(lmbEmailRule::class, array('login', $errors['email']))],
-            [new lmbHandle(lmbPatternRule::class, array('login', '/\d+/', $errors['pattern']))],
-            [new lmbHandle(lmbSizeRangeRule::class, array('login', 10, 15, $errors['size_range']))]
+            [new lmbHandle(RequiredRule::class, array('login'))],
+            [new lmbHandle(SizeRangeRule::class, array('login', 5, 8))],
+            [new lmbHandle(EmailRule::class, array('login', $errors['email']))],
+            [new lmbHandle(PatternRule::class, array('login', '/\d+/', $errors['pattern']))],
+            [new lmbHandle(SizeRangeRule::class, array('login', 10, 15, $errors['size_range']))]
         );
 
     lmbValidatorBuilder::addRules($rules, $this->validator);
@@ -97,7 +97,7 @@ class lmbValidatorBuilderTest extends TestCase
         ->expects($this->once())
         ->method("addRule")
         ->with(
-            new lmbHandle(lmbUniqueTableFieldRule::class, array('login', 'user', 'login'))
+            new lmbHandle(UniqueTableFieldRule::class, array('login', 'user', 'login'))
         );
 
     lmbValidatorBuilder::addRules($rules, $this->validator);

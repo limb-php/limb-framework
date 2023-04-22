@@ -14,13 +14,13 @@ use limb\i18n\src\lmbI18n;
  * Checks that field value exactly match a reference field value
  * Example of usage:
  * <code>
- *  use limb\validation\src\rule\lmbMatchRule;
- *  $validator->addRule(new lmbMatchRule('password', 'repeat_password'));
+ *  use limb\validation\src\rule\MatchRule;
+ *  $validator->addRule(new MatchRule('password', 'repeat_password'));
  * </code>
  * @package validation
- * @version $Id: lmbMatchRule.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: MatchRule.php 7486 2009-01-26 19:13:20Z
  */
-class lmbMatchRule extends lmbBaseValidationRule
+class MatchRule extends lmbBaseValidationRule
 {
   /**
   * @var string Reference field name to match against
@@ -38,8 +38,8 @@ class lmbMatchRule extends lmbBaseValidationRule
 
   /**
   * Constructor
-  * @param string Field name to validate
-  * @param string Reference field name in datasource to match against
+  * @param string $field_name Field name to validate
+  * @param string $reference_field Reference field name in datasource to match against
   */
   function __construct($field_name, $reference_field, $custom_error = null)
   {

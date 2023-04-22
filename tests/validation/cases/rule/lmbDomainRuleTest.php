@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbDomainRule;
+use limb\validation\src\rule\DomainRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 {
   function testDomainRule()
   {
-    $rule = new lmbDomainRule('testfield');
+    $rule = new DomainRule('testfield');
 
     $dataspace = new lmbSet(array('testfield' => 'sourceforge.net'));
 
@@ -30,7 +30,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
   function testDomainRuleBlank()
   {
-    $rule = new lmbDomainRule('testfield');
+    $rule = new DomainRule('testfield');
 
     $dataspace = new lmbSet(array('testfield' => ''));
 
@@ -43,7 +43,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
   function testDomainRuleBadCharacters()
   {
-    $rule = new lmbDomainRule('testfield');
+    $rule = new DomainRule('testfield');
 
     $dataspace = new lmbSet(array('testfield' => 'source#&%forge.net'));
 
@@ -59,7 +59,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
   function testDomainRuleDoubleHyphens()
   {
-    $rule = new lmbDomainRule('testfield');
+    $rule = new DomainRule('testfield');
 
     $dataspace = new lmbSet(array('testfield' => 'source--forge.net'));
 
@@ -75,7 +75,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
   function testDomainRuleTooLarge()
   {
-    $rule = new lmbDomainRule('testfield');
+    $rule = new DomainRule('testfield');
 
     $segment = "abcdefg-hijklmnop-qrs-tuv-wx-yz-ABCDEFG-HIJKLMNOP-QRS-TUV-WX-YZ-0123456789";
 
@@ -94,7 +94,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
   function testDomainHyphenBegin()
   {
-    $rule = new lmbDomainRule('testfield');
+    $rule = new DomainRule('testfield');
 
     $segment = "-sourceforge";
 
@@ -113,7 +113,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
   function testDomainRuleHyphenEnd()
   {
-    $rule = new lmbDomainRule('testfield');
+    $rule = new DomainRule('testfield');
 
     $segment = "sourceforge-";
 
@@ -132,7 +132,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
   function testDomainRuleCombination()
   {
-    $rule = new lmbDomainRule('testfield');
+    $rule = new DomainRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '.n..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.');
@@ -171,7 +171,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
   function testDomainRuleDoubleDomain()
   {
-    $rule = new lmbDomainRule('testfield');
+    $rule = new DomainRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'microsoft.co.uk');
@@ -183,7 +183,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
   function testDomainRuleLocalDomain()
   {
-    $rule = new lmbDomainRule('testfield');
+    $rule = new DomainRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'localhost');

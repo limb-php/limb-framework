@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbSizeRangeRule;
+use limb\validation\src\rule\SizeRangeRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbSizeRangeRuleTest extends lmbValidationRuleTestCase
 {
   function testSizeRangeRuleEmpty()
   {
-    $rule = new lmbSizeRangeRule('testfield', 10);
+    $rule = new SizeRangeRule('testfield', 10);
 
     $dataspace = new lmbSet();
 
@@ -28,7 +28,7 @@ class lmbSizeRangeRuleTest extends lmbValidationRuleTestCase
 
     function testSizeRangeRuleEmptyWithArrayDatasource()
     {
-        $rule = new lmbSizeRangeRule('testfield', 10);
+        $rule = new SizeRangeRule('testfield', 10);
 
         $dataspace = [];
 
@@ -39,7 +39,7 @@ class lmbSizeRangeRuleTest extends lmbValidationRuleTestCase
 
   function testSizeRangeRuleBlank()
   {
-    $rule = new lmbSizeRangeRule('testfield', 5, 10);
+    $rule = new SizeRangeRule('testfield', 5, 10);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '');
@@ -51,7 +51,7 @@ class lmbSizeRangeRuleTest extends lmbValidationRuleTestCase
 
   function testSizeRangeRuleZero()
   {
-    $rule = new lmbSizeRangeRule('testfield', 5, 10);
+    $rule = new SizeRangeRule('testfield', 5, 10);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '0');
@@ -70,7 +70,7 @@ class lmbSizeRangeRuleTest extends lmbValidationRuleTestCase
 
   function testSizeRangeRuleTooBig()
   {
-    $rule = new lmbSizeRangeRule('testfield', 10);
+    $rule = new SizeRangeRule('testfield', 10);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '12345678901234567890');
@@ -89,7 +89,7 @@ class lmbSizeRangeRuleTest extends lmbValidationRuleTestCase
 
   function testSizeRangeRuleTooBig2()
   {
-    $rule = new lmbSizeRangeRule('testfield', 5, 10);
+    $rule = new SizeRangeRule('testfield', 5, 10);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '12345678901234567890');
@@ -108,7 +108,7 @@ class lmbSizeRangeRuleTest extends lmbValidationRuleTestCase
 
   function testSizeRangeRuleTooSmall()
   {
-    $rule = new lmbSizeRangeRule('testfield', 30, 100);
+    $rule = new SizeRangeRule('testfield', 30, 100);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '12345678901234567890');
@@ -126,7 +126,7 @@ class lmbSizeRangeRuleTest extends lmbValidationRuleTestCase
 
   function testSizeRangeRuleTooBigWithCustomErrorMessage()
   {
-    $rule = new lmbSizeRangeRule('testfield', 5, 10, 'Error_custom');
+    $rule = new SizeRangeRule('testfield', 5, 10, 'Error_custom');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '12345678901234567890');
@@ -145,7 +145,7 @@ class lmbSizeRangeRuleTest extends lmbValidationRuleTestCase
 
   function testSizeRangeRuleTooSmallWithCustomErrorMessage()
   {
-    $rule = new lmbSizeRangeRule('testfield', 30, 100, 'Error_custom');
+    $rule = new SizeRangeRule('testfield', 30, 100, 'Error_custom');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '12345678901234567890');

@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbRequiredObjectRule;
+use limb\validation\src\rule\RequiredObjectRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -21,7 +21,7 @@ class lmbRequiredObjectRuleTest extends lmbValidationRuleTestCase
 {
   function testValid()
   {
-    $rule = new lmbRequiredObjectRule('testfield');
+    $rule = new RequiredObjectRule('testfield');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', new TestObjectForThisRule());
@@ -33,7 +33,7 @@ class lmbRequiredObjectRuleTest extends lmbValidationRuleTestCase
 
   function testValid_ForChildClass()
   {
-    $rule = new lmbRequiredObjectRule('testfield', TestObjectForThisRule::class);
+    $rule = new RequiredObjectRule('testfield', TestObjectForThisRule::class);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', new TestChildObjectForThisRule());
@@ -45,7 +45,7 @@ class lmbRequiredObjectRuleTest extends lmbValidationRuleTestCase
   
   function testInvalidIfDataspaceIsEmpty()
   {
-    $rule = new lmbRequiredObjectRule('testfield');
+    $rule = new RequiredObjectRule('testfield');
 
     $dataspace = new lmbSet();
 
@@ -61,7 +61,7 @@ class lmbRequiredObjectRuleTest extends lmbValidationRuleTestCase
 
   function testInvalidIfFieldIsNotAnObject()
   {
-    $rule = new lmbRequiredObjectRule('testfield');
+    $rule = new RequiredObjectRule('testfield');
 
     $dataspace = new lmbSet(array('testfield' => 'whatever_and_not_object'));
 
@@ -77,7 +77,7 @@ class lmbRequiredObjectRuleTest extends lmbValidationRuleTestCase
 
   function testNotValidWithClassRestriction()
   {
-    $rule = new lmbRequiredObjectRule('testfield', Foo::class);
+    $rule = new RequiredObjectRule('testfield', Foo::class);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', new TestObjectForThisRule());
@@ -93,7 +93,7 @@ class lmbRequiredObjectRuleTest extends lmbValidationRuleTestCase
 
   function testNotValidWithClassRestrictionWithCustomError()
   {
-    $rule = new lmbRequiredObjectRule('testfield', Foo::class, 'Custom_Error');
+    $rule = new RequiredObjectRule('testfield', Foo::class, 'Custom_Error');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', new TestObjectForThisRule());

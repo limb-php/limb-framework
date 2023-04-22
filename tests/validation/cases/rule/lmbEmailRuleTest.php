@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbEmailRule;
+use limb\validation\src\rule\EmailRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
 {
   function testEmailRule()
   {
-    $rule = new lmbEmailRule('testfield');
+    $rule = new EmailRule('testfield');
 
     $data = new lmbSet();
     $data->set('testfield', 'billgates@microsoft.com');
@@ -31,7 +31,7 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
 
   function testEmailRuleNoAt()
   {
-    $rule = new lmbEmailRule('testfield');
+    $rule = new EmailRule('testfield');
 
     $data = new lmbSet();
     $data->set('testfield', 'billgatesmicrosoft.com');
@@ -54,7 +54,7 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
 
   function testEmailRuleInvalidUser()
   {
-    $rule = new lmbEmailRule('testfield');
+    $rule = new EmailRule('testfield');
 
     $data = new lmbSet();
     $data->set('testfield', 'bill(y!)gates@microsoft.com');
@@ -72,7 +72,7 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
 
   function testEmailRuleInvalidDomain()
   {
-    $rule = new lmbEmailRule('testfield');
+    $rule = new EmailRule('testfield');
 
     $data = new lmbSet();
     $data->set('testfield', 'billgates@micro$oft.com');
@@ -90,7 +90,7 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
 
   function testEmailRuleMixedCase()
   {
-    $rule = new lmbEmailRule('testfield');
+    $rule = new EmailRule('testfield');
 
     $data = new lmbSet();
     $data->set('testfield', 'BillGates@Microsoft.com');
@@ -104,7 +104,7 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
 
   function testEmailRuleSpecialChars()
   {
-    $rule = new lmbEmailRule('testfield');
+    $rule = new EmailRule('testfield');
 
     $data = new lmbSet();
     $data->set('testfield', 'bill_gates.the-boss@microsoft.com');
@@ -118,7 +118,7 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
 
   function testEmailRuleUnderscoreBeforeAt()
   {
-    $rule = new lmbEmailRule('testfield');
+    $rule = new EmailRule('testfield');
 
     $data = new lmbSet();
     $data->set('testfield', 'bill_gates_@microsoft.com');
@@ -132,7 +132,7 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
 
   function testEmailRuleDoubleErrorWithCustomMessage()
   {
-    $rule = new lmbEmailRule('testfield', $error = "my custom error");
+    $rule = new EmailRule('testfield', $error = "my custom error");
 
     $data = new lmbSet();
     $data->set('testfield', 'not@wrong.ma@il');
@@ -150,7 +150,7 @@ class lmbEmailRuleTest extends lmbValidationRuleTestCase
   }
 
   function testEmailDoubleUnderscore() {
-  	$rule = new lmbEmailRule('testfield');
+  	$rule = new EmailRule('testfield');
 
   	$data = new lmbSet();
   	$data->set('testfield', '__ps__@gmail.com');

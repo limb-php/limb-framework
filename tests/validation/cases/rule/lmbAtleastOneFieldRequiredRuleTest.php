@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbAtleastOneFieldRequiredRule;
+use limb\validation\src\rule\AtleastOneFieldRequiredRule;
 use limb\core\src\lmbSet;
 
 require_once('.setup.php');
@@ -19,7 +19,7 @@ class lmbAtleastOneFieldRequiredRuleTest extends lmbValidationRuleTestCase
   {
     $dataspace = new lmbSet(array('field1' => 'whatever'));
 
-    $rule = new lmbAtleastOneFieldRequiredRule(array('field1', 'field2'));
+    $rule = new AtleastOneFieldRequiredRule(array('field1', 'field2'));
 
     $this->error_list
         ->expects($this->never())
@@ -32,7 +32,7 @@ class lmbAtleastOneFieldRequiredRuleTest extends lmbValidationRuleTestCase
   {
     $dataspace = new lmbSet();
 
-    $rule = new lmbAtleastOneFieldRequiredRule(array('field1', 'field2'));
+    $rule = new AtleastOneFieldRequiredRule(array('field1', 'field2'));
 
     $this->error_list
         ->expects($this->once())
@@ -49,7 +49,7 @@ class lmbAtleastOneFieldRequiredRuleTest extends lmbValidationRuleTestCase
   {
     $dataspace = new lmbSet(array('field3' => 'whatever'));
 
-    $rule = new lmbAtleastOneFieldRequiredRule(array('field1', 'field2', 'field3'));
+    $rule = new AtleastOneFieldRequiredRule(array('field1', 'field2', 'field3'));
 
     $this->error_list
         ->expects($this->never())
@@ -62,7 +62,7 @@ class lmbAtleastOneFieldRequiredRuleTest extends lmbValidationRuleTestCase
   {
     $dataspace = new lmbSet();
 
-    $rule = new lmbAtleastOneFieldRequiredRule(array('field1', 'field2', 'field3'));
+    $rule = new AtleastOneFieldRequiredRule(array('field1', 'field2', 'field3'));
 
     $this->error_list->expects($this->once())
         ->method('addError')
@@ -78,7 +78,7 @@ class lmbAtleastOneFieldRequiredRuleTest extends lmbValidationRuleTestCase
   {
     $dataspace = new lmbSet();
 
-    $rule = new lmbAtleastOneFieldRequiredRule(array('field1', 'field2'), 'Custom_Error');
+    $rule = new AtleastOneFieldRequiredRule(array('field1', 'field2'), 'Custom_Error');
 
     $this->error_list
         ->expects($this->once())

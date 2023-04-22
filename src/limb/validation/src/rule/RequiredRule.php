@@ -14,18 +14,18 @@ use limb\i18n\src\lmbI18n;
  * Checks that field is present in datasource and has not empty value
  * Example of usage:
  * <code>
- *  use limb\validation\src\rule\lmbRequiredRule;
- *  $validator->addRule(new lmbRequiredRule('title'));
+ *  use limb\validation\src\rule\RequiredRule;
+ *  $validator->addRule(new RequiredRule('title'));
  *  //or
- *  $validator->addRule(new lmbHandle('limb\validation\src\rule\lmbRequiredRule', array('title')));
+ *  $validator->addRule(new lmbHandle('limb\validation\src\rule\RequiredRule', array('title')));
  *  // or
  *  $validator->addRequiredRule('title');
  * </code>
  * @see lmbValidator::addRequiredRule()
  * @package validation
- * @version $Id: lmbRequiredRule.php 7486 2009-01-26
+ * @version $Id: RequiredRule.php 7486 2009-01-26
  */
-class lmbRequiredRule extends lmbBaseValidationRule
+class RequiredRule extends lmbBaseValidationRule
 {
   /**
   * @var string Field name
@@ -38,7 +38,7 @@ class lmbRequiredRule extends lmbBaseValidationRule
 
   /**
   * Constructor
-  * @param string Field name
+  * @param string $field_name Field name
   */
   function __construct($field_name, $custom_error = null)
   {

@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbPatternRule;
+use limb\validation\src\rule\PatternRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbPatternRuleTest extends lmbValidationRuleTestCase
 {
   function testPatternRule()
   {
-    $rule = new lmbPatternRule('testfield', '/^\w+$/');
+    $rule = new PatternRule('testfield', '/^\w+$/');
 
     $data = new lmbSet();
     $data->set('testfield', 'SimpletestisCool');
@@ -29,7 +29,7 @@ class lmbPatternRuleTest extends lmbValidationRuleTestCase
 
   function testPatternRuleFailed()
   {
-    $rule = new lmbPatternRule('testfield', '/^\w+$/');
+    $rule = new PatternRule('testfield', '/^\w+$/');
 
     $data = new lmbSet();
     $data->set('testfield', 'Simpletest is Cool!');
@@ -45,7 +45,7 @@ class lmbPatternRuleTest extends lmbValidationRuleTestCase
 
   function testPatternRuleFailedWithCustomError()
   {
-    $rule = new lmbPatternRule('testfield', '/^\w+$/', 'Custom_Error');
+    $rule = new PatternRule('testfield', '/^\w+$/', 'Custom_Error');
 
     $data = new lmbSet();
     $data->set('testfield', 'Simpletest is Cool!');

@@ -12,13 +12,13 @@ namespace limb\validation\src\rule;
  * Checks that field value is equal some valid value
  * Example of usage:
  * <code>
- * use limb\validation\src\rule\lmbValidValueRule;
- * $validator->addRule(new lmbValidValueRule("CAPTCHA", 'asdh21'));
+ * use limb\validation\src\rule\ValidValueRule;
+ * $validator->addRule(new ValidValueRule("CAPTCHA", 'asdh21'));
  * </code>
  * @package validation
- * @version $Id: lmbInvalidValueRule.php 6243 2007-08-29 11:53:10Z
+ * @version $Id: InvalidValueRule.php 6243 2007-08-29 11:53:10Z
  */
-class lmbValidValueRule extends lmbSingleFieldRule
+class ValidValueRule extends lmbSingleFieldRule
 {
   protected $valid_value;
 

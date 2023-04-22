@@ -66,7 +66,7 @@ abstract class lmbSingleFieldRule extends lmbBaseValidationRule
   * Validates field
   * Calls {@link check()} method if $datasource has such field with not empty value.
   * Child classes must implement check($value) method to perform real validation.
-  * To check field for existance and having none empty value use {@link lmbRequiredRule}
+  * To check field for existance and having none empty value use {@link RequiredRule}
   * Fills {@link $error_list}
   * @see lmbBaseValidationRule::_doValidate()
   */

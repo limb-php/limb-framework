@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbI18NSizeRangeRule;
+use limb\validation\src\rule\I18NSizeRangeRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbI18NSizeRangeTest extends lmbValidationRuleTestCase
 {
   function testSizeRangeRuleEmpty()
   {
-    $rule = new lmbI18NSizeRangeRule('testfield', 10);
+    $rule = new I18NSizeRangeRule('testfield', 10);
 
     $data = new lmbSet();
 
@@ -28,7 +28,7 @@ class lmbI18NSizeRangeTest extends lmbValidationRuleTestCase
 
   function testSizeRangeRuleBlank()
   {
-    $rule = new lmbI18NSizeRangeRule('testfield', 5, 10);
+    $rule = new I18NSizeRangeRule('testfield', 5, 10);
 
     $data = new lmbSet(array('testfield' => ''));
 
@@ -41,7 +41,7 @@ class lmbI18NSizeRangeTest extends lmbValidationRuleTestCase
 
   function testSizeRangeRuleZero()
   {
-    $rule = new lmbI18NSizeRangeRule('testfield', 5, 10);
+    $rule = new I18NSizeRangeRule('testfield', 5, 10);
 
     $data = new lmbSet(array('testfield' => '0'));
 
@@ -57,7 +57,7 @@ class lmbI18NSizeRangeTest extends lmbValidationRuleTestCase
 
   function testSizeRangeRuleTooBig()
   {
-    $rule = new lmbI18NSizeRangeRule('testfield', 3);
+    $rule = new I18NSizeRangeRule('testfield', 3);
 
     $data = new lmbSet(array('testfield' => 'тест'));
 
@@ -73,7 +73,7 @@ class lmbI18NSizeRangeTest extends lmbValidationRuleTestCase
 
   function testSizeRangeRuleTooBig2()
   {
-    $rule = new lmbI18NSizeRangeRule('testfield', 2, 4);
+    $rule = new I18NSizeRangeRule('testfield', 2, 4);
 
     $data = new lmbSet(array('testfield' => 'тесты'));
 
@@ -89,7 +89,7 @@ class lmbI18NSizeRangeTest extends lmbValidationRuleTestCase
 
   function testSizeRangeRuleTooSmall()
   {
-    $rule = new lmbI18NSizeRangeRule('testfield', 30, 100);
+    $rule = new I18NSizeRangeRule('testfield', 30, 100);
 
     $data = new lmbSet(array('testfield' => 'тест'));
 

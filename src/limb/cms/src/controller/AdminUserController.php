@@ -2,7 +2,7 @@
 namespace limb\cms\src\controller;
 
 use limb\active_record\src\lmbActiveRecord;
-use limb\validation\src\rule\lmbMatchRule;
+use limb\validation\src\rule\MatchRule;
 use limb\validation\src\lmbValidator;
 use limb\cms\src\model\lmbCmsUser;
 
@@ -44,7 +44,7 @@ class AdminUserController extends lmbAdminObjectController
     if(!$user->isPasswordCorrect($this->request->get('password')))
       $this->error_list->addError("Выбран некорректный пароль");
 
-    $validator->addRule(new lmbMatchRule('password', 'repeat_password', 'Значения полей "Пароль" и "Подтверждение пароля" не совпадают'));
+    $validator->addRule(new MatchRule('password', 'repeat_password', 'Значения полей "Пароль" и "Подтверждение пароля" не совпадают'));
     $validator->validate($this->request);
   }
 

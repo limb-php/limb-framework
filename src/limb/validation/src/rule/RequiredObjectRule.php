@@ -14,16 +14,16 @@ use limb\i18n\src\lmbI18n;
  * Checks that field is present in datasource and it's value is an object of some or any class
  * Example of usage:
  * <code>
- *  use limb\validation\src\rule\lmbRequiredObjectRule;
- *  $validator->addRule(new lmbRequiredObjectRule('author', 'Author'));
+ *  use limb\validation\src\rule\RequiredObjectRule;
+ *  $validator->addRule(new RequiredObjectRule('author', 'Author'));
  *  // or
  *  $validator->addRequiredObjectRule('folder');
  * </code>
- * @see lmbValidator :: addRequiredObjectRule()
+ * @see lmbValidator::addRequiredObjectRule()
  * @package validation
- * @version $Id: lmbRequiredObjectRule.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: RequiredObjectRule.php 7486 2009-01-26 19:13:20Z
  */
-class lmbRequiredObjectRule extends lmbBaseValidationRule
+class RequiredObjectRule extends lmbBaseValidationRule
 {
   /**
   * @var string Field name
@@ -39,8 +39,8 @@ class lmbRequiredObjectRule extends lmbBaseValidationRule
   protected $custom_error;
 
   /**
-  * @param string Field name
-  * @param string Required class name
+  * @param string $field_name Field name
+  * @param string $class Required class name
   */
   function __construct($field_name, $class = null, $custom_error = null)
   {
@@ -60,7 +60,6 @@ class lmbRequiredObjectRule extends lmbBaseValidationRule
     {
       $error = $this->custom_error ?? lmbI18n::translate('Object {Field} is required', 'validation');
       $this->error($error, array('Field' => $this->field_name));
-      return;
     }
   }
 }

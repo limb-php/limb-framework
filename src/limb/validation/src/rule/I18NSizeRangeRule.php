@@ -12,12 +12,12 @@ use limb\i18n\src\charset\lmbI18nString;
 use limb\i18n\src\lmbI18n;
 
 /**
- * class lmbI18NSizeRangeRule.
+ * class I18NSizeRangeRule.
  *
  * @package validation
  * @version $Id$
  */
-class lmbI18NSizeRangeRule extends lmbSingleFieldRule
+class I18NSizeRangeRule extends lmbSingleFieldRule
 {
   /**
    * @var integer	min field value length in glyphs

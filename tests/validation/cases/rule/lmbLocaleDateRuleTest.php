@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbLocaleDateRule;
+use limb\validation\src\rule\LocaleDateRule;
 use limb\core\src\lmbSet;
 use limb\config\src\lmbIni;
 use limb\i18n\src\locale\lmbLocale;
@@ -19,7 +19,7 @@ class lmbLocaleDateRuleTest extends lmbValidationRuleTestCase
 {
   function testLocaleDateRuleCorrect()
   {
-    $rule = new lmbLocaleDateRule('test', new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/en.ini')));
+    $rule = new LocaleDateRule('test', new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/en.ini')));
 
     $data = new lmbSet(array('test' => '02/28/2003'));
 
@@ -32,7 +32,7 @@ class lmbLocaleDateRuleTest extends lmbValidationRuleTestCase
 
   function testLocaleDateRuleErrorLeapYear()
   {
-    $rule = new lmbLocaleDateRule('test', new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/en.ini')));
+    $rule = new LocaleDateRule('test', new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/en.ini')));
 
     $data = new lmbSet(array('test' => '02/29/2003'));
 
@@ -47,7 +47,7 @@ class lmbLocaleDateRuleTest extends lmbValidationRuleTestCase
 
   function testErrorLocaleMonthPosition()
   {
-    $rule = new lmbLocaleDateRule('test', new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/en.ini')));
+    $rule = new LocaleDateRule('test', new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/en.ini')));
 
     $data = new lmbSet(array('test' => '28/12/2003'));
 
@@ -62,7 +62,7 @@ class lmbLocaleDateRuleTest extends lmbValidationRuleTestCase
 
   function testLocaleDateRuleErrorFormat()
   {
-    $rule = new lmbLocaleDateRule('test', new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/en.ini')));
+    $rule = new LocaleDateRule('test', new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/en.ini')));
 
     $data = new lmbSet(array('test' => '02-29-2003'));
 
@@ -77,7 +77,7 @@ class lmbLocaleDateRuleTest extends lmbValidationRuleTestCase
 
   function testLocaleDateRuleError()
   {
-    $rule = new lmbLocaleDateRule('test', new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/en.ini')));
+    $rule = new LocaleDateRule('test', new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/en.ini')));
 
     $data = new lmbSet(array('test' => '02jjklklak/sdsdskj34-sdsdsjkjkj78'));
 

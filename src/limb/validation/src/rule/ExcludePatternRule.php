@@ -13,13 +13,13 @@ namespace limb\validation\src\rule;
  * In other words this rule triggers validation error if field value matches regexp.
  * Example of usage:
  * <code>
- * use limb/validation/src/rule/lmbExcludePatternRule;
- * $validator->addRule(new lmbExcludePatternRule("title", "/[^a-zA-Z0-9.-]+/i"));
+ * use limb/validation/src/rule/ExcludePatternRule;
+ * $validator->addRule(new ExcludePatternRule("title", "/[^a-zA-Z0-9.-]+/i"));
  * </code>
  * @package validation
- * @version $Id: lmbExcludePatternRule.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: ExcludePatternRule.php 7486 2009-01-26 19:13:20Z
  */
-class lmbExcludePatternRule extends lmbSingleFieldRule
+class ExcludePatternRule extends lmbSingleFieldRule
 {
   /**
   * @var string Pattern to match against
@@ -27,8 +27,8 @@ class lmbExcludePatternRule extends lmbSingleFieldRule
   protected $pattern;
 
   /**
-  * @param string Field name
-  * @param string Pattern to match against
+  * @param string $field_name Field name
+  * @param string $pattern Pattern to match against
   */
   function __construct($field_name, $pattern, $custom_error = null)
   {

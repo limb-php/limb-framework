@@ -13,13 +13,13 @@ namespace limb\validation\src\rule;
  * In other words this rule triggers validation error if field value doesn't match regexp.
  * Example of usage:
  * <code>
- * use limb\validation\src\rule\lmbPatternRule;
- * $validator->addRule(new lmbPatternRule("title", "/^[a-zA-Z0-9.-]+$/i"));
+ * use limb\validation\src\rule\PatternRule;
+ * $validator->addRule(new PatternRule("title", "/^[a-zA-Z0-9.-]+$/i"));
  * </code>
  * @package validation
- * @version $Id: lmbPatternRule.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: PatternRule.php 7486 2009-01-26 19:13:20Z
  */
-class lmbPatternRule extends lmbSingleFieldRule
+class PatternRule extends lmbSingleFieldRule
 {
   /**
    * @var string Pattern to match with

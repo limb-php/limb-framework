@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbInvalidValueRule;
+use limb\validation\src\rule\InvalidValueRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
 {
   function testInvalidValueRuleOkInt()
   {
-    $rule = new lmbInvalidValueRule('testfield', 0);
+    $rule = new InvalidValueRule('testfield', 0);
 
     $data = new lmbSet();
     $data->set('testfield', 1);
@@ -29,7 +29,7 @@ class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
 
   function testInvalidValueRuleOkInt2()
   {
-    $rule = new lmbInvalidValueRule('testfield', 0);
+    $rule = new InvalidValueRule('testfield', 0);
 
     $data = new lmbSet();
     $data->set('testfield', 'whatever');
@@ -41,7 +41,7 @@ class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
 
   function testInvalidValueRuleOkNull()
   {
-    $rule = new lmbInvalidValueRule('testfield', null);
+    $rule = new InvalidValueRule('testfield', null);
 
     $data = new lmbSet();
     $data->set('testfield', 'null');
@@ -54,7 +54,7 @@ class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
 
   function testInvalidValueRuleOkBool()
   {
-    $rule = new lmbInvalidValueRule('testfield', false);
+    $rule = new InvalidValueRule('testfield', false);
 
     $data = new lmbSet();
     $data->set('testfield', 'false');
@@ -67,7 +67,7 @@ class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
 
   function testInvalidValueRuleError()
   {
-    $rule = new lmbInvalidValueRule('testfield', 1);
+    $rule = new InvalidValueRule('testfield', 1);
 
     $data = new lmbSet();
     $data->set('testfield', 1);
@@ -84,7 +84,7 @@ class lmbInvalidValueRuleTest extends lmbValidationRuleTestCase
 
   function testInvalidValueRuleError2()
   {
-    $rule = new lmbInvalidValueRule('testfield', 1);
+    $rule = new InvalidValueRule('testfield', 1);
 
     $data = new lmbSet();
     $data->set('testfield', '1');

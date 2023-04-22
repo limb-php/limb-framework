@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbNumericValueRangeRule;
+use limb\validation\src\rule\NumericValueRangeRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbNumericValueRangeRuleTest extends lmbValidationRuleTestCase
 {
   function testInRange()
   {
-    $rule = new lmbNumericValueRangeRule('testfield', 0, 5);
+    $rule = new NumericValueRangeRule('testfield', 0, 5);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 1);
@@ -29,7 +29,7 @@ class lmbNumericValueRangeRuleTest extends lmbValidationRuleTestCase
 
   function testLessThanMin()
   {
-    $rule = new lmbNumericValueRangeRule('testfield', 1, 5);
+    $rule = new NumericValueRangeRule('testfield', 1, 5);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', -10);
@@ -46,7 +46,7 @@ class lmbNumericValueRangeRuleTest extends lmbValidationRuleTestCase
 
   function testGreaterThanMax()
   {
-    $rule = new lmbNumericValueRangeRule('testfield', 1, 5);
+    $rule = new NumericValueRangeRule('testfield', 1, 5);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 10);
@@ -63,7 +63,7 @@ class lmbNumericValueRangeRuleTest extends lmbValidationRuleTestCase
 
   function testOnlyDigitsAllowedNumeric()
   {
-    $rule = new lmbNumericValueRangeRule('testfield', 1, 4);
+    $rule = new NumericValueRangeRule('testfield', 1, 4);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '4fdfasd');
@@ -80,7 +80,7 @@ class lmbNumericValueRangeRuleTest extends lmbValidationRuleTestCase
 
   function testLessThanMinWithCustomError()
   {
-    $rule = new lmbNumericValueRangeRule('testfield', 1, 5, 'Custom_Error');
+    $rule = new NumericValueRangeRule('testfield', 1, 5, 'Custom_Error');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', -10);

@@ -9,16 +9,16 @@
 namespace limb\validation\src\rule;
 
 /**
- * Checks that field is not not in a list of restricted values 
+ * Checks that field is not in a list of restricted values
  * Example of usage:
  * <code>
- *  use limb\validation\src\rule\lmbNotInArrayRule;
- *  $validator->addRule(new lmbMatchRule('login', array('www', 'mail', 'smtp')));
+ *  use limb\validation\src\rule\NotInArrayRule;
+ *  $validator->addRule(new NotInArrayRule('login', array('www', 'mail', 'smtp')));
  * </code>
  * @package validation
  * @version $Id$
  */
-class lmbNotInArrayRule extends lmbSingleFieldRule
+class NotInArrayRule extends lmbSingleFieldRule
 {
   /**
   * @var array A list of not allowed values
@@ -27,9 +27,9 @@ class lmbNotInArrayRule extends lmbSingleFieldRule
 
   /**
   * Constructor.
-  * @param string Field name
-  * @param array List of restricted values
-  * @param string Custom error message
+  * @param string $field_name Field name
+  * @param array $restricted_values List of restricted values
+  * @param string|null $custom_error Custom error message
   */   
   function __construct($field_name, $restricted_values, $custom_error = null)
   {

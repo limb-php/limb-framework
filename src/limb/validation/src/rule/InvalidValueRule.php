@@ -12,13 +12,13 @@ namespace limb\validation\src\rule;
  * Checks that field value is not equal some invalid value
  * Example of usage:
  * <code>
- * use limb\validation\src\rule\lmbInvalidValueRule;
- * $validator->addRule(new lmbInvalidValueRule("region", -1));
+ * use limb\validation\src\rule\InvalidValueRule;
+ * $validator->addRule(new InvalidValueRule("region", -1));
  * </code>
  * @package validation
- * @version $Id: lmbInvalidValueRule.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: InvalidValueRule.php 7486 2009-01-26 19:13:20Z
  */
-class lmbInvalidValueRule extends lmbSingleFieldRule
+class InvalidValueRule extends lmbSingleFieldRule
 {
   protected $invalid_value;
 

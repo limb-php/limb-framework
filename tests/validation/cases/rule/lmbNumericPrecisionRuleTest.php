@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbNumericPrecisionRule;
+use limb\validation\src\rule\NumericPrecisionRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
 {
   function testNumericRule()
   {
-    $rule = new lmbNumericPrecisionRule('testfield', 3, 2);
+    $rule = new NumericPrecisionRule('testfield', 3, 2);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '111.22');
@@ -29,7 +29,7 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
 
   function testNumericRuleZero()
   {
-    $rule = new lmbNumericPrecisionRule('testfield', 3, 2);
+    $rule = new NumericPrecisionRule('testfield', 3, 2);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '0');
@@ -41,7 +41,7 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
 
   function testNumericRuleZeroInt()
   {
-    $rule = new lmbNumericPrecisionRule('testfield', 3, 2);
+    $rule = new NumericPrecisionRule('testfield', 3, 2);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 0);
@@ -55,7 +55,7 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
 
   function testNumericRuleFailure()
   {
-    $rule = new lmbNumericPrecisionRule('testfield', 3, 2);
+    $rule = new NumericPrecisionRule('testfield', 3, 2);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'not a number');
@@ -72,7 +72,7 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
 
   function testNumericRuleTooManyWholeDigits()
   {
-    $rule = new lmbNumericPrecisionRule('testfield', 3, 2);
+    $rule = new NumericPrecisionRule('testfield', 3, 2);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '1111');
@@ -89,7 +89,7 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
 
   function testNumericRuleTooManyDecimalDigits()
   {
-    $rule = new lmbNumericPrecisionRule('testfield', 3, 2);
+    $rule = new NumericPrecisionRule('testfield', 3, 2);
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', '111.222');
@@ -106,7 +106,7 @@ class lmbNumericPrecisionRuleTest extends lmbValidationRuleTestCase
 
   function testNumericRuleFailureWithCustomError()
   {
-    $rule = new lmbNumericPrecisionRule('testfield', 3, 2, 'Custom_Error');
+    $rule = new NumericPrecisionRule('testfield', 3, 2, 'Custom_Error');
 
     $dataspace = new lmbSet();
     $dataspace->set('testfield', 'not a number');

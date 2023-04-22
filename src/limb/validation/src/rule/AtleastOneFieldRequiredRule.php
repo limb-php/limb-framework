@@ -14,13 +14,13 @@ use limb\i18n\src\lmbI18n;
  * Checks that at least one field from a list has not null value
  * Example of usage:
  * <code>
- * use limb\validation\src\rule\lmbAtleastOneFieldRequiredRule;
- * $validator->addRule(new lmbAtleastOneFieldRequiredRule(array('name', 'nickname', 'full_name')));
+ * use limb\validation\src\rule\AtleastOneFieldRequiredRule;
+ * $validator->addRule(new AtleastOneFieldRequiredRule(array('name', 'nickname', 'full_name')));
  * </code>
  * @package validation
- * @version $Id: lmbAtleastOneFieldRequiredRule.php 7486 2009-01-26 19:13:20Z
+ * @version $Id: AtleastOneFieldRequiredRule.php 7486 2009-01-26 19:13:20Z
  */
-class lmbAtleastOneFieldRequiredRule extends lmbBaseValidationRule
+class AtleastOneFieldRequiredRule extends lmbBaseValidationRule
 {
   /**
   * @var array List of fields

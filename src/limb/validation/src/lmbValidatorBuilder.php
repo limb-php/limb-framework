@@ -58,7 +58,7 @@ class lmbValidatorBuilder
    * 		'rule3' => 'error3'
    * 	);  
    * 
-   * @param object  $validator  (optional)
+   * @param lmbValidator $validator
    */
   static function addRules($rules_lists, lmbValidator $validator) 
   {
@@ -213,7 +213,7 @@ class lmbValidatorBuilder
       $underscored_name = self::$rules_shortcuts[$underscored_name];
     }
     
-    return 'lmb' . lmbString::camel_case($underscored_name) . 'Rule';
+    return lmbString::camel_case($underscored_name) . 'Rule';
   }
 
   static function trim($arr)

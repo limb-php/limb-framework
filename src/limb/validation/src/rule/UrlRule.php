@@ -11,9 +11,9 @@ namespace limb\validation\src\rule;
 /**
  * Checks that field value is a valid url.
  * @package validation
- * @version $Id: lmbUrlRule.php 7951 2009-06-16 17:48:42Z
+ * @version $Id: UrlRule.php 7951 2009-06-16 17:48:42Z
  */
-class lmbUrlRule extends lmbDomainRule
+class UrlRule extends DomainRule
 {
   function check($value)
   {
@@ -24,9 +24,10 @@ class lmbUrlRule extends lmbDomainRule
                '(?<parameters>\?[-A-Z0-9+&@\#/%=~_|!:,.;]*)?' . 
                '$#i';
 
-    if(!preg_match($pattern, $value, $matches))
-      return $this->error('{Field} is not an url.');
-
-    parent::check($matches['domain']);
+    if(!preg_match($pattern, $value, $matches)) {
+        $this->error('{Field} is not an url.');
+    } else {
+        parent::check($matches['domain']);
+    }
   }
 }

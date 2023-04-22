@@ -8,7 +8,7 @@
  */
 namespace tests\validation\cases\rule;
 
-use limb\validation\src\rule\lmbValidValueRule;
+use limb\validation\src\rule\ValidValueRule;
 use limb\core\src\lmbSet;
 
 require('.setup.php');
@@ -17,7 +17,7 @@ class lmbValidValueRuleTest extends lmbValidationRuleTestCase
 {
   function testValidValueRule_Success_Int()
   {
-    $rule = new lmbValidValueRule('testfield', 1);
+    $rule = new ValidValueRule('testfield', 1);
 
     $data = new lmbSet();
     $data->set('testfield', 1);
@@ -29,7 +29,7 @@ class lmbValidValueRuleTest extends lmbValidationRuleTestCase
   
   function testValidValueRule_Error_Int()
   {
-    $rule = new lmbValidValueRule('testfield', 1);
+    $rule = new ValidValueRule('testfield', 1);
 
     $data = new lmbSet();
     $data->set('testfield', 0);
@@ -48,7 +48,7 @@ class lmbValidValueRuleTest extends lmbValidationRuleTestCase
 
   function testValidValueRule_Success_IntAndString()
   {
-    $rule = new lmbValidValueRule('testfield', 1);
+    $rule = new ValidValueRule('testfield', 1);
 
     $data = new lmbSet();
     $data->set('testfield', '1');
@@ -60,7 +60,7 @@ class lmbValidValueRuleTest extends lmbValidationRuleTestCase
 
   function testInvalidValueRule_Success_Bool()
   {
-    $rule = new lmbValidValueRule('testfield', false);
+    $rule = new ValidValueRule('testfield', false);
 
     $data = new lmbSet();
     $data->set('testfield', 0);

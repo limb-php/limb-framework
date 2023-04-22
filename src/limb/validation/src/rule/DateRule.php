@@ -15,13 +15,13 @@ use limb\datetime\src\lmbDateTime;
  * @package validation
  * @version $Id$
  */
-class lmbDateRule extends lmbSingleFieldRule
+class DateRule extends lmbSingleFieldRule
 {
   const TYPE_ISO = 1;
 
   protected $type;
 
-  function __construct($field_name, $type = lmbDateRule::TYPE_ISO, $custom_error = null)
+  function __construct($field_name, $type = self::TYPE_ISO, $custom_error = null)
   {
     parent::__construct($field_name, $custom_error);
 
@@ -30,7 +30,7 @@ class lmbDateRule extends lmbSingleFieldRule
 
   function check($value)
   {
-    if($this->type == lmbDateRule::TYPE_ISO)
+    if($this->type == self::TYPE_ISO)
     {
       if(!lmbDateTime::validate((string)$value))
         $this->error('{Field} is not a valid ISO formatted date(YYYY-MM-DD HH:MM).');

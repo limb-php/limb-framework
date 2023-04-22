@@ -9,10 +9,10 @@
 namespace limb\validation\src;
 
 use limb\core\src\lmbHandle;
-use limb\validation\src\rule\lmbRequiredRule;
-use limb\validation\src\rule\lmbAtleastOneFieldRequiredRule;
-use limb\validation\src\rule\lmbRequiredObjectRule;
-use limb\validation\src\rule\lmbSizeRangeRule;
+use limb\validation\src\rule\RequiredRule;
+use limb\validation\src\rule\AtleastOneFieldRequiredRule;
+use limb\validation\src\rule\RequiredObjectRule;
+use limb\validation\src\rule\SizeRangeRule;
 
 /**
  * Holds the list of validation rules along with errors happened during validation.
@@ -79,13 +79,13 @@ class lmbValidator
   */
   function addRequiredRule($field, $custom_error = null)
   {
-    $this->addRule(new lmbHandle(lmbRequiredRule::class,
+    $this->addRule(new lmbHandle(RequiredRule::class,
                                  array($field, $custom_error)));
   }
 
   function addAtLeastOneRequiredRule($fields, $custom_error = null)
   {
-    $this->addRule(new lmbHandle(lmbAtleastOneFieldRequiredRule::class,
+    $this->addRule(new lmbHandle(AtleastOneFieldRequiredRule::class,
                                  array($fields, $custom_error)));
   }
 
@@ -95,7 +95,7 @@ class lmbValidator
   */
   function addRequiredObjectRule($field, $class = null, $custom_error = null)
   {
-    $this->addRule(new lmbHandle(lmbRequiredObjectRule::class,
+    $this->addRule(new lmbHandle(RequiredObjectRule::class,
                                  array($field, $class, $custom_error)));
   }
 
@@ -105,7 +105,7 @@ class lmbValidator
   */
   function addSizeRangeRule($field, $min_or_max_length, $max_length = null, $custom_error = null)
   {
-    $this->addRule(new lmbHandle(lmbSizeRangeRule::class,
+    $this->addRule(new lmbHandle(SizeRangeRule::class,
                                  array($field, $min_or_max_length, $max_length, $custom_error)));
   }
 

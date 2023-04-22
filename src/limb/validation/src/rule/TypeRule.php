@@ -4,7 +4,7 @@ namespace limb\validation\src\rule;
 use limb\core\src\exception\lmbInvalidArgumentException;
 use limb\core\src\lmbAssert;
 
-class lmbTypeRule extends lmbSingleFieldRule
+class TypeRule extends lmbSingleFieldRule
 {
   protected $type;
 
