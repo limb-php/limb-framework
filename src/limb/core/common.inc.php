@@ -39,9 +39,9 @@ if (!function_exists('lmb_env_set'))
 if (!function_exists('lmb_env_has'))
 {
 
-    function lmb_env_has($name)
+    function lmb_env_has($name): bool
     {
-        lmbEnv::has($name);
+        return lmbEnv::has($name);
     }
 
 }
@@ -102,3 +102,10 @@ if (!function_exists('class_basename'))
 
 }
 
+if (!function_exists('str_contains'))
+{
+    function str_contains($haystack, $needle)
+    {
+        return $needle !== '' && mb_strpos($haystack, $needle) !== false;
+    }
+}

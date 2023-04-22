@@ -41,8 +41,11 @@ abstract class lmbBaseValidationRule implements lmbValidationRuleInterface
   */
   function error($message, $fields = array(), $values = array())
   {
-    $this->error_list->addError($message, $fields, $values);
-    $this->is_valid = false;
+      $class_parts = explode('\\', get_called_class());
+      $validatorName = end($class_parts);
+
+      $this->error_list->addError($message, $fields, $values, $validatorName);
+      $this->is_valid = false;
   }
 
   /**

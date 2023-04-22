@@ -49,10 +49,11 @@ class lmbTypeRuleTest extends lmbValidationRuleTestCase
     $column = 'field';
     $rule = new lmbTypeRule($column, 'double', '{Field} error');
 
-    $dataspace = new lmbSet(array($column => 1));
+    $dataset = new lmbSet(array($column => 1));
     $error_list = new lmbErrorList();
-    $rule->validate($dataspace, $error_list);
+    $rule->validate($dataset, $error_list);
 
-    $this->assertEquals('"field" error', current($error_list->getReadable()));
+    $readable = $error_list->getReadable();
+    $this->assertEquals('"field" error', current($readable));
   }
 }

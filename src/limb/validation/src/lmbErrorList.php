@@ -34,12 +34,15 @@ class lmbErrorList extends lmbCollection
   * @param $values array Array of aliases and field values like array('Min' => 5, 'Max' => 15)
   * @return lmbErrorMessage
   */
-  function addError($message, $fields = array(), $values = array()): lmbErrorMessage
+  function addError($message, $fields = array(), $values = array(), $validator = null): lmbErrorMessage
   {
     $error = new lmbErrorMessage($message, $fields, $values);
     if( count($fields) >= 1 ) {
-        //$this->addTo($error, current($fields));
-        $this->add($error, current($fields));
+        $key = current($fields);
+        if($validator !== null)
+            $key .= '.' . $validator;
+
+        $this->add($error, $key);
     }
     else {
         $this->add($error);
@@ -48,7 +51,46 @@ class lmbErrorList extends lmbCollection
     return $error;
   }
 
-  /**
+//    function add($item, $key = null)
+//    {
+//        if( $key === null ) {
+//            $this->dataset[] = $item;
+//        }
+//        else {
+//            if( !isset($this->dataset[$key]) ) {
+//                $this->dataset[$key] = [];
+//            }
+//            $this->dataset[$key][] = $item;
+//        }
+//
+//        $this->iteratedDataset = null;
+//    }
+
+//    function count(): int
+//    {
+//        return count($this->dataset, COUNT_RECURSIVE) - count($this->dataset);
+//    }
+
+    function all()
+    {
+        return $this->export();
+    }
+
+    function getByKey($key)
+    {
+        if( str_contains($key, '*') ) {
+
+        }
+
+        $result = $this->dataset[$key] ?? null;
+        if( is_array($result) ) {
+            $result = $this->dataset[$key];
+        }
+
+        return $result;
+    }
+
+    /**
   * Returns FALSE is contains at least one error, otherwise returns TRUE
   * @return bool
   */
@@ -64,9 +106,9 @@ class lmbErrorList extends lmbCollection
   */
   function getReadable(): array
   {
-    $result = array();
-    foreach ($this as $k => $error) {
-        $result[$k] = $error->getReadable();
+    $result = [];
+    foreach ($this as $key => $error) {
+        $result[$key] = $error->getReadable();
     }
 
     return $result;
@@ -74,19 +116,9 @@ class lmbErrorList extends lmbCollection
 
   function renameFields($new_field_names) 
   {   
-    foreach($this as $message)
-      $message->renameFields($new_field_names);      
-  }
-
-  function getByKey($key)
-  {
-      $result = [];
-      foreach($this as $k => $object) {
-          if( $key == $k )
-            $result[] = $object;
-      }
-
-      return $result;
+    foreach($this as $error) {
+        $error->renameFields($new_field_names);
+    }
   }
 
   function __sleep()

@@ -25,7 +25,7 @@ class lmbErrorListTest extends TestCase
 
     $errors = $list->export();
 
-    $this->assertEquals(1, sizeof($errors));
+    $this->assertCount(1, $errors);
     $this->assertEquals($message, $errors['foo']['message']);
     $this->assertEquals(array('foo'), $errors['foo']['fields']);
     $this->assertEquals(array('FOO'), $errors['foo']['values']);
@@ -39,25 +39,28 @@ class lmbErrorListTest extends TestCase
         $list->addError($message = 'error_group_bar', array('bar'), array('BAR'));
         $errors = $list->export();
 
-        $this->assertEquals(2, sizeof($errors));
+        $this->assertCount(2, $errors);
 
         $errors_for_foo = $list->getByKey('foo');
-        $this->assertEquals('error_group', $errors_for_foo[0]->getReadable());
+
+        $this->assertEquals('error_group', $errors_for_foo->getReadable());
     }
 
     function testAddSameMultiFieldError()
     {
         $list = new lmbErrorList();
 
-        $list->addError($message = 'error_group1', array('foo'), array('FOO1'));
-        $list->addError($message = 'error_group2', array('foo'), array('FOO2'));
+        $list->addError($message = 'error_group1', array('foo'), array('FOO1'), 'foo1');
+        $list->addError($message = 'error_group2', array('foo'), array('FOO2'), 'foo2');
         $errors = $list->export();
 
-        $this->assertEquals(2, sizeof($errors));
+        $this->assertCount(2, $errors);
 
-        $errors_for_foo = $list->getByKey('foo');
-        $this->assertEquals('error_group2', $errors_for_foo[0]->getReadable());
-        $this->assertEquals('error_group1', $errors_for_foo[1]->getReadable());
+        $errors_for_foo1 = $list->getByKey('foo.foo1');
+        $errors_for_foo2 = $list->getByKey('foo.foo2');
+        $errors_for_foo3 = $list->getByKey('foo.*');
+        $this->assertEquals('error_group1', $errors_for_foo1->getReadable());
+        $this->assertEquals('error_group2', $errors_for_foo2->getReadable());
     }
 
   function testRenameFields()
