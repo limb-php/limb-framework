@@ -23,6 +23,26 @@ class lmbArrayHelper
         $dest_array[$dest] = $src_array[$src];
   }
 
+    /**
+     * Run a map over each of the items in the array.
+     *
+     * @param  array  $array
+     * @param  callable  $callback
+     * @return array
+     */
+    public static function mapCallback(array $array, callable $callback)
+    {
+        $keys = array_keys($array);
+
+        try {
+            $items = array_map($callback, $array, $keys);
+        } catch (\ArgumentCountError $ex) {
+            $items = array_map($callback, $array);
+        }
+
+        return array_combine($keys, $items);
+    }
+
   static function arrayMerge($a1, $a2)//we need at least two args and we specify them explicitly
   {
     $args = func_get_args();
