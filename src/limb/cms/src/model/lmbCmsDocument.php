@@ -11,7 +11,7 @@ namespace limb\cms\src\model;
 use limb\active_record\src\lmbActiveRecord;
 use limb\tree\src\lmbMPTree;
 use limb\validation\src\lmbValidator;
-use limb\cms\src\validation\rule\lmbTreeIdentifierRule;
+use limb\cms\src\validation\rule\TreeIdentifierRule;
 use limb\dbal\src\lmbDBAL;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 
@@ -39,7 +39,7 @@ class lmbCmsDocument extends lmbActiveRecordTreeNode
     $validator->addRequiredRule('content', 'Поле "Текст" обязательно для заполнения');
     $validator->addRequiredRule('identifier', 'Поле "Идентификатор" обязательно для заполнения');
 
-    $validator->addRule(new lmbTreeIdentifierRule('identifier'));
+    $validator->addRule(new TreeIdentifierRule('identifier'));
 
     return $validator;
   }

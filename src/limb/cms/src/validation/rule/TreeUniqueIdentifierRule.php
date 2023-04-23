@@ -6,7 +6,7 @@ use limb\validation\src\rule\lmbSingleFieldRule;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\active_record\src\lmbActiveRecord;
 
-class lmbTreeUniqueIdentifierRule extends lmbSingleFieldRule
+class TreeUniqueIdentifierRule extends lmbSingleFieldRule
 {
     protected $node_class;
     protected $node;

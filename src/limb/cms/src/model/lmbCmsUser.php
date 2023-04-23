@@ -16,7 +16,7 @@ namespace limb\cms\src\model;
  */
 
 use limb\active_record\src\lmbActiveRecord;
-use limb\cms\src\validation\rule\lmbCmsUserUniqueFieldRule;
+use limb\cms\src\validation\rule\CmsUserUniqueFieldRule;
 use limb\validation\src\lmbValidator;
 use limb\validation\src\rule\EmailRule;
 use limb\validation\src\rule\MatchRule;
@@ -40,8 +40,8 @@ class lmbCmsUser extends lmbActiveRecord
     $validator->addRequiredRule('login', 'Поле "Логин" обязательно для заполнения');
     $validator->addRequiredRule('email', 'Поле "E-mail" обязательно для заполнения');
 
-    $validator->addRule(new lmbCmsUserUniqueFieldRule('login', $this));
-    $validator->addRule(new lmbCmsUserUniqueFieldRule('email', $this));
+    $validator->addRule(new CmsUserUniqueFieldRule('login', $this));
+    $validator->addRule(new CmsUserUniqueFieldRule('email', $this));
 
     $validator->addRule(new EmailRule('email', 'Неверный формат поля "E-mail"'));
     return $validator;

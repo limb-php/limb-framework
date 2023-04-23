@@ -3,7 +3,7 @@ namespace tests\cms\cases\validation\rules;
 
 use limb\validation\src\lmbErrorList;
 use tests\cms\cases\lmbCmsTestCase;
-use limb\cms\src\validation\rule\lmbTreeUniqueIdentifierRule;
+use limb\cms\src\validation\rule\TreeUniqueIdentifierRule;
 use limb\cms\src\model\lmbCmsDocument;
 
 class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
@@ -24,7 +24,7 @@ class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
     $saved_document = $this->_createDocument($identifier = 'test');
     $new_document = $this->_generateDocument($identifier = 'test2');
 
-    $rule = new lmbTreeUniqueIdentifierRule('identifier', $new_document, 'документ с таким идентификатором уже существует');
+    $rule = new TreeUniqueIdentifierRule('identifier', $new_document, 'документ с таким идентификатором уже существует');
 
     $this->error_list
         ->expects($this->never())
@@ -38,7 +38,7 @@ class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
     $saved_document = $this->_createDocument($identifier = 'test');
     $new_document = $this->_generateDocument($identifier = 'test');
 
-    $rule = new lmbTreeUniqueIdentifierRule('identifier', $new_document, 'документ с таким идентификатором уже существует');
+    $rule = new TreeUniqueIdentifierRule('identifier', $new_document, 'документ с таким идентификатором уже существует');
 
     $this->error_list
         ->expects($this->once())
@@ -53,7 +53,7 @@ class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
     $saved_document2 = $this->_createDocument($identifier = 'test2', $parent_document = $saved_document1);
     $new_document = $this->_generateDocument($identifier = 'test3', $parent_document = $saved_document1);
 
-    $rule = new lmbTreeUniqueIdentifierRule('identifier', $new_document, 'документ с таким идентификатором уже существует', $saved_document1->getId());
+    $rule = new TreeUniqueIdentifierRule('identifier', $new_document, 'документ с таким идентификатором уже существует', $saved_document1->getId());
 
     $this->error_list
         ->expects($this->never())
@@ -69,7 +69,7 @@ class lmbTreeUniqueIdentifierFieldRuleTest extends lmbCmsTestCase
     $saved_document2 = $this->_createDocument($identifier = 'test2', $parent_document = $saved_document1);
     $new_document = $this->_generateDocument($identifier = 'test2', $parent_document = $saved_document1);
 
-    $rule = new lmbTreeUniqueIdentifierRule('identifier', $new_document, 'документ с таким идентификатором уже существует', $saved_document1->getId());
+    $rule = new TreeUniqueIdentifierRule('identifier', $new_document, 'документ с таким идентификатором уже существует', $saved_document1->getId());
 
     $this->error_list
         ->expects($this->once())

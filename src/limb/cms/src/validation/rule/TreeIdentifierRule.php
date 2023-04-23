@@ -12,12 +12,12 @@ use limb\validation\src\rule\lmbSingleFieldRule;
 use limb\i18n\src\lmbI18n;
 
 /**
- * class lmbTreeIdentifierRule.
+ * class TreeIdentifierRule.
  *
  * @package cms
  * @version $Id$
  */
-class lmbTreeIdentifierRule extends lmbSingleFieldRule
+class TreeIdentifierRule extends lmbSingleFieldRule
 {
   function check($value)
   {

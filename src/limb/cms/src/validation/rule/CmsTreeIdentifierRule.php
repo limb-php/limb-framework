@@ -4,7 +4,7 @@ namespace limb\cms\src\validation\rule;
 use limb\validation\src\rule\lmbBaseValidationRule;
 use limb\i18n\src\lmbI18n;
 
-class lmbCmsTreeIdentifierRule extends lmbBaseValidationRule
+class CmsTreeIdentifierRule extends lmbBaseValidationRule
 {
   protected $field_name;
   protected $parent_node_id_field_name;
@@ -12,8 +12,8 @@ class lmbCmsTreeIdentifierRule extends lmbBaseValidationRule
 
   /**
   * Constructor
-  * @param string Field name
-  * @param string custom error
+  * @param string $field_name Field name
+  * @param string|null $custom_error custom error
   */
   function __construct($field_name, $custom_error = null)
   {

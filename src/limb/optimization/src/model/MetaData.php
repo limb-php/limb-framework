@@ -5,7 +5,7 @@ use src\model\cachedActiveRecord;
 use limb\core\src\lmbObject;
 use limb\active_record\src\lmbActiveRecord;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
-use limb\cms\src\validation\rule\lmbCmsUniqueFieldRule;
+use limb\cms\src\validation\rule\CmsUniqueFieldRule;
 
 class MetaData extends cachedActiveRecord
 {

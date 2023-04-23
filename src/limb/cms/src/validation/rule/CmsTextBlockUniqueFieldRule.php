@@ -5,7 +5,7 @@ use limb\active_record\src\lmbActiveRecord;
 use limb\validation\src\rule\lmbSingleFieldRule;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 
-class lmbCmsTextBlockUniqueFieldRule extends lmbSingleFieldRule
+class CmsTextBlockUniqueFieldRule extends lmbSingleFieldRule
 {
   protected $text_block_class;
   protected $text_block;

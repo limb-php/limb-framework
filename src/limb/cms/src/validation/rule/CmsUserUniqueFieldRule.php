@@ -6,7 +6,7 @@ use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\active_record\src\lmbActiveRecord;
 use limb\i18n\src\lmbI18n;
 
-class lmbCmsUserUniqueFieldRule extends lmbSingleFieldRule
+class CmsUserUniqueFieldRule extends lmbSingleFieldRule
 {
     protected $model_class;
     protected $ignore_user;

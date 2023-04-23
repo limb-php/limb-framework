@@ -11,7 +11,7 @@ namespace limb\cms\src\model;
 use limb\active_record\src\lmbActiveRecord;
 use limb\toolkit\src\lmbToolkit;
 use limb\validation\src\lmbValidator;
-use limb\cms\src\validation\rule\lmbCmsTreeIdentifierRule;
+use limb\cms\src\validation\rule\CmsTreeIdentifierRule;
 use limb\dbal\src\criteria\lmbSQLRawCriteria;
 
 /**
@@ -64,7 +64,7 @@ class lmbCmsNode extends lmbActiveRecord
     $validator->addRequiredRule('identifier');
     if($this->isDirtyProperty('identifier'))
     {
-      $validator->addRule(new lmbCmsTreeIdentifierRule('identifier'));
+      $validator->addRule(new CmsTreeIdentifierRule('identifier'));
     }
 
     return $validator;

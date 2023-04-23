@@ -7,7 +7,7 @@ use limb\validation\src\lmbValidator;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
-use limb\cms\src\validation\rule\lmbCmsUniqueFieldRule;
+use limb\cms\src\validation\rule\CmsUniqueFieldRule;
 
 class MetaInfo extends lmbActiveRecord
 {
@@ -19,7 +19,7 @@ class MetaInfo extends lmbActiveRecord
   {
     $validator = new lmbValidator();
     $validator->addRequiredRule('url');
-    $validator->addRule(new lmbCmsUniqueFieldRule('url', __CLASS__, $this, '"Url" должен быть уникальным'));
+    $validator->addRule(new CmsUniqueFieldRule('url', __CLASS__, $this, '"Url" должен быть уникальным'));
     $validator->addRequiredRule('title');
 
     return $validator;
