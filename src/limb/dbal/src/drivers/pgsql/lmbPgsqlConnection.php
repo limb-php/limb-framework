@@ -118,6 +118,11 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     }
   }
 
+    function version()
+    {
+        return pg_version($this->connectionId);
+    }
+
   function _raiseError($msg)
   {
     throw new lmbDbException($msg .($this->connectionId ?  ' last pgsql driver error: ' . pg_last_error($this->connectionId) : ''));

@@ -37,18 +37,22 @@ class lmbPgsqlTableInfo extends lmbDbTableInfo
   //Based on code from Creole
   function loadColumns()
   {
-
     if($this->isExisting && !$this->isColumnsLoaded)
     {
-      $connection = $this->database->getConnection();
+        $connection = $this->database->getConnection();
+        $versionInfo = $connection->version();
+        $version_arr = explode(".", $versionInfo["server"]);
 
       $result = $connection->execute(sprintf("SELECT
                                                 att.attname,
                                                 att.atttypmod,
                                                 att.atthasdef,
-                                                att.attnotnull,
-                                                def.adsrc,
-                                                CASE WHEN att.attndims > 0 THEN 1 ELSE 0 END AS isarray,
+                                                att.attnotnull, " .
+                                                  ( ($version_arr[0] <= 11) ?
+                                                      "def.adsrc," :
+                                                      "pg_get_expr(def.adbin, def.adrelid) AS adsrc,"
+                                                  ) .
+                                                "CASE WHEN att.attndims > 0 THEN 1 ELSE 0 END AS isarray,
                                                 CASE
                                                   WHEN ty.typname = 'bpchar'
                                                     THEN 'char'
