@@ -44,7 +44,10 @@ class lmbTwigExtension extends AbstractExtension
             new \Twig\TwigFilter('odd_or_even', function ($number) {
                 return ($number % 2) ? 'odd' : 'even' ;
             }),
-            new \Twig\TwigFilter('str_slice', [$this, 'str_slice'])
+            new \Twig\TwigFilter('str_slice', [$this, 'str_slice']),
+            new \Twig\TwigFilter('i18n', function ($string, $arg = null) {
+                return lmb_i18n($string, [], $arg) ;
+            })
         ];
     }
 
