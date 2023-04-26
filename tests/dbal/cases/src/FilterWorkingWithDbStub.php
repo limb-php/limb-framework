@@ -8,7 +8,7 @@ class FilterWorkingWithDbStub
     var $sql;
     var $exception;
 
-    function run($chain)
+    function run($filter_chain)
     {
         if($this->sql)
         {
@@ -18,5 +18,7 @@ class FilterWorkingWithDbStub
 
         if($this->exception)
             throw $this->exception;
+
+        return $filter_chain->next();
     }
 }

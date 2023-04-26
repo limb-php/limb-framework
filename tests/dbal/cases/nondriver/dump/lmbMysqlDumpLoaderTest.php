@@ -18,6 +18,8 @@ class lmbMysqlDumpLoaderTest extends lmbSQLDumpLoaderTestCase
   {
       if( !is_a(lmbToolkit::instance()->getDefaultDbConnection(), lmbMysqlConnection::class) )
         $this->markTestSkipped("lmbMysqlDumpLoader tests skipped, mysql connection required");
+
+      parent::setUp();
   }
 
   function _createLoader($file=null)

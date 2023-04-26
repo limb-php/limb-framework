@@ -12,6 +12,7 @@ use limb\dbal\src\drivers\mysql\lmbMysqlRecord;
 use tests\dbal\cases\driver\DriverQueryTestBase;
 use limb\toolkit\src\lmbToolkit;
 
+require_once(dirname(__FILE__) . '/../../.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlQueryTest extends DriverQueryTestBase
@@ -19,13 +20,13 @@ class lmbMysqlQueryTest extends DriverQueryTestBase
 
   function lmbMysqliQueryTest()
   {
-    parent :: DriverQueryTestBase(lmbMysqlRecord::class);
+    parent::DriverQueryTestBase(lmbMysqlRecord::class);
   }
 
   function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    //DriverMysqlSetup($this->connection->getConnectionId());
+    DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

@@ -10,6 +10,7 @@ namespace tests\dbal\cases\nondriver\filter;
 
 require_once(dirname(__FILE__) . '/../.setup.php');
 
+use limb\filter_chain\src\lmbChain;
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\filter\lmbAutoDbTransactionFilter;
 use limb\filter_chain\src\lmbFilterChain;
@@ -56,7 +57,7 @@ class lmbAutoDbTransactionFilterTest extends TestCase
 
     $this->assertEquals(0, $this->db->count('test_db_table'));
 
-    $chain = new lmbFilterChain();
+    $chain = new lmbChain();
     $chain->registerFilter(new lmbAutoDbTransactionFilter());
     $chain->registerFilter($stub);
     $chain->process();

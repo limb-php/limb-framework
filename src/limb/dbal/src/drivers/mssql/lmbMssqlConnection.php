@@ -37,7 +37,7 @@ class lmbMssqlConnection extends lmbDbBaseConnection
         return $this->extension = new lmbMssqlExtension($this);
     }
 
-    function getLexer()
+    function getLexer(): lmbMssqlLexer
     {
         return new lmbMssqlLexer();
     }
@@ -130,7 +130,7 @@ class lmbMssqlConnection extends lmbDbBaseConnection
     $result = sqlsrv_query($sql, $this->getConnectionId());
     if (lmbEnv::get('LIMB_APP_MODE') === "devel")
     {
-      error_log($sql."\n\n\n", 3, LIMB_VAR_DIR.'/log/query.log');
+      error_log($sql."\n\n\n", 3, lmbEnv::get('LIMB_VAR_DIR').'/log/query.log');
       //Profiler :: instance()->stopIncrementCheckpoint("sql_time");
     }
     if($result === false)

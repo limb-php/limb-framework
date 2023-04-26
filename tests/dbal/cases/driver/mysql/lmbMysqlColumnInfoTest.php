@@ -11,6 +11,7 @@ namespace tests\dbal\cases\driver\mysql;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverColumnInfoTestBase;
 
+require_once(dirname(__FILE__) . '/../../.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlColumnInfoTest extends DriverColumnInfoTestBase
@@ -18,8 +19,8 @@ class lmbMysqlColumnInfoTest extends DriverColumnInfoTestBase
 
   function setUp():void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    //DriverMysqlSetup($this->connection->getConnectionId());
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+    DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

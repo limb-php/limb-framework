@@ -18,4 +18,4 @@ taskman_propset('TEMPLATE_DIR',$project_dir.'/template');
 
 taskman_run();
 
-lmbFs::rm(LIMB_VAR_DIR);
+lmbFs::rm(lmbEnv::get('LIMB_VAR_DIR'));

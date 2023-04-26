@@ -16,7 +16,8 @@ require_once ('.setup.php');
 
 class ExceptionalDbConfStub extends lmbConf
 {
-  function __construct(){
+  function __construct()
+  {
 
   }
 
@@ -42,7 +43,7 @@ class lmbDbToolsTest extends TestCase
       'dsn' => 'mysql://root:test@localhost/hello_from_foo?charset=cp1251',
       'another_dsn' => 'sqlite://kraynopp:pasha@ksu/kadrs?charset=utf8'
     );
-    lmbToolkit :: instance()->setConf('db', new lmbSet($this->config));
+    lmbToolkit::instance()->setConf('db', new lmbSet($this->config));
     $this->tools->setDefaultDbConnection($this->tools->createDbConnection(new lmbDbDSN($this->config['dsn'])));
   }
   

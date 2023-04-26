@@ -87,7 +87,7 @@ class lmbInsertOnDuplicateUpdateQuery extends lmbCriteriaQuery
    */
   static function isSupportedByDbConnection($connection)
   {
-    $supported_types = array('mysql', 'mysqli');
+    $supported_types = array('mysql');
     return in_array($connection->getType(), $supported_types);
   }
 

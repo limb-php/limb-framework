@@ -38,7 +38,7 @@ class lmbOciConnection extends lmbDbBaseConnection
         return $this->extension = new lmbOciExtension($this);
     }
 
-    function getLexer()
+    function getLexer(): lmbOciLexer
     {
         return new lmbOciLexer();
     }

@@ -16,6 +16,7 @@ use limb\dbal\src\drivers\mysql\lmbMysqlStatement;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverConnectionTestBase;
 
+require_once(dirname(__FILE__) . '/../../.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlConnectionTest extends DriverConnectionTestBase
@@ -27,7 +28,7 @@ class lmbMysqlConnectionTest extends DriverConnectionTestBase
 
   function lmbMysqlConnectionTest()
   {
-    parent :: DriverConnectionTestBase(
+    parent::DriverConnectionTestBase(
         lmbMysqlQueryStatement::class,
         lmbMysqlInsertStatement::class,
         lmbMysqlManipulationStatement::class,

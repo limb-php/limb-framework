@@ -14,6 +14,8 @@ use limb\dbal\src\lmbSimpleDb;
 use limb\dbal\src\dump\lmbSQLDumpLoader;
 use limb\toolkit\src\lmbToolkit;
 
+require_once(dirname(__FILE__) . '/../.setup.php');
+
 abstract class lmbSQLDumpLoaderTestCase extends TestCase
 {
   var $db;
@@ -100,7 +102,7 @@ EOD;
 insert into foo (id, annotation, content) values (1, 'whatever;', 'whatever;');
 EOD;
 
-    $second_file = LIMB_VAR_DIR . '/sql_dump_loader.new';
+    $second_file = lmbEnv::get('LIMB_VAR_DIR') . '/sql_dump_loader.new';
     $this->_writeDump($new_sql, $second_file);
 
     $loader->loadFile($second_file);

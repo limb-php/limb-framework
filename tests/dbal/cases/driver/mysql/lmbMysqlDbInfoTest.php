@@ -11,13 +11,14 @@ namespace tests\dbal\cases\driver\mysql;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverDatabaseInfoTestBase;
 
+require_once(dirname(__FILE__) . '/../../.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlDbInfoTest extends DriverDatabaseInfoTestBase
 {
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     //DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }

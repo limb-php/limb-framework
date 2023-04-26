@@ -10,6 +10,8 @@ namespace tests\dbal\cases\nondriver;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 
+use limb\dbal\src\drivers\lmbDbBaseLexer;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\dbal\src\exception\lmbDbException;
 use limb\dbal\src\lmbSimpleDb;
 use limb\dbal\src\lmbTableGateway;
@@ -31,9 +33,11 @@ class lmbDBALTest extends TestCase
 
   function setUp(): void
   {
-    $this->toolkit = lmbToolkit::save();
-    $this->dsn = $this->toolkit->getDefaultDbDSN();
-    $this->conn = $this->createMock(lmbDbConnectionInterface::class);
+      $this->toolkit = lmbToolkit::save();
+      $this->dsn = $this->toolkit->getDefaultDbDSN();
+      $this->conn = $this->createMock(lmbDbConnectionInterface::class);
+      $lexer = $this->createStub(lmbDbBaseLexer::class);
+      $this->conn->method('getLexer')->willReturn($lexer);
   }
 
   function tearDown(): void
@@ -61,13 +65,15 @@ class lmbDBALTest extends TestCase
 
   function testNewStatement()
   {
+      $stmt = $this->createStub(lmbDbStatementInterface::class);
+
     $this->toolkit->setDefaultDbConnection($this->conn);
     $this->conn
         ->expects($this->once())
         ->method('newStatement')
         ->with($sql = 'SELECT 1=1')
-        ->willReturn('whatever', array($sql));
-    $this->assertEquals('whatever', lmbDBAL::newStatement($sql));
+        ->willReturn($stmt);
+    $this->assertEquals($stmt, lmbDBAL::newStatement($sql));
   }
 
   function testExecute()
@@ -96,7 +102,7 @@ class lmbDBALTest extends TestCase
         ->expects($this->once())
         ->method('newStatement')
         ->with($sql = 'SELECT 1=1')
-        ->willReturn($stmt, array($sql));
+        ->willReturn($stmt);
 
     $stmt
         ->expects($this->once())
@@ -115,7 +121,7 @@ class lmbDBALTest extends TestCase
         ->expects($this->once())
         ->method('newStatement')
         ->with($sql = 'SELECT 1=1')
-        ->willReturn($stmt, array($sql));
+        ->willReturn($stmt);
 
     $stmt
         ->expects($this->once())

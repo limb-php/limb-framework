@@ -35,7 +35,7 @@ class lmbMysqlConnection extends lmbDbBaseConnection
         return $this->extension = new lmbMysqlExtension($this);
     }
 
-    function getLexer()
+    function getLexer(): lmbMysqlLexer
     {
         return new lmbMysqlLexer();
     }

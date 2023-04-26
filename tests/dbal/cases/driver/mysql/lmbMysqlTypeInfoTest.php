@@ -13,6 +13,7 @@ use limb\dbal\src\drivers\mysql\lmbMysqlStatement;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverTypeInfoTestBase;
 
+require_once(dirname(__FILE__) . '/../../.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlTypeInfoTest extends DriverTypeInfoTestBase
@@ -20,12 +21,12 @@ class lmbMysqlTypeInfoTest extends DriverTypeInfoTestBase
 
   function lmbMysqlTypeInfoTest()
   {
-    parent :: DriverTypeInfoTestBase(lmbMysqlStatement::class, lmbMysqlRecord::class);
+    parent::DriverTypeInfoTestBase(lmbMysqlStatement::class, lmbMysqlRecord::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();
     parent::setUp();
   }

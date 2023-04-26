@@ -11,6 +11,7 @@ namespace limb\dbal\src;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\dbal\src\drivers\lmbDbRecordInterface;
 use limb\dbal\src\drivers\lmbDbRecordSetInterface;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\dbal\src\query\lmbSelectQuery;
 use limb\dbal\src\query\lmbUpdateQuery;
 use limb\dbal\src\query\lmbDeleteQuery;
@@ -62,7 +63,7 @@ class lmbDBAL
   /**
    * @param string $sql
    * @param lmbDbConnectionInterface|null $conn
-   * @return lmbDbQueryStatementInterface
+   * @return lmbDbStatementInterface
    */
   static function newStatement($sql, $conn = null)
   {
@@ -88,7 +89,7 @@ class lmbDBAL
    * @param lmbDbConnectionInterface|null $conn
    * @return lmbTableGateway
    */
-  static function table($table, $conn = null)
+  static function table($table, $conn = null): lmbTableGateway
   {
     return lmbToolkit::instance()->createTableGateway($table, $conn);
   }
@@ -98,7 +99,7 @@ class lmbDBAL
    * @param lmbDbConnectionInterface|null $conn
    * @return lmbSelectQuery
    */
-  static function selectQuery($table, $conn = null)
+  static function selectQuery($table, $conn = null): lmbSelectQuery
   {
     return new lmbSelectQuery($table, $conn);
   }
@@ -108,7 +109,7 @@ class lmbDBAL
    * @param lmbDbConnectionInterface|null $conn
    * @return lmbInsertQuery
    */
-  static function insertQuery($table, $conn = null)
+  static function insertQuery($table, $conn = null): lmbInsertQuery
   {
     return new lmbInsertQuery($table, $conn);
   }
@@ -138,7 +139,7 @@ class lmbDBAL
    * @param lmbDbConnectionInterface|null $conn
    * @return lmbUpdateQuery
    */
-  static function updateQuery($table, $conn = null)
+  static function updateQuery($table, $conn = null): lmbUpdateQuery
   {
     return new lmbUpdateQuery($table, $conn);
   }
@@ -148,7 +149,7 @@ class lmbDBAL
    * @param lmbDbConnectionInterface|null $conn
    * @return lmbDeleteQuery
    */
-  static function deleteQuery($table, $conn = null)
+  static function deleteQuery($table, $conn = null): lmbDeleteQuery
   {
     return new lmbDeleteQuery($table, $conn);
   }

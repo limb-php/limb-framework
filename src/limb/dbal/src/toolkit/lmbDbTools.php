@@ -62,7 +62,7 @@ class lmbDbTools extends lmbAbstractTools
     return $this->getDbDSNByName('dsn');
   }
 
-  function isDefaultDbDSNAvailable()
+  function isDefaultDbDSNAvailable(): bool
   {
     try
     {
@@ -84,11 +84,11 @@ class lmbDbTools extends lmbAbstractTools
     return md5($dsn->toString());
   }
 
-  static function castToDsnObject($dsn)
+  static function castToDsnObject($dsn): lmbDbDSN
   {
-    if(is_object($dsn) && ($dsn instanceof lmbDbDSN))
+    if($dsn instanceof lmbDbDSN)
       return $dsn;
-    if(is_object($dsn) && ($dsn instanceof lmbSet))
+    if($dsn instanceof lmbSet)
       return new lmbDbDSN($dsn->export());
     return new lmbDbDSN($dsn);
   }
@@ -137,7 +137,7 @@ class lmbDbTools extends lmbAbstractTools
     return $this->dsnes_available[$this->dsnes_names[$name]];
   }
 
-  function getDbDSN($env)
+  function getDbDSN($env): lmbDbDSN
   {
     $conf = $this->toolkit->getConf('db');
     $array = $conf->get($env);
@@ -148,7 +148,7 @@ class lmbDbTools extends lmbAbstractTools
     return new lmbDbDSN($array['dsn']);
   }
 
-  function getDbConnectionByDsn($dsn)
+  function getDbConnectionByDsn($dsn): lmbDbConnectionInterface
   {
     $dsn_hash = $this->_getDbDsnHash($dsn);
 
@@ -172,7 +172,7 @@ class lmbDbTools extends lmbAbstractTools
     $this->setDbConnectionByDsn($dsn, $conn);
   }
 
-  function getDbConnectionByName($name)
+  function getDbConnectionByName($name): lmbDbConnectionInterface
   {
     if(!is_object($dsn = $this->toolkit->getDbDSNByName($name)))
       throw new lmbException($name . ' database DSN is not valid');
@@ -185,7 +185,7 @@ class lmbDbTools extends lmbAbstractTools
     $this->setDbConnectionByName('dsn', $conn);
   }
 
-  function getDefaultDbConnection()
+  function getDefaultDbConnection(): lmbDbConnectionInterface
   {
     return $this->getDbConnectionByName('dsn');
   }

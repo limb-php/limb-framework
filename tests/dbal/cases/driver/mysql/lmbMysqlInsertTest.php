@@ -19,13 +19,13 @@ class lmbMysqlInsertTest extends DriverInsertTestBase
 
   function lmbMysqliInsertTest()
   {
-    parent :: DriverInsertTestBase(lmbMysqlInsertStatement::class);
+    parent::DriverInsertTestBase(lmbMysqlInsertStatement::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    //DriverMysqlSetup($this->connection->getConnectionId());
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+    DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

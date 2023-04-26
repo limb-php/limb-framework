@@ -36,7 +36,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         return $this->extension = new lmbPgsqlExtension($this);
     }
 
-    function getLexer()
+    function getLexer(): lmbPgsqlLexer
     {
         return new lmbPgsqlLexer();
     }

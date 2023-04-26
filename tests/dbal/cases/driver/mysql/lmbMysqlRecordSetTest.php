@@ -12,19 +12,20 @@ use limb\dbal\src\drivers\mysql\lmbMysqlRecord;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverRecordSetTestBase;
 
+require_once(dirname(__FILE__) . '/../../.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlRecordSetTest extends DriverRecordSetTestBase
 {
   function lmbMysqliRecordSetTest()
   {
-    parent :: DriverRecordSetTestBase(lmbMysqlRecord::class);
+    parent::DriverRecordSetTestBase(lmbMysqlRecord::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    //DriverMysqlSetup($this->connection->getConnectionId());
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+    DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

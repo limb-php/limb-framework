@@ -114,10 +114,10 @@ class lmbChain implements lmbChainInterface
    * Implements lmbInterceptingFilter interface.
    * Filter chain can be an intercepting filter.
    *
-   * @param object Filter chain instance
+   * @param object $filter_chain Filter chain instance
    * @return void
    */
-  function run($filter_chain)
+  function run($filter_chain, ...$params)
   {
     $this->process();
     $filter_chain->next();

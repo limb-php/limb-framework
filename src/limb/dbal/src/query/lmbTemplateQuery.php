@@ -9,6 +9,7 @@
 namespace limb\dbal\src\query;
 
 use limb\core\src\exception\lmbException;
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbString;
 
@@ -22,7 +23,7 @@ abstract class lmbTemplateQuery
 {
   protected $_template_sql;
   protected $_no_hints_sql;
-  protected $_conn;
+  protected $_conn = null;
   protected $_hints = array();
   protected $_lexer;
 
@@ -36,7 +37,7 @@ abstract class lmbTemplateQuery
     $this->_hints[$hint] = $hint;
   }
 
-  function getConnection()
+  function getConnection(): lmbDbConnectionInterface
   {
       return $this->_conn ?? $this->_conn = lmbToolkit::instance()->getDefaultDbConnection();
   }
@@ -48,7 +49,7 @@ abstract class lmbTemplateQuery
       return $this;
   }
 
-  protected function getLexer()
+  protected function getLexer(): lmbQueryLexerInterface
   {
     return $this->_lexer ?? $this->_lexer = $this->getConnection()->getLexer();
   }

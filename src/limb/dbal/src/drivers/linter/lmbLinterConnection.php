@@ -43,7 +43,7 @@ class lmbLinterConnection extends lmbDbBaseConnection
         return $this->extension = new lmbLinterExtension($this);
     }
 
-    function getLexer()
+    function getLexer(): lmbLinterLexer
     {
         return new lmbLinterLexer();
     }

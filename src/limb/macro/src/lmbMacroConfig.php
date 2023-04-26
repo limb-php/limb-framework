@@ -9,6 +9,7 @@
 namespace limb\macro\src;
 
 use limb\core\src\exception\lmbException;
+use limb\core\src\lmbEnv;
 
 /**
  * class lmbMacroConfig.
@@ -36,7 +37,7 @@ class lmbMacroConfig
       $this->$key = $val;
 
     if(!$this->cache_dir)
-      $this->cache_dir = LIMB_VAR_DIR . '/compiled';
+      $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/compiled';
 
     if(!$this->tpl_scan_dirs)
       $this->tpl_scan_dirs = array('templates');

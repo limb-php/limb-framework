@@ -81,9 +81,11 @@ class lmbTableGatewayTest extends TestCase
       return;
     }
 
-    $id = $this->db_table_test->insertOnDuplicateUpdate(array('title' =>  'wow',
-                                             'description' => 'wow!',
-                                             'junk!!!' => 'junk!!!'));
+    $id = $this->db_table_test->insertOnDuplicateUpdate(array(
+        'title' =>  'wow',
+        'description' => 'wow!',
+        'junk!!!' => 'junk!!!')
+    );
 
     $stmt = $this->conn->newStatement("SELECT * FROM test_db_table");
     $record = $stmt->getOneRecord();

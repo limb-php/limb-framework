@@ -9,6 +9,7 @@
 namespace limb\dbal\src\drivers;
 
 use limb\dbal\src\lmbDbDSN;
+use limb\dbal\src\query\lmbQueryLexerInterface;
 
 /**
  * class lmbBaseDbConnection.
@@ -26,7 +27,7 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
   function __construct($config, $dsn_string = null)
   {
     $this->config = $config;
-    if(is_object($config) && ($config instanceof lmbDbDSN))
+    if($config instanceof lmbDbDSN)
       $this->dsn_string = $config->toString();
     else
       $this->dsn_string = $dsn_string;
@@ -44,7 +45,7 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
 
   abstract function getExtension();
 
-  abstract function getLexer();
+  abstract function getLexer(): lmbQueryLexerInterface;
 
   function getDsnString()
   {

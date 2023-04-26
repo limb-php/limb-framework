@@ -10,6 +10,7 @@ namespace tests\dbal\cases\nondriver;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\drivers\lmbAutoTransactionConnection;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
@@ -149,11 +150,13 @@ class lmbAutoTransactionConnectionTest extends TestCase
 
   function _assertBeginForStatement($sql)
   {
+      $stmt = $this->createStub(lmbDbStatementInterface::class);
+
     $this->wrapped
         ->expects($this->once())
         ->method('newStatement')
         ->with($sql)
-        ->willReturn($stmt = 'whatever');
+        ->willReturn($stmt);
     $this->wrapped
         ->expects($this->once())
         ->method('beginTransaction');
