@@ -162,7 +162,7 @@ class lmbSingleByteCharsetDriverTest extends TestCase
       $driver = new lmbSingleByteCharsetDriver();
 
       $this->assertEquals("dogs", $driver->_preg_replace_callback("/(cat)(.)/",
-                                                         create_function('$m','return "dog".$m[2];'),
+                                                         function($m) { return "dog".$m[2]; },
                                                          "cats"));
   }
 
