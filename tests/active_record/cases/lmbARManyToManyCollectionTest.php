@@ -422,9 +422,9 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
         $json_str = json_encode($collection);
         $json_arr = json_decode($json_str, true);
 
-        $this->assertEquals('C-Group', $json_arr[0]['title']);
+        $this->assertEquals('A-Group', $json_arr[0]['title']);
         $this->assertEquals('B-Group', $json_arr[1]['title']);
-        $this->assertEquals('A-Group', $json_arr[2]['title']);
+        $this->assertEquals('C-Group', $json_arr[2]['title']);
     }
 
   function testFindWithExistingOwner()
