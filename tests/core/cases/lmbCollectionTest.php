@@ -41,11 +41,11 @@ class lmbCollectionTest extends TestCase
     $this->assertTrue($iterator->valid());
 
     $dataspace1 = $iterator->current();
-    $this->assertEquals($dataspace1->export(), array('x' => 1,'y' => 2));
+    $this->assertEquals(array('x' => 1,'y' => 2), $dataspace1->export());
 
     $iterator->next();
     $dataspace2 = $iterator->current();
-    $this->assertEquals($dataspace2->export(), array('x' => 3,'y' => 4));
+    $this->assertEquals(array('x' => 3,'y' => 4), $dataspace2->export());
   }
 
   function testIterateOver()
@@ -58,7 +58,7 @@ class lmbCollectionTest extends TestCase
     $iterator->next();
     $this->assertFalse($iterator->valid());
     $dataspace = $iterator->current();
-    $this->assertEquals($dataspace->export(), array());
+    $this->assertEquals(array(), $dataspace->export());
   }
 
   function testIterateWithForeach()
@@ -73,7 +73,7 @@ class lmbCollectionTest extends TestCase
     foreach($iterator as $record)
       $str .= $record->get('x');
 
-    $this->assertEquals($str, '123');
+    $this->assertEquals('123', $str);
   }
 
   function testWorksOkWithArrayOfSets()
@@ -88,7 +88,7 @@ class lmbCollectionTest extends TestCase
     foreach($iterator as $record)
       $str .= $record->get('x');
 
-    $this->assertEquals($str, '123');
+    $this->assertEquals('123', $str);
   }
 
   function testAdd()
@@ -141,9 +141,9 @@ class lmbCollectionTest extends TestCase
     $iterator = new lmbCollection($data);
     $iterator->sort(array('x' => 'DESC'));
     $arr = $iterator->getArray();
-    $this->assertEquals($arr[0]['x'], 'C');
-    $this->assertEquals($arr[1]['x'], 'B');
-    $this->assertEquals($arr[2]['x'], 'A');
+    $this->assertEquals('C', $arr[0]['x']);
+    $this->assertEquals('B', $arr[1]['x']);
+    $this->assertEquals('A', $arr[2]['x']);
   }
 
   function testSortWorksOkWithSetsToo()
@@ -155,16 +155,16 @@ class lmbCollectionTest extends TestCase
     $iterator = new lmbCollection(array($item1, $item2, $item3));
     $iterator->sort(array('x' => 'DESC'));
     $arr = $iterator->getArray();
-    $this->assertEquals($arr[0]->get('x'), 'C');
-    $this->assertEquals($arr[1]->get('x'), 'B');
-    $this->assertEquals($arr[2]->get('x'), 'A');
+    $this->assertEquals('C', $arr[0]->get('x'));
+    $this->assertEquals('B', $arr[1]->get('x'));
+    $this->assertEquals('A', $arr[2]->get('x'));
   }
 
   function testDontSortEmptyCollection()
   {
     $iterator = new lmbCollection();
     $iterator->sort(array('x' => 'DESC'));
-    $this->assertEquals($iterator->getArray(), array());
+    $this->assertEquals(array(), $iterator->getArray());
   }
 
   function testConcat()
@@ -178,7 +178,7 @@ class lmbCollectionTest extends TestCase
     $col2 = new lmbCollection(array($item3));
     $col3 = new lmbCollection(array($item4));
 
-    $this->assertEquals(lmbCollection :: concat($col1, $col2, $col3),
+    $this->assertEquals(lmbCollection::concat($col1, $col2, $col3),
                        new lmbCollection(array($item1, $item2, $item3, $item4)));
   }
 
@@ -190,15 +190,30 @@ class lmbCollectionTest extends TestCase
 
     $iterator = new lmbCollection($data);
 
-    $arr = lmbCollection :: toFlatArray($iterator, 'x');
+    $arr = lmbCollection::toFlatArray($iterator, 'x');
     $this->assertTrue(isset($arr['A']));
-    $this->assertEquals($arr['A'], array('x' => 'A'));
+    $this->assertEquals(array('x' => 'A'), $arr['A']);
 
     $this->assertTrue(isset($arr['B']));
-    $this->assertEquals($arr['B'], array('x' => 'B'));
+    $this->assertEquals(array('x' => 'B'), $arr['B']);
 
     $this->assertTrue(isset($arr['C']));
-    $this->assertEquals($arr['C'], array('x' => 'C'));
+    $this->assertEquals(array('x' => 'C'), $arr['C']);
   }
-}
 
+    function testCollectionToJson()
+    {
+        $item1 = new lmbSet(array('x' => 'C'));
+        $item2 = new lmbSet(array('x' => 'A'));
+        $item3 = new lmbSet(array('x' => 'B'));
+
+        $iterator = new lmbCollection(array($item1, $item2, $item3));
+
+        $json_str = json_encode($iterator);
+        $json_arr = json_decode($json_str, true);
+
+        $this->assertEquals('C', $json_arr[0]['x']);
+        $this->assertEquals('A', $json_arr[1]['x']);
+        $this->assertEquals('B', $json_arr[2]['x']);
+    }
+}

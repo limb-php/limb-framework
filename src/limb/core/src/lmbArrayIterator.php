@@ -77,8 +77,13 @@ class lmbArrayIterator extends \ArrayIterator implements lmbCollectionInterface
   {
     return $this->getArrayCopy();
   }
-  
-  function at($pos)
+
+    public function jsonSerialize(): array
+    {
+        return $this->getArray();
+    }
+
+    function at($pos)
   {
     try
     {

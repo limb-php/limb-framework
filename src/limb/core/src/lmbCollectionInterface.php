@@ -14,7 +14,7 @@ namespace limb\core\src;
  * @package core
  * @version $Id$
  */
-interface lmbCollectionInterface extends \Iterator, \Countable, \ArrayAccess
+interface lmbCollectionInterface extends \Iterator, \Countable, \ArrayAccess, \JsonSerializable
 {
   function sort($params);
   function getArray();

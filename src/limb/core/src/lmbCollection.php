@@ -239,4 +239,9 @@ class lmbCollection implements lmbCollectionInterface
 
   function offsetUnset($offset){}
   //end
+
+    public function jsonSerialize(): array
+    {
+        return $this->dataset;
+    }
 }

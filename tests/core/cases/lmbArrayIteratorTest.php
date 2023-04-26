@@ -121,4 +121,16 @@ class lmbArrayIteratorTest extends TestCase
 
       $this->assertEquals(['c', 'd'], $result);
   }
+
+    function testIteratorToJson()
+    {
+        $iterator = new lmbArrayIterator(array("C", "A", "B"));
+
+        $json_str = json_encode($iterator);
+        $json_arr = json_decode($json_str, true);
+
+        $this->assertEquals('C', $json_arr[0]);
+        $this->assertEquals('A', $json_arr[1]);
+        $this->assertEquals('B', $json_arr[2]);
+    }
 }

@@ -62,6 +62,11 @@ class lmbCollectionDecorator implements lmbCollectionInterface
     return $result;
   }
 
+    public function jsonSerialize(): array
+    {
+        return $this->getArray();
+    }
+
   function at($pos)
   {
     return $this->iterator->at($pos);
