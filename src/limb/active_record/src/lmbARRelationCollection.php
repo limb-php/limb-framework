@@ -258,6 +258,11 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
     return $this->getArray();
   }
 
+    public function jsonSerialize(): array
+    {
+        return $this->getArray();
+    }
+
   function getIds()
   {
     $result = array();

@@ -398,10 +398,34 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $collection->add($group3);
 
     $collection->sort(array('title' => 'DESC'));
-    $this->assertEquals($collection->at(0)->getTitle(), 'C-Group');
-    $this->assertEquals($collection->at(1)->getTitle(), 'B-Group');
-    $this->assertEquals($collection->at(2)->getTitle(), 'A-Group');
+    $this->assertEquals('C-Group', $collection->at(0)->getTitle());
+    $this->assertEquals('B-Group', $collection->at(1)->getTitle());
+    $this->assertEquals('A-Group', $collection->at(2)->getTitle());
   }
+
+    function testJson()
+    {
+        $group1 = new GroupForTestObject();
+        $group1->setTitle('A-Group');
+        $group2 = new GroupForTestObject();
+        $group2->setTitle('B-Group');
+        $group3 = new GroupForTestObject();
+        $group3->setTitle('C-Group');
+
+        $user = $this->_initUser();
+
+        $collection = new lmbARManyToManyCollection('groups', $user);
+        $collection->add($group1);
+        $collection->add($group2);
+        $collection->add($group3);
+
+        $json_str = json_encode($collection);
+        $json_arr = json_decode($json_str, true);
+
+        $this->assertEquals('C-Group', $json_arr[0]['title']);
+        $this->assertEquals('B-Group', $json_arr[1]['title']);
+        $this->assertEquals('A-Group', $json_arr[2]['title']);
+    }
 
   function testFindWithExistingOwner()
   {
@@ -412,7 +436,7 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $user = $this->_createUserAndSave(array($group1, $group2, $group3));
 
     $groups = $user->getGroups()->find(lmbActiveRecord::getDefaultConnection()->quoteIdentifier("group_id") . "=" . $group1->getId());
-    $this->assertEquals($groups->count(), 1);
+    $this->assertEquals(1, $groups->count());
     $this->assertEquals($groups->at(0)->getTitle(), $group1->getTitle());
   }
 
@@ -530,6 +554,7 @@ class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
     $this->assertEquals(count($arr), 2);
   }
 
+  /* */
   protected function _initUser($groups = array())
   {
     $user = new UserForTestObject();
