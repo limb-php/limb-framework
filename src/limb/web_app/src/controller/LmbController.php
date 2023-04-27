@@ -186,6 +186,8 @@ class LmbController
           return false;
       }
 
+      $response = null;
+
       $template_path = $this->findTemplateForAction($this->getCurrentAction());
       if($template_path)
           $this->setTemplate($template_path); // Set View by default. Can be overridden in action method

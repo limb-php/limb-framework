@@ -24,7 +24,7 @@ class lmbProfileToolsTest extends TestCase
   {
     lmbToolkit::save();
     lmbToolkit::merge(new lmbProfileTools());
-    $this->toolkit = lmbToolkit :: instance();
+    $this->toolkit = lmbToolkit::instance();
   }
 
   function tearDown(): void
@@ -89,7 +89,7 @@ class lmbProfileToolsTest extends TestCase
     $this->toolkit->setProfilePoint('first', $first = microtime(true));
     $this->toolkit->setProfilePoint('second', $second = $first + 100);
     $this->toolkit->setProfilePoint('third', $third = $second + 200);
-    $this->assertEquals($this->toolkit->getProfileTimeDiff('__start__'), 0);
+    $this->assertEquals(0, $this->toolkit->getProfileTimeDiff('__start__'));
     $this->assertEquals($this->toolkit->getProfileTimeDiff('first'), $first - $this->toolkit->getProfilePoint('__start__'));
     $this->assertEquals($this->toolkit->getProfileTimeDiff('second'), $second - $first);
     // order of indexes doesn't matter
@@ -140,7 +140,7 @@ class lmbProfileToolsTest extends TestCase
     $this->toolkit->setProfilePoint('first', $first = microtime(true));
     $this->toolkit->setProfilePoint('second', $second = $first + 100);
     $this->toolkit->setProfilePoint('third', $third = $second + 200);
-    $this->assertEquals($this->toolkit->getProfileDiffViews(), array());
+    $this->assertEquals(array(), $this->toolkit->getProfileDiffViews());
     $this->toolkit->addProfileDiffView('first', 'third');
     $this->toolkit->addProfileDiffView('first', '__end__', 'from first to end');
     $views = array(

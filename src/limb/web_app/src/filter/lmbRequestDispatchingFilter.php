@@ -57,9 +57,7 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
 
       $this->toolkit->setDispatchedController($controller);
 
-      $response = $filter_chain->next($request, $response);
-
-      return $response;
+      return $filter_chain->next($request, $response);
   }
 
   protected function _createController($dispatched_params)

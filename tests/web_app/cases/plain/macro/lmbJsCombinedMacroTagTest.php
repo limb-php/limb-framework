@@ -22,7 +22,7 @@ class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
     lmbFs::safeWrite($root . 'js/main.js', 'content main.js');
     lmbFs::safeWrite($root . 'js/blog.js', 'is blog.js');
 
-    lmbFs :: rm($root . '/media/var');
+    lmbFs::rm($root . '/media/var');
 
     $template = '
     {{js:combined dir="media/var"}}
@@ -33,7 +33,8 @@ class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
 
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
     $content = trim($page->render());
-    $file = array_shift(lmbFs::ls($root.'/media/var/'));
+    $ls = lmbFs::ls($root.'/media/var/');
+    $file = array_shift($ls);
 
     $this->assertEquals('<script type="text/javascript" src="'.$this->toolkit->addVersionToUrl('media/var/'.$file).'" ></script>', $content);
 
@@ -42,7 +43,7 @@ class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
       "content main.js\n".
       "/* include blog.js */\n".
       "is blog.js";
-    $this->assertEquals(file_get_contents($root . 'media/var/'.$file), $js_content);
+    $this->assertEquals(file_get_contents($root . '/media/var/'.$file), $js_content);
   }
 
   function testFileNameNotDependOrderFiles()
@@ -59,8 +60,9 @@ class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
       {{js_once src="js/blog.js" }}
     {{/js:combined}}';
 
-    $this->_createMacroTemplate($template, 'tpl.html')->render(); 
-    $file_name_one = array_shift(lmbFs::ls($root.'/media/var/'));
+    $this->_createMacroTemplate($template, 'tpl.html')->render();
+    $ls = lmbFs::ls($root.'/media/var/');
+    $file_name_one = array_shift($ls);
     
     $template = '
     {{js:combined dir="media/var"}}
@@ -68,8 +70,9 @@ class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
       {{js_once src="js/main.js" }}
     {{/js:combined}}';
     
-    $this->_createMacroTemplate($template, 'tpl.html')->render(); 
-    $file_name_two = array_shift(lmbFs :: ls($root.'/media/var/'));
+    $this->_createMacroTemplate($template, 'tpl.html')->render();
+    $ls = lmbFs::ls($root.'/media/var/');
+    $file_name_two = array_shift($ls);
 
     $this->assertEquals($file_name_one, $file_name_two);
   }
@@ -86,20 +89,21 @@ class lmbJsCombinedMacroTagTest extends lmbMacroTestCase
     try
     {
       $page->render();
-      $this->assertTrue(false);
+      $this->fail();
     } 
     catch(lmbException $e)
     {
       $this->assertTrue(true);
     }
     
-    lmbFs :: safeWrite($root . '/js/blog.js', 'function blog() {};');
+    lmbFs::safeWrite($root . '/js/blog.js', 'function blog() {};');
     
     $template = '{{js_combined dir="media"}}{{js_once src="js/main.js" safe="true" }}{{js_once src="js/blog.js" }}{{/js_combined}}';
     $page = $this->_createMacroTemplate($template, 'tpl.html'); 
     $page->render();
-    
-    $file = array_shift(lmbFs::ls($root.'/media/'));
+
+    $ls = lmbFs::ls($root.'/media/');
+    $file = array_shift($ls);
 
     $js_content = "/* include main.js - NOT FOUND */\n\n/* include blog.js */\nfunction blog() {};";
     $this->assertEquals(file_get_contents($root . '/media/'.$file), $js_content);

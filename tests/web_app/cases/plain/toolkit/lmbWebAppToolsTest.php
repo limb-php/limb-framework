@@ -52,7 +52,7 @@ class lmbWebAppToolsTest extends TestCase
                                 'defaults' => array('action' => 'display')));
     $routes = new lmbRoutes($config_array);
 
-    $toolkit = lmbToolkit :: merge(new lmbWebAppTools());
+    $toolkit = lmbToolkit::merge(new lmbWebAppTools());
     $toolkit->setRoutes($routes);
     $toolkit->setDispatchedController(new lmbController());
 
@@ -63,7 +63,7 @@ class lmbWebAppToolsTest extends TestCase
 
   function testIsWebAppDebugEnabled()
   {
-    $toolkit = lmbToolkit :: merge(new lmbWebAppTools());
+    $toolkit = lmbToolkit::merge(new lmbWebAppTools());
 
     $this->assertFalse($toolkit->isWebAppDebugEnabled());
 
@@ -113,10 +113,10 @@ class lmbWebAppToolsTest extends TestCase
     try 
     {
       $url = $toolkit->addVersionToUrl('js/main.js', true);
-      $this->assertEquals($url, 'js/main.js?00');
+      $this->assertEquals('js/main.js?00', $url);
       $this->assertTrue(true);
     } catch (lmbException $e)  {
-      $this->assertTrue(false);
+      $this->fail();
     }
 
     lmbEnv::set('LIMB_DOCUMENT_ROOT', lmbEnv::get('LIMB_VAR_DIR').'/www');
@@ -128,7 +128,7 @@ class lmbWebAppToolsTest extends TestCase
       $this->assertEquals('js/main.js?00', $url);
       $this->assertTrue(true);
     } catch (lmbException $e)  {
-      $this->assertTrue(false);
+      $this->fail();
     }
   }
 }

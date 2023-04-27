@@ -9,6 +9,7 @@
 namespace tests\web_app\cases\plain\filter;
 
 use limb\web_app\src\controller\NotFoundController;
+use limb\web_app\src\exception\lmbControllerNotFoundException;
 use PHPUnit\Framework\TestCase;
 use limb\filter_chain\src\lmbFilterChain;
 use limb\web_app\src\filter\lmbRequestDispatchingFilter;
@@ -16,7 +17,6 @@ use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\toolkit\src\lmbMockToolsWrapper;
 use limb\web_app\src\toolkit\lmbWebAppTools;
 use limb\web_app\src\controller\LmbController;
-use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\toolkit\src\lmbToolkit;
 
@@ -64,7 +64,7 @@ class lmbRequestDispatchingFilterTestTools extends lmbAbstractTools
   function createController($controller_name)
   {
     if($controller_name == $this->exception_controller_name)
-      throw new lmbException('Controller not created!');
+      throw new lmbControllerNotFoundException('Controller not created!');
     else
       return $this->controller;
   }
@@ -138,8 +138,8 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
     $this->mock_tools
         ->method('createController')
-        ->with(NotFoundController::class)
-        ->willReturn($not_found_controller, array('404'));
+        ->with($controller_name)
+        ->willReturn($not_found_controller); // , array('404')
 
     $this->filter->setDefaultControllerName(NotFoundController::class);
     $this->filter->run($this->chain);
