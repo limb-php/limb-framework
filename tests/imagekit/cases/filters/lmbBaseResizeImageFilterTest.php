@@ -21,8 +21,8 @@ abstract class lmbBaseResizeImageFilterTest extends lmbImageKitTestCase
     $filter->apply($cont);
     $cont->save($this->_getOutputImage());
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 50);
-    $this->assertEquals($height, 70);
+    $this->assertEquals(50, $width);
+    $this->assertEquals(70, $height);
   }
 
   function testPreserveAspectRatio()
@@ -31,12 +31,12 @@ abstract class lmbBaseResizeImageFilterTest extends lmbImageKitTestCase
     $filter = new $class_name(array());
 
     list($w, $h) = $filter->calcSize(100, 60, 20, 30, true);
-    $this->assertEquals($w, 20);
-    $this->assertEquals($h, 12);
+    $this->assertEquals(20, $w);
+    $this->assertEquals(12, $h);
 
     list($w, $h) = $filter->calcSize(60, 100, 20, 30, true);
-    $this->assertEquals($w, 18);
-    $this->assertEquals($h, 30);
+    $this->assertEquals(18, $w);
+    $this->assertEquals(30, $h);
   }
 
   function testSaveMinSize()
@@ -45,24 +45,24 @@ abstract class lmbBaseResizeImageFilterTest extends lmbImageKitTestCase
     $filter = new $class_name(array());
 
     list($w, $h) = $filter->calcSize(100, 60, 20, 30, true, true);
-    $this->assertEquals($w, 20);
-    $this->assertEquals($h, 12);
+    $this->assertEquals(20, $w);
+    $this->assertEquals(12, $h);
 
     list($w, $h) = $filter->calcSize(60, 100, 20, 30, true, true);
-    $this->assertEquals($w, 18);
-    $this->assertEquals($h, 30);
+    $this->assertEquals(18, $w);
+    $this->assertEquals(30, $h);
 
     list($w, $h) = $filter->calcSize(10, 20, 20, 30, true, true);
-    $this->assertEquals($w, 10);
-    $this->assertEquals($h, 20);
+    $this->assertEquals(10, $w);
+    $this->assertEquals(20, $h);
 
     list($w, $h) = $filter->calcSize(10, 20, 20, 30, true);
-    $this->assertEquals($w, 15);
-    $this->assertEquals($h, 30);
+    $this->assertEquals(15, $w);
+    $this->assertEquals(30, $h);
 
     list($w, $h) = $filter->calcSize(10, 20, 20, 30, false, true);
-    $this->assertEquals($w, 10);
-    $this->assertEquals($h, 20);
+    $this->assertEquals(10, $w);
+    $this->assertEquals(20, $h);
   }
 
   function testParams()
@@ -70,8 +70,8 @@ abstract class lmbBaseResizeImageFilterTest extends lmbImageKitTestCase
     $class_name = $this->_getFilterClass('lmb%ResizeImageFilter');
     $filter = new $class_name(array('width' => 90, 'height' => 100, 'preserve_aspect_ratio' => false, 'save_min_size' => true));
 
-    $this->assertEquals($filter->getWidth(), 90);
-    $this->assertEquals($filter->getHeight(), 100);
+    $this->assertEquals(90, $filter->getWidth());
+    $this->assertEquals(100, $filter->getHeight());
     $this->assertFalse($filter->getPreserveAspectRatio());
     $this->assertTrue($filter->getSaveMinSize());
   }

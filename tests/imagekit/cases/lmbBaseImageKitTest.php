@@ -41,7 +41,6 @@ abstract class lmbBaseImageKitTest extends lmbImageKitTestCase
     lmbImageKit::load($this->_getInputImage(),
                       '',
                       $this->driver,
-                      '',
                       array('add_filters_scan_dirs' => dirname(__FILE__).'/../fixture/filters')
     )->test();
   }

@@ -32,10 +32,10 @@ abstract class lmbBaseWaterMarkImageFilterTest extends lmbImageKitTestCase
     $class_name = $this->_getFilterClass('lmb%WaterMarkImageFilter');
     $filter = new $class_name(array('water_mark' => 'input.jpg', 'x' => 90, 'y' => 100, 'opacity' => 20, 'xcenter' => true, 'ycenter' => true));
 
-    $this->assertEquals($filter->getWaterMark(), 'input.jpg');
-    $this->assertEquals($filter->getX(), 90);
-    $this->assertEquals($filter->getY(), 100);
-    $this->assertEquals($filter->getOpacity(), 20);
+    $this->assertEquals('input.jpg', $filter->getWaterMark());
+    $this->assertEquals(90, $filter->getX());
+    $this->assertEquals(100, $filter->getY());
+    $this->assertEquals(20, $filter->getOpacity());
     if(method_exists($filter, 'getXCenter'))
       $this->assertTrue($filter->getXCenter());
     if(method_exists($filter, 'getYCenter'))
@@ -48,31 +48,31 @@ abstract class lmbBaseWaterMarkImageFilterTest extends lmbImageKitTestCase
     $filter = new $class_name(array());
 
     $result = $filter->calcPosition(10, 100, 150, 250, false, false);
-    $this->assertEquals($result[0], 10);
-    $this->assertEquals($result[1], 100);
+    $this->assertEquals(10, $result[0]);
+    $this->assertEquals(100, $result[1]);
 
     $result = $filter->calcPosition(-10, 100, 150, 250, false, false);
-    $this->assertEquals($result[0], 140);
-    $this->assertEquals($result[1], 100);
+    $this->assertEquals(140, $result[0]);
+    $this->assertEquals(100, $result[1]);
 
     $result = $filter->calcPosition(10, -100, 150, 250, false, false);
-    $this->assertEquals($result[0], 10);
-    $this->assertEquals($result[1], 150);
+    $this->assertEquals(10, $result[0]);
+    $this->assertEquals(150, $result[1]);
 
     $result = $filter->calcPosition(-10, -100, 150, 250, false, false);
-    $this->assertEquals($result[0], 140);
-    $this->assertEquals($result[1], 150);
+    $this->assertEquals(140, $result[0]);
+    $this->assertEquals(150, $result[1]);
 
     $result = $filter->calcPosition(0, 0, 150, 250, 10, false);
-    $this->assertEquals($result[0], 70);
-    $this->assertEquals($result[1], 0);
+    $this->assertEquals(70, $result[0]);
+    $this->assertEquals(0, $result[1]);
 
     $result = $filter->calcPosition(0, 0, 150, 250, false, 10);
-    $this->assertEquals($result[0], 0);
-    $this->assertEquals($result[1], 120);
+    $this->assertEquals(0, $result[0]);
+    $this->assertEquals(120, $result[1]);
 
     $result = $filter->calcPosition(-5, 5, 150, 250, 20, 10);
-    $this->assertEquals($result[0], 60);
-    $this->assertEquals($result[1], 125);
+    $this->assertEquals(60, $result[0]);
+    $this->assertEquals(125, $result[1]);
   }
 }

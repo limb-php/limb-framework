@@ -13,4 +13,14 @@ use tests\imagekit\cases\lmbBaseImageKitTest;
 class lmbImImageKitTest extends lmbBaseImageKitTest
 {
   protected $driver = 'im';
+
+    function setUp(): void
+    {
+        if(!extension_loaded('imagick'))
+        {
+            $this->markTestSkipped("Imagick library tests are skipped since Imagick extension is disabled.");
+        }
+
+        parent::setUp();
+    }
 }

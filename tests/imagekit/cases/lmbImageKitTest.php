@@ -12,6 +12,8 @@ use PHPUnit\Framework\TestCase;
 use limb\imagekit\src\lmbImageKit;
 use limb\imagekit\src\gd\lmbGdImageConvertor;
 
+require_once('.setup.php');
+
 class lmbImageKitTest extends TestCase
 {
   function setUp() :void
@@ -24,6 +26,13 @@ class lmbImageKitTest extends TestCase
       if(!function_exists('imagerotate'))
         $this->markTestSkipped('imagerotate() function does not exist. Test skipped.');
   }
+
+    function tearDown(): void
+    {
+        @unlink($this->_getOutputImage());
+
+        parent::tearDown();
+    }
 
   function _getInputImage()
   {
@@ -67,12 +76,7 @@ class lmbImageKitTest extends TestCase
 
   function testPassingParamsToConvertor()
   {
-    lmbImageKit::load($this->_getInputImage(), '', 'gd', '', array('add_filters_scan_dirs' => dirname(__FILE__).'/../fixture/filters'))
+    lmbImageKit::load($this->_getInputImage(), '', 'gd', array('add_filters_scan_dirs' => dirname(__FILE__).'/../fixture/filters'))
       ->test();
-  }
-
-  function tearDown(): void
-  {
-    @unlink($this->_getOutputImage());
   }
 }

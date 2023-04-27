@@ -18,8 +18,8 @@ abstract class lmbBaseImageConvertorTest extends lmbImageKitTestCase
 
     $conv->save($this->_getOutputImage());
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 50);
-    $this->assertEquals($height, 70);
+    $this->assertEquals(50, $width);
+    $this->assertEquals(70, $height);
   }
 
   function testApplyByOverload()
@@ -30,8 +30,8 @@ abstract class lmbBaseImageConvertorTest extends lmbImageKitTestCase
 
     $conv->save($this->_getOutputImage());
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 50);
-    $this->assertEquals($height, 70);
+    $this->assertEquals(50, $width);
+    $this->assertEquals(70, $height);
   }
 
   function testApplyBatch()
@@ -46,8 +46,8 @@ abstract class lmbBaseImageConvertorTest extends lmbImageKitTestCase
 
     $conv->save($this->_getOutputImage());
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 30);
-    $this->assertEquals($height, 40);
+    $this->assertEquals(30, $width);
+    $this->assertEquals(40, $height);
   }
 
   function testFilterLocator()

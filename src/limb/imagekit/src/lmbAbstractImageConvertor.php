@@ -86,8 +86,8 @@ abstract class lmbAbstractImageConvertor
   {
     foreach($batch as $filter)
     {
-      list($name, $params) = each($filter);
-      $this->applyFilter($name, $params);
+      foreach($filter as $name => $params)
+        $this->applyFilter($name, $params);
     }
     return $this;
   }

@@ -25,8 +25,8 @@ abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
     $filter->apply($cont);
     $cont->save($this->_getOutputImage());
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 50);
-    $this->assertEquals($height, 70);
+    $this->assertEquals(50, $width);
+    $this->assertEquals(70, $height);
     $cont->load($this->_getOutputImage());
     $this->assertFalse($cont->isPallete());
   }
@@ -40,8 +40,8 @@ abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
     $filter->apply($cont);
     $cont->save($this->_getOutputImage());
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 5);
-    $this->assertEquals($height, 10);
+    $this->assertEquals(5, $width);
+    $this->assertEquals(10, $height);
     $cont->load($this->_getOutputImage());
     $this->assertTrue($cont->isPallete());
   }
@@ -55,8 +55,8 @@ abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
     $filter->apply($cont);
     $cont->save($this->_getOutputImage());
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 14);
-    $this->assertEquals($height, 15);
+    $this->assertEquals(14, $width);
+    $this->assertEquals(15, $height);
     $cont->load($this->_getOutputImage());
   }
 
@@ -69,8 +69,8 @@ abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
     $filter->apply($cont);
     $cont->save($this->_getOutputImage());
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 40);
-    $this->assertEquals($height, 50);
+    $this->assertEquals(40, $width);
+    $this->assertEquals(50, $height);
     $cont->load($this->_getOutputImage());
   }
 
@@ -83,8 +83,8 @@ abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
     $filter->apply($cont);
     $cont->save($this->_getOutputImage());
     list($width, $height, $type) = getimagesize($this->_getOutputImage());
-    $this->assertEquals($width, 90);
-    $this->assertEquals($height, 117);
+    $this->assertEquals(90, $width);
+    $this->assertEquals(117, $height);
     $cont->load($this->_getOutputImage());
   }
 
@@ -93,9 +93,9 @@ abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
     $class_name = $this->_getFilterClass('lmb%CropImageFilter');
     $filter = new $class_name(array('width' => 90, 'height' => 100, 'x' => 10, 'y' => 20));
 
-    $this->assertEquals($filter->getWidth(), 90);
-    $this->assertEquals($filter->getHeight(), 100);
-    $this->assertEquals($filter->getX(), 10);
-    $this->assertEquals($filter->getY(), 20);
+    $this->assertEquals(90, $filter->getWidth());
+    $this->assertEquals(100, $filter->getHeight());
+    $this->assertEquals(10, $filter->getX());
+    $this->assertEquals(20, $filter->getY());
   }
 }

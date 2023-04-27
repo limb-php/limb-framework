@@ -34,15 +34,15 @@ abstract class lmbBaseImageContainerTest extends lmbImageKitTestCase
     $this->assertEquals($width, $width2);
     $this->assertEquals($height, $height2);
     $this->assertNotEquals($type, $type2);
-    $this->assertEquals($type, IMAGETYPE_JPEG);
-    $this->assertEquals($type2, IMAGETYPE_GIF);
+    $this->assertEquals(IMAGETYPE_JPEG, $type);
+    $this->assertEquals(IMAGETYPE_GIF, $type2);
   }
 
   function testGetSize()
   {
     $cont = $this->_getContainer();
-    $this->assertEquals($cont->getWidth(), 100);
-    $this->assertEquals($cont->getHeight(), 137);
+    $this->assertEquals(100, $cont->getWidth());
+    $this->assertEquals(137, $cont->getHeight());
   }
 
   function testIsPallete()
@@ -59,7 +59,7 @@ abstract class lmbBaseImageContainerTest extends lmbImageKitTestCase
     $cont = $this->_getContainer();
     $cont->setOutputType('gif');
 
-    $this->assertEquals($cont->getOutputType(), 'gif');
+    $this->assertEquals('gif', $cont->getOutputType());
   }
 
   function testSave_ParamQuality()

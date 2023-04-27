@@ -10,9 +10,18 @@ namespace tests\imagekit\cases;
 
 use PHPUnit\Framework\TestCase;
 
+require_once('.setup.php');
+
 abstract class lmbImageKitTestCase extends TestCase
 {
   protected $driver;
+
+    function tearDown(): void
+    {
+        @unlink($this->_getOutputImage());
+
+        parent::tearDown();
+    }
 
   protected function _getInputImage()
   {
@@ -67,10 +76,5 @@ abstract class lmbImageKitTestCase extends TestCase
     $cont = new $class_name;
     $cont->load($this->_getInputPalleteImage());
     return $cont;
-  }
-
-  function tearDown(): void
-  {
-    @unlink($this->_getOutputImage());
   }
 }
