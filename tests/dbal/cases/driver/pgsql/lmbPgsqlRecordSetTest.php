@@ -8,6 +8,7 @@
  */
 namespace tests\dbal\cases\driver\pgsql;
 
+use limb\dbal\src\drivers\pgsql\lmbPgsqlRecord;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverRecordSetTestBase;
 
@@ -16,14 +17,14 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbPgsqlRecordSetTest extends DriverRecordSetTestBase
 {
 
-  function lmbPgsqlRecordSetTest()
+  function __construct()
   {
-    parent :: DriverRecordSetTestBase('lmbPgsqlRecord');
+    parent::__construct(lmbPgsqlRecord::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }

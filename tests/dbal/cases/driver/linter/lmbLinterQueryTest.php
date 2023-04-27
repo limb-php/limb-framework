@@ -8,6 +8,7 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use limb\dbal\src\drivers\linter\lmbLinterRecord;
 use tests\dbal\cases\driver\DriverQueryTestBase;
 use limb\toolkit\src\lmbToolkit;
 
@@ -16,9 +17,9 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbLinterQueryTest extends DriverQueryTestBase
 {
 
-  function lmbLinterQueryTest()
+  function __construct()
   {
-    parent::DriverQueryTestBase('lmbLinterRecord');
+    parent::__construct(lmbLinterRecord::class);
   }
 
   function setUp(): void

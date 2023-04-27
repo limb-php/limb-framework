@@ -23,14 +23,14 @@ abstract class DriverRecordTestBase extends TestCase
   function testArrayAccessImplementation()
   {
     $record = new $this->record_class(array('test' => 'value'));
-    $this->assertEquals($record['test'], 'value');
+    $this->assertEquals('value', $record['test']);
   }
   
   function testGetWithDefaultValue()
   {
     $record = new $this->record_class();
-    $this->assertEquals($record->get('foo'), null);
-    $this->assertEquals($record->get('foo', 'bar'), 'bar');
+    $this->assertEquals(null, $record->get('foo'));
+    $this->assertEquals('bar', $record->get('foo', 'bar'));
   }
   
   function testImplementsIterator()

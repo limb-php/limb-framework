@@ -193,7 +193,7 @@ class lmbMssqlConnection extends lmbDbBaseConnection
     }
   }
 
-  function getTypeInfo()
+  function getTypeInfo(): lmbMssqlTypeInfo
   {
     return new lmbMssqlTypeInfo();
   }

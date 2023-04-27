@@ -10,9 +10,9 @@ namespace tests\dbal\cases\driver;
 
 abstract class DriverInsertTestBase extends DriverManipTestBase
 {
-  var $insert_stmt_class;
+  private $insert_stmt_class;
 
-  function DriverInsertTestBase($insert_stmt_class)
+  function __construct($insert_stmt_class)
   {
     $this->insert_stmt_class = $insert_stmt_class;
   }

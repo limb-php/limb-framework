@@ -18,9 +18,9 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbMssqlTypeInfoTest extends DriverTypeInfoTestBase
 {
 
-  function lmbMssqlTypeInfoTest()
+  function __construct()
   {
-    parent :: DriverTypeInfoTestBase(lmbMssqlStatement::class, lmbMssqlRecord::class);
+    parent::__construct(lmbMssqlStatement::class, lmbMssqlRecord::class);
   }
 
   function setUp(): void

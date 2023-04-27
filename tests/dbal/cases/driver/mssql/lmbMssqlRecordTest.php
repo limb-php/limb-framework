@@ -18,13 +18,13 @@ class lmbMssqlRecordTest extends DriverRecordTestBase
 {
   function __construct()
   {
-    parent :: __construct(lmbMssqlRecord::class);
+    parent::__construct(lmbMssqlRecord::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    //DriverMssqlSetup($this->connection->getConnectionId());
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+    DriverMssqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

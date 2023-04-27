@@ -17,8 +17,8 @@ class lmbSqliteDeleteTest extends DriverDeleteTestBase
 {
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    //DriverSqliteSetup($this->connection->getConnectionId());
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+    DriverSqliteSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

@@ -26,9 +26,9 @@ class lmbMysqlConnectionTest extends DriverConnectionTestBase
    */
   var $connection;
 
-  function lmbMysqlConnectionTest()
+  function __construct()
   {
-    parent::DriverConnectionTestBase(
+    parent::__construct(
         lmbMysqlQueryStatement::class,
         lmbMysqlInsertStatement::class,
         lmbMysqlManipulationStatement::class,
@@ -39,7 +39,7 @@ class lmbMysqlConnectionTest extends DriverConnectionTestBase
   function setUp(): void
   {
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
-    DriverMysqliSetup($this->connection->getConnectionId());
+    DriverMysqlSetup($this->connection->getConnectionId());
 
     parent::setUp();
   }

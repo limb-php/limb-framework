@@ -17,15 +17,15 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbSqliteUpdateTest extends DriverUpdateTestBase
 {
 
-  function lmbSqliteUpdateTest()
+  function __construct()
   {
-    parent :: DriverUpdateTestBase(lmbSqliteManipulationStatement::class);
+    parent::__construct(lmbSqliteManipulationStatement::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    //DriverSqliteSetup($this->connection->getConnectionId());
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+    DriverSqliteSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

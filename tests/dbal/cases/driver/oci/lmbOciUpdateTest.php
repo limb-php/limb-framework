@@ -16,14 +16,14 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciUpdateTest extends DriverUpdateTestBase
 {
-  function lmbOciUpdateTest()
+  function __construct()
   {
-    parent :: DriverUpdateTestBase(lmbOciUpdateStatement::class);
+    parent::__construct(lmbOciUpdateStatement::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverOciSetup($this->connection->getConnectionId());
     parent::setUp();
   }

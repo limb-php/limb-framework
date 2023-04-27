@@ -8,6 +8,7 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use limb\dbal\src\drivers\linter\lmbLinterManipulationStatement;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverUpdateTestBase;
 
@@ -16,9 +17,9 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbLinterUpdateTest extends DriverUpdateTestBase
 {
 
-  function lmbLinterUpdateTest()
+  function __construct()
   {
-    parent :: DriverUpdateTestBase('lmbLinterManipulationStatement');
+    parent::__construct(lmbLinterManipulationStatement::class);
   }
 
   function setUp(): void

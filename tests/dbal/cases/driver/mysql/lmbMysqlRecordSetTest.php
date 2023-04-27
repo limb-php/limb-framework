@@ -17,9 +17,9 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlRecordSetTest extends DriverRecordSetTestBase
 {
-  function lmbMysqliRecordSetTest()
+  function __construct()
   {
-    parent::DriverRecordSetTestBase(lmbMysqlRecord::class);
+    parent::__construct(lmbMysqlRecord::class);
   }
 
   function setUp(): void

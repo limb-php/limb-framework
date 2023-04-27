@@ -20,9 +20,9 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbMssqlConnectionTest extends DriverConnectionTestBase
 {
 
-  function lmbMssqlConnectionTest()
+  function __construct()
   {
-    parent :: DriverConnectionTestBase(
+    parent::__construct(
         lmbMssqlQueryStatement::class,
         lmbMssqlInsertStatement::class,
         lmbMssqlManipulationStatement::class,

@@ -20,9 +20,9 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbLinterConnectionTest extends DriverConnectionTestBase
 {
 
-  function lmbLinterConnectionTest()
+  function __construct()
   {
-    parent::DriverConnectionTestBase(
+    parent::__construct(
         lmbLinterQueryStatement::class,
         lmbLinterInsertStatement::class,
         lmbLinterManipulationStatement::class,

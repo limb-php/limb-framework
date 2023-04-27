@@ -17,7 +17,7 @@ class lmbPgsqlColumnInfoTest extends DriverColumnInfoTestBase
 {
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }

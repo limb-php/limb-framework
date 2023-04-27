@@ -178,7 +178,7 @@ class lmbOciConnection extends lmbDbBaseConnection
     }
   }
 
-  function getTypeInfo()
+  function getTypeInfo(): lmbOciTypeInfo
   {
     return new lmbOciTypeInfo();
   }

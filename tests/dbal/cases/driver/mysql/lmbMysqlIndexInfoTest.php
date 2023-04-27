@@ -19,7 +19,7 @@ class lmbMysqlIndexInfoTest extends DriverIndexInfoTestBase
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverMysqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }

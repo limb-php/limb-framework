@@ -18,12 +18,12 @@ class lmbOciRecordTest extends DriverRecordTestBase
 {
   function __construct()
   {
-    parent :: __construct(lmbOciRecord::class);
+    parent::__construct(lmbOciRecord::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverOciSetup($this->connection->getConnectionId());
     parent::setUp();
   }

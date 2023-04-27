@@ -11,12 +11,12 @@ use PHPUnit\Framework\TestCase;
 
 abstract class DriverTypeInfoTestBase extends TestCase
 {
-  var $typeInfo;
-  var $columnList;
-  var $queryStmtClass;
-  var $recordClass;
+  private $typeInfo;
+  private $columnList;
+  private $queryStmtClass;
+  private $recordClass;
 
-  function DriverTypeInfoTestBase($queryStmtClass, $recordClass)
+  function __construct($queryStmtClass, $recordClass)
   {
     $this->queryStmtClass = $queryStmtClass;
     $this->recordClass = $recordClass;
@@ -25,6 +25,8 @@ abstract class DriverTypeInfoTestBase extends TestCase
   function setUp(): void
   {
     $this->columnList = $this->typeInfo->getColumnTypeList();
+
+    parent::setUp();
   }
 
   function testGetColumnTypeAccessors()

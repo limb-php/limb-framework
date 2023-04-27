@@ -344,7 +344,7 @@ class lmbLinterConnection extends lmbDbBaseConnection
     }
   }
 
-  function getTypeInfo()
+  function getTypeInfo(): lmbLinterTypeInfo
   {
     return new lmbLinterTypeInfo();
   }

@@ -157,7 +157,7 @@ class lmbSqliteConnection extends lmbDbBaseConnection
     }
   }
 
-  function getTypeInfo()
+  function getTypeInfo(): lmbSqliteTypeInfo
   {
     return new lmbSqliteTypeInfo();
   }

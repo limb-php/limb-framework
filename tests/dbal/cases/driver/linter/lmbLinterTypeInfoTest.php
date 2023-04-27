@@ -16,9 +16,10 @@ use tests\dbal\cases\driver\DriverTypeInfoTestBase;
 class lmbLinterTypeInfoTest extends DriverTypeInfoTestBase
 {
 
-  function lmbLinterTypeInfoTest()
+  function __construct()
   {
-    parent :: DriverTypeInfoTestBase(lmbLinterStatement::class, lmbLinterRecord::class);
+    parent::__construct(lmbLinterStatement::class,
+        lmbLinterRecord::class);
   }
 
   function setUp(): void

@@ -45,7 +45,7 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
 
   function testGetName()
   {
-    $this->assertEquals($this->table_info->getName(), 'founding_fathers');
+    $this->assertEquals('founding_fathers', $this->table_info->getName());
   }
 
   function testHasColumn()
@@ -64,8 +64,8 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
 
   function testGetColumnList()
   {
-    $this->assertEquals($this->table_info->getColumnList(),
-          array('id' => 'id', 'first' => 'first', 'last' => 'last'));
+    $this->assertEquals(array('id' => 'id', 'first' => 'first', 'last' => 'last'),
+        $this->table_info->getColumnList());
   }
   
   function testGetColumns()
@@ -73,7 +73,7 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
     $columns = $this->table_info->getColumns();
     $this->assertTrue(isset($columns['id']));
     $this->assertInstanceOf(lmbDbColumnInfo::class, $columns['id']);
-    $this->assertEquals($columns['id']->getName(), 'id');
+    $this->assertEquals('id', $columns['id']->getName());
   }
 
 
@@ -115,10 +115,10 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
 
     $table = $this->database_info->getTable('indexes');
 
-    $this->assertEquals($table->getIndexList(),
-      array('primary_column' => 'primary_column',
-            'unique_column_named_index' => 'unique_column_named_index',
-            'common_column' => 'common_column'));
+    $this->assertEquals(array('primary_column' => 'primary_column',
+          'unique_column_named_index' => 'unique_column_named_index',
+          'common_column' => 'common_column'),
+        $table->getIndexList());
   }
 
   function testGetIndexForColumn()
@@ -130,10 +130,10 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
 
     $index = $table->getIndexForColumn('primary_column');
     $this->assertInstanceOf(lmbDbIndexInfo::class, $index);
-    $this->assertIdentical('primary_column', $index->getName());
+    $this->assertEquals('primary_column', $index->getName());
 
     $index = $table->getIndexForColumn('unique_column');
     $this->assertInstanceOf(lmbDbIndexInfo::class, $index);
-    $this->assertIdentical('unique_column_named_index', $index->getName());
+    $this->assertEquals('unique_column_named_index', $index->getName());
   }
 }

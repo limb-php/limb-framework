@@ -17,14 +17,14 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbPgsqlUpdateTest extends DriverUpdateTestBase
 {
 
-  function lmbPgsqlUpdateTest()
+  function __construct()
   {
-    parent :: DriverUpdateTestBase(lmbPgsqlManipulationStatement::class);
+    parent::__construct(lmbPgsqlManipulationStatement::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }

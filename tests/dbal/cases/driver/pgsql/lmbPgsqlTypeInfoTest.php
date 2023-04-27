@@ -16,14 +16,14 @@ use tests\dbal\cases\driver\DriverTypeInfoTestBase;
 class lmbPgsqlTypeInfoTest extends DriverTypeInfoTestBase
 {
 
-  function lmbPgsqlTypeInfoTest()
+  function __construct()
   {
-    parent :: DriverTypeInfoTestBase(lmbPgsqlStatement::class, lmbPgsqlRecord::class);
+    parent::__construct(lmbPgsqlStatement::class, lmbPgsqlRecord::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();
     parent::setUp();
   }

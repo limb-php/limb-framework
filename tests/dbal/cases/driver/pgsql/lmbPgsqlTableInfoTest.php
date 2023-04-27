@@ -17,7 +17,7 @@ class lmbPgsqlTableInfoTest extends DriverTableInfoTestBase
 {
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }

@@ -18,7 +18,7 @@ class lmbMssqlDeleteTest extends DriverDeleteTestBase
   function setUp(): void
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    //DriverMssqlSetup($this->connection->getConnectionId());
+    DriverMssqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

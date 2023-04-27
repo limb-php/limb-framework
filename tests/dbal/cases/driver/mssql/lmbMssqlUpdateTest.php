@@ -17,9 +17,9 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbMssqlUpdateTest extends DriverUpdateTestBase
 {
 
-  function lmbMssqlUpdateTest()
+  function __construct()
   {
-    parent :: DriverUpdateTestBase(lmbMssqlManipulationStatement::class);
+    parent::__construct(lmbMssqlManipulationStatement::class);
   }
 
   function setUp(): void

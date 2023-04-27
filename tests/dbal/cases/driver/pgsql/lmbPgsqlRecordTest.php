@@ -18,13 +18,13 @@ class lmbPgsqlRecordTest extends DriverRecordTestBase
 {
   function __construct()
   {
-    parent :: __construct(lmbPgsqlRecord::class);
+    parent::__construct(lmbPgsqlRecord::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    //DriverPgsqlSetup($this->connection->getConnectionId());
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+    DriverPgsqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

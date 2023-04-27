@@ -7,22 +7,24 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+namespace tests\dbal\cases\driver\mysql;
+
 use limb\dbal\src\exception\lmbDbException;
 
 error_reporting(E_ALL);
 
-function DriverMysqliSetup($conn)
+function DriverMysqlSetup($conn)
 {
-  DriverMysqliExec($conn, 'DROP TABLE IF EXISTS founding_fathers;');
+  DriverMysqlExec($conn, 'DROP TABLE IF EXISTS founding_fathers;');
 
   $sql = "CREATE TABLE founding_fathers (
             id int(11) NOT null auto_increment,
             first varchar(50) NOT null default '',
             last varchar(50) NOT null default '',
-            PRIMARY KEY (id)) AUTO_INCREMENT=4 TYPE=InnoDB";
-  DriverMysqliExec($conn, $sql);
+            PRIMARY KEY (id)) AUTO_INCREMENT=4 ENGINE=InnoDB";
+  DriverMysqlExec($conn, $sql);
 
-  DriverMysqliExec($conn, 'TRUNCATE `founding_fathers`');
+  DriverMysqlExec($conn, 'TRUNCATE `founding_fathers`');
   $inserts = array(
         "INSERT INTO founding_fathers VALUES (1, 'George', 'Washington');",
         "INSERT INTO founding_fathers VALUES (2, 'Alexander', 'Hamilton');",
@@ -30,9 +32,9 @@ function DriverMysqliSetup($conn)
   );
 
   foreach($inserts as $sql)
-    DriverMysqliExec($conn, $sql);
+    DriverMysqlExec($conn, $sql);
 
-  DriverMysqliExec($conn, 'DROP TABLE IF EXISTS indexes;');
+  DriverMysqlExec($conn, 'DROP TABLE IF EXISTS indexes;');
 
   $sql = "CREATE TABLE `indexes` (
             `primary_column` int(11) NOT null auto_increment,
@@ -41,13 +43,13 @@ function DriverMysqliSetup($conn)
             PRIMARY KEY (`primary_column`),
             KEY (`common_column`),
             UNIQUE `unique_column_named_index` (`unique_column`)
-            ) AUTO_INCREMENT=0 TYPE=MEMORY";
-  DriverMysqliExec($conn, $sql);
+            ) AUTO_INCREMENT=0 ENGINE=MEMORY";
+  DriverMysqlExec($conn, $sql);
 
-  DriverMysqliExec($conn, 'TRUNCATE `indexes`');
+  DriverMysqlExec($conn, 'TRUNCATE `indexes`');
 
 
-  DriverMysqliExec($conn, 'DROP TABLE IF EXISTS standard_types');
+  DriverMysqlExec($conn, 'DROP TABLE IF EXISTS standard_types');
 
   $sql = "
         CREATE TABLE standard_types (
@@ -66,14 +68,14 @@ function DriverMysqliSetup($conn)
             type_date date,
             type_time time,
             type_blob blob,
-            PRIMARY KEY (id)) AUTO_INCREMENT=4 TYPE=InnoDB";
-  DriverMysqliExec($conn, $sql);
+            PRIMARY KEY (id)) AUTO_INCREMENT=4 ENGINE=InnoDB";
+  DriverMysqlExec($conn, $sql);
 
-  DriverMysqliExec($conn, 'TRUNCATE `standard_types`');
+  DriverMysqlExec($conn, 'TRUNCATE `standard_types`');
 
 }
 
-function DriverMysqliExec($conn, $sql)
+function DriverMysqlExec($conn, $sql)
 {
 //  var_dump($sql);
   $result = mysqli_query($conn, $sql);

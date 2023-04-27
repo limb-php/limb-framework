@@ -17,9 +17,9 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbMysqlInsertTest extends DriverInsertTestBase
 {
 
-  function lmbMysqliInsertTest()
+  function __construct()
   {
-    parent::DriverInsertTestBase(lmbMysqlInsertStatement::class);
+    parent::__construct(lmbMysqlInsertStatement::class);
   }
 
   function setUp(): void

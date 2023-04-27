@@ -17,7 +17,7 @@ class lmbSqliteExtensionTest extends TestCase
 {
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverSqliteSetup($this->connection->getConnectionId());
   }
 
@@ -25,20 +25,20 @@ class lmbSqliteExtensionTest extends TestCase
   {
     $stmt = $this->connection->newStatement("SELECT " . $this->connection->getExtension()->concat(array('"1"', '"2"', '"foo"')) . " AS c ");
     $record = $stmt->getOneRecord();
-    $this->assertEquals($record->get('c'), "12foo");
+    $this->assertEquals("12foo", $record->get('c'));
   }
 
   function testSubstring()
   {
     $stmt = $this->connection->newStatement("SELECT " . $this->connection->getExtension()->substr('"fco"', 2, 1) . " AS c ");
     $record = $stmt->getOneRecord();
-    $this->assertEquals($record->get('c'), "c");
+    $this->assertEquals("c", $record->get('c'));
   }
 
   function testSubstringWithoutLimit()
   {
     $stmt = $this->connection->newStatement("SELECT " . $this->connection->getExtension()->substr('"fco"', 2) . " AS c ");
     $record = $stmt->getOneRecord();
-    $this->assertEquals($record->get('c'), "co");
+    $this->assertEquals("co", $record->get('c'));
   }
 }

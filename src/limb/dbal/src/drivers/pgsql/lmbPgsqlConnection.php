@@ -194,7 +194,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     }
   }
 
-  function getTypeInfo()
+  function getTypeInfo(): lmbPgsqlTypeInfo
   {
     return new lmbPgsqlTypeInfo();
   }

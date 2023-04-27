@@ -18,13 +18,13 @@ class lmbSqliteRecordTest extends DriverRecordTestBase
 {
   function __construct()
   {
-    parent :: __construct(lmbSqliteRecord::class);
+    parent::__construct(lmbSqliteRecord::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
-    //DriverSqliteSetup($this->connection->getConnectionId());
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+    DriverSqliteSetup($this->connection->getConnectionId());
     parent::setUp();
   }
 }

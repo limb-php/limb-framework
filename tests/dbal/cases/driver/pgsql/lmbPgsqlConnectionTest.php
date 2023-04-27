@@ -20,9 +20,9 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbPgsqlConnectionTest extends DriverConnectionTestBase
 {
 
-  function lmbPgsqlConnectionTest()
+  function __construct()
   {
-    parent :: DriverConnectionTestBase(
+    parent::__construct(
         lmbPgsqlQueryStatement::class,
         lmbPgsqlInsertStatement::class,
         lmbPgsqlManipulationStatement::class,
@@ -32,7 +32,7 @@ class lmbPgsqlConnectionTest extends DriverConnectionTestBase
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }

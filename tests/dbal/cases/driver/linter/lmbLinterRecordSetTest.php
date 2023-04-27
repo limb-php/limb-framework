@@ -8,6 +8,7 @@
  */
 namespace tests\dbal\cases\driver\linter;
 
+use limb\dbal\src\drivers\linter\lmbLinterRecord;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverRecordSetTestBase;
 
@@ -16,14 +17,14 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbLinterRecordSetTest extends DriverRecordSetTestBase
 {
 
-  function lmbLinterRecordSetTest()
+  function __construct()
   {
-    parent::DriverRecordSetTestBase('lmbLinterRecord');
+    parent::__construct(lmbLinterRecord::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
     $sql = 'SELECT "id", "first" FROM founding_fathers ORDER BY "id"';
     $this->stmt = $this->connection->newStatement($sql);

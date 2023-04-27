@@ -15,13 +15,15 @@ use limb\core\src\lmbSys;
 
 abstract class DriverConnectionTestBase extends TestCase
 {
-  var $query_stmt_class;
-  var $insert_stmt_class;
-  var $manip_stmt_class;
-  var $default_stmt_class;
-  var $connection;
+    private $query_stmt_class;
+    private $insert_stmt_class;
+    private $manip_stmt_class;
+    private $default_stmt_class;
 
-  function DriverConnectionTestBase($query_stmt_class, $insert_stmt_class, $manip_stmt_class, $default_stmt_class)
+    /** @var \limb\dbal\src\drivers\lmbDbConnectionInterface $connection */
+    private $connection;
+
+  function __construct($query_stmt_class, $insert_stmt_class, $manip_stmt_class, $default_stmt_class)
   {
     $this->query_stmt_class = $query_stmt_class;
     $this->insert_stmt_class = $insert_stmt_class;

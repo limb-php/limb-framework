@@ -17,9 +17,9 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbLinterInsertTest extends DriverInsertTestBase
 {
 
-  function lmbLinterInsertTest()
+  function __construct()
   {
-    parent :: DriverInsertTestBase(lmbLinterInsertStatement::class);
+    parent::__construct(lmbLinterInsertStatement::class);
   }
 
   function setUp(): void

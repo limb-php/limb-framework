@@ -11,9 +11,9 @@ namespace tests\dbal\cases\driver;
 abstract class DriverUpdateTestBase extends DriverManipTestBase
 {
 
-  var $manip_stmt_class;
+  protected $manip_stmt_class;
 
-  function DriverUpdateTestBase($manip_stmt_class)
+  function __construct($manip_stmt_class)
   {
     $this->manip_stmt_class = $manip_stmt_class;
   }
@@ -34,7 +34,7 @@ abstract class DriverUpdateTestBase extends DriverManipTestBase
     $stmt->setInteger('id', 3);
 
     $stmt->execute();
-    $this->assertEquals($stmt->getAffectedRowCount(), 1);
+    $this->assertEquals(1, $stmt->getAffectedRowCount());
 
     $this->checkRecord(3);
   }
@@ -52,6 +52,6 @@ abstract class DriverUpdateTestBase extends DriverManipTestBase
     $stmt->setVarChar('last', 'Nixon');
 
     $stmt->execute();
-    $this->assertEquals($stmt->getAffectedRowCount(), 3);
+    $this->assertEquals(3, $stmt->getAffectedRowCount());
   }
 }

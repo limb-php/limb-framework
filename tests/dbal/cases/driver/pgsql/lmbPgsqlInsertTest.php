@@ -17,14 +17,14 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbPgsqlInsertTest extends DriverInsertTestBase
 {
 
-  function lmbPgsqlInsertTest()
+  function __construct()
   {
-    parent :: DriverInsertTestBase(lmbPgsqlInsertStatement::class);
+    parent::__construct(lmbPgsqlInsertStatement::class);
   }
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());
     parent::setUp();
   }
@@ -47,6 +47,6 @@ class lmbPgsqlInsertTest extends DriverInsertTestBase
     $this->connection->newStatement("DELETE FROM founding_fathers")->execute();
 
     $new_id = $stmt->insertId('id');
-    $this->assertEquals($new_id - $id, 1);
+    $this->assertEquals(1, $new_id - $id);
   }
 }

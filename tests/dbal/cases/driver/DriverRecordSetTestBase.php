@@ -11,9 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 abstract class DriverRecordSetTestBase extends TestCase
 {
-  var $record_class;
+  private $record_class;
 
-  function DriverRecordSetTestBase($record_class)
+  function __construct($record_class)
   {
     $this->record_class = $record_class;
   }

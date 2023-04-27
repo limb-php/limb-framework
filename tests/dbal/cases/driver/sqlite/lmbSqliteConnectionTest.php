@@ -20,9 +20,9 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbSqliteConnectionTest extends DriverConnectionTestBase
 {
 
-  function lmbSqliteConnectionTest()
+  function __construct()
   {
-    parent :: DriverConnectionTestBase(
+    parent::__construct(
         lmbSqliteQueryStatement::class,
         lmbSqliteInsertStatement::class,
         lmbSqliteManipulationStatement::class,
@@ -32,7 +32,7 @@ class lmbSqliteConnectionTest extends DriverConnectionTestBase
 
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverSqliteSetup($this->connection->getConnectionId());
     parent::setUp();
   }
