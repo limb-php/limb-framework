@@ -25,7 +25,7 @@ class lmbOciStatement implements lmbDbStatementInterface
   protected $modified = false;
   protected $parameters = array();
 
-  function __construct($connection, $sql)
+  function __construct(lmbOciConnection $connection, $sql)
   {
     $this->sql = $sql;
     $this->connection = $connection;

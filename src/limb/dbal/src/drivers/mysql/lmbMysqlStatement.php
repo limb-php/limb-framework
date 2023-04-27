@@ -26,7 +26,7 @@ class lmbMysqlStatement implements lmbDbStatementInterface
     protected $connection;
     protected $parameters = array();
 
-    function __construct($connection, $sql)
+    function __construct(lmbMysqlConnection $connection, $sql)
     {
         $this->statement = $sql;
         $this->connection = $connection;

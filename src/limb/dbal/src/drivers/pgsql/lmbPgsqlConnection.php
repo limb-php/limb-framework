@@ -131,17 +131,23 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
   function execute($sql)
   {
     $result = pg_query($this->getConnectionId(), $sql);
-    if($result === false)
-    {
+    if($result === false) {
       $this->_raiseError($sql);
     }
+
     return $result;
   }
 
   function executeStatement($stmt)
   {
+      /** @var lmbPgsqlStatement $stmt */
       $stmt_name = $stmt->getStatementName();
-      return pg_execute($this->getConnectionId(), $stmt_name, $stmt->getPrepParams());
+      $result = pg_execute($this->getConnectionId(), $stmt_name, $stmt->getPrepParams());
+      if($result === false) {
+          $this->_raiseError($stmt->getSQL());
+      }
+
+      return $result;
   }
 
   function beginTransaction()

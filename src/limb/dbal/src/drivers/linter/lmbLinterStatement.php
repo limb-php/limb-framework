@@ -28,7 +28,7 @@ class lmbLinterStatement implements lmbDbStatementInterface
   protected $prepRequired = false;
   protected $prepParams = array();
 
-  function __construct($connection, $sql)
+  function __construct(lmbLinterConnection $connection, $sql)
   {
     $this->sql = $sql;
     $this->original_sql = $sql;

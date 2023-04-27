@@ -22,7 +22,7 @@ class lmbMssqlStatement implements lmbDbStatementInterface
   protected $connection;
   protected $parameters = array();
 
-  function __construct($connection, $sql)
+  function __construct(lmbMssqlConnection $connection, $sql)
   {
     $this->statement = $sql;
     $this->connection = $connection;

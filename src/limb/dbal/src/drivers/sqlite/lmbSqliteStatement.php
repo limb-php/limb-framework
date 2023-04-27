@@ -23,7 +23,7 @@ class lmbSqliteStatement implements lmbDbStatementInterface
   protected $connection;
   protected $parameters = array();
 
-  function __construct($connection, $sql)
+  function __construct(lmbSqliteConnection $connection, $sql)
   {
     $this->statement = $sql;
     $this->connection = $connection;

@@ -26,7 +26,7 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
   protected $parameters = array();
   protected $prepParams = array();
 
-  function __construct($connection, $sql)
+  function __construct(lmbPgsqlConnection $connection, $sql)
   {
     $this->sql = $sql;
     $this->connection = $connection;
