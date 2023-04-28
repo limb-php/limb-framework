@@ -1,5 +1,5 @@
 <?php
-namespace limb\cms\src\controller;
+namespace limb\cms\src\Controllers;
 
 use limb\cms\src\model\lmbCmsSeo;
 

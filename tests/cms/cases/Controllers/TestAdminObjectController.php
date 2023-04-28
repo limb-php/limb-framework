@@ -1,8 +1,8 @@
 <?php
 
-namespace tests\cms\cases\controller;
+namespace tests\cms\cases\Controllers;
 
-use limb\cms\src\controller\lmbAdminObjectController;
+use limb\cms\src\Controllers\lmbAdminObjectController;
 
 class TestAdminObjectController extends lmbAdminObjectController
 {

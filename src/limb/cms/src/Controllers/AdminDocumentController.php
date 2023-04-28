@@ -9,7 +9,7 @@
  * @version    $Id$
  * @package    cms
  */
-namespace limb\cms\src\controller;
+namespace limb\cms\src\Controllers;
 
 use limb\cms\src\model\lmbCmsDocument;
 use limb\active_record\src\lmbActiveRecord;

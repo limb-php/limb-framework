@@ -1,5 +1,5 @@
 <?php
-namespace limb\cms\src\controller;
+namespace limb\cms\src\Controllers;
 
 use limb\toolkit\src\lmbToolkit;
 
@@ -25,7 +25,7 @@ class lmbCmsAdminFilterHelper
 
   function setParams($params)
   {
-      return $this->session->set($this->filter_name, $params);
+      $this->session->set($this->filter_name, $params);
   }
 
   function getFilter($param_name, $default = null)

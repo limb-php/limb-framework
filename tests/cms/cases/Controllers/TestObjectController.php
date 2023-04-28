@@ -1,8 +1,8 @@
 <?php
 
-namespace tests\cms\cases\controller;
+namespace tests\cms\cases\Controllers;
 
-use limb\cms\src\controller\lmbObjectController;
+use limb\cms\src\Controllers\lmbObjectController;
 
 class TestObjectController extends lmbObjectController
 {

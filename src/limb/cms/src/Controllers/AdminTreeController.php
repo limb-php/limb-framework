@@ -1,5 +1,5 @@
 <?php
-namespace limb\cms\src\controller;
+namespace limb\cms\src\Controllers;
 
 use limb\web_app\src\controller\lmbController;
 use limb\active_record\src\lmbActiveRecord;

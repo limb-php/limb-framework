@@ -6,10 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace tests\web_app\cases\plain\controller;
+namespace tests\web_app\cases\plain\Controllers;
 
 use PHPUnit\Framework\TestCase;
-use limb\web_app\src\controller\FallbackToViewController;
+use limb\web_app\src\Controllers\FallbackToViewController;
 use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
 use limb\view\src\lmbDummyView;
@@ -39,7 +39,7 @@ class FallbackToViewControllerTest extends TestCase
   function testSetViewIfFoundAppropriateTemplate()
   {
     $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
-    $this->toolkit->setRequest($request = new lmbHttpRequest('http://localhost/about', 'GET'));
+    $this->toolkit->setRequest($request = new lmbHttpRequest('https://localhost/about', 'GET'));
 
     $controller = new FallbackToViewController();
     $controller->setCurrentAction('detail');
@@ -52,7 +52,7 @@ class FallbackToViewControllerTest extends TestCase
   {
     $view = new lmbDummyView('some_other_template.html');
     $this->toolkit->setView($view);
-    $request = new lmbHttpRequest('http://localhost/about', 'GET');
+    $request = new lmbHttpRequest('https://localhost/about', 'GET');
 
     $controller = new FallbackToViewController();
     $controller->performAction($request);

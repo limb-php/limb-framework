@@ -1,14 +1,14 @@
 <?php
-namespace limb\cms\src\controller;
+namespace limb\cms\src\Controllers;
 
-use limb\web_app\src\controller\lmbController;
+use limb\web_app\src\Controllers\LmbController;
 use limb\core\src\lmbEnv;
 use limb\mail\src\lmbMailer;
 use limb\cms\src\model\lmbCmsUser;
 use limb\view\src\lmbMacroView;
 use limb\active_record\src\lmbActiveRecord;
 
-class UserController extends lmbController
+class UserController extends LmbController
 {
   function doForgotPassword()
   {

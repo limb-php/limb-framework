@@ -6,9 +6,9 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace limb\cms\src\controller;
+namespace limb\cms\src\Controllers;
 
-use limb\web_app\src\controller\lmbController;
+use \limb\web_app\src\Controllers\LmbController;
 use limb\core\src\exception\lmbException;
 use limb\active_record\src\lmbActiveRecord;
 
@@ -18,7 +18,7 @@ use limb\active_record\src\lmbActiveRecord;
  * @package cms
  * @version $Id$
  */
-abstract class AdminObjectController extends lmbController
+abstract class AdminObjectController extends LmbController
 {
   protected $_form_name = 'object_form';
   protected $_object_class_name = '';
