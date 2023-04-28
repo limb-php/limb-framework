@@ -27,8 +27,6 @@ lmbEnv::setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
  */
 class LmbController
 {
-  protected $name_prefix = '';
-
   /**
    * @var string name of the controller
    */
@@ -136,7 +134,7 @@ class LmbController
         if( $this->name )
             return $this->name;
 
-        return $this->name = ($this->name_prefix ? $this->name_prefix . '.' : '') . $this->_guessName();
+        return $this->name = $this->_guessName();
     }
 
     protected function _getTemplatePath($action)
@@ -148,11 +146,25 @@ class LmbController
     {
         $refController = new \ReflectionClass($this);
         $ctrlClassName = $refController->getShortName();
+        $ctrlClassNamespace = $refController->getNamespaceName();
 
         if($pos = strpos($ctrlClassName, 'Controller'))
             $ctrlClassName = substr($ctrlClassName, 0, $pos);
 
-        return lmbString::under_scores($ctrlClassName);
+        if($pos = strpos($ctrlClassNamespace, 'Controllers\\')) {
+            $ctrlClassNamespace = substr($ctrlClassNamespace, $pos + 12);
+        }
+
+        if($ctrlClassNamespace) {
+            $ctrlClassNamespaceArr = explode('\\', $ctrlClassNamespace);
+            $ctrlClassNameArr = array_merge($ctrlClassNamespaceArr ,[$ctrlClassName]);
+        } else {
+            $ctrlClassNameArr = [$ctrlClassName];
+        }
+
+        $ctrlClassNameArr = array_map(function($part) { return lmbString::under_scores($part); }, $ctrlClassNameArr);
+
+        return implode('.', $ctrlClassNameArr);
     }
 
   function getView()
