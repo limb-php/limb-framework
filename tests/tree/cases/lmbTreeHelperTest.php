@@ -12,6 +12,8 @@ use PHPUnit\Framework\TestCase;
 use limb\tree\src\lmbTreeHelper;
 use limb\core\src\lmbCollection;
 
+require_once('.setup.php');
+
 class lmbTreeHelperTest extends TestCase
 {
   function testSortComplexRs()

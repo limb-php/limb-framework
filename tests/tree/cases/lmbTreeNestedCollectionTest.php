@@ -11,6 +11,8 @@ namespace tests\tree\cases;
 use PHPUnit\Framework\TestCase;
 use limb\tree\src\lmbTreeNestedCollection;
 
+require_once('.setup.php');
+
 class lmbTreeNestedCollectionTest extends TestCase
 {
   function testMakeNestedOneElementRs()

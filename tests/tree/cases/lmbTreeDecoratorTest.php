@@ -25,10 +25,12 @@ class lmbTreeDecoratorTest extends lmbTreeTestBase
 
   function _createTreeImp()
   {
-    return new lmbTreeDecorator(new lmbMPTree($this->_node_table, $this->conn,
-                                              array('id' => 'id', 'parent_id' => 'p_parent_id',
-                                                    'level' => 'p_level', 'identifier' => 'p_identifier',
-                                                    'path' => 'p_path')));
+     $tree = new lmbMPTree($this->_node_table, $this->conn,
+          array('id' => 'id', 'parent_id' => 'p_parent_id',
+              'level' => 'p_level', 'identifier' => 'p_identifier',
+              'path' => 'p_path'));
+
+    return new lmbTreeDecorator($tree);
   }
 
   function _cleanUp()
