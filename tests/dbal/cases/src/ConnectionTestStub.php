@@ -78,7 +78,7 @@ class ConnectionTestStub implements lmbDbConnectionInterface
         // TODO: Implement executeStatement() method.
     }
 
-    function getTypeInfo()
+    function getTypeInfo(): \limb\dbal\src\drivers\lmbDbTypeInfo
     {
         // TODO: Implement getTypeInfo() method.
     }

@@ -62,11 +62,11 @@ function DriverSqliteExec($conn, $sql, $check_result = true)
 {
   if($check_result)
   {
-    if(!$result = \SQLite3::query($sql))
-      throw new lmbDbException('SQLite error happened: ' . sqlite_error_string(sqlite_last_error($conn)));
+    if(!$result = $conn->query($sql))
+      throw new lmbDbException('SQLite error happened: ' . $conn->lastErrorMsg()); // $conn->lastErrorCode()
   }
   else {
-      $result = \SQLite3::query($sql);
+      $result = $conn->query($sql);
   }
 
   return $result;
