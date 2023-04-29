@@ -151,8 +151,10 @@ class LmbController
         if($pos = strpos($ctrlClassName, 'Controller'))
             $ctrlClassName = substr($ctrlClassName, 0, $pos);
 
-        if($pos = strpos($ctrlClassNamespace, 'controller\\')) { // Controllers\\ + 12
+        if($pos = strpos($ctrlClassNamespace, '\\controller')) {
             $ctrlClassNamespace = substr($ctrlClassNamespace, $pos + 11);
+        } elseif($pos = strpos($ctrlClassNamespace, '\\Controllers')) {
+            $ctrlClassNamespace = substr($ctrlClassNamespace, $pos + 12);
         }
 
         if($ctrlClassNamespace) {

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbToolkit;
 use limb\filter_chain\src\lmbFilterChain;
 use limb\web_app\src\filter\lmbActionPerformingFilter;
-use limb\web_app\src\controller\lmbController;
+use limb\web_app\src\Controllers\LmbController;
 use limb\core\src\exception\lmbException;
 
 class lmbActionPerformingFilterTest extends TestCase
@@ -48,7 +48,7 @@ class lmbActionPerformingFilterTest extends TestCase
 
   function testRunOk()
   {
-    $controller = $this->createMock(lmbController::class);
+    $controller = $this->createMock(LmbController::class);
     $controller->expects($this->once())->method('performAction');
 
     $this->toolkit->setDispatchedController($controller);

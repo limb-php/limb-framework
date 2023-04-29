@@ -8,7 +8,7 @@
  */
 namespace tests\web_app\cases\plain\filter;
 
-use limb\web_app\src\controller\NotFoundController;
+use limb\web_app\src\Controllers\NotFoundController;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
 use PHPUnit\Framework\TestCase;
 use limb\filter_chain\src\lmbFilterChain;
@@ -16,7 +16,7 @@ use limb\web_app\src\filter\lmbRequestDispatchingFilter;
 use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\toolkit\src\lmbMockToolsWrapper;
 use limb\web_app\src\toolkit\lmbWebAppTools;
-use limb\web_app\src\controller\LmbController;
+use limb\web_app\src\Controllers\LmbController;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\toolkit\src\lmbToolkit;
 
@@ -243,7 +243,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
       $this->mock_tools
           ->method('createController')
           ->with($controller->getName())
-          ->willReturn($controller, array($controller->getName()));
+          ->willReturn($controller);
     }
   }
 

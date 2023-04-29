@@ -11,7 +11,7 @@ namespace limb\web_app\src\filter;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
-use limb\web_app\src\controller\NotFoundController;
+use limb\web_app\src\Controllers\NotFoundController;
 
 /**
  * class lmbRequestDispatchingFilter.

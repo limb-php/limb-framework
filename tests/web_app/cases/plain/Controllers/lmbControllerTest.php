@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace tests\web_app\cases\plain\Controllers;
+namespace tests\web_app\cases\plain\controllers;
 
 use limb\view\src\lmbDummyView;
 use PHPUnit\Framework\TestCase;
@@ -14,67 +14,11 @@ use limb\web_app\src\Controllers\LmbController;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbSet;
 use limb\validation\src\rule\lmbValidationRuleInterface;
+use tests\web_app\cases\plain\src\Controllers\SecondTestingController;
+use tests\web_app\cases\plain\src\Controllers\TestingController;
+use tests\web_app\cases\plain\src\Controllers\TestingForwardController;
 
 require dirname(__FILE__) . '/../../.setup.php';
-
-class TestingController extends LmbController
-{
-  protected $name = 'foo';
-  public $display_performed = false;
-  public $template_name;
-
-  function doDisplay()
-  {
-    $this->display_performed = true;
-    $this->template_name = $this->getView()->getTemplate();
-  }
-
-  function doWrite($request)
-  {
-    return "Hi!";
-  }
-
-  function doSetVars($request)
-  {
-    $this->item = 'item';
-  }
-
-  function doPopup($request)
-  {
-    $this->closePopup();
-  }
-
-  function doWithoutPopup($request)
-  {
-    $this->in_popup = false;
-    $this->closePopup();
-  }
-
-  function addValidatorRule($r)
-  {
-    $this->validator->addRule($r);
-  }
-
-  function getErrorList()
-  {
-    return $this->error_list;
-  }
-
-  function set($name, $value)
-  {
-    $this->$name = $value;
-  }
-}
-
-class SecondTestingController extends LmbController {}
-
-class TestingForwardController extends LmbController
-{
-  function doForward()
-  {
-    return $this->forward(TestingController::class, 'write');
-  }
-}
 
 class lmbControllerTest extends TestCase
 {

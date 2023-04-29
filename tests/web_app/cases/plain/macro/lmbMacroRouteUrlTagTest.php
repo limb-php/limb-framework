@@ -10,7 +10,7 @@ namespace tests\web_app\cases\plain\macro;
 
 use tests\view\lmbMacroTestCase;
 use limb\web_app\src\request\lmbRoutes;
-use limb\web_app\src\controller\lmbController;
+use limb\web_app\src\Controllers\LmbController;
 
 class lmbMacroRouteUrlTagTest extends lmbMacroTestCase
 {
@@ -79,7 +79,7 @@ class lmbMacroRouteUrlTagTest extends lmbMacroTestCase
 
   function testRouteWithSkipController()
   {
-    $this->toolkit->setDispatchedController(new lmbController());
+    $this->toolkit->setDispatchedController(new LmbController());
 
     $config = array('blog' => array('path' => '/blog/:action'));
 

@@ -8,9 +8,9 @@
  */
 namespace tests\web_app\cases\plain\toolkit;
 
+use limb\web_app\src\Controllers\LmbController;
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutes;
-use limb\web_app\src\controller\LmbController;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbEnv;
 use limb\toolkit\src\lmbToolkit;
@@ -54,7 +54,7 @@ class lmbWebAppToolsTest extends TestCase
 
     $toolkit = lmbToolkit::merge(new lmbWebAppTools());
     $toolkit->setRoutes($routes);
-    $toolkit->setDispatchedController(new lmbController());
+    $toolkit->setDispatchedController(new LmbController());
 
     $to_url_params = array('action' => 'archive');
     $this->assertEquals($toolkit->getRoutesUrl($to_url_params, null, $skip_controller = true),
