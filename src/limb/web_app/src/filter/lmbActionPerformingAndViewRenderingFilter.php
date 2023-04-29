@@ -54,8 +54,6 @@ class lmbActionPerformingAndViewRenderingFilter implements lmbInterceptingFilter
           throw new lmbException('Empty controller response');
       }
 
-      $response = $filter_chain->next($request, $response);
-
-      return $response;
+      return $filter_chain->next($request, $response);
   }
 }

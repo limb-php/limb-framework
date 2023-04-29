@@ -14,6 +14,8 @@ use limb\dbal\src\lmbSimpleDb;
 use limb\cms\src\model\lmbCmsDocument;
 use limb\dbal\src\lmbTableGateway;
 
+require_once('.setup.php');
+
 class lmbCmsTestCase extends TestCase
 {
   protected $db;
@@ -43,7 +45,7 @@ class lmbCmsTestCase extends TestCase
     $table = new lmbTableGateway('lmb_cms_document');
     $root = array(
       'parent_id' => 0,
-      'identifier' => '',
+      'identifier' => "",
       'uri' => '/'
     );
     $table->insert($root);
@@ -67,8 +69,8 @@ class lmbCmsTestCase extends TestCase
     if(!$parent_document)
       $parent_document = lmbCmsDocument::findRoot();
     $document->setParent($parent_document);
-
     $document->save();
+
     return $document;
   }
 

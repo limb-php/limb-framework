@@ -57,7 +57,7 @@ class lmbCmsDocument extends lmbActiveRecordTreeNode
   protected function _setPriority()
   {
     if(!$parent_id = $this->getParentId())
-      $parent_id = lmbCmsDocument :: findRoot()->getId();
+      $parent_id = lmbCmsDocument::findRoot()->getId();
 
     $sql = "SELECT MAX(priority) FROM " . $this->_db_table_name . " WHERE parent_id = " . $parent_id;
     $max_priority = lmbDBAL::fetchOneValue($sql);
@@ -72,7 +72,7 @@ class lmbCmsDocument extends lmbActiveRecordTreeNode
 
   /**
    * @param string $uri
-   * @return lmbCmsDocument
+   * @return lmbCmsDocument|false
    */
   static function findByUri($uri)
   {
@@ -82,17 +82,20 @@ class lmbCmsDocument extends lmbActiveRecordTreeNode
     foreach($identifiers as $identifier)
     {
     	$identifier_criteria = lmbSQLCriteria::equal('identifier', $identifier);
-      $identifier_criteria->addAnd(lmbSQLCriteria::equal('level', $level));
-      $criteria->addOr($identifier_criteria);
-      $level++;
+        $identifier_criteria->addAnd(lmbSQLCriteria::equal('level', $level));
+        $criteria->addOr($identifier_criteria);
+
+        $level++;
     }
+
     $documents = lmbActiveRecord::find(lmbCmsDocument::class, $criteria);
-    
+
     $parent_id = 0;
     foreach($identifiers as $identifier)
     {
       if(!$document = self::_getNodeByParentIdAndIdentifier($documents, $parent_id, $identifier))
         return false;
+
       $parent_id = $document->getId();
     }
     return $document;
@@ -102,8 +105,9 @@ class lmbCmsDocument extends lmbActiveRecordTreeNode
   {
     foreach($documents as $document)
     {
-      if(($document->getParentId() == $parent_id) and ($document->getIdentifier() == $identifier))
-        return $document;
+      if(($document->getParentId() == $parent_id) && ($document->getIdentifier() == $identifier)) {
+          return $document;
+      }
     }
     return false;
   }

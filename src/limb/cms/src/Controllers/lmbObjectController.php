@@ -8,7 +8,7 @@
  */
 namespace limb\cms\src\Controllers;
 
-use limb\web_app\src\Controllers\lmbController;
+use limb\web_app\src\Controllers\LmbController;
 use limb\active_record\src\lmbActiveRecord;
 use limb\core\src\exception\lmbException;
 
@@ -18,13 +18,13 @@ use limb\core\src\exception\lmbException;
  * @package cms
  * @version $Id$
  */
-abstract class lmbObjectController extends lmbController
+abstract class lmbObjectController extends LmbController
 {
   protected $_object_class_name = '';
 
   function __construct()
   {
-    parent :: __construct();
+    parent::__construct();
 
     if(!$this->_object_class_name)
       throw new lmbException('Object class name is not specified');

@@ -8,6 +8,7 @@
  */
 namespace limb\web_app\src\request;
 
+use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
 use limb\net\src\lmbUri;
 use limb\core\src\lmbEnv;
@@ -34,10 +35,9 @@ class lmbRoutesRequestDispatcher implements lmbRequestDispatcherInterface
       $this->base_path = $base_path;
   }
 
-  function dispatch($request)
+  function dispatch(lmbHttpRequest $request)
   {
-    /* @var $routes lmbRoutes */
-    $routes = lmbToolkit::instance()->getRoutes();
+      $routes = lmbToolkit::instance()->getRoutes();
 
     $uri = $request->getUri();
     $uri->normalizePath();
@@ -53,7 +53,7 @@ class lmbRoutesRequestDispatcher implements lmbRequestDispatcherInterface
     return $result;
   }
 
-  protected function _getHttpBasePathOffsetLevel($uri)
+  protected function _getHttpBasePathOffsetLevel($uri): int
   {
     if(!$this->path_offset)
       return 0;

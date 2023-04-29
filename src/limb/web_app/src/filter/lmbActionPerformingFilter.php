@@ -42,8 +42,6 @@ class lmbActionPerformingFilter implements lmbInterceptingFilterInterface
           }
       }
 
-      $response = $filter_chain->next($request, $response);
-
-      return $response;
+      return $filter_chain->next($request, $response);
   }
 }

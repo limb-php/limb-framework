@@ -9,7 +9,7 @@ class AdminObjectForTesting extends lmbActiveRecord
 {
     protected $_db_table_name = 'cms_object_for_testing';
 
-    protected function _createValidator()
+    protected function _createValidator(): lmbValidator
     {
         $validator = new lmbValidator();
         $validator->addRequiredRule('field');

@@ -8,6 +8,8 @@
  */
 namespace limb\web_app\src\request;
 
+use limb\net\src\lmbHttpRequest;
+
 /**
  * class lmbCompositeRequestDispatcher.
  *
@@ -18,7 +20,7 @@ class lmbCompositeRequestDispatcher implements lmbRequestDispatcherInterface
 {
   protected $dispatchers;
 
-  function dispatch($request)
+  function dispatch(lmbHttpRequest $request)
   {
     foreach($this->dispatchers as $dispatcher)
     {

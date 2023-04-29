@@ -8,6 +8,7 @@
  */
 namespace tests\cms\cases\request;
 
+use limb\net\src\lmbHttpRequest;
 use tests\cms\cases\lmbCmsTestCase;
 use limb\cms\src\request\lmbCmsDocumentRequestDispatcher;
 use limb\web_app\src\request\lmbRoutes;
@@ -16,6 +17,8 @@ use limb\toolkit\src\lmbToolkit;
 
 class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
 {
+
+    protected $tables_to_cleanup = array('lmb_cms_document');
 
   function _createDispatcher()
   {
@@ -31,8 +34,7 @@ class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
 
     $toolkit->setRoutes($routes);
 
-    $request = $toolkit->getRequest();
-    $request->withUri( $request->getUri()->withPath('/news') );
+    $request = new lmbHttpRequest('https://localhost/news');
 
     $dispatcher = new lmbCmsDocumentRequestDispatcher();
     $result = $dispatcher->dispatch($request);
@@ -47,7 +49,9 @@ class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
 
   function testDispatch_FoundInDb()
   {
-  	$document = $this->_createDocument('news', lmbCmsDocument::findRoot());
+      $root = lmbCmsDocument::findRoot();
+
+  	$document = $this->_createDocument('news', $root);
     $document->setIsPublished(1);
     $document->save();
 

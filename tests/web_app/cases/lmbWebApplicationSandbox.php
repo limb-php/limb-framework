@@ -20,21 +20,23 @@ class lmbWebApplicationSandbox extends lmbFilterChain
 
   function __construct($app = null)
   {
-    if(!is_object($app))
-      $app = new lmbWebApplication();
+      parent::__construct();
 
-    $this->app = $app;
+      if(!is_object($app))
+          $app = new lmbWebApplication();
+
+      $this->app = $app;
   }
 
   function imitate($request, $response)
   {
-    $toolkit = lmbToolkit::instance();
-    $toolkit->setRequest($request);
-    $toolkit->setResponse(new lmbFakeHttpResponse());
-    $toolkit->setSession(new lmbFakeSession());
+      $response = new lmbFakeHttpResponse();
 
-    $response = $this->app->process($request, $response);
+      $toolkit = lmbToolkit::instance();
+      $toolkit->setRequest($request);
+      $toolkit->setResponse($response);
+      $toolkit->setSession(new lmbFakeSession());
 
-    return $response;
+      return $this->app->process($request, $response);
   }
 }

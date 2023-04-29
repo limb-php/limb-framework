@@ -10,7 +10,7 @@ namespace limb\web_app\src;
 
 use limb\filter_chain\src\lmbFilterChain;
 use limb\core\src\lmbHandle;
-use limb\web_app\src\controller\NotFoundController;
+use limb\web_app\src\Controllers\NotFoundController;
 use limb\web_app\src\request\lmbRoutesRequestDispatcher;
 use limb\web_app\src\filter\lmbErrorHandlingFilter;
 use limb\web_app\src\filter\lmbSessionStartupFilter;
@@ -35,9 +35,9 @@ class lmbWebApplication extends lmbFilterChain
     $this->default_controller_name = $name;
   }
 
-  function setRequestDispatcher($disp)
+  function setRequestDispatcher($dispatcher)
   {
-    $this->request_dispatcher = $disp;
+    $this->request_dispatcher = $dispatcher;
   }
 
   protected function _getRequestDispatcher()
@@ -57,7 +57,7 @@ class lmbWebApplication extends lmbFilterChain
     $this->pre_action_filters[] = $filter;
   }
 
-  function process($request = null, $response = null)
+  function process($request = null, $response = null): \limb\net\src\lmbHttpResponse
   {
       $this->_registerFilters();
 
@@ -72,9 +72,14 @@ class lmbWebApplication extends lmbFilterChain
 
     $this->_addFilters($this->pre_dispatch_filters);
 
-    $this->registerFilter(new lmbHandle(lmbRequestDispatchingFilter::class,
-                                        array($this->_getRequestDispatcher(),
-                                              $this->default_controller_name)));
+    $this->registerFilter(new lmbHandle(
+        lmbRequestDispatchingFilter::class,
+              array(
+                  $this->_getRequestDispatcher(),
+                  $this->default_controller_name
+              )
+        )
+    );
 
     $this->_addFilters($this->pre_action_filters);
 

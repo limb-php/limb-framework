@@ -8,7 +8,7 @@ CREATE TABLE "lmb_cms_document" (
   "is_published" tinyint(1) default '0',
   "parent_id" int(11) NOT NULL default '0',
   "level" int(11) NOT NULL default '0',
-  "identifier" varchar(128) NOT NULL default '',
+  "identifier" varchar(128) NOT NULL default "",
   "priority" integer NOT NULL default 0,
   "path" varchar(255) NOT NULL default '',
   "ctime" int(11) NOT NULL default '0',

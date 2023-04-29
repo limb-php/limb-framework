@@ -24,11 +24,11 @@ class lmbCmsDocumentRequestDispatcher implements lmbRequestDispatcherInterface
   function dispatch($request)
   {
 	$path = $request->getUriPath();
-	if ($path == '/')
+	if ($path === '/')
 		return;
-		
+
     if(!$document = lmbCmsDocument::findByUri($path))
-      return;
+        return;
 
     if(!$document->getIsPublished())
     {
