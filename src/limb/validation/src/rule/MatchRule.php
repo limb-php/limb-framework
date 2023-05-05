@@ -53,8 +53,8 @@ class MatchRule extends lmbBaseValidationRule
   */
   protected function _doValidate($datasource)
   {
-    $value1 = $datasource[$this->field_name];
-    $value2 = $datasource[$this->reference_field];
+    $value1 = $datasource[$this->field_name] ?? null;
+    $value2 = $datasource[$this->reference_field] ?? null;
 
     if(isset($value1) && isset($value2) && strcmp($value1, $value2))
     {
