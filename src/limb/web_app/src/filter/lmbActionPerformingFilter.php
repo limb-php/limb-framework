@@ -12,6 +12,7 @@ use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\net\src\lmbHttpResponse;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
+use limb\view\src\lmbJsonView;
 use limb\view\src\lmbStringView;
 use limb\view\src\lmbView;
 
@@ -36,6 +37,9 @@ class lmbActionPerformingFilter implements lmbInterceptingFilterInterface
           }
           elseif( is_a($result, lmbView::class) ) {
               lmbToolkit::instance()->setView($result);
+          }
+          elseif( is_array($result) ) {
+              lmbToolkit::instance()->setView(new lmbJsonView($result));
           }
           else {
               lmbToolkit::instance()->setView(new lmbStringView($result));

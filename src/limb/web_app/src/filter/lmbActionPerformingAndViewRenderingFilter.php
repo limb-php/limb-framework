@@ -12,6 +12,7 @@ use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
 use limb\net\src\lmbHttpResponse;
+use limb\view\src\lmbJsonView;
 use limb\view\src\lmbView;
 
 /**
@@ -39,6 +40,9 @@ class lmbActionPerformingAndViewRenderingFilter implements lmbInterceptingFilter
           elseif($response->isEmpty()) {
               if (is_a($result, lmbView::class)) {
                   $result = $result->render();
+              }
+              elseif( is_array($result) ) {
+                  $result = (new lmbJsonView($result))->render();
               }
 
               $response->write($result);
