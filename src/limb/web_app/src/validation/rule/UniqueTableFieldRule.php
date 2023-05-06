@@ -24,7 +24,7 @@ class UniqueTableFieldRule extends lmbSingleFieldRule
   protected $table_field = '';
   protected $error_message = '';
 
-  function __construct($field_name, $table_name, $table_field = '', $error_message = '')
+  function __construct($field_name, $table_name, $table_field = '', $error_message = null)
   {
     parent::__construct($field_name);
 
