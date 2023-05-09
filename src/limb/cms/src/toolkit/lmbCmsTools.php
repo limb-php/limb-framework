@@ -49,21 +49,27 @@ class lmbCmsTools extends lmbAbstractTools
     $this->tree = $tree;
   }
 
+    /* user */
+    function getCmsAuthSession(): lmbCmsSessionUser
+    {
+        $session = lmbToolkit::instance()->getSession();
+        $session_user = $session->get('lmbCmsSessionUser');
+        if (!is_object($session_user)) {
+            $session_user = new lmbCmsSessionUser();
+            $session->set('lmbCmsSessionUser', $session_user);
+        }
+
+        return $session_user;
+    }
+
   function getCmsUser()
   {
     if(is_object($this->user))
       return $this->user;
 
-    $session = lmbToolkit::instance()->getSession();
-    if(!is_object($session_user = $session->get('lmbCmsSessionUser')))
-    {
-      $session_user = new lmbCmsSessionUser();
-      $session->set('lmbCmsSessionUser', $session_user);
-    }
+    $session_user = $this->getCmsAuthSession();
 
-    $this->user = $session_user->getUser();
-
-    return $this->user;
+    return $this->user = $session_user->getUser();
   }
 
   function resetCmsUser()

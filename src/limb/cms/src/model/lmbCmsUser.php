@@ -20,11 +20,11 @@ use limb\cms\src\validation\rule\CmsUserUniqueFieldRule;
 use limb\validation\src\lmbValidator;
 use limb\validation\src\rule\EmailRule;
 use limb\validation\src\rule\MatchRule;
-use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 
 class lmbCmsUser extends lmbActiveRecord
 {
   protected $password;
+  /** @deprecated  */
   protected $is_logged_in = false;
 
   const ROLE_NAME_ADMIN = 'admin';
@@ -66,32 +66,6 @@ class lmbCmsUser extends lmbActiveRecord
       $this->setHashedPassword($this->getCryptedPassword($this->password));
   }
 
-  function login($login, $password)
-  {
-
-    $criteria = new lmbSQLFieldCriteria('login', $login);
-    $user = lmbActiveRecord::findFirst(lmbCmsUser::class, array('criteria' => $criteria));
-
-    if($user && $user->isPasswordCorrect($password))
-    {
-      $this->import($user);
-      $this->setIsNew(false);
-      $this->setIsLoggedIn(true);
-      return true;
-    }
-    else
-    {
-      $this->setIsLoggedIn(false);
-      return false;
-    }
-  }
-
-  function logout()
-  {
-    $this->reset();
-    $this->is_logged_in = false;
-  }
-
   function isLoggedIn()
   {
     return $this->is_logged_in;
@@ -108,7 +82,7 @@ class lmbCmsUser extends lmbActiveRecord
     return sha1('.kO/|b@S@.42'.$this->getCtime().sha1($password));
   }
 
-  function isPasswordCorrect($password)
+  function isPasswordCorrect($password): bool
   {
     return $this->getHashedPassword() == $this->getCryptedPassword($password);
   }

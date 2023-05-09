@@ -55,30 +55,31 @@ class UserController extends LmbController
     $this->flashAndRedirect('Новый пароль активирован', '/user/login');
   }
 
-  function doLogin()
+  function doLogin($request)
   {
-    if($this->request->hasPost())
+    if($request->hasPost())
     {
-      $user = $this->toolkit->getCmsUser();
+      $login = $request->get('login');
+      $password = $request->get('password');
 
-      $login = $this->request->get('login');
-      $password = $this->request->get('password');
+      $auth = $this->toolkit->getCmsAuthSession();
+      if($auth->login($login, $password)) {
+          if(!$redirect_url = urldecode($request->get('redirect')))
+              $redirect_url = '/';
 
-      if(!$redirect_url = urldecode($this->request->get('redirect')))
-        $redirect_url = '/';
-
-      if($user->login($login, $password))
-        $this->toolkit->redirect($redirect_url);
-      else
+          response()->redirect($redirect_url);
+      }
+      else {
         $this->flashError("Неверный логин или пароль");
-
+      }
     }
   }
 
   function doLogout()
   {
-    $user = $this->toolkit->getCmsUser();
-    $user->logout();
-    $this->response->redirect('/');
+      $auth = $this->toolkit->getCmsAuthSession();
+      $auth->logout();
+
+      response()->redirect('/');
   }
 }
