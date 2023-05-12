@@ -57,7 +57,7 @@ class lmbPgsqlQueryStatement extends lmbPgsqlStatement implements lmbDbQueryStat
   {
     if(!(preg_match("/^\s*SELECT\s+DISTINCT/is", $this->sql) || preg_match('/\s+GROUP\s+BY\s+/is',$this->sql)) && preg_match("/^\s*SELECT\s+.+\s+FROM\s+/Uis", $this->sql))
     {
-      $rewritesql = preg_replace('/^\s*SELECT\s.*\s+FROM\s/Uis','SELECT COUNT(*) FROM ', $this->sql);
+      $rewritesql = preg_replace('/^\s*SELECT\s.*(\s.*\s).*\sFROM\s/Uis','SELECT COUNT(*) FROM ', $this->sql); // /^\s*SELECT\s.*\s+FROM\s/Uis
       $rewritesql = preg_replace('/(\sORDER\s+BY\s.*)/is','', $rewritesql);
 
       $queryId = $this->execute($rewritesql);
