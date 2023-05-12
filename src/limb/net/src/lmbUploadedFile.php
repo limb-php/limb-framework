@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\net\src;
 
 use limb\core\src\lmbObject;
@@ -18,38 +19,44 @@ use limb\core\src\lmbObject;
  */
 class lmbUploadedFile extends lmbObject
 {
-  function getFilePath()
-  {
-    return $this->getTmpName();
-  }
+    public $name;
+    public $error;
+    public $type;
+    public $size;
+    public $tmp_name;
 
-  function getMimeType()
-  {
-    return $this->getType();
-  }
+    function getFilePath()
+    {
+        return $this->getTmpName();
+    }
 
-  function move($dest)
-  {
-    return move_uploaded_file($this->getTmpName(), $dest);
-  }
+    function getMimeType()
+    {
+        return $this->getType();
+    }
 
-  function isUploaded()
-  {
-    return is_uploaded_file($this->getTmpName());
-  }
+    function move($dest)
+    {
+        return move_uploaded_file($this->getTmpName(), $dest);
+    }
 
-  function isValid()
-  {
-    return $this->getError() == UPLOAD_ERR_OK;
-  }
+    function isUploaded()
+    {
+        return is_uploaded_file($this->getTmpName());
+    }
 
-  function getContents()
-  {
-    return file_get_contents($this->getTmpName());
-  }
+    function isValid()
+    {
+        return $this->getError() == UPLOAD_ERR_OK;
+    }
 
-  function destroy()
-  {
-    unlink($this->getTmpName());
-  }
+    function getContents()
+    {
+        return file_get_contents($this->getTmpName());
+    }
+
+    function destroy()
+    {
+        unlink($this->getTmpName());
+    }
 }
