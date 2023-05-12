@@ -18,15 +18,13 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbMysqlUpdateTest extends DriverUpdateTestBase
 {
 
-  function __construct()
-  {
-    parent::__construct(lmbMysqlManipulationStatement::class);
-  }
-
   function setUp(): void
   {
+      parent::init(lmbMysqlManipulationStatement::class);
+
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverMysqlSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }

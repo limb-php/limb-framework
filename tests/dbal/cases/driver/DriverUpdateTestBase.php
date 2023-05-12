@@ -13,7 +13,7 @@ abstract class DriverUpdateTestBase extends DriverManipTestBase
 
   protected $manip_stmt_class;
 
-  function __construct($manip_stmt_class)
+  function init($manip_stmt_class)
   {
     $this->manip_stmt_class = $manip_stmt_class;
   }

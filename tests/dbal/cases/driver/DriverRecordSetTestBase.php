@@ -13,7 +13,10 @@ abstract class DriverRecordSetTestBase extends TestCase
 {
   private $record_class;
 
-  function __construct($record_class)
+    /** @var \limb\dbal\src\drivers\lmbDbConnectionInterface $connection */
+    protected $connection;
+
+  function init($record_class)
   {
     $this->record_class = $record_class;
   }
@@ -183,6 +186,6 @@ abstract class DriverRecordSetTestBase extends TestCase
       array('first' => 'Benjamin'),
     );
 
-    $this->assertIdentical($flat_array, $rs->getFlatArray());
+    $this->assertEquals($flat_array, $rs->getFlatArray());
   }
 }

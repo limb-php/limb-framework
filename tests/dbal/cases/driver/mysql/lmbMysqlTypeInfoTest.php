@@ -19,15 +19,13 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbMysqlTypeInfoTest extends DriverTypeInfoTestBase
 {
 
-  function __construct()
-  {
-    parent::__construct(lmbMysqlStatement::class, lmbMysqlRecord::class);
-  }
-
   function setUp(): void
   {
+      parent::init(lmbMysqlStatement::class, lmbMysqlRecord::class);
+
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();
+
     parent::setUp();
   }
 }

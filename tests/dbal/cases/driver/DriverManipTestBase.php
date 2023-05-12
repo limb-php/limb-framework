@@ -14,6 +14,11 @@ abstract class DriverManipTestBase extends TestCase
 {
     protected $connection;
 
+    function setUp(): void
+    {
+        parent::setUp();
+    }
+
   function checkRecord($id)
   {
     $sql = "SELECT * FROM founding_fathers WHERE id = :id:";

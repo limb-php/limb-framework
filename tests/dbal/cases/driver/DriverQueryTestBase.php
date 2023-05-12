@@ -15,7 +15,7 @@ abstract class DriverQueryTestBase extends TestCase
 
   var $record_class;
 
-  function __construct($record_class)
+  function init($record_class)
   {
     $this->record_class = $record_class;
   }

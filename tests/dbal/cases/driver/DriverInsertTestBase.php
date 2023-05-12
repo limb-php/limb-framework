@@ -12,7 +12,7 @@ abstract class DriverInsertTestBase extends DriverManipTestBase
 {
   private $insert_stmt_class;
 
-  function __construct($insert_stmt_class)
+  function init($insert_stmt_class)
   {
     $this->insert_stmt_class = $insert_stmt_class;
   }
