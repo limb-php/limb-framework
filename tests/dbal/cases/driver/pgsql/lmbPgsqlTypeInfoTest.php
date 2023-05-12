@@ -13,18 +13,18 @@ use limb\dbal\src\drivers\pgsql\lmbPgsqlStatement;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverTypeInfoTestBase;
 
+require_once(dirname(__FILE__) . '/../../.setup.php');
+
 class lmbPgsqlTypeInfoTest extends DriverTypeInfoTestBase
 {
 
-  function __construct()
-  {
-    parent::__construct(lmbPgsqlStatement::class, lmbPgsqlRecord::class);
-  }
-
   function setUp(): void
   {
+      parent::init(lmbPgsqlStatement::class, lmbPgsqlRecord::class);
+
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();
+
     parent::setUp();
   }
 }

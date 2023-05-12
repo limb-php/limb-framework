@@ -449,18 +449,18 @@ abstract class DriverStatementTestBase extends TestCase
   {
     $stmt = $this->connection->newStatement('SELECT :literal:');
     $stmt->setDouble('literal', $value);
-    $this->assertEquals($stmt->getOneValue(), $value);
+    $this->assertEquals($value, $stmt->getOneValue());
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_DOUBLE, 'type_double', $value);
     if(is_string($value))
     {
-      $this->assertEquals($record->getStringFixed('type_double'), $value);
+      $this->assertEquals($value, $record->getStringFixed('type_double'));
     }
     else
     {
-      $this->assertEquals($record->getFloat('type_double'), $value);
+      $this->assertEquals($value, $record->getFloat('type_double'));
     }
-    $this->assertEquals($record->get('type_double'), $value);
+    $this->assertEquals($value, $record->get('type_double'));
   }
 
   protected function _checkFloatValue($value)

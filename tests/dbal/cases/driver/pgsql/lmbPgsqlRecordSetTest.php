@@ -12,20 +12,29 @@ use limb\dbal\src\drivers\pgsql\lmbPgsqlRecord;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverRecordSetTestBase;
 
+require_once(dirname(__FILE__) . '/../../.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbPgsqlRecordSetTest extends DriverRecordSetTestBase
 {
 
-  function __construct()
-  {
-    parent::__construct(lmbPgsqlRecord::class);
-  }
-
   function setUp(): void
   {
+      parent::init(lmbPgsqlRecord::class);
+
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
+
+    function testCount2()
+    {
+        $sql = "SELECT *, (extract(epoch from now())::int - type_integer) AS new_column FROM standard_types";
+        $rs = $this->connection->newStatement($sql)->getRecordSet();
+        $rs->paginate(0, 2);
+
+        $this->assertEquals($rs->count(), 3);
+        $this->assertEquals($rs->countPaginated(), 2);
+    }
 }

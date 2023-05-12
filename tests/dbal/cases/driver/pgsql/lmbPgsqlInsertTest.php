@@ -12,20 +12,19 @@ use limb\dbal\src\drivers\pgsql\lmbPgsqlInsertStatement;
 use tests\dbal\cases\driver\DriverInsertTestBase;
 use limb\toolkit\src\lmbToolkit;
 
+require_once(dirname(__FILE__) . '/../../.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbPgsqlInsertTest extends DriverInsertTestBase
 {
 
-  function __construct()
-  {
-    parent::__construct(lmbPgsqlInsertStatement::class);
-  }
-
   function setUp(): void
   {
+      parent::init(lmbPgsqlInsertStatement::class);
+
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 
