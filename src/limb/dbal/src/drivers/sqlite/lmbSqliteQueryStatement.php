@@ -46,7 +46,7 @@ class lmbSqliteQueryStatement extends lmbSqliteStatement implements lmbDbQuerySt
       return $column;
   }
 
-  function getRecordSet()
+  function getRecordSet(): lmbSqliteRecordSet
   {
     return new lmbSqliteRecordSet($this->connection, $this->getSQL());
   }

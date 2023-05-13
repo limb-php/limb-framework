@@ -13,7 +13,9 @@ use PHPUnit\Framework\TestCase;
 abstract class DriverQueryTestBase extends TestCase
 {
 
-  var $record_class;
+    protected $record_class;
+
+    protected $connection;
 
   function init($record_class)
   {
@@ -22,20 +24,20 @@ abstract class DriverQueryTestBase extends TestCase
 
   function testGetOneRecord()
   {
-    $sql = "SELECT * FROM founding_fathers WHERE id = 1";
+    $sql = "SELECT * FROM founding_fathers WHERE id = 10";
     $stmt = $this->connection->newStatement($sql);
     $record = $stmt->getOneRecord();
     $this->assertInstanceOf($this->record_class, $record);
-    $this->assertEquals($record->get('id'), 1);
-    $this->assertEquals($record->get('first'), 'George');
-    $this->assertEquals($record->get('last'), 'Washington');
+    $this->assertEquals(10, $record->get('id'));
+    $this->assertEquals('George', $record->get('first'));
+    $this->assertEquals('Washington', $record->get('last'));
   }
 
   function testGetOneValue()
   {
     $sql = "SELECT first FROM founding_fathers";
     $stmt = $this->connection->newStatement($sql);
-    $this->assertEquals($stmt->getOneValue(), 'George');
+    $this->assertEquals('George', $stmt->getOneValue());
   }
 
   function testGetOneColumnArray()
@@ -43,6 +45,6 @@ abstract class DriverQueryTestBase extends TestCase
     $sql = "SELECT first FROM founding_fathers";
     $stmt = $this->connection->newStatement($sql);
     $testarray = array('George', 'Alexander', 'Benjamin');
-    $this->assertEquals($stmt->getOneColumnAsArray($sql), $testarray);
+    $this->assertEquals($testarray, $stmt->getOneColumnAsArray($sql));
   }
 }

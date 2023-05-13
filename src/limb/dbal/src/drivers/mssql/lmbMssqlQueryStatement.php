@@ -48,7 +48,7 @@ class lmbMssqlQueryStatement extends lmbMssqlStatement implements lmbDbQueryStat
     return $column;
   }
 
-  function getRecordSet()
+  function getRecordSet(): lmbMssqlRecordSet
   {
     return new lmbMssqlRecordSet($this->connection, $this->getSQL());
   }

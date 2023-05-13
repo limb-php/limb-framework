@@ -209,7 +209,6 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
     if(!$this->statement)
     {
       $this->connection->_raiseError("");
-      return;
     }
   }
 

@@ -16,15 +16,13 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteInsertTest extends DriverInsertTestBase
 {
-  function __construct()
-  {
-    parent::__construct(lmbSqliteInsertStatement::class);
-  }
-
   function setUp(): void
   {
+      parent::init(lmbSqliteInsertStatement::class);
+
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverSqliteSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }

@@ -20,9 +20,9 @@ function DriverSqliteSetup($conn)
   DriverSqliteExec($conn, $sql);
 
   $inserts = array(
-        "INSERT INTO founding_fathers VALUES (1, 'George', 'Washington');",
-        "INSERT INTO founding_fathers VALUES (2, 'Alexander', 'Hamilton');",
-        "INSERT INTO founding_fathers VALUES (3, 'Benjamin', 'Franklin');"
+        "INSERT INTO founding_fathers VALUES (10, 'George', 'Washington');",
+        "INSERT INTO founding_fathers VALUES (15, 'Alexander', 'Hamilton');",
+        "INSERT INTO founding_fathers VALUES (25, 'Benjamin', 'Franklin');"
     );
 
   foreach($inserts as $sql)

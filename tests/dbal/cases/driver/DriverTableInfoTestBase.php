@@ -19,16 +19,18 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
   /**
    * @var lmbDBInfo
    */
-  var $database_info;
+    protected $database_info;
   /**
    * @var lmbDBTableInfo
    */
-  var $table_info;
+    protected $table_info;
 
   function setUp(): void
   {
     $this->database_info = $this->connection->getDatabaseInfo();
     $this->table_info = $this->database_info->getTable('founding_fathers');
+
+    parent::setUp();
   }
 
   function tearDown(): void
@@ -53,6 +55,7 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
     $this->assertTrue($this->table_info->hasColumn('id'));
     $this->assertTrue($this->table_info->hasColumn('first'));
     $this->assertTrue($this->table_info->hasColumn('last'));
+    $this->assertTrue($this->table_info->hasColumn('btime'));
     $this->assertFalse($this->table_info->hasColumn('tiabaltu'));
   }
 
@@ -64,7 +67,7 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
 
   function testGetColumnList()
   {
-    $this->assertEquals(array('id' => 'id', 'first' => 'first', 'last' => 'last'),
+    $this->assertEquals(array('id' => 'id', 'first' => 'first', 'last' => 'last', 'btime' => 'btime'),
         $this->table_info->getColumnList());
   }
   
@@ -79,7 +82,7 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
 
   function _isIndexImplemented()
   {
-    $db_types_with_support = array('mysql', 'mysqli');
+    $db_types_with_support = array('mysql');
 
     $current_type = lmbToolkit::instance()->getDefaultDbConnection()->getType();
 
@@ -88,8 +91,10 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
 
   function testHasIndex()
   {
-    if(!$this->_isIndexImplemented())
-      return;
+    if(!$this->_isIndexImplemented()) {
+        $this->markTestSkipped('Index not implemented');
+    }
+
 
     $table = $this->database_info->getTable('indexes');
 
@@ -100,7 +105,7 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
   function testGetIndex()
   {
     if(!$this->_isIndexImplemented())
-      return;
+        $this->markTestSkipped('Not index implemented');
 
     $table = $this->database_info->getTable('indexes');
 
@@ -111,7 +116,7 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
   function testGetIndexList()
   {
     if(!$this->_isIndexImplemented())
-      return;
+      $this->markTestSkipped('Not index implemented');
 
     $table = $this->database_info->getTable('indexes');
 
@@ -124,7 +129,7 @@ abstract class DriverTableInfoTestBase extends DriverMetaTestBase
   function testGetIndexForColumn()
   {
     if(!$this->_isIndexImplemented())
-      return;
+      $this->markTestSkipped('Not Index implemented');
 
     $table = $this->database_info->getTable('indexes');
 

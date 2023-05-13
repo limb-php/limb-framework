@@ -28,7 +28,7 @@ class lmbPgsqlManipulationStatement extends lmbPgsqlStatement implements lmbDbMa
 
   function execute($sql = "")
   {
-    $this->queryId = parent :: execute();
+    $this->queryId = parent::execute();
     return $this->queryId;
   }
 }

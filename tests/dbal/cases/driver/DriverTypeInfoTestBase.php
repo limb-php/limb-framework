@@ -11,11 +11,11 @@ use PHPUnit\Framework\TestCase;
 
 abstract class DriverTypeInfoTestBase extends TestCase
 {
-  protected $typeInfo;
+    protected $typeInfo;
 
-  private $columnList;
-  private $queryStmtClass;
-  private $recordClass;
+    protected $columnList;
+    protected $queryStmtClass;
+    protected $recordClass;
 
   function init($queryStmtClass, $recordClass)
   {

@@ -25,12 +25,13 @@ abstract class DriverManipTestBase extends TestCase
     $stmt = $this->connection->newStatement($sql);
     $stmt->setInteger('id', $id);
     $record = $stmt->getOneRecord();
+
     $this->assertNotNull($record);
     if($record)
     {
-      $this->assertEquals($record->get('id'), $id);
-      $this->assertEquals($record->get('first'), 'Richard');
-      $this->assertEquals($record->get('last'), 'Nixon');
+      $this->assertEquals($id, $record->get('id'));
+      $this->assertEquals('Richard', $record->get('first'));
+      $this->assertEquals('Nixon', $record->get('last'));
     }
   }
 }

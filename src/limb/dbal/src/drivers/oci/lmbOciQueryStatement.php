@@ -95,7 +95,7 @@ class lmbOciQueryStatement extends lmbOciStatement implements lmbDbQueryStatemen
     return $column;
   }
 
-  function getRecordSet()
+  function getRecordSet(): lmbOciRecordSet
   {
     return new lmbOciRecordSet($this->connection, $this);
   }

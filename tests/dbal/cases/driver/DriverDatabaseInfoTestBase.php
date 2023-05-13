@@ -12,7 +12,7 @@ use limb\dbal\src\drivers\lmbDbTableInfo;
 
 abstract class DriverDatabaseInfoTestBase extends DriverMetaTestBase
 {
-  var $dbinfo;
+    protected $dbinfo;
 
   function setUp(): void
   {
@@ -36,6 +36,6 @@ abstract class DriverDatabaseInfoTestBase extends DriverMetaTestBase
     $tables = $this->dbinfo->getTables();
     $this->assertTrue(isset($tables['founding_fathers']));
     $this->assertInstanceOf(lmbDbTableInfo::class, $tables['founding_fathers']);
-    $this->assertEquals($tables['founding_fathers']->getName(), 'founding_fathers');
+    $this->assertEquals('founding_fathers', $tables['founding_fathers']->getName());
   }
 }

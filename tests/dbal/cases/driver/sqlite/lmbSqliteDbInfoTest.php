@@ -19,6 +19,7 @@ class lmbSqliteDbInfoTest extends DriverDatabaseInfoTestBase
   {
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverSqliteSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }

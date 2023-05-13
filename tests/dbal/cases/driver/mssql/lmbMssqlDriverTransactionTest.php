@@ -17,32 +17,33 @@ class lmbMssqlDriverTransactionTest extends DriverTransactionTestBase
 {
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverMssqlSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
   
   function testCommitTransaction()
   {
-    $this->assertEquals($this->_countRecords(), 0);
+    $this->assertEquals(0, $this->_countRecords());
 
     $this->connection->beginTransaction();
     $stmt = $this->connection->newStatement("INSERT INTO founding_fathers (id, first, last) VALUES (1, 'George', 'Washington')");
     $stmt->execute();
     $this->connection->commitTransaction();
 
-    $this->assertEquals($this->_countRecords(), 1);
+    $this->assertEquals(1, $this->_countRecords());
   }
 
   function testRollbackTransaction()
   {
-    $this->assertEquals($this->_countRecords(), 0);
+    $this->assertEquals(0, $this->_countRecords());
 
     $this->connection->beginTransaction();
     $stmt = $this->connection->newStatement("INSERT INTO founding_fathers (id, first, last) VALUES (1, 'George', 'Washington')");
     $stmt->execute();
     $this->connection->rollbackTransaction();
 
-    $this->assertEquals($this->_countRecords(), 0);
+    $this->assertEquals(0, $this->_countRecords());
   }
 }

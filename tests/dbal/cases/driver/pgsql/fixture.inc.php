@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
+use limb\dbal\src\exception\lmbDbException;
+
 function DriverPgsqlSetup($conn)
 {
   $sql = "DROP TABLE founding_fathers CASCADE";
@@ -17,6 +19,7 @@ function DriverPgsqlSetup($conn)
         "id" SERIAL,
         "first" varchar(50) NOT NULL default \'\',
         "last" varchar(50) NOT NULL default \'\',
+        "btime" integer NOT NULL default 0,
         PRIMARY KEY  (id))';
   DriverPgsqlExec($conn, $sql);
 
@@ -46,9 +49,9 @@ function DriverPgsqlSetup($conn)
   DriverPgsqlExec($conn, 'TRUNCATE standard_types');
 
   $inserts = array(
-      "INSERT INTO founding_fathers(first, last) VALUES ('George', 'Washington');",
-      "INSERT INTO founding_fathers(first, last) VALUES ('Alexander', 'Hamilton');",
-      "INSERT INTO founding_fathers(first, last) VALUES ('Benjamin', 'Franklin');"
+      "INSERT INTO founding_fathers(id, first, last, btime) VALUES (10, 'George', 'Washington', 767005952);",
+      "INSERT INTO founding_fathers(id, first, last, btime) VALUES (15, 'Alexander', 'Hamilton', 767005953);",
+      "INSERT INTO founding_fathers(id, first, last, btime) VALUES (25, 'Benjamin', 'Franklin', 767005954);"
   );
 
   foreach($inserts as $sql)
@@ -57,10 +60,7 @@ function DriverPgsqlSetup($conn)
 
 function DriverPgsqlExec($conn, $sql)
 {
-  $result = @pg_query($conn, $sql);
+  $result = pg_query($conn, $sql);
   if(!$result && stripos($sql, 'DROP') === false) //ignoring drop errors
     throw new lmbDbException('PgSQL execute error happened: ' . pg_last_error($conn));
 }
-
-
-

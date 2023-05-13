@@ -17,8 +17,9 @@ class lmbLinterTableInfoTest extends DriverTableInfoTestBase
 {
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }

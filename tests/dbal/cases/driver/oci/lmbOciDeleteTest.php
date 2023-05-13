@@ -19,6 +19,7 @@ class lmbOciDeleteTest extends DriverDeleteTestBase
   {
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverOciSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }

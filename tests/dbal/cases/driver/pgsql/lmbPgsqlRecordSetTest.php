@@ -9,6 +9,7 @@
 namespace tests\dbal\cases\driver\pgsql;
 
 use limb\dbal\src\drivers\pgsql\lmbPgsqlRecord;
+use limb\dbal\src\drivers\pgsql\lmbPgsqlRecordSet;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverRecordSetTestBase;
 
@@ -30,11 +31,12 @@ class lmbPgsqlRecordSetTest extends DriverRecordSetTestBase
 
     function testCount2()
     {
-        $sql = "SELECT *, (extract(epoch from now())::int - type_integer) AS new_column FROM standard_types";
+        $sql = "SELECT *, (extract(epoch from now())::int - btime) AS new_column_time FROM founding_fathers";
+        /** @var lmbPgsqlRecordSet $rs */
         $rs = $this->connection->newStatement($sql)->getRecordSet();
         $rs->paginate(0, 2);
 
-        $this->assertEquals($rs->count(), 3);
-        $this->assertEquals($rs->countPaginated(), 2);
+        $this->assertEquals(3, $rs->count());
+        $this->assertEquals(2, $rs->countPaginated());
     }
 }

@@ -17,16 +17,14 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbMssqlInsertTest extends DriverInsertTestBase
 {
 
-  function __construct()
-  {
-    parent::__construct(lmbMssqlInsertStatement::class);
-  }
-
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+      parent::init(lmbMssqlInsertStatement::class);
+
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverMssqlSetup($this->connection->getConnectionId());
     DriverMssqlExec($this->connection->getConnectionId(), "SET IDENTITY_INSERT founding_fathers OFF");
+
     parent::setUp();
   }
   
@@ -42,7 +40,7 @@ class lmbMssqlInsertTest extends DriverInsertTestBase
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');
     $stmt->execute();
-    $this->assertEquals($stmt->getAffectedRowCount(), 1);
+    $this->assertEquals(1, $stmt->getAffectedRowCount());
     $this->checkRecord(5);
   }
   
@@ -61,8 +59,8 @@ class lmbMssqlInsertTest extends DriverInsertTestBase
     $stmt->setVarChar('last', 'Nixon');
 
     $id = $stmt->insertId('id');
-    $this->assertEquals($stmt->getAffectedRowCount(), 1);
-    $this->assertEquals($id, 5);
+    $this->assertEquals(1, $stmt->getAffectedRowCount());
+    $this->assertEquals(5, $id);
     $this->checkRecord(5);
   }
 }

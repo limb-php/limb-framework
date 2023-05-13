@@ -16,15 +16,13 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciInsertTest extends DriverInsertTestBase
 {
-  function __construct()
-  {
-    parent::__construct(lmbOciInsertStatement::class);
-  }
-
   function setUp(): void
   {
+      parent::init(lmbOciInsertStatement::class);
+
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverOciSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 

@@ -10,7 +10,7 @@ namespace tests\dbal\cases\driver;
 
 abstract class DriverColumnInfoTestBase extends DriverMetaTestBase
 {
-  var $table;
+    protected $table;
 
   function setUp(): void
   {

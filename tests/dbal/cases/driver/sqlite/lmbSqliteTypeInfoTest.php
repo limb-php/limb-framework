@@ -18,15 +18,13 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbSqliteTypeInfoTest extends DriverTypeInfoTestBase
 {
 
-  function __construct()
-  {
-    parent::__construct(lmbSqliteStatement::class, lmbSqliteRecord::class);
-  }
-
   function setUp(): void
   {
+      parent::init(lmbSqliteStatement::class, lmbSqliteRecord::class);
+
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();
+
     parent::setUp();
   }
 }

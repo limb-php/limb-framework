@@ -19,6 +19,7 @@ class lmbOciLobTest extends TestCase
   {
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverOciSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 

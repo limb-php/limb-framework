@@ -47,7 +47,7 @@ class lmbLinterQueryStatement extends lmbLinterStatement implements lmbDbQuerySt
     return $column;
   }
 
-  function getRecordSet()
+  function getRecordSet(): lmbLinterRecordSet
   {
     return new lmbLinterRecordSet($this->connection, $this);
   }

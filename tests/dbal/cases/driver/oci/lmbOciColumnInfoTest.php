@@ -19,6 +19,7 @@ class lmbOciColumnInfoTest extends DriverColumnInfoTestBase
   {
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverOciSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }

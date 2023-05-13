@@ -20,19 +20,17 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbMssqlConnectionTest extends DriverConnectionTestBase
 {
 
-  function __construct()
-  {
-    parent::__construct(
-        lmbMssqlQueryStatement::class,
-        lmbMssqlInsertStatement::class,
-        lmbMssqlManipulationStatement::class,
-        lmbMssqlStatement::class);
-  }
-
   function setUp(): void
   {
+      parent::init(
+          lmbMssqlQueryStatement::class,
+          lmbMssqlInsertStatement::class,
+          lmbMssqlManipulationStatement::class,
+          lmbMssqlStatement::class);
+
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverMssqlSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }

@@ -19,6 +19,7 @@ class lmbOciDriverTransactionTest extends DriverTransactionTestBase
   {
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverOciSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }

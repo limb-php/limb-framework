@@ -13,7 +13,7 @@ abstract class DriverIndexInfoTestBase extends DriverMetaTestBase
   /**
    * @var lmbDbTableInfo
    */
-  var $table;
+    protected $table;
 
   protected $_index_names = array(
     'primary' => 'primary_column',

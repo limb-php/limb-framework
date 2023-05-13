@@ -399,11 +399,11 @@ abstract class DriverStatementTestBase extends TestCase
   {
     $stmt = $this->connection->newStatement('SELECT :literal:');
     $stmt->setSmallInt('literal', $value);
-    $this->assertEquals($stmt->getOneValue(), $value);
+    $this->assertEquals($value, $stmt->getOneValue());
 
     $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_SMALLINT, 'type_smallint', $value);
-    $this->assertEquals($record->getInteger('type_smallint'), $value);
-    $this->assertEquals($record->get('type_smallint'), $value);
+    $this->assertEquals($value, $record->getInteger('type_smallint'));
+    $this->assertEquals($value, $record->get('type_smallint'));
   }
 
   protected function _checkIntegerValue($value)

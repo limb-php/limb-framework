@@ -20,20 +20,18 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbLinterConnectionTest extends DriverConnectionTestBase
 {
 
-  function __construct()
-  {
-    parent::__construct(
-        lmbLinterQueryStatement::class,
-        lmbLinterInsertStatement::class,
-        lmbLinterManipulationStatement::class,
-        lmbLinterStatement::class
-    );
-  }
-
   function setUp(): void
   {
+      parent::init(
+          lmbLinterQueryStatement::class,
+          lmbLinterInsertStatement::class,
+          lmbLinterManipulationStatement::class,
+          lmbLinterStatement::class
+      );
+
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }

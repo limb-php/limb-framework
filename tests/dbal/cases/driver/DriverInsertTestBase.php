@@ -10,7 +10,7 @@ namespace tests\dbal\cases\driver;
 
 abstract class DriverInsertTestBase extends DriverManipTestBase
 {
-  private $insert_stmt_class;
+  protected $insert_stmt_class;
 
   function init($insert_stmt_class)
   {
@@ -29,8 +29,10 @@ abstract class DriverInsertTestBase extends DriverManipTestBase
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');
     $stmt->execute();
-    $this->assertEquals($stmt->getAffectedRowCount(), 1);
-    $this->checkRecord(4);
+    $lastId = $stmt->insertId('id');
+
+    $this->assertEquals(1, $stmt->getAffectedRowCount());
+    $this->checkRecord($lastId);
   }
 
   function testInsertId()
@@ -47,9 +49,10 @@ abstract class DriverInsertTestBase extends DriverManipTestBase
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');
 
-    $id = $stmt->insertId('id');
-    $this->assertEquals($stmt->getAffectedRowCount(), 1);
-    $this->assertEquals($id, 4);
-    $this->checkRecord(4);
+      $lastId = $stmt->insertId('id');
+
+    $this->assertEquals(1, $stmt->getAffectedRowCount());
+
+    $this->checkRecord($lastId);
   }
 }

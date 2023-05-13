@@ -31,12 +31,12 @@ abstract class DriverUpdateTestBase extends DriverManipTestBase
 
     $stmt->setVarChar('first', 'Richard');
     $stmt->setVarChar('last', 'Nixon');
-    $stmt->setInteger('id', 3);
-
+    $stmt->setInteger('id', 25);
     $stmt->execute();
+
     $this->assertEquals(1, $stmt->getAffectedRowCount());
 
-    $this->checkRecord(3);
+    $this->checkRecord(25);
   }
 
   function testAffectedRowCount()

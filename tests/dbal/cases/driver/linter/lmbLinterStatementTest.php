@@ -18,8 +18,9 @@ class lmbLinterStatementTest extends DriverStatementTestBase
 {
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 

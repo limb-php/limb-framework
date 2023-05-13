@@ -19,6 +19,7 @@ class lmbMssqlDbInfoTest extends DriverDatabaseInfoTestBase
   {
     $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
     DriverMssqlSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }

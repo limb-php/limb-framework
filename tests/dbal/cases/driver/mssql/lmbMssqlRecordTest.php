@@ -16,15 +16,13 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlRecordTest extends DriverRecordTestBase
 {
-  function __construct()
-  {
-    parent::__construct(lmbMssqlRecord::class);
-  }
-
   function setUp(): void
   {
+      parent::init(lmbMssqlRecord::class);
+
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverMssqlSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }

@@ -17,15 +17,13 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbLinterQueryTest extends DriverQueryTestBase
 {
 
-  function __construct()
-  {
-    parent::__construct(lmbLinterRecord::class);
-  }
-
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+      parent::init(lmbLinterRecord::class);
+
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 

@@ -17,18 +17,17 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbLinterRecordSetTest extends DriverRecordSetTestBase
 {
 
-  function __construct()
-  {
-    parent::__construct(lmbLinterRecord::class);
-  }
-
   function setUp(): void
   {
+      parent::init(lmbLinterRecord::class);
+
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
     $sql = 'SELECT "id", "first" FROM founding_fathers ORDER BY "id"';
     $this->stmt = $this->connection->newStatement($sql);
     $this->cursor = $this->stmt->getRecordSet();
+
+    parent::setUp();
   }
   
   function testSort()

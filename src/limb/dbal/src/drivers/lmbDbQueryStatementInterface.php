@@ -19,5 +19,5 @@ interface lmbDbQueryStatementInterface extends lmbDbStatementInterface
   function getOneRecord();
   function getOneValue();
   function getOneColumnAsArray();
-  function getRecordSet();
+  function getRecordSet(): lmbDbBaseRecordSet;
 }

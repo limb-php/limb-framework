@@ -16,16 +16,14 @@ use tests\dbal\cases\driver\DriverTypeInfoTestBase;
 class lmbLinterTypeInfoTest extends DriverTypeInfoTestBase
 {
 
-  function __construct()
-  {
-    parent::__construct(lmbLinterStatement::class,
-        lmbLinterRecord::class);
-  }
-
   function setUp(): void
   {
-    $this->connection = lmbToolkit :: instance()->getDefaultDbConnection();
+      parent::init(lmbLinterStatement::class,
+          lmbLinterRecord::class);
+
+    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();
+
     parent::setUp();
   }
 }

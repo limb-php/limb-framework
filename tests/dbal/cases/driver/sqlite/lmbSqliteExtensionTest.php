@@ -19,6 +19,8 @@ class lmbSqliteExtensionTest extends TestCase
   {
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverSqliteSetup($this->connection->getConnectionId());
+
+    parent::setUp();
   }
 
   function testConcat()

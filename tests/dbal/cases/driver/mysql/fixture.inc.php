@@ -21,14 +21,15 @@ function DriverMysqlSetup($conn)
             id int(11) NOT null auto_increment,
             first varchar(50) NOT null default '',
             last varchar(50) NOT null default '',
-            PRIMARY KEY (id)) AUTO_INCREMENT=4 ENGINE=InnoDB";
+            btime int(11) NOT null default 0,
+            PRIMARY KEY (id)) AUTO_INCREMENT=0 ENGINE=InnoDB";
   DriverMysqlExec($conn, $sql);
 
   DriverMysqlExec($conn, 'TRUNCATE `founding_fathers`');
   $inserts = array(
-        "INSERT INTO founding_fathers VALUES (1, 'George', 'Washington');",
-        "INSERT INTO founding_fathers VALUES (2, 'Alexander', 'Hamilton');",
-        "INSERT INTO founding_fathers VALUES (3, 'Benjamin', 'Franklin');"
+        "INSERT INTO founding_fathers VALUES (10, 'George', 'Washington', 767005952);",
+        "INSERT INTO founding_fathers VALUES (15, 'Alexander', 'Hamilton', 767005953);",
+        "INSERT INTO founding_fathers VALUES (25, 'Benjamin', 'Franklin', 767005954);"
   );
 
   foreach($inserts as $sql)
@@ -68,7 +69,7 @@ function DriverMysqlSetup($conn)
             type_date date,
             type_time time,
             type_blob blob,
-            PRIMARY KEY (id)) AUTO_INCREMENT=4 ENGINE=InnoDB";
+            PRIMARY KEY (id)) AUTO_INCREMENT=0 ENGINE=InnoDB";
   DriverMysqlExec($conn, $sql);
 
   DriverMysqlExec($conn, 'TRUNCATE `standard_types`');

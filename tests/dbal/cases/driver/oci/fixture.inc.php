@@ -71,9 +71,9 @@ BEGIN SELECT standard_types_seq.nextval INTO :NEW.ID FROM dual; END;";
   DriverOciExec($conn, $sql);
 
   $inserts = array(
-        "INSERT INTO founding_fathers (first, last) VALUES ('George', 'Washington')",
-        "INSERT INTO founding_fathers (first, last) VALUES ('Alexander', 'Hamilton')",
-        "INSERT INTO founding_fathers (first, last) VALUES ('Benjamin', 'Franklin')"
+        "INSERT INTO founding_fathers (id, first, last) VALUES (10, 'George', 'Washington')",
+        "INSERT INTO founding_fathers (id, first, last) VALUES (15, 'Alexander', 'Hamilton')",
+        "INSERT INTO founding_fathers (id, first, last) VALUES (25, 'Benjamin', 'Franklin')"
   );
 
   foreach($inserts as $sql)

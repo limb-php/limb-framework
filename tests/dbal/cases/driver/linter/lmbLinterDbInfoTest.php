@@ -19,6 +19,7 @@ class lmbLinterDbInfoTest extends DriverDatabaseInfoTestBase
   {
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }

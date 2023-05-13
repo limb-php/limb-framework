@@ -15,15 +15,13 @@ use tests\dbal\cases\driver\DriverTypeInfoTestBase;
 
 class lmbOciTypeInfoTest extends DriverTypeInfoTestBase
 {
-  function __construct()
-  {
-    parent::__construct(lmbOciStatement::class, lmbOciRecord::class);
-  }
-
   function setUp(): void
   {
+      parent::init(lmbOciStatement::class, lmbOciRecord::class);
+
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     $this->typeInfo = $this->connection->getTypeInfo();
+
     parent::setUp();
   }
 }

@@ -47,9 +47,9 @@ function DriverMssqlSetup($conn)
 
   DriverMssqlExec($conn, "SET IDENTITY_INSERT founding_fathers ON");
   $inserts = array(
-        "INSERT INTO founding_fathers (id, first, last) VALUES (1, 'George', 'Washington')",
-        "INSERT INTO founding_fathers (id, first, last) VALUES (2, 'Alexander', 'Hamilton')",
-        "INSERT INTO founding_fathers (id, first, last) VALUES (3, 'Benjamin', 'Franklin')"
+        "INSERT INTO founding_fathers (id, first, last) VALUES (10, 'George', 'Washington')",
+        "INSERT INTO founding_fathers (id, first, last) VALUES (15, 'Alexander', 'Hamilton')",
+        "INSERT INTO founding_fathers (id, first, last) VALUES (25, 'Benjamin', 'Franklin')"
     );
 
   foreach($inserts as $sql)

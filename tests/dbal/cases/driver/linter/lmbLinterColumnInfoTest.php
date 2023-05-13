@@ -23,6 +23,7 @@ class lmbLinterColumnInfoTest extends DriverColumnInfoTestBase
 
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverLinterSetup($this->connection->getConnectionId());
+
     parent::setUp();
   }
 }
