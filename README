@@ -24,8 +24,9 @@ Migrate from Limb3 to Limb4:
     * App Toolkit should return array of used toolkits by getRequiredTools() method
     * Application class method process should be compatible with limb\filter_chain\src\lmbFilterChain::process($request = NULL, $response = NULL)
     * method run all of filter classes must be compatible with limb\filter_chain\src\lmbInterceptingFilterInterface::run($filter_chain, $request, $response); and return HttpResponse; method next() must be compatible with limb\filter_chain\src\lmbInterceptingFilterInterface::next($request, $response)
-    * driver mysqli removed. Use mysql
+    * driver "mysqli" removed. Use "mysql" insted
     * ActiveRecord value objects no more supports "getter" and "field" params. Use "mapping" or "setup_method"
+    * mail: env variable PHPMAILER_VERSION_NAME not using any more
 
 
 Limb5 roadmap:

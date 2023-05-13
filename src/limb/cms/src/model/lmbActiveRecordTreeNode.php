@@ -143,7 +143,7 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
   function getParents()
   {
     $rs = $this->getTree()->getParents($this);
-    return lmbActiveRecord :: decorateRecordSet($rs,
+    return lmbActiveRecord::decorateRecordSet($rs,
                                                 get_class($this),
                                                 $this->_db_conn);
   }

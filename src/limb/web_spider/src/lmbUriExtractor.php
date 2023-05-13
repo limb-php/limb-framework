@@ -52,7 +52,7 @@ class lmbUriExtractor
         if( substr($decoded_url, -1) == '/' ) // last slash
           $decoded_url = lmbI18nString::substr($decoded_url, 0, -1);
 
-        if( !isset($parsed_url['host']) && ($decoded_url{0} != '/') ) // first slash if no host
+        if( !isset($parsed_url['host']) && ($decoded_url[0] != '/') ) // first slash if no host
           $decoded_url = '/' . $decoded_url;
 
         $uris[] = $decoded_url;

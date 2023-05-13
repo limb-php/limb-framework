@@ -17,44 +17,44 @@ class lmbCmsSeo extends lmbActiveRecord
   {
     $validator = new lmbValidator();
 
-    $validator->addRequiredRule('title', '"Title" обязательное поле');
+    $validator->addRequiredRule('title', 'Field "Title" is required');
 
-    $validator->addRequiredRule('url', '"Url" обязательное поле');
-    $validator->addRule(new CmsUniqueFieldRule('url', lmbCmsSeo::class, $this, '"Url" должен быть уникальным'));
+    $validator->addRequiredRule('url', 'Field "Url" is required');
+    $validator->addRule(new CmsUniqueFieldRule('url', lmbCmsSeo::class, $this, 'Field "Url" must be unique'));
 
     return $validator;
   }
 
   public static function getMetaKeywords()
   {
-    if(empty(self :: $_meta))
-      self :: _getMetaDataForUrl();
+    if(empty(self::$_meta))
+      self::_getMetaDataForUrl();
 
-    return self :: $_meta->get('keywords');
+    return self::$_meta->get('keywords');
   }
 
   public static function getMetaTitle()
   {
-    if(empty(self :: $_meta))
-      self :: _getMetaDataForUrl();
+    if(empty(self::$_meta))
+      self::_getMetaDataForUrl();
 
-    return self :: $_meta->get('title');
+    return self::$_meta->get('title');
   }
 
   public static function getMetaDescription()
   {
-    if(empty(self :: $_meta))
-      self :: _getMetaDataForUrl();
+    if(empty(self::$_meta))
+      self::_getMetaDataForUrl();
 
-    return self :: $_meta->get('description');
+    return self::$_meta->get('description');
   }
 
   public static function getMetaForCurrentUrl()
   {
-    if(empty(self :: $_meta))
-       self :: _getMetaDataForUrl();
+    if(empty(self::$_meta))
+       self::_getMetaDataForUrl();
 
-    return self :: $_meta;
+    return self::$_meta;
   }
 
   public static function getMetaForUrl($uri)
@@ -73,7 +73,7 @@ class lmbCmsSeo extends lmbActiveRecord
     $sql = 'SELECT keywords, description, title FROM lmb_cms_seo WHERE url = \'/\' OR ';
 
     for($i = 1; $i < $count_path; $i++)
-      $sql .= ' url = \'' . self :: getDefaultConnection()->escape($uri->getPathToLevel($i)) . '\'' . ($i < $count_path - 1? ' OR ':'');
+      $sql .= ' url = \'' . self::getDefaultConnection()->escape($uri->getPathToLevel($i)) . '\'' . ($i < $count_path - 1? ' OR ':'');
 
     $sql .= ' ORDER BY url DESC LIMIT 1';
     $meta = lmbDBAL::fetchOneRow($sql);

@@ -17,7 +17,7 @@ class lmbCmsFileStorage
   function storeFile($source, $mime_type = null)
   {
     if(!$mime_type)
-      $mime_type = lmbMimeType :: getFileMimeType($source);
+      $mime_type = lmbMimeType::getFileMimeType($source);
 
     if($mime_type == 'application/octet-stream')
       $mime_type = 'video/x-flv';
@@ -25,7 +25,7 @@ class lmbCmsFileStorage
     $file_id = $this->_makeUniqueIdentifier($mime_type);
 
     $dest = $this->_getMediaFile($file_id);
-    lmbFs :: cp($source, $dest);
+    lmbFs::cp($source, $dest);
     return $file_id;
   }
 
@@ -69,11 +69,11 @@ class lmbCmsFileStorage
   protected function _getMediaFile($file_id)
   {
     $md5 = md5($file_id);
-    return $this->root_dir . '/' . $md5{0} . '/' . $file_id;
+    return $this->root_dir . '/' . $md5[0] . '/' . $file_id;
   }
 
   protected function _makeUniqueIdentifier($mime_type)
   {
-    return uniqid() . '.' . lmbMimeType :: getExtension($mime_type);
+    return uniqid() . '.' . lmbMimeType::getExtension($mime_type);
   }
 }

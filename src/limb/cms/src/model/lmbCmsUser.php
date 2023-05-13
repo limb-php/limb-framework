@@ -36,14 +36,14 @@ class lmbCmsUser extends lmbActiveRecord
   protected function _createValidator()
   {
     $validator = new lmbValidator();
-    $validator->addRequiredRule('name', 'Поле "Имя" обязательно для заполнения');
-    $validator->addRequiredRule('login', 'Поле "Логин" обязательно для заполнения');
-    $validator->addRequiredRule('email', 'Поле "E-mail" обязательно для заполнения');
+    $validator->addRequiredRule('name', 'Field "Name" is required');
+    $validator->addRequiredRule('login', 'Field "Login" is required');
+    $validator->addRequiredRule('email', 'Field "E-mail" is required');
 
     $validator->addRule(new CmsUserUniqueFieldRule('login', $this));
     $validator->addRule(new CmsUserUniqueFieldRule('email', $this));
 
-    $validator->addRule(new EmailRule('email', 'Неверный формат поля "E-mail"'));
+    $validator->addRule(new EmailRule('email', 'Wrong format "E-mail"'));
     return $validator;
   }
 
@@ -121,4 +121,3 @@ class lmbCmsUser extends lmbActiveRecord
   }
 
 }
-

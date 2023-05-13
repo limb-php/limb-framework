@@ -187,7 +187,7 @@ class lmbCmsNode extends lmbActiveRecord
 
   function getUrlPath()
   {
-    return self :: getGatewayPath() . $this->getRelativeUrlPath();
+    return self::getGatewayPath() . $this->getRelativeUrlPath();
   }
 
   static function findByPath($path, $conn = null)

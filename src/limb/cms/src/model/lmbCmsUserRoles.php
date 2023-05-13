@@ -24,7 +24,7 @@ class lmbCmsUserRoles
 
   function createRole($role_id)
   {
-    $roles = self :: getRoles();
+    $roles = self::getRoles();
     if(isset($roles[$role_id]))
       return $roles[$role_id];
   }
@@ -33,7 +33,7 @@ class lmbCmsUserRoles
   {
     $roles = array();
     foreach($roles_ids as $role_id)
-      $roles[$role_id] = self :: createRole($role_id);
+      $roles[$role_id] = self::createRole($role_id);
     return $roles;
   }
 
@@ -55,12 +55,12 @@ class lmbCmsUserRoles
 
   function fetch()
   {
-    return new lmbCollection(self :: getRoles());
+    return new lmbCollection(self::getRoles());
   }
 
   function hasRoles($role_ids)
   {
-    $existing_roles = self :: getRoles();
+    $existing_roles = self::getRoles();
 
     foreach($role_ids as $id)
     {
@@ -72,7 +72,7 @@ class lmbCmsUserRoles
 
   function getRoleName($role_id)
   {
-    $existing_roles = self :: getRoles();
+    $existing_roles = self::getRoles();
     if(isset($existing_roles[$role_id]))
       return $existing_roles[$role_id]->getName();
     else

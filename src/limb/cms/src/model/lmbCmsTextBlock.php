@@ -16,9 +16,9 @@ class lmbCmsTextBlock extends lmbActiveRecord
   protected function _createValidator()
   {
     $validator = new lmbValidator();
-    $validator->addRequiredRule('identifier', 'Поле "Идентификатор" обязательно для заполнения');
-    $validator->addRequiredRule('content', 'Поле "Текст" обязательно для заполнения');
-    $validator->addRule(new CmsTextBlockUniqueFieldRule('identifier', $this, 'Текстовый блок со значением поля "Идентификатор" уже существует'));
+    $validator->addRequiredRule('identifier', 'Field "Идентификатор" is required');
+    $validator->addRequiredRule('content', 'Field "Текст" is required');
+    $validator->addRule(new CmsTextBlockUniqueFieldRule('identifier', $this, 'Field "Identifier" already exists'));
 
     return $validator;
   }

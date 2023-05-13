@@ -29,5 +29,3 @@ class lmbCmsUserRole extends lmbObject
     $this->short_name = $short_name;
   }
 }
-
-
