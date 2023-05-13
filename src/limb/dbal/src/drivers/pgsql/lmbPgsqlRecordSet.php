@@ -123,4 +123,9 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
   {
     return $this->stmt->count();
   }
+
+    function getStatement()
+    {
+        return $this->stmt;
+    }
 }
