@@ -16,13 +16,15 @@ function DriverSqliteSetup($conn)
   $sql = "CREATE TABLE founding_fathers (
             id INTEGER PRIMARY KEY,
             first VARCHAR,
-            last VARCHAR)";
+            last VARCHAR,
+            btime INTEGER
+            )";
   DriverSqliteExec($conn, $sql);
 
   $inserts = array(
-        "INSERT INTO founding_fathers VALUES (10, 'George', 'Washington');",
-        "INSERT INTO founding_fathers VALUES (15, 'Alexander', 'Hamilton');",
-        "INSERT INTO founding_fathers VALUES (25, 'Benjamin', 'Franklin');"
+        "INSERT INTO founding_fathers VALUES (10, 'George', 'Washington', 767005952);",
+        "INSERT INTO founding_fathers VALUES (15, 'Alexander', 'Hamilton', 767005953);",
+        "INSERT INTO founding_fathers VALUES (25, 'Benjamin', 'Franklin', 767005954);"
     );
 
   foreach($inserts as $sql)

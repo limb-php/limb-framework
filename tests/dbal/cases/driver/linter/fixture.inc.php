@@ -20,6 +20,7 @@ function DriverLinterSetup($conn)
         "id" INT NOT NULL AUTOINC,
         "first" varchar(50) NOT NULL default \'\',
         "last" varchar(50) NOT NULL default \'\',
+        "btime" INT NOT NULL default 0,
         PRIMARY KEY  ("id"));';
   DriverLinterExec($conn, $sql);
 
@@ -49,9 +50,9 @@ function DriverLinterSetup($conn)
   DriverLinterExec($conn, 'TRUNCATE TABLE "standard_types";');
 
   $inserts = array(
-      'INSERT INTO "founding_fathers" ("id", "first", "last") VALUES (10, \'George\', \'Washington\');',
-      'INSERT INTO "founding_fathers" ("id", "first", "last") VALUES (15, \'Alexander\', \'Hamilton\');',
-      'INSERT INTO "founding_fathers" ("id", "first", "last") VALUES (25, \'Benjamin\', \'Franklin\');'
+      'INSERT INTO "founding_fathers" ("id", "first", "last", "btime") VALUES (10, \'George\', \'Washington\', 767005952);',
+      'INSERT INTO "founding_fathers" ("id", "first", "last", "btime") VALUES (15, \'Alexander\', \'Hamilton\', 767005953);',
+      'INSERT INTO "founding_fathers" ("id", "first", "last", "btime") VALUES (25, \'Benjamin\', \'Franklin\', 767005954);'
   );
 
   foreach($inserts as $sql)

@@ -15,7 +15,8 @@ function DriverOciSetup($conn)
   $sql = "CREATE TABLE founding_fathers (
             id NUMBER PRIMARY KEY,
             first VARCHAR2(50) DEFAULT '' NOT NULL,
-            last VARCHAR2(50) DEFAULT '' NOT NULL
+            last VARCHAR2(50) DEFAULT '' NOT NULL,
+            btime NUMBER DEFAULT 0 NOT NULL
             )";
   DriverOciExec($conn, $sql);
 
@@ -71,9 +72,9 @@ BEGIN SELECT standard_types_seq.nextval INTO :NEW.ID FROM dual; END;";
   DriverOciExec($conn, $sql);
 
   $inserts = array(
-        "INSERT INTO founding_fathers (id, first, last) VALUES (10, 'George', 'Washington')",
-        "INSERT INTO founding_fathers (id, first, last) VALUES (15, 'Alexander', 'Hamilton')",
-        "INSERT INTO founding_fathers (id, first, last) VALUES (25, 'Benjamin', 'Franklin')"
+        "INSERT INTO founding_fathers (id, first, last, btime) VALUES (10, 'George', 'Washington', 767005952)",
+        "INSERT INTO founding_fathers (id, first, last, btime) VALUES (15, 'Alexander', 'Hamilton', 767005953)",
+        "INSERT INTO founding_fathers (id, first, last, btime) VALUES (25, 'Benjamin', 'Franklin', 767005954)"
   );
 
   foreach($inserts as $sql)
