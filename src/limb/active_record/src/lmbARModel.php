@@ -36,9 +36,7 @@ class lmbARModel extends lmbActiveRecord
    */
   static function findModelOne($magic_params = null, $conn = null)
   {
-    $class_name = self::_getCallingClass();
-
-    return parent::findOne($class_name, $magic_params, $conn);
+    return parent::findOne(static::class, $magic_params, $conn);
   }
 
   /**
@@ -50,9 +48,7 @@ class lmbARModel extends lmbActiveRecord
    */
   static function findModelById($id, $throw_exception = true, $conn = null)
   {
-    $class_name = self::_getCallingClass();
-
-    return parent::findById($class_name, $id, $throw_exception, $conn);
+    return parent::findById(static::class, $id, $throw_exception, $conn);
   }
 
   /**
@@ -65,9 +61,7 @@ class lmbARModel extends lmbActiveRecord
    */
   static function findModelByIds($ids = null, $params = null, $conn = null)
   {
-    $class_name = self::_getCallingClass();
-
-    return parent::findByIds($class_name, $ids, $params, $conn);
+    return parent::findByIds(static::class, $ids, $params, $conn);
   }
 
 
@@ -79,9 +73,7 @@ class lmbARModel extends lmbActiveRecord
    */
   static function findModelBySql($sql = null, $conn = null)
   {
-    $class_name = self::_getCallingClass();
-
-    return parent::findBySql($class_name, $sql, $conn);
+    return parent::findBySql(static::class, $sql, $conn);
   }
 
   /**
@@ -92,9 +84,7 @@ class lmbARModel extends lmbActiveRecord
    */
   static function findModelFirstBySql($sql = null, $conn = null)
   {
-    $class_name = self::_getCallingClass();
-
-    return parent::findFirstBySql($class_name, $sql, $conn);
+    return parent::findFirstBySql(static::class, $sql, $conn);
   }
 
   /**
@@ -104,9 +94,7 @@ class lmbARModel extends lmbActiveRecord
    */
   static function findModelOneBySql($sql = null, $conn = null)
   {
-    $class_name = self::_getCallingClass();
-
-    return parent::findOneBySql($class_name, $sql, $conn);
+    return parent::findOneBySql(static::class, $sql, $conn);
   }
 
   /**
@@ -145,9 +133,7 @@ class lmbARModel extends lmbActiveRecord
    */
   static function findModel($magic_params = null, $conn = null)
   {
-    $class_name = self::_getCallingClass();
-
-    return parent::find($class_name, $magic_params, $conn);
+    return parent::find(static::class, $magic_params, $conn);
   }
 
   /**
@@ -157,23 +143,17 @@ class lmbARModel extends lmbActiveRecord
    */
   static function deleteModel($criteria = null, $conn = null)
   {
-    $class_name = self::_getCallingClass();
-
-    parent::delete($class_name, $criteria, $conn);
+    parent::delete(static::class, $criteria, $conn);
   }
 
   static function deleteRawModel($criteria = null, $conn = null)
   {
-    $class_name = self::_getCallingClass();
-
-    parent::deleteRaw($class_name, $criteria, $conn);
+    parent::deleteRaw(static::class, $criteria, $conn);
   }
 
   static function updateRawModel($set = null, $criteria = null, $conn = null)
   {
-    $class_name = self::_getCallingClass();
-
-    parent::updateRaw($class_name, $set, $criteria, $conn);
+    parent::updateRaw(static::class, $set, $criteria, $conn);
   }
 
   /* */

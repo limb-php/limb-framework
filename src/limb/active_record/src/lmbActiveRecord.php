@@ -225,15 +225,7 @@ class lmbActiveRecord extends lmbObject
         $this->import($magic_params);
     }
   }
-  /* */
-  function __destruct()
-  {
-    /*foreach($this->_relations as $property => $info)
-    {
-      unset($this->$property);
-      //$this->remove($property);
-    }*/
-  }
+
   /**
    *  Sets database resource identifier used for database access
    *  @param string $dsn DSN, e.g. mysql://root:secret@localhost/mydb
@@ -1336,6 +1328,7 @@ class lmbActiveRecord extends lmbObject
         $error_list->addError('ActiveRecord::save() exception: ' . $e->getMessage());
       return false;
     }
+
     return true;
   }
   /**
@@ -1465,12 +1458,7 @@ class lmbActiveRecord extends lmbObject
     if(!is_scalar($name) || is_numeric($name) || !$name)
       return false;
 
-    return class_exists($name);
-  }
-
-  static protected function _getCallingClass()
-  {
-    return get_called_class();
+    return is_subclass_of($name, self::class);
   }
 
   /**
@@ -1487,7 +1475,7 @@ class lmbActiveRecord extends lmbObject
     {
       $conn = $magic_params;
       $magic_params = $class_name ?? array();
-      $class_name = self::_getCallingClass();
+      $class_name = static::class;
     }
 
     $params = array();
@@ -1498,7 +1486,7 @@ class lmbActiveRecord extends lmbObject
     elseif(is_array($magic_params))
     {
       $params = $magic_params;
-      array_push($params, 'first');
+      $params[] = 'first';
     }
 
     if(!class_exists($class_name, true))
@@ -1513,24 +1501,18 @@ class lmbActiveRecord extends lmbObject
   /**
    *  self :: findFirst() convenience alias
    *  @see findFirst()
-   *  @param string class name of the object
-   *  @param mixed misc magic params
+   *  @param string $class_name class name of the object
+   *  @param mixed $magic_params misc magic params
    *  @return lmbActiveRecord|null
    */
   static function findOne($class_name = null, $magic_params = null, $conn = null)
   {
-    if(!self::_isClass($class_name))
-    {
-      $conn = $magic_params;
-      $magic_params = $class_name ?? array();
-      $class_name = self::_getCallingClass();
-    }
     return self::findFirst($class_name, $magic_params, $conn);
   }
   /**
    *  Userland filter for findFirst() static method
    *  @see findFirst()
-   *  @param mixed misc magic params
+   *  @param mixed $params misc magic params
    *  @return object|null
    */
   protected function _findFirst($params)
@@ -1543,7 +1525,7 @@ class lmbActiveRecord extends lmbObject
    *  @param string $class_name class name of the object
    *  @param integer $id object id
    *  @param bool $throw_exception object id
-   *  @param object $conn database connection object
+   *  @param lmbDbConnectionInterface|null $conn database connection object
    *  @return lmbActiveRecord|null
    */
   static function findById($class_name, $id = null, $throw_exception = true, $conn = null)
@@ -1553,7 +1535,7 @@ class lmbActiveRecord extends lmbObject
       $conn = $throw_exception;
       $throw_exception = $id;
       $id = $class_name;
-      $class_name = self::_getCallingClass();
+      $class_name = static::class;
     }
 
     if(!class_exists($class_name, true))
@@ -1570,7 +1552,7 @@ class lmbActiveRecord extends lmbObject
    *  @see findById()
    *  @param integer $id_or_arr object id
    *  @param bool $throw_exception
-   *  @return object
+   *  @return object|null
    */
   protected function _findById($id_or_arr, $throw_exception)
   {
@@ -1589,7 +1571,10 @@ class lmbActiveRecord extends lmbObject
     else
     {
       $id = (int)$id_or_arr;
-      $params = array('first', 'criteria' => $this->_db_conn->quoteIdentifier($this->_primary_key_name) . '=' . $id);
+      $params = array(
+          'first',
+          'criteria' => $this->_db_conn->quoteIdentifier($this->_primary_key_name) . '=' . $id
+      );
     }
 
     $object = $this->_find($params);
@@ -1599,9 +1584,8 @@ class lmbActiveRecord extends lmbObject
     elseif($throw_exception) {
       throw new lmbARNotFoundException(get_class($this), $id);
     }
-    else {
-      return null;
-    }
+
+    return null;
   }
   /**
    *  Finds a collection of objects in database using array of object ids, this method is actually a wrapper around find()
@@ -1619,7 +1603,7 @@ class lmbActiveRecord extends lmbObject
       $conn = $params;
       $params = $ids;
       $ids = $class_name;
-      $class_name = self::_getCallingClass();
+      $class_name = static::class;
     }
 
     if(!class_exists($class_name, true))
@@ -1642,6 +1626,7 @@ class lmbActiveRecord extends lmbObject
   {
     if(!is_array($ids) || !sizeof($ids))
       return new lmbCollection();
+
     if(self::_isCriteria($params))
       $params = array('criteria' => $params);
 
@@ -1666,7 +1651,7 @@ class lmbActiveRecord extends lmbObject
     {
       $conn = $sql;
       $sql = $class_name;
-      $class_name = self::_getCallingClass();
+      $class_name = static::class;
     }
 
     if(!is_object($conn))
@@ -1688,7 +1673,7 @@ class lmbActiveRecord extends lmbObject
     {
       $conn = $sql;
       $sql = $class_name;
-      $class_name = self::_getCallingClass();
+      $class_name = static::class;
     }
 
     $rs = self::findBySql($class_name, $sql, $conn);
@@ -1710,7 +1695,7 @@ class lmbActiveRecord extends lmbObject
     {
       $conn = $sql;
       $sql = $class_name;
-      $class_name = self::_getCallingClass();
+      $class_name = static::class;
     }
     return self::findFirstBySql($class_name, $sql, $conn);
   }
@@ -1756,7 +1741,7 @@ class lmbActiveRecord extends lmbObject
     {
       $conn = $magic_params;
       $magic_params = $class_name ?? array();
-      $class_name = self::_getCallingClass();
+      $class_name = static::class;
     }
 
     if(!is_object($conn))
@@ -1829,7 +1814,7 @@ class lmbActiveRecord extends lmbObject
   {
     $magic_params = array_merge($params, array('criteria' => $criteria));
 
-    $query = lmbARQuery::create(self::_getCallingClass(), $magic_params, $this->_db_conn);
+    $query = lmbARQuery::create(static::class, $magic_params, $this->_db_conn);
     return $query->fetch($decorate = false);
   }
 
@@ -1990,7 +1975,7 @@ class lmbActiveRecord extends lmbObject
     {
       $conn = $criteria;
       $criteria = $class_name;
-      $class_name = self::_getCallingClass();
+      $class_name = static::class;
     }
 
     if(!is_object($conn))
@@ -2011,7 +1996,7 @@ class lmbActiveRecord extends lmbObject
     {
       $conn = $criteria;
       $criteria = $class_name;
-      $class_name = self::_getCallingClass();
+      $class_name = static::class;
     }
 
     if(!is_object($conn))
@@ -2029,7 +2014,7 @@ class lmbActiveRecord extends lmbObject
       $conn = $criteria;
       $criteria = $set;
       $set = $class_name;
-      $class_name = self::_getCallingClass();
+      $class_name = static::class;
     }
 
     if(!is_object($conn))
