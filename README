@@ -2,7 +2,7 @@
             Limb4 Web Application Framework
 ################################################################################
 
-Limb4 is a general PHP7 only Web Application Framework
+Limb4 is a general PHP Web Application Framework
 
 Here is the list of the most notable packages at the moment:
 
@@ -20,13 +20,15 @@ Migrate from Limb3 to Limb4:
     * rename class files (remove '.class' extension)
     * add namespaces to all classes
     * change all lmb_require() to 'use'
-    * lmb_env_* methods change to lmbEnv::* calls
-    * App Toolkit should return array of used toolkits by getRequiredTools() method
-    * Application class method process should be compatible with limb\filter_chain\src\lmbFilterChain::process($request = NULL, $response = NULL)
-    * method run all of filter classes must be compatible with limb\filter_chain\src\lmbInterceptingFilterInterface::run($filter_chain, $request, $response); and return HttpResponse; method next() must be compatible with limb\filter_chain\src\lmbInterceptingFilterInterface::next($request, $response)
-    * driver "mysqli" removed. Use "mysql" insted
+    * core: lmb_env_* methods change to lmbEnv::* calls
+    * dbal: driver "mysqli" removed. Use "mysql" instead
+    * toolkit: App Toolkit should return array of used toolkits by getRequiredTools() method
+    * filter_chain: Application class method process should be compatible with limb\filter_chain\src\lmbFilterChain::process($request = NULL, $response = NULL)
+    * filter_chain: method run all of filter classes must be compatible with limb\filter_chain\src\lmbInterceptingFilterInterface::run($filter_chain, $request, $response); and return HttpResponse; method next() must be compatible with limb\filter_chain\src\lmbInterceptingFilterInterface::next($request, $response)
     * ActiveRecord value objects no more supports "getter" and "field" params. Use "mapping" or "setup_method"
     * mail: env variable PHPMAILER_VERSION_NAME not using any more
+    * CMS: controller folder renamed to Controllers
+    * validation: remove 'lmb' prefix from riles classes. ErrorList return error collection with keys
 
 
 Limb5 roadmap:
