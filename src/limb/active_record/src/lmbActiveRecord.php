@@ -1170,7 +1170,7 @@ class lmbActiveRecord extends lmbObject
       throw $e;
     }
 
-    return $this->getId();
+    return $this;
   }
 
   protected function _updateDbRecord($values)
@@ -1288,7 +1288,7 @@ class lmbActiveRecord extends lmbObject
   /**
    *  Validates object and saves into database, throws exception if there were any errors
    *  @param lmbErrorList|null $error_list error list object which will receive all validation errors
-   *  @return int id of the saved object
+   *  @return static saved object
    */
   function save($error_list = null)
   {
@@ -1300,7 +1300,7 @@ class lmbActiveRecord extends lmbObject
 
   /**
    *  Saves object into database skipping any validation, throws exception if there were any errors
-   *  @return int id of the saved object
+   *  @return static saved object
    */
   function saveSkipValidation()
   {
