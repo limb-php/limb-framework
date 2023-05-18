@@ -111,7 +111,6 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
     }
   }
 
-
   function countPaginated()
   {
     if(is_null($this->queryId))
@@ -123,9 +122,4 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
   {
     return $this->stmt->count();
   }
-
-    function getStatement()
-    {
-        return $this->stmt;
-    }
 }
