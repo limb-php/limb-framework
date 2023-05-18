@@ -16,7 +16,7 @@ namespace limb\core\src;
  */
 class lmbEnv
 {
-  static function has($name)
+  static function has($name): bool
   {
     if(array_key_exists($name, $_ENV))
     {

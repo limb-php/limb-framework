@@ -36,9 +36,9 @@ class TestingDatasetDecorator extends lmbCollectionDecorator
     $this->sort_params = $sort_params;
   }
 
-  function current()
+  function current(): mixed
   {
-    $record = parent :: current();
+    $record = parent::current();
     $data = $record->export();
     $data['full'] = $this->prefix1 . $data['name'] . '-' . $data['job'] . $this->prefix2;
     $processed_record = new lmbSet();

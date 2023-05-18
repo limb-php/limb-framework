@@ -64,7 +64,7 @@ class lmbSearchResultProcessor extends lmbCollectionDecorator
     usort($words, array($this, "_usortHandler"));
   }
 
-  function rewind()
+  function rewind(): void
   {
     $this->_formRegex();
     parent::rewind();
@@ -79,7 +79,7 @@ class lmbSearchResultProcessor extends lmbCollectionDecorator
     $this->regex = '~(.*?)(' . rtrim($regex, '|') . ')(.*)~si';
   }
 
-  function current()
+  function current(): mixed
   {
     $record = parent::current();
 

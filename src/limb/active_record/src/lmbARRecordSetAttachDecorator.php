@@ -41,7 +41,7 @@ class lmbARRecordSetAttachDecorator extends lmbCollectionDecorator
     parent::__construct($record_set);
   }
 
-  function rewind()
+  function rewind(): void
   {
     foreach($this->attach_relations as $relation_name => $params)
     {
@@ -135,7 +135,7 @@ class lmbARRecordSetAttachDecorator extends lmbCollectionDecorator
     parent::rewind();
   }
 
-  function current()
+  function current(): mixed
   {
     $object = parent::current();
 

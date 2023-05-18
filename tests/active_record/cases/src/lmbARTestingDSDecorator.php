@@ -18,7 +18,7 @@ class lmbARTestingDSDecorator extends lmbCollectionDecorator
         $record->set('value', $this->value);
     }
 
-    function current()
+    function current(): mixed
     {
         $record = parent::current();
         $this->_processRecord($record);

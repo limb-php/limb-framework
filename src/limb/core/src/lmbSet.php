@@ -136,28 +136,28 @@ class lmbSet implements lmbSetInterface
   }
 
   //ArrayAccess interface
-  function offsetExists($offset)
+  function offsetExists($offset): bool
   {
     return $this->has($offset);
   }
 
-  function offsetGet($offset)
+  function offsetGet($offset): mixed
   {
     return $this->get($offset);
   }
 
-  function offsetSet($offset, $value)
+  function offsetSet($offset, $value): void
   {
     $this->set($offset, $value);
   }
 
-  function offsetUnset($offset)
+  function offsetUnset($offset): void
   {
     $this->remove($offset);
   }
 
   //Iterator interface
-  function valid()
+  function valid(): bool
   {
     if(!$this->__valid)
     {
@@ -170,19 +170,19 @@ class lmbSet implements lmbSetInterface
     return true;
   }
 
-  function current()
+  function current(): mixed
   {
     return $this->__current;
   }
 
-  function next()
+  function next(): void
   {
     $this->__current = next($this->__properties);
     $this->__counter++;
     $this->__valid = $this->__size > $this->__counter;
   }
 
-  function rewind()
+  function rewind(): void
   {
     $this->__properties = $this->_getUnguardedVars($this);
     $this->__current = reset($this->__properties);
@@ -191,7 +191,7 @@ class lmbSet implements lmbSetInterface
     $this->__valid = $this->__size > $this->__counter;
   }
 
-  function key()
+  function key(): mixed
   {
     return key($this->__properties);
   }

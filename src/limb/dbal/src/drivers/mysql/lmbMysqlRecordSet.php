@@ -46,7 +46,7 @@ class lmbMysqlRecordSet extends lmbDbBaseRecordSet
     }
   }
 
-  function rewind()
+  function rewind(): void
   {
     if(isset($this->queryId) && $this->_is_resource($this->queryId) && mysqli_num_rows($this->queryId))
     {
@@ -84,7 +84,7 @@ class lmbMysqlRecordSet extends lmbDbBaseRecordSet
     $this->next();
   }
 
-  function next()
+  function next(): void
   {
     $this->current = new lmbMysqlRecord();
     $values = Mysqli_fetch_assoc($this->queryId);
@@ -93,17 +93,17 @@ class lmbMysqlRecordSet extends lmbDbBaseRecordSet
     $this->key++;
   }
 
-  function valid()
+  function valid(): bool
   {
     return $this->valid;
   }
 
-  function current()
+  function current(): mixed
   {
     return $this->current;
   }
 
-  function key()
+  function key(): mixed
   {
     return $this->key;
   }
@@ -139,7 +139,7 @@ class lmbMysqlRecordSet extends lmbDbBaseRecordSet
     return Mysqli_num_rows($this->queryId);
   }
 
-  function count()
+  function count(): int
   {
     if(!(preg_match("/^\s*SELECT\s+DISTINCT/is", $this->query) || preg_match('/\s+GROUP\s+BY\s+/is', $this->query)) && 
        preg_match("/^\s*SELECT\s+.+\s+FROM\s+/Uis", $this->query))

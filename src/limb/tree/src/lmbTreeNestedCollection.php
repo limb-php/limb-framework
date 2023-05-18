@@ -38,7 +38,7 @@ class lmbTreeNestedCollection extends lmbCollectionDecorator
     $this->children_field = $name;
   }
   
-  function rewind()
+  function rewind(): void
   {
     parent::rewind();
 
@@ -53,7 +53,7 @@ class lmbTreeNestedCollection extends lmbCollectionDecorator
 
     $this->iterator = $iterator;
 
-    return $this->iterator->rewind();
+    $this->iterator->rewind();
   }
 
   function _doMakeNested($rs, &$nested_array, $parent_id=null, $level=0)

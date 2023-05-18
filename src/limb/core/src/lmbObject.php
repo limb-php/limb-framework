@@ -260,22 +260,22 @@ class lmbObject implements lmbSetInterface
    * Implements ArrayAccess interface
    * @see ArrayAccess
    */
-  function offsetExists($offset)
+  function offsetExists($offset): bool
   {
     return $this->has($offset);
   }
 
-  function offsetGet($offset)
+  function offsetGet($offset): mixed
   {
     return $this->get($offset);
   }
 
-  function offsetSet($offset, $value)
+  function offsetSet($offset, $value): void
   {
     $this->set($offset, $value);
   }
 
-  function offsetUnset($offset)
+  function offsetUnset($offset): void
   {
     $this->remove($offset);
   }
@@ -379,27 +379,27 @@ class lmbObject implements lmbSetInterface
     $this->remove($name);
   }
 
-  function current()
+  function current(): mixed
   {
     return $this->_getRaw($this->key());
   }
 
-  function next()
+  function next(): void
   {
-    return $this->_getRaw(next($this->_map['public']));
+      next($this->_map['public']);
   }
 
-  function key()
+  function key(): mixed
   {
     return current($this->_map['public']);
   }
 
-  function valid()
+  function valid(): bool
   {
     return (bool) $this->key();
   }
 
-  function rewind()
+  function rewind(): void
   {
     reset($this->_map['public']);
   }

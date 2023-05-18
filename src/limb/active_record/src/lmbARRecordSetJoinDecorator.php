@@ -36,7 +36,7 @@ class lmbARRecordSetJoinDecorator extends lmbCollectionDecorator
     parent::__construct($record_set);
   }
 
-  function rewind()
+  function rewind(): void
   {
     foreach($this->join_relations as $relation_name => $params)
     {
@@ -52,7 +52,7 @@ class lmbARRecordSetJoinDecorator extends lmbCollectionDecorator
     parent::rewind();
   }
 
-  function current()
+  function current(): mixed
   {
     if(!$record = parent::current())
       return null;

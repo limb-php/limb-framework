@@ -41,7 +41,7 @@ class lmbLinterRecordSet extends lmbDbBaseRecordSet
     }
   }
 
-  function rewind()
+  function rewind(): void
   {
     if(isset($this->queryId) && $this->queryId > 0 && linter_get_cursor_opt($this->queryId, CO_ROW_COUNT))
     {
@@ -65,7 +65,7 @@ class lmbLinterRecordSet extends lmbDbBaseRecordSet
     $this->next();
   }
 
-  function next()
+  function next(): void
   {
     $this->current = new lmbLinterRecord();
     $values = linter_fetch_array($this->queryId);
@@ -74,17 +74,17 @@ class lmbLinterRecordSet extends lmbDbBaseRecordSet
     $this->key++;
   }
 
-  function valid()
+  function valid(): bool
   {
     return $this->valid;
   }
 
-  function current()
+  function current(): mixed
   {
     return $this->current;
   }
 
-  function key()
+  function key(): mixed
   {
     return $this->key;
   }
@@ -111,7 +111,6 @@ class lmbLinterRecordSet extends lmbDbBaseRecordSet
     
   }
   
-
   function countPaginated()
   {
     if(is_null($this->queryId))
@@ -119,9 +118,8 @@ class lmbLinterRecordSet extends lmbDbBaseRecordSet
     return linter_get_cursor_opt($this->queryId, CO_ROW_COUNT);
   }
 
-  function count()
+  function count(): int
   {
     return $this->stmt->count();
   }
-  
 }

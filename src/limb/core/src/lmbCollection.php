@@ -97,7 +97,7 @@ class lmbCollection implements lmbCollectionInterface
         return new static(lmbArrayHelper::mapCallback($this->dataset, $callback));
     }
 
-  function rewind()
+  function rewind(): void
   {
     $this->_setupIteratedDataset();
 
@@ -107,7 +107,7 @@ class lmbCollection implements lmbCollectionInterface
     $this->valid = $this->_isValid($values);
   }
 
-  function next()
+  function next(): void
   {
     $this->_setupIteratedDataset();
 
@@ -147,17 +147,17 @@ class lmbCollection implements lmbCollectionInterface
       $this->iteratedDataset = array();
   }
 
-  function valid()
+  function valid(): bool
   {
     return $this->valid;
   }
 
-  function current()
+  function current(): mixed
   {
     return $this->current;
   }
 
-  function key()
+  function key(): mixed
   {
     return $this->key;
   }
@@ -222,22 +222,23 @@ class lmbCollection implements lmbCollectionInterface
   }
 
   //ArrayAccess interface
-  function offsetExists($offset)
+  function offsetExists($offset): bool
   {
     return isset($this->dataset[$offset]);
   }
 
-  function offsetGet($offset)
+  function offsetGet($offset): mixed
   {
     return $this->at($offset);
   }
 
-  function offsetSet($offset, $value)
+  function offsetSet($offset, $value): void
   {
     $this->add($value, $offset);
   }
 
-  function offsetUnset($offset){}
+  function offsetUnset($offset): void
+  {}
   //end
 
     public function jsonSerialize(): array

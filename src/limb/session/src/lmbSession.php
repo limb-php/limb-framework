@@ -199,51 +199,52 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
    * @param string $offset
    * @return void
    */
-  function offsetUnset($offset){
+  function offsetUnset($offset): void
+  {
     $this->destroy($offset);
   }
 
-  function offsetExists($offset)
+  function offsetExists($offset): bool
   {
     return $this->exists($offset);
   }
 
-  function offsetGet($offset)
+  function offsetGet($offset): mixed
   {
     return $this->get($offset);
   }
 
-  function offsetSet($offset,$value)
+  function offsetSet($offset,$value): void
   {
     $this->set($offset, $value);
   }
 
-  function current()
+  function current(): mixed
   {
     return current($_SESSION);
   }
 
-  function next()
+  function next(): void
   {
-    return next($_SESSION);
+    next($_SESSION);
   }
 
-  function key()
+  function key(): mixed
   {
     return key($_SESSION);
   }
 
-  function valid()
+  function valid(): bool
   {
     return !is_null($this->key());
   }
 
-  function rewind()
+  function rewind(): void
   {
-    return reset($_SESSION);
+    reset($_SESSION);
   }
 
-  function count()
+  function count(): int
   {
     return count($_SESSION);
   }

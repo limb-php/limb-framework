@@ -23,27 +23,27 @@ class lmbCollectionDecorator implements lmbCollectionInterface
     $this->iterator = $iterator;
   }
 
-  function valid()
+  function valid(): bool
   {
     return $this->iterator->valid();
   }
 
-  function current()
+  function current(): mixed
   {
     return $this->iterator->current();
   }
 
-  function next()
+  function next(): void
   {
     $this->iterator->next();
   }
 
-  function rewind()
+  function rewind(): void
   {
     $this->iterator->rewind();
   }
 
-  function key()
+  function key(): mixed
   {
     return $this->iterator->key();
   }
@@ -94,32 +94,31 @@ class lmbCollectionDecorator implements lmbCollectionInterface
   }
 
   //Countable interface
-  function count()
+  function count(): int
   {
     return (int) $this->iterator->count();
   }
   //end
 
   //ArrayAccess interface
-  function offsetExists($offset)
+  function offsetExists($offset): bool
   {
     return !is_null($this->at($offset));
   }
 
-  function offsetGet($offset)
+  function offsetGet($offset): mixed
   {
     return $this->at($offset);
   }
 
-  function offsetSet($offset, $value)
+  function offsetSet($offset, $value): void
   {
-    return $this->iterator->offsetSet($offset, $value);
+    $this->iterator->offsetSet($offset, $value);
   }
 
-  function offsetUnset($offset)
+  function offsetUnset($offset): void
   {
-    return $this->iterator->offsetUnset($offset);
+    $this->iterator->offsetUnset($offset);
   }
   //end
 }
-

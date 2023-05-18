@@ -67,19 +67,21 @@ abstract class lmbDbBaseRecordSet implements lmbDbRecordSetInterface
     }
 
   //ArrayAccess interface
-  function offsetExists($offset)
+  function offsetExists($offset): bool
   {
     return !is_null($this->offsetGet($offset));
   }
 
-  function offsetGet($offset)
+  function offsetGet($offset): mixed
   {
     if(is_numeric($offset))
       return $this->at((int)$offset);
   }
 
-  function offsetSet($offset, $value){}
+  function offsetSet($offset, $value): void
+  {}
 
-  function offsetUnset($offset){}
+  function offsetUnset($offset): void
+  {}
   //end
 }

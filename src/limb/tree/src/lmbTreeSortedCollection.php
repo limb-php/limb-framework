@@ -54,9 +54,9 @@ class lmbTreeSortedCollection extends lmbCollectionDecorator
     }
   }
 
-  function rewind()
+  function rewind(): void
   {
-    parent :: rewind();
+    parent::rewind();
 
     if($this->iterator->valid())
     {
@@ -69,6 +69,6 @@ class lmbTreeSortedCollection extends lmbCollectionDecorator
 
     $this->iterator = $iterator;
 
-    return $this->iterator->rewind();
+    $this->iterator->rewind();
   }
 }

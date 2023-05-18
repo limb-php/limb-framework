@@ -35,7 +35,7 @@ class lmbMssqlRecordSet extends lmbDbBaseRecordSet
   {
     if(isset($this->queryId) && is_resource($this->queryId))
     {
-      @mssql_free_result($this->queryId);
+      mssql_free_result($this->queryId);
       $this->queryId = null;
     }
   }
@@ -44,7 +44,7 @@ class lmbMssqlRecordSet extends lmbDbBaseRecordSet
   {
     if(isset($this->queryId) && is_resource($this->queryId) && mssql_num_rows($this->queryId))
     {
-      if(@mssql_data_seek($this->queryId, 0) === false)
+      if(mssql_data_seek($this->queryId, 0) === false)
       {
         $this->connection->_raiseError();
       }
@@ -68,7 +68,7 @@ class lmbMssqlRecordSet extends lmbDbBaseRecordSet
       $this->queryId = $this->connection->execute($query);
       if($this->limit)
       {
-          @mssql_data_seek($this->queryId, $this->offset);
+          mssql_data_seek($this->queryId, $this->offset);
         //$query .= ' LIMIT ' .
         //$this->offset . ',' .
         //$this->limit;
@@ -112,7 +112,7 @@ class lmbMssqlRecordSet extends lmbDbBaseRecordSet
     return $data;
   }
   
-  function next()
+  function next(): void
   {
     $this->current = new lmbMssqlRecord();
     $values = $this->_trim(mssql_fetch_assoc($this->queryId));
@@ -121,17 +121,17 @@ class lmbMssqlRecordSet extends lmbDbBaseRecordSet
     $this->key++;
   }
 
-  function valid()
+  function valid(): bool
   {
     return $this->valid;
   }
 
-  function current()
+  function current(): mixed
   {
     return $this->current;
   }
 
-  function key()
+  function key(): mixed
   {
     return $this->key;
   }
@@ -190,7 +190,7 @@ class lmbMssqlRecordSet extends lmbDbBaseRecordSet
     }
   }
 
-  function count()
+  function count(): int
   {
     if(!(preg_match("/^\s*SELECT\s+DISTINCT/is", $this->query) || preg_match('/\s+GROUP\s+BY\s+/is', $this->query)) && 
        preg_match("/^\s*SELECT\s+.+\s+FROM\s+/Uis", $this->query))

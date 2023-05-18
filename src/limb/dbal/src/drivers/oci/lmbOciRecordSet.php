@@ -53,7 +53,7 @@ class lmbOciRecordSet extends lmbDbBaseRecordSet
     }
   }
 
-  function rewind()
+  function rewind(): void
   {
     $stmt = $this->_prepareStatement();
     $this->queryId = $stmt->execute();
@@ -85,7 +85,7 @@ class lmbOciRecordSet extends lmbDbBaseRecordSet
       oci_set_prefetch($this->queryId, $this->limit);
   }
 
-  function next()
+  function next(): void
   {
     $this->current = new lmbOciRecord();
     $values = oci_fetch_array($this->queryId, OCI_ASSOC+OCI_RETURN_NULLS);
@@ -94,17 +94,17 @@ class lmbOciRecordSet extends lmbDbBaseRecordSet
     $this->key++;
   }
 
-  function valid()
+  function valid(): bool
   {
     return $this->valid;
   }
 
-  function current()
+  function current(): mixed
   {
     return $this->current;
   }
 
-  function key()
+  function key(): mixed
   {
     return $this->key;
   }
@@ -132,7 +132,7 @@ class lmbOciRecordSet extends lmbDbBaseRecordSet
     return $this->stmt->count();
   }
 
-  function count()
+  function count(): int
   {
     return $this->original_stmt->count();
   }

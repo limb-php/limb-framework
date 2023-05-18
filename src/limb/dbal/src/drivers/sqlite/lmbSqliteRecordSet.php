@@ -33,13 +33,13 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
     $this->query = $queryString;
   }
 
-  function freeQuery()
+  function freeQuery(): void
   {
     if(isset($this->rs) && is_resource($this->rs))
       $this->rs = null;
   }
 
-  function rewind()
+  function rewind(): void
   {
     if(isset($this->rs) && is_resource($this->rs))
     {
@@ -77,7 +77,7 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
     $this->next();
   }
 
-  function next()
+  function next(): void
   {
     $this->current = new lmbSqliteRecord();
 
@@ -88,17 +88,17 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
     $this->key++;
   }
 
-  function valid()
+  function valid(): bool
   {
     return $this->valid;
   }
 
-  function current()
+  function current(): mixed
   {
     return $this->current;
   }
 
-  function key()
+  function key(): mixed
   {
     return $this->key;
   }
@@ -145,7 +145,7 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
     return $this->numRows();
   }
 
-  function count()
+  function count(): int
   {
     if(!(preg_match("/^\s*SELECT\s+DISTINCT/is", $this->query) || preg_match('/\s+GROUP\s+BY\s+/is',$this->query)) &&
        preg_match("/^\s*SELECT\s+.+\s+FROM\s+/Uis", $this->query))

@@ -19,51 +19,51 @@ abstract class lmbDbBaseRecord implements lmbDbRecordInterface
   protected $properties = array();
   
   //ArrayAccess interface
-  function offsetExists($offset)
+  function offsetExists($offset): bool
   {
     return $this->has($offset);
   }
 
-  function offsetGet($offset)
+  function offsetGet($offset): mixed
   {
     return $this->get($offset);
   }
 
-  function offsetSet($offset, $value)
+  function offsetSet($offset, $value): void
   {
     $this->set($offset, $value);
   }
 
-  function offsetUnset($offset)
+  function offsetUnset($offset): void
   {
     $this->remove($offset);
   }
   //end
   
   //Iterator interface
-  function current()
+  function current(): mixed
   {
     return current($this->properties);
   }
   
-  function next()
+  function next(): void
   {
-    return next($this->properties);
+    next($this->properties);
   }
   
-  function key()
+  function key(): mixed
   {
     return key($this->properties);
   }
   
-  function valid()
+  function valid(): bool
   {
     return (bool) current($this->properties);
   }
   
-  function rewind()
+  function rewind(): void
   {
-    return reset($this->properties);
+    reset($this->properties);
   }
   //end
 }

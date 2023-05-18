@@ -34,7 +34,7 @@ class lmbARRecordSetDecorator extends lmbCollectionDecorator
     parent::__construct($record_set);
   }
 
-  function current()
+  function current(): mixed
   {
     if(!$record = parent::current())
       return null;

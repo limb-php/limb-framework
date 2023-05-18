@@ -41,7 +41,7 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
     }
   }
 
-  function rewind()
+  function rewind(): void
   {
     if(isset($this->queryId) && is_resource($this->queryId) && pg_num_rows($this->queryId))
     {
@@ -67,7 +67,7 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
     $this->next();
   }
 
-  function next()
+  function next(): void
   {
     $this->current = new lmbPgsqlRecord();
     $values = pg_fetch_assoc($this->queryId);
@@ -76,17 +76,17 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
     $this->key++;
   }
 
-  function valid()
+  function valid(): bool
   {
     return $this->valid;
   }
 
-  function current()
+  function current(): mixed
   {
     return $this->current;
   }
 
-  function key()
+  function key(): mixed
   {
     return $this->key;
   }
@@ -119,7 +119,7 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
     return pg_num_rows($this->queryId);
   }
 
-  function count()
+  function count(): int
   {
     return $this->stmt->count();
   }
