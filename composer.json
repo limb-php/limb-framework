@@ -56,11 +56,11 @@
     "autoload": {
         "files": [
             "src/limb/core/common.inc.php",
+            "src/limb/cms/common.inc.php",
             "src/limb/i18n/common.inc.php",
             "src/limb/log/common.inc.php",
             "src/limb/net/common.inc.php",
-            "src/limb/view/common.inc.php",
-            "bootstrap.php"
+            "src/limb/view/common.inc.php"
         ],
         "psr-0": {
             "limb\\": "src/"
