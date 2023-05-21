@@ -7,14 +7,23 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 namespace tests\dbal\cases\driver;
+
+use limb\dbal\src\drivers\lmbDbRecordInterface;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
+use limb\dbal\src\drivers\lmbDbTypeInfo;
 use PHPUnit\Framework\TestCase;
 
 abstract class DriverTypeInfoTestBase extends TestCase
 {
+    /** @var $typeInfo lmbDbTypeInfo */
     protected $typeInfo;
 
     protected $columnList;
+
+    /** @var $queryStmtClass lmbDbStatementInterface */
     protected $queryStmtClass;
+
+    /** @var $recordClass lmbDbRecordInterface */
     protected $recordClass;
 
   function init($queryStmtClass, $recordClass)
@@ -40,7 +49,7 @@ abstract class DriverTypeInfoTestBase extends TestCase
     foreach($mapping as $col => $name)
     {
       $this->assertTrue(in_array($col, $this->columnList));
-      $this->assertTrue(is_callable(array($this->queryStmtClass, $name)), "'$name' is not callable in {$this->queryStmtClass}");
+      $this->assertTrue(method_exists($this->queryStmtClass, $name), "'$name' is not callable in {$this->queryStmtClass}");
     }
   }
 
@@ -54,7 +63,7 @@ abstract class DriverTypeInfoTestBase extends TestCase
     foreach($mapping as $prop => $name)
     {
       $this->assertTrue(in_array($prop, $this->columnList));
-      $this->assertTrue(is_callable(array($this->recordClass, $name)), "'$name' is not callable in {$this->recordClass}");
+      $this->assertTrue(method_exists($this->recordClass, $name), "'$name' is not callable in {$this->recordClass}");
     }
   }
 }

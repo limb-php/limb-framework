@@ -65,7 +65,7 @@ class lmbPgsqlRecord extends lmbDbBaseRecord
   function getBit($name)
   {
     $value = $this->get($name);
-    return is_null($value) ?  null : (int) $value;
+    return is_null($value) ?  null : bindec($value); // int
   }
 
   function getInteger($name)
@@ -155,4 +155,9 @@ class lmbPgsqlRecord extends lmbDbBaseRecord
   {
     return $this->get($name);
   }
+
+    function getChar($name)
+    {
+        return $this->get($name);
+    }
 }

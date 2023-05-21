@@ -8,12 +8,14 @@
  */
 namespace tests\dbal\cases\driver;
 
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\dbal\src\drivers\lmbDbTypeInfo;
 use limb\dbal\src\exception\lmbDbException;
 use PHPUnit\Framework\TestCase;
 
 abstract class DriverStatementTestBase extends TestCase
 {
+    /** @var $connection lmbDbConnectionInterface */
     protected $connection;
 
   function setTypedValue($type, $column, $value)
