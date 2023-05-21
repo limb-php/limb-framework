@@ -40,8 +40,6 @@
         "limb/optimization": "self.version",
         "limb/search": "self.version",
         "limb/session": "self.version",
-        "limb/taskman": "self.version",
-        "limb/tests_runner": "self.version",
         "limb/toolkit": "self.version",
         "limb/tree": "self.version",
         "limb/twig": "self.version",
