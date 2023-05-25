@@ -191,29 +191,29 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
     }
   }
 
-  function rewind()
+  function rewind(): void
   {
     $this->_ensureDataset();
 
-    return $this->dataset->rewind();
+    $this->dataset->rewind();
   }
 
-  function next()
+  function next(): void
   {
-    return $this->dataset->next();
+    $this->dataset->next();
   }
 
-  function current()
+  function current(): mixed
   {
     return $this->dataset->current();
   }
 
-  function valid()
+  function valid(): bool
   {
     return $this->dataset->valid();
   }
 
-  function key()
+  function key(): mixed
   {
     return $this->dataset->key();
   }
@@ -272,28 +272,31 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
   }
 
   //ArrayAccess interface
-  function offsetExists($offset)
+  function offsetExists($offset): bool
   {
     return !is_null($this->offsetGet($offset));
   }
 
-  function offsetGet($offset)
+  function offsetGet($offset): mixed
   {
     if(is_numeric($offset))
       return $this->at((int)$offset);
   }
 
-  function offsetSet($offset, $value)
+  function offsetSet($offset, $value): void
   {
     if(!isset($offset))
       $this->add($value);
   }
 
-  function offsetUnset($offset){}
+  function offsetUnset($offset): void
+  {
+
+  }
   //end
 
   //Countable interface
-  function count()
+  function count(): int
   {
     $this->_ensureDataset();
     return (int) $this->dataset->count();
