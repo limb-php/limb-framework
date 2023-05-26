@@ -8,10 +8,6 @@
  */
 namespace limb\wysiwyg\src\macro;
 
-use limb\core\src\lmbEnv;
-
-lmbEnv::setor('LIMB_CKEDITOR_DIR', 'limb/wysiwyg/lib/CKeditor/');
-
 /**
  * @package wysiwyg
  * @version $Id$
@@ -27,9 +23,7 @@ class lmbMacroCKEditorWidget extends lmbMacroBaseWysiwygWidget
 
   protected function _renderEditor()
   {
-    include_once(lmbEnv::get('LIMB_CKEDITOR_DIR') . '/ckeditor.php');
-
-    $editor = new \CKeditor();
+    $editor = new limb\wysiwyg\src\helper\CKeditor\CKeditor();
 
     if($this->_helper->getOption('basePath'))
       $editor->basePath	= $this->_helper->getOption('basePath');

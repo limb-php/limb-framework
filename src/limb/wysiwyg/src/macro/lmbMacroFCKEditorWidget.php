@@ -8,10 +8,6 @@
  */
 namespace limb\wysiwyg\src\macro;
 
-use limb\core\src\lmbEnv;
-
-lmbEnv::setor('LIMB_FCKEDITOR_DIR', 'limb/wysiwyg/lib/FCKeditor/');
-
 /**
  * @package wysiwyg
  * @version $Id$
@@ -29,9 +25,7 @@ class lmbMacroFCKEditorWidget extends lmbMacroBaseWysiwygWidget
 
   protected function _renderEditor()
   {
-    include_once(lmbEnv::get('LIMB_FCKEDITOR_DIR') . '/fckeditor.php');
-
-    $editor = new \FCKeditor($this->getAttribute('name')) ;
+    $editor = new limb\wysiwyg\src\helper\FCKeditor\FCKeditor($this->getAttribute('name')) ;
     
     $this->_setEditorParameters($editor);
     

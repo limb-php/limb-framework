@@ -53,7 +53,7 @@ class Wysiwyg_Node extends \Twig\Node\Node
             ->raw(";\n")
 
             ->write(sprintf('$%s = ', $editor_var))
-            ->raw("new limb\wysiwyg\lib\CKeditor\CKeditor();\n")
+            ->raw("new limb\wysiwyg\src\helper\CKeditor\CKeditor();\n")
 
             ->write(sprintf('$%s', $editor_var))
             ->raw('->basePath = \'/shared/wysiwyg/ckeditor/\'')
