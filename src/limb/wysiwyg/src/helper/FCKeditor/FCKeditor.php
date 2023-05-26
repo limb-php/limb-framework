@@ -25,7 +25,7 @@
  * instances in PHP pages on server side.
  */
 
-namespace limb\wysiwyg\lib\FCKeditor;
+namespace limb\wysiwyg\src\helper\FCKeditor;
 
 /**
  * Check if browser is compatible with FCKeditor.

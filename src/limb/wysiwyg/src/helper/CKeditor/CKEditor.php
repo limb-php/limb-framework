@@ -4,7 +4,7 @@
 * For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
-namespace limb\wysiwyg\lib\CKeditor;
+namespace limb\wysiwyg\src\helper\CKeditor;
 
 /**
  * \brief CKEditor class that can be used to create editor
