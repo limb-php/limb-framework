@@ -1481,13 +1481,8 @@ class lmbActiveRecord extends lmbObject
     $params = array();
     if(self::_isCriteria($magic_params))
       $params = array('first', 'criteria' => $magic_params);
-    elseif(is_null($magic_params))
-      $params = array('first');
     elseif(is_array($magic_params))
-    {
       $params = $magic_params;
-      $params[] = 'first';
-    }
 
     if(!class_exists($class_name, true))
       throw new lmbARException("Could not find class '$class_name'");
@@ -1513,11 +1508,21 @@ class lmbActiveRecord extends lmbObject
    *  Userland filter for findFirst() static method
    *  @see findFirst()
    *  @param mixed $params misc magic params
-   *  @return object|null
+   *  @return static|null
    */
   protected function _findFirst($params)
   {
-    return $this->_find($params);
+      if(isset($params['fields']) && is_array($params['fields']))
+          $this->setLazyAttributesExcept($params['fields']);
+
+      $query = lmbARQuery::create($this, $params, $this->_db_conn);
+      $rs = $query->fetch();
+
+      $rs->rewind();
+      if($rs->valid())
+          return $rs->current();
+
+      return null;
   }
   /**
    *  Finds one instance of object in database using object id, this method is actually a wrapper around find()
@@ -1526,7 +1531,7 @@ class lmbActiveRecord extends lmbObject
    *  @param integer $id object id
    *  @param bool $throw_exception object id
    *  @param lmbDbConnectionInterface|null $conn database connection object
-   *  @return lmbActiveRecord|null
+   *  @return static|null
    */
   static function findById($class_name, $id = null, $throw_exception = true, $conn = null)
   {
@@ -1552,7 +1557,7 @@ class lmbActiveRecord extends lmbObject
    *  @see findById()
    *  @param integer $id_or_arr object id
    *  @param bool $throw_exception
-   *  @return object|null
+   *  @return static|null
    */
   protected function _findById($id_or_arr, $throw_exception)
   {
@@ -1564,7 +1569,7 @@ class lmbActiveRecord extends lmbObject
       $params = $id_or_arr;
       //avoiding possible recursion
       unset($params['id']);
-      array_unshift($params, 'first');
+
       $id = (int)$id_or_arr['id'];
       $params['criteria'] = $this->_db_conn->quoteIdentifier($this->_primary_key_name) . '=' . $id;
     }
@@ -1572,12 +1577,11 @@ class lmbActiveRecord extends lmbObject
     {
       $id = (int)$id_or_arr;
       $params = array(
-          'first',
           'criteria' => $this->_db_conn->quoteIdentifier($this->_primary_key_name) . '=' . $id
       );
     }
 
-    $object = $this->_find($params);
+    $object = $this->_findFirst($params);
     if($object) {
       return $object;
     }
@@ -1769,7 +1773,7 @@ class lmbActiveRecord extends lmbObject
    *  Userland filter for find() static method
    *  @see find()
    *  @param mixed $params misc magic params
-   *  @return \Iterator
+   *  @return static|null|\Iterator
    */
   protected function _find($params = array())
   {
@@ -1791,17 +1795,14 @@ class lmbActiveRecord extends lmbObject
       }
     }
 
+    if($return_first) {
+        return $this->_findFirst($params);
+    }
+
     if(isset($params['limit']))
       $rs->paginate($params['offset'] ?? 0, $params['limit']);
 
-    if($return_first)
-    {
-      $rs->rewind();
-      if($rs->valid())
-        return $rs->current();
-    }
-    else
-      return $rs;
+    return $rs;
   }
 
   /**
