@@ -52,9 +52,8 @@ class Wysiwyg_Node extends \Twig\Node\Node
             ->raw('->setProfileName( $context[\'wysiwyg_params\'][\'profile_name\'] ?? \'\' )')
             ->raw(";\n")
 
-            ->raw("include_once( 'limb/wysiwyg/lib/CKeditor/ckeditor.php' );\n")
             ->write(sprintf('$%s = ', $editor_var))
-            ->raw("new CKeditor();\n")
+            ->raw("new limb\wysiwyg\lib\CKeditor\CKeditor();\n")
 
             ->write(sprintf('$%s', $editor_var))
             ->raw('->basePath = \'/shared/wysiwyg/ckeditor/\'')
