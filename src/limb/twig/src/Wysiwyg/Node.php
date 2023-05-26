@@ -3,7 +3,7 @@ namespace limb\twig\src;
 
 class Wysiwyg_Node extends \Twig\Node\Node
 {
-    public function __construct($form_id, $params = [], $line, $tag = null)
+    public function __construct($form_id, $params = [], $line = 0, $tag = null)
     {
         parent::__construct(['form_id' => $form_id], ['params' => $params], $line, $tag);
     }
