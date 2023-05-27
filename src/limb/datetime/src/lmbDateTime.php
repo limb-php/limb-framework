@@ -257,15 +257,20 @@ class lmbDateTime extends lmbObject
     $this->_setByStamp($time);
   }
 
-  function date($format)
-  {
-    return date($format, $this->getStamp());
-  }
+    function date($format): string
+    {
+        return date($format, $this->getStamp());
+    }
 
-  function strftime($format)
-  {
-    return strftime($format, $this->getStamp());
-  }
+    function format($format): string
+    {
+        return (new \DateTime())->setTimestamp($this->getStamp())->format($format);
+    }
+
+    function strftime($format): string
+    {
+        return $this->format($format);
+    }
 
   function getIsoDate($with_seconds = true)
   {
@@ -317,7 +322,7 @@ class lmbDateTime extends lmbObject
    * Compares object with $d date object.
    * return int 0 if the dates are equal, -1 if is before, 1 if is after than $d
    */
-  function compare($d)
+  function compare($d): int
   {
     if(!$d instanceof lmbDateTime)
       throw new lmbException("Wrong date argument", array('arg' => $d));
@@ -333,7 +338,7 @@ class lmbDateTime extends lmbObject
       return 0;
   }
 
-  function isBefore($when, $use_time_zone=false)
+  function isBefore($when, $use_time_zone = false): bool
   {
     if($this->compare($when, $use_time_zone) == -1)
       return true;
@@ -341,7 +346,7 @@ class lmbDateTime extends lmbObject
       return false;
   }
 
-  function isAfter($when, $use_time_zone=false)
+  function isAfter($when, $use_time_zone = false): bool
   {
     if($this->compare($when, $use_time_zone) == 1)
       return true;
@@ -349,7 +354,7 @@ class lmbDateTime extends lmbObject
       return false;
   }
 
-  function isEqual($when, $use_time_zone=false)
+  function isEqual($when, $use_time_zone = false)
   {
     if($this->compare($when, $use_time_zone) == 0)
       return true;
