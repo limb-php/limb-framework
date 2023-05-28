@@ -69,7 +69,7 @@ class lmbObjectTest extends TestCase
         $this->assertFalse($object->has('_guarded'));
     }
 
-    function testHasAttribute()
+    function testHasAttributeCommon()
     {
         $object = new lmbObject();
         $object->set('bar', 1);
@@ -121,7 +121,7 @@ class lmbObjectTest extends TestCase
         $this->assertEquals('foo', $object->bar); // should call $object->getBar()
     }
 
-    function testSetGet()
+    function testSetGetCommon()
     {
         $object = new lmbObject();
         $object->set('foo', 1);
@@ -352,11 +352,15 @@ class lmbObjectTest extends TestCase
     function testGettersCacheWorksForDifferentClassesProperly()
     {
         $object = new ObjectTestVersion();
-        $object->get('bar');
+        $val1 = $object->get('bar');
+
+        $this->assertEquals('_get_called', $val1);
+
         $object2 = new ObjectTestVersion2();
         $object2->set('bar', 1);
-        $object2->get('bar');
-        $this->assertTrue(true);
+        $val2 = $object2->get('bar');
+
+        $this->assertEquals(1, $val2);
     }
 
     function testBetterCheckForAccessByMethod()

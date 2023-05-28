@@ -70,11 +70,13 @@ use limb\core\src\exception\lmbNoSuchPropertyException;
  */
 class lmbObject implements lmbSetInterface
 {
-  private $_map = array(
-    'public' => array(),
-    'dynamic' => array(),
-    'initialized' => false,
-  );
+    static $map_p2m = [];
+
+    private $_map = [
+        'public' => [],
+        'dynamic' => [],
+        'initialized' => false,
+    ];
 
   /**
    * Constructor.
@@ -311,24 +313,25 @@ class lmbObject implements lmbSetInterface
 
   protected function _mapPropertyToMethod($property)
   {
-    static $map = array();
-    if(isset($map[$property]))
-      return $map[$property];
+    $hash = static::class . '::' . $property;
+
+    if(isset(self::$map_p2m[$hash]))
+      return self::$map_p2m[$hash];
 
     $capsed = lmbString::camel_case($property);
     $method = 'get' . $capsed;
     if($method !== 'get' && method_exists($this, $method))
     {
-      $map[$property] = $method;
+      self::$map_p2m[$hash] = $method;
       return $method;
     }
     //'is_foo' property is mapped to 'isFoo' method if it exists
     if(strpos($property, 'is_') === 0 && method_exists($this, $capsed))
     {
-      $map[$property] = $capsed;
+      self::$map_p2m[$hash] = $capsed;
       return $capsed;
     }
-    $map[$property] = false;
+    self::$map_p2m[$hash] = false;
     return false;
   }
 

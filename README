@@ -36,6 +36,7 @@ Limb5 roadmap:
     * PHP 8.1+ support
     * AR: remove validation
     * Toolkit: improved DI pattern
+    * Remove all of static variables
 
 
 Install
