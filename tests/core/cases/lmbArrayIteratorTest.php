@@ -6,121 +6,122 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace tests\core\cases;
 
-require_once ('.setup.php');
+require_once('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbArrayIterator;
 
 class lmbArrayIteratorTest extends TestCase
 {
-  function testEmptyIterator()
-  {
-    $iterator = new lmbArrayIterator(array());
-    $iterator->rewind();
-    $this->assertFalse($iterator->valid());
-  }
+    function testEmptyIterator()
+    {
+        $iterator = new lmbArrayIterator(array());
+        $iterator->rewind();
+        $this->assertFalse($iterator->valid());
+    }
 
-  function testIterate()
-  {
-    $data = array (array('x' => 1,'y' => 2),
-                   array('x' => 3,'y' => 4),
-                   array('x' => 5,'y' => 6));
+    function testIterate()
+    {
+        $data = array(array('x' => 1, 'y' => 2),
+            array('x' => 3, 'y' => 4),
+            array('x' => 5, 'y' => 6));
 
-    $iterator = new lmbArrayIterator(array('Ivan', 'Pavel', 'Serega'));
-    $iterator->rewind();
+        $iterator = new lmbArrayIterator(array('Ivan', 'Pavel', 'Serega'));
+        $iterator->rewind();
 
-    $this->assertTrue($iterator->valid());
+        $this->assertTrue($iterator->valid());
 
-    $this->assertEquals('Ivan', $iterator->current());
+        $this->assertEquals('Ivan', $iterator->current());
 
-    $iterator->next();
+        $iterator->next();
 
-    $this->assertTrue($iterator->valid());
-    $this->assertEquals('Pavel', $iterator->current());
-  }
+        $this->assertTrue($iterator->valid());
+        $this->assertEquals('Pavel', $iterator->current());
+    }
 
-  function testIterateOver()
-  {
-    $iterator = new lmbArrayIterator(array('Ivan'));
-    $iterator->rewind();
-    $iterator->next();
-    $iterator->next();
+    function testIterateOver()
+    {
+        $iterator = new lmbArrayIterator(array('Ivan'));
+        $iterator->rewind();
+        $iterator->next();
+        $iterator->next();
 
-    $this->assertFalse($iterator->valid());
-    $this->assertNull($iterator->current());
-  }
-  
-  function testIterateWithPagination()
-  {
-    $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
-    $iterator->paginate($offset = 0, $limit = 2);
+        $this->assertFalse($iterator->valid());
+        $this->assertNull($iterator->current());
+    }
 
-    $this->assertEquals(5, $iterator->count());
-    $this->assertEquals($limit, $iterator->countPaginated());
+    function testIterateWithPagination()
+    {
+        $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
+        $iterator->paginate($offset = 0, $limit = 2);
 
-    $iterator->rewind();
+        $this->assertEquals(5, $iterator->count());
+        $this->assertEquals($limit, $iterator->countPaginated());
 
-    $this->assertEquals('a', $iterator->current());
+        $iterator->rewind();
 
-    $iterator->next();
+        $this->assertEquals('a', $iterator->current());
 
-    $this->assertEquals('b', $iterator->current());
-  }
+        $iterator->next();
 
-  function testIterateWithPaginationNonZeroOffset()
-  {
-    $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
-    $iterator->paginate($offset = 2, $limit = 2);
+        $this->assertEquals('b', $iterator->current());
+    }
 
-    $iterator->rewind();
+    function testIterateWithPaginationNonZeroOffset()
+    {
+        $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
+        $iterator->paginate($offset = 2, $limit = 2);
 
-    $this->assertEquals('c', $iterator->current());
+        $iterator->rewind();
 
-    $iterator->next();
+        $this->assertEquals('c', $iterator->current());
 
-    $this->assertEquals('d', $iterator->current());
-  }
+        $iterator->next();
 
-  function testPaginateWithOutOfBounds()
-  {
-    $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
-    $iterator->paginate($offset = 5, $limit = 2);
+        $this->assertEquals('d', $iterator->current());
+    }
 
-    $this->assertEquals(5, $iterator->count());
-    $this->assertEquals(0, $iterator->countPaginated());
+    function testPaginateWithOutOfBounds()
+    {
+        $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
+        $iterator->paginate($offset = 5, $limit = 2);
 
-    $iterator->rewind();
+        $this->assertEquals(5, $iterator->count());
+        $this->assertEquals(0, $iterator->countPaginated());
 
-    $this->assertFalse($iterator->valid());
-  }
+        $iterator->rewind();
 
-  function testPaginateWithOffsetLessThanZero()
-  {
-    $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
-    $iterator->paginate($offset = -1, $limit = 2);
+        $this->assertFalse($iterator->valid());
+    }
 
-    $this->assertEquals(5, $iterator->count());
-    $this->assertEquals(0, $iterator->countPaginated());
+    function testPaginateWithOffsetLessThanZero()
+    {
+        $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
+        $iterator->paginate($offset = -1, $limit = 2);
 
-    $iterator->rewind();
+        $this->assertEquals(5, $iterator->count());
+        $this->assertEquals(0, $iterator->countPaginated());
 
-    $this->assertFalse($iterator->valid());
-  }
+        $iterator->rewind();
 
-  function testPaginateGetPartOfIterator()
-  {
-      $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
-      $iterator->paginate($offset = 2, $limit = 2);
+        $this->assertFalse($iterator->valid());
+    }
 
-      $result = [];
-      foreach($iterator as $item) {
-          $result[] = $item;
-      }
+    function testPaginateGetPartOfIterator()
+    {
+        $iterator = new lmbArrayIterator(array('a', 'b', 'c', 'd', 'e'));
+        $iterator->paginate($offset = 2, $limit = 2);
 
-      $this->assertEquals(['c', 'd'], $result);
-  }
+        $result = [];
+        foreach ($iterator as $item) {
+            $result[] = $item;
+        }
+
+        $this->assertEquals(['c', 'd'], $result);
+    }
 
     function testIteratorToJson()
     {
