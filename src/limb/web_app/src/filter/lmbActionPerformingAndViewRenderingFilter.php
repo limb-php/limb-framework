@@ -33,7 +33,7 @@ class lmbActionPerformingAndViewRenderingFilter implements lmbInterceptingFilter
 
       $response = $response ?? lmbToolkit::instance()->getResponse();
 
-      if( $result ) {
+      if( $result !== null ) {
           if( is_a($result, lmbHttpResponse::class) ) {
               $response = $result;
           }
@@ -48,7 +48,7 @@ class lmbActionPerformingAndViewRenderingFilter implements lmbInterceptingFilter
               $response->write($result);
           }
       }
-      elseif(is_object($view = lmbToolkit::instance()->getView())){
+      elseif($view = lmbToolkit::instance()->getView()){
           if($response->isEmpty()) {
               $response->write( $view->render() );
           }
