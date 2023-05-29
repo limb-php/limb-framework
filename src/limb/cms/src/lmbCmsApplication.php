@@ -1,22 +1,30 @@
 <?php
+
 namespace limb\cms\src;
 
-use limb\filter_chain\src\lmbFilterChain;
 use limb\core\src\lmbHandle;
-use limb\web_app\src\exception\lmbErrorHandler;
+use limb\web_app\src\lmbWebApplication;
+use limb\dbal\src\filter\lmbAutoDbTransactionFilter;
+use limb\web_app\src\filter\lmbSessionStartupFilter;
+use limb\cms\src\filter\lmbCmsRequestDispatchingFilter;
+use limb\cms\src\filter\lmbCmsAccessPolicyFilter;
+use limb\web_app\src\filter\lmbActionPerformingAndViewRenderingFilter;
 
-class lmbCmsApplication extends lmbFilterChain
+class lmbCmsApplication extends lmbWebApplication
 {
-  function __construct()
-  {
-      (new lmbErrorHandler(dirname(__FILE__) . '/../template/server_error.html'))->register();
+    protected function _registerFilters()
+    {
+        $this->registerFilter(new lmbHandle(lmbAutoDbTransactionFilter::class));
+        $this->registerFilter(new lmbHandle(lmbSessionStartupFilter::class));
 
-      $this->registerFilter(new lmbHandle('limb\dbal\src\filter\lmbAutoDbTransactionFilter'));
-      $this->registerFilter(new lmbHandle('limb\web_app\src\filter\lmbSessionStartupFilter'));
-      $this->registerFilter(new lmbHandle('limb\cms\src\filter\lmbCmsRequestDispatchingFilter'));
-      $this->registerFilter(new lmbHandle('limb\web_app\src\filter\lmbResponseTransactionFilter'));
-      $this->registerFilter(new lmbHandle('limb\cms\src\filter\lmbCmsAccessPolicyFilter'));
-      $this->registerFilter(new lmbHandle('limb\web_app\src\filter\lmbActionPerformingFilter'));
-      $this->registerFilter(new lmbHandle('limb\web_app\src\filter\lmbViewRenderingFilter'));
-  }
+        $this->_addFilters($this->pre_dispatch_filters);
+
+        $this->registerFilter(new lmbHandle(lmbCmsRequestDispatchingFilter::class));
+
+        $this->registerFilter(new lmbHandle(lmbCmsAccessPolicyFilter::class));
+
+        $this->_addFilters($this->pre_action_filters);
+
+        $this->registerFilter(new lmbHandle(lmbActionPerformingAndViewRenderingFilter::class));
+    }
 }

@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_app\src;
 
 use limb\filter_chain\src\lmbFilterChain;
@@ -25,75 +26,75 @@ use limb\web_app\src\filter\lmbActionPerformingAndViewRenderingFilter;
  */
 class lmbWebApplication extends lmbFilterChain
 {
-  protected $default_controller_name = NotFoundController::class;
-  protected $pre_dispatch_filters = array();
-  protected $pre_action_filters = array();
-  protected $request_dispatcher = null;
+    protected $default_controller_name = NotFoundController::class;
+    protected $pre_dispatch_filters = array();
+    protected $pre_action_filters = array();
+    protected $request_dispatcher = null;
 
-  function setDefaultControllerName($name)
-  {
-    $this->default_controller_name = $name;
-  }
+    function setDefaultControllerName($name)
+    {
+        $this->default_controller_name = $name;
+    }
 
-  function setRequestDispatcher($dispatcher)
-  {
-    $this->request_dispatcher = $dispatcher;
-  }
+    function setRequestDispatcher($dispatcher)
+    {
+        $this->request_dispatcher = $dispatcher;
+    }
 
-  protected function _getRequestDispatcher()
-  {
-    if(!is_object($this->request_dispatcher))
-      return new lmbHandle(lmbRoutesRequestDispatcher::class);
-    return $this->request_dispatcher;
-  }
+    protected function _getRequestDispatcher()
+    {
+        if (!is_object($this->request_dispatcher))
+            return new lmbHandle(lmbRoutesRequestDispatcher::class);
+        return $this->request_dispatcher;
+    }
 
-  function addPreDispatchFilter($filter)
-  {
-    $this->pre_dispatch_filters[] = $filter;
-  }
+    function addPreDispatchFilter($filter)
+    {
+        $this->pre_dispatch_filters[] = $filter;
+    }
 
-  function addPreActionFilter($filter)
-  {
-    $this->pre_action_filters[] = $filter;
-  }
+    function addPreActionFilter($filter)
+    {
+        $this->pre_action_filters[] = $filter;
+    }
 
-  function process($request = null, $response = null): \limb\net\src\lmbHttpResponse
-  {
-      $this->_bootstrap();
+    function process($request = null, $response = null): \limb\net\src\lmbHttpResponse
+    {
+        $this->_bootstrap();
 
-      $this->_registerFilters();
+        $this->_registerFilters();
 
-      return parent::process($request, $response);
-  }
+        return parent::process($request, $response);
+    }
 
-  protected function _bootstrap()
-  {
-    (new lmbErrorHandler(dirname(__FILE__) . '/../template/server_error.html'))->bootstrap();
-  }
+    protected function _bootstrap()
+    {
+        (new lmbErrorHandler(dirname(__FILE__) . '/../template/server_error.html'))->bootstrap();
+    }
 
-  protected function _registerFilters()
-  {
-    $this->registerFilter(new lmbHandle(lmbSessionStartupFilter::class));
+    protected function _registerFilters()
+    {
+        $this->registerFilter(new lmbHandle(lmbSessionStartupFilter::class));
 
-    $this->_addFilters($this->pre_dispatch_filters);
+        $this->_addFilters($this->pre_dispatch_filters);
 
-    $this->registerFilter(new lmbHandle(
-        lmbRequestDispatchingFilter::class,
-              array(
-                  $this->_getRequestDispatcher(),
-                  $this->default_controller_name
-              )
-        )
-    );
+        $this->registerFilter(new lmbHandle(
+                lmbRequestDispatchingFilter::class,
+                array(
+                    $this->_getRequestDispatcher(),
+                    $this->default_controller_name
+                )
+            )
+        );
 
-    $this->_addFilters($this->pre_action_filters);
+        $this->_addFilters($this->pre_action_filters);
 
-    $this->registerFilter(new lmbHandle(lmbActionPerformingAndViewRenderingFilter::class));
-  }
+        $this->registerFilter(new lmbHandle(lmbActionPerformingAndViewRenderingFilter::class));
+    }
 
-  protected function _addFilters($filters)
-  {
-    foreach($filters as $filter)
-      $this->registerFilter($filter);
-  }
+    protected function _addFilters($filters)
+    {
+        foreach ($filters as $filter)
+            $this->registerFilter($filter);
+    }
 }
