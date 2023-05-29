@@ -34,7 +34,7 @@ class lmbErrorHandler
     $this->error_page = $error500_page;
   }
 
-  function register()
+  function bootstrap(): void
   {
     lmbErrorGuard::registerFatalErrorHandler($this, 'handleFatalError');
     lmbErrorGuard::registerExceptionHandler($this, 'handleException');
@@ -44,14 +44,17 @@ class lmbErrorHandler
   {
       $this->toolkit = lmbToolkit::instance();
       $this->toolkit->getLog()->log(LOG_ERR, $error['message']);
-      $this->toolkit->getResponse()->reset();
+      
+      response()->reset();
 
       header('HTTP/1.x 500 Server Error');
 
       if($this->toolkit->isWebAppDebugEnabled())
-        $this->_echoErrorBacktrace($error);
+          $result = $this->_echoErrorBacktrace($error);
       else
-        $this->_echoErrorPage();
+          $result = $this->_echoErrorPage();
+
+      echo $result;
 
       exit(1);
   }
@@ -63,14 +66,17 @@ class lmbErrorHandler
 
       $this->toolkit = lmbToolkit::instance();
       $this->toolkit->getLog()->logException($e);
-      $this->toolkit->getResponse()->reset();
+
+      response()->reset();
 
       header('HTTP/1.x 500 Server Error');
 
       if($this->toolkit->isWebAppDebugEnabled())
-        $this->_echoExceptionBacktrace($e);
+          $result = $this->_echoExceptionBacktrace($e);
       else
-        $this->_echoErrorPage();
+          $result = $this->_echoErrorPage();
+
+      echo $result;
 
       exit(1);
   }
@@ -86,9 +92,9 @@ class lmbErrorHandler
           ob_end_clean();
 
       if( $this->_isAcceptJson() )
-          echo json_encode(['error' => '500 Server error', 'type' => 'exception']);
-      else
-          echo file_get_contents($this->error_page);
+          return json_encode(['error' => '500 Server error', 'type' => 'exception']);
+
+      return file_get_contents($this->error_page);
   }
 
   protected function _echoErrorBacktrace($error)
@@ -104,7 +110,7 @@ class lmbErrorHandler
       ob_end_clean();
 
     $session = htmlspecialchars($this->toolkit->getSession()->dump());
-    echo $this->_renderTemplate($message, '', $trace, $file, $line, $context, $request, $session);
+    return $this->_renderTemplate($message, '', $trace, $file, $line, $context, $request, $session);
   }
 
   protected function _echoExceptionBacktrace($e)
@@ -139,9 +145,9 @@ class lmbErrorHandler
       $html_content = $this->_renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session);
 
       if( $this->_isAcceptJson() )
-          echo json_encode(['error' => $html_content, 'type' => 'exception']);
-      else
-          echo $html_content;
+          return json_encode(['error' => $html_content, 'type' => 'exception']);
+
+      return $html_content;
   }
 
   protected function _renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session)

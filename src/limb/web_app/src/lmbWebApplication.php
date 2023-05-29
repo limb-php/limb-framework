@@ -68,7 +68,7 @@ class lmbWebApplication extends lmbFilterChain
 
   protected function _bootstrap()
   {
-    (new lmbErrorHandler(dirname(__FILE__) . '/../template/server_error.html'))->register();
+    (new lmbErrorHandler(dirname(__FILE__) . '/../template/server_error.html'))->bootstrap();
   }
 
   protected function _registerFilters()
