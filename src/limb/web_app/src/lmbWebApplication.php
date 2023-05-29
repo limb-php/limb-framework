@@ -11,8 +11,8 @@ namespace limb\web_app\src;
 use limb\filter_chain\src\lmbFilterChain;
 use limb\core\src\lmbHandle;
 use limb\web_app\src\Controllers\NotFoundController;
+use limb\web_app\src\exception\lmbErrorHandler;
 use limb\web_app\src\request\lmbRoutesRequestDispatcher;
-use limb\web_app\src\filter\lmbErrorHandlingFilter;
 use limb\web_app\src\filter\lmbSessionStartupFilter;
 use limb\web_app\src\filter\lmbRequestDispatchingFilter;
 use limb\web_app\src\filter\lmbActionPerformingAndViewRenderingFilter;
@@ -59,15 +59,20 @@ class lmbWebApplication extends lmbFilterChain
 
   function process($request = null, $response = null): \limb\net\src\lmbHttpResponse
   {
+      $this->_bootstrap();
+
       $this->_registerFilters();
 
       return parent::process($request, $response);
   }
 
+  protected function _bootstrap()
+  {
+    (new lmbErrorHandler(dirname(__FILE__) . '/../template/server_error.html'))->register();
+  }
+
   protected function _registerFilters()
   {
-    $this->registerFilter(new lmbHandle(lmbErrorHandlingFilter::class));
-
     $this->registerFilter(new lmbHandle(lmbSessionStartupFilter::class));
 
     $this->_addFilters($this->pre_dispatch_filters);

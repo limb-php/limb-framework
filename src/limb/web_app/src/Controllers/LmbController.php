@@ -207,7 +207,7 @@ class LmbController
           $this->setTemplate($template_path); // Set View by default. Can be overridden in action method
 
       if(method_exists($this, $method = $this->_mapCurrentActionToMethod())) {
-          $response = $this->$method($request);
+          $response = $this->{$method}($request);
       }
       elseif(!$template_path) {
           throw new lmbException('No method defined in controller "' .
