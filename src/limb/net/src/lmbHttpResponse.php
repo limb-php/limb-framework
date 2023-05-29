@@ -245,6 +245,8 @@ class lmbHttpResponse
     $this->headers = array();
     $this->is_redirected = false;
     $this->transaction_started = false;
+
+    return $this;
   }
 
   protected function _checkStatusInHeader($header): bool
