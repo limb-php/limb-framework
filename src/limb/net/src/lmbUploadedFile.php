@@ -16,6 +16,10 @@ use limb\core\src\lmbObject;
  *
  * @package net
  * @version $Id$
+ *
+ * @method string getName()
+ * @method int getSize()
+ * @method string getError()
  */
 class lmbUploadedFile extends lmbObject
 {
