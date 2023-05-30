@@ -8,6 +8,7 @@
  */
 namespace limb\log\src;
 
+use limb\datetime\src\lmbDateTime;
 use limb\fs\src\lmbFs;
 use limb\fs\src\exception\lmbFsException;
 use limb\net\src\lmbUri;
@@ -40,7 +41,7 @@ class lmbLogFileWriter implements lmbLogWriterInterface
     if($fh = fopen($file_name, 'a'))
     {
       @flock($fh, LOCK_EX);
-      $time = strftime("%b %d %Y %H:%M:%S", $stamp);
+      $time = (new lmbDateTime($stamp))->format("%b %d %Y %H:%M:%S");
 
       $log_message = "=========================[{$time}]";
 
