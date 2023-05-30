@@ -110,11 +110,11 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
    *
    * @return lmbHttpResponse
    */
-  function process($request = null, $response = null): lmbHttpResponse
+  function process($request): lmbHttpResponse
   {
       $this->counter = -1;
 
-      return $this->next($request, $response);
+      return $this->next($request, null);
   }
   /**
    * Implements lmbInterceptingFilter interface.
