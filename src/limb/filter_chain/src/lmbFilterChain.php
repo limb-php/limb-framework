@@ -92,7 +92,7 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
   /**
    * Runs next filter in the chain.
    *
-   * @return lmbHttpResponse
+   * @return lmbHttpResponse|null
    */
   function next($request, $response)
   {
@@ -108,9 +108,9 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
   /**
    * Executes the chain
    *
-   * @return lmbHttpResponse
+   * @return lmbHttpResponse|null
    */
-  function process($request): lmbHttpResponse
+  function process($request)
   {
       $this->counter = -1;
 
@@ -123,11 +123,11 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
    * @param $filter_chain lmbFilterChain
    * @param $request lmbHttpRequest
    * @param $response lmbHttpResponse
-   * @return lmbHttpResponse
+   * @return lmbHttpResponse|null
    * @see lmbFilterChain::next()
    *
    */
-  function run($filter_chain, $request, $response): lmbHttpResponse
+  function run($filter_chain, $request, $response)
   {
       $response = $this->process($request, $response);
 

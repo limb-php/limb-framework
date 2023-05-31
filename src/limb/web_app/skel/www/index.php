@@ -10,9 +10,8 @@
 require_once(dirname(__FILE__) . '/../setup.php');
 
 use limb\web_app\skel\src\LimbApplication;
-use limb\toolkit\src\lmbToolkit;
 
 $application = new LimbApplication();
 $application
-    ->process( lmbToolkit::instance()->getRequest(), lmbToolkit::instance()->getResponse() )
+    ->process( request() )
     ->send();

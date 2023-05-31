@@ -27,9 +27,11 @@ use limb\web_app\src\filter\lmbActionPerformingAndViewRenderingFilter;
 class lmbWebApplication extends lmbFilterChain
 {
     protected $default_controller_name = NotFoundController::class;
-    protected $pre_dispatch_filters = array();
-    protected $pre_action_filters = array();
+    protected $pre_dispatch_filters = [];
+    protected $pre_action_filters = [];
     protected $request_dispatcher = null;
+
+    protected $bootstraps = [];
 
     function setDefaultControllerName($name)
     {
@@ -58,18 +60,43 @@ class lmbWebApplication extends lmbFilterChain
         $this->pre_action_filters[] = $filter;
     }
 
-    function process($request = null, $response = null): \limb\net\src\lmbHttpResponse
+    function registerBootstrap($bootstrap)
+    {
+        $this->bootstraps[$bootstrap->getClass()] = $bootstrap;
+    }
+
+    /**
+     * @return \limb\net\src\lmbHttpResponse|null
+     */
+    function process($request)
     {
         $this->_bootstrap();
 
         $this->_registerFilters();
 
-        return parent::process($request, $response);
+        $response = parent::process($request);
+
+        $this->_terminate();
+
+        return $response;
     }
 
     protected function _bootstrap()
     {
-        (new lmbErrorHandler(dirname(__FILE__) . '/../template/server_error.html'))->bootstrap();
+        $this->registerBootstrap(new lmbHandle(lmbErrorHandler::class, dirname(__FILE__) . '/../template/server_error.html'));
+
+        foreach ($this->bootstraps as $bootstrap) {
+            if(is_callable([$bootstrap, 'bootstrap']))
+                $bootstrap->bootstrap();
+        }
+    }
+
+    protected function _terminate()
+    {
+        foreach ($this->bootstraps as $bootstrap) {
+            if(is_callable([$bootstrap, 'terminate']))
+                $bootstrap->terminate();
+        }
     }
 
     protected function _registerFilters()
