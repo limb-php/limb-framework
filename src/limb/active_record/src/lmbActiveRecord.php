@@ -1480,7 +1480,7 @@ class lmbActiveRecord extends lmbObject
 
     $params = array();
     if(self::_isCriteria($magic_params))
-      $params = array('first', 'criteria' => $magic_params);
+      $params = array('criteria' => $magic_params);
     elseif(is_array($magic_params))
       $params = $magic_params;
 
@@ -1493,17 +1493,7 @@ class lmbActiveRecord extends lmbObject
     $obj = new $class_name(null, $conn);
     return $obj->_findFirst($params);
   }
-  /**
-   *  self :: findFirst() convenience alias
-   *  @see findFirst()
-   *  @param string $class_name class name of the object
-   *  @param mixed $magic_params misc magic params
-   *  @return lmbActiveRecord|null
-   */
-  static function findOne($class_name = null, $magic_params = null, $conn = null)
-  {
-    return self::findFirst($class_name, $magic_params, $conn);
-  }
+
   /**
    *  Userland filter for findFirst() static method
    *  @see findFirst()
@@ -1514,6 +1504,8 @@ class lmbActiveRecord extends lmbObject
   {
       if(isset($params['fields']) && is_array($params['fields']))
           $this->setLazyAttributesExcept($params['fields']);
+
+      $params['limit'] = 1;
 
       $query = lmbARQuery::create($this, $params, $this->_db_conn);
       $rs = $query->fetch();
@@ -1780,24 +1772,15 @@ class lmbActiveRecord extends lmbObject
     if(isset($params['fields']) && is_array($params['fields']))
       $this->setLazyAttributesExcept($params['fields']);
 
-    $query = lmbARQuery::create($this, $params, $this->_db_conn);
-
-    $rs = $query->fetch();
-
-    $return_first = false;
-    foreach(array_values($params) as $value)
-    {
-      if(is_string($value) && $value == 'first')
-      {
-        $return_first = true;
-        $params['limit'] = 1;
-        break;
+    /** @TODO BC: legacy */
+    foreach(array_values($params) as $value) {
+      if(is_string($value) && $value == 'first') {
+          return $this->_findFirst($params);
       }
     }
 
-    if($return_first) {
-        return $this->_findFirst($params);
-    }
+    $query = lmbARQuery::create($this, $params, $this->_db_conn);
+    $rs = $query->fetch();
 
     if(isset($params['limit']))
       $rs->paginate($params['offset'] ?? 0, $params['limit']);
