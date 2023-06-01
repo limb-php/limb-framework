@@ -17,6 +17,7 @@ use limb\filter_chain\src\lmbFilterChain;
 use tests\filter_chain\cases\src\InterceptingFilterStub;
 use tests\filter_chain\cases\src\OutputFilter1;
 use tests\filter_chain\cases\src\OutputFilter2;
+use tests\filter_chain\cases\src\OutputFilter3;
 
 class lmbFilterChainTest extends TestCase
 {
@@ -68,6 +69,7 @@ class lmbFilterChainTest extends TestCase
     {
         $f1 = new OutputFilter1();
         $f2 = new OutputFilter2();
+        $f3 = new OutputFilter3();
         $mock_filter = new InterceptingFilterStub();
 
         $fc1 = new lmbFilterChain();
@@ -81,17 +83,21 @@ class lmbFilterChainTest extends TestCase
         $fc = new lmbFilterChain();
         $fc->registerFilter($fc1);
         $fc->registerFilter($fc2);
+        $fc->registerFilter($f3);
         $fc->registerFilter($mock_filter);
 
         ob_start();
 
+        $url = '/some_path';
+
         $response = $fc->process(
-            request()
+            new lmbHttpRequest($url, 'GET'), fn($request) => $request->getUriPath()
         );
 
         $str = ob_get_contents();
         ob_end_clean();
 
-        $this->assertEquals('<filter1></filter1><filter2></filter2>', $str);
+        $this->assertEquals($url, $response);
+        $this->assertEquals('<filter1></filter1><filter2></filter2><filter3></filter3>', $str);
     }
 }

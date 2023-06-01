@@ -6,10 +6,10 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+
 namespace limb\filter_chain\src;
 
 use limb\net\src\lmbHttpRequest;
-use limb\net\src\lmbHttpResponse;
 
 /**
  *  lmbFilterChain is an implementation of InterceptingFilter design pattern.
@@ -57,80 +57,87 @@ use limb\net\src\lmbHttpResponse;
  * @version $Id: lmbFilterChain.php 7486 2009-01-26 19:13:20Z
  * @package filter_chain
  */
-
 class lmbFilterChain implements lmbInterceptingFilterInterface
 {
-  /**
-   * @var array registered filters (or filter handles (see {@link lmbHandle}))
-   */
-  protected $filters = array();
-  /**
-   * @var integer Index of the current active filter while running the chain
-   */
-  protected $counter = -1;
+    /**
+     * @var array registered filters (or filter handles (see {@link lmbHandle}))
+     */
+    protected $filters = [];
+    /**
+     * @var integer Index of the current active filter while running the chain
+     */
+    protected $counter = -1;
 
-  function __construct(){}
+    function __construct()
+    {
+    }
 
-  /**
-   * Registers filter (or handle on a filter) in the chain.
-   *
-   * @return void
-   */
-  function registerFilter($filter)
-  {
-      $this->filters[] = $filter;
-  }
-  /**
-   * Returns registered filters
-   *
-   * @return array
-   */
-  function getFilters(): array
-  {
-      return $this->filters;
-  }
-  /**
-   * Runs next filter in the chain.
-   *
-   * @return lmbHttpResponse|null
-   */
-  function next($request, $response)
-  {
-      $this->counter++;
+    /**
+     * Registers filter (or handle on a filter) in the chain.
+     *
+     * @return void
+     */
+    function registerFilter($filter)
+    {
+        $this->filters[] = $filter;
+    }
 
-      if(isset($this->filters[$this->counter]))
-      {
-          return $this->filters[$this->counter]->run($this, $request, $response);
-      }
+    /**
+     * Returns registered filters
+     *
+     * @return array
+     */
+    function getFilters(): array
+    {
+        return $this->filters;
+    }
 
-      return $response;
-  }
-  /**
-   * Executes the chain
-   *
-   * @return lmbHttpResponse|null
-   */
-  function process($request)
-  {
-      $this->counter = -1;
+    /**
+     * Runs next filter in the chain.
+     *
+     * @return mixed
+     */
+    function next($request, $callback)
+    {
+        $this->counter++;
 
-      return $this->next($request, null);
-  }
-  /**
-   * Implements lmbInterceptingFilter interface.
-   * Filter chain can be an intercepting filter.
-   *
-   * @param $filter_chain lmbFilterChain
-   * @param $request lmbHttpRequest
-   * @param $response lmbHttpResponse
-   * @return lmbHttpResponse|null
-   * @see lmbFilterChain::next()
-   *
-   */
-  function run($filter_chain, $request, $response)
-  {
-      $response = $this->process($request, $response);
+        if (isset($this->filters[$this->counter])) {
+            return $this->filters[$this->counter]->run($this, $request, $callback);
+        }
 
-      return $filter_chain->next($request, $response);
-  }
+        if (is_callable($callback))
+            return $callback($request);
+
+        return null;
+    }
+
+    /**
+     * Executes the chain
+     *
+     * @return mixed
+     */
+    function process($request, $callback = null)
+    {
+        $this->counter = -1;
+
+        return $this->next($request, $callback);
+    }
+
+    /**
+     * Implements lmbInterceptingFilter interface.
+     * Filter chain can be an intercepting filter.
+     *
+     * @param $filter_chain lmbFilterChain
+     * @param $request lmbHttpRequest
+     * @param $callback \Closure|null
+     * @return mixed
+     * @see lmbFilterChain::next()
+     *
+     */
+    function run($filter_chain, $request, $callback = null)
+    {
+        $this->process($request, $callback);
+
+        return $filter_chain->next($request, $callback);
+    }
 }
