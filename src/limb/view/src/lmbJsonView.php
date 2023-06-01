@@ -31,7 +31,12 @@ class lmbJsonView extends lmbView
   {
       parent::__construct(null, $vars);
   }
-  
+
+  static function create($vars = []): self
+  {
+      return new self($vars);
+  }
+
   function useEmulation($value)
   {
     $this->use_emulation = $value;
