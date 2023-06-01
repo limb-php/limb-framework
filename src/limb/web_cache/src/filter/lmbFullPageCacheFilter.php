@@ -41,12 +41,12 @@ class lmbFullPageCacheFilter implements lmbInterceptingFilterInterface
       $this->user = $user;
   }
 
-  function run($filter_chain, $request, $response)
+  function run($filter_chain, $request, $callback = null)
   {
     $toolkit = lmbToolkit::instance();
 
     if( $toolkit->isWebAppDebugEnabled() ) {
-        return $filter_chain->next($request, $response);
+        return $filter_chain->next($request, $callback);
     }
 
     if(!$request)
@@ -57,19 +57,16 @@ class lmbFullPageCacheFilter implements lmbInterceptingFilterInterface
 
     $cache_request = new lmbFullPageCacheRequest($request, $this->user);
     if(!$this->cache->openSession($cache_request)) {
-        return $filter_chain->next($request, $response);
+        return $filter_chain->next($request, $callback);
     }
-
-    if(!$response)
-        $response = $toolkit->getResponse();
 
     if($content = $this->cache->get())
     {
-      $response->write($content);
+      response()->write($content);
     }
     else
     {
-      $response = $filter_chain->next($request, $response);
+      $response = $filter_chain->next($request, $callback);
 
       $content = $response->getResponseString();
       $this->cache->save($content);

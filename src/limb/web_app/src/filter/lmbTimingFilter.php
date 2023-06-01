@@ -18,11 +18,11 @@ use limb\filter_chain\src\lmbInterceptingFilterInterface;
  */
 class lmbTimingFilter implements lmbInterceptingFilterInterface
 {
-  public function run($filter_chain, $request = null, $response = null)
+  public function run($filter_chain, $request = null, $callback = null)
   {
     $start_time = microtime(true);
 
-    $response = $filter_chain->next($request, $response);
+    $response = $filter_chain->next($request, $callback);
 
     echo '<small>' . round(microtime(true) - $start_time, 2) . '</small>';
 

@@ -2,13 +2,14 @@
 namespace limb\optimization\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
+use limb\net\src\lmbHttpResponse;
 use limb\toolkit\src\lmbToolkit;
 
 class RedirectFilter implements lmbInterceptingFilterInterface
 {
   protected $toolkit;
 
-  public function run($filter_chain, $request = null, $response = null)
+  public function run($filter_chain, $request = null, $callback = null)
   {
     $this->toolkit = lmbToolkit::instance();
 
@@ -18,17 +19,18 @@ class RedirectFilter implements lmbInterceptingFilterInterface
     if( $current_redirect && ($current_redirect[0] == 'Redirect') )
     {
       if($current_redirect[1] == 301)
-        header("HTTP/1.1 301 Moved Permanently");
+          $response = new lmbHttpResponse("", 301);
+          //header("HTTP/1.1 301 Moved Permanently");
       else
-        header("HTTP/1.1 302 Moved Temporary");
-      header("Location: " . $current_redirect[3]);
+          $response = new lmbHttpResponse("", 302);
+          //header("HTTP/1.1 302 Moved Temporary");
+
+      $response->addHeader("Location", $current_redirect[3]);
 
       return $response;
     }
 
-    $response = $filter_chain->next($request, $response);
-
-    return $response;
+    return $filter_chain->next($request, $callback);
   }
 
   protected function _loadRedirects()

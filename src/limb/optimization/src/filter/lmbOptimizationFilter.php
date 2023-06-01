@@ -7,7 +7,7 @@ use limb\macro\src\compiler\lmbMacroCompiler;
 
 class lmbOptimizationFilter implements lmbInterceptingFilterInterface
 {
-  public function run($filter_chain, $request = null, $response = null)
+  public function run($filter_chain, $request = null, $callback = null)
   {
     $conf = lmbToolkit::instance()->getConf('optimization');
 
@@ -19,10 +19,7 @@ class lmbOptimizationFilter implements lmbInterceptingFilterInterface
       //TwigCompiler::registerOnCompileCallback(array($this, 'onCompileTemplate'));
     }
 
-    $response = $filter_chain->next($request, $response);
-
-    if(!$response)
-        $response = lmbToolkit::instance()->getResponse();
+    $response = $filter_chain->next($request, $callback);
 
     // gzip output html
     if( $conf->has('HTML_GZIP') && ($conf->get('HTML_GZIP') === true) && ($response->getContentType() == 'text/html') )

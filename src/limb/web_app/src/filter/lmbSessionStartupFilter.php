@@ -47,7 +47,7 @@ class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
   /**
    * @see lmbInterceptingFilter::run()
    */
-  function run($filter_chain, $request = null, $response = null)
+  function run($filter_chain, $request = null, $callback = null)
   {
     if($this->session_type == 'db')
       $storage =  $this->_createDBSessionStorage($this->session_lifetime);
@@ -61,7 +61,7 @@ class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
     $session = lmbToolkit::instance()->getSession();
     $session->start($storage);
 
-    $response = $filter_chain->next($request, $response);
+    $response = $filter_chain->next($request, $callback);
 
     $session->close();
 

@@ -36,16 +36,14 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
     $this->error_page = $error500_page;
   }
 
-  function run($filter_chain, $request = null, $response = null)
+  function run($filter_chain, $request = null, $callback = null)
   {
     $this->toolkit = lmbToolkit::instance();
 
     lmbErrorGuard::registerFatalErrorHandler($this, 'handleFatalError');
     lmbErrorGuard::registerExceptionHandler($this, 'handleException');
 
-    $response = $filter_chain->next($request, $response);
-
-    return $response;
+    return $filter_chain->next($request, $callback);
   }
 
   function handleFatalError($error)

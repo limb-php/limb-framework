@@ -26,12 +26,10 @@ class lmbDefaultLocaleFilter implements lmbInterceptingFilterInterface
       $this->default_locale = $default_locale;
   }
 
-  function run($filter_chain, $request = null, $response = null)
+  function run($filter_chain, $request = null, $callback = null)
   {
       lmbToolkit::instance()->setLocale($this->default_locale);
 
-      $response = $filter_chain->next($request, $response);
-
-      return $response;
+      return $filter_chain->next($request, $callback);
   }
 }

@@ -23,7 +23,7 @@ use limb\view\src\lmbView;
  */
 class lmbActionPerformingAndViewRenderingFilter implements lmbInterceptingFilterInterface
 {
-  function run($filter_chain, $request = null, $response = null)
+  function run($filter_chain, $request = null, $callback = null)
   {
       $dispatched = lmbToolkit::instance()->getDispatchedController();
       if(!is_object($dispatched))
@@ -58,6 +58,6 @@ class lmbActionPerformingAndViewRenderingFilter implements lmbInterceptingFilter
           throw new lmbException('Empty controller response');
       }
 
-      return $filter_chain->next($request, $response);
+      return $filter_chain->next($request, $callback);
   }
 }

@@ -19,7 +19,7 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbAutoDbTransactionFilter
 {
-  function run($filter_chain, $request = null, $response = null)
+  function run($filter_chain, $request = null, $callback = null)
   {
     $toolkit = lmbToolkit::instance();
     $old_conn = $toolkit->getDefaultDbConnection();
@@ -28,7 +28,7 @@ class lmbAutoDbTransactionFilter
 
     try
     {
-        $response = $filter_chain->next($request, $response);
+        $response = $filter_chain->next($request, $callback);
 
         $conn->commitTransaction();
         $toolkit->setDefaultDbConnection($old_conn);

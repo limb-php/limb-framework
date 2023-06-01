@@ -8,23 +8,21 @@ use limb\toolkit\src\lmbToolkit;
 
 class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
 {
-  function run($filter_chain, $request = null, $response = null)
+  function run($filter_chain, $request = null, $callback = null)
   {
     $toolkit = lmbToolkit::instance();
 
     if( 'devel' !== lmbEnv::get('LIMB_APP_MODE') )
     {
-        $response = $filter_chain->next($request, $response);
-
-        return $response;
+        return $filter_chain->next($request, $callback);
     }
 
     $conn = new lmbAuditDbConnection( $toolkit->getDefaultDbConnection() );
     $toolkit->setDefaultDbConnection($conn);
 
-    $response = $filter_chain->next($request, $response);
+    $response = $filter_chain->next($request, $callback);
 
-    $this->_printStat( $toolkit->getResponse(), $conn->getStats() );
+    $this->_printStat( $response, $conn->getStats() );
 
     return $response;
   }

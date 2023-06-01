@@ -19,14 +19,11 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbViewRenderingFilter implements lmbInterceptingFilterInterface
 {
-  function run($filter_chain, $request = null, $response = null)
+  function run($filter_chain, $request = null, $callback = null)
   {
-      $response = $filter_chain->next($request, $response);
+      $response = $filter_chain->next($request, $callback);
 
       $toolkit = lmbToolkit::instance();
-
-      if(!$response)
-          $response = $toolkit->getResponse();
 
       if($response->isEmpty() && is_object($view = $toolkit->getView())) {
           //$view->set('request', $toolkit->getRequest());
