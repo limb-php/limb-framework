@@ -8,6 +8,7 @@
  */
 namespace limb\web_app\src\Controllers;
 
+use limb\net\src\lmbHttpResponse;
 use limb\toolkit\src\lmbToolkit;
 use limb\fs\src\lmbFs;
 use limb\validation\src\lmbErrorList;
@@ -15,6 +16,7 @@ use limb\validation\src\lmbValidator;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
 use limb\core\src\exception\lmbException;
+use limb\view\src\lmbJsonView;
 use limb\view\src\lmbView;
 
 lmbEnv::setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
@@ -200,12 +202,12 @@ class LmbController
           return false;
       }
 
-      $response = null;
-
       $template_path = $this->findTemplateForAction($this->getCurrentAction());
-      if($template_path)
+      if($template_path) {
           $this->setTemplate($template_path); // Set View by default. Can be overridden in action method
+      }
 
+      $response = null;
       if(method_exists($this, $method = $this->_mapCurrentActionToMethod())) {
           $response = $this->{$method}($request);
       }
@@ -215,11 +217,27 @@ class LmbController
               'and no appropriate template found');
       }
 
-      if(is_a($response, lmbView::class)) {
-          $this->toolkit->setView($response);
-      }
-      else {
+      if ($response !== null) {
+          if (!is_a($response, lmbHttpResponse::class)) {
+              if (is_a($response, lmbView::class)) {
+                  $response = $response->render();
+              } elseif (
+                  $response instanceof \ArrayObject ||
+                  $response instanceof \JsonSerializable ||
+                  $response instanceof \stdClass ||
+                  is_array($response)) {
+
+                  $response = lmbJsonView::create($response)->render();
+              }
+
+              $response = response()->withBody($response);
+          }
+      } elseif ($view = lmbToolkit::instance()->getView()) {
           $this->_passLocalAttributesToView();
+
+          $response = response()->withBody($view->render());
+      } else {
+          throw new lmbException('Empty controller response');
       }
 
       return $response;

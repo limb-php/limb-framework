@@ -9,14 +9,15 @@
 
 namespace limb\web_app\src;
 
+use limb\core\src\exception\lmbException;
 use limb\filter_chain\src\lmbFilterChain;
 use limb\core\src\lmbHandle;
+use limb\toolkit\src\lmbToolkit;
 use limb\web_app\src\Controllers\NotFoundController;
 use limb\web_app\src\exception\lmbErrorHandler;
 use limb\web_app\src\request\lmbRoutesRequestDispatcher;
 use limb\web_app\src\filter\lmbSessionStartupFilter;
 use limb\web_app\src\filter\lmbRequestDispatchingFilter;
-use limb\web_app\src\filter\lmbActionPerformingAndViewRenderingFilter;
 
 /**
  * class lmbWebApplication.
@@ -27,8 +28,8 @@ use limb\web_app\src\filter\lmbActionPerformingAndViewRenderingFilter;
 class lmbWebApplication extends lmbFilterChain
 {
     protected $default_controller_name = NotFoundController::class;
-    protected $pre_dispatch_filters = [];
-    protected $pre_action_filters = [];
+    protected $pre_dispatch_filters = array();
+    protected $pre_action_filters = array();
     protected $request_dispatcher = null;
 
     protected $bootstraps = [];
@@ -36,11 +37,15 @@ class lmbWebApplication extends lmbFilterChain
     function setDefaultControllerName($name)
     {
         $this->default_controller_name = $name;
+
+        return $this;
     }
 
     function setRequestDispatcher($dispatcher)
     {
         $this->request_dispatcher = $dispatcher;
+
+        return $this;
     }
 
     protected function _getRequestDispatcher()
@@ -62,31 +67,35 @@ class lmbWebApplication extends lmbFilterChain
 
     function registerBootstrap($bootstrap)
     {
-        $this->bootstraps[$bootstrap->getClass()] = $bootstrap;
+        $this->bootstraps[] = $bootstrap;
     }
 
-    /**
-     * @return \limb\net\src\lmbHttpResponse|null
-     */
-    function process($request)
+    function process($request, $callback = null): \limb\net\src\lmbHttpResponse
     {
+        $this->_registerBootstraps();
+
         $this->_bootstrap();
 
         $this->_registerFilters();
 
-        $response = parent::process($request);
+        $response = parent::process($request, function ($request) {
+            return $this->_callControllerAction($request);
+        });
 
         $this->_terminate();
 
         return $response;
     }
 
-    protected function _bootstrap()
+    protected function _registerBootstraps()
     {
         $this->registerBootstrap(new lmbHandle(lmbErrorHandler::class, dirname(__FILE__) . '/../template/server_error.html'));
+    }
 
+    protected function _bootstrap()
+    {
         foreach ($this->bootstraps as $bootstrap) {
-            if(is_callable([$bootstrap, 'bootstrap']))
+            if (is_callable([$bootstrap, 'bootstrap']))
                 $bootstrap->bootstrap();
         }
     }
@@ -94,7 +103,7 @@ class lmbWebApplication extends lmbFilterChain
     protected function _terminate()
     {
         foreach ($this->bootstraps as $bootstrap) {
-            if(is_callable([$bootstrap, 'terminate']))
+            if (is_callable([$bootstrap, 'terminate']))
                 $bootstrap->terminate();
         }
     }
@@ -115,13 +124,21 @@ class lmbWebApplication extends lmbFilterChain
         );
 
         $this->_addFilters($this->pre_action_filters);
-
-        $this->registerFilter(new lmbHandle(lmbActionPerformingAndViewRenderingFilter::class));
     }
 
     protected function _addFilters($filters)
     {
         foreach ($filters as $filter)
             $this->registerFilter($filter);
+    }
+
+    protected function _callControllerAction($request)
+    {
+        $dispatched = lmbToolkit::instance()->getDispatchedController();
+        if (!is_object($dispatched)) {
+            throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
+        }
+
+        return $dispatched->performAction($request);
     }
 }
