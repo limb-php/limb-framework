@@ -267,7 +267,7 @@ class lmbObject implements lmbSetInterface
     return $this->has($offset);
   }
 
-  function offsetGet($offset): mixed
+  function offsetGet($offset)
   {
     return $this->get($offset);
   }
@@ -382,7 +382,7 @@ class lmbObject implements lmbSetInterface
     $this->remove($name);
   }
 
-  function current(): mixed
+  function current()
   {
     return $this->_getRaw($this->key());
   }
@@ -392,7 +392,7 @@ class lmbObject implements lmbSetInterface
       next($this->_map['public']);
   }
 
-  function key(): mixed
+  function key()
   {
     return current($this->_map['public']);
   }

@@ -81,12 +81,12 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
     return $this->valid;
   }
 
-  function current(): mixed
+  function current()
   {
     return $this->current;
   }
 
-  function key(): mixed
+  function key()
   {
     return $this->key;
   }

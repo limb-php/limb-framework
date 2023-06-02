@@ -79,7 +79,7 @@ class lmbSearchResultProcessor extends lmbCollectionDecorator
     $this->regex = '~(.*?)(' . rtrim($regex, '|') . ')(.*)~si';
   }
 
-  function current(): mixed
+  function current()
   {
     $record = parent::current();
 

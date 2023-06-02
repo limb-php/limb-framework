@@ -203,7 +203,7 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
     $this->dataset->next();
   }
 
-  function current(): mixed
+  function current()
   {
     return $this->dataset->current();
   }
@@ -213,7 +213,7 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
     return $this->dataset->valid();
   }
 
-  function key(): mixed
+  function key()
   {
     return $this->dataset->key();
   }
@@ -277,7 +277,7 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
     return !is_null($this->offsetGet($offset));
   }
 
-  function offsetGet($offset): mixed
+  function offsetGet($offset)
   {
     if(is_numeric($offset))
       return $this->at((int)$offset);

@@ -141,7 +141,7 @@ class lmbSet implements lmbSetInterface
     return $this->has($offset);
   }
 
-  function offsetGet($offset): mixed
+  function offsetGet($offset)
   {
     return $this->get($offset);
   }
@@ -170,7 +170,7 @@ class lmbSet implements lmbSetInterface
     return true;
   }
 
-  function current(): mixed
+  function current()
   {
     return $this->__current;
   }
@@ -191,7 +191,7 @@ class lmbSet implements lmbSetInterface
     $this->__valid = $this->__size > $this->__counter;
   }
 
-  function key(): mixed
+  function key()
   {
     return key($this->__properties);
   }

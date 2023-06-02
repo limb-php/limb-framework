@@ -209,7 +209,7 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
     return $this->exists($offset);
   }
 
-  function offsetGet($offset): mixed
+  function offsetGet($offset)
   {
     return $this->get($offset);
   }
@@ -219,7 +219,7 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
     $this->set($offset, $value);
   }
 
-  function current(): mixed
+  function current()
   {
     return current($_SESSION);
   }
@@ -229,7 +229,7 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
     next($_SESSION);
   }
 
-  function key(): mixed
+  function key()
   {
     return key($_SESSION);
   }

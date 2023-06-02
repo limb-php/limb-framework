@@ -152,12 +152,12 @@ class lmbCollection implements lmbCollectionInterface
     return $this->valid;
   }
 
-  function current(): mixed
+  function current()
   {
     return $this->current;
   }
 
-  function key(): mixed
+  function key()
   {
     return $this->key;
   }
@@ -227,7 +227,7 @@ class lmbCollection implements lmbCollectionInterface
     return isset($this->dataset[$offset]);
   }
 
-  function offsetGet($offset): mixed
+  function offsetGet($offset)
   {
     return $this->at($offset);
   }

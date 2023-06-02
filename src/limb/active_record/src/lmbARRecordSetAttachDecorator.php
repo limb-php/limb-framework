@@ -135,7 +135,7 @@ class lmbARRecordSetAttachDecorator extends lmbCollectionDecorator
     parent::rewind();
   }
 
-  function current(): mixed
+  function current()
   {
     $object = parent::current();
 

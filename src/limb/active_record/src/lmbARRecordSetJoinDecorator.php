@@ -52,7 +52,7 @@ class lmbARRecordSetJoinDecorator extends lmbCollectionDecorator
     parent::rewind();
   }
 
-  function current(): mixed
+  function current()
   {
     if(!$record = parent::current())
       return null;

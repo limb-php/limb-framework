@@ -72,7 +72,7 @@ abstract class lmbDbBaseRecordSet implements lmbDbRecordSetInterface
     return !is_null($this->offsetGet($offset));
   }
 
-  function offsetGet($offset): mixed
+  function offsetGet($offset)
   {
     if(is_numeric($offset))
       return $this->at((int)$offset);
