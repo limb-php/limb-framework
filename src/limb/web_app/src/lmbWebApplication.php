@@ -74,7 +74,7 @@ class lmbWebApplication extends lmbFilterChain
     {
         $this->_registerBootstraps();
 
-        $this->_bootstrap();
+        $this->_bootstrap($request);
 
         $this->_registerFilters();
 
@@ -82,7 +82,7 @@ class lmbWebApplication extends lmbFilterChain
             return $this->_callControllerAction($request);
         });
 
-        $this->_terminate();
+        $this->_terminate($request, $response);
 
         return $response;
     }
@@ -92,19 +92,19 @@ class lmbWebApplication extends lmbFilterChain
         $this->registerBootstrap(new lmbHandle(lmbErrorHandler::class, dirname(__FILE__) . '/../template/server_error.html'));
     }
 
-    protected function _bootstrap()
+    protected function _bootstrap($request)
     {
         foreach ($this->bootstraps as $bootstrap) {
             if (is_callable([$bootstrap, 'bootstrap']))
-                $bootstrap->bootstrap();
+                $bootstrap->bootstrap($request);
         }
     }
 
-    protected function _terminate()
+    protected function _terminate($request, $response)
     {
         foreach ($this->bootstraps as $bootstrap) {
             if (is_callable([$bootstrap, 'terminate']))
-                $bootstrap->terminate();
+                $bootstrap->terminate($request, $response);
         }
     }
 
