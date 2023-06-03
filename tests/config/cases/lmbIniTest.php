@@ -34,8 +34,8 @@ class lmbIniTest extends TestCase
 
   function testFilePath()
   {
-    $ini = new lmbIni(dirname(__FILE__) . '/ini_test.ini', false);
-    $this->assertEquals($ini->getOriginalFile(), dirname(__FILE__) . '/ini_test.ini');
+    $ini = new lmbIni(dirname(__FILE__) . '/settings/ini_test.ini', false);
+    $this->assertEquals($ini->getOriginalFile(), dirname(__FILE__) . '/settings/ini_test.ini');
   }
 
   function testGet()

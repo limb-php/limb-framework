@@ -112,6 +112,17 @@ class lmbConfTools extends lmbAbstractTools
     return $this->confs[$name];
   }
 
+    public function getConfParam($conf_param, $default = null)
+    {
+        [$conf, $param] = array_merge( explode('.', $conf_param), [null, null] );
+
+        if($param === null) {
+            return $this->getConf($conf)->export();
+        }
+
+        return $this->getConf($conf)->get($param, $default);
+    }
+
   protected function _normalizeConfName($name)
   {
     if(strpos($name, '.') !== false)

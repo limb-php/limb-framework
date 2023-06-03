@@ -59,10 +59,26 @@ class lmbConfToolsTest extends TestCase
     $this->assertEquals($conf[$key], $value);
   }
 
+    function testGetConfParam()
+    {
+        $content = '<?PHP $conf = array("bar" => 42); ';
+        lmbFs::safeWrite($this->application_configs_dir . '/foo.conf.php', $content);
+
+        $value = $this->toolkit->getConfParam('foo.bar');
+        $this->assertEquals(42, $value);
+
+        $value2 = $this->toolkit->getConfParam('foo');
+        $this->assertEquals(['bar' => 42], $value2);
+
+//        $value2 = $this->toolkit->getConfParam('foo_not_exists');
+//        $this->assertEquals(['bar' => 42], $value2);
+    }
+
   function testHasConf()
   {
     $content = '<?PHP $conf = array("foo" => 42); ';
     lmbFs::safeWrite($this->application_configs_dir . '/has.conf.php', $content);
+
     $this->assertFalse($this->toolkit->hasConf('not_existed'));
     $this->assertTrue($this->toolkit->hasConf('has'));
   }
