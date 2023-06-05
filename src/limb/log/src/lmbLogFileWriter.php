@@ -41,7 +41,7 @@ class lmbLogFileWriter implements lmbLogWriterInterface
     if($fh = fopen($file_name, 'a'))
     {
       @flock($fh, LOCK_EX);
-      $time = (new lmbDateTime($stamp))->format("%b %d %Y %H:%M:%S");
+      $time = (new lmbDateTime($stamp))->format("Y-m-d h:i:s");
 
       $log_message = "=========================[{$time}]";
 
