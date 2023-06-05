@@ -45,16 +45,16 @@ class lmbErrorHandler
       $this->toolkit = lmbToolkit::instance();
       $this->toolkit->getLog()->log(LOG_ERR, $error['message']);
       
-      response()->reset();
-
-      header('HTTP/1.x 500 Server Error');
-
       if($this->toolkit->isWebAppDebugEnabled())
           $result = $this->_echoErrorBacktrace($error);
       else
           $result = $this->_echoErrorPage();
 
-      echo $result;
+      response()
+          ->reset()
+          ->setStatusCode(500, 'Server Error')
+          ->withBody($result)
+          ->send();
 
       exit(1);
   }
@@ -67,16 +67,16 @@ class lmbErrorHandler
       $this->toolkit = lmbToolkit::instance();
       $this->toolkit->getLog()->logException($e);
 
-      response()->reset();
-
-      header('HTTP/1.x 500 Server Error');
-
       if($this->toolkit->isWebAppDebugEnabled())
           $result = $this->_echoExceptionBacktrace($e);
       else
           $result = $this->_echoErrorPage();
 
-      echo $result;
+      response()
+          ->reset()
+          ->setStatusCode(500, 'Server Error')
+          ->withBody($result)
+          ->send();
 
       exit(1);
   }
