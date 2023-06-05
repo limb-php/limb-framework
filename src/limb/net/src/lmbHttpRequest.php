@@ -478,7 +478,8 @@ class lmbHttpRequest extends lmbSet
 
     public function getBody()
     {
-        return stream_get_contents(STDIN);
+        $stdin = fopen('php://stdin', 'r');
+        return stream_get_contents($stdin);
     }
 
     public function withBody($body)
