@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_app\src\Controllers;
 
 /**
@@ -16,9 +17,8 @@ namespace limb\web_app\src\Controllers;
  */
 class NotFoundController extends LmbController
 {
-  function doDisplay()
-  {
-    $this->response->addHeader('HTTP/1.0 404 Not Found');
-    $this->setTemplate($this->findTemplateByAlias('not_found'));
-  }
+    function doDisplay($request)
+    {
+        return response()->setStatusCode(404, 'Not Found');
+    }
 }
