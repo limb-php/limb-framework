@@ -217,6 +217,11 @@ class lmbHttpRequest extends lmbSet
     return sizeof($this->__post) > 0 || $this->getMethod() == 'POST';
   }
 
+    public function getClientIp()
+    {
+        return lmbIp::getRealIp();
+    }
+
     public function getHeaders()
     {
         return $this->__headers;
