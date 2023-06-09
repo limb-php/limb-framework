@@ -133,7 +133,7 @@ class lmbLog
             $this->log(
                 LOG_ERR,
                 $exception->getMessage(),
-                array(),
+                array('file' => $exception->getFile(), 'line' => $exception->getLine()),
                 new lmbBacktrace($exception->getTrace(), $backtrace_depth)
             );
     }
