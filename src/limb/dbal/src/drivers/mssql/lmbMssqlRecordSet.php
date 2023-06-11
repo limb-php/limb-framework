@@ -126,11 +126,13 @@ class lmbMssqlRecordSet extends lmbDbBaseRecordSet
     return $this->valid;
   }
 
+  #[\ReturnTypeWillChange]
   function current()
   {
     return $this->current;
   }
 
+  #[\ReturnTypeWillChange]
   function key()
   {
     return $this->key;

@@ -24,6 +24,7 @@ abstract class lmbDbBaseRecord implements lmbDbRecordInterface
     return $this->has($offset);
   }
 
+  #[\ReturnTypeWillChange]
   function offsetGet($offset)
   {
     return $this->get($offset);
@@ -41,6 +42,7 @@ abstract class lmbDbBaseRecord implements lmbDbRecordInterface
   //end
   
   //Iterator interface
+  #[\ReturnTypeWillChange]
   function current()
   {
     return current($this->properties);
@@ -50,7 +52,8 @@ abstract class lmbDbBaseRecord implements lmbDbRecordInterface
   {
     next($this->properties);
   }
-  
+
+  #[\ReturnTypeWillChange]
   function key()
   {
     return key($this->properties);

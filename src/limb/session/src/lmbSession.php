@@ -209,6 +209,7 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
     return $this->exists($offset);
   }
 
+  #[\ReturnTypeWillChange]
   function offsetGet($offset)
   {
     return $this->get($offset);
@@ -219,6 +220,7 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
     $this->set($offset, $value);
   }
 
+  #[\ReturnTypeWillChange]
   function current()
   {
     return current($_SESSION);
@@ -229,6 +231,7 @@ class lmbSession implements \ArrayAccess,\Iterator,\Countable
     next($_SESSION);
   }
 
+  #[\ReturnTypeWillChange]
   function key()
   {
     return key($_SESSION);
