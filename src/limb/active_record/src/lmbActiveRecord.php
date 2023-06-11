@@ -2212,12 +2212,12 @@ class lmbActiveRecord extends lmbObject
    *  Exports object data with lazy properties resolved
    *  @return array
    */
-  function export()
+  public function export()
   {
-    if(!$this->isNew() && sizeof($this->_lazy_attributes))
-      $this->_loadLazyAttributes();
+      if(!$this->isNew() && sizeof($this->_lazy_attributes))
+        $this->_loadLazyAttributes();
 
-    return parent::export();
+      return parent::export();
   }
   /**
    *  Plain export of object data(lazy properties not included if not loaded)

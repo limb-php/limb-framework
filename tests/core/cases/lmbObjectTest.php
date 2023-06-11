@@ -278,7 +278,15 @@ class lmbObjectTest extends TestCase
         $object = new ObjectTestVersion();
         $object->set('foo', 'FOO');
 
-        $this->assertEquals(array('bar' => null, 'foo' => 'FOO', 'protected' => 'me'), $object->export());
+        $this->assertEquals(['bar' => null, 'foo' => 'FOO', 'protected' => 'me'], $object->export());
+    }
+
+    function testJsonOnlyNonGuardedProperties()
+    {
+        $object = new ObjectTestVersion();
+        $object->set('foo', 'FOO');
+
+        $this->assertEquals(['bar' => '_get_called', 'foo' => 'FOO', 'protected' => 'me'], $object->jsonSerialize());
     }
 
     function testRemove()

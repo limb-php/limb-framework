@@ -68,7 +68,7 @@ use limb\core\src\exception\lmbNoSuchPropertyException;
  * @version $Id: lmbObject.php 5567 2007-04-06 14:37:24Z
  * @package core
  */
-class lmbObject implements lmbSetInterface
+class lmbObject implements lmbSetInterface, \JsonSerializable
 {
     static $map_p2m = [];
 
@@ -130,11 +130,11 @@ class lmbObject implements lmbSetInterface
    * Exports all object properties as an array
    * @return array
    */
-  function export()
+  public function export()
   {
     $exported = array();
     foreach($this->getPropertiesNames() as $name)
-      $exported[$name] = $this->$name;
+      $exported[$name] = $this->{$name};
 
     return $exported;
   }
@@ -406,4 +406,13 @@ class lmbObject implements lmbSetInterface
   {
     reset($this->_map['public']);
   }
+
+    public function jsonSerialize()
+    {
+        $exported = [];
+        foreach($this->getPropertiesNames() as $name)
+            $exported[$name] = $this->get($name);
+
+        return $exported;
+    }
 }
