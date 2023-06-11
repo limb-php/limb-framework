@@ -67,7 +67,7 @@ class lmbSet implements lmbSetInterface
 
   function removeAll()
   {
-    $unguarded_vars = $this->_getUnguardedVars($this);
+    $unguarded_vars = $this->_getUnguardedVars();
     foreach($unguarded_vars as $name => $var)
       $this->remove($name);
   }
@@ -94,7 +94,7 @@ class lmbSet implements lmbSetInterface
   function export()
   {
     $exported = array();
-    $unguarded_vars = $this->_getUnguardedVars($this);
+    $unguarded_vars = $this->_getUnguardedVars();
     foreach($unguarded_vars as $name => $var)
       $exported[$name] = $var;
     return $exported;
@@ -110,7 +110,7 @@ class lmbSet implements lmbSetInterface
 
   function isEmpty()
   {
-    return sizeof($this->_getUnguardedVars($this)) == 0;
+    return sizeof($this->_getUnguardedVars()) == 0;
   }
 
   function getPropertyList()
@@ -141,6 +141,7 @@ class lmbSet implements lmbSetInterface
     return $this->has($offset);
   }
 
+  #[\ReturnTypeWillChange]
   function offsetGet($offset)
   {
     return $this->get($offset);
@@ -170,6 +171,7 @@ class lmbSet implements lmbSetInterface
     return true;
   }
 
+  #[\ReturnTypeWillChange]
   function current()
   {
     return $this->__current;
@@ -184,13 +186,14 @@ class lmbSet implements lmbSetInterface
 
   function rewind(): void
   {
-    $this->__properties = $this->_getUnguardedVars($this);
+    $this->__properties = $this->_getUnguardedVars();
     $this->__current = reset($this->__properties);
     $this->__size = count($this->__properties);
     $this->__counter = 0;
     $this->__valid = $this->__size > $this->__counter;
   }
 
+  #[\ReturnTypeWillChange]
   function key()
   {
     return key($this->__properties);

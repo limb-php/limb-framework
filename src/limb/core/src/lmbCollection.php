@@ -152,11 +152,13 @@ class lmbCollection implements lmbCollectionInterface
     return $this->valid;
   }
 
+  #[\ReturnTypeWillChange]
   function current()
   {
     return $this->current;
   }
 
+  #[\ReturnTypeWillChange]
   function key()
   {
     return $this->key;
@@ -227,6 +229,7 @@ class lmbCollection implements lmbCollectionInterface
     return isset($this->dataset[$offset]);
   }
 
+  #[\ReturnTypeWillChange]
   function offsetGet($offset)
   {
     return $this->at($offset);

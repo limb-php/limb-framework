@@ -28,6 +28,7 @@ class lmbCollectionDecorator implements lmbCollectionInterface
     return $this->iterator->valid();
   }
 
+  #[\ReturnTypeWillChange]
   function current()
   {
     return $this->iterator->current();
@@ -43,6 +44,7 @@ class lmbCollectionDecorator implements lmbCollectionInterface
     $this->iterator->rewind();
   }
 
+  #[\ReturnTypeWillChange]
   function key()
   {
     return $this->iterator->key();
@@ -106,6 +108,7 @@ class lmbCollectionDecorator implements lmbCollectionInterface
     return !is_null($this->at($offset));
   }
 
+  #[\ReturnTypeWillChange]
   function offsetGet($offset)
   {
     return $this->at($offset);

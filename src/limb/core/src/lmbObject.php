@@ -267,6 +267,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
     return $this->has($offset);
   }
 
+  #[\ReturnTypeWillChange]
   function offsetGet($offset)
   {
     return $this->get($offset);
@@ -382,6 +383,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
     $this->remove($name);
   }
 
+  #[\ReturnTypeWillChange]
   function current()
   {
     return $this->_getRaw($this->key());
@@ -392,6 +394,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
       next($this->_map['public']);
   }
 
+  #[\ReturnTypeWillChange]
   function key()
   {
     return current($this->_map['public']);
@@ -407,6 +410,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
     reset($this->_map['public']);
   }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         $exported = [];
