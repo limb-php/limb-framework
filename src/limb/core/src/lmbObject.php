@@ -414,7 +414,8 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
     public function jsonSerialize()
     {
         $exported = [];
-        foreach($this->getPropertiesNames() as $name)
+        $properties = $this->getPropertiesNames();
+        foreach($properties as $name)
             $exported[$name] = $this->get($name);
 
         return $exported;
