@@ -242,7 +242,7 @@ class lmbFs
 
     while(($file = readdir($handle)) !== false)
     {
-      if($file == '.' ||  $file == '..')
+      if($file === '.' ||  $file === '..')
         continue;
 
       self::_doRm($item . $separator . $file, $separator);
@@ -343,7 +343,7 @@ class lmbFs
     {
       while(($file = readdir($handle)) !== false)
       {
-        if($file != '.' &&  $file != '..' )
+        if($file !== '.' &&  $file !== '..' )
         {
           $files[] = $file;
         }
@@ -407,9 +407,9 @@ class lmbFs
 
     foreach($path_elements as $path_element)
     {
-      if($path_element == '.')
+      if($path_element === '.')
         continue;
-      if($path_element == '..' &&
+      if($path_element === '..' &&
           count($newpath_elements) > 0)
         array_pop($newpath_elements);
       else
@@ -466,7 +466,7 @@ class lmbFs
     $path = implode($separator, $names);
     $path = self::normalizePath($path, $type);
 
-    $has_end_separator = (strlen($path) > 0 &&  $path[strlen($path) - 1] == $separator);
+    $has_end_separator = (strlen($path) > 0 &&  $path[strlen($path) - 1] === $separator);
 
    if($include_end_separator &&  !$has_end_separator)
       $path .= $separator;
@@ -476,7 +476,7 @@ class lmbFs
     return $path;
   }
 
-  static function find($dir, $types = 'dfl', $include_regex = '', $exclude_regex = '', $add_path = true, $include_hidden = false)
+  static function find($dir, $types = 'dfl', $include_regex = '', $exclude_regex = '', $add_path = true, $include_hidden = true)
   {
     $dir = self::normalizePath($dir);
     $dir = self::chop($dir);
@@ -489,9 +489,9 @@ class lmbFs
     {
       while(($element = readdir($handle)) !== false)
       {
-        if($element == '.' || $element == '..')
+        if($element === '.' || $element === '..')
          continue;
-        if(!$include_hidden && $element[0] == '.')
+        if(!$include_hidden && $element[0] === '.')
          continue;
         if($include_regex && !preg_match($include_regex, $element, $m))
          continue;
@@ -520,7 +520,7 @@ class lmbFs
     return $items;
   }
 
-  static function findRecursive($path, $types = 'dfl', $include_regex = '', $exclude_regex = '', $add_path = true, $include_hidden = false)
+  static function findRecursive($path, $types = 'dfl', $include_regex = '', $exclude_regex = '', $add_path = true, $include_hidden = true)
   {
     return self::walkDir($path,
                         array(lmbFs::class, '_doFindRecursive'),
@@ -582,7 +582,7 @@ class lmbFs
 
     while(($file = readdir($handle)) !== false)
     {
-     if(($file == '.') || ($file == '..'))
+     if(($file === '.') || ($file === '..'))
         continue;
 
       self::_doWalkDir($item . $separator . $file,
