@@ -1680,21 +1680,6 @@ class lmbActiveRecord extends lmbObject
 
     return false;
   }
-  /**
-   *  Alias for findFirstBySql
-   *  @see findFirstBySql()
-   *  @return lmbActiveRecord
-   */
-  static function findOneBySql($class_name, $sql = null, $conn = null)
-  {
-    if(!self::_isClass($class_name))
-    {
-      $conn = $sql;
-      $sql = $class_name;
-      $class_name = static::class;
-    }
-    return self::findFirstBySql($class_name, $sql, $conn);
-  }
 
   /**
    *  Generic objects finder.

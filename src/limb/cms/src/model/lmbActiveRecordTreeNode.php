@@ -112,7 +112,7 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
     if(!$class_name)
       $class_name = self::_getCallingClass();
 
-    return lmbActiveRecord::findOne($class_name, lmbSQLCriteria::equal('parent_id', 0));
+    return lmbActiveRecord::findFirst($class_name, lmbSQLCriteria::equal('parent_id', 0));
   }
 
   /**
