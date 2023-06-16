@@ -91,7 +91,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
       $conn = pg_connect($connstr);
     }
 
-    if(pg_connection_status($conn) !== PGSQL_CONNECTION_OK)
+    if(($conn === false) || (pg_connection_status($conn) !== PGSQL_CONNECTION_OK))
     {
       $this->_raiseError('Could not connect to host "' . $this->config['host'] . '" and database "' . $this->config['database'] . '"');
     }
