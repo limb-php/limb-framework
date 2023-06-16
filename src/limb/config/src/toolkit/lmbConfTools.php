@@ -81,33 +81,29 @@ class lmbConfTools extends lmbAbstractTools
     if(isset($this->confs[$name]))
       return $this->confs[$name];
 
-    $ext = substr($name, strpos($name, '.'));
-
-    if($ext == '.ini')
-    {
+    if(preg_match("/\.ini$/", $name)) {
       $file = $this->_locateConfFiles($name);
       if( lmbEnv::has('LIMB_VAR_DIR') )
         $this->confs[$name] = new lmbCachedIni($file, lmbEnv::get('LIMB_VAR_DIR') . '/ini/');
       else
         $this->confs[$name] = new lmbIni($file);
     }
-    elseif($ext == '.yml')
-    {
+    elseif(preg_match("/\.yml$/", $name)) {
       $file = $this->_locateConfFiles($name);
 
-      $this->confs[$name] =  $this->parseYamlFile( lmbFs::normalizePath($file) ) ;
+      $this->confs[$name] =  $this->parseYamlFile(lmbFs::normalizePath($file));
 
     }
-    elseif($ext == '.conf.php')
-    {
+    elseif(preg_match("/\.conf\.php$/", $name)) {
       $file = $this->_locateConfFiles($name);
       if(empty($file))
         throw new lmbFileNotFoundException($name);
 
       $this->confs[$name] = new lmbConf(lmbFs::normalizePath($file));
     }
-    else
-      throw new lmbException("'$ext' type configuration is not supported!");
+    else {
+        throw new lmbException("'$name' configuration is not supported!");
+    }
 
     return $this->confs[$name];
   }
@@ -125,7 +121,7 @@ class lmbConfTools extends lmbAbstractTools
 
   protected function _normalizeConfName($name)
   {
-    if(strpos($name, '.') !== false)
+    if(preg_match("/(\.ini|\.yml|\.conf\.php)$/", $name))
       return $name;
     return "$name.conf.php";
   }
