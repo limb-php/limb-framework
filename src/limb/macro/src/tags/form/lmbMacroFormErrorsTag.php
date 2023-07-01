@@ -22,15 +22,15 @@ use limb\macro\src\tags\form\lmbMacroFormTag;
  */
 class lmbMacroFormErrorsTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $form = $this->findParentByClass('limb\macro\src\tags\form\lmbMacroFormTag')->getRuntimeVar();
     
     $to = $this->get('to');
     
-    $code->writePhp("{$to} = {$form}->getErrorList();\n");
+    $code_writer->writePhp("{$to} = {$form}->getErrorList();\n");
 
-    parent :: _generateContent($code);
+    parent :: _generateContent($code_writer);
   }
 }
 

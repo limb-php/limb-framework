@@ -16,7 +16,7 @@ use limb\macro\src\compiler\lmbMacroTag;
  * @version $Id$
  */class lmbMacroFlashBoxTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
   	if($this->get('as'))
   	{
@@ -30,15 +30,15 @@ use limb\macro\src\compiler\lmbMacroTag;
       $to = '$flashbox';
 
 
-  	$method = $code->beginMethod('__flashbox_container');
+  	$method = $code_writer->beginMethod('__flashbox_container');
 
-    $code->writePHP($to.'=$this->toolkit->getFlashBox()->getUnifiedList();');
-  	$code->writePHP('$this->toolkit->getFlashBox()->reset();');
+    $code_writer->writePHP($to.'=$this->toolkit->getFlashBox()->getUnifiedList();');
+  	$code_writer->writePHP('$this->toolkit->getFlashBox()->reset();');
 
-  	parent :: _generateContent($code);
+  	parent :: _generateContent($code_writer);
 
-    $code->endMethod();
+    $code_writer->endMethod();
 
-    $code->writePHP('$this->'.$method.'();');
+    $code_writer->writePHP('$this->'.$method.'();');
   }
 }

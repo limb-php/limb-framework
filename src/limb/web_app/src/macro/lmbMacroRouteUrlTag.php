@@ -18,29 +18,29 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroRouteUrlTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
-    $fake_params = $code->generateVar();
-    $params = $code->generateVar();
-    $code->writePhp("{$params} = array();\n");
+    $fake_params = $code_writer->generateVar();
+    $params = $code_writer->generateVar();
+    $code_writer->writePhp("{$params} = array();\n");
     
     if(!$this->has('route'))
       $this->set('route', "");
 
     if($this->has('params'))
     {
-      $code->writePhp("{$fake_params} = limb\core\src\lmbArrayHelper::explode(',',':', {$this->getEscaped('params')});\n");
-      $code->writePhp("foreach({$fake_params} as \$key => \$value) {$params}[trim(\$key)] = trim(\$value);\n");
+      $code_writer->writePhp("{$fake_params} = limb\core\src\lmbArrayHelper::explode(',',':', {$this->getEscaped('params')});\n");
+      $code_writer->writePhp("foreach({$fake_params} as \$key => \$value) {$params}[trim(\$key)] = trim(\$value);\n");
     }
 
-    $skip_controller = $code->generateVar();
+    $skip_controller = $code_writer->generateVar();
 
     if($this->getBool('skip_controller'))
-      $code->writePhp("{$skip_controller} = true;\n");
+      $code_writer->writePhp("{$skip_controller} = true;\n");
     else
-      $code->writePhp("{$skip_controller} = false;\n");
+      $code_writer->writePhp("{$skip_controller} = false;\n");
 
-    $code->writePhp("echo limb\\toolkit\\src\\lmbToolkit::instance()->getRoutesUrl({$params}, {$this->getEscaped('route')}, {$skip_controller});\n");
+    $code_writer->writePhp("echo limb\\toolkit\\src\\lmbToolkit::instance()->getRoutesUrl({$params}, {$this->getEscaped('route')}, {$skip_controller});\n");
   }
 }
 

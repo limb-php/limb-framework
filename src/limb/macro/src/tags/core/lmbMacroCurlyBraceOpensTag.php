@@ -11,9 +11,9 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroCurlyBraceOpensTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
-    $code->writeHtml("{");
+    $code_writer->writeHtml("{");
   }
 }
 
@@ -25,8 +25,8 @@ class lmbMacroCurlyBraceOpensTag extends lmbMacroTag
  */
 class lmbMacroCurlyBraceClosesTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
-    $code->writeHtml("}");
+    $code_writer->writeHtml("}");
   }
 }

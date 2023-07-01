@@ -19,25 +19,25 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroPagerListTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $this->pager = $this->findParentByClass('limb\macro\src\tags\pager\lmbMacroPagerTag')->getRuntimeVar();
 
-    $this->elipses_count_var = $code->generateVar();
-    $code->writePhp("{$this->elipses_count_var} = 0;\n");
+    $this->elipses_count_var = $code_writer->generateVar();
+    $code_writer->writePhp("{$this->elipses_count_var} = 0;\n");
 
-    $this->show_separator_var = $code->generateVar();
-    $code->writePhp("{$this->show_separator_var} = false;\n");
+    $this->show_separator_var = $code_writer->generateVar();
+    $code_writer->writePhp("{$this->show_separator_var} = false;\n");
     
     $parent = $this->findParentByClass('limb\macro\src\tags\pager\lmbMacroPagerTag');
-    $code->writePhp("while ({$this->pager}->isValid()) {\n");
+    $code_writer->writePhp("while ({$this->pager}->isValid()) {\n");
 
     if($this->findChildByClass('limb\macro\src\tags\pager\lmbMacroPagerElipsesTag'))
-      $this->_generateForElipsesMode($code);
+      $this->_generateForElipsesMode($code_writer);
     else
-      $this->_generateForSectionsMode($code);
+      $this->_generateForSectionsMode($code_writer);
       
-    $code->writePhp("}\n");
+    $code_writer->writePhp("}\n");
   }
 
   protected function _generateForSectionsMode($code)

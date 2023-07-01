@@ -71,12 +71,12 @@ class lmbMacroInsertTag extends lmbMacroTag
     return $this->findChildrenByClass('limb\macro\src\tags\core\lmbMacroInsertIntoTag');
   }
 
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     if($this->is_dynamic)
-      $this->_generateDynamicaly($code);
+      $this->_generateDynamicaly($code_writer);
     else
-      $this->_generateStaticaly($code);
+      $this->_generateStaticaly($code_writer);
   }
 
   function _generateDynamicaly($code)

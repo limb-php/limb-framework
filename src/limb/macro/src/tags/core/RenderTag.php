@@ -10,7 +10,7 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class RenderTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $function = $this->get('function');
     list($keys, $vals) = $this->attributesIntoArgs();
@@ -21,15 +21,15 @@ class RenderTag extends lmbMacroTag
 
     if( $function )
     {
-      $view_var = $code->generateVar();
+      $view_var = $code_writer->generateVar();
 
       if( !empty( $vals ) )
-        $code->writePHP($view_var . " = call_user_func('" . $function . "', " . implode(', ', $vals) . ");");
+        $code_writer->writePHP($view_var . " = call_user_func('" . $function . "', " . implode(', ', $vals) . ");");
       else
-        $code->writePHP($view_var . " = call_user_func('" . $function . "', array());");
-      $code->writePHP(" echo {$view_var}->render(); ");
+        $code_writer->writePHP($view_var . " = call_user_func('" . $function . "', array());");
+      $code_writer->writePHP(" echo {$view_var}->render(); ");
 
-      parent::_generateContent($code);
+      parent::_generateContent($code_writer);
     }
   }
 }

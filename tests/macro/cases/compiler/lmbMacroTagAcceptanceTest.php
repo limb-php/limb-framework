@@ -32,9 +32,9 @@ class MacroTagBarTest extends lmbMacroTag
 class MacroTagZooTest extends lmbMacroTag
 {
   // note that we overrided _generateContent since generate() methods pregenerates dynamic attributes
-  function _generateContent($code)
+  function _generateContent($code_writer)
   {
-    $code->writePHP('echo ' . $this->getEscaped('attr') . ';');
+    $code_writer->writePHP('echo ' . $this->getEscaped('attr') . ';');
   }
 }
 

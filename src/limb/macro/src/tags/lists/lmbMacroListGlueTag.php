@@ -69,16 +69,16 @@ class lmbMacroListGlueTag extends lmbMacroTag
     $code->writePhp($helper_var . "->setTotalItems(count($source_var));\n");
   }
 
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
-    $step_var = $this->getStepVar($code);
-    $helper_var = $this->getHelperVar($code);
+    $step_var = $this->getStepVar($code_writer);
+    $helper_var = $this->getHelperVar($code_writer);
     
-    $code->writePhp($helper_var . "->next();\n");
+    $code_writer->writePhp($helper_var . "->next();\n");
 
-    $code->writePhp("if ( " . $helper_var  . "->shouldDisplay()){\n");
+    $code_writer->writePhp("if ( " . $helper_var  . "->shouldDisplay()){\n");
 
-    $code->writePhp($helper_var . "->reset();\n");
+    $code_writer->writePhp($helper_var . "->reset();\n");
 
     $separators = $this->parent->findImmediateChildrenByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListGlueTag');
     if(array($separators) && count($separators))
@@ -87,15 +87,15 @@ class lmbMacroListGlueTag extends lmbMacroTag
       {
         if(!$separator->isIndependent() && $separator->getNodeId() != $this->getNodeId())
         {
-          $code->writePhp('if (' . $separator->getStepVar($code) . ' < ' . $step_var . ') ');
-          $code->writePhp($separator->getHelperVar($code) . "->skipNext();\n");
+          $code_writer->writePhp('if (' . $separator->getStepVar($code_writer) . ' < ' . $step_var . ') ');
+          $code_writer->writePhp($separator->getHelperVar($code_writer) . "->skipNext();\n");
         }
       }
     }
 
-    parent :: _generateContent($code);
+    parent :: _generateContent($code_writer);
 
-    $code->writePhp("}\n");
+    $code_writer->writePhp("}\n");
   }
   
   function isIndependent()

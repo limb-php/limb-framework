@@ -11,17 +11,17 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroOptionalTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $for = $this->get('for');
-    $tempvar = $code->generateVar();
-    $code->writePHP("{$tempvar} = {$for};\n");
+    $tempvar = $code_writer->generateVar();
+    $code_writer->writePHP("{$tempvar} = {$for};\n");
 
-    $code->writePHP('if (is_scalar(' . $tempvar .' )) ' . $tempvar . '= trim(' . $tempvar . ');');
-    $code->writePHP('if (!empty(' . $tempvar . ')){');
+    $code_writer->writePHP('if (is_scalar(' . $tempvar .' )) ' . $tempvar . '= trim(' . $tempvar . ');');
+    $code_writer->writePHP('if (!empty(' . $tempvar . ')){');
 
-    parent::_generateContent($code);
+    parent::_generateContent($code_writer);
 
-    $code->writePHP('}');
+    $code_writer->writePHP('}');
   }
 }

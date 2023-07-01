@@ -21,11 +21,11 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroCopyYearTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $start_year = $this->get('start_year');
 
-    $code->writePhp("echo $start_year, (date('Y') != $start_year) ? '&ndash;' . date('Y') : '';\n");
+    $code_writer->writePhp("echo $start_year, (date('Y') != $start_year) ? '&ndash;' . date('Y') : '';\n");
   }
 }
 

@@ -15,7 +15,7 @@ use limb\macro\src\lmbMacroException;
 
 class lmbFileVersionMacroTag extends lmbMacroTag
 {  
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $url = $this->getVersionUrl();
     $type = $this->has('type') ? $this->get('type') : 'echo';
@@ -34,15 +34,15 @@ class lmbFileVersionMacroTag extends lmbMacroTag
     {
       case 'echo':
         if($this->has('to_var'))
-          $code->writePhp($this->get('to_var') . ' = \'' . addslashes($url) . '\';');
+          $code_writer->writePhp($this->get('to_var') . ' = \'' . addslashes($url) . '\';');
         else
-          $code->writeHTML(htmlspecialchars($url, 3));
+          $code_writer->writeHTML(htmlspecialchars($url, 3));
         break;
       case 'js':
-        $code->writeHTML('<script type="text/javascript" src="' . htmlspecialchars($url, 3) . '" ></script>');
+        $code_writer->writeHTML('<script type="text/javascript" src="' . htmlspecialchars($url, 3) . '" ></script>');
         break;
       case 'css':
-        $code->writeHTML('<link rel="stylesheet" type="text/css" href="'.htmlspecialchars($url, 3).'" />');
+        $code_writer->writeHTML('<link rel="stylesheet" type="text/css" href="'.htmlspecialchars($url, 3).'" />');
         break;
       default:
         throw new lmbMacroException('Unknown type '.$type);

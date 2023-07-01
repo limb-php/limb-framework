@@ -11,8 +11,8 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroAssignTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
-    $code->writePHP($this->get('var') . " = ".$this->get('value').";\n");
+    $code_writer->writePHP($this->get('var') . " = ".$this->get('value').";\n");
   }
 }

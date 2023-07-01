@@ -14,15 +14,15 @@ class lmbJsRequireOnceMacroTag extends lmbFileVersionMacroTag
 {  
   static protected $_writes = array();
 
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $file = $this->get('src');
-    if(isset(self :: $_writes[$code->getClass()][$file]))
+    if(isset(self :: $_writes[$code_writer->getClass()][$file]))
       return;
-    self :: $_writes[$code->getClass()][$file] = 1;
+    self :: $_writes[$code_writer->getClass()][$file] = 1;
 
     if(!$this->has('type'))
       $this->set('type', 'js');
-    parent :: _generateContent($code);
+    parent :: _generateContent($code_writer);
   }
 }

@@ -130,8 +130,7 @@ class lmbMacroCompiler
 
   /**
    *  Registers instance listener of specified type
-   *  @param integer call back type
-   *  @param object call back object
+   *  @param object $callback call back object
    */
   static function registerOnCompileCallback($callback)
   {

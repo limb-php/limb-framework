@@ -11,10 +11,10 @@ use limb\macro\src\compiler\lmbMacroTextNode;
  */
 class lmbMacroTrimTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     lmbMacroTextNode::setTrim(true);
-    parent::_generateContent($code);
+    parent::_generateContent($code_writer);
     lmbMacroTextNode::setTrim(false);
   }
 }

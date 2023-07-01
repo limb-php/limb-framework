@@ -29,9 +29,9 @@ class lmbMacroTextAreaTag extends lmbMacroFormTagElement
     $this->has_closing_tag = true;
   }
   
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $textarea = $this->getRuntimeVar(); 
-    $code->writePHP("echo htmlspecialchars({$textarea}->getValue(), ENT_QUOTES);\n");     
+    $code_writer->writePHP("echo htmlspecialchars({$textarea}->getValue(), ENT_QUOTES);\n");
   }
 }

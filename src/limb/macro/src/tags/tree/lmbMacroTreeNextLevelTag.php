@@ -18,9 +18,9 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroTreeNextLevelTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
-    parent :: _generateContent($code);
+    parent :: _generateContent($code_writer);
     
     $tree_tag = $this->findParentByClass('limb\macro\src\tags\tree\lmbMacroTreeTag');
     
@@ -35,13 +35,13 @@ class lmbMacroTreeNextLevelTag extends lmbMacroTag
     
     $arg_str = $this->attributesIntoArrayString();
 
-    $code->writePHP('if(isset(' . $as . '["' . $kids_prop . '"])) {');
+    $code_writer->writePHP('if(isset(' . $as . '["' . $kids_prop . '"])) {');
     
     $method = $tree_tag->getRecursionMethod();
     
-    $code->writePHP('$this->' . $method . '(' . $as . '["' . $kids_prop . '"], ' . $level . ' + 1, ' . $arg_str . ");\n");
+    $code_writer->writePHP('$this->' . $method . '(' . $as . '["' . $kids_prop . '"], ' . $level . ' + 1, ' . $arg_str . ");\n");
 
-    $code->writePHP('}');
+    $code_writer->writePHP('}');
   }  
 }
 

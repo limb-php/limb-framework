@@ -19,7 +19,7 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroTemplateSlotTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $parent_template_tag = $this->findParentByClass('limb\macro\src\tags\core\lmbMacroTemplateTag');
     $apply_tag = $parent_template_tag->getCurrentApplyTag();
@@ -28,7 +28,7 @@ class lmbMacroTemplateSlotTag extends lmbMacroTag
     foreach($intos as $into)
     {
       if($into->get('slot') == $this->getNodeId())
-        $into->generateNow($code);
+        $into->generateNow($code_writer);
     }
   }
 }

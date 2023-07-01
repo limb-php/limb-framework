@@ -58,9 +58,9 @@ class lmbMacroWysiwygTag extends lmbMacroTextAreaTag
   {
   }  
 
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $widget = $this->getRuntimeVar();
-    $code->writePHP("{$widget}->renderWysiwyg();\n");
+    $code_writer->writePHP("{$widget}->renderWysiwyg();\n");
   }
 }

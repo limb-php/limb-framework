@@ -20,30 +20,30 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroSlotTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $slot = $this->getNodeId();
     //calling slot handler in case of dynamic wrapping
-    $code->writePHP('if(isset($this->__slot_handlers_' . $slot . ')) {');
+    $code_writer->writePHP('if(isset($this->__slot_handlers_' . $slot . ')) {');
     $arg_str = $this->attributesIntoArrayString($skip = array('id', 'inline'));
-    $code->writePHP('foreach($this->__slot_handlers_' . $slot . ' as $__slot_handler_' . $slot . ') {');
-    $code->writePHP('call_user_func_array($__slot_handler_' . $slot . ', array(' . $arg_str . '));');
-    $code->writePHP('}}');
+    $code_writer->writePHP('foreach($this->__slot_handlers_' . $slot . ' as $__slot_handler_' . $slot . ') {');
+    $code_writer->writePHP('call_user_func_array($__slot_handler_' . $slot . ', array(' . $arg_str . '));');
+    $code_writer->writePHP('}}');
 
     if(!$this->getBool('inline'))
     {
-      $args = $code->generateVar(); 
-      $method = $code->beginMethod('__slotHandler' . self::generateUniqueId(), array($args . '= array()'));
+      $args = $code_writer->generateVar();
+      $method = $code_writer->beginMethod('__slotHandler' . self::generateUniqueId(), array($args . '= array()'));
       
-      $code->writePHP("if($args) extract($args);");
+      $code_writer->writePHP("if($args) extract($args);");
       
-      parent::_generateContent($code);
+      parent::_generateContent($code_writer);
       
-      $code->endMethod();
+      $code_writer->endMethod();
       //$arg_str = $this->attributesIntoArrayString($skip = array('id', 'inline'));
-      $code->writePHP('$this->' . $method . '(' . $arg_str . ');');
+      $code_writer->writePHP('$this->' . $method . '(' . $arg_str . ');');
     }
     else
-      parent::_generateContent($code);
+      parent::_generateContent($code_writer);
   }
 }

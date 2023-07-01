@@ -18,14 +18,14 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroFormRefererTag extends lmbMacroTag
 {
-  function _generateContent($code)
+  function _generateContent($code_writer)
   {
-    $ref = $code->generateVar();
+    $ref = $code_writer->generateVar();
 
-    $code->writePHP($ref . ' = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "";' . "\n");
+    $code_writer->writePHP($ref . ' = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "";' . "\n");
 
-    $code->writePHP("if($ref)");
-    $code->writePHP('echo "<input type=\'hidden\' name=\'referer\' value=\'' . $ref . '\'>";');
+    $code_writer->writePHP("if($ref)");
+    $code_writer->writePHP('echo "<input type=\'hidden\' name=\'referer\' value=\'' . $ref . '\'>";');
   }
 }
 

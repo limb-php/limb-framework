@@ -11,8 +11,8 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroNospaceTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
-    $code->writeHtml("");
+    $code_writer->writeHtml("");
   }
 }

@@ -17,10 +17,10 @@ class lmbJsCombinedMacroTag extends lmbFileVersionMacroTag
   protected $_file_url = false;
   protected $_file_writed = false;
 
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $this->set('type', $this->has('type') ? $this->get('type') : 'js');
-    parent :: _generateContent($code);
+    parent :: _generateContent($code_writer);
   }
 
   protected function _writeFile()

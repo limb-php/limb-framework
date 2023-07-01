@@ -20,7 +20,7 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroPaginateTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $iterator = $this->get('iterator');
     
@@ -32,26 +32,26 @@ class lmbMacroPaginateTag extends lmbMacroTag
       $pager = $pager_tag->getRuntimeVar();
       
       if($this->has('limit'))
-        $code->writePhp("{$pager}->setItemsPerPage({$this->get('limit')});\n");
+        $code_writer->writePhp("{$pager}->setItemsPerPage({$this->get('limit')});\n");
       elseif ($items = $pager_tag->getEscaped('items'))
-          $code->writePhp("{$pager}->setItemsPerPage({$items});\n");
+          $code_writer->writePhp("{$pager}->setItemsPerPage({$items});\n");
 
       if($this->has('total_items'))
       {
-        $total_items_var = $code->generateVar();
-        $code->writePhp("{$total_items_var} = " . $this->get('total_items') .";");
-        $code->writePhp("if ({$total_items_var}) {$pager}->setTotalItems({$total_items_var});\n");
+        $total_items_var = $code_writer->generateVar();
+        $code_writer->writePhp("{$total_items_var} = " . $this->get('total_items') .";");
+        $code_writer->writePhp("if ({$total_items_var}) {$pager}->setTotalItems({$total_items_var});\n");
       }
       else
       {
-        $code->writePhp("{$pager}->setTotalItems({$iterator}->count());\n");
+        $code_writer->writePhp("{$pager}->setTotalItems({$iterator}->count());\n");
       }
       
-      $code->writePhp("{$pager}->prepare();\n");
-      $offset = $code->generateVar();
-      $code->writePhp("{$offset} = {$pager}->getCurrentPageBeginItem();\n");
-      $code->writePhp("if({$offset} > 0) {$offset} = {$offset} - 1;\n");
-      $code->writePhp("{$iterator}->paginate({$offset}, {$pager}->getItemsPerPage());\n");
+      $code_writer->writePhp("{$pager}->prepare();\n");
+      $offset = $code_writer->generateVar();
+      $code_writer->writePhp("{$offset} = {$pager}->getCurrentPageBeginItem();\n");
+      $code_writer->writePhp("if({$offset} > 0) {$offset} = {$offset} - 1;\n");
+      $code_writer->writePhp("{$iterator}->paginate({$offset}, {$pager}->getItemsPerPage());\n");
       return;
     }
     elseif($this->has('offset'))
@@ -59,12 +59,12 @@ class lmbMacroPaginateTag extends lmbMacroTag
       if(!$this->has('limit'))
         $this->raise('"limit" attribute for {{paginate}} is required if "offset" is given');
       
-      $code->writePhp("{$iterator}->paginate({$this->get('offset')},{$this->get('limit')});\n");
+      $code_writer->writePhp("{$iterator}->paginate({$this->get('offset')},{$this->get('limit')});\n");
       return;
     }
     elseif($this->has('limit'))
     {
-      $code->writePhp("{$iterator}->paginate(0,{$this->get('limit')});\n");
+      $code_writer->writePhp("{$iterator}->paginate(0,{$this->get('limit')});\n");
       return;
     }
   }

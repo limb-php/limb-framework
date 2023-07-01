@@ -19,17 +19,17 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroPagerNumberTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $pager = $this->findParentByClass('limb\macro\src\tags\pager\lmbMacroPagerTag')->getRuntimeVar();
     
-    $code->writePhp("if (!{$pager}->isDisplayedPage()) {\n");
+    $code_writer->writePhp("if (!{$pager}->isDisplayedPage()) {\n");
 
-    $code->writePhp("\$href = {$pager}->getPageUri();\n");
-    $code->writePhp("\$number = {$pager}->getPage();\n");
+    $code_writer->writePhp("\$href = {$pager}->getPageUri();\n");
+    $code_writer->writePhp("\$number = {$pager}->getPage();\n");
 
-    parent::_generateContent($code);
+    parent::_generateContent($code_writer);
 
-    $code->writePhp("}\n");
+    $code_writer->writePhp("}\n");
   }
 }

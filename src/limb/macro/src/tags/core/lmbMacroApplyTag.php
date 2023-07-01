@@ -18,7 +18,7 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroApplyTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $name = $this->get('template');
     $arg_str = $this->attributesIntoArrayString();
@@ -38,16 +38,16 @@ class lmbMacroApplyTag extends lmbMacroTag
         $root = $this->findRoot();
         $tags = $root->findChildrenByClass('limb\macro\src\tags\core\lmbMacroTemplateTag');
         foreach($tags as $tag)
-          $tag->generateFromDynamicAppply($code);
+          $tag->generateFromDynamicAppply($code_writer);
         $template_tags_generated = true;
       }
 
-      $method = $code->generateVar();
-      $code->writePHP('if(!isset(' . '$this->__template_tags[' . $name . ']))' . "\n" . 
+      $method = $code_writer->generateVar();
+      $code_writer->writePHP('if(!isset(' . '$this->__template_tags[' . $name . ']))' . "\n" .
                       ' throw new lmbMacroException("Could not find template tag \'" . ' . $name . ' . "\' for dynamic apply");' . "\n"
                       );
-      $code->writePHP($method . ' = $this->__template_tags[' . $name . '];');
-      $code->writePHP('$this->' . $method . '(' . $arg_str . ');');
+      $code_writer->writePHP($method . ' = $this->__template_tags[' . $name . '];');
+      $code_writer->writePHP('$this->' . $method . '(' . $arg_str . ');');
     }
     else
     {
@@ -57,11 +57,11 @@ class lmbMacroApplyTag extends lmbMacroTag
       $template_tag_node->setCurrentApplyTag($this);
 
       if($this->getBool('inline'))
-        $template_tag_node->generateNow($code, $wrap_with_method = false);
+        $template_tag_node->generateNow($code_writer, $wrap_with_method = false);
       else
       {
-        $template_tag_node->generateNow($code);
-        $code->writePHP('$this->' . $template_tag_node->getMethod() . '(' . $arg_str . ');');
+        $template_tag_node->generateNow($code_writer);
+        $code_writer->writePHP('$this->' . $template_tag_node->getMethod() . '(' . $arg_str . ');');
       }
     }
   }

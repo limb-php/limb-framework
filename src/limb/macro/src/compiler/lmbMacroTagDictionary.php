@@ -22,7 +22,7 @@ class lmbMacroTagDictionary
   protected $cache_dir;
   static protected $instance;
 
-  static function instance()
+  static function instance(): lmbMacroTagDictionary
   {
     if(self::$instance)
       return self::$instance;
@@ -48,8 +48,9 @@ class lmbMacroTagDictionary
     }
     foreach($real_scan_dirs as $scan_dir)
     {
-      foreach(lmbFs::glob($scan_dir . '/*Tag.*') as $file)
-        $this->registerFromFile($file);
+      foreach(lmbFs::glob($scan_dir . '/*Tag.*') as $file) {
+          $this->registerFromFile($file);
+      }
     }
 
     $this->_saveCache();
@@ -113,7 +114,7 @@ class lmbMacroTagDictionary
   {
     $infos = lmbMacroAnnotationParser::extractFromFile($file, 'limb\macro\src\compiler\lmbMacroTagInfo');
     foreach($infos as $info)
-      $this->register($info, $file);
+      $this->register($info);
   }
 
   function findTagInfo($tag)

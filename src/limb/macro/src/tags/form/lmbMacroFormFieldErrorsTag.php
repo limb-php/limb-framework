@@ -21,7 +21,7 @@ use limb\macro\src\tags\form\lmbMacroFormTag;
  */
 class lmbMacroFormFieldErrorsTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $form = $this->findParentByClass('limb\macro\src\tags\form\lmbMacroFormTag')->getRuntimeVar();
     
@@ -32,9 +32,9 @@ class lmbMacroFormFieldErrorsTag extends lmbMacroTag
     else
       $for = "";
     
-    $code->writePhp("{$to} = {$form}->getErrorsListForFields({$for});\n");
+    $code_writer->writePhp("{$to} = {$form}->getErrorsListForFields({$for});\n");
 
-    parent :: _generateContent($code);
+    parent :: _generateContent($code_writer);
   }
 }
 

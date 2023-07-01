@@ -30,18 +30,18 @@ class lmbMacroListTag extends lmbMacroTag
     $this->count_source = true;
   }
 
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     if(!$as = $this->get('as'))
       $as = '$item';
 
     //internal list counter
-    $this->counter_var = $code->generateVar();
-    $code->writePHP($this->counter_var . ' = 0;');
+    $this->counter_var = $code_writer->generateVar();
+    $code_writer->writePHP($this->counter_var . ' = 0;');
 
-    $this->_prepareSourceVar($code);
+    $this->_prepareSourceVar($code_writer);
 
-    $this->_initializeGlueTags($code);
+    $this->_initializeGlueTags($code_writer);
 
     $key = '';
 
@@ -49,19 +49,19 @@ class lmbMacroListTag extends lmbMacroTag
       $key = $key_var . ' => ';
     }
 
-    $code->writePHP('foreach(' . $this->source_var . ' as ' . $key . $as . ') {');
+    $code_writer->writePHP('foreach(' . $this->source_var . ' as ' . $key . $as . ') {');
 
     if($user_counter = $this->get('counter'))
-      $code->writePHP($user_counter . ' = ' . $this->counter_var . '+1;');
+      $code_writer->writePHP($user_counter . ' = ' . $this->counter_var . '+1;');
 
     if($parity = $this->get('parity'))
-      $code->writePHP($parity . ' = (( (' . $this->counter_var . ' + 1) % 2) ? "odd" : "even");');
+      $code_writer->writePHP($parity . ' = (( (' . $this->counter_var . ' + 1) % 2) ? "odd" : "even");');
 
     $found_item_tag = false;
     $postponed_nodes = array();
 
     //tags before {{list:item}} should be rendered only once when counter is 0
-    $code->writePHP('if(' . $this->counter_var . ' == 0) {');
+    $code_writer->writePHP('if(' . $this->counter_var . ' == 0) {');
     foreach($this->children as $child)
     {
       //we want to skip some of  {{list:*}} tags, since they are rendered manually
@@ -69,7 +69,7 @@ class lmbMacroListTag extends lmbMacroTag
       {
         if(!$found_item_tag)
         {
-          $child->generate($code);
+          $child->generate($code_writer);
         }
         //collecting postponed nodes to display later
         else
@@ -78,21 +78,21 @@ class lmbMacroListTag extends lmbMacroTag
       elseif($child instanceof lmbMacroListItemTag)
       {
         $found_item_tag = true;
-        $code->writePHP('}');
-        $child->generate($code);
+        $code_writer->writePHP('}');
+        $child->generate($code_writer);
       }
     }
 
-    $code->writePHP($this->counter_var . '++;');
-    $code->writePHP('}');
+    $code_writer->writePHP($this->counter_var . '++;');
+    $code_writer->writePHP('}');
 
     //tags after {{list:item}} should be rendered only if there were any items
-    $code->writePHP('if(' . $this->counter_var . ' > 0) {');
+    $code_writer->writePHP('if(' . $this->counter_var . ' > 0) {');
     foreach($postponed_nodes as $node)
-      $node->generate($code);
-    $code->writePHP('}');
+      $node->generate($code_writer);
+    $code_writer->writePHP('}');
 
-    $this->_renderEmptyTag($code);
+    $this->_renderEmptyTag($code_writer);
   }
 
   protected function _initializeGlueTags($code)

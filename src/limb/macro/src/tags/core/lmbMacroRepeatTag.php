@@ -21,19 +21,19 @@ class lmbMacroRepeatTag extends lmbMacroTag
 {
   protected $counter_var;
 
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
-    $this->counter_var = $code->generateVar();
-    $code->writePHP($this->counter_var . ' = 0;');
+    $this->counter_var = $code_writer->generateVar();
+    $code_writer->writePHP($this->counter_var . ' = 0;');
 
     $times = $this->get('times');
 
-    $code->writePhp("for (" . $this->counter_var . " = 0; " . $this->counter_var . " < $times; " . $this->counter_var . "++ ){ \n");
+    $code_writer->writePhp("for (" . $this->counter_var . " = 0; " . $this->counter_var . " < $times; " . $this->counter_var . "++ ){ \n");
     if($user_counter = $this->get('counter'))
-      $code->writePHP($user_counter . ' = ' . $this->counter_var . '+1;');
+      $code_writer->writePHP($user_counter . ' = ' . $this->counter_var . '+1;');
 
-    parent::_generateContent($code);
+    parent::_generateContent($code_writer);
 
-    $code->writePhp("}\n");
+    $code_writer->writePhp("}\n");
   }
 }

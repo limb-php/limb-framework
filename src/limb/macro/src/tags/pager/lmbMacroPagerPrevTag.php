@@ -19,15 +19,15 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroPagerPrevTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $pager = $this->findParentByClass('limb\macro\src\tags\pager\lmbMacroPagerTag')->getRuntimeVar();
     
-    $code->writePhp("if ({$pager}->hasPrev()) {\n");
-    $code->writePhp("\$href = {$pager}->getPageUri({$pager}->getCurrentPage() - 1 );\n");
+    $code_writer->writePhp("if ({$pager}->hasPrev()) {\n");
+    $code_writer->writePhp("\$href = {$pager}->getPageUri({$pager}->getCurrentPage() - 1 );\n");
     
-    parent::_generateContent($code);
+    parent::_generateContent($code_writer);
     
-    $code->writePhp("}\n");
+    $code_writer->writePhp("}\n");
   }
 }

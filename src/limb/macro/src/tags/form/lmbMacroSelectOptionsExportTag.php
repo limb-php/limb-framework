@@ -19,7 +19,7 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroSelectOptionsExportTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $to = $this->get('to');
     $from = $this->get('from');
@@ -29,22 +29,22 @@ class lmbMacroSelectOptionsExportTag extends lmbMacroTag
     $class_field = $this->get('class_field');
     $disabled_field = $this->get('disabled_field', 'disabled');
 
-    $options = $code->generateVar();
-    $code->writePHP("{$options} = array();\n");
+    $options = $code_writer->generateVar();
+    $code_writer->writePHP("{$options} = array();\n");
 
-    $code->writePHP("foreach({$from} as \$item) {\n");
+    $code_writer->writePHP("foreach({$from} as \$item) {\n");
 
-    $code->writePHP("if(isset(\$item['{$key_field}']) && isset(\$item['{$text_field}'])){\n");
-      $code->writePHP("{$options}[\$item['{$key_field}']] = array() ;\n");
-      $code->writePHP("{$options}[\$item['{$key_field}']]['text'] = \$item['{$text_field}'] ;\n");
-      $code->writePHP("if( '{$class_field}' )\n");
-        $code->writePHP("{$options}[\$item['{$key_field}']]['class'] = isset(\$item['{$class_field}']) ? \$item['{$class_field}'] : '' ;\n");
-      $code->writePHP("if( '{$disabled_field}' )\n");
-        $code->writePHP("{$options}[\$item['{$key_field}']]['disabled'] = isset(\$item['{$disabled_field}']) ? \$item['{$disabled_field}'] : false ;\n");
-    $code->writePHP("}\n");
+    $code_writer->writePHP("if(isset(\$item['{$key_field}']) && isset(\$item['{$text_field}'])){\n");
+      $code_writer->writePHP("{$options}[\$item['{$key_field}']] = array() ;\n");
+      $code_writer->writePHP("{$options}[\$item['{$key_field}']]['text'] = \$item['{$text_field}'] ;\n");
+      $code_writer->writePHP("if( '{$class_field}' )\n");
+        $code_writer->writePHP("{$options}[\$item['{$key_field}']]['class'] = isset(\$item['{$class_field}']) ? \$item['{$class_field}'] : '' ;\n");
+      $code_writer->writePHP("if( '{$disabled_field}' )\n");
+        $code_writer->writePHP("{$options}[\$item['{$key_field}']]['disabled'] = isset(\$item['{$disabled_field}']) ? \$item['{$disabled_field}'] : false ;\n");
+    $code_writer->writePHP("}\n");
 
-    $code->writePHP("}\n");
+    $code_writer->writePHP("}\n");
 
-    $code->writePHP("{$to} = {$options};\n");
+    $code_writer->writePHP("{$to} = {$options};\n");
   }
 }

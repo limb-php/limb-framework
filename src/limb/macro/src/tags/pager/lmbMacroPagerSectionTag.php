@@ -19,18 +19,18 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroPagerSectionTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $pager = $this->findParentByClass('limb\macro\src\tags\pager\lmbMacroPagerTag')->getRuntimeVar();
     
-    $code->writePhp("if (!{$pager}->isDisplayedSection()) {\n");
+    $code_writer->writePhp("if (!{$pager}->isDisplayedSection()) {\n");
 
-    $code->writePhp("\$href = {$pager}->getSectionUri();\n");
-    $code->writePhp("\$section_begin_page = {$pager}->getSectionBeginPage();\n");
-    $code->writePhp("\$section_end_page = {$pager}->getSectionEndPage();\n");
+    $code_writer->writePhp("\$href = {$pager}->getSectionUri();\n");
+    $code_writer->writePhp("\$section_begin_page = {$pager}->getSectionBeginPage();\n");
+    $code_writer->writePhp("\$section_end_page = {$pager}->getSectionEndPage();\n");
 
-    parent::_generateContent($code);
+    parent::_generateContent($code_writer);
 
-    $code->writePhp("}\n");
+    $code_writer->writePhp("}\n");
   }
 }

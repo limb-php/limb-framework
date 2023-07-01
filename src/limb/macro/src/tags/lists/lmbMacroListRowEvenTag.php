@@ -19,14 +19,14 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroListRowEvenTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');
     $counter_var = $list->getCounterVar();
 
-    $code->writePHP('if(('. $counter_var . '+1) % 2 == 0) {');
-    parent :: _generateContent($code);
-    $code->writePHP('}');
+    $code_writer->writePHP('if(('. $counter_var . '+1) % 2 == 0) {');
+    parent :: _generateContent($code_writer);
+    $code_writer->writePHP('}');
   }
 }
 

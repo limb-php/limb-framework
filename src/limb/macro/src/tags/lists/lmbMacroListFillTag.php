@@ -30,35 +30,35 @@ class lmbMacroListFillTag extends lmbMacroTag
     return parent::preParse($compiler);
   }
   
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
-    $ratio_var = $code->generateVar();
+    $ratio_var = $code_writer->generateVar();
     if($ratio = $this->get('upto'))
-      $code->writePHP($ratio_var . " = $ratio;\n");
+      $code_writer->writePHP($ratio_var . " = $ratio;\n");
     else
-      $code->writePHP($ratio_var . " = 1;\n");
+      $code_writer->writePHP($ratio_var . " = 1;\n");
 
     $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');
 
-    $count_var = $code->generateVar();
-    $items_left_var = $code->generateVar();
-    $code->writePhp($count_var .' = count('. $list->getSourceVar() . ');');
+    $count_var = $code_writer->generateVar();
+    $items_left_var = $code_writer->generateVar();
+    $code_writer->writePhp($count_var .' = count('. $list->getSourceVar() . ');');
     
     $force = (int)$this->getBool('force');
 
-    $code->writePhp("if (($force || ({$count_var}/{$ratio_var} > 1)) && {$count_var}) \n");
-    $code->writePhp($items_left_var . " = ceil({$count_var}/{$ratio_var})*{$ratio_var} - {$count_var}; \n");
-    $code->writePhp("else \n");
-    $code->writePhp($items_left_var . " = 0;\n");
+    $code_writer->writePhp("if (($force || ({$count_var}/{$ratio_var} > 1)) && {$count_var}) \n");
+    $code_writer->writePhp($items_left_var . " = ceil({$count_var}/{$ratio_var})*{$ratio_var} - {$count_var}; \n");
+    $code_writer->writePhp("else \n");
+    $code_writer->writePhp($items_left_var . " = 0;\n");
 
-    $code->writePhp("if ({$items_left_var}){\n");
+    $code_writer->writePhp("if ({$items_left_var}){\n");
 
     if($items_left = $this->get('items_left'))
-      $code->writePhp($items_left . " = {$items_left_var};");
+      $code_writer->writePhp($items_left . " = {$items_left_var};");
 
-    parent :: _generateContent($code);
+    parent :: _generateContent($code_writer);
 
-    $code->writePhp('}'. "\n");
+    $code_writer->writePhp('}'. "\n");
   }
 }
 

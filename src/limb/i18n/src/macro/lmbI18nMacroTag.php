@@ -26,9 +26,9 @@ class lmbI18nMacroTag extends lmbMacroTag
      parent::preParse($compiller);
   }
 
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
-    $code->writePHP('
+    $code_writer->writePHP('
     echo limb\i18n\src\lmbI18n::translate(\''.$this->get('text').'\',\''.($this->has('domain') ? $this->get('domain'):'default').'\');
         ');
   }

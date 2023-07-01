@@ -14,21 +14,21 @@ class AllowedTag extends lmbMacroTag
   protected $_storage;
   const default_role = 'limb\toolkit\src\lmbToolkit::instance()->getMember()';
 
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
-    $code->writePHP("if(limb\\toolkit\\src\\lmbToolkit::instance()->getAcl()->isAllowed(");
+    $code_writer->writePHP("if(limb\\toolkit\\src\\lmbToolkit::instance()->getAcl()->isAllowed(");
     
     if(!$role = $this->getEscaped('role'))
       $role = self::default_role;
-    $code->writePHP($role);
+    $code_writer->writePHP($role);
     
-    $code->writePHP(', '.$this->getEscaped('resource'));
+    $code_writer->writePHP(', '.$this->getEscaped('resource'));
         
-    if($privelege = $this->getEscaped('privelege'))
-      $code->writePHP(', '.$privelege);
+    if($privilege = $this->getEscaped('privilege'))
+      $code_writer->writePHP(', '.$privilege);
       
-    $code->writePHP(')) {'.PHP_EOL);          
-    parent::_generateContent($code);
-    $code->writePHP('}'.PHP_EOL);
+    $code_writer->writePHP(')) {'.PHP_EOL);
+    parent::_generateContent($code_writer);
+    $code_writer->writePHP('}'.PHP_EOL);
   }
 }

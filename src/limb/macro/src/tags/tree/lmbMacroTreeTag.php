@@ -9,8 +9,6 @@
 namespace limb\macro\src\tags\tree;
 
 use limb\macro\src\compiler\lmbMacroTag;
-use limb\macro\src\tags\tree\lmbMacroTreeNodeTag;
-use limb\macro\src\tags\tree\lmbMacroTreeEmptyTag;
 
 /**
  * @tag tree
@@ -19,7 +17,7 @@ use limb\macro\src\tags\tree\lmbMacroTreeEmptyTag;
  */
 class lmbMacroTreeTag extends lmbMacroTag
 {
-  protected function _generateContent($code)
+  protected function _generateContent($code_writer)
   {
     if(!$level = $this->get('level'))
       $level = '$level';
@@ -36,44 +34,44 @@ class lmbMacroTreeTag extends lmbMacroTag
 
     $tree = $this->get('using');
 
-    $items = $code->generateVar();
-    $counter = $code->generateVar();
-    $extra_params = $code->generateVar();
+    $items = $code_writer->generateVar();
+    $counter = $code_writer->generateVar();
+    $extra_params = $code_writer->generateVar();
 
-    $this->method = $code->beginMethod('_render_tree'. self::generateUniqueId(), array($items, $level, $extra_params . '= array()'));
+    $this->method = $code_writer->beginMethod('_render_tree'. self::generateUniqueId(), array($items, $level, $extra_params . '= array()'));
 
-    $code->writePHP("if($extra_params) extract($extra_params);");
+    $code_writer->writePHP("if($extra_params) extract($extra_params);");
 
-    $code->writePHP($counter . "=0;\n");
+    $code_writer->writePHP($counter . "=0;\n");
 
-    $code->writePHP('foreach(' . $items . ' as ' . $as . ") {\n");
+    $code_writer->writePHP('foreach(' . $items . ' as ' . $as . ") {\n");
 
     if($user_counter = $this->get('counter'))
-      $code->writePHP($user_counter . ' = ' . $counter . "+1;\n");
+      $code_writer->writePHP($user_counter . ' = ' . $counter . "+1;\n");
 
     //rendering tags before branch
-    $code->writePHP('if(!' . $counter . ") {\n");
+    $code_writer->writePHP('if(!' . $counter . ") {\n");
     foreach($before_node as $tag)
-      $tag->generate($code);
-    $code->writePHP("}\n");
+      $tag->generate($code_writer);
+    $code_writer->writePHP("}\n");
 
-    $tree_node->generate($code);
+    $tree_node->generate($code_writer);
 
-    $code->writePHP($counter . "++;\n");
-    $code->writePHP("}\n");//foreach
+    $code_writer->writePHP($counter . "++;\n");
+    $code_writer->writePHP("}\n");//foreach
 
-    $code = $this->_renderEmptyTag($code, $items);
+    $code_writer = $this->_renderEmptyTag($code_writer, $items);
 
     //rendering tags after branch
-    $code->writePHP('if(' . $counter . ") {\n");
+    $code_writer->writePHP('if(' . $counter . ") {\n");
     foreach($after_node as $tag)
       if(!$tag instanceof lmbMacroTreeEmptyTag)
-        $tag->generate($code);
-    $code->writePHP("}\n");
-    $code->endMethod();
+        $tag->generate($code_writer);
+    $code_writer->writePHP("}\n");
+    $code_writer->endMethod();
 
     $arg_str = $this->extraAttributesIntoArrayString();
-    $code->writePHP('$this->' . $this->method . '(' . $tree . ', 0' . ',' . $arg_str . ");\n");
+    $code_writer->writePHP('$this->' . $this->method . '(' . $tree . ', 0' . ',' . $arg_str . ");\n");
 
   }
 

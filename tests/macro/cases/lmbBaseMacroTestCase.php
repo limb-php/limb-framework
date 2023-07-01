@@ -13,6 +13,8 @@ use limb\macro\src\lmbMacroTemplate;
 use limb\macro\src\lmbMacroConfig;
 use limb\fs\src\lmbFs;
 
+require_once('.setup.php');
+
 class lmbBaseMacroTestCase extends TestCase
 {
   public $base_dir;
@@ -24,10 +26,10 @@ class lmbBaseMacroTestCase extends TestCase
   function setUp(): void
   {
     $this->base_dir = lmb_var_dir() . '/tpl';
-    $this->tpl_dir = $this->base_dir;
     $this->cache_dir = $this->base_dir . '/compiled';
-    $this->tags_dir = dirname(__FILE__).'/../../src/tags';
-    $this->filters_dir = dirname(__FILE__).'/../../src/filters';
+    $this->tpl_dir = $this->base_dir;
+    //$this->tags_dir = ['limb/macro/src/tags'];
+    //$this->filters_dir = ['limb/macro/src/filters'];
 
     lmbFs::mkdir(lmb_var_dir());
     lmbFs::mkdir($this->base_dir);
@@ -79,9 +81,9 @@ class lmbBaseMacroTestCase extends TestCase
       'cache_dir' => $this->cache_dir,
       'forcecompile' => true,
       'forcescan' => true,
-      'tpl_scan_dirs' =>  array($this->tpl_dir),
-      'tags_scan_dirs' => array('src/tags', 'limb/*/src/macro', 'limb/macro/src/tags'),
-      'filters_scan_dirs' => array('src/filters', 'limb/*/src/macro', 'limb/macro/src/filters')
+      'tpl_scan_dirs' =>  [$this->tpl_dir],
+      'tags_scan_dirs' => ['../src/limb/*/src/macro', '../src/limb/macro/src/tags'],
+      'filters_scan_dirs' => ['../src/limb/*/src/macro', '../src/limb/macro/src/filters']
     );
     return new lmbMacroConfig($config);
   }
