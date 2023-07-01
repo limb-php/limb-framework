@@ -6,7 +6,7 @@ use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;
 
-require '.setup.php';
+require_once '.setup.php';
 
 class lmbMacroTemplateMailTest extends lmbBaseMacroTestCase
 {
@@ -36,7 +36,7 @@ class lmbMacroTemplateMailTest extends lmbBaseMacroTestCase
     $mail->set('text', 'test_text');
     $mailer = $mail->sendTo('test@mail.com', 'test subject');
     
-    $this->assertEquals($mailer->html, 'test_text');
+    $this->assertEquals('test_text', $mailer->html);
   }
   
   function testMailTemplateWithMailpartTags()
@@ -60,8 +60,8 @@ class lmbMacroTemplateMailTest extends lmbBaseMacroTestCase
     $mail->set('html', 'test_html');
     $mailer = $mail->sendTo('test@mail.com');
     
-    $this->assertEquals($mailer->subject, 'test_subject');
-    $this->assertEquals($mailer->html, '<h1>test_html</h1>');
-    $this->assertEquals($mailer->text, 'TXT');
+    $this->assertEquals('test_subject', $mailer->subject);
+    $this->assertEquals('<h1>test_html</h1>', $mailer->html);
+    $this->assertEquals('TXT', $mailer->text);
   }
 }
