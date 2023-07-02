@@ -20,7 +20,7 @@ use limb\fs\src\lmbFs;
 use limb\core\src\exception\lmbException;
 use limb\fs\src\exception\lmbFileNotFoundException;
 
-lmbEnv::setor('LIMB_CONF_INCLUDE_PATH', 'settings;src/limb/*/settings');
+lmbEnv::setor('LIMB_CONF_INCLUDE_PATH', 'settings');
 
 /**
  * class lmbConfTools.
