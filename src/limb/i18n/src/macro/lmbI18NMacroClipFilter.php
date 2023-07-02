@@ -9,6 +9,7 @@
 namespace limb\i18n\src\macro;
 
 use limb\macro\src\compiler\lmbMacroFilter;
+use limb\macro\src\lmbMacroException;
 
 /**
  * Filter i18n_clip for macro templates

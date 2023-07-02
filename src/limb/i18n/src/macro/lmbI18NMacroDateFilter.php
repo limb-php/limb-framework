@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\i18n\src\macro;
 
 use limb\macro\src\compiler\lmbMacroFilter;
@@ -18,21 +19,21 @@ use limb\macro\src\compiler\lmbMacroFilter;
  */
 class lmbI18NMacroDateFilter extends lmbMacroFilter
 {
-  var $date;
+    var $date;
 
-  function preGenerate($code)
-  {
-    $code->registerInclude('limb/i18n/src/macro/filters.inc.php');
-    parent :: preGenerate($code);
-  }
-  function getValue()
-  {
-    $params="array(";
-    foreach ($this->params as $key=>$value)
+    function preGenerate($code)
     {
-      $params.=$value.",";
+        $code->registerInclude(dirname(__FILE__) . '/filters.inc.php');
+        parent::preGenerate($code);
     }
-    $params.=")";
-    return 'lmb_i18n_date_filter(' . $params.', ' . $this->base->getValue() . ')';
-  }
+
+    function getValue()
+    {
+        $params = "array(";
+        foreach ($this->params as $key => $value) {
+            $params .= $value . ",";
+        }
+        $params .= ")";
+        return 'lmb_i18n_date_filter(' . $params . ', ' . $this->base->getValue() . ')';
+    }
 }
