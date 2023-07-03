@@ -30,7 +30,7 @@ class lmbFullTextSearchIndexer
 
   protected $conn;
 
-  function __construct($normalizer)
+  function __construct(lmbSearchTextNormalizer $normalizer)
   {
     $this->normalizer = $normalizer;
     $this->conn = lmbToolkit::instance()->getDefaultDbConnection();
@@ -62,11 +62,7 @@ class lmbFullTextSearchIndexer
     if(!$this->use_noindex)
       return $content;
 
-    $regex = '~' .
-             preg_quote($this->left_bound) .
-             '(.*?)' .
-             preg_quote($this->right_bound) .
-             '~s';
+    $regex = '~' . preg_quote($this->left_bound) . '(.*?)' . preg_quote($this->right_bound) . '~s';
 
     return preg_replace($regex, ' ', $content);
   }

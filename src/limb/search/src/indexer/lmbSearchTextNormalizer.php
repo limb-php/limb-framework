@@ -38,14 +38,14 @@ class lmbSearchTextNormalizer
 
     $content = preg_replace ($search, $replace, $content);
 
-    $content = preg_replace("#(\.){2,}#", ' ', $content );
-    $content = preg_replace("#^\.#", ' ', $content);
-    $content = preg_replace("#\s\.#", ' ', $content );
-    $content = preg_replace("#\.\s#", ' ', $content);
-    $content = preg_replace("#\.$#", ' ', $content);
+    $content = preg_replace("/(\.){2,}/", ' ', $content );
+    $content = preg_replace("/^\./", ' ', $content);
+    $content = preg_replace("/\s\./", ' ', $content );
+    $content = preg_replace("/\.\s/", ' ', $content);
+    $content = preg_replace("/\.$/", ' ', $content);
 
-    $content = preg_replace( "#(\s|^)(\"|'|`)(\w)#", '\\1\\3', $content);
-    $content = preg_replace( "#(\w)(\"|'|`)(\s|$)#", '\\1\\3', $content);
+    $content = preg_replace( "/(\s|^)(\"|'|`)(\w)/", '\\1\\3', $content);
+    $content = preg_replace( "/(\w)(\"|'|`)(\s|$)/", '\\1\\3', $content);
 
     $content = str_replace("&nbsp;", ' ', $content );
     $content = str_replace(":", ' ', $content );
@@ -66,7 +66,7 @@ class lmbSearchTextNormalizer
     $content = str_replace(">", ' ', $content );
     $content = str_replace("*", ' ', $content );
 
-    $content = trim(preg_replace("(\s+)", ' ', $content));
+    $content = trim(preg_replace("/(\s+)/", ' ', $content));
 
     return $content;
   }

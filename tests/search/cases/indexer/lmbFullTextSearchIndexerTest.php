@@ -51,11 +51,8 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $normalizer
         ->expects($this->once())
         ->method('process')
-        ->with($content);
-    $normalizer
-        ->method('process')
-        ->willReturn($processed_content)
-        ->with($content);
+        ->with($content)
+        ->willReturn($processed_content);
 
     $indexer->index($uri, $content);
 
@@ -80,9 +77,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $normalizer
         ->expects($this->once())
         ->method('process')
-        ->with($expected);
-    $normalizer
-        ->method('process')
+        ->with($expected)
         ->willReturn('whatever');
 
     $indexer->index($uri, $content);
@@ -103,11 +98,8 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $normalizer
         ->expects($this->once())
         ->method('process')
-        ->with($expected);
-    $normalizer
-        ->method('process')
-        ->willReturn('whatever')
-        ->with($expected);
+        ->with($expected)
+        ->willReturn('whatever');
     $indexer->index($uri, $content);
   }
 
@@ -126,9 +118,7 @@ class lmbFullTextSearchIndexerTest extends TestCase
     $normalizer
         ->expects($this->once())
         ->method('process')
-        ->with($expected);
-    $normalizer
-        ->method('process')
+        ->with($expected)
         ->willReturn('whatever');
 
     $indexer->index($uri, $content);
