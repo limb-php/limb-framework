@@ -6,9 +6,10 @@
 * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
+
 namespace limb\acl\src;
 
 interface lmbRolesResolverInterface
 {
-  function getRoleFor($user);
+    function getRoleFor($user);
 }
