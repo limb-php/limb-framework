@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+
 namespace limb\core\src;
 
 /**
@@ -16,11 +17,17 @@ namespace limb\core\src;
  */
 interface lmbSetInterface extends \ArrayAccess, \Iterator
 {
-  function get($name, $default = null);
-  function set($name, $value);
-  function remove($name);
-  function reset();
-  function export();
-  function import($values);
-  function has($name);
+    function get($name, $default = null);
+
+    function set($name, $value);
+
+    function remove($name);
+
+    function reset();
+
+    function export();
+
+    function import($values);
+
+    function has($name);
 }

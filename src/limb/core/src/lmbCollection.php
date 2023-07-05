@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\core\src;
 
 /**
@@ -16,78 +17,75 @@ namespace limb\core\src;
  */
 class lmbCollection implements lmbCollectionInterface
 {
-  protected $dataset;
-  protected $iteratedDataset;
-  protected $offset = 0;
-  protected $limit = 0;
-  protected $current;
-  protected $valid = false;
+    protected $dataset;
+    protected $iteratedDataset;
+    protected $offset = 0;
+    protected $limit = 0;
+    protected $current;
+    protected $valid = false;
 
-  function __construct($array = array())
-  {
-    $this->dataset = $array;
-  }
-
-  static function concat()
-  {
-    $args = func_get_args();
-    $result = array();
-    foreach($args as $col)
+    function __construct($array = array())
     {
-      foreach($col as $value)
-        $result[] = $value;
+        $this->dataset = $array;
     }
-    return new lmbCollection($result);
-  }
 
-  function getArray()
-  {
-    $result = array();
-    foreach($this as $key => $object)
-      $result[] = $object;
-
-    return $result;
-  }
-
-  static function toFlatArray($iterator, $key_field = '', $export_each = true)
-  {
-    $result = array();
-    foreach($iterator as $record)
+    static function concat()
     {
-      $data = null;
-      if(is_object($record) && method_exists($record, 'export') && $export_each)
-        $data = $record->export();
-      else
-        $data = $record;
-
-      if($key_field && isset($data[$key_field]) && ($key = $data[$key_field]))
-        $result[$key] = $data;
-      else
-        $result[] = $data;
+        $args = func_get_args();
+        $result = array();
+        foreach ($args as $col) {
+            foreach ($col as $value)
+                $result[] = $value;
+        }
+        return new lmbCollection($result);
     }
-    return $result;
-  }
 
-  function export()
-  {
-    return $this->dataset;
-  }
-
-  function sort($params)
-  {
-    if(count($this->dataset))
+    function getArray()
     {
-      $this->dataset = lmbArrayHelper::sortArray($this->dataset, $params, false);
-      $this->iteratedDataset = null;
-    }
-    return $this;
-  }
+        $result = array();
+        foreach ($this as $key => $object)
+            $result[] = $object;
 
-  function at($pos)
-  {
-    if(isset($this->dataset[$pos]))
-      return $this->dataset[$pos];
-  }
+        return $result;
+    }
+
+    static function toFlatArray($iterator, $key_field = '', $export_each = true)
+    {
+        $result = array();
+        foreach ($iterator as $record) {
+            $data = null;
+            if (is_object($record) && method_exists($record, 'export') && $export_each)
+                $data = $record->export();
+            else
+                $data = $record;
+
+            if ($key_field && isset($data[$key_field]) && ($key = $data[$key_field]))
+                $result[$key] = $data;
+            else
+                $result[] = $data;
+        }
+        return $result;
+    }
+
+    function export()
+    {
+        return $this->dataset;
+    }
+
+    function sort($params)
+    {
+        if (count($this->dataset)) {
+            $this->dataset = lmbArrayHelper::sortArray($this->dataset, $params, false);
+            $this->iteratedDataset = null;
+        }
+        return $this;
+    }
+
+    function at($pos)
+    {
+        if (isset($this->dataset[$pos]))
+            return $this->dataset[$pos];
+    }
 
     /**
      * Run a map over each of the items.
@@ -97,152 +95,153 @@ class lmbCollection implements lmbCollectionInterface
         return new static(lmbArrayHelper::mapCallback($this->dataset, $callback));
     }
 
-  function rewind(): void
-  {
-    $this->_setupIteratedDataset();
-
-    $values = reset($this->iteratedDataset);
-    $this->current = $this->_getCurrent($values);
-    $this->key = key($this->iteratedDataset);
-    $this->valid = $this->_isValid($values);
-  }
-
-  function next(): void
-  {
-    $this->_setupIteratedDataset();
-
-    $values = next($this->iteratedDataset);
-    $this->current = $this->_getCurrent($values);
-    $this->key = key($this->iteratedDataset);
-    $this->valid = $this->_isValid($values);
-  }
-
-  function sortByKeys($sort_type = SORT_NUMERIC)
-  {
-    if(is_array($this->dataset))
-      ksort($this->dataset, $sort_type);
-  }
-
-  protected function _setupIteratedDataset()
-  {
-    if(!is_null($this->iteratedDataset))
-      return;
-
-    if(!$this->limit)
+    function rewind(): void
     {
-      $this->iteratedDataset = $this->dataset;
-      return;
+        $this->_setupIteratedDataset();
+
+        $values = reset($this->iteratedDataset);
+        $this->current = $this->_getCurrent($values);
+        $this->key = key($this->iteratedDataset);
+        $this->valid = $this->_isValid($values);
     }
 
-    if($this->offset < 0 || $this->offset >= count($this->dataset))
+    function next(): void
     {
-      $this->iteratedDataset = array();
-      return;
+        $this->_setupIteratedDataset();
+
+        $values = next($this->iteratedDataset);
+        $this->current = $this->_getCurrent($values);
+        $this->key = key($this->iteratedDataset);
+        $this->valid = $this->_isValid($values);
     }
 
-    $to_splice_array = $this->dataset;
-    $this->iteratedDataset = array_splice($to_splice_array, $this->offset, $this->limit);
+    function sortByKeys($sort_type = SORT_NUMERIC)
+    {
+        if (is_array($this->dataset))
+            ksort($this->dataset, $sort_type);
+    }
 
-    if(!$this->iteratedDataset)
-      $this->iteratedDataset = array();
-  }
+    protected function _setupIteratedDataset()
+    {
+        if (!is_null($this->iteratedDataset))
+            return;
 
-  function valid(): bool
-  {
-    return $this->valid;
-  }
+        if (!$this->limit) {
+            $this->iteratedDataset = $this->dataset;
+            return;
+        }
 
-  #[\ReturnTypeWillChange]
-  function current()
-  {
-    return $this->current;
-  }
+        if ($this->offset < 0 || $this->offset >= count($this->dataset)) {
+            $this->iteratedDataset = array();
+            return;
+        }
 
-  #[\ReturnTypeWillChange]
-  function key()
-  {
-    return $this->key;
-  }
+        $to_splice_array = $this->dataset;
+        $this->iteratedDataset = array_splice($to_splice_array, $this->offset, $this->limit);
 
-  function paginate($offset, $limit)
-  {
-    $this->iteratedDataset = null;
-    $this->offset = $offset;
-    $this->limit = $limit;
-    return $this;
-  }
+        if (!$this->iteratedDataset)
+            $this->iteratedDataset = array();
+    }
 
-  function getOffset()
-  {
-    return $this->offset;
-  }
+    function valid(): bool
+    {
+        return $this->valid;
+    }
 
-  function getLimit()
-  {
-    return $this->limit;
-  }
+    #[\ReturnTypeWillChange]
+    function current()
+    {
+        return $this->current;
+    }
 
-  protected function _getCurrent($values)
-  {
-    if(is_object($values))
-      return $values;
-    else
-      return new lmbSet($values);
-  }
+    #[\ReturnTypeWillChange]
+    function key()
+    {
+        return $this->key;
+    }
 
-  protected function _isValid($values)
-  {
-    return (is_array($values) || is_object($values));
-  }
+    function paginate($offset, $limit)
+    {
+        $this->iteratedDataset = null;
+        $this->offset = $offset;
+        $this->limit = $limit;
+        return $this;
+    }
 
-  function add($item, $key = null)
-  {
-    if(null !== $key)
-      $this->dataset[$key] = $item;
-    else
-      $this->dataset[] = $item;
+    function getOffset()
+    {
+        return $this->offset;
+    }
 
-    $this->iteratedDataset = null;
-  }
+    function getLimit()
+    {
+        return $this->limit;
+    }
 
-  function isEmpty(): bool
-  {
-    return count($this->dataset) == 0;
-  }
+    protected function _getCurrent($values)
+    {
+        if (is_object($values))
+            return $values;
+        else
+            return new lmbSet($values);
+    }
 
-  //Countable interface
-  function count(): int
-  {
-    return count($this->dataset);
-  }
-  //
+    protected function _isValid($values)
+    {
+        return (is_array($values) || is_object($values));
+    }
 
-  function countPaginated()
-  {
-    $this->_setupIteratedDataset();
-    return count($this->iteratedDataset);
-  }
+    function add($item, $key = null)
+    {
+        if (null !== $key)
+            $this->dataset[$key] = $item;
+        else
+            $this->dataset[] = $item;
 
-  //ArrayAccess interface
-  function offsetExists($offset): bool
-  {
-    return isset($this->dataset[$offset]);
-  }
+        $this->iteratedDataset = null;
+    }
 
-  #[\ReturnTypeWillChange]
-  function offsetGet($offset)
-  {
-    return $this->at($offset);
-  }
+    function isEmpty(): bool
+    {
+        return count($this->dataset) == 0;
+    }
 
-  function offsetSet($offset, $value): void
-  {
-    $this->add($value, $offset);
-  }
+    //Countable interface
+    function count(): int
+    {
+        return count($this->dataset);
+    }
 
-  function offsetUnset($offset): void
-  {}
-  //end
+    //
+
+    function countPaginated()
+    {
+        $this->_setupIteratedDataset();
+        return count($this->iteratedDataset);
+    }
+
+    //ArrayAccess interface
+    function offsetExists($offset): bool
+    {
+        return isset($this->dataset[$offset]);
+    }
+
+    #[\ReturnTypeWillChange]
+    function offsetGet($offset)
+    {
+        return $this->at($offset);
+    }
+
+    function offsetSet($offset, $value): void
+    {
+        $this->add($value, $offset);
+    }
+
+    function offsetUnset($offset): void
+    {
+    }
+
+    //end
 
     public function jsonSerialize(): array
     {

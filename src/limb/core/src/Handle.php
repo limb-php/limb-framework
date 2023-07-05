@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\core\src;
 
 /**
@@ -25,13 +26,12 @@ class Handle
     {
         $this->class = $class;
 
-        if( count($args) > 1 ) {
+        if (count($args) > 1) {
             $this->args = $args;
-        }
-        else {
+        } else {
             $this->args = $args[0] ?? array();
 
-            if( !is_array($this->args) )
+            if (!is_array($this->args))
                 $this->args = array($this->args);
         }
     }

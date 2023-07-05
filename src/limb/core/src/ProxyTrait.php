@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+
 namespace limb\core\src;
 
 /**
@@ -18,66 +19,66 @@ namespace limb\core\src;
  */
 trait ProxyTrait
 {
-  /**
-  * @var boolean Flag if real object is resolved already
-  */
-  protected $is_resolved = false;
-  /**
-  * @var mixed Real object
-  */
-  protected $original;
+    /**
+     * @var boolean Flag if real object is resolved already
+     */
+    protected $is_resolved = false;
+    /**
+     * @var mixed Real object
+     */
+    protected $original;
 
-  /**
-  * Creates original object
-  */
-  protected function _createOriginalObject()
-  {
+    /**
+     * Creates original object
+     */
+    protected function _createOriginalObject()
+    {
 
-  }
+    }
 
-  /**
-  * Resolves original object.
-  * Resolving is depend on child classes implementation
-  */
-  function resolve()
-  {
-    if($this->is_resolved)
-      return $this->original;
+    /**
+     * Resolves original object.
+     * Resolving is depend on child classes implementation
+     */
+    function resolve()
+    {
+        if ($this->is_resolved)
+            return $this->original;
 
-    $this->original = $this->_createOriginalObject();
-    $this->is_resolved = true;
+        $this->original = $this->_createOriginalObject();
+        $this->is_resolved = true;
 
-    return $this->original;
-  }
+        return $this->original;
+    }
 
-  /**
-  * Magic caller
-  * Resolves original object and delegates method call to it.
-  */
-  function __call($method, $args = array())
-  {
-    $this->resolve();
-    if(method_exists($this->original, $method))
-      return call_user_func_array(array($this->original, $method), $args);
-  }
+    /**
+     * Magic caller
+     * Resolves original object and delegates method call to it.
+     */
+    function __call($method, $args = array())
+    {
+        $this->resolve();
+        if (method_exists($this->original, $method))
+            return call_user_func_array(array($this->original, $method), $args);
+    }
 
-  /**
-  * Magic getter
-  * Resolves original object and delegates to it.
-  */
-  function __get($attr)
-  {
-    $this->resolve();
-    return $this->original->$attr;
-  }
+    /**
+     * Magic getter
+     * Resolves original object and delegates to it.
+     */
+    function __get($attr)
+    {
+        $this->resolve();
+        return $this->original->$attr;
+    }
 
-  /**
-  * Magic setter
-  * Resolves original object and delegates to it.
-  */
-  function __set($attr, $val)
-  {
-    $this->resolve();
-    $this->original->$attr = $val;
-  }
+    /**
+     * Magic setter
+     * Resolves original object and delegates to it.
+     */
+    function __set($attr, $val)
+    {
+        $this->resolve();
+        $this->original->$attr = $val;
+    }
 }

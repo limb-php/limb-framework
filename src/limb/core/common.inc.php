@@ -16,8 +16,7 @@ use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
 use limb\core\src\lmbAssert;
 
-if (!function_exists('lmb_env_get'))
-{
+if (!function_exists('lmb_env_get')) {
 
     function lmb_env_get($name, $def = null)
     {
@@ -26,8 +25,7 @@ if (!function_exists('lmb_env_get'))
 
 }
 
-if (!function_exists('lmb_env_set'))
-{
+if (!function_exists('lmb_env_set')) {
 
     function lmb_env_set($name, $value)
     {
@@ -36,8 +34,7 @@ if (!function_exists('lmb_env_set'))
 
 }
 
-if (!function_exists('lmb_env_has'))
-{
+if (!function_exists('lmb_env_has')) {
 
     function lmb_env_has($name): bool
     {
@@ -47,12 +44,11 @@ if (!function_exists('lmb_env_has'))
 }
 
 
-if (!function_exists('lmb_var_dir'))
-{
+if (!function_exists('lmb_var_dir')) {
 
     function lmb_var_dir($value = null)
     {
-        if($value !== null)
+        if ($value !== null)
             lmbEnv::set('LIMB_VAR_DIR', $value);
         else
             return lmbEnv::get('LIMB_VAR_DIR');
@@ -60,8 +56,7 @@ if (!function_exists('lmb_var_dir'))
 
 }
 
-if (!function_exists('lmb_camel_case'))
-{
+if (!function_exists('lmb_camel_case')) {
 
     function lmb_camel_case($str, $ucfirst = true)
     {
@@ -70,8 +65,7 @@ if (!function_exists('lmb_camel_case'))
 
 }
 
-if (!function_exists('lmb_under_scores'))
-{
+if (!function_exists('lmb_under_scores')) {
 
     function lmb_under_scores($str)
     {
@@ -80,8 +74,7 @@ if (!function_exists('lmb_under_scores'))
 
 }
 
-if (!function_exists('lmb_plural'))
-{
+if (!function_exists('lmb_plural')) {
 
     function lmb_plural($word)
     {
@@ -90,8 +83,7 @@ if (!function_exists('lmb_plural'))
 
 }
 
-if (!function_exists('class_basename'))
-{
+if (!function_exists('class_basename')) {
 
     function class_basename($class)
     {
@@ -102,8 +94,7 @@ if (!function_exists('class_basename'))
 
 }
 
-if (!function_exists('str_contains'))
-{
+if (!function_exists('str_contains')) {
     function str_contains($haystack, $needle)
     {
         return $needle !== '' && mb_strpos($haystack, $needle) !== false;

@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\core\src;
 
 /**
@@ -16,112 +17,112 @@ namespace limb\core\src;
  */
 class lmbCollectionDecorator implements lmbCollectionInterface
 {
-  protected $iterator;
+    protected $iterator;
 
-  function __construct($iterator)
-  {
-    $this->iterator = $iterator;
-  }
+    function __construct($iterator)
+    {
+        $this->iterator = $iterator;
+    }
 
-  function valid(): bool
-  {
-    return $this->iterator->valid();
-  }
+    function valid(): bool
+    {
+        return $this->iterator->valid();
+    }
 
-  #[\ReturnTypeWillChange]
-  function current()
-  {
-    return $this->iterator->current();
-  }
+    #[\ReturnTypeWillChange]
+    function current()
+    {
+        return $this->iterator->current();
+    }
 
-  function next(): void
-  {
-    $this->iterator->next();
-  }
+    function next(): void
+    {
+        $this->iterator->next();
+    }
 
-  function rewind(): void
-  {
-    $this->iterator->rewind();
-  }
+    function rewind(): void
+    {
+        $this->iterator->rewind();
+    }
 
-  #[\ReturnTypeWillChange]
-  function key()
-  {
-    return $this->iterator->key();
-  }
+    #[\ReturnTypeWillChange]
+    function key()
+    {
+        return $this->iterator->key();
+    }
 
-  function sort($params)
-  {
-    $this->iterator->sort($params);
-    return $this;
-  }
+    function sort($params)
+    {
+        $this->iterator->sort($params);
+        return $this;
+    }
 
-  function getArray()
-  {
-    $result = array();
-    foreach($this as $object)
-      $result[] = $object;
-    return $result;
-  }
+    function getArray()
+    {
+        $result = array();
+        foreach ($this as $object)
+            $result[] = $object;
+        return $result;
+    }
 
     public function jsonSerialize(): array
     {
         return $this->getArray();
     }
 
-  function at($pos)
-  {
-    return $this->iterator->at($pos);
-  }
+    function at($pos)
+    {
+        return $this->iterator->at($pos);
+    }
 
-  function paginate($offset, $limit)
-  {
-    $this->iterator->paginate($offset, $limit);
-    return $this;
-  }
+    function paginate($offset, $limit)
+    {
+        $this->iterator->paginate($offset, $limit);
+        return $this;
+    }
 
-  function getOffset()
-  {
-    return $this->iterator->getOffset();
-  }
+    function getOffset()
+    {
+        return $this->iterator->getOffset();
+    }
 
-  function getLimit()
-  {
-    return $this->iterator->getLimit();
-  }
+    function getLimit()
+    {
+        return $this->iterator->getLimit();
+    }
 
-  function countPaginated()
-  {
-    return $this->iterator->countPaginated();
-  }
+    function countPaginated()
+    {
+        return $this->iterator->countPaginated();
+    }
 
-  //Countable interface
-  function count(): int
-  {
-    return (int) $this->iterator->count();
-  }
-  //end
+    //Countable interface
+    function count(): int
+    {
+        return (int)$this->iterator->count();
+    }
+    //end
 
-  //ArrayAccess interface
-  function offsetExists($offset): bool
-  {
-    return !is_null($this->at($offset));
-  }
+    //ArrayAccess interface
+    function offsetExists($offset): bool
+    {
+        return !is_null($this->at($offset));
+    }
 
-  #[\ReturnTypeWillChange]
-  function offsetGet($offset)
-  {
-    return $this->at($offset);
-  }
+    #[\ReturnTypeWillChange]
+    function offsetGet($offset)
+    {
+        return $this->at($offset);
+    }
 
-  function offsetSet($offset, $value): void
-  {
-    $this->iterator->offsetSet($offset, $value);
-  }
+    function offsetSet($offset, $value): void
+    {
+        $this->iterator->offsetSet($offset, $value);
+    }
 
-  function offsetUnset($offset): void
-  {
-    $this->iterator->offsetUnset($offset);
-  }
-  //end
+    function offsetUnset($offset): void
+    {
+        $this->iterator->offsetUnset($offset);
+    }
+    //end
 }

@@ -1,17 +1,17 @@
 <?php
+
 use limb\fs\src\lmbFs;
 
-if(!function_exists('lmb_tests_init_var_dir'))
-{
+if (!function_exists('lmb_tests_init_var_dir')) {
     function lmb_tests_init_var_dir($value, $echo = false)
     {
-        if(file_exists($value))
+        if (file_exists($value))
             lmbFs::rm($value);
         lmbFs::mkdir($value);
-        $real = realpath($value).'/';
+        $real = realpath($value) . '/';
         lmb_var_dir($real);
 
-        if($echo)
+        if ($echo)
             echo "INFO: Var dir inited in {$real}\n";
     }
 }

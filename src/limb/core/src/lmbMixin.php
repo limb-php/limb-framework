@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+
 namespace limb\core\src;
 
 /**
@@ -16,12 +17,12 @@ namespace limb\core\src;
  */
 class lmbMixin
 {
-  protected $owner;
+    protected $owner;
 
-  function setOwner($owner)
-  {
-    $this->owner = $owner;
-  }
+    function setOwner($owner)
+    {
+        $this->owner = $owner;
+    }
 
 }
 
