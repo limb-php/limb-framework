@@ -1,23 +1,24 @@
 <?php
 
-$conf = array();
+$conf = [
 
-$conf['ACTIVE'] = true;
+    'ACTIVE' => true,
 
-$conf['HTML_MINIFY'] = false;
-$conf['HTML_GZIP'] = true;
-$conf['HTML_JS_MINIFY_ENABLE'] = false;
-$conf['HTML_CSS_MINIFY_ENABLE'] = false;
+    'HTML_MINIFY' => false,
+    'HTML_GZIP' => true,
+    'HTML_JS_MINIFY_ENABLE' => false,
+    'HTML_CSS_MINIFY_ENABLE' => false,
 
-$conf['FILE_SEPARATOR'] = ',';
+    'FILE_SEPARATOR' => ',',
 
-$conf['CSS_MINIFY_ENABLE'] = true;
-$conf['CSS_DEBUG_MODE'] = true;
-$conf['CSS_CREATE_GZIP'] = true;
+    'CSS_MINIFY_ENABLE' => true,
+    'CSS_DEBUG_MODE' => true,
+    'CSS_CREATE_GZIP' => true,
 
-$conf['JS_MINIFY_ENABLE'] = true;
-$conf['JS_DEBUG_MODE'] = true;
-$conf['JS_MINIFY_LIBRARY'] = 'jsmin'; // jsmin, packer, yui
-$conf['JS_PREPEND_RELATIVE_PATH'] = '/min/';
-$conf['JS_CREATE_GZIP'] = true;
+    'JS_MINIFY_ENABLE' => true,
+    'JS_DEBUG_MODE' => true,
+    'JS_MINIFY_LIBRARY' => 'jsmin', // jsmin, packer, yui
+    'JS_PREPEND_RELATIVE_PATH' => '/min/',
+    'JS_CREATE_GZIP' => true
 
+];

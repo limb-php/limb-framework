@@ -1,5 +1,5 @@
 <?php
 
-$conf = array('dsn' => 'mysql://root:secret@localhost/limb_application?charset=utf8');
-
-
+$conf = [
+    'dsn' => 'mysql://root:secret@localhost/limb_application?charset=utf8'
+];

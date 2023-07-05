@@ -1,13 +1,36 @@
 <?php
 
-$conf = array(
-   'main' => array(
-      'path' => '/',
-      'defaults' => array(
-         'controller' => 'main_page',
-      )
-   )
-);
+$conf = [
 
-// Common routes, should be included AFTER yours
-include_once('limb/web_app/settings/routes.conf.php');
+    'Main' => [
+        'path' => '/',
+        'defaults' => [
+            'controller' => 'MainPageController',
+        ]
+    ],
+
+    // Common routes, should be included AFTER yours
+    'ControllerActionId' => [
+        'path' => '/:controller/:action/:id',
+        'defaults' => [
+            'namespace' => 'limb\web_app\src\controller',
+            'action' => 'display'
+        ]
+    ],
+
+    'ControllerAction' => [
+        'path' => '/:controller/:action',
+        'defaults' => [
+            'namespace' => 'limb\web_app\src\controller',
+            'action' => 'display'
+        ]
+    ],
+
+    'Controller' => [
+        'path' => '/:controller',
+        'defaults' => [
+            'namespace' => 'limb\web_app\src\controller'
+        ]
+    ]
+
+];
