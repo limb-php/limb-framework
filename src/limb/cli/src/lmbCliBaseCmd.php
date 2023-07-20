@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\cli\src;
 
 /**
@@ -16,29 +17,29 @@ namespace limb\cli\src;
  */
 abstract class lmbCliBaseCmd
 {
-  /**
-   * @var lmbCliResponse
-   */
-  protected $output;
+    /**
+     * @var lmbCliResponse
+     */
+    protected $output;
 
-  function __construct($output)
-  {
-    $this->output = $output;
-  }
+    function __construct($output)
+    {
+        $this->output = $output;
+    }
 
-  function help($argv)
-  {
-    return 0;
-  }
+    function help($argv)
+    {
+        return 0;
+    }
 
-  function execute($argv)
-  {
-    return 0;
-  }
+    function execute($argv)
+    {
+        return 0;
+    }
 
-  protected function _error($msg)
-  {
-    $this->output->write($msg);
-    exit(1);
-  }
+    protected function _error($msg)
+    {
+        $this->output->write($msg);
+        exit(1);
+    }
 }
