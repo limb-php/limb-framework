@@ -8,6 +8,8 @@
  */
 namespace limb\dbal\src\query;
 
+use limb\dbal\src\drivers\lmbDbStatementInterface;
+
 /**
  * class lmbUpdateQuery.
  *
@@ -102,7 +104,7 @@ class lmbUpdateQuery extends lmbCriteriaQuery
     return implode(',', $values);
   }
 
-  function getStatement()
+  function getStatement(): lmbDbStatementInterface
   {
     $stmt = parent::getStatement();
     foreach($this->_set_values as $key => $value)

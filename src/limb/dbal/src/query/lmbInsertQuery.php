@@ -8,6 +8,8 @@
  */
 namespace limb\dbal\src\query;
 
+use limb\dbal\src\drivers\lmbDbStatementInterface;
+
 /**
  * class lmbInsertQuery.
  *
@@ -64,7 +66,7 @@ class lmbInsertQuery extends lmbTemplateQuery
     return implode(',', $values);
   }
 
-  function getStatement()
+  function getStatement(): lmbDbStatementInterface
   {
     $stmt = parent::getStatement();
     foreach($this->_set_values as $key => $value)

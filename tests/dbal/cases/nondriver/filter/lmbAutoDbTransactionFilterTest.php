@@ -82,7 +82,7 @@ class lmbAutoDbTransactionFilterTest extends TestCase
 
     try
     {
-      $chain->process();
+      $chain->process($request = null);
       $this->fail();
     }
     catch(\Exception $e){

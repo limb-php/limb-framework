@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\query;
 
 /**
@@ -16,12 +17,12 @@ namespace limb\dbal\src\query;
  */
 class lmbSelectQuery extends lmbSelectRawQuery
 {
-  function __construct($table, $conn = null)
-  {
-    $this->setConnection($conn);
+    function __construct($table, $conn = null)
+    {
+        $this->setConnection($conn);
 
-    parent::__construct($this->getLexer()->getSelectQueryTemplate());
+        parent::__construct($this->getLexer()->getSelectQueryTemplate());
 
-    $this->addTable($table);
-  }
+        $this->addTable($table);
+    }
 }

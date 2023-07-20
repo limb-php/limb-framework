@@ -9,6 +9,7 @@
 namespace limb\dbal\src\query;
 
 use limb\core\src\exception\lmbException;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 
 /**
  * class lmbInsertQuery.
@@ -74,7 +75,7 @@ class lmbBulkInsertQuery extends lmbTemplateQuery
     return implode(',', $set_strings);
   }
 
-  function getStatement()
+  function getStatement(): lmbDbStatementInterface
   {
     $stmt = parent::getStatement();
 

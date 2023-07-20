@@ -117,7 +117,7 @@ class lmbMysqlConnection extends lmbDbBaseConnection
 
   function executeStatement($stmt)
   {
-    return (bool) $this->execute($stmt->getSQL());
+    return $this->execute($stmt->getSQL());
   }
 
   function beginTransaction()

@@ -9,6 +9,7 @@
 namespace limb\dbal\src\query;
 
 use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\dbal\src\drivers\lmbDbStatementInterface;
 
 /**
  * class lmbCriteriaQuery.
@@ -38,7 +39,7 @@ class lmbCriteriaQuery extends lmbTemplateQuery
     return $this->_stmt_values;
   }
 
-  function getStatement()
+  function getStatement(): lmbDbStatementInterface
   {
     $stmt = parent::getStatement();
 
