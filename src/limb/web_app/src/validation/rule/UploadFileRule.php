@@ -2,6 +2,7 @@
 
 namespace src\validation\rule;
 
+use limb\net\src\lmbUploadedFile;
 use limb\validation\src\rule\lmbValidationRuleInterface;
 
 class UploadFileRule implements lmbValidationRuleInterface
@@ -13,7 +14,7 @@ class UploadFileRule implements lmbValidationRuleInterface
     protected $real_field_name;
     protected $custom_error;
 
-    function __construct($field_name, $params = array(), $real_field_name = null, $custom_error = null)
+    function __construct($field_name, $params = [], $real_field_name = null, $custom_error = null)
     {
         $this->field_name = $field_name;
         $this->real_field_name = (isset($real_field_name)) ? $real_field_name : $field_name;
@@ -31,14 +32,7 @@ class UploadFileRule implements lmbValidationRuleInterface
     {
         $file_data = $datasource[$this->field_name] ?? null;
 
-        if (!$file_data) {
-            if ($this->is_requered)
-                $error_list->addError("{Field}: Uploading failed. No file!", array('Field' => $this->real_field_name));
-
-            return;
-        }
-
-        if( is_array($file_data) ) {
+        if (is_array($file_data)) {
             foreach ($file_data as $file) {
                 $this->_validateSingleFile($file, $error_list);
             }
@@ -49,6 +43,14 @@ class UploadFileRule implements lmbValidationRuleInterface
 
     private function _validateSingleFile($file, $error_list)
     {
+        if (!($file instanceof lmbUploadedFile)) {
+            if ($this->is_requered) {
+                $error_list->addError("{Field}: Uploading failed. No uploaded file.", array('Field' => $this->field_name));
+            }
+
+            return;
+        }
+
         switch ($file->getError()) {
             case UPLOAD_ERR_NO_FILE:
                 if ($this->is_requered)
