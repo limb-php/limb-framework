@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
+
 namespace limb\filter_chain\src;
 
 /**
@@ -54,72 +55,76 @@ namespace limb\filter_chain\src;
  * @version $Id: lmbChain.php 7486 2009-01-26 19:13:20Z
  * @package filter_chain
  */
-
 class lmbChain implements lmbChainInterface
 {
-  /**
-   * @var array registered filters (or filter handles (see {@link lmbHandle}))
-   */
-  protected $filters = array();
-  /**
-   * @var integer Index of the current active filter while running the chain
-   */
-  protected $counter = -1;
+    /**
+     * @var array registered filters (or filter handles (see {@link lmbHandle}))
+     */
+    protected $filters = array();
+    /**
+     * @var integer Index of the current active filter while running the chain
+     */
+    protected $counter = -1;
 
-  function __construct(){}
-
-  /**
-   * Registers filter (or handle on a filter) in the chain.
-   *
-   * @return void
-   */
-  function registerFilter($filter)
-  {
-    $this->filters[] = $filter;
-  }
-  /**
-   * Returns registered filters
-   *
-   * @return array
-   */
-  function getFilters()
-  {
-    return $this->filters;
-  }
-  /**
-   * Runs next filter in the chain.
-   *
-   * @return void
-   */
-  function next()
-  {
-    $this->counter++;
-
-    if(isset($this->filters[$this->counter]))
+    function __construct()
     {
-      $this->filters[$this->counter]->run($this);
     }
-  }
-  /**
-   * Executes the chain
-   *
-   * @return void
-   */
-  function process()
-  {
-    $this->counter = -1;
-    $this->next();
-  }
-  /**
-   * Implements lmbInterceptingFilter interface.
-   * Filter chain can be an intercepting filter.
-   *
-   * @param object $filter_chain Filter chain instance
-   * @return void
-   */
-  function run($filter_chain, ...$params)
-  {
-    $this->process();
-    $filter_chain->next();
-  }
+
+    /**
+     * Registers filter (or handle on a filter) in the chain.
+     *
+     * @return void
+     */
+    function registerFilter($filter)
+    {
+        $this->filters[] = $filter;
+    }
+
+    /**
+     * Returns registered filters
+     *
+     * @return array
+     */
+    function getFilters()
+    {
+        return $this->filters;
+    }
+
+    /**
+     * Runs next filter in the chain.
+     *
+     * @return void
+     */
+    function next()
+    {
+        $this->counter++;
+
+        if (isset($this->filters[$this->counter])) {
+            $this->filters[$this->counter]->run($this);
+        }
+    }
+
+    /**
+     * Executes the chain
+     *
+     * @return void
+     */
+    function process()
+    {
+        $this->counter = -1;
+        $this->next();
+    }
+
+    /**
+     * Implements lmbInterceptingFilter interface.
+     * Filter chain can be an intercepting filter.
+     *
+     * @param object $filter_chain Filter chain instance
+     * @return void
+     */
+    function run($filter_chain, ...$params)
+    {
+        $this->process();
+        $filter_chain->next();
+    }
 }

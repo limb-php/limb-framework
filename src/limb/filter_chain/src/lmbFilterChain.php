@@ -75,11 +75,13 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
     /**
      * Registers filter (or handle on a filter) in the chain.
      *
-     * @return void
+     * @return self
      */
     function registerFilter($filter)
     {
         $this->filters[] = $filter;
+
+        return $this;
     }
 
     /**

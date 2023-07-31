@@ -51,9 +51,10 @@ class lmbFilterChainTest extends TestCase
         $f2 = new OutputFilter2();
         $mock_filter = new InterceptingFilterStub();
 
-        $this->fc->registerFilter($f1);
-        $this->fc->registerFilter($f2);
-        $this->fc->registerFilter($mock_filter);
+        $this->fc
+            ->registerFilter($f1)
+            ->registerFilter($f2)
+            ->registerFilter($mock_filter);
 
         ob_start();
 
@@ -81,10 +82,11 @@ class lmbFilterChainTest extends TestCase
         $fc2->registerFilter($mock_filter);
 
         $fc = new lmbFilterChain();
-        $fc->registerFilter($fc1);
-        $fc->registerFilter($fc2);
-        $fc->registerFilter($f3);
-        $fc->registerFilter($mock_filter);
+        $fc
+            ->registerFilter($fc1)
+            ->registerFilter($fc2)
+            ->registerFilter($f3)
+            ->registerFilter($mock_filter);
 
         ob_start();
 

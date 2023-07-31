@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\filter_chain\src;
 
 /**
@@ -16,15 +17,15 @@ namespace limb\filter_chain\src;
  */
 interface lmbInterceptingFilterInterface
 {
-  /**
-   * Runs the filter.
-   * Filters should decide whether to pass control to the next filter in the chain or not.
-   * @param $filter_chain lmbFilterChain
-   * @param $request \limb\net\src\lmbHttpRequest
-   * @param $callback \Closure|null
-   * @return mixed
-   * @see lmbFilterChain::next()
-   *
-   */
-  function run($filter_chain, $request, $callback = null);
+    /**
+     * Runs the filter.
+     * Filters should decide whether to pass control to the next filter in the chain or not.
+     * @param $filter_chain lmbFilterChain
+     * @param $request \limb\net\src\lmbHttpRequest
+     * @param $callback \Closure|null
+     * @return mixed
+     * @see lmbFilterChain::next()
+     *
+     */
+    function run($filter_chain, $request, $callback = null);
 }
