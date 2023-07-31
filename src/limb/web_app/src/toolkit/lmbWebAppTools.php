@@ -158,9 +158,14 @@ class lmbWebAppTools extends lmbAbstractTools
   {
     if(!$this->routes)
     {
-      $config = $this->toolkit->getConf('routes');
+        $config = $this->toolkit->getConf('routes');
 
-      $this->routes = new lmbRoutes($config->export());
+        if($config->has('routes'))
+            $routes_conf = $config->get('routes');
+        else
+            $routes_conf = $config->export(); // BC
+
+        $this->routes = new lmbRoutes($routes_conf);
     }
 
     return $this->routes;
