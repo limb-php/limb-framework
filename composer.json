@@ -4,7 +4,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.4",
+        "php": "^7.4 || ^8.0",
         "phpmailer/phpmailer": "^6.6",
         "psr/cache": "^1",
         "psr/http-message": "^1.0",
@@ -58,6 +58,7 @@
             "src/limb/i18n/common.inc.php",
             "src/limb/log/common.inc.php",
             "src/limb/net/common.inc.php",
+            "src/limb/macro/common.inc.php",
             "src/limb/view/common.inc.php"
         ],
         "psr-0": {
