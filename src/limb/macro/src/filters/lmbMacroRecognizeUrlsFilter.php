@@ -20,5 +20,5 @@ use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
 class lmbMacroRecognizeUrlsFilter extends lmbMacroFunctionBasedFilter
 {
   protected $function = 'lmb_macro_recognize_urls';
-  protected $include_file = 'src/limb/macro/src/filters/lmbMacroRecognizeUrlsFilter.inc.php';
+  protected $include_file = __DIR__ . '/lmbMacroRecognizeUrlsFilter.inc.php';
 } 
