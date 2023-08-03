@@ -348,7 +348,7 @@ class LmbController
 
   protected function _mapActionToMethod($action)
   {
-    return lmbString::camel_case('do_' . $action);
+    return lmbString::camel_case('do_' . $action, false);
   }
 
   function forward($controller_name, $action)

@@ -12,7 +12,7 @@ use tests\view\lmbMacroTestCase;
 use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;
 
-require_once dirname(__FILE__) . '/../../.setup.php';
+require_once dirname(__FILE__) . '/.setup.php';
 
 class lmbCssCompiledTagTest extends lmbMacroTestCase
 {

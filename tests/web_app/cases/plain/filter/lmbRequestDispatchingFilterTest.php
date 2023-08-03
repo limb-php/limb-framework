@@ -127,8 +127,11 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
   function testUse404ControllerIfNoSuchActionInDispatchedController()
   {
-    $dispatched_params = array('controller' => $controller_name = 'SomeController',
-                               'action' => 'no_such_action');
+    $controller_name = 'SomeController';
+    $dispatched_params = array(
+        'controller' => $controller_name,
+        'action' => 'no_such_action'
+    );
 
     $controller = new lmbRequestDispatchingTestingController($controller_name);
 
@@ -144,7 +147,11 @@ class lmbRequestDispatchingFilterTest extends TestCase
     $this->filter->setDefaultControllerName(NotFoundController::class);
     $this->filter->run($this->chain);
 
-    $this->_assertDispatchedOk($not_found_controller, $not_found_controller->getDefaultAction(), __LINE__);
+    $this->_assertDispatchedOk(
+        $not_found_controller,
+        $not_found_controller->getDefaultAction(),
+        __LINE__
+    );
   }
 
   function testControllerParamIsEmpty()
