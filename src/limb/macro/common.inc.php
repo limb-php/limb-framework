@@ -17,5 +17,5 @@ use limb\core\src\lmbEnv;
 $LIMB_MACRO_TAGS_INCLUDE_PATH = lmbEnv::get('LIMB_MACRO_TAGS_INCLUDE_PATH', []);
 $LIMB_MACRO_FILTERS_INCLUDE_PATH = lmbEnv::get('LIMB_MACRO_FILTERS_INCLUDE_PATH', []);
 
-lmbEnv::set('LIMB_MACRO_TAGS_INCLUDE_PATH', $LIMB_MACRO_TAGS_INCLUDE_PATH + array(__DIR__ . '/src/tags'));
-lmbEnv::set('LIMB_MACRO_FILTERS_INCLUDE_PATH', $LIMB_MACRO_FILTERS_INCLUDE_PATH + array(__DIR__ . '/src/filters'));
+lmbEnv::set('LIMB_MACRO_TAGS_INCLUDE_PATH', $LIMB_MACRO_TAGS_INCLUDE_PATH + array(__DIR__ . '/src/tags', __DIR__ . '/../*/src/macro'));
+lmbEnv::set('LIMB_MACRO_FILTERS_INCLUDE_PATH', $LIMB_MACRO_FILTERS_INCLUDE_PATH + array(__DIR__ . '/src/filters', __DIR__ . '/../*/src/macro'));
