@@ -18,5 +18,7 @@ abstract class DriverMetaTestBase extends TestCase
     {
         $this->connection->disconnect();
         unset($this->connection);
+
+        lmb_tests_teardown_db();
     }
 }

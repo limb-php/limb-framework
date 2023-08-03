@@ -7,13 +7,14 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 namespace tests\dbal\cases\driver;
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use PHPUnit\Framework\TestCase;
 
 abstract class DriverRecordSetTestBase extends TestCase
 {
     protected $record_class;
 
-    /** @var \limb\dbal\src\drivers\lmbDbConnectionInterface $connection */
+    /** @var lmbDbConnectionInterface $connection */
     protected $connection;
 
   function init($record_class)
@@ -23,6 +24,8 @@ abstract class DriverRecordSetTestBase extends TestCase
 
   function setUp(): void
   {
+      parent::setUp();
+
     $sql = "SELECT id, first FROM founding_fathers ORDER BY id";
     $this->stmt = $this->connection->newStatement($sql);
     $this->cursor = $this->stmt->getRecordSet();
@@ -30,7 +33,11 @@ abstract class DriverRecordSetTestBase extends TestCase
 
   function tearDown(): void
   {
-    $this->connection->disconnect();
+      parent::tearDown();
+
+      $this->connection->disconnect();
+
+      lmb_tests_teardown_db();
   }
 
   function testRewind()
