@@ -13,6 +13,8 @@ use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;
 use tests\view\lmbMacroTestCase;
 
+require_once dirname(__FILE__) . '/../../.setup.php';
+
 class lmbFileVersionMacroTagTest extends lmbMacroTestCase
 {
   function testRender()

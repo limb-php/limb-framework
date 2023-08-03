@@ -12,6 +12,8 @@ use tests\view\lmbMacroTestCase;
 use limb\web_app\src\request\lmbRoutes;
 use limb\web_app\src\Controllers\LmbController;
 
+require_once dirname(__FILE__) . '/../../.setup.php';
+
 class lmbMacroRouteUrlTagTest extends lmbMacroTestCase
 {
   function testPutUrlToCurrentDataspaceAllParamsAreStaticAndUseNamedRoute()

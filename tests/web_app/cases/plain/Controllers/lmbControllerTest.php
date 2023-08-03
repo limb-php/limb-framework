@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace tests\web_app\cases\plain\controllers;
 
 use limb\view\src\lmbDummyView;
@@ -22,159 +23,163 @@ require dirname(__FILE__) . '/../../.setup.php';
 
 class lmbControllerTest extends TestCase
 {
-  protected $toolkit;
+    protected $toolkit;
 
-  function setUp(): void
-  {
-    $this->toolkit = lmbToolkit::save();
-  }
+    function setUp(): void
+    {
+        $this->toolkit = lmbToolkit::save();
+    }
 
-  function tearDown(): void
-  {
-    lmbToolkit::restore();
-  }
+    function tearDown(): void
+    {
+        lmbToolkit::restore();
+    }
 
-  function testActionExists()
-  {
-    $controller = new TestingController();
-    $this->assertTrue($controller->actionExists('display'));
-    $this->assertFalse($controller->actionExists('no_such_action'));
-  }
+    function testActionExists()
+    {
+        $controller = new TestingController();
+        $this->assertTrue($controller->actionExists('display'));
+        $this->assertFalse($controller->actionExists('no_such_action'));
+    }
 
-  function testGuessControllerName()
-  {
-    $controller = new SecondTestingController();
-    $this->assertEquals('second_testing', $controller->getName());
-  }
+    function testGuessControllerName()
+    {
+        $controller = new SecondTestingController();
+        $this->assertEquals('second_testing', $controller->getName());
+    }
 
-  function testPerformAction()
-  {
-    $controller = new TestingController();
-    $controller->setCurrentAction('display');
-    $controller->performAction($this->toolkit->getRequest());
-    $this->assertTrue($controller->display_performed);
-  }
+    function testPerformAction()
+    {
+        $controller = new TestingController();
+        $controller->setCurrentAction('display');
+        $controller->performAction($this->toolkit->getRequest());
+        $this->assertTrue($controller->display_performed);
+    }
 
-  function testPerformedActionStringResultIsWrittenToResponse()
-  {
-    $controller = new TestingController();
-    $controller->setCurrentAction('write');
-    $result = $controller->performAction($this->toolkit->getRequest());
-    $this->assertEquals("Hi!", $result);
-  }
+    function testPerformedActionStringResultIsWrittenToResponse()
+    {
+        $controller = new TestingController();
+        $controller->setCurrentAction('write');
+        $result = $controller->performAction($this->toolkit->getRequest());
+        $this->assertEquals("Hi!", $result->getBody());
+    }
 
-  function testSetTemplateOnlyIfMethodIsNotFound()
-  {
-    $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
+    function testSetTemplateOnlyIfMethodIsNotFound()
+    {
+        $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
 
-    $controller = new TestingController();
-    $controller->setCurrentAction('detail');
+        $controller = new TestingController();
+        $controller->setCurrentAction('detail');
 
-    $controller->performAction($this->toolkit->getRequest());
-    $this->assertEquals('foo' . DIRECTORY_SEPARATOR . 'detail.html', $this->toolkit->getView()->getTemplate());
-  }
+        $controller->performAction($this->toolkit->getRequest());
+        $this->assertEquals('foo' . DIRECTORY_SEPARATOR . 'detail.html', $this->toolkit->getView()->getTemplate());
+    }
 
-  function testGuessingTemplateWorksOkForActionWithPercentageSymbol()
-  {
-    $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
+    function testGuessingTemplateWorksOkForActionWithPercentageSymbol()
+    {
+        $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
 
-    $controller = new TestingController();
-    $controller->setCurrentAction('detail%28');
+        $controller = new TestingController();
+        $controller->setCurrentAction('detail%28');
 
-    $controller->performAction($this->toolkit->getRequest());
+        $controller->performAction($this->toolkit->getRequest());
 
-    $this->assertEquals('foo', $controller->getName());
-    $this->assertEquals('foo' . DIRECTORY_SEPARATOR . 'detail%28.html', $this->toolkit->getView()->getTemplate());
-  }
+        $this->assertEquals('foo', $controller->getName());
+        $this->assertEquals('foo' . DIRECTORY_SEPARATOR . 'detail%28.html', $this->toolkit->getView()->getTemplate());
+    }
 
-  function testControllerAttributesAutomaticallyPassedToView()
-  {
-    $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
+    function testControllerAttributesAutomaticallyPassedToView()
+    {
+        $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
 
-    $controller = new TestingController();
-    $controller->set('foo', 'FOO');
-    $controller->set('bar', 'BAR');
-    $controller->set('_nope', 'NO');
-    $controller->setCurrentAction('set_vars');
+        $controller = new TestingController();
+        $controller->set('foo', 'FOO');
+        $controller->set('bar', 'BAR');
+        $controller->set('_nope', 'NO');
+        $controller->setCurrentAction('set_vars');
 
-    $controller->performAction($this->toolkit->getRequest());
-    $view = $this->toolkit->getView();
-    $this->assertEquals('item', $view->get('item'));//this one is set in action
-    $this->assertEquals('FOO', $view->get('foo'));
-    $this->assertEquals('BAR', $view->get('bar'));
-    $this->assertNull($view->get('_nope'));//this one is ignored, since it's "protected" with _
-  }
+        $controller->performAction($this->toolkit->getRequest());
+        $view = $this->toolkit->getView();
+        $this->assertEquals('item', $view->get('item'));//this one is set in action
+        $this->assertEquals('FOO', $view->get('foo'));
+        $this->assertEquals('BAR', $view->get('bar'));
+        $this->assertNull($view->get('_nope'));//this one is ignored, since it's "protected" with _
+    }
 
-  function testActionExistsReturnsTrueIsTemplateFound()
-  {
-    $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
+    function testActionExistsReturnsTrueIsTemplateFound()
+    {
+        $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
 
-    $controller = new TestingController();
-    $this->assertTrue($controller->actionExists('detail'));
-  }
+        $controller = new TestingController();
+        $this->assertTrue($controller->actionExists('detail'));
+    }
 
-  function testValidateOk()
-  {
-    $controller = new TestingController();
-    $error_list = $controller->getErrorList();
+    function testValidateOk()
+    {
+        $controller = new TestingController();
+        $error_list = $controller->getErrorList();
 
-    $ds = new lmbSet();
+        $ds = new lmbSet();
 
-    $r1 = $this->createMock(lmbValidationRuleInterface::class);
-    $r1
-        ->expects($this->once())
-        ->method('validate')
-        ->with($ds, $error_list);
+        $r1 = $this->createMock(lmbValidationRuleInterface::class);
+        $r1
+            ->expects($this->once())
+            ->method('validate')
+            ->with($ds, $error_list);
 
-    $r2 = $this->createMock(lmbValidationRuleInterface::class);
-    $r2
-        ->expects($this->once())
-        ->method('validate')
-        ->with($ds, $error_list);
+        $r2 = $this->createMock(lmbValidationRuleInterface::class);
+        $r2
+            ->expects($this->once())
+            ->method('validate')
+            ->with($ds, $error_list);
 
-    $controller->addValidatorRule($r1);
-    $controller->addValidatorRule($r2);
+        $controller->addValidatorRule($r1);
+        $controller->addValidatorRule($r2);
 
-    $this->assertTrue($controller->validate($ds));
-  }
+        $this->assertTrue($controller->validate($ds));
+    }
 
-  function testValidateFailed()
-  {
-    $controller = new TestingController();
-    $error_list = $controller->getErrorList();
-    $error_list->addError('blah!');
+    function testValidateFailed()
+    {
+        $controller = new TestingController();
+        $error_list = $controller->getErrorList();
+        $error_list->addError('blah!');
 
-    $this->assertFalse($controller->validate(new lmbSet()));
-  }
+        $this->assertFalse($controller->validate(new lmbSet()));
+    }
 
-  function testForward()
-  {
-    $controller = new lmbController();
-    $this->assertEquals("Hi!", $controller->forward(TestingController::class, 'write'));
-  }
+    function testForward()
+    {
+        $controller = new lmbController();
+        $result = $controller->forward(TestingController::class, 'write');
+        $this->assertEquals("Hi!", $result->getBody());
+    }
 
-  function testForwardInConstructor()
-  {
-    $testController = new TestingForwardController();
+    function testForwardInConstructor()
+    {
+        $testController = new TestingForwardController();
 
-    $this->assertEquals('Hi!', $testController->doForward());
-    $this->assertFalse($testController->performAction($this->toolkit->getRequest()));
-  }
+        $result = $testController->doForward();
+        $this->assertEquals('Hi!', $result->getBody());
 
-  function testClosePopup()
-  {
-    $controller = new TestingController();
-    $controller->setCurrentAction('popup');
-    $controller->performAction($this->toolkit->getRequest());
-    $this->assertMatchesRegularExpression('~^<html><script>~', $this->toolkit->getResponse()->getResponseString());
-  }
+        $result = $testController->performAction($this->toolkit->getRequest());
+        $this->assertFalse($result->getBody());
+    }
 
-  function testDoNotClosePopup()
-  {
-    $controller = new TestingController();
-    $controller->setCurrentAction('without_popup');
-    $controller->performAction($this->toolkit->getRequest());
-    $this->assertEquals('', $this->toolkit->getResponse()->getResponseString());
-  }
+    function testClosePopup()
+    {
+        $controller = new TestingController();
+        $controller->setCurrentAction('popup');
+        $controller->performAction($this->toolkit->getRequest());
+        $this->assertMatchesRegularExpression('~^<html><script>~', $this->toolkit->getResponse()->getResponseString());
+    }
+
+    function testDoNotClosePopup()
+    {
+        $controller = new TestingController();
+        $controller->setCurrentAction('without_popup');
+        $controller->performAction($this->toolkit->getRequest());
+        $this->assertEquals('', $this->toolkit->getResponse()->getResponseString());
+    }
 
 }
