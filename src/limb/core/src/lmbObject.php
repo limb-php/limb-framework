@@ -214,6 +214,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
         if ($this->_hasProperty($name))
             return $this->_getRaw($name);
 
+        #TODO ???
         if (null !== $default)
             return $default;
 

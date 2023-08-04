@@ -9,9 +9,9 @@
 
 namespace limb\config\src;
 
-use limb\core\src\lmbObject;
 use limb\core\src\exception\lmbException;
 use limb\core\src\exception\lmbNoSuchPropertyException;
+use limb\core\src\lmbSet;
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\core\src\exception\lmbInvalidArgumentException;
 
@@ -21,7 +21,7 @@ use limb\core\src\exception\lmbInvalidArgumentException;
  * @package config
  * @version $Id: lmbConf.php 8038 2010-01-19 20:19:00Z
  */
-class lmbConf extends lmbObject
+class lmbConf extends lmbSet
 {
     protected $_file;
 
@@ -75,10 +75,11 @@ class lmbConf extends lmbObject
     {
         if (!$name)
             throw new lmbInvalidArgumentException('Option name not given');
-        try {
-            return parent::get($name, $default);
-        } catch (lmbNoSuchPropertyException $e) {
-            throw new lmbNoSuchPropertyException('Option "' . $name . '" not found', array('config' => $this->_file));
-        }
+
+        $result = parent::get($name);
+        if (null === $default && null !== $result)
+            return $result;
+
+        throw new lmbNoSuchPropertyException('Option "' . $name . '" not found', array('config' => $this->_file));
     }
 }

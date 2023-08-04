@@ -9,6 +9,8 @@
 
 namespace limb\config\src\toolkit;
 
+use limb\core\src\lmbSet;
+use limb\core\src\lmbSetInterface;
 use limb\fs\src\toolkit\lmbFsTools;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\core\src\lmbObject;
@@ -43,6 +45,9 @@ class lmbConfTools extends lmbAbstractTools
 
     function setConf($name, $conf): void
     {
+        if(is_array($conf))
+            $conf = new lmbSet($conf);
+
         $this->confs[$this->_normalizeConfName($name)] = $conf;
     }
 
@@ -73,6 +78,12 @@ class lmbConfTools extends lmbAbstractTools
         return $this->toolkit->findFileByAlias($name, $this->toolkit->getConfIncludePath(), 'config', false);
     }
 
+    /**
+     * @param $name
+     * @return lmbSetInterface
+     * @throws lmbException
+     * @throws lmbFileNotFoundException
+     */
     function getConf($name)
     {
         $name = $this->_normalizeConfName($name);
@@ -90,7 +101,6 @@ class lmbConfTools extends lmbAbstractTools
             $file = $this->_locateConfFiles($name);
 
             $this->confs[$name] = $this->parseYamlFile(lmbFs::normalizePath($file));
-
         } elseif (preg_match("/\.conf\.php$/", $name)) {
             $file = $this->_locateConfFiles($name);
             if (empty($file))
