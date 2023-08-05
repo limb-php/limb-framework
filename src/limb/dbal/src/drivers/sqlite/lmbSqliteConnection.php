@@ -60,7 +60,7 @@ class lmbSqliteConnection extends lmbDbBaseConnection
       if( !file_exists($this->config['database']) )
           $this->_raiseError();
 
-      $this->connection = new \SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE);
+      $this->connection = new \SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE);
   }
 
   function __wakeup()

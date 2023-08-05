@@ -8,10 +8,10 @@ if (!function_exists('lmb_tests_init_var_dir')) {
         if (file_exists($value))
             lmbFs::rm($value);
         lmbFs::mkdir($value);
-        $real = realpath($value) . '/';
+        $real = realpath($value) . DIRECTORY_SEPARATOR;
         lmb_var_dir($real);
 
         if ($echo)
-            echo "INFO: Var dir inited in {$real}\n";
+            echo "INFO: Var dir sets to {$real}\n";
     }
 }
