@@ -4,12 +4,13 @@ use limb\core\src\lmbEnv;
 use limb\dbal\src\toolkit\lmbDbTools;
 use limb\toolkit\src\lmbToolkit;
 
-lmbEnv::set('LIMB_CONF_INCLUDE_PATH', 'search/*/settings;*/settings;bit-cms/*/settings;limb/*/settings');
-
 require_once(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
 require_once(dirname(__FILE__) . '/../../../src/limb/search/common.inc.php');
 require_once(dirname(__FILE__) . '/../../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../../dbal/common.inc.php');
+
+$LIMB_CONF_INCLUDE_PATH = lmbEnv::get('LIMB_CONF_INCLUDE_PATH');
+lmbEnv::set('LIMB_CONF_INCLUDE_PATH', $LIMB_CONF_INCLUDE_PATH . ';' . __DIR__ . '/settings;' . __DIR__ . '/../../*/settings');
 
 lmbToolkit::merge(new lmbDbTools());
 

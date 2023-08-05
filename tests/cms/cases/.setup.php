@@ -5,11 +5,12 @@ use limb\toolkit\src\lmbToolkit;
 use limb\web_app\src\toolkit\lmbWebAppTools;
 use limb\cms\src\toolkit\lmbCmsTools;
 
-lmbEnv::set('LIMB_CONF_INCLUDE_PATH', 'cms/*/settings;*/settings;bit-cms/*/settings;limb/*/settings');
-
 require_once(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
 require_once(dirname(__FILE__) . '/../../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../../dbal/common.inc.php');
+
+$LIMB_CONF_INCLUDE_PATH = lmbEnv::get('LIMB_CONF_INCLUDE_PATH');
+lmbEnv::set('LIMB_CONF_INCLUDE_PATH', $LIMB_CONF_INCLUDE_PATH . ';' . __DIR__ . '/settings;' . __DIR__ . '/../../*/settings');
 
 lmbToolkit::merge(new lmbWebAppTools());
 lmbToolkit::merge(new lmbCmsTools());
