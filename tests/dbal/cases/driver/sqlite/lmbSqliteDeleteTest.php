@@ -11,6 +11,7 @@ namespace tests\dbal\cases\driver\sqlite;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverDeleteTestBase;
 
+require_once('.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteDeleteTest extends DriverDeleteTestBase
@@ -18,7 +19,7 @@ class lmbSqliteDeleteTest extends DriverDeleteTestBase
   function setUp(): void
   {
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
-    DriverSqliteSetup($this->connection->getConnectionId());
+    DriverSqliteSetup($this->connection);
 
     parent::setUp();
   }

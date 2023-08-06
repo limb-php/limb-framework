@@ -23,7 +23,7 @@ abstract class DriverTransactionTestBase extends DriverManipTestBase
     $this->assertEquals(0, $this->_countRecords());
 
     $this->connection->beginTransaction();
-    $stmt = $this->connection->newStatement("INSERT INTO founding_fathers VALUES (1, 'George', 'Washington')");
+    $stmt = $this->connection->newStatement("INSERT INTO founding_fathers VALUES (1, 'George', 'Washington', 1691195171)");
     $stmt->execute();
     $this->connection->commitTransaction();
 
@@ -35,7 +35,7 @@ abstract class DriverTransactionTestBase extends DriverManipTestBase
     $this->assertEquals(0, $this->_countRecords());
 
     $this->connection->beginTransaction();
-    $stmt = $this->connection->newStatement("INSERT INTO founding_fathers VALUES (1, 'George', 'Washington')");
+    $stmt = $this->connection->newStatement("INSERT INTO founding_fathers VALUES (1, 'George', 'Washington', 1691195171)");
     $stmt->execute();
     $this->connection->rollbackTransaction();
 

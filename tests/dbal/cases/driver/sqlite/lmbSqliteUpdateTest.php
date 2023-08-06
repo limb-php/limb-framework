@@ -12,6 +12,7 @@ use limb\dbal\src\drivers\sqlite\lmbSqliteManipulationStatement;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverUpdateTestBase;
 
+require_once('.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteUpdateTest extends DriverUpdateTestBase
@@ -22,7 +23,7 @@ class lmbSqliteUpdateTest extends DriverUpdateTestBase
       parent::init(lmbSqliteManipulationStatement::class);
 
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
-    DriverSqliteSetup($this->connection->getConnectionId());
+    DriverSqliteSetup($this->connection);
 
     parent::setUp();
   }

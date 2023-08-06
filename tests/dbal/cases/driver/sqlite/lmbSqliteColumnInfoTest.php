@@ -19,7 +19,7 @@ class lmbSqliteColumnInfoTest extends DriverColumnInfoTestBase
   function setUp(): void
   {
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
-    DriverSqliteSetup($this->connection->getConnectionId());
+    DriverSqliteSetup($this->connection);
 
     parent::setUp();
   }

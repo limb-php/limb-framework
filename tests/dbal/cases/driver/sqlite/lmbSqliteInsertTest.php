@@ -12,6 +12,7 @@ use limb\dbal\src\drivers\sqlite\lmbSqliteInsertStatement;
 use tests\dbal\cases\driver\DriverInsertTestBase;
 use limb\toolkit\src\lmbToolkit;
 
+require_once('.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteInsertTest extends DriverInsertTestBase
@@ -21,7 +22,7 @@ class lmbSqliteInsertTest extends DriverInsertTestBase
       parent::init(lmbSqliteInsertStatement::class);
 
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
-    DriverSqliteSetup($this->connection->getConnectionId());
+    DriverSqliteSetup($this->connection);
 
     parent::setUp();
   }

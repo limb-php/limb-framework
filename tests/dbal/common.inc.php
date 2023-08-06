@@ -142,13 +142,14 @@ if(!function_exists('lmb_tests_setup_db')) {
 }
 
 if(!function_exists('lmb_tests_teardown_db')) {
-    function lmb_tests_teardown_db()
+    function lmb_tests_teardown_db($verbose = false)
     {
         $conn = lmbToolkit::instance()->getDefaultDbConnection();
 
         $db = new lmbSimpleDb($conn);
         $db->truncateDb();
 
-        echo "INFO: Database was cleaned up\n";
+        if($verbose)
+            echo "INFO: Database was cleaned up\n";
     }
 }
