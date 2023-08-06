@@ -11,14 +11,14 @@ namespace tests\dbal\cases\driver\pgsql;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverColumnInfoTestBase;
 
-require_once(dirname(__FILE__) . '/../../.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbPgsqlColumnInfoTest extends DriverColumnInfoTestBase
 {
   function setUp(): void
   {
-      $this->markTestSkipped();
+      //$this->markTestSkipped();
 
     $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
     DriverPgsqlSetup($this->connection->getConnectionId());

@@ -12,7 +12,7 @@ use limb\dbal\src\drivers\mysql\lmbMysqlRecord;
 use tests\dbal\cases\driver\DriverQueryTestBase;
 use limb\toolkit\src\lmbToolkit;
 
-require_once(dirname(__FILE__) . '/../../.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlQueryTest extends DriverQueryTestBase

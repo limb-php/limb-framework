@@ -11,7 +11,7 @@ namespace tests\dbal\cases\driver\pgsql;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverDeleteTestBase;
 
-require_once(dirname(__FILE__) . '/../../.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbPgsqlDeleteTest extends DriverDeleteTestBase

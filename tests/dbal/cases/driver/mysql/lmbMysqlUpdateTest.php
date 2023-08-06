@@ -12,7 +12,7 @@ use limb\dbal\src\drivers\mysql\lmbMysqlManipulationStatement;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverUpdateTestBase;
 
-require_once(dirname(__FILE__) . '/../../.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMysqlUpdateTest extends DriverUpdateTestBase
