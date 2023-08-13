@@ -14,7 +14,6 @@
 
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
-use limb\core\src\lmbAssert;
 
 if (!function_exists('lmb_env_get')) {
 

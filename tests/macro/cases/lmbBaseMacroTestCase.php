@@ -28,8 +28,8 @@ class lmbBaseMacroTestCase extends TestCase
     $this->base_dir = lmb_var_dir() . '/tpl';
     $this->cache_dir = $this->base_dir . '/compiled';
     $this->tpl_dir = $this->base_dir;
-    //$this->tags_dir = ['limb/macro/src/tags'];
-    //$this->filters_dir = ['limb/macro/src/filters'];
+    $this->tags_dir = ['*/macro/src/tags'];
+    $this->filters_dir = ['*/macro/src/filters'];
 
     lmbFs::mkdir(lmb_var_dir());
     lmbFs::mkdir($this->base_dir);
