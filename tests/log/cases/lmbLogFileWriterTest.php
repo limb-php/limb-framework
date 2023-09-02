@@ -17,7 +17,7 @@ class lmbLogFileWriterTest extends TestCase {
 
   function testWrite()
   {
-    $dsn = new lmbUri('file://'.lmb_var_dir().'/logs/error'.uniqid().'.log');
+    $dsn = new lmbUri('file://'.lmb_var_dir().'/log/error'.uniqid().'.log');
     $writer = new lmbLogFileWriter($dsn);
 
     $entry = new lmbLogEntry(LOG_ERR, 'foo');

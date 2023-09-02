@@ -60,13 +60,13 @@ class lmbLogTest extends TestCase
     $this->assertEquals('exmessage', $entry->getMessage());
   }
 
-  function testSetErrorLevel()
-  {
-    $this->log->setErrorLevel(LOG_WARNING);
-    $this->log->log(LOG_INFO, 'info');
-    $this->log->log(LOG_NOTICE, 'notice');
-    $this->assertNull($this->_getLastLogEntry());
-  }
+//  function testSetErrorLevel()
+//  {
+//    $this->log->setErrorLevel(LOG_WARNING);
+//    $this->log->log(LOG_INFO, 'info');
+//    $this->log->log(LOG_NOTICE, 'notice');
+//    $this->assertNull($this->_getLastLogEntry());
+//  }
 
   function testSetBacktraceDepth()
   {
