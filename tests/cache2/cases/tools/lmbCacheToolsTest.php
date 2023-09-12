@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace tests\cache2\cases\tools;
+namespace Tests\cache2\cases\tools;
 
 use limb\cache2\src\drivers\lmbCacheFileConnection;
 use limb\cache2\src\lmbLoggedCache;

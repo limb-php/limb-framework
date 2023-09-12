@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-namespace tests\web_app\cases\plain\filter;
+namespace Tests\web_app\cases\plain\filter;
 
 use limb\web_app\src\Controllers\NotFoundController;
 use limb\web_app\src\exception\lmbControllerNotFoundException;

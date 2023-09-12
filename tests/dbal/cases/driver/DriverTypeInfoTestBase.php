@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-namespace tests\dbal\cases\driver;
+namespace Tests\dbal\cases\driver;
 
 use limb\dbal\src\drivers\lmbDbRecordInterface;
 use limb\dbal\src\drivers\lmbDbStatementInterface;

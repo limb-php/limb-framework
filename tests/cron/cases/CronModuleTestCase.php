@@ -1,5 +1,5 @@
 <?php
-namespace tests\cron\cases;
+namespace Tests\cron\cases;
 
 use limb\cron\src\cron\CronJobLogger;
 use limb\dbal\src\lmbTableGateway;

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-namespace tests\filter_chain\cases;
+namespace Tests\filter_chain\cases;
 
 require_once('.setup.php');
 

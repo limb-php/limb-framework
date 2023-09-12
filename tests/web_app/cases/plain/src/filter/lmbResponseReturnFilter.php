@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\web_app\cases\plain\src\filter;
+namespace Tests\web_app\cases\plain\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;

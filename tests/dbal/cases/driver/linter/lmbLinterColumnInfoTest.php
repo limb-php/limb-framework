@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-namespace tests\dbal\cases\driver\linter;
+namespace Tests\dbal\cases\driver\linter;
 
 use tests\dbal\cases\driver\DriverColumnInfoTestBase;
 use limb\toolkit\src\lmbToolkit;

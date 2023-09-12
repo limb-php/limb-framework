@@ -1,5 +1,5 @@
 <?php
-namespace tests\cms\cases\model;
+namespace Tests\cms\cases\model;
 
 use tests\cms\cases\lmbCmsTestCase;
 use limb\cms\src\model\lmbCmsSeo;

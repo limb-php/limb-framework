@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace tests\web_app\cases\db\fetcher;
+namespace Tests\web_app\cases\db\fetcher;
 
 require dirname(__FILE__) . '/../.setup.php';
 

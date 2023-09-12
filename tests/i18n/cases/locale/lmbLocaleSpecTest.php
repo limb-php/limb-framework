@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-namespace tests\i18n\cases\locale;
+namespace Tests\i18n\cases\locale;
 
 use PHPUnit\Framework\TestCase;
 use limb\i18n\src\locale\lmbLocaleSpec;

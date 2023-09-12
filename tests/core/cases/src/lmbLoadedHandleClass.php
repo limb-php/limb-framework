@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\core\cases\src;
+namespace Tests\core\cases\src;
 
 class lmbLoadedHandleClass
 {

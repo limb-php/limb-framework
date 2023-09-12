@@ -1,5 +1,5 @@
 <?php
-namespace tests\cms\cases\macro;
+namespace Tests\cms\cases\macro;
 
 use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\toolkit\src\lmbAbstractTools;

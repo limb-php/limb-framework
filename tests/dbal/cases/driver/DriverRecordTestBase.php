@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-namespace tests\dbal\cases\driver;
+namespace Tests\dbal\cases\driver;
 
 use limb\core\src\lmbObject;
 use PHPUnit\Framework\TestCase;

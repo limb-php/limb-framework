@@ -1,5 +1,5 @@
 <?php
-namespace tests\cms\cases\validation\rules;
+namespace Tests\cms\cases\validation\rules;
 
 use limb\validation\src\lmbErrorList;
 use tests\cms\cases\lmbCmsTestCase;

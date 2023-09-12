@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-namespace tests\web_cache\cases;
+namespace Tests\web_cache\cases;
 
 use limb\core\src\lmbEnv;
 use limb\web_cache\src\lmbFullPageCache;

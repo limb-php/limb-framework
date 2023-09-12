@@ -1,5 +1,5 @@
 <?php
-namespace tests\dbal\cases\toolkit;
+namespace Tests\dbal\cases\toolkit;
 
 use limb\dbal\src\drivers\lmbDbCachedInfo;
 use limb\dbal\src\drivers\mysql\lmbMysqlDbInfo;

@@ -1,5 +1,5 @@
 <?php
-namespace tests\web_spider\cases;
+namespace Tests\web_spider\cases;
 
 class TestingSpiderObserver
 {

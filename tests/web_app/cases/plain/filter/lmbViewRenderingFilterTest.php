@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-namespace tests\web_app\cases\plain\filter;
+namespace Tests\web_app\cases\plain\filter;
 
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbHttpRequest;

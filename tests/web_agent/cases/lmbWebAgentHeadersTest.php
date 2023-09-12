@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace tests\web_agent\cases;
+namespace Tests\web_agent\cases;
 
 use limb\web_agent\src\lmbWebAgentHeaders;
 use PHPUnit\Framework\TestCase;

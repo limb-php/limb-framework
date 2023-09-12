@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace tests\config\cases;
+namespace Tests\config\cases;
 
 use limb\config\src\lmbCachedIni;
 use limb\fs\src\lmbFs;

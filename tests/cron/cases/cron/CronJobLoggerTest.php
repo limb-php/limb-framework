@@ -1,5 +1,5 @@
 <?php
-namespace tests\cron\cases\cron;
+namespace Tests\cron\cases\cron;
 
 use limb\cron\src\cron\CronJobLogger;
 use tests\cron\cases\CronModuleTestCase;

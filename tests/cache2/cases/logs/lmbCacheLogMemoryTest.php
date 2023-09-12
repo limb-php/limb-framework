@@ -1,5 +1,5 @@
 <?php
-namespace tests\cache2\cases\logs;
+namespace Tests\cache2\cases\logs;
 
 use limb\cache2\src\logs\lmbCacheLogMemory;
 

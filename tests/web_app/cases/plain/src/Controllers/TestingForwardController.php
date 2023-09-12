@@ -1,5 +1,5 @@
 <?php
-namespace tests\web_app\cases\plain\src\Controllers;
+namespace Tests\web_app\cases\plain\src\Controllers;
 
 use limb\web_app\src\Controllers\LmbController;
 

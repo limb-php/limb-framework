@@ -69,8 +69,8 @@
         "files": [
             "tests/bootstrap.php"
         ],
-        "psr-0": {
-            "tests\\": "tests/"
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     },
     "config": {

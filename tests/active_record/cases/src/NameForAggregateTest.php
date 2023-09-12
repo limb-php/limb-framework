@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\active_record\cases\src;
+namespace Tests\active_record\cases\src;
 
 // Aggregate must implement lmbSet interface.
 use limb\core\src\lmbObject;

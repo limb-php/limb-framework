@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
-namespace tests\web_app\cases\db\validation\rule;
+namespace Tests\web_app\cases\db\validation\rule;
 
 use tests\validation\cases\rule\lmbValidationRuleTestCase;
 use limb\dbal\src\lmbSimpleDb;

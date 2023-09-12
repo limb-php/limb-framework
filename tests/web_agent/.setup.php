@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace tests\web_agent;
+namespace Tests\web_agent;
 
 use limb\web_agent\src\lmbWebAgentHeaders;
 use limb\web_agent\src\request\lmbAbstractWebAgentRequest;

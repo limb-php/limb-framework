@@ -1,5 +1,5 @@
 <?php
-namespace tests\cache2\cases\logs;
+namespace Tests\cache2\cases\logs;
 
 require_once dirname(__FILE__) . '/../.setup.php';
 

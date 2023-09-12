@@ -1,5 +1,5 @@
 <?php
-namespace tests\cms\cases\Controllers;
+namespace Tests\cms\cases\Controllers;
 
 use limb\active_record\src\lmbActiveRecord;
 

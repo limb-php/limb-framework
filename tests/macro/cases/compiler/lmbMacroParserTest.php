@@ -1,5 +1,5 @@
 <?php
-namespace tests\macro\cases\compiler;
+namespace Tests\macro\cases\compiler;
 
 use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\fs\src\exception\lmbFileNotFoundException;

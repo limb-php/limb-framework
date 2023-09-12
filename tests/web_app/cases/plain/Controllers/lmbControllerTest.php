@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace tests\web_app\cases\plain\controllers;
+namespace Tests\web_app\cases\plain\controllers;
 
 use limb\view\src\lmbDummyView;
 use PHPUnit\Framework\TestCase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\active_record\cases\src;
+namespace Tests\active_record\cases\src;
 
 class TestingValueObject
 {

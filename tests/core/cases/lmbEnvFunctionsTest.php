@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\core\cases;
+namespace Tests\core\cases;
 
 require_once('.setup.php');
 

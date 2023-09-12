@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace tests\mail\cases\macro;
+namespace Tests\mail\cases\macro;
 
 use tests\macro\cases\lmbBaseMacroTestCase;
 

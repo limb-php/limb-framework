@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-namespace tests\session\cases;
+namespace Tests\session\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\session\src\lmbSession;

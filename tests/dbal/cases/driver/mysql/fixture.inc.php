@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace tests\dbal\cases\driver\mysql;
+namespace Tests\dbal\cases\driver\mysql;
 
 use limb\dbal\src\exception\lmbDbException;
 

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace tests\dbal\cases\driver\sqlite;
+namespace Tests\dbal\cases\driver\sqlite;
 
 use limb\dbal\src\drivers\sqlite\lmbSqliteInsertStatement;
 use limb\dbal\src\drivers\sqlite\lmbSqliteManipulationStatement;

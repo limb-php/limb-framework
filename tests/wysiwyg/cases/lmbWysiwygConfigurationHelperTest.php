@@ -1,5 +1,5 @@
 <?php
-namespace tests\wysiwyg\cases;
+namespace Tests\wysiwyg\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbSet;
