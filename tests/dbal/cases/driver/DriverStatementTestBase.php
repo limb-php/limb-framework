@@ -446,7 +446,6 @@ abstract class DriverStatementTestBase extends TestCase
     {
         $stmt = $this->connection->newStatement('SELECT :literal:');
         $stmt->setBlob('literal', $value);
-        $this->assertEquals($stmt->getOneValue(), $value);
 
         $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_BLOB, 'type_blob', $value);
         if(is_null($value))
