@@ -10,7 +10,7 @@ namespace limb\session\src;
 
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
-use limb\dbal\src\lmbSimpleDb;
+use limb\dbal\src\lmbTableGateway;
 
 /**
  * lmbSessionDbStorage store session data in database.
@@ -25,7 +25,7 @@ use limb\dbal\src\lmbSimpleDb;
 class lmbSessionDbStorage implements lmbSessionStorageInterface
 {
   /**
-   * @var lmbSimpleDb facade to work with database
+   * @var lmbTableGateway facade to work with database
    */
   protected $db;
   /**
@@ -42,7 +42,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
   {
     $this->max_life_time = $max_life_time;
 
-    $this->db = new lmbSimpleDb($db_connection);
+    $this->db = new lmbTableGateway('lmb_session', $db_connection);
   }
 
   /**
@@ -87,7 +87,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
    */
   function storageRead($session_id)
   {
-    $rs = $this->db->select('lmb_session', new lmbSQLFieldCriteria('session_id', $session_id));
+    $rs = $this->db->select(new lmbSQLFieldCriteria('session_id', $session_id));
     $rs->rewind();
     if($rs->valid())
       return $rs->current()->get('session_data');
@@ -103,17 +103,17 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
   function storageWrite($session_id, $value)
   {
     $crit = new lmbSQLFieldCriteria('session_id', $session_id);
-    $rs = $this->db->select('lmb_session', $crit);
+    $rs = $this->db->select($crit);
 
     $data = array('last_activity_time' => time(),
                   'session_data' => $value);
 
     if($rs->count() > 0)
-      $this->db->update('lmb_session', $data, $crit);
+      $this->db->update($data, $crit);
     else
     {
       $data['session_id'] = "{$session_id}";
-      $this->db->insert('lmb_session', $data, null);
+      $this->db->insert($data, null);
     }
 
     return true;
@@ -125,8 +125,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
    */
   function storageDestroy($session_id)
   {
-    $this->db->delete('lmb_session',
-                      new lmbSQLFieldCriteria('session_id', $session_id));
+    $this->db->delete(new lmbSQLFieldCriteria('session_id', $session_id));
 
     return true;
   }
@@ -134,15 +133,14 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
   /**
    * Checks if storage is still valid. If session if not valid - removes it's row from <b>lmb_session</b> db table
    * Prefers class attribute {@link $max_life_time} if it's not NULL.
-   * @param integer $max_life_time system session max life time
+   * @param integer $max_life_time system session max lifetime
    */
   function storageGc($max_life_time)
   {
     if($this->max_life_time)
       $max_life_time = $this->max_life_time;
 
-    $this->db->delete('lmb_session',
-                      new lmbSQLFieldCriteria('last_activity_time', time() - $max_life_time, lmbSQLFieldCriteria::LESS));
+    $this->db->delete(new lmbSQLFieldCriteria('last_activity_time', time() - $max_life_time, lmbSQLFieldCriteria::LESS));
 
     return true;
   }
