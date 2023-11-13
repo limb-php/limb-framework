@@ -13,7 +13,7 @@ require_once('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbObject;
-use tests\core\cases\src\ProxyTestingStub;
+use Tests\core\cases\src\ProxyTestingStub;
 
 class lmbProxyTest extends TestCase
 {

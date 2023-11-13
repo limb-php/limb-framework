@@ -8,7 +8,7 @@
  */
 namespace Tests\imagekit\cases\im\filters;
 
-use tests\imagekit\cases\filters\lmbBaseOutputImageFilterTest;
+use Tests\imagekit\cases\filters\lmbBaseOutputImageFilterTest;
 
 /**
  * @package imagekit

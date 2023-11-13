@@ -17,7 +17,7 @@ use limb\filter_chain\src\lmbFilterChain;
 use limb\dbal\src\lmbSimpleDb;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\drivers\lmbAutoTransactionConnection;
-use tests\dbal\cases\src\FilterWorkingWithDbStub;
+use Tests\dbal\cases\src\FilterWorkingWithDbStub;
 
 class lmbAutoDbTransactionFilterTest extends TestCase
 {

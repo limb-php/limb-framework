@@ -15,9 +15,9 @@ use limb\web_app\src\Controllers\LmbController;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbSet;
 use limb\validation\src\rule\lmbValidationRuleInterface;
-use tests\web_app\cases\plain\src\Controllers\SecondTestingController;
-use tests\web_app\cases\plain\src\Controllers\TestingController;
-use tests\web_app\cases\plain\src\Controllers\TestingForwardController;
+use Tests\web_app\cases\plain\src\Controllers\SecondTestingController;
+use Tests\web_app\cases\plain\src\Controllers\TestingController;
+use Tests\web_app\cases\plain\src\Controllers\TestingForwardController;
 
 require dirname(__FILE__) . '/../../.setup.php';
 

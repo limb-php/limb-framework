@@ -8,7 +8,7 @@
  */
 namespace Tests\cms\cases\model;
 
-use tests\cms\cases\lmbCmsTestCase;
+use Tests\cms\cases\lmbCmsTestCase;
 
 class lmbCmsDocumentTest extends lmbCmsTestCase
 {

@@ -12,12 +12,12 @@ use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARException;
 use limb\active_record\src\lmbARNotFoundException;
 use limb\dbal\src\criteria\lmbSQLCriteria;
-use tests\active_record\cases\src\BarFooLectureForTestObject;
-use tests\active_record\cases\src\BarFooOneTableTestObject;
-use tests\active_record\cases\src\CourseForTestForTypedLecture;
-use tests\active_record\cases\src\FooLectureForTestObject;
-use tests\active_record\cases\src\FooOneTableTestObject;
-use tests\active_record\cases\src\TestOneTableTypedObject;
+use Tests\active_record\cases\src\BarFooLectureForTestObject;
+use Tests\active_record\cases\src\BarFooOneTableTestObject;
+use Tests\active_record\cases\src\CourseForTestForTypedLecture;
+use Tests\active_record\cases\src\FooLectureForTestObject;
+use Tests\active_record\cases\src\FooOneTableTestObject;
+use Tests\active_record\cases\src\TestOneTableTypedObject;
 
 class lmbARSubclassingTest extends lmbARBaseTestCase
 {

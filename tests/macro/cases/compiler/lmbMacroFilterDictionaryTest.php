@@ -9,7 +9,7 @@
 namespace Tests\macro\cases\compiler;
 
 use limb\core\src\lmbEnv;
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 use limb\fs\src\lmbFs;
 use limb\macro\src\compiler\lmbMacroFilterInfo;
 use limb\macro\src\compiler\lmbMacroFilterDictionary;

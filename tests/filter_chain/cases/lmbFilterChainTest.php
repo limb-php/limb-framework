@@ -14,10 +14,10 @@ require_once('.setup.php');
 use limb\net\src\lmbHttpRequest;
 use PHPUnit\Framework\TestCase;
 use limb\filter_chain\src\lmbFilterChain;
-use tests\filter_chain\cases\src\InterceptingFilterStub;
-use tests\filter_chain\cases\src\OutputFilter1;
-use tests\filter_chain\cases\src\OutputFilter2;
-use tests\filter_chain\cases\src\OutputFilter3;
+use Tests\filter_chain\cases\src\InterceptingFilterStub;
+use Tests\filter_chain\cases\src\OutputFilter1;
+use Tests\filter_chain\cases\src\OutputFilter2;
+use Tests\filter_chain\cases\src\OutputFilter3;
 
 class lmbFilterChainTest extends TestCase
 {

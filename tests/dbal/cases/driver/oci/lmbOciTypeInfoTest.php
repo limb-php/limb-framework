@@ -11,7 +11,7 @@ namespace Tests\dbal\cases\driver\oci;
 use limb\dbal\src\drivers\oci\lmbOciRecord;
 use limb\dbal\src\drivers\oci\lmbOciStatement;
 use limb\toolkit\src\lmbToolkit;
-use tests\dbal\cases\driver\DriverTypeInfoTestBase;
+use Tests\dbal\cases\driver\DriverTypeInfoTestBase;
 
 class lmbOciTypeInfoTest extends DriverTypeInfoTestBase
 {

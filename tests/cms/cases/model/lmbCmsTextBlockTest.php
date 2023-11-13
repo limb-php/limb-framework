@@ -9,7 +9,7 @@
 namespace Tests\cms\cases\model;
 
 use limb\cms\src\model\lmbCmsTextBlock;
-use tests\cms\cases\lmbCmsTestCase;
+use Tests\cms\cases\lmbCmsTestCase;
 
 class lmbCmsTextBlockTest extends lmbCmsTestCase
 {

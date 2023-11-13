@@ -16,7 +16,7 @@ use limb\filter_chain\src\lmbFilterChain;
 use limb\net\src\lmbHttpResponse;
 use limb\web_app\src\filter\lmbViewRenderingFilter;
 use limb\view\src\lmbView;
-use tests\web_app\cases\plain\src\filter\lmbResponseReturnFilter;
+use Tests\web_app\cases\plain\src\filter\lmbResponseReturnFilter;
 
 require dirname(__FILE__) . '/../../.setup.php';
 

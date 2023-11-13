@@ -8,7 +8,7 @@
  */
 namespace Tests\imagekit\cases\im\filters;
 
-use tests\imagekit\cases\filters\lmbBaseRotateImageFilterTest;
+use Tests\imagekit\cases\filters\lmbBaseRotateImageFilterTest;
 
 /**
  * @package imagekit

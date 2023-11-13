@@ -9,7 +9,7 @@
 namespace Tests\cms\cases\request;
 
 use limb\net\src\lmbHttpRequest;
-use tests\cms\cases\lmbCmsTestCase;
+use Tests\cms\cases\lmbCmsTestCase;
 use limb\cms\src\request\lmbCmsDocumentRequestDispatcher;
 use limb\web_app\src\request\lmbRoutes;
 use limb\cms\src\model\lmbCmsDocument;

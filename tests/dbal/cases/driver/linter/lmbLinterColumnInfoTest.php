@@ -8,7 +8,7 @@
  */
 namespace Tests\dbal\cases\driver\linter;
 
-use tests\dbal\cases\driver\DriverColumnInfoTestBase;
+use Tests\dbal\cases\driver\DriverColumnInfoTestBase;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/../../.setup.php');

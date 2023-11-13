@@ -8,7 +8,7 @@
  */
 namespace Tests\dbal\cases\driver\mssql;
 
-use tests\dbal\cases\driver\DriverRecordTestBase;
+use Tests\dbal\cases\driver\DriverRecordTestBase;
 use limb\dbal\src\drivers\mssql\lmbMssqlRecord;
 use limb\toolkit\src\lmbToolkit;
 

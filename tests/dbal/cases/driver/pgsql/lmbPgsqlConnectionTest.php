@@ -13,7 +13,7 @@ use limb\dbal\src\drivers\pgsql\lmbPgsqlManipulationStatement;
 use limb\dbal\src\drivers\pgsql\lmbPgsqlQueryStatement;
 use limb\dbal\src\drivers\pgsql\lmbPgsqlStatement;
 use limb\toolkit\src\lmbToolkit;
-use tests\dbal\cases\driver\DriverConnectionTestBase;
+use Tests\dbal\cases\driver\DriverConnectionTestBase;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');

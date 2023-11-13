@@ -11,7 +11,7 @@ namespace Tests\macro\cases\compiler;
 use limb\macro\src\compiler\lmbMacroTag;
 use limb\macro\src\compiler\lmbMacroTagDictionary;
 use limb\macro\src\compiler\lmbMacroTagInfo;
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 
 class MacroTagFooTest extends lmbMacroTag
 {

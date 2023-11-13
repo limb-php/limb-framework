@@ -10,15 +10,15 @@ namespace Tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\core\src\lmbSet;
-use tests\active_record\cases\src\CourseForTestObject;
-use tests\active_record\cases\src\GroupForTestObject;
-use tests\active_record\cases\src\LazyTestOneTableObject;
-use tests\active_record\cases\src\LectureForTestObject;
-use tests\active_record\cases\src\MemberForTest;
-use tests\active_record\cases\src\PersonForTestObject;
-use tests\active_record\cases\src\SocialSecurityForTestObject;
-use tests\active_record\cases\src\TestOneTableObject;
-use tests\active_record\cases\src\UserForTestObject;
+use Tests\active_record\cases\src\CourseForTestObject;
+use Tests\active_record\cases\src\GroupForTestObject;
+use Tests\active_record\cases\src\LazyTestOneTableObject;
+use Tests\active_record\cases\src\LectureForTestObject;
+use Tests\active_record\cases\src\MemberForTest;
+use Tests\active_record\cases\src\PersonForTestObject;
+use Tests\active_record\cases\src\SocialSecurityForTestObject;
+use Tests\active_record\cases\src\TestOneTableObject;
+use Tests\active_record\cases\src\UserForTestObject;
 
 class LessonForTestWithCustomImport extends lmbActiveRecord
 {

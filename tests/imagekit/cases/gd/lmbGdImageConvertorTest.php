@@ -8,7 +8,7 @@
  */
 namespace Tests\imagekit\cases\gd;
 
-use tests\imagekit\cases\lmbBaseImageConvertorTest;
+use Tests\imagekit\cases\lmbBaseImageConvertorTest;
 
 class lmbGdImageConvertorTest extends lmbBaseImageConvertorTest
 {

@@ -8,7 +8,7 @@
  */
 namespace Tests\dbal\cases\driver\linter;
 
-use tests\dbal\cases\driver\DriverRecordTestBase;
+use Tests\dbal\cases\driver\DriverRecordTestBase;
 use limb\dbal\src\drivers\linter\lmbLinterRecord;
 use limb\toolkit\src\lmbToolkit;
 

@@ -3,7 +3,7 @@
 namespace Tests\active_record\cases\src;
 
 use limb\active_record\src\lmbActiveRecord;
-use tests\active_record\cases\src\CourseForTestForTypedLecture;
+use Tests\active_record\cases\src\CourseForTestForTypedLecture;
 
 class TypedLectureForTestObject extends lmbActiveRecord
 {

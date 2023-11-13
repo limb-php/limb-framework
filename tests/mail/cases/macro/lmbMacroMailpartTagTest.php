@@ -8,7 +8,7 @@
  */
 namespace Tests\mail\cases\macro;
 
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 
 require '.setup.php';
 

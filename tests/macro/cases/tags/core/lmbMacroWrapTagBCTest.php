@@ -8,7 +8,7 @@
  */
 namespace Tests\macro\cases\tags\core;
 
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 
 class lmbMacroWrapTagBCTest extends lmbBaseMacroTestCase
 {

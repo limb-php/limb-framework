@@ -15,10 +15,10 @@ use limb\active_record\src\lmbActiveRecord;
 use limb\core\src\exception\lmbException;
 use limb\dbal\src\lmbDBAL;
 use limb\dbal\src\lmbTableGateway;
-use tests\active_record\cases\src\GroupForTestObject;
-use tests\active_record\cases\src\GroupForTestObjectStub;
-use tests\active_record\cases\src\UserForTestObject;
-use tests\active_record\cases\src\UserForTestWithSpecialRelationTable;
+use Tests\active_record\cases\src\GroupForTestObject;
+use Tests\active_record\cases\src\GroupForTestObjectStub;
+use Tests\active_record\cases\src\UserForTestObject;
+use Tests\active_record\cases\src\UserForTestWithSpecialRelationTable;
 
 class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 {

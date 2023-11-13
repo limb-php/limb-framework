@@ -8,7 +8,7 @@
  */
 namespace Tests\macro\cases\tags\pager;
 
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 
 class lmbMacroPagerTagTest extends lmbBaseMacroTestCase
 {

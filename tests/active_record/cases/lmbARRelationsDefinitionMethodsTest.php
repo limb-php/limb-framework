@@ -9,7 +9,7 @@
 namespace Tests\active_record\cases;
 
 use PHPUnit\Framework\TestCase;
-use tests\active_record\cases\src\TestOneTableObjectWithRelationsByMethods;
+use Tests\active_record\cases\src\TestOneTableObjectWithRelationsByMethods;
 
 class lmbARRelationsDefinitionMethodsTest extends TestCase
 {

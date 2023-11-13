@@ -8,7 +8,7 @@
  */
 namespace Tests\i18n\cases\macro;
 
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 use limb\i18n\src\charset\lmbUTF8BaseDriver;
 use limb\i18n\src\charset\lmbI18nString;
 

@@ -3,7 +3,7 @@ namespace Tests\cron\cases;
 
 use limb\cron\src\cron\CronJobLogger;
 use limb\dbal\src\lmbTableGateway;
-use tests\web_app\cases\lmbWebAppTestCase;
+use Tests\web_app\cases\lmbWebAppTestCase;
 use limb\dbal\src\drivers\lmbAuditDbConnection;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\lmbSimpleDb;

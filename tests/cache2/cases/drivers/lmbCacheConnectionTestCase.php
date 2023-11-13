@@ -16,7 +16,7 @@ use limb\core\src\lmbEnv;
 use limb\core\src\lmbObject;
 use limb\cache2\src\lmbCacheFactory;
 use limb\net\src\lmbUri;
-use tests\cache\cases\CacheableFooBarClass;
+use Tests\cache\cases\CacheableFooBarClass;
 
 abstract class lmbCacheConnectionTestCase extends TestCase
 {

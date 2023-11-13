@@ -14,7 +14,7 @@ require_once('.setup.php');
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbDelegatesChain;
 use limb\core\src\lmbDelegate;
-use tests\core\cases\src\DelegatesChainTestingStubObject;
+use Tests\core\cases\src\DelegatesChainTestingStubObject;
 
 class lmbDelegatesChainTest extends TestCase
 {

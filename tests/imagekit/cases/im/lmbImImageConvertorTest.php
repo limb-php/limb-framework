@@ -8,7 +8,7 @@
  */
 namespace Tests\imagekit\cases\im;
 
-use tests\imagekit\cases\lmbBaseImageConvertorTest;
+use Tests\imagekit\cases\lmbBaseImageConvertorTest;
 
 class lmbImImageConvertorTest extends lmbBaseImageConvertorTest
 {

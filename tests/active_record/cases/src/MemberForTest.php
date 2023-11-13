@@ -3,7 +3,7 @@
 namespace Tests\active_record\cases\src;
 
 use limb\active_record\src\lmbActiveRecord;
-use tests\active_record\cases\src\NameForAggregateTest;
+use Tests\active_record\cases\src\NameForAggregateTest;
 
 class MemberForTest extends lmbActiveRecord
 {

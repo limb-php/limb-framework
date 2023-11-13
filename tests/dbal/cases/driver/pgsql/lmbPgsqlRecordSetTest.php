@@ -11,7 +11,7 @@ namespace Tests\dbal\cases\driver\pgsql;
 use limb\dbal\src\drivers\pgsql\lmbPgsqlRecord;
 use limb\dbal\src\drivers\pgsql\lmbPgsqlRecordSet;
 use limb\toolkit\src\lmbToolkit;
-use tests\dbal\cases\driver\DriverRecordSetTestBase;
+use Tests\dbal\cases\driver\DriverRecordSetTestBase;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');

@@ -9,7 +9,7 @@
 namespace Tests\dbal\cases\driver\mssql;
 
 use limb\dbal\src\drivers\mssql\lmbMssqlInsertStatement;
-use tests\dbal\cases\driver\DriverInsertTestBase;
+use Tests\dbal\cases\driver\DriverInsertTestBase;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/fixture.inc.php');

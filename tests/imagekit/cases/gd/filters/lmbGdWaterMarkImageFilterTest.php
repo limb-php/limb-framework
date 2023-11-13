@@ -8,7 +8,7 @@
  */
 namespace Tests\imagekit\cases\gd\filters;
 
-use tests\imagekit\cases\filters\lmbBaseWaterMarkImageFilterTest;
+use Tests\imagekit\cases\filters\lmbBaseWaterMarkImageFilterTest;
 
 /**
  * @package imagekit

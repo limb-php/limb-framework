@@ -13,9 +13,9 @@ require_once('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\Handle;
-use tests\core\cases\src\lmbHandleDeclaredInSameFile;
-use tests\core\cases\src\lmbLoadedHandleClass;
-use tests\core\cases\src\lmbTestHandleClass;
+use Tests\core\cases\src\lmbHandleDeclaredInSameFile;
+use Tests\core\cases\src\lmbLoadedHandleClass;
+use Tests\core\cases\src\lmbTestHandleClass;
 
 class HandleTest extends TestCase
 {

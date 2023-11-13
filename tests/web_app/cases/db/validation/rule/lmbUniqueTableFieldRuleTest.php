@@ -8,7 +8,7 @@
  */
 namespace Tests\web_app\cases\db\validation\rule;
 
-use tests\validation\cases\rule\lmbValidationRuleTestCase;
+use Tests\validation\cases\rule\lmbValidationRuleTestCase;
 use limb\dbal\src\lmbSimpleDb;
 use limb\web_app\src\validation\rule\UniqueTableFieldRule;
 use limb\toolkit\src\lmbToolkit;

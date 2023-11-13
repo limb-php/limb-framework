@@ -1,7 +1,7 @@
 <?php
 namespace Tests\macro\cases\compiler;
 
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\macro\src\compiler\lmbMacroTreeBuilder;
 use limb\macro\src\compiler\lmbMacroTagDictionary;

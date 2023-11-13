@@ -11,8 +11,8 @@ namespace Tests\active_record\cases;
 use limb\validation\src\exception\lmbValidationException;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;
-use tests\active_record\cases\src\lmbActiveRecordValidationStub;
-use tests\active_record\cases\src\TestOneTableObjectFailing;
+use Tests\active_record\cases\src\lmbActiveRecordValidationStub;
+use Tests\active_record\cases\src\TestOneTableObjectFailing;
 
 class lmbARValidationTest extends lmbARBaseTestCase
 {

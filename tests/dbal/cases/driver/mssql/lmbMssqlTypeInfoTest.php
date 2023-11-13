@@ -11,7 +11,7 @@ namespace Tests\dbal\cases\driver\mssql;
 use limb\dbal\src\drivers\mssql\lmbMssqlRecord;
 use limb\dbal\src\drivers\mssql\lmbMssqlStatement;
 use limb\toolkit\src\lmbToolkit;
-use tests\dbal\cases\driver\DriverTypeInfoTestBase;
+use Tests\dbal\cases\driver\DriverTypeInfoTestBase;
 
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 

@@ -9,7 +9,7 @@
 namespace Tests\dbal\cases\driver\sqlite;
 
 use limb\toolkit\src\lmbToolkit;
-use tests\dbal\cases\driver\DriverTableInfoTestBase;
+use Tests\dbal\cases\driver\DriverTableInfoTestBase;
 
 require_once('.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');

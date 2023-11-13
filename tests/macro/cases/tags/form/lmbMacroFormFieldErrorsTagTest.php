@@ -8,7 +8,7 @@
  */
 namespace Tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 use limb\macro\src\tags\form\lmbMacroFormErrorList;
 
 class lmbMacroFormFieldErrorsTagTest extends lmbBaseMacroTestCase

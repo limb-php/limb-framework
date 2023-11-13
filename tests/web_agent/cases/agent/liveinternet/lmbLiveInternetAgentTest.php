@@ -15,7 +15,7 @@ namespace Tests\web_agent\cases\agent\liveinternet;
 use limb\web_agent\src\lmbWebServerCookie;
 use PHPUnit\Framework\TestCase;
 use limb\web_agent\src\agent\liveinternet\lmbLiveInternetAgent;
-use tests\web_agent\lmbFakeWebAgentRequest;
+use Tests\web_agent\lmbFakeWebAgentRequest;
 
 require_once dirname(__FILE__) . '/../../../.setup.php';
 

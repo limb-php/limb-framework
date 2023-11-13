@@ -14,8 +14,8 @@ require_once('.setup.php');
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbDecorator;
 use limb\core\src\exception\lmbException;
-use tests\core\cases\src\DecorateeTestInterface;
-use tests\core\cases\src\DecorateeTestStub;
+use Tests\core\cases\src\DecorateeTestInterface;
+use Tests\core\cases\src\DecorateeTestStub;
 
 class lmbDecoratorTest extends TestCase
 {

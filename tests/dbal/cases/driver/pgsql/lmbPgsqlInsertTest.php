@@ -9,7 +9,7 @@
 namespace Tests\dbal\cases\driver\pgsql;
 
 use limb\dbal\src\drivers\pgsql\lmbPgsqlInsertStatement;
-use tests\dbal\cases\driver\DriverInsertTestBase;
+use Tests\dbal\cases\driver\DriverInsertTestBase;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/.setup.php');

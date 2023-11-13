@@ -12,7 +12,7 @@ namespace Tests\dbal\cases\driver\sqlite;
 use limb\dbal\src\drivers\sqlite\lmbSqliteRecord;
 use limb\dbal\src\drivers\sqlite\lmbSqliteStatement;
 use limb\toolkit\src\lmbToolkit;
-use tests\dbal\cases\driver\DriverTypeInfoTestBase;
+use Tests\dbal\cases\driver\DriverTypeInfoTestBase;
 
 require_once('.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');

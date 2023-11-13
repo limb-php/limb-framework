@@ -1,7 +1,7 @@
 <?php
 namespace Tests\cms\cases\model;
 
-use tests\cms\cases\lmbCmsTestCase;
+use Tests\cms\cases\lmbCmsTestCase;
 use limb\active_record\src\lmbActiveRecord;
 use limb\cms\src\model\lmbCmsDocument;
 

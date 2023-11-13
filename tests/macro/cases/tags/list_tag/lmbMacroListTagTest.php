@@ -8,7 +8,7 @@
  */
 namespace Tests\macro\cases\tags\list_tag;
 
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 use limb\core\src\lmbArrayIterator;
 
 class lmbMacroListTagTest extends lmbBaseMacroTestCase

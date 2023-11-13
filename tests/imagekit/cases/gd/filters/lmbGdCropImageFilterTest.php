@@ -8,7 +8,7 @@
  */
 namespace Tests\imagekit\cases\gd\filters;
 
-use tests\imagekit\cases\filters\lmbBaseCropImageFilterTest;
+use Tests\imagekit\cases\filters\lmbBaseCropImageFilterTest;
 
 /**
  * @package imagekit

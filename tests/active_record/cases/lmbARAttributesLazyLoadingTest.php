@@ -10,9 +10,9 @@ namespace Tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARQuery;
-use tests\active_record\cases\src\LazyTestOneTableObject;
-use tests\active_record\cases\src\PersonForLazyAttributesTestObject;
-use tests\active_record\cases\src\TestOneTableObject;
+use Tests\active_record\cases\src\LazyTestOneTableObject;
+use Tests\active_record\cases\src\PersonForLazyAttributesTestObject;
+use Tests\active_record\cases\src\TestOneTableObject;
 
 require_once '.setup.php';
 

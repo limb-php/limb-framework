@@ -8,7 +8,7 @@
  */
 namespace Tests\imagekit\cases\gd;
 
-use tests\imagekit\cases\lmbBaseImageKitTest;
+use Tests\imagekit\cases\lmbBaseImageKitTest;
 
 class lmbGdImageKitTest extends lmbBaseImageKitTest
 {

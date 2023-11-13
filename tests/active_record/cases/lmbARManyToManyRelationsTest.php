@@ -13,10 +13,10 @@ require_once '.setup.php';
 use limb\active_record\src\lmbActiveRecord;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;
-use tests\active_record\cases\src\GroupForTestObject;
-use tests\active_record\cases\src\GroupsForTestCollectionStub;
-use tests\active_record\cases\src\UserForTestObject;
-use tests\active_record\cases\src\UserForTestWithCustomCollection;
+use Tests\active_record\cases\src\GroupForTestObject;
+use Tests\active_record\cases\src\GroupsForTestCollectionStub;
+use Tests\active_record\cases\src\UserForTestObject;
+use Tests\active_record\cases\src\UserForTestWithCustomCollection;
 
 class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
 {

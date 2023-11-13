@@ -15,8 +15,8 @@ use limb\web_app\src\fetcher\lmbActiveRecordFetcher;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbCollection;
 use limb\core\src\exception\lmbException;
-use tests\web_app\cases\lmbWebAppTestCase;
-use tests\active_record\cases\src\CourseForTestObject;
+use Tests\web_app\cases\lmbWebAppTestCase;
+use Tests\active_record\cases\src\CourseForTestObject;
 
 class CourseForFetcherTestVersionObject extends CourseForTestObject
 {

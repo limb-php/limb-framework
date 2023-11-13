@@ -10,7 +10,7 @@ namespace Tests\dbal\cases\driver\linter;
 
 use limb\dbal\src\drivers\linter\lmbLinterManipulationStatement;
 use limb\toolkit\src\lmbToolkit;
-use tests\dbal\cases\driver\DriverUpdateTestBase;
+use Tests\dbal\cases\driver\DriverUpdateTestBase;
 
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 

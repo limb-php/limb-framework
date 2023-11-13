@@ -10,7 +10,7 @@ namespace Tests\dbal\cases\driver\oci;
 
 use limb\dbal\src\drivers\oci\lmbOciInsertStatement;
 use limb\toolkit\src\lmbToolkit;
-use tests\dbal\cases\driver\DriverInsertTestBase;
+use Tests\dbal\cases\driver\DriverInsertTestBase;
 
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 

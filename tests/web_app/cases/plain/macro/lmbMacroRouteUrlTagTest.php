@@ -8,7 +8,7 @@
  */
 namespace Tests\web_app\cases\plain\macro;
 
-use tests\view\lmbMacroTestCase;
+use Tests\view\lmbMacroTestCase;
 use limb\web_app\src\request\lmbRoutes;
 use limb\web_app\src\Controllers\LmbController;
 

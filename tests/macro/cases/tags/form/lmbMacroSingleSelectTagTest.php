@@ -8,7 +8,7 @@
  */
 namespace Tests\macro\cases\tags\form;
 
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 use limb\core\src\lmbObject;
 
 class lmbMacroSingleSelectTagTest extends lmbBaseMacroTestCase

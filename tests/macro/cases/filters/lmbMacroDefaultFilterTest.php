@@ -8,7 +8,7 @@
  */
 namespace Tests\macro\cases\filters;
 
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 
 class lmbMacroDefaultFilterTest extends lmbBaseMacroTestCase
 {

@@ -8,7 +8,7 @@
  */
 namespace Tests\imagekit\cases\im;
 
-use tests\imagekit\cases\lmbBaseImageContainerTest;
+use Tests\imagekit\cases\lmbBaseImageContainerTest;
 
 class lmbImImageContainerTest extends lmbBaseImageContainerTest
 {

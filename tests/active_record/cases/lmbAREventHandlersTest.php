@@ -8,8 +8,8 @@
  */
 namespace Tests\active_record\cases;
 
-use tests\active_record\cases\src\lmbActiveRecordEventHandlerStubDelegate;
-use tests\active_record\cases\src\TestOneTableObject;
+use Tests\active_record\cases\src\lmbActiveRecordEventHandlerStubDelegate;
+use Tests\active_record\cases\src\TestOneTableObject;
 
 class lmbAREventHandlersTest extends lmbARBaseTestCase
 {

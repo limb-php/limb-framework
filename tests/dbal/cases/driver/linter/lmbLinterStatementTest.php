@@ -10,7 +10,7 @@ namespace Tests\dbal\cases\driver\linter;
 
 use limb\dbal\src\drivers\lmbDbTypeInfo;
 use limb\toolkit\src\lmbToolkit;
-use tests\dbal\cases\driver\DriverStatementTestBase;
+use Tests\dbal\cases\driver\DriverStatementTestBase;
 
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 

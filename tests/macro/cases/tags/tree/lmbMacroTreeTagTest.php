@@ -8,7 +8,7 @@
  */
 namespace Tests\macro\cases\tags\tree;
 
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 
 class lmbMacroTreeTagTest extends lmbBaseMacroTestCase
 {

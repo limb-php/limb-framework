@@ -10,7 +10,7 @@ namespace Tests\i18n\cases\macro;
 
 use limb\config\src\lmbIni;
 use limb\core\src\lmbSet;
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 use limb\datetime\src\lmbDateTime;
 use limb\toolkit\src\lmbToolkit;
 use limb\i18n\src\locale\lmbLocale;

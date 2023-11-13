@@ -8,7 +8,7 @@
  */
 namespace Tests\active_record\cases;
 
-use tests\active_record\cases\src\TestOneTableObjectFailing;
+use Tests\active_record\cases\src\TestOneTableObjectFailing;
 
 class lmbARTransactionTest extends lmbARBaseTestCase
 {

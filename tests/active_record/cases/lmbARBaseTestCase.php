@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use limb\dbal\src\drivers\lmbAuditDbConnection;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\lmbSimpleDb;
-use tests\active_record\cases\src\lmbARTestingObjectMother;
+use Tests\active_record\cases\src\lmbARTestingObjectMother;
 
 require_once '.setup.php';
 

@@ -14,13 +14,13 @@ require_once('.setup.php');
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbMixable;
 use limb\core\src\exception\lmbException;
-use tests\core\cases\src\MixableTestVersion;
-use tests\core\cases\src\MixedTestStub;
-use tests\core\cases\src\MixinBar;
-use tests\core\cases\src\MixinCallingOwnerMethod;
-use tests\core\cases\src\MixinCallingOwnerVar;
-use tests\core\cases\src\MixinFoo;
-use tests\core\cases\src\MixinOverridinFoo;
+use Tests\core\cases\src\MixableTestVersion;
+use Tests\core\cases\src\MixedTestStub;
+use Tests\core\cases\src\MixinBar;
+use Tests\core\cases\src\MixinCallingOwnerMethod;
+use Tests\core\cases\src\MixinCallingOwnerVar;
+use Tests\core\cases\src\MixinFoo;
+use Tests\core\cases\src\MixinOverridinFoo;
 
 class lmbMixableTest extends TestCase
 {

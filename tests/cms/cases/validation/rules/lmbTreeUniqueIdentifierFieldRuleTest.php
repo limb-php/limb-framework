@@ -2,7 +2,7 @@
 namespace Tests\cms\cases\validation\rules;
 
 use limb\validation\src\lmbErrorList;
-use tests\cms\cases\lmbCmsTestCase;
+use Tests\cms\cases\lmbCmsTestCase;
 use limb\cms\src\validation\rule\TreeUniqueIdentifierRule;
 use limb\cms\src\model\lmbCmsDocument;
 

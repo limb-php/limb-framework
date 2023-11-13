@@ -9,7 +9,7 @@
 namespace Tests\dbal\cases\driver\linter;
 
 use limb\dbal\src\drivers\linter\lmbLinterInsertStatement;
-use tests\dbal\cases\driver\DriverInsertTestBase;
+use Tests\dbal\cases\driver\DriverInsertTestBase;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/fixture.inc.php');

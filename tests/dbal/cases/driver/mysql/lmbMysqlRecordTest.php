@@ -8,7 +8,7 @@
  */
 namespace Tests\dbal\cases\driver\mysql;
 
-use tests\dbal\cases\driver\DriverRecordTestBase;
+use Tests\dbal\cases\driver\DriverRecordTestBase;
 use limb\dbal\src\drivers\mysql\lmbMysqlRecord;
 use limb\toolkit\src\lmbToolkit;
 

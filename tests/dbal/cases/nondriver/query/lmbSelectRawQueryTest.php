@@ -18,7 +18,7 @@ use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\core\src\exception\lmbException;
-use tests\dbal\cases\src\ConnectionTestStub;
+use Tests\dbal\cases\src\ConnectionTestStub;
 
 class lmbSelectRawQueryTest extends TestCase
 {

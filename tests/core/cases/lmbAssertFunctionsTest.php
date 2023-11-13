@@ -14,7 +14,7 @@ require_once('.setup.php');
 use PHPUnit\Framework\TestCase;
 use limb\core\src\exception\lmbInvalidArgumentException;
 use limb\core\src\lmbAssert;
-use tests\core\cases\src\extStdClass;
+use Tests\core\cases\src\extStdClass;
 
 class lmbAssertFunctionsTest extends TestCase
 {

@@ -8,7 +8,7 @@
  */
 namespace Tests\imagekit\cases\gd\filters;
 
-use tests\imagekit\cases\filters\lmbBaseResizeImageFilterTest;
+use Tests\imagekit\cases\filters\lmbBaseResizeImageFilterTest;
 
 /**
  * @package imagekit

@@ -9,7 +9,7 @@
 namespace Tests\dbal\cases\driver\sqlite;
 
 use limb\dbal\src\drivers\sqlite\lmbSqliteInsertStatement;
-use tests\dbal\cases\driver\DriverInsertTestBase;
+use Tests\dbal\cases\driver\DriverInsertTestBase;
 use limb\toolkit\src\lmbToolkit;
 
 require_once('.setup.php');

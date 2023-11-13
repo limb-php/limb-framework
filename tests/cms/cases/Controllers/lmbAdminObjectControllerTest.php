@@ -12,7 +12,7 @@ use limb\net\src\lmbFakeHttpResponse;
 use PHPUnit\Framework\TestCase;
 use limb\active_record\src\lmbActiveRecord;
 use limb\net\src\lmbHttpRequest;
-use tests\web_app\cases\lmbWebApplicationSandbox;
+use Tests\web_app\cases\lmbWebApplicationSandbox;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/../.setup.php');

@@ -11,7 +11,7 @@ namespace Tests\dbal\cases\driver\linter;
 use limb\dbal\src\drivers\linter\lmbLinterRecord;
 use limb\dbal\src\drivers\linter\lmbLinterStatement;
 use limb\toolkit\src\lmbToolkit;
-use tests\dbal\cases\driver\DriverTypeInfoTestBase;
+use Tests\dbal\cases\driver\DriverTypeInfoTestBase;
 
 class lmbLinterTypeInfoTest extends DriverTypeInfoTestBase
 {

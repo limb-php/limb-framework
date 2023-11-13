@@ -8,7 +8,7 @@
  */
 namespace Tests\imagekit\cases\filters;
 
-use tests\imagekit\cases\lmbImageKitTestCase;
+use Tests\imagekit\cases\lmbImageKitTestCase;
 
 abstract class lmbBaseOutputImageFilterTest extends lmbImageKitTestCase
 {

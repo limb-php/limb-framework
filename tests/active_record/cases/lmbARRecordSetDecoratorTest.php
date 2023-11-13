@@ -12,8 +12,8 @@ use limb\active_record\src\lmbARRecordSetDecorator;
 use limb\core\src\lmbCollection;
 use limb\dbal\src\lmbSimpleDb;
 use limb\toolkit\src\lmbToolkit;
-use tests\active_record\cases\src\CourseForTestObject;
-use tests\active_record\cases\src\LectureForTestObject;
+use Tests\active_record\cases\src\CourseForTestObject;
+use Tests\active_record\cases\src\LectureForTestObject;
 
 class lmbARRecordSetDecoratorTest extends lmbARBaseTestCase
 {

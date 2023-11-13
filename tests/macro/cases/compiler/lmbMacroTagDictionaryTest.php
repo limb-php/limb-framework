@@ -8,7 +8,7 @@
  */
 namespace Tests\macro\cases\compiler;
 
-use tests\macro\cases\lmbBaseMacroTestCase;
+use Tests\macro\cases\lmbBaseMacroTestCase;
 use limb\macro\src\compiler\lmbMacroTagInfo;
 use limb\macro\src\compiler\lmbMacroTagDictionary;
 use limb\fs\src\lmbFs;

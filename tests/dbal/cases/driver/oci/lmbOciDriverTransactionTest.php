@@ -9,7 +9,7 @@
 namespace Tests\dbal\cases\driver\oci;
 
 use limb\toolkit\src\lmbToolkit;
-use tests\dbal\cases\driver\DriverTransactionTestBase;
+use Tests\dbal\cases\driver\DriverTransactionTestBase;
 
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 

@@ -14,7 +14,7 @@ require_once('.setup.php');
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbDelegate;
 use limb\core\src\exception\lmbException;
-use tests\core\cases\src\DelegateTestingStub;
+use Tests\core\cases\src\DelegateTestingStub;
 
 function DelegateTestingStubFunction($arg = null)
 {

@@ -14,7 +14,7 @@ namespace Tests\web_agent\cases;
 use limb\web_agent\src\lmbWebAgent;
 use limb\web_agent\src\lmbWebServerCookie;
 use PHPUnit\Framework\TestCase;
-use tests\web_agent\lmbFakeWebAgentRequest;
+use Tests\web_agent\lmbFakeWebAgentRequest;
 
 /**
  * @package web_agent
