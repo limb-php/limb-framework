@@ -41,7 +41,7 @@ function DriverPgsqlSetup($conn)
           "type_timestamp" timestamp,
           "type_date" date,
           "type_time" time,
-          "type_blob" text,
+          "type_blob" bytea,
           PRIMARY KEY (id))';
   DriverPgsqlExec($conn, $sql);
 

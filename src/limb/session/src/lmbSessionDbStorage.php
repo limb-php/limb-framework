@@ -90,7 +90,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     $rs = $this->db->select(new lmbSQLFieldCriteria('session_id', $session_id));
     $rs->rewind();
     if($rs->valid())
-      return $rs->current()->get('session_data');
+      return $rs->current()->getBlob('session_data');
     else
       return ''; // return String. Important!!!
   }

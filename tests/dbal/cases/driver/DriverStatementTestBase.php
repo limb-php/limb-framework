@@ -173,6 +173,12 @@ abstract class DriverStatementTestBase extends TestCase
     $this->_checkBooleanValue(0);
   }
 
+  function testSetBlob()
+  {
+      $this->_checkBlobValue(null);
+      $this->_checkBlobValue('blobvalue');
+  }
+
   function testSetFloat()
   {
     $this->_checkFloatValue((float) 0);
@@ -435,6 +441,23 @@ abstract class DriverStatementTestBase extends TestCase
       $this->assertEquals($record->getBoolean('type_boolean'), (boolean) $value);
     }
   }
+
+    protected function _checkBlobValue($value)
+    {
+        $stmt = $this->connection->newStatement('SELECT :literal:');
+        $stmt->setBlob('literal', $value);
+        $this->assertEquals($stmt->getOneValue(), $value);
+
+        $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_BLOB, 'type_blob', $value);
+        if(is_null($value))
+        {
+            $this->assertNull($record->getBlob('type_blob'));
+        }
+        else
+        {
+            $this->assertEquals($record->getBlob('type_blob'), $value);
+        }
+    }
 
   protected function _checkDecimalValue($value)
   {
