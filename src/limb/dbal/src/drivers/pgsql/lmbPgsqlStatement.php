@@ -156,7 +156,7 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
 
   function setBlob($name, $value)
   {
-    $this->parameters[$name] = is_null($value) ? null : (string) $value;
+    $this->parameters[$name] = is_null($value) ? null : pg_escape_bytea($value);
   }
 
   function set($name, $value)
