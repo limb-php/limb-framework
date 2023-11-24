@@ -204,9 +204,9 @@ class lmbOciConnection extends lmbDbBaseConnection
     return str_replace ("'", "''", $string);
   }
 
-  function getSequenceValue($table, $colname)
+  function getSequenceValue($queryId = null) // $table
   {
-    $seq = substr("{$table}", 0, 26) . "_seq";
+    $seq = substr("{$queryId}", 0, 26) . "_seq";
     return (int)$this->newStatement("SELECT $seq.CURRVAL FROM DUAL")->getOneValue();
   }
 }

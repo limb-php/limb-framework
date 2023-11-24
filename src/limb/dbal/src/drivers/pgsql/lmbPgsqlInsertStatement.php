@@ -20,12 +20,12 @@ class lmbPgsqlInsertStatement extends lmbPgsqlManipulationStatement implements l
 {
   function insertId($field_name = 'id')
   {
-    $this->execute();
+    $queryId = $this->execute();
 
     if(isset($this->parameters[$field_name]) && !empty($this->parameters[$field_name]))
       return $this->parameters[$field_name];
     else
-      return $this->connection->getSequenceValue($this->_retriveTableName($this->getSQL()), $field_name);
+      return $this->connection->getSequenceValue($queryId);
   }
 
   function _retriveTableName($sql)

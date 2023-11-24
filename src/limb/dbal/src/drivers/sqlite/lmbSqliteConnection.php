@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbBaseConnection;
@@ -31,7 +32,7 @@ class lmbSqliteConnection extends lmbDbBaseConnection
 
     function getExtension()
     {
-        if(is_object($this->extension))
+        if (is_object($this->extension))
             return $this->extension;
 
         return $this->extension = new lmbSqliteExtension($this);
@@ -47,145 +48,141 @@ class lmbSqliteConnection extends lmbDbBaseConnection
         return $this->getConnection();
     }
 
-  function getConnection()
-  {
-    if(!$this->connection)
-      $this->connect();
-
-    return $this->connection;
-  }
-
-  function connect()
-  {
-      $this->connection = new \SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE);
-
-      if( !file_exists($this->config['database']) )
-          $this->_raiseError();
-  }
-
-  function __wakeup()
-  {
-    $this->connection = null;
-  }
-
-  function disconnect()
-  {
-    if(is_resource($this->connection))
+    function getConnection()
     {
-      $this->connection->close();
+        if (!$this->connection)
+            $this->connect();
+
+        return $this->connection;
     }
-  }
 
-  function _raiseError($sql = null)
-  {
-    if(!$this->connection)
-      throw new lmbDbException('Could not connect to database "' . $this->config['database'] . '"');
-
-    $errno = $this->connection->lastErrorCode();
-
-    $info = array('driver' => 'sqlite');
-    $info['errorno'] = $errno;
-    $info['db'] = $this->config['database'];
-
-    if(!is_null($sql))
-      $info['sql'] = $sql;
-
-    throw new lmbDbException($this->connection->lastErrorMsg() . ' SQL: '. $sql, $info);
-  }
-
-  function execute($sql)
-  {
-    $result = $this->getConnection()->query($sql);
-    if($result === false)
-      $this->_raiseError($sql);
-
-    return $result;
-  }
-
-  function executeStatement($stmt)
-  {
-    return (bool)$this->execute($stmt->getSQL());      
-  }
-  
-  function beginTransaction()
-  {
-    $this->execute('BEGIN');
-    $this->in_transaction = true;
-  }
-
-  function commitTransaction()
-  {
-    if($this->in_transaction)
+    function connect()
     {
-      $this->execute('COMMIT');
-      $this->in_transaction = false;
-    }
-  }
+        $this->connection = new \SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE);
 
-  function rollbackTransaction()
-  {
-    if($this->in_transaction)
+        if (!file_exists($this->config['database']))
+            $this->_raiseError();
+    }
+
+    function __wakeup()
     {
-      $this->execute('ROLLBACK');
-      $this->in_transaction = false;
+        $this->connection = null;
     }
-  }
 
-  function newStatement($sql): lmbDbStatementInterface
-  {
-    if(preg_match('/^\s*\(*\s*(\w+).*$/m', $sql, $match))
-      $statement = $match[1];
-    else
-      $statement = $sql;
-
-    switch(strtoupper($statement))
+    function disconnect()
     {
-      case 'SELECT':
-      case 'SHOW':
-      case 'DESCRIBE':
-      case 'EXPLAIN':
-        return new lmbSqliteQueryStatement($this, $sql);
-      case 'INSERT':
-        return new lmbSqliteInsertStatement($this, $sql);
-      case 'DROP':
-        return new lmbSqliteDropStatement($this, $sql);
-      case 'UPDATE':
-      case 'DELETE':
-        return new lmbSqliteManipulationStatement($this, $sql);
-      default:
-        return new lmbSqliteStatement($this, $sql);
+        if (is_resource($this->connection)) {
+            $this->connection->close();
+        }
     }
-  }
 
-  function getTypeInfo(): lmbSqliteTypeInfo
-  {
-    return new lmbSqliteTypeInfo();
-  }
+    function _raiseError($sql = null)
+    {
+        if (!$this->connection)
+            throw new lmbDbException('Could not connect to database "' . $this->config['database'] . '"');
 
-  function getDatabaseInfo(): lmbSqliteDbInfo
-  {
-    return new lmbSqliteDbInfo($this, $this->config['database'], true);
-  }
+        $errno = $this->connection->lastErrorCode();
 
-  function quoteIdentifier($id)
-  {
-    if(!$id)
-        return '';
+        $info = array('driver' => 'sqlite');
+        $info['errorno'] = $errno;
+        $info['db'] = $this->config['database'];
 
-    $pieces = explode('.', $id);
-    $quoted = '"' . $pieces[0] . '"';
-    if(isset($pieces[1]))
-       $quoted .= '."' . $pieces[1] . '"';
-    return $quoted;
-  }
+        if (!is_null($sql))
+            $info['sql'] = $sql;
 
-  function escape($string)
-  {
-    return \SQLite3::escapeString($string);
-  }
+        throw new lmbDbException($this->connection->lastErrorMsg() . ' SQL: ' . $sql, $info);
+    }
 
-  function getSequenceValue($table, $colname)
-  {
-    return $this->getConnection()->lastInsertRowID();//???
-  }
+    function execute($sql)
+    {
+        $result = $this->getConnection()->query($sql);
+        if ($result === false)
+            $this->_raiseError($sql);
+
+        return $result;
+    }
+
+    function executeStatement($stmt)
+    {
+        return (bool)$this->execute($stmt->getSQL());
+    }
+
+    function beginTransaction()
+    {
+        $this->execute('BEGIN');
+        $this->in_transaction = true;
+    }
+
+    function commitTransaction()
+    {
+        if ($this->in_transaction) {
+            $this->execute('COMMIT');
+            $this->in_transaction = false;
+        }
+    }
+
+    function rollbackTransaction()
+    {
+        if ($this->in_transaction) {
+            $this->execute('ROLLBACK');
+            $this->in_transaction = false;
+        }
+    }
+
+    function newStatement($sql): lmbDbStatementInterface
+    {
+        if (preg_match('/^\s*\(*\s*(\w+).*$/m', $sql, $match))
+            $statement = $match[1];
+        else
+            $statement = $sql;
+
+        switch (strtoupper($statement)) {
+            case 'SELECT':
+            case 'SHOW':
+            case 'DESCRIBE':
+            case 'EXPLAIN':
+                return new lmbSqliteQueryStatement($this, $sql);
+            case 'INSERT':
+                return new lmbSqliteInsertStatement($this, $sql);
+            case 'DROP':
+                return new lmbSqliteDropStatement($this, $sql);
+            case 'UPDATE':
+            case 'DELETE':
+                return new lmbSqliteManipulationStatement($this, $sql);
+            default:
+                return new lmbSqliteStatement($this, $sql);
+        }
+    }
+
+    function getTypeInfo(): lmbSqliteTypeInfo
+    {
+        return new lmbSqliteTypeInfo();
+    }
+
+    function getDatabaseInfo(): lmbSqliteDbInfo
+    {
+        return new lmbSqliteDbInfo($this, $this->config['database'], true);
+    }
+
+    function quoteIdentifier($id)
+    {
+        if (!$id)
+            return '';
+
+        $pieces = explode('.', $id);
+        $quoted = '"' . $pieces[0] . '"';
+        if (isset($pieces[1]))
+            $quoted .= '."' . $pieces[1] . '"';
+        return $quoted;
+    }
+
+    function escape($string)
+    {
+        return \SQLite3::escapeString($string);
+    }
+
+    function getSequenceValue($queryId = null)
+    {
+        return $this->getConnection()->lastInsertRowID();
+    }
 }
