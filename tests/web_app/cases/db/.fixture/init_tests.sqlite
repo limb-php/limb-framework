@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `test_db_table`;
 CREATE TABLE `test_db_table` (
-  `id` int(11) NOT NULL PRIMARY KEY,
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
   `description` varchar(255),
   `title` varchar(255) NOT NULL default ''
 );
@@ -13,19 +13,19 @@ CREATE TABLE `test_table` (
 
 DROP TABLE IF EXISTS `test_object`;
 CREATE TABLE `test_object` (
-  `id` int(11) NOT NULL PRIMARY KEY,
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
   `title` varchar(255) NOT NULL default ''
 );
 
 DROP TABLE IF EXISTS `course_for_test`;
 CREATE TABLE `course_for_test` (
- `id` bigint(20) NOT NULL PRIMARY KEY,
+ `id` INTEGER PRIMARY KEY AUTOINCREMENT,
  `title` varchar(255) default NULL
 );
 
 DROP TABLE IF EXISTS `lecture_for_test`;
 CREATE TABLE `lecture_for_test` (
-  `id` bigint(20) NOT NULL PRIMARY KEY,
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
   `title` varchar(255) default NULL,
   `course_id` bigint(20) default NULL,
   `alt_course_id` bigint(20) default NULL
