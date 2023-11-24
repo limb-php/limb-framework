@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutes;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
+use Tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
 
 class lmbRoutesToUrlTest extends TestCase
 {
@@ -51,8 +52,15 @@ class lmbRoutesToUrlTest extends TestCase
     function testToUrlWithPrefix()
     {
         $config = array(
-            'articles' => array(
+            'api_articles' => array(
                 'prefix' => 'api',
+                'path' => '/articles',
+                'defaults' => array(
+                    'controller' => 'Api\Articles',
+                    'action' => 'display')
+            ),
+
+            'articles' => array(
                 'path' => '/articles',
                 'defaults' => array(
                     'controller' => 'Articles',
@@ -61,9 +69,36 @@ class lmbRoutesToUrlTest extends TestCase
         );
 
         $routes = new lmbRoutes($config);
-        $this->assertEquals('/api/articles', $routes->toUrl(['prefix' => 'api'], 'articles'));
+        $this->assertEquals('/api/articles', $routes->toUrl([], 'api_articles'));
+        $this->assertEquals('/articles', $routes->toUrl(['controller' => 'Articles']));
+        $this->assertEquals('/api/articles', $routes->toUrl(['controller' => 'Api\Articles']));
+        $this->assertEquals('/api/articles', $routes->toUrl([], 'api_articles'));
         $this->assertEquals('/api/articles', $routes->toUrl(['prefix' => 'api']));
-        $this->assertEquals('/api/articles', $routes->toUrl([], 'articles'));
+
+    }
+
+    function testToUrlWithPrefixNamespace()
+    {
+        $config = array(
+            'api_articles' => array(
+                'prefix' => 'api',
+                'path' => '/:controller',
+                'defaults' => array(
+                    'namespace' => 'Tests\web_app\cases\plain\src\Controllers\Api',
+                    'action' => 'display')
+            ),
+
+            'articles' => array(
+                'path' => '/:controller',
+                'defaults' => array(
+                    'controller' => 'Articles',
+                    'action' => 'display')
+            ),
+        );
+
+        $routes = new lmbRoutes($config);
+        $controller = ApiTestingController::class;
+        $this->assertEquals('/api/articles', $routes->toUrl(['controller' => $controller]));
     }
 
     function testToUrlUseNamedParam()
