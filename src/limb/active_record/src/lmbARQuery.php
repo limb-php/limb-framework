@@ -13,6 +13,7 @@ use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
+use limb\dbal\src\drivers\lmbDbBaseRecordSet;
 
 class lmbARQuery extends lmbSelectRawQuery
 {
@@ -110,9 +111,9 @@ class lmbARQuery extends lmbSelectRawQuery
     return $this->addOrder($field, $type);
   }
 
-  function getRecordSet()
+  function getRecordSet(): lmbDbBaseRecordSet
   {
-    $rs = parent :: getRecordSet();
+    $rs = parent::getRecordSet();
     if($this->sort_params)
       $rs->sort($this->sort_params);
 

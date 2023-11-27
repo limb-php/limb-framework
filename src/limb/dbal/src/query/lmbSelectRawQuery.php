@@ -10,6 +10,7 @@ namespace limb\dbal\src\query;
 
 use limb\core\src\exception\lmbException;
 use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\dbal\src\drivers\lmbDbBaseRecordSet;
 
 /**
  * class lmbSelectRawQuery.
@@ -192,7 +193,7 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
     return parent::toString();
   }
 
-  function getRecordSet()
+  function getRecordSet(): lmbDbBaseRecordSet
   {
     $stmt = $this->getStatement();
     return $stmt->getRecordSet();
