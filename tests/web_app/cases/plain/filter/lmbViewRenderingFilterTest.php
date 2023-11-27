@@ -9,6 +9,10 @@
 
 namespace Tests\web_app\cases\plain\filter;
 
+require_once dirname(__FILE__) . '/../../.setup.php';
+
+use limb\web_app\src\Controllers\LmbController;
+use limb\web_app\src\filter\lmbActionPerformingAndViewRenderingFilter;
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
@@ -17,8 +21,6 @@ use limb\net\src\lmbHttpResponse;
 use limb\web_app\src\filter\lmbViewRenderingFilter;
 use limb\view\src\lmbView;
 use Tests\web_app\cases\plain\src\filter\lmbResponseReturnFilter;
-
-require dirname(__FILE__) . '/../../.setup.php';
 
 class lmbViewRenderingFilterTest extends TestCase
 {
@@ -44,13 +46,10 @@ class lmbViewRenderingFilterTest extends TestCase
             ->method('isEmpty')
             ->willReturn(true);
 
-        $this->toolkit->setResponse($response);
-
         $view = $this->createMock(lmbView::class);
         $this->toolkit->setView($view);
-
-        $filter = new lmbViewRenderingFilter();
-        $filter2 = new lmbResponseReturnFilter();
+        $this->toolkit->setRequest($request);
+        $this->toolkit->setResponse($response);
 
         $view
             ->expects($this->once())
@@ -62,14 +61,8 @@ class lmbViewRenderingFilterTest extends TestCase
             ->method('write')
             ->with('bar');
 
-        $chain = $this->createMock(lmbFilterChain::class);
-        $chain
-            ->expects($this->once())
-            ->method('next');
-
-        $chain->registerFilter($filter);
-        $chain->registerFilter($filter2);
-        $chain->process($request);
+        $controller = new LmbController();
+        $result = $controller->performAction($request);
     }
 
     function testDoNotRenderViewIfResponseNotEmpty()
@@ -82,13 +75,10 @@ class lmbViewRenderingFilterTest extends TestCase
             ->method('isEmpty')
             ->willReturn(false);
 
-        $this->toolkit->setResponse($response);
-
         $view = $this->createMock(lmbView::class);
         $this->toolkit->setView($view);
-
-        $filter = new lmbViewRenderingFilter();
-        $filter2 = new lmbResponseReturnFilter();
+        $this->toolkit->setRequest($request);
+        $this->toolkit->setResponse($response);
 
         $view
             ->expects($this->never())
@@ -98,13 +88,7 @@ class lmbViewRenderingFilterTest extends TestCase
             ->expects($this->never())
             ->method('write');
 
-        $chain = $this->createMock(lmbFilterChain::class);
-        $chain
-            ->expects($this->once())
-            ->method('next');
-
-        $chain->registerFilter($filter);
-        $chain->registerFilter($filter2);
-        $chain->process($request);
+        $controller = new LmbController();
+        $result = $controller->performAction($request);
     }
 }

@@ -17,7 +17,7 @@ use limb\view\src\lmbView;
 
 /**
  * class lmbActionPerformingAndViewRenderingFilter.
- *
+ * @deprecated
  * @package web_app
  * @version $Id: lmbActionPerformingAndViewRenderingFilter.php 7486 2009-01-26 19:13:20Z
  */
@@ -31,7 +31,7 @@ class lmbActionPerformingAndViewRenderingFilter implements lmbInterceptingFilter
 
       $result = $dispatched->performAction($request);
 
-      $response = $response ?? lmbToolkit::instance()->getResponse();
+      $response = lmbToolkit::instance()->getResponse();
 
       if( $result !== null ) {
           if( is_a($result, lmbHttpResponse::class) ) {

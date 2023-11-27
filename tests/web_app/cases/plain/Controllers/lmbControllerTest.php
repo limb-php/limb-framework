@@ -163,7 +163,7 @@ class lmbControllerTest extends TestCase
         $this->assertEquals('Hi!', $result->getBody());
 
         $result = $testController->performAction($this->toolkit->getRequest());
-        $this->assertFalse($result->getBody());
+        $this->assertFalse($result);
     }
 
     function testClosePopup()

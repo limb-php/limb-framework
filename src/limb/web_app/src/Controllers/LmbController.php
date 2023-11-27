@@ -144,9 +144,14 @@ class LmbController
         return str_replace('.', DIRECTORY_SEPARATOR,  $this->getName() . '.' . $action);
     }
 
-    protected function _guessName()
+    protected function _guessName(): string
     {
-        $refController = new \ReflectionClass($this);
+        return self::guessControllerName($this);
+    }
+
+    static function guessControllerName($controllerNameOrClass): string
+    {
+        $refController = new \ReflectionClass($controllerNameOrClass);
         $ctrlClassName = $refController->getShortName();
         $ctrlClassNamespace = $refController->getNamespaceName();
 

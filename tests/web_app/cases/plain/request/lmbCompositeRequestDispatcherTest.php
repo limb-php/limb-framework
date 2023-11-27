@@ -8,12 +8,12 @@
  */
 namespace Tests\web_app\cases\plain\request;
 
+require_once dirname(__FILE__) . '/../../.setup.php';
+
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbCompositeRequestDispatcher;
 use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\net\src\lmbHttpRequest;
-
-require_once dirname(__FILE__) . '/../../.setup.php';
 
 class lmbCompositeRequestDispatcherTest extends TestCase
 {
