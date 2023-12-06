@@ -9,7 +9,7 @@
 namespace limb\net\src;
 
 use limb\toolkit\src\lmbToolkit;
-use limb\view\src\exception\lmbJsonViewException;
+use limb\core\src\exception\lmbException;
 
 /**
  * class lmbJsonHttpResponse.
@@ -33,20 +33,25 @@ class lmbJsonHttpResponse extends lmbHttpResponse
         parent::__construct($content, $status, $headers);
 
         $this->addHeader('Content-type', 'application/json');
-
-        if (!function_exists('json_encode') || $this->use_emulation)
-            $this->response_string = $this->_encodeEmulation($content);
-        else
-            $this->response_string = json_encode($content, $this->encodingOptions);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new lmbJsonViewException(json_last_error_msg());
-        }
     }
 
     function useEmulation($value)
     {
         $this->use_emulation = $value;
+    }
+
+    public function write($string)
+    {
+        if (!function_exists('json_encode') || $this->use_emulation)
+            $this->response_string = $this->_encodeEmulation($string);
+        else
+            $this->response_string = json_encode($string, $this->encodingOptions);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new lmbException(json_last_error_msg());
+        }
+
+        return $this;
     }
 
     protected function _encodeEmulation($values)

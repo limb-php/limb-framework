@@ -186,9 +186,9 @@ class lmbHttpResponse
     {
         $this->headers = $headers;
 
-        $this->response_string = $content;
-        $this->statusCode = $status;
         $this->version = '1.0';
+        $this->statusCode = $status;
+        $this->write($content);
     }
 
   function setRedirectStrategy($strategy)
@@ -413,8 +413,6 @@ class lmbHttpResponse
 
   public function write($string)
   {
-    //$this->_ensureTransactionStarted();
-
     $this->response_string = $string;
 
     return $this;
@@ -472,15 +470,7 @@ class lmbHttpResponse
 
   public function json($data)
   {
-      $json = \json_encode($data);
-      if($json === false) {
-          $error = \json_last_error_msg();
-          throw new lmbException('JSON encode error: ' . $error);
-      }
-
-      $this->addHeader('Content-type', 'application/json');
-
-      $this->write($json);
+      return new lmbJsonHttpResponse($data, $this->statusCode, $this->headers);
   }
 
   protected function _sendHeader($header, $value)
@@ -583,7 +573,7 @@ class lmbHttpResponse
         }
 
         $new = clone($this);
-        $new->response_string = $body;
+        $new->write($body);
 
         return $new;
     }

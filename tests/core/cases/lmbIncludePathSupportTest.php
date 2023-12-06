@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace Tests\core\cases;
@@ -17,7 +17,7 @@ use limb\fs\src\lmbFs;
 
 class lmbIncludePathSupportTest extends TestCase
 {
-    var $old_include_path;
+    protected $old_include_path;
 
     protected function setUp(): void
     {
