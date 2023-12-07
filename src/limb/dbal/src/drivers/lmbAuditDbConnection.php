@@ -121,9 +121,9 @@ class lmbAuditDbConnection extends lmbDbConnectionDecorator
         return $this->connection->getStatementNumber();
     }
 
-    function getSequenceValue($table, $colname)
+    function getSequenceValue($queryId = null)
     {
-        return $this->connection->getSequenceValue($table, $colname);
+        return $this->connection->getSequenceValue($queryId);
     }
 
     function quoteIdentifier($id)
