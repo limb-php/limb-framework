@@ -207,7 +207,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
     function getSequenceValue($queryId = null)
     {
-        return pg_last_oid($queryId);
+        return (int)$this->newStatement("SELECT currval('$queryId')")->getOneValue();
     }
 
     function isValid()

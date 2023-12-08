@@ -9,6 +9,7 @@
 namespace limb\dbal\src\drivers\pgsql;
 
 use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
+use limb\dbal\src\exception\lmbDbException;
 
 /**
  * class lmbPgsqlInsertStatement.
@@ -22,10 +23,17 @@ class lmbPgsqlInsertStatement extends lmbPgsqlManipulationStatement implements l
   {
     $queryId = $this->execute();
 
-    if(isset($this->parameters[$field_name]) && !empty($this->parameters[$field_name]))
-      return $this->parameters[$field_name];
-    else
-      return $this->connection->getSequenceValue($queryId);
+    if(isset($this->parameters[$field_name]) && !empty($this->parameters[$field_name])) {
+        return $this->parameters[$field_name];
+    }
+    else {
+        $table = $this->_retriveTableName($this->getSQL());
+        $seq = "{$table}_{$field_name}_seq";
+
+        try {
+            return $this->connection->getSequenceValue($seq);
+        } catch (lmbDbException $exception) {}
+    }
   }
 
   function _retriveTableName($sql)
