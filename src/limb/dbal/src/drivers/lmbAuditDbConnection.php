@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers;
 
 use limb\core\src\lmbBacktrace;
@@ -28,17 +29,20 @@ class lmbAuditDbConnection extends lmbDbConnectionDecorator
         $res = $this->connection->execute($sql);
         $info['time'] = round(microtime(true) - $start_time, 6);
         $this->stats[] = $info;
+
         return $res;
     }
 
     function executeStatement($stmt)
     {
         $info = array('query' => $stmt->getSQL());
+        $info['params'] = $stmt->getParameters();
         $info['trace'] = $this->getTrace();
         $start_time = microtime(true);
         $res = $this->connection->executeStatement($stmt);
         $info['time'] = round(microtime(true) - $start_time, 6);
         $this->stats[] = $info;
+
         return $res;
     }
 

@@ -170,6 +170,11 @@ class lmbMysqlStatement implements lmbDbStatementInterface
         return $sql;
     }
 
+    function getParameters()
+    {
+        return $this->parameters;
+    }
+
     function execute()
     {
         return $this->connection->executeStatement($this);
