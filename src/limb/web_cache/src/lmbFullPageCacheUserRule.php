@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_cache\src;
 
 /**
@@ -16,36 +17,35 @@ namespace limb\web_cache\src;
  */
 class lmbFullPageCacheUserRule
 {
-  protected $user_groups = [];
+    protected $user_groups = [];
 
-  function __construct($user_groups)
-  {
-    $this->user_groups = $user_groups;
-  }
-
-  function isSatisfiedBy($request): bool
-  {
-    $user = $request->getUser();
-
-    $positive_groups = [];
-    $negative_groups = [];
-
-    foreach($this->user_groups as $group)
+    function __construct($user_groups)
     {
-      if($group[0] == '!')
-        $negative_groups[] = substr($group, 1);
-      else
-        $positive_groups[] = $group;
+        $this->user_groups = $user_groups;
     }
 
-    $res = true;
+    function isSatisfiedBy($request): bool
+    {
+        $user = $request->getUser();
 
-    if($positive_groups)
-      $res = (array_intersect($positive_groups, $user->getGroups()) == $positive_groups);
+        $positive_groups = [];
+        $negative_groups = [];
 
-    if($res && $negative_groups)
-      $res &= !(array_intersect($negative_groups, $user->getGroups()) == $negative_groups);
+        foreach ($this->user_groups as $group) {
+            if ($group[0] == '!')
+                $negative_groups[] = substr($group, 1);
+            else
+                $positive_groups[] = $group;
+        }
 
-    return (bool)$res;
-  }
+        $res = true;
+
+        if ($positive_groups)
+            $res = (array_intersect($positive_groups, $user->getGroups()) == $positive_groups);
+
+        if ($res && $negative_groups)
+            $res &= !(array_intersect($negative_groups, $user->getGroups()) == $negative_groups);
+
+        return (bool)$res;
+    }
 }

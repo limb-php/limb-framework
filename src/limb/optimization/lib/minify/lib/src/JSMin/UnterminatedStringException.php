@@ -2,5 +2,6 @@
 
 namespace JSMin;
 
-class UnterminatedStringException extends \Exception {
+class UnterminatedStringException extends \Exception
+{
 }

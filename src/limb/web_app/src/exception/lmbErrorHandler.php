@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_app\src\exception;
 
 use limb\core\src\lmbErrorGuard;
@@ -19,143 +20,140 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbErrorHandler
 {
-  const CONTEXT_RADIUS    = 3;
-  const MODE_DEVEL        = 'devel';
-  const MODE_PRODUCTION   = 'production';
+    const CONTEXT_RADIUS = 3;
+    const MODE_DEVEL = 'devel';
+    const MODE_PRODUCTION = 'production';
 
-  protected $toolkit;
-  protected $error_page;
+    protected $toolkit;
+    protected $error_page;
 
-  function __construct($error500_page = '')
-  {
-    if(!$error500_page)
-      $error500_page = dirname(__FILE__) . '/../../template/server_error.html';
+    function __construct($error500_page = '')
+    {
+        if (!$error500_page)
+            $error500_page = dirname(__FILE__) . '/../../template/server_error.html';
 
-    $this->error_page = $error500_page;
-  }
+        $this->error_page = $error500_page;
+    }
 
-  function bootstrap(): void
-  {
-    lmbErrorGuard::registerFatalErrorHandler($this, 'handleFatalError');
-    lmbErrorGuard::registerExceptionHandler($this, 'handleException');
-  }
+    function bootstrap(): void
+    {
+        lmbErrorGuard::registerFatalErrorHandler($this, 'handleFatalError');
+        lmbErrorGuard::registerExceptionHandler($this, 'handleException');
+    }
 
-  function handleFatalError($error)
-  {
-      $this->toolkit = lmbToolkit::instance();
-      $this->toolkit->getLog()->log(LOG_ERR, $error['message']);
-      
-      if($this->toolkit->isWebAppDebugEnabled())
-          $result = $this->_echoErrorBacktrace($error);
-      else
-          $result = $this->_echoErrorPage();
+    function handleFatalError($error)
+    {
+        $this->toolkit = lmbToolkit::instance();
+        $this->toolkit->getLog()->log(LOG_ERR, $error['message']);
 
-      response()
-          ->reset()
-          ->setStatusCode(500, 'Server Error')
-          ->withBody($result)
-          ->send();
+        if ($this->toolkit->isWebAppDebugEnabled())
+            $result = $this->_echoErrorBacktrace($error);
+        else
+            $result = $this->_echoErrorPage();
 
-      exit(1);
-  }
+        response()
+            ->reset()
+            ->setStatusCode(500, 'Server Error')
+            ->withBody($result)
+            ->send();
 
-  function handleException($e)
-  {
-      if(function_exists('\debugBreak'))
-        \debugBreak();
+        exit(1);
+    }
 
-      $this->toolkit = lmbToolkit::instance();
-      $this->toolkit->getLog()->logException($e);
+    function handleException($e)
+    {
+        if (function_exists('\debugBreak'))
+            \debugBreak();
 
-      if($this->toolkit->isWebAppDebugEnabled())
-          $result = $this->_echoExceptionBacktrace($e);
-      else
-          $result = $this->_echoErrorPage();
+        $this->toolkit = lmbToolkit::instance();
+        $this->toolkit->getLog()->logException($e);
 
-      response()
-          ->reset()
-          ->setStatusCode(500, 'Server Error')
-          ->withBody($result)
-          ->send();
+        if ($this->toolkit->isWebAppDebugEnabled())
+            $result = $this->_echoExceptionBacktrace($e);
+        else
+            $result = $this->_echoErrorPage();
 
-      exit(1);
-  }
+        response()
+            ->reset()
+            ->setStatusCode(500, 'Server Error')
+            ->withBody($result)
+            ->send();
+
+        exit(1);
+    }
 
     protected function _isAcceptJson(): bool
     {
         return (strpos($this->toolkit->getRequest()->getHeader('ACCEPT'), 'json') !== false);
     }
 
-  function _echoErrorPage()
-  {
-      for($i=0; $i < ob_get_level(); $i++)
-          ob_end_clean();
-
-      if( $this->_isAcceptJson() )
-          return json_encode(['error' => '500 Server error', 'type' => 'exception']);
-
-      return file_get_contents($this->error_page);
-  }
-
-  protected function _echoErrorBacktrace($error)
-  {
-    $message = $error['message'];
-    $trace = '';
-    $file = $error['file'];
-    $line = $error['line'];
-    $context = htmlspecialchars($this->_getFileContext($file, $line));
-    $request = htmlspecialchars($this->toolkit->getRequest()->dump());
-
-    for($i=0; $i < ob_get_level(); $i++)
-      ob_end_clean();
-
-    $session = htmlspecialchars($this->toolkit->getSession()->dump());
-    return $this->_renderTemplate($message, '', $trace, $file, $line, $context, $request, $session);
-  }
-
-  protected function _echoExceptionBacktrace($e)
-  {
-    $params = '';
-    if ($e instanceof lmbException)
+    function _echoErrorPage()
     {
-      $error = htmlspecialchars($e->getOriginalMessage());
-      foreach($e->getParams() as $name => $value)
-        $params .= $name . '  =>  ' . print_r($value, true) . PHP_EOL;
+        for ($i = 0; $i < ob_get_level(); $i++)
+            ob_end_clean();
 
-      $params = htmlspecialchars($params);
-    }
-    else
-    {
-      $error = htmlspecialchars($e->getMessage());
+        if ($this->_isAcceptJson())
+            return json_encode(['error' => '500 Server error', 'type' => 'exception']);
+
+        return file_get_contents($this->error_page);
     }
 
-    if($e instanceof lmbException)
-      $trace = htmlspecialchars($e->getNiceTraceAsString());
-    else
-      $trace = htmlspecialchars($e->getTraceAsString());
+    protected function _echoErrorBacktrace($error)
+    {
+        $message = $error['message'];
+        $trace = '';
+        $file = $error['file'];
+        $line = $error['line'];
+        $context = htmlspecialchars($this->_getFileContext($file, $line));
+        $request = htmlspecialchars($this->toolkit->getRequest()->dump());
 
-    list($file, $line) = $this->_extractExceptionFileAndLine($e);
-    $context = htmlspecialchars($this->_getFileContext($file, $line));
-    $request = htmlspecialchars($this->toolkit->getRequest()->dump());
-    $session = htmlspecialchars($this->toolkit->getSession()->dump());
+        for ($i = 0; $i < ob_get_level(); $i++)
+            ob_end_clean();
 
-    for($i=0; $i < ob_get_level(); $i++)
-      ob_end_clean();
+        $session = htmlspecialchars($this->toolkit->getSession()->dump());
+        return $this->_renderTemplate($message, '', $trace, $file, $line, $context, $request, $session);
+    }
 
-      $html_content = $this->_renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session);
+    protected function _echoExceptionBacktrace($e)
+    {
+        $params = '';
+        if ($e instanceof lmbException) {
+            $error = htmlspecialchars($e->getOriginalMessage());
+            foreach ($e->getParams() as $name => $value)
+                $params .= $name . '  =>  ' . print_r($value, true) . PHP_EOL;
 
-      if( $this->_isAcceptJson() )
-          return json_encode(['error' => $html_content, 'type' => 'exception']);
+            $params = htmlspecialchars($params);
+        } else {
+            $error = htmlspecialchars($e->getMessage());
+        }
 
-      return $html_content;
-  }
+        if ($e instanceof lmbException)
+            $trace = htmlspecialchars($e->getNiceTraceAsString());
+        else
+            $trace = htmlspecialchars($e->getTraceAsString());
 
-  protected function _renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session)
-  {
-    $formatted_error = nl2br($error);
-    $formatted_file = nl2br($file);
+        list($file, $line) = $this->_extractExceptionFileAndLine($e);
+        $context = htmlspecialchars($this->_getFileContext($file, $line));
+        $request = htmlspecialchars($this->toolkit->getRequest()->dump());
+        $session = htmlspecialchars($this->toolkit->getSession()->dump());
 
-    $body = <<<EOD
+        for ($i = 0; $i < ob_get_level(); $i++)
+            ob_end_clean();
+
+        $html_content = $this->_renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session);
+
+        if ($this->_isAcceptJson())
+            return json_encode(['error' => $html_content, 'type' => 'exception']);
+
+        return $html_content;
+    }
+
+    protected function _renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session)
+    {
+        $formatted_error = nl2br($error);
+        $formatted_file = nl2br($file);
+
+        $body = <<<EOD
 <html>
 <head>
   <title>{$error}</title>
@@ -229,36 +227,34 @@ class lmbErrorHandler
 </body>
 </html>
 EOD;
-    return $body;
-  }
-
-  protected function _extractExceptionFileAndLine($e)
-  {
-    if($e instanceof lmbException)
-    {
-      $params = $e->getParams();
-      if(isset($params['file']))
-        return array($params['file'], $params['line']);
-    }
-    return array($e->getFile(), $e->getLine());
-  }
-
-  protected function _getFileContext($file, $line_number)
-  {
-    $context = array();
-    $i = 0;
-    foreach(file($file) as $line)
-    {
-      $i++;
-      if($i >= $line_number - self::CONTEXT_RADIUS && $i <= $line_number + self::CONTEXT_RADIUS)
-        $context[] = $i . "\t" . $line;
-
-      if($i > $line_number + self::CONTEXT_RADIUS)
-        break;
+        return $body;
     }
 
-    return "\n" . implode("", $context);
-  }
+    protected function _extractExceptionFileAndLine($e)
+    {
+        if ($e instanceof lmbException) {
+            $params = $e->getParams();
+            if (isset($params['file']))
+                return array($params['file'], $params['line']);
+        }
+        return array($e->getFile(), $e->getLine());
+    }
+
+    protected function _getFileContext($file, $line_number)
+    {
+        $context = array();
+        $i = 0;
+        foreach (file($file) as $line) {
+            $i++;
+            if ($i >= $line_number - self::CONTEXT_RADIUS && $i <= $line_number + self::CONTEXT_RADIUS)
+                $context[] = $i . "\t" . $line;
+
+            if ($i > $line_number + self::CONTEXT_RADIUS)
+                break;
+        }
+
+        return "\n" . implode("", $context);
+    }
 }
 
 

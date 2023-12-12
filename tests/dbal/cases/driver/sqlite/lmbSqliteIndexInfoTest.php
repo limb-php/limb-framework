@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\dbal\cases\driver\sqlite;
 
 use limb\toolkit\src\lmbToolkit;
@@ -16,17 +17,17 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteIndexInfoTest extends DriverIndexInfoTestBase
 {
-  protected $_index_names = array(
-    'primary' => '(indexes autoindex 1)',
-    'unique' => '(indexes autoindex 2)',
-    'common' => 'common'
-  );
+    protected $_index_names = array(
+        'primary' => '(indexes autoindex 1)',
+        'unique' => '(indexes autoindex 2)',
+        'common' => 'common'
+    );
 
-  function setUp(): void
-  {
-    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
-    DriverSqliteSetup($this->connection);
+    function setUp(): void
+    {
+        $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+        DriverSqliteSetup($this->connection);
 
-    parent::setUp();
-  }
+        parent::setUp();
+    }
 }

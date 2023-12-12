@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\imagekit\cases\gd\filters;
 
 use Tests\imagekit\cases\filters\lmbBaseRotateImageFilterTest;
@@ -16,13 +17,13 @@ use Tests\imagekit\cases\filters\lmbBaseRotateImageFilterTest;
  */
 class lmbGdRotateImageFilterTest extends lmbBaseRotateImageFilterTest
 {
-  protected $driver = 'gd';
+    protected $driver = 'gd';
 
-  function setUp() :void
-  {
-      parent::setUp();
+    function setUp(): void
+    {
+        parent::setUp();
 
-      if(!function_exists('imagerotate'))
-        $this->markTestSkipped('imagerotate() function does not exist. Test skipped.');
-  }
+        if (!function_exists('imagerotate'))
+            $this->markTestSkipped('imagerotate() function does not exist. Test skipped.');
+    }
 }

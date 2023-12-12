@@ -13,10 +13,10 @@ use limb\web_app\src\controller\LmbController;
 
 class DefaultController extends LmbController
 {
-  function doDisplay()
-  {
-    return "Hello, world!";
-  }
+    function doDisplay()
+    {
+        return "Hello, world!";
+    }
 }
 
 $includes_time = microtime(true) - $mark;

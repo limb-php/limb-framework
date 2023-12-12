@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\validation\src\rule;
 
 /**
@@ -15,11 +16,11 @@ namespace limb\validation\src\rule;
  */
 class IdentifierRule extends lmbSingleFieldRule
 {
-  function check($value)
-  {
-    $value = "$value";
+    function check($value)
+    {
+        $value = "$value";
 
-    if (!preg_match("/^[a-zA-Z0-9.-]+$/i", $value))
-        $this->error('{Field} must contain only letters and numbers');
-  }
+        if (!preg_match("/^[a-zA-Z0-9.-]+$/i", $value))
+            $this->error('{Field} must contain only letters and numbers');
+    }
 }

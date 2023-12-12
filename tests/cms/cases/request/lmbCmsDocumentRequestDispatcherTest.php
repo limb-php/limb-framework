@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\cms\cases\request;
 
 use limb\net\src\lmbHttpRequest;
@@ -20,45 +21,45 @@ class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
 
     protected $tables_to_cleanup = array('lmb_cms_document');
 
-  function _createDispatcher()
-  {
-    $toolkit = lmbToolkit::instance();
+    function _createDispatcher()
+    {
+        $toolkit = lmbToolkit::instance();
 
-    $config_array = [
-        [
-            'path' => '/:controller/:action',
-            'defaults' => ['action' => 'display']
-        ]
-    ];
-    $routes = new lmbRoutes($config_array);
+        $config_array = [
+            [
+                'path' => '/:controller/:action',
+                'defaults' => ['action' => 'display']
+            ]
+        ];
+        $routes = new lmbRoutes($config_array);
 
-    $toolkit->setRoutes($routes);
+        $toolkit->setRoutes($routes);
 
-    $request = new lmbHttpRequest('https://localhost/news');
+        $request = new lmbHttpRequest('https://localhost/news');
 
-    $dispatcher = new lmbCmsDocumentRequestDispatcher();
-    $result = $dispatcher->dispatch($request);
+        $dispatcher = new lmbCmsDocumentRequestDispatcher();
+        $result = $dispatcher->dispatch($request);
 
-    return $result;
-  }
+        return $result;
+    }
 
-  function testDispatch_NotFoundInDb()
-  {
-    $this->assertNull($this->_createDispatcher());
-  }
+    function testDispatch_NotFoundInDb()
+    {
+        $this->assertNull($this->_createDispatcher());
+    }
 
-  function testDispatch_FoundInDb()
-  {
-      $root = lmbCmsDocument::findRoot();
+    function testDispatch_FoundInDb()
+    {
+        $root = lmbCmsDocument::findRoot();
 
-  	$document = $this->_createDocument('news', $root);
-    $document->setIsPublished(1);
-    $document->save();
+        $document = $this->_createDocument('news', $root);
+        $document->setIsPublished(1);
+        $document->save();
 
-    $result = $this->_createDispatcher();
+        $result = $this->_createDispatcher();
 
-    $this->assertEquals('document', $result['controller']);
-    $this->assertEquals('item', $result['action']);
-    $this->assertEquals($document->getId(), $result['id']);
-  }
+        $this->assertEquals('document', $result['controller']);
+        $this->assertEquals('item', $result['action']);
+        $this->assertEquals($document->getId(), $result['id']);
+    }
 }

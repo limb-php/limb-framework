@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 use limb\core\src\lmbEnv;
@@ -80,25 +80,21 @@ if (!function_exists('parseTestingCriteria')) {
     }
 }
 
-if(!function_exists('lmb_tests_init_db_dsn')) {
+if (!function_exists('lmb_tests_init_db_dsn')) {
     function lmb_tests_init_db_dsn()
     {
         lmbEnv::set('LIMB_CACHE_DB_META_IN_FILE', false);
 
-        if(lmbToolkit::instance()->isDefaultDbDSNAvailable())
-        {
+        if (lmbToolkit::instance()->isDefaultDbDSNAvailable()) {
             $dsn = lmbToolkit::instance()->getDefaultDbDSN();
             static $reported_about;
-            if(is_null($reported_about) || $reported_about != $dsn)
-            {
+            if (is_null($reported_about) || $reported_about != $dsn) {
                 $pass = $dsn->_getUri()->getPassword();
                 $masked_dsn = str_replace($pass, str_pad('*', strlen($pass), '*'), $dsn->toString());
                 echo "INFO: Using database '$masked_dsn'\n";
                 $reported_about = $dsn;
             }
-        }
-        else
-        {
+        } else {
             $default_value = 'sqlite://localhost/' . lmb_var_dir() . DIRECTORY_SEPARATOR . 'sqlite_tests.db';
             $dsn = lmbEnv::get('LIMB_TEST_DB_DSN', $default_value);
             lmbToolkit::instance()->setDefaultDbDSN($dsn);
@@ -107,7 +103,7 @@ if(!function_exists('lmb_tests_init_db_dsn')) {
     }
 }
 
-if(!function_exists('lmb_tests_db_dump_does_not_exist')) {
+if (!function_exists('lmb_tests_db_dump_does_not_exist')) {
     function lmb_tests_db_dump_does_not_exist($prefix, $package)
     {
         $type = lmbToolkit::instance()->getDefaultDbConnection()->getType();
@@ -120,7 +116,7 @@ if(!function_exists('lmb_tests_db_dump_does_not_exist')) {
     }
 }
 
-if(!function_exists('lmb_tests_setup_db')) {
+if (!function_exists('lmb_tests_setup_db')) {
     function lmb_tests_setup_db($prefix)
     {
         $type = lmbToolkit::instance()->getDefaultDbConnection()->getType();
@@ -141,7 +137,7 @@ if(!function_exists('lmb_tests_setup_db')) {
     }
 }
 
-if(!function_exists('lmb_tests_teardown_db')) {
+if (!function_exists('lmb_tests_teardown_db')) {
     function lmb_tests_teardown_db($verbose = false)
     {
         $conn = lmbToolkit::instance()->getDefaultDbConnection();
@@ -149,7 +145,7 @@ if(!function_exists('lmb_tests_teardown_db')) {
         $db = new lmbSimpleDb($conn);
         $db->truncateDb();
 
-        if($verbose)
+        if ($verbose)
             echo "INFO: Database was cleaned up\n";
     }
 }

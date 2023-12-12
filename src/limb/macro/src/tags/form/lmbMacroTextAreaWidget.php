@@ -2,14 +2,15 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\tags\form;
 
 use limb\macro\src\tags\form\lmbMacroFormElementWidget;
- 
+
 /**
  * Represents an HTML textarea tag at runtime
  * @package macro
@@ -17,6 +18,6 @@ use limb\macro\src\tags\form\lmbMacroFormElementWidget;
  */
 class lmbMacroTextAreaWidget extends lmbMacroFormElementWidget
 {
-  protected $skip_render = array('value');
+    protected $skip_render = array('value');
 }
 

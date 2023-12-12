@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\log\cases;
 
 use PHPUnit\Framework\TestCase;
@@ -18,47 +19,47 @@ use limb\log\src\lmbLogEntry;
 class lmbLogTest extends TestCase
 {
 
-  /**
-   * @var lmbLog
-   */
-  protected $log;
+    /**
+     * @var lmbLog
+     */
+    protected $log;
 
-  function setUp(): void
-  {
-    $this->log = new lmbLog();
-    $this->log->registerWriter(new lmbLogWriterForLogTests(new lmbUri()));
-  }
+    function setUp(): void
+    {
+        $this->log = new lmbLog();
+        $this->log->registerWriter(new lmbLogWriterForLogTests(new lmbUri()));
+    }
 
-  function testWritersManipulation()
-  {
-    $log = new lmbLog();
-    $this->assertEquals(array(), $log->getWriters());
+    function testWritersManipulation()
+    {
+        $log = new lmbLog();
+        $this->assertEquals(array(), $log->getWriters());
 
-    $log->registerWriter($writer = new lmbLogWriterForLogTests(new lmbUri()));
-    $this->assertEquals(array($writer), $log->getWriters());
+        $log->registerWriter($writer = new lmbLogWriterForLogTests(new lmbUri()));
+        $this->assertEquals(array($writer), $log->getWriters());
 
-    $log->resetWriters();
-    $this->assertEquals(array(), $log->getWriters());
-  }
+        $log->resetWriters();
+        $this->assertEquals(array(), $log->getWriters());
+    }
 
-  function testLog()
-  {
-    $this->log->log(LOG_INFO, 'imessage', 'iparam', 'ibacktrace');
-    $this->assertTrue($this->_getLastLogEntry()->isLevel(LOG_INFO));
-    $this->assertEquals('imessage', $this->_getLastLogEntry()->getMessage());
-    $this->assertEquals('iparam', $this->_getLastLogEntry()->getParams());
-    $this->assertEquals('ibacktrace', $this->_getLastLogEntry()->getBacktrace());
-  }
+    function testLog()
+    {
+        $this->log->log(LOG_INFO, 'imessage', 'iparam', 'ibacktrace');
+        $this->assertTrue($this->_getLastLogEntry()->isLevel(LOG_INFO));
+        $this->assertEquals('imessage', $this->_getLastLogEntry()->getMessage());
+        $this->assertEquals('iparam', $this->_getLastLogEntry()->getParams());
+        $this->assertEquals('ibacktrace', $this->_getLastLogEntry()->getBacktrace());
+    }
 
-  function testLogException()
-  {
-    $this->log->logException(new lmbException('exmessage', $code = 42));
+    function testLogException()
+    {
+        $this->log->logException(new lmbException('exmessage', $code = 42));
 
-    $entry = current($this->log->getWriters())->getWritten();
+        $entry = current($this->log->getWriters())->getWritten();
 
-    $this->assertTrue($entry->isLevel(LOG_ERR));
-    $this->assertEquals('exmessage', $entry->getMessage());
-  }
+        $this->assertTrue($entry->isLevel(LOG_ERR));
+        $this->assertEquals('exmessage', $entry->getMessage());
+    }
 
 //  function testSetErrorLevel()
 //  {
@@ -68,24 +69,24 @@ class lmbLogTest extends TestCase
 //    $this->assertNull($this->_getLastLogEntry());
 //  }
 
-  function testSetBacktraceDepth()
-  {
-    $this->log->setBacktraceDepth(LOG_NOTICE, $depth = 0);
+    function testSetBacktraceDepth()
+    {
+        $this->log->setBacktraceDepth(LOG_NOTICE, $depth = 0);
 
-    $this->log->log(LOG_INFO, 'info');
-    $this->assertCount($depth, $this->_getLastLogEntry()->getBacktrace()->get());
+        $this->log->log(LOG_INFO, 'info');
+        $this->assertCount($depth, $this->_getLastLogEntry()->getBacktrace()->get());
 
-    $this->log->log(LOG_NOTICE, 'notice');
-    $this->assertCount($depth, $this->_getLastLogEntry()->getBacktrace()->get());
-  }
+        $this->log->log(LOG_NOTICE, 'notice');
+        $this->assertCount($depth, $this->_getLastLogEntry()->getBacktrace()->get());
+    }
 
-  /**
-   *@return lmbLogEntry
-   */
-  protected function _getLastLogEntry()
-  {
-    return current($this->log->getWriters())->getWritten();
-  }
+    /**
+     * @return lmbLogEntry
+     */
+    protected function _getLastLogEntry()
+    {
+        return current($this->log->getWriters())->getWritten();
+    }
 }
 
 class lmbLogWriterForLogTests implements lmbLogWriterInterface
@@ -93,7 +94,9 @@ class lmbLogWriterForLogTests implements lmbLogWriterInterface
 
     protected $entry;
 
-    function __construct(lmbUri $dsn) {}
+    function __construct(lmbUri $dsn)
+    {
+    }
 
     function write(lmbLogEntry $entry)
     {
@@ -101,7 +104,7 @@ class lmbLogWriterForLogTests implements lmbLogWriterInterface
     }
 
     /**
-     *@return lmbLogEntry
+     * @return lmbLogEntry
      */
     function getWritten()
     {

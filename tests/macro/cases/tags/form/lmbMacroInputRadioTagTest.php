@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\macro\cases\tags\form;
 
 use Tests\macro\cases\lmbBaseMacroTestCase;
@@ -13,38 +14,38 @@ use Tests\macro\cases\lmbBaseMacroTestCase;
 class lmbMacroInputRadioTagTest extends lmbBaseMacroTestCase
 {
 
-  function testIsChecked_If_ValueAttribute_IsEqual_To_FormDatasourceFieldValue()
-  {
-    $template = '{{form id="my_form"}}'.
-                '{{input type="radio" id="r1" name="my_input" value="foo"/}}'.
-                '{{input type="radio" id="r2" name="my_input" value="bar" checked="checked" /}}'.
-                '{{/form}}';
+    function testIsChecked_If_ValueAttribute_IsEqual_To_FormDatasourceFieldValue()
+    {
+        $template = '{{form id="my_form"}}' .
+            '{{input type="radio" id="r1" name="my_input" value="foo"/}}' .
+            '{{input type="radio" id="r2" name="my_input" value="bar" checked="checked" /}}' .
+            '{{/form}}';
 
-    $page = $this->_createMacroTemplate($template, 'tpl.html');
-    $page->set('form_my_form_datasource', array("my_input" => 'foo'));
+        $page = $this->_createMacroTemplate($template, 'tpl.html');
+        $page->set('form_my_form_datasource', array("my_input" => 'foo'));
 
-    $expected = '<form id="my_form">'.
-                '<input type="radio" id="r1" name="my_input" value="foo" checked="checked" />'.
-                '<input type="radio" id="r2" name="my_input" value="bar" />'.
-                '</form>';
-    $this->assertEquals($page->render(), $expected);
-  }
+        $expected = '<form id="my_form">' .
+            '<input type="radio" id="r1" name="my_input" value="foo" checked="checked" />' .
+            '<input type="radio" id="r2" name="my_input" value="bar" />' .
+            '</form>';
+        $this->assertEquals($page->render(), $expected);
+    }
 
-  function testRemoveCheckedIfNotChecked()
-  {
-    $template = '{{form id="my_form"}}'.
-                '{{input type="radio" id="r0" name="my_input" value="0"/}}'.
-                '{{input type="radio" id="r1" name="my_input" value="1" checked="checked" /}}'.
-                '{{input type="radio" id="r2" name="my_input" value="2"/}}'.
-                '{{/form}}';
-    $page = $this->_createMacroTemplate($template, 'tpl.html');
+    function testRemoveCheckedIfNotChecked()
+    {
+        $template = '{{form id="my_form"}}' .
+            '{{input type="radio" id="r0" name="my_input" value="0"/}}' .
+            '{{input type="radio" id="r1" name="my_input" value="1" checked="checked" /}}' .
+            '{{input type="radio" id="r2" name="my_input" value="2"/}}' .
+            '{{/form}}';
+        $page = $this->_createMacroTemplate($template, 'tpl.html');
 
-    $expected = '<form id="my_form">'.
-                '<input type="radio" id="r0" name="my_input" value="0" />'.
-                '<input type="radio" id="r1" name="my_input" value="1" checked="checked" />'.
-                '<input type="radio" id="r2" name="my_input" value="2" />'.
-                '</form>';
+        $expected = '<form id="my_form">' .
+            '<input type="radio" id="r0" name="my_input" value="0" />' .
+            '<input type="radio" id="r1" name="my_input" value="1" checked="checked" />' .
+            '<input type="radio" id="r2" name="my_input" value="2" />' .
+            '</form>';
 
-    $this->assertEquals($page->render(), $expected);
-  }
+        $this->assertEquals($page->render(), $expected);
+    }
 }

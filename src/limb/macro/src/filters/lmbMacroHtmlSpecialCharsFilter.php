@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * Limb PHP Framework
  *
@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\filters;
 
 use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
@@ -17,9 +18,9 @@ use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
  * @aliases html
  * @package macro
  * @version $Id$
- */ 
+ */
 class lmbMacroHtmlSpecialCharsFilter extends lmbMacroFunctionBasedFilter
 {
-  protected $function = 'htmlspecialchars';
-  protected $params = array(ENT_QUOTES);
-} 
+    protected $function = 'htmlspecialchars';
+    protected $params = array(ENT_QUOTES);
+}

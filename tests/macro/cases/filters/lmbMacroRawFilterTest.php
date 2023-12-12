@@ -6,18 +6,19 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\macro\cases\filters;
 
 use Tests\macro\cases\lmbBaseMacroTestCase;
 
 class lmbMacroRawFilterTest extends lmbBaseMacroTestCase
 {
-  function testSimple()
-  {
-    $code = '{$#var|raw}';
-    $tpl = $this->_createMacroTemplate($code, 'tpl.html');
-    $tpl->set('var', '<>');
-    $out = $tpl->render();
-    $this->assertEquals('<>', $out);
-  }
+    function testSimple()
+    {
+        $code = '{$#var|raw}';
+        $tpl = $this->_createMacroTemplate($code, 'tpl.html');
+        $tpl->set('var', '<>');
+        $out = $tpl->render();
+        $this->assertEquals('<>', $out);
+    }
 }

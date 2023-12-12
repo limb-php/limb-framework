@@ -1,107 +1,105 @@
 <?php
+
 namespace limb\cache2\src;
 
 use limb\cache2\src\drivers\lmbCacheConnectionInterface;
 
 class lmbTaggableCache extends lmbCacheBaseWrapper
 {
-  public $tags_prefix = 'tag42_';
+    public $tags_prefix = 'tag42_';
 
-  function __construct(lmbCacheConnectionInterface $connection)
-  {
-    parent::__construct($connection);
-  }
-
-  protected function _resolveTagsKeys($tags_keys)
-  {
-    if(is_array($tags_keys))
+    function __construct(lmbCacheConnectionInterface $connection)
     {
-      $new_keys = array();
-      foreach($tags_keys as $pos => $key)
-        $new_keys[] = $this->tags_prefix . $key;
-    }
-    else
-      $new_keys = $this->tags_prefix . $tags_keys;
-
-    return $new_keys;
-  }
-
-  protected function _createContainer($value, $tags)
-  {
-    $tags = $this->_resolveTagsKeys($tags);
-    $tags_values = (array) $this->wrapped_cache->get($tags);
-
-    foreach($tags as $tag_key )
-      if(!isset($tags_values[$tag_key]) || is_null($tags_values[$tag_key]))
-    {
-        $tags_values[$tag_key] = 0;
-        $this->wrapped_cache->add($tag_key, 0);
+        parent::__construct($connection);
     }
 
-    return array('tags' => $tags_values, 'value' => $value);
-  }
+    protected function _resolveTagsKeys($tags_keys)
+    {
+        if (is_array($tags_keys)) {
+            $new_keys = array();
+            foreach ($tags_keys as $pos => $key)
+                $new_keys[] = $this->tags_prefix . $key;
+        } else
+            $new_keys = $this->tags_prefix . $tags_keys;
 
-  protected function _isTagsValid($tags)
-  {
-    $tags_versions = (array) $this->wrapped_cache->get(array_keys($tags));
+        return $new_keys;
+    }
 
-    foreach($tags_versions as $tag_key => $tag_version)
-      if(is_null($tag_version) || $tags[$tag_key] != $tag_version)
-        return false;
+    protected function _createContainer($value, $tags)
+    {
+        $tags = $this->_resolveTagsKeys($tags);
+        $tags_values = (array)$this->wrapped_cache->get($tags);
 
-    return true;
-  }
+        foreach ($tags as $tag_key)
+            if (!isset($tags_values[$tag_key]) || is_null($tags_values[$tag_key])) {
+                $tags_values[$tag_key] = 0;
+                $this->wrapped_cache->add($tag_key, 0);
+            }
 
-  protected function _getFromContainer($container)
-  {
-    if($this->_isTagsValid($container['tags']))
-      return $container['value'];
-    else
-      return null;
-  }
+        return array('tags' => $tags_values, 'value' => $value);
+    }
 
-  protected function _prepareValue($value, $tags_keys)
-  {
-    if(!is_array($tags_keys))
-      $tags_keys = array($tags_keys);
+    protected function _isTagsValid($tags)
+    {
+        $tags_versions = (array)$this->wrapped_cache->get(array_keys($tags));
 
-    return $this->_createContainer($value, $tags_keys);
-  }
+        foreach ($tags_versions as $tag_key => $tag_version)
+            if (is_null($tag_version) || $tags[$tag_key] != $tag_version)
+                return false;
 
-  function add($key, $value, $ttl = false, $tags_keys = 'default')
-  {
-    return $this->wrapped_cache->add($key, $this->_prepareValue ($value, $tags_keys), $ttl);
-  }
+        return true;
+    }
 
-  function set($key, $value, $ttl = false, $tags_keys = 'default')
-  {
-    return $this->wrapped_cache->set($key, $this->_prepareValue ($value, $tags_keys), $ttl);
-  }
+    protected function _getFromContainer($container)
+    {
+        if ($this->_isTagsValid($container['tags']))
+            return $container['value'];
+        else
+            return null;
+    }
 
-  function get($key)
-  {
-    if(is_null($container = $this->wrapped_cache->get($key)))
-      return null;
+    protected function _prepareValue($value, $tags_keys)
+    {
+        if (!is_array($tags_keys))
+            $tags_keys = array($tags_keys);
 
-    if(is_null($value = $this->_getFromContainer($container)))
-      $this->wrapped_cache->delete($key);
+        return $this->_createContainer($value, $tags_keys);
+    }
 
-    return $value;
-  }
+    function add($key, $value, $ttl = false, $tags_keys = 'default')
+    {
+        return $this->wrapped_cache->add($key, $this->_prepareValue($value, $tags_keys), $ttl);
+    }
 
-  function delete($key)
-  {
-    $this->wrapped_cache->delete($key);
-  }
+    function set($key, $value, $ttl = false, $tags_keys = 'default')
+    {
+        return $this->wrapped_cache->set($key, $this->_prepareValue($value, $tags_keys), $ttl);
+    }
 
-  function deleteByTag($tag)
-  {
-    $tag = $this->_resolveTagsKeys($tag);
-    $this->wrapped_cache->safeIncrement($tag);
-  }
+    function get($key)
+    {
+        if (is_null($container = $this->wrapped_cache->get($key)))
+            return null;
 
-  function flush()
-  {
-    $this->wrapped_cache->flush();
-  }
+        if (is_null($value = $this->_getFromContainer($container)))
+            $this->wrapped_cache->delete($key);
+
+        return $value;
+    }
+
+    function delete($key)
+    {
+        $this->wrapped_cache->delete($key);
+    }
+
+    function deleteByTag($tag)
+    {
+        $tag = $this->_resolveTagsKeys($tag);
+        $this->wrapped_cache->safeIncrement($tag);
+    }
+
+    function flush()
+    {
+        $this->wrapped_cache->flush();
+    }
 }

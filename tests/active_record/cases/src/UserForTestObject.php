@@ -20,7 +20,7 @@ class UserForTestObject extends lmbActiveRecord
             'foreign_field' => 'group_id',
             'table' => 'user_for_test2group_for_test',
             'class' => GroupForTestObject::class,
-            'criteria' =>'group_for_test.title="condition"'
+            'criteria' => 'group_for_test.title="condition"'
         )
     );
 

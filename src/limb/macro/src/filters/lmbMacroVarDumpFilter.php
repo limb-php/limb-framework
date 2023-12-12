@@ -1,4 +1,5 @@
 <?php
+
 namespace limb\macro\src\filters;
 
 use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
@@ -12,5 +13,5 @@ use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
  */
 class lmbMacroVarDumpFilter extends lmbMacroFunctionBasedFilter
 {
-  protected $function = 'var_dump';
+    protected $function = 'var_dump';
 }

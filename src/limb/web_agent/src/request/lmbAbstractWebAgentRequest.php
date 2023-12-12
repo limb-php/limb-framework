@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_agent\src\request;
 
 use limb\web_agent\src\lmbWebAgentCookies;
@@ -19,63 +20,63 @@ use limb\web_agent\src\lmbWebAgentHeaders;
  */
 abstract class lmbAbstractWebAgentRequest
 {
-  protected $cookies;
-  protected $user_agent = '';
-  protected $accept_charset = '';
-  protected $headers;
-  protected $content = '';
-  protected $default_charset = 'utf-8';
+    protected $cookies;
+    protected $user_agent = '';
+    protected $accept_charset = '';
+    protected $headers;
+    protected $content = '';
+    protected $default_charset = 'utf-8';
 
-  function __construct()
-  {
-  	$this->cookies = new lmbWebAgentCookies();
-    $this->headers = new lmbWebAgentHeaders();
-  }
+    function __construct()
+    {
+        $this->cookies = new lmbWebAgentCookies();
+        $this->headers = new lmbWebAgentHeaders();
+    }
 
-  function getCookies()
-  {
-  	return $this->cookies;
-  }
-  
-  function getDefaultCharset()
-  {
-    return $this->default_charset;
-  }
+    function getCookies()
+    {
+        return $this->cookies;
+    }
 
-  function setUserAgent($user_agent)
-  {
-    $this->user_agent = $user_agent;
-  }
+    function getDefaultCharset()
+    {
+        return $this->default_charset;
+    }
 
-  function setAcceptCharset($accept_charset)
-  {
-    $this->accept_charset = $accept_charset;
-  }
+    function setUserAgent($user_agent)
+    {
+        $this->user_agent = $user_agent;
+    }
 
-  function getHeaders()
-  {
-  	return $this->headers;
-  }
+    function setAcceptCharset($accept_charset)
+    {
+        $this->accept_charset = $accept_charset;
+    }
 
-  function setContent($content)
-  {
-    $this->content = $content;
-  }
-  
-  function setDefaultCharset($charset)
-  {
-    $this->default_charset = $charset;
-  }
+    function getHeaders()
+    {
+        return $this->headers;
+    }
 
-  function clean()
-  {
-    $this->cookies->clean();
-    $this->user_agent = '';
-    $this->accept_charset = '';
-    $this->headers->clean();
-    $this->content = '';
-  }
+    function setContent($content)
+    {
+        $this->content = $content;
+    }
 
-  abstract function doRequest($url, $method = 'GET');
+    function setDefaultCharset($charset)
+    {
+        $this->default_charset = $charset;
+    }
+
+    function clean()
+    {
+        $this->cookies->clean();
+        $this->user_agent = '';
+        $this->accept_charset = '';
+        $this->headers->clean();
+        $this->content = '';
+    }
+
+    abstract function doRequest($url, $method = 'GET');
 
 }

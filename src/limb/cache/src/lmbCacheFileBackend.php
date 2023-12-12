@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\cache\src;
 
 use limb\core\src\lmbSerializable;
@@ -19,125 +20,113 @@ use limb\fs\src\lmbFs;
  */
 class lmbCacheFileBackend implements lmbCacheBackendInterface
 {
-  protected $_cache_dir;
+    protected $_cache_dir;
 
-  function __construct($cache_dir)
-  {
-    $this->_cache_dir = lmbFs::normalizePath($cache_dir);
-
-    lmbFs::mkdir($this->_cache_dir);
-  }
-
-  function getCacheDir()
-  {
-    return $this->_cache_dir;
-  }
-
-  function add($key, $value, $params = array())
-  {
-    $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $params);
-    if (file_exists($file))
-      return false;
-
-    if (array_key_exists("raw", $params))
+    function __construct($cache_dir)
     {
-      lmbFs::safeWrite($file, $value);
-      return true;
+        $this->_cache_dir = lmbFs::normalizePath($cache_dir);
+
+        lmbFs::mkdir($this->_cache_dir);
     }
-    else
+
+    function getCacheDir()
     {
-      $container = new lmbSerializable($value);
-      lmbFs::safeWrite($file, serialize($container));
-      return true;
+        return $this->_cache_dir;
     }
-  }
-  
-  function set($key, $value, $params = array())
-  {
-    $this->delete($key);
 
-    $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $params);
-
-    if (array_key_exists("raw", $params))
+    function add($key, $value, $params = array())
     {
-      lmbFs::safeWrite($file, $value);
-      return true;
+        $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $params);
+        if (file_exists($file))
+            return false;
+
+        if (array_key_exists("raw", $params)) {
+            lmbFs::safeWrite($file, $value);
+            return true;
+        } else {
+            $container = new lmbSerializable($value);
+            lmbFs::safeWrite($file, serialize($container));
+            return true;
+        }
     }
-    else
+
+    function set($key, $value, $params = array())
     {
-      $container = new lmbSerializable($value);
-      lmbFs::safeWrite($file, serialize($container));
-      return true;
+        $this->delete($key);
+
+        $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $params);
+
+        if (array_key_exists("raw", $params)) {
+            lmbFs::safeWrite($file, $value);
+            return true;
+        } else {
+            $container = new lmbSerializable($value);
+            lmbFs::safeWrite($file, serialize($container));
+            return true;
+        }
     }
-  }
 
-  function get($key, $params = array())
-  {
-    if (!$file = $this->_findCacheFile($key))
-      return false;
-
-    $res = array();
-    if (preg_match('/\/' . $key . '_(\d+)\.cache$/', $file, $res) and isset($res[1]))
+    function get($key, $params = array())
     {
-      if ($res[1] - time() < 0)
-        return false;
+        if (!$file = $this->_findCacheFile($key))
+            return false;
+
+        $res = array();
+        if (preg_match('/\/' . $key . '_(\d+)\.cache$/', $file, $res) and isset($res[1])) {
+            if ($res[1] - time() < 0)
+                return false;
+        }
+
+        if (array_key_exists("raw", $params)) {
+            return file_get_contents($file);
+        } else {
+            $container = unserialize(file_get_contents($file));
+            return $container->getSubject();
+        }
     }
 
-    if (array_key_exists("raw", $params))
+    function delete($key, $params = array())
     {
-      return file_get_contents($file);
+        $this->_removeFileCache($key);
     }
-    else
+
+    function flush()
     {
-      $container = unserialize(file_get_contents($file));
-      return $container->getSubject();
+        $this->_removeFileCache();
     }
-  }
 
-  function delete($key, $params = array())
-  {
-    $this->_removeFileCache($key);
-  }
-
-  function flush()
-  {
-    $this->_removeFileCache();
-  }
-  
-  function stat($params = array())
-  {
-    return array();
-  }
-
-  protected function _removeFileCache($key = false)
-  {
-    if($key === false)
+    function stat($params = array())
     {
-      $files = lmbFs::find($this->getCacheDir(), 'f');
-      foreach($files as $file) {
-          @unlink($file);
-      }
+        return array();
     }
-    else {
-        $file = $this->_findCacheFile($key);
-        if($file)
-            @unlink($file);
+
+    protected function _removeFileCache($key = false)
+    {
+        if ($key === false) {
+            $files = lmbFs::find($this->getCacheDir(), 'f');
+            foreach ($files as $file) {
+                @unlink($file);
+            }
+        } else {
+            $file = $this->_findCacheFile($key);
+            if ($file)
+                @unlink($file);
+        }
     }
-  }
 
-  protected function _getCacheFileName($key, $params)
-  {
-    $ttl = '';
-    if (isset($params['ttl']))
-      $ttl = time() + $params['ttl'];
+    protected function _getCacheFileName($key, $params)
+    {
+        $ttl = '';
+        if (isset($params['ttl']))
+            $ttl = time() + $params['ttl'];
 
-    return $key . '_' . $ttl . '.cache';
-  }
+        return $key . '_' . $ttl . '.cache';
+    }
 
-  protected function _findCacheFile($key)
-  {
-    $files = lmbFs::find($this->getCacheDir(), 'f', '/^' . $key . '_?\d*\.cache$/');
-    if (count($files))
-      return $files[0];
-  }
+    protected function _findCacheFile($key)
+    {
+        $files = lmbFs::find($this->getCacheDir(), 'f', '/^' . $key . '_?\d*\.cache$/');
+        if (count($files))
+            return $files[0];
+    }
 }

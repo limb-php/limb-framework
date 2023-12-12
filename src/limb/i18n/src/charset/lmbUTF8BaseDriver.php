@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\i18n\src\charset;
 
 // This class is based on Harry Fuecks' phputf8 library code(http://sourceforge.net/projects/phputf8)
@@ -20,19 +21,20 @@ namespace limb\i18n\src\charset;
 class lmbUTF8BaseDriver
 {
     /**
-    * URL-Encode a filename to allow unicodecharacters
-    *
-    * Slashes are not encoded
-    *
-    * When the second parameter is true the string will
-    * be encoded only if non ASCII characters are detected -
-    * This makes it safe to run it multiple times on the
-    * same string (default is true)
-    *
-    * @author Andreas Gohr <andi@splitbrain.org>
-    * @see urlencode
-    */
-    function UTF8EncodeFN($file, $safe = true) {
+     * URL-Encode a filename to allow unicodecharacters
+     *
+     * Slashes are not encoded
+     *
+     * When the second parameter is true the string will
+     * be encoded only if non ASCII characters are detected -
+     * This makes it safe to run it multiple times on the
+     * same string (default is true)
+     *
+     * @author Andreas Gohr <andi@splitbrain.org>
+     * @see urlencode
+     */
+    function UTF8EncodeFN($file, $safe = true)
+    {
         if ($safe && preg_match('#^[a-zA-Z0-9/_\-.%]+$#', $file))
             return $file;
 
@@ -42,40 +44,43 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * URL-Decode a filename
-    *
-    * This is just a wrapper around urldecode
-    *
-    * @author Andreas Gohr <andi@splitbrain.org>
-    * @see urldecode
-    */
-    function UTF8DecodeFN($file) {
+     * URL-Decode a filename
+     *
+     * This is just a wrapper around urldecode
+     *
+     * @author Andreas Gohr <andi@splitbrain.org>
+     * @see urldecode
+     */
+    function UTF8DecodeFN($file)
+    {
         $file = urldecode($file);
         return $file;
     }
 
     /**
-    * Checks if a string contains 7bit ASCII only
-    *
-    * @author Andreas Gohr <andi@splitbrain.org>
-    */
-    function isASCII($str) {
-        for($i = 0; $i < strlen($str); $i++)
-        if (ord($str[$i]) > 127) return false;
+     * Checks if a string contains 7bit ASCII only
+     *
+     * @author Andreas Gohr <andi@splitbrain.org>
+     */
+    function isASCII($str)
+    {
+        for ($i = 0; $i < strlen($str); $i++)
+            if (ord($str[$i]) > 127) return false;
 
         return true;
     }
 
     /**
-    * Strips all highbyte chars
-    *
-    * Returns a pure ASCII7 string
-    *
-    * @author Andreas Gohr <andi@splitbrain.org>
-    */
-    function UTF8Strip($str) {
+     * Strips all highbyte chars
+     *
+     * Returns a pure ASCII7 string
+     *
+     * @author Andreas Gohr <andi@splitbrain.org>
+     */
+    function UTF8Strip($str)
+    {
         $ascii = '';
-        for($i = 0; $i < strlen($str); $i++) {
+        for ($i = 0; $i < strlen($str); $i++) {
             if (ord($str[$i]) < 128)
                 $ascii .= $str[$i];
         }
@@ -83,24 +88,25 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * Tries to detect if a string is in utf8 encoding
-    *
-    * @author <bmorel@ssi.fr>
-    * @link http://www.php.net/manual/en/function.utf8-encode.php
-    */
-    function UTF8Check($str) {
-        for($i = 0; $i < strlen($str); $i++) {
+     * Tries to detect if a string is in utf8 encoding
+     *
+     * @author <bmorel@ssi.fr>
+     * @link http://www.php.net/manual/en/function.utf8-encode.php
+     */
+    function UTF8Check($str)
+    {
+        for ($i = 0; $i < strlen($str); $i++) {
             if (ord($str[$i]) < 0x80) continue; # 0bbbbbbb
-            elseif ((ord($str[$i]) &0xE0) == 0xC0) $n = 1; # 110bbbbb
-            elseif ((ord($str[$i]) &0xF0) == 0xE0) $n = 2; # 1110bbbb
-            elseif ((ord($str[$i]) &0xF8) == 0xF0) $n = 3; # 11110bbb
-            elseif ((ord($str[$i]) &0xFC) == 0xF8) $n = 4; # 111110bb
-            elseif ((ord($str[$i]) &0xFE) == 0xFC) $n = 5; # 1111110b
+            elseif ((ord($str[$i]) & 0xE0) == 0xC0) $n = 1; # 110bbbbb
+            elseif ((ord($str[$i]) & 0xF0) == 0xE0) $n = 2; # 1110bbbb
+            elseif ((ord($str[$i]) & 0xF8) == 0xF0) $n = 3; # 11110bbb
+            elseif ((ord($str[$i]) & 0xFC) == 0xF8) $n = 4; # 111110bb
+            elseif ((ord($str[$i]) & 0xFE) == 0xFC) $n = 5; # 1111110b
             else return false; # Does not match any model
 
             // n bytes matching 10bbbbbb follow ?
-            for($j = 0; $j < $n; $j++) {
-                if ((++$i == strlen($str)) || ((ord($str[$i]) &0xC0) != 0x80))
+            for ($j = 0; $j < $n; $j++) {
+                if ((++$i == strlen($str)) || ((ord($str[$i]) & 0xC0) != 0x80))
                     return false;
             }
         }
@@ -108,14 +114,15 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * Replace accented UTF-8 characters by unaccented ASCII-7 equivalents
-    *
-    * Use the optional parameter to just deaccent lower ($case = -1) or upper ($case = 1)
-    * letters. Default is to deaccent both cases ($case = 0)
-    *
-    * @author Andreas Gohr <andi@splitbrain.org>
-    */
-    function UTF8Deaccent($string, $case = 0) {
+     * Replace accented UTF-8 characters by unaccented ASCII-7 equivalents
+     *
+     * Use the optional parameter to just deaccent lower ($case = -1) or upper ($case = 1)
+     * letters. Default is to deaccent both cases ($case = 0)
+     *
+     * @author Andreas Gohr <andi@splitbrain.org>
+     */
+    function UTF8Deaccent($string, $case = 0)
+    {
         if ($case <= 0) {
             global $UTF8_LOWER_ACCENTS;
             $string = str_replace(array_keys($UTF8_LOWER_ACCENTS), array_values($UTF8_LOWER_ACCENTS), $string);
@@ -128,20 +135,21 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * Removes special characters (nonalphanumeric) from a UTF-8 string
-    *
-    * Be sure to specify all specialchars you give in $repl in $keep, too
-    * or it won't work.
-    *
-    * This function adds the controlchars 0x00 to 0x19 to the array of
-    * stripped chars (they are not included in $UTF8_SPECIAL_CHARS)
-    *
-    * @author Andreas Gohr <andi@splitbrain.org>
-    * @param string $string The UTF8 string to strip of special chars
-    * @param string $repl Replace special with this string
-    * @param string $keep Special chars to keep (in UTF8)
-    */
-    function UTF8StripSpecials($string, $repl = '', $keep = '') {
+     * Removes special characters (nonalphanumeric) from a UTF-8 string
+     *
+     * Be sure to specify all specialchars you give in $repl in $keep, too
+     * or it won't work.
+     *
+     * This function adds the controlchars 0x00 to 0x19 to the array of
+     * stripped chars (they are not included in $UTF8_SPECIAL_CHARS)
+     *
+     * @param string $string The UTF8 string to strip of special chars
+     * @param string $repl Replace special with this string
+     * @param string $keep Special chars to keep (in UTF8)
+     * @author Andreas Gohr <andi@splitbrain.org>
+     */
+    function UTF8StripSpecials($string, $repl = '', $keep = '')
+    {
         global $UTF8_SPECIAL_CHARS;
         if ($keep != '')
             $specials = array_diff($UTF8_SPECIAL_CHARS, $this->toUnicode($keep));
@@ -155,28 +163,30 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * UTF8 aware replacement for strlen()
-    *
-    * utf8_decode() converts characters that are not in ISO-8859-1
-    * to '?', which, for the purpose of counting, is alright - It's
-    * even faster than mb_strlen.
-    *
-    * @author <chernyshevsky at hotmail dot com>
-    * @see strlen
-    * @see utf8_decode
-    */
-    function _strlen($string) {
+     * UTF8 aware replacement for strlen()
+     *
+     * utf8_decode() converts characters that are not in ISO-8859-1
+     * to '?', which, for the purpose of counting, is alright - It's
+     * even faster than mb_strlen.
+     *
+     * @author <chernyshevsky at hotmail dot com>
+     * @see strlen
+     * @see utf8_decode
+     */
+    function _strlen($string)
+    {
         return strlen(utf8_decode($string));
     }
 
     /**
-    * UTF8 aware replacement for substr()
-    *
-    * @todo Handle negative positions etc.
-    * @author Harry Fuecks <hfuecks@gmail.com>
-    * @see substr
-    */
-    function _substr($str, $start, $length=null) {
+     * UTF8 aware replacement for substr()
+     *
+     * @todo Handle negative positions etc.
+     * @author Harry Fuecks <hfuecks@gmail.com>
+     * @see substr
+     */
+    function _substr($str, $start, $length = null)
+    {
         $start = (int)$start;
         if (!is_null($length)) $length = (int)$length;
 
@@ -206,30 +216,32 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * UTF8 aware replacement for strrepalce()
-    *
-    * @todo support PHP5 count (fourth arg)
-    * @author Harry Fuecks <hfuecks@gmail.com>
-    * @see str_replace();
-    */
-    function _str_replace($s, $r, $str) {
+     * UTF8 aware replacement for strrepalce()
+     *
+     * @todo support PHP5 count (fourth arg)
+     * @author Harry Fuecks <hfuecks@gmail.com>
+     * @see str_replace();
+     */
+    function _str_replace($s, $r, $str)
+    {
         if (!is_array($s)) {
             $s = '!' . preg_quote($s, '!') . '!u';
         } else {
             foreach ($s as $k => $v)
-            $s[$k] = '!' . preg_quote($v) . '!u';
+                $s[$k] = '!' . preg_quote($v) . '!u';
         }
         return preg_replace($s, $r, $str);
     }
 
     /**
-    * UTF8 aware replacement for ltrim()
-    *
-    * @author Andreas Gohr <andi@splitbrain.org>
-    * @see ltrim
-    * @return string
-    */
-    function _ltrim($str, $charlist = '') {
+     * UTF8 aware replacement for ltrim()
+     *
+     * @return string
+     * @see ltrim
+     * @author Andreas Gohr <andi@splitbrain.org>
+     */
+    function _ltrim($str, $charlist = '')
+    {
         if ($charlist == '')
             return ltrim($str);
 
@@ -240,13 +252,14 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * UTF8 aware replacement for ltrim()
-    *
-    * @author Andreas Gohr <andi@splitbrain.org>
-    * @see rtrim
-    * @return string
-    */
-    function _rtrim($str, $charlist = '') {
+     * UTF8 aware replacement for ltrim()
+     *
+     * @return string
+     * @see rtrim
+     * @author Andreas Gohr <andi@splitbrain.org>
+     */
+    function _rtrim($str, $charlist = '')
+    {
         if ($charlist == '')
             return rtrim($str);
 
@@ -257,13 +270,14 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * UTF8 aware replacement for trim()
-    *
-    * @author Andreas Gohr <andi@splitbrain.org>
-    * @see trim
-    * @return string
-    */
-    function _trim($str, $charlist = '') {
+     * UTF8 aware replacement for trim()
+     *
+     * @return string
+     * @see trim
+     * @author Andreas Gohr <andi@splitbrain.org>
+     */
+    function _trim($str, $charlist = '')
+    {
         if ($charlist == '')
             return trim($str);
 
@@ -271,15 +285,16 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * This is a unicode aware replacement for strtolower()
-    *
-    * @author Andreas Gohr <andi@splitbrain.org>
-    * @see strtolower
-    */
-    function _strtolower($string) {
+     * This is a unicode aware replacement for strtolower()
+     *
+     * @author Andreas Gohr <andi@splitbrain.org>
+     * @see strtolower
+     */
+    function _strtolower($string)
+    {
         global $UTF8_UPPER_TO_LOWER;
         $uni = $this->toUnicode($string);
-        for($i = 0; $i < count($uni); $i++) {
+        for ($i = 0; $i < count($uni); $i++) {
             if (isset($UTF8_UPPER_TO_LOWER[$uni[$i]]))
                 $uni[$i] = $UTF8_UPPER_TO_LOWER[$uni[$i]];
         }
@@ -287,15 +302,16 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * This is a unicode aware replacement for strtoupper()
-    *
-    * @author Andreas Gohr <andi@splitbrain.org>
-    * @see strtoupper
-    */
-    function _strtoupper($string) {
+     * This is a unicode aware replacement for strtoupper()
+     *
+     * @author Andreas Gohr <andi@splitbrain.org>
+     * @see strtoupper
+     */
+    function _strtoupper($string)
+    {
         global $UTF8_LOWER_TO_UPPER;
         $uni = $this->toUnicode($string);
-        for($i = 0; $i < count($uni); $i++) {
+        for ($i = 0; $i < count($uni); $i++) {
             if (isset($UTF8_LOWER_TO_UPPER[$uni[$i]]))
                 $uni[$i] = $UTF8_LOWER_TO_UPPER[$uni[$i]];
         }
@@ -303,12 +319,13 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * This is an UTF8 aware replacement for strpos
-    *
-    * @author Harry Fuecks <hfuecks@gmail.com>
-    * @see strpos
-    */
-    function _strpos($haystack, $needle, $offset=false) {
+     * This is an UTF8 aware replacement for strpos
+     *
+     * @author Harry Fuecks <hfuecks@gmail.com>
+     * @see strpos
+     */
+    function _strpos($haystack, $needle, $offset = false)
+    {
         if ($offset === false) {
             $ar = explode($needle, $haystack);
             if (count($ar) > 1)
@@ -331,29 +348,30 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * This is an UTF-8 aware alternative to strrpos
-    *
-    * Find position of last occurrence of a char in a string
-    * Note: This will get alot slower if offset is used
-    * @author Harry Fuecks <hfuecks@gmail.com>
-    */
-    function _strrpos($str, $needle, $offset=false) {
+     * This is an UTF-8 aware alternative to strrpos
+     *
+     * Find position of last occurrence of a char in a string
+     * Note: This will get alot slower if offset is used
+     * @author Harry Fuecks <hfuecks@gmail.com>
+     */
+    function _strrpos($str, $needle, $offset = false)
+    {
         if ($offset === false) {
             $ar = explode($needle, $str);
-            if ( count($ar) > 1 ) {
+            if (count($ar) > 1) {
                 // Pop off the end of the string where the last match was made
                 array_pop($ar);
-                $str = join($needle,$ar);
+                $str = join($needle, $ar);
                 return $this->_strlen($str);
             }
             return false;
         } else {
-            if ( !is_int($offset) ) {
+            if (!is_int($offset)) {
                 trigger_error('_strrpos: Offset must be an integer', E_USER_ERROR);
                 return false;
             }
             $str = $this->_substr($str, $offset);
-            if ( false !== ( $pos = $this->_strrpos($str, $needle) ) ) {
+            if (false !== ($pos = $this->_strrpos($str, $needle))) {
                 return $pos + $offset;
             }
             return false;
@@ -366,12 +384,13 @@ class lmbUTF8BaseDriver
     * Make a string's first character uppercase
     * @author Harry Fuecks <hfuecks@gmail.com>
     */
-    function _ucfirst($str) {
+    function _ucfirst($str)
+    {
         //the regex below doesn't work :(
         //preg_match('/^(\w{1})(.*)$/us', $str, $matches);
         preg_match('/^(.)(.*)$/us', $str, $matches);
 
-        if ( isset($matches[1]) && isset($matches[2]) ) {
+        if (isset($matches[1]) && isset($matches[2])) {
             return $this->_strtoupper($matches[1]) . $matches[2];
         } else {
             return $str;
@@ -384,51 +403,55 @@ class lmbUTF8BaseDriver
     *
     * @author Harry Fuecks <hfuecks@gmail.com>
     */
-    function _strcasecmp($strX, $strY) {
+    function _strcasecmp($strX, $strY)
+    {
         return strcmp($this->_strtolower($strX),
-                      $this->_strtolower($strY));
+            $this->_strtolower($strY));
     }
 
     /**
-    * UTF-8 aware alternative to substr_count
-    *
-    */
-    function _substr_count($haystack, $needle) {
-        if(preg_match_all('/(' . preg_quote($needle) . ')/u', $haystack, $matches)) {
+     * UTF-8 aware alternative to substr_count
+     *
+     */
+    function _substr_count($haystack, $needle)
+    {
+        if (preg_match_all('/(' . preg_quote($needle) . ')/u', $haystack, $matches)) {
             return sizeof($matches[1]);
         }
         return 0;
     }
 
     /**
-    * UTF-8 aware alternative to str_split
-    * Convert a string to an array
-    *
-    * @author Harry Fuecks <hfuecks@gmail.com>
-    */
-    function _str_split($str, $split_len=1) {
+     * UTF-8 aware alternative to str_split
+     * Convert a string to an array
+     *
+     * @author Harry Fuecks <hfuecks@gmail.com>
+     */
+    function _str_split($str, $split_len = 1)
+    {
         $split_len = (int)$split_len;
-        if ( !preg_match('/^[0-9]+$/',$split_len) || $split_len < 1 ) {
+        if (!preg_match('/^[0-9]+$/', $split_len) || $split_len < 1) {
             return false;
         }
 
         $len = $this->_strlen($str);
-        if ( $len <= $split_len ) {
+        if ($len <= $split_len) {
             return array($str);
         }
 
-        preg_match_all('/.{'.$split_len.'}|[^\x00]{1,'.$split_len.'}$/us', $str, $ar);
+        preg_match_all('/.{' . $split_len . '}|[^\x00]{1,' . $split_len . '}$/us', $str, $ar);
         return $ar[0];
     }
 
     /*
     * This is UTF-8 aware alternative to preg_match
     */
-    function _preg_match($pattern, $subject, &$matches, $flags=null, $offset=null) {
-        if(!is_null($flags) && !is_null($offset)) {
+    function _preg_match($pattern, $subject, &$matches, $flags = null, $offset = null)
+    {
+        if (!is_null($flags) && !is_null($offset)) {
             return preg_match($pattern . 'u', $subject, $matches, $flags, $offset);
         } elseif (is_null($flags) && !is_null($offset)) {
-            return preg_match($pattern .'u', $subject, $matches, $flags);
+            return preg_match($pattern . 'u', $subject, $matches, $flags);
         } else {
             return preg_match($pattern . 'u', $subject, $matches);
         }
@@ -437,11 +460,12 @@ class lmbUTF8BaseDriver
     /*
     * This is UTF-8 aware alternative to preg_match_all
     */
-    function _preg_match_all($pattern, $subject, &$matches, $flags=null, $offset=null) {
-        if(!is_null($flags) && !is_null($offset)) {
+    function _preg_match_all($pattern, $subject, &$matches, $flags = null, $offset = null)
+    {
+        if (!is_null($flags) && !is_null($offset)) {
             return preg_match_all($pattern . 'u', $subject, $matches, $flags, $offset);
         } elseif (is_null($flags) && !is_null($offset)) {
-            return preg_match_all($pattern .'u', $subject, $matches, $flags);
+            return preg_match_all($pattern . 'u', $subject, $matches, $flags);
         } else {
             return preg_match_all($pattern . 'u', $subject, $matches);
         }
@@ -450,53 +474,57 @@ class lmbUTF8BaseDriver
     /*
     * This is UTF-8 aware alternative to preg_replace
     */
-    function _preg_replace($pattern, $replacement, $subject, $limit=null) {
-        if(!is_null($limit)) {
-            return preg_replace($pattern .'u', $replacement, $subject, $limit);
+    function _preg_replace($pattern, $replacement, $subject, $limit = null)
+    {
+        if (!is_null($limit)) {
+            return preg_replace($pattern . 'u', $replacement, $subject, $limit);
         } else {
-            return preg_replace($pattern .'u', $replacement, $subject);
+            return preg_replace($pattern . 'u', $replacement, $subject);
         }
     }
 
     /*
     * This is UTF-8 aware alternative to _preg_replace_callback
     */
-    function _preg_replace_callback($pattern, $callback, $subject, $limit=null) {
-        if(!is_null($limit)) {
-            return preg_replace_callback($pattern .'u', $callback, $subject, $limit);
+    function _preg_replace_callback($pattern, $callback, $subject, $limit = null)
+    {
+        if (!is_null($limit)) {
+            return preg_replace_callback($pattern . 'u', $callback, $subject, $limit);
         } else {
-            return preg_replace_callback($pattern .'u', $callback, $subject);
+            return preg_replace_callback($pattern . 'u', $callback, $subject);
         }
     }
 
     /*
     * This is UTF-8 aware alternative to preg_split
     */
-    function _preg_split($pattern, $subject, $limit=null, $flags=null) {
-        if(!is_null($limit) && !is_null($flags)) {
+    function _preg_split($pattern, $subject, $limit = null, $flags = null)
+    {
+        if (!is_null($limit) && !is_null($flags)) {
             return preg_split($pattern . 'u', $subject, $limit, $flags);
         } elseif (is_null($flags) && !is_null($limit)) {
-            return preg_split($pattern .'u', $subject, $limit);
+            return preg_split($pattern . 'u', $subject, $limit);
         } else {
             return preg_split($pattern . 'u', $subject);
         }
     }
 
     /**
-    * This function returns any UTF-8 encoded text as a list of
-    * Unicode values:
-    *
-    * @author Scott Michael Reynen <scott@randomchaos.com>
-    * @link http://www.randomchaos.com/document.php?source=php_and_unicode
-    * @see toUTF8
-    */
-    function toUnicode($str) {
+     * This function returns any UTF-8 encoded text as a list of
+     * Unicode values:
+     *
+     * @author Scott Michael Reynen <scott@randomchaos.com>
+     * @link http://www.randomchaos.com/document.php?source=php_and_unicode
+     * @see toUTF8
+     */
+    function toUnicode($str)
+    {
         $unicode = array();
         $values = array();
         $lookingFor = 1;
 
-        for($i = 0; $i < strlen($str); $i++) {
-            $thisValue = ord($str[ $i ]);
+        for ($i = 0; $i < strlen($str); $i++) {
+            $thisValue = ord($str[$i]);
             if ($thisValue < 128) {
                 $unicode[] = $thisValue;
             } else {
@@ -507,8 +535,8 @@ class lmbUTF8BaseDriver
 
                 if (count($values) == $lookingFor) {
                     $number = ($lookingFor == 3) ?
-                    (($values[0] % 16) * 4096) + (($values[1] % 64) * 64) + ($values[2] % 64):
-                    (($values[0] % 32) * 64) + ($values[1] % 64);
+                        (($values[0] % 16) * 4096) + (($values[1] % 64) * 64) + ($values[2] % 64) :
+                        (($values[0] % 32) * 64) + ($values[1] % 64);
                     $unicode[] = $number;
                     $values = array();
                     $lookingFor = 1;
@@ -519,34 +547,35 @@ class lmbUTF8BaseDriver
     }
 
     /**
-    * This function converts a Unicode array back to its UTF-8 representation
-    *
-    * @author Scott Michael Reynen <scott@randomchaos.com>
-    * @link http://www.randomchaos.com/document.php?source=php_and_unicode
-    * @see toUnicode
-    */
-    function toUTF8($arr) {
-      $utf8 = '';
-      foreach( $arr as $unicode ) {
-        if( $unicode < 128 )
-          $utf8 .= chr($unicode);
-        elseif($unicode < 2048)
-          $utf8 .= chr(($unicode >> 6) + 192) . chr(($unicode & 63) + 128);
-        else
-          $utf8 .= chr(($unicode >> 12) + 224) . chr((($unicode >> 6) & 63) + 128) . chr(($unicode & 63) + 128);
-      }
-      return $utf8;
+     * This function converts a Unicode array back to its UTF-8 representation
+     *
+     * @author Scott Michael Reynen <scott@randomchaos.com>
+     * @link http://www.randomchaos.com/document.php?source=php_and_unicode
+     * @see toUnicode
+     */
+    function toUTF8($arr)
+    {
+        $utf8 = '';
+        foreach ($arr as $unicode) {
+            if ($unicode < 128)
+                $utf8 .= chr($unicode);
+            elseif ($unicode < 2048)
+                $utf8 .= chr(($unicode >> 6) + 192) . chr(($unicode & 63) + 128);
+            else
+                $utf8 .= chr(($unicode >> 12) + 224) . chr((($unicode >> 6) & 63) + 128) . chr(($unicode & 63) + 128);
+        }
+        return $utf8;
     }
 }
 
 /**
-* UTF-8 Case lookup table
-*
-* This lookuptable defines the upper case letters to their correspponding
-* lower case letter in UTF-8
-*
-* @author Andreas Gohr <andi@splitbrain.org>
-*/
+ * UTF-8 Case lookup table
+ *
+ * This lookuptable defines the upper case letters to their correspponding
+ * lower case letter in UTF-8
+ *
+ * @author Andreas Gohr <andi@splitbrain.org>
+ */
 $GLOBALS['UTF8_LOWER_TO_UPPER'] = array(0x0061 => 0x0041, 0x03C6 => 0x03A6, 0x0163 => 0x0162, 0x00E5 => 0x00C5, 0x0062 => 0x0042,
     0x013A => 0x0139, 0x00E1 => 0x00C1, 0x0142 => 0x0141, 0x03CD => 0x038E, 0x0101 => 0x0100,
     0x0491 => 0x0490, 0x03B4 => 0x0394, 0x015B => 0x015A, 0x0064 => 0x0044, 0x03B3 => 0x0393,
@@ -590,27 +619,27 @@ $GLOBALS['UTF8_LOWER_TO_UPPER'] = array(0x0061 => 0x0041, 0x03C6 => 0x03A6, 0x01
     0x0074 => 0x0054, 0x006A => 0x004A, 0x045B => 0x040B, 0x0456 => 0x0406, 0x0103 => 0x0102,
     0x03BB => 0x039B, 0x00F1 => 0x00D1, 0x043D => 0x041D, 0x03CC => 0x038C, 0x00E9 => 0x00C9,
     0x00F0 => 0x00D0, 0x0457 => 0x0407, 0x0123 => 0x0122,
-    );
+);
 
 /**
-* UTF-8 Case lookup table
-*
-* This lookuptable defines the lower case letters to their correspponding
-* upper case letter in UTF-8 (it does so by flipping $UTF8_LOWER_TO_UPPER)
-*
-* @author Andreas Gohr <andi@splitbrain.org>
-*/
+ * UTF-8 Case lookup table
+ *
+ * This lookuptable defines the lower case letters to their correspponding
+ * upper case letter in UTF-8 (it does so by flipping $UTF8_LOWER_TO_UPPER)
+ *
+ * @author Andreas Gohr <andi@splitbrain.org>
+ */
 $GLOBALS['UTF8_UPPER_TO_LOWER'] = @array_flip($GLOBALS['UTF8_LOWER_TO_UPPER']);
 
 /**
-* UTF-8 lookup table for lower case accented letters
-*
-* This lookuptable defines replacements for accented characters from the ASCII-7
-* range. This are lower case letters only.
-*
-* @author Andreas Gohr <andi@splitbrain.org>
-* @see UTF8Deaccent
-*/
+ * UTF-8 lookup table for lower case accented letters
+ *
+ * This lookuptable defines replacements for accented characters from the ASCII-7
+ * range. This are lower case letters only.
+ *
+ * @author Andreas Gohr <andi@splitbrain.org>
+ * @see UTF8Deaccent
+ */
 $GLOBALS['UTF8_LOWER_ACCENTS'] = array('Г ' => 'a', 'Гґ' => 'o', 'ДЏ' => 'd', 'бёџ' => 'f', 'Г«' => 'e', 'ЕЎ' => 's', 'ЖЎ' => 'o',
     'Гџ' => 'ss', 'Дѓ' => 'a', 'Е™' => 'r', '�?›' => 't', 'Е€' => 'n', 'ДЃ' => 'a', 'Д·' => 'k',
     'Еќ' => 's', 'б»і' => 'y', 'Е†' => 'n', 'Дє' => 'l', 'Д§' => 'h', 'б№—' => 'p', 'Гі' => 'o',
@@ -626,17 +655,17 @@ $GLOBALS['UTF8_LOWER_ACCENTS'] = array('Г ' => 'a', 'Гґ' => 'o', 'ДЏ' => '
     'Гў' => 'a', 'Дѕ' => 'l', 'бє…' => 'w', 'Е�?' => 'z', 'Д«' => 'i', 'ГЈ' => 'a', 'ДЎ' => 'g',
     'б№Ѓ' => 'm', 'ЕЌ' => 'o', 'Д©' => 'i', 'Г№' => 'u', 'ДЇ' => 'i', 'Еє' => 'z', 'ГЎ' => 'a',
     'Г»' => 'u', 'Гѕ' => 'th', 'Г°' => 'dh', 'Г¦' => 'ae', 'Вµ' => 'u',
-    );
+);
 
 /**
-* UTF-8 lookup table for upper case accented letters
-*
-* This lookuptable defines replacements for accented characters from the ASCII-7
-* range. This are upper case letters only.
-*
-* @author Andreas Gohr <andi@splitbrain.org>
-* @see UTF8Deaccent
-*/
+ * UTF-8 lookup table for upper case accented letters
+ *
+ * This lookuptable defines replacements for accented characters from the ASCII-7
+ * range. This are upper case letters only.
+ *
+ * @author Andreas Gohr <andi@splitbrain.org>
+ * @see UTF8Deaccent
+ */
 $GLOBALS['UTF8_UPPER_ACCENTS'] = array('Г ' => 'A', 'Гґ' => 'O', 'ДЏ' => 'D', 'бёџ' => 'F', 'Г«' => 'E', 'ЕЎ' => 'S', 'ЖЎ' => 'O',
     'Гџ' => 'Ss', 'Дѓ' => 'A', 'Е™' => 'R', '�?›' => 'T', 'Е€' => 'N', 'ДЃ' => 'A', 'Д·' => 'K',
     'Еќ' => 'S', 'б»і' => 'Y', 'Е†' => 'N', 'Дє' => 'L', 'Д§' => 'H', 'б№—' => 'P', 'Гі' => 'O',
@@ -652,21 +681,21 @@ $GLOBALS['UTF8_UPPER_ACCENTS'] = array('Г ' => 'A', 'Гґ' => 'O', 'ДЏ' => '
     'Гў' => 'A', 'Дѕ' => 'L', 'бє…' => 'W', 'Е�?' => 'Z', 'Д«' => 'I', 'ГЈ' => 'A', 'ДЎ' => 'G',
     'б№Ѓ' => 'M', 'ЕЌ' => 'O', 'Д©' => 'I', 'Г№' => 'U', 'ДЇ' => 'I', 'Еє' => 'Z', 'ГЎ' => 'A',
     'Г»' => 'U', 'Гћ' => 'Th', 'Гђ' => 'Dh', 'Г†' => 'Ae',
-    );
+);
 
 /**
-* UTF-8 array of common special characters
-*
-* This array should contain all special characters (not a letter or digit)
-* defined in the various local charsets - it's not a complete list of non-alphanum
-* characters in UTF-8. It's not perfect but should match most cases of special
-* chars.
-*
-* The controlchars 0x00 to 0x19 are _not_ included in this array. The space 0x20 is!
-*
-* @author Andreas Gohr <andi@splitbrain.org>
-* @see UTF8StripSpecials
-*/
+ * UTF-8 array of common special characters
+ *
+ * This array should contain all special characters (not a letter or digit)
+ * defined in the various local charsets - it's not a complete list of non-alphanum
+ * characters in UTF-8. It's not perfect but should match most cases of special
+ * chars.
+ *
+ * The controlchars 0x00 to 0x19 are _not_ included in this array. The space 0x20 is!
+ *
+ * @author Andreas Gohr <andi@splitbrain.org>
+ * @see UTF8StripSpecials
+ */
 $GLOBALS['UTF8_SPECIAL_CHARS'] = array(0x001a, 0x001b, 0x001c, 0x001d, 0x001e, 0x001f, 0x0020, 0x0021, 0x0022, 0x0023,
     0x0024, 0x0025, 0x0026, 0x0027, 0x0028, 0x0029, 0x002a, 0x002b, 0x002c, 0x002d,
     0x002e, 0x002f, 0x003a, 0x003b, 0x003c, 0x003d, 0x003e, 0x003f, 0x0040, 0x005b,
@@ -717,4 +746,4 @@ $GLOBALS['UTF8_SPECIAL_CHARS'] = array(0x001a, 0x001b, 0x001c, 0x001d, 0x001e, 0
     0xf8e7, 0xf8e8, 0xf8e9, 0xf8ea, 0xf8eb, 0xf8ec, 0xf8ed, 0xf8ee, 0xf8ef, 0xf8f0,
     0xf8f1, 0xf8f2, 0xf8f3, 0xf8f4, 0xf8f5, 0xf8f6, 0xf8f7, 0xf8f8, 0xf8f9, 0xf8fa,
     0xf8fb, 0xf8fc, 0xf8fd, 0xf8fe, 0xfe7c, 0xfe7d,
-    );
+);

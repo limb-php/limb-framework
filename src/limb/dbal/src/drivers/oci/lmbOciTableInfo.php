@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers\oci;
 
 use limb\dbal\src\drivers\lmbDbTableInfo;
@@ -19,55 +20,53 @@ use limb\core\src\exception\lmbNotYetImplementedException;
  */
 class lmbOciTableInfo extends lmbDbTableInfo
 {
-  protected $database;
+    protected $database;
 
-  protected $isExisting = false;
-  protected $isColumnsLoaded = false;
+    protected $isExisting = false;
+    protected $isColumnsLoaded = false;
 
-  protected $schema;
+    protected $schema;
 
-  function __construct($database, $name, $schema, $isExisting = false)
-  {
-    parent::__construct($name);
-    $this->schema = $schema;
-    $this->database = $database;
-    $this->isExisting = $isExisting;
-  }
-
-  //Based on code from Creole
-  function loadColumns()
-  {
-    if($this->isExisting && !$this->isColumnsLoaded)
+    function __construct($database, $name, $schema, $isExisting = false)
     {
-      $sql = "SELECT COLUMN_NAME, DATA_TYPE, DATA_PRECISION, DATA_LENGTH, DATA_DEFAULT, NULLABLE, DATA_SCALE
+        parent::__construct($name);
+        $this->schema = $schema;
+        $this->database = $database;
+        $this->isExisting = $isExisting;
+    }
+
+    //Based on code from Creole
+    function loadColumns()
+    {
+        if ($this->isExisting && !$this->isColumnsLoaded) {
+            $sql = "SELECT COLUMN_NAME, DATA_TYPE, DATA_PRECISION, DATA_LENGTH, DATA_DEFAULT, NULLABLE, DATA_SCALE
               FROM ALL_TAB_COLUMNS
               WHERE TABLE_NAME = '" . strtoupper($this->name) . "' AND OWNER = '" . strtoupper($this->schema) . "'";
 
-      $connection = $this->database->getConnection();
-      $result = $connection->execute($sql);
+            $connection = $this->database->getConnection();
+            $result = $connection->execute($sql);
 
-      while($row = oci_fetch_array($result, OCI_ASSOC + OCI_RETURN_NULLS))
-      {
-        $this->columns[strtolower($row['COLUMN_NAME'])] =
-          new lmbOciColumnInfo($this,
-             strtolower($row['COLUMN_NAME']),
-             strtolower($row['DATA_TYPE']),
-             $row['DATA_LENGTH'],
-             $row['DATA_SCALE'] ,
-             $row['NULLABLE'] ,
-             $row['DATA_DEFAULT']);
-      }
-      $this->isColumnsLoaded = true;
+            while ($row = oci_fetch_array($result, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                $this->columns[strtolower($row['COLUMN_NAME'])] =
+                    new lmbOciColumnInfo($this,
+                        strtolower($row['COLUMN_NAME']),
+                        strtolower($row['DATA_TYPE']),
+                        $row['DATA_LENGTH'],
+                        $row['DATA_SCALE'],
+                        $row['NULLABLE'],
+                        $row['DATA_DEFAULT']);
+            }
+            $this->isColumnsLoaded = true;
+        }
     }
-  }
 
-  function getDatabase()
-  {
-    return $this->database;
-  }
+    function getDatabase()
+    {
+        return $this->database;
+    }
 
-  function loadIndexes()
-  {
-    throw new lmbNotYetImplementedException();
-  }
+    function loadIndexes()
+    {
+        throw new lmbNotYetImplementedException();
+    }
 }

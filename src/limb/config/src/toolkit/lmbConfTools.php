@@ -45,7 +45,7 @@ class lmbConfTools extends lmbAbstractTools
 
     function setConf($name, $conf): void
     {
-        if(is_array($conf))
+        if (is_array($conf))
             $conf = new lmbSet($conf);
 
         $this->confs[$this->_normalizeConfName($name)] = $conf;

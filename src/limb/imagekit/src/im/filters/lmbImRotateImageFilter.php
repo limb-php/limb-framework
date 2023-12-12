@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\imagekit\src\im\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
@@ -18,57 +19,52 @@ use limb\imagekit\src\lmbAbstractImageContainer;
  */
 class lmbImRotateImageFilter extends lmbAbstractImageFilter
 {
-  function apply(lmbAbstractImageContainer $container)
-  {
-    $angle = $this->getAngle();
-    $flip_x = $this->getFlipX();
-    $flip_y = $this->getFlipY();
-
-    if($angle || $flip_x || $flip_y)
+    function apply(lmbAbstractImageContainer $container)
     {
-      if($flip_x && $flip_y)
-      {
-        $angle += 180;
-        $flip_x = false;
-        $flip_y = false;
-      }
+        $angle = $this->getAngle();
+        $flip_x = $this->getFlipX();
+        $flip_y = $this->getFlipY();
 
-      if($flip_x)
-      {
-        $container->getResource()->flopImage();
-      }
+        if ($angle || $flip_x || $flip_y) {
+            if ($flip_x && $flip_y) {
+                $angle += 180;
+                $flip_x = false;
+                $flip_y = false;
+            }
 
-      if($flip_y)
-      {
-        $container->getResource()->flipImage();
-      }
+            if ($flip_x) {
+                $container->getResource()->flopImage();
+            }
 
-      if($angle)
-      {
-        $bgcolor = "#".$this->getBgColor();
+            if ($flip_y) {
+                $container->getResource()->flipImage();
+            }
 
-        $container->getResource()->rotateImage(new \ImagickPixel($bgcolor), $angle);
-      }
+            if ($angle) {
+                $bgcolor = "#" . $this->getBgColor();
+
+                $container->getResource()->rotateImage(new \ImagickPixel($bgcolor), $angle);
+            }
+        }
     }
-  }
 
-  function getAngle()
-  {
-    return $this->getParam('angle', 0);
-  }
+    function getAngle()
+    {
+        return $this->getParam('angle', 0);
+    }
 
-  function getFlipX()
-  {
-    return $this->getParam('flip_x', false);
-  }
+    function getFlipX()
+    {
+        return $this->getParam('flip_x', false);
+    }
 
-  function getFlipY()
-  {
-    return $this->getParam('flip_y', false);
-  }
+    function getFlipY()
+    {
+        return $this->getParam('flip_y', false);
+    }
 
-  function getBgColor()
-  {
-    return $this->getParam('bgcolor', 'FFFFFF');
-  }
+    function getBgColor()
+    {
+        return $this->getParam('bgcolor', 'FFFFFF');
+    }
 }

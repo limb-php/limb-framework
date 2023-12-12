@@ -2,5 +2,6 @@
 
 namespace JSMin;
 
-class UnterminatedRegExpException extends \Exception {
+class UnterminatedRegExpException extends \Exception
+{
 }

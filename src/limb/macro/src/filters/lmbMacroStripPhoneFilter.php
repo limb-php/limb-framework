@@ -1,4 +1,5 @@
 <?php
+
 namespace limb\macro\src\filters;
 
 use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
@@ -12,6 +13,6 @@ use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
  */
 class lmbMacroStripPhoneFilter extends lmbMacroFunctionBasedFilter
 {
-  protected $include_file = __DIR__ . '/lmbMacroStripPhoneFilter.inc.php';
-  protected $function = 'strip_phone';
+    protected $include_file = __DIR__ . '/lmbMacroStripPhoneFilter.inc.php';
+    protected $function = 'strip_phone';
 }

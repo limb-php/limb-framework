@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\fs\src;
 
 /**
@@ -16,21 +17,20 @@ namespace limb\fs\src;
  */
 class lmbIncludePathFileLocations implements lmbFileLocationsInterface
 {
-  protected $paths;
+    protected $paths;
 
-  function __construct($paths = array())
-  {
-    $this->paths = $paths;
-  }
-
-  function getLocations($params = array())
-  {
-    $resolved = array();
-    foreach($this->paths as $path)
+    function __construct($paths = array())
     {
-      foreach(lmbFs::glob($path) as $dir)
-        $resolved[] = $dir;
+        $this->paths = $paths;
     }
-    return $resolved;
-  }
+
+    function getLocations($params = array())
+    {
+        $resolved = array();
+        foreach ($this->paths as $path) {
+            foreach (lmbFs::glob($path) as $dir)
+                $resolved[] = $dir;
+        }
+        return $resolved;
+    }
 }

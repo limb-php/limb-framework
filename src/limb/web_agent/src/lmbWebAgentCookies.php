@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_agent\src;
 
 /**
@@ -17,48 +18,48 @@ namespace limb\web_agent\src;
 class lmbWebAgentCookies implements \IteratorAggregate
 {
 
-  protected $cookies;
+    protected $cookies;
 
-  function __construct($cookies = array())
-  {
-    $this->cookies = $cookies;
-  }
+    function __construct($cookies = array())
+    {
+        $this->cookies = $cookies;
+    }
 
-  function set($name, $value)
-  {
-    $this->cookies[$name] = $value;
-  }
+    function set($name, $value)
+    {
+        $this->cookies[$name] = $value;
+    }
 
-  function get($name)
-  {
-    return $this->has($name) ? $this->cookies[$name] : '';
-  }
+    function get($name)
+    {
+        return $this->has($name) ? $this->cookies[$name] : '';
+    }
 
-  function has($name)
-  {
-    return isset($this->cookies[$name]);
-  }
+    function has($name)
+    {
+        return isset($this->cookies[$name]);
+    }
 
-  function hasCookies()
-  {
-    return (boolean)$this->cookies;
-  }
+    function hasCookies()
+    {
+        return (boolean)$this->cookies;
+    }
 
-  function export()
-  {
-    $cookies = array();
-    foreach($this->cookies as $name => $value)
-      $cookies[] = $name.'='.rawurlencode($value);
-    return implode('; ', $cookies);
-  }
+    function export()
+    {
+        $cookies = array();
+        foreach ($this->cookies as $name => $value)
+            $cookies[] = $name . '=' . rawurlencode($value);
+        return implode('; ', $cookies);
+    }
 
-  function getIterator()
-  {
-    return new lmbWebAgentCookieIterator($this->cookies);
-  }
+    function getIterator()
+    {
+        return new lmbWebAgentCookieIterator($this->cookies);
+    }
 
-  function clean()
-  {
-  	$this->cookies = array();
-  }
+    function clean()
+    {
+        $this->cookies = array();
+    }
 }

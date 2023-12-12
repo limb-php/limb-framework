@@ -2,5 +2,6 @@
 
 namespace JSMin;
 
-class UnterminatedCommentException extends \Exception {
+class UnterminatedCommentException extends \Exception
+{
 }

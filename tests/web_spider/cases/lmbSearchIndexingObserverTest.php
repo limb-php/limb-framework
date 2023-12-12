@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\web_spider\cases;
 
 use PHPUnit\Framework\TestCase;
@@ -15,30 +16,30 @@ use limb\web_spider\src\lmbUriContentReader;
 
 class lmbSearchIndexingObserverTest extends TestCase
 {
-  var $observer;
-  var $indexer;
-  var $reader;
+    var $observer;
+    var $indexer;
+    var $reader;
 
-  function testNotify()
-  {
-    $reader = $this->createMock(lmbUriContentReader::class);
-    $reader
-        ->expects($this->once())
-        ->method('getUri')
-        ->willReturn($uri = new lmbUri('page.html'));
+    function testNotify()
+    {
+        $reader = $this->createMock(lmbUriContentReader::class);
+        $reader
+            ->expects($this->once())
+            ->method('getUri')
+            ->willReturn($uri = new lmbUri('page.html'));
 
-    $reader
-        ->expects($this->once())
-        ->method('getContent')
-        ->willReturn($content = 'whatever');
+        $reader
+            ->expects($this->once())
+            ->method('getContent')
+            ->willReturn($content = 'whatever');
 
-    $indexer = $this->createMock(TestingSpiderIndexer::class);
-    $indexer
-        ->expects($this->once())
-        ->method('index')
-        ->with($uri, $content);
+        $indexer = $this->createMock(TestingSpiderIndexer::class);
+        $indexer
+            ->expects($this->once())
+            ->method('index')
+            ->with($uri, $content);
 
-    $observer = new lmbSearchIndexingObserver($indexer);
-    $observer->notify($reader);
-  }
+        $observer = new lmbSearchIndexingObserver($indexer);
+        $observer->notify($reader);
+    }
 }

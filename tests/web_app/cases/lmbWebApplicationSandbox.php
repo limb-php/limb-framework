@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\web_app\cases;
 
 use limb\filter_chain\src\lmbFilterChain;
@@ -16,27 +17,27 @@ use limb\toolkit\src\lmbToolkit;
 
 class lmbWebApplicationSandbox extends lmbFilterChain
 {
-  protected $app;
+    protected $app;
 
-  function __construct($app = null)
-  {
-      parent::__construct();
+    function __construct($app = null)
+    {
+        parent::__construct();
 
-      if(!is_object($app))
-          $app = new lmbWebApplication();
+        if (!is_object($app))
+            $app = new lmbWebApplication();
 
-      $this->app = $app;
-  }
+        $this->app = $app;
+    }
 
-  function imitate($request, $response)
-  {
-      $response = new lmbFakeHttpResponse();
+    function imitate($request, $response)
+    {
+        $response = new lmbFakeHttpResponse();
 
-      $toolkit = lmbToolkit::instance();
-      $toolkit->setRequest($request);
-      $toolkit->setResponse($response);
-      $toolkit->setSession(new lmbFakeSession());
+        $toolkit = lmbToolkit::instance();
+        $toolkit->setRequest($request);
+        $toolkit->setResponse($response);
+        $toolkit->setSession(new lmbFakeSession());
 
-      return $this->app->process($request, $response);
-  }
+        return $this->app->process($request, $response);
+    }
 }

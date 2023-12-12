@@ -6,19 +6,20 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\macro\cases\tags\core;
 
 use Tests\macro\cases\lmbBaseMacroTestCase;
 
 class lmbMacroAssignTagTest extends lmbBaseMacroTestCase
 {
-  function testAssignTag()
-  {
-    $template = '{{assign value="$#buffer" var="$output"/}}{$output}';
-    $page = $this->_createMacroTemplate($template, 'tpl.html');
+    function testAssignTag()
+    {
+        $template = '{{assign value="$#buffer" var="$output"/}}{$output}';
+        $page = $this->_createMacroTemplate($template, 'tpl.html');
 
-    $page->set('buffer', 'baz');
+        $page->set('buffer', 'baz');
 
-    $this->assertEquals('baz', $page->render());
-  }
+        $this->assertEquals('baz', $page->render());
+    }
 }

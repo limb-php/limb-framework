@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\active_record\src\toolkit;
 
 use limb\dbal\src\toolkit\lmbDbTools;
@@ -21,25 +22,25 @@ use limb\active_record\src\lmbARMetaInfo;
  */
 class lmbARTools extends lmbAbstractTools
 {
-  protected $metas = array();
+    protected $metas = array();
 
-  static function getRequiredTools()
-  {
-    return [
-      lmbDbTools::class,
-      lmbI18NTools::class
-    ];
-  }
+    static function getRequiredTools()
+    {
+        return [
+            lmbDbTools::class,
+            lmbI18NTools::class
+        ];
+    }
 
-  /** @deprecated */
-  function getActiveRecordMetaInfo($active_record, $conn = null)
-  {
-    $class_name = get_class($active_record);
-    if(isset($this->metas[$class_name]))
-      return $this->metas[$class_name];
+    /** @deprecated */
+    function getActiveRecordMetaInfo($active_record, $conn = null)
+    {
+        $class_name = get_class($active_record);
+        if (isset($this->metas[$class_name]))
+            return $this->metas[$class_name];
 
-    $meta = new lmbARMetaInfo($active_record, $conn);
-    $this->metas[$class_name] = $meta;
-    return $meta;
-  }
+        $meta = new lmbARMetaInfo($active_record, $conn);
+        $this->metas[$class_name] = $meta;
+        return $meta;
+    }
 }

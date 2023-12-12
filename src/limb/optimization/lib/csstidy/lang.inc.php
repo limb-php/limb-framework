@@ -28,12 +28,12 @@
 
 
 if (isset($_GET['lang'])) {
-	$l = $_GET['lang'];
+    $l = $_GET['lang'];
 } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-	$l = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-	$l = strtolower(substr($l, 0, 2));
+    $l = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+    $l = strtolower(substr($l, 0, 2));
 } else {
-	$l = '';
+    $l = '';
 }
 
 $l = (in_array($l, array('de', 'fr', 'zh'))) ? $l : 'en';
@@ -241,7 +241,6 @@ $lang['fr'][64] = 'Code';
 $lang['fr'][65] = 'CSS pour colorier la sortie CSS';
 $lang['fr'][66] = 'Vous devez aller dans about:config dans votre barre d’adresse, sélectionner \'signed.applets.codebase_principal_support\' dans le champ Filtre et attribuez-lui la valeur \'true\' pour utiliser cette fonctionnalité; toutefois, soyez conscient que cela augmente les risques de sécurité.';
 $lang['fr'][67] = 'Inverser gauche et droite';
-
 
 
 $lang['zh'][0] = 'CSS整形與最佳化工具(使用 CSSTidy ';

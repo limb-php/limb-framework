@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\fs\src\exception;
 
 /**
@@ -16,17 +17,17 @@ namespace limb\fs\src\exception;
  */
 class lmbFileNotFoundException extends lmbFsException
 {
-  function __construct($file_path, $message = 'file not found', $params = array())
-  {
-    $this->_file_path = $file_path;
+    function __construct($file_path, $message = 'file not found', $params = array())
+    {
+        $this->_file_path = $file_path;
 
-    $params['file_path'] = $file_path;
+        $params['file_path'] = $file_path;
 
-    parent::__construct($file_path . ': ' . $message, $params);
-  }
+        parent::__construct($file_path . ': ' . $message, $params);
+    }
 
-  function getFilePath()
-  {
-    return $this->_file_path;
-  }
+    function getFilePath()
+    {
+        return $this->_file_path;
+    }
 }

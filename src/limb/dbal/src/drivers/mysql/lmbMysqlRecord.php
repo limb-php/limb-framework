@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbBaseRecord;
@@ -25,7 +26,7 @@ class lmbMysqlRecord extends lmbDbBaseRecord
 
     function get($name, $default = null)
     {
-        if(isset($this->properties[$name]))
+        if (isset($this->properties[$name]))
             return $this->properties[$name];
 
         return $default;
@@ -48,7 +49,7 @@ class lmbMysqlRecord extends lmbDbBaseRecord
 
     function remove($name)
     {
-        if(isset($this->properties[$name]))
+        if (isset($this->properties[$name]))
             unset($this->properties[$name]);
     }
 
@@ -65,48 +66,45 @@ class lmbMysqlRecord extends lmbDbBaseRecord
     function getBit($name)
     {
         $value = $this->get($name);
-        return is_null($value) ?  null : bindec($value);
+        return is_null($value) ? null : bindec($value);
     }
 
     function getInteger($name)
     {
         $value = $this->get($name);
-        return is_null($value) ?  null : (int) $value;
+        return is_null($value) ? null : (int)$value;
     }
 
     function getFloat($name)
     {
         $value = $this->get($name);
-        return is_null($value) ?  null : (float) $value;
+        return is_null($value) ? null : (float)$value;
     }
 
     function getString($name)
     {
         $value = $this->get($name);
         //return is_null($value) ?  null : (string) $value;
-        return is_null($value) ?  null : $value;
+        return is_null($value) ? null : $value;
     }
 
     function getBoolean($name)
     {
         $value = $this->get($name);
-        return is_null($value) ?  null : (boolean) $value;
+        return is_null($value) ? null : (boolean)$value;
     }
 
     function getIntegerTimeStamp($name)
     {
         $value = $this->get($name);
-        if(is_integer($value))
+        if (is_integer($value))
             return $value;
-        else if(is_string($value))
-        {
+        else if (is_string($value)) {
             $ts = strtotime($value);
-            if($ts === -1)
-            {
-                if(preg_match('/([\d]{4})([\d]{2})([\d]{2})([\d]{2})([\d]{2})([\d]{2})/', $value, $matches))
+            if ($ts === -1) {
+                if (preg_match('/([\d]{4})([\d]{2})([\d]{2})([\d]{2})([\d]{2})([\d]{2})/', $value, $matches))
                     return mktime($matches[4], $matches[5], $matches[6], $matches[2], $matches[3], $matches[1]);
-            }
-            else
+            } else
                 return $ts;
         }
     }
@@ -114,7 +112,7 @@ class lmbMysqlRecord extends lmbDbBaseRecord
     function _getDate($name, $format)
     {
         $value = $this->get($name);
-        if(is_integer($value))
+        if (is_integer($value))
             return date($format, $value);
         else
             return $value;
@@ -138,7 +136,7 @@ class lmbMysqlRecord extends lmbDbBaseRecord
     function getStringFixed($name)
     {
         $value = $this->get($name);
-        return is_null($value) ?  null : (string) $value;
+        return is_null($value) ? null : (string)$value;
     }
 
     function getBlob($name)

@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\compiler;
 
 /**
@@ -14,15 +15,15 @@ namespace limb\macro\src\compiler;
  * @package macro
  * @version $Id$
  */
-class lmbMacroPassiveTag extends lmbMacroTag 
+class lmbMacroPassiveTag extends lmbMacroTag
 {
 
-  function generate($code_writer)
-  {
-  }
-  
-  function generateNow($code_writer)
-  {
-    parent::generate($code_writer);
-  }
+    function generate($code_writer)
+    {
+    }
+
+    function generateNow($code_writer)
+    {
+        parent::generate($code_writer);
+    }
 }

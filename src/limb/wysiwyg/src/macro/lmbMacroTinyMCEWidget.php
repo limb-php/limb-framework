@@ -6,6 +6,7 @@
  * @copyright  Copyright © 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\wysiwyg\src\macro;
 
 /**
@@ -14,65 +15,62 @@ namespace limb\wysiwyg\src\macro;
  */
 class lmbMacroTinyMCEWidget extends lmbMacroBaseWysiwygWidget
 {
-  protected $_base_path;
-  protected $_css_class;
-  
-  public static $is_included = false;
-  
-  function renderWysiwyg()
-  {
-    $this->_initWysiwyg();
-    
-    $this->_setEditorParameters();
-    
-    $this->_renderEditor();
-  
-    parent::renderWysiwyg();
-  }
+    protected $_base_path;
+    protected $_css_class;
 
-  protected function _renderEditor()
-  {
-    if(!self::$is_included)
+    public static $is_included = false;
+
+    function renderWysiwyg()
     {
-      echo '<script language="javascript" type="text/javascript" src="' . $this->_base_path . 'tiny_mce.js"></script>';
-      self::$is_included = true;
+        $this->_initWysiwyg();
+
+        $this->_setEditorParameters();
+
+        $this->_renderEditor();
+
+        parent::renderWysiwyg();
     }
-    echo '
+
+    protected function _renderEditor()
+    {
+        if (!self::$is_included) {
+            echo '<script language="javascript" type="text/javascript" src="' . $this->_base_path . 'tiny_mce.js"></script>';
+            self::$is_included = true;
+        }
+        echo '
     <script language="javascript" type="text/javascript">
     tinyMCE.init({
-    '.$this->_renderEditorParameters().'
+    ' . $this->_renderEditorParameters() . '
     });
     </script>
     ';
-  }
-
-  protected function _renderEditorParameters()
-  {
-    $items = array();
-
-    $items[] = 'editor_selector : "' . $this->_css_class . '"';
-
-    if ($config = $this->_helper->getOption('editor') and count($config))
-    {
-      foreach ($config as $key => $val)
-        $items[] = $key . ': "'. $val . '"';
     }
 
-    return implode (",\n", $items);
-  }
-
-  protected function _setEditorParameters()
-  {
-    if($this->_helper->getOption('base_path'))
-      $this->_base_path  = $this->_helper->getOption('base_path');
-    else 
-      $this->_base_path  = '/shared/wysiwyg/tiny_mce/';
-
-    if (!$this->_css_class = $this->getAttribute('class'))
+    protected function _renderEditorParameters()
     {
-      $this->_css_class = $this->getAttribute('name');
-      $this->setAttribute('class', $this->_css_class);
+        $items = array();
+
+        $items[] = 'editor_selector : "' . $this->_css_class . '"';
+
+        if ($config = $this->_helper->getOption('editor') and count($config)) {
+            foreach ($config as $key => $val)
+                $items[] = $key . ': "' . $val . '"';
+        }
+
+        return implode(",\n", $items);
     }
-  }
+
+    protected function _setEditorParameters()
+    {
+        if ($this->_helper->getOption('base_path'))
+            $this->_base_path = $this->_helper->getOption('base_path');
+        else
+            $this->_base_path = '/shared/wysiwyg/tiny_mce/';
+
+        if (!$this->_css_class = $this->getAttribute('class')) {
+            $this->_css_class = $this->getAttribute('name');
+            $this->setAttribute('class', $this->_css_class);
+        }
+    }
 
 }

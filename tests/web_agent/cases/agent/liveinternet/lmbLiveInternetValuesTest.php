@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\web_agent\cases\agent\liveinternet;
 
 use PHPUnit\Framework\TestCase;
@@ -20,15 +21,15 @@ require_once dirname(__FILE__) . '/../../../.setup.php';
 class lmbLiveInternetValuesTest extends TestCase
 {
 
-  function testBuildQuery()
-  {
-    $arr = array(
-      'test' => 'val',
-      'test1' => 'val1',
-      'id' => array(9,7,5,0));
-    $vals = new lmbLiveInternetValues($arr);
+    function testBuildQuery()
+    {
+        $arr = array(
+            'test' => 'val',
+            'test1' => 'val1',
+            'id' => array(9, 7, 5, 0));
+        $vals = new lmbLiveInternetValues($arr);
 
-    $this->assertEquals($vals->buildQuery(), 'test=val;test1=val1;id=9;id=7;id=5;id=0');
-  }
+        $this->assertEquals($vals->buildQuery(), 'test=val;test1=val1;id=9;id=7;id=5;id=0');
+    }
 
 }

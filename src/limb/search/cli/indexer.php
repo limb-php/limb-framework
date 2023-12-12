@@ -11,8 +11,8 @@
  * @package search
  * @version $Id: indexer.php 7686 2009-03-04 19:57:12Z
  */
-if(!isset($argv[1]))
-  die("index starting uri not specified!\n");
+if (!isset($argv[1]))
+    die("index starting uri not specified!\n");
 
 $path = $_SERVER['LIMB_PROJECT_DIR'];
 require_once($path . '/setup.php');

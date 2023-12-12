@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers;
 
 /**
@@ -14,20 +15,19 @@ namespace limb\dbal\src\drivers;
  * @package dbal
  * @version $Id: lmbAutoTransactionConnection.php 7486 2009-01-26 19:13:20Z
  */
-
 class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
 {
     protected $modifying_statements = array('UPDATE',
-                                            'DELETE',
-                                            'INSERT',
-                                            'CREATE',
-                                            'ALTER',
-                                            'DROP');//do we need more?
+        'DELETE',
+        'INSERT',
+        'CREATE',
+        'ALTER',
+        'DROP');//do we need more?
     protected $is_in_transaction = false;
 
     function newStatement($sql): lmbDbStatementInterface
     {
-        if($this->_isModifyingSQL($sql))
+        if ($this->_isModifyingSQL($sql))
             $this->beginTransaction();
 
         return $this->connection->newStatement($sql);
@@ -37,17 +37,16 @@ class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
     {
         $sql_trimmed = ltrim($sql);
 
-        foreach($this->modifying_statements as $stmt)
-        {
-            if(stripos($sql_trimmed, $stmt . ' ') === 0)
-              return true;
+        foreach ($this->modifying_statements as $stmt) {
+            if (stripos($sql_trimmed, $stmt . ' ') === 0)
+                return true;
         }
         return false;
     }
 
     function beginTransaction()
     {
-        if($this->is_in_transaction)
+        if ($this->is_in_transaction)
             return;
         $this->connection->beginTransaction();
         $this->is_in_transaction = true;
@@ -55,8 +54,7 @@ class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
 
     function commitTransaction()
     {
-        if($this->is_in_transaction)
-        {
+        if ($this->is_in_transaction) {
             $this->connection->commitTransaction();
             $this->is_in_transaction = false;
         }
@@ -64,8 +62,7 @@ class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
 
     function rollbackTransaction()
     {
-        if($this->is_in_transaction)
-        {
+        if ($this->is_in_transaction) {
             $this->connection->rollbackTransaction();
             $this->is_in_transaction = false;
         }
@@ -73,7 +70,7 @@ class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
 
     function isInTransaction()
     {
-      return $this->is_in_transaction;
+        return $this->is_in_transaction;
     }
 
     /* */

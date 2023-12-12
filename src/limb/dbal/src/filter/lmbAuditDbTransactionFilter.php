@@ -38,7 +38,7 @@ class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
             $result = [];
             $result[] = 'num: ' . $i++;
             $result[] = 'query: ' . $info['query'];
-            if( $info['params'] && is_array($info['params']) )
+            if ($info['params'] && is_array($info['params']))
                 $result[] = 'params: ' . json_encode($info['params']);
             $result[] = 'time: ' . $info['time'];
             $output .= implode("\n", $result) . "\n";

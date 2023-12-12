@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\i18n\cases\translation;
 
 use PHPUnit\Framework\TestCase;
@@ -14,24 +15,24 @@ use limb\i18n\src\translation\lmbI18NDictionary;
 
 class lmbPHPDictionaryExtractorTest extends TestCase
 {
-  function testExtractDefault()
-  {
-    $src = <<< EOD
+    function testExtractDefault()
+    {
+        $src = <<< EOD
 <?php
 lmb_i18n("Hello");
 ?>
 EOD;
 
-    $dicts = array();
-    $parser = new lmbPHPDictionaryExtractor();
-    $parser->extract($src, $dicts);
+        $dicts = array();
+        $parser = new lmbPHPDictionaryExtractor();
+        $parser->extract($src, $dicts);
 
-    $this->assertTrue($dicts['default']->has('Hello'));
-  }
+        $this->assertTrue($dicts['default']->has('Hello'));
+    }
 
-  function testExtractSeveralDomains()
-  {
-    $src = <<< EOD
+    function testExtractSeveralDomains()
+    {
+        $src = <<< EOD
 <?php
 lmb_i18n("Hello", "foo");
 lmb_i18n("Dog", "bar");
@@ -39,18 +40,18 @@ lmb_i18n("Apple", "zzz");
 ?>
 EOD;
 
-    $dicts = array();
-    $parser = new lmbPHPDictionaryExtractor();
-    $parser->extract($src, $dicts);
+        $dicts = array();
+        $parser = new lmbPHPDictionaryExtractor();
+        $parser->extract($src, $dicts);
 
-    $this->assertTrue($dicts['foo']->has('Hello'));
-    $this->assertTrue($dicts['bar']->has('Dog'));
-    $this->assertTrue($dicts['zzz']->has('Apple'));
-  }
+        $this->assertTrue($dicts['foo']->has('Hello'));
+        $this->assertTrue($dicts['bar']->has('Dog'));
+        $this->assertTrue($dicts['zzz']->has('Apple'));
+    }
 
-  function testMergeWithExisting()
-  {
-    $src = <<< EOD
+    function testMergeWithExisting()
+    {
+        $src = <<< EOD
 <?php
 lmb_i18n("Hello", "foo");
 lmb_i18n("Dog", "bar");
@@ -58,34 +59,34 @@ lmb_i18n("Apple", "zzz");
 ?>
 EOD;
 
-    $dicts = array('foo' => new lmbI18NDictionary(array('Doll' => '')));
-    $parser = new lmbPHPDictionaryExtractor();
-    $parser->extract($src, $dicts);
+        $dicts = array('foo' => new lmbI18NDictionary(array('Doll' => '')));
+        $parser = new lmbPHPDictionaryExtractor();
+        $parser->extract($src, $dicts);
 
-    $this->assertTrue($dicts['foo']->has('Hello'));
-    $this->assertTrue($dicts['foo']->has('Doll'));//merged
-    $this->assertTrue($dicts['bar']->has('Dog'));
-    $this->assertTrue($dicts['zzz']->has('Apple'));
-  }
+        $this->assertTrue($dicts['foo']->has('Hello'));
+        $this->assertTrue($dicts['foo']->has('Doll'));//merged
+        $this->assertTrue($dicts['bar']->has('Dog'));
+        $this->assertTrue($dicts['zzz']->has('Apple'));
+    }
 
-  function testExtractDefaultParametrizized()
-  {
-    $src = <<< EOD
+    function testExtractDefaultParametrizized()
+    {
+        $src = <<< EOD
 <?php
 lmb_i18n("Hello %1 %2", null, array('1' => 'foo', '2' => 'bar'));
 ?>
 EOD;
 
-    $dicts = array();
-    $parser = new lmbPHPDictionaryExtractor();
-    $parser->extract($src, $dicts);
+        $dicts = array();
+        $parser = new lmbPHPDictionaryExtractor();
+        $parser->extract($src, $dicts);
 
-    $this->assertTrue($dicts['default']->has('Hello %1 %2'));
-  }
+        $this->assertTrue($dicts['default']->has('Hello %1 %2'));
+    }
 
-  function testExtractSkipVariables()
-  {
-    $src = <<< EOD
+    function testExtractSkipVariables()
+    {
+        $src = <<< EOD
 <?php
 lmb_i18n(\$a);
 lmb_i18n(\$b, \$a);
@@ -93,25 +94,25 @@ lmb_i18n('Hello');
 ?>
 EOD;
 
-    $dicts = array();
-    $parser = new lmbPHPDictionaryExtractor();
-    $parser->extract($src, $dicts);
+        $dicts = array();
+        $parser = new lmbPHPDictionaryExtractor();
+        $parser->extract($src, $dicts);
 
-    $this->assertTrue($dicts['default']->has('Hello'));
-  }
+        $this->assertTrue($dicts['default']->has('Hello'));
+    }
 
-  function testExtractSkipFunctionDeclaration()
-  {
-    $src = <<< EOD
+    function testExtractSkipFunctionDeclaration()
+    {
+        $src = <<< EOD
 <?php
 function lmb_i18n(\$a = 'Hello'){}
 ?>
 EOD;
 
-    $dicts = array();
-    $parser = new lmbPHPDictionaryExtractor();
-    $parser->extract($src, $dicts);
+        $dicts = array();
+        $parser = new lmbPHPDictionaryExtractor();
+        $parser->extract($src, $dicts);
 
-    $this->assertEquals(array(), $dicts);
-  }
+        $this->assertEquals(array(), $dicts);
+    }
 }

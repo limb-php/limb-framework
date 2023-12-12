@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\net\src\toolkit;
 
 use limb\toolkit\src\lmbAbstractTools;
@@ -20,36 +21,36 @@ use limb\net\src\lmbHttpResponse;
  */
 class lmbNetTools extends lmbAbstractTools
 {
-  protected $response;
-  protected $request;
+    protected $response;
+    protected $request;
 
-  function getRequest(): lmbHttpRequest
-  {
-    if(is_object($this->request))
-      return $this->request;
+    function getRequest(): lmbHttpRequest
+    {
+        if (is_object($this->request))
+            return $this->request;
 
-    $this->request = lmbHttpRequest::createFromGlobals();
+        $this->request = lmbHttpRequest::createFromGlobals();
 
-    return $this->request;
-  }
+        return $this->request;
+    }
 
-  function setRequest($request): void
-  {
-    $this->request = $request;
-  }
+    function setRequest($request): void
+    {
+        $this->request = $request;
+    }
 
-  function getResponse(): lmbHttpResponse
-  {
-    if(is_object($this->response))
-      return $this->response;
+    function getResponse(): lmbHttpResponse
+    {
+        if (is_object($this->response))
+            return $this->response;
 
-    $this->response = new lmbHttpResponse();
+        $this->response = new lmbHttpResponse();
 
-    return $this->response;
-  }
+        return $this->response;
+    }
 
-  function setResponse($response): void
-  {
-    $this->response = $response;
-  }
+    function setResponse($response): void
+    {
+        $this->response = $response;
+    }
 }

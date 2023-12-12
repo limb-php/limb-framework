@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\web_app\cases\plain\filter;
 
 use PHPUnit\Framework\TestCase;
@@ -17,47 +18,45 @@ use limb\core\src\exception\lmbException;
 
 class lmbActionPerformingFilterTest extends TestCase
 {
-  var $toolkit;
+    var $toolkit;
 
-  function setUp(): void
-  {
-    $this->toolkit = lmbToolkit::save();
-  }
-
-  function tearDown(): void
-  {
-    lmbToolkit::restore();
-  }
-
-  function testThrowExceptionIfNoDispatchedController()
-  {
-    $filter = new lmbActionPerformingFilter();
-
-    $fc = $this->createMock(lmbFilterChain::class);
-    $fc->expects($this->never())->method('next');
-
-    try
+    function setUp(): void
     {
-      $filter->run($fc);
-      $this->fail();
+        $this->toolkit = lmbToolkit::save();
     }
-    catch(lmbException $e){
-        $this->assertTrue(true);
+
+    function tearDown(): void
+    {
+        lmbToolkit::restore();
     }
-  }
 
-  function testRunOk()
-  {
-    $controller = $this->createMock(LmbController::class);
-    $controller->expects($this->once())->method('performAction');
+    function testThrowExceptionIfNoDispatchedController()
+    {
+        $filter = new lmbActionPerformingFilter();
 
-    $this->toolkit->setDispatchedController($controller);
+        $fc = $this->createMock(lmbFilterChain::class);
+        $fc->expects($this->never())->method('next');
 
-    $filter = new lmbActionPerformingFilter();
+        try {
+            $filter->run($fc);
+            $this->fail();
+        } catch (lmbException $e) {
+            $this->assertTrue(true);
+        }
+    }
 
-    $fc = $this->createMock(lmbFilterChain::class);
-    $fc->expects($this->once())->method('next');
+    function testRunOk()
+    {
+        $controller = $this->createMock(LmbController::class);
+        $controller->expects($this->once())->method('performAction');
 
-    $filter->run($fc);
-  }
+        $this->toolkit->setDispatchedController($controller);
+
+        $filter = new lmbActionPerformingFilter();
+
+        $fc = $this->createMock(lmbFilterChain::class);
+        $fc->expects($this->once())->method('next');
+
+        $filter->run($fc);
+    }
 }

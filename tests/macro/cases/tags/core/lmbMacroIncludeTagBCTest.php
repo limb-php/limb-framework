@@ -6,168 +6,169 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\macro\cases\tags\core;
 
 use Tests\macro\cases\lmbBaseMacroTestCase;
 
 class lmbMacroIncludeTagBCTest extends lmbBaseMacroTestCase
 {
-  function testSimpleStaticInclude()
-  {
-    $bar = '<body>{{include file="foo.html"/}}</body>';
-    $foo = '<p>Hello, Bob</p>';
+    function testSimpleStaticInclude()
+    {
+        $bar = '<body>{{include file="foo.html"/}}</body>';
+        $foo = '<p>Hello, Bob</p>';
 
-    $bar_tpl = $this->_createTemplate($bar, 'bar.html');
-    $foo_tpl = $this->_createTemplate($foo, 'foo.html');
+        $bar_tpl = $this->_createTemplate($bar, 'bar.html');
+        $foo_tpl = $this->_createTemplate($foo, 'foo.html');
 
-    $macro = $this->_createMacro($bar_tpl);
+        $macro = $this->_createMacro($bar_tpl);
 
-    $out = $macro->render();
-    $this->assertEquals('<body><p>Hello, Bob</p></body>', $out);
-  }
+        $out = $macro->render();
+        $this->assertEquals('<body><p>Hello, Bob</p></body>', $out);
+    }
 
-  function testNestedStaticInclude()
-  {
-    $bar = '<body>{{include file="foo.html"/}}</body>';
-    $foo = '<p>Hello, {{include file="name.html"/}}</p>';
-    $name = "Bob";
+    function testNestedStaticInclude()
+    {
+        $bar = '<body>{{include file="foo.html"/}}</body>';
+        $foo = '<p>Hello, {{include file="name.html"/}}</p>';
+        $name = "Bob";
 
-    $bar_tpl = $this->_createTemplate($bar, 'bar.html');
-    $foo_tpl = $this->_createTemplate($foo, 'foo.html');
-    $name_tpl = $this->_createTemplate($name, 'name.html');
+        $bar_tpl = $this->_createTemplate($bar, 'bar.html');
+        $foo_tpl = $this->_createTemplate($foo, 'foo.html');
+        $name_tpl = $this->_createTemplate($name, 'name.html');
 
-    $macro = $this->_createMacro($bar_tpl);
+        $macro = $this->_createMacro($bar_tpl);
 
-    $out = $macro->render();
-    $this->assertEquals('<body><p>Hello, Bob</p></body>', $out);
-  }
+        $out = $macro->render();
+        $this->assertEquals('<body><p>Hello, Bob</p></body>', $out);
+    }
 
-  function testStaticIncludePassVariables()
-  {
-    $bar = '<body><?php $var2=2;?>{{include file="foo.html" var1="1" var2="$var2"/}}</body>';
-    $foo = '<p>Numbers: <?php echo $var1;?> <?php echo $var2;?></p>';
+    function testStaticIncludePassVariables()
+    {
+        $bar = '<body><?php $var2=2;?>{{include file="foo.html" var1="1" var2="$var2"/}}</body>';
+        $foo = '<p>Numbers: <?php echo $var1;?> <?php echo $var2;?></p>';
 
-    $bar_tpl = $this->_createTemplate($bar, 'bar.html');
-    $foo_tpl = $this->_createTemplate($foo, 'foo.html');
+        $bar_tpl = $this->_createTemplate($bar, 'bar.html');
+        $foo_tpl = $this->_createTemplate($foo, 'foo.html');
 
-    $macro = $this->_createMacro($bar_tpl);
+        $macro = $this->_createMacro($bar_tpl);
 
-    $out = $macro->render();
-    $this->assertEquals('<body><p>Numbers: 1 2</p></body>', $out);
-  }
+        $out = $macro->render();
+        $this->assertEquals('<body><p>Numbers: 1 2</p></body>', $out);
+    }
 
-  function testStaticInlineInclude()
-  {
-    $bar = '<body><?php $var2=2;?>{{include file="foo.html" inline="true"/}}</body>';
-    $foo = '<p>Number: <?php echo $var2;?></p>';
+    function testStaticInlineInclude()
+    {
+        $bar = '<body><?php $var2=2;?>{{include file="foo.html" inline="true"/}}</body>';
+        $foo = '<p>Number: <?php echo $var2;?></p>';
 
-    $bar_tpl = $this->_createTemplate($bar, 'bar.html');
-    $foo_tpl = $this->_createTemplate($foo, 'foo.html');
+        $bar_tpl = $this->_createTemplate($bar, 'bar.html');
+        $foo_tpl = $this->_createTemplate($foo, 'foo.html');
 
-    $macro = $this->_createMacro($bar_tpl);
+        $macro = $this->_createMacro($bar_tpl);
 
-    $out = $macro->render();
-    $this->assertEquals('<body><p>Number: 2</p></body>', $out);
-  }
+        $out = $macro->render();
+        $this->assertEquals('<body><p>Number: 2</p></body>', $out);
+    }
 
-  function testStaticIncludeMixLocalAndTemplateVariables()
-  {
-    $bar = '<body><?php $var2=2;?>{{include file="foo.html" var1="1" var2="$var2"/}}</body>';
-    $foo = '<p>Numbers: <?php echo $var1;?> <?php echo $var2;?> <?php echo $this->var3;?></p>';
+    function testStaticIncludeMixLocalAndTemplateVariables()
+    {
+        $bar = '<body><?php $var2=2;?>{{include file="foo.html" var1="1" var2="$var2"/}}</body>';
+        $foo = '<p>Numbers: <?php echo $var1;?> <?php echo $var2;?> <?php echo $this->var3;?></p>';
 
-    $bar_tpl = $this->_createTemplate($bar, 'bar.html');
-    $foo_tpl = $this->_createTemplate($foo, 'foo.html');
+        $bar_tpl = $this->_createTemplate($bar, 'bar.html');
+        $foo_tpl = $this->_createTemplate($foo, 'foo.html');
 
-    $macro = $this->_createMacro($bar_tpl);
+        $macro = $this->_createMacro($bar_tpl);
 
-    $macro->set('var3', 3);
-    $out = $macro->render();
-    $this->assertEquals('<body><p>Numbers: 1 2 3</p></body>', $out);
-  }
+        $macro->set('var3', 3);
+        $out = $macro->render();
+        $this->assertEquals('<body><p>Numbers: 1 2 3</p></body>', $out);
+    }
 
-  function testDynamicInclude()
-  {
-    $bar = '<body>{{include file="$this->file"/}}</body>';
-    $foo = '<p>Hello!</p>';
+    function testDynamicInclude()
+    {
+        $bar = '<body>{{include file="$this->file"/}}</body>';
+        $foo = '<p>Hello!</p>';
 
-    $bar_tpl = $this->_createTemplate($bar, 'bar.html');
-    $foo_tpl = $this->_createTemplate($foo, 'foo.html');
+        $bar_tpl = $this->_createTemplate($bar, 'bar.html');
+        $foo_tpl = $this->_createTemplate($foo, 'foo.html');
 
-    $macro = $this->_createMacro($bar_tpl);
-    $macro->set('file', 'foo.html');
+        $macro = $this->_createMacro($bar_tpl);
+        $macro->set('file', 'foo.html');
 
-    $out = $macro->render();
-    $this->assertEquals('<body><p>Hello!</p></body>', $out);
-  }
+        $out = $macro->render();
+        $this->assertEquals('<body><p>Hello!</p></body>', $out);
+    }
 
-  function testDynamicIncludePassLocalVars()
-  {
-    $bar = '<body><?php $name = "Fred";?>{{include file="$this->file" name="$name"/}}</body>';
-    $foo = '<p>Hello, <?php echo $name;?>!</p>';
+    function testDynamicIncludePassLocalVars()
+    {
+        $bar = '<body><?php $name = "Fred";?>{{include file="$this->file" name="$name"/}}</body>';
+        $foo = '<p>Hello, <?php echo $name;?>!</p>';
 
-    $bar_tpl = $this->_createTemplate($bar, 'bar.html');
-    $foo_tpl = $this->_createTemplate($foo, 'foo.html');
+        $bar_tpl = $this->_createTemplate($bar, 'bar.html');
+        $foo_tpl = $this->_createTemplate($foo, 'foo.html');
 
-    $macro = $this->_createMacro($bar_tpl);
-    $macro->set('file', 'foo.html');
+        $macro = $this->_createMacro($bar_tpl);
+        $macro->set('file', 'foo.html');
 
-    $out = $macro->render();
-    $this->assertEquals('<body><p>Hello, Fred!</p></body>', $out);
-  }
+        $out = $macro->render();
+        $this->assertEquals('<body><p>Hello, Fred!</p></body>', $out);
+    }
 
-  function testDynamicIncludeMixLocalAndTemplateVars()
-  {
-    $bar = '<body><?php $name = "Fred";?>{{include file="$this->file" name="$name"/}}</body>';
-    $foo = '<p>Hello, <?php echo $name . " " . $this->lastname;?>!</p>';
+    function testDynamicIncludeMixLocalAndTemplateVars()
+    {
+        $bar = '<body><?php $name = "Fred";?>{{include file="$this->file" name="$name"/}}</body>';
+        $foo = '<p>Hello, <?php echo $name . " " . $this->lastname;?>!</p>';
 
-    $bar_tpl = $this->_createTemplate($bar, 'bar.html');
-    $foo_tpl = $this->_createTemplate($foo, 'foo.html');
+        $bar_tpl = $this->_createTemplate($bar, 'bar.html');
+        $foo_tpl = $this->_createTemplate($foo, 'foo.html');
 
-    $macro = $this->_createMacro($bar_tpl);
-    $macro->set('file', 'foo.html');
-    $macro->set('lastname', 'Atkins');
+        $macro = $this->_createMacro($bar_tpl);
+        $macro->set('file', 'foo.html');
+        $macro->set('lastname', 'Atkins');
 
-    $out = $macro->render();
-    $this->assertEquals('<body><p>Hello, Fred Atkins!</p></body>', $out);
-  }
+        $out = $macro->render();
+        $this->assertEquals('<body><p>Hello, Fred Atkins!</p></body>', $out);
+    }
 
-  function testStaticIncludeWithChildIntoTagsAndVariables()
-  {
-    $bar = '<body><?php $var2=2;?>'.
-           '{{include file="foo.html" var1="1" var2="$var2"}}'.
-           '{{include:into slot="slot1"}}<b><?php echo $varA;?></b>{{/include:into}}'.
-           '{{include:into slot="slot2"}}<u><?php echo $varB;?></u>{{/include:into}}'.
-           '{{/include}}'.
-           '</body>';
-    $foo = '<p>Numbers: {{slot id="slot1" varA="$var1"/}} {{slot id="slot2" varB="$var2"/}}</p>';
+    function testStaticIncludeWithChildIntoTagsAndVariables()
+    {
+        $bar = '<body><?php $var2=2;?>' .
+            '{{include file="foo.html" var1="1" var2="$var2"}}' .
+            '{{include:into slot="slot1"}}<b><?php echo $varA;?></b>{{/include:into}}' .
+            '{{include:into slot="slot2"}}<u><?php echo $varB;?></u>{{/include:into}}' .
+            '{{/include}}' .
+            '</body>';
+        $foo = '<p>Numbers: {{slot id="slot1" varA="$var1"/}} {{slot id="slot2" varB="$var2"/}}</p>';
 
-    $bar_tpl = $this->_createTemplate($bar, 'bar.html');
-    $foo_tpl = $this->_createTemplate($foo, 'foo.html');
+        $bar_tpl = $this->_createTemplate($bar, 'bar.html');
+        $foo_tpl = $this->_createTemplate($foo, 'foo.html');
 
-    $macro = $this->_createMacro($bar_tpl);
+        $macro = $this->_createMacro($bar_tpl);
 
-    $out = $macro->render();
-    $this->assertEquals('<body><p>Numbers: <b>1</b> <u>2</u></p></body>', $out);
-  }
+        $out = $macro->render();
+        $this->assertEquals('<body><p>Numbers: <b>1</b> <u>2</u></p></body>', $out);
+    }
 
-  function testDynamicIncludeWithChildIntoTagsAndVariables()
-  {
-    $bar = '<body><?php $var2=2;?>'.
-           '{{include file="$#included" var1="1" var2="$var2"}}'.
-           '{{include:into slot="slot1"}}<b><?php echo $varA;?></b>{{/include:into}}'.
-           '{{include:into slot="slot2"}}<u><?php echo $varB;?></u>{{/include:into}}'.
-           '{{/include}}'.
-           '</body>';
-    $foo = '<p>Numbers: {{slot id="slot1" varA="$var1"/}} {{slot id="slot2" varB="$var2"/}}</p>';
+    function testDynamicIncludeWithChildIntoTagsAndVariables()
+    {
+        $bar = '<body><?php $var2=2;?>' .
+            '{{include file="$#included" var1="1" var2="$var2"}}' .
+            '{{include:into slot="slot1"}}<b><?php echo $varA;?></b>{{/include:into}}' .
+            '{{include:into slot="slot2"}}<u><?php echo $varB;?></u>{{/include:into}}' .
+            '{{/include}}' .
+            '</body>';
+        $foo = '<p>Numbers: {{slot id="slot1" varA="$var1"/}} {{slot id="slot2" varB="$var2"/}}</p>';
 
-    $bar_tpl = $this->_createTemplate($bar, 'bar.html');
-    $foo_tpl = $this->_createTemplate($foo, 'foo.html');
+        $bar_tpl = $this->_createTemplate($bar, 'bar.html');
+        $foo_tpl = $this->_createTemplate($foo, 'foo.html');
 
-    $macro = $this->_createMacro($bar_tpl);
-    $macro->set('included', 'foo.html');
+        $macro = $this->_createMacro($bar_tpl);
+        $macro->set('included', 'foo.html');
 
-    $out = $macro->render();
-    $this->assertEquals('<body><p>Numbers: <b>1</b> <u>2</u></p></body>', $out);
-  }
+        $out = $macro->render();
+        $this->assertEquals('<body><p>Numbers: <b>1</b> <u>2</u></p></body>', $out);
+    }
 }
 

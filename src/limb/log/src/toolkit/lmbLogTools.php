@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\log\src\toolkit;
 
 use limb\config\src\toolkit\lmbConfTools;
@@ -22,43 +23,43 @@ use limb\log\src\lmbLogWriterFactory;
  */
 class lmbLogTools extends lmbAbstractTools
 {
-  protected $log;
+    protected $log;
 
-  static function getRequiredTools()
-  {
-    return [
-      lmbConfTools::class
-    ];
-  }
+    static function getRequiredTools()
+    {
+        return [
+            lmbConfTools::class
+        ];
+    }
 
-  function getLogDSNes()
-  {
-    $default_dsn = 'file://'.lmbEnv::get('LIMB_VAR_DIR').'log/error.log';
+    function getLogDSNes()
+    {
+        $default_dsn = 'file://' . lmbEnv::get('LIMB_VAR_DIR') . 'log/error.log';
 
-    if(!$this->toolkit->hasConf('common'))
-      return array($default_dsn);
+        if (!$this->toolkit->hasConf('common'))
+            return array($default_dsn);
 
-    $conf = $this->toolkit->getConf('common');
-    if(!isset($conf['logs']))
-      return array($default_dsn);
+        $conf = $this->toolkit->getConf('common');
+        if (!isset($conf['logs']))
+            return array($default_dsn);
 
-    return $conf['logs'];
-  }
+        return $conf['logs'];
+    }
 
-  public function getLog(): lmbLog
-  {
-    if($this->log)
-      return $this->log;
+    public function getLog(): lmbLog
+    {
+        if ($this->log)
+            return $this->log;
 
-    $this->log = new lmbLog();
-    foreach($this->getLogDSNes() as $dsn)
-      $this->log->registerWriter(lmbLogWriterFactory::createLogWriter($dsn));
+        $this->log = new lmbLog();
+        foreach ($this->getLogDSNes() as $dsn)
+            $this->log->registerWriter(lmbLogWriterFactory::createLogWriter($dsn));
 
-    return $this->log;
-  }
+        return $this->log;
+    }
 
-  public function setLog($log)
-  {
-      $this->log = $log;
-  }
+    public function setLog($log)
+    {
+        $this->log = $log;
+    }
 }

@@ -114,7 +114,7 @@ class lmbDbTools extends lmbAbstractTools
             ? $conf->get($name)
             : $this->_tryLoadDsnFromEnvironment($conf, $name);
 
-        if( !$dsn )
+        if (!$dsn)
             throw new lmbException("Could not find database connection settings '{$name}'", $conf);
 
         $dsn = self::castToDsnObject($dsn);

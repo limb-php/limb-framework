@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers\mssql;
 
 use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
@@ -18,8 +19,8 @@ use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
  */
 class lmbMssqlManipulationStatement extends lmbMssqlStatement implements lmbDbManipulationStatementInterface
 {
-  function getAffectedRowCount()
-  {
-    return sqlsrv_rows_affected($this->connection->getConnectionId());
-  }
+    function getAffectedRowCount()
+    {
+        return sqlsrv_rows_affected($this->connection->getConnectionId());
+    }
 }

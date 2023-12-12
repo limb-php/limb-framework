@@ -1,11 +1,12 @@
 <?php
- /*
- * Limb PHP Framework
- *
- * @link http://limb-project.com
- * @copyright  Copyright &copy; 2004-2010 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html
- */
+/*
+* Limb PHP Framework
+*
+* @link http://limb-project.com
+* @copyright  Copyright &copy; 2004-2010 BIT(http://bit-creative.com)
+* @license    LGPL http://www.gnu.org/copyleft/lesser.html
+*/
+
 namespace limb\mail\src\macro;
 
 use limb\macro\src\compiler\lmbMacroTag;
@@ -13,27 +14,27 @@ use limb\macro\src\lmbMacroException;
 
 /**
  * @tag mailpart
- * @aliases 
+ * @aliases
  * @req_attributes name
  * @restrict_self_nesting
  */
 class lmbMailpartTag extends lmbMacroTag
-{ 
-  function preParse($compiller)
-  {
-     if(!$this->has('name'))
-         throw new lmbMacroException('Tag {{mailpart}}, required attribute "name"');
+{
+    function preParse($compiller)
+    {
+        if (!$this->has('name'))
+            throw new lmbMacroException('Tag {{mailpart}}, required attribute "name"');
 
-     parent::preParse($compiller);
-  }
-  
-  function _generateBeforeContent($code_writer)
-  {
-    $code_writer->writeHTML('<mailpart name="'.$this->get('name').'"><![CDATA[');
-  }
+        parent::preParse($compiller);
+    }
 
-  function _generateAfterContent($code_writer)
-  {
-  	$code_writer->writeHTML(']]></mailpart>');
-  }
+    function _generateBeforeContent($code_writer)
+    {
+        $code_writer->writeHTML('<mailpart name="' . $this->get('name') . '"><![CDATA[');
+    }
+
+    function _generateAfterContent($code_writer)
+    {
+        $code_writer->writeHTML(']]></mailpart>');
+    }
 }

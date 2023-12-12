@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_agent\src;
 
 /**
@@ -16,51 +17,51 @@ namespace limb\web_agent\src;
  */
 class lmbWebServerResponse
 {
-  protected $content;
-  protected $status;
-  protected $mediatype;
-  protected $charset;
-  protected $headers;
-  protected $cookies;
+    protected $content;
+    protected $status;
+    protected $mediatype;
+    protected $charset;
+    protected $headers;
+    protected $cookies;
 
-  function __construct($content, $status, $mediatype, $charset, lmbWebServerCookiesCollection $cookies, lmbWebAgentHeaders $headers)
-  {
-    $this->content = $content;
-    $this->status = $status;
-    $this->mediatype = $mediatype;
-    $this->charset = $charset;
-    $this->headers = $headers;
-    $this->cookies = $cookies;
-  }
+    function __construct($content, $status, $mediatype, $charset, lmbWebServerCookiesCollection $cookies, lmbWebAgentHeaders $headers)
+    {
+        $this->content = $content;
+        $this->status = $status;
+        $this->mediatype = $mediatype;
+        $this->charset = $charset;
+        $this->headers = $headers;
+        $this->cookies = $cookies;
+    }
 
-  function getContent()
-  {
-    return $this->content;
-  }
+    function getContent()
+    {
+        return $this->content;
+    }
 
-  function getStatus()
-  {
-    return $this->status;
-  }
+    function getStatus()
+    {
+        return $this->status;
+    }
 
-  function getMediaType()
-  {
-    return $this->mediatype;
-  }
+    function getMediaType()
+    {
+        return $this->mediatype;
+    }
 
-  function getCharset()
-  {
-    return $this->charset;
-  }
+    function getCharset()
+    {
+        return $this->charset;
+    }
 
-  function getCookies()
-  {
-    return $this->cookies;
-  }
+    function getCookies()
+    {
+        return $this->cookies;
+    }
 
-  function getHeaders()
-  {
-    return $this->headers;
-  }
+    function getHeaders()
+    {
+        return $this->headers;
+    }
 
 }

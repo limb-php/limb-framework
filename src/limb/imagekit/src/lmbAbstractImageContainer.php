@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\imagekit\src;
 
 /**
@@ -17,20 +18,20 @@ namespace limb\imagekit\src;
 abstract class lmbAbstractImageContainer
 {
 
-  protected $output_type = '';
+    protected $output_type = '';
 
-  function setOutputType($type)
-  {
-    $this->output_type = $type;
-  }
+    function setOutputType($type)
+    {
+        $this->output_type = $type;
+    }
 
-  function getOutputType()
-  {
-    return $this->output_type;
-  }
+    function getOutputType()
+    {
+        return $this->output_type;
+    }
 
-  abstract function load($file_name, $type = '');
+    abstract function load($file_name, $type = '');
 
-  abstract function save($file_name = null);
+    abstract function save($file_name = null);
 
 }

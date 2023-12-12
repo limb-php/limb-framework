@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\web_agent\cases\agent\liveinternet;
 
 /**
@@ -25,47 +26,47 @@ require_once dirname(__FILE__) . '/../../../.setup.php';
  */
 class lmbLiveInternetAgentTest extends TestCase
 {
-  protected $agent;
-  protected $request;
+    protected $agent;
+    protected $request;
 
-  function setUp(): void
-  {
-    $this->request = new lmbFakeWebAgentRequest();
-  	$this->agent = new lmbLiveInternetAgent('google.com', $this->request);
-  }
+    function setUp(): void
+    {
+        $this->request = new lmbFakeWebAgentRequest();
+        $this->agent = new lmbLiveInternetAgent('google.com', $this->request);
+    }
 
-  function testGetProject()
-  {
-    $this->assertEquals('google.com', $this->agent->getProject());
-  }
+    function testGetProject()
+    {
+        $this->assertEquals('google.com', $this->agent->getProject());
+    }
 
-  function testGetValues()
-  {
-    $arr = array(
-      'test' => 'val',
-      'test1' => 'val1',
-      'id' => array(9,7,5,0));
-    $vals = $this->agent->getValues();
-    $vals->import($arr);
+    function testGetValues()
+    {
+        $arr = array(
+            'test' => 'val',
+            'test1' => 'val1',
+            'id' => array(9, 7, 5, 0));
+        $vals = $this->agent->getValues();
+        $vals->import($arr);
 
-    $this->assertEquals('test=val;test1=val1;id=9;id=7;id=5;id=0', $vals->buildQuery());
-  }
+        $this->assertEquals('test=val;test1=val1;id=9;id=7;id=5;id=0', $vals->buildQuery());
+    }
 
-  function testRequestStatPage()
-  {
-  	$this->agent->requestStatPage('visitors.html');
+    function testRequestStatPage()
+    {
+        $this->agent->requestStatPage('visitors.html');
 
-    $this->assertEquals('https://www.liveinternet.ru/stat/google.com/visitors.html', $this->request->request_url);
-  }
+        $this->assertEquals('https://www.liveinternet.ru/stat/google.com/visitors.html', $this->request->request_url);
+    }
 
-  function testAuth()
-  {
-    $this->request->response_cookies->add(new lmbWebServerCookie('sid=zxc'));
-  	$this->agent->auth('***');
+    function testAuth()
+    {
+        $this->request->response_cookies->add(new lmbWebServerCookie('sid=zxc'));
+        $this->agent->auth('***');
 
-    $this->assertEquals('https://www.liveinternet.ru/stat/google.com/', $this->request->request_url);
-    $this->assertEquals($this->request->request_content,
-      http_build_query(array('url' => 'https://google.com', 'password' => '***', 'ok' => ' ok ')));
-    $this->assertEquals('zxc', $this->agent->getCookies()->get(0)->value);
-  }
+        $this->assertEquals('https://www.liveinternet.ru/stat/google.com/', $this->request->request_url);
+        $this->assertEquals($this->request->request_content,
+            http_build_query(array('url' => 'https://google.com', 'password' => '***', 'ok' => ' ok ')));
+        $this->assertEquals('zxc', $this->agent->getCookies()->get(0)->value);
+    }
 }

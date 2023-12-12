@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_agent\src;
 
 /**
@@ -17,13 +18,13 @@ namespace limb\web_agent\src;
 class lmbWebAgentKit
 {
 
-  static function createRequest($req = 'socket')
-  {
-    $class = 'lmb'.ucfirst($req).'WebAgentRequest';
+    static function createRequest($req = 'socket')
+    {
+        $class = 'lmb' . ucfirst($req) . 'WebAgentRequest';
 
-    $class_path = 'limb\\web_agent\\src\\request\\'.$class;
+        $class_path = 'limb\\web_agent\\src\\request\\' . $class;
 
-    return new $class;
-  }
+        return new $class;
+    }
 
 }

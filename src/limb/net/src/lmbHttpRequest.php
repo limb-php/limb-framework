@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\net\src;
 
 use limb\core\src\exception\lmbException;
@@ -59,24 +60,22 @@ class lmbHttpRequest extends lmbSet
 
         $this->__get = $get;
         $items = $this->__uri->getQueryItems();
-        foreach($items as $k => $v)
+        foreach ($items as $k => $v)
             $this->__get[$k] = $v;
 
         $this->__post = $post;
         $this->__cookies = $cookies;
         $this->__files = $this->_parseUploadedFiles($files);
 
-        if(ini_get('magic_quotes_gpc'))
-        {
+        if (ini_get('magic_quotes_gpc')) {
             $this->__get = $this->_stripHttpSlashes($this->__get);
             $this->__post = $this->_stripHttpSlashes($this->__post);
             $this->__cookies = $this->_stripHttpSlashes($this->__cookies);
         }
 
         $request = lmbArrayHelper::arrayMerge($this->__get, $this->__post, $this->__files);
-        foreach($request as $k => $v)
-        {
-            if(in_array($k, $this->__reserved_attrs))
+        foreach ($request as $k => $v) {
+            if (in_array($k, $this->__reserved_attrs))
                 continue;
             $this->set($k, $v);
         }
@@ -112,39 +111,35 @@ class lmbHttpRequest extends lmbSet
     {
         $host = 'localhost';
 
-        if(!empty($_SERVER['HTTP_HOST']))
-        {
+        if (!empty($_SERVER['HTTP_HOST'])) {
             $items = explode(':', $_SERVER['HTTP_HOST']);
             $host = $items[0];
             $port = $items[1] ?? null;
-        }
-
-        elseif(!empty($_SERVER['SERVER_NAME']))
-        {
+        } elseif (!empty($_SERVER['SERVER_NAME'])) {
             $items = explode(':', $_SERVER['SERVER_NAME']);
             $host = $items[0];
             $port = $items[1] ?? null;
         }
 
-        if(isset($_SERVER['HTTPS']) && !strcasecmp($_SERVER['HTTPS'], 'on'))
+        if (isset($_SERVER['HTTPS']) && !strcasecmp($_SERVER['HTTPS'], 'on'))
             $protocol = 'https';
         else
             $protocol = 'http';
 
-        if(!isset($port) || $port != intval($port))
+        if (!isset($port) || $port != intval($port))
             $port = $_SERVER['SERVER_PORT'] ?? 80;
 
-        if($protocol == 'http' && $port == 80)
+        if ($protocol == 'http' && $port == 80)
             $port = null;
 
-        if($protocol == 'https' && $port == 443)
+        if ($protocol == 'https' && $port == 443)
             $port = null;
 
         $server = $protocol . '://' . $host . (isset($port) ? ':' . $port : '');
 
-        if(isset($_SERVER['REQUEST_URI']))
+        if (isset($_SERVER['REQUEST_URI']))
             $url = $_SERVER['REQUEST_URI'];
-        elseif(isset($_SERVER['QUERY_STRING']))
+        elseif (isset($_SERVER['QUERY_STRING']))
             $url = basename($_SERVER['PHP_SELF']) . '?' . $_SERVER['QUERY_STRING'];
         else
             $url = (($_SERVER['PHP_SELF'][0] == '/') ? '' : '/') . $_SERVER['PHP_SELF'];
@@ -160,9 +155,8 @@ class lmbHttpRequest extends lmbSet
 
     protected function _stripHttpSlashes($data, $result = [])
     {
-        foreach($data as $k => $v)
-        {
-            if(is_array($v))
+        foreach ($data as $k => $v) {
+            if (is_array($v))
                 $result[$k] = $this->_stripHttpSlashes($v);
             else
                 $result[$k] = stripslashes($v);
@@ -170,52 +164,52 @@ class lmbHttpRequest extends lmbSet
         return $result;
     }
 
-  function hasFiles($key = null): bool
-  {
-      $has = $this->_get($this->__files, $key);
+    function hasFiles($key = null): bool
+    {
+        $has = $this->_get($this->__files, $key);
 
-      return !empty($has);
-  }
+        return !empty($has);
+    }
 
-  function getFiles($key = null)
-  {
-    return $this->_get($this->__files, $key);
-  }
+    function getFiles($key = null)
+    {
+        return $this->_get($this->__files, $key);
+    }
 
-  /** @return \limb\net\src\lmbUploadedFile|false */
-  function getFile($name)
-  {
-    $file = $this->getFiles($name);
-    if(is_object($file))
-      return $file;
+    /** @return \limb\net\src\lmbUploadedFile|false */
+    function getFile($name)
+    {
+        $file = $this->getFiles($name);
+        if (is_object($file))
+            return $file;
 
-    return false;
-  }
+        return false;
+    }
 
-  /* @deprecated */
-  function getRequest($key = null, $default = null)
-  {
-      $request = lmbArrayHelper::arrayMerge($this->__get, $this->__post, $this->__files);
-      return $this->_get($request, $key, $default);
-  }
+    /* @deprecated */
+    function getRequest($key = null, $default = null)
+    {
+        $request = lmbArrayHelper::arrayMerge($this->__get, $this->__post, $this->__files);
+        return $this->_get($request, $key, $default);
+    }
 
-  function getGet($key = null, $default = null)
-  {
-    return $this->_get($this->__get, $key, $default);
-  }
+    function getGet($key = null, $default = null)
+    {
+        return $this->_get($this->__get, $key, $default);
+    }
 
-  function getPost($key = null, $default = null)
-  {
-    return $this->_get($this->__post, $key, $default);
-  }
+    function getPost($key = null, $default = null)
+    {
+        return $this->_get($this->__post, $key, $default);
+    }
 
-  function hasPost(): bool
-  {
-    if($this->__pretend_post)
-      return true;
+    function hasPost(): bool
+    {
+        if ($this->__pretend_post)
+            return true;
 
-    return sizeof($this->__post) > 0 || $this->getMethod() == 'POST';
-  }
+        return sizeof($this->__post) > 0 || $this->getMethod() == 'POST';
+    }
 
     public function getClientIp()
     {
@@ -237,88 +231,86 @@ class lmbHttpRequest extends lmbSet
         return isset($this->__headers[$name]);
     }
 
-  function isAjax(): bool
-  {
-    if ($this->has('DNT'))
-      return true;
-
-    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
-  }
-
-  function isPjax(): bool
-  {
-    return isset($_SERVER['HTTP_X_PJAX']);
-  }
-
-  function pretendPost($flag = true)
-  {
-    $this->__pretend_post = $flag;
-  }
-
-  function getCookie($key = null, $default = null)
-  {
-    return $this->_get($this->__cookies, $key, $default);
-  }
-
-  function getSafe($var, $default = null)
-  {
-    return htmlspecialchars($this->get($var, $default));
-  }
-
-  function getFiltered($key, $filter, $default = null)
-  {
-    return filter_var($this->get($key, $default), $filter);
-  }
-
-  function getGetFiltered($key, $filter, $default = null)
-  {
-    $value = $this->getGet($key, $default);
-    if (is_array($key))
-      return filter_var_array($value, $filter);
-    else
-      return filter_var($value, $filter);
-  }
-
-  function getPostFiltered($key, $filter, $default = null)
-  {
-    $value = $this->getPost($key, $default);
-    if (is_array($key))
-      return filter_var_array($value, $filter);
-    else
-      return filter_var($value, $filter);
-  }
-
-  protected function _get($arr, $key = null, $default = null)
-  {
-    if(is_null($key))
-      return $arr;
-
-    if(is_array($key))
+    function isAjax(): bool
     {
-      $ret = array();
-      foreach($key as $item)
-        $ret[$item] = ($arr[$item] ?? null);
-      return $ret;
-    }
-    elseif(isset($arr[$key]))
-      return $arr[$key];
+        if ($this->has('DNT'))
+            return true;
 
-    return $default;
-  }
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
+    }
+
+    function isPjax(): bool
+    {
+        return isset($_SERVER['HTTP_X_PJAX']);
+    }
+
+    function pretendPost($flag = true)
+    {
+        $this->__pretend_post = $flag;
+    }
+
+    function getCookie($key = null, $default = null)
+    {
+        return $this->_get($this->__cookies, $key, $default);
+    }
+
+    function getSafe($var, $default = null)
+    {
+        return htmlspecialchars($this->get($var, $default));
+    }
+
+    function getFiltered($key, $filter, $default = null)
+    {
+        return filter_var($this->get($key, $default), $filter);
+    }
+
+    function getGetFiltered($key, $filter, $default = null)
+    {
+        $value = $this->getGet($key, $default);
+        if (is_array($key))
+            return filter_var_array($value, $filter);
+        else
+            return filter_var($value, $filter);
+    }
+
+    function getPostFiltered($key, $filter, $default = null)
+    {
+        $value = $this->getPost($key, $default);
+        if (is_array($key))
+            return filter_var_array($value, $filter);
+        else
+            return filter_var($value, $filter);
+    }
+
+    protected function _get($arr, $key = null, $default = null)
+    {
+        if (is_null($key))
+            return $arr;
+
+        if (is_array($key)) {
+            $ret = array();
+            foreach ($key as $item)
+                $ret[$item] = ($arr[$item] ?? null);
+            return $ret;
+        } elseif (isset($arr[$key]))
+            return $arr[$key];
+
+        return $default;
+    }
 
     function get($key, $default = null)
     {
         $_key = "__$key";
-        if(in_array($_key, $this->__reserved_attrs))
+        if (in_array($_key, $this->__reserved_attrs))
             return $this->$_key;
 
-        if(in_array($key, $this->__reserved_attrs))
+        if (in_array($key, $this->__reserved_attrs))
             return null;
 
-        if( isset($this->$key) )
+        if (isset($this->$key))
             return $this->$key;
 
-        if(isset($this->__attributes[$key]))
+        if (isset($this->__attributes[$key]))
             return $this->__attributes[$key]; // remove this if in 5.x
 
         return $default;
@@ -331,7 +323,7 @@ class lmbHttpRequest extends lmbSet
 
     function merge($data = [])
     {
-        foreach($data as $key => $value)
+        foreach ($data as $key => $value)
             $this->$key = $value;
     }
 
@@ -345,7 +337,7 @@ class lmbHttpRequest extends lmbSet
         $exported = array();
 
         $object_vars = get_object_vars($this);
-        foreach($object_vars as $name => $var)
+        foreach ($object_vars as $name => $var)
             $exported[$name] = $var;
 
         return $exported;
@@ -370,10 +362,10 @@ class lmbHttpRequest extends lmbSet
         $new = clone($this);
         $new->__uri = $uri;
         $items = $new->__uri->getQueryItems();
-        foreach($items as $k => $v) {
+        foreach ($items as $k => $v) {
             $new->__get[$k] = $v;
 
-            if(in_array($k, $new->__reserved_attrs))
+            if (in_array($k, $new->__reserved_attrs))
                 continue;
             $new->set($k, $v);
         }
@@ -407,35 +399,34 @@ class lmbHttpRequest extends lmbSet
         $this->__headers = [$header => $host] + $this->__headers;
     }
 
-  function getUriPath(): string
-  {
-    return $this->__uri->getPath();
-  }
-
-  function toString(): string
-  {
-    $flat = array();
-    $query = '';
-
-    $data = lmbArrayHelper::arrayMerge($this->__get, $this->__post);
-    lmbArrayHelper::toFlatArray($data, $flat);
-
-    foreach($flat as $key => $value)
+    function getUriPath(): string
     {
-      if(is_object($value))
-        continue;
-      $query .= $key . '=' . urlencode($value) . '&';
+        return $this->__uri->getPath();
     }
 
-    $uri = $this->__uri->withoutQueryItems();
+    function toString(): string
+    {
+        $flat = array();
+        $query = '';
 
-    return rtrim($uri->toString() . '?' . rtrim($query, '&'), '?');
-  }
+        $data = lmbArrayHelper::arrayMerge($this->__get, $this->__post);
+        lmbArrayHelper::toFlatArray($data, $flat);
 
-  function dump(): string
-  {
-    return $this->toString();
-  }
+        foreach ($flat as $key => $value) {
+            if (is_object($value))
+                continue;
+            $query .= $key . '=' . urlencode($value) . '&';
+        }
+
+        $uri = $this->__uri->withoutQueryItems();
+
+        return rtrim($uri->toString() . '?' . rtrim($query, '&'), '?');
+    }
+
+    function dump(): string
+    {
+        return $this->toString();
+    }
 
     public function getProtocolVersion(): string
     {
@@ -549,12 +540,12 @@ class lmbHttpRequest extends lmbSet
 
     public function setAttribute($name, $value)
     {
-        $this->__attributes[$name]  = $value;
+        $this->__attributes[$name] = $value;
     }
 
     public function withAttribute($name, $value)
     {
-        if( isset($this->__attributes[$name]) && $this->__attributes[$name] === $value ) {
+        if (isset($this->__attributes[$name]) && $this->__attributes[$name] === $value) {
             return $this;
         }
 
@@ -565,7 +556,7 @@ class lmbHttpRequest extends lmbSet
 
     public function withoutAttribute($name)
     {
-        if( !isset($this->__attributes[$name]) ) {
+        if (!isset($this->__attributes[$name])) {
             return $this;
         }
 

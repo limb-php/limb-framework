@@ -14,8 +14,7 @@
 
 use limb\toolkit\src\lmbToolkit;
 
-if (!function_exists('auth'))
-{
+if (!function_exists('auth')) {
 
     function auth()
     {

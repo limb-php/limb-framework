@@ -14,8 +14,7 @@
 
 use limb\i18n\src\lmbI18n;
 
-if(!function_exists('lmb_i18n'))
-{
+if (!function_exists('lmb_i18n')) {
 
     function lmb_i18n($text, $arg1 = null, $arg2 = null)
     {

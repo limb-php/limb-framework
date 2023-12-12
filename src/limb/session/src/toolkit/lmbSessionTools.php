@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\session\src\toolkit;
 
 use limb\dbal\src\toolkit\lmbDbTools;
@@ -20,27 +21,27 @@ use limb\session\src\lmbSession;
  */
 class lmbSessionTools extends lmbAbstractTools
 {
-  protected $session;
+    protected $session;
 
-  static function getRequiredTools()
-  {
-    return [
-      lmbDbTools::class
-    ];
-  }
+    static function getRequiredTools()
+    {
+        return [
+            lmbDbTools::class
+        ];
+    }
 
-  function getSession(): lmbSession
-  {
-    if(is_object($this->session))
-      return $this->session;
+    function getSession(): lmbSession
+    {
+        if (is_object($this->session))
+            return $this->session;
 
-    $this->session = new lmbSession();
+        $this->session = new lmbSession();
 
-    return $this->session;
-  }
+        return $this->session;
+    }
 
-  function setSession($session)
-  {
-    $this->session = $session;
-  }
+    function setSession($session)
+    {
+        $this->session = $session;
+    }
 }

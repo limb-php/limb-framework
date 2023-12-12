@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\search\src\controller;
 
 use limb\web_app\src\controller\lmbController;
@@ -18,8 +19,8 @@ use limb\web_app\src\controller\lmbController;
  */
 class SearchController extends lmbController
 {
-  function doDisplay()
-  {
-    $this->useForm('search_form');
-  }
+    function doDisplay()
+    {
+        $this->useForm('search_form');
+    }
 }

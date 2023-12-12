@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\toolkit\src;
 
 /**
@@ -16,10 +17,10 @@ namespace limb\toolkit\src;
  */
 interface lmbToolkitToolsInterface
 {
-  static function getRequiredTools();
+    static function getRequiredTools();
 
-  /**
-  * @return array Array of method names with reference to itself, something like array('getUser' => $this, 'getTree' => $this)
-  */
-  function getToolsSignatures();
+    /**
+     * @return array Array of method names with reference to itself, something like array('getUser' => $this, 'getTree' => $this)
+     */
+    function getToolsSignatures();
 }

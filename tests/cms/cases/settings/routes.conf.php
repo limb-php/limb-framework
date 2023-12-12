@@ -1,7 +1,7 @@
 <?php
 
 if (empty($conf))
-   $conf = array();
+    $conf = array();
 
 $conf = [
 

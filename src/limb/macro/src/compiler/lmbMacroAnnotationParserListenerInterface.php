@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\compiler;
 
 /**
@@ -16,6 +17,6 @@ namespace limb\macro\src\compiler;
  */
 interface lmbMacroAnnotationParserListenerInterface
 {
-  function createByAnnotations($class, $file, $annotations);
+    function createByAnnotations($class, $file, $annotations);
 }
 

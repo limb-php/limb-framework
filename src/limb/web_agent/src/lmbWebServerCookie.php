@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_agent\src;
 
 /**
@@ -17,66 +18,61 @@ namespace limb\web_agent\src;
 class lmbWebServerCookie
 {
 
-  protected $vars = array(
-    'name' => '',
-    'value' => '',
-    'expires' => '',
-    'path' => '',
-    'domain' => '',
-    'secure' => false,
-  );
+    protected $vars = array(
+        'name' => '',
+        'value' => '',
+        'expires' => '',
+        'path' => '',
+        'domain' => '',
+        'secure' => false,
+    );
 
-  function __construct($server_cookie)
-  {
-    $this->parse($server_cookie);
-  }
-
-  protected function parse($server_cookie)
-  {
-    $cook_params = explode(';', $server_cookie);
-    if(!$cook_params[0])
-        return;
-
-    $cookie_name = '';
-    foreach($cook_params as $n => $param)
+    function __construct($server_cookie)
     {
-      $expl = explode('=', trim($param), 2);
-      $name = $expl[0];
-      $value = isset($expl[1]) ? $expl[1] : '';
-      if($n == 0)
-      {
-        $this->name = $name;
-        $this->value = rawurldecode($value);
-      }
-      else
-      {
-        switch($name)
-        {
-          case 'expires':
-            $this->expires = $value;
-            break;
-          case 'path':
-            $this->path = $value;
-            break;
-          case 'domain':
-            $this->domain = $value;
-            break;
-          case 'secure':
-            $this->secure = true;
-            break;
-        }
-      }
+        $this->parse($server_cookie);
     }
-  }
 
-  function __get($name)
-  {
-    return $this->vars[$name];
-  }
+    protected function parse($server_cookie)
+    {
+        $cook_params = explode(';', $server_cookie);
+        if (!$cook_params[0])
+            return;
 
-  function __set($name, $value)
-  {
-    $this->vars[$name] = $value;
-  }
+        $cookie_name = '';
+        foreach ($cook_params as $n => $param) {
+            $expl = explode('=', trim($param), 2);
+            $name = $expl[0];
+            $value = isset($expl[1]) ? $expl[1] : '';
+            if ($n == 0) {
+                $this->name = $name;
+                $this->value = rawurldecode($value);
+            } else {
+                switch ($name) {
+                    case 'expires':
+                        $this->expires = $value;
+                        break;
+                    case 'path':
+                        $this->path = $value;
+                        break;
+                    case 'domain':
+                        $this->domain = $value;
+                        break;
+                    case 'secure':
+                        $this->secure = true;
+                        break;
+                }
+            }
+        }
+    }
+
+    function __get($name)
+    {
+        return $this->vars[$name];
+    }
+
+    function __set($name, $value)
+    {
+        $this->vars[$name] = $value;
+    }
 
 }

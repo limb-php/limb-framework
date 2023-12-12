@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_app\src\request;
 
 /**
@@ -16,20 +17,20 @@ namespace limb\web_app\src\request;
  */
 class lmbInputFilter
 {
-  protected $rules = array();
+    protected $rules = array();
 
-  function addRule($rule)
-  {
-    $this->rules[] = $rule;
-  }
+    function addRule($rule)
+    {
+        $this->rules[] = $rule;
+    }
 
-  function filter($input)
-  {
-    $result = $input;
+    function filter($input)
+    {
+        $result = $input;
 
-    foreach(array_keys($this->rules) as $key)
-      $result = $this->rules[$key]->apply($result);
+        foreach (array_keys($this->rules) as $key)
+            $result = $this->rules[$key]->apply($result);
 
-    return $result;
-  }
+        return $result;
+    }
 }

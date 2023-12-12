@@ -1,4 +1,5 @@
 <?php
+
 namespace limb\validation\src;
 
 abstract class BaseValidator
@@ -13,7 +14,7 @@ abstract class BaseValidator
 
     public function getErrorList($rename_fields = array())
     {
-        if( !empty($rename_fields) )
+        if (!empty($rename_fields))
             $this->error_list->renameFields($rename_fields);
 
         return $this->error_list;

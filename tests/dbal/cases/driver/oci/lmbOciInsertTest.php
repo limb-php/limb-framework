@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\dbal\cases\driver\oci;
 
 use limb\dbal\src\drivers\oci\lmbOciInsertStatement;
@@ -16,34 +17,34 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciInsertTest extends DriverInsertTestBase
 {
-  function setUp(): void
-  {
-      parent::init(lmbOciInsertStatement::class);
+    function setUp(): void
+    {
+        parent::init(lmbOciInsertStatement::class);
 
-    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
-    DriverOciSetup($this->connection->getConnectionId());
+        $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+        DriverOciSetup($this->connection->getConnectionId());
 
-    parent::setUp();
-  }
+        parent::setUp();
+    }
 
-  function testInsertIdShouldUseSequence()
-  {
-    $sql = "
+    function testInsertIdShouldUseSequence()
+    {
+        $sql = "
         INSERT INTO founding_fathers (
             first, last
         ) VALUES (
             :first:, :last:
         )";
-    $stmt = $this->connection->newStatement($sql);
-    $stmt->setVarChar('first', 'Richard');
-    $stmt->setVarChar('last', 'Nixon');
+        $stmt = $this->connection->newStatement($sql);
+        $stmt->setVarChar('first', 'Richard');
+        $stmt->setVarChar('last', 'Nixon');
 
-    $id = $stmt->insertId('id');
-    $this->assertTrue($id > 0);
+        $id = $stmt->insertId('id');
+        $this->assertTrue($id > 0);
 
-    $this->connection->newStatement("DELETE FROM founding_fathers")->execute();
+        $this->connection->newStatement("DELETE FROM founding_fathers")->execute();
 
-    $new_id = $stmt->insertId('id');
-    $this->assertEquals($new_id - $id, 1);
-  }
+        $new_id = $stmt->insertId('id');
+        $this->assertEquals($new_id - $id, 1);
+    }
 }

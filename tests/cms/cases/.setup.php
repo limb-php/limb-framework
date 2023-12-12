@@ -15,7 +15,7 @@ lmbEnv::set('LIMB_CONF_INCLUDE_PATH', $LIMB_CONF_INCLUDE_PATH . ';' . __DIR__ . 
 lmbToolkit::merge(new lmbWebAppTools());
 lmbToolkit::merge(new lmbCmsTools());
 
-lmb_tests_init_var_dir(dirname(__FILE__).'/../../../var/cms');
+lmb_tests_init_var_dir(dirname(__FILE__) . '/../../../var/cms');
 
 lmb_tests_init_db_dsn();
 

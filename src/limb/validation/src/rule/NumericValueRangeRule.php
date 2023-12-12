@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\validation\src\rule;
 
 /**
@@ -21,41 +22,41 @@ namespace limb\validation\src\rule;
  */
 class NumericValueRangeRule extends lmbSingleFieldRule
 {
-  /**
-  * @var float Minimum allowed value
-  */
-  protected $min_value;
-  /**
-  * @var float Maximum allowed value
-  */
-  protected $max_value;
+    /**
+     * @var float Minimum allowed value
+     */
+    protected $min_value;
+    /**
+     * @var float Maximum allowed value
+     */
+    protected $max_value;
 
-  /**
-  * @param string $field_name Field name
-  * @param float $min_value Min value
-  * @param float $max_value Max value
-  */
-  function __construct($field_name, $min_value, $max_value, $custom_error = null)
-  {
-    parent::__construct($field_name, $custom_error);
+    /**
+     * @param string $field_name Field name
+     * @param float $min_value Min value
+     * @param float $max_value Max value
+     */
+    function __construct($field_name, $min_value, $max_value, $custom_error = null)
+    {
+        parent::__construct($field_name, $custom_error);
 
-    $this->min_value = $min_value;
-    $this->max_value = $max_value;
-  }
-
-  function check($value)
-  {
-    if (!preg_match('/^[+-]?(\d*)$/', $value, $match)) {
-        $this->error('{Field} must be a valid number.');
-        return;
+        $this->min_value = $min_value;
+        $this->max_value = $max_value;
     }
 
-    if($value < $this->min_value) {
-        $this->error('{Field} must be not less than {value}.', array('value' => $this->min_value));
-    }
+    function check($value)
+    {
+        if (!preg_match('/^[+-]?(\d*)$/', $value, $match)) {
+            $this->error('{Field} must be a valid number.');
+            return;
+        }
 
-    if($value > $this->max_value) {
-      $this->error('{Field} must be not greater than {value}.', array('value' => $this->max_value));
+        if ($value < $this->min_value) {
+            $this->error('{Field} must be not less than {value}.', array('value' => $this->min_value));
+        }
+
+        if ($value > $this->max_value) {
+            $this->error('{Field} must be not greater than {value}.', array('value' => $this->max_value));
+        }
     }
-  }
 }

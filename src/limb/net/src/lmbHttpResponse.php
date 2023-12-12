@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\net\src;
 
 use limb\core\src\exception\lmbException;
@@ -191,312 +192,310 @@ class lmbHttpResponse
         $this->write($content);
     }
 
-  function setRedirectStrategy($strategy)
-  {
-    $this->redirect_strategy = $strategy;
-  }
-
-  function redirect($path): self
-  {
-    if ($this->is_redirected)
-      return $this;
-
-    if($this->redirect_strategy === null)
-      $strategy = $this->_getDefaultRedirectStrategy();
-    else
-      $strategy = $this->redirect_strategy;
-
-    $strategy->redirect($this, $path);
-
-    $this->is_redirected = true;
-    $this->redirected_path = $path;
-
-    return $this;
-  }
-
-  function getRedirectedPath()
-  {
-    if($this->is_redirected)
-      return $this->redirected_path;
-    else
-      return '';
-  }
-
-  function getRedirectedUrl()
-  {
-    return $this->getRedirectedPath();
-  }
-
-  protected function _getDefaultRedirectStrategy(): lmbHttpRedirectStrategy
-  {
-    return new lmbHttpRedirectStrategy();
-  }
-
-  function isRedirected()
-  {
-      return $this->is_redirected;
-  }
-
-  /* */
-  function reset()
-  {
-    $this->response_string = '';
-    $this->response_file_path = '';
-    $this->headers = array();
-    $this->is_redirected = false;
-    $this->transaction_started = false;
-
-    return $this;
-  }
-
-  protected function _checkStatusInHeader($header): bool
-  {
-      if(preg_match('/^HTTP\/1.\d[^\d]+(\d+)[^\d]*/i', $header, $matches)) {
-          if( isset($matches[1]) ) {
-              $status = (int)$matches[1];
-              $this->statusCode = $status;
-
-              return true;
-          }
-      }
-
-      return false;
-  }
-
-  function getStatus()
-  {
-    return $this->statusCode;
-  }
-  function getStatusCode()
-  {
-      return $this->getStatus();
-  }
-
-  function setStatusCode($code, $text = null): self
-  {
-      $this->statusCode = $code;
-
-      $this->statusText = $text;
-
-      return $this;
-  }
-
-  function getDirective($directive_name)
-  {
-    $directive = null;
-
-    $regex = '/^' . preg_quote($directive_name). "\s*/i";
-    foreach($this->headers as $header => $value)
+    function setRedirectStrategy($strategy)
     {
-      if(preg_match($regex, $header, $matches))
-        $directive = $value;
+        $this->redirect_strategy = $strategy;
     }
 
-    return $directive ?? false;
-  }
-
-  function getContentType(): string
-  {
-    if($directive = $this->getDirective('content-type'))
+    function redirect($path): self
     {
-      list($type, ) = explode(';', $directive);
-      return trim($type);
-    }
-    else
-      return 'text/html';
-  }
+        if ($this->is_redirected)
+            return $this;
 
-  function getMimeType(): string
-  {
-    return $this->getContentType();
-  }
+        if ($this->redirect_strategy === null)
+            $strategy = $this->_getDefaultRedirectStrategy();
+        else
+            $strategy = $this->redirect_strategy;
 
-  function getResponseString()
-  {
-    return $this->response_string;
-  }
+        $strategy->redirect($this, $path);
 
-  function isStarted()
-  {
-    return $this->transaction_started;
-  }
+        $this->is_redirected = true;
+        $this->redirected_path = $path;
 
-  function isEmpty(): bool
-  {
-    $status = $this->getStatus();
-
-    $res = (
-      !$this->is_redirected &&
-      empty($this->response_string) &&
-      empty($this->response_file_path) &&
-      ($status != 304 &&  $status != 412));//???
-
-    return $res;
-  }
-
-  function isHeadersSent(): bool
-  {
-    return sizeof($this->headers) > 0;
-  }
-
-  function isFileSent(): bool
-  {
-    return !empty($this->response_file_path);
-  }
-
-  function reload()
-  {
-    $this->redirect($_SERVER['PHP_SELF']);
-  }
-
-  /**
-   * Add header
-   * @param string $header
-   * @param string|null $value
-   */
-  function addHeader($header, $value = null)
-  {
-      $isStatus = $this->_checkStatusInHeader($header);
-      if($isStatus)
-          return $this;
-
-      if($value === null && !is_array($header)) {
-          @list($header, $value) = explode(':', $header);
-      }
-
-      $trimmed = trim($value, " \t");
-
-      $this->headers[$header] = !empty($value) ? $trimmed : null;
-
-      return $this;
-  }
-
-  function setCookie($name, $value, $expire = 0, $path = '/', $domain = '', $secure = false)
-  {
-    $this->cookies[$name] = array(
-        'name' => $name,
-        'value' => $value,
-        'expire' => $expire,
-        'path' => $path,
-        'domain' => $domain,
-        'secure' => $secure
-    );
-
-    return $this;
-  }
-
-  function getCookies()
-  {
-    return $this->cookies;
-  }
-
-  function removeCookie($name, $path = '/', $domain = '', $secure = false)
-  {
-    if(isset($this->cookies[$name]))
-    {
-      $path  = $this->cookies[$name]['path'];
-      $domain  = $this->cookies[$name]['domain'];
-      $secure  = $this->cookies[$name]['secure'];
-
-      unset($this->cookies[$name]);
+        return $this;
     }
 
-    $this->setCookie($name, '', 1, $path, $domain, $secure);
-  }
+    function getRedirectedPath()
+    {
+        if ($this->is_redirected)
+            return $this->redirected_path;
+        else
+            return '';
+    }
 
-  public function readFile($file_path)
-  {
-    $this->response_file_path = $file_path;
+    function getRedirectedUrl()
+    {
+        return $this->getRedirectedPath();
+    }
 
-    return $this;
-  }
+    protected function _getDefaultRedirectStrategy(): lmbHttpRedirectStrategy
+    {
+        return new lmbHttpRedirectStrategy();
+    }
 
-  public function write($string)
-  {
-    $this->response_string = $string;
+    function isRedirected()
+    {
+        return $this->is_redirected;
+    }
 
-    return $this;
-  }
+    /* */
+    function reset()
+    {
+        $this->response_string = '';
+        $this->response_file_path = '';
+        $this->headers = array();
+        $this->is_redirected = false;
+        $this->transaction_started = false;
 
-  public function append($string)
-  {
-    $this->response_string .= $string;
+        return $this;
+    }
 
-    return $this;
-  }
+    protected function _checkStatusInHeader($header): bool
+    {
+        if (preg_match('/^HTTP\/1.\d[^\d]+(\d+)[^\d]*/i', $header, $matches)) {
+            if (isset($matches[1])) {
+                $status = (int)$matches[1];
+                $this->statusCode = $status;
 
-  public function commit()
-  {
-      $this->sendHeaders();
+                return true;
+            }
+        }
 
-      $this->sendContent();
+        return false;
+    }
 
-      $this->transaction_started = true;
+    function getStatus()
+    {
+        return $this->statusCode;
+    }
 
-      return $this;
-  }
-  public function send()
-  {
-      return $this->commit();
-  }
+    function getStatusCode()
+    {
+        return $this->getStatus();
+    }
 
-  /**
-  * Sends HTTP headers.
-  *
-  * @return $this
-  */
-  public function sendHeaders()
-  {
-      // headers have already been sent by the developer
-      if (headers_sent()) {
-          return $this;
-      }
+    function setStatusCode($code, $text = null): self
+    {
+        $this->statusCode = $code;
 
-      // status
-      header(sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText), true, $this->statusCode);
+        $this->statusText = $text;
 
-      // headers
-      foreach($this->headers as $header => $value) {
-          $this->_sendHeader($header, $value);
-      }
+        return $this;
+    }
 
-      // cookies
-      foreach($this->cookies as $cookie) {
-          $this->_sendCookie($cookie);
-      }
+    function getDirective($directive_name)
+    {
+        $directive = null;
 
-      return $this;
-  }
+        $regex = '/^' . preg_quote($directive_name) . "\s*/i";
+        foreach ($this->headers as $header => $value) {
+            if (preg_match($regex, $header, $matches))
+                $directive = $value;
+        }
 
-  public function json($data)
-  {
-      return new lmbJsonHttpResponse($data, $this->statusCode, $this->headers);
-  }
+        return $directive ?? false;
+    }
 
-  protected function _sendHeader($header, $value)
-  {
-      header($header . ': ' . $value);
-  }
+    function getContentType(): string
+    {
+        if ($directive = $this->getDirective('content-type')) {
+            list($type,) = explode(';', $directive);
+            return trim($type);
+        } else
+            return 'text/html';
+    }
 
-  protected function _sendCookie($cookie)
-  {
-    setcookie($cookie['name'], $cookie['value'], $cookie['expire'], $cookie['path'], $cookie['domain'], $cookie['secure']);
-  }
+    function getMimeType(): string
+    {
+        return $this->getContentType();
+    }
 
-  public function sendContent()
-  {
-      if(!empty($this->response_file_path))
-          $this->_sendFile($this->response_file_path);
-      else if(!empty($this->response_string))
-          echo $this->response_string;
+    function getResponseString()
+    {
+        return $this->response_string;
+    }
 
-      return $this;
-  }
+    function isStarted()
+    {
+        return $this->transaction_started;
+    }
 
-  protected function _sendFile($file_path)
-  {
-    readfile($file_path);
-  }
+    function isEmpty(): bool
+    {
+        $status = $this->getStatus();
+
+        $res = (
+            !$this->is_redirected &&
+            empty($this->response_string) &&
+            empty($this->response_file_path) &&
+            ($status != 304 && $status != 412));//???
+
+        return $res;
+    }
+
+    function isHeadersSent(): bool
+    {
+        return sizeof($this->headers) > 0;
+    }
+
+    function isFileSent(): bool
+    {
+        return !empty($this->response_file_path);
+    }
+
+    function reload()
+    {
+        $this->redirect($_SERVER['PHP_SELF']);
+    }
+
+    /**
+     * Add header
+     * @param string $header
+     * @param string|null $value
+     */
+    function addHeader($header, $value = null)
+    {
+        $isStatus = $this->_checkStatusInHeader($header);
+        if ($isStatus)
+            return $this;
+
+        if ($value === null && !is_array($header)) {
+            @list($header, $value) = explode(':', $header);
+        }
+
+        $trimmed = trim($value, " \t");
+
+        $this->headers[$header] = !empty($value) ? $trimmed : null;
+
+        return $this;
+    }
+
+    function setCookie($name, $value, $expire = 0, $path = '/', $domain = '', $secure = false)
+    {
+        $this->cookies[$name] = array(
+            'name' => $name,
+            'value' => $value,
+            'expire' => $expire,
+            'path' => $path,
+            'domain' => $domain,
+            'secure' => $secure
+        );
+
+        return $this;
+    }
+
+    function getCookies()
+    {
+        return $this->cookies;
+    }
+
+    function removeCookie($name, $path = '/', $domain = '', $secure = false)
+    {
+        if (isset($this->cookies[$name])) {
+            $path = $this->cookies[$name]['path'];
+            $domain = $this->cookies[$name]['domain'];
+            $secure = $this->cookies[$name]['secure'];
+
+            unset($this->cookies[$name]);
+        }
+
+        $this->setCookie($name, '', 1, $path, $domain, $secure);
+    }
+
+    public function readFile($file_path)
+    {
+        $this->response_file_path = $file_path;
+
+        return $this;
+    }
+
+    public function write($string)
+    {
+        $this->response_string = $string;
+
+        return $this;
+    }
+
+    public function append($string)
+    {
+        $this->response_string .= $string;
+
+        return $this;
+    }
+
+    public function commit()
+    {
+        $this->sendHeaders();
+
+        $this->sendContent();
+
+        $this->transaction_started = true;
+
+        return $this;
+    }
+
+    public function send()
+    {
+        return $this->commit();
+    }
+
+    /**
+     * Sends HTTP headers.
+     *
+     * @return $this
+     */
+    public function sendHeaders()
+    {
+        // headers have already been sent by the developer
+        if (headers_sent()) {
+            return $this;
+        }
+
+        // status
+        header(sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText), true, $this->statusCode);
+
+        // headers
+        foreach ($this->headers as $header => $value) {
+            $this->_sendHeader($header, $value);
+        }
+
+        // cookies
+        foreach ($this->cookies as $cookie) {
+            $this->_sendCookie($cookie);
+        }
+
+        return $this;
+    }
+
+    public function json($data)
+    {
+        return new lmbJsonHttpResponse($data, $this->statusCode, $this->headers);
+    }
+
+    protected function _sendHeader($header, $value)
+    {
+        header($header . ': ' . $value);
+    }
+
+    protected function _sendCookie($cookie)
+    {
+        setcookie($cookie['name'], $cookie['value'], $cookie['expire'], $cookie['path'], $cookie['domain'], $cookie['secure']);
+    }
+
+    public function sendContent()
+    {
+        if (!empty($this->response_file_path))
+            $this->_sendFile($this->response_file_path);
+        else if (!empty($this->response_string))
+            echo $this->response_string;
+
+        return $this;
+    }
+
+    protected function _sendFile($file_path)
+    {
+        readfile($file_path);
+    }
 
     public function getProtocolVersion()
     {

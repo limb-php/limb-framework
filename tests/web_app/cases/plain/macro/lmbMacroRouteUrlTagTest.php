@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\web_app\cases\plain\macro;
 
 use Tests\view\lmbMacroTestCase;
@@ -16,89 +17,89 @@ require_once dirname(__FILE__) . '/.setup.php';
 
 class lmbMacroRouteUrlTagTest extends lmbMacroTestCase
 {
-  function testPutUrlToCurrentDataspaceAllParamsAreStaticAndUseNamedRoute()
-  {
-    $config = array('blog' => array('path' => '/blog/:controller/:action'),
-                    'news' => array('path' => '/:controller/:action'));
+    function testPutUrlToCurrentDataspaceAllParamsAreStaticAndUseNamedRoute()
+    {
+        $config = array('blog' => array('path' => '/blog/:controller/:action'),
+            'news' => array('path' => '/:controller/:action'));
 
-    $routes = $this->_createRoutes($config);
+        $routes = $this->_createRoutes($config);
 
-    $template = '<a href="{{route_url field=\'url\' route=\'news\' params=\'controller:news,action:archive\'}}">Link</a>';
+        $template = '<a href="{{route_url field=\'url\' route=\'news\' params=\'controller:news,action:archive\'}}">Link</a>';
 
-    $page = $this->_createMacroTemplate($template, 'tpl.html'); 
-    
-    $expected = '<a href="/news/archive">Link</a>';
-    $this->assertEquals($page->render(), $expected);
-  }
-  
-  function testPutUrlwithSpaces()
-  {
-    $config = array('blog' => array('path' => '/blog/:controller/:action'),
-                    'news' => array('path' => '/:controller/:action'));
+        $page = $this->_createMacroTemplate($template, 'tpl.html');
 
-    $routes = $this->_createRoutes($config);
+        $expected = '<a href="/news/archive">Link</a>';
+        $this->assertEquals($page->render(), $expected);
+    }
 
-    $template = '<a href="{{route_url field=\'url\' route=\'news\' params=\'controller: news , action: archive\'}}">Link</a>';
+    function testPutUrlwithSpaces()
+    {
+        $config = array('blog' => array('path' => '/blog/:controller/:action'),
+            'news' => array('path' => '/:controller/:action'));
 
-    $page = $this->_createMacroTemplate($template, 'tpl.html'); 
-    
-    $expected = '<a href="/news/archive">Link</a>';
-    $this->assertEquals($page->render(), $expected);
-  }
-  
-  function testWithDynamicParams()
-  {
-    $config = array('blog' => array('path' => '/blog/:controller/:action'),
-                    'news' => array('path' => '/:controller/:action'));
+        $routes = $this->_createRoutes($config);
 
-    $routes = $this->_createRoutes($config);
+        $template = '<a href="{{route_url field=\'url\' route=\'news\' params=\'controller: news , action: archive\'}}">Link</a>';
 
-    $template = '<a href="{{route_url field=\'url\' route=\'news\' params=\'controller:{$#controller} , action:{$#action}\'}}">Link</a>';
+        $page = $this->_createMacroTemplate($template, 'tpl.html');
 
-    $page = $this->_createMacroTemplate($template, 'tpl.html');
-    
-    $page->set('controller', $controller = 'news');
-    $page->set('action', $action = 'archive');
+        $expected = '<a href="/news/archive">Link</a>';
+        $this->assertEquals($page->render(), $expected);
+    }
 
-    $expected = '<a href="/news/archive">Link</a>';
-    $this->assertEquals($page->render(), $expected);
-  }
+    function testWithDynamicParams()
+    {
+        $config = array('blog' => array('path' => '/blog/:controller/:action'),
+            'news' => array('path' => '/:controller/:action'));
 
-  function testTryToGuessRoute()
-  {
-    $config = array('blog' => array('path' => '/blog/:action'),
-                    'news' => array('path' => '/:controller/:action'));
+        $routes = $this->_createRoutes($config);
 
-    $routes = $this->_createRoutes($config);
+        $template = '<a href="{{route_url field=\'url\' route=\'news\' params=\'controller:{$#controller} , action:{$#action}\'}}">Link</a>';
 
-    $template = '<a href="{{route_url field=\'url\' params=\'controller:news,action:archive\'}}">Link</a>';                
-                
-    $page = $this->_createMacroTemplate($template, 'tpl.html'); 
-    
-    $expected = '<a href="/news/archive">Link</a>';
-    $this->assertEquals($page->render(), $expected);
-  }
+        $page = $this->_createMacroTemplate($template, 'tpl.html');
 
-  function testRouteWithSkipController()
-  {
-    $this->toolkit->setDispatchedController(new LmbController());
+        $page->set('controller', $controller = 'news');
+        $page->set('action', $action = 'archive');
 
-    $config = array('blog' => array('path' => '/blog/:action'));
+        $expected = '<a href="/news/archive">Link</a>';
+        $this->assertEquals($page->render(), $expected);
+    }
 
-    $routes = $this->_createRoutes($config);
+    function testTryToGuessRoute()
+    {
+        $config = array('blog' => array('path' => '/blog/:action'),
+            'news' => array('path' => '/:controller/:action'));
 
-    $template = '<a href="{{route_url field=\'url\' params=\'action:archive\' skip_controller="true"}}">Link</a>';                
+        $routes = $this->_createRoutes($config);
 
-    $page = $this->_createMacroTemplate($template, 'tpl.html'); 
-    
-    $expected = '<a href="/blog/archive">Link</a>';
-    $this->assertEquals($page->render(), $expected);
-  }
+        $template = '<a href="{{route_url field=\'url\' params=\'controller:news,action:archive\'}}">Link</a>';
 
-  function _createRoutes($config)
-  {
-    $routes = new lmbRoutes($config);
-    $this->toolkit->setRoutes($routes);
-    return $routes;
-  }
+        $page = $this->_createMacroTemplate($template, 'tpl.html');
+
+        $expected = '<a href="/news/archive">Link</a>';
+        $this->assertEquals($page->render(), $expected);
+    }
+
+    function testRouteWithSkipController()
+    {
+        $this->toolkit->setDispatchedController(new LmbController());
+
+        $config = array('blog' => array('path' => '/blog/:action'));
+
+        $routes = $this->_createRoutes($config);
+
+        $template = '<a href="{{route_url field=\'url\' params=\'action:archive\' skip_controller="true"}}">Link</a>';
+
+        $page = $this->_createMacroTemplate($template, 'tpl.html');
+
+        $expected = '<a href="/blog/archive">Link</a>';
+        $this->assertEquals($page->render(), $expected);
+    }
+
+    function _createRoutes($config)
+    {
+        $routes = new lmbRoutes($config);
+        $this->toolkit->setRoutes($routes);
+        return $routes;
+    }
 }

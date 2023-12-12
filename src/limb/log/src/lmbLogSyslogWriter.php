@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\log\src;
 
 use limb\net\src\lmbUri;
@@ -18,21 +19,21 @@ use limb\net\src\lmbUri;
  */
 class lmbLogSyslogWriter implements lmbLogWriterInterface
 {
-  const DELIMITER = '|||';
+    const DELIMITER = '|||';
 
-  function __construct(lmbUri $dsn)
-  {
-    openlog('LIMB', LOG_ODELAY | LOG_PID, LOG_USER);
-  }
+    function __construct(lmbUri $dsn)
+    {
+        openlog('LIMB', LOG_ODELAY | LOG_PID, LOG_USER);
+    }
 
-  function write(lmbLogEntry $entry)
-  {
-    $message = $entry->getLevelForHuman().': '.str_replace("\n", self::DELIMITER ,$entry->getMessage());
-    syslog($entry->getLevel(), $message);
-  }
+    function write(lmbLogEntry $entry)
+    {
+        $message = $entry->getLevelForHuman() . ': ' . str_replace("\n", self::DELIMITER, $entry->getMessage());
+        syslog($entry->getLevel(), $message);
+    }
 
-  function __destruct()
-  {
-    closelog();
-  }
+    function __destruct()
+    {
+        closelog();
+    }
 }

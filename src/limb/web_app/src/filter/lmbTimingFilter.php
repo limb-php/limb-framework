@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_app\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
@@ -18,14 +19,14 @@ use limb\filter_chain\src\lmbInterceptingFilterInterface;
  */
 class lmbTimingFilter implements lmbInterceptingFilterInterface
 {
-  public function run($filter_chain, $request = null, $callback = null)
-  {
-    $start_time = microtime(true);
+    public function run($filter_chain, $request = null, $callback = null)
+    {
+        $start_time = microtime(true);
 
-    $response = $filter_chain->next($request, $callback);
+        $response = $filter_chain->next($request, $callback);
 
-    echo '<small>' . round(microtime(true) - $start_time, 2) . '</small>';
+        echo '<small>' . round(microtime(true) - $start_time, 2) . '</small>';
 
-    return $response;
-  }
+        return $response;
+    }
 }

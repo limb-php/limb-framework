@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\cms\src\toolkit;
 
 use limb\toolkit\src\lmbAbstractTools;
@@ -23,31 +24,31 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbCmsTools extends lmbAbstractTools
 {
-  protected $tree;
-  protected $user;
+    protected $tree;
+    protected $user;
 
-  static function getRequiredTools()
-  {
-    return [
-      lmbWebAppTools::class,
-      lmbProfileTools::class
-    ];
-  }
+    static function getRequiredTools()
+    {
+        return [
+            lmbWebAppTools::class,
+            lmbProfileTools::class
+        ];
+    }
 
-  function getCmsTree($tree_name = 'node')
-  {
-    if(isset($this->tree[$tree_name]) && is_object($this->tree[$tree_name]))
-      return $this->tree[$tree_name];
+    function getCmsTree($tree_name = 'node')
+    {
+        if (isset($this->tree[$tree_name]) && is_object($this->tree[$tree_name]))
+            return $this->tree[$tree_name];
 
-    $this->tree[$tree_name] = new lmbMPTree($tree_name);
+        $this->tree[$tree_name] = new lmbMPTree($tree_name);
 
-    return $this->tree[$tree_name];
-  }
+        return $this->tree[$tree_name];
+    }
 
-  function setCmsTree($tree)
-  {
-    $this->tree = $tree;
-  }
+    function setCmsTree($tree)
+    {
+        $this->tree = $tree;
+    }
 
     /* user */
     function getCmsAuthSession(): lmbCmsSessionUser
@@ -62,25 +63,25 @@ class lmbCmsTools extends lmbAbstractTools
         return $session_user;
     }
 
-  function getCmsUser()
-  {
-    if(is_object($this->user))
-      return $this->user;
+    function getCmsUser()
+    {
+        if (is_object($this->user))
+            return $this->user;
 
-    $session_user = $this->getCmsAuthSession();
+        $session_user = $this->getCmsAuthSession();
 
-    return $this->user = $session_user->getUser();
-  }
+        return $this->user = $session_user->getUser();
+    }
 
-  function resetCmsUser()
-  {
-    $this->setCmsUser(null);
-    $session = lmbToolkit::instance()->getSession();
-    $session->destroy('lmbCmsSessionUser');
-  }
+    function resetCmsUser()
+    {
+        $this->setCmsUser(null);
+        $session = lmbToolkit::instance()->getSession();
+        $session->destroy('lmbCmsSessionUser');
+    }
 
-  function setCmsUser($user)
-  {
-    $this->user = $user;
-  }
+    function setCmsUser($user)
+    {
+        $this->user = $user;
+    }
 }

@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\imagekit\src\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
@@ -17,35 +18,35 @@ use limb\imagekit\src\lmbAbstractImageFilter;
  */
 abstract class lmbBaseResizeImageFilter extends lmbAbstractImageFilter
 {
-  protected function calcNewSize($src_w, $src_h)
-  {
-    $dst_w = $this->getWidth();
-    if(!$dst_w)
-      $dst_w = $src_w;
-    $dst_h = $this->getheight();
-    if(!$dst_h)
-      $dst_h = $src_h;
+    protected function calcNewSize($src_w, $src_h)
+    {
+        $dst_w = $this->getWidth();
+        if (!$dst_w)
+            $dst_w = $src_w;
+        $dst_h = $this->getheight();
+        if (!$dst_h)
+            $dst_h = $src_h;
 
-    return $this->calcSize($src_w, $src_h, $dst_w, $dst_h, $this->getPreserveAspectRatio(), $this->getSaveMinSize());
-  }
+        return $this->calcSize($src_w, $src_h, $dst_w, $dst_h, $this->getPreserveAspectRatio(), $this->getSaveMinSize());
+    }
 
-  function getWidth()
-  {
-    return $this->getParam('width');
-  }
+    function getWidth()
+    {
+        return $this->getParam('width');
+    }
 
-  function getHeight()
-  {
-    return $this->getParam('height');
-  }
+    function getHeight()
+    {
+        return $this->getParam('height');
+    }
 
-  function getPreserveAspectRatio()
-  {
-    return $this->getParam('preserve_aspect_ratio', true);
-  }
+    function getPreserveAspectRatio()
+    {
+        return $this->getParam('preserve_aspect_ratio', true);
+    }
 
-  function getSaveMinSize()
-  {
-    return $this->getParam('save_min_size', false);
-  }
+    function getSaveMinSize()
+    {
+        return $this->getParam('save_min_size', false);
+    }
 }

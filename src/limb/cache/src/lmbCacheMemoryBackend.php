@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\cache\src;
 
 /**
@@ -16,44 +17,44 @@ namespace limb\cache\src;
  */
 class lmbCacheMemoryBackend implements lmbCacheBackendInterface
 {
-  protected $_cache = array();
+    protected $_cache = array();
 
-  function add($key, $value, $params = array())
-  {
-    if (array_key_exists($key, $this->_cache))
-      return false;
-      
-    $this->_cache[$key] = $value;
-    return true;
-  }
-  
-  function set($key, $value, $params = array())
-  {
-    $this->_cache[$key] = $value;
-    return true;
-  }
+    function add($key, $value, $params = array())
+    {
+        if (array_key_exists($key, $this->_cache))
+            return false;
 
-  function get($key, $params = array())
-  {
-    if(!isset($this->_cache[$key]))
-      return false;
-    
-    return $this->_cache[$key];
-  }
+        $this->_cache[$key] = $value;
+        return true;
+    }
 
-  function delete($key, $params = array())
-  {
-    unset($this->_cache[$key]);
-  }
+    function set($key, $value, $params = array())
+    {
+        $this->_cache[$key] = $value;
+        return true;
+    }
 
-  function flush()
-  {
-    $this->_cache = array();
-  }
-  
-  function stat($params = array())
-  {
-    return array();
-  }
+    function get($key, $params = array())
+    {
+        if (!isset($this->_cache[$key]))
+            return false;
+
+        return $this->_cache[$key];
+    }
+
+    function delete($key, $params = array())
+    {
+        unset($this->_cache[$key]);
+    }
+
+    function flush()
+    {
+        $this->_cache = array();
+    }
+
+    function stat($params = array())
+    {
+        return array();
+    }
 }
 

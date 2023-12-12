@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbBaseExtension;
@@ -30,9 +31,9 @@ class lmbMysqlExtension extends lmbDbBaseExtension
     }
 
     //NOTE:offset leftmost position is 1
-    function substr($string, $offset, $limit=null)
+    function substr($string, $offset, $limit = null)
     {
-        if($limit === null)
+        if ($limit === null)
             return " SUBSTRING({$string} FROM {$offset}) ";
         else
             return " SUBSTRING({$string} FROM {$offset} FOR {$limit}) ";

@@ -1,36 +1,41 @@
 <?php
+
 namespace limb\cache2\src\logs;
 
 class lmbCacheLogMemory implements lmbCacheLogInterface
 {
-  protected static $instance = null;
+    protected static $instance = null;
 
-  protected $records;
+    protected $records;
 
-  static function instance()
-  {
-    if (!isset(self::$instance)){
-      $class = __CLASS__;
-      self::$instance = new $class();
+    static function instance()
+    {
+        if (!isset(self::$instance)) {
+            $class = __CLASS__;
+            self::$instance = new $class();
+        }
+        return self::$instance;
     }
-    return self::$instance;
-  }
 
-  function addRecord($key, $operation, $time, $result) {
-    $this->records[] = array(
-      'key' => $key,
-      'operation' => $operation,
-      'time' => $time,
-      'result' => $result
-    );
+    function addRecord($key, $operation, $time, $result)
+    {
+        $this->records[] = array(
+            'key' => $key,
+            'operation' => $operation,
+            'time' => $time,
+            'result' => $result
+        );
 
-  }
+    }
 
-  function getStatistic() {}
-  function getRecords()
-  {
-    return $this->records;
-  }
+    function getStatistic()
+    {
+    }
+
+    function getRecords()
+    {
+        return $this->records;
+    }
 
 
 }

@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\tags\core;
 
 use limb\macro\src\compiler\lmbMacroTag;
@@ -19,16 +20,15 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroTemplateSlotTag extends lmbMacroTag
 {
-  protected function _generateContent($code_writer)
-  {
-    $parent_template_tag = $this->findParentByClass('limb\macro\src\tags\core\lmbMacroTemplateTag');
-    $apply_tag = $parent_template_tag->getCurrentApplyTag();
-    
-    $intos = $apply_tag->findChildrenByClass('limb\macro\src\tags\core\lmbMacroApplyIntoTag');
-    foreach($intos as $into)
+    protected function _generateContent($code_writer)
     {
-      if($into->get('slot') == $this->getNodeId())
-        $into->generateNow($code_writer);
+        $parent_template_tag = $this->findParentByClass('limb\macro\src\tags\core\lmbMacroTemplateTag');
+        $apply_tag = $parent_template_tag->getCurrentApplyTag();
+
+        $intos = $apply_tag->findChildrenByClass('limb\macro\src\tags\core\lmbMacroApplyIntoTag');
+        foreach ($intos as $into) {
+            if ($into->get('slot') == $this->getNodeId())
+                $into->generateNow($code_writer);
+        }
     }
-  }
 }

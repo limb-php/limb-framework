@@ -10,8 +10,8 @@ class SocialSecurityForTestObject extends lmbActiveRecord
 
     protected $_belongs_to = array(
         'person' => array(
-        'field' => 'ss_id',
-        'class' => PersonForTestObject::class
+            'field' => 'ss_id',
+            'class' => PersonForTestObject::class
         )
     );
 }

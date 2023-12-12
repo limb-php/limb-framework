@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\i18n\src\translation;
 
 /**
@@ -16,23 +17,21 @@ namespace limb\i18n\src\translation;
  */
 class lmbFsDictionaryExtractor
 {
-  protected $parsers = array();
+    protected $parsers = array();
 
-  function registerFileParser($ext, $parser)
-  {
-    $this->parsers[$ext] = $parser;
-  }
-
-  function traverse($iterator, &$dictionaries = array(), $response = null)
-  {
-    foreach($iterator as $file)
+    function registerFileParser($ext, $parser)
     {
-      if($iterator->isFile())
-      {
-        $ext = strrchr(basename($file), '.');
-        if(isset($this->parsers[$ext]))
-          $this->parsers[$ext]->extractFromFile($file, $dictionaries, $response);
-      }
+        $this->parsers[$ext] = $parser;
     }
-  }
+
+    function traverse($iterator, &$dictionaries = array(), $response = null)
+    {
+        foreach ($iterator as $file) {
+            if ($iterator->isFile()) {
+                $ext = strrchr(basename($file), '.');
+                if (isset($this->parsers[$ext]))
+                    $this->parsers[$ext]->extractFromFile($file, $dictionaries, $response);
+            }
+        }
+    }
 }

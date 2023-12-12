@@ -1,4 +1,5 @@
 <?php
+
 namespace limb\macro\src\tags\core;
 
 use limb\macro\src\compiler\lmbMacroTag;
@@ -11,10 +12,10 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroCurlyBraceOpensTag extends lmbMacroTag
 {
-  protected function _generateContent($code_writer)
-  {
-    $code_writer->writeHtml("{");
-  }
+    protected function _generateContent($code_writer)
+    {
+        $code_writer->writeHtml("{");
+    }
 }
 
 /**
@@ -25,8 +26,8 @@ class lmbMacroCurlyBraceOpensTag extends lmbMacroTag
  */
 class lmbMacroCurlyBraceClosesTag extends lmbMacroTag
 {
-  protected function _generateContent($code_writer)
-  {
-    $code_writer->writeHtml("}");
-  }
+    protected function _generateContent($code_writer)
+    {
+        $code_writer->writeHtml("}");
+    }
 }

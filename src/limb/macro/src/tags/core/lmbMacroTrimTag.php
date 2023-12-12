@@ -1,4 +1,5 @@
 <?php
+
 namespace limb\macro\src\tags\core;
 
 use limb\macro\src\compiler\lmbMacroTag;
@@ -11,10 +12,10 @@ use limb\macro\src\compiler\lmbMacroTextNode;
  */
 class lmbMacroTrimTag extends lmbMacroTag
 {
-  protected function _generateContent($code_writer)
-  {
-    lmbMacroTextNode::setTrim(true);
-    parent::_generateContent($code_writer);
-    lmbMacroTextNode::setTrim(false);
-  }
+    protected function _generateContent($code_writer)
+    {
+        lmbMacroTextNode::setTrim(true);
+        parent::_generateContent($code_writer);
+        lmbMacroTextNode::setTrim(false);
+    }
 }

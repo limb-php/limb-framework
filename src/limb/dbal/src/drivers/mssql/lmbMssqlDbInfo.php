@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers\mssql;
 
 use limb\dbal\src\drivers\lmbDbInfo;
@@ -19,46 +20,42 @@ use limb\dbal\src\exception\lmbDbException;
  */
 class lmbMssqlDbInfo extends lmbDbInfo
 {
-  protected $connection;
-  protected $isExisting = false;
-  protected $isTablesLoaded = false;
+    protected $connection;
+    protected $isExisting = false;
+    protected $isTablesLoaded = false;
 
-  function __construct($connection, $name, $isExisting = false)
-  {
-    $this->connection = $connection;
-    $this->isExisting = $isExisting;
-    parent::__construct($name);
-  }
-
-  function getConnection()
-  {
-    return $this->connection;
-  }
-
-  function loadTables()
-  {
-    if($this->isExisting && !$this->isTablesLoaded)
+    function __construct($connection, $name, $isExisting = false)
     {
-      $queryId = $this->connection->execute("select TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_CATALOG='" . $this->name . "'");
-      while(is_array($row = sqlsrv_fetch_row($queryId)))
-      {
-        $this->tables[$row[0]] = null;
-      }
-      sqlsrv_free_result($queryId);
-      $this->isTablesLoaded = true;
+        $this->connection = $connection;
+        $this->isExisting = $isExisting;
+        parent::__construct($name);
     }
-  }
 
-  function getTable($name)
-  {
-    if(!$this->hasTable($name))
+    function getConnection()
     {
-      throw new lmbDbException("Table does not exist '$name'");
+        return $this->connection;
     }
-    if(is_null($this->tables[$name]))
+
+    function loadTables()
     {
-      $this->tables[$name] = new lmbMssqlTableInfo($this, $name, true);
+        if ($this->isExisting && !$this->isTablesLoaded) {
+            $queryId = $this->connection->execute("select TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_CATALOG='" . $this->name . "'");
+            while (is_array($row = sqlsrv_fetch_row($queryId))) {
+                $this->tables[$row[0]] = null;
+            }
+            sqlsrv_free_result($queryId);
+            $this->isTablesLoaded = true;
+        }
     }
-    return $this->tables[$name];
-  }
+
+    function getTable($name)
+    {
+        if (!$this->hasTable($name)) {
+            throw new lmbDbException("Table does not exist '$name'");
+        }
+        if (is_null($this->tables[$name])) {
+            $this->tables[$name] = new lmbMssqlTableInfo($this, $name, true);
+        }
+        return $this->tables[$name];
+    }
 }

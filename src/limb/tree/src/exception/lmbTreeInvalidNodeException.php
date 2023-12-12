@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\tree\src\exception;
 
 /**
@@ -16,18 +17,18 @@ namespace limb\tree\src\exception;
  */
 class lmbTreeInvalidNodeException extends lmbTreeException
 {
-  protected $node;
+    protected $node;
 
-  function __construct($node)
-  {
-    $this->node = $node;
-    parent::__construct("Node '{$node}' is invalid");
-  }
+    function __construct($node)
+    {
+        $this->node = $node;
+        parent::__construct("Node '{$node}' is invalid");
+    }
 
-  function getNode()
-  {
-    return $this->node;
-  }
+    function getNode()
+    {
+        return $this->node;
+    }
 }
 
 

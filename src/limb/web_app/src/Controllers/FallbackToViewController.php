@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_app\src\Controllers;
 
 /**
@@ -22,20 +23,18 @@ namespace limb\web_app\src\Controllers;
  */
 class FallbackToViewController extends LmbController
 {
-  function performAction($request)
-  {
-    $path = trim($request->getUriPath(), '/');
-    if($template_path = $this->findTemplateByAlias($path))
+    function performAction($request)
     {
-      $view = $this->toolkit->createViewByTemplate($template_path);
-      $this->toolkit->setView($view);
+        $path = trim($request->getUriPath(), '/');
+        if ($template_path = $this->findTemplateByAlias($path)) {
+            $view = $this->toolkit->createViewByTemplate($template_path);
+            $this->toolkit->setView($view);
+        } else
+            return $this->forwardTo404();
     }
-    else
-      return $this->forwardTo404();
-  }
 
-  function actionExists($action)
-  {
-    return true;
-  }
+    function actionExists($action)
+    {
+        return true;
+    }
 }

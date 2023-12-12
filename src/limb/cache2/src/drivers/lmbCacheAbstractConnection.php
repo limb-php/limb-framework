@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\cache2\src\drivers;
 
 use limb\net\src\lmbUri;
@@ -19,160 +20,152 @@ use limb\core\src\lmbSerializable;
  */
 abstract class lmbCacheAbstractConnection implements lmbCacheConnectionInterface
 {
-  protected $dsn;
-  protected $prefix;
-  protected $need_serialization = true;
-  /**
-   * Operations lock ttl
-   *
-   * @var integer
-   */
-  protected $inc_dec_ttl = 1;
+    protected $dsn;
+    protected $prefix;
+    protected $need_serialization = true;
+    /**
+     * Operations lock ttl
+     *
+     * @var integer
+     */
+    protected $inc_dec_ttl = 1;
 
-  function __construct(lmbUri $dsn)
-  {
-    $this->dsn = $dsn;
-
-    foreach($dsn as $option_name => $option_value)
+    function __construct(lmbUri $dsn)
     {
-      if(!is_null($option_value))
-        $this->$option_name = $option_value;
+        $this->dsn = $dsn;
+
+        foreach ($dsn as $option_name => $option_value) {
+            if (!is_null($option_value))
+                $this->$option_name = $option_value;
+        }
+
+        foreach ($dsn->getQueryItems() as $option_name => $option_value) {
+            if (!is_null($option_value))
+                $this->$option_name = $option_value;
+        }
     }
 
-    foreach($dsn->getQueryItems() as $option_name => $option_value)
+    protected function _resolveKey($keys)
     {
-      if(!is_null($option_value))
-        $this->$option_name = $option_value;
-    }
-  }
+        if (!$this->prefix)
+            return $keys;
 
-  protected function _resolveKey($keys)
-  {
-    if(!$this->prefix)
-      return $keys;
+        if (is_array($keys)) {
+            $new_keys = array();
+            foreach ($keys as $pos => $key)
+                $new_keys[$pos] = $this->prefix . $key;
+        } else {
+            $new_keys = $this->prefix . $keys;
+        }
 
-    if(is_array($keys))
-    {
-      $new_keys = array();
-      foreach($keys as $pos => $key)
-        $new_keys[$pos] = $this->prefix . $key;
-    }
-    else
-    {
-      $new_keys  = $this->prefix . $keys;
+        return $new_keys;
     }
 
-    return $new_keys;
-  }
-  
-  function _getDataFromContainer($container)
-  {
-    if($this->need_serialization)
-      return lmbSerializable::unserialize($container);
-    else
-      return $container;
-  }
-  
-  function _createContainer($data)
-  {
-    if($this->need_serialization)
-      return lmbSerializable::serialize($data);
-    else
-      return $data;
-  }
-
-  function get($keys)
-  {
-    $keys = $this->_resolveKey($keys);
-
-    if(!is_array($keys))
+    function _getDataFromContainer($container)
     {
-      $values = $this->_getSingleKeyValue($keys);
-    }
-    else
-    {
-      $values = array();
-      foreach($keys as $key)
-        $values[$key] = $this->_getSingleKeyValue($key);
+        if ($this->need_serialization)
+            return lmbSerializable::unserialize($container);
+        else
+            return $container;
     }
 
-    return $values;
-  }
+    function _createContainer($data)
+    {
+        if ($this->need_serialization)
+            return lmbSerializable::serialize($data);
+        else
+            return $data;
+    }
 
-  protected function _getLockName($key, $lock_name)
-  {
-    if(!$lock_name)
-      $lock_name = 'lock';
+    function get($keys)
+    {
+        $keys = $this->_resolveKey($keys);
 
-    return $key.'_'.$lock_name;
-  }
+        if (!is_array($keys)) {
+            $values = $this->_getSingleKeyValue($keys);
+        } else {
+            $values = array();
+            foreach ($keys as $key)
+                $values[$key] = $this->_getSingleKeyValue($key);
+        }
 
-  function lock($key, $ttl = false, $lock_name = false)
-  {
-    return $this->add($this->_getLockName($key,$lock_name), '1', $ttl);
-  }
+        return $values;
+    }
 
-  function unlock($key, $lock_name = false)
-  {
-    return $this->delete($this->_getLockName($key, $lock_name));
-  }
+    protected function _getLockName($key, $lock_name)
+    {
+        if (!$lock_name)
+            $lock_name = 'lock';
 
-  function increment($key, $value = 1, $ttl = false)
-  {
-    if(is_null($current_value = $this->get($key)))
-      return false;
+        return $key . '_' . $lock_name;
+    }
 
-    if(!$this->lock($key, $this->inc_dec_ttl, 'inc_dec'))
-      return false;
+    function lock($key, $ttl = false, $lock_name = false)
+    {
+        return $this->add($this->_getLockName($key, $lock_name), '1', $ttl);
+    }
 
-    $new_value = (int)$current_value + $value;
+    function unlock($key, $lock_name = false)
+    {
+        return $this->delete($this->_getLockName($key, $lock_name));
+    }
 
-    $this->set($key, $new_value, $ttl);
+    function increment($key, $value = 1, $ttl = false)
+    {
+        if (is_null($current_value = $this->get($key)))
+            return false;
 
-    $this->unlock($key, 'inc_dec');
+        if (!$this->lock($key, $this->inc_dec_ttl, 'inc_dec'))
+            return false;
 
-    return $new_value;
-  }
+        $new_value = (int)$current_value + $value;
 
-  function decrement($key, $value = 1, $ttl = false)
-  {
-    if(is_null($current_value = $this->get($key)))
-      return false;
+        $this->set($key, $new_value, $ttl);
 
-    if(!$this->lock($key, $this->inc_dec_ttl, 'inc_dec'))
-      return false;
+        $this->unlock($key, 'inc_dec');
 
-    $new_value = (int)$current_value - $value;
+        return $new_value;
+    }
 
-    if($new_value < 0)
-      $new_value = 0;
+    function decrement($key, $value = 1, $ttl = false)
+    {
+        if (is_null($current_value = $this->get($key)))
+            return false;
 
-    $this->set($key, $new_value, $ttl);
+        if (!$this->lock($key, $this->inc_dec_ttl, 'inc_dec'))
+            return false;
 
-    $this->unlock($key, 'inc_dec');
+        $new_value = (int)$current_value - $value;
 
-    return $new_value;
-  }
+        if ($new_value < 0)
+            $new_value = 0;
 
-  function safeIncrement($key, $value = 1, $ttl = false)
-  {
-    if($result = $this->increment($key, $value))
-      return $result;
+        $this->set($key, $new_value, $ttl);
 
-    $this->add($key, 0, $ttl);
+        $this->unlock($key, 'inc_dec');
 
-    return $this->increment($key, $value);
-  }
+        return $new_value;
+    }
 
-  function safeDecrement($key, $value = 1, $ttl = false)
-  {
-    if($result = $this->decrement($key, $value))
-      return $result;
+    function safeIncrement($key, $value = 1, $ttl = false)
+    {
+        if ($result = $this->increment($key, $value))
+            return $result;
 
-    $this->add($key, 0, $ttl);
+        $this->add($key, 0, $ttl);
 
-    return $this->decrement($key, $value);
-  }
+        return $this->increment($key, $value);
+    }
 
-  abstract function getType();
+    function safeDecrement($key, $value = 1, $ttl = false)
+    {
+        if ($result = $this->decrement($key, $value))
+            return $result;
+
+        $this->add($key, 0, $ttl);
+
+        return $this->decrement($key, $value);
+    }
+
+    abstract function getType();
 }

@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\web_cache\cases;
 
 use limb\core\src\lmbEnv;
@@ -21,63 +22,63 @@ use limb\toolkit\src\lmbToolkit;
 
 class lmbFullPageCacheFilterTest extends TestCase
 {
-  protected $fc;
-  protected $filter2;
-  protected $toolkit;
-  protected $user;
-  protected $cache_dir;
+    protected $fc;
+    protected $filter2;
+    protected $toolkit;
+    protected $user;
+    protected $cache_dir;
 
-  function setUp(): void
-  {
-      $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/web_cache/';
+    function setUp(): void
+    {
+        $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/web_cache/';
 
-      lmbFs::rm($this->cache_dir);
+        lmbFs::rm($this->cache_dir);
 
-      $this->toolkit = lmbToolkit::save();
+        $this->toolkit = lmbToolkit::save();
 
-      $this->filter2 = $this->createConfiguredMock(lmbInterceptingFilterInterface::class, [
-          'run' =>  $this->toolkit->getResponse()
-      ]);
+        $this->filter2 = $this->createConfiguredMock(lmbInterceptingFilterInterface::class, [
+            'run' => $this->toolkit->getResponse()
+        ]);
 
-      $this->user = new lmbFullPageCacheUser();
-  }
+        $this->user = new lmbFullPageCacheUser();
+    }
 
-  function tearDown(): void
-  {
-    lmbToolkit::restore();
-  }
+    function tearDown(): void
+    {
+        lmbToolkit::restore();
+    }
 
-  function testRunOkFullCircle()
-  {
-    $filter = new lmbFullPageCacheFilter('cache.ini', $this->cache_dir, $this->user);
+    function testRunOkFullCircle()
+    {
+        $filter = new lmbFullPageCacheFilter('cache.ini', $this->cache_dir, $this->user);
 
-    $fc = new lmbFilterChain();
-    $fc->registerFilter($filter);
-    $fc->registerFilter($this->filter2);
+        $fc = new lmbFilterChain();
+        $fc->registerFilter($filter);
+        $fc->registerFilter($this->filter2);
 
-    $rules = '
+        $rules = '
      [rule-all-to-all]
      path_regex = ~^.*$~
      policy = allow
     ';
-    $this->toolkit->setConf('cache.ini', new lmbFakeIni($rules));
+        $this->toolkit->setConf('cache.ini', new lmbFakeIni($rules));
 
-    $this->filter2->expects($this->once())->method('run');
+        $this->filter2->expects($this->once())->method('run');
 
-    $response = $this->toolkit->getResponse();
-    $response->send();
-    $response->write('some_content'); // I don't want to create a stub for filter2
-                                      // to write something to response. I'd like to it here.
+        $response = $this->toolkit->getResponse();
+        $response->send();
+        $response->write('some_content'); // I don't want to create a stub for filter2
+        // to write something to response. I'd like to it here.
 
-    $this->toolkit->setRequest(new lmbHttpRequest('/any_path', 'GET'));
+        $this->toolkit->setRequest(new lmbHttpRequest('/any_path', 'GET'));
 
-    $fc->process($this->toolkit->getRequest(), $response);
+        $fc->process($this->toolkit->getRequest(), $response);
 
-    $response->reset();
-    $response->send();
+        $response->reset();
+        $response->send();
 
-    $fc->process($this->toolkit->getRequest(), $response);
+        $fc->process($this->toolkit->getRequest(), $response);
 
-    $this->assertEquals('some_content', $response->getResponseString());
-  }
+        $this->assertEquals('some_content', $response->getResponseString());
+    }
 }

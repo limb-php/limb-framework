@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\validation\cases\rule;
 
 use limb\validation\src\rule\ValidValueRule;
@@ -15,59 +16,59 @@ require('.setup.php');
 
 class lmbValidValueRuleTest extends lmbValidationRuleTestCase
 {
-  function testValidValueRule_Success_Int()
-  {
-    $rule = new ValidValueRule('testfield', 1);
+    function testValidValueRule_Success_Int()
+    {
+        $rule = new ValidValueRule('testfield', 1);
 
-    $data = new lmbSet();
-    $data->set('testfield', 1);
+        $data = new lmbSet();
+        $data->set('testfield', 1);
 
-    $this->error_list->expects($this->never())->method('addError');
+        $this->error_list->expects($this->never())->method('addError');
 
-    $rule->validate($data, $this->error_list);
-  }
-  
-  function testValidValueRule_Error_Int()
-  {
-    $rule = new ValidValueRule('testfield', 1);
+        $rule->validate($data, $this->error_list);
+    }
 
-    $data = new lmbSet();
-    $data->set('testfield', 0);
+    function testValidValueRule_Error_Int()
+    {
+        $rule = new ValidValueRule('testfield', 1);
 
-    $this->error_list
-        ->expects($this->once())
-        ->method('addError')
-        ->with(
-            lmb_i18n('{Field} value is wrong', 'validation'),
-            array('Field' => 'testfield'),
-            array()
-        );
+        $data = new lmbSet();
+        $data->set('testfield', 0);
 
-    $rule->validate($data, $this->error_list);
-  }
+        $this->error_list
+            ->expects($this->once())
+            ->method('addError')
+            ->with(
+                lmb_i18n('{Field} value is wrong', 'validation'),
+                array('Field' => 'testfield'),
+                array()
+            );
 
-  function testValidValueRule_Success_IntAndString()
-  {
-    $rule = new ValidValueRule('testfield', 1);
+        $rule->validate($data, $this->error_list);
+    }
 
-    $data = new lmbSet();
-    $data->set('testfield', '1');
+    function testValidValueRule_Success_IntAndString()
+    {
+        $rule = new ValidValueRule('testfield', 1);
 
-    $this->error_list->expects($this->never())->method('addError');
+        $data = new lmbSet();
+        $data->set('testfield', '1');
 
-    $rule->validate($data, $this->error_list);
-  }  
+        $this->error_list->expects($this->never())->method('addError');
 
-  function testInvalidValueRule_Success_Bool()
-  {
-    $rule = new ValidValueRule('testfield', false);
+        $rule->validate($data, $this->error_list);
+    }
 
-    $data = new lmbSet();
-    $data->set('testfield', 0);
+    function testInvalidValueRule_Success_Bool()
+    {
+        $rule = new ValidValueRule('testfield', false);
 
-    $this->error_list->expects($this->never())->method('addError');
+        $data = new lmbSet();
+        $data->set('testfield', 0);
 
-    $rule->validate($data, $this->error_list);
+        $this->error_list->expects($this->never())->method('addError');
 
-  }  
+        $rule->validate($data, $this->error_list);
+
+    }
 }

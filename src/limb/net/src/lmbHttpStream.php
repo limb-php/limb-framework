@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\net\src;
 
 use Psr\Http\Message\StreamInterface;
@@ -32,11 +33,11 @@ class lmbHttpStream implements StreamInterface
 
     public function __construct($body = '')
     {
-        if( !is_string($body) && !is_resource($body) ) {
+        if (!is_string($body) && !is_resource($body)) {
             throw new \InvalidArgumentException('Argument 1 MUST be a String, Resource or null');
         }
 
-        if(is_string($body)) {
+        if (is_string($body)) {
             $resource = fopen('php://temp', 'w+');
             fwrite($resource, $body);
             $body = $resource;
@@ -46,7 +47,7 @@ class lmbHttpStream implements StreamInterface
         $this->writable = null;
         $this->readable = null;
 
-        if($this->isSeekable()) {
+        if ($this->isSeekable()) {
             fseek($body, 0, SEEK_CUR);
         }
     }
@@ -54,20 +55,19 @@ class lmbHttpStream implements StreamInterface
     public function __toString()
     {
         try {
-            if($this->isSeekable()) {
+            if ($this->isSeekable()) {
                 $this->rewind();
             }
 
             return $this->getContents();
-        }
-        catch (\Throwable $exception){
+        } catch (\Throwable $exception) {
             return '';
         }
     }
 
     public function close(): void
     {
-        if(is_resource($this->stream)) {
+        if (is_resource($this->stream)) {
             fclose($this->stream);
         }
         $this->detach();
@@ -83,11 +83,11 @@ class lmbHttpStream implements StreamInterface
 
     public function getSize(): ?int
     {
-        if($this->size !== null) {
+        if ($this->size !== null) {
             return $this->size;
         }
 
-        if($this->stream === null) {
+        if ($this->stream === null) {
             return null;
         }
 
@@ -98,12 +98,12 @@ class lmbHttpStream implements StreamInterface
 
     public function tell()
     {
-        if($this->stream === null) {
+        if ($this->stream === null) {
             throw new \RuntimeException('Unable to get current position');
         }
 
         $position = ftell($this->stream);
-        if($position === false) {
+        if ($position === false) {
             throw new \RuntimeException('Unable to get current position');
         }
 
@@ -117,7 +117,7 @@ class lmbHttpStream implements StreamInterface
 
     public function isSeekable(): bool
     {
-        if($this->seekable === null) {
+        if ($this->seekable === null) {
             $this->seekable = $this->getMetadata('seekable') ?? false;
         }
 
@@ -126,11 +126,11 @@ class lmbHttpStream implements StreamInterface
 
     public function seek($offset, $whence = SEEK_SET): void
     {
-        if(!$this->isSeekable()) {
+        if (!$this->isSeekable()) {
             throw new \RuntimeException('Stream is not seekable');
         }
 
-        if( fseek($this->stream, $offset, $whence) === -1 ) {
+        if (fseek($this->stream, $offset, $whence) === -1) {
             throw new \RuntimeException('Unable to seek stream position');
         }
     }
@@ -142,11 +142,11 @@ class lmbHttpStream implements StreamInterface
 
     public function isWritable()
     {
-        if(!is_resource($this->stream)) {
+        if (!is_resource($this->stream)) {
             return false;
         }
 
-        if($this->writable === null) {
+        if ($this->writable === null) {
             $mode = $this->getMetadata('mode');
             $this->writable = in_array($mode, self::READ_WRITE_MODE['write']);
         }
@@ -156,12 +156,12 @@ class lmbHttpStream implements StreamInterface
 
     public function write($string): int
     {
-        if(!$this->isWritable()) {
+        if (!$this->isWritable()) {
             throw new \RuntimeException('Stream is not writable');
         }
 
         $result = fwrite($this->stream, $string);
-        if($result === false) {
+        if ($result === false) {
             throw new \RuntimeException('Unable to write to stream');
         }
 
@@ -170,11 +170,11 @@ class lmbHttpStream implements StreamInterface
 
     public function isReadable()
     {
-        if(!is_resource($this->stream)) {
+        if (!is_resource($this->stream)) {
             return false;
         }
 
-        if($this->readable === null) {
+        if ($this->readable === null) {
             $mode = $this->getMetadata('mode');
             $this->readable = in_array($mode, self::READ_WRITE_MODE['read']);
         }
@@ -184,12 +184,12 @@ class lmbHttpStream implements StreamInterface
 
     public function read($length)
     {
-        if(!$this->isReadable()) {
+        if (!$this->isReadable()) {
             throw new \RuntimeException('Stream is not readable');
         }
 
         $result = fread($this->stream, $length);
-        if($result === false) {
+        if ($result === false) {
             throw new \RuntimeException('Unable to read from stream');
         }
 
@@ -198,12 +198,12 @@ class lmbHttpStream implements StreamInterface
 
     public function getContents(): string
     {
-        if(!is_resource($this->stream)) {
+        if (!is_resource($this->stream)) {
             throw new \RuntimeException('Unable to read stream contents');
         }
 
         $contents = stream_get_contents($this->stream);
-        if($contents === false) {
+        if ($contents === false) {
             throw new \RuntimeException('Unable to read stream contents');
         }
 
@@ -212,12 +212,12 @@ class lmbHttpStream implements StreamInterface
 
     public function getMetadata($key = null)
     {
-        if($this->stream === null) {
-            return $key === null ? null : false ;
+        if ($this->stream === null) {
+            return $key === null ? null : false;
         }
 
         $meta = stream_get_meta_data($this->stream);
-        if( $key === null ) {
+        if ($key === null) {
             return $meta;
         }
 

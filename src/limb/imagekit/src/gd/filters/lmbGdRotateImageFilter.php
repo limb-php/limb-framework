@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\imagekit\src\gd\filters;
 
 use limb\imagekit\src\lmbAbstractImageFilter;
@@ -18,79 +19,74 @@ use limb\imagekit\src\lmbAbstractImageContainer;
  */
 class lmbGdRotateImageFilter extends lmbAbstractImageFilter
 {
-  function apply(lmbAbstractImageContainer $container)
-  {
-    $angle = $this->getAngle();
-    $flip_x = $this->getFlipX();
-    $flip_y = $this->getFlipY();
-
-    if($angle || $flip_x || $flip_y)
+    function apply(lmbAbstractImageContainer $container)
     {
-      if($flip_x && $flip_y)
-      {
-        $angle += 180;
-        $flip_x = false;
-        $flip_y = false;
-      }
+        $angle = $this->getAngle();
+        $flip_x = $this->getFlipX();
+        $flip_y = $this->getFlipY();
 
-      if($flip_x)
-      {
-        $cur_im = $container->getResource();
+        if ($angle || $flip_x || $flip_y) {
+            if ($flip_x && $flip_y) {
+                $angle += 180;
+                $flip_x = false;
+                $flip_y = false;
+            }
 
-        $src_w = $container->getWidth();
-        $src_h = $container->getHeight();
-        $im = imagecreatetruecolor($src_w, $src_h);
+            if ($flip_x) {
+                $cur_im = $container->getResource();
 
-        imagecopyresampled($im, $cur_im, 0, 0, ($src_w - 1), 0, $src_w, $src_h, -$src_w, $src_h);
+                $src_w = $container->getWidth();
+                $src_h = $container->getHeight();
+                $im = imagecreatetruecolor($src_w, $src_h);
 
-        $container->replaceResource($im);
-      }
+                imagecopyresampled($im, $cur_im, 0, 0, ($src_w - 1), 0, $src_w, $src_h, -$src_w, $src_h);
 
-      if($flip_y)
-      {
-        $cur_im = $container->getResource();
+                $container->replaceResource($im);
+            }
 
-        $src_w = $container->getWidth();
-        $src_h = $container->getHeight();
-        $im = imagecreatetruecolor($src_w, $src_h);
+            if ($flip_y) {
+                $cur_im = $container->getResource();
 
-        imagecopyresampled($im, $cur_im, 0, 0, 0, ($src_h - 1), $src_w, $src_h, $src_w, -$src_h);
+                $src_w = $container->getWidth();
+                $src_h = $container->getHeight();
+                $im = imagecreatetruecolor($src_w, $src_h);
 
-        $container->replaceResource($im);
-      }
+                imagecopyresampled($im, $cur_im, 0, 0, 0, ($src_h - 1), $src_w, $src_h, $src_w, -$src_h);
 
-      if($angle)
-      {
-        $bgcolor = $this->getBgColor();
+                $container->replaceResource($im);
+            }
 
-        $cur_im = $container->getResource();
+            if ($angle) {
+                $bgcolor = $this->getBgColor();
 
-        $bg = imagecolorallocate($cur_im, $bgcolor['red'], $bgcolor['green'], $bgcolor['blue']);
-        $im = imagerotate($cur_im, -$angle, $bg);
+                $cur_im = $container->getResource();
 
-        $container->replaceResource($im);
-      }
+                $bg = imagecolorallocate($cur_im, $bgcolor['red'], $bgcolor['green'], $bgcolor['blue']);
+                $im = imagerotate($cur_im, -$angle, $bg);
+
+                $container->replaceResource($im);
+            }
+        }
     }
-  }
 
-  function getAngle()
-  {
-    return $this->getParam('angle', 0);
-  }
+    function getAngle()
+    {
+        return $this->getParam('angle', 0);
+    }
 
-  function getFlipX()
-  {
-    return $this->getParam('flip_x', false);
-  }
+    function getFlipX()
+    {
+        return $this->getParam('flip_x', false);
+    }
 
-  function getFlipY()
-  {
-    return $this->getParam('flip_y', false);
-  }
+    function getFlipY()
+    {
+        return $this->getParam('flip_y', false);
+    }
 
-  function getBgColor()
-  {
-    $bgcolor = $this->getParam('bgcolor', 'FFFFFF');
-    return $this->parseHexColor($bgcolor);
-  }
+    function getBgColor()
+    {
+        $bgcolor = $this->getParam('bgcolor', 'FFFFFF');
+        return $this->parseHexColor($bgcolor);
+    }
 }

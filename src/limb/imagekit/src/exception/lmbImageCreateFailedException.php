@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\imagekit\src\exception;
 
 use limb\core\src\exception\lmbException;
@@ -19,9 +20,9 @@ use limb\core\src\exception\lmbException;
 class lmbImageCreateFailedException extends lmbException
 {
 
-  function __construct($file_name, $type = '')
-  {
-    parent::__construct('Image create is failed', array('file' => $file_name, 'type' => $type));
-  }
+    function __construct($file_name, $type = '')
+    {
+        parent::__construct('Image create is failed', array('file' => $file_name, 'type' => $type));
+    }
 
 }

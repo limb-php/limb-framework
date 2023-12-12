@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\tags\form;
 
 use limb\macro\src\compiler\lmbMacroRuntimeWidgetHtmlTag;
@@ -18,30 +19,29 @@ use limb\macro\src\compiler\lmbMacroRuntimeWidgetHtmlTag;
  */
 class lmbMacroFormTag extends lmbMacroRuntimeWidgetHtmlTag
 {
-  protected $html_tag = 'form';
-  protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroFormWidget';
+    protected $html_tag = 'form';
+    protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroFormWidget';
 
-  protected function _generateBeforeOpeningTag($code)
-  {
-    $form = $this->getRuntimeVar();
-    
-    // passing specified variable as a datasource to form widget
-    if($this->has('from'))
+    protected function _generateBeforeOpeningTag($code)
     {
-      $from = $this->get('from');       
-      $code->writePHP("{$form}->setDatasource({$from});\n");
-      $this->remove('from');
-    }
+        $form = $this->getRuntimeVar();
 
-    // passing specially named variable of the compiled template as a datasource to form widget if the variable if defined
-    $datasource_id = $form . '_datasource';
-    $code->writePHP("if(isset({$datasource_id})){$form}->setDatasource({$datasource_id});\n");
-    
-    // passing specially named variable of the compiled template as an error_list to form widget if the variable if defined
-    $error_list_id = $form . '_error_list';
-    $code->writePHP("if(isset({$error_list_id})){$form}->setErrorList({$error_list_id});\n");
-    
-    parent :: _generateBeforeOpeningTag($code);
-  }
+        // passing specified variable as a datasource to form widget
+        if ($this->has('from')) {
+            $from = $this->get('from');
+            $code->writePHP("{$form}->setDatasource({$from});\n");
+            $this->remove('from');
+        }
+
+        // passing specially named variable of the compiled template as a datasource to form widget if the variable if defined
+        $datasource_id = $form . '_datasource';
+        $code->writePHP("if(isset({$datasource_id})){$form}->setDatasource({$datasource_id});\n");
+
+        // passing specially named variable of the compiled template as an error_list to form widget if the variable if defined
+        $error_list_id = $form . '_error_list';
+        $code->writePHP("if(isset({$error_list_id})){$form}->setErrorList({$error_list_id});\n");
+
+        parent:: _generateBeforeOpeningTag($code);
+    }
 }
 

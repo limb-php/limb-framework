@@ -14,8 +14,7 @@
 
 use limb\toolkit\src\lmbToolkit;
 
-if(!function_exists('response'))
-{
+if (!function_exists('response')) {
 
     function response()
     {
@@ -24,8 +23,7 @@ if(!function_exists('response'))
 
 }
 
-if(!function_exists('request'))
-{
+if (!function_exists('request')) {
 
     function request()
     {

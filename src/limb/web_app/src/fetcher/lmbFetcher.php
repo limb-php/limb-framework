@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_app\src\fetcher;
 
 use limb\core\src\lmbCollection;
@@ -20,136 +21,130 @@ use limb\core\src\lmbString;
  */
 abstract class lmbFetcher
 {
-  protected $decorators = array();
-  protected $order_params = array();
-  protected $offset = 0;
-  protected $limit = 0;
+    protected $decorators = array();
+    protected $order_params = array();
+    protected $offset = 0;
+    protected $limit = 0;
 
-  function __construct()
-  {
-    $this->_collectDecorators();
-  }
-
-  function setOffset($offset)
-  {
-    $this->offset = $offset;
-  }
-
-  function setLimit($limit)
-  {
-    $this->limit = $limit;
-  }
-
-  function setOrder($order)
-  {
-    if(is_array($order))
+    function __construct()
     {
-      $this->order_params = $order;
-      return;
+        $this->_collectDecorators();
     }
-    else
-      $this->order_params = self::extractOrderPairsFromString($order);
-  }
 
-  function addDecorator($decorator, $params = array())
-  {
-    $this->decorators[] = array($decorator, $params);
-  }
-
-  protected function _applyDecorators($dataset)
-  {
-    foreach($this->decorators as $decorator_data)
+    function setOffset($offset)
     {
-      $refl = new \ReflectionClass($decorator_data[0]);
-      $dataset = call_user_func_array(array($refl, 'newInstance'), array($dataset));
-
-      $this->_addParamsToDataset($dataset, $decorator_data[1]);
+        $this->offset = $offset;
     }
-    return $dataset;
-  }
 
-  protected function _addParamsToDataset($dataset, $params)
-  {
-    foreach($params as $param => $value)
+    function setLimit($limit)
     {
-      $method = lmbString::camel_case('set_'.$param, false);
-      $dataset->$method($value);
+        $this->limit = $limit;
     }
-  }
 
-  protected function _collectDecorators(){}
-
-  function fetch()
-  {
-    $res = $this->_createDataSet();
-
-    if(is_array($res))
-      $dataset = new lmbCollection($res);
-    elseif(is_object($res))
-      $dataset = $res;
-    else
-      $dataset = new lmbCollection();
-
-    $dataset = $this->_applyDecorators($dataset);
-    if(is_array($this->order_params) && count($this->order_params))
-      $dataset->sort($this->order_params);
-
-    if($this->offset || $this->limit)
+    function setOrder($order)
     {
-      if(!$this->limit)
-        $this->limit = $dataset->count();
-
-      $dataset->paginate($this->offset, $this->limit);
+        if (is_array($order)) {
+            $this->order_params = $order;
+            return;
+        } else
+            $this->order_params = self::extractOrderPairsFromString($order);
     }
-    return $dataset;
-  }
 
-  function fetchOne()
-  {
-    $dataset = $this->fetch();
-    $dataset->rewind();
-    if($dataset->valid())
-      return $dataset->current();
-  }
-
-  /**
-   * @deprecated
-   * @see fetch()
-   */
-  function getDataSet()
-  {
-    return $this->fetch();
-  }
-
-  /**
-   * @deprecated
-   * @see fetchOne()
-   */
-  function getFirstRecord()
-  {
-    return $this->fetchOne();
-  }
-
-  static function extractOrderPairsFromString($order_string)
-  {
-    $order_items = explode(',', $order_string);
-    $order_pairs = array();
-    foreach($order_items as $order_pair)
+    function addDecorator($decorator, $params = array())
     {
-      $arr = explode('=', $order_pair);
+        $this->decorators[] = array($decorator, $params);
+    }
 
-      if(isset($arr[1]))
-      {
-        if(strtolower($arr[1]) == 'asc' || strtolower($arr[1]) == 'desc'
-           || strtolower($arr[1]) == 'rand()')
-          $order_pairs[$arr[0]] = strtoupper($arr[1]);
+    protected function _applyDecorators($dataset)
+    {
+        foreach ($this->decorators as $decorator_data) {
+            $refl = new \ReflectionClass($decorator_data[0]);
+            $dataset = call_user_func_array(array($refl, 'newInstance'), array($dataset));
+
+            $this->_addParamsToDataset($dataset, $decorator_data[1]);
+        }
+        return $dataset;
+    }
+
+    protected function _addParamsToDataset($dataset, $params)
+    {
+        foreach ($params as $param => $value) {
+            $method = lmbString::camel_case('set_' . $param, false);
+            $dataset->$method($value);
+        }
+    }
+
+    protected function _collectDecorators()
+    {
+    }
+
+    function fetch()
+    {
+        $res = $this->_createDataSet();
+
+        if (is_array($res))
+            $dataset = new lmbCollection($res);
+        elseif (is_object($res))
+            $dataset = $res;
         else
-          throw new lmbException('Wrong order type', array('order' => $arr[1]));
-      }
-      else
-        $order_pairs[$arr[0]] = 'ASC';
+            $dataset = new lmbCollection();
+
+        $dataset = $this->_applyDecorators($dataset);
+        if (is_array($this->order_params) && count($this->order_params))
+            $dataset->sort($this->order_params);
+
+        if ($this->offset || $this->limit) {
+            if (!$this->limit)
+                $this->limit = $dataset->count();
+
+            $dataset->paginate($this->offset, $this->limit);
+        }
+        return $dataset;
     }
 
-    return $order_pairs;
-  }
+    function fetchOne()
+    {
+        $dataset = $this->fetch();
+        $dataset->rewind();
+        if ($dataset->valid())
+            return $dataset->current();
+    }
+
+    /**
+     * @deprecated
+     * @see fetch()
+     */
+    function getDataSet()
+    {
+        return $this->fetch();
+    }
+
+    /**
+     * @deprecated
+     * @see fetchOne()
+     */
+    function getFirstRecord()
+    {
+        return $this->fetchOne();
+    }
+
+    static function extractOrderPairsFromString($order_string)
+    {
+        $order_items = explode(',', $order_string);
+        $order_pairs = array();
+        foreach ($order_items as $order_pair) {
+            $arr = explode('=', $order_pair);
+
+            if (isset($arr[1])) {
+                if (strtolower($arr[1]) == 'asc' || strtolower($arr[1]) == 'desc'
+                    || strtolower($arr[1]) == 'rand()')
+                    $order_pairs[$arr[0]] = strtoupper($arr[1]);
+                else
+                    throw new lmbException('Wrong order type', array('order' => $arr[1]));
+            } else
+                $order_pairs[$arr[0]] = 'ASC';
+        }
+
+        return $order_pairs;
+    }
 }

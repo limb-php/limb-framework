@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\cache2\src\drivers;
 
 use limb\core\src\exception\lmbException;
@@ -17,97 +18,95 @@ use limb\net\src\lmbUri;
  * @package cache2
  * @version $Id: lmbCacheMemcacheConnection.php 6243 2007-08-29 11:53:10Z
  */
-
 class lmbCacheMemcacheConnection extends lmbCacheAbstractConnection
 {
-  static $_connected_servers;
-  public $default_host = 'localhost';
-  public $default_port = 11211;
-  public $flush_pause = 1000000;
-  const FALSE_VALUE = '$oU$@Ge';
-  protected $_server_id;
+    static $_connected_servers;
+    public $default_host = 'localhost';
+    public $default_port = 11211;
+    public $flush_pause = 1000000;
+    const FALSE_VALUE = '$oU$@Ge';
+    protected $_server_id;
 
-  function __construct(lmbUri $dsn)
-  {
-    parent::__construct($dsn);
-
-    if(!$this->dsn->getHost())
-        $this->dsn = $this->dsn->withHost($this->default_host);
-
-    if(!$this->dsn->getPort())
-        $this->dsn = $this->dsn->withPort($this->default_port);
-
-    $this->_server_id = $dsn->toString(array('host', 'port'));
-  }
-
-  function getType()
-  {
-    return 'memcache';
-  }
-
-  protected function _getMemcache()
-  {
-    if(!self::$_connected_servers[$this->_server_id])
+    function __construct(lmbUri $dsn)
     {
-      $server = new \Memcache();
-      if(!$server->connect($this->dsn->getHost(), $this->dsn->getPort()))
-        throw new lmbException("Can't connect to memcache", array('host' => $this->dsn->getHost(), 'post' => $this->dsn->getPort()));
+        parent::__construct($dsn);
 
-      self::$_connected_servers[$this->_server_id] = $server;
+        if (!$this->dsn->getHost())
+            $this->dsn = $this->dsn->withHost($this->default_host);
+
+        if (!$this->dsn->getPort())
+            $this->dsn = $this->dsn->withPort($this->default_port);
+
+        $this->_server_id = $dsn->toString(array('host', 'port'));
     }
-    return self::$_connected_servers[$this->_server_id];
-  }
 
-  function add($key, $value, $ttl = false)
-  {
-    if(false === $value)
-       $value = self::FALSE_VALUE;
-    return $this->_getMemcache()->add($this->_resolveKey($key), $value, false, (int) $ttl);
-  }
+    function getType()
+    {
+        return 'memcache';
+    }
 
-  function set($key, $value, $ttl = false)
-  {
-    if(false === $value)
-      $value = self::FALSE_VALUE;
-    return $this->_getMemcache()->set($this->_resolveKey($key), $value, false, (int) $ttl);
-  }
+    protected function _getMemcache()
+    {
+        if (!self::$_connected_servers[$this->_server_id]) {
+            $server = new \Memcache();
+            if (!$server->connect($this->dsn->getHost(), $this->dsn->getPort()))
+                throw new lmbException("Can't connect to memcache", array('host' => $this->dsn->getHost(), 'post' => $this->dsn->getPort()));
 
-  function get($key)
-  {
-    $value = $this->_getMemcache()->get($this->_resolveKey($key));
+            self::$_connected_servers[$this->_server_id] = $server;
+        }
+        return self::$_connected_servers[$this->_server_id];
+    }
 
-    if(false === $value)
-      return NULL;
+    function add($key, $value, $ttl = false)
+    {
+        if (false === $value)
+            $value = self::FALSE_VALUE;
+        return $this->_getMemcache()->add($this->_resolveKey($key), $value, false, (int)$ttl);
+    }
 
-    if(self::FALSE_VALUE === $value)
-      return false;
+    function set($key, $value, $ttl = false)
+    {
+        if (false === $value)
+            $value = self::FALSE_VALUE;
+        return $this->_getMemcache()->set($this->_resolveKey($key), $value, false, (int)$ttl);
+    }
 
-    if(is_array($key))
-      foreach ($key as $one_key)
-        if(!isset($value[$one_key]))
-          $value[$one_key] = NULL;
+    function get($key)
+    {
+        $value = $this->_getMemcache()->get($this->_resolveKey($key));
 
-    return $value;
-  }
+        if (false === $value)
+            return NULL;
 
-  function delete($key, $ttl = 0)
-  {
-    return $this->_getMemcache()->delete($this->_resolveKey($key), $ttl);
-  }
+        if (self::FALSE_VALUE === $value)
+            return false;
 
-  function increment($key, $value = 1, $ttl = false)
-  {
-    return $this->_getMemcache()->increment($this->_resolveKey($key), $value);
-  }
+        if (is_array($key))
+            foreach ($key as $one_key)
+                if (!isset($value[$one_key]))
+                    $value[$one_key] = NULL;
 
-  function decrement($key, $value = 1, $ttl = false)
-  {
-    return $this->_getMemcache()->decrement($this->_resolveKey($key), $value);
-  }
+        return $value;
+    }
 
-  function flush()
-  {
-    $this->_getMemcache()->flush();
-    usleep($this->flush_pause);
-  }
+    function delete($key, $ttl = 0)
+    {
+        return $this->_getMemcache()->delete($this->_resolveKey($key), $ttl);
+    }
+
+    function increment($key, $value = 1, $ttl = false)
+    {
+        return $this->_getMemcache()->increment($this->_resolveKey($key), $value);
+    }
+
+    function decrement($key, $value = 1, $ttl = false)
+    {
+        return $this->_getMemcache()->decrement($this->_resolveKey($key), $value);
+    }
+
+    function flush()
+    {
+        $this->_getMemcache()->flush();
+        usleep($this->flush_pause);
+    }
 }

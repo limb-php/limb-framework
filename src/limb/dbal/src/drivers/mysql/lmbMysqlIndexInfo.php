@@ -7,6 +7,7 @@
  *
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbIndexInfo;

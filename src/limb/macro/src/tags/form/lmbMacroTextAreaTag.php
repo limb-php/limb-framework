@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\tags\form;
 
 use limb\macro\src\tags\form\lmbMacroFormTagElement;
@@ -18,20 +19,20 @@ use limb\macro\src\tags\form\lmbMacroFormTagElement;
  */
 class lmbMacroTextAreaTag extends lmbMacroFormTagElement
 {
-  protected $html_tag = 'textarea';
-  protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroTextAreaWidget';
+    protected $html_tag = 'textarea';
+    protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroTextAreaWidget';
 
-  function preParse($compiler)
-  { 
-    parent :: preParse($compiler);
-  
-    // always has closing tag
-    $this->has_closing_tag = true;
-  }
-  
-  protected function _generateContent($code_writer)
-  {
-    $textarea = $this->getRuntimeVar(); 
-    $code_writer->writePHP("echo htmlspecialchars({$textarea}->getValue(), ENT_QUOTES);\n");
-  }
+    function preParse($compiler)
+    {
+        parent:: preParse($compiler);
+
+        // always has closing tag
+        $this->has_closing_tag = true;
+    }
+
+    protected function _generateContent($code_writer)
+    {
+        $textarea = $this->getRuntimeVar();
+        $code_writer->writePHP("echo htmlspecialchars({$textarea}->getValue(), ENT_QUOTES);\n");
+    }
 }

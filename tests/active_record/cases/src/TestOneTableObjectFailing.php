@@ -11,7 +11,7 @@ class TestOneTableObjectFailing extends lmbActiveRecord
 
     protected function _onAfterSave()
     {
-        if(is_object($this->fail))
+        if (is_object($this->fail))
             throw $this->fail;
     }
 }

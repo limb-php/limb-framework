@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\view\cases;
 
 require_once '.setup.php';
@@ -19,65 +20,65 @@ use limb\core\src\lmbEnv;
 
 class lmbMacroViewTest extends TestCase
 {
-  function setUp(): void
-  {
-    lmbFs::rm(lmbEnv::get('LIMB_VAR_DIR') . '/tpl/');
-    lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR') . '/tpl/');
-  }
+    function setUp(): void
+    {
+        lmbFs::rm(lmbEnv::get('LIMB_VAR_DIR') . '/tpl/');
+        lmbFs::mkdir(lmbEnv::get('LIMB_VAR_DIR') . '/tpl/');
+    }
 
-  function testRenderSimpleVars()
-  {
-      $template_name = 'test.phtml';
-      $tpl = $this->_createTemplate('{$#hello}{$#again}', $template_name);
-      $tpl_no_ext = str_replace(lmbMacroView::EXTENSION, '', $tpl);
+    function testRenderSimpleVars()
+    {
+        $template_name = 'test.phtml';
+        $tpl = $this->_createTemplate('{$#hello}{$#again}', $template_name);
+        $tpl_no_ext = str_replace(lmbMacroView::EXTENSION, '', $tpl);
 
-      $view = $this->_createView($tpl_no_ext)
-          ->with('hello', 'Hello message!')
-          ->with('again', 'Hello again!');
+        $view = $this->_createView($tpl_no_ext)
+            ->with('hello', 'Hello message!')
+            ->with('again', 'Hello again!');
 
-      $this->assertEquals('Hello message!Hello again!', $view->render());
+        $this->assertEquals('Hello message!Hello again!', $view->render());
 
-      $view = $this->_createView($tpl)
-          ->with('hello', 'Hello message!')
-          ->with('again', 'Hello again!');
+        $view = $this->_createView($tpl)
+            ->with('hello', 'Hello message!')
+            ->with('again', 'Hello again!');
 
-      $this->assertEquals('Hello message!Hello again!', $view->render());
-  }
-  
-  function testRenderForms()
-  {
-    $template = '{{form id="form1" name="form1"}}'.
-                '{{form:errors to="$form_errors"/}}'.
-                '{{list using="$form_errors" as="$item"}}{{list:item}}{$item.message}|{{/list:item}}{{/list}}'.     
-                '{{input type="text" name="title" title="Title" /}}'.
-                '{{/form}}';
+        $this->assertEquals('Hello message!Hello again!', $view->render());
+    }
 
-    $tpl = $this->_createTemplate($template, 'test.phtml');
-    $view = $this->_createView($tpl);
+    function testRenderForms()
+    {
+        $template = '{{form id="form1" name="form1"}}' .
+            '{{form:errors to="$form_errors"/}}' .
+            '{{list using="$form_errors" as="$item"}}{{list:item}}{$item.message}|{{/list:item}}{{/list}}' .
+            '{{input type="text" name="title" title="Title" /}}' .
+            '{{/form}}';
 
-    $error_list = new lmbErrorList();
-    $error_list->addError('An error in {Field} with {Value}', array('Field' => 'title'), array('Value' => 'value1'));
+        $tpl = $this->_createTemplate($template, 'test.phtml');
+        $view = $this->_createView($tpl);
 
-    $view->setFormDatasource('form1', new lmbSet(array('title' => 'My title')));
-    $view->setFormErrors('form1', $error_list);
+        $error_list = new lmbErrorList();
+        $error_list->addError('An error in {Field} with {Value}', array('Field' => 'title'), array('Value' => 'value1'));
 
-    $expected = '<form id="form1" name="form1">An error in &quot;Title&quot; with value1|'.
-                '<input type="text" name="title" title="Title" value="My title" />'.
-                '</form>';
-                
-    $this->assertEquals($view->render(), $expected);
-  }   
+        $view->setFormDatasource('form1', new lmbSet(array('title' => 'My title')));
+        $view->setFormErrors('form1', $error_list);
 
-  protected function _createView($file)
-  {
-    $view = new lmbMacroView($file);
-    return $view;
-  }
+        $expected = '<form id="form1" name="form1">An error in &quot;Title&quot; with value1|' .
+            '<input type="text" name="title" title="Title" value="My title" />' .
+            '</form>';
 
-  protected function _createTemplate($code, $name)
-  {
-    $file = lmbEnv::get('LIMB_VAR_DIR') . '/tpl/' . $name;
-    file_put_contents($file, $code);
-    return $file;
-  }
+        $this->assertEquals($view->render(), $expected);
+    }
+
+    protected function _createView($file)
+    {
+        $view = new lmbMacroView($file);
+        return $view;
+    }
+
+    protected function _createTemplate($code, $name)
+    {
+        $file = lmbEnv::get('LIMB_VAR_DIR') . '/tpl/' . $name;
+        file_put_contents($file, $code);
+        return $file;
+    }
 }

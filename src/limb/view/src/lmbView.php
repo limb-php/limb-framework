@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\view\src;
 
 /**
@@ -16,42 +17,42 @@ namespace limb\view\src;
  */
 abstract class lmbView
 {
-  protected $template_name;
-  protected $variables = array();
-  protected $forms_datasources = array();
-  protected $forms_errors = array();
+    protected $template_name;
+    protected $variables = array();
+    protected $forms_datasources = array();
+    protected $forms_errors = array();
 
-  function __construct($template_name, $vars = array())
-  {
-    $this->template_name = $template_name;
-    $this->variables = $vars;
-  }
+    function __construct($template_name, $vars = array())
+    {
+        $this->template_name = $template_name;
+        $this->variables = $vars;
+    }
 
-  abstract function render();
+    abstract function render();
 
-  function reset()
-  {
-    $this->forms_datasources = array();
-    $this->forms_errors = array();
-    $this->variables = array();
-  }
+    function reset()
+    {
+        $this->forms_datasources = array();
+        $this->forms_errors = array();
+        $this->variables = array();
+    }
 
-  function copy($view)
-  {
-    $this->variables = $view->variables;
-    $this->forms_errors = $view->forms_errors;
-    $this->forms_datasources = $view->forms_datasources;
-  }
+    function copy($view)
+    {
+        $this->variables = $view->variables;
+        $this->forms_errors = $view->forms_errors;
+        $this->forms_datasources = $view->forms_datasources;
+    }
 
-  function getTemplate()
-  {
-    return $this->template_name;
-  }
+    function getTemplate()
+    {
+        return $this->template_name;
+    }
 
-  function set($variable_name, $value)
-  {
-    $this->variables[$variable_name] = $value;
-  }
+    function set($variable_name, $value)
+    {
+        $this->variables[$variable_name] = $value;
+    }
 
     function with($variable_name, $value): self
     {
@@ -60,60 +61,60 @@ abstract class lmbView
         return $this;
     }
 
-  function setVariables($vars): self
-  {
-    $this->variables = $vars;
+    function setVariables($vars): self
+    {
+        $this->variables = $vars;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  function get($variable_name)
-  {
-    if(isset($this->variables[$variable_name]))
-      return $this->variables[$variable_name];
-  }
+    function get($variable_name)
+    {
+        if (isset($this->variables[$variable_name]))
+            return $this->variables[$variable_name];
+    }
 
-  function getVariables()
-  {
-    return $this->variables;
-  }
+    function getVariables()
+    {
+        return $this->variables;
+    }
 
-  function setFormDatasource($form_name, $datasource)
-  {
-    $this->forms_datasources[$form_name] = $datasource;
-  }
+    function setFormDatasource($form_name, $datasource)
+    {
+        $this->forms_datasources[$form_name] = $datasource;
+    }
 
-  function getFormDatasource($form_name = null)
-  {
-      if(!$form_name)
-          return $this->forms_datasources;
+    function getFormDatasource($form_name = null)
+    {
+        if (!$form_name)
+            return $this->forms_datasources;
 
-      if(isset($this->forms_datasources[$form_name]))
-          return $this->forms_datasources[$form_name];
+        if (isset($this->forms_datasources[$form_name]))
+            return $this->forms_datasources[$form_name];
 
-      return null;
-  }
+        return null;
+    }
 
-  function setFormErrors($form_name, $error_list)
-  {
-    $this->forms_errors[$form_name] = $error_list;
-  }
+    function setFormErrors($form_name, $error_list)
+    {
+        $this->forms_errors[$form_name] = $error_list;
+    }
 
-  function getFormErrors($form_name = null)
-  {
-      if(!$form_name)
-          return $this->forms_errors;
+    function getFormErrors($form_name = null)
+    {
+        if (!$form_name)
+            return $this->forms_errors;
 
-      if( isset($this->forms_errors[$form_name]) )
-          return $this->forms_errors[$form_name];
+        if (isset($this->forms_errors[$form_name]))
+            return $this->forms_errors[$form_name];
 
-      return null;
-  }
+        return null;
+    }
 
-  function getForms()
-  {
-    return $this->forms_datasources;
-  }
+    function getForms()
+    {
+        return $this->forms_datasources;
+    }
 
     public function __toString()
     {

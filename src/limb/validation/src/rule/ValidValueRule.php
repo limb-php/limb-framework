@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\validation\src\rule;
 
 /**
@@ -20,20 +21,19 @@ namespace limb\validation\src\rule;
  */
 class ValidValueRule extends lmbSingleFieldRule
 {
-  protected $valid_value;
+    protected $valid_value;
 
-  function __construct($field_name, $valid_value, $custom_error = null)
-  {
-    parent::__construct($field_name, $custom_error);
-
-    $this->valid_value = $valid_value;
-  }
-
-  function check($value)
-  {
-    if ($value != $this->valid_value)
+    function __construct($field_name, $valid_value, $custom_error = null)
     {
-      $this->error('{Field} value is wrong');
+        parent::__construct($field_name, $custom_error);
+
+        $this->valid_value = $valid_value;
     }
-  }
+
+    function check($value)
+    {
+        if ($value != $this->valid_value) {
+            $this->error('{Field} value is wrong');
+        }
+    }
 }

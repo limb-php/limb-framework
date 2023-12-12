@@ -6,23 +6,24 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\macro\cases\tags\form;
 
 use Tests\macro\cases\lmbBaseMacroTestCase;
 
 class lmbMacroSelectOptionsExportTagTest extends lmbBaseMacroTestCase
 {
-  function testExportOptions()
-  {
-    $template = '{{select_options_export from="$#source" to="$#options" key_field="id" text_field="name"}}' .
-                '{{select name="select" options="$#options"/}}';
+    function testExportOptions()
+    {
+        $template = '{{select_options_export from="$#source" to="$#options" key_field="id" text_field="name"}}' .
+            '{{select name="select" options="$#options"/}}';
 
-    $page = $this->_createMacroTemplate($template, 'tpl.html');
-    
-    $page->set('source', array(array('id' => '4', 'name' => 'red'),
-                                array('id' => '5', 'name' => 'blue')));
+        $page = $this->_createMacroTemplate($template, 'tpl.html');
 
-    $expected = '<select name="select"><option value="4">red</option><option value="5">blue</option></select>'; 
-    $this->assertEquals($page->render(), $expected);
-  }
+        $page->set('source', array(array('id' => '4', 'name' => 'red'),
+            array('id' => '5', 'name' => 'blue')));
+
+        $expected = '<select name="select"><option value="4">red</option><option value="5">blue</option></select>';
+        $this->assertEquals($page->render(), $expected);
+    }
 }

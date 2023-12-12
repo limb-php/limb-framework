@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\tags\lists;
 
 use limb\macro\src\compiler\lmbMacroTag;
@@ -19,14 +20,14 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroListRowEvenTag extends lmbMacroTag
 {
-  protected function _generateContent($code_writer)
-  {
-    $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');
-    $counter_var = $list->getCounterVar();
+    protected function _generateContent($code_writer)
+    {
+        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');
+        $counter_var = $list->getCounterVar();
 
-    $code_writer->writePHP('if(('. $counter_var . '+1) % 2 == 0) {');
-    parent :: _generateContent($code_writer);
-    $code_writer->writePHP('}');
-  }
+        $code_writer->writePHP('if((' . $counter_var . '+1) % 2 == 0) {');
+        parent:: _generateContent($code_writer);
+        $code_writer->writePHP('}');
+    }
 }
 

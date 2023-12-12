@@ -39,7 +39,7 @@ class TestOneTableObjectWithRelationsByMethods extends lmbActiveRecord
         $this->relations['other_has_many_relation'] = $other_has_many;
 
 
-        $this->_hasManyToMany('has_many_to_many_relation',  $many_to_many = array(
+        $this->_hasManyToMany('has_many_to_many_relation', $many_to_many = array(
             'field' => 'my_id',
             'foreign_field' => 'important_id',
             'class' => ImportantClass::class,
@@ -47,7 +47,7 @@ class TestOneTableObjectWithRelationsByMethods extends lmbActiveRecord
         $this->relations['has_many_to_many_relation'] = $many_to_many;
 
 
-        $this->_hasManyToMany('other_has_many_to_many_relation',  $other_many_to_many = array(
+        $this->_hasManyToMany('other_has_many_to_many_relation', $other_many_to_many = array(
             'field' => 'my_id',
             'foreign_field' => 'other_important_id',
             'class' => OtherImportantClass::class,
@@ -73,7 +73,7 @@ class TestOneTableObjectWithRelationsByMethods extends lmbActiveRecord
         $this->relations['many_belongs_to_relation'] = $many_belongs_to;
 
 
-        $this->_manyBelongsTo('other_many_belongs_to_relation', $other_many_belongs_to =  array(
+        $this->_manyBelongsTo('other_many_belongs_to_relation', $other_many_belongs_to = array(
             'field' => 'parent_id',
             'class' => OtherParentClass::class));
         $this->relations['other_many_belongs_to_relation'] = $other_many_belongs_to;

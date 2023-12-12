@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers\oci;
 
 use limb\dbal\src\drivers\lmbDbBaseRecordSet;
@@ -18,124 +19,121 @@ use limb\dbal\src\drivers\lmbDbBaseRecordSet;
  */
 class lmbOciRecordSet extends lmbDbBaseRecordSet
 {
-  protected $query;
-  protected $original_stmt;
-  protected $stmt;
-  protected $connection;
+    protected $query;
+    protected $original_stmt;
+    protected $stmt;
+    protected $connection;
 
-  protected $need_pager = false;
+    protected $need_pager = false;
 
-  protected $current;
-  protected $valid;
-  protected $key;
+    protected $current;
+    protected $valid;
+    protected $key;
 
-  function __construct($connection, $stmt)
-  {
-    $this->connection = $connection;
-    $this->stmt = $stmt;
-    $this->original_stmt = clone $stmt; //used for getting total count
-    $this->query = $stmt->getSQL();
-  }
-
-  function paginate($offset, $limit)
-  {
-    parent :: paginate($offset, $limit);
-    $this->need_pager = true;
-    return $this;
-  }
-
-  function freeQuery()
-  {
-    if(isset($this->queryId) && is_resource($this->queryId))
+    function __construct($connection, $stmt)
     {
-      oci_free_statement($this->queryId);
-      $this->queryId = null;
+        $this->connection = $connection;
+        $this->stmt = $stmt;
+        $this->original_stmt = clone $stmt; //used for getting total count
+        $this->query = $stmt->getSQL();
     }
-  }
 
-  function rewind(): void
-  {
-    $stmt = $this->_prepareStatement();
-    $this->queryId = $stmt->execute();
-    $this->_prefetch();
-
-    $this->key = 0;
-    $this->next();
-  }
-
-  protected function _prepareStatement()
-  {
-    if($this->sort_params)
-      $this->stmt->addOrder($this->sort_params);
-
-    if($this->need_pager)
-      $this->stmt->paginate($this->offset, $this->limit);
-
-    return $this->stmt;
-  }
-
-  protected function _prefetch()
-  {
-    if(!$this->need_pager)
+    function paginate($offset, $limit)
     {
-      if($total_row_count = $this->stmt->count())
-        oci_set_prefetch($this->queryId, $total_row_count);
+        parent:: paginate($offset, $limit);
+        $this->need_pager = true;
+        return $this;
     }
-    else
-      oci_set_prefetch($this->queryId, $this->limit);
-  }
 
-  function next(): void
-  {
-    $this->current = new lmbOciRecord();
-    $values = oci_fetch_array($this->queryId, OCI_ASSOC+OCI_RETURN_NULLS);
-    $this->current->import($values);
-    $this->valid = is_array($values);
-    $this->key++;
-  }
+    function freeQuery()
+    {
+        if (isset($this->queryId) && is_resource($this->queryId)) {
+            oci_free_statement($this->queryId);
+            $this->queryId = null;
+        }
+    }
 
-  function valid(): bool
-  {
-    return $this->valid;
-  }
+    function rewind(): void
+    {
+        $stmt = $this->_prepareStatement();
+        $this->queryId = $stmt->execute();
+        $this->_prefetch();
 
-  #[\ReturnTypeWillChange]
-  function current()
-  {
-    return $this->current;
-  }
+        $this->key = 0;
+        $this->next();
+    }
 
-  #[\ReturnTypeWillChange]
-  function key()
-  {
-    return $this->key;
-  }
+    protected function _prepareStatement()
+    {
+        if ($this->sort_params)
+            $this->stmt->addOrder($this->sort_params);
 
-  function at($pos)
-  {
-    $stmt = clone $this->stmt;
-    if($this->sort_params)
-      $stmt->addOrder($this->sort_params);
-    $stmt->paginate($pos, 1);
+        if ($this->need_pager)
+            $this->stmt->paginate($this->offset, $this->limit);
 
-    $queryId = $stmt->execute();
+        return $this->stmt;
+    }
 
-    $arr = oci_fetch_array($queryId, OCI_ASSOC+OCI_RETURN_NULLS);
-    oci_free_statement($queryId);
-    if(is_array($arr))
-      return new lmbOciRecord($arr);
-  }
+    protected function _prefetch()
+    {
+        if (!$this->need_pager) {
+            if ($total_row_count = $this->stmt->count())
+                oci_set_prefetch($this->queryId, $total_row_count);
+        } else
+            oci_set_prefetch($this->queryId, $this->limit);
+    }
 
-  function countPaginated()
-  {
-    if($this->need_pager)
-      $this->stmt->paginate($this->offset, $this->limit);
+    function next(): void
+    {
+        $this->current = new lmbOciRecord();
+        $values = oci_fetch_array($this->queryId, OCI_ASSOC + OCI_RETURN_NULLS);
+        $this->current->import($values);
+        $this->valid = is_array($values);
+        $this->key++;
+    }
 
-    return $this->stmt->count();
-  }
+    function valid(): bool
+    {
+        return $this->valid;
+    }
 
-  function count(): int
-  {
-    return $this->original_stmt->count();
-  }
+    #[\ReturnTypeWillChange]
+    function current()
+    {
+        return $this->current;
+    }
+
+    #[\ReturnTypeWillChange]
+    function key()
+    {
+        return $this->key;
+    }
+
+    function at($pos)
+    {
+        $stmt = clone $this->stmt;
+        if ($this->sort_params)
+            $stmt->addOrder($this->sort_params);
+        $stmt->paginate($pos, 1);
+
+        $queryId = $stmt->execute();
+
+        $arr = oci_fetch_array($queryId, OCI_ASSOC + OCI_RETURN_NULLS);
+        oci_free_statement($queryId);
+        if (is_array($arr))
+            return new lmbOciRecord($arr);
+    }
+
+    function countPaginated()
+    {
+        if ($this->need_pager)
+            $this->stmt->paginate($this->offset, $this->limit);
+
+        return $this->stmt->count();
+    }
+
+    function count(): int
+    {
+        return $this->original_stmt->count();
+    }
 }

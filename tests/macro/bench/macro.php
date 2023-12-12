@@ -1,16 +1,16 @@
 <?php
 
-if(!isset($argv[1]))
-  die("\nTemplate argument is required\n");
+if (!isset($argv[1]))
+    die("\nTemplate argument is required\n");
 $file = $argv[1];
 
 $forcecompile = false;
-if(isset($argv[2]))
-  $forcecompile = (bool)$argv[2];
+if (isset($argv[2]))
+    $forcecompile = (bool)$argv[2];
 
 $forcescan = false;
-if(isset($argv[3]))
-  $forcescan = (bool)$argv[3];
+if (isset($argv[3]))
+    $forcescan = (bool)$argv[3];
 
 set_include_path(dirname(__FILE__) . '/../../../../');
 require_once('limb/core/common.inc.php');
@@ -20,28 +20,26 @@ use limb\core\src\lmbSet;
 use limb\macro\src\lmbMacroTemplate;
 
 $tpl = new lmbMacroTemplate($file, array('cache_dir' => '/tmp/macro',
-                                         'forcecompile' => $forcecompile, 
-                                         'forcescan' => $forcescan, 
-                                         'tpl_scan_dirs' => array(dirname(__FILE__))));
-/*$tpl = new lmbMacroTemplate($file, new lmbSet(array('cache_dir' => '/tmp/macro', 
-                                         'forcecompile' => $forcecompile, 
-                                         'forcescan' => $forcescan, 
+    'forcecompile' => $forcecompile,
+    'forcescan' => $forcescan,
+    'tpl_scan_dirs' => array(dirname(__FILE__))));
+/*$tpl = new lmbMacroTemplate($file, new lmbSet(array('cache_dir' => '/tmp/macro',
+                                         'forcecompile' => $forcecompile,
+                                         'forcescan' => $forcescan,
                                          'tpl_scan_dirs' => array(dirname(__FILE__)))));*/
 
-for($i=2;$i<$argc;$i++)
-{
-  if(strpos($argv[$i], '=') === false)
-    continue;
+for ($i = 2; $i < $argc; $i++) {
+    if (strpos($argv[$i], '=') === false)
+        continue;
 
-  list($key, $value) = explode('=', $argv[$i]);
-  $tpl->set($key, $value);
+    list($key, $value) = explode('=', $argv[$i]);
+    $tpl->set($key, $value);
 }
 
 profile_start();
 
-for($i=0;$i<1000;$i++)
-{
-  $tpl->render();
+for ($i = 0; $i < 1000; $i++) {
+    $tpl->render();
 }
 
 profile_end("running $i iterations of render");

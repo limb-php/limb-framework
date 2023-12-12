@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src;
 
 use limb\dbal\src\dump\lmbSQLDumpLoader;
@@ -19,44 +20,44 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbDbDump
 {
-  protected $file;
-  protected $loader;
-  /**
-   * @var \limb\dbal\src\drivers\lmbDbConnectionInterface
-   */
-  protected $connection;
+    protected $file;
+    protected $loader;
+    /**
+     * @var \limb\dbal\src\drivers\lmbDbConnectionInterface
+     */
+    protected $connection;
 
-  function __construct($file = null, $connection = null)
-  {
-    $this->file = $file;
+    function __construct($file = null, $connection = null)
+    {
+        $this->file = $file;
 
-    if($connection)
-      $this->connection = $connection;
-    else
-      $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
-  }
+        if ($connection)
+            $this->connection = $connection;
+        else
+            $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+    }
 
-  function load($file = null)
-  {
-    $type = $this->connection->getType();
+    function load($file = null)
+    {
+        $type = $this->connection->getType();
 
-    $default_loader = lmbSQLDumpLoader::class;
-    $loaderClass = 'limb\\dbal\\src\\dump\\lmb' . ucfirst($type) . 'DumpLoader';
+        $default_loader = lmbSQLDumpLoader::class;
+        $loaderClass = 'limb\\dbal\\src\\dump\\lmb' . ucfirst($type) . 'DumpLoader';
 
-    if( !class_exists($loaderClass, true) )
-        $loaderClass = $default_loader;
+        if (!class_exists($loaderClass, true))
+            $loaderClass = $default_loader;
 
-    $file = ($file) ?? $this->file;
-    $this->loader = new $loaderClass($file);
-    $this->loader->execute($this->connection);
+        $file = ($file) ?? $this->file;
+        $this->loader = new $loaderClass($file);
+        $this->loader->execute($this->connection);
 
-    $this->connection->getDatabaseInfo()->loadTables();
-  }
+        $this->connection->getDatabaseInfo()->loadTables();
+    }
 
-  function clean()
-  {
-    $this->loader->cleanTables($this->connection);
-  }
+    function clean()
+    {
+        $this->loader->cleanTables($this->connection);
+    }
 }
 
 

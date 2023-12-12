@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\validation\cases\rule;
 
 use PHPUnit\Framework\TestCase;
@@ -13,10 +14,10 @@ use limb\validation\src\lmbErrorList;
 
 abstract class lmbValidationRuleTestCase extends TestCase
 {
-  protected $error_list;
+    protected $error_list;
 
-  function setUp(): void
-  {
-      $this->error_list = $this->createMock(lmbErrorList::class);
-  }
+    function setUp(): void
+    {
+        $this->error_list = $this->createMock(lmbErrorList::class);
+    }
 }

@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\tree\src\exception;
 
 /**
@@ -14,6 +15,8 @@ namespace limb\tree\src\exception;
  * @package tree
  * @version $Id$
  */
-class lmbTreeConsistencyException extends lmbTreeException{}
+class lmbTreeConsistencyException extends lmbTreeException
+{
+}
 
 

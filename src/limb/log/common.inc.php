@@ -13,8 +13,7 @@
  */
 
 
-if(!function_exists('lmb_var_dump'))
-{
+if (!function_exists('lmb_var_dump')) {
 
     function lmb_var_dump($obj, $echo = false)
     {
@@ -23,18 +22,14 @@ if(!function_exists('lmb_var_dump'))
         $dump = ob_get_contents();
         ob_end_clean();
 
-        if($echo)
-        {
-            if(PHP_SAPI != 'cli')
-            {
+        if ($echo) {
+            if (PHP_SAPI != 'cli') {
                 echo '<pre>';
                 echo $dump;
                 echo '</pre>';
-            }
-            else
+            } else
                 echo $dump;
-        }
-        else {
+        } else {
             return $dump;
         }
     }

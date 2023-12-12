@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\compiler;
 
 use limb\macro\src\lmbMacroException;
@@ -18,142 +19,140 @@ use limb\macro\src\lmbMacroException;
  */
 class lmbMacroTagInfo
 {
-  protected $tag;
-  protected $class;
-  protected $file;
-  protected $aliases = array();
-  protected $req_attributes = array();
-  protected $parent_class;
-  protected $restrict_self_nesting = false;
-  protected $require_endtag = true;
+    protected $tag;
+    protected $class;
+    protected $file;
+    protected $aliases = array();
+    protected $req_attributes = array();
+    protected $parent_class;
+    protected $restrict_self_nesting = false;
+    protected $require_endtag = true;
 
-  function __construct($tag, $class, $require_endtag = true)
-  {
-    $this->tag = $tag;
-    $this->class = $class;
-    $this->require_endtag = $require_endtag;
-  }
-
-  static function createByAnnotations($file, $class, $annotations)
-  {
-    if(!isset($annotations['tag']))
-      throw new lmbMacroException("@tag annotation is missing for class '$class'");
-
-    $tag = $annotations['tag'];
-    $info = new lmbMacroTagInfo($tag, $class);
-
-    $info->setFile($file);
-
-    if(isset($annotations['forbid_end_tag']))
-      $info->setForbidEndtag(true);
-
-    if(isset($annotations['restrict_self_nesting']))
-      $info->setRestrictSelfNesting(true);
-
-    if(isset($annotations['parent_tag_class']))
-      $info->setParentClass(trim($annotations['parent_tag_class']));
-    
-    if(isset($annotations['req_attributes']))
+    function __construct($tag, $class, $require_endtag = true)
     {
-      $req_attributes = explode(',' , $annotations['req_attributes']);
-      $req_attributes = array_map('trim', $req_attributes);
-      $info->setRequiredAttributes($req_attributes);
-    }
-    
-    if(isset($annotations['aliases']))
-    {
-      $filter_aliases = explode(',' , $annotations['aliases']);
-      $filter_aliases = array_map('trim', $filter_aliases);
-      $info->setAliases($filter_aliases);
+        $this->tag = $tag;
+        $this->class = $class;
+        $this->require_endtag = $require_endtag;
     }
 
-    return $info;
-  }
+    static function createByAnnotations($file, $class, $annotations)
+    {
+        if (!isset($annotations['tag']))
+            throw new lmbMacroException("@tag annotation is missing for class '$class'");
 
-  function getTag()
-  {
-    return $this->tag;
-  }
+        $tag = $annotations['tag'];
+        $info = new lmbMacroTagInfo($tag, $class);
 
-  function getClass()
-  {
-    return $this->class;
-  }
+        $info->setFile($file);
 
-  function setFile($file)
-  {
-    $this->file = $file;
-  }
+        if (isset($annotations['forbid_end_tag']))
+            $info->setForbidEndtag(true);
 
-  function getFile()
-  {
-    return $this->file;
-  }
+        if (isset($annotations['restrict_self_nesting']))
+            $info->setRestrictSelfNesting(true);
 
-  function setForbidEndtag($flag = true)
-  {
-    $this->require_endtag = !$flag;
-  }
+        if (isset($annotations['parent_tag_class']))
+            $info->setParentClass(trim($annotations['parent_tag_class']));
 
-  function isEndtagForbidden()
-  {
-    return !$this->require_endtag;
-  }
+        if (isset($annotations['req_attributes'])) {
+            $req_attributes = explode(',', $annotations['req_attributes']);
+            $req_attributes = array_map('trim', $req_attributes);
+            $info->setRequiredAttributes($req_attributes);
+        }
 
-  function setRequiredAttributes($attributes)
-  {
-    $this->req_attributes = $attributes;
-  }
+        if (isset($annotations['aliases'])) {
+            $filter_aliases = explode(',', $annotations['aliases']);
+            $filter_aliases = array_map('trim', $filter_aliases);
+            $info->setAliases($filter_aliases);
+        }
 
-  function getRequiredAttributes()
-  {
-    return $this->req_attributes;
-  }
+        return $info;
+    }
 
-  function setParentClass($parent_tag_class)
-  {
-    $this->parent_class = $parent_tag_class;
-  }
+    function getTag()
+    {
+        return $this->tag;
+    }
 
-  function getParentClass()
-  {
-    return $this->parent_class;
-  }
+    function getClass()
+    {
+        return $this->class;
+    }
 
-  function setAliases($aliases)
-  {
-    $this->aliases = $aliases;
-  }
-  
-  function getAliases()
-  {
-    return $this->aliases;
-  }
-  
-  function setRestrictSelfNesting($flag = true)
-  {
-    $this->restrict_self_nesting = $flag;
-  }
+    function setFile($file)
+    {
+        $this->file = $file;
+    }
 
-  function isRestrictSelfNesting()
-  {
-    return $this->restrict_self_nesting;
-  }
+    function getFile()
+    {
+        return $this->file;
+    }
 
-  function setForbidParsing($flag = true)
-  {
-    $this->forbid_parsing = $flag;
-  }
+    function setForbidEndtag($flag = true)
+    {
+        $this->require_endtag = !$flag;
+    }
 
-  function isParsingForbidden()
-  {
-    return $this->forbid_parsing;
-  }
+    function isEndtagForbidden()
+    {
+        return !$this->require_endtag;
+    }
 
-  function load()
-  {
-    if(!class_exists($this->class, false) && isset($this->file))
-      require_once($this->file);
-  }
+    function setRequiredAttributes($attributes)
+    {
+        $this->req_attributes = $attributes;
+    }
+
+    function getRequiredAttributes()
+    {
+        return $this->req_attributes;
+    }
+
+    function setParentClass($parent_tag_class)
+    {
+        $this->parent_class = $parent_tag_class;
+    }
+
+    function getParentClass()
+    {
+        return $this->parent_class;
+    }
+
+    function setAliases($aliases)
+    {
+        $this->aliases = $aliases;
+    }
+
+    function getAliases()
+    {
+        return $this->aliases;
+    }
+
+    function setRestrictSelfNesting($flag = true)
+    {
+        $this->restrict_self_nesting = $flag;
+    }
+
+    function isRestrictSelfNesting()
+    {
+        return $this->restrict_self_nesting;
+    }
+
+    function setForbidParsing($flag = true)
+    {
+        $this->forbid_parsing = $flag;
+    }
+
+    function isParsingForbidden()
+    {
+        return $this->forbid_parsing;
+    }
+
+    function load()
+    {
+        if (!class_exists($this->class, false) && isset($this->file))
+            require_once($this->file);
+    }
 }
 

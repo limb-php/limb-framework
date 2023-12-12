@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\fs\src;
 
 /**
@@ -16,25 +17,25 @@ namespace limb\fs\src;
  */
 class lmbFileLocatorDecorator extends lmbFileLocator
 {
-  protected $locator = null;
+    protected $locator = null;
 
-  function __construct($locator)
-  {
-    $this->locator = $locator;
-  }
+    function __construct($locator)
+    {
+        $this->locator = $locator;
+    }
 
-  function locate($alias, $params = array())
-  {
-    return $this->locator->locate($alias, $params);
-  }
+    function locate($alias, $params = array())
+    {
+        return $this->locator->locate($alias, $params);
+    }
 
-  function locateAll($alias = '')
-  {
-    return $this->locator->locateAll($alias);
-  }
+    function locateAll($alias = '')
+    {
+        return $this->locator->locateAll($alias);
+    }
 
-  function getFileLocations()
-  {
-    return $this->locator->getFileLocations();
-  }
+    function getFileLocations()
+    {
+        return $this->locator->getFileLocations();
+    }
 }

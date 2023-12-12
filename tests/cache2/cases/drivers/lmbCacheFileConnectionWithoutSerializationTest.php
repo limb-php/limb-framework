@@ -15,31 +15,31 @@ use limb\core\src\lmbEnv;
 
 class lmbCacheFileConnectionWithoutSerializationTest extends lmbCacheFileConnectionTest
 {
-  function __construct()
-  {
-    $dir = lmbEnv::get('LIMB_VAR_DIR') . '/cache';
-    $this->dsn = 'file:///' . $dir . '?need_serialization=0';
-  }
-  
-  function testObjectClone()
-  {
-    // can't work without serilization
-  }
-  
-  function testGet_Positive_FalseValue()
-  {
-    // can't work without serilization
-  }
-  
-  function testProperSerializing()
-  {
-    // can't work without serilization
-  }
-  
-  function _getCachedValues()
-  {
-    return array(
-      'some value',
-   );
-  }
+    function __construct()
+    {
+        $dir = lmbEnv::get('LIMB_VAR_DIR') . '/cache';
+        $this->dsn = 'file:///' . $dir . '?need_serialization=0';
+    }
+
+    function testObjectClone()
+    {
+        // can't work without serilization
+    }
+
+    function testGet_Positive_FalseValue()
+    {
+        // can't work without serilization
+    }
+
+    function testProperSerializing()
+    {
+        // can't work without serilization
+    }
+
+    function _getCachedValues()
+    {
+        return array(
+            'some value',
+        );
+    }
 }

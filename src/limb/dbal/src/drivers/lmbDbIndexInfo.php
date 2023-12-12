@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers;
 
 use limb\core\src\lmbObject;
@@ -23,23 +24,23 @@ use limb\core\src\lmbObject;
  */
 class lmbDbIndexInfo extends lmbObject
 {
-  const TYPE_COMMON = 1;
-  const TYPE_UNIQUE = 2;
-  const TYPE_PRIMARY = 3;
+    const TYPE_COMMON = 1;
+    const TYPE_UNIQUE = 2;
+    const TYPE_PRIMARY = 3;
 
 
-  function isCommon()
-  {
-    return self::TYPE_COMMON === $this->type;
-  }
+    function isCommon()
+    {
+        return self::TYPE_COMMON === $this->type;
+    }
 
-  function isUnique()
-  {
-    return self::TYPE_UNIQUE === $this->type;
-  }
+    function isUnique()
+    {
+        return self::TYPE_UNIQUE === $this->type;
+    }
 
-  function isPrimary()
-  {
-    return self::TYPE_PRIMARY === $this->type;
-  }
+    function isPrimary()
+    {
+        return self::TYPE_PRIMARY === $this->type;
+    }
 }

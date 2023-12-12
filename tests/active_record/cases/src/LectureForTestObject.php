@@ -28,7 +28,7 @@ class LectureForTestObject extends lmbActiveRecord
 
     function _createValidator()
     {
-        if($this->_test_validator)
+        if ($this->_test_validator)
             return $this->_test_validator;
 
         return parent::_createValidator();

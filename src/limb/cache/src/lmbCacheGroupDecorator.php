@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\cache\src;
 
 /**
@@ -16,127 +17,124 @@ namespace limb\cache\src;
  */
 class lmbCacheGroupDecorator implements lmbCacheBackendInterface
 {
-  protected $_cache;
-  protected $_default_group;
-  protected $_groups = array();
+    protected $_cache;
+    protected $_default_group;
+    protected $_groups = array();
 
-  function __construct($cache, $default_group = 'default')
-  {
-    $this->_cache = $cache;
-    $this->_default_group = $default_group;
-    
-    if ($groups = $this->_cache->get('groups'))
-      $this->_groups = $groups;
-  }
-
-  function add($key, $value, $params = array())
-  {
-    $group = $this->_getGroup($params);
-    $result = $this->_cache->add($this->_generateKey($key, $group), $value, $params);
-
-    if (!$this->_groupKeyExists($key, $group))
-      $this->_groups[$group][] = $key;
-
-    $this->_cache->set('groups', $this->_groups);
-
-    return $result;
-  }
-
-  function set($key, $value, $params = array())
-  {
-    $group = $this->_getGroup($params);
-    $result = $this->_cache->set($this->_generateKey($key, $group), $value, $params);
-
-    if (!$this->_groupKeyExists($key, $group))
-      $this->_groups[$group][] = $key;
-
-    $this->_cache->set('groups', $this->_groups);
-
-    return $result;
-  }
-
-  function increment($key, $value = 1)
-  {
-    if( false === $cvalue = $this->get($key) )
+    function __construct($cache, $default_group = 'default')
     {
-      return false;
+        $this->_cache = $cache;
+        $this->_default_group = $default_group;
+
+        if ($groups = $this->_cache->get('groups'))
+            $this->_groups = $groups;
     }
-    else
+
+    function add($key, $value, $params = array())
     {
-      $result = $cvalue + $value;
+        $group = $this->_getGroup($params);
+        $result = $this->_cache->add($this->_generateKey($key, $group), $value, $params);
 
-      return $this->set($result, $value);
+        if (!$this->_groupKeyExists($key, $group))
+            $this->_groups[$group][] = $key;
+
+        $this->_cache->set('groups', $this->_groups);
+
+        return $result;
     }
-  }
 
-  function decrement($key, $value = 1)
-  {
-    return $this->increment($key, -$value);
-  }
+    function set($key, $value, $params = array())
+    {
+        $group = $this->_getGroup($params);
+        $result = $this->_cache->set($this->_generateKey($key, $group), $value, $params);
 
-  function get($key, $params = array())
-  {
-    $group = $this->_getGroup($params);
+        if (!$this->_groupKeyExists($key, $group))
+            $this->_groups[$group][] = $key;
 
-    if(!$this->_groupKeyExists($key, $group))
-      return false;
+        $this->_cache->set('groups', $this->_groups);
 
-    return $this->_cache->get($this->_generateKey($key, $group), $params);
-  }
+        return $result;
+    }
 
-  function delete($key, $params = array())
-  {
-    $group = $this->_getGroup($params);
-    $this->_cache->delete($this->_generateKey($key, $group), $params);
-  }
+    function increment($key, $value = 1)
+    {
+        if (false === $cvalue = $this->get($key)) {
+            return false;
+        } else {
+            $result = $cvalue + $value;
 
-  function flushGroup($group)
-  {
-    if (!isset($this->_groups[$group]))
-      return;
+            return $this->set($result, $value);
+        }
+    }
 
-    foreach ($this->_groups[$group] as $key)
-      $this->_cache->delete($this->_generateKey($key, $group));
+    function decrement($key, $value = 1)
+    {
+        return $this->increment($key, -$value);
+    }
 
-    unset($this->_groups[$group]);
-    $this->_cache->set('groups', $this->_groups);
-  }
+    function get($key, $params = array())
+    {
+        $group = $this->_getGroup($params);
 
-  function flush()
-  {
-    $this->_cache->flush();
-    $this->_groups = array();
-    $this->_cache->set('groups', $this->_groups);
-  }
-  
-  function stat($params = array())
-  {
-    return $this->_cache->stat();
-  }
-  
-  protected function _getGroup($params)
-  {
-    if(isset($params['group']) and $params['group'])
-      return $params['group'];
+        if (!$this->_groupKeyExists($key, $group))
+            return false;
 
-    return $this->_default_group;
-  }
+        return $this->_cache->get($this->_generateKey($key, $group), $params);
+    }
 
-  protected function _groupKeyExists($key, $group)
-  {
-    if (isset($this->_groups[$group]) and in_array($key, $this->_groups[$group]))
-      return true;
+    function delete($key, $params = array())
+    {
+        $group = $this->_getGroup($params);
+        $this->_cache->delete($this->_generateKey($key, $group), $params);
+    }
 
-    return false;
-  }
+    function flushGroup($group)
+    {
+        if (!isset($this->_groups[$group]))
+            return;
 
-  protected function _generateKey($key, $group)
-  {
-    return $group . '_' . $key;
-  }
-  
-  function __destruct()
-  {
-    $this->_cache->set('groups', $this->_groups);
-  }
+        foreach ($this->_groups[$group] as $key)
+            $this->_cache->delete($this->_generateKey($key, $group));
+
+        unset($this->_groups[$group]);
+        $this->_cache->set('groups', $this->_groups);
+    }
+
+    function flush()
+    {
+        $this->_cache->flush();
+        $this->_groups = array();
+        $this->_cache->set('groups', $this->_groups);
+    }
+
+    function stat($params = array())
+    {
+        return $this->_cache->stat();
+    }
+
+    protected function _getGroup($params)
+    {
+        if (isset($params['group']) and $params['group'])
+            return $params['group'];
+
+        return $this->_default_group;
+    }
+
+    protected function _groupKeyExists($key, $group)
+    {
+        if (isset($this->_groups[$group]) and in_array($key, $this->_groups[$group]))
+            return true;
+
+        return false;
+    }
+
+    protected function _generateKey($key, $group)
+    {
+        return $group . '_' . $key;
+    }
+
+    function __destruct()
+    {
+        $this->_cache->set('groups', $this->_groups);
+    }
 }

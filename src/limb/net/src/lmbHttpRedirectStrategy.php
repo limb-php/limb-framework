@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\net\src;
 
 /**
@@ -16,8 +17,8 @@ namespace limb\net\src;
  */
 class lmbHttpRedirectStrategy
 {
-  function redirect($response, $path)
-  {
-    $response->addHeader("Location", $path);
-  }
+    function redirect($response, $path)
+    {
+        $response->addHeader("Location", $path);
+    }
 }

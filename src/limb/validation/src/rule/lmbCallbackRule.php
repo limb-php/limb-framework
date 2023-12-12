@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\validation\src\rule;
 
 use limb\core\src\lmbDelegate;
@@ -19,18 +20,18 @@ use limb\core\src\lmbDelegate;
  */
 class lmbCallbackRule extends lmbBaseValidationRule
 {
-  protected $callback;
+    protected $callback;
 
-  function __construct($object, $method = '')
-  {
-    $this->callback = new lmbDelegate($object, $method);
-  }
+    function __construct($object, $method = '')
+    {
+        $this->callback = new lmbDelegate($object, $method);
+    }
 
-  /**
-  * @see lmbBaseValidationRule::_doValidate()
-  */
-  protected function _doValidate($datasource)
-  {
-    $this->is_valid = $this->callback->invoke($datasource, $this->error_list);
-  }
+    /**
+     * @see lmbBaseValidationRule::_doValidate()
+     */
+    protected function _doValidate($datasource)
+    {
+        $this->is_valid = $this->callback->invoke($datasource, $this->error_list);
+    }
 }

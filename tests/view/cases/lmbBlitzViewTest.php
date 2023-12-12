@@ -6,6 +6,7 @@
 * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
+
 namespace Tests\view\cases;
 
 require_once '.setup.php';
@@ -18,10 +19,10 @@ class lmbBlitzViewTest extends TestCase
 {
     function setUp(): void
     {
-        if(!extension_loaded('blitz'))
+        if (!extension_loaded('blitz'))
             $this->markTestSkipped('Blitz extension not found. Test skipped.');
 
-        if(!class_exists('Blitz'))
+        if (!class_exists('Blitz'))
             $this->markTestSkipped('Blitz class not found. Test skipped.');
     }
 
@@ -57,29 +58,29 @@ class lmbBlitzViewTest extends TestCase
     {
         $template =
             '{{ BEGIN outer }}o'
-                .'{{ $ovar }}'
-                .'{{ BEGIN inner }}i'
-                    .'{{ $ivar }}'
-                .'{{ END inner }}'
-            .'{{ END }}';
+            . '{{ $ovar }}'
+            . '{{ BEGIN inner }}i'
+            . '{{ $ivar }}'
+            . '{{ END inner }}'
+            . '{{ END }}';
 
-        $data = array (
-                array(
-                    'ovar' => 'a',
-                    'inner' => array(
-                        array('ivar' => '1'),
-                        array('ivar' => '2'),
-                        array('ivar' => '3'),
-                        ),
+        $data = array(
+            array(
+                'ovar' => 'a',
+                'inner' => array(
+                    array('ivar' => '1'),
+                    array('ivar' => '2'),
+                    array('ivar' => '3'),
                 ),
-                array(
-                    'ovar' => 'b',
-                    'inner' => array(
-                        array('ivar' => '4'),
-                        array('ivar' => '5'),
-                        array('ivar' => '6'),
-                        ),
-                )
+            ),
+            array(
+                'ovar' => 'b',
+                'inner' => array(
+                    array('ivar' => '4'),
+                    array('ivar' => '5'),
+                    array('ivar' => '6'),
+                ),
+            )
         );
 
         $out = 'oai1i2i3obi4i5i6';

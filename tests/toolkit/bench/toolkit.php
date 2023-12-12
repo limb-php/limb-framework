@@ -8,10 +8,10 @@ use limb\toolkit\src\lmbAbstractTools;
 
 class BenchTools extends lmbAbstractTools
 {
-  function getFoo()
-  {
-    return 'foo';
-  }
+    function getFoo()
+    {
+        return 'foo';
+    }
 }
 
 /*---------------------------*/
@@ -19,8 +19,8 @@ $toolkit = lmbToolkit::setup(new BenchTools());
 
 $mark = microtime(true);
 
-for($i=0;$i<1000;$i++)
-  $toolkit->getFoo();
+for ($i = 0; $i < 1000; $i++)
+    $toolkit->getFoo();
 
 echo "tools method access: " . (microtime(true) - $mark) . "\n";
 
@@ -29,16 +29,16 @@ $tools = new BenchTools();
 
 $mark = microtime(true);
 
-for($i=0;$i<1000;$i++)
-  $tools->getFoo();
+for ($i = 0; $i < 1000; $i++)
+    $tools->getFoo();
 
 echo "regular method access: " . (microtime(true) - $mark) . "\n";
 
 /*---------------------------*/
 $mark = microtime(true);
 
-for($i=0;$i<1000;$i++)
-  lmbToolkit :: instance()->getFoo();
+for ($i = 0; $i < 1000; $i++)
+    lmbToolkit:: instance()->getFoo();
 
 echo "tools method access with lmbToolkit :: instance() : " . (microtime(true) - $mark) . "\n";
 

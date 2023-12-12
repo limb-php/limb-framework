@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_cache\src;
 
 /**
@@ -16,42 +17,41 @@ namespace limb\web_cache\src;
  */
 class lmbFullPageCacheRuleset
 {
-  protected $rules = array();
-  protected $type = true;
+    protected $rules = array();
+    protected $type = true;
 
-  function __construct($type = true)
-  {
-    $this->type = $type;
-  }
-
-  function setType($type)
-  {
-    return $this->type = $type;
-  }
-
-  function isAllow()
-  {
-    return $this->type == true;
-  }
-
-  function isDeny()
-  {
-    return $this->type == false;
-  }
-
-  function addRule($rule)
-  {
-    $this->rules[] = $rule;
-  }
-
-  function isSatisfiedBy($request)
-  {
-    foreach($this->rules as $rule)
+    function __construct($type = true)
     {
-      if(!$rule->isSatisfiedBy($request))
-        return false;
+        $this->type = $type;
     }
 
-    return true;
-  }
+    function setType($type)
+    {
+        return $this->type = $type;
+    }
+
+    function isAllow()
+    {
+        return $this->type == true;
+    }
+
+    function isDeny()
+    {
+        return $this->type == false;
+    }
+
+    function addRule($rule)
+    {
+        $this->rules[] = $rule;
+    }
+
+    function isSatisfiedBy($request)
+    {
+        foreach ($this->rules as $rule) {
+            if (!$rule->isSatisfiedBy($request))
+                return false;
+        }
+
+        return true;
+    }
 }

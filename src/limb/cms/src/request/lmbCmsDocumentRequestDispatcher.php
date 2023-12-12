@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\cms\src\request;
 
 use limb\web_app\src\request\lmbRequestDispatcherInterface;
@@ -21,27 +22,26 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbCmsDocumentRequestDispatcher implements lmbRequestDispatcherInterface
 {
-  function dispatch($request)
-  {
-	$path = $request->getUriPath();
-	if ($path === '/')
-		return;
-
-    if(!$document = lmbCmsDocument::findByUri($path))
-        return;
-
-    if(!$document->getIsPublished())
+    function dispatch($request)
     {
-      if(lmbToolkit::instance()->isWebAppDebugEnabled())
-        throw new lmbException('Page not published');
-      else
-        return;
-    }
+        $path = $request->getUriPath();
+        if ($path === '/')
+            return;
 
-    return array(
-        'controller' => 'document',
-        'action' => 'item',
-        'id' => $document->getId()
-    );
-  }
+        if (!$document = lmbCmsDocument::findByUri($path))
+            return;
+
+        if (!$document->getIsPublished()) {
+            if (lmbToolkit::instance()->isWebAppDebugEnabled())
+                throw new lmbException('Page not published');
+            else
+                return;
+        }
+
+        return array(
+            'controller' => 'document',
+            'action' => 'item',
+            'id' => $document->getId()
+        );
+    }
 }

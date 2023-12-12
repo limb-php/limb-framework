@@ -1,4 +1,5 @@
 <?php
+
 namespace limb\macro\src\tags\core;
 
 use limb\macro\src\compiler\lmbMacroTag;
@@ -11,20 +12,20 @@ use limb\macro\src\lmbMacroException;
  */
 class lmbMacroIfTag extends lmbMacroTag
 {
-  function preParse($compiler)
-  {
-    if(!$this->has('var') && !$this->has('expr'))
-      throw new lmbMacroException("'var'( alias 'expr') attribute is required for 'if' tag");
-  }
+    function preParse($compiler)
+    {
+        if (!$this->has('var') && !$this->has('expr'))
+            throw new lmbMacroException("'var'( alias 'expr') attribute is required for 'if' tag");
+    }
 
-  protected function _generateBeforeContent($code_writer)
-  {
-    $var = $this->has('var') ? $this->get('var') : $this->get('expr');
-    $code_writer->writePHP('if('.$var.') {'.PHP_EOL);
-  }
+    protected function _generateBeforeContent($code_writer)
+    {
+        $var = $this->has('var') ? $this->get('var') : $this->get('expr');
+        $code_writer->writePHP('if(' . $var . ') {' . PHP_EOL);
+    }
 
-  protected function _generateAfterContent($code_writer)
-  {
-    $code_writer->writePHP('}'.PHP_EOL);
-  }
+    protected function _generateAfterContent($code_writer)
+    {
+        $code_writer->writePHP('}' . PHP_EOL);
+    }
 }

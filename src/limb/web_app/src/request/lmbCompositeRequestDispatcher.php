@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_app\src\request;
 
 use limb\net\src\lmbHttpRequest;
@@ -18,22 +19,21 @@ use limb\net\src\lmbHttpRequest;
  */
 class lmbCompositeRequestDispatcher implements lmbRequestDispatcherInterface
 {
-  protected $dispatchers;
+    protected $dispatchers;
 
-  function dispatch(lmbHttpRequest $request)
-  {
-    foreach($this->dispatchers as $dispatcher)
+    function dispatch(lmbHttpRequest $request)
     {
-      $result = $dispatcher->dispatch($request);
-      if(isset($result['controller']))
-        return $result;
+        foreach ($this->dispatchers as $dispatcher) {
+            $result = $dispatcher->dispatch($request);
+            if (isset($result['controller']))
+                return $result;
+        }
+
+        return array();
     }
 
-    return array();
-  }
-
-  function addDispatcher($dispatcher)
-  {
-    $this->dispatchers[] = $dispatcher;
-  }
+    function addDispatcher($dispatcher)
+    {
+        $this->dispatchers[] = $dispatcher;
+    }
 }

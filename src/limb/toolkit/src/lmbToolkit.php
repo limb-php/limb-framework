@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\toolkit\src;
 
 use limb\core\src\exception\lmbException;
@@ -156,75 +157,75 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  */
 class lmbToolkit extends lmbObject
 {
-  /**
-  * @var lmbToolkit Toolkit singleton instance
-  */
-  static protected $_instance = null;
-  /**
-  * @var array Current tools array
-  */
-  protected $_tools = array();
-  /**
-  * @var array Cached tools signatures that is methods supported by tools
-  */
-  protected $_tools_signatures = array();
-  /**
-  * @var boolean Flag if tools signatures were precached
-  */
-  protected $_signatures_loaded = false;
-  /**
-  * @var string Unique id of this toolkit
-  */
-  protected $_id;
+    /**
+     * @var lmbToolkit Toolkit singleton instance
+     */
+    static protected $_instance = null;
+    /**
+     * @var array Current tools array
+     */
+    protected $_tools = array();
+    /**
+     * @var array Cached tools signatures that is methods supported by tools
+     */
+    protected $_tools_signatures = array();
+    /**
+     * @var boolean Flag if tools signatures were precached
+     */
+    protected $_signatures_loaded = false;
+    /**
+     * @var string Unique id of this toolkit
+     */
+    protected $_id;
 
-  function __construct()
-  {
-    $this->_id = uniqid();
-  }
+    function __construct()
+    {
+        $this->_id = uniqid();
+    }
 
-  /**
-  * Follows Singleton pattern interface
-  * Returns toolkit instance. Takes instance from {@link lmbRegistry)
-  * If instance is not initialized yet - creates one with empty tools
-  * @see lmbRegistry
-  * @return lmbToolkit The only instance of lmbToolkit class
-  */
-  static function instance(): lmbToolkit
-  {
-    if(is_object(self::$_instance))
-      return self::$_instance;
+    /**
+     * Follows Singleton pattern interface
+     * Returns toolkit instance. Takes instance from {@link lmbRegistry)
+     * If instance is not initialized yet - creates one with empty tools
+     * @return lmbToolkit The only instance of lmbToolkit class
+     * @see lmbRegistry
+     */
+    static function instance(): lmbToolkit
+    {
+        if (is_object(self::$_instance))
+            return self::$_instance;
 
-    self::$_instance = new lmbToolkit();
-    return self::$_instance;
-  }
+        self::$_instance = new lmbToolkit();
+        return self::$_instance;
+    }
 
-  /**
-  * Sets new tools object and clear signatures cache
-  * @param $tools lmbToolkitToolsInterface|array
-  */
-  protected function setTools($tools)
-  {
-    if(!is_array($tools))
-      $this->_tools = array($tools);
-    else
-      $this->_tools = $tools;
+    /**
+     * Sets new tools object and clear signatures cache
+     * @param $tools lmbToolkitToolsInterface|array
+     */
+    protected function setTools($tools)
+    {
+        if (!is_array($tools))
+            $this->_tools = array($tools);
+        else
+            $this->_tools = $tools;
 
-    $this->_tools_signatures = array();
-    $this->_signatures_loaded = false;
-  }
+        $this->_tools_signatures = array();
+        $this->_signatures_loaded = false;
+    }
 
-  /**
-  * Fills toolkit instance with suggested tools and registers this tools in {@ling lmbRegistry}
-  * @see lmbRegistry
-  * @return lmbToolkit The only instance of lmbToolkit class
-  */
-  static function setup($tools): self
-  {
-    $toolkit = lmbToolkit::instance();
-    $toolkit->setTools($tools);
+    /**
+     * Fills toolkit instance with suggested tools and registers this tools in {@ling lmbRegistry}
+     * @return lmbToolkit The only instance of lmbToolkit class
+     * @see lmbRegistry
+     */
+    static function setup($tools): self
+    {
+        $toolkit = lmbToolkit::instance();
+        $toolkit->setTools($tools);
 
-    return $toolkit;
-  }
+        return $toolkit;
+    }
 
     /**
      * Save current tools object in registry stack and creates a new one using currently saved empty copy of tools object
@@ -232,100 +233,98 @@ class lmbToolkit extends lmbObject
      * @throws lmbException
      * @see lmbRegistry::save()
      */
-  static function save(): self
-  {
-    $toolkit = lmbToolkit::instance();
+    static function save(): self
+    {
+        $toolkit = lmbToolkit::instance();
 
-    $tools = $toolkit->_tools;
-    $tools_copy = array();
-    foreach($toolkit->_tools as $tool)
-      $tools_copy[] = clone($tool);
+        $tools = $toolkit->_tools;
+        $tools_copy = array();
+        foreach ($toolkit->_tools as $tool)
+            $tools_copy[] = clone($tool);
 
-    lmbRegistry::set('__tools' . $toolkit->_id, $tools);
-    lmbRegistry::save('__tools' . $toolkit->_id);
-    $toolkit->setTools($tools_copy);
+        lmbRegistry::set('__tools' . $toolkit->_id, $tools);
+        lmbRegistry::save('__tools' . $toolkit->_id);
+        $toolkit->setTools($tools_copy);
 
-    lmbRegistry::set('__props' . $toolkit->_id, $toolkit->export());
-    lmbRegistry::save('__props' . $toolkit->_id);
+        lmbRegistry::set('__props' . $toolkit->_id, $toolkit->export());
+        lmbRegistry::save('__props' . $toolkit->_id);
 
-    return $toolkit;
-  }
+        return $toolkit;
+    }
 
     /**
      * Restores previously saved tools object instance from {@link lmbRegistry} stack and sets this tools into toolkit instance
      * @return lmbToolkit The only instance of lmbToolkit class
      * @throws lmbException
      */
-  static function restore(): self
-  {
-    $toolkit = lmbToolkit::instance();
-
-    lmbRegistry::restore('__tools' . $toolkit->_id);
-    $tools = lmbRegistry::get('__tools' . $toolkit->_id);
-    lmbRegistry::restore('__props' . $toolkit->_id);
-    $props = lmbRegistry::get('__props' . $toolkit->_id);
-
-    if($props !== null)
+    static function restore(): self
     {
-      $toolkit->reset();
-      $toolkit->import($props);
-    }
+        $toolkit = lmbToolkit::instance();
 
-    if($tools !== null)
-      $toolkit->setTools($tools);
+        lmbRegistry::restore('__tools' . $toolkit->_id);
+        $tools = lmbRegistry::get('__tools' . $toolkit->_id);
+        lmbRegistry::restore('__props' . $toolkit->_id);
+        $props = lmbRegistry::get('__props' . $toolkit->_id);
 
-    return $toolkit;
-  }
-
-  /**
-  * Extends current tools with new tool
-  * @return lmbToolkit The only instance of lmbToolkit class
-  */
-  static function merge($tool, $name = ''): self
-  {
-    $toolkit = lmbToolkit::instance();
-    $toolkit->add($tool, $name);
-    return $toolkit;
-  }
-
-  /**
-  * Extends current tools with new tool
-  */
-  function add($tool, $name = '')
-  {
-    if( !$name )
-      $name = get_class($tool);
-
-    if( !isset($this->_tools[$name]) )
-    {
-      $req_tools = $tool::getRequiredTools();
-      if (!empty($req_tools)) {
-        foreach ($req_tools as $req_tool) {
-          lmbToolkit::merge( new $req_tool() );
+        if ($props !== null) {
+            $toolkit->reset();
+            $toolkit->import($props);
         }
-      }
 
-      if( method_exists($tool, '_init') )
-        call_user_func_array(array($tool, '_init'), array());
+        if ($tools !== null)
+            $toolkit->setTools($tools);
 
-      $tools = $this->_tools;
-      $tools = array($name => $tool) + $tools;
-      $this->setTools($tools);
+        return $toolkit;
     }
-  }
 
-  /**
-  * Sets variable into toolkit
-  * Checks if appropriate setter method in tools exists to delegate to
-  * @return void
-  */
-  function set($name, $value)
-  {
-    if($method = $this->_mapPropertyToSetMethod($name))
-      $this->$method($value);
-    else
-      parent::set($name, $value);
-  }
+    /**
+     * Extends current tools with new tool
+     * @return lmbToolkit The only instance of lmbToolkit class
+     */
+    static function merge($tool, $name = ''): self
+    {
+        $toolkit = lmbToolkit::instance();
+        $toolkit->add($tool, $name);
+        return $toolkit;
+    }
+
+    /**
+     * Extends current tools with new tool
+     */
+    function add($tool, $name = '')
+    {
+        if (!$name)
+            $name = get_class($tool);
+
+        if (!isset($this->_tools[$name])) {
+            $req_tools = $tool::getRequiredTools();
+            if (!empty($req_tools)) {
+                foreach ($req_tools as $req_tool) {
+                    lmbToolkit::merge(new $req_tool());
+                }
+            }
+
+            if (method_exists($tool, '_init'))
+                call_user_func_array(array($tool, '_init'), array());
+
+            $tools = $this->_tools;
+            $tools = array($name => $tool) + $tools;
+            $this->setTools($tools);
+        }
+    }
+
+    /**
+     * Sets variable into toolkit
+     * Checks if appropriate setter method in tools exists to delegate to
+     * @return void
+     */
+    function set($name, $value)
+    {
+        if ($method = $this->_mapPropertyToSetMethod($name))
+            $this->$method($value);
+        else
+            parent::set($name, $value);
+    }
 
     /**
      * Gets variable from toolkit
@@ -333,36 +332,36 @@ class lmbToolkit extends lmbObject
      * @return mixed
      * @throws lmbNoSuchPropertyException
      */
-  function get($name, $default = null)
-  {
-    if($method = $this->_mapPropertyToGetMethod($name))
-      return $this->$method();
-    else
-      return parent::get($name, $default);
-  }
+    function get($name, $default = null)
+    {
+        if ($method = $this->_mapPropertyToGetMethod($name))
+            return $this->$method();
+        else
+            return parent::get($name, $default);
+    }
 
-  function has($name): bool
-  {
-    return $this->_hasGetMethodFor($name) || parent::has($name);
-  }
+    function has($name): bool
+    {
+        return $this->_hasGetMethodFor($name) || parent::has($name);
+    }
 
-  /**
-  * Sets variable into toolkit directly
-  * @return void
-  */
-  function setRaw($var, $value)
-  {
-    parent::_setRaw($var, $value);
-  }
+    /**
+     * Sets variable into toolkit directly
+     * @return void
+     */
+    function setRaw($var, $value)
+    {
+        parent::_setRaw($var, $value);
+    }
 
-  /**
-  * Gets variable from toolkit directly
-  * @return mixed
-  */
-  function getRaw($var)
-  {
-    return parent::_getRaw($var);
-  }
+    /**
+     * Gets variable from toolkit directly
+     * @return mixed
+     */
+    function getRaw($var)
+    {
+        return parent::_getRaw($var);
+    }
 
     /**
      * Magic caller. Delegates to {@link $tools} if $tools_signatures has required method
@@ -371,65 +370,63 @@ class lmbToolkit extends lmbObject
      * @return mixed
      * @throws lmbNoSuchMethodException
      */
-  public function __call($method, $args = array())
-  {
-    $this->_ensureSignatures();
-
-    if(isset($this->_tools_signatures[$method]))
-      return call_user_func_array(array($this->_tools_signatures[$method], $method), $args);
-
-    throw new lmbNoSuchMethodException("No such method '$method' exists in toolkit");
-  }
-
-  /**
-  * Caches tools signatures. Fills {@link $tools_signatures}.
-  * @see lmbToolkitToolsInterface::getToolsSignatures()
-  * @return void
-  */
-  protected function _ensureSignatures()
-  {
-    if($this->_signatures_loaded)
-      return;
-
-    $this->_tools_signatures = array();
-    foreach($this->_tools as $tool)
+    public function __call($method, $args = array())
     {
-      $signatures = $tool->getToolsSignatures();
-      foreach($signatures as $method => $obj)
-      {
-        if(!isset($this->_tools_signatures[$method]))
-          $this->_tools_signatures[$method] = $obj;
-      }
+        $this->_ensureSignatures();
+
+        if (isset($this->_tools_signatures[$method]))
+            return call_user_func_array(array($this->_tools_signatures[$method], $method), $args);
+
+        throw new lmbNoSuchMethodException("No such method '$method' exists in toolkit");
     }
 
-    $this->_signatures_loaded = true;
-  }
+    /**
+     * Caches tools signatures. Fills {@link $tools_signatures}.
+     * @return void
+     * @see lmbToolkitToolsInterface::getToolsSignatures()
+     */
+    protected function _ensureSignatures()
+    {
+        if ($this->_signatures_loaded)
+            return;
 
-  protected function _hasGetMethodFor($property): bool
-  {
-    return (bool) $this->_mapPropertyToGetMethod($property);
-  }
+        $this->_tools_signatures = array();
+        foreach ($this->_tools as $tool) {
+            $signatures = $tool->getToolsSignatures();
+            foreach ($signatures as $method => $obj) {
+                if (!isset($this->_tools_signatures[$method]))
+                    $this->_tools_signatures[$method] = $obj;
+            }
+        }
 
-  protected function _mapPropertyToGetMethod($property)
-  {
-    $this->_ensureSignatures();
+        $this->_signatures_loaded = true;
+    }
 
-    $capsed = lmbString::camel_case($property);
-    $method = 'get' . $capsed;
-    if(isset($this->_tools_signatures[$method]))
-      return $method;
+    protected function _hasGetMethodFor($property): bool
+    {
+        return (bool)$this->_mapPropertyToGetMethod($property);
+    }
 
-    return false;
-  }
+    protected function _mapPropertyToGetMethod($property)
+    {
+        $this->_ensureSignatures();
 
-  protected function _mapPropertyToSetMethod($property)
-  {
-    $this->_ensureSignatures();
+        $capsed = lmbString::camel_case($property);
+        $method = 'get' . $capsed;
+        if (isset($this->_tools_signatures[$method]))
+            return $method;
 
-    $method = 'set' . lmbString::camel_case($property);
-    if(isset($this->_tools_signatures[$method]))
-      return $method;
+        return false;
+    }
 
-    return false;
-  }
+    protected function _mapPropertyToSetMethod($property)
+    {
+        $this->_ensureSignatures();
+
+        $method = 'set' . lmbString::camel_case($property);
+        if (isset($this->_tools_signatures[$method]))
+            return $method;
+
+        return false;
+    }
 }

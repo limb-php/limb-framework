@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_agent\src;
 
 /**
@@ -17,36 +18,36 @@ namespace limb\web_agent\src;
 class lmbWebAgentCookieIterator implements \Iterator
 {
 
-  protected $cookies;
+    protected $cookies;
 
-  function __construct($cookies)
-  {
-    $this->cookies = $cookies;
-  }
+    function __construct($cookies)
+    {
+        $this->cookies = $cookies;
+    }
 
-  function rewind()
-  {
-    reset($this->cookies);
-  }
+    function rewind()
+    {
+        reset($this->cookies);
+    }
 
-  function current()
-  {
-    return current($this->cookies);
-  }
+    function current()
+    {
+        return current($this->cookies);
+    }
 
-  function key()
-  {
-    return key($this->cookies);
-  }
+    function key()
+    {
+        return key($this->cookies);
+    }
 
-  function next()
-  {
-    return next($this->cookies);
-  }
+    function next()
+    {
+        return next($this->cookies);
+    }
 
-  function valid()
-  {
-    return $this->current() !== false;
-  }
+    function valid()
+    {
+        return $this->current() !== false;
+    }
 
 }

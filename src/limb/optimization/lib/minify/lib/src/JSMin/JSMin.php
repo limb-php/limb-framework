@@ -56,21 +56,22 @@ namespace JSMin;
  * @license http://opensource.org/licenses/mit-license.php MIT License
  * @link http://code.google.com/p/jsmin-php/
  */
-class JSMin {
-    const ORD_LF            = 10;
-    const ORD_SPACE         = 32;
-    const ACTION_KEEP_A     = 1;
-    const ACTION_DELETE_A   = 2;
+class JSMin
+{
+    const ORD_LF = 10;
+    const ORD_SPACE = 32;
+    const ACTION_KEEP_A = 1;
+    const ACTION_DELETE_A = 2;
     const ACTION_DELETE_A_B = 3;
 
-    protected $a           = "\n";
-    protected $b           = '';
-    protected $input       = '';
-    protected $inputIndex  = 0;
+    protected $a = "\n";
+    protected $b = '';
+    protected $input = '';
+    protected $inputIndex = 0;
     protected $inputLength = 0;
-    protected $lookAhead   = null;
-    protected $output      = '';
-    protected $lastByteOut  = '';
+    protected $lookAhead = null;
+    protected $output = '';
+    protected $lastByteOut = '';
     protected $keptComment = '';
 
     /**
@@ -125,10 +126,10 @@ class JSMin {
             $command = self::ACTION_KEEP_A; // default
             if ($this->a === ' ') {
                 if (($this->lastByteOut === '+' || $this->lastByteOut === '-')
-                        && ($this->b === $this->lastByteOut)) {
+                    && ($this->b === $this->lastByteOut)) {
                     // Don't delete this space. If we do, the addition/subtraction
                     // could be parsed as a post-increment
-                } elseif (! $this->isAlphaNum($this->b)) {
+                } elseif (!$this->isAlphaNum($this->b)) {
                     $command = self::ACTION_DELETE_A;
                 }
             } elseif ($this->a === "\n") {
@@ -138,11 +139,11 @@ class JSMin {
                     // in case of mbstring.func_overload & 2, must check for null b,
                     // otherwise mb_strpos will give WARNING
                 } elseif ($this->b === null
-                          || (false === strpos('{[(+-!~', $this->b)
-                              && ! $this->isAlphaNum($this->b))) {
+                    || (false === strpos('{[(+-!~', $this->b)
+                        && !$this->isAlphaNum($this->b))) {
                     $command = self::ACTION_DELETE_A;
                 }
-            } elseif (! $this->isAlphaNum($this->a)) {
+            } elseif (!$this->isAlphaNum($this->a)) {
                 if ($this->b === ' '
                     || ($this->b === "\n"
                         && (false === strpos('}])+-"\'', $this->a)))) {
@@ -193,13 +194,13 @@ class JSMin {
 
                 $this->lastByteOut = $this->a;
 
-                // fallthrough intentional
+            // fallthrough intentional
             case self::ACTION_DELETE_A: // 2
                 $this->a = $this->b;
                 if ($this->a === "'" || $this->a === '"' || $this->a === '`') { // string/template literal
                     $delimiter = $this->a;
                     $str = $this->a; // in case needed for exception
-                    for(;;) {
+                    for (; ;) {
                         $this->output .= $this->a;
                         $this->lastByteOut = $this->a;
 
@@ -225,17 +226,17 @@ class JSMin {
                     }
                 }
 
-                // fallthrough intentional
+            // fallthrough intentional
             case self::ACTION_DELETE_A_B: // 3
                 $this->b = $this->next();
                 if ($this->b === '/' && $this->isRegexpLiteral()) {
                     $this->output .= $this->a . $this->b;
                     $pattern = '/'; // keep entire pattern in case we need to report it in the exception
-                    for(;;) {
+                    for (; ;) {
                         $this->a = $this->get();
                         $pattern .= $this->a;
                         if ($this->a === '[') {
-                            for(;;) {
+                            for (; ;) {
                                 $this->output .= $this->a;
                                 $this->a = $this->get();
                                 $pattern .= $this->a;
@@ -250,7 +251,7 @@ class JSMin {
                                 if ($this->isEOF($this->a)) {
                                     throw new UnterminatedRegExpException(
                                         "JSMin: Unterminated set in RegExp at byte "
-                                            . $this->inputIndex .": {$pattern}");
+                                        . $this->inputIndex . ": {$pattern}");
                                 }
                             }
                         }
@@ -406,7 +407,7 @@ class JSMin {
     {
         $this->get();
         $comment = '';
-        for(;;) {
+        for (; ;) {
             $get = $this->get();
             if ($get === '*') {
                 if ($this->peek() === '/') { // end of comment reached

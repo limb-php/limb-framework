@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers;
 
 use limb\dbal\src\exception\lmbDbException;
@@ -18,114 +19,112 @@ use limb\dbal\src\exception\lmbDbException;
  */
 class lmbDbColumnInfo
 {
-  protected $table;
-  protected $name;
-  protected $type;
-  protected $size;
-  protected $scale;
-  protected $isNullable;
-  protected $defaultValue;
+    protected $table;
+    protected $name;
+    protected $type;
+    protected $size;
+    protected $scale;
+    protected $isNullable;
+    protected $defaultValue;
 
-  function __construct($table,
-                        $name,
-                        $type = null,
-                        $size = null,
-                        $scale = null,
-                        $isNullable = null,
-                        $default = null)
-  {
-
-    $this->table = $table;
-    $this->name = $this->canonicalizeName($name);
-    $this->type = $this->canonicalizeType($type);
-    $this->size = $this->canonicalizeSize($size);
-    $this->scale = $this->canonicalizeScale($scale);
-    $this->isNullable = $this->canonicalizeIsNullable($isNullable);
-    $this->defaultValue = $this->canonicalizeDefaultValue($default);
-  }
-
-  function isValidColumnName($name)
-  {
-    return preg_match('/[A-Za-z][A-Za-z0-9_]*/', $name);
-  }
-
-  function getName()
-  {
-    return $this->name;
-  }
-
-  function canonicalizeName($name)
-  {
-    if(!$this->isValidColumnName($name))
+    function __construct($table,
+                         $name,
+                         $type = null,
+                         $size = null,
+                         $scale = null,
+                         $isNullable = null,
+                         $default = null)
     {
-      throw new lmbDbException("Invalid column name '$name'");
+
+        $this->table = $table;
+        $this->name = $this->canonicalizeName($name);
+        $this->type = $this->canonicalizeType($type);
+        $this->size = $this->canonicalizeSize($size);
+        $this->scale = $this->canonicalizeScale($scale);
+        $this->isNullable = $this->canonicalizeIsNullable($isNullable);
+        $this->defaultValue = $this->canonicalizeDefaultValue($default);
     }
-    return $name;
-  }
 
-  function getType()
-  {
-    return $this->type;
-  }
-
-  function canonicalizeType($type)
-  {
-    $typeinfo = new lmbDbTypeInfo();
-    $typelist = $typeinfo->getColumnTypeList();
-    if(!in_array($type, $typelist))
+    function isValidColumnName($name)
     {
-      throw new lmbDbException("Invalid column type '$type'");
+        return preg_match('/[A-Za-z][A-Za-z0-9_]*/', $name);
     }
-    return $type;
-  }
 
-  function getSize()
-  {
-    return $this->size;
-  }
+    function getName()
+    {
+        return $this->name;
+    }
 
-  function canonicalizeSize($size)
-  {
-    return is_null($size) ?  null : (int) $size;
-  }
+    function canonicalizeName($name)
+    {
+        if (!$this->isValidColumnName($name)) {
+            throw new lmbDbException("Invalid column name '$name'");
+        }
+        return $name;
+    }
 
-  function getScale()
-  {
-    return $this->scale;
-  }
+    function getType()
+    {
+        return $this->type;
+    }
 
-  function canonicalizeScale($scale)
-  {
-    return is_null($scale) ?  null : (int) $scale;
-  }
+    function canonicalizeType($type)
+    {
+        $typeinfo = new lmbDbTypeInfo();
+        $typelist = $typeinfo->getColumnTypeList();
+        if (!in_array($type, $typelist)) {
+            throw new lmbDbException("Invalid column type '$type'");
+        }
+        return $type;
+    }
 
-  function getDefaultValue()
-  {
-    return $this->defaultValue;
-  }
+    function getSize()
+    {
+        return $this->size;
+    }
 
-  function canonicalizeDefaultValue($defaultValue)
-  {
-    return $defaultValue;
-  }
+    function canonicalizeSize($size)
+    {
+        return is_null($size) ? null : (int)$size;
+    }
 
-  function isNullable()
-  {
-    return $this->isNullable;
-  }
+    function getScale()
+    {
+        return $this->scale;
+    }
 
-  function canonicalizeIsNullable($isNullable)
-  {
-    return is_null($isNullable) ?  null : (bool) $isNullable;
-  }
+    function canonicalizeScale($scale)
+    {
+        return is_null($scale) ? null : (int)$scale;
+    }
 
-  function getTable()
-  {
-    return $this->table;
-  }
+    function getDefaultValue()
+    {
+        return $this->defaultValue;
+    }
 
-  function escapeIdentifier($name)
-  {
-    return $name;
-  }
+    function canonicalizeDefaultValue($defaultValue)
+    {
+        return $defaultValue;
+    }
+
+    function isNullable()
+    {
+        return $this->isNullable;
+    }
+
+    function canonicalizeIsNullable($isNullable)
+    {
+        return is_null($isNullable) ? null : (bool)$isNullable;
+    }
+
+    function getTable()
+    {
+        return $this->table;
+    }
+
+    function escapeIdentifier($name)
+    {
+        return $name;
+    }
 }

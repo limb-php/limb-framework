@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\config\cases;
 
 use PHPUnit\Framework\TestCase;
@@ -40,8 +41,7 @@ class lmbConfTest extends TestCase
 
     function _createConfig($name, $content = false)
     {
-        if(!$content)
-        {
+        if (!$content) {
             $content = <<<EOD
 <?php
 \$conf = array('foo' => 1,
@@ -53,8 +53,7 @@ EOD;
 
     function _createConfigWithReturn($name, $content = false)
     {
-        if(!$content)
-        {
+        if (!$content) {
             $content = <<<EOD
 <?php
 return [
@@ -121,57 +120,48 @@ EOD;
         $this->assertEquals(300, $config->get('acme'));
     }
 
-  function testImplementsIterator()
-  {
-   $conf = $this->_getConfig('conf.php');
-   $result = array();
-   foreach ($conf as $key => $value)
-     $result[$key] = $value;
+    function testImplementsIterator()
+    {
+        $conf = $this->_getConfig('conf.php');
+        $result = array();
+        foreach ($conf as $key => $value)
+            $result[$key] = $value;
 
-   $this->assertEquals(array(
-     'foo' => 1,
-     'bar' => 2
-   ), $result);
-  }
+        $this->assertEquals(array(
+            'foo' => 1,
+            'bar' => 2
+        ), $result);
+    }
 
-  function testGetNotExistedFile()
-  {
-    try
+    function testGetNotExistedFile()
     {
-      $conf = new lmbConf('not_existed.php');
-      $this->fail();
+        try {
+            $conf = new lmbConf('not_existed.php');
+            $this->fail();
+        } catch (lmbFileNotFoundException $e) {
+            $this->assertTrue(true);
+        }
     }
-    catch (lmbFileNotFoundException $e)
-    {
-      $this->assertTrue(true);
-    }
-  }
 
-  function testGetNotExistedOption()
-  {
-    $conf = $this->_getConfig('conf.php');
-    try
+    function testGetNotExistedOption()
     {
-      $conf->get('some_not_existed_option');
-      $this->fail();
+        $conf = $this->_getConfig('conf.php');
+        try {
+            $conf->get('some_not_existed_option');
+            $this->fail();
+        } catch (lmbNoSuchPropertyException $e) {
+            $this->assertTrue(true);
+        }
     }
-    catch (lmbNoSuchPropertyException $e)
-    {
-        $this->assertTrue(true);
-    }
-  }
 
-  function testGetWithoutOptionName()
-  {
-    $conf = $this->_getConfig('conf.php');
-    try
+    function testGetWithoutOptionName()
     {
-      $this->assertEquals(1, $conf->get(''));
-      $this->fail();
+        $conf = $this->_getConfig('conf.php');
+        try {
+            $this->assertEquals(1, $conf->get(''));
+            $this->fail();
+        } catch (lmbInvalidArgumentException $e) {
+            $this->assertTrue(true);
+        }
     }
-    catch(lmbInvalidArgumentException $e)
-    {
-        $this->assertTrue(true);
-    }
-  }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace limb\dbal\src\query;
 
 /**

@@ -1,4 +1,5 @@
 <?php
+
 namespace limb\cms\src\model;
 
 use limb\active_record\src\lmbActiveRecord;
@@ -10,48 +11,47 @@ use limb\validation\src\lmbValidator;
 class lmbCmsTextBlock extends lmbActiveRecord
 {
 
-  /**
-   * @return lmbValidator
-   */
-  protected function _createValidator()
-  {
-    $validator = new lmbValidator();
-    $validator->addRequiredRule('identifier', 'Field "Идентификатор" is required');
-    $validator->addRequiredRule('content', 'Field "Текст" is required');
-    $validator->addRule(new CmsTextBlockUniqueFieldRule('identifier', $this, 'Field "Identifier" already exists'));
-
-    return $validator;
-  }
-
-  static function getRawContent($identifier)
-  {
-    $block = lmbActiveRecord::findFirst(lmbCmsTextBlock::class, lmbSQLCriteria::equal('identifier', $identifier));
-    if($block)
-      return $block->getContent();
-
-
-    if(lmbToolkit::instance()->hasConf('text_blocks') && lmbToolkit::instance()->getConf('text_blocks')->has($identifier))
+    /**
+     * @return lmbValidator
+     */
+    protected function _createValidator()
     {
-    	$default_content = lmbToolkit::instance()->getConf('text_blocks')->get($identifier);
-    	return $default_content['content'];
+        $validator = new lmbValidator();
+        $validator->addRequiredRule('identifier', 'Field "Идентификатор" is required');
+        $validator->addRequiredRule('content', 'Field "Текст" is required');
+        $validator->addRule(new CmsTextBlockUniqueFieldRule('identifier', $this, 'Field "Identifier" already exists'));
+
+        return $validator;
     }
 
-    return null;
-  }
+    static function getRawContent($identifier)
+    {
+        $block = lmbActiveRecord::findFirst(lmbCmsTextBlock::class, lmbSQLCriteria::equal('identifier', $identifier));
+        if ($block)
+            return $block->getContent();
 
-  static function findOneByIdentifier($identifier)
-  {
-    if($block = lmbActiveRecord::findFirst(lmbCmsTextBlock::class, lmbSQLCriteria::equal('identifier', $identifier)))
-      return $block;
 
-    if(!$default_content = lmbToolkit::instance()->getConf('text_blocks')->get($identifier))
-      return null;
+        if (lmbToolkit::instance()->hasConf('text_blocks') && lmbToolkit::instance()->getConf('text_blocks')->has($identifier)) {
+            $default_content = lmbToolkit::instance()->getConf('text_blocks')->get($identifier);
+            return $default_content['content'];
+        }
 
-    $block = new lmbCmsTextBlock();
-    $block->import($default_content);
-    $block->setIdentifier($identifier);
+        return null;
+    }
 
-    return $block;
-  }
+    static function findOneByIdentifier($identifier)
+    {
+        if ($block = lmbActiveRecord::findFirst(lmbCmsTextBlock::class, lmbSQLCriteria::equal('identifier', $identifier)))
+            return $block;
+
+        if (!$default_content = lmbToolkit::instance()->getConf('text_blocks')->get($identifier))
+            return null;
+
+        $block = new lmbCmsTextBlock();
+        $block->import($default_content);
+        $block->setIdentifier($identifier);
+
+        return $block;
+    }
 
 }

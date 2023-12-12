@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\dbal\cases\driver\oci;
 
 use limb\toolkit\src\lmbToolkit;
@@ -15,19 +16,19 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciLobTest extends TestCase
 {
-  function setUp(): void
-  {
-    $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
-    DriverOciSetup($this->connection->getConnectionId());
+    function setUp(): void
+    {
+        $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+        DriverOciSetup($this->connection->getConnectionId());
 
-    parent::setUp();
-  }
+        parent::setUp();
+    }
 
-  function testInsertClob()
-  {
-    $value = file_get_contents(dirname(__FILE__) . '/../clob.txt');
+    function testInsertClob()
+    {
+        $value = file_get_contents(dirname(__FILE__) . '/../clob.txt');
 
-    $sql = "
+        $sql = "
         INSERT INTO standard_types (
             type_clob,
             type_varchar
@@ -35,23 +36,23 @@ class lmbOciLobTest extends TestCase
             :a:,
             :b:
         )";
-    $stmt = $this->connection->newStatement($sql);
+        $stmt = $this->connection->newStatement($sql);
 
-    $stmt->setClob('a', $value);
-    $stmt->set('b', 'junk');
-    $stmt->execute();
+        $stmt->setClob('a', $value);
+        $stmt->set('b', 'junk');
+        $stmt->execute();
 
-    $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
-    $record = $stmt->getOneRecord();
-    $this->assertEquals($record->get('type_clob'), $value);
-    $this->assertEquals($record->get('type_varchar'), 'junk');
-  }
+        $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
+        $record = $stmt->getOneRecord();
+        $this->assertEquals($record->get('type_clob'), $value);
+        $this->assertEquals($record->get('type_varchar'), 'junk');
+    }
 
-  function testInsertBlob()
-  {
-    $value = file_get_contents(dirname(__FILE__) . '/../blob.jpg');
+    function testInsertBlob()
+    {
+        $value = file_get_contents(dirname(__FILE__) . '/../blob.jpg');
 
-    $sql = "
+        $sql = "
         INSERT INTO standard_types (
             type_blob,
             type_varchar
@@ -59,24 +60,24 @@ class lmbOciLobTest extends TestCase
             :a:,
             :b:
         )";
-    $stmt = $this->connection->newStatement($sql);
+        $stmt = $this->connection->newStatement($sql);
 
-    $stmt->setBlob('a', $value);
-    $stmt->set('b', 'junk');
-    $stmt->execute();
+        $stmt->setBlob('a', $value);
+        $stmt->set('b', 'junk');
+        $stmt->execute();
 
-    $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
-    $record = $stmt->getOneRecord();
-    $this->assertEquals($record->get('type_blob'), $value);
-    $this->assertEquals($record->get('type_varchar'), 'junk');
-  }
+        $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
+        $record = $stmt->getOneRecord();
+        $this->assertEquals($record->get('type_blob'), $value);
+        $this->assertEquals($record->get('type_varchar'), 'junk');
+    }
 
-  function testInsertBlobAndClob()
-  {
-    $blob = file_get_contents(dirname(__FILE__) . '/../blob.jpg');
-    $clob = file_get_contents(dirname(__FILE__) . '/../clob.txt');
+    function testInsertBlobAndClob()
+    {
+        $blob = file_get_contents(dirname(__FILE__) . '/../blob.jpg');
+        $clob = file_get_contents(dirname(__FILE__) . '/../clob.txt');
 
-    $sql = "
+        $sql = "
         INSERT INTO standard_types (
             type_blob,
             type_varchar,
@@ -86,94 +87,94 @@ class lmbOciLobTest extends TestCase
             :b:,
             :c:
         )";
-    $stmt = $this->connection->newStatement($sql);
+        $stmt = $this->connection->newStatement($sql);
 
-    $stmt->setBlob('a', $blob);
-    $stmt->set('b', 'junk');
-    $stmt->setClob('c', $clob);
-    $stmt->execute();
+        $stmt->setBlob('a', $blob);
+        $stmt->set('b', 'junk');
+        $stmt->setClob('c', $clob);
+        $stmt->execute();
 
-    $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
-    $record = $stmt->getOneRecord();
-    $this->assertEquals($record->get('type_blob'), $blob);
-    $this->assertEquals($record->get('type_varchar'), 'junk');
-    $this->assertEquals($record->get('type_clob'), $clob);
-  }
+        $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
+        $record = $stmt->getOneRecord();
+        $this->assertEquals($record->get('type_blob'), $blob);
+        $this->assertEquals($record->get('type_varchar'), 'junk');
+        $this->assertEquals($record->get('type_clob'), $clob);
+    }
 
-  function testUpdateClob()
-  {
-    $value = file_get_contents(dirname(__FILE__) . '/../clob.txt');
+    function testUpdateClob()
+    {
+        $value = file_get_contents(dirname(__FILE__) . '/../clob.txt');
 
-    $sql = "
+        $sql = "
         INSERT INTO standard_types (
             type_blob
         ) VALUES (
             :a:
         )";
-    $stmt = $this->connection->newStatement($sql);
+        $stmt = $this->connection->newStatement($sql);
 
-    $stmt->setBlob('a', $value);
-    $stmt->execute();
+        $stmt->setBlob('a', $value);
+        $stmt->execute();
 
-    $sql = "
+        $sql = "
         UPDATE standard_types SET
             type_clob = :a:,
             type_varchar = :b:
         ";
-    $stmt = $this->connection->newStatement($sql);
+        $stmt = $this->connection->newStatement($sql);
 
-    $newvalue = substr($value, 0, strlen($value - 30));//checking for truncation
+        $newvalue = substr($value, 0, strlen($value - 30));//checking for truncation
 
-    $stmt->setClob('a', $newvalue);
-    $stmt->set('b', 'junk');
-    $stmt->execute();
+        $stmt->setClob('a', $newvalue);
+        $stmt->set('b', 'junk');
+        $stmt->execute();
 
-    $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
-    $record = $stmt->getOneRecord();
-    $this->assertEquals($record->get('type_clob'), $newvalue);
-    $this->assertEquals($record->get('type_varchar'), 'junk');
-  }
+        $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
+        $record = $stmt->getOneRecord();
+        $this->assertEquals($record->get('type_clob'), $newvalue);
+        $this->assertEquals($record->get('type_varchar'), 'junk');
+    }
 
-  function testUpdateBlob()
-  {
-    $value = file_get_contents(dirname(__FILE__) . '/../blob.jpg');
+    function testUpdateBlob()
+    {
+        $value = file_get_contents(dirname(__FILE__) . '/../blob.jpg');
 
-    $sql = "
+        $sql = "
         INSERT INTO standard_types (
             type_blob
         ) VALUES (
             :type_blob:
         )";
-    $stmt = $this->connection->newStatement($sql);
+        $stmt = $this->connection->newStatement($sql);
 
-    $stmt->setBlob('type_blob', $value);
-    $stmt->execute();
+        $stmt->setBlob('type_blob', $value);
+        $stmt->execute();
 
-    $sql = "
+        $sql = "
         UPDATE standard_types SET
             type_blob = :a:,
             type_varchar = :b:
         ";
-    $stmt = $this->connection->newStatement($sql);
+        $stmt = $this->connection->newStatement($sql);
 
-    $newvalue = substr($value, 0, strlen($value - 30));//checking for truncation
+        $newvalue = substr($value, 0, strlen($value - 30));//checking for truncation
 
-    $stmt->setBlob('a', $newvalue);
-    $stmt->set('b', 'junk');
-    $stmt->execute();
+        $stmt->setBlob('a', $newvalue);
+        $stmt->set('b', 'junk');
+        $stmt->execute();
 
-    $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
-    $record = $stmt->getOneRecord();
-    $this->assertEquals($record->get('type_blob'), $newvalue);
-    $this->assertEquals($record->get('type_varchar'), 'junk');
-  }
+        $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
+        $record = $stmt->getOneRecord();
+        $this->assertEquals($record->get('type_blob'), $newvalue);
+        $this->assertEquals($record->get('type_varchar'), 'junk');
+    }
 
-  function testUpdateBlobAndClob()
-  {
-    $blob = file_get_contents(dirname(__FILE__) . '/../blob.jpg');
-    $clob = file_get_contents(dirname(__FILE__) . '/../blob.jpg');
+    function testUpdateBlobAndClob()
+    {
+        $blob = file_get_contents(dirname(__FILE__) . '/../blob.jpg');
+        $clob = file_get_contents(dirname(__FILE__) . '/../blob.jpg');
 
-    $sql = "
+        $sql = "
         INSERT INTO standard_types (
             type_blob,
             type_clob
@@ -181,32 +182,32 @@ class lmbOciLobTest extends TestCase
             :type_blob:,
             :type_clob:
         )";
-    $stmt = $this->connection->newStatement($sql);
+        $stmt = $this->connection->newStatement($sql);
 
-    $stmt->setBlob('type_blob', $blob);
-    $stmt->setClob('type_clob', $clob);
-    $stmt->execute();
+        $stmt->setBlob('type_blob', $blob);
+        $stmt->setClob('type_clob', $clob);
+        $stmt->execute();
 
-    $sql = "
+        $sql = "
         UPDATE standard_types SET
             type_blob = :a:,
             type_varchar = :b:,
             type_clob = :c:
         ";
-    $stmt = $this->connection->newStatement($sql);
+        $stmt = $this->connection->newStatement($sql);
 
-    $new_blob = substr($blob, 0, strlen($blob - 30));//checking for truncation
-    $new_clob = substr($clob, 0, strlen($clob - 30));
+        $new_blob = substr($blob, 0, strlen($blob - 30));//checking for truncation
+        $new_clob = substr($clob, 0, strlen($clob - 30));
 
-    $stmt->setBlob('a', $new_blob);
-    $stmt->set('b', 'junk');
-    $stmt->setClob('c', $new_clob);
-    $stmt->execute();
+        $stmt->setBlob('a', $new_blob);
+        $stmt->set('b', 'junk');
+        $stmt->setClob('c', $new_clob);
+        $stmt->execute();
 
-    $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
-    $record = $stmt->getOneRecord();
-    $this->assertEquals($record->get('type_blob'), $new_blob);
-    $this->assertEquals($record->get('type_varchar'), 'junk');
-    $this->assertEquals($record->get('type_blob'), $new_clob);
-  }
+        $stmt = $this->connection->newStatement("SELECT * FROM standard_types");
+        $record = $stmt->getOneRecord();
+        $this->assertEquals($record->get('type_blob'), $new_blob);
+        $this->assertEquals($record->get('type_varchar'), 'junk');
+        $this->assertEquals($record->get('type_blob'), $new_clob);
+    }
 }

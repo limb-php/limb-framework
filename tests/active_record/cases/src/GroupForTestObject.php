@@ -23,7 +23,7 @@ class GroupForTestObject extends lmbActiveRecord
 
     function _createInsertValidator()
     {
-        if($this->_test_validator)
+        if ($this->_test_validator)
             return $this->_test_validator;
 
         return parent::_createInsertValidator();

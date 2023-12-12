@@ -9,12 +9,12 @@
 
 function vypiska($skolko, $chego)
 {
-  if( $chego == 2 )
-    return 'year (s)';
-  elseif( $chego == 1 )
-    return 'month (s)';
-  elseif( $chego == 0 )
-    return 'day (s)';
+    if ($chego == 2)
+        return 'year (s)';
+    elseif ($chego == 1)
+        return 'month (s)';
+    elseif ($chego == 0)
+        return 'day (s)';
 
 }
 
@@ -50,31 +50,31 @@ function vypiska($skolko, $chego)
 
 function time_left($std)
 {
-  $ed    = time();
-  $e     = abs($ed - $std);
-  $f     = date('j-n-Y', $e);
-  $dat   = explode("-", $f);
-  $day   = $dat[0] - 1;
-  $month = $dat[1] - 1;
-  $year  = $dat[2] - 1970;
-  $soob  = "";
+    $ed = time();
+    $e = abs($ed - $std);
+    $f = date('j-n-Y', $e);
+    $dat = explode("-", $f);
+    $day = $dat[0] - 1;
+    $month = $dat[1] - 1;
+    $year = $dat[2] - 1970;
+    $soob = "";
 
-  if ($year != 0)
-      $soob = $soob . $year . " " . vypiska($year, 2);
-  if ($year != 0 && $month != 0 && $day != 0)
-      $soob = $soob . ", ";
-  if ($year != 0 && $month != 0 && $day == 0)
-      $soob = $soob . " and ";
-  if ($month == 0 && $day != 0 && $year != 0)
-      $soob = $soob . " and ";
-  if ($month != 0)
-      $soob = $soob . $month . " " . vypiska($month, 1);
-  if ($month != 0 && $day != 0)
-      $soob = $soob . " and ";
-  if ($day != 0)
-      $soob = $soob . $day . " " . vypiska($day, 0) . " ago";
-  else
-    $soob = "today";
+    if ($year != 0)
+        $soob = $soob . $year . " " . vypiska($year, 2);
+    if ($year != 0 && $month != 0 && $day != 0)
+        $soob = $soob . ", ";
+    if ($year != 0 && $month != 0 && $day == 0)
+        $soob = $soob . " and ";
+    if ($month == 0 && $day != 0 && $year != 0)
+        $soob = $soob . " and ";
+    if ($month != 0)
+        $soob = $soob . $month . " " . vypiska($month, 1);
+    if ($month != 0 && $day != 0)
+        $soob = $soob . " and ";
+    if ($day != 0)
+        $soob = $soob . $day . " " . vypiska($day, 0) . " ago";
+    else
+        $soob = "today";
 
-  return $soob;
+    return $soob;
 }

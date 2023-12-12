@@ -1,4 +1,5 @@
 <?php
+
 namespace limb\macro\src\filters;
 
 use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
@@ -12,5 +13,5 @@ use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
  */
 class lmbMacroJsonEncodeFilter extends lmbMacroFunctionBasedFilter
 {
-  protected $function = 'json_encode';
+    protected $function = 'json_encode';
 }

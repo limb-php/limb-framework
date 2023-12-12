@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_app\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
@@ -19,17 +20,17 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbDefaultLocaleFilter implements lmbInterceptingFilterInterface
 {
-  protected $default_locale;
+    protected $default_locale;
 
-  function __construct($default_locale = 'en_US')
-  {
-      $this->default_locale = $default_locale;
-  }
+    function __construct($default_locale = 'en_US')
+    {
+        $this->default_locale = $default_locale;
+    }
 
-  function run($filter_chain, $request = null, $callback = null)
-  {
-      lmbToolkit::instance()->setLocale($this->default_locale);
+    function run($filter_chain, $request = null, $callback = null)
+    {
+        lmbToolkit::instance()->setLocale($this->default_locale);
 
-      return $filter_chain->next($request, $callback);
-  }
+        return $filter_chain->next($request, $callback);
+    }
 }

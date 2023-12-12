@@ -14,8 +14,7 @@
 
 use limb\toolkit\src\lmbToolkit;
 
-if(!function_exists('view'))
-{
+if (!function_exists('view')) {
 
     function view($template_name, $vars = [])
     {

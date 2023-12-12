@@ -9,14 +9,18 @@ $float = 3.141592;
 
 $string_3 = 'foo';
 
-for($string_128 = ''; strlen($string_128) < 128; $string_128 .= md5(microtime()));
-for($string_512 = ''; strlen($string_512) < 512; $string_512 .= md5(microtime()));
-for($string_4096 = ''; strlen($string_4096) < 4096; $string_4096 .= md5(microtime()));
-for($string_10240 = ''; strlen($string_10240) < 10240; $string_10240 .= md5(microtime()));
+for ($string_128 = ''; strlen($string_128) < 128; $string_128 .= md5(microtime())) ;
+for ($string_512 = ''; strlen($string_512) < 512; $string_512 .= md5(microtime())) ;
+for ($string_4096 = ''; strlen($string_4096) < 4096; $string_4096 .= md5(microtime())) ;
+for ($string_10240 = ''; strlen($string_10240) < 10240; $string_10240 .= md5(microtime())) ;
 
 $array = array(1 => $integer, 'foo' => $float, $string_3);
 
-class TestObject {};
+class TestObject
+{
+}
+
+;
 
 $object = new TestObject;
 $object->id = 11;
@@ -55,28 +59,28 @@ $object->rating_avg_recommendations = 42;
 
 
 $data = array(
-  'tinyint' => $tinyint,
-  'integer' => $integer,
-  'float'   => $float,
-  'string 3 chars'  => $string_3,
-  'string 128 chars'  => $string_128,
-  'string 512 chars'  => $string_512,
-  'string 4096 chars'  => $string_4096,
-  'string 10240 chars'  => $string_10240,
+    'tinyint' => $tinyint,
+    'integer' => $integer,
+    'float' => $float,
+    'string 3 chars' => $string_3,
+    'string 128 chars' => $string_128,
+    'string 512 chars' => $string_512,
+    'string 4096 chars' => $string_4096,
+    'string 10240 chars' => $string_10240,
 //  'array'   => $array,
 //  'object'  => $object
 );
 
 $operations = array(
-  'add' => 5,
-  'get' => 77,
-  'set' => 5,
-  'delete' => 5,
-  'lock' => 1,
-  'unlock' => 1,
-  'increment' => 1,
-  'decrement' => 1,
-  'safeIncrement' => 2,
-  'safeDecrement' => 2
+    'add' => 5,
+    'get' => 77,
+    'set' => 5,
+    'delete' => 5,
+    'lock' => 1,
+    'unlock' => 1,
+    'increment' => 1,
+    'decrement' => 1,
+    'safeIncrement' => 2,
+    'safeDecrement' => 2
 );
 $operations_with_data = array('add', 'set');

@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_app\src\util;
 
 use limb\session\src\lmbSession;
@@ -20,8 +21,7 @@ class lmbFlashBox extends lmbMessageBox
 {
     static function create(lmbSession $session): lmbFlashBox
     {
-        if(!is_object($obj = $session->get(__CLASS__)))
-        {
+        if (!is_object($obj = $session->get(__CLASS__))) {
             $obj = new lmbFlashBox();
             $session->set(__CLASS__, $obj);
         }

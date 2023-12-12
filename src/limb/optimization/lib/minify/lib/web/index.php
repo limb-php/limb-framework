@@ -2,7 +2,8 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-function h($txt) {
+function h($txt)
+{
     return htmlspecialchars($txt, ENT_QUOTES, 'UTF-8');
 }
 
@@ -32,7 +33,8 @@ sendPage($tpl);
  * @param string $input
  * @return string HTML
  */
-function getExceptionMsg(Exception $e, $input) {
+function getExceptionMsg(Exception $e, $input)
+{
     $msg = "<p>" . h($e->getMessage()) . "</p>";
 
     if (0 !== strpos(get_class($e), 'JSMin\\Unterminated')
@@ -61,11 +63,13 @@ function getExceptionMsg(Exception $e, $input) {
  *
  * @param array $vars
  */
-function sendPage($vars) {
+function sendPage($vars)
+{
     header('Content-Type: text/html; charset=utf-8');
 
     ?>
-    <!DOCTYPE html><head><title>JSMin</title></head>
+    <!DOCTYPE html>
+    <head><title>JSMin</title></head>
     <?php
     if (isset($vars['exceptionMsg'])) {
         echo $vars['exceptionMsg'];

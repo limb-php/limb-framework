@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\dbal\cases\nondriver\query;
 
 require_once('.setup.php');
@@ -15,11 +16,11 @@ use limb\dbal\src\query\lmbSelectQuery;
 
 class lmbSelectQueryTest extends TestCase
 {
-  function testConstruct()
-  {
-    $sql = new lmbSelectQuery('foo');
+    function testConstruct()
+    {
+        $sql = new lmbSelectQuery('foo');
 
-    $this->assertEquals($sql->getTables(), array('foo'));
-  }
+        $this->assertEquals($sql->getTables(), array('foo'));
+    }
 
 }

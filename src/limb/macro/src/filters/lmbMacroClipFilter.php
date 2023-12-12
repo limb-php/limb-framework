@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\filters;
 
 use limb\macro\src\compiler\lmbMacroFilter;
@@ -17,11 +18,11 @@ use limb\macro\src\compiler\lmbMacroFilter;
  * @filter clip
  * @package macro
  * @version $Id$
- */ 
+ */
 class lmbMacroClipFilter extends lmbMacroFilter
 {
-  function getValue()
-  {
-    return 'substr('.$this->base->getValue().', 0, '.$this->params[0].')';
-  }  
-} 
+    function getValue()
+    {
+        return 'substr(' . $this->base->getValue() . ', 0, ' . $this->params[0] . ')';
+    }
+}

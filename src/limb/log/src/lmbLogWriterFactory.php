@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\log\src;
 
 use limb\fs\src\exception\lmbFileNotFoundException;
@@ -21,11 +22,11 @@ class lmbLogWriterFactory
 {
     public static function createLogWriter($dsn)
     {
-        if(!is_object($dsn))
+        if (!is_object($dsn))
             $dsn = new lmbUri($dsn);
 
-        $writer_name = 'lmbLog'.ucfirst($dsn->getProtocol()).'Writer';
-        $writerClassName = "limb\\log\\src\\".$writer_name;
+        $writer_name = 'lmbLog' . ucfirst($dsn->getProtocol()) . 'Writer';
+        $writerClassName = "limb\\log\\src\\" . $writer_name;
 
         try {
             $writer = new $writerClassName($dsn);

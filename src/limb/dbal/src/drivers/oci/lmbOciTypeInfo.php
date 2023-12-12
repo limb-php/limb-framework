@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers\oci;
 
 use limb\dbal\src\drivers\lmbDbTypeInfo;
@@ -17,9 +18,9 @@ use limb\dbal\src\drivers\lmbDbTypeInfo;
  */
 class lmbOciTypeInfo extends lmbDbTypeInfo
 {
-  function getNativeToColumnTypeMapping()
-  {
-    return array(
+    function getNativeToColumnTypeMapping()
+    {
+        return array(
             'tinyint' => self::TYPE_SMALLINT,
             'smallint' => self::TYPE_SMALLINT,
             'mediumint' => self::TYPE_INTEGER,
@@ -58,12 +59,12 @@ class lmbOciTypeInfo extends lmbDbTypeInfo
             'set' => self::TYPE_CHAR,
             'bool' => self::TYPE_BOOLEAN,
             'raw' => self::TYPE_CLOB
-         );
-  }
+        );
+    }
 
-  function getColumnToNativeTypeMapping()
-  {
-    return array(
+    function getColumnToNativeTypeMapping()
+    {
+        return array(
             self::TYPE_SMALLINT => 'number',
             self::TYPE_INTEGER => 'number',
             self::TYPE_BOOLEAN => 'number',
@@ -78,5 +79,5 @@ class lmbOciTypeInfo extends lmbDbTypeInfo
             self::TYPE_BLOB => 'blob',
             self::TYPE_CLOB => 'clob',
         );
-  }
+    }
 }

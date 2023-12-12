@@ -13,7 +13,7 @@ class CourseForTestObject extends lmbActiveRecord
             'class' => LectureForTestObject::class),
         'foo_lectures' => array('field' => 'course_id',
             'class' => LectureForTestObject::class,
-            'criteria'=>'lecture_for_test.title like "foo%"'));
+            'criteria' => 'lecture_for_test.title like "foo%"'));
 
     protected $_many_belongs_to = array('program' => array('field' => 'program_id',
         'class' => ProgramForTestObject::class,

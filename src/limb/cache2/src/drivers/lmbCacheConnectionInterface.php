@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\cache2\src\drivers;
 
 /**
@@ -16,9 +17,13 @@ namespace limb\cache2\src\drivers;
  */
 interface lmbCacheConnectionInterface
 {
-  function add ($key, $value, $ttl = false);
-  function set ($key, $value, $ttl = false);
-  function get ($key);
-  function delete($key);
-  function flush();
+    function add($key, $value, $ttl = false);
+
+    function set($key, $value, $ttl = false);
+
+    function get($key);
+
+    function delete($key);
+
+    function flush();
 }

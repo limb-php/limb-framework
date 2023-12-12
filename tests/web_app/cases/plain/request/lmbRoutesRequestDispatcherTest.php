@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\web_app\cases\plain\request;
 
 require_once dirname(__FILE__) . '/../../.setup.php';
@@ -18,115 +19,115 @@ use limb\toolkit\src\lmbToolkit;
 
 class lmbRoutesRequestDispatcherTest extends TestCase
 {
-  protected $request;
-  protected $toolkit;
+    protected $request;
+    protected $toolkit;
 
-  function setUp(): void
-  {
-    $this->toolkit = lmbToolkit::save();
-    $this->request = $this->toolkit->getRequest();
-  }
+    function setUp(): void
+    {
+        $this->toolkit = lmbToolkit::save();
+        $this->request = $this->toolkit->getRequest();
+    }
 
-  function tearDown(): void
-  {
-    lmbToolkit::restore();
-  }
+    function tearDown(): void
+    {
+        lmbToolkit::restore();
+    }
 
-  function testDispatch()
-  {
-    $config_array = array(array('path' => '/:controller/:action',
-                                'defaults' => array('action' => 'display')));
-    $routes = new lmbRoutes($config_array);
-    $this->toolkit->setRoutes($routes);
+    function testDispatch()
+    {
+        $config_array = array(array('path' => '/:controller/:action',
+            'defaults' => array('action' => 'display')));
+        $routes = new lmbRoutes($config_array);
+        $this->toolkit->setRoutes($routes);
 
-    $uri = new lmbUri('/news');
-    $this->request = $this->request->withUri($uri);
+        $uri = new lmbUri('/news');
+        $this->request = $this->request->withUri($uri);
 
-    $dispatcher = new lmbRoutesRequestDispatcher();
-    $result = $dispatcher->dispatch($this->request);
+        $dispatcher = new lmbRoutesRequestDispatcher();
+        $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEquals('news', $result['controller']);
-    $this->assertEquals('display', $result['action']);
-  }
+        $this->assertEquals('news', $result['controller']);
+        $this->assertEquals('display', $result['action']);
+    }
 
-  function testUseActionFromRequestEvenIfMatchedByRoutes()
-  {
-    $config_array = array(array('path' => '/:controller/:action'));
-    $routes = new lmbRoutes($config_array);
-    $this->toolkit->setRoutes($routes);
+    function testUseActionFromRequestEvenIfMatchedByRoutes()
+    {
+        $config_array = array(array('path' => '/:controller/:action'));
+        $routes = new lmbRoutes($config_array);
+        $this->toolkit->setRoutes($routes);
 
-    $uri = new lmbUri('/news/display');
-    $uri = $uri->withQueryItem('action', 'admin_display');
-    $this->request = $this->request->withUri($uri);
+        $uri = new lmbUri('/news/display');
+        $uri = $uri->withQueryItem('action', 'admin_display');
+        $this->request = $this->request->withUri($uri);
 
-    $dispatcher = new lmbRoutesRequestDispatcher();
-    $result = $dispatcher->dispatch($this->request);
+        $dispatcher = new lmbRoutesRequestDispatcher();
+        $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEquals('news', $result['controller']);
-    $this->assertEquals('admin_display', $result['action']);
-  }
+        $this->assertEquals('news', $result['controller']);
+        $this->assertEquals('admin_display', $result['action']);
+    }
 
-  function testUseControllerNameFromRequestEvenIfMatchedByRoutes()
-  {
-    $config_array = array(array('path' => '/:controller/:action'));
-    $routes = new lmbRoutes($config_array);
-    $this->toolkit->setRoutes($routes);
+    function testUseControllerNameFromRequestEvenIfMatchedByRoutes()
+    {
+        $config_array = array(array('path' => '/:controller/:action'));
+        $routes = new lmbRoutes($config_array);
+        $this->toolkit->setRoutes($routes);
 
-    $this->request->getUri()->withPath('/news/display');
-    $this->request->set('action', 'admin_display'); // !!!
-    $this->request->set('controller', 'my_controller'); // !!!
+        $this->request->getUri()->withPath('/news/display');
+        $this->request->set('action', 'admin_display'); // !!!
+        $this->request->set('controller', 'my_controller'); // !!!
 
-    $dispatcher = new lmbRoutesRequestDispatcher();
-    $result = $dispatcher->dispatch($this->request);
+        $dispatcher = new lmbRoutesRequestDispatcher();
+        $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEquals('my_controller', $result['controller']);
-    $this->assertEquals('admin_display', $result['action']);
-  }
+        $this->assertEquals('my_controller', $result['controller']);
+        $this->assertEquals('admin_display', $result['action']);
+    }
 
-  function testNormalizeUrl()
-  {
-    $config_array = array(array('path' => '/:controller/:action'));
-    $routes = new lmbRoutes($config_array);
-    $this->toolkit->setRoutes($routes);
+    function testNormalizeUrl()
+    {
+        $config_array = array(array('path' => '/:controller/:action'));
+        $routes = new lmbRoutes($config_array);
+        $this->toolkit->setRoutes($routes);
 
-    $dispatcher = new lmbRoutesRequestDispatcher();
+        $dispatcher = new lmbRoutesRequestDispatcher();
 
-    $uri = new lmbUri('/news/admin_display');
-    $this->request = $this->request->withUri($uri);
-    $result = $dispatcher->dispatch($this->request);
+        $uri = new lmbUri('/news/admin_display');
+        $this->request = $this->request->withUri($uri);
+        $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEquals('news', $result['controller']);
-    $this->assertEquals('admin_display', $result['action']);
+        $this->assertEquals('news', $result['controller']);
+        $this->assertEquals('admin_display', $result['action']);
 
-    $uri = new lmbUri('/blog////index');
-    $this->request = $this->request->withUri($uri);
-    $result = $dispatcher->dispatch($this->request);
+        $uri = new lmbUri('/blog////index');
+        $this->request = $this->request->withUri($uri);
+        $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEquals('blog', $result['controller']);
-    $this->assertEquals('index', $result['action']);
+        $this->assertEquals('blog', $result['controller']);
+        $this->assertEquals('index', $result['action']);
 
-    $uri = new lmbUri('/blog/../bar/index/');
-    $this->request = $this->request->withUri($uri);
-    $result = $dispatcher->dispatch($this->request);
+        $uri = new lmbUri('/blog/../bar/index/');
+        $this->request = $this->request->withUri($uri);
+        $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEquals('bar', $result['controller']);
-    $this->assertEquals('index', $result['action']);
-  }
+        $this->assertEquals('bar', $result['controller']);
+        $this->assertEquals('index', $result['action']);
+    }
 
-  function testDispatchWithOffset()
-  {
-    $config_array = array(array('path' => ':controller/:action'));
-    $routes = new lmbRoutes($config_array);
-    $this->toolkit->setRoutes($routes);
+    function testDispatchWithOffset()
+    {
+        $config_array = array(array('path' => ':controller/:action'));
+        $routes = new lmbRoutes($config_array);
+        $this->toolkit->setRoutes($routes);
 
-    $dispatcher = new lmbRoutesRequestDispatcher($path_offset = '/www',
-                                                 $base_path = 'http://example.com/app/');
+        $dispatcher = new lmbRoutesRequestDispatcher($path_offset = '/www',
+            $base_path = 'http://example.com/app/');
 
-    $uri = new lmbUri('http://example.com/app/news/admin_display');
-    $this->request = $this->request->withUri($uri);
-    $result = $dispatcher->dispatch($this->request);
+        $uri = new lmbUri('http://example.com/app/news/admin_display');
+        $this->request = $this->request->withUri($uri);
+        $result = $dispatcher->dispatch($this->request);
 
-    $this->assertEquals('news', $result['controller']);
-    $this->assertEquals('admin_display', $result['action']);
-  }
+        $this->assertEquals('news', $result['controller']);
+        $this->assertEquals('admin_display', $result['action']);
+    }
 }

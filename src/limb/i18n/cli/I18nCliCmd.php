@@ -18,49 +18,49 @@ use limb\i18n\src\translation\lmbQtDictionaryBackend;
  */
 class I18nCliCmd extends lmbCliBaseCmd
 {
-  function execute($argv)
-  {
-    $this->help($argv);
-  }
+    function execute($argv)
+    {
+        $this->help($argv);
+    }
 
-  function updateTranslations($argv)
-  {
-    $input = new lmbCliInput('t|test');
-    $input->read($argv, false);
+    function updateTranslations($argv)
+    {
+        $input = new lmbCliInput('t|test');
+        $input->read($argv, false);
 
-    $dry_run = $input->isOptionPresent('t');
+        $dry_run = $input->isOptionPresent('t');
 
-    $input_dir = realpath($input->getArgument(0, '.'));
+        $input_dir = realpath($input->getArgument(0, '.'));
 
-    if(!$input_dir)
-      $this->_error('Input directory is not valid');
+        if (!$input_dir)
+            $this->_error('Input directory is not valid');
 
-    $output_dir = realpath($input->getArgument(1, $input_dir . '/i18n/translations'));
+        $output_dir = realpath($input->getArgument(1, $input_dir . '/i18n/translations'));
 
-    if(!$output_dir)
-      $this->_error('Output directory is not valid');
+        if (!$output_dir)
+            $this->_error('Output directory is not valid');
 
-    $qt = new lmbQtDictionaryBackend();
-    $qt->setSearchPath($output_dir);
+        $qt = new lmbQtDictionaryBackend();
+        $qt->setSearchPath($output_dir);
 
-    $util = new lmbDictionaryUpdater($qt, $this->output);
+        $util = new lmbDictionaryUpdater($qt, $this->output);
 
-    if($dry_run)
-      $util->dryrun($input_dir);
-    else
-      $util->updateTranslations($input_dir);
+        if ($dry_run)
+            $util->dryrun($input_dir);
+        else
+            $util->updateTranslations($input_dir);
 
-    return 0;
-  }
+        return 0;
+    }
 
-  function ut($argv)
-  {
-    return $this->updateTranslations($argv);
-  }
+    function ut($argv)
+    {
+        return $this->updateTranslations($argv);
+    }
 
-  function help($argv)
-  {
-    $txt = <<<EOD
+    function help($argv)
+    {
+        $txt = <<<EOD
 Usage:
   i18n update-tranlsations(ut) [-t|--test] [<src_dir>] [<dictionary_dir>]
 
@@ -73,8 +73,8 @@ Options:
 
 EOD;
 
-    echo $txt;
-  }
+        echo $txt;
+    }
 }
 
 

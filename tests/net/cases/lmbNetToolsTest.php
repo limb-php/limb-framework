@@ -15,12 +15,12 @@ require_once '.setup.php';
 class lmbNetToolsTest extends TestCase
 {
 
-  function testGetRequestFromToolkit()
-  {
-      $request = lmbToolkit::instance()->getRequest();
-      $request->setAttribute('foo', 'bar');
+    function testGetRequestFromToolkit()
+    {
+        $request = lmbToolkit::instance()->getRequest();
+        $request->setAttribute('foo', 'bar');
 
-      $this->assertEquals('bar', lmbToolkit::instance()->getRequest()->getAttribute('foo'));
-  }
+        $this->assertEquals('bar', lmbToolkit::instance()->getRequest()->getAttribute('foo'));
+    }
 
 }

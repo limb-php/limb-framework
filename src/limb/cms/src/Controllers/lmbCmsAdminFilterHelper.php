@@ -1,80 +1,77 @@
 <?php
+
 namespace limb\cms\src\Controllers;
 
 use limb\toolkit\src\lmbToolkit;
 
 class lmbCmsAdminFilterHelper
 {
-  protected $request;
-  protected $session;
-  protected $filter_name;
+    protected $request;
+    protected $session;
+    protected $filter_name;
 
-  function __construct($filter_name)
-  {
-      $this->filter_name = $filter_name;
+    function __construct($filter_name)
+    {
+        $this->filter_name = $filter_name;
 
-      $toolkit = lmbToolkit::instance();
-      $this->request = $toolkit->getRequest();
-      $this->session = $toolkit->getSession();
-  }
+        $toolkit = lmbToolkit::instance();
+        $this->request = $toolkit->getRequest();
+        $this->session = $toolkit->getSession();
+    }
 
-  function getParams()
-  {
-      return $this->session->get($this->filter_name, array());
-  }
+    function getParams()
+    {
+        return $this->session->get($this->filter_name, array());
+    }
 
-  function setParams($params)
-  {
-      $this->session->set($this->filter_name, $params);
-  }
+    function setParams($params)
+    {
+        $this->session->set($this->filter_name, $params);
+    }
 
-  function getFilter($param_name, $default = null)
-  {
-      $params = $this->getParams();
+    function getFilter($param_name, $default = null)
+    {
+        $params = $this->getParams();
 
-      if(isset($params[$param_name]))
-        return $params[$param_name];
+        if (isset($params[$param_name]))
+            return $params[$param_name];
 
-      return $default;
-  }
+        return $default;
+    }
 
-  function setFilter($param_name, $default_value = null)
-  {
-      $params = $this->getParams();
+    function setFilter($param_name, $default_value = null)
+    {
+        $params = $this->getParams();
 
-      if(!$this->request->has($param_name))
-      {
-          $value = $params[$param_name] ?? $default_value;
+        if (!$this->request->has($param_name)) {
+            $value = $params[$param_name] ?? $default_value;
 
-          if( is_string($value) )
-            $value = trim($value);
+            if (is_string($value))
+                $value = trim($value);
 
-          $this->request->set($param_name, $value);
-      }
-      else
-      {
-          $value = $this->request->get($param_name);
-      }
+            $this->request->set($param_name, $value);
+        } else {
+            $value = $this->request->get($param_name);
+        }
 
-      $params[$param_name] = $value;
+        $params[$param_name] = $value;
 
-      $this->setParams($params);
-  }
+        $this->setParams($params);
+    }
 
-  function resetFilter($param_name)
-  {
-      $params = $this->getParams();
+    function resetFilter($param_name)
+    {
+        $params = $this->getParams();
 
-      if( isset($params[$param_name]) )
-      {
-          unset($params[$param_name]);
+        if (isset($params[$param_name])) {
+            unset($params[$param_name]);
 
-          $this->setParams($params);
-      }
-  }
+            $this->setParams($params);
+        }
+    }
 
-  function reset()
-  {
-      $this->session->set($this->filter_name, array());
-  }
+    function reset()
+    {
+        $this->session->set($this->filter_name, array());
+    }
 }

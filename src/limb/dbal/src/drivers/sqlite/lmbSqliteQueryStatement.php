@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
@@ -18,36 +19,35 @@ use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
  */
 class lmbSqliteQueryStatement extends lmbSqliteStatement implements lmbDbQueryStatementInterface
 {
-  function getOneRecord()
-  {
-    $record = new lmbSqliteRecord();
-    $rset = $this->connection->execute($this->getSQL());
-    $values = $rset->fetchArray(SQLITE3_ASSOC);
-    if(is_array($values))
+    function getOneRecord()
     {
-      $record->import($values);
-      return $record;
+        $record = new lmbSqliteRecord();
+        $rset = $this->connection->execute($this->getSQL());
+        $values = $rset->fetchArray(SQLITE3_ASSOC);
+        if (is_array($values)) {
+            $record->import($values);
+            return $record;
+        }
     }
-  }
 
-  function getOneValue()
-  {
-      $rset = $this->connection->execute($this->getSQL());
-      $values = $rset->fetchArray(SQLITE3_ASSOC);
-      return current($values);
-  }
+    function getOneValue()
+    {
+        $rset = $this->connection->execute($this->getSQL());
+        $values = $rset->fetchArray(SQLITE3_ASSOC);
+        return current($values);
+    }
 
-  function getOneColumnAsArray()
-  {
-      $column = array();
-      $rset = $this->connection->execute($this->getSQL());
-      while($value = $rset->fetchArray(SQLITE3_ASSOC))
-          $column[] = current($value);
-      return $column;
-  }
+    function getOneColumnAsArray()
+    {
+        $column = array();
+        $rset = $this->connection->execute($this->getSQL());
+        while ($value = $rset->fetchArray(SQLITE3_ASSOC))
+            $column[] = current($value);
+        return $column;
+    }
 
-  function getRecordSet(): lmbSqliteRecordSet
-  {
-    return new lmbSqliteRecordSet($this->connection, $this->getSQL());
-  }
+    function getRecordSet(): lmbSqliteRecordSet
+    {
+        return new lmbSqliteRecordSet($this->connection, $this->getSQL());
+    }
 }

@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\validation\src\rule;
 
 /**
@@ -20,24 +21,23 @@ namespace limb\validation\src\rule;
  */
 class InvalidValueRule extends lmbSingleFieldRule
 {
-  protected $invalid_value;
+    protected $invalid_value;
 
-  function __construct($field_name, $invalid_value, $custom_error = null)
-  {
-    parent::__construct($field_name, $custom_error);
-
-    $this->invalid_value = $invalid_value;
-  }
-
-  function check($value)
-  {
-    $invalid_value = $this->invalid_value;
-
-    settype($invalid_value, 'string');//???
-
-    if ($value == $invalid_value)
+    function __construct($field_name, $invalid_value, $custom_error = null)
     {
-      $this->error('{Field} value is wrong');
+        parent::__construct($field_name, $custom_error);
+
+        $this->invalid_value = $invalid_value;
     }
-  }
+
+    function check($value)
+    {
+        $invalid_value = $this->invalid_value;
+
+        settype($invalid_value, 'string');//???
+
+        if ($value == $invalid_value) {
+            $this->error('{Field} value is wrong');
+        }
+    }
 }

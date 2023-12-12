@@ -6,160 +6,162 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\cache\cases;
 
 use limb\core\src\lmbObject;
 use PHPUnit\Framework\TestCase;
 
-class CacheableFooBarClass{}
+class CacheableFooBarClass
+{
+}
 
 abstract class lmbCacheBackendTestCase extends TestCase
 {
-  protected $cache;
+    protected $cache;
 
-  abstract function _createPersisterImp();
+    abstract function _createPersisterImp();
 
-  function setUp() :void
-  {
-    $this->cache = $this->_createPersisterImp();
-
-    $this->cache->flush();
-  }
-
-  function tearDown() :void
-  {
-      $this->cache->flush();
-  }
-
-  
-  function testGetFalse()
-  {
-    $this->assertFalse($this->cache->get(1));
-  }
-
-  function testGetTrue()
-  {
-    $this->cache->set(1, $v = 'value');
-    $var = $this->cache->get(1);
-    $this->assertEquals($v, $var);
-  }
-  
-  function testAddLock()
-  {
-    $this->assertTrue($this->cache->set(1, $v = 'value'));
-    $this->assertFalse($this->cache->add(1, 'value_add'));
-    
-    $this->assertEquals($this->cache->get(1), $v);
-    
-    $this->assertTrue($this->cache->add(2, 'value2'));
-    
-    $this->cache->set(2, 'new value');
-    $this->assertEquals('new value', $this->cache->get(2));
-  }
-
-  function testSetToCache()
-  {
-    $rnd_key = mt_rand();
-    $this->cache->set($rnd_key, $v1 = 'value1');
-
-    foreach($this->_getCachedValues() as $v2)
+    function setUp(): void
     {
-      $this->cache->set(1, $v2);
-      $cache_value = $this->cache->get(1);
-      $this->assertEquals($cache_value, $v2);
+        $this->cache = $this->_createPersisterImp();
+
+        $this->cache->flush();
     }
-      $cache_value = $this->cache->get($rnd_key);
-      $this->assertEquals($cache_value, $v1);
-  }
 
-  function testDeleteValue()
-  {
-    $this->cache->set(1, $v1 = 'value1');
-    $this->cache->set(2, $v2 = 'value2');
+    function tearDown(): void
+    {
+        $this->cache->flush();
+    }
 
-    $this->cache->delete(1);
 
-    $this->assertFalse($this->cache->get(1));
+    function testGetFalse()
+    {
+        $this->assertFalse($this->cache->get(1));
+    }
 
-    $cache_value = $this->cache->get(2);
-    $this->assertEquals($cache_value, $v2);
-  }
+    function testGetTrue()
+    {
+        $this->cache->set(1, $v = 'value');
+        $var = $this->cache->get(1);
+        $this->assertEquals($v, $var);
+    }
 
-  function testFlush()
-  {
-    $this->cache->set(1, $v1 = 'value1');
-    $this->cache->set(2, $v2 = 'value2');
+    function testAddLock()
+    {
+        $this->assertTrue($this->cache->set(1, $v = 'value'));
+        $this->assertFalse($this->cache->add(1, 'value_add'));
 
-    $this->cache->flush();
+        $this->assertEquals($this->cache->get(1), $v);
 
-    $this->assertFalse($this->cache->get(1));
-    $this->assertFalse($this->cache->get(2));
-  }
+        $this->assertTrue($this->cache->add(2, 'value2'));
 
-  function testGetWithTtlFalse()
-  {
-    $this->cache->set(1, 'value', array('ttl' => 1));
-    sleep(2);
-    $this->assertFalse($this->cache->get(1));
-  }
+        $this->cache->set(2, 'new value');
+        $this->assertEquals('new value', $this->cache->get(2));
+    }
 
-  function testGetWithTtlTrue()
-  {
-    $val = 'value';
-    $this->cache->set(1, $val, array('ttl'=> 3600));
-    $this->assertEquals($val, $this->cache->get(1));
-  }
+    function testSetToCache()
+    {
+        $rnd_key = mt_rand();
+        $this->cache->set($rnd_key, $v1 = 'value1');
 
-  function testProperSerializing()
-  {
-    $obj = new lmbObject();
-    $obj->set('foo', 'wow');
+        foreach ($this->_getCachedValues() as $v2) {
+            $this->cache->set(1, $v2);
+            $cache_value = $this->cache->get(1);
+            $this->assertEquals($cache_value, $v2);
+        }
+        $cache_value = $this->cache->get($rnd_key);
+        $this->assertEquals($cache_value, $v1);
+    }
 
-    $this->cache->set(1, $obj);
+    function testDeleteValue()
+    {
+        $this->cache->set(1, $v1 = 'value1');
+        $this->cache->set(2, $v2 = 'value2');
 
-    $this->assertEquals($obj, $this->cache->get(1));
-  }
+        $this->cache->delete(1);
 
-  function testObjectClone()
-  {
-    $value = 'bar';
-    
-    $obj = new lmbObject();
-    $obj->set('foo', $value);
-    
-    $this->cache->set(1, $obj);
-    
-    $obj->set('foo', 'new value');
-    
-    $this->assertEquals($value, $this->cache->get(1)->get('foo'));
-    
-  }
+        $this->assertFalse($this->cache->get(1));
 
-  function _getCachedValues()
-  {
-    return array($this->_createNullValue(),
-                 $this->_createScalarValue(),
-                 $this->_createArrayValue(),
-                 $this->_createObjectValue());
-  }
+        $cache_value = $this->cache->get(2);
+        $this->assertEquals($cache_value, $v2);
+    }
 
-  function _createNullValue()
-  {
-    return null;
-  }
+    function testFlush()
+    {
+        $this->cache->set(1, $v1 = 'value1');
+        $this->cache->set(2, $v2 = 'value2');
 
-  function _createScalarValue()
-  {
-    return 'some value';
-  }
+        $this->cache->flush();
 
-  function _createArrayValue()
-  {
-    return array('some value');
-  }
+        $this->assertFalse($this->cache->get(1));
+        $this->assertFalse($this->cache->get(2));
+    }
 
-  function _createObjectValue()
-  {
-    return new CacheableFooBarClass();
-  }
+    function testGetWithTtlFalse()
+    {
+        $this->cache->set(1, 'value', array('ttl' => 1));
+        sleep(2);
+        $this->assertFalse($this->cache->get(1));
+    }
+
+    function testGetWithTtlTrue()
+    {
+        $val = 'value';
+        $this->cache->set(1, $val, array('ttl' => 3600));
+        $this->assertEquals($val, $this->cache->get(1));
+    }
+
+    function testProperSerializing()
+    {
+        $obj = new lmbObject();
+        $obj->set('foo', 'wow');
+
+        $this->cache->set(1, $obj);
+
+        $this->assertEquals($obj, $this->cache->get(1));
+    }
+
+    function testObjectClone()
+    {
+        $value = 'bar';
+
+        $obj = new lmbObject();
+        $obj->set('foo', $value);
+
+        $this->cache->set(1, $obj);
+
+        $obj->set('foo', 'new value');
+
+        $this->assertEquals($value, $this->cache->get(1)->get('foo'));
+
+    }
+
+    function _getCachedValues()
+    {
+        return array($this->_createNullValue(),
+            $this->_createScalarValue(),
+            $this->_createArrayValue(),
+            $this->_createObjectValue());
+    }
+
+    function _createNullValue()
+    {
+        return null;
+    }
+
+    function _createScalarValue()
+    {
+        return 'some value';
+    }
+
+    function _createArrayValue()
+    {
+        return array('some value');
+    }
+
+    function _createObjectValue()
+    {
+        return new CacheableFooBarClass();
+    }
 }

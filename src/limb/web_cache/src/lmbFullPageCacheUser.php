@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_cache\src;
 
 /**
@@ -16,15 +17,15 @@ namespace limb\web_cache\src;
  */
 class lmbFullPageCacheUser
 {
-  protected $groups;
+    protected $groups;
 
-  function __construct($groups = array())
-  {
-    $this->groups = $groups;
-  }
+    function __construct($groups = array())
+    {
+        $this->groups = $groups;
+    }
 
-  function getGroups()
-  {
-    return $this->groups;
-  }
+    function getGroups()
+    {
+        return $this->groups;
+    }
 }

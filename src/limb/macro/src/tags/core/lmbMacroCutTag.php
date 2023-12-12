@@ -1,4 +1,5 @@
 <?php
+
 namespace limb\macro\src\tags\core;
 
 use limb\macro\src\compiler\lmbMacroTag;
@@ -11,11 +12,11 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroCutTag extends lmbMacroTag
 {
-  protected function _generateContent($code_writer)
-  {
-    $code_writer->writePHP("ob_start();\n");
-    parent::_generateContent($code_writer);
-    $code_writer->writePHP($this->get('into') . " = ob_get_contents();\n");
-    $code_writer->writePHP("ob_end_clean();\n");
-  }
+    protected function _generateContent($code_writer)
+    {
+        $code_writer->writePHP("ob_start();\n");
+        parent::_generateContent($code_writer);
+        $code_writer->writePHP($this->get('into') . " = ob_get_contents();\n");
+        $code_writer->writePHP("ob_end_clean();\n");
+    }
 }

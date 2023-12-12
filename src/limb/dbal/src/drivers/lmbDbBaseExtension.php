@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\drivers;
 
 use limb\dbal\src\exception\lmbDbException;
@@ -17,18 +18,17 @@ use limb\dbal\src\exception\lmbDbException;
  * @package dbal
  * @version $Id$
  */
-
 class lmbDbBaseExtension
 {
-  protected $connection;
+    protected $connection;
 
-  function __construct(lmbDbBaseConnection $conn)
-  {
-    $this->connection = $conn;
-  }
+    function __construct(lmbDbBaseConnection $conn)
+    {
+        $this->connection = $conn;
+    }
 
-  function __call($m, $args=array())
-  {
-    throw new lmbDbException("Extension '" . get_class($this) . "' does not support method '$m'");
-  }
+    function __call($m, $args = array())
+    {
+        throw new lmbDbException("Extension '" . get_class($this) . "' does not support method '$m'");
+    }
 }

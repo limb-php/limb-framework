@@ -2,13 +2,14 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\cli\cases;
 
-require_once ('.setup.php');
+require_once('.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFs;
@@ -20,155 +21,151 @@ use limb\core\src\lmbEnv;
 
 class lmbCliRunnerTest extends TestCase
 {
-  var $tmp_dir;
+    var $tmp_dir;
 
-  function setUp(): void
-  {
-    $this->tmp_dir = lmbEnv::get('LIMB_VAR_DIR') . '/tmp_cmd/';
-    lmbFs::mkdir($this->tmp_dir);
-  }
-
-  function tearDown(): void
-  {
-    lmbFs::rm($this->tmp_dir);
-  }
-
-  function testExecuteFailureNoCommand()
-  {
-    $input = new lmbCliInput();
-    $output = new lmbCliResponse();
-
-    $runner = new lmbCliRunner($input, $output);
-    $runner->returnOnExit();
-    $runner->throwOnError();
-
-    try
+    function setUp(): void
     {
-      $runner->execute();
-      $this->fail();
+        $this->tmp_dir = lmbEnv::get('LIMB_VAR_DIR') . '/tmp_cmd/';
+        lmbFs::mkdir($this->tmp_dir);
     }
-    catch(lmbException $e){
-        $this->assertTrue(true);
-    }
-  }
 
-  function testCantMapToCmdObject()
-  {
-    $input = new lmbCliInput();
-    $output = new lmbCliResponse();
-
-    $input->read(array('foo.php', 'foo'));
-
-    $runner = new lmbCliRunner($input, $output);
-    $runner->returnOnExit();
-    $runner->throwOnError();
-
-    try
+    function tearDown(): void
     {
-      $runner->execute();
-      $this->fail();
+        lmbFs::rm($this->tmp_dir);
     }
-    catch(lmbException $e){
-        $this->assertTrue(true);
+
+    function testExecuteFailureNoCommand()
+    {
+        $input = new lmbCliInput();
+        $output = new lmbCliResponse();
+
+        $runner = new lmbCliRunner($input, $output);
+        $runner->returnOnExit();
+        $runner->throwOnError();
+
+        try {
+            $runner->execute();
+            $this->fail();
+        } catch (lmbException $e) {
+            $this->assertTrue(true);
+        }
     }
-  }
 
-  function testCommandToClass()
-  {
-    $this->assertEquals('FooCliCmd', lmbCliRunner::commandToClass('foo'));
-    $this->assertEquals('FooBarCliCmd', lmbCliRunner::commandToClass('foo_bar'));
-    $this->assertEquals('FooBarCliCmd', lmbCliRunner::commandToClass('foo-bar'));
-  }
+    function testCantMapToCmdObject()
+    {
+        $input = new lmbCliInput();
+        $output = new lmbCliResponse();
 
-  function testDefaultAction()
-  {
-    $input = new lmbCliInput();
-    $output = new lmbCliResponse();
+        $input->read(array('foo.php', 'foo'));
 
-    $input->read(array('foo.php', $cmd = $this->_randomName()));
+        $runner = new lmbCliRunner($input, $output);
+        $runner->returnOnExit();
+        $runner->throwOnError();
 
-    $runner = new lmbCliRunner($input, $output);
-    $runner->setCommandSearchPath($this->tmp_dir);
-    $runner->returnOnExit();
-    $runner->throwOnError();
+        try {
+            $runner->execute();
+            $this->fail();
+        } catch (lmbException $e) {
+            $this->assertTrue(true);
+        }
+    }
 
-    $this->_createCommandClass($cmd);
+    function testCommandToClass()
+    {
+        $this->assertEquals('FooCliCmd', lmbCliRunner::commandToClass('foo'));
+        $this->assertEquals('FooBarCliCmd', lmbCliRunner::commandToClass('foo_bar'));
+        $this->assertEquals('FooBarCliCmd', lmbCliRunner::commandToClass('foo-bar'));
+    }
 
-    $this->assertEquals(0, $runner->execute());
-  }
+    function testDefaultAction()
+    {
+        $input = new lmbCliInput();
+        $output = new lmbCliResponse();
 
-  function testFallbackToDefaultAction()
-  {
-    $input = new lmbCliInput();
-    $output = new lmbCliResponse();
+        $input->read(array('foo.php', $cmd = $this->_randomName()));
 
-    $input->read(array('foo.php', $cmd = $this->_randomName(), 'no-such-method'));
+        $runner = new lmbCliRunner($input, $output);
+        $runner->setCommandSearchPath($this->tmp_dir);
+        $runner->returnOnExit();
+        $runner->throwOnError();
 
-    $runner = new lmbCliRunner($input, $output);
-    $runner->setCommandSearchPath($this->tmp_dir);
-    $runner->returnOnExit();
-    $runner->throwOnError();
+        $this->_createCommandClass($cmd);
 
-    $this->_createCommandClass($cmd);
+        $this->assertEquals(0, $runner->execute());
+    }
 
-    $this->assertEquals(0, $runner->execute());
-  }
+    function testFallbackToDefaultAction()
+    {
+        $input = new lmbCliInput();
+        $output = new lmbCliResponse();
 
-  function testConcreteAction()
-  {
-    $input = new lmbCliInput();
-    $output = new lmbCliResponse();
+        $input->read(array('foo.php', $cmd = $this->_randomName(), 'no-such-method'));
 
-    $input->read(array('foo.php', $cmd = $this->_randomName(), 'foo'));
+        $runner = new lmbCliRunner($input, $output);
+        $runner->setCommandSearchPath($this->tmp_dir);
+        $runner->returnOnExit();
+        $runner->throwOnError();
 
-    $runner = new lmbCliRunner($input, $output);
-    $runner->setCommandSearchPath($this->tmp_dir);
-    $runner->returnOnExit();
-    $runner->throwOnError();
+        $this->_createCommandClass($cmd);
 
-    $this->_createCommandClass($cmd, 'function foo(){return 1;}');
+        $this->assertEquals(0, $runner->execute());
+    }
 
-    $this->assertEquals(1, $runner->execute());
-  }
+    function testConcreteAction()
+    {
+        $input = new lmbCliInput();
+        $output = new lmbCliResponse();
 
-  function testSanitizeActionName()
-  {
-    $input = new lmbCliInput();
-    $output = new lmbCliResponse();
+        $input->read(array('foo.php', $cmd = $this->_randomName(), 'foo'));
 
-    $input->read(array('foo.php', $cmd = $this->_randomName(), 'foo-bar'));
+        $runner = new lmbCliRunner($input, $output);
+        $runner->setCommandSearchPath($this->tmp_dir);
+        $runner->returnOnExit();
+        $runner->throwOnError();
 
-    $runner = new lmbCliRunner($input, $output);
-    $runner->setCommandSearchPath($this->tmp_dir);
-    $runner->returnOnExit();
-    $runner->throwOnError();
+        $this->_createCommandClass($cmd, 'function foo(){return 1;}');
 
-    $this->_createCommandClass($cmd, 'function fooBar(){return 1;}');
+        $this->assertEquals(1, $runner->execute());
+    }
 
-    $this->assertEquals(1, $runner->execute());
-  }
+    function testSanitizeActionName()
+    {
+        $input = new lmbCliInput();
+        $output = new lmbCliResponse();
 
-  function testPassArgvToAction()
-  {
-    $input = new lmbCliInput();
-    $output = new lmbCliResponse();
+        $input->read(array('foo.php', $cmd = $this->_randomName(), 'foo-bar'));
 
-    $input->strictMode(false);
-    $input->read(array('foo.php', $cmd = $this->_randomName(), 'foo', '--dry-run', '-c', 'bar'));
+        $runner = new lmbCliRunner($input, $output);
+        $runner->setCommandSearchPath($this->tmp_dir);
+        $runner->returnOnExit();
+        $runner->throwOnError();
 
-    $runner = new lmbCliRunner($input, $output);
-    $runner->setCommandSearchPath($this->tmp_dir);
-    $runner->returnOnExit();
-    $runner->throwOnError();
+        $this->_createCommandClass($cmd, 'function fooBar(){return 1;}');
 
-    $this->_createCommandClass($cmd, 'function foo($argv){print_r($argv);}');
+        $this->assertEquals(1, $runner->execute());
+    }
 
-    ob_start();
-    $runner->execute();
-    $str = ob_get_contents();
-    ob_end_clean();
+    function testPassArgvToAction()
+    {
+        $input = new lmbCliInput();
+        $output = new lmbCliResponse();
 
-    $expected = <<<EOD
+        $input->strictMode(false);
+        $input->read(array('foo.php', $cmd = $this->_randomName(), 'foo', '--dry-run', '-c', 'bar'));
+
+        $runner = new lmbCliRunner($input, $output);
+        $runner->setCommandSearchPath($this->tmp_dir);
+        $runner->returnOnExit();
+        $runner->throwOnError();
+
+        $this->_createCommandClass($cmd, 'function foo($argv){print_r($argv);}');
+
+        ob_start();
+        $runner->execute();
+        $str = ob_get_contents();
+        ob_end_clean();
+
+        $expected = <<<EOD
 Array(
     [0] => --dry-run
     [1] => -c
@@ -176,17 +173,17 @@ Array(
 )
 EOD;
 
-      $expected = str_replace([PHP_EOL, "\n"], ["", ""], $expected);
-      $str = str_replace([PHP_EOL, "\n", $cmd], ["", "", ""], $str);
+        $expected = str_replace([PHP_EOL, "\n"], ["", ""], $expected);
+        $str = str_replace([PHP_EOL, "\n", $cmd], ["", "", ""], $str);
 
-      $this->assertEquals($expected, $str);
-  }
+        $this->assertEquals($expected, $str);
+    }
 
-  function _createCommandClass($name, $body='')
-  {
-    $class = lmbCliRunner::commandToClass($name);
+    function _createCommandClass($name, $body = '')
+    {
+        $class = lmbCliRunner::commandToClass($name);
 
-    $php = <<<EOD
+        $php = <<<EOD
 <?php
 class $class extends limb\cli\src\lmbCliBaseCmd
 {
@@ -194,15 +191,15 @@ class $class extends limb\cli\src\lmbCliBaseCmd
 }
 ?>
 EOD;
-    $class_path = lmbEnv::get('LIMB_VAR_DIR') . '/tmp_cmd/' . $class . '.php';
+        $class_path = lmbEnv::get('LIMB_VAR_DIR') . '/tmp_cmd/' . $class . '.php';
 
-    file_put_contents($class_path, $php);
+        file_put_contents($class_path, $php);
 
-    include($class_path);
-  }
+        include($class_path);
+    }
 
-  function _randomName()
-  {
-    return 'foo' . mt_rand();
-  }
+    function _randomName()
+    {
+        return 'foo' . mt_rand();
+    }
 }

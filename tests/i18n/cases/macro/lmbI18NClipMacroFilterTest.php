@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\i18n\cases\macro;
 
 use Tests\macro\cases\lmbBaseMacroTestCase;
@@ -13,107 +14,107 @@ use limb\i18n\src\charset\lmbUTF8BaseDriver;
 use limb\core\src\lmbSet;
 use limb\i18n\src\charset\lmbI18nString;
 
-require (dirname(__FILE__) . '/../.setup.php');
+require(dirname(__FILE__) . '/../.setup.php');
 
 class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
 {
-  var $prev_driver;
+    var $prev_driver;
 
-  function setUp(): void
-  {
-    parent :: setUp();
+    function setUp(): void
+    {
+        parent:: setUp();
 
-    $this->prev_driver = lmbI18nString::useCharsetDriver(new lmbUTF8BaseDriver());
-  }
+        $this->prev_driver = lmbI18nString::useCharsetDriver(new lmbUTF8BaseDriver());
+    }
 
-  function tearDown(): void
-  {
-      lmbI18nString::useCharsetDriver($this->prev_driver);
+    function tearDown(): void
+    {
+        lmbI18nString::useCharsetDriver($this->prev_driver);
 
-      parent :: tearDown();
-  }
+        parent:: tearDown();
+    }
 
-  function testLengthLimit()
-  {
-    $code = '{$#var|i18n_clip:3}';
-    $tpl = $this->_createMacroTemplate($code, 'length_limit.html');
-    $var = "что-то";
-    $tpl->set('var', $var);
-    $out = $tpl->render();
-    $this->assertEquals($out, 'что');
-  }
-  
-  
-  function testLengthLimitAsVariable()
-  {
-    $code = '{$#var|i18n_clip:$#limit}';
-    $tpl = $this->_createMacroTemplate($code, 'length_limit.html');
-    $var = "что-то";
-    $tpl->set('var', $var);
-    $tpl->set('limit', 3);
-    $out = $tpl->render();
-    $this->assertEquals($out, 'что');
-  }
+    function testLengthLimit()
+    {
+        $code = '{$#var|i18n_clip:3}';
+        $tpl = $this->_createMacroTemplate($code, 'length_limit.html');
+        $var = "что-то";
+        $tpl->set('var', $var);
+        $out = $tpl->render();
+        $this->assertEquals($out, 'что');
+    }
 
-  function testLengthLimitAndOffset()
-  {
-    $code = '{$#var|i18n_clip:3,5}';
-    $tpl = $this->_createMacroTemplate($code, 'length_limit_and_offset.html');
-    $var = "фреймворк для веб-приложений";
-    $tpl->set('var', $var);
-    $out = $tpl->render();
-    $this->assertEquals($out, 'вор');
-  }
 
-  function testWithSuffix()
-  {
-    $code = '{$#var|i18n_clip:3,5,"..."}';
-    $tpl = $this->_createMacroTemplate($code, 'clip_with_suffix.html');
-    $var = "фреймворк для веб-приложений";
-    $tpl->set('var', $var);
-    $out = $tpl->render();
-    $this->assertEquals($out, 'вор...');
-  }
+    function testLengthLimitAsVariable()
+    {
+        $code = '{$#var|i18n_clip:$#limit}';
+        $tpl = $this->_createMacroTemplate($code, 'length_limit.html');
+        $var = "что-то";
+        $tpl->set('var', $var);
+        $tpl->set('limit', 3);
+        $out = $tpl->render();
+        $this->assertEquals($out, 'что');
+    }
 
-  function testSuffixNotUsedTooShortString()
-  {
-    $code = '{$#var|i18n_clip:10,"0","..."}';
-    $tpl = $this->_createMacroTemplate($code, 'clip_suffix_not_used.html');
-    $var = "фреймворк";
-    $tpl->set('var', $var);
-    $out = $tpl->render();
-    $this->assertEquals($out, 'фреймворк');
-  }
+    function testLengthLimitAndOffset()
+    {
+        $code = '{$#var|i18n_clip:3,5}';
+        $tpl = $this->_createMacroTemplate($code, 'length_limit_and_offset.html');
+        $var = "фреймворк для веб-приложений";
+        $tpl->set('var', $var);
+        $out = $tpl->render();
+        $this->assertEquals($out, 'вор');
+    }
 
-  // don't know if boundary condition works for all cases. Should work for the simple ones.
-  function testLongStringWordBoundary()
-  {
-    $code = '{$#var|i18n_clip:12,0,"...", "y"}';
-    $tpl = $this->_createMacroTemplate($code, 'clip_with_word_bound.html');
-    $var = "фреймворк для веб-приложений";
-    $tpl->set('var', $var);
-    $out = $tpl->render();
-    $this->assertEquals($out, 'фреймворк для...');
-  }
+    function testWithSuffix()
+    {
+        $code = '{$#var|i18n_clip:3,5,"..."}';
+        $tpl = $this->_createMacroTemplate($code, 'clip_with_suffix.html');
+        $var = "фреймворк для веб-приложений";
+        $tpl->set('var', $var);
+        $out = $tpl->render();
+        $this->assertEquals($out, 'вор...');
+    }
 
-  function testPathBasedDBELengthLimit()
-  {
-    $code = '{$#my.var|i18n_clip:3}';
-    $tpl = $this->_createMacroTemplate($code, 'clip_path_based_dbe_with_limit.html');
-    $data = new lmbSet(array('var' => 'что-то'));
-    $tpl->set('my', $data);
-    $out = $tpl->render();
-    $this->assertEquals($out, 'что');
-  }
+    function testSuffixNotUsedTooShortString()
+    {
+        $code = '{$#var|i18n_clip:10,"0","..."}';
+        $tpl = $this->_createMacroTemplate($code, 'clip_suffix_not_used.html');
+        $var = "фреймворк";
+        $tpl->set('var', $var);
+        $out = $tpl->render();
+        $this->assertEquals($out, 'фреймворк');
+    }
 
-  function testQuoteRegexPatterns()
-  {
-    $code = '{$#var|i18n_clip:16,0,"...", "y"}';
-    $tpl = $this->_createMacroTemplate($code, 'clip_with_regex_pattern.html');
-    $var = "(фреймворк.*) для веб-приложений";
-    $tpl->set('var', $var);
-    $out = $tpl->render();
-    $this->assertEquals($out, '(фреймворк.*) для...');
-  }
+    // don't know if boundary condition works for all cases. Should work for the simple ones.
+    function testLongStringWordBoundary()
+    {
+        $code = '{$#var|i18n_clip:12,0,"...", "y"}';
+        $tpl = $this->_createMacroTemplate($code, 'clip_with_word_bound.html');
+        $var = "фреймворк для веб-приложений";
+        $tpl->set('var', $var);
+        $out = $tpl->render();
+        $this->assertEquals($out, 'фреймворк для...');
+    }
+
+    function testPathBasedDBELengthLimit()
+    {
+        $code = '{$#my.var|i18n_clip:3}';
+        $tpl = $this->_createMacroTemplate($code, 'clip_path_based_dbe_with_limit.html');
+        $data = new lmbSet(array('var' => 'что-то'));
+        $tpl->set('my', $data);
+        $out = $tpl->render();
+        $this->assertEquals($out, 'что');
+    }
+
+    function testQuoteRegexPatterns()
+    {
+        $code = '{$#var|i18n_clip:16,0,"...", "y"}';
+        $tpl = $this->_createMacroTemplate($code, 'clip_with_regex_pattern.html');
+        $var = "(фреймворк.*) для веб-приложений";
+        $tpl->set('var', $var);
+        $out = $tpl->render();
+        $this->assertEquals($out, '(фреймворк.*) для...');
+    }
 }
 

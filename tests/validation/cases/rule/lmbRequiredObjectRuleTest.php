@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\validation\cases\rule;
 
 use limb\validation\src\rule\RequiredObjectRule;
@@ -13,97 +14,101 @@ use limb\core\src\lmbSet;
 
 require('.setup.php');
 
-class TestObjectForThisRule{}
+class TestObjectForThisRule
+{
+}
 
-class TestChildObjectForThisRule extends TestObjectForThisRule{}
+class TestChildObjectForThisRule extends TestObjectForThisRule
+{
+}
 
 class lmbRequiredObjectRuleTest extends lmbValidationRuleTestCase
 {
-  function testValid()
-  {
-    $rule = new RequiredObjectRule('testfield');
+    function testValid()
+    {
+        $rule = new RequiredObjectRule('testfield');
 
-    $dataspace = new lmbSet();
-    $dataspace->set('testfield', new TestObjectForThisRule());
+        $dataspace = new lmbSet();
+        $dataspace->set('testfield', new TestObjectForThisRule());
 
-    $this->error_list->expects($this->never())->method('addError');
+        $this->error_list->expects($this->never())->method('addError');
 
-    $rule->validate($dataspace, $this->error_list);
-  }
+        $rule->validate($dataspace, $this->error_list);
+    }
 
-  function testValid_ForChildClass()
-  {
-    $rule = new RequiredObjectRule('testfield', TestObjectForThisRule::class);
+    function testValid_ForChildClass()
+    {
+        $rule = new RequiredObjectRule('testfield', TestObjectForThisRule::class);
 
-    $dataspace = new lmbSet();
-    $dataspace->set('testfield', new TestChildObjectForThisRule());
+        $dataspace = new lmbSet();
+        $dataspace->set('testfield', new TestChildObjectForThisRule());
 
-    $this->error_list->expects($this->never())->method('addError');
+        $this->error_list->expects($this->never())->method('addError');
 
-    $rule->validate($dataspace, $this->error_list);
-  }
-  
-  function testInvalidIfDataspaceIsEmpty()
-  {
-    $rule = new RequiredObjectRule('testfield');
+        $rule->validate($dataspace, $this->error_list);
+    }
 
-    $dataspace = new lmbSet();
+    function testInvalidIfDataspaceIsEmpty()
+    {
+        $rule = new RequiredObjectRule('testfield');
 
-    $this->error_list
-        ->expects($this->once())
-        ->method('addError')
-        ->with(lmb_i18n('Object {Field} is required', 'validation'),
-                                                         array('Field'=>'testfield'),
-                                                         array());
+        $dataspace = new lmbSet();
 
-    $rule->validate($dataspace, $this->error_list);
-  }
+        $this->error_list
+            ->expects($this->once())
+            ->method('addError')
+            ->with(lmb_i18n('Object {Field} is required', 'validation'),
+                array('Field' => 'testfield'),
+                array());
 
-  function testInvalidIfFieldIsNotAnObject()
-  {
-    $rule = new RequiredObjectRule('testfield');
+        $rule->validate($dataspace, $this->error_list);
+    }
 
-    $dataspace = new lmbSet(array('testfield' => 'whatever_and_not_object'));
+    function testInvalidIfFieldIsNotAnObject()
+    {
+        $rule = new RequiredObjectRule('testfield');
 
-    $this->error_list
-        ->expects($this->once())
-        ->method('addError')
-        ->with(lmb_i18n('Object {Field} is required', 'validation'),
-                                                         array('Field'=>'testfield'),
-                                                         array());
+        $dataspace = new lmbSet(array('testfield' => 'whatever_and_not_object'));
 
-    $rule->validate($dataspace, $this->error_list);
-  }
+        $this->error_list
+            ->expects($this->once())
+            ->method('addError')
+            ->with(lmb_i18n('Object {Field} is required', 'validation'),
+                array('Field' => 'testfield'),
+                array());
 
-  function testNotValidWithClassRestriction()
-  {
-    $rule = new RequiredObjectRule('testfield', Foo::class);
+        $rule->validate($dataspace, $this->error_list);
+    }
 
-    $dataspace = new lmbSet();
-    $dataspace->set('testfield', new TestObjectForThisRule());
+    function testNotValidWithClassRestriction()
+    {
+        $rule = new RequiredObjectRule('testfield', Foo::class);
 
-    $this->error_list
-        ->expects($this->once())
-        ->method('addError')
-        ->with(lmb_i18n('Object {Field} is required', 'validation'),
-                                                         array('Field'=>'testfield'),
-                                                         array());
-    $rule->validate($dataspace, $this->error_list);
-  }
+        $dataspace = new lmbSet();
+        $dataspace->set('testfield', new TestObjectForThisRule());
 
-  function testNotValidWithClassRestrictionWithCustomError()
-  {
-    $rule = new RequiredObjectRule('testfield', Foo::class, 'Custom_Error');
+        $this->error_list
+            ->expects($this->once())
+            ->method('addError')
+            ->with(lmb_i18n('Object {Field} is required', 'validation'),
+                array('Field' => 'testfield'),
+                array());
+        $rule->validate($dataspace, $this->error_list);
+    }
 
-    $dataspace = new lmbSet();
-    $dataspace->set('testfield', new TestObjectForThisRule());
+    function testNotValidWithClassRestrictionWithCustomError()
+    {
+        $rule = new RequiredObjectRule('testfield', Foo::class, 'Custom_Error');
 
-    $this->error_list
-        ->expects($this->once())
-        ->method('addError')
-        ->with('Custom_Error',
-                                                    array('Field'=>'testfield'),
-                                                    array());
-    $rule->validate($dataspace, $this->error_list);
-  }
+        $dataspace = new lmbSet();
+        $dataspace->set('testfield', new TestObjectForThisRule());
+
+        $this->error_list
+            ->expects($this->once())
+            ->method('addError')
+            ->with('Custom_Error',
+                array('Field' => 'testfield'),
+                array());
+        $rule->validate($dataspace, $this->error_list);
+    }
 }

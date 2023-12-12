@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\dbal\src\query;
 
 /**
@@ -16,27 +17,27 @@ namespace limb\dbal\src\query;
  */
 class lmbDeleteQuery extends lmbCriteriaQuery
 {
-  protected $_table;
+    protected $_table;
 
-  function __construct($table, $conn = null)
-  {
-    $this->_table = $table;
+    function __construct($table, $conn = null)
+    {
+        $this->_table = $table;
 
-    $this->setConnection($conn);
+        $this->setConnection($conn);
 
-    parent::__construct($this->getLexer()->getDeleteQueryTemplate());
+        parent::__construct($this->getLexer()->getDeleteQueryTemplate());
 
-    $this->_registerHint('table');
-  }
+        $this->_registerHint('table');
+    }
 
-  function getTable()
-  {
-    return $this->_table;
-  }
+    function getTable()
+    {
+        return $this->_table;
+    }
 
-  protected function _getTableHint()
-  {
-    return $this->getConnection()->quoteIdentifier($this->_table);
-  }
+    protected function _getTableHint()
+    {
+        return $this->getConnection()->quoteIdentifier($this->_table);
+    }
 }
 

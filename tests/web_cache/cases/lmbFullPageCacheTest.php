@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\web_cache\cases;
 
 use PHPUnit\Framework\TestCase;
@@ -19,134 +20,134 @@ use limb\net\src\lmbHttpRequest;
 
 class lmbFullPageCacheTest extends TestCase
 {
-  protected $cache;
-  protected $writer;
-  protected $user;
-  protected $policy;
+    protected $cache;
+    protected $writer;
+    protected $user;
+    protected $policy;
 
-  function setUp(): void
-  {
-    $this->writer = $this->createMock(lmbFullPageCacheWriter::class);
-    $this->policy = $this->createMock(lmbFullPageCachePolicy::class);
+    function setUp(): void
+    {
+        $this->writer = $this->createMock(lmbFullPageCacheWriter::class);
+        $this->policy = $this->createMock(lmbFullPageCachePolicy::class);
 
-    $this->user = new lmbFullPageCacheUser();
-    $this->cache = new lmbFullPageCache($this->writer, $this->policy);
-  }
+        $this->user = new lmbFullPageCacheUser();
+        $this->cache = new lmbFullPageCache($this->writer, $this->policy);
+    }
 
-  function testGetFailedNoSessionOpened()
-  {
-    $this->writer->expects($this->never())->method('get');
-    $this->assertFalse($this->cache->get());
-  }
+    function testGetFailedNoSessionOpened()
+    {
+        $this->writer->expects($this->never())->method('get');
+        $this->assertFalse($this->cache->get());
+    }
 
-  function testSaveFailedNoSessionOpened()
-  {
-    $this->writer->expects($this->never())->method('save');
-    $this->assertFalse($this->cache->save('whatever'));
-  }
+    function testSaveFailedNoSessionOpened()
+    {
+        $this->writer->expects($this->never())->method('save');
+        $this->assertFalse($this->cache->save('whatever'));
+    }
 
-  function testOpenSessionFailedDenyRule()
-  {
-    $request = new lmbFullPageCacheRequest(new lmbHttpRequest('whatever'), $this->user);
-    $ruleset = new lmbFullPageCacheRuleset(false);
+    function testOpenSessionFailedDenyRule()
+    {
+        $request = new lmbFullPageCacheRequest(new lmbHttpRequest('whatever'), $this->user);
+        $ruleset = new lmbFullPageCacheRuleset(false);
 
-    $this->policy
-        ->expects($this->once())
-        ->method('findRuleset')
-        ->with($request)
-        ->willReturn($ruleset, array($request));
+        $this->policy
+            ->expects($this->once())
+            ->method('findRuleset')
+            ->with($request)
+            ->willReturn($ruleset, array($request));
 
-    $this->assertFalse($this->cache->openSession($request));
-  }
+        $this->assertFalse($this->cache->openSession($request));
+    }
 
-  function testOpenSession()
-  {
-    $request = new lmbFullPageCacheRequest(new lmbHttpRequest('whatever'), $this->user);
-    $ruleset = new lmbFullPageCacheRuleset();
+    function testOpenSession()
+    {
+        $request = new lmbFullPageCacheRequest(new lmbHttpRequest('whatever'), $this->user);
+        $ruleset = new lmbFullPageCacheRuleset();
 
-    $this->policy
-        ->expects($this->once())
-        ->method('findRuleset')
-        ->with($request)
-        ->willReturn($ruleset, array($request));
+        $this->policy
+            ->expects($this->once())
+            ->method('findRuleset')
+            ->with($request)
+            ->willReturn($ruleset, array($request));
 
-    $this->assertTrue($this->cache->openSession($request));
-  }
+        $this->assertTrue($this->cache->openSession($request));
+    }
 
-  function testGetOk()
-  {
-    $request = $this->createMock(lmbFullPageCacheRequest::class);
-    $ruleset = new lmbFullPageCacheRuleset();
+    function testGetOk()
+    {
+        $request = $this->createMock(lmbFullPageCacheRequest::class);
+        $ruleset = new lmbFullPageCacheRuleset();
 
-    $this->policy
-        ->expects($this->once())
-        ->method('findRuleset')
-        ->with($request)
-        ->willReturn($ruleset, array($request));
+        $this->policy
+            ->expects($this->once())
+            ->method('findRuleset')
+            ->with($request)
+            ->willReturn($ruleset, array($request));
 
-    $this->assertTrue($this->cache->openSession($request));
+        $this->assertTrue($this->cache->openSession($request));
 
-    $request
-        ->expects($this->once())
-        ->method('getHash')
-        ->willReturn($hash = '123');
+        $request
+            ->expects($this->once())
+            ->method('getHash')
+            ->willReturn($hash = '123');
 
-    $this->writer
-        ->expects($this->once())
-        ->method('get')
-        ->with($hash)
-        ->willReturn($content = 'whatever', array($hash));
+        $this->writer
+            ->expects($this->once())
+            ->method('get')
+            ->with($hash)
+            ->willReturn($content = 'whatever', array($hash));
 
-    $this->assertEquals($content, $this->cache->get());
-  }
+        $this->assertEquals($content, $this->cache->get());
+    }
 
-  function testGetNotFound()
-  {
-    $request = $this->createMock(lmbFullPageCacheRequest::class);
-    $rule = new lmbFullPageCacheRuleset();
+    function testGetNotFound()
+    {
+        $request = $this->createMock(lmbFullPageCacheRequest::class);
+        $rule = new lmbFullPageCacheRuleset();
 
-    $this->policy
-        ->expects($this->once())
-        ->method('findRuleset')
-        ->with($request)
-        ->willReturn($rule, array($request));
+        $this->policy
+            ->expects($this->once())
+            ->method('findRuleset')
+            ->with($request)
+            ->willReturn($rule, array($request));
 
-    $this->assertTrue($this->cache->openSession($request));
+        $this->assertTrue($this->cache->openSession($request));
 
-    $request
-        ->method('getHash')
-        ->willReturn($hash = 'whatever');
+        $request
+            ->method('getHash')
+            ->willReturn($hash = 'whatever');
 
-    $this->writer
-        ->method('get')
-        ->willReturn(false, array($hash));
+        $this->writer
+            ->method('get')
+            ->willReturn(false, array($hash));
 
-    $this->assertFalse($this->cache->get());
-  }
+        $this->assertFalse($this->cache->get());
+    }
 
-  function testSaveOk()
-  {
-    $request = $this->createMock(lmbFullPageCacheRequest::class);
-    $rule = new lmbFullPageCacheRuleset();
+    function testSaveOk()
+    {
+        $request = $this->createMock(lmbFullPageCacheRequest::class);
+        $rule = new lmbFullPageCacheRuleset();
 
-    $this->policy
-        ->expects($this->once())
-        ->method('findRuleset')
-        ->with($request)
-        ->willReturn($rule, array($request));
+        $this->policy
+            ->expects($this->once())
+            ->method('findRuleset')
+            ->with($request)
+            ->willReturn($rule, array($request));
 
-    $this->assertTrue($this->cache->openSession($request));
+        $this->assertTrue($this->cache->openSession($request));
 
-    $request
-        ->method('getHash')
-        ->willReturn($hash = 'whatever');
+        $request
+            ->method('getHash')
+            ->willReturn($hash = 'whatever');
 
-    $this->writer
-        ->expects($this->once())
-        ->method('save')
-        ->with($hash, $content = 'content')
-        ->willReturn(true, array($hash, $content));
+        $this->writer
+            ->expects($this->once())
+            ->method('save')
+            ->with($hash, $content = 'content')
+            ->willReturn(true, array($hash, $content));
 
-    $this->assertTrue($this->cache->save($content));
-  }
+        $this->assertTrue($this->cache->save($content));
+    }
 }

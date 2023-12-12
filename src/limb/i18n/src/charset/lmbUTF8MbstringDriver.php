@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\i18n\src\charset;
 
 use limb\i18n\src\charset\lmbUTF8BaseDriver;
@@ -20,22 +21,23 @@ use limb\i18n\src\charset\lmbUTF8BaseDriver;
  */
 class lmbUTF8MbstringDriver extends lmbUTF8BaseDriver
 {
-    function _strlen($string) {
+    function _strlen($string)
+    {
         return mb_strlen($string, 'utf-8');
     }
 
-     function _substr($str, $start, $length=null)
-     {
+    function _substr($str, $start, $length = null)
+    {
         if (is_null($length)) {
             $old_enc = mb_internal_encoding();
             mb_internal_encoding('UTF-8');
             $result = mb_substr($str, (int)$start);
-            if ( $old_enc ) mb_internal_encoding($old_enc);
+            if ($old_enc) mb_internal_encoding($old_enc);
             return $result;
         } else {
             return mb_substr($str, (int)$start, (int)$length, 'UTF-8');
         }
-     }
+    }
 
     // implement with mb_ereg_* ?
     // function _str_replace($s,$r,$str){}
@@ -49,36 +51,40 @@ class lmbUTF8MbstringDriver extends lmbUTF8BaseDriver
     // should be implemented with mb_split ?
     // function  _trim($str,$charlist=''){}
 
-    function _strtolower($string) {
+    function _strtolower($string)
+    {
         return mb_strtolower($string, 'utf-8');
     }
 
-    function _strtoupper($string) {
+    function _strtoupper($string)
+    {
         return mb_strtoupper($string, 'utf-8');
     }
 
-    function _strpos($haystack, $needle, $offset=null) {
+    function _strpos($haystack, $needle, $offset = null)
+    {
         if (is_null($offset)) {
             $old_enc = mb_internal_encoding();
             mb_internal_encoding('utf-8');
             $result = mb_strpos($haystack, $needle);
-            if ( $old_enc ) mb_internal_encoding($old_enc);
+            if ($old_enc) mb_internal_encoding($old_enc);
             return $result;
         } else {
             return mb_strpos($haystack, $needle, (int)$offset, 'utf-8');
         }
     }
 
-    function _strrpos($haystack, $needle, $offset=null) {
+    function _strrpos($haystack, $needle, $offset = null)
+    {
         if (is_null($offset)) {
             $old_enc = mb_internal_encoding();
             mb_internal_encoding('utf-8');
             $result = mb_strrpos($haystack, $needle);
-            if ( $old_enc ) mb_internal_encoding($old_enc);
+            if ($old_enc) mb_internal_encoding($old_enc);
             return $result;
         } else {
             //mb_strrpos doesn't support offset! :(
-            return parent ::_strrpos($haystack, $needle, (int)$offset);
+            return parent::_strrpos($haystack, $needle, (int)$offset);
         }
     }
 }

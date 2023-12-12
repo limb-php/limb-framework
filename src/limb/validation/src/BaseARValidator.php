@@ -1,4 +1,5 @@
 <?php
+
 namespace limb\validation\src;
 
 class BaseARValidator extends BaseValidator
@@ -31,7 +32,7 @@ class BaseARValidator extends BaseValidator
     {
         $this->merge($datasource);
 
-        if( $is_create )
+        if ($is_create)
             $validator = $this->_createInsertValidator();
         else
             $validator = $this->_createValidator();

@@ -1,29 +1,30 @@
 <?php
+
 namespace limb\log\src;
 
 use limb\net\src\lmbUri;
 
 class lmbLogFirePHPWriter extends \FB implements lmbLogWriterInterface
 {
-  protected $check_client_extension;
+    protected $check_client_extension;
 
-  function __construct(lmbUri $dsn)
-  {
-    $this->check_client_extension = (bool)$dsn->getQueryItem('check_extension', true);
-  }
+    function __construct(lmbUri $dsn)
+    {
+        $this->check_client_extension = (bool)$dsn->getQueryItem('check_extension', true);
+    }
 
-  function write(lmbLogEntry $entry)
-  {
-    return $this->log($entry->asText());
-  }
+    function write(lmbLogEntry $entry)
+    {
+        return $this->log($entry->asText());
+    }
 
-  function disableCheckClientExtension()
-  {
-    $this->check_client_extension = false;
-  }
+    function disableCheckClientExtension()
+    {
+        $this->check_client_extension = false;
+    }
 
-  function isClientExtensionCheckEnabled()
-  {
-  	return $this->check_client_extension;
-  }
+    function isClientExtensionCheckEnabled()
+    {
+        return $this->check_client_extension;
+    }
 }

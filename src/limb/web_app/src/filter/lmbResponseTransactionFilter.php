@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_app\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
@@ -19,12 +20,12 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbResponseTransactionFilter implements lmbInterceptingFilterInterface
 {
-  function run($filter_chain, $request = null, $callback = null)
-  {
-      $response = $filter_chain->next($request, $callback);
+    function run($filter_chain, $request = null, $callback = null)
+    {
+        $response = $filter_chain->next($request, $callback);
 
-      $response->send();
+        $response->send();
 
-      return $response;
-  }
+        return $response;
+    }
 }

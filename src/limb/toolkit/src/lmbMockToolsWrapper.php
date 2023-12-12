@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\toolkit\src;
 
 /**
@@ -25,43 +26,42 @@ namespace limb\toolkit\src;
  */
 class lmbMockToolsWrapper implements lmbToolkitToolsInterface
 {
-  /**
-  * @var mixed Mock object generated for some real tools class
-  */
-  protected $mock;
-  /**
-  * @var array Array of methods that this tools wrapper allowed to support
-  */
-  protected $use_only_methods;
+    /**
+     * @var mixed Mock object generated for some real tools class
+     */
+    protected $mock;
+    /**
+     * @var array Array of methods that this tools wrapper allowed to support
+     */
+    protected $use_only_methods;
 
-  /**
-  * @param mixed Mock object generated for some real tools class
-  * @param array Array of methods that this tools wrapper allowed to support
-  */
-  function __construct($mock, $use_only_methods = array())
-  {
-    $this->mock = $mock;
-    $this->use_only_methods = $use_only_methods;
-  }
-
-  static function getRequiredTools()
-  {
-      return [];
-  }
-
-  /**
-  * @see lmbToolkitTools::getToolsSignatures()
-  */
-  function getToolsSignatures()
-  {
-    $signatures = array();
-    foreach(get_class_methods(get_class($this->mock)) as $method)
+    /**
+     * @param mixed Mock object generated for some real tools class
+     * @param array Array of methods that this tools wrapper allowed to support
+     */
+    function __construct($mock, $use_only_methods = array())
     {
-      if($this->use_only_methods && !in_array($method, $this->use_only_methods))
-        continue;
-
-      $signatures[$method] = $this->mock;
+        $this->mock = $mock;
+        $this->use_only_methods = $use_only_methods;
     }
-    return $signatures;
-  }
+
+    static function getRequiredTools()
+    {
+        return [];
+    }
+
+    /**
+     * @see lmbToolkitTools::getToolsSignatures()
+     */
+    function getToolsSignatures()
+    {
+        $signatures = array();
+        foreach (get_class_methods(get_class($this->mock)) as $method) {
+            if ($this->use_only_methods && !in_array($method, $this->use_only_methods))
+                continue;
+
+            $signatures[$method] = $this->mock;
+        }
+        return $signatures;
+    }
 }

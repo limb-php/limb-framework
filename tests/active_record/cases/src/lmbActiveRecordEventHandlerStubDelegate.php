@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\active_record\cases\src;
 
 use limb\active_record\src\lmbActiveRecord;
@@ -9,61 +10,61 @@ class lmbActiveRecordEventHandlerStubDelegate
 
     function onBeforeSave($active_record)
     {
-        if($active_record instanceof lmbActiveRecord)
+        if ($active_record instanceof lmbActiveRecord)
             $this->calls_order .= '|onBeforeSave ' . get_class($active_record) . '|';
     }
 
     function onAfterSave($active_record)
     {
-        if($active_record instanceof lmbActiveRecord)
+        if ($active_record instanceof lmbActiveRecord)
             $this->calls_order .= '|onAfterSave ' . get_class($active_record) . '|';
     }
 
     function onBeforeUpdate($active_record)
     {
-        if($active_record instanceof lmbActiveRecord)
+        if ($active_record instanceof lmbActiveRecord)
             $this->calls_order .= '|onBeforeUpdate ' . get_class($active_record) . '|';
     }
 
     function onUpdate($active_record)
     {
-        if($active_record instanceof lmbActiveRecord)
+        if ($active_record instanceof lmbActiveRecord)
             $this->calls_order .= '|onUpdate ' . get_class($active_record) . '|';
     }
 
     function onAfterUpdate($active_record)
     {
-        if($active_record instanceof lmbActiveRecord)
+        if ($active_record instanceof lmbActiveRecord)
             $this->calls_order .= '|onAfterUpdate ' . get_class($active_record) . '|';
     }
 
     function onBeforeCreate($active_record)
     {
-        if($active_record instanceof lmbActiveRecord)
+        if ($active_record instanceof lmbActiveRecord)
             $this->calls_order .= '|onBeforeCreate ' . get_class($active_record) . '|';
     }
 
     function onCreate($active_record)
     {
-        if($active_record instanceof lmbActiveRecord)
+        if ($active_record instanceof lmbActiveRecord)
             $this->calls_order .= '|onCreate ' . get_class($active_record) . '|';
     }
 
     function onAfterCreate($active_record)
     {
-        if($active_record instanceof lmbActiveRecord)
+        if ($active_record instanceof lmbActiveRecord)
             $this->calls_order .= '|onAfterCreate ' . get_class($active_record) . '|';
     }
 
     function onBeforeDestroy($active_record)
     {
-        if($active_record instanceof lmbActiveRecord)
+        if ($active_record instanceof lmbActiveRecord)
             $this->calls_order .= '|onBeforeDestroy ' . get_class($active_record) . '|';
     }
 
     function onAfterDestroy($active_record)
     {
-        if($active_record instanceof lmbActiveRecord)
+        if ($active_record instanceof lmbActiveRecord)
             $this->calls_order .= '|onAfterDestroy ' . get_class($active_record) . '|';
     }
 

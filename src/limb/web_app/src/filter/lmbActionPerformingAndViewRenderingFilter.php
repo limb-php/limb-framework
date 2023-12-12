@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_app\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
@@ -23,41 +24,36 @@ use limb\view\src\lmbView;
  */
 class lmbActionPerformingAndViewRenderingFilter implements lmbInterceptingFilterInterface
 {
-  function run($filter_chain, $request = null, $callback = null)
-  {
-      $dispatched = lmbToolkit::instance()->getDispatchedController();
-      if(!is_object($dispatched))
-        throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
+    function run($filter_chain, $request = null, $callback = null)
+    {
+        $dispatched = lmbToolkit::instance()->getDispatchedController();
+        if (!is_object($dispatched))
+            throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
 
-      $result = $dispatched->performAction($request);
+        $result = $dispatched->performAction($request);
 
-      $response = lmbToolkit::instance()->getResponse();
+        $response = lmbToolkit::instance()->getResponse();
 
-      if( $result !== null ) {
-          if( is_a($result, lmbHttpResponse::class) ) {
-              $response = $result;
-          }
-          elseif($response->isEmpty()) {
-              if (is_a($result, lmbView::class)) {
-                  $result = $result->render();
-              }
-              elseif( is_array($result) ) {
-                  $result = (new lmbJsonView($result))->render();
-              }
+        if ($result !== null) {
+            if (is_a($result, lmbHttpResponse::class)) {
+                $response = $result;
+            } elseif ($response->isEmpty()) {
+                if (is_a($result, lmbView::class)) {
+                    $result = $result->render();
+                } elseif (is_array($result)) {
+                    $result = (new lmbJsonView($result))->render();
+                }
 
-              $response->write($result);
-          }
-      }
-      elseif($view = lmbToolkit::instance()->getView()){
-          if($response->isEmpty()) {
-              $response->write( $view->render() );
-          }
-      }
-      else
-      {
-          throw new lmbException('Empty controller response');
-      }
+                $response->write($result);
+            }
+        } elseif ($view = lmbToolkit::instance()->getView()) {
+            if ($response->isEmpty()) {
+                $response->write($view->render());
+            }
+        } else {
+            throw new lmbException('Empty controller response');
+        }
 
-      return $filter_chain->next($request, $callback);
-  }
+        return $filter_chain->next($request, $callback);
+    }
 }

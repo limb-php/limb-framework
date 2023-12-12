@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\filters;
 
 use limb\macro\src\compiler\lmbMacroFilter;
@@ -18,10 +19,10 @@ use limb\macro\src\compiler\lmbMacroFilter;
  */
 class lmbI18NMacroFilter extends lmbMacroFilter
 {
-  var $params_var;
+    var $params_var;
 
-  function getValue()
-  {
-    return 'limb\i18n\src\lmbI18n::translate(' . $this->base->getValue() . ', array(), "' . $this->params[0] . '")';
-  }
+    function getValue()
+    {
+        return 'limb\i18n\src\lmbI18n::translate(' . $this->base->getValue() . ', array(), "' . $this->params[0] . '")';
+    }
 }

@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\filters;
 
 use limb\macro\src\compiler\lmbMacroFilter;
@@ -19,10 +20,10 @@ use limb\macro\src\compiler\lmbMacroFilter;
  */
 class lmbMacroConstFilter extends lmbMacroFilter
 {
-  function getValue()
-  {
-    $value = ltrim($this->base->getValue(), '$');
+    function getValue()
+    {
+        $value = ltrim($this->base->getValue(), '$');
 
-    return 'limb\core\src\lmbEnv::get(' . $value . ')';
-  }
+        return 'limb\core\src\lmbEnv::get(' . $value . ')';
+    }
 }

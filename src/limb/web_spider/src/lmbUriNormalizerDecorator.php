@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_spider\src;
 
 /**
@@ -14,33 +15,32 @@ namespace limb\web_spider\src;
  * @package web_spider
  * @version $Id: lmbUriNormalizerDecorator.php 7686 2009-03-04 19:57:12Z
  */
-
 class lmbUriNormalizerDecorator
 {
-  var $decorated;
+    var $decorated;
 
-  function lmbUriNormalizerDecorator(&$decorated)
-  {
-    $this->decorated =& $decorated;
-  }
+    function lmbUriNormalizerDecorator(&$decorated)
+    {
+        $this->decorated =& $decorated;
+    }
 
-  function reset()
-  {
-    $this->decorated->reset();
-  }
+    function reset()
+    {
+        $this->decorated->reset();
+    }
 
-  function stripAnchor($status = true)
-  {
-    $this->decorated->stripAnchor($status);
-  }
+    function stripAnchor($status = true)
+    {
+        $this->decorated->stripAnchor($status);
+    }
 
-  function stripQueryItem($key)
-  {
-    $this->decorated->stripQueryItem($key);
-  }
+    function stripQueryItem($key)
+    {
+        $this->decorated->stripQueryItem($key);
+    }
 
-  function process($uri)
-  {
-    $this->decorated->process($uri);
-  }
+    function process($uri)
+    {
+        $this->decorated->process($uri);
+    }
 }

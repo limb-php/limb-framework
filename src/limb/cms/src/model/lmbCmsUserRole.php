@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\cms\src\model;
 
 use limb\core\src\lmbObject;
@@ -18,14 +19,14 @@ use limb\core\src\lmbObject;
  */
 class lmbCmsUserRole extends lmbObject
 {
-  protected $id;
-  protected $name;
-  protected $short_name;
+    protected $id;
+    protected $name;
+    protected $short_name;
 
-  function __construct($id, $name, $short_name)
-  {
-    $this->id = $id;
-    $this->name = $name;
-    $this->short_name = $short_name;
-  }
+    function __construct($id, $name, $short_name)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->short_name = $short_name;
+    }
 }

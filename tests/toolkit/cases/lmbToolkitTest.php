@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace Tests\toolkit\cases;
 
 use PHPUnit\Framework\TestCase;
@@ -15,46 +16,46 @@ use limb\core\src\exception\lmbException;
 
 class TestTools extends lmbAbstractTools
 {
-  var $calls = 0;
+    var $calls = 0;
 
-  function commonMethod()
-  {
-    $this->calls++;
-    return 'commonMethod1';
-  }
+    function commonMethod()
+    {
+        $this->calls++;
+        return 'commonMethod1';
+    }
 
-  function getCommonMethodCalls()
-  {
-    return $this->calls;
-  }
+    function getCommonMethodCalls()
+    {
+        return $this->calls;
+    }
 
-  function returnArg($arg)
-  {
-    return $arg;
-  }
+    function returnArg($arg)
+    {
+        return $arg;
+    }
 
-  function getVar()
-  {
-    return $this->_getRaw('var'); // this way we prevent recursion
-  }
+    function getVar()
+    {
+        return $this->_getRaw('var'); // this way we prevent recursion
+    }
 
-  function setVar($value)
-  {
-    $this->_setRaw('var', $value); // this way we prevent recursion
-  }
+    function setVar($value)
+    {
+        $this->_setRaw('var', $value); // this way we prevent recursion
+    }
 }
 
 class TestTools2 extends lmbAbstractTools
 {
-  function commonMethod()
-  {
-    return 'commonMethod2';
-  }
+    function commonMethod()
+    {
+        return 'commonMethod2';
+    }
 
-  function baz()
-  {
-    return 'baz2';
-  }
+    function baz()
+    {
+        return 'baz2';
+    }
 }
 
 class TestTools3 extends lmbAbstractTools
@@ -66,136 +67,135 @@ class TestTools3 extends lmbAbstractTools
         ];
     }
 
-    function foo3(){}
-    function bar3(){}
+    function foo3()
+    {
+    }
+
+    function bar3()
+    {
+    }
 }
 
 class lmbToolkitTest extends TestCase
 {
-  function testInstance()
-  {
-    $t1 = lmbToolkit::instance();
-    $t2 = lmbToolkit::instance();
-    $this->assertEquals($t1, $t2);
-  }
-
-  function testNoSuchMethod()
-  {
-    $toolkit = new lmbToolkit();
-
-    try
+    function testInstance()
     {
-      $toolkit->noSuchMethod();
-      $this->fail();
+        $t1 = lmbToolkit::instance();
+        $t2 = lmbToolkit::instance();
+        $this->assertEquals($t1, $t2);
     }
-    catch(lmbException $e){
-        $this->assertTrue(true);
-    }
-  }
 
-  function testNonExistingSetterThrowsError()
-  {
-    $toolkit = new lmbToolkit();
-
-    try
+    function testNoSuchMethod()
     {
-      $toolkit->setNonExistingStuff("bar");
-      $this->fail();
-    }
-    catch(lmbException $e){
-        $this->assertTrue(true);
-    }
-  }
+        $toolkit = new lmbToolkit();
 
-  function testNonExistingGetterThrowsError()
-  {
-    $toolkit = new lmbToolkit();
+        try {
+            $toolkit->noSuchMethod();
+            $this->fail();
+        } catch (lmbException $e) {
+            $this->assertTrue(true);
+        }
+    }
 
-    try
+    function testNonExistingSetterThrowsError()
     {
-      $toolkit->getNonExistingStuff();
-      $this->fail();
+        $toolkit = new lmbToolkit();
+
+        try {
+            $toolkit->setNonExistingStuff("bar");
+            $this->fail();
+        } catch (lmbException $e) {
+            $this->assertTrue(true);
+        }
     }
-    catch(lmbException $e){
-        $this->assertTrue(true);
+
+    function testNonExistingGetterThrowsError()
+    {
+        $toolkit = new lmbToolkit();
+
+        try {
+            $toolkit->getNonExistingStuff();
+            $this->fail();
+        } catch (lmbException $e) {
+            $this->assertTrue(true);
+        }
     }
-  }
 
-  function testAddTools()
-  {
-    $toolkit = new lmbToolkit();
-    $toolkit->add(new TestTools());
-    $this->assertEquals('commonMethod1', $toolkit->commonMethod());
-    $this->assertEquals('b', $toolkit->returnArg('b'));
-  }
+    function testAddTools()
+    {
+        $toolkit = new lmbToolkit();
+        $toolkit->add(new TestTools());
+        $this->assertEquals('commonMethod1', $toolkit->commonMethod());
+        $this->assertEquals('b', $toolkit->returnArg('b'));
+    }
 
-  function testAddSeveralTools()
-  {
-    $toolkit = new lmbToolkit();
-    $toolkit->add(new TestTools());
-    $this->assertEquals('commonMethod1', $toolkit->commonMethod());
-    $this->assertEquals('b', $toolkit->returnArg('b'));
+    function testAddSeveralTools()
+    {
+        $toolkit = new lmbToolkit();
+        $toolkit->add(new TestTools());
+        $this->assertEquals('commonMethod1', $toolkit->commonMethod());
+        $this->assertEquals('b', $toolkit->returnArg('b'));
 
-    $toolkit->add(new TestTools2());
-    $this->assertEquals('commonMethod2', $toolkit->commonMethod());
-    $this->assertEquals('b', $toolkit->returnArg('b'));
-  }
+        $toolkit->add(new TestTools2());
+        $this->assertEquals('commonMethod2', $toolkit->commonMethod());
+        $this->assertEquals('b', $toolkit->returnArg('b'));
+    }
 
-  function testSaveRestoreToolkit()
-  {
-    lmbToolkit::save();
+    function testSaveRestoreToolkit()
+    {
+        lmbToolkit::save();
 
-    $toolkit = lmbToolkit::setup(new TestTools());
-    $toolkit->commonMethod();
-    $toolkit->commonMethod();
-    $this->assertEquals(2, $toolkit->getCommonMethodCalls());
+        $toolkit = lmbToolkit::setup(new TestTools());
+        $toolkit->commonMethod();
+        $toolkit->commonMethod();
+        $this->assertEquals(2, $toolkit->getCommonMethodCalls());
 
-    $toolkit = lmbToolkit::save();
-    $toolkit->commonMethod();
-    $this->assertEquals(3, $toolkit->getCommonMethodCalls());
+        $toolkit = lmbToolkit::save();
+        $toolkit->commonMethod();
+        $this->assertEquals(3, $toolkit->getCommonMethodCalls());
 
-    $toolkit = lmbToolkit::save();
-    $toolkit->commonMethod();
-    $this->assertEquals(4, $toolkit->getCommonMethodCalls());
+        $toolkit = lmbToolkit::save();
+        $toolkit->commonMethod();
+        $this->assertEquals(4, $toolkit->getCommonMethodCalls());
 
-    $toolkit = lmbToolkit::restore();
-    $this->assertEquals(3, $toolkit->getCommonMethodCalls());
+        $toolkit = lmbToolkit::restore();
+        $this->assertEquals(3, $toolkit->getCommonMethodCalls());
 
-    $toolkit = lmbToolkit::restore();
-    $this->assertEquals(2, $toolkit->getCommonMethodCalls());
-    lmbToolkit::restore();
+        $toolkit = lmbToolkit::restore();
+        $this->assertEquals(2, $toolkit->getCommonMethodCalls());
+        lmbToolkit::restore();
 
-    lmbToolkit::restore();
-  }
+        lmbToolkit::restore();
+    }
 
-  function testSaveAndRestoreAlwaysReturnTheSameToolkitInstance()
-  {
-    lmbToolkit::save();
+    function testSaveAndRestoreAlwaysReturnTheSameToolkitInstance()
+    {
+        lmbToolkit::save();
 
-    $toolkit = lmbToolkit::setup(new TestTools());
+        $toolkit = lmbToolkit::setup(new TestTools());
 
-    $toolkit1 = lmbToolkit::save();
-    $toolkit1->commonMethod();
+        $toolkit1 = lmbToolkit::save();
+        $toolkit1->commonMethod();
 
-    $toolkit2 = lmbToolkit::restore();
-    $this->assertEquals($toolkit1, $toolkit2);
+        $toolkit2 = lmbToolkit::restore();
+        $this->assertEquals($toolkit1, $toolkit2);
 
-    $toolkit3 = lmbToolkit::save();
-    $this->assertEquals($toolkit1, $toolkit3);
+        $toolkit3 = lmbToolkit::save();
+        $this->assertEquals($toolkit1, $toolkit3);
 
-    lmbToolkit::restore();
-  }
+        lmbToolkit::restore();
+    }
 
-  function testMerge()
-  {
-    lmbToolkit::save();
+    function testMerge()
+    {
+        lmbToolkit::save();
 
-    lmbToolkit::setup(new TestTools());
-    $toolkit = lmbToolkit::merge(new TestTools2());
-    $this->assertEquals('commonMethod2', $toolkit->commonMethod());
+        lmbToolkit::setup(new TestTools());
+        $toolkit = lmbToolkit::merge(new TestTools2());
+        $this->assertEquals('commonMethod2', $toolkit->commonMethod());
 
-    lmbToolkit::restore();
-  }
+        lmbToolkit::restore();
+    }
 
     function testMerge2()
     {
@@ -208,88 +208,87 @@ class lmbToolkitTest extends TestCase
         lmbToolkit::restore();
     }
 
-  function testMergeSeveral()
-  {
-    lmbToolkit::save();
-
-    lmbToolkit::merge(new TestTools());
-    $toolkit = lmbToolkit::save();
-
-    $toolkit->commonMethod();
-    $toolkit->commonMethod();
-    $this->assertEquals(2, $toolkit->getCommonMethodCalls());
-
-    $toolkit = lmbToolkit::merge(new TestTools());
-    $this->assertEquals(0, $toolkit->getCommonMethodCalls());
-
-    $toolkit = lmbToolkit::instance();
-    $toolkit->commonMethod();
-    $this->assertEquals(1, $toolkit->getCommonMethodCalls());
-
-    $toolkit = lmbToolkit::restore();
-    $this->assertEquals(0, $toolkit->getCommonMethodCalls());
-
-    lmbToolkit::restore();
-  }
-
-  function testSetGet()
-  {
-    $toolkit = new lmbToolkit();
-    $toolkit->set('my_var', 'value1');
-
-    $this->assertEquals('value1', $toolkit->get('my_var'));
-  }
-  
-  function testGetWithDefaultValue()
-  {
-    $toolkit = new lmbToolkit();
-    try
+    function testMergeSeveral()
     {
-      $toolkit->get('commonMethod');
-      $this->fail();
-    } catch (\Exception $e) {
-      $this->assertTrue(true);
+        lmbToolkit::save();
+
+        lmbToolkit::merge(new TestTools());
+        $toolkit = lmbToolkit::save();
+
+        $toolkit->commonMethod();
+        $toolkit->commonMethod();
+        $this->assertEquals(2, $toolkit->getCommonMethodCalls());
+
+        $toolkit = lmbToolkit::merge(new TestTools());
+        $this->assertEquals(0, $toolkit->getCommonMethodCalls());
+
+        $toolkit = lmbToolkit::instance();
+        $toolkit->commonMethod();
+        $this->assertEquals(1, $toolkit->getCommonMethodCalls());
+
+        $toolkit = lmbToolkit::restore();
+        $this->assertEquals(0, $toolkit->getCommonMethodCalls());
+
+        lmbToolkit::restore();
     }
-   
-    $this->assertEquals('baz', $toolkit->get('commonMethod', 'baz'));
-  }
 
-  function testSaveAndRestoreProperties()
-  {
-    lmbToolkit::save();
+    function testSetGet()
+    {
+        $toolkit = new lmbToolkit();
+        $toolkit->set('my_var', 'value1');
 
-    $toolkit = lmbToolkit::instance();
-    $toolkit->set('my_var', 'value1');
+        $this->assertEquals('value1', $toolkit->get('my_var'));
+    }
 
-    lmbToolkit::save();
+    function testGetWithDefaultValue()
+    {
+        $toolkit = new lmbToolkit();
+        try {
+            $toolkit->get('commonMethod');
+            $this->fail();
+        } catch (\Exception $e) {
+            $this->assertTrue(true);
+        }
 
-    $toolkit->set('my_var', 'value2');
+        $this->assertEquals('baz', $toolkit->get('commonMethod', 'baz'));
+    }
 
-    lmbToolkit::restore();
+    function testSaveAndRestoreProperties()
+    {
+        lmbToolkit::save();
 
-    $this->assertEquals('value1', $toolkit->get('my_var'));
+        $toolkit = lmbToolkit::instance();
+        $toolkit->set('my_var', 'value1');
 
-    lmbToolkit::restore();
-  }
+        lmbToolkit::save();
 
-  function testOverloadGetterByTools()
-  {
-    lmbToolkit::save();
+        $toolkit->set('my_var', 'value2');
 
-    $toolkit = lmbToolkit::setup(new TestTools());
-    $toolkit->set('var', 'value1');
+        lmbToolkit::restore();
 
-    $this->assertEquals('value1', $toolkit->getVar());
+        $this->assertEquals('value1', $toolkit->get('my_var'));
 
-    lmbToolkit::save();
+        lmbToolkit::restore();
+    }
 
-    $toolkit->setVar('value2');
-    $this->assertEquals('value2', $toolkit->getVar());
+    function testOverloadGetterByTools()
+    {
+        lmbToolkit::save();
 
-    lmbToolkit::restore();
+        $toolkit = lmbToolkit::setup(new TestTools());
+        $toolkit->set('var', 'value1');
 
-    $this->assertEquals('value1', $toolkit->get('var'));
+        $this->assertEquals('value1', $toolkit->getVar());
 
-    lmbToolkit::restore();
-  }
+        lmbToolkit::save();
+
+        $toolkit->setVar('value2');
+        $this->assertEquals('value2', $toolkit->getVar());
+
+        lmbToolkit::restore();
+
+        $this->assertEquals('value1', $toolkit->get('var'));
+
+        lmbToolkit::restore();
+    }
 }

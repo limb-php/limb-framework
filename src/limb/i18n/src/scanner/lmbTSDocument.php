@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\i18n\src\scanner;
 
 /**
@@ -19,13 +20,13 @@ namespace limb\i18n\src\scanner;
 class lmbTSDocument extends \DOMDocument
 {
 
-  function addMessage($message)
-  {
-    $message_node = $this->createElement('message');
-    $source_node = $this->createElement('source',$message);
-    $message_node->appendChild($source_node);
+    function addMessage($message)
+    {
+        $message_node = $this->createElement('message');
+        $source_node = $this->createElement('source', $message);
+        $message_node->appendChild($source_node);
 
-    $target = $this->getElementsByTagName('context')->item(0);
-    $target->appendChild($message_node);
-  }
+        $target = $this->getElementsByTagName('context')->item(0);
+        $target->appendChild($message_node);
+    }
 }

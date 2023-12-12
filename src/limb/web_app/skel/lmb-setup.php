@@ -14,17 +14,17 @@ use limb\core\src\lmbEnv;
  * @version $Id: setup.php 8131 2010-02-15 19:45:22Z conf $
  */
 set_include_path(implode(PATH_SEPARATOR,
-  array(
-    dirname(__FILE__),
-    dirname(__FILE__) . '/lib/',
-    get_include_path()
-  )
+    array(
+        dirname(__FILE__),
+        dirname(__FILE__) . '/lib/',
+        get_include_path()
+    )
 ));
 
 lmbEnv::setor('LIMB_VAR_DIR', dirname(__FILE__) . '/var/');
 
-if(file_exists(dirname(__FILE__) . '/setup.override.php'))
+if (file_exists(dirname(__FILE__) . '/setup.override.php'))
     require_once(dirname(__FILE__) . '/setup.override.php');
 
-if( file_exists($vendor = dirname(__FILE__) . '/vendor/autoload.php') )
+if (file_exists($vendor = dirname(__FILE__) . '/vendor/autoload.php'))
     require($vendor);

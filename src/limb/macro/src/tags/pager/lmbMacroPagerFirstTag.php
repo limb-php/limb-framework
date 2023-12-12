@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\macro\src\tags\pager;
 
 use limb\macro\src\compiler\lmbMacroTag;
@@ -21,15 +22,15 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroPagerFirstTag extends lmbMacroTag
 {
-  protected function _generateContent($code_writer)
-  {
-    $pager = $this->findParentByClass('limb\macro\src\tags\pager\lmbMacroPagerTag')->getRuntimeVar();
-    
-    $code_writer->writePhp("if (!{$pager}->isFirst()) {\n");
-    $code_writer->writePhp("\$href = {$pager}->getFirstPageUri();\n");
+    protected function _generateContent($code_writer)
+    {
+        $pager = $this->findParentByClass('limb\macro\src\tags\pager\lmbMacroPagerTag')->getRuntimeVar();
 
-    parent::_generateContent($code_writer);
+        $code_writer->writePhp("if (!{$pager}->isFirst()) {\n");
+        $code_writer->writePhp("\$href = {$pager}->getFirstPageUri();\n");
 
-    $code_writer->writePhp("}\n");
-  }
+        parent::_generateContent($code_writer);
+
+        $code_writer->writePhp("}\n");
+    }
 }

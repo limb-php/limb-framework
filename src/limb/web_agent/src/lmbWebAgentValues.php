@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\web_agent\src;
 
 use limb\core\src\lmbObject;
@@ -19,20 +20,19 @@ use limb\core\src\lmbObject;
 class lmbWebAgentValues extends lmbObject
 {
 
-  function buildQuery($encoding = 'utf-8')
-  {
-  	return http_build_query($this->convert($encoding));
-  }
-
-  function convert($encoding)
-  {
-    $vars = $this->export();
-    if($encoding != 'utf-8')
+    function buildQuery($encoding = 'utf-8')
     {
-      foreach($vars as &$var)
-        $var = mb_convert_encoding($var, $encoding, 'utf-8');
+        return http_build_query($this->convert($encoding));
     }
-    return $vars;
-  }
+
+    function convert($encoding)
+    {
+        $vars = $this->export();
+        if ($encoding != 'utf-8') {
+            foreach ($vars as &$var)
+                $var = mb_convert_encoding($var, $encoding, 'utf-8');
+        }
+        return $vars;
+    }
 
 }

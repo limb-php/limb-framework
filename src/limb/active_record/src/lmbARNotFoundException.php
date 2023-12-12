@@ -2,10 +2,11 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\active_record\src;
 
 /**
@@ -16,24 +17,24 @@ namespace limb\active_record\src;
  */
 class lmbARNotFoundException extends lmbARException
 {
-  protected $id;
-  protected $class;
+    protected $id;
+    protected $class;
 
-  function __construct($class, $id)
-  {
-    $this->id = $id;
-    $this->class = $class;
+    function __construct($class, $id)
+    {
+        $this->id = $id;
+        $this->class = $class;
 
-    parent::__construct("Can't load ActiveRecord '" . $class . "' with id '$id'");
-  }
+        parent::__construct("Can't load ActiveRecord '" . $class . "' with id '$id'");
+    }
 
-  function getId()
-  {
-    return $this->id;
-  }
+    function getId()
+    {
+        return $this->id;
+    }
 
-  function getClass()
-  {
-    return $this->class;
-  }
+    function getClass()
+    {
+        return $this->class;
+    }
 }

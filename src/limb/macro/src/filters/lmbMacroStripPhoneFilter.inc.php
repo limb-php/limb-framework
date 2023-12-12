@@ -9,6 +9,6 @@
 
 function strip_phone($str)
 {
-  $str = strip_tags($str);
-  return str_replace(array(' ', ')', '(', '-'), array('','','',''), $str);
+    $str = strip_tags($str);
+    return str_replace(array(' ', ')', '(', '-'), array('', '', '', ''), $str);
 }
