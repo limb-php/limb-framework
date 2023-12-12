@@ -6,6 +6,7 @@
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
+
 namespace limb\session\src;
 
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
@@ -24,124 +25,128 @@ use limb\dbal\src\lmbTableGateway;
  */
 class lmbSessionDbStorage implements lmbSessionStorageInterface
 {
-  /**
-   * @var lmbTableGateway facade to work with database
-   */
-  protected $db;
-  /**
-   * @var integer maximum session life time
-   */
-  protected $max_life_time = null;
+    /**
+     * @var lmbTableGateway facade to work with database
+     */
+    protected $db;
+    /**
+     * @var integer maximum session life time
+     */
+    protected $max_life_time = null;
 
-  /**
-   *  Constructor.
-   *  @param lmbDbConnectionInterface $db_connection database connection object
-   *  @param integer $max_life_time maximum session life time
-   */
-  function __construct($db_connection, $max_life_time = null)
-  {
-    $this->max_life_time = $max_life_time;
+    protected $session_table_name = 'lmb_session';
 
-    $this->db = new lmbTableGateway('lmb_session', $db_connection);
-  }
-
-  /**
-   * @see lmbSessionStorage::install()
-   */
-  function install(): bool
-  {
-    return session_set_save_handler(
-     array($this, 'storageOpen'),
-     array($this, 'storageClose'),
-     array($this, 'storageRead'),
-     array($this, 'storageWrite'),
-     array($this, 'storageDestroy'),
-     array($this, 'storageGc')
-    );
-  }
-
-  /**
-   * Opens session storage
-   * Does nothing and returns true
-   * @return boolean
-   */
-  function storageOpen()
-  {
-    return true;
-  }
-
-  /**
-   * Closes session storage
-   * Does nothing and returns true
-   * @return boolean
-   */
-  function storageClose()
-  {
-    return true;
-  }
-
-  /**
-   * Read a single row from <b>lmb_session</b> db table and returns <b>session_data</b> column
-   * @param string $session_id session ID
-   * @return mixed
-   */
-  function storageRead($session_id)
-  {
-    $rs = $this->db->select(new lmbSQLFieldCriteria('session_id', $session_id));
-    $rs->rewind();
-    if($rs->valid())
-      return $rs->current()->getBlob('session_data');
-    else
-      return ''; // return String. Important!!!
-  }
-
-  /**
-   * Creates new or updates existing row in <b>lmb_session</b> db table
-   * @param string $session_id session ID
-   * @param mixed $value session data
-   */
-  function storageWrite($session_id, $value)
-  {
-    $crit = new lmbSQLFieldCriteria('session_id', $session_id);
-    $rs = $this->db->select($crit);
-
-    $data = array('last_activity_time' => time(),
-                  'session_data' => $value);
-
-    if($rs->count() > 0)
-      $this->db->update($data, $crit);
-    else
+    /**
+     *  Constructor.
+     * @param lmbDbConnectionInterface $db_connection database connection object
+     * @param integer|null $max_life_time maximum session life time
+     */
+    function __construct($db_connection, $max_life_time = null)
     {
-      $data['session_id'] = "{$session_id}";
-      $this->db->insert($data, null);
+        $this->max_life_time = $max_life_time;
+
+        $this->db = new lmbTableGateway($this->session_table_name, $db_connection);
+        $this->db->setPrimaryKeyName('session_id');
     }
 
-    return true;
-  }
+    /**
+     * @see lmbSessionStorage::install()
+     */
+    function install(): bool
+    {
+        return session_set_save_handler(
+            array($this, 'storageOpen'),
+            array($this, 'storageClose'),
+            array($this, 'storageRead'),
+            array($this, 'storageWrite'),
+            array($this, 'storageDestroy'),
+            array($this, 'storageGc')
+        );
+    }
 
-  /**
-   * Removed a row from <b>lmb_session</b> db table
-   * @param string $session_id session ID
-   */
-  function storageDestroy($session_id)
-  {
-    $this->db->delete(new lmbSQLFieldCriteria('session_id', $session_id));
+    /**
+     * Opens session storage
+     * Does nothing and returns true
+     * @return boolean
+     */
+    function storageOpen()
+    {
+        return true;
+    }
 
-    return true;
-  }
+    /**
+     * Closes session storage
+     * Does nothing and returns true
+     * @return boolean
+     */
+    function storageClose()
+    {
+        return true;
+    }
 
-  /**
-   * Checks if storage is still valid. If session if not valid - removes it's row from <b>lmb_session</b> db table
-   * Prefers class attribute {@link $max_life_time} if it's not NULL.
-   * @param integer $max_life_time system session max lifetime
-   */
-  function storageGc($max_life_time)
-  {
-    if($this->max_life_time)
-      $max_life_time = $this->max_life_time;
+    /**
+     * Read a single row from <b>lmb_session</b> db table and returns <b>session_data</b> column
+     * @param string $session_id session ID
+     * @return mixed
+     */
+    function storageRead($session_id)
+    {
+        $rs = $this->db->select(new lmbSQLFieldCriteria('session_id', $session_id));
+        $rs->rewind();
+        if ($rs->valid())
+            return $rs->current()->getBlob('session_data');
+        else
+            return ''; // return String. Important!!!
+    }
 
-    $this->db->delete(new lmbSQLFieldCriteria('last_activity_time', time() - $max_life_time, lmbSQLFieldCriteria::LESS));
+    /**
+     * Creates new or updates existing row in <b>lmb_session</b> db table
+     * @param string $session_id session ID
+     * @param mixed $value session data
+     */
+    function storageWrite($session_id, $value)
+    {
+        $crit = new lmbSQLFieldCriteria('session_id', $session_id);
+        $rs = $this->db->select($crit);
 
-    return true;
-  }
+        $data = array(
+            'last_activity_time' => time(),
+            'session_data' => $value
+        );
+
+        if ($rs->count() > 0) {
+            $this->db->update($data, $crit);
+        } else {
+            $data['session_id'] = "{$session_id}";
+            $this->db->insert($data, null);
+        }
+
+        return true;
+    }
+
+    /**
+     * Removed a row from <b>lmb_session</b> db table
+     * @param string $session_id session ID
+     */
+    function storageDestroy($session_id)
+    {
+        $this->db->delete(new lmbSQLFieldCriteria('session_id', $session_id));
+
+        return true;
+    }
+
+    /**
+     * Checks if storage is still valid. If session if not valid - removes it's row from <b>lmb_session</b> db table
+     * Prefers class attribute {@link $max_life_time} if it's not NULL.
+     * @param integer $max_life_time system session max lifetime
+     */
+    function storageGc($max_life_time)
+    {
+        if ($this->max_life_time)
+            $max_life_time = $this->max_life_time;
+
+        $this->db->delete(new lmbSQLFieldCriteria('last_activity_time', time() - $max_life_time, lmbSQLFieldCriteria::LESS));
+
+        return true;
+    }
 }
