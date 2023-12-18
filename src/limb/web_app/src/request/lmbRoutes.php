@@ -10,6 +10,7 @@
 namespace limb\web_app\src\request;
 
 use limb\core\src\exception\lmbException;
+use limb\web_app\src\Controllers\LmbController;
 
 /**
  * class lmbRoutes.
@@ -200,6 +201,10 @@ class lmbRoutes
 
         if (!$this->_routeParamsMeetRequirements($route, $params)) {
             return "";
+        }
+
+        if(isset($params['controller'])) {
+            $params['controller'] = LmbController::guessControllerName($params['controller']);
         }
 
         foreach ($params as $param_name => $param_value) {
