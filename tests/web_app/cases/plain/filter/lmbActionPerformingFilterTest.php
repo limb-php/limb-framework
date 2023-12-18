@@ -8,6 +8,8 @@
  */
 namespace Tests\web_app\cases\plain\filter;
 
+require_once dirname(__FILE__) . '/../../.setup.php';
+
 use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbToolkit;
 use limb\filter_chain\src\lmbFilterChain;

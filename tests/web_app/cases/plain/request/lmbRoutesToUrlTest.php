@@ -9,6 +9,8 @@
 
 namespace Tests\web_app\cases\plain\request;
 
+require_once dirname(__FILE__) . '/../../.setup.php';
+
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutes;
 use limb\toolkit\src\lmbToolkit;
@@ -97,7 +99,7 @@ class lmbRoutesToUrlTest extends TestCase
         );
 
         $routes = new lmbRoutes($config);
-        $controller = ApiTestingController::class;
+        $controller = new ApiTestingController();
         $this->assertEquals('/api/articles', $routes->toUrl(['controller' => $controller]));
     }
 
