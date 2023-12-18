@@ -18,7 +18,7 @@ class lmbInsertQueryTest extends lmbQueryBaseTestCase
   {
     $startId = $this->db->insert('test_db_table', array('description' => 'text1'));
 
-    $query = new lmbInsertQuery('test_db_table', $this->conn);
+    $query = new lmbInsertQuery('test_db_table', 'id', $this->conn);
     $query->addField('id', $id = $startId+1);
     $query->addField('description', $description = 'Some \'description\'');
     $query->addField('title', $title = 'Some title');
@@ -38,7 +38,7 @@ class lmbInsertQueryTest extends lmbQueryBaseTestCase
 
   function testAddFieldWithoutValueOnlyReservesAPlaceholder()
   {
-    $query = new lmbInsertQuery('test_db_table', $this->conn);
+    $query = new lmbInsertQuery('test_db_table', 'id', $this->conn);
     //$query->addField('id');
     $query->addField('description');
     $query->addField('title');

@@ -21,10 +21,12 @@ class lmbInsertQuery extends lmbTemplateQuery
   protected $_table;
   protected $_fields = array();
   protected $_set_values = array();
+  protected $_primary_key_name;
 
-  function __construct($table, $conn = null)
+  function __construct($table, $primary_key_name = 'id', $conn = null)
   {
     $this->_table = $table;
+    $this->_primary_key_name = $primary_key_name;
 
     $this->setConnection($conn);
 
@@ -32,6 +34,7 @@ class lmbInsertQuery extends lmbTemplateQuery
 
     $this->_registerHint('table');
     $this->_registerHint('values');
+    $this->_registerHint('primary_key_name');
   }
 
   function addField($field, $value = null)

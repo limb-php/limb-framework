@@ -78,7 +78,7 @@ class lmbFullTextSearchIndexer
 
   function _insertNewIndexRecord($uri, $content, $title)
   {
-    $query = new lmbInsertQuery(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'), $this->conn);
+    $query = new lmbInsertQuery(lmb_env_get('FULL_TEXT_SEARCH_INDEXER_TABLE'), 'id', $this->conn);
     $query->addField('uri', $uri->toString());
     $query->addField('content', $content);
     $query->addField('last_modified', time());

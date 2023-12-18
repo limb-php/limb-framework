@@ -22,4 +22,9 @@ class lmbPgsqlLexer extends lmbDbBaseLexer
 //    {
 //        return 'INSERT INTO %table% (%fields%) VALUES (%values%) ON DUPLICATE KEY UPDATE (%new_values%)';
 //    }
+
+    function getInsertQueryTemplate()
+    {
+        return 'INSERT INTO %table% (%fields%) VALUES (%values%) RETURNING %primary_key_name%';
+    }
 }

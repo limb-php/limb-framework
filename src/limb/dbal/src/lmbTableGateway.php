@@ -164,7 +164,7 @@ class lmbTableGateway
                 array('table' => $this->_db_table_name, 'raw' => $row)
             );
 
-        $query = new lmbInsertQuery($this->_db_table_name, $this->_conn);
+        $query = new lmbInsertQuery($this->_db_table_name, $this->_primary_key_name, $this->_conn);
         $values = array();
         $update_sequence = false;
         foreach ($filtered_row as $key => $value) {

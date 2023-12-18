@@ -106,12 +106,13 @@ class lmbDBAL
 
   /**
    * @param string $table
+   * @param string $primary_key_name
    * @param lmbDbConnectionInterface|null $conn
    * @return lmbInsertQuery
    */
-  static function insertQuery($table, $conn = null): lmbInsertQuery
+  static function insertQuery($table, $primary_key_name, $conn = null): lmbInsertQuery
   {
-    return new lmbInsertQuery($table, $conn);
+    return new lmbInsertQuery($table, $primary_key_name, $conn);
   }
 
   /**

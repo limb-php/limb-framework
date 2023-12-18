@@ -99,7 +99,7 @@ class lmbSimpleDb
 
   function insert($table, $values, $primary_key = 'id')
   {
-    $query = new lmbInsertQuery($table, $this->conn);
+    $query = new lmbInsertQuery($table, $primary_key, $this->conn);
 
     foreach($values as $key => $value)
       $query->addField($key, $value);
