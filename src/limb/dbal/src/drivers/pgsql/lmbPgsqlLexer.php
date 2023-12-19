@@ -26,6 +26,6 @@ class lmbPgsqlLexer extends lmbDbBaseLexer
 
     function getInsertQueryTemplate()
     {
-        return 'INSERT INTO %table% (%fields%) VALUES (%values%) RETURNING %primary_key_name%';
+        return 'INSERT INTO %table% (%fields%) VALUES (%values%) %primary_key_name%';
     }
 }

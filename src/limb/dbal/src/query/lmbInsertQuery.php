@@ -23,7 +23,7 @@ class lmbInsertQuery extends lmbTemplateQuery
   protected $_set_values = array();
   protected $_primary_key_name;
 
-  function __construct($table, $primary_key_name = 'id', $conn = null)
+  function __construct($table, $primary_key_name = null, $conn = null)
   {
     $this->_table = $table;
     $this->_primary_key_name = $primary_key_name;
@@ -67,6 +67,11 @@ class lmbInsertQuery extends lmbTemplateQuery
     }
 
     return implode(',', $values);
+  }
+
+  protected function _getPrimaryKeyNameHint()
+  {
+      return $this->_primary_key_name ? (' RETURNING ' . $this->_primary_key_name) : '' ;
   }
 
   function getStatement(): lmbDbStatementInterface
