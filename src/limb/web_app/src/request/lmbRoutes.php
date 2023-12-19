@@ -203,7 +203,7 @@ class lmbRoutes
             return "";
         }
 
-        if(isset($params['controller'])) {
+        if (isset($params['controller'])) {
             $params['controller'] = LmbController::guessControllerName($params['controller']);
         }
 
