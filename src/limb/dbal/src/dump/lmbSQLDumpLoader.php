@@ -18,7 +18,7 @@ use limb\fs\src\exception\lmbFileNotFoundException;
  * @package dbal
  * @version $Id: lmbSQLDumpLoader.php 7486 2009-01-26 19:13:20Z
  */
-class lmbSQLDumpLoader
+class lmbSQLDumpLoader implements lmbSQLDumpLoaderInterface
 {
     protected $affected_tables = array();
     protected $statements = array();

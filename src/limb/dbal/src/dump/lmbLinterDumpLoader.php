@@ -9,69 +9,14 @@
 
 namespace limb\dbal\src\dump;
 
-use limb\dbal\src\lmbSimpleDb;
-use limb\fs\src\exception\lmbFileNotFoundException;
-
 /**
  * class lmbLinterDumpLoader.
  *
  * @package dbal
  * @version $Id: $
  */
-class lmbLinterDumpLoader
+class lmbLinterDumpLoader extends lmbSQLDumpLoader
 {
-    protected $affected_tables = array();
-    protected $statements = array();
-
-    function __construct($file_path = null)
-    {
-        if ($file_path)
-            $this->loadFile($file_path);
-    }
-
-    function getStatements()
-    {
-        return $this->statements;
-    }
-
-    function cleanTables($connection)
-    {
-        $db = new lmbSimpleDb($connection);
-
-        foreach ($this->affected_tables as $table)
-            $db->delete($table);
-    }
-
-    function getAffectedTables()
-    {
-        return $this->affected_tables;
-    }
-
-    function execute($connection, $regex = '')
-    {
-        foreach ($this->statements as $sql) {
-            if ($regex && !preg_match($regex, $sql, $m))
-                continue;
-
-            $stmt = $connection->newStatement($sql);
-            $stmt->execute();
-        }
-    }
-
-    function loadFile($file_path)
-    {
-        if (!file_exists($file_path))
-            throw new lmbFileNotFoundException($file_path);
-
-        $this->loadStatements(file_get_contents($file_path));
-    }
-
-    function loadStatements($sql)
-    {
-        $this->statements = $this->_retrieveStatements($sql);
-        $this->affected_tables = $this->_getAffectedTables($this->statements);
-    }
-
     protected function _getAffectedTables($stmts)
     {
         $affected_tables = array();
