@@ -208,7 +208,7 @@ class lmbHttpRequest extends lmbSet
         if ($this->__pretend_post)
             return true;
 
-        return sizeof($this->__post) > 0 || $this->getMethod() == 'POST';
+        return sizeof($this->__post) > 0 || $this->getMethod() == 'post';
     }
 
     public function getClientIp()
@@ -514,7 +514,7 @@ class lmbHttpRequest extends lmbSet
 
     public function getMethod()
     {
-        return $this->__method;
+        return strtolower($this->__method);
     }
 
     public function withMethod($method)
@@ -526,6 +526,11 @@ class lmbHttpRequest extends lmbSet
         $new = clone($this);
         $new->__method = $method;
         return $new;
+    }
+
+    public function isMethod($method_name): bool
+    {
+        return strncasecmp($this->__method, $method_name, 4) === 0;
     }
 
     public function getAttributes()
