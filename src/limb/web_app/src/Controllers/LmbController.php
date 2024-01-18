@@ -19,6 +19,7 @@ use limb\core\src\lmbString;
 use limb\core\src\exception\lmbException;
 use limb\view\src\lmbJsonView;
 use limb\view\src\lmbView;
+use limb\web_app\src\Helpers\lmbRouteHelper;
 
 lmbEnv::setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
 
@@ -147,36 +148,7 @@ class LmbController
 
     protected function _guessName(): string
     {
-        return self::guessControllerName($this);
-    }
-
-    static function guessControllerName($controllerNameOrClass): string
-    {
-        $refController = new \ReflectionClass($controllerNameOrClass);
-        $ctrlClassName = $refController->getShortName();
-        $ctrlClassNamespace = $refController->getNamespaceName();
-
-        if ($pos = strpos($ctrlClassName, 'Controller'))
-            $ctrlClassName = substr($ctrlClassName, 0, $pos);
-
-        if ($pos = strpos($ctrlClassNamespace, '\\controller')) {
-            $ctrlClassNamespace = substr($ctrlClassNamespace, $pos + 11);
-        } elseif ($pos = strpos($ctrlClassNamespace, '\\Controllers')) {
-            $ctrlClassNamespace = substr($ctrlClassNamespace, $pos + 12);
-        }
-
-        if ($ctrlClassNamespace) {
-            $ctrlClassNamespaceArr = explode('\\', $ctrlClassNamespace);
-            $ctrlClassNameArr = array_merge($ctrlClassNamespaceArr, [$ctrlClassName]);
-        } else {
-            $ctrlClassNameArr = [$ctrlClassName];
-        }
-
-        $ctrlClassNameArr = array_map(function ($part) {
-            return lmbString::under_scores($part);
-        }, $ctrlClassNameArr);
-
-        return implode('.', $ctrlClassNameArr);
+        return lmbRouteHelper::getControllerNameByClass($this);
     }
 
     function getView()
