@@ -21,19 +21,38 @@ use limb\core\src\exception\lmbException;
  */
 class lmbLog
 {
+    protected $notifyLevel;
+
     protected $logs = [];
     protected $log_writers = []; // 'writer' => class, 'allowed_levels' => []
 
     protected $backtrace_depth = [
-        LOG_EMERG => 5,
-        LOG_ALERT => 3,
-        LOG_CRIT => 5,
-        LOG_ERR => 5,
-        LOG_WARNING => 1,
-        LOG_NOTICE => 1,
+        LOG_DEBUG => 5,
         LOG_INFO => 3,
-        LOG_DEBUG => 5
+        LOG_NOTICE => 1,
+        LOG_WARNING => 1,
+        LOG_ERR => 5,
+        LOG_CRIT => 5,
+        LOG_ALERT => 3,
+        LOG_EMERG => 5
     ];
+
+    public function __construct()
+    {
+        $this->notifyLevel = lmbEnv::get('LIMB_LOG_LEVEL', LOG_NOTICE);
+    }
+
+    /**
+     * Set the notifyLevel of the logger, as defined in Psr\Log\LogLevel.
+     *
+     * @param int $notifyLevel
+     *
+     * @return void
+     */
+    public function setNotifyLevel(int $notifyLevel): void
+    {
+        $this->notifyLevel = $notifyLevel;
+    }
 
     function registerWriter($writer, $allowed_levels = [])
     {
@@ -58,9 +77,21 @@ class lmbLog
         $this->log_writers = [];
     }
 
-    function isLogEnabled(): bool
+    /**
+     * Checks whether the selected level is above another level.
+     *
+     * @param mixed  $level
+     * @param string $base
+     *
+     * @return bool
+     */
+    protected function aboveLevel($level, $base): bool
     {
-        return (bool)lmbEnv::get('LIMB_LOG_ENABLE', true);
+        $levelOrder = array_keys($this->backtrace_depth);
+        $baseIndex = array_search($base, $levelOrder);
+        $levelIndex = array_search($level, $levelOrder);
+
+        return $levelIndex >= $baseIndex;
     }
 
     function setBacktraceDepth($log_level, $depth)
@@ -110,8 +141,9 @@ class lmbLog
 
     public function log($level, $message, $context = [], $backtrace = null)
     {
-        if (!$this->isLogEnabled())
+        if (!$this->aboveLevel($level, $this->notifyLevel)) {
             return;
+        }
 
         if (!$backtrace)
             $backtrace = new lmbBacktrace($this->backtrace_depth[$level]);
@@ -121,8 +153,9 @@ class lmbLog
 
     function logException($exception)
     {
-        if (!$this->isLogEnabled())
+        if (!$this->aboveLevel(LOG_ERR, $this->notifyLevel)) {
             return;
+        }
 
         $backtrace_depth = $this->backtrace_depth[LOG_ERR];
 
