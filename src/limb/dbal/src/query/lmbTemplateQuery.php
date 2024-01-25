@@ -84,9 +84,10 @@ abstract class lmbTemplateQuery
         foreach ($this->_hints as $hint) {
             $method = '_get' . lmbString::camel_case($hint) . 'Hint';
             $wrapped_hint = $this->_wrapHint($hint);
-            if (!strpos($this->_template_sql, $wrapped_hint))
-                throw new lmbException('Hint ' . $wrapped_hint . ' is not found in template sql "' . $this->_template_sql . '"');
-            $result[$wrapped_hint] = $this->$method();
+            //if (!strpos($this->_template_sql, $wrapped_hint))
+                //throw new lmbException('Hint ' . $wrapped_hint . ' is not found in template sql "' . $this->_template_sql . '"');
+            if (strpos($this->_template_sql, $wrapped_hint))
+                $result[$wrapped_hint] = $this->$method();
         }
 
         $hints_in_template_sql = $this->_findAndWrapHintsFromTemplateSql();
