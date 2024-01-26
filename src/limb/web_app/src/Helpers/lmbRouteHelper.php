@@ -9,6 +9,9 @@ class lmbRouteHelper
 
     static function getControllerNameByClass($controllerNameOrClass): string
     {
+        if( is_string($controllerNameOrClass) && !class_exists($controllerNameOrClass) )
+            return $controllerNameOrClass;
+
         $refController = new \ReflectionClass($controllerNameOrClass);
         $ctrlClassName = $refController->getShortName();
         $ctrlClassNamespace = $refController->getNamespaceName();
