@@ -190,7 +190,7 @@ class lmbUri implements UriInterface
     function compare($uri)
     {
         return (
-            $this->protocol == $uri->getProtocol() &&
+            $this->protocol == $uri->getScheme() &&
             $this->host == $uri->getHost() &&
             $this->port == $uri->getPort() &&
             $this->user === $uri->getUser() &&
@@ -451,7 +451,7 @@ class lmbUri implements UriInterface
 
     public function getScheme()
     {
-        return $this->getProtocol();
+        return $this->protocol;
     }
 
     public function getAuthority()
