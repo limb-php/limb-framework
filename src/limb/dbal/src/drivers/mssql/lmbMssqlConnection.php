@@ -58,8 +58,10 @@ class lmbMssqlConnection extends lmbDbBaseConnection
         ini_set("mssql.textlimit", "2147483647");
         $this->connectionId = sqlsrv_connect($this->config['host'],
             [
-                $this->config['user'],
-                $this->config['password']
+                "Database" => $this->config['database'],
+                "CharacterSet" => $this->config['charset'],
+                "UID" => $this->config['user'],
+                "PWD" => $this->config['password']
             ]
         );
 
@@ -67,18 +69,9 @@ class lmbMssqlConnection extends lmbDbBaseConnection
             $this->_raiseError();
         }
 
-        if (sqlsrv_select_db($this->config['database'], $this->connectionId) === false) {
-            $this->_raiseError();
-        }
-        sqlsrv_query("SET QUOTED_IDENTIFIER ON");
-        sqlsrv_query("SET ANSI_NULL_DFLT_ON ON");
-        sqlsrv_query("SET DATEFORMAT ymd");
-
-        //fixme
-//    if(isset($this->config['charset']) && $charset = $this->config['charset'])
-//    {
-//      mysql_query("SET NAMES '$charset'",  $this->connectionId);
-//    }
+        sqlsrv_query($this->connectionId, "SET QUOTED_IDENTIFIER ON");
+        sqlsrv_query($this->connectionId, "SET ANSI_NULL_DFLT_ON ON");
+        sqlsrv_query($this->connectionId, "SET DATEFORMAT ymd");
     }
 
     function __wakeup()
@@ -99,7 +92,13 @@ class lmbMssqlConnection extends lmbDbBaseConnection
         if (!$this->getConnectionId())
             throw new lmbDbException('Could not connect to host "' . $this->config['host'] . '" and database "' . $this->config['database'] . '"');
 
-        $errstr = sqlsrv_get_last_message();
+        $errarr = sqlsrv_errors();
+        $errstr = '';
+        foreach($errarr as $err) {
+            $errstr .= "SQLSTATE: " . $err[ 'SQLSTATE'] . "\n\r";
+            $errstr .= "code: " . $err[ 'code'] . "\n\r";
+            $errstr .= "message: " . $err[ 'message'] . "\n\r";
+        }
         $id = 'DB_ERROR';
         $info = array('driver' => 'lmbMssql');
         if (!empty($errstr)) {
@@ -117,14 +116,14 @@ class lmbMssqlConnection extends lmbDbBaseConnection
     function execute($sql)
     {
         if (lmbEnv::get('LIMB_APP_MODE') === "devel") {
-            //Profiler :: instance()->addHit("Query");
-            //Profiler :: instance()->startIncrementCheckpoint("sql_time");
+            //Profiler::instance()->addHit("Query");
+            //Profiler::instance()->startIncrementCheckpoint("sql_time");
         }
         $sql = mb_convert_encoding($sql, 'Windows-1251', 'UTF-8');
-        $result = sqlsrv_query($sql, $this->getConnectionId());
+        $result = sqlsrv_query($this->getConnectionId(), $sql);
         if (lmbEnv::get('LIMB_APP_MODE') === "devel") {
             error_log($sql . "\n\n\n", 3, lmbEnv::get('LIMB_VAR_DIR') . '/log/query.log');
-            //Profiler :: instance()->stopIncrementCheckpoint("sql_time");
+            //Profiler::instance()->stopIncrementCheckpoint("sql_time");
         }
         if ($result === false) {
             $this->_raiseError($sql);
