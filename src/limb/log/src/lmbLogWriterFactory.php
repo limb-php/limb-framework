@@ -25,7 +25,7 @@ class lmbLogWriterFactory
         if (!is_object($dsn))
             $dsn = new lmbUri($dsn);
 
-        $writer_name = 'lmbLog' . ucfirst($dsn->getProtocol()) . 'Writer';
+        $writer_name = 'lmbLog' . ucfirst($dsn->getScheme()) . 'Writer';
         $writerClassName = "limb\\log\\src\\" . $writer_name;
 
         try {

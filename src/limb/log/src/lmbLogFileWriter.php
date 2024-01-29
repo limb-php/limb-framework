@@ -24,9 +24,12 @@ class lmbLogFileWriter implements lmbLogWriterInterface
 {
     protected $log_file;
 
-    function __construct(lmbUri $dsn)
+    function __construct($dsn_or_path)
     {
-        $this->log_file = $dsn->getPath();
+        if( is_a($dsn_or_path, lmbUri::class) )
+            $this->log_file = $dsn_or_path->getPath();
+        else
+            $this->log_file = $dsn_or_path;
     }
 
     function write(lmbLogEntry $entry)

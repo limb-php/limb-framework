@@ -9,8 +9,6 @@
 
 namespace limb\log\src;
 
-use limb\net\src\lmbUri;
-
 /**
  * class lmbLogEchoWriter.
  *
@@ -21,7 +19,7 @@ class lmbLogSyslogWriter implements lmbLogWriterInterface
 {
     const DELIMITER = '|||';
 
-    function __construct(lmbUri $dsn)
+    function __construct()
     {
         openlog('LIMB', LOG_ODELAY | LOG_PID, LOG_USER);
     }

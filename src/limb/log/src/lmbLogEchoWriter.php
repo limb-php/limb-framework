@@ -9,8 +9,6 @@
 
 namespace limb\log\src;
 
-use limb\net\src\lmbUri;
-
 /**
  * class lmbLogEchoWriter.
  *
@@ -19,10 +17,6 @@ use limb\net\src\lmbUri;
  */
 class lmbLogEchoWriter implements lmbLogWriterInterface
 {
-    function __construct(lmbUri $dsn)
-    {
-    }
-
     function write(lmbLogEntry $entry)
     {
         echo $entry->toString();
