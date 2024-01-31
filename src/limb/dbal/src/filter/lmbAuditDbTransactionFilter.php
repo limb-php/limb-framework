@@ -6,6 +6,8 @@ use limb\core\src\lmbEnv;
 use limb\datetime\src\lmbDateTime;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\dbal\src\drivers\lmbAuditDbConnection;
+use limb\log\src\lmbLog;
+use limb\log\src\lmbLogPlainFileWriter;
 use limb\toolkit\src\lmbToolkit;
 
 class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
@@ -49,9 +51,11 @@ class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
 
         if ($response->getContentType() == 'text/html') {
             $response->append("<!--" . $output . " -->");
-        } else {
-            file_put_contents(lmbEnv::get('LIMB_VAR_DIR') . "/log/db.log", $output, FILE_APPEND);
         }
+
+        $log = new lmbLog();
+        $log->registerWriter(new lmbLogPlainFileWriter(lmbEnv::get('LIMB_VAR_DIR') . "/log/db.log"));
+        $log->log(LOG_INFO, $output);
 
     }
 }
