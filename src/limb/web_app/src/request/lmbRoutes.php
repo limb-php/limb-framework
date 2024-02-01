@@ -68,6 +68,7 @@ class lmbRoutes
                     return $path;
             }
         }
+
         throw new lmbException($message = "Route '$route_name' not found for params '" . var_export($params, true) . "'");
     }
 
@@ -196,15 +197,18 @@ class lmbRoutes
 
     function _makeUrlByRoute($params, $route)
     {
-        $prefix = $route['prefix'] ? '/' . $route['prefix'] : '';
-        $path = $route['prefix'] ? ':prefix' . $route['path'] : $route['path'];
+        $prefix = $route['prefix'] ?? '';
+        $path = $route['prefix'] ? '/:prefix' . $route['path'] : $route['path'];
 
         if (!$this->_routeParamsMeetRequirements($route, $params)) {
             return "";
         }
 
         if (isset($params['controller'])) {
-            $params['controller'] = lmbRouteHelper::getControllerNameByClass($params['controller']);
+            $params['controller'] = lmbRouteHelper::getControllerNameByClass($params['controller'], '/');
+
+            if ($prefix)
+                $params['controller'] = str_replace($prefix . '/', '', $params['controller']);
         }
 
         foreach ($params as $param_name => $param_value) {
@@ -220,10 +224,6 @@ class lmbRoutes
 
             if (strpos($path, ':' . $param_name) === false)
                 continue;
-
-            if ($prefix && $param_name === 'controller') {
-                $param_value = str_replace($prefix . '.', '', $param_value);
-            }
 
             $path = preg_replace('/\:' . preg_quote($param_name) . '\:?/', $param_value, $path);
             unset($params[$param_name]);

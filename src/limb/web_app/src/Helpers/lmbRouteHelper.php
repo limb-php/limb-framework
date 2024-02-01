@@ -7,7 +7,7 @@ use limb\core\src\lmbString;
 class lmbRouteHelper
 {
 
-    static function getControllerNameByClass($controllerNameOrClass): string
+    static function getControllerNameByClass($controllerNameOrClass, $separator = '.'): string
     {
         if (is_string($controllerNameOrClass) && !class_exists($controllerNameOrClass))
             return $controllerNameOrClass;
@@ -36,7 +36,7 @@ class lmbRouteHelper
             return lmbString::under_scores($part);
         }, $ctrlClassNameArr);
 
-        return implode('.', $ctrlClassNameArr);
+        return implode($separator, $ctrlClassNameArr);
     }
 
 }

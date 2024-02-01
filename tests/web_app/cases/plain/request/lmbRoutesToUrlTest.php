@@ -15,7 +15,10 @@ use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutes;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
+use Tests\web_app\cases\plain\src\Controllers\Api\Admin\FreeController;
 use Tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
+use Tests\web_app\cases\plain\src\Controllers\SecondTestingController;
+use Tests\web_app\cases\plain\src\Controllers\TestingForwardController;
 
 class lmbRoutesToUrlTest extends TestCase
 {
@@ -87,20 +90,38 @@ class lmbRoutesToUrlTest extends TestCase
                 'path' => '/:controller',
                 'defaults' => array(
                     'namespace' => 'Tests\web_app\cases\plain\src\Controllers\Api',
-                    'action' => 'display')
+                    'action' => 'display'
+                )
+            ),
+
+            'api_admin_articles' => array(
+                'prefix' => 'api',
+                'path' => '/admin/:controller',
+                'defaults' => array(
+                    'namespace' => 'Tests\web_app\cases\plain\src\Controllers\Api\Admin',
+                    'action' => 'display'
+                )
             ),
 
             'articles' => array(
-                'path' => '/:controller',
+                'path' => '/articles',
                 'defaults' => array(
-                    'controller' => 'Articles',
-                    'action' => 'display')
+                    'controller' => 'second_testing',
+                    'action' => 'display'
+                )
             ),
         );
 
         $routes = new lmbRoutes($config);
-        $controller = new ApiTestingController();
-        $this->assertEquals('/api/articles', $routes->toUrl(['controller' => $controller]));
+
+        $controller = ApiTestingController::class;
+        $this->assertEquals('/api/api_testing', $routes->toUrl(['controller' => $controller]));
+
+        $controller2 = SecondTestingController::class;
+        $this->assertEquals('/articles', $routes->toUrl(['controller' => $controller2], 'articles'));
+
+        $controller3 = new FreeController();
+        $this->assertEquals('/api/admin/free', $routes->toUrl(['controller' => $controller3]));
     }
 
     function testToUrlUseNamedParam()
