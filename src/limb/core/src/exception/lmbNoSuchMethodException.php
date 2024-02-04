@@ -9,8 +9,6 @@
 
 namespace limb\core\src\exception;
 
-use limb\core\src\exception\lmbException;
-
 /**
  * class lmbNoSuchMethodException.
  * Used in __call() methods.
@@ -21,5 +19,3 @@ use limb\core\src\exception\lmbException;
 class lmbNoSuchMethodException extends lmbException
 {
 }
-
-

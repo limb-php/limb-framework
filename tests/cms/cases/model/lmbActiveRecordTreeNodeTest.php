@@ -91,7 +91,7 @@ class lmbActiveRecordTreeNodeTest extends lmbCmsTestCase
         //force tree init
         $node = $this->_createDocument('root', $parent_node = null);
 
-        $root = lmbActiveRecord::findOne(lmbCmsDocument::class, array('sort' => 'id'));
+        $root = lmbActiveRecord::findFirst(lmbCmsDocument::class, array('sort' => 'id'));
 
         $this->assertTrue($root->isRoot());
     }

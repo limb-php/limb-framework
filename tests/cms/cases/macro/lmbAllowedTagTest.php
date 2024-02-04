@@ -91,21 +91,21 @@ class lmbAllowedTagTest extends lmbBaseMacroTestCase
 
     function testWithAllParams_Positive()
     {
-        $macro = $this->_createMacroByText('{{allowed role="man" resource="girl" privelege="marry"}}foo{{/allowed}}');
+        $macro = $this->_createMacroByText('{{allowed role="man" resource="girl" privilege="marry"}}foo{{/allowed}}');
 
         $out = $macro->render();
         $this->assertEquals('foo', $out);
     }
 
-    function testWithAllParams_Negative_Privelege()
+    function testWithAllParams_Negative_Privilege()
     {
-        $macro = $this->_createMacroByText('{{allowed role="boy" resource="girl" privelege="marry"}}foo{{/allowed}}');
+        $macro = $this->_createMacroByText('{{allowed role="boy" resource="girl" privilege="marry"}}foo{{/allowed}}');
 
         $out = $macro->render();
         $this->assertEquals('', $out);
     }
 
-    function testWithoutPrivelege_Positive()
+    function testWithoutPrivilege_Positive()
     {
         $macro = $this->_createMacroByText('{{allowed role="man" resource="vodka"}}foo{{/allowed}}');
 
@@ -113,7 +113,7 @@ class lmbAllowedTagTest extends lmbBaseMacroTestCase
         $this->assertEquals('foo', $out);
     }
 
-    function testWithoutPrivelege_Negative()
+    function testWithoutPrivilege_Negative()
     {
         $macro = $this->_createMacroByText('{{allowed role="boy" resource="vodka"}}foo{{/allowed}}');
 

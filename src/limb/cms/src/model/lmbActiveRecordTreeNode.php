@@ -108,7 +108,7 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
     static function findRoot($class_name = '')
     {
         if (!$class_name)
-            $class_name = self::_getCallingClass();
+            $class_name = static::class;
 
         return lmbActiveRecord::findFirst($class_name, lmbSQLCriteria::equal('parent_id', 0));
     }

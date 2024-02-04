@@ -682,11 +682,11 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $object1 = $this->creator->createOneTableObject();
         $object2 = $this->creator->createOneTableObject();
 
-        $object = lmbActiveRecord::findOneBySql(TestOneTableObject::class, 'select * from ' . lmbActiveRecord::getDefaultConnection()->quoteIdentifier("test_one_table_object") . ' order by ' . lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . ' desc');
+        $object = lmbActiveRecord::findFirstBySql(TestOneTableObject::class, 'select * from ' . lmbActiveRecord::getDefaultConnection()->quoteIdentifier("test_one_table_object") . ' order by ' . lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . ' desc');
         $this->assertEquals($object2->getId(), $object->getId());
 
         //testing convenient alias
-        $object = TestOneTableObject::findOneBySql('select * from ' . lmbActiveRecord::getDefaultConnection()->quoteIdentifier("test_one_table_object") . ' order by ' . lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . ' desc');
+        $object = TestOneTableObject::findFirstBySql('select * from ' . lmbActiveRecord::getDefaultConnection()->quoteIdentifier("test_one_table_object") . ' order by ' . lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . ' desc');
         $this->assertEquals($object2->getId(), $object->getId());
     }
 

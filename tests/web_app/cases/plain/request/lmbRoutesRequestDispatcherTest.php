@@ -35,8 +35,12 @@ class lmbRoutesRequestDispatcherTest extends TestCase
 
     function testDispatch()
     {
-        $config_array = array(array('path' => '/:controller/:action',
-            'defaults' => array('action' => 'display')));
+        $config_array = array(
+            array(
+                'path' => '/:controller/:action',
+                'defaults' => array('action' => 'display')
+            )
+        );
         $routes = new lmbRoutes($config_array);
         $this->toolkit->setRoutes($routes);
 
@@ -52,7 +56,9 @@ class lmbRoutesRequestDispatcherTest extends TestCase
 
     function testUseActionFromRequestEvenIfMatchedByRoutes()
     {
-        $config_array = array(array('path' => '/:controller/:action'));
+        $config_array = array(
+            array('path' => '/:controller/:action')
+        );
         $routes = new lmbRoutes($config_array);
         $this->toolkit->setRoutes($routes);
 
@@ -69,7 +75,9 @@ class lmbRoutesRequestDispatcherTest extends TestCase
 
     function testUseControllerNameFromRequestEvenIfMatchedByRoutes()
     {
-        $config_array = array(array('path' => '/:controller/:action'));
+        $config_array = array(
+            array('path' => '/:controller/:action')
+        );
         $routes = new lmbRoutes($config_array);
         $this->toolkit->setRoutes($routes);
 
@@ -86,7 +94,9 @@ class lmbRoutesRequestDispatcherTest extends TestCase
 
     function testNormalizeUrl()
     {
-        $config_array = array(array('path' => '/:controller/:action'));
+        $config_array = array(
+            array('path' => '/:controller/:action')
+        );
         $routes = new lmbRoutes($config_array);
         $this->toolkit->setRoutes($routes);
 
@@ -116,14 +126,16 @@ class lmbRoutesRequestDispatcherTest extends TestCase
 
     function testDispatchWithOffset()
     {
-        $config_array = array(array('path' => ':controller/:action'));
+        $config_array = array(
+            array('path' => ':controller/:action')
+        );
         $routes = new lmbRoutes($config_array);
         $this->toolkit->setRoutes($routes);
 
         $dispatcher = new lmbRoutesRequestDispatcher($path_offset = '/www',
-            $base_path = 'http://example.com/app/');
+            $base_path = 'https://example.com/app/');
 
-        $uri = new lmbUri('http://example.com/app/news/admin_display');
+        $uri = new lmbUri('https://example.com/app/news/admin_display');
         $this->request = $this->request->withUri($uri);
         $result = $dispatcher->dispatch($this->request);
 

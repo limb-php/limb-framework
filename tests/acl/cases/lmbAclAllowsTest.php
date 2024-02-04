@@ -74,7 +74,7 @@ class lmbAclAllowsTest extends TestCase
         $this->assertTrue($acl->isAllowed('guest', 'news', 'view'));
     }
 
-    function testAllowAndDenyOnPrivelege()
+    function testAllowAndDenyOnPrivilege()
     {
         $this->acl->addRole('guest');
         $this->acl->addResource('news');
@@ -164,7 +164,7 @@ class lmbAclAllowsTest extends TestCase
         $this->assertFalse($acl->isAllowed('spy', 'secret'));
     }
 
-    function testAllowAndDenyWithInherits_PrivelegesLevelRules()
+    function testAllowAndDenyWithInherits_PrivilegesLevelRules()
     {
         $acl = $this->_createUserSpyAndSecret();
 
@@ -175,7 +175,7 @@ class lmbAclAllowsTest extends TestCase
         $this->assertFalse($acl->isAllowed('spy', 'secret', 'view'));
     }
 
-    function testAllowAndDenyWithInherits_PrivelegesWithoutResource()
+    function testAllowAndDenyWithInherits_PrivilegesWithoutResource()
     {
         $acl = $this->_createUserSpyAndSecret();
 

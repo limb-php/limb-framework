@@ -29,15 +29,13 @@ class lmbWebApplicationSandbox extends lmbFilterChain
         $this->app = $app;
     }
 
-    function imitate($request, $response)
+    function imitate($request)
     {
-        $response = new lmbFakeHttpResponse();
-
         $toolkit = lmbToolkit::instance();
         $toolkit->setRequest($request);
-        $toolkit->setResponse($response);
+        $toolkit->setResponse(new lmbFakeHttpResponse());
         $toolkit->setSession(new lmbFakeSession());
 
-        return $this->app->process($request, $response);
+        return $this->app->process($request);
     }
 }

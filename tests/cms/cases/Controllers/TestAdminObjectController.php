@@ -9,83 +9,111 @@ class TestAdminObjectController extends lmbAdminObjectController
     protected $_object_class_name = AdminObjectForTesting::class;
     protected $in_popup = false;
 
+    protected $result = '';
+
+    function getResult()
+    {
+        return $this->result;
+    }
+
+    function doCreate()
+    {
+        parent::doCreate();
+
+        return $this->result;
+    }
+
+    function doEdit()
+    {
+        parent::doEdit();
+
+        return $this->result;
+    }
+
+    function doDelete()
+    {
+        parent::doDelete();
+
+        return $this->result;
+    }
+
     protected function _onBeforeSave()
     {
-        response()->append('onBeforeSave|');
+        $this->result .= 'onBeforeSave|';
     }
 
     protected function _onAfterSave()
     {
-        response()->append('onAfterSave|');
+        $this->result .= 'onAfterSave|';
     }
 
     protected function _onBeforeValidate()
     {
-        response()->append('onBeforeValidate|');
+        $this->result .= 'onBeforeValidate|';
     }
 
     protected function _onAfterValidate()
     {
-        response()->append('onAfterValidate|');
+        $this->result .= 'onAfterValidate|';
     }
 
     protected function _onBeforeImport()
     {
-        response()->append('onBeforeImport|');
+        $this->result .= 'onBeforeImport|';
     }
 
     protected function _onAfterImport()
     {
-        response()->append('onAfterImport|');
+        $this->result .= 'onAfterImport|';
     }
 
     protected function _onBeforeCreate()
     {
-        response()->append('onBeforeCreate|');
+        $this->result .= 'onBeforeCreate|';
     }
 
     protected function _onAfterCreate()
     {
-        response()->append('onAfterCreate|');
+        $this->result .= 'onAfterCreate|';
     }
 
     protected function _onCreate()
     {
-        response()->append('onCreate|');
+        $this->result .= 'onCreate|';
     }
 
     protected function _onBeforeUpdate()
     {
-        response()->append('onBeforeUpdate|');
+        $this->result .= 'onBeforeUpdate|';
     }
 
     protected function _onUpdate()
     {
-        response()->append('onUpdate|');
+        $this->result .= 'onUpdate|';
     }
 
     protected function _onAfterUpdate()
     {
-        response()->append('onAfterUpdate|');
+        $this->result .= 'onAfterUpdate|';
     }
 
     protected function _onBeforeDelete()
     {
-        response()->append('onBeforeDelete|');
+        $this->result .= 'onBeforeDelete|';
     }
 
     protected function _onAfterDelete()
     {
-        response()->append('onAfterDelete|');
+        $this->result .= 'onAfterDelete|';
     }
 
     protected function _initCreateForm()
     {
-        response()->append('initCreateForm|');
+        $this->result .= 'initCreateForm|';
     }
 
     protected function _initEditForm()
     {
-        response()->append('initEditForm|');
+        $this->result .= 'initEditForm|';
     }
 }
