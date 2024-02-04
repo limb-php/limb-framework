@@ -9,13 +9,13 @@
 
 namespace Tests\imagekit\cases\gd\filters;
 
-use Tests\imagekit\cases\filters\lmbBaseOutputImageFilterTest;
+use Tests\imagekit\cases\filters\lmbBaseOutputImageFilterTestCase;
 
 /**
  * @package imagekit
  * @version $Id: lmbGdOutputImageFilterTest.php 8065 2010-01-20 04:18:19Z
  */
-class lmbGdOutputImageFilterTest extends lmbBaseOutputImageFilterTest
+class lmbGdOutputImageFilterTest extends lmbBaseOutputImageFilterTestCase
 {
     protected $driver = 'gd';
 }

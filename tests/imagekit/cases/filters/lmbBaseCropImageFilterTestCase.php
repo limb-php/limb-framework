@@ -15,7 +15,7 @@ use Tests\imagekit\cases\lmbImageKitTestCase;
  * @package imagekit
  * @version $Id: lmbGdCropImageFilterTest.php 7486 2009-01-26 19:13:20Z
  */
-abstract class lmbBaseCropImageFilterTest extends lmbImageKitTestCase
+abstract class lmbBaseCropImageFilterTestCase extends lmbImageKitTestCase
 {
     function testTrueColorCrop()
     {

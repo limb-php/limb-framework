@@ -21,7 +21,7 @@ class lmbImCropImageFilter extends lmbAbstractImageFilter
 {
     function apply(lmbAbstractImageContainer $container)
     {
-        if ($this->getWidth() == 0 || $this->getHeight() == 0)
+        if ($this->getWidth() === 0 || $this->getHeight() === 0)
             return;
 
         list($x, $y, $width, $height) = $this->calculateCropArea($container->getWidth(), $container->getHeight());
@@ -34,15 +34,16 @@ class lmbImCropImageFilter extends lmbAbstractImageFilter
 
     function calculateCropArea($image_width, $image_height)
     {
-        $width = $this->getWidth();
-        $height = $this->getHeight();
-        if ($width === null)
-            $width = $image_width;
-        if ($height === null)
-            $height = $image_height;
-
         $x = $this->getX();
         $y = $this->getY();
+        $width = $this->getWidth();
+        $height = $this->getHeight();
+        if ($width === null) {
+            $width = $image_width;
+        }
+        if ($height === null) {
+            $height = $image_height;
+        }
 
         if (is_string($x)) {
             if ($x == "left") {

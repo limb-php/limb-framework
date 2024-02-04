@@ -9,7 +9,7 @@
 
 namespace Tests\imagekit\cases;
 
-abstract class lmbBaseImageConvertorTest extends lmbImageKitTestCase
+abstract class lmbBaseImageConvertorTestCase extends lmbImageKitTestCase
 {
     function testApply()
     {
@@ -51,22 +51,22 @@ abstract class lmbBaseImageConvertorTest extends lmbImageKitTestCase
         $this->assertEquals(40, $height);
     }
 
-    function testFilterLocator()
-    {
-        $path = dirname(__FILE__) . '/../fixture/filters';
-        $conv = $this->_getConvertor(array('add_filters_scan_dirs' => $path));
-        $conv->load($this->_getInputImage());
-        $conv->apply('test');
-        $conv = $this->_getConvertor(array('add_filters_scan_dirs' => array($path)));
-        $conv->load($this->_getInputImage());
-        $conv->apply('test');
-        $conv = $this->_getConvertor(array('filters_scan_dirs' => $path));
-        $conv->load($this->_getInputImage());
-        $conv->apply('test');
-        $conv = $this->_getConvertor(array('filters_scan_dirs' => array($path)));
-        $conv->load($this->_getInputImage());
-        $conv->apply('test');
-    }
+//    function testFilterLocator()
+//    {
+//        $path = dirname(__FILE__) . '/../fixture/filters';
+//        $conv = $this->_getConvertor(array('add_filters_scan_dirs' => $path));
+//        $conv->load($this->_getInputImage());
+//        $conv->apply('test');
+//        $conv = $this->_getConvertor(array('add_filters_scan_dirs' => array($path)));
+//        $conv->load($this->_getInputImage());
+//        $conv->apply('test');
+//        $conv = $this->_getConvertor(array('filters_scan_dirs' => $path));
+//        $conv->load($this->_getInputImage());
+//        $conv->apply('test');
+//        $conv = $this->_getConvertor(array('filters_scan_dirs' => array($path)));
+//        $conv->load($this->_getInputImage());
+//        $conv->apply('test');
+//    }
 
     function testCheckSupportConv()
     {

@@ -9,9 +9,9 @@
 
 namespace Tests\imagekit\cases\gd;
 
-use Tests\imagekit\cases\lmbBaseImageConvertorTest;
+use Tests\imagekit\cases\lmbBaseImageConvertorTestCase;
 
-class lmbGdImageConvertorTest extends lmbBaseImageConvertorTest
+class lmbGdImageConvertorTest extends lmbBaseImageConvertorTestCase
 {
     protected $driver = 'gd';
 }

@@ -9,13 +9,13 @@
 
 namespace Tests\imagekit\cases\im\filters;
 
-use Tests\imagekit\cases\filters\lmbBaseOutputImageFilterTest;
+use Tests\imagekit\cases\filters\lmbBaseOutputImageFilterTestCase;
 
 /**
  * @package imagekit
  * @version $Id: lmbGdCropImageFilterTest.php 7486 2009-01-26 19:13:20Z
  */
-class lmbImOutputImageFilterTest extends lmbBaseOutputImageFilterTest
+class lmbImOutputImageFilterTest extends lmbBaseOutputImageFilterTestCase
 {
     protected $driver = 'im';
 

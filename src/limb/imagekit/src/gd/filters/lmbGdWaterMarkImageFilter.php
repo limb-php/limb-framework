@@ -66,9 +66,9 @@ class lmbGdWaterMarkImageFilter extends lmbAbstractImageFilter
      */
     function calcPosition($x, $y, $width, $height, $wm_width, $wm_height, $x_center = false, $y_center = false)
     {
-        if ($x == 'center')
+        if ($x === 'center')
             $x_center = true;
-        if ($y == 'center')
+        if ($y === 'center')
             $y_center = true;
 
         if ($x_center !== false) {
@@ -78,7 +78,7 @@ class lmbGdWaterMarkImageFilter extends lmbAbstractImageFilter
                 $x = 0;
             if ($x === 'right')
                 $x = $width - $wm_width;
-            if ($wm_width < $width && $x < 0)
+            if (($wm_width < $width) && ($x < 0))
                 $x += $width;
         }
         if ($y_center !== false) {
@@ -88,7 +88,7 @@ class lmbGdWaterMarkImageFilter extends lmbAbstractImageFilter
                 $y = 0;
             if ($y === 'bottom')
                 $y = $height - $wm_height;
-            if ($wm_height < $height && $y < 0)
+            if (($wm_height < $height) && ($y < 0))
                 $y += $height;
         }
         return array($x, $y);

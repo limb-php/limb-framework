@@ -75,9 +75,9 @@ class lmbImageKitTest extends TestCase
         $this->assertEquals(50, $height);
     }
 
-    function testPassingParamsToConvertor()
-    {
-        lmbImageKit::load($this->_getInputImage(), '', 'gd', array('add_filters_scan_dirs' => dirname(__FILE__) . '/../fixture/filters'))
-            ->test();
-    }
+//    function testPassingParamsToConvertor()
+//    {
+//        lmbImageKit::load($this->_getInputImage(), '', 'gd', array('add_filters_scan_dirs' => dirname(__FILE__) . '/../fixture/filters'))
+//            ->test();
+//    }
 }

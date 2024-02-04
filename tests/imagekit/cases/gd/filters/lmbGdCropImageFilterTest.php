@@ -9,13 +9,13 @@
 
 namespace Tests\imagekit\cases\gd\filters;
 
-use Tests\imagekit\cases\filters\lmbBaseCropImageFilterTest;
+use Tests\imagekit\cases\filters\lmbBaseCropImageFilterTestCase;
 
 /**
  * @package imagekit
  * @version $Id: lmbGdCropImageFilterTest.php 8065 2010-01-20 04:18:19Z
  */
-class lmbGdCropImageFilterTest extends lmbBaseCropImageFilterTest
+class lmbGdCropImageFilterTest extends lmbBaseCropImageFilterTestCase
 {
     protected $driver = 'gd';
 }

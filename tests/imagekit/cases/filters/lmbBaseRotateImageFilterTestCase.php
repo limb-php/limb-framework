@@ -11,7 +11,7 @@ namespace Tests\imagekit\cases\filters;
 
 use Tests\imagekit\cases\lmbImageKitTestCase;
 
-abstract class lmbBaseRotateImageFilterTest extends lmbImageKitTestCase
+abstract class lmbBaseRotateImageFilterTestCase extends lmbImageKitTestCase
 {
     function testRotate()
     {

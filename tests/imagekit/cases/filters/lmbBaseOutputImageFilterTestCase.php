@@ -11,7 +11,7 @@ namespace Tests\imagekit\cases\filters;
 
 use Tests\imagekit\cases\lmbImageKitTestCase;
 
-abstract class lmbBaseOutputImageFilterTest extends lmbImageKitTestCase
+abstract class lmbBaseOutputImageFilterTestCase extends lmbImageKitTestCase
 {
     function testChangeOutput()
     {

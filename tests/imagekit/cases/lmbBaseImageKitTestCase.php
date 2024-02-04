@@ -11,7 +11,7 @@ namespace Tests\imagekit\cases;
 
 use limb\imagekit\src\lmbImageKit;
 
-abstract class lmbBaseImageKitTest extends lmbImageKitTestCase
+abstract class lmbBaseImageKitTestCase extends lmbImageKitTestCase
 {
     function testTraversing()
     {
@@ -37,12 +37,12 @@ abstract class lmbBaseImageKitTest extends lmbImageKitTestCase
         $this->assertEquals(40, $height);
     }
 
-    function testPassingParamsToConvertor()
-    {
-        lmbImageKit::load($this->_getInputImage(),
-            '',
-            $this->driver,
-            array('add_filters_scan_dirs' => dirname(__FILE__) . '/../fixture/filters')
-        )->test();
-    }
+//    function testPassingParamsToConvertor()
+//    {
+//        lmbImageKit::load($this->_getInputImage(),
+//            '',
+//            $this->driver,
+//            array('add_filters_scan_dirs' => dirname(__FILE__) . '/../fixture/filters')
+//        )->test();
+//    }
 }

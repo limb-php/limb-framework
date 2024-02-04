@@ -44,9 +44,9 @@ class lmbImWaterMarkImageFilter extends lmbAbstractImageFilter
 
     function calcPosition($x, $y, $width, $height, $wm_width, $wm_height, $x_center = false, $y_center = false)
     {
-        if ($x == 'center')
+        if ($x === 'center')
             $x_center = true;
-        if ($y == 'center')
+        if ($y === 'center')
             $y_center = true;
 
         if ($x_center !== false) {

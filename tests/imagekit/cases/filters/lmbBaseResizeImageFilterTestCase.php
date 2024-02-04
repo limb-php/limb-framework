@@ -11,7 +11,7 @@ namespace Tests\imagekit\cases\filters;
 
 use Tests\imagekit\cases\lmbImageKitTestCase;
 
-abstract class lmbBaseResizeImageFilterTest extends lmbImageKitTestCase
+abstract class lmbBaseResizeImageFilterTestCase extends lmbImageKitTestCase
 {
     function testSimpleResize()
     {

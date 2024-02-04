@@ -11,7 +11,7 @@ namespace Tests\imagekit\cases\filters;
 
 use Tests\imagekit\cases\lmbImageKitTestCase;
 
-abstract class lmbBaseWaterMarkImageFilterTest extends lmbImageKitTestCase
+abstract class lmbBaseWaterMarkImageFilterTestCase extends lmbImageKitTestCase
 {
     function testWaterMark()
     {
@@ -64,15 +64,15 @@ abstract class lmbBaseWaterMarkImageFilterTest extends lmbImageKitTestCase
         $this->assertEquals(140, $result[0]);
         $this->assertEquals(150, $result[1]);
 
-        $result = $filter->calcPosition(0, 0, 150, 250, 10, false);
+        $result = $filter->calcPosition(0, 0, 150, 250, 10, 10, true, false);
         $this->assertEquals(70, $result[0]);
         $this->assertEquals(0, $result[1]);
 
-        $result = $filter->calcPosition(0, 0, 150, 250, false, 10);
+        $result = $filter->calcPosition(0, 0, 150, 250, 10, 10, false, true);
         $this->assertEquals(0, $result[0]);
         $this->assertEquals(120, $result[1]);
 
-        $result = $filter->calcPosition(-5, 5, 150, 250, 20, 10);
+        $result = $filter->calcPosition(-5, 5, 150, 250, 20, 10, true, true);
         $this->assertEquals(60, $result[0]);
         $this->assertEquals(125, $result[1]);
     }

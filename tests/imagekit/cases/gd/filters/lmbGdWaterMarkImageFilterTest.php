@@ -9,13 +9,13 @@
 
 namespace Tests\imagekit\cases\gd\filters;
 
-use Tests\imagekit\cases\filters\lmbBaseWaterMarkImageFilterTest;
+use Tests\imagekit\cases\filters\lmbBaseWaterMarkImageFilterTestCase;
 
 /**
  * @package imagekit
  * @version $Id: lmbGdWaterMarkImageFilterTest.php 8065 2010-01-20 04:18:19Z
  */
-class lmbGdWaterMarkImageFilterTest extends lmbBaseWaterMarkImageFilterTest
+class lmbGdWaterMarkImageFilterTest extends lmbBaseWaterMarkImageFilterTestCase
 {
     protected $driver = 'gd';
 }

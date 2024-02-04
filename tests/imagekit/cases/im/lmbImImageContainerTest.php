@@ -9,9 +9,9 @@
 
 namespace Tests\imagekit\cases\im;
 
-use Tests\imagekit\cases\lmbBaseImageContainerTest;
+use Tests\imagekit\cases\lmbBaseImageContainerTestCase;
 
-class lmbImImageContainerTest extends lmbBaseImageContainerTest
+class lmbImImageContainerTest extends lmbBaseImageContainerTestCase
 {
     protected $driver = 'im';
 

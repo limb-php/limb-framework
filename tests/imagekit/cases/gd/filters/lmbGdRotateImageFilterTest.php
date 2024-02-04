@@ -9,13 +9,13 @@
 
 namespace Tests\imagekit\cases\gd\filters;
 
-use Tests\imagekit\cases\filters\lmbBaseRotateImageFilterTest;
+use Tests\imagekit\cases\filters\lmbBaseRotateImageFilterTestCase;
 
 /**
  * @package imagekit
  * @version $Id: lmbGdRotateImageFilterTest.php 8065 2010-01-20 04:18:19Z
  */
-class lmbGdRotateImageFilterTest extends lmbBaseRotateImageFilterTest
+class lmbGdRotateImageFilterTest extends lmbBaseRotateImageFilterTestCase
 {
     protected $driver = 'gd';
 

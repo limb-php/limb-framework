@@ -9,7 +9,7 @@
 
 namespace Tests\imagekit\cases;
 
-abstract class lmbBaseImageContainerTest extends lmbImageKitTestCase
+abstract class lmbBaseImageContainerTestCase extends lmbImageKitTestCase
 {
     function testLoadSave()
     {

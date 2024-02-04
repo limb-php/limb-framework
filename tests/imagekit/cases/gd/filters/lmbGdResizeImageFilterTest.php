@@ -9,13 +9,13 @@
 
 namespace Tests\imagekit\cases\gd\filters;
 
-use Tests\imagekit\cases\filters\lmbBaseResizeImageFilterTest;
+use Tests\imagekit\cases\filters\lmbBaseResizeImageFilterTestCase;
 
 /**
  * @package imagekit
  * @version $Id: lmbGdResizeImageFilterTest.php 8065 2010-01-20 04:18:19Z
  */
-class lmbGdResizeImageFilterTest extends lmbBaseResizeImageFilterTest
+class lmbGdResizeImageFilterTest extends lmbBaseResizeImageFilterTestCase
 {
     protected $driver = 'gd';
 }
