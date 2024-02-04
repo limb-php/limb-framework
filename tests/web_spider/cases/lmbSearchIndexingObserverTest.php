@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbUri;
 use limb\web_spider\src\lmbSearchIndexingObserver;
 use limb\web_spider\src\lmbUriContentReader;
+use Tests\web_spider\src\TestingSpiderIndexer;
 
 class lmbSearchIndexingObserverTest extends TestCase
 {

@@ -15,7 +15,7 @@ use limb\web_spider\src\lmbUriNormalizer;
 
 class lmbUriNormalizerTest extends TestCase
 {
-    var $normalizer;
+    protected $normalizer;
 
     function setUp(): void
     {

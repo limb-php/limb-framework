@@ -17,6 +17,7 @@ use limb\web_spider\src\lmbUriFilter;
 use limb\web_spider\src\lmbUriExtractor;
 use limb\web_spider\src\lmbUriNormalizer;
 use limb\web_spider\src\lmbUriContentReader;
+use Tests\web_spider\src\TestingSpiderObserver;
 
 class lmbWebSpiderTest extends TestCase
 {

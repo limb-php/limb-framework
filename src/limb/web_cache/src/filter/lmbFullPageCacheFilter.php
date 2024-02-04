@@ -62,7 +62,7 @@ class lmbFullPageCacheFilter implements lmbInterceptingFilterInterface
         }
 
         if ($content = $this->cache->get()) {
-            response()->write($content);
+            $response = response()->write($content);
         } else {
             $response = $filter_chain->next($request, $callback);
 

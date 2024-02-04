@@ -15,7 +15,7 @@ use limb\net\src\lmbUri;
 
 class lmbUriFilterTest extends TestCase
 {
-    var $filter;
+    protected $filter;
 
     function setUp(): void
     {
@@ -24,7 +24,7 @@ class lmbUriFilterTest extends TestCase
 
     function testFilterAcceptedProtocols()
     {
-        $links = array(new lmbUri('http://test1.com'),
+        $links = array(new lmbUri('https://test1.com'),
             new lmbUri('svn+ssh://test-broken.com'),
             new lmbUri('https://test1.com'),
             new lmbUri('ftp://test-broken.com')
@@ -32,7 +32,7 @@ class lmbUriFilterTest extends TestCase
 
         $this->filter->allowHost('test1.com');
         $this->filter->allowPathRegex('/.*/');
-        $this->filter->allowProtocol('http');
+        $this->filter->allowProtocol('https');
         $this->filter->allowProtocol('HTTPS');//protocols are lowercase
 
         $this->assertTrue($this->filter->canPass($links[0]));
@@ -43,12 +43,12 @@ class lmbUriFilterTest extends TestCase
 
     function testFilterAcceptedHosts()
     {
-        $links = array(new lmbUri('http://www.test1.com/some/path'),
-            new lmbUri('http://test-broken.com'),
-            new lmbUri('http://test1.com'),
-            new lmbUri('http://microsoft.com'));
+        $links = array(new lmbUri('https://www.test1.com/some/path'),
+            new lmbUri('https://test-broken.com'),
+            new lmbUri('https://test1.com'),
+            new lmbUri('https://microsoft.com'));
 
-        $this->filter->allowProtocol('http');
+        $this->filter->allowProtocol('https');
         $this->filter->allowPathRegex('/.*/');
         $this->filter->allowHost('test1.com');
         $this->filter->allowHost('www.TEST1.com');//hosts are lowercase
@@ -61,12 +61,12 @@ class lmbUriFilterTest extends TestCase
 
     function testFilterAcceptedPathsDefaultSettings()
     {
-        $links = array(new lmbUri('http://test1.com/some/path'),
-            new lmbUri('http://test1.com/some/other/path'),
-            new lmbUri('http://test1.com/some/path/again'),
-            new lmbUri('http://test1.com/'));
+        $links = array(new lmbUri('https://test1.com/some/path'),
+            new lmbUri('https://test1.com/some/other/path'),
+            new lmbUri('https://test1.com/some/path/again'),
+            new lmbUri('https://test1.com/'));
 
-        $this->filter->allowProtocol('http');
+        $this->filter->allowProtocol('https');
         $this->filter->allowHost('test1.com');
 
         $this->assertFalse($this->filter->canPass($links[0]));
@@ -77,12 +77,12 @@ class lmbUriFilterTest extends TestCase
 
     function testFilterAcceptedPaths()
     {
-        $links = array(new lmbUri('http://test1.com/some/path'),
-            new lmbUri('http://test1.com/some/other/path'),
-            new lmbUri('http://test1.com/some/path/again'),
-            new lmbUri('http://test1.com/'));
+        $links = array(new lmbUri('https://test1.com/some/path'),
+            new lmbUri('https://test1.com/some/other/path'),
+            new lmbUri('https://test1.com/some/path/again'),
+            new lmbUri('https://test1.com/'));
 
-        $this->filter->allowProtocol('http');
+        $this->filter->allowProtocol('https');
         $this->filter->allowHost('test1.com');
         $this->filter->allowPathRegex('/^\/some\/path.*$/');
 
