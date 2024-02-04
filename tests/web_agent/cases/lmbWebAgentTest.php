@@ -83,10 +83,14 @@ class lmbWebAgentTest extends TestCase
         $values = $agent->getValues();
         $values->setName1('value1');
         $values->setName2('value2');
-        $http_vals = http_build_query(array('name1' => 'value1', 'name2' => 'value2'));
+        $http_vals = http_build_query([
+            'name1' => 'value1',
+            'name2' => 'value2'
+        ]);
 
         $agent->doRequest('https://google.com');
-        $this->assertEquals(15, strpos($request->request_url, $http_vals));
+        $this->assertEquals(19, strpos($request->request_url, $http_vals));
+
         $agent->doRequest('https://google.com', 'POST');
         $this->assertEquals($request->request_content, $http_vals);
     }

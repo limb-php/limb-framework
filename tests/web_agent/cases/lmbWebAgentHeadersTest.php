@@ -82,7 +82,7 @@ class lmbWebAgentHeadersTest extends TestCase
     {
         $headers = $this->_getHeaders();
 
-        $this->assertEquals('test.ru', $headers->get('host', 0));
+        $this->assertEquals('google.com', $headers->get('host', 0));
         $this->assertNull($headers->get('host', 1));
 
         $this->assertNull($headers->get('user-agent', 0));
@@ -119,7 +119,7 @@ class lmbWebAgentHeadersTest extends TestCase
         $this->assertEquals('Host: google.com', $headers->exportHeader('host'));
         $this->assertEquals('Set-Cookie: sid=1', $headers->exportHeader('set-cookie', 0));
         $this->assertEquals('Set-Cookie: sid2=2', $headers->exportHeader('set-cookie', 1));
-        $this->assertFalse($headers->exportHeader('set-cookie', 3));
+        $this->assertNull($headers->exportHeader('set-cookie', 3));
     }
 
     function testExportHeaders()

@@ -100,7 +100,8 @@ class lmbWebAgentHeaders
     function exportHeader($name, $num = self::last)
     {
         $value = $this->get($name, $num);
-        if ($value === null) return null;
+        if ($value === null)
+            return null;
         $name = self::normalizeName($name);
         return $name . ': ' . $value;
     }
