@@ -9,6 +9,8 @@
 
 namespace Tests\active_record\cases;
 
+require_once '.setup.php';
+
 use limb\active_record\src\lmbARRecordSetJoinDecorator;
 use limb\dbal\src\lmbDBAL;
 use limb\dbal\src\lmbSimpleDb;

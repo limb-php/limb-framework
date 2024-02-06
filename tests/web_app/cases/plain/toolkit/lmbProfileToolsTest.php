@@ -22,11 +22,12 @@ use limb\toolkit\src\lmbToolkit;
 class lmbProfileToolsTest extends TestCase
 {
 
+    protected $toolkit;
+
     function setUp(): void
     {
         lmbToolkit::save();
-        lmbToolkit::merge(new lmbProfileTools());
-        $this->toolkit = lmbToolkit::instance();
+        $this->toolkit = lmbToolkit::merge(new lmbProfileTools());
     }
 
     function tearDown(): void

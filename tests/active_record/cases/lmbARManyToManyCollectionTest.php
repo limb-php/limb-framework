@@ -9,8 +9,6 @@
 
 namespace Tests\active_record\cases;
 
-require_once '.setup.php';
-
 use limb\active_record\src\lmbARManyToManyCollection;
 use limb\active_record\src\lmbActiveRecord;
 use limb\core\src\exception\lmbException;
@@ -20,6 +18,8 @@ use Tests\active_record\cases\src\GroupForTestObject;
 use Tests\active_record\cases\src\GroupForTestObjectStub;
 use Tests\active_record\cases\src\UserForTestObject;
 use Tests\active_record\cases\src\UserForTestWithSpecialRelationTable;
+
+require_once '.setup.php';
 
 class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 {

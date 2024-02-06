@@ -11,12 +11,13 @@ require_once(dirname(__FILE__) . '/../../../src/limb/view/toolkit.inc.php');
 require_once(dirname(__FILE__) . '/../../../src/limb/web_app/toolkit.inc.php');
 require_once(dirname(__FILE__) . '/../../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../../dbal/common.inc.php');
-require_once(dirname(__FILE__) . '/../../active_record/cases/init.inc.php');
 
-lmbEnv::set('LIMB_CONF_INCLUDE_PATH', __DIR__ . '/settings;' . __DIR__ . '/../../*/cases/settings');
+$LIMB_CONF_INCLUDE_PATH = lmbEnv::get('LIMB_CONF_INCLUDE_PATH');
+lmbEnv::set('LIMB_CONF_INCLUDE_PATH', $LIMB_CONF_INCLUDE_PATH . ';' . dirname(__FILE__) . '/settings;');
 
 lmbToolkit::instance()->setSupportedViewTypes(array('.php' => lmbPHPView::class));
 
 lmb_tests_init_var_dir(dirname(__FILE__) . '/../../../var/web_app');
 
 lmb_tests_init_db_dsn();
+

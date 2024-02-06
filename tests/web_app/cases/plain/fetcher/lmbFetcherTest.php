@@ -18,9 +18,9 @@ use limb\core\src\exception\lmbException;
 
 class TestingDatasetDecorator extends lmbCollectionDecorator
 {
-    var $prefix1;
-    var $prefix2;
-    var $sort_params;
+    protected $prefix1;
+    protected $prefix2;
+    public $sort_params;
 
     function setPrefix1($prefix)
     {
@@ -50,7 +50,7 @@ class TestingDatasetDecorator extends lmbCollectionDecorator
 
 class TestingFetcher extends lmbFetcher
 {
-    var $use_dataset = array();
+    public $use_dataset = array();
 
     protected function _createDataSet()
     {
@@ -60,6 +60,7 @@ class TestingFetcher extends lmbFetcher
 
 class lmbFetcherTest extends TestCase
 {
+
     function testFetchCreateDatasetUsesScalarValue()
     {
         $fetcher = new TestingFetcher();
@@ -80,7 +81,7 @@ class lmbFetcherTest extends TestCase
         $dataset->rewind();
         $this->assertTrue($dataset->valid());
         $record = $dataset->current();
-        $this->assertEquals($record->get('name'), 'John');
+        $this->assertEquals('John', $record->get('name'));
     }
 
     function testFetchCreateDatasetUsesObject()
@@ -93,22 +94,24 @@ class lmbFetcherTest extends TestCase
         $dataset->rewind();
         $this->assertTrue($dataset->valid());
         $record = $dataset->current();
-        $this->assertEquals($record->get('name'), 'John');
+        $this->assertEquals('John', $record->get('name'));
     }
 
     function testAddDecoratorWithParams()
     {
         $fetcher = new TestingFetcher();
-        $fetcher->use_dataset = new lmbCollection(array(array('name' => 'John', 'job' => 'Carpenter'),
+        $fetcher->use_dataset = new lmbCollection(array(
+            array('name' => 'John', 'job' => 'Carpenter'),
             array('name' => 'Mike', 'job' => 'Fisher')));
-        $fetcher->addDecorator(TestingDatasetDecorator::class, array('prefix1' => 'PrefixA_',
+        $fetcher->addDecorator(TestingDatasetDecorator::class, array(
+            'prefix1' => 'PrefixA_',
             'prefix2' => '_PrefixB'));
         $dataset = $fetcher->fetch();
 
         $dataset->rewind();
         $this->assertTrue($dataset->valid());
         $record = $dataset->current();
-        $this->assertEquals($record->get('full'), 'PrefixA_John-Carpenter_PrefixB');
+        $this->assertEquals('PrefixA_John-Carpenter_PrefixB', $record->get('full'));
     }
 
     function testSetOrder()
@@ -121,16 +124,20 @@ class lmbFetcherTest extends TestCase
 
         $dataset = $fetcher->fetch();
 
-        $this->assertEquals($dataset->sort_params, array('title' => 'ASC',
+        $this->assertEquals($dataset->sort_params, array(
+            'title' => 'ASC',
             'name' => 'ASC',
-            'last_name' => 'DESC'));
+            'last_name' => 'DESC')
+        );
     }
 
     function testExtractOrderPairsFromStringSimpleCase()
     {
         $order = lmbFetcher::extractOrderPairsFromString('title=DESC,name=ASC');
-        $this->assertEquals($order, array('title' => 'DESC',
-            'name' => 'ASC'));
+        $this->assertEquals($order, array(
+            'title' => 'DESC',
+            'name' => 'ASC')
+        );
     }
 
     function testExtractOrderPairsFromStringSimpleRandom()
@@ -149,4 +156,3 @@ class lmbFetcherTest extends TestCase
         }
     }
 }
-

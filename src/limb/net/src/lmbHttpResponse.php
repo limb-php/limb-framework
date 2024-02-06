@@ -320,6 +320,7 @@ class lmbHttpResponse
         return $this->transaction_started;
     }
 
+    /** @deprecated */
     function isEmpty(): bool
     {
         $status = $this->getStatus();

@@ -21,6 +21,7 @@ use Tests\active_record\cases\src\SocialSecurityForTestObject;
 use Tests\active_record\cases\src\TestOneTableObject;
 use Tests\active_record\cases\src\UserForTestObject;
 
+require_once '.setup.php';
 class LessonForTestWithCustomImport extends lmbActiveRecord
 {
     protected $_db_table_name = 'lesson_for_test';

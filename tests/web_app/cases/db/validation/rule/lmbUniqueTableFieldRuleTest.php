@@ -9,6 +9,8 @@
 
 namespace Tests\web_app\cases\db\validation\rule;
 
+require_once dirname(__FILE__) . '/../../.setup.php';
+
 use Tests\validation\cases\rule\lmbValidationRuleTestCase;
 use limb\dbal\src\lmbSimpleDb;
 use limb\web_app\src\validation\rule\UniqueTableFieldRule;
@@ -17,7 +19,7 @@ use limb\core\src\lmbSet;
 
 class lmbUniqueTableFieldRuleTest extends lmbValidationRuleTestCase
 {
-    var $db = null;
+    protected $db = null;
 
     protected $error_list;
 

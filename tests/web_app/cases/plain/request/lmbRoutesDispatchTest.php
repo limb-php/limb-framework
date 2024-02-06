@@ -13,7 +13,6 @@ require_once dirname(__FILE__) . '/../../.setup.php';
 
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutes;
-use limb\net\src\lmbUri;
 use limb\toolkit\src\lmbToolkit;
 
 class lmbRoutesDispatchTest extends TestCase
@@ -45,93 +44,98 @@ class lmbRoutesDispatchTest extends TestCase
 
         $result = $routes->dispatch('/news');
 
-        $this->assertEquals($result['controller'], 'Newsline');
-        $this->assertEquals($result['action'], 'display');
+        $this->assertEquals('Newsline', $result['controller']);
+        $this->assertEquals('display', $result['action']);
 
-        $this->assertEquals($routes->dispatch('/no_such_url'), array());
+        $this->assertEquals(array(), $routes->dispatch('/no_such_url'));
     }
 
     function testAnyController()
     {
-        $config = array(array('path' => '/:controller',
+        $config = array(array(
+            'path' => '/:controller',
             'defaults' => array('action' => 'display')));
 
         $routes = new lmbRoutes($config);
         $result = $routes->dispatch('/blog');
 
-        $this->assertEquals($result['controller'], 'blog');
-        $this->assertEquals($result['action'], 'display');
+        $this->assertEquals('blog', $result['controller']);
+        $this->assertEquals('display', $result['action']);
 
         $result = $routes->dispatch('/news');
 
-        $this->assertEquals($result['controller'], 'news');
-        $this->assertEquals($result['action'], 'display');
+        $this->assertEquals('news', $result['controller']);
+        $this->assertEquals('display', $result['action']);
     }
 
     function testAnyControllerAndAction()
     {
-        $config = array(array('path' => '/:controller/:action',
+        $config = array(array(
+            'path' => '/:controller/:action',
             'defaults' => array('action' => 'display')));
 
         $routes = new lmbRoutes($config);
         $result = $routes->dispatch('/blog/index');
 
-        $this->assertEquals($result['controller'], 'blog');
-        $this->assertEquals($result['action'], 'index');
+        $this->assertEquals('blog', $result['controller']);
+        $this->assertEquals('index', $result['action']);
 
         $result = $routes->dispatch('/blog');
 
-        $this->assertEquals($result['controller'], 'blog');
-        $this->assertEquals($result['action'], 'display');
+        $this->assertEquals('blog', $result['controller']);
+        $this->assertEquals('display', $result['action']);
 
         $result = $routes->dispatch('/news/last_news');
 
-        $this->assertEquals($result['controller'], 'news');
-        $this->assertEquals($result['action'], 'last_news');
+        $this->assertEquals('news', $result['controller']);
+        $this->assertEquals('last_news', $result['action']);
     }
 
     function testConcreteControllerAndAnyAction()
     {
-        $config = array(array('path' => '/blog/:action',
+        $config = array(array(
+            'path' => '/blog/:action',
             'defaults' => array('controller' => 'Blog',
                 'action' => 'display')),
-            array('path' => '/news/:action',
+            array(
+                'path' => '/news/:action',
                 'defaults' => array('controller' => 'News',
                     'action' => 'display')));
 
         $routes = new lmbRoutes($config);
         $result = $routes->dispatch('/blog/index');
 
-        $this->assertEquals($result['controller'], 'Blog');
-        $this->assertEquals($result['action'], 'index');
+        $this->assertEquals('Blog', $result['controller']);
+        $this->assertEquals('index', $result['action']);
 
         $result = $routes->dispatch('/blog');
 
-        $this->assertEquals($result['controller'], 'Blog');
-        $this->assertEquals($result['action'], 'display');
+        $this->assertEquals('Blog', $result['controller']);
+        $this->assertEquals('display', $result['action']);
 
         $result = $routes->dispatch('/news/last_news');
 
-        $this->assertEquals($result['controller'], 'News');
-        $this->assertEquals($result['action'], 'last_news');
+        $this->assertEquals('News', $result['controller']);
+        $this->assertEquals('last_news', $result['action']);
     }
 
     function testUrlToMatchAll()
     {
-        $config = array(array('path' => '*',
+        $config = array(array(
+            'path' => '*',
             'defaults' => array('controller' => '404',
                 'action' => 'display')));
 
         $routes = new lmbRoutes($config);
         $result = $routes->dispatch('/blog/index');
 
-        $this->assertEquals($result['controller'], '404');
-        $this->assertEquals($result['action'], 'display');
+        $this->assertEquals('404', $result['controller']);
+        $this->assertEquals('display', $result['action']);
 
         $result = $routes->dispatch('/path/to/heaven');
 
-        $this->assertEquals($result['controller'], '404');
-        $this->assertEquals($result['action'], 'display');
+        $this->assertEquals('404', $result['controller']);
+        $this->assertEquals('display', $result['action']);
     }
 
     function testExtraParamAfterOthers()
@@ -143,9 +147,9 @@ class lmbRoutesDispatchTest extends TestCase
         $routes = new lmbRoutes($config);
         $result = $routes->dispatch('/blog/index/and/many/params');
 
-        $this->assertEquals($result['controller'], 'blog');
-        $this->assertEquals($result['action'], 'index');
-        $this->assertEquals($result['additional'], 'and/many/params');
+        $this->assertEquals('blog', $result['controller']);
+        $this->assertEquals('index', $result['action']);
+        $this->assertEquals('and/many/params', $result['additional']);
     }
 
     function testExtraParamDefaultName()
@@ -157,9 +161,9 @@ class lmbRoutesDispatchTest extends TestCase
         $routes = new lmbRoutes($config);
         $result = $routes->dispatch('/blog/index/and/many/params');
 
-        $this->assertEquals($result['controller'], 'blog');
-        $this->assertEquals($result['action'], 'index');
-        $this->assertEquals($result['extra'], 'and/many/params');
+        $this->assertEquals('blog', $result['controller']);
+        $this->assertEquals('index', $result['action']);
+        $this->assertEquals('and/many/params', $result['extra']);
     }
 
     function testWithRequirements()
@@ -223,14 +227,15 @@ class lmbRoutesDispatchTest extends TestCase
         $routes = new lmbRoutes($config);
         $result = $routes->dispatch('/blog/display/bob-sinclar%40yahoo.com');
 
-        $this->assertEquals($result['controller'], 'blog');
-        $this->assertEquals($result['action'], 'display');
-        $this->assertEquals($result['email'], 'bob-sinclar@yahoo.com');
+        $this->assertEquals('blog', $result['controller']);
+        $this->assertEquals('display', $result['action']);
+        $this->assertEquals('bob-sinclar@yahoo.com', $result['email']);
     }
 
     function testApplyDispatchFilter()
     {
-        $config = array(array('path' => '/:controller/:action',
+        $config = array(array(
+            'path' => '/:controller/:action',
             'defaults' => array('action' => 'display'),
             'dispatch_filter' => array($this, '_processDispatchResult')));
 

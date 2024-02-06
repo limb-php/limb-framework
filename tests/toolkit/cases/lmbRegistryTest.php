@@ -13,6 +13,8 @@ use limb\core\src\exception\lmbException;
 use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbRegistry;
 
+require_once ('.setup.php');
+
 class lmbRegistryTest extends TestCase
 {
     function testGetNull()

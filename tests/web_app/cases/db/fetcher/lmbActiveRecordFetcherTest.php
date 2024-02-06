@@ -9,9 +9,10 @@
 
 namespace Tests\web_app\cases\db\fetcher;
 
-require dirname(__FILE__) . '/../.setup.php';
+require_once dirname(__FILE__) . '/../../.setup.php';
 
 use limb\active_record\src\lmbActiveRecord;
+use limb\toolkit\src\lmbToolkit;
 use limb\web_app\src\fetcher\lmbActiveRecordFetcher;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbCollection;
@@ -33,7 +34,8 @@ class CourseForFetcherTestVersionObject extends CourseForTestObject
 
     static function findWithParams($param1, $param2)
     {
-        return new lmbCollection(array(array('param' => $param1),
+        return new lmbCollection(array(
+            array('param' => $param1),
             array('param' => $param2)));
     }
 }
@@ -42,12 +44,19 @@ class lmbActiveRecordFetcherTest extends lmbWebAppTestCase
 {
     function setUp(): void
     {
+        parent::setUp();
+
         $this->_cleanUp();
     }
 
     function tearDown(): void
     {
+        parent::tearDown();
+
         $this->_cleanUp();
+
+        $toolkit = lmbToolkit::instance();
+        $toolkit->getDefaultDbConnection()->disconnect();
     }
 
     function _cleanUp()

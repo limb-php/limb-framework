@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+namespace Tests\net\cases;
+
 use limb\toolkit\src\lmbToolkit;
 use PHPUnit\Framework\TestCase;
 
@@ -21,6 +23,31 @@ class lmbNetToolsTest extends TestCase
         $request->setAttribute('foo', 'bar');
 
         $this->assertEquals('bar', lmbToolkit::instance()->getRequest()->getAttribute('foo'));
+    }
+
+    function testRestoreResponse()
+    {
+        lmbToolkit::save();
+
+        $toolkit = lmbToolkit::instance();
+        $toolkit->getResponse()->withBody('123');
+
+        $body = $toolkit->getResponse()->getBody();
+        $this->assertEquals('123', $body);
+
+        lmbToolkit::restore();
+
+        $toolkit = lmbToolkit::instance();
+        $body = $toolkit->getResponse()->getBody();
+
+        $this->assertEquals('222', $body);
+
+        lmbToolkit::save();
+
+        $toolkit = lmbToolkit::instance();
+        $body = $toolkit->getResponse()->getBody();
+
+        $this->assertEquals('222', $body);
     }
 
 }

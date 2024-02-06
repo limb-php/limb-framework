@@ -19,8 +19,10 @@ class lmbMacroRouteUrlTagTest extends lmbMacroTestCase
 {
     function testPutUrlToCurrentDataspaceAllParamsAreStaticAndUseNamedRoute()
     {
-        $config = array('blog' => array('path' => '/blog/:controller/:action'),
-            'news' => array('path' => '/:controller/:action'));
+        $config = array('blog' => array(
+            'path' => '/blog/:controller/:action'),
+            'news' => array('path' => '/:controller/:action')
+        );
 
         $routes = $this->_createRoutes($config);
 
@@ -67,8 +69,10 @@ class lmbMacroRouteUrlTagTest extends lmbMacroTestCase
 
     function testTryToGuessRoute()
     {
-        $config = array('blog' => array('path' => '/blog/:action'),
-            'news' => array('path' => '/:controller/:action'));
+        $config = array(
+            'blog' => array('path' => '/blog/:action'),
+            'news' => array('path' => '/:controller/:action')
+        );
 
         $routes = $this->_createRoutes($config);
 

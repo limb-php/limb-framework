@@ -20,14 +20,14 @@ use limb\core\src\exception\lmbException;
 
 class lmbActionPerformingFilterTest extends TestCase
 {
-    var $toolkit;
+    protected $toolkit;
 
-    function setUp(): void
+    protected function setUp(): void
     {
         $this->toolkit = lmbToolkit::save();
     }
 
-    function tearDown(): void
+    protected function tearDown(): void
     {
         lmbToolkit::restore();
     }

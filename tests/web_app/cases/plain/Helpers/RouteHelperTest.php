@@ -9,6 +9,7 @@
 
 namespace Tests\web_app\cases\plain\Helpers;
 
+use limb\toolkit\src\lmbToolkit;
 use limb\web_app\src\Helpers\lmbRouteHelper;
 use PHPUnit\Framework\TestCase;
 use Tests\web_app\cases\plain\src\controller\Api\NewIndexController;
@@ -20,6 +21,16 @@ require dirname(__FILE__) . '/../../.setup.php';
 
 class RouteHelperTest extends TestCase
 {
+
+    function setUp(): void
+    {
+        lmbToolkit::save();
+    }
+
+    function tearDown(): void
+    {
+        lmbToolkit::restore();
+    }
 
     function testControllerNameByClass()
     {

@@ -18,13 +18,12 @@ use limb\core\src\exception\lmbException;
 use Tests\web_app\cases\plain\src\Controllers\Api\Admin\FreeController;
 use Tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
 use Tests\web_app\cases\plain\src\Controllers\SecondTestingController;
-use Tests\web_app\cases\plain\src\Controllers\TestingForwardController;
 
 class lmbRoutesToUrlTest extends TestCase
 {
     function setUp(): void
     {
-        $toolkit = lmbToolkit::save();
+        lmbToolkit::save();
     }
 
     function tearDown(): void

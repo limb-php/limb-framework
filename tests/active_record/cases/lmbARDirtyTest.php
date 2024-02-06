@@ -19,6 +19,8 @@ use Tests\active_record\cases\src\SocialSecurityForTestObject;
 use Tests\active_record\cases\src\TestOneTableObject;
 use Tests\active_record\cases\src\TestOneTableObjectWithHooks;
 
+require_once '.setup.php';
+
 class lmbARDirtyTest extends lmbARBaseTestCase
 {
     protected $tables_to_cleanup = array('lecture_for_test', 'course_for_test', 'test_one_table_object', 'member_for_test');

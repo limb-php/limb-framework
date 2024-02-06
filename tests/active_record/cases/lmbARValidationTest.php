@@ -15,6 +15,8 @@ use limb\validation\src\lmbValidator;
 use Tests\active_record\cases\src\lmbActiveRecordValidationStub;
 use Tests\active_record\cases\src\TestOneTableObjectFailing;
 
+require_once '.setup.php';
+
 class lmbARValidationTest extends lmbARBaseTestCase
 {
     protected $tables_to_cleanup = array('test_one_table_object');

@@ -11,16 +11,13 @@ namespace Tests\web_app\cases\plain\filter;
 
 require_once dirname(__FILE__) . '/../../.setup.php';
 
-use limb\web_app\src\Controllers\LmbController;
-use limb\web_app\src\filter\lmbActionPerformingAndViewRenderingFilter;
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
-use limb\filter_chain\src\lmbFilterChain;
 use limb\net\src\lmbHttpResponse;
-use limb\web_app\src\filter\lmbViewRenderingFilter;
 use limb\view\src\lmbView;
-use Tests\web_app\cases\plain\src\filter\lmbResponseReturnFilter;
+use Tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
+use Tests\web_app\cases\plain\src\Controllers\SecondTestingController;
 
 class lmbViewRenderingFilterTest extends TestCase
 {
@@ -39,14 +36,9 @@ class lmbViewRenderingFilterTest extends TestCase
     function testRenderViewIfResponseEmpty()
     {
         $request = $this->createMock(lmbHttpRequest::class);
-
-        $response = $this->createMock(lmbHttpResponse::class);
-        $response
-            ->expects($this->once())
-            ->method('isEmpty')
-            ->willReturn(true);
-
         $view = $this->createMock(lmbView::class);
+        $response = new lmbHttpResponse();
+
         $this->toolkit->setView($view);
         $this->toolkit->setRequest($request);
         $this->toolkit->setResponse($response);
@@ -56,26 +48,18 @@ class lmbViewRenderingFilterTest extends TestCase
             ->method('render')
             ->willReturn('bar');
 
-        $response
-            ->expects($this->once())
-            ->method('write')
-            ->with('bar');
-
-        $controller = new LmbController();
+        $controller = new SecondTestingController();
         $result = $controller->performAction($request);
+
+        $this->assertEquals('bar', $result->getResponseString());
     }
 
     function testDoNotRenderViewIfResponseNotEmpty()
     {
         $request = $this->createMock(lmbHttpRequest::class);
-
-        $response = $this->createMock(lmbHttpResponse::class);
-        $response
-            ->expects($this->once())
-            ->method('isEmpty')
-            ->willReturn(false);
-
         $view = $this->createMock(lmbView::class);
+        $response = new lmbHttpResponse();
+
         $this->toolkit->setView($view);
         $this->toolkit->setRequest($request);
         $this->toolkit->setResponse($response);
@@ -84,11 +68,9 @@ class lmbViewRenderingFilterTest extends TestCase
             ->expects($this->never())
             ->method('render');
 
-        $response
-            ->expects($this->never())
-            ->method('write');
-
-        $controller = new LmbController();
+        $controller = new ApiTestingController();
         $result = $controller->performAction($request);
+
+        $this->assertEquals('foo', $result->getResponseString());
     }
 }

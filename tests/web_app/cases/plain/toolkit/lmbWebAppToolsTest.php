@@ -22,9 +22,11 @@ use limb\web_app\src\toolkit\lmbWebAppTools;
 
 class lmbWebAppToolsTest extends TestCase
 {
+    protected $toolkit;
+
     function setUp(): void
     {
-        lmbToolkit::save();
+        $this->toolkit = lmbToolkit::save();
     }
 
     function tearDown(): void
@@ -35,8 +37,10 @@ class lmbWebAppToolsTest extends TestCase
     function testToRouteUrl()
     {
         $routes_dataspace = new lmbSet();
-        $config_array = array(array('path' => '/:controller/:action',
-            'defaults' => array('action' => 'display')));
+        $config_array = array(array(
+            'path' => '/:controller/:action',
+            'defaults' => array('action' => 'display'))
+        );
         $routes = new lmbRoutes($config_array);
 
         $toolkit = lmbToolkit::merge(new lmbWebAppTools());
@@ -71,10 +75,10 @@ class lmbWebAppToolsTest extends TestCase
         lmbEnv::set('LIMB_APP_MODE', 'devel');
         $this->assertTrue($toolkit->isWebAppDebugEnabled());
 
-        $toolkit->setConf('common', new lmbObject(array('debug_enabled' => true)));
+        $toolkit->setConf('common', new lmbObject(['debug_enabled' => true]));
         $this->assertTrue($toolkit->isWebAppDebugEnabled());
 
-        $toolkit->setConf('common', new lmbObject(array('debug_enabled' => false)));
+        $toolkit->setConf('common', new lmbObject(['debug_enabled' => false]));
         $this->assertFalse($toolkit->isWebAppDebugEnabled());
     }
 

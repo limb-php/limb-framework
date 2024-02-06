@@ -17,7 +17,7 @@ lmbEnv::set('BASE_PROJECT_HOST', 'project_for_test.com');
 lmbEnv::set('MAX_ID_VALUE', 2147483648);
 
 $LIMB_CONF_INCLUDE_PATH = lmbEnv::get('LIMB_CONF_INCLUDE_PATH');
-lmbEnv::set('LIMB_CONF_INCLUDE_PATH', $LIMB_CONF_INCLUDE_PATH . ';' . __DIR__ . '/settings;' . __DIR__ . '/../../*/settings');
+lmbEnv::set('LIMB_CONF_INCLUDE_PATH', $LIMB_CONF_INCLUDE_PATH . ';' . dirname(__FILE__) . '/settings;' . dirname(__FILE__) . '/../../*/settings');
 
 lmb_tests_init_var_dir(dirname(__FILE__) . '/../../../var/cron');
 

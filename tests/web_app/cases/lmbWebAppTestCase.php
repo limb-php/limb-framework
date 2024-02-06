@@ -9,6 +9,8 @@
 
 namespace Tests\web_app\cases;
 
+require_once '.setup.php';
+
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\lmbSimpleDb;
 use limb\toolkit\src\lmbToolkit;

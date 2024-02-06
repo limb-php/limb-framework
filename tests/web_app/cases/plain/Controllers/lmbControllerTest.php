@@ -23,14 +23,15 @@ require dirname(__FILE__) . '/../../.setup.php';
 
 class lmbControllerTest extends TestCase
 {
+
     protected $toolkit;
 
-    function setUp(): void
+    protected function setUp(): void
     {
         $this->toolkit = lmbToolkit::save();
     }
 
-    function tearDown(): void
+    protected function tearDown(): void
     {
         lmbToolkit::restore();
     }
@@ -58,34 +59,40 @@ class lmbControllerTest extends TestCase
 
     function testPerformedActionStringResultIsWrittenToResponse()
     {
+        $toolkit = lmbToolkit::instance();
+
         $controller = new TestingController();
         $controller->setCurrentAction('write');
-        $result = $controller->performAction($this->toolkit->getRequest());
+        $result = $controller->performAction($toolkit->getRequest());
         $this->assertEquals("Hi!", $result->getBody());
     }
 
     function testSetTemplateOnlyIfMethodIsNotFound()
     {
-        $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
+        $toolkit = lmbToolkit::instance();
+
+        $toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
 
         $controller = new TestingController();
         $controller->setCurrentAction('detail');
 
-        $controller->performAction($this->toolkit->getRequest());
-        $this->assertEquals('foo' . DIRECTORY_SEPARATOR . 'detail.html', $this->toolkit->getView()->getTemplate());
+        $controller->performAction($toolkit->getRequest());
+        $this->assertEquals('foo' . DIRECTORY_SEPARATOR . 'detail.html', $toolkit->getView()->getTemplate());
     }
 
     function testGuessingTemplateWorksOkForActionWithPercentageSymbol()
     {
-        $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
+        $toolkit = lmbToolkit::instance();
+
+        $toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
 
         $controller = new TestingController();
         $controller->setCurrentAction('detail%28');
 
-        $controller->performAction($this->toolkit->getRequest());
+        $controller->performAction($toolkit->getRequest());
 
         $this->assertEquals('foo', $controller->getName());
-        $this->assertEquals('foo' . DIRECTORY_SEPARATOR . 'detail%28.html', $this->toolkit->getView()->getTemplate());
+        $this->assertEquals('foo' . DIRECTORY_SEPARATOR . 'detail%28.html', $toolkit->getView()->getTemplate());
     }
 
     function testControllerAttributesAutomaticallyPassedToView()
@@ -108,7 +115,9 @@ class lmbControllerTest extends TestCase
 
     function testActionExistsReturnsTrueIsTemplateFound()
     {
-        $this->toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
+        $toolkit = lmbToolkit::instance();
+
+        $toolkit->setSupportedViewTypes(array('.html' => lmbDummyView::class));
 
         $controller = new TestingController();
         $this->assertTrue($controller->actionExists('detail'));
@@ -157,12 +166,14 @@ class lmbControllerTest extends TestCase
 
     function testForwardInConstructor()
     {
+        $toolkit = lmbToolkit::instance();
+
         $testController = new TestingForwardController();
 
         $result = $testController->doForward();
         $this->assertEquals('Hi!', $result->getBody());
 
-        $result = $testController->performAction($this->toolkit->getRequest());
+        $result = $testController->performAction($toolkit->getRequest());
         $this->assertFalse($result);
     }
 
@@ -179,7 +190,7 @@ class lmbControllerTest extends TestCase
         $controller = new TestingController();
         $controller->setCurrentAction('without_popup');
         $controller->performAction($this->toolkit->getRequest());
+
         $this->assertEquals('', $this->toolkit->getResponse()->getResponseString());
     }
-
 }

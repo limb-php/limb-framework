@@ -3,9 +3,6 @@
 use limb\core\src\lmbEnv;
 
 $conf = array(
-    'debug_enabled' => true,
-    'profile_enabled' => false,
-
     'temp_file_storage' => array(
         'max_file_size' => 5000000, //-- 5Mb
         'file_ttl' => 3, // 3 seconds

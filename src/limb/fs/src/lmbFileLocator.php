@@ -41,7 +41,7 @@ class lmbFileLocator
                 return $path . '/' . $alias;
         }
 
-        $this->_handleNotResolvedAlias($alias);
+        $this->_handleNotResolvedAlias($alias, $paths);
     }
 
     function getFileLocations()
@@ -62,8 +62,8 @@ class lmbFileLocator
         return array_unique($result);
     }
 
-    protected function _handleNotResolvedAlias($alias)
+    protected function _handleNotResolvedAlias($alias, $paths)
     {
-        throw new lmbFileNotFoundException($alias, 'file alias not resolved');
+        throw new lmbFileNotFoundException($alias, 'file alias not resolved', ['paths' => $paths]);
     }
 }

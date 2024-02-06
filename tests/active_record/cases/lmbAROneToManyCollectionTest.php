@@ -9,6 +9,8 @@
 
 namespace Tests\active_record\cases;
 
+require_once '.setup.php';
+
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbAROneToManyCollection;
 use limb\core\src\exception\lmbException;
