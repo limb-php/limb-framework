@@ -112,9 +112,9 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         return pg_version($this->connectionId);
     }
 
-    function _raiseError($msg)
+    function _raiseError($msg, $params = [])
     {
-        throw new lmbDbException($msg . ($this->connectionId ? ' last pgsql driver error: ' . pg_last_error($this->connectionId) : ''));
+        throw new lmbDbException($msg . ($this->connectionId ? ' last pgsql driver error: ' . pg_last_error($this->connectionId) : ''), $params);
     }
 
     function execute($sql)
@@ -133,7 +133,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         $stmt_name = $stmt->getStatementName();
         $result = pg_execute($this->getConnectionId(), $stmt_name, $stmt->getPrepParams());
         if ($result === false) {
-            $this->_raiseError($stmt->getSQL());
+            $this->_raiseError($stmt->getSQL(), $stmt->getPrepParams());
         }
 
         return $result;
