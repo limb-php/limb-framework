@@ -17,6 +17,16 @@ require_once '.setup.php';
 class lmbNetToolsTest extends TestCase
 {
 
+    function setUp(): void
+    {
+        lmbToolkit::save();
+    }
+
+    function tearDown(): void
+    {
+        lmbToolkit::restore();
+    }
+
     function testGetRequestFromToolkit()
     {
         $request = lmbToolkit::instance()->getRequest();
@@ -27,27 +37,18 @@ class lmbNetToolsTest extends TestCase
 
     function testRestoreResponse()
     {
-        lmbToolkit::save();
-
         $toolkit = lmbToolkit::instance();
-        $toolkit->getResponse()->withBody('123');
+        $new_response = $toolkit->getResponse()->withBody('123');
+        $toolkit->setResponse($new_response);
 
-        $body = $toolkit->getResponse()->getBody();
-        $this->assertEquals('123', $body);
+        $this->assertEquals('123', $new_response->getBody());
+        $this->assertEquals('123', $toolkit->getResponse()->getBody());
 
         lmbToolkit::restore();
 
         $toolkit = lmbToolkit::instance();
-        $body = $toolkit->getResponse()->getBody();
 
-        $this->assertEquals('222', $body);
-
-        lmbToolkit::save();
-
-        $toolkit = lmbToolkit::instance();
-        $body = $toolkit->getResponse()->getBody();
-
-        $this->assertEquals('222', $body);
+        $this->assertEquals('', $toolkit->getResponse()->getBody());
     }
 
 }

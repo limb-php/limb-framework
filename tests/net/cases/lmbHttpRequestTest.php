@@ -83,8 +83,8 @@ class lmbHttpRequestTest extends TestCase
         $post = array('c' => 1, 'ju' => 'jitsu', 'kung' => 'fu');
         $request = new lmbHttpRequest('https://test.com', 'POST', [], $post);
 
-        $this->assertEquals($request->getMethod(), 'post');
-        $this->assertNotEquals($request->getMethod(), 'GET');
+        $this->assertEquals('post', $request->getMethod());
+        $this->assertNotEquals('GET', $request->getMethod());
 
         $this->assertTrue($request->isMethod('POST'));
         $this->assertFalse($request->isMethod('OPTION'));
@@ -242,15 +242,15 @@ class lmbHttpRequestTest extends TestCase
         );
 
         $request = new lmbHttpRequest('https://test.com', 'POST', array(), array(), array(), $files);
-        $this->assertEquals(true, $request->hasFiles());
-        $this->assertEquals(true, $request->hasFiles('form'));
-        $this->assertEquals(false, $request->hasFiles('not_existed_form'));
+        $this->assertTrue($request->hasFiles());
+        $this->assertTrue($request->hasFiles('form'));
+        $this->assertFalse($request->hasFiles('not_existed_form'));
     }
 
     function testHasNoFiles()
     {
         $request = new lmbHttpRequest('https://test.com', 'POST', array(), array(), array(), array());
-        $this->assertEquals(false, $request->hasFiles());
+        $this->assertFalse($request->hasFiles());
     }
 
     function testInitByServerVariables()
@@ -394,8 +394,8 @@ class lmbHttpRequestTest extends TestCase
         $request2 = new lmbHttpRequest('https://test.com/wow?x=2&checkbox=1');
         $request3 = new lmbHttpRequest('https://test.com/wow?x=2&checkbox=');
 
-        $this->assertEquals(true, $request->getBoolean('checkbox'));
-        $this->assertEquals(true, $request2->getBoolean('checkbox'));
-        $this->assertEquals(false, $request3->getBoolean('checkbox'));
+        $this->assertTrue($request->getBoolean('checkbox'));
+        $this->assertTrue($request2->getBoolean('checkbox'));
+        $this->assertFalse($request3->getBoolean('checkbox'));
     }
 }

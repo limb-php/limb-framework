@@ -15,9 +15,9 @@ use limb\net\src\lmbHttpCache;
 
 class lmbHttpCacheTest extends TestCase
 {
-    var $response;
-    var $cache;
-    var $server_vars;
+    protected $response;
+    protected $cache;
+    protected $server_vars;
 
     function setUp(): void
     {
@@ -41,10 +41,10 @@ class lmbHttpCacheTest extends TestCase
         $this->assertEquals($this->cache->getEtag(), $etag);
 
         $this->cache->setCacheTime(10);
-        $this->assertEquals($this->cache->getCacheTime(), 10);
+        $this->assertEquals(10, $this->cache->getCacheTime());
 
         $this->cache->setCacheType('public');
-        $this->assertEquals($this->cache->getCacheType(), 'public');
+        $this->assertEquals('public', $this->cache->getCacheType());
     }
 
     function testGetDefaultEtag1()

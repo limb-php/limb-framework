@@ -21,8 +21,8 @@ class lmbMimeTypeTest extends TestCase
 
     function testGetExtension()
     {
-        $this->assertEquals(lmbMimeType::getExtension('text/html'), 'html');
-        $this->assertEquals(lmbMimeType::getExtension('text/rtf'), 'rtf');
+        $this->assertEquals('html', lmbMimeType::getExtension('text/html'));
+        $this->assertEquals('rtf', lmbMimeType::getExtension('text/rtf'));
     }
 
     function testGetMimeTypeForExtensionFailed()
@@ -32,14 +32,14 @@ class lmbMimeTypeTest extends TestCase
 
     function testGetMimeTypeForExtension()
     {
-        $this->assertEquals(lmbMimeType::getMimeType('html'), 'text/html');
-        $this->assertEquals(lmbMimeType::getMimeType('rtf'), 'text/rtf');
+        $this->assertEquals('text/html', lmbMimeType::getMimeType('html'));
+        $this->assertEquals('text/rtf', lmbMimeType::getMimeType('rtf'));
     }
 
     function testGetMimeTypeExtensionWithDot()
     {
-        $this->assertEquals(lmbMimeType::getMimeType('.html'), 'text/html');
-        $this->assertEquals(lmbMimeType::getMimeType('.rtf'), 'text/rtf');
+        $this->assertEquals('text/html', lmbMimeType::getMimeType('.html'));
+        $this->assertEquals('text/rtf', lmbMimeType::getMimeType('.rtf'));
     }
 
     function testGetMimeTypeForFileFailed()
@@ -49,17 +49,17 @@ class lmbMimeTypeTest extends TestCase
 
     function testGetMimeTypeForFile()
     {
-        $this->assertEquals(lmbMimeType::getFileMimeType('test.html'), 'text/html');
-        $this->assertEquals(lmbMimeType::getFileMimeType('test.rtf'), 'text/rtf');
+        $this->assertEquals('text/html', lmbMimeType::getFileMimeType('test.html'));
+        $this->assertEquals('text/rtf', lmbMimeType::getFileMimeType('test.rtf'));
     }
 
 
     function testGetSameExtensionForDifferentMimeTypes()
     {
-        $this->assertEquals(lmbMimeType::getExtension('application/x-zip-compressed'), 'zip');
-        $this->assertEquals(lmbMimeType::getExtension('application/zip'), 'zip');
-        $this->assertEquals(lmbMimeType::getExtension('application/x-rar-compressed'), 'rar');
-        $this->assertEquals(lmbMimeType::getExtension('application/rar'), 'rar');
+        $this->assertEquals('zip', lmbMimeType::getExtension('application/x-zip-compressed'));
+        $this->assertEquals('zip', lmbMimeType::getExtension('application/zip'));
+        $this->assertEquals('rar', lmbMimeType::getExtension('application/x-rar-compressed'));
+        $this->assertEquals('rar', lmbMimeType::getExtension('application/rar'));
     }
 
 }

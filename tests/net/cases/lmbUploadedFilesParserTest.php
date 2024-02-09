@@ -15,7 +15,7 @@ use limb\net\src\lmbUploadedFile;
 
 class lmbUploadedFilesParserTest extends TestCase
 {
-    var $parser;
+    protected $parser;
 
     function setUp(): void
     {
@@ -25,7 +25,7 @@ class lmbUploadedFilesParserTest extends TestCase
     function testEmpty()
     {
         $result = $this->parser->parse(array());
-        $this->assertEquals($result, array());
+        $this->assertEquals(array(), $result);
     }
 
     function testSimple()
@@ -70,8 +70,10 @@ class lmbUploadedFilesParserTest extends TestCase
             ),
         );
 
-        $expected = array('file1' => new lmbUploadedFile($files['file1']),
-            'file2' => new lmbUploadedFile($files['file2']));
+        $expected = array(
+            'file1' => new lmbUploadedFile($files['file1']),
+            'file2' => new lmbUploadedFile($files['file2'])
+        );
 
         $result = $this->parser->objectify($files);
         $this->assertEquals($result, $expected);
