@@ -21,7 +21,7 @@ use limb\core\src\lmbEnv;
 
 class lmbCliRunnerTest extends TestCase
 {
-    var $tmp_dir;
+    protected $tmp_dir;
 
     function setUp(): void
     {

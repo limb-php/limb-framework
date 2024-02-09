@@ -26,8 +26,8 @@ class lmbLocaleTest extends TestCase
     {
         $locale = new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/../en.ini'));
 
-        $this->assertEquals($locale->getMonthName(0), 'January');
-        $this->assertEquals($locale->getMonthName(11), 'December');
+        $this->assertEquals('January', $locale->getMonthName(0));
+        $this->assertEquals('December', $locale->getMonthName(11));
         $this->assertNull($locale->getMonthName(12));
     }
 
@@ -35,55 +35,55 @@ class lmbLocaleTest extends TestCase
     {
         $locale = new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/../en.ini'));
 
-        $this->assertEquals($locale->getDayName(0, $short = false), 'Sunday');
-        $this->assertEquals($locale->getDayName(0, $short = true), 'Sun');
-        $this->assertEquals($locale->getDayName(6, $short = false), 'Saturday');
-        $this->assertEquals($locale->getDayName(6, $short = true), 'Sat');
+        $this->assertEquals('Sunday', $locale->getDayName(0, $short = false));
+        $this->assertEquals('Sun', $locale->getDayName(0, $short = true));
+        $this->assertEquals('Saturday', $locale->getDayName(6, $short = false));
+        $this->assertEquals('Sat', $locale->getDayName(6, $short = true));
     }
 
     function testGetOtherOptions()
     {
         $locale = new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/../en.ini'));
 
-        $this->assertEquals($locale->getCharset(), 'utf-8');
-        $this->assertEquals($locale->getLanguageDirection(), 'ltr');
+        $this->assertEquals('utf-8', $locale->getCharset());
+        $this->assertEquals('ltr', $locale->getLanguageDirection());
     }
 
     function testGetCountryOptions()
     {
         $locale = new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/../en.ini'));
 
-        $this->assertEquals($locale->getCountryName(), 'USA');
-        $this->assertEquals($locale->getCountryComment(), '');
+        $this->assertEquals('USA', $locale->getCountryName());
+        $this->assertEquals('', $locale->getCountryComment());
     }
 
     function testGetLanguageOptions()
     {
         $locale = new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/../en.ini'));
 
-        $this->assertEquals($locale->getLanguageName(), 'English (American)');
-        $this->assertEquals($locale->getIntlLanguageName(), 'English (American)');
+        $this->assertEquals('English (American)', $locale->getLanguageName());
+        $this->assertEquals('English (American)', $locale->getIntlLanguageName());
     }
 
     function testGetCurrencyOptions()
     {
         $locale = new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/../en.ini'));
 
-        $this->assertEquals($locale->getCurrencySymbol(), '$');
-        $this->assertEquals($locale->getCurrencyName(), 'US Dollar');
-        $this->assertEquals($locale->getCurrencyShortName(), 'USD');
+        $this->assertEquals('$', $locale->getCurrencySymbol());
+        $this->assertEquals('US Dollar', $locale->getCurrencyName());
+        $this->assertEquals('USD', $locale->getCurrencyShortName());
     }
 
     function testGetDateTimeFormatOptions()
     {
         $locale = new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/../en.ini'));
 
-        $this->assertEquals($locale->getTimeFormat(), '%H:%M:%S %p');
-        $this->assertEquals($locale->getShortTimeFormat(), '%H:%M %p');
-        $this->assertEquals($locale->getDateFormat(), '%A %d %B %Y');
-        $this->assertEquals($locale->getShortDateFormat(), '%m/%d/%Y');
-        $this->assertEquals($locale->getShortDateTimeFormat(), '%m/%d/%Y %H:%M:%S');
-        $this->assertEquals($locale->getDateTimeFormat(), '%A %d %B %Y %H:%M:%S');
+        $this->assertEquals('%H:%M:%S %p', $locale->getTimeFormat());
+        $this->assertEquals('%H:%M %p', $locale->getShortTimeFormat());
+        $this->assertEquals('%A %d %B %Y', $locale->getDateFormat());
+        $this->assertEquals('%m/%d/%Y', $locale->getShortDateFormat());
+        $this->assertEquals('%m/%d/%Y %H:%M:%S', $locale->getShortDateTimeFormat());
+        $this->assertEquals('%A %d %B %Y %H:%M:%S', $locale->getDateTimeFormat());
     }
 
     function testGetWeekDaysOptions()
@@ -91,25 +91,25 @@ class lmbLocaleTest extends TestCase
         $locale = new lmbLocale('en', new lmbIni(dirname(__FILE__) . '/../en.ini'));
 
         $this->assertFalse($locale->isMondayFirst());
-        $this->assertEquals($locale->getWeekDays(), array(0, 1, 2, 3, 4, 5, 6));
-        $this->assertEquals($locale->getMonths(), array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
-        $this->assertEquals($locale->getWeekDayNames(), array('Sunday',
+        $this->assertEquals(array(0, 1, 2, 3, 4, 5, 6), $locale->getWeekDays());
+        $this->assertEquals(array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), $locale->getMonths());
+        $this->assertEquals(array('Sunday',
             'Monday',
             'Tuesday',
             'Wednesday',
             'Thursday',
             'Friday',
-            'Saturday'));
+            'Saturday'), $locale->getWeekDayNames());
 
-        $this->assertEquals($locale->getWeekDayNames($short = true), array('Sun',
+        $this->assertEquals(array('Sun',
             'Mon',
             'Tue',
             'Wed',
             'Thu',
             'Fri',
-            'Sat'));
+            'Sat'), $locale->getWeekDayNames($short = true));
 
-        $this->assertEquals($locale->getMonthNames(), array('January',
+        $this->assertEquals(array('January',
             'February',
             'March',
             'April',
@@ -120,9 +120,9 @@ class lmbLocaleTest extends TestCase
             'September',
             'October',
             'November',
-            'December'));
+            'December'), $locale->getMonthNames());
 
-        $this->assertEquals($locale->getMonthNames($short = true), array('Jan',
+        $this->assertEquals(array('Jan',
             'Feb',
             'Mar',
             'Apr',
@@ -133,9 +133,9 @@ class lmbLocaleTest extends TestCase
             'Sep',
             'Oct',
             'Nov',
-            'Dec'));
+            'Dec'), $locale->getMonthNames($short = true));
 
-        $this->assertEquals($locale->getMeridiemName(10), 'am');
-        $this->assertEquals($locale->getMeridiemName(22), 'pm');
+        $this->assertEquals('am', $locale->getMeridiemName(10));
+        $this->assertEquals('pm', $locale->getMeridiemName(22));
     }
 }

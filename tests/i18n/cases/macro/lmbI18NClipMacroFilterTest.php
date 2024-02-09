@@ -18,11 +18,11 @@ require(dirname(__FILE__) . '/../.setup.php');
 
 class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
 {
-    var $prev_driver;
+    protected $prev_driver;
 
     function setUp(): void
     {
-        parent:: setUp();
+        parent::setUp();
 
         $this->prev_driver = lmbI18nString::useCharsetDriver(new lmbUTF8BaseDriver());
     }
@@ -31,7 +31,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
     {
         lmbI18nString::useCharsetDriver($this->prev_driver);
 
-        parent:: tearDown();
+        parent::tearDown();
     }
 
     function testLengthLimit()
@@ -41,7 +41,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
         $var = "что-то";
         $tpl->set('var', $var);
         $out = $tpl->render();
-        $this->assertEquals($out, 'что');
+        $this->assertEquals('что', $out);
     }
 
 
@@ -53,7 +53,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
         $tpl->set('var', $var);
         $tpl->set('limit', 3);
         $out = $tpl->render();
-        $this->assertEquals($out, 'что');
+        $this->assertEquals('что', $out);
     }
 
     function testLengthLimitAndOffset()
@@ -63,7 +63,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
         $var = "фреймворк для веб-приложений";
         $tpl->set('var', $var);
         $out = $tpl->render();
-        $this->assertEquals($out, 'вор');
+        $this->assertEquals('вор', $out);
     }
 
     function testWithSuffix()
@@ -73,7 +73,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
         $var = "фреймворк для веб-приложений";
         $tpl->set('var', $var);
         $out = $tpl->render();
-        $this->assertEquals($out, 'вор...');
+        $this->assertEquals('вор...', $out);
     }
 
     function testSuffixNotUsedTooShortString()
@@ -83,7 +83,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
         $var = "фреймворк";
         $tpl->set('var', $var);
         $out = $tpl->render();
-        $this->assertEquals($out, 'фреймворк');
+        $this->assertEquals('фреймворк', $out);
     }
 
     // don't know if boundary condition works for all cases. Should work for the simple ones.
@@ -94,7 +94,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
         $var = "фреймворк для веб-приложений";
         $tpl->set('var', $var);
         $out = $tpl->render();
-        $this->assertEquals($out, 'фреймворк для...');
+        $this->assertEquals('фреймворк для...', $out);
     }
 
     function testPathBasedDBELengthLimit()
@@ -104,7 +104,7 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
         $data = new lmbSet(array('var' => 'что-то'));
         $tpl->set('my', $data);
         $out = $tpl->render();
-        $this->assertEquals($out, 'что');
+        $this->assertEquals('что', $out);
     }
 
     function testQuoteRegexPatterns()
@@ -114,7 +114,6 @@ class lmbI18NClipMacroFilterTest extends lmbBaseMacroTestCase
         $var = "(фреймворк.*) для веб-приложений";
         $tpl->set('var', $var);
         $out = $tpl->render();
-        $this->assertEquals($out, '(фреймворк.*) для...');
+        $this->assertEquals('(фреймворк.*) для...', $out);
     }
 }
-

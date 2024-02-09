@@ -18,7 +18,7 @@ class lmbFullPageCacheWriterTest extends TestCase
 {
     protected $writer;
 
-    var $cache_dir;
+    protected $cache_dir;
 
     function setUp(): void
     {

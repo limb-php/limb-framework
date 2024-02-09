@@ -23,7 +23,7 @@ use limb\web_app\src\validation\rule\UniqueTableFieldRule;
 
 class lmbValidatorBuilderTest extends TestCase
 {
-    var $validator;
+    protected $validator;
 
     function setUp(): void
     {

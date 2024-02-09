@@ -18,8 +18,8 @@ use limb\core\src\lmbEnv;
 
 class lmbCachingFileLocatorTest extends TestCase
 {
-    var $locator;
-    var $wrapped_locator;
+    protected $locator;
+    protected $wrapped_locator;
 
     function setUp(): void
     {

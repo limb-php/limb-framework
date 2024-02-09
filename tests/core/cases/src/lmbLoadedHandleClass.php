@@ -4,7 +4,7 @@ namespace Tests\core\cases\src;
 
 class lmbLoadedHandleClass
 {
-    var $test_var;
+    public $test_var;
 
     function __construct($value = 'default')
     {

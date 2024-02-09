@@ -17,7 +17,7 @@ require(dirname(__FILE__) . '/../.setup.php');
 
 class lmbI18NCapitalizeMacroFilterTest extends lmbBaseMacroTestCase
 {
-    var $prev_driver;
+    protected $prev_driver;
 
     function setUp(): void
     {

@@ -16,7 +16,7 @@ require_once '.setup.php';
 
 class lmbCachedIniTest extends lmbIniTest
 {
-    var $cache_dir;
+    protected $cache_dir;
 
     function setUp(): void
     {

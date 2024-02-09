@@ -11,7 +11,7 @@ namespace Tests\core\cases\src;
 
 class DecorateeTestStub implements DecorateeTestInterface
 {
-    var $value;
+    protected $value;
 
     function set($value)
     {

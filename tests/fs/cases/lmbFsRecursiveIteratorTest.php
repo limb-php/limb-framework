@@ -19,7 +19,7 @@ use limb\fs\src\exception\lmbFsException;
 
 class lmbFsRecursiveIteratorTest extends TestCase
 {
-    var $dir;
+    protected $dir;
 
     function setUp(): void
     {
@@ -146,5 +146,3 @@ class lmbFsRecursiveIteratorTest extends TestCase
             lmbFs::normalizePath($path), '%s ' . $line);
     }
 }
-
-

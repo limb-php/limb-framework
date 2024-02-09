@@ -4,8 +4,9 @@ namespace Tests\filter_chain\cases\src;
 
 class InterceptingFilterStub
 {
-    var $captured = array();
-    var $run = false;
+    public $captured = [];
+
+    public $run = false;
 
     function run($fc, $request, $callback = null)
     {

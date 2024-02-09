@@ -13,9 +13,9 @@ use limb\core\src\lmbProxy;
 
 class ProxyTestingStub extends lmbProxy
 {
-    var $extra_attrib = 'whatever';
-    var $original_mock;
-    var $create_calls = 0;
+    protected $extra_attrib = 'whatever';
+    protected $original_mock;
+    public $create_calls = 0;
 
     function __construct($mock)
     {

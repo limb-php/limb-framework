@@ -16,7 +16,7 @@ use limb\core\src\exception\lmbException;
 
 class TestTools extends lmbAbstractTools
 {
-    var $calls = 0;
+    protected $calls = 0;
 
     function commonMethod()
     {

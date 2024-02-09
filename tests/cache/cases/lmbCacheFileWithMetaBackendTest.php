@@ -16,7 +16,7 @@ use limb\core\src\lmbEnv;
 
 class lmbCacheFileWithMetaBackendTest extends lmbCacheFileBackendTestCase
 {
-    var $cache_dir;
+    protected $cache_dir;
 
     function _createPersisterImp()
     {

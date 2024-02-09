@@ -17,8 +17,8 @@ use limb\core\src\lmbSet;
 
 class lmbValidatorTest extends TestCase
 {
-    var $error_list;
-    var $validator;
+    protected $error_list;
+    protected $validator;
 
     function setUp(): void
     {

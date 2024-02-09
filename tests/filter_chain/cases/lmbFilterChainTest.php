@@ -21,7 +21,7 @@ use Tests\filter_chain\cases\src\OutputFilter3;
 
 class lmbFilterChainTest extends TestCase
 {
-    var $fc;
+    protected $fc;
 
     function setUp(): void
     {

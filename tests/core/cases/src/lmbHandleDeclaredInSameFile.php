@@ -4,8 +4,8 @@ namespace Tests\core\cases\src;
 
 class lmbHandleDeclaredInSameFile
 {
-    var $test_var;
-    var $test_var2;
+    public $test_var;
+    public $test_var2;
 
     function __construct($var = 'default', $var2 = 'default')
     {

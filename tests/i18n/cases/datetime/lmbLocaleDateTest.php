@@ -45,7 +45,7 @@ class lmbLocaleDateTest extends TestCase
 
         try {
             $date = lmbLocaleDateTime::localStringToDate($locale, '02-29-2003', '%a %d %b %Y');
-            $this->assertTrue(false);
+            $this->fail();
         } catch (lmbException $e) {
             $this->assertTrue(true);
         }
