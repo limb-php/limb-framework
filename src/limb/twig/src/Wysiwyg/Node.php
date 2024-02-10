@@ -1,8 +1,8 @@
 <?php
 
-namespace limb\twig\src;
+namespace limb\twig\src\Wysiwyg;
 
-class Wysiwyg_Node extends \Twig\Node\Node
+class Node extends \Twig\Node\Node
 {
     public function __construct($form_id, $params = [], $line = 0, $tag = null)
     {

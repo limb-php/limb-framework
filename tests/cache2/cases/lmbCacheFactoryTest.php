@@ -42,7 +42,7 @@ class lmbCacheFactoryTest extends TestCase
     {
         $cache_dir = lmb_var_dir() . '/some_dir';
         $cache = lmbCacheFactory::createConnection('file://' . $cache_dir . '?wrapper=' . lmbMintCache::class);
-        $this->assertInstanceOf($cache, lmbMintCache::class);
+        $this->assertInstanceOf(lmbMintCache::class, $cache);
 
         $this->assertEquals('file', $cache->getType());
         $this->assertEquals($cache_dir, $cache->getCacheDir());
@@ -54,7 +54,7 @@ class lmbCacheFactoryTest extends TestCase
         $cache = lmbCacheFactory::createConnection(
             'file://' . $cache_dir . '?wrapper[]=' . lmbMintCache::class . '&wrapper[]=' . lmbTaggableCache::class
         );
-        $this->assertInstanceOf($cache, lmbTaggableCache::class);
+        $this->assertInstanceOf(lmbTaggableCache::class, $cache);
 
         $this->assertEquals('file', $cache->getType());
         $this->assertEquals($cache_dir, $cache->getCacheDir());
@@ -62,7 +62,7 @@ class lmbCacheFactoryTest extends TestCase
 
     function testCacheApcCreation()
     {
-        $cache = lmbCacheFactory::createConnection('apc');
+        $cache = lmbCacheFactory::createConnection('apc://localhost');
         $this->assertEquals('apc', $cache->getType());
     }
 }

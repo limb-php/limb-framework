@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\log\cases;
+namespace Tests\log\cases\toolkit;
 
 require(dirname(__FILE__) . '/../.setup.php');
 

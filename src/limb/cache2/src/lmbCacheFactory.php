@@ -22,15 +22,16 @@ use limb\cache2\src\drivers\lmbCacheAbstractConnection;
 class lmbCacheFactory
 {
     /**
-     * @param string $dsn
+     * @param lmbUri|string $dsn
      * @return lmbCacheAbstractConnection
      */
     static function createConnection($dsn)
     {
-        if (!is_object($dsn))
+        if (!is_a($dsn, lmbUri::class)) {
             $dsn = new lmbUri($dsn);
+        }
 
-        $class = self::getConnectionClass($dsn);
+        $class = self::getConnectionClass($dsn->getScheme());
         $connection = new $class($dsn);
 
         foreach (self::getWrappers($dsn) as $wrapper)
@@ -39,14 +40,12 @@ class lmbCacheFactory
         return $connection;
     }
 
-    static protected function getConnectionClass($dsn)
+    static protected function getConnectionClass($driver): string
     {
-        $driver = $dsn->getProtocol();
-
         $class = 'limb\\cache2\\src\\drivers\\lmbCache' . ucfirst($driver) . 'Connection';
 
         if (!class_exists($class)) {
-            throw new lmbException("Cache driver '$driver' file not found for DSN '" . $dsn->toString() . "'!");
+            throw new lmbException("Cache driver '$driver' file not found");
         }
 
         return $class;

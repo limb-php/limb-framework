@@ -6,7 +6,7 @@ use limb\core\src\lmbEnv;
 use limb\net\src\lmbIp;
 use limb\toolkit\src\lmbToolkit;
 use Twig\Extension\AbstractExtension;
-use limb\twig\src\Wysiwyg_TokenParser;
+use limb\twig\src\Wysiwyg\TokenParser;
 
 class lmbTwigExtension extends AbstractExtension
 {
@@ -32,7 +32,7 @@ class lmbTwigExtension extends AbstractExtension
     public function getTokenParsers()
     {
         return [
-            new Wysiwyg_TokenParser()
+            new TokenParser()
         ];
     }
 

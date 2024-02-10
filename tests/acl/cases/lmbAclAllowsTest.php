@@ -7,7 +7,7 @@
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
 
-namespace Tests\acl\cases;
+namespace Tests\Acl\Cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\acl\src\lmbAcl;

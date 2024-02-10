@@ -277,7 +277,7 @@ abstract class lmbCacheConnectionTestCase extends TestCase
         $include_path = get_include_path();
         $cur_process_dir = getcwd();
         $arguments_str = implode("', '", $arguments);
-        $setup_file = realpath($cur_file_dir . '/../../.setup.php');
+        $setup_file = realpath($cur_file_dir . '/../../tests/cache2/cases/.setup.php');
 
         $request_code = <<<EOD
 <?php

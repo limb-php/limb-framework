@@ -77,9 +77,9 @@ abstract class lmbCacheAbstractConnection implements lmbCacheConnectionInterface
             return $data;
     }
 
-    function get($keys)
+    function get($key)
     {
-        $keys = $this->_resolveKey($keys);
+        $keys = $this->_resolveKey($key);
 
         if (!is_array($keys)) {
             $values = $this->_getSingleKeyValue($keys);

@@ -37,7 +37,7 @@ class lmbCacheFileConnection extends lmbCacheAbstractConnection
 
         $this->_cache_dir = $cache_dir;
 
-        lmbFs:: mkdir($this->_cache_dir);
+        lmbFs::mkdir($this->_cache_dir);
     }
 
     function getType()
@@ -68,11 +68,11 @@ class lmbCacheFileConnection extends lmbCacheAbstractConnection
 
         if ($ttl) {
             $ttl_file = $this->_getCacheTtlFileName($key);
-            lmbFs:: safeWrite($ttl_file, (string)($ttl + time()));
+            lmbFs::safeWrite($ttl_file, (string)($ttl + time()));
         }
 
         $file = $this->_getCacheFileName($key);
-        lmbFs:: safeWrite($file, $this->_createContainer($value));
+        lmbFs::safeWrite($file, $this->_createContainer($value));
 
         return true;
     }
@@ -96,7 +96,7 @@ class lmbCacheFileConnection extends lmbCacheAbstractConnection
 
     function flush()
     {
-        $files = lmbFs:: find($this->getCacheDir(), 'f');
+        $files = lmbFs::find($this->getCacheDir(), 'f');
         foreach ($files as $file)
             lmbFs::rm($file);
     }
@@ -117,13 +117,13 @@ class lmbCacheFileConnection extends lmbCacheAbstractConnection
         $ttl_file_name = $this->_getCacheTtlFileName($key);
 
         if (!file_exists($cache_file_name))
-            return NULL;
+            return null;
 
         if (!file_exists($ttl_file_name))
             return $cache_file_name;
 
         if ((int)file_get_contents($ttl_file_name) <= time())
-            return NULL;
+            return null;
         else
             return $cache_file_name;
     }

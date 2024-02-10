@@ -1,10 +1,8 @@
 <?php
 
-namespace limb\twig\src;
+namespace limb\twig\src\Wysiwyg;
 
-use limb\twig\src\Wysiwyg_Node;
-
-class Wysiwyg_TokenParser extends \Twig\TokenParser\AbstractTokenParser
+class TokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
     public function parse(\Twig\Token $token)
     {
@@ -30,7 +28,7 @@ class Wysiwyg_TokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new Wysiwyg_Node($form_id, $params, $token->getLine(), $this->getTag());
+        return new Node($form_id, $params, $token->getLine(), $this->getTag());
     }
 
     public function getTag()

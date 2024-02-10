@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\search\cases\dataset;
+namespace Tests\search\cases\indexer;
 
 use PHPUnit\Framework\TestCase;
 use limb\search\src\indexer\lmbSearchTextNormalizer;
@@ -31,4 +31,3 @@ class lmbSearchTextNormalizerTest extends TestCase
         $this->assertEquals($result, "привет растения");
     }
 }
-

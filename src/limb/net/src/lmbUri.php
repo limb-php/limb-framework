@@ -97,7 +97,9 @@ class lmbUri implements UriInterface
         return $url;
     }
 
-    /** @deprecated */
+    /** @deprecated
+     *  use getScheme() instead
+     */
     function getProtocol()
     {
         return $this->protocol;
@@ -449,7 +451,7 @@ class lmbUri implements UriInterface
         $this->path_elements = explode('/', $this->path);
     }
 
-    public function getScheme()
+    public function getScheme(): string
     {
         return $this->protocol;
     }
