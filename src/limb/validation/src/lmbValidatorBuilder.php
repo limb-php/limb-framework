@@ -46,7 +46,7 @@ class lmbValidatorBuilder
     /**
      * Main function for building rules.
      *
-     * @param array $rules_lists - list (array) of rules' lists, $field => $list.
+     * @param array $rules_lists - list of rules, $field => $list.
      * List of rules can be a string:
      *    $rules_lists['field'] = 'rule1|rule2|rule3';
      * or an array:
@@ -60,33 +60,34 @@ class lmbValidatorBuilder
      *    );
      *
      * @param lmbValidator $validator
+     * @return void
      */
-    static function addRules($rules_lists, lmbValidator $validator)
+    static function addRules($rules_lists, lmbValidator $validator): void
     {
-        if (!is_array($rules_lists)) {
-            return;
-        }
+        if (is_array($rules_lists)) {
 
-        foreach ($rules_lists as $field => $list) {
+            foreach ($rules_lists as $field => $list) {
 
-            if (is_string($list)) {
-                $list = explode('|', $list);
-            }
+                if (is_string($list)) {
+                    $list = explode('|', $list);
+                }
 
-            foreach ($list as $rule_name => $rule) // by default $rule has simple format
-            {
-                $args = '';
-
-                if (is_string($rule_name)) // extended format
+                foreach ($list as $rule_name => $rule) // by default $rule has simple format
                 {
-                    $args = $rule;
-                    $rule = $rule_name;
-                }
+                    $args = '';
 
-                if ($object_rule = self::parseRule($field, $rule, $args)) {
-                    $validator->addRule($object_rule);
+                    if (is_string($rule_name)) // extended format
+                    {
+                        $args = $rule;
+                        $rule = $rule_name;
+                    }
+
+                    if ($object_rule = self::parseRule($field, $rule, $args)) {
+                        $validator->addRule($object_rule);
+                    }
                 }
             }
+
         }
     }
 
@@ -105,8 +106,8 @@ class lmbValidatorBuilder
      *
      * @param string $field
      * @param string $rule
-     * @param mixed $args
-     * @return object
+     * @param string|array $args
+     * @return lmbHandle|null
      */
     protected static function parseRule($field, $rule, $args = '')
     {
@@ -161,7 +162,7 @@ class lmbValidatorBuilder
     {
         $fp = fopen($file, 'r');
         $class = $namespace = $buffer = '';
-        $i = 0;
+
         while (!$class) {
             if (feof($fp))
                 break;
@@ -172,12 +173,13 @@ class lmbValidatorBuilder
             if (strpos($buffer, '{') === false)
                 continue;
 
-            for (; $i < count($tokens); $i++) {
+            for ($i = 0; $i < count($tokens); $i++) {
+                //[$tokenId, $tokenText, $line] = $tokens[$i];
                 if ($tokens[$i][0] === T_NAMESPACE) {
                     for ($j = $i + 1; $j < count($tokens); $j++) {
                         if ($tokens[$j][0] === T_STRING) {
                             $namespace .= $tokens[$j][1] . '\\';
-                        } elseif ($tokens[$j][0] === 314) {
+                        } elseif ($tokens[$j][0] === T_NAME_QUALIFIED) {
                             $namespace = $tokens[$j][1] . '\\';
                         } else if ($tokens[$j] === '{' || $tokens[$j] === ';') {
                             break;
