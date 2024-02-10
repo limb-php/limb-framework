@@ -61,8 +61,8 @@
             "src/limb/macro/common.inc.php",
             "src/limb/view/common.inc.php"
         ],
-        "psr-0": {
-            "limb\\": "src/"
+        "psr-4": {
+            "limb\\": "src/limb/"
         }
     },
     "autoload-dev": {
