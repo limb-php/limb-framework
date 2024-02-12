@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace limb\core\src;
@@ -24,12 +24,12 @@ class lmbDecoratorGeneratorDefaultEventsHandler
 
     function onConstructor()
     {
-        return "\$this->original = \$args[0];\n";
+        return "\$this->original = \$args[0];" . PHP_EOL;
     }
 
     function onMethod($method)
     {
-        return "return call_user_func_array(array(\$this->original, '$method'), \$args);\n";
+        return "return call_user_func_array(array(\$this->original, '$method'), \$args);" . PHP_EOL;
     }
 
     function onExtra()
@@ -37,4 +37,3 @@ class lmbDecoratorGeneratorDefaultEventsHandler
         return "";
     }
 }
-

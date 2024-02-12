@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace limb\core\src;
@@ -55,22 +55,22 @@ class lmbDecorator
         //if( $decoratee_reflection->inNamespace() )
         //$code .= "use " . $decoratee_reflection->getNamespaceName() . ";";
 
-        $code .= "class " . $decorator_class . " " . $relation . " " . $decoratee_class . " {\n";
+        $code .= "class " . $decorator_class . " " . $relation . " " . $decoratee_class . " {" . PHP_EOL;
 
-        $code .= $events_handler->onDeclareProperties() . "\n";
-        $code .= "    function __construct() {\n";
+        $code .= $events_handler->onDeclareProperties() . PHP_EOL;
+        $code .= "    function __construct() {" . PHP_EOL;
 
         //dealing with proxied class' public properties
         foreach ($decoratee_reflection->getProperties() as $property) {
             if ($property->isPublic())
-                $code .= 'unset($this->' . $property->getName() . ");\n";
+                $code .= 'unset($this->' . $property->getName() . ");" . PHP_EOL;
         }
 
-        $code .= "        \$args = func_get_args();\n";
-        $code .= $events_handler->onConstructor() . "\n";
-        $code .= "    }\n";
-        $code .= self::_createHandlerCode($decoratee_class, $decorator_class, $events_handler) . "\n";
-        $code .= "}\n";
+        $code .= "        \$args = func_get_args();" . PHP_EOL;
+        $code .= $events_handler->onConstructor() . PHP_EOL;
+        $code .= "    }" . PHP_EOL;
+        $code .= self::_createHandlerCode($decoratee_class, $decorator_class, $events_handler) . PHP_EOL;
+        $code .= "}" . PHP_EOL;
         //var_dump("<pre>". $code . "</pre>"); exit();
         return $code;
     }
@@ -83,10 +83,10 @@ class lmbDecorator
             if (self::_isSkipMethod($method))
                 continue;
 
-            $code .= "    " . lmbReflectionHelper:: getSignature($decoratee_class, $method) . " {\n";
-            $code .= "        \$args = func_get_args();\n";
-            $code .= $events_handler->onMethod($method) . "\n";
-            $code .= "    }\n\n";
+            $code .= "    " . lmbReflectionHelper:: getSignature($decoratee_class, $method) . " {" . PHP_EOL;
+            $code .= "        \$args = func_get_args();" . PHP_EOL;
+            $code .= $events_handler->onMethod($method) . PHP_EOL;
+            $code .= "    }" . PHP_EOL;
         }
         $code .= $events_handler->onExtra();
         return $code;
@@ -97,4 +97,3 @@ class lmbDecorator
         return in_array(strtolower($method), array('__construct', '__destruct', '__clone'));
     }
 }
-
