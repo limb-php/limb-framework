@@ -194,13 +194,10 @@ class lmbMacroCodeWriter
      */
     function generateTempName()
     {
-        $var = $this->temp_var_name++;
-        if ($var > 675)
-            return chr(65 + ($var / 26) / 26) . chr(65 + ($var / 26) % 26) . chr(65 + $var % 26);
-        elseif ($var > 26)
-            return chr(65 + ($var / 26) % 26) . chr(65 + $var % 26);
-        else
-            return chr(64 + $var);
+        //$var = $this->temp_var_name++;
+        $lenght = 32;
+        $bytes = random_bytes(ceil($lenght / 2));
+        return "lmb" . substr(bin2hex($bytes), 0, $lenght);
     }
 
     /**

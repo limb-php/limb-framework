@@ -200,6 +200,7 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
         $this->dataset->next();
     }
 
+    #[\ReturnTypeWillChange]
     function current()
     {
         return $this->dataset->current();
@@ -210,6 +211,7 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
         return $this->dataset->valid();
     }
 
+    #[\ReturnTypeWillChange]
     function key()
     {
         return $this->dataset->key();
@@ -270,6 +272,7 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
         return !is_null($this->offsetGet($offset));
     }
 
+    #[\ReturnTypeWillChange]
     function offsetGet($offset)
     {
         if (is_numeric($offset))
