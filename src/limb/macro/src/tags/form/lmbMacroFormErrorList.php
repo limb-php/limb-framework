@@ -40,6 +40,7 @@ class lmbMacroFormErrorList extends \ArrayIterator
         $this->form = $form;
     }
 
+    #[\ReturnTypeWillChange]
     function current()
     {
         $error = parent::current();
