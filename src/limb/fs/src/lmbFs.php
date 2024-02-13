@@ -360,6 +360,9 @@ class lmbFs
      */
     static function convertSeparators($path, $to_type = self::UNIX)
     {
+        if(!$path)
+            return '';
+
         $separator = self::separator($to_type);
         return preg_replace("#[/\\\\]#", $separator, $path);
     }
