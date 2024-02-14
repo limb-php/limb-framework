@@ -22,7 +22,15 @@ use limb\core\src\exception\lmbException;
 class lmbDbDSN extends lmbObject
 {
     protected $uri;
-    protected $extra = array();
+
+    protected $driver;
+    protected $host;
+    protected $user;
+    protected $password;
+    protected $database;
+    protected $port;
+    protected $charset;
+    protected $extra = [];
 
     function __construct($args)
     {

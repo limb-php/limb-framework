@@ -17,6 +17,8 @@ namespace limb\fs\src\exception;
  */
 class lmbFileNotFoundException extends lmbFsException
 {
+    private $_file_path;
+
     function __construct($file_path, $message = 'file not found', $params = array())
     {
         $this->_file_path = $file_path;
