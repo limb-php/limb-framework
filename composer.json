@@ -59,7 +59,8 @@
             "src/limb/log/common.inc.php",
             "src/limb/net/common.inc.php",
             "src/limb/macro/common.inc.php",
-            "src/limb/view/common.inc.php"
+            "src/limb/view/common.inc.php",
+            "src/limb/optimization/common.inc.php"
         ],
         "psr-4": {
             "limb\\": "src/limb/"
