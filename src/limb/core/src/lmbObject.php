@@ -243,8 +243,8 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
 
     protected function _getRaw($name)
     {
-        if ($this->_hasProperty($name))
-            return $this->$name;
+        //if ($this->_hasProperty($name))
+        return $this->$name ?? null;
     }
 
     protected function _setRaw($name, $value)
