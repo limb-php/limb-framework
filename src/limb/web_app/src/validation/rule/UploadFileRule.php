@@ -1,6 +1,6 @@
 <?php
 
-namespace src\validation\rule;
+namespace limb\web_app\src\validation\rule;
 
 use limb\net\src\lmbUploadedFile;
 use limb\validation\src\rule\lmbValidationRuleInterface;
