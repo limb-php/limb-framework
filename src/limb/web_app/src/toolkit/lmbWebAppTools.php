@@ -204,12 +204,14 @@ class lmbWebAppTools extends lmbAbstractTools
         return new $controller_name;
     }
 
-    function redirect($params_or_url = array(), $route_url = null, $append = '')
+    function redirect($params_or_url = [], $route_url = null, $append = '')
     {
-        if (is_array($params_or_url))
-            $this->toolkit->getResponse()->redirect($this->toolkit->getRoutesUrl($params_or_url, $route_url) . $append);
-        else
-            $this->toolkit->getResponse()->redirect($params_or_url . $append);
+        $redirect = $params_or_url;
+        if (is_array($params_or_url)) {
+            $redirect = $this->toolkit->getRoutesUrl($params_or_url, $route_url);
+        }
+
+        return $this->toolkit->getResponse()->redirect($redirect . $append);
     }
 
     function isWebAppDebugEnabled(): bool
