@@ -11,7 +11,7 @@ namespace limb\config\src;
 
 use limb\core\src\exception\lmbException;
 use limb\core\src\exception\lmbNoSuchPropertyException;
-use limb\core\src\lmbSet;
+use limb\core\src\lmbObject;
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\core\src\exception\lmbInvalidArgumentException;
 
@@ -21,7 +21,7 @@ use limb\core\src\exception\lmbInvalidArgumentException;
  * @package config
  * @version $Id: lmbConf.php 8038 2010-01-19 20:19:00Z
  */
-class lmbConf extends lmbSet
+class lmbConf extends lmbObject
 {
     protected $_file;
 
