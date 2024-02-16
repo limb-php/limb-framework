@@ -155,7 +155,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
     protected function _hasProperty($name): bool
     {
         $this->_registerPredefinedVariables();
-        return isset($this->_map['public'][$name]);
+        return array_key_exists($name, $this->_map['public']);
     }
 
     function getPropertiesNames(): array
@@ -318,7 +318,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
     {
         $hash = static::class . '::' . $property;
 
-        if (isset(self::$map_p2m[$hash]))
+        if (array_key_exists($hash, self::$map_p2m))
             return self::$map_p2m[$hash];
 
         $capsed = lmbString::camel_case($property);
@@ -349,7 +349,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
      */
     function __set($property, $value)
     {
-        if (isset($this->_map['dynamic'][$property]))
+        if (array_key_exists($property, $this->_map['dynamic']))
             $this->$property = $value;
         else
             $this->set($property, $value);
