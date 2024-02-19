@@ -75,6 +75,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
 
     private $_map = [
         'public' => [],
+        'dynamic' => [],
         'initialized' => false,
     ];
 
@@ -93,17 +94,16 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
 
     protected function _registerPredefinedVariables()
     {
-        if ($this->_map['initialized'] !== false) {
+        if ($this->_map['initialized']) {
             return;
         }
-
         $var_names = get_object_vars($this);
         foreach ($var_names as $key => $item) {
             if (!$this->_isGuarded($key))
-                $this->_map['public'][$key] = $item;
+                $this->_map['public'][$key] = $key;
         }
 
-        $this->_map['initialized'] = array_keys($var_names);
+        $this->_map['initialized'] = true;
     }
 
     /**
@@ -184,7 +184,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
             return;
 
         unset($this->_map['public'][$name]);
-
+        unset($this->_map['dynamic'][$name]);
         unset($this->$name);
     }
 
@@ -193,11 +193,10 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
      */
     function reset()
     {
-        $this->_map['public'] = [];
-
-        foreach ($this->getPropertiesNames() as $name) {
+        $this->_map['public'] = array();
+        $this->_map['dynamic'] = array();
+        foreach ($this->getPropertiesNames() as $name)
             unset($this->$name);
-        }
     }
 
     /**
@@ -245,7 +244,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
     protected function _getRaw($name)
     {
         if ($this->_hasProperty($name))
-            return $this->_map['public'][$name];
+            return $this->$name ?? null;
     }
 
     protected function _setRaw($name, $value)
@@ -253,8 +252,8 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
         if ($this->_isGuarded($name))
             return;
 
-        $this->_map['public'][$name] = $value;
-
+        $this->_map['public'][$name] = $name;
+        $this->_map['dynamic'][$name] = $name;
         $this->$name = $value;
     }
 
@@ -350,7 +349,10 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
      */
     function __set($property, $value)
     {
-        $this->set($property, $value);
+        if (array_key_exists($property, $this->_map['dynamic']))
+            $this->$property = $value;
+        else
+            $this->set($property, $value);
     }
 
     /**
@@ -395,7 +397,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
     #[\ReturnTypeWillChange]
     function key()
     {
-        return key($this->_map['public']);
+        return current($this->_map['public']);
     }
 
     function valid(): bool
