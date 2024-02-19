@@ -1,8 +1,6 @@
 <?php
 
 return array(
-    'devel' => [
-        'dsn' => 'mysql://root:test@localhost:3307/tests_limb?charset=utf8'
-        //'dsn' => 'sqlite://localhost/' . lmb_var_dir() . '/sqlite_tests.db'
-    ]
+    'dsn' => 'mysql://root:test@localhost:3307/tests_limb?charset=utf8'
+    //'dsn' => 'sqlite://localhost/' . lmb_var_dir() . '/sqlite_tests.db'
 );
