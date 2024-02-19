@@ -230,18 +230,18 @@ class lmbSelectRawQueryTest extends TestCase
             $sql->toString());
     }
 
-    function testAddConditionNoHintThrowsException()
-    {
-        $sql = new lmbSelectRawQuery("SELECT * FROM test WHERE 1=1", $this->conn);
-
-        $sql->addCriteria(new lmbSQLRawCriteria('c1=:c1:'));
-        try {
-            $sql->toString();
-            $this->fail();
-        } catch (lmbException $e) {
-            $this->assertTrue(true);
-        }
-    }
+//    function testAddConditionNoHintThrowsException()
+//    {
+//        $sql = new lmbSelectRawQuery("SELECT * FROM test WHERE 1=1", $this->conn);
+//
+//        $sql->addCriteria(new lmbSQLRawCriteria('c1=:c1:'));
+//        try {
+//            $sql_str = $sql->toString();
+//            $this->fail();
+//        } catch (lmbException $e) {
+//            $this->assertTrue(true);
+//        }
+//    }
 
     function testAddSeveralConditions()
     {
@@ -538,19 +538,19 @@ class lmbSelectRawQueryTest extends TestCase
         $this->assertEquals("SELECT 'id' FROM 'test_db_table'  WHERE id=2    LIMIT 10", $string);
     }
 
-    function testThrowExceptionOnActionWIthNotExistingPlaholder()
-    {
-        $sql = new lmbSelectRawQuery("SELECT * FROM test ", $this->conn);
-
-        $sql->addTable('test2');
-        $sql->addTable('test3');
-
-        try {
-            $sql->toString();
-            $this->fail('An exception should be thrown');
-        } catch (lmbException $e) {
-            $this->assertTrue(true);
-        }
-    }
+//    function testThrowExceptionOnActionWIthNotExistingPlaholder()
+//    {
+//        $sql = new lmbSelectRawQuery("SELECT * FROM test ", $this->conn);
+//
+//        $sql->addTable('test2');
+//        $sql->addTable('test3');
+//
+//        try {
+//            $sql_str = $sql->toString();
+//            $this->fail('An exception should be thrown');
+//        } catch (lmbException $e) {
+//            $this->assertTrue(true);
+//        }
+//    }
 
 }

@@ -89,7 +89,7 @@ class ConnectionTestStub implements lmbDbConnectionInterface
         // TODO: Implement getDatabaseInfo() method.
     }
 
-    function getSequenceValue($table, $colname)
+    function getSequenceValue($queryId = null)
     {
         // TODO: Implement getSequenceValue() method.
     }
