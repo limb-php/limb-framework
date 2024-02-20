@@ -343,6 +343,14 @@ class lmbHttpRequestTest extends TestCase
     {
         $request = new lmbHttpRequest('https://test.com/wow?z=1');
         $this->assertTrue($request->has('z'));
+
+        $request2 = new lmbHttpRequest('https://test.com/wow?zar[]=1&zar[]=2');
+        $this->assertTrue($request2->has('zar'));
+        $this->assertEquals([1, 2], $request2->get('zar'));
+
+        $request3 = new lmbHttpRequest('https://test.com/wow', 'post', [], ['zar' => [1, 3]]);
+        $this->assertTrue($request3->has('zar'));
+        $this->assertEquals([1, 3], $request3->get('zar'));
     }
 
     function testAttributes()
