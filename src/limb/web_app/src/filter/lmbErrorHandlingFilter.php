@@ -50,14 +50,13 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
     function handleFatalError($error)
     {
         $this->toolkit->getLog()->log(LOG_ERR, $error['message']);
-        $this->toolkit->getResponse()->reset();
 
         header('HTTP/1.x 500 Server Error');
 
         if ($this->toolkit->isWebAppDebugEnabled())
-            $this->_echoErrorBacktrace($error);
+            echo $this->_echoErrorBacktrace($error);
         else
-            $this->_echoErrorPage();
+            echo $this->_echoErrorPage();
 
         exit(1);
     }
@@ -68,14 +67,13 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
             \debugBreak();
 
         $this->toolkit->getLog()->logException($e);
-        $this->toolkit->getResponse()->reset();
 
         header('HTTP/1.x 500 Server Error');
 
         if ($this->toolkit->isWebAppDebugEnabled())
-            $this->_echoExceptionBacktrace($e);
+            echo $this->_echoExceptionBacktrace($e);
         else
-            $this->_echoErrorPage();
+            echo $this->_echoErrorPage();
 
         exit(1);
     }
@@ -85,7 +83,7 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
         for ($i = 0; $i < ob_get_level(); $i++)
             ob_end_clean();
 
-        echo file_get_contents($this->error_page);
+        return file_get_contents($this->error_page);
     }
 
     protected function _echoErrorBacktrace($error)
@@ -101,7 +99,7 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
             ob_end_clean();
 
         $session = htmlspecialchars($this->toolkit->getSession()->dump());
-        echo $this->_renderTemplate($message, '', $trace, $file, $line, $context, $request, $session);
+        return $this->_renderTemplate($message, '', $trace, $file, $line, $context, $request, $session);
     }
 
     protected function _echoExceptionBacktrace($e)
@@ -130,7 +128,7 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
         for ($i = 0; $i < ob_get_level(); $i++)
             ob_end_clean();
 
-        echo $this->_renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session);
+        return $this->_renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session);
     }
 
     protected function _renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session)

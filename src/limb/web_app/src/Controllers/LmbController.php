@@ -17,6 +17,7 @@ use limb\validation\src\lmbValidator;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
 use limb\core\src\exception\lmbException;
+use limb\web_app\src\exception\lmbEmptyControllerResponseException;
 use limb\view\src\lmbJsonView;
 use limb\view\src\lmbView;
 use limb\web_app\src\Helpers\lmbRouteHelper;
@@ -69,11 +70,6 @@ class LmbController
 
     /**
      *
-     * @var \limb\net\src\lmbHttpResponse
-     */
-    protected $response;
-    /**
-     *
      * @var \limb\session\src\lmbSession
      */
     protected $session;
@@ -105,7 +101,6 @@ class LmbController
 
         $this->toolkit = lmbToolkit::instance();
         $this->request = $this->toolkit->getRequest();
-        $this->response = $this->toolkit->getResponse();
         $this->session = $this->toolkit->getSession();
 
         $this->error_list = new lmbErrorList();
@@ -216,7 +211,7 @@ class LmbController
 
             $response = response()->withBody($view->render());
         } else {
-            throw new lmbException('Empty controller response');
+            throw new lmbEmptyControllerResponseException('Empty controller response');
         }
 
         return $response;
@@ -274,9 +269,9 @@ class LmbController
         $this->form_datasource[$form_id] = $datasource;
     }
 
-    function redirect($params_or_url = array(), $route_url = null)
+    function redirect($params_or_url = array(), $route_url = null): lmbHttpResponse
     {
-        $this->toolkit->redirect($params_or_url, $route_url);
+        return $this->toolkit->redirect($params_or_url, $route_url);
     }
 
     function flashError($message)
@@ -316,7 +311,7 @@ class LmbController
         if (!$this->in_popup)
             return;
 
-        $this->response->write('<html><script>if(window.opener){window.opener.focus();window.opener.location.reload();window.close();}</script></html>');
+        return response('<html><script>if(window.opener){window.opener.focus();window.opener.location.reload();window.close();}</script></html>');
     }
 
     protected function _mapCurrentActionToMethod()
