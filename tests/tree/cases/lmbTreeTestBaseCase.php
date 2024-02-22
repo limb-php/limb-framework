@@ -10,6 +10,7 @@
 namespace Tests\tree\cases;
 
 use limb\core\src\lmbSet;
+use limb\tree\src\lmbTreeInterface;
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\lmbSimpleDb;
 use limb\tree\src\exception\lmbTreeException;
@@ -19,13 +20,13 @@ use limb\toolkit\src\lmbToolkit;
 
 require_once('.setup.php');
 
-abstract class lmbTreeTestBase extends TestCase
+abstract class lmbTreeTestBaseCase extends TestCase
 {
     protected $db;
     protected $conn;
     protected $imp;
 
-    abstract function _createTreeImp();
+    abstract function _createTreeImp(): lmbTreeInterface;
 
     abstract function _cleanUp();
 
@@ -117,10 +118,10 @@ abstract class lmbTreeTestBase extends TestCase
         $node_1_1 = $this->imp->createNode($node_1, array('identifier' => 'node_1_1'));
 
         $arr = $this->imp->getNodesByIds(array($node_2, $node_1, $root_id, $node_1_1));
-        $this->assertEquals($arr[0]['id'], $root_id);
-        $this->assertEquals($arr[1]['id'], $node_1);
-        $this->assertEquals($arr[2]['id'], $node_1_1);
-        $this->assertEquals($arr[3]['id'], $node_2);
+        $this->assertEquals($root_id, $arr[0]['id']);
+        $this->assertEquals($node_1, $arr[1]['id']);
+        $this->assertEquals($node_1_1, $arr[2]['id']);
+        $this->assertEquals($node_2, $arr[3]['id']);
     }
 
     function testIsNodeFailed()
@@ -398,22 +399,22 @@ abstract class lmbTreeTestBase extends TestCase
         $node_2_2 = $this->imp->createNode($node_2, array('identifier' => 'foo'));
 
         $node = $this->imp->getNodeByPath('/');
-        $this->assertEquals($node['id'], $root_id);
+        $this->assertEquals($root_id, $node['id']);
 
         $node = $this->imp->getNodeByPath('/foo');
-        $this->assertEquals($node['id'], $node_1);
+        $this->assertEquals($node_1, $node['id']);
 
         $node = $this->imp->getNodeByPath('/foo/bar');
-        $this->assertEquals($node['id'], $node_1_1);
+        $this->assertEquals($node_1_1, $node['id']);
 
         $node = $this->imp->getNodeByPath('/foo/foo');
-        $this->assertEquals($node['id'], $node_1_2);
+        $this->assertEquals($node_1_2, $node['id']);
 
         $node = $this->imp->getNodeByPath('/bar');
-        $this->assertEquals($node['id'], $node_2);
+        $this->assertEquals($node_2, $node['id']);
 
         $node = $this->imp->getNodeByPath('/bar/foo');
-        $this->assertEquals($node['id'], $node_2_2);
+        $this->assertEquals($node_2_2, $node['id']);
     }
 
     function testGetPathToNodeFailed()

@@ -1,5 +1,7 @@
 <?php
 
+use limb\dbal\src\lmbDBAL;
+
 set_include_path(dirname(__FILE__) . '/../../../../');
 
 $mark = microtime(true);
@@ -9,46 +11,46 @@ require_once('limb/dbal/common.inc.php');
 
 echo "dbal common includes: " . (microtime(true) - $mark) . "\n";
 
-$mysql_db = mysql_connect('localhost', 'gfu', '1561611');
-mysql_select_db('gfu');
+$mysql_db = mysqli_connect('localhost', 'gfu', '1561611');
+mysqli_select_db('gfu');
 
-mysql_query('CREATE TABLE foo (bar varchar(10))');
-mysql_query('INSERT INTO foo VALUES (\'some value\')');
+mysqli_query('CREATE TABLE foo (bar varchar(10))');
+mysqli_query('INSERT INTO foo VALUES (\'some value\')');
 
 
 $mark = microtime(true);
 
 
 for ($i = 0; $i < 1000; $i++) {
-    $q = mysql_query('SELECT bar FROM foo');
-    while ($entry = mysql_fetch_assoc($q))
+    $q = mysqli_query('SELECT bar FROM foo');
+    while ($entry = mysqli_fetch_assoc($q))
         $bar = $entry['bar'];
 }
 
 echo "native mysql fetching: " . (microtime(true) - $mark) . "\n";
 
-$conn = lmbDBAL:: newConnection('mysql://gfu:1561611@localhost/gfu');
+$conn = lmbDBAL::newConnection('mysql://gfu:1561611@localhost/gfu');
 
 $mark = microtime(true);
 
 for ($i = 0; $i < 1000; $i++) {
-    $rs = lmbDBAL:: fetch('SELECT bar FROM foo', $conn);
+    $rs = lmbDBAL::fetch('SELECT bar FROM foo', $conn);
     foreach ($rs as $record)
         $bar = $record['bar'];
     //$rs->freeQuery();
 }
 
-echo "lmbDBAL :: fetch(), array access: " . (microtime(true) - $mark) . "\n";
+echo "lmbDBAL::fetch(), array access: " . (microtime(true) - $mark) . "\n";
 
 $mark = microtime(true);
 
 for ($i = 0; $i < 1000; $i++) {
-    $rs = lmbDBAL:: fetch('SELECT bar FROM foo', $conn);
+    $rs = lmbDBAL::fetch('SELECT bar FROM foo', $conn);
     foreach ($rs as $record)
         $bar = $record->get('bar');
 }
 
-echo "lmbDBAL :: fetch(), getter: " . (microtime(true) - $mark) . "\n";
+echo "lmbDBAL::fetch(), getter: " . (microtime(true) - $mark) . "\n";
 
 $mark = microtime(true);
 
@@ -59,9 +61,9 @@ for ($i = 0; $i < 1000; $i++) {
         $bar = $record->get('bar');
 }
 
-echo "lmbMysqlConnection :: newStatement(), getter: " . (microtime(true) - $mark) . "\n";
+echo "lmbMysqlConnection::newStatement(), getter: " . (microtime(true) - $mark) . "\n";
 
 
-mysql_query("drop table foo");
+mysqli_query("drop table foo");
 
-mysql_close();
+mysqli_close();

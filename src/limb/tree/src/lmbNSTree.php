@@ -40,9 +40,13 @@ class lmbNSTree implements lmbTreeInterface
 
     function __construct($node_table = 'ns_tree',
                          $conn = null,
-                         $column_map = array('id' => 'id', 'parent_id' => 'parent_id',
-                             'c_left' => 'c_left', 'c_right' => 'c_right',
-                             'level' => 'level', 'identifier' => 'identifier'
+                         $column_map = array(
+                             'id' => 'id',
+                             'parent_id' => 'parent_id',
+                             'c_left' => 'c_left',
+                             'c_right' => 'c_right',
+                             'level' => 'level',
+                             'identifier' => 'identifier'
                          ))
     {
         $this->_mapColumns($column_map);
@@ -58,19 +62,21 @@ class lmbNSTree implements lmbTreeInterface
 
     protected function _mapColumns($column_map)
     {
-        $this->_id = isset($column_map['id']) ? $column_map['id'] : 'id';
-        $this->_parent_id = isset($column_map['parent_id']) ? $column_map['parent_id'] : 'parent_id';
-        $this->_left = isset($column_map['c_left']) ? $column_map['c_left'] : 'c_left';
-        $this->_right = isset($column_map['c_right']) ? $column_map['c_right'] : 'c_right';
-        $this->_level = isset($column_map['level']) ? $column_map['level'] : 'level';
-        $this->_identifier = isset($column_map['identifier']) ? $column_map['identifier'] : 'identifier';
+        $this->_id = $column_map['id'] ?? 'id';
+        $this->_parent_id = $column_map['parent_id'] ?? 'parent_id';
+        $this->_left = $column_map['c_left'] ?? 'c_left';
+        $this->_right = $column_map['c_right'] ?? 'c_right';
+        $this->_level = $column_map['level'] ?? 'level';
+        $this->_identifier = $column_map['identifier'] ?? 'identifier';
 
         $this->_system_columns = array($this->_id, $this->_parent_id, $this->_left,
             $this->_right, $this->_level);
 
-        $this->_column_map = array('id' => $this->_id, 'parent_id' => $this->_parent_id,
+        $this->_column_map = array(
+            'id' => $this->_id, 'parent_id' => $this->_parent_id,
             'level' => $this->_level, 'identifier' => $this->_identifier,
-            'c_left' => $this->_left, 'c_right' => $this->_right);
+            'c_left' => $this->_left, 'c_right' => $this->_right
+        );
     }
 
     function setNodeTable($table_name)
@@ -340,9 +346,9 @@ class lmbNSTree implements lmbTreeInterface
         return $stmt->getRecordSet();
     }
 
-    function isNode($id)
+    function isNode($node): bool
     {
-        return ($this->getNode($id) !== null);
+        return ($this->getNode($node) !== null);
     }
 
     function _dbIn($column_name, $values)
@@ -380,7 +386,7 @@ class lmbNSTree implements lmbTreeInterface
 
     protected function _createRootNode()
     {
-        $values = array();
+        $values = [];
         $values[$this->_parent_id] = 0;
         $values[$this->_left] = 1;
         $values[$this->_right] = 2;
@@ -415,22 +421,20 @@ class lmbNSTree implements lmbTreeInterface
             throw new lmbTreeConsistencyException("There's already a sibling with such an identifier '$identifier'");
     }
 
-    function updateNode($node, $user_values, $internal = false)
+    function updateNode($node, $values, $internal = false)
     {
         $node = $this->_ensureNode($node);
 
-        if (isset($user_values['identifier'])) {
-            if ($node['c_left'] == 1 && $user_values['identifier'])
+        if (isset($values['identifier'])) {
+            if ($node['c_left'] == 1 && $values['identifier'])
                 throw new lmbTreeConsistencyException('Root node is forbidden to have an identifier');
 
-            if ($node['identifier'] != $user_values['identifier'])
-                $this->_ensureUniqueSiblingIdentifier($user_values['identifier'], $this->getParent($node));
+            if ($node['identifier'] != $values['identifier'])
+                $this->_ensureUniqueSiblingIdentifier($values['identifier'], $this->getParent($node));
         }
 
         if (!$internal)
-            $values = $this->_processUserValues($user_values);
-        else
-            $values = $user_values;
+            $values = $this->_processUserValues($values);
 
         if (!$values)
             return false;

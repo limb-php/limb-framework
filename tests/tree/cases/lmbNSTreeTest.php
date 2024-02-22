@@ -11,16 +11,22 @@ namespace Tests\tree\cases;
 
 use limb\tree\src\lmbNSTree;
 
-class lmbNSTreeTest extends lmbTreeTestBase
+class lmbNSTreeTest extends lmbTreeTestBaseCase
 {
     protected $node_table = 'test_nested_sets_tree';
 
-    function _createTreeImp()
+    function _createTreeImp(): lmbNSTree
     {
         return new lmbNSTree($this->node_table, $this->conn,
-            array('id' => 'id', 'parent_id' => 'p_parent_id',
-                'c_left' => 'p_left', 'c_right' => 'p_right',
-                'level' => 'p_level', 'identifier' => 'p_identifier'));
+            array(
+                'id' => 'id',
+                'parent_id' => 'p_parent_id',
+                'c_left' => 'p_left',
+                'c_right' => 'p_right',
+                'level' => 'p_level',
+                'identifier' => 'p_identifier'
+            )
+        );
     }
 
     function _cleanUp()

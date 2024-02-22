@@ -42,14 +42,16 @@ class lmbMPTree implements lmbTreeInterface
 
     function __construct($node_table = 'mp_tree',
                          $conn = null,
-                         $column_map = array('id' => 'id', 'parent_id' => 'parent_id',
+                         $column_map = array(
+                             'id' => 'id', 'parent_id' => 'parent_id',
                              'level' => 'level', 'identifier' => 'identifier',
-                             'path' => 'path'))
+                             'path' => 'path')
+    )
     {
         $this->_mapColumns($column_map);
 
         if (!$conn)
-            $this->_conn = lmbToolkit:: instance()->getDefaultDbConnection();
+            $this->_conn = lmbToolkit::instance()->getDefaultDbConnection();
         else
             $this->_conn = $conn;
 
@@ -67,7 +69,8 @@ class lmbMPTree implements lmbTreeInterface
 
         $this->_system_columns = array($this->_id, $this->_parent_id, $this->_level, $this->_path);
 
-        $this->_column_map = array('id' => $this->_id, 'parent_id' => $this->_parent_id,
+        $this->_column_map = array(
+            'id' => $this->_id, 'parent_id' => $this->_parent_id,
             'level' => $this->_level, 'identifier' => $this->_identifier,
             'path' => $this->_path);
     }
@@ -138,12 +141,12 @@ class lmbMPTree implements lmbTreeInterface
         return $processed;
     }
 
-    function getParents($child, $ensure_node = true)
+    function getParents($node, $ensure_node = true)
     {
-        if (!is_object($child) || $ensure_node) //импликация. не выполняется только в случае is_obj = 1 и ensure = 0
-            $child = $this->_ensureNode($child);
+        if (!is_object($node) || $ensure_node) //implication. не выполняется только в случае is_obj = 1 и ensure = 0
+            $node = $this->_ensureNode($node);
 
-        if ($child['level'] < 1)
+        if ($node['level'] < 1)
             return null;
 
         $join_table = $this->_node_table . '2';
@@ -158,8 +161,8 @@ class lmbMPTree implements lmbTreeInterface
             ORDER BY {$this->_node_table}.{$this->_level} ASC";
 
         $stmt = $this->_conn->newStatement($sql);
-        $stmt->setVarChar('level', $child['level']);
-        $stmt->setVarChar('id', $child['id']);
+        $stmt->setVarChar('level', $node['level']);
+        $stmt->setVarChar('id', $node['id']);
 
         return $stmt->getRecordSet();
     }

@@ -1,5 +1,7 @@
 <?php
 
+use limb\dbal\src\lmbDBAL;
+
 set_include_path(dirname(__FILE__) . '/../../../../');
 
 $mark = microtime(true);
@@ -26,18 +28,18 @@ for ($i = 0; $i < 1000; $i++) {
 
 echo "native linter fetching: " . (microtime(true) - $mark) . "\n";
 
-$conn = lmbDBAL:: newConnection('linter://SYSTEM:MANAGER@localhost/Demo');
+$conn = lmbDBAL::newConnection('linter://SYSTEM:MANAGER@localhost/Demo');
 
 $mark = microtime(true);
 
 for ($i = 0; $i < 1000; $i++) {
-    $rs = lmbDBAL:: fetch('SELECT "bar" FROM "foo";', $conn);
+    $rs = lmbDBAL::fetch('SELECT "bar" FROM "foo";', $conn);
     foreach ($rs as $record)
         $bar = $record['bar'];
     $rs->freeQuery();
 }
 
-echo "lmbDBAL :: fetch(), array access: " . (microtime(true) - $mark) . "\n";
+echo "lmbDBAL::fetch(), array access: " . (microtime(true) - $mark) . "\n";
 
 $mark = microtime(true);
 
@@ -48,7 +50,7 @@ for ($i = 0; $i < 1000; $i++) {
     $rs->freeQuery();
 }
 
-echo "lmbDBAL :: fetch(), getter: " . (microtime(true) - $mark) . "\n";
+echo "lmbDBAL::fetch(), getter: " . (microtime(true) - $mark) . "\n";
 
 $mark = microtime(true);
 
@@ -59,6 +61,6 @@ for ($i = 0; $i < 1000; $i++) {
         $bar = $record->get('bar');
 }
 
-echo "lmbLinterConnection :: newStatement(), getter: " . (microtime(true) - $mark) . "\n";
+echo "lmbLinterConnection::newStatement(), getter: " . (microtime(true) - $mark) . "\n";
 
 linter_close_connect($linter_db);

@@ -282,7 +282,7 @@ class LmbController
     function flashErrorAndRedirect($message, $redirect = array())
     {
         $this->flashError($message);
-        $this->redirect($redirect);
+        return $this->redirect($redirect);
     }
 
     function flashMessage($message)
@@ -290,27 +290,26 @@ class LmbController
         $this->toolkit->flashMessage($message);
     }
 
-    function flashAndRedirect($message, $redirect = array())
-    {
-        $this->flashMessage($message);
-        $this->redirect($redirect);
-    }
-
     function flash($message)
     {
         $this->flashMessage($message);
     }
 
+    function flashAndRedirect($message, $redirect = array())
+    {
+        $this->flashMessage($message);
+        return $this->redirect($redirect);
+    }
+
     function addError($message, $fields = array(), $values = array())
     {
         $this->error_list->addError($message, $fields, $values);
+
+        return $this;
     }
 
     function closePopup()
     {
-        if (!$this->in_popup)
-            return;
-
         return response('<html><script>if(window.opener){window.opener.focus();window.opener.location.reload();window.close();}</script></html>');
     }
 

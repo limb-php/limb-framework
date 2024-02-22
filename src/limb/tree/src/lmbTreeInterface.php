@@ -49,7 +49,7 @@ interface lmbTreeInterface
 
     function moveNode($source_node, $target_node);
 
-    function getNodesByIds($ids_array);
+    function getNodesByIds($ids);
 
     function getNodeByPath($path);
 

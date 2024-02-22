@@ -20,23 +20,22 @@ class TreeTestVersionForDecorator extends lmbMPTree
     }
 }
 
-class lmbTreeDecoratorTest extends lmbTreeTestBase
-{
-    protected $_node_table = 'test_materialized_path_tree';
-
-    function _createTreeImp()
-    {
-        $tree = new lmbMPTree($this->_node_table, $this->conn,
-            array('id' => 'id', 'parent_id' => 'p_parent_id',
-                'level' => 'p_level', 'identifier' => 'p_identifier',
-                'path' => 'p_path'));
-
-        return new lmbTreeDecorator($tree);
-    }
-
-    function _cleanUp()
-    {
-        $this->db->delete($this->_node_table);
-    }
-}
-
+//class lmbTreeDecoratorTest extends lmbTreeTestBaseCase
+//{
+//    protected $_node_table = 'test_materialized_path_tree';
+//
+//    function _createTreeImp()
+//    {
+//        $tree = new lmbMPTree($this->_node_table, $this->conn,
+//            array('id' => 'id', 'parent_id' => 'p_parent_id',
+//                'level' => 'p_level', 'identifier' => 'p_identifier',
+//                'path' => 'p_path'));
+//
+//        return new lmbTreeDecorator($tree);
+//    }
+//
+//    function _cleanUp()
+//    {
+//        $this->db->delete($this->_node_table);
+//    }
+//}

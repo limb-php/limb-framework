@@ -28,13 +28,15 @@ class TestingController extends LmbController
 
     function doPopup($request)
     {
-        $this->closePopup();
+        return $this->closePopup();
     }
 
     function doWithoutPopup($request)
     {
         $this->in_popup = false;
-        $this->closePopup();
+
+        if ($this->in_popup)
+            return $this->closePopup();
     }
 
     function addValidatorRule($r)

@@ -12,16 +12,18 @@ namespace Tests\tree\cases;
 use limb\tree\src\lmbMPTree;
 use limb\core\src\lmbArrayHelper;
 
-class lmbMPTreeTest extends lmbTreeTestBase
+class lmbMPTreeTest extends lmbTreeTestBaseCase
 {
     protected $node_table = 'test_materialized_path_tree';
 
     function _createTreeImp()
     {
         return new lmbMPTree($this->node_table, $this->conn,
-            array('id' => 'id', 'parent_id' => 'p_parent_id',
+            array(
+                'id' => 'id', 'parent_id' => 'p_parent_id',
                 'level' => 'p_level', 'identifier' => 'p_identifier',
-                'path' => 'p_path'));
+                'path' => 'p_path')
+        );
     }
 
     function _cleanUp()
@@ -66,16 +68,16 @@ class lmbMPTreeTest extends lmbTreeTestBase
         $rs = $this->imp->getChildren($node_1);
         $arr = $rs->sort(array('p_identifier' => 'DESC'))->getArray();
 
-        $this->assertEquals(sizeof($arr), 3);
-        $this->assertEquals($arr[0]['id'], $node_2_2);
-        $this->assertEquals($arr[1]['id'], $node_2_3);
-        $this->assertEquals($arr[2]['id'], $node_2_1);
+        $this->assertEquals(3, sizeof($arr));
+        $this->assertEquals($node_2_2, $arr[0]['id']);
+        $this->assertEquals($node_2_3, $arr[1]['id']);
+        $this->assertEquals($node_2_1, $arr[2]['id']);
 
         $rs = $this->imp->getChildren($node_1);
         $arr = $rs->sort(array('p_identifier' => 'ASC'))->getArray();
 
-        $this->assertEquals($arr[0]['id'], $node_2_1);
-        $this->assertEquals($arr[1]['id'], $node_2_3);
-        $this->assertEquals($arr[2]['id'], $node_2_2);
+        $this->assertEquals($node_2_1, $arr[0]['id']);
+        $this->assertEquals($node_2_3, $arr[1]['id']);
+        $this->assertEquals($node_2_2, $arr[2]['id']);
     }
 }
