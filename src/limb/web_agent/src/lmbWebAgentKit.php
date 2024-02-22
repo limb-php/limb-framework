@@ -24,7 +24,7 @@ class lmbWebAgentKit
 
         $class_path = 'limb\\web_agent\\src\\request\\' . $class;
 
-        return new $class;
+        return new $class_path;
     }
 
 }
