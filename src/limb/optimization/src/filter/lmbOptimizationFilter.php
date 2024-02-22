@@ -50,7 +50,7 @@ class lmbOptimizationFilter implements lmbInterceptingFilterInterface
             'cssMinifier' => ($conf->has('HTML_CSS_MINIFY_ENABLE') && $conf->get('HTML_CSS_MINIFY_ENABLE') === true) ? array('Minify_CSS', 'minify') : null
         );
 
-        return Minify_HTML:: minify($data, $minifier_params);
+        return Minify_HTML::minify($data, $minifier_params);
     }
 }
 

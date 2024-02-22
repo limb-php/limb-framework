@@ -79,8 +79,6 @@ class lmbJsonView extends lmbView
 
     function render()
     {
-        lmbToolkit::instance()->getResponse()->addHeader('Content-type: application/json');
-
         if (!function_exists('json_encode') || $this->use_emulation)
             $data = $this->_encodeEmulation($this->getVariables());
         else

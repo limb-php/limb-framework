@@ -2,8 +2,6 @@
 
 namespace limb\mail\src;
 
-use limb\toolkit\src\lmbToolkit;
-
 class lmbResponseMailer implements lmbBaseMailerInterface
 {
     function sendHtmlMail($recipients, $sender, $subject, $html, $text = null, $charset = 'utf-8')
@@ -16,7 +14,7 @@ class lmbResponseMailer implements lmbBaseMailerInterface
         $content .= '<tr valign="top"><td bgcolor="#F8F8F8"><strong>Text:</strong></td><td><pre>' . $text . '</pre></td></tr>';
         $content .= '<tr valign="top"><td bgcolor="#F8F8F8"><strong>Charset:</strong></td><td><pre>' . $charset . '</pre></td></tr>';
         $content .= '</table>';
-        lmbToolkit::instance()->getResponse()->write($content);
+        return response($content);
     }
 
     function sendPlainMail($recipients, $sender, $subject, $body, $charset = 'utf-8')
@@ -27,7 +25,7 @@ class lmbResponseMailer implements lmbBaseMailerInterface
         $content .= '<p>subject: ' . $subject . '</p>';
         $content .= '<pre>text: ' . $body . '</pre>';
         $content .= '<p>charset: ' . $charset . '</p>';
-        lmbToolkit::instance()->getResponse()->write($content);
+        return response($content);
     }
 
     function setConfig($config)

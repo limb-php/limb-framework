@@ -92,11 +92,12 @@ class lmbMailService
     function sendMailTo($email)
     {
         $this->mailer = lmbToolkit::instance()->getMailer();
-        $this->mailer->sendHtmlMail($email,
+        $response = $this->mailer->sendHtmlMail($email,
             $this->getDefaultSender(),
             $this->getSubject(),
             $this->getHtmlContent(),
-            $this->getTextContent());
+            $this->getTextContent()
+        );
     }
 
     function getMailer()
