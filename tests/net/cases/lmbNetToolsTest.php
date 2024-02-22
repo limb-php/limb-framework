@@ -35,20 +35,4 @@ class lmbNetToolsTest extends TestCase
         $this->assertEquals('bar', lmbToolkit::instance()->getRequest()->getAttribute('foo'));
     }
 
-    function testRestoreResponse()
-    {
-        $toolkit = lmbToolkit::instance();
-        $new_response = $toolkit->getResponse()->withBody('123');
-        $toolkit->setResponse($new_response);
-
-        $this->assertEquals('123', $new_response->getBody());
-        $this->assertEquals('123', $toolkit->getResponse()->getBody());
-
-        lmbToolkit::restore();
-
-        $toolkit = lmbToolkit::instance();
-
-        $this->assertEquals('', $toolkit->getResponse()->getBody());
-    }
-
 }

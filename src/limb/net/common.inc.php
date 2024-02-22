@@ -12,13 +12,14 @@
  * @version $Id: common.inc.php 8041 2010-01-19 20:49:36Z
  */
 
+use limb\net\src\lmbHttpResponse;
 use limb\toolkit\src\lmbToolkit;
 
 if (!function_exists('response')) {
 
-    function response()
+    function response($content = '', $status = 200, $headers = [])
     {
-        return lmbToolkit::instance()->getResponse();
+        return new lmbHttpResponse($content, $status, $headers);
     }
 
 }

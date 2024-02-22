@@ -116,7 +116,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @see lmbNetTools
  * @method \limb\net\src\lmbHttpRequest getRequest()
  * @method setRequest($request)
- * @method \limb\net\src\lmbHttpResponse getResponse()
+ * @method \limb\net\src\lmbHttpResponse getResponse($content = '', $status = 200, $headers = [])
  * @method setResponse($response)
  *
  * @see lmbSessionTools

@@ -13,6 +13,7 @@ use limb\active_record\src\toolkit\lmbARTools;
 use limb\config\src\toolkit\lmbConfTools;
 use limb\i18n\src\toolkit\lmbI18NTools;
 use limb\log\src\toolkit\lmbLogTools;
+use limb\net\src\lmbHttpResponse;
 use limb\net\src\toolkit\lmbNetTools;
 use limb\session\src\toolkit\lmbSessionTools;
 use limb\toolkit\src\lmbToolkit;
@@ -204,14 +205,14 @@ class lmbWebAppTools extends lmbAbstractTools
         return new $controller_name;
     }
 
-    function redirect($params_or_url = [], $route_url = null, $append = '')
+    function redirect($params_or_url = [], $route_url = null, $append = ''): lmbHttpResponse
     {
         $redirect = $params_or_url;
         if (is_array($params_or_url)) {
             $redirect = $this->toolkit->getRoutesUrl($params_or_url, $route_url);
         }
 
-        return $this->toolkit->getResponse()->redirect($redirect . $append);
+        return response()->redirect($redirect . $append);
     }
 
     function isWebAppDebugEnabled(): bool

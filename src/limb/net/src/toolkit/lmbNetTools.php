@@ -39,16 +39,15 @@ class lmbNetTools extends lmbAbstractTools
         $this->request = $request;
     }
 
-    function getResponse(): lmbHttpResponse
+    /** @deprecated  */
+    function getResponse($content = '', $status = 200, $headers = []): lmbHttpResponse
     {
-        if (is_object($this->response))
-            return $this->response;
-
-        $this->response = new lmbHttpResponse();
+        $this->response = new lmbHttpResponse($content, $status, $headers);
 
         return $this->response;
     }
 
+    /** @deprecated  */
     function setResponse($response): void
     {
         $this->response = $response;
