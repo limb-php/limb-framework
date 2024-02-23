@@ -76,6 +76,19 @@ class lmbDbTools extends lmbAbstractTools
         }
     }
 
+    function isDbDSNAvailable($dsn_name): bool
+    {
+        try {
+            $dsn = $this->getDbDSNByName($dsn_name);
+            if ($dsn)
+                return true;
+            else
+                return false;
+        } catch (lmbException $e) {
+            return false;
+        }
+    }
+
     protected function _getDbDsnHash($dsn)
     {
         $dsn = self::castToDsnObject($dsn);
@@ -123,7 +136,7 @@ class lmbDbTools extends lmbAbstractTools
         return $dsn->toString();
     }
 
-    function setDbDSNByName($name, $dsn)
+    function setDbDSNByName($name, $dsn): void
     {
         $dsn = self::castToDsnObject($dsn);
 

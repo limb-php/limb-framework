@@ -81,12 +81,17 @@ if (!function_exists('parseTestingCriteria')) {
 }
 
 if (!function_exists('lmb_tests_init_db_dsn')) {
-    function lmb_tests_init_db_dsn()
+    function lmb_tests_init_db_dsn($dsn_name = 'dsn')
     {
+        $toolkit = lmbToolkit::instance();
         lmbEnv::set('LIMB_CACHE_DB_META_IN_FILE', false);
 
-        if (lmbToolkit::instance()->isDefaultDbDSNAvailable()) {
-            $dsn = lmbToolkit::instance()->getDefaultDbDSN();
+        if($toolkit->isDbDSNAvailable($dsn_name))
+            $dsn = $toolkit->getDbDSNByName($dsn_name);
+        if(!$dsn && $toolkit->isDefaultDbDSNAvailable())
+            $dsn = $toolkit->getDefaultDbDSN();
+
+        if ($dsn) {
             static $reported_about;
             if (is_null($reported_about) || $reported_about != $dsn) {
                 $pass = $dsn->_getUri()->getPassword();
@@ -97,7 +102,7 @@ if (!function_exists('lmb_tests_init_db_dsn')) {
         } else {
             $default_value = 'sqlite://localhost/' . lmb_var_dir() . DIRECTORY_SEPARATOR . 'sqlite_tests.db';
             $dsn = lmbEnv::get('LIMB_TEST_DB_DSN', $default_value);
-            lmbToolkit::instance()->setDefaultDbDSN($dsn);
+            $toolkit->setDefaultDbDSN($dsn);
             echo "INFO: Using default test database '$dsn'\n";
         }
     }
