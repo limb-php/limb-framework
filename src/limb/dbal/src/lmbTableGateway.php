@@ -165,6 +165,7 @@ class lmbTableGateway
             );
 
         $query = new lmbInsertQuery($this->_db_table_name, $this->_primary_key_name, $this->_conn);
+
         $values = array();
         $update_sequence = false;
         foreach ($filtered_row as $key => $value) {
@@ -237,8 +238,9 @@ class lmbTableGateway
 
         foreach ($values as $key => $value) {
             $column_info = $this->getColumnInfo($key);
-            if ($value === "")
+            if ($value === "" && $column_info->isNullable()) {
                 $value = $column_info->getDefaultValue();
+            }
 
             $accessor = $accessors[$column_info->getType()];
             $stmt->$accessor($key, $value);
