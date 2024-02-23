@@ -11,6 +11,7 @@ namespace limb\cms\src\Controllers;
 
 use limb\dbal\src\lmbDBAL;
 use limb\active_record\src\lmbActiveRecord;
+use limb\toolkit\src\lmbToolkit;
 
 /**
  * abstract class AdminObjectController.
@@ -108,7 +109,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
 
         $this->_onAfterDelete();
 
-        $this->_endDialog();
+        return $this->_endDialog();
     }
 
     function doRevertPublish()
@@ -123,9 +124,9 @@ abstract class lmbAdminObjectController extends lmbObjectController
         $info_object = new $this->_object_class_name();
 
         foreach ($ids as $id)
-            lmbDBAL::execute('UPDATE ' . $info_object->getTableName() . ' SET is_published = IF(is_published > 0, 0, 1) WHERE id = ' . lmbToolkit:: instance()->getDefaultDbConnection()->escape($id));
+            lmbDBAL::execute('UPDATE ' . $info_object->getTableName() . ' SET is_published = IF(is_published > 0, 0, 1) WHERE id = ' . lmbToolkit::instance()->getDefaultDbConnection()->escape($id));
 
-        $this->_endDialog();
+        return $this->_endDialog();
     }
 
     function doPublish()
@@ -138,7 +139,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         $item->save();
         $this->_onAfterPublish();
 
-        $this->_endDialog();
+        return $this->_endDialog();
     }
 
     function doUnpublish()
@@ -151,13 +152,13 @@ abstract class lmbAdminObjectController extends lmbObjectController
         $item->save();
         $this->_onAfterUnpublish();
 
-        $this->_endDialog();
+        return $this->_endDialog();
     }
 
     function doPriority()
     {
         $this->_changeItemsPriority($this->_object_class_name);
-        $this->_endDialog();
+        return $this->_endDialog();
     }
 
     protected function _import()
@@ -192,16 +193,18 @@ abstract class lmbAdminObjectController extends lmbObjectController
             else
                 $this->_onAfterUpdate();
 
-            $this->_endDialog();
+            return $this->_endDialog();
         }
     }
 
     protected function _endDialog()
     {
-        if ($this->_popup)
-            $this->closePopup();
-        else
-            $this->redirect($this->_back_url);
+        if ($this->_popup) {
+            return $this->closePopup();
+        }
+        else {
+            return $this->redirect($this->_back_url);
+        }
     }
 
     protected function _changeItemsPriority($model, $where_field, $where_field_value)
@@ -210,7 +213,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
 
         $info_item = new $model();
         $sql = 'SELECT id, priority FROM ' . $info_item->getTableName() . ' WHERE ' . $where_field . '=' . $where_field_value;
-        $current_priorities_object = lmbDBAL:: fetch($sql);
+        $current_priorities_object = lmbDBAL::fetch($sql);
         $current_priorities_object = $current_priorities_object->getArray();
 
         $current_priorities = array();
@@ -228,18 +231,10 @@ abstract class lmbAdminObjectController extends lmbObjectController
 
         foreach ($current_priorities as $id => $priority) {
             $sql = "UPDATE " . $table_name . " SET priority='" . $i . "' WHERE id='" . $id . "'";
-            lmbDBAL:: execute($sql);
+            lmbDBAL::execute($sql);
             $i += 10;
         }
 
-    }
-
-    function closePopup()
-    {
-        if (!$this->in_popup)
-            return;
-
-        $this->response->write('<html><script>if(self.parent){self.parent.focus();self.parent.location.reload();}</script></html>');
     }
 
     protected function _initCreateForm()

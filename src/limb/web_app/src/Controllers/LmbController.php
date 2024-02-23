@@ -91,7 +91,7 @@ class LmbController
 
     protected $form_id;
     protected $form_datasource = [];
-    protected $in_popup = true;
+    protected $_popup = true;
     protected $is_forwarded = false;
 
     function __construct()
