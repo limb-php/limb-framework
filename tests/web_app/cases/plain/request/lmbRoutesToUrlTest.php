@@ -64,6 +64,14 @@ class lmbRoutesToUrlTest extends TestCase
                     'action' => 'display')
             ),
 
+            'api_articles_action_id' => array(
+                'prefix' => 'api',
+                'path' => '/articles/:action/:id',
+                'defaults' => array(
+                    'controller' => 'Api\Articles',
+                    'action' => 'display')
+            ),
+
             'articles' => array(
                 'path' => '/articles',
                 'defaults' => array(
@@ -78,7 +86,7 @@ class lmbRoutesToUrlTest extends TestCase
         $this->assertEquals('/api/articles', $routes->toUrl(['controller' => 'Api\Articles']));
         $this->assertEquals('/api/articles', $routes->toUrl([], 'api_articles'));
         $this->assertEquals('/api/articles', $routes->toUrl(['prefix' => 'api']));
-
+        $this->assertEquals('/api/articles/id/10', $routes->toUrl(['action' => 'id', 'id' => 10], 'api_articles_action_id'));
     }
 
     function testToUrlWithPrefixNamespace()
@@ -94,8 +102,8 @@ class lmbRoutesToUrlTest extends TestCase
             ),
 
             'api_admin_articles' => array(
-                'prefix' => 'api',
-                'path' => '/admin/:controller',
+                'prefix' => 'api/admin',
+                'path' => '/:controller',
                 'defaults' => array(
                     'namespace' => 'Tests\web_app\cases\plain\src\Controllers\Api\Admin',
                     'action' => 'display'

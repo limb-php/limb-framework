@@ -59,10 +59,13 @@ class lmbRoutes
 
     function toUrl($params, $route_name = '')
     {
-        if ($route_name && isset($this->routes[$route_name])) {
-            if ($path = $this->_makeUrlByRoute($params, $this->routes[$route_name]))
+        if ($route_name) {
+            if (
+                isset($this->routes[$route_name]) &&
+                $path = $this->_makeUrlByRoute($params, $this->routes[$route_name])
+            )
                 return $path;
-        } elseif (!$route_name) {
+        } else {
             foreach ($this->routes as $name => $route) {
                 if ($path = $this->_makeUrlByRoute($params, $route))
                     return $path;
@@ -195,7 +198,7 @@ class lmbRoutes
             preg_match($route['requirements'][$param_name], $param_value, $req_res));
     }
 
-    function _makeUrlByRoute($params, $route)
+    protected function _makeUrlByRoute($params, $route)
     {
         $prefix = $route['prefix'] ?? '';
         $path = $route['prefix'] ? '/:prefix' . $route['path'] : $route['path'];
@@ -205,10 +208,12 @@ class lmbRoutes
         }
 
         if (isset($params['controller'])) {
-            $params['controller'] = lmbRouteHelper::getControllerNameByClass($params['controller'], '/');
+            $params['controller'] = lmbRouteHelper::getControllerNameByClass($params['controller']);
 
             if ($prefix)
-                $params['controller'] = str_replace($prefix . '/', '', $params['controller']);
+                $params['controller'] = str_replace($prefix . '.', '', $params['controller']);
+
+            $params['controller'] = str_replace('.', '/', $params['controller']);
         }
 
         foreach ($params as $param_name => $param_value) {
