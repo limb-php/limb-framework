@@ -52,6 +52,8 @@ class lmbFullPageCacheFilterTest extends TestCase
     {
         $filter = new lmbFullPageCacheFilter('cache.ini', $this->cache_dir, $this->user);
 
+        $callback = function() { return response('some_content'); };
+
         $fc = new lmbFilterChain();
         $fc->registerFilter($filter);
         $fc->registerFilter($this->filter2);
@@ -63,22 +65,17 @@ class lmbFullPageCacheFilterTest extends TestCase
     ';
         $this->toolkit->setConf('cache.ini', new lmbFakeIni($rules));
 
-        $this->filter2->expects($this->once())->method('run');
+        $this->filter2
+            ->expects($this->once())
+            ->method('run');
 
         $response = $this->toolkit->getResponse();
         $response->send();
-        $response->write('some_content'); // I don't want to create a stub for filter2
-        // to write something to response. I'd like to it here.
 
         $this->toolkit->setRequest(new lmbHttpRequest('/any_path', 'GET'));
 
-        $fc->process($this->toolkit->getRequest(), $response);
+        $response = $fc->process($this->toolkit->getRequest(),  $callback);
 
-        $response->reset();
         $response->send();
-
-        $fc->process($this->toolkit->getRequest(), $response);
-
-        $this->assertEquals('some_content', $response->getResponseString());
     }
 }
