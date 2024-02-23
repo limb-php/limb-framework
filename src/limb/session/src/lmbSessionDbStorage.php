@@ -118,7 +118,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
             $this->db->update($data, $crit);
         } else {
             $data['session_id'] = "{$session_id}";
-            $this->db->insert($data, null);
+            $this->db->insert($data);
         }
 
         return true;
