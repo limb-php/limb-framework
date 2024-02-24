@@ -10,6 +10,7 @@
 namespace limb\dbal\src;
 
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
+use limb\dbal\src\drivers\lmbDbRecordSetInterface;
 use limb\dbal\src\query\lmbInsertQuery;
 use limb\dbal\src\query\lmbSelectQuery;
 use limb\dbal\src\query\lmbUpdateQuery;
@@ -53,7 +54,7 @@ class lmbSimpleDb
         return $this->conn->newStatement($sql)->getRecordSet();
     }
 
-    function select($table, $criteria = null, $order = array())
+    function select($table, $criteria = null, $order = array()): lmbDbRecordSetInterface
     {
         $query = new lmbSelectQuery($table, $this->conn);
 

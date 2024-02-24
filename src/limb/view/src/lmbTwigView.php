@@ -86,7 +86,8 @@ class lmbTwigView extends lmbView
                 $loader->prependPath($dir . '/_themes/' . lmbEnv::get('APP_TEMPLATE_THEME'));
         }
 
-        $twig = new \Twig\Environment($loader, ['cache' => $twig_conf->get('cache'),
+        $twig = new \Twig\Environment($loader, [
+            'cache' => $twig_conf->get('cache'),
             'debug' => $twig_conf->get('debug'),
             'auto_reload' => $twig_conf->get('auto_reload'),
         ]);

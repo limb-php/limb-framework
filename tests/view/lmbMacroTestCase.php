@@ -34,8 +34,8 @@ class lmbMacroTestCase extends TestCase
 
     protected function _createMacro($file)
     {
-        $base_dir = lmbEnv::get('LIMB_VAR_DIR') . '/tpl';
-        $cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/tpl/compiled';
+        //$base_dir = lmbEnv::get('LIMB_VAR_DIR') . '/tpl';
+        //$cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/tpl/compiled';
         $macro = new lmbMacroTemplate($file, $this->toolkit->getMacroConfig());
         return $macro;
     }
