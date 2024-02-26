@@ -23,7 +23,7 @@ class lmbPgsqlManipulationStatement extends lmbPgsqlStatement implements lmbDbMa
 
     function getAffectedRowCount()
     {
-        if (is_resource($this->queryId))
+        if (lmbPgsqlConnection::checkPgResult($this->queryId))
             return pg_affected_rows($this->queryId);
     }
 

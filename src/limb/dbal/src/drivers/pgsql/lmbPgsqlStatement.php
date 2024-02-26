@@ -180,7 +180,7 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
     protected function _prepareStatement()
     {
         $sql = $this->_handleBindVars($this->sql);
-        if (empty($this->statement_name) || !is_resource($this->statement)) {
+        if (empty($this->statement_name) || !lmbPgsqlConnection::checkPgResult($this->statement)) {
             $this->statement_name = "pgsql_statement_" . $this->connection->getStatementNumber();
             $this->statement = pg_prepare($this->connection->getConnectionId(), $this->statement_name, $sql);
         }
@@ -294,7 +294,7 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
 
     function free()
     {
-        if ($this->queryId && is_resource($this->queryId))
+        if ($this->queryId && lmbPgsqlConnection::checkPgResult($this->queryId))
             pg_free_result($this->queryId);
 
         $this->queryId = null;

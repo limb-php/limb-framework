@@ -214,4 +214,15 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     {
         return pg_ping($this->getConnectionId());
     }
+
+    static function checkPgResult($queryId): bool
+    {
+        if ( version_compare(PHP_VERSION, '8.1', '>=') )
+        {
+            return is_a($queryId, 'PgSql\Result');
+        }
+
+        return is_resource($queryId);
+    }
+
 }

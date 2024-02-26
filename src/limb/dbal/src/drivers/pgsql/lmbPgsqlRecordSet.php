@@ -34,7 +34,7 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
 
     function freeQuery()
     {
-        if (isset($this->queryId) && is_resource($this->queryId)) {
+        if (isset($this->queryId) && lmbPgsqlConnection::checkPgResult($this->queryId)) {
             pg_free_result($this->queryId);
             $this->queryId = null;
             $this->stmt->free();
@@ -43,7 +43,7 @@ class lmbPgsqlRecordSet extends lmbDbBaseRecordSet
 
     function rewind(): void
     {
-        if (isset($this->queryId) && is_resource($this->queryId) && pg_num_rows($this->queryId)) {
+        if (isset($this->queryId) && lmbPgsqlConnection::checkPgResult($this->queryId) && pg_num_rows($this->queryId)) {
             if (pg_result_seek($this->queryId, 0) === false)
                 $this->connection->_raiseError("");
         } elseif (!$this->queryId) {
