@@ -9,5 +9,4 @@
 
 use limb\toolkit\src\lmbToolkit;
 
-require_once('limb/dbal/common.inc.php');
-return lmbToolkit::instance()->getDefaultDbConnection()->getType() != 'sqlite';
+return lmbToolkit::instance()->getDefaultDbConnection()->getType() != 'oci';

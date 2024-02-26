@@ -19,6 +19,10 @@ class lmbOciColumnInfoTest extends DriverColumnInfoTestBase
     function setUp(): void
     {
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+
+        if( lmbToolkit::instance()->getDefaultDbConnection()->getType() != 'oci' )
+            $this->markTestSkipped('all tests in this file are invactive for this server configuration!');
+
         DriverOciSetup($this->connection->getConnectionId());
 
         parent::setUp();

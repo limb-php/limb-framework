@@ -406,7 +406,7 @@ abstract class DriverStatementTestBase extends TestCase
         $stmt->setSmallInt('literal', $exp_value);
         $this->assertEquals($exp_value, $stmt->getOneValue());
 
-        $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_SMALLINT, 'type_smallint', $value);
+        $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_SMALLINT, 'type_smallint', $exp_value);
         $this->assertEquals($exp_value, $record->getInteger('type_smallint'));
         $this->assertEquals($exp_value, $record->get('type_smallint'));
     }
@@ -428,7 +428,7 @@ abstract class DriverStatementTestBase extends TestCase
         $stmt->setBoolean('literal', $exp_value);
         $this->assertEquals($exp_value, $stmt->getOneValue());
 
-        $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_BOOLEAN, 'type_boolean', $value);
+        $record = $this->setTypedValue(lmbDbTypeInfo::TYPE_BOOLEAN, 'type_boolean', $exp_value);
         if (is_null($exp_value)) {
             $this->assertNull($record->getBoolean('type_boolean'));
         } else {
