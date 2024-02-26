@@ -28,4 +28,11 @@ class lmbSqliteRecordSetTest extends DriverRecordSetTestBase
 
         parent::setUp();
     }
+
+    function tearDown(): void
+    {
+        parent::tearDown();
+
+        $this->connection->disconnect();
+    }
 }

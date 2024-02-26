@@ -9,6 +9,8 @@
 
 namespace Tests\dbal\cases\driver;
 
+use limb\dbal\src\drivers\lmbDbTableInfo;
+
 abstract class DriverIndexInfoTestBase extends DriverMetaTestBase
 {
     /**
@@ -32,7 +34,7 @@ abstract class DriverIndexInfoTestBase extends DriverMetaTestBase
     {
         $indexes = $this->table->getIndexList();
 
-        $this->assertEquals(3, count($indexes));
+        $this->assertCount(3, $indexes);
 
         $this->assertTrue($this->table->hasIndex($this->_index_names['primary']));
         $primary_index = $this->table->getIndex($this->_index_names['primary']);

@@ -370,10 +370,14 @@ class lmbTableGatewayTest extends TestCase
 
     function testGetColumnsForSelectDefaultName()
     {
-        $this->assertEquals(array('test_db_table.id' => 'id',
-            'test_db_table.description' => 'description',
-            'test_db_table.title' => 'title',
-            'test_db_table.ordr' => 'ordr'), $this->db_table_test->getColumnsForSelect());
+        $this->assertEquals(
+            array(
+                'test_db_table.id' => 'id',
+                'test_db_table.description' => 'description',
+                'test_db_table.title' => 'title',
+                'test_db_table.ordr' => 'ordr'
+            ),
+            $this->db_table_test->getColumnsForSelect());
     }
 
     function testGetColumnsForSelectSpecificNameAndPrefix()

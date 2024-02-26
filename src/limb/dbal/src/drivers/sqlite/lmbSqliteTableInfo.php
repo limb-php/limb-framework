@@ -93,18 +93,16 @@ class lmbSqliteTableInfo extends lmbDbTableInfo
         $this->loadColumns();
 
         $connection = $this->database->getConnection();
-        $rset = $connection->query("PRAGMA index_list('$this->name')");
+        $rset = $connection->execute("PRAGMA index_list('$this->name')");
 
-        $rs = $rset->fetchArray(SQLITE3_ASSOC);
-
-        foreach ($rs as $item) {
+        while ($item = $rset->fetchArray(SQLITE3_ASSOC)) {
             $index = new lmbSqliteIndexInfo();
             $index->table = $this;
             $index->name = $item['name'];
 
-            $rset2 = $connection->query("PRAGMA index_info('$index->name')");
+            $rset2 = $connection->execute("PRAGMA index_info('$index->name')");
 
-            list($index_info) = $rset2->fetchArray(SQLITE3_ASSOC);
+            $index_info = $rset2->fetchArray(SQLITE3_ASSOC);
             $index->column_name = $index_info['name'];
 
             if (1 == $item['unique']) {

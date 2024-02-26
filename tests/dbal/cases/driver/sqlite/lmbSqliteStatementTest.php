@@ -20,6 +20,7 @@ class lmbSqliteStatementTest extends DriverStatementTestBase
     function setUp(): void
     {
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+        $this->connection->getConnection()->busyTimeout(250);
         DriverSqliteSetup($this->connection);
 
         parent::setUp();

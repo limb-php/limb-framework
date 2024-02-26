@@ -15,7 +15,7 @@ use limb\dbal\src\lmbSimpleDb;
 use limb\dbal\src\dump\lmbSQLDumpLoader;
 use limb\toolkit\src\lmbToolkit;
 
-require_once(dirname(__FILE__) . '/../.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 abstract class lmbSQLDumpLoaderTestCase extends TestCase
 {

@@ -36,13 +36,14 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
 
     function freeQuery(): void
     {
-        if (isset($this->rs) && is_resource($this->rs))
+        if (isset($this->rs) && is_a($this->rs, 'SQLite3Result'))
             $this->rs = null;
     }
 
+    /** @TODO: fix $this->rs->reset() */
     function rewind(): void
     {
-        if (isset($this->rs) && is_resource($this->rs)) {
+        if (isset($this->rs) && is_a($this->rs, 'SQLite3Result')) {
             if ($this->rs->fetchArray(SQLITE3_ASSOC) === false) {
                 $this->connection->_raiseError();
             }
@@ -78,7 +79,7 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
 
         $values = $this->rs->fetchArray(SQLITE3_ASSOC);
 
-        if ($this->valid = is_array($values))
+        if ($this->valid = ($values !== false))
             $this->current->importRaw($values);
         $this->key++;
     }
