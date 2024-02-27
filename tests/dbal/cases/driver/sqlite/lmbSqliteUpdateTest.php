@@ -13,7 +13,7 @@ use limb\dbal\src\drivers\sqlite\lmbSqliteManipulationStatement;
 use limb\toolkit\src\lmbToolkit;
 use Tests\dbal\cases\driver\DriverUpdateTestBase;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteUpdateTest extends DriverUpdateTestBase

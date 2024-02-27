@@ -16,7 +16,7 @@ use limb\dbal\src\drivers\sqlite\lmbSqliteStatement;
 use limb\toolkit\src\lmbToolkit;
 use Tests\dbal\cases\driver\DriverConnectionTestBase;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteConnectionTest extends DriverConnectionTestBase

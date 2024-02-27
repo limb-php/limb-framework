@@ -12,7 +12,7 @@ namespace Tests\dbal\cases\driver\sqlite;
 use limb\toolkit\src\lmbToolkit;
 use Tests\dbal\cases\driver\DriverColumnInfoTestBase;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteColumnInfoTest extends DriverColumnInfoTestBase
@@ -20,6 +20,9 @@ class lmbSqliteColumnInfoTest extends DriverColumnInfoTestBase
     function setUp(): void
     {
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+        if($this->connection->getType() != 'sqlite')
+            $this->markAsSkipped("Wrong connection to SQLITE");
+
         DriverSqliteSetup($this->connection);
 
         parent::setUp();

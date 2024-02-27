@@ -12,7 +12,7 @@ namespace Tests\dbal\cases\driver\sqlite;
 use limb\toolkit\src\lmbToolkit;
 use PHPUnit\Framework\TestCase;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbSqliteExtensionTest extends TestCase
