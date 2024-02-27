@@ -13,6 +13,7 @@ use limb\dbal\src\drivers\linter\lmbLinterRecord;
 use limb\toolkit\src\lmbToolkit;
 use Tests\dbal\cases\driver\DriverRecordSetTestBase;
 
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbLinterRecordSetTest extends DriverRecordSetTestBase

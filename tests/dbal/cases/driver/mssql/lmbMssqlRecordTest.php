@@ -13,6 +13,7 @@ use Tests\dbal\cases\driver\DriverRecordTestBase;
 use limb\dbal\src\drivers\mssql\lmbMssqlRecord;
 use limb\toolkit\src\lmbToolkit;
 
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlRecordTest extends DriverRecordTestBase

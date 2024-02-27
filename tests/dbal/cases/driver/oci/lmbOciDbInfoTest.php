@@ -12,6 +12,7 @@ namespace Tests\dbal\cases\driver\oci;
 use limb\toolkit\src\lmbToolkit;
 use Tests\dbal\cases\driver\DriverDatabaseInfoTestBase;
 
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciDbInfoTest extends DriverDatabaseInfoTestBase

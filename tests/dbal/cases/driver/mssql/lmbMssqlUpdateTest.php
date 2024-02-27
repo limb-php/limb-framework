@@ -13,6 +13,7 @@ use limb\dbal\src\drivers\mssql\lmbMssqlManipulationStatement;
 use limb\toolkit\src\lmbToolkit;
 use Tests\dbal\cases\driver\DriverUpdateTestBase;
 
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlUpdateTest extends DriverUpdateTestBase

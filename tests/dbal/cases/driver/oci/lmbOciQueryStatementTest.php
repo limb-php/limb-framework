@@ -13,6 +13,7 @@ use limb\dbal\src\drivers\oci\lmbOciQueryStatement;
 use limb\toolkit\src\lmbToolkit;
 use PHPUnit\Framework\TestCase;
 
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciQueryStatementTest extends TestCase

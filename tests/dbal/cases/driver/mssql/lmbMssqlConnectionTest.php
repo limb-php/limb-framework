@@ -16,6 +16,7 @@ use limb\dbal\src\drivers\mssql\lmbMssqlStatement;
 use limb\toolkit\src\lmbToolkit;
 use Tests\dbal\cases\driver\DriverConnectionTestBase;
 
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlConnectionTest extends DriverConnectionTestBase

@@ -13,6 +13,7 @@ use limb\dbal\src\drivers\mssql\lmbMssqlTypeInfo;
 use limb\toolkit\src\lmbToolkit;
 use Tests\dbal\cases\driver\DriverStatementTestBase;
 
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbMssqlStatementTest extends DriverStatementTestBase

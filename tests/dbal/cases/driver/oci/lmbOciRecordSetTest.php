@@ -13,6 +13,7 @@ use limb\dbal\src\drivers\oci\lmbOciRecord;
 use limb\toolkit\src\lmbToolkit;
 use Tests\dbal\cases\driver\DriverRecordSetTestBase;
 
+require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');
 
 class lmbOciRecordSetTest extends DriverRecordSetTestBase
