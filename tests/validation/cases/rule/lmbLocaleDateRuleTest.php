@@ -14,7 +14,7 @@ use limb\core\src\lmbSet;
 use limb\config\src\lmbIni;
 use limb\i18n\src\locale\lmbLocale;
 
-require('.setup.php');
+require(dirname(__FILE__) . '/.setup.php');
 
 class lmbLocaleDateRuleTest extends lmbValidationRuleTestCase
 {

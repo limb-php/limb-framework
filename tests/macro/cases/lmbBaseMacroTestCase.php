@@ -14,7 +14,7 @@ use limb\macro\src\lmbMacroTemplate;
 use limb\macro\src\lmbMacroConfig;
 use limb\fs\src\lmbFs;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 class lmbBaseMacroTestCase extends TestCase
 {

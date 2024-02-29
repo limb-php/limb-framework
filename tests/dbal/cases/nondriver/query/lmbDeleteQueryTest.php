@@ -9,7 +9,7 @@
 
 namespace Tests\dbal\cases\nondriver\query;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\query\lmbDeleteQuery;

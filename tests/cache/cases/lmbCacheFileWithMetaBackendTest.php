@@ -9,7 +9,7 @@
 
 namespace Tests\cache\cases;
 
-require('.setup.php');
+require(dirname(__FILE__) . '/.setup.php');
 
 use limb\cache\src\lmbCacheFileWithMetaBackend;
 use limb\core\src\lmbEnv;

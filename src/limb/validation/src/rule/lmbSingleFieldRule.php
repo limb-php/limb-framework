@@ -56,7 +56,7 @@ abstract class lmbSingleFieldRule extends lmbBaseValidationRule
      * @return void
      * @see lmbErrorList::addError()
      */
-    function error($message, $values = array(), $i18n_params = array())
+    function error($message, $values = array(), $i18n_params = array()): void
     {
         $error = $this->custom_error ?? lmbI18n::translate($message, $i18n_params, 'validation');
 

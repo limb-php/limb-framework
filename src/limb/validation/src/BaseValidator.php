@@ -32,7 +32,7 @@ abstract class BaseValidator
         $this->data = array_merge($this->data, $this->parseData($added_data));
     }
 
-    public function validate($datasource)
+    public function validate($datasource): bool
     {
         $this->merge($datasource);
 
@@ -43,7 +43,7 @@ abstract class BaseValidator
         return $validator->isValid();
     }
 
-    public function isValid()
+    public function isValid(): bool
     {
         return $this->error_list->isValid();
     }

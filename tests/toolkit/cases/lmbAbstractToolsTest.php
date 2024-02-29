@@ -12,7 +12,7 @@ namespace Tests\toolkit\cases;
 use limb\toolkit\src\lmbAbstractTools;
 use PHPUnit\Framework\TestCase;
 
-require_once ('.setup.php');
+require_once (dirname(__FILE__) . '/.setup.php');
 
 class TestAbstractTools extends lmbAbstractTools
 {

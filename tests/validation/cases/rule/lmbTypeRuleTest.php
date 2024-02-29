@@ -13,7 +13,7 @@ use limb\validation\src\rule\TypeRule;
 use limb\validation\src\lmbErrorList;
 use limb\core\src\lmbSet;
 
-require('.setup.php');
+require(dirname(__FILE__) . '/.setup.php');
 
 class lmbTypeRuleTest extends lmbValidationRuleTestCase
 {

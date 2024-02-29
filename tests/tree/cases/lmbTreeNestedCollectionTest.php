@@ -12,7 +12,7 @@ namespace Tests\tree\cases;
 use PHPUnit\Framework\TestCase;
 use limb\tree\src\lmbTreeNestedCollection;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 class lmbTreeNestedCollectionTest extends TestCase
 {

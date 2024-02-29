@@ -9,7 +9,7 @@
 
 namespace Tests\filter_chain\cases;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 use limb\net\src\lmbHttpRequest;
 use PHPUnit\Framework\TestCase;

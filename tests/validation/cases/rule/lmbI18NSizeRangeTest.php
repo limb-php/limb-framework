@@ -12,7 +12,7 @@ namespace Tests\validation\cases\rule;
 use limb\validation\src\rule\I18NSizeRangeRule;
 use limb\core\src\lmbSet;
 
-require('.setup.php');
+require(dirname(__FILE__) . '/.setup.php');
 
 class lmbI18NSizeRangeTest extends lmbValidationRuleTestCase
 {

@@ -33,7 +33,7 @@ class EmailRule extends DomainRule
             $this->error('{Field} must contain a @ character.');
     }
 
-    function error($message, $values = array(), $i18n_params = array())
+    function error($message, $values = array(), $i18n_params = array()): void
     {
         if (isset($this->custom_error)) {
             if ($this->is_valid)

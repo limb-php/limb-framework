@@ -12,7 +12,7 @@ namespace Tests\validation\cases\rule;
 use limb\validation\src\rule\lmbBaseValidationRule;
 use limb\core\src\lmbSet;
 
-require('.setup.php');
+require(dirname(__FILE__) . '/.setup.php');
 
 class lmbStubBaseValidationRule extends lmbBaseValidationRule
 {

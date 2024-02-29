@@ -12,7 +12,7 @@ namespace Tests\validation\cases\rule;
 use limb\validation\src\rule\AtleastOneFieldRequiredRule;
 use limb\core\src\lmbSet;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 class lmbAtleastOneFieldRequiredRuleTest extends lmbValidationRuleTestCase
 {

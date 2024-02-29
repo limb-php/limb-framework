@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use limb\tree\src\lmbTreeHelper;
 use limb\core\src\lmbCollection;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 class lmbTreeHelperTest extends TestCase
 {

@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use limb\imagekit\src\lmbImageKit;
 use limb\imagekit\src\gd\lmbGdImageConvertor;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 class lmbImageKitTest extends TestCase
 {

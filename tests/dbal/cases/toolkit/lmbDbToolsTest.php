@@ -13,7 +13,7 @@ use limb\dbal\src\toolkit\lmbDbTools;
 use limb\dbal\src\lmbDbDSN;
 use limb\core\src\exception\lmbException;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 class ExceptionalDbConfStub extends lmbConf
 {

@@ -12,7 +12,7 @@ namespace Tests\validation\cases\rule;
 use limb\validation\src\rule\SizeRangeRule;
 use limb\core\src\lmbSet;
 
-require('.setup.php');
+require(dirname(__FILE__) . '/.setup.php');
 
 class lmbSizeRangeRuleTest extends lmbValidationRuleTestCase
 {
@@ -33,7 +33,9 @@ class lmbSizeRangeRuleTest extends lmbValidationRuleTestCase
 
         $dataspace = [];
 
-        $this->error_list->expects($this->never())->method('addError');
+        $this->error_list
+            ->expects($this->never())
+            ->method('addError');
 
         $rule->validate($dataspace, $this->error_list);
     }

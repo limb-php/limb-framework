@@ -18,7 +18,7 @@ use limb\tree\src\exception\lmbTreeInvalidNodeException;
 use limb\tree\src\exception\lmbTreeConsistencyException;
 use limb\toolkit\src\lmbToolkit;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 abstract class lmbTreeTestBaseCase extends TestCase
 {

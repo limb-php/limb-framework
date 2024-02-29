@@ -11,7 +11,7 @@ namespace Tests\imagekit\cases;
 
 use PHPUnit\Framework\TestCase;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 abstract class lmbImageKitTestCase extends TestCase
 {

@@ -16,7 +16,7 @@ class lmbMPTreeTest extends lmbTreeTestBaseCase
 {
     protected $node_table = 'test_materialized_path_tree';
 
-    function _createTreeImp()
+    function _createTreeImp(): \limb\tree\src\lmbTreeInterface
     {
         return new lmbMPTree($this->node_table, $this->conn,
             array(

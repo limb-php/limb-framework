@@ -9,7 +9,7 @@
 
 namespace Tests\fs\cases;
 
-require('.setup.php');
+require(dirname(__FILE__) . '/.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFsRecursiveIterator;

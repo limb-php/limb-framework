@@ -9,7 +9,7 @@
 
 namespace Tests\fs\cases;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFileLocationsInterface;
