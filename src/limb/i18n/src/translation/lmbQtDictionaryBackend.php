@@ -62,7 +62,7 @@ class lmbQtDictionaryBackend //extends lmbDictionaryBackend ???
 
     function loadAll()
     {
-        $locator = lmbToolkit:: instance()->getFileLocator($this->search_path, 'i18n');
+        $locator = lmbToolkit::instance()->getFileLocator($this->search_path, 'i18n');
         $dicts = array();
         $files = $locator->locateAll('*.ts');
 
@@ -82,7 +82,7 @@ class lmbQtDictionaryBackend //extends lmbDictionaryBackend ???
 
     function mapToFile($locale, $domain)
     {
-        return lmbToolkit:: instance()->findFileByAlias($domain . '.' . $locale . '.ts', $this->search_path, 'i18n_translations');
+        return lmbToolkit::instance()->findFileByAlias($domain . '.' . $locale . '.ts', $this->search_path, 'i18n_translations');
     }
 
     function getDOMDocument($dictionary)

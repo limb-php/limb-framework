@@ -86,6 +86,7 @@ if (!function_exists('lmb_tests_init_db_dsn')) {
         $toolkit = lmbToolkit::instance();
         lmbEnv::set('LIMB_CACHE_DB_META_IN_FILE', false);
 
+        $dsn = null;
         if($toolkit->isDbDSNAvailable($dsn_name))
             $dsn = $toolkit->getDbDSNByName($dsn_name);
         if(!$dsn && $toolkit->isDefaultDbDSNAvailable())

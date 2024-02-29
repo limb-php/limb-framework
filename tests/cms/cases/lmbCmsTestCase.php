@@ -15,7 +15,7 @@ use limb\dbal\src\lmbSimpleDb;
 use limb\cms\src\model\lmbCmsDocument;
 use limb\dbal\src\lmbTableGateway;
 
-require_once('.setup.php');
+require_once(dirname(__FILE__) . '/.setup.php');
 
 class lmbCmsTestCase extends TestCase
 {

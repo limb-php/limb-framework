@@ -4,5 +4,5 @@ CREATE TABLE `lmb_session` (
   `session_data` blob NOT NULL,
   `last_activity_time` bigint(11) unsigned default NULL,
   PRIMARY KEY  (`session_id`)
-) ENGINE=Memory DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

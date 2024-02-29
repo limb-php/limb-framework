@@ -13,7 +13,7 @@ use limb\core\src\exception\lmbException;
 use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbRegistry;
 
-require_once ('.setup.php');
+require_once (dirname(__FILE__) . '/.setup.php');
 
 class lmbRegistryTest extends TestCase
 {
