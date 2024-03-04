@@ -21,4 +21,3 @@ use limb\macro\src\compiler\lmbMacroPassiveTag;
 class lmbMacroApplyIntoTag extends lmbMacroPassiveTag
 {
 }
-

@@ -9,8 +9,6 @@
 
 namespace limb\macro\src\tags\form;
 
-use limb\macro\src\tags\form\lmbMacroFormTagElement;
-
 /**
  * Checkbox that always sends something as a value.
  * Actually generates hidden input as well as checkbox. The checkbox used only to change hidden input value
@@ -22,11 +20,11 @@ use limb\macro\src\tags\form\lmbMacroFormTagElement;
 class lmbMacroJSCheckboxTag extends lmbMacroFormTagElement
 {
     protected $html_tag = 'input';
-    protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroJSCheckboxWidget';
+    protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroJSCheckboxWidget'; # DO NOT CHANGE
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
-        parent:: preParse($compiler);
+        parent::preParse($compiler);
 
         $this->set('type', 'checkbox');
     }
@@ -36,5 +34,3 @@ class lmbMacroJSCheckboxTag extends lmbMacroFormTagElement
         $code_writer->writePHP("{$this->getRuntimeVar()}->renderHidden();\n");
     }
 }
-
-

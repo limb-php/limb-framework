@@ -10,7 +10,6 @@
 namespace limb\macro\src\tags\lists;
 
 use limb\macro\src\compiler\lmbMacroTag;
-use limb\macro\src\tags\lists\lmbMacroListTag;
 
 /**
  * Renders a portion of the template if the current list row is odd
@@ -23,12 +22,11 @@ class lmbMacroListRowOddTag extends lmbMacroTag
 {
     protected function _generateContent($code_writer)
     {
-        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');
+        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');  # DO NOT CHANGE
         $counter_var = $list->getCounterVar();
 
         $code_writer->writePHP('if((' . $counter_var . ' + 1) % 2 != 0) {');
-        parent:: _generateContent($code_writer);
+        parent::_generateContent($code_writer);
         $code_writer->writePHP('}');
     }
 }
-

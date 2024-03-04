@@ -13,7 +13,6 @@ require_once(dirname(__FILE__) . '/../.setup.php');
 
 class lmbCacheDbConnectionTest extends lmbCacheConnectionTestCase
 {
-    protected $storage_init_file = 'src/limb/dbal/common.inc.php';
     protected $skip = false;
 
     function __construct()
@@ -29,6 +28,5 @@ class lmbCacheDbConnectionTest extends lmbCacheConnectionTestCase
             $this->markTestSkipped('lmbCacheDbConnection test skipped (no fixture found).');
 
     }
-
 
 }

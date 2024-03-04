@@ -14,7 +14,7 @@ use limb\core\src\lmbDelegate;
 /**
  * Validation rule that accepts callback in constructor and executes that callback in validate() method
  * Callback must follow lmbValidationRule interface.
- * Callback should return validation result that will be used as a value for lmbBaseValidationRule :: $is_valid property.
+ * Callback should return validation result that will be used as a value for lmbBaseValidationRule::$is_valid property.
  * @package validation
  * @version $Id$
  */

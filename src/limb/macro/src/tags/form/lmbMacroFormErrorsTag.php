@@ -10,7 +10,6 @@
 namespace limb\macro\src\tags\form;
 
 use limb\macro\src\compiler\lmbMacroTag;
-use limb\macro\src\tags\form\lmbMacroFormTag;
 
 /**
  * @tag form:errors
@@ -25,14 +24,14 @@ class lmbMacroFormErrorsTag extends lmbMacroTag
 {
     protected function _generateContent($code_writer)
     {
-        $form = $this->findParentByClass('limb\macro\src\tags\form\lmbMacroFormTag')->getRuntimeVar();
+        $form = $this
+            ->findParentByClass('limb\macro\src\tags\form\lmbMacroFormTag') # DO NOT CHANGE
+            ->getRuntimeVar();
 
         $to = $this->get('to');
 
         $code_writer->writePhp("{$to} = {$form}->getErrorList();\n");
 
-        parent:: _generateContent($code_writer);
+        parent::_generateContent($code_writer);
     }
 }
-
-

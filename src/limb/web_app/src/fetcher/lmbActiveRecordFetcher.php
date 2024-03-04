@@ -71,7 +71,7 @@ class lmbActiveRecordFetcher extends lmbFetcher
 
         if (is_null($this->record_id) && is_null($this->record_ids)) {
             if (!$this->find) {
-                return lmbActiveRecord:: find($this->class_name);
+                return lmbActiveRecord::find($this->class_name);
             } else {
                 $method = 'find' . lmbString::camel_case($this->find);
                 $callback = array($this->class_name, $method);

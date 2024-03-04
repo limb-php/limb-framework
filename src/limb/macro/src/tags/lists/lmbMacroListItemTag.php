@@ -16,4 +16,3 @@ use limb\macro\src\compiler\lmbMacroTag;
 class lmbMacroListItemTag extends lmbMacroTag
 {
 }
-

@@ -24,4 +24,3 @@ use limb\macro\src\compiler\lmbMacroTag;
 class lmbMacroListEmptyTag extends lmbMacroTag
 {
 }
-

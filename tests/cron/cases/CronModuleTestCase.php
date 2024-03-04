@@ -9,7 +9,7 @@ use limb\dbal\src\drivers\lmbAuditDbConnection;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\lmbSimpleDb;
 
-require_once '.setup.php';
+require_once (dirname(__FILE__) . '/.setup.php');
 
 class CronModuleTestCase extends lmbWebAppTestCase
 {

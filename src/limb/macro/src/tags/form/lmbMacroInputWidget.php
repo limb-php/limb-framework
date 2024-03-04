@@ -9,8 +9,6 @@
 
 namespace limb\macro\src\tags\form;
 
-use limb\macro\src\tags\form\lmbMacroFormElementWidget;
-
 /**
  * class lmbMacroInputWidget
  * A runtime widget for input tag of "text" and "hidden" types
@@ -34,7 +32,6 @@ class lmbMacroInputWidget extends lmbMacroFormElementWidget
             }
         }
 
-        parent:: renderAttributes();
+        parent::renderAttributes();
     }
 }
-

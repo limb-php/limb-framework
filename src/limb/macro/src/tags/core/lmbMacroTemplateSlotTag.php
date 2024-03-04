@@ -22,7 +22,7 @@ class lmbMacroTemplateSlotTag extends lmbMacroTag
 {
     protected function _generateContent($code_writer)
     {
-        $parent_template_tag = $this->findParentByClass('limb\macro\src\tags\core\lmbMacroTemplateTag');
+        $parent_template_tag = $this->findParentByClass('limb\macro\src\tags\core\lmbMacroTemplateTag'); # DO NOT CHANGE
         $apply_tag = $parent_template_tag->getCurrentApplyTag();
 
         $intos = $apply_tag->findChildrenByClass('limb\macro\src\tags\core\lmbMacroApplyIntoTag');

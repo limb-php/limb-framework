@@ -54,7 +54,7 @@ class lmbMacroAnnotationParser
                     throw new lmbMacroException('Invalid token, doc comment is expected', array('prev_token' => $prev_token));
 
                 //now parsing annotations
-                $annotations = self:: _extractAnnotations($prev_token[1]);
+                $annotations = self::_extractAnnotations($prev_token[1]);
                 if (!$annotations)
                     throw new lmbMacroException("No annotations found in doc comment '{$prev_token[1]}' in file $file");
 

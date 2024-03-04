@@ -21,9 +21,9 @@ class lmbMacroTreeNextLevelTag extends lmbMacroTag
 {
     protected function _generateContent($code_writer)
     {
-        parent:: _generateContent($code_writer);
+        parent::_generateContent($code_writer);
 
-        $tree_tag = $this->findParentByClass('limb\macro\src\tags\tree\lmbMacroTreeTag');
+        $tree_tag = $this->findParentByClass('limb\macro\src\tags\tree\lmbMacroTreeTag'); # DO NOT CHANGE
 
         if (!$level = $tree_tag->get('level'))
             $level = '$level';
@@ -45,4 +45,3 @@ class lmbMacroTreeNextLevelTag extends lmbMacroTag
         $code_writer->writePHP('}');
     }
 }
-

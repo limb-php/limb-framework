@@ -20,6 +20,12 @@ abstract class DriverManipTestBase extends TestCase
         parent::setUp();
     }
 
+    function tearDown(): void
+    {
+        $this->connection->disconnect();
+        unset($this->connection);
+    }
+
     function checkRecord($id)
     {
         $sql = "SELECT * FROM founding_fathers WHERE id = :id:";

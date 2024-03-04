@@ -72,8 +72,6 @@ class lmbAllowedTagTest extends lmbBaseMacroTestCase
         $acl->allow('man', 'vodka');
 
         lmbToolkit::instance()->setAcl($acl);
-
-        //$this->tags_dir = realpath(dirname(__FILE__).'/../../../src/macro');
     }
 
     protected function _createMacroByText($string)

@@ -34,7 +34,7 @@ class lmbMacroFlashBoxTag extends lmbMacroTag
         $code_writer->writePHP($to . '=$this->toolkit->getFlashBox()->getUnifiedList();');
         $code_writer->writePHP('$this->toolkit->getFlashBox()->reset();');
 
-        parent:: _generateContent($code_writer);
+        parent::_generateContent($code_writer);
 
         $code_writer->endMethod();
 

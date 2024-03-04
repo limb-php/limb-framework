@@ -1,6 +1,6 @@
 <?php
 
-namespace cache2\cases\src;
+namespace Tests\cache2\cases\src;
 
 class CacheableFooBarClass
 {

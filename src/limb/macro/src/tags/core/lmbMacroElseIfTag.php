@@ -13,7 +13,7 @@ use limb\macro\src\lmbMacroException;
  */
 class lmbMacroElseIfTag extends lmbMacroTag
 {
-    function preParse($compiler)
+    function preParse($compiler): void
     {
         if (!$this->has('var') && !$this->has('expr'))
             throw new lmbMacroException("'var'( alias 'expr') attribute is required for 'elseif' tag");

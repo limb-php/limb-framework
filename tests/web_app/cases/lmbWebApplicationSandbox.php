@@ -9,8 +9,6 @@
 
 namespace Tests\web_app\cases;
 
-require_once '.setup.php';
-
 use limb\filter_chain\src\lmbFilterChain;
 use limb\net\src\lmbFakeHttpResponse;
 use limb\session\src\lmbFakeSession;

@@ -16,7 +16,7 @@ class UserController extends LmbController
         if (!$this->request->hasPost())
             return;
 
-        if (!$user = lmbActiveRecord:: findFirst(lmbCmsUser::class, array('email = ?', $this->request->get('email'))))
+        if (!$user = lmbActiveRecord::findFirst(lmbCmsUser::class, array('email = ?', $this->request->get('email'))))
             return $this->flashError("Пользователь с таким значением email не найден", array('Field' => 'email'));
 
         $this->useForm('password_form');

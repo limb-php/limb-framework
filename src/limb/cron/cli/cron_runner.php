@@ -33,7 +33,7 @@ $logger = new CronJobLogger($parsed_cron_job_path['cron_job_file_path']);
 
 $lock_dir = $_ENV['LIMB_VAR_DIR'] . '/cron_job_lock/';
 if (!file_exists($lock_dir))
-    lmbFS:: mkdir($lock_dir, 0777);
+    lmbFs::mkdir($lock_dir, 0777);
 
 $lock_file = $lock_dir . $parsed_cron_job_path['cron_job_name'];
 if (!file_exists($lock_file)) {

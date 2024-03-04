@@ -22,7 +22,7 @@ class lmbMacroTemplateTag extends lmbMacroPassiveTag
     protected $method;
     protected $current_apply_tag = null;
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
         if ($this->has('name'))
             $this->set('id', 'template_' . $this->get('name'));

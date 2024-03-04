@@ -22,12 +22,14 @@ class lmbMacroPagerLastTag extends lmbMacroTag
 {
     protected function _generateContent($code_writer)
     {
-        $pager = $this->findParentByClass('limb\macro\src\tags\pager\lmbMacroPagerTag')->getRuntimeVar();
+        $pager = $this
+            ->findParentByClass('limb\macro\src\tags\pager\lmbMacroPagerTag') # DO NOT CHANGE
+            ->getRuntimeVar();
 
         $code_writer->writePhp("if (!{$pager}->isLast()) {\n");
         $code_writer->writePhp("\$href = {$pager}->getLastPageUri();\n");
 
-        parent:: _generateContent($code_writer);
+        parent::_generateContent($code_writer);
 
         $code_writer->writePhp("}\n");
     }

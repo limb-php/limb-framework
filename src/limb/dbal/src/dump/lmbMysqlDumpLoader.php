@@ -105,7 +105,7 @@ class lmbMysqlDumpLoader extends lmbSQLDumpLoader
             } // ... for start of a comment /* and remove it
             elseif ($char == '/' && isset($sql[$i + 1]) && $sql[$i + 1] == '*') {
                 $start_of_comment = $i;
-                $end_of_comment = self:: _getEndOfCommentPosition($sql, $i + 2);
+                $end_of_comment = self::_getEndOfCommentPosition($sql, $i + 2);
 
                 if (!$end_of_comment) {
                     // no eol found after '#', add the parsed part to the returned
@@ -143,8 +143,8 @@ class lmbMysqlDumpLoader extends lmbSQLDumpLoader
         return false;
     }
 
-    protected function _processTableName($table)
+    protected function _processTableName($name)
     {
-        return trim($table, '`');
+        return trim($name, '`');
     }
 }

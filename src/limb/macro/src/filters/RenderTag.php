@@ -29,7 +29,7 @@ class RenderTag extends lmbMacroTag
                 $code_writer->writePHP($view_var . " = call_user_func('" . $function . "', array());");
             $code_writer->writePHP(" echo {$view_var}->render(); ");
 
-            parent:: _generateContent($code_writer);
+            parent::_generateContent($code_writer);
         }
     }
 }

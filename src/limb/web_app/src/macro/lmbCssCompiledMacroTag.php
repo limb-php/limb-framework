@@ -20,7 +20,7 @@ class lmbCssCompiledMacroTag extends lmbFileVersionMacroTag
     protected function _generateContent($code_writer)
     {
         $this->set('type', $this->has('type') ? $this->get('type') : 'css');
-        parent:: _generateContent($code_writer);
+        parent::_generateContent($code_writer);
     }
 
     protected function _writeFile()
@@ -29,7 +29,7 @@ class lmbCssCompiledMacroTag extends lmbFileVersionMacroTag
             return;
         $this->_file_writed = true;
 
-        $file = lmbFs:: normalizePath($this->get('src'), lmbFs :: UNIX);
+        $file = lmbFs::normalizePath($this->get('src'), lmbFs::UNIX);
 
         $abs_file = $this->getRootDir() . '/' . $file;
         if (!file_exists($abs_file)) {
@@ -48,14 +48,14 @@ class lmbCssCompiledMacroTag extends lmbFileVersionMacroTag
             $replaces = array();
             foreach ($matches[1] as $key => $match) {
                 $match = trim($match, '\'" ');
-                $replaces[$matches[0][$key]] = 'url(' . $this->addVersion(lmbFs:: normalizePath($css_dir . '/' . $match, lmbFs :: UNIX)) . ')';
+                $replaces[$matches[0][$key]] = 'url(' . $this->addVersion(lmbFs::normalizePath($css_dir . '/' . $match, lmbFs::UNIX)) . ')';
             }
             $contents = str_replace(array_keys($replaces), array_values($replaces), $contents);
         }
 
-        $url = lmbFs:: normalizePath(ltrim($this->get('dir') . '/' . str_replace('/', '-', $file), '/'));
+        $url = lmbFs::normalizePath(ltrim($this->get('dir') . '/' . str_replace('/', '-', $file), '/'));
         $path = $this->getRootDir() . '/' . $url;
-        lmbFs:: safeWrite($path, trim($contents));
+        lmbFs::safeWrite($path, trim($contents));
 
         $this->_file_path = $path;
         $this->_file_url = $url;

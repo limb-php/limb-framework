@@ -42,13 +42,13 @@ class lmbReflectionHelper
         if ($reflection->isInterface())
             return array($name);
 
-        return self:: _onlyParents($reflection->getInterfaces());
+        return self::_onlyParents($reflection->getInterfaces());
     }
 
     static function getInterfaceMethods($name)
     {
         $methods = array();
-        foreach (self:: getInterfaces($name) as $interface)
+        foreach (self::getInterfaces($name) as $interface)
             $methods = array_merge($methods, get_class_methods($interface));
         return array_unique($methods);
     }
@@ -102,8 +102,8 @@ class lmbReflectionHelper
         if ($method == '__call')
             return 'function __call($__method, $__args = array())';
 
-        if (self:: _isInterfaceMethod($name, $method))
-            return self:: _getFullSignature($name, $method);
+        if (self::_isInterfaceMethod($name, $method))
+            return self::_getFullSignature($name, $method);
 
         if (!is_callable(array($name, $method)))
             return "function $method()";
@@ -117,7 +117,7 @@ class lmbReflectionHelper
         $method = $interface->getMethod($method_name);
         $reference = $method->returnsReference() ? '&' : '';
         return "function $reference $method_name(" .
-            implode(', ', self:: _getParameterSignatures($method)) .
+            implode(', ', self::_getParameterSignatures($method)) .
             ")";
     }
 
@@ -129,7 +129,7 @@ class lmbReflectionHelper
             $signatures[] =
                 (!is_null($type) ? $type->getName() . ' ' : '') .
                 ($parameter->isPassedByReference() ? '&' : '') .
-                '$' . self:: _suppressSpurious($parameter->getName()) .
+                '$' . self::_suppressSpurious($parameter->getName()) .
                 ($parameter->isOptional() ? ' = null' : '');
         }
         return $signatures;
@@ -142,6 +142,6 @@ class lmbReflectionHelper
 
     static protected function _isInterfaceMethod($name, $method)
     {
-        return in_array($method, self:: getInterfaceMethods($name));
+        return in_array($method, self::getInterfaceMethods($name));
     }
 }

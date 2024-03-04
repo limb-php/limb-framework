@@ -9,8 +9,6 @@
 
 namespace limb\macro\src\tags\form;
 
-use limb\macro\src\tags\form\lmbMacroFormTagElement;
-
 /**
  * Macro analog for html <textarea> tag
  * @tag textarea
@@ -20,11 +18,11 @@ use limb\macro\src\tags\form\lmbMacroFormTagElement;
 class lmbMacroTextAreaTag extends lmbMacroFormTagElement
 {
     protected $html_tag = 'textarea';
-    protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroTextAreaWidget';
+    protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroTextAreaWidget';  # DO NOT CHANGE
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
-        parent:: preParse($compiler);
+        parent::preParse($compiler);
 
         // always has closing tag
         $this->has_closing_tag = true;

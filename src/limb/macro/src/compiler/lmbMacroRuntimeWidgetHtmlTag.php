@@ -17,9 +17,9 @@ class lmbMacroRuntimeWidgetHtmlTag extends lmbMacroRuntimeWidgetTag
 {
     protected $html_tag;
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
-        parent:: preParse($compiler);
+        parent::preParse($compiler);
 
         if (!$this->html_tag)
             $this->raise('Please specify "$html_tag" property of the tag class "' . get_class($this) . '"');
@@ -27,7 +27,7 @@ class lmbMacroRuntimeWidgetHtmlTag extends lmbMacroRuntimeWidgetTag
 
     protected function _generateBeforeContent($code_writer)
     {
-        parent:: _generateBeforeContent($code_writer);
+        parent::_generateBeforeContent($code_writer);
 
         $this->_generateBeforeOpeningTag($code_writer);
 
@@ -46,7 +46,7 @@ class lmbMacroRuntimeWidgetHtmlTag extends lmbMacroRuntimeWidgetTag
 
     protected function _generateWidget($code_writer)
     {
-        parent:: _generateWidget($code_writer);
+        parent::_generateWidget($code_writer);
 
         $widget = $this->getRuntimeVar();
         $code_writer->writeToInit("{$widget}->setAttributes(" . var_export($this->getConstantAttributes(), true) . ");\n");
@@ -99,4 +99,3 @@ class lmbMacroRuntimeWidgetHtmlTag extends lmbMacroRuntimeWidgetTag
     {
     }
 }
-

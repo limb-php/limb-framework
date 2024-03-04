@@ -14,7 +14,7 @@ namespace limb\toolkit\src;
  * Created for testing purposes only.
  * Example of usage:
  * <code>
- * Mock :: generate('MyTools', 'MockMyTools');
+ * Mock::generate('MyTools', 'MockMyTools');
  * $tools = new MockMyTools();
  * $tools->expectOnce('getUser');
  * $tools->setReturnValue('getUser', $user);

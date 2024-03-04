@@ -77,7 +77,7 @@ class lmbSQLCriteria extends lmbSQLBaseCriteria
     {
         if ($handler)
             $values = array_map($handler, $values);
-        return new lmbSQLFieldCriteria($column, $values, lmbSQLFieldCriteria :: IN);
+        return new lmbSQLFieldCriteria($column, $values, lmbSQLFieldCriteria::IN);
     }
 
     /**
@@ -87,7 +87,7 @@ class lmbSQLCriteria extends lmbSQLBaseCriteria
      */
     static function equal($column, $value)
     {
-        return new lmbSQLFieldCriteria($column, $value, lmbSQLFieldCriteria :: EQUAL);
+        return new lmbSQLFieldCriteria($column, $value, lmbSQLFieldCriteria::EQUAL);
     }
 
     /**
@@ -97,7 +97,7 @@ class lmbSQLCriteria extends lmbSQLBaseCriteria
      */
     static function greater($column, $value)
     {
-        return new lmbSQLFieldCriteria($column, $value, lmbSQLFieldCriteria :: GREATER);
+        return new lmbSQLFieldCriteria($column, $value, lmbSQLFieldCriteria::GREATER);
     }
 
     /**
@@ -107,7 +107,7 @@ class lmbSQLCriteria extends lmbSQLBaseCriteria
      */
     static function less($column, $value)
     {
-        return new lmbSQLFieldCriteria($column, $value, lmbSQLFieldCriteria :: LESS);
+        return new lmbSQLFieldCriteria($column, $value, lmbSQLFieldCriteria::LESS);
     }
 
     /**
@@ -117,7 +117,7 @@ class lmbSQLCriteria extends lmbSQLBaseCriteria
      */
     static function like($column, $value)
     {
-        return new lmbSQLFieldCriteria($column, $value, lmbSQLFieldCriteria :: LIKE);
+        return new lmbSQLFieldCriteria($column, $value, lmbSQLFieldCriteria::LIKE);
     }
 
     /**
@@ -126,7 +126,7 @@ class lmbSQLCriteria extends lmbSQLBaseCriteria
      */
     static function isNull($column)
     {
-        return new lmbSQLFieldCriteria($column, null, lmbSQLFieldCriteria :: IS_NULL);
+        return new lmbSQLFieldCriteria($column, null, lmbSQLFieldCriteria::IS_NULL);
     }
 
     /**

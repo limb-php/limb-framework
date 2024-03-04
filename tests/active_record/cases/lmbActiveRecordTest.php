@@ -22,7 +22,7 @@ use Tests\active_record\cases\src\TestOneTableObjectWithCustomProperty;
 use Tests\active_record\cases\src\TestOneTableObjectWithHooks;
 use Tests\active_record\cases\src\TestOneTableObjectWithSortParams;
 
-require_once '.setup.php';
+//require_once (dirname(__FILE__) . '/.setup.php');
 
 class lmbActiveRecordTest extends lmbARBaseTestCase
 {

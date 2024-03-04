@@ -23,7 +23,7 @@ class lmbFullPageCacheIniPolicyLoader
 
     function __construct($ini_path)
     {
-        $this->ini = lmbToolkit:: instance()->getConf($ini_path);
+        $this->ini = lmbToolkit::instance()->getConf($ini_path);
     }
 
     function load()

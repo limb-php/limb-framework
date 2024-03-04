@@ -11,7 +11,7 @@ namespace Tests\active_record\cases;
 
 use Tests\active_record\cases\src\TestAutoTimesObject;
 
-require_once '.setup.php';
+//require_once (dirname(__FILE__) . '/.setup.php');
 
 class lmbARAutoTimesTest extends lmbARBaseTestCase
 {

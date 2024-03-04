@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbCachedIni;
 use limb\fs\src\lmbFs;
 
-require_once '.setup.php';
+require_once (dirname(__FILE__) . '/.setup.php');
 
 class lmbCachedIniCachingTest extends TestCase
 {

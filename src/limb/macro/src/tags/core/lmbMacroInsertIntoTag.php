@@ -25,7 +25,7 @@ class lmbMacroInsertIntoTag extends lmbMacroTag
     protected $slot_node;
     protected $is_dynamic;
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
         parent::preParse($compiler);
 

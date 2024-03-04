@@ -33,7 +33,7 @@ class CacheTag extends lmbMacroTag
 
         $code_writer->writePHP("} else {\n");
         $code_writer->writePHP("  ob_start();\n");
-        parent:: _generateContent($code_writer);
+        parent::_generateContent($code_writer);
         $rendered_html = $code_writer->generateVar();
         $code_writer->writePHP("  {$rendered_html} = ob_get_contents();\n");
         $code_writer->writePHP("  ob_end_flush();\n");

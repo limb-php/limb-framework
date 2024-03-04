@@ -9,8 +9,6 @@
 
 namespace limb\macro\src\tags\form;
 
-use limb\macro\src\tags\form\lmbMacroSelectWidget;
-
 /**
  * Represents an HTML select tag where only a single option can
  * be selected at runtile
@@ -28,7 +26,7 @@ class lmbMacroSingleSelectWidget extends lmbMacroSelectWidget
 
     function getValue()
     {
-        $value = parent:: getValue();
+        $value = parent::getValue();
 
         if (is_null($value))
             $value = $this->default_selection;
@@ -54,5 +52,3 @@ class lmbMacroSingleSelectWidget extends lmbMacroSelectWidget
         }
     }
 }
-
-

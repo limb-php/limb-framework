@@ -83,7 +83,7 @@ class lmbDecorator
             if (self::_isSkipMethod($method))
                 continue;
 
-            $code .= "    " . lmbReflectionHelper:: getSignature($decoratee_class, $method) . " {" . PHP_EOL;
+            $code .= "    " . lmbReflectionHelper::getSignature($decoratee_class, $method) . " {" . PHP_EOL;
             $code .= "        \$args = func_get_args();" . PHP_EOL;
             $code .= $events_handler->onMethod($method) . PHP_EOL;
             $code .= "    }" . PHP_EOL;

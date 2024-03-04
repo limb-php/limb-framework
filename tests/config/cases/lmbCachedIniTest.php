@@ -12,7 +12,7 @@ namespace Tests\config\cases;
 use limb\config\src\lmbCachedIni;
 use limb\fs\src\lmbFs;
 
-require_once '.setup.php';
+require_once (dirname(__FILE__) . '/.setup.php');
 
 class lmbCachedIniTest extends lmbIniTest
 {

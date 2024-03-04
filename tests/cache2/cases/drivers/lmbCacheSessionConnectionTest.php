@@ -13,8 +13,6 @@ require_once(dirname(__FILE__) . '/../.setup.php');
 
 class lmbCacheSessionConnectionTest extends lmbCacheConnectionTestCase
 {
-    protected $storage_init_file = 'limb/web_app/common.inc.php';
-
     function __construct()
     {
         $this->dsn = 'session:';

@@ -62,12 +62,12 @@ class lmbFullPageCacheWriter
 
     function flushAll()
     {
-        return lmbFs:: rm($this->storage_dir);
+        return lmbFs::rm($this->storage_dir);
     }
 
     function getCacheSize()
     {
-        $files = lmbFs:: findRecursive($this->storage_dir, 'f');
+        $files = lmbFs::findRecursive($this->storage_dir, 'f');
 
         $size = 0;
         foreach ($files as $file)
@@ -86,7 +86,7 @@ class lmbFullPageCacheWriter
             return false;
 
         try {
-            lmbFs:: safeWrite($file, $contents);
+            lmbFs::safeWrite($file, $contents);
         } catch (\Exception $e) {
         };
     }

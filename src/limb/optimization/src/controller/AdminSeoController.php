@@ -2,7 +2,7 @@
 
 namespace limb\optimization\src\controller;
 
-use limb\cms\src\controller\AdminObjectController;
+use limb\cms\src\Controllers\AdminObjectController;
 use limb\optimization\src\model\MetaInfo;
 
 class AdminSeoController extends AdminObjectController
@@ -12,12 +12,12 @@ class AdminSeoController extends AdminObjectController
     /* */
     public function doDisplay()
     {
-        $this->items = MetaInfo:: findForAdmin(array('sort' => array('url' => 'ASC')));
+        $this->items = MetaInfo::findForAdmin(array('sort' => array('url' => 'ASC')));
     }
 
     public function doCreateEditByUrl()
     {
-        $this->item = MetaInfo:: findByUrl($url = $this->request->get('url'));
+        $this->item = MetaInfo::findByUrl($url = $this->request->get('url'));
         if (!$this->item) {
             $this->setTemplate('admin_seo/create.phtml');
 
@@ -53,4 +53,3 @@ class AdminSeoController extends AdminObjectController
         }
     }
 }
-

@@ -22,5 +22,3 @@ use limb\macro\src\compiler\lmbMacroPassiveTag;
 class lmbMacroOptionTag extends lmbMacroPassiveTag
 {
 }
-
-

@@ -40,7 +40,7 @@ class lmbOciRecordSet extends lmbDbBaseRecordSet
 
     function paginate($offset, $limit)
     {
-        parent:: paginate($offset, $limit);
+        parent::paginate($offset, $limit);
         $this->need_pager = true;
         return $this;
     }

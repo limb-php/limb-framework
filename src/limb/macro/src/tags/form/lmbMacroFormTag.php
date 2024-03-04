@@ -20,7 +20,7 @@ use limb\macro\src\compiler\lmbMacroRuntimeWidgetHtmlTag;
 class lmbMacroFormTag extends lmbMacroRuntimeWidgetHtmlTag
 {
     protected $html_tag = 'form';
-    protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroFormWidget';
+    protected $widget_class_name = 'limb\macro\src\tags\form\lmbMacroFormWidget';  # DO NOT CHANGE
 
     protected function _generateBeforeOpeningTag($code)
     {
@@ -41,7 +41,6 @@ class lmbMacroFormTag extends lmbMacroRuntimeWidgetHtmlTag
         $error_list_id = $form . '_error_list';
         $code->writePHP("if(isset({$error_list_id})){$form}->setErrorList({$error_list_id});\n");
 
-        parent:: _generateBeforeOpeningTag($code);
+        parent::_generateBeforeOpeningTag($code);
     }
 }
-

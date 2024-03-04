@@ -179,7 +179,7 @@ class lmbLocaleDateTime extends lmbDateTime
                     $output .= $this->isInDaylightTime() ? $this->getTimeZoneObject()->getDSTShortName() : $this->getTimeZoneObject()->getShortName();
                     break;
                 case 'Z':
-                    self:: _ensureLocale($locale);
+                    self::_ensureLocale($locale);
                     $output .= $locale->getMonthName($this->getMonth() - 1, 'declicion');
                     break;
                 case '%':
@@ -239,7 +239,7 @@ class lmbLocaleDateTime extends lmbDateTime
         $day = 0;
         $year = 0;
 
-        if (!($time_array = self:: explodeTimeStringByFormat($time_string, $fmt)))
+        if (!($time_array = self::explodeTimeStringByFormat($time_string, $fmt)))
             return -1;
 
         foreach ($time_array as $time_char => $value) {

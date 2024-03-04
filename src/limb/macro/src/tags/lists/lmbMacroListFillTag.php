@@ -10,7 +10,6 @@
 namespace limb\macro\src\tags\lists;
 
 use limb\macro\src\compiler\lmbMacroTag;
-use limb\macro\src\tags\lists\lmbMacroListTag;
 
 /**
  * Compile time component for output finalizers in a list
@@ -23,12 +22,12 @@ use limb\macro\src\tags\lists\lmbMacroListTag;
  */
 class lmbMacroListFillTag extends lmbMacroTag
 {
-    function preParse($compiler)
+    function preParse($compiler): void
     {
-        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');
+        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');  # DO NOT CHANGE
         $list->countSource();
 
-        return parent::preParse($compiler);
+        parent::preParse($compiler);
     }
 
     protected function _generateContent($code_writer)
@@ -39,7 +38,7 @@ class lmbMacroListFillTag extends lmbMacroTag
         else
             $code_writer->writePHP($ratio_var . " = 1;\n");
 
-        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');
+        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');  # DO NOT CHANGE
 
         $count_var = $code_writer->generateVar();
         $items_left_var = $code_writer->generateVar();
@@ -57,9 +56,8 @@ class lmbMacroListFillTag extends lmbMacroTag
         if ($items_left = $this->get('items_left'))
             $code_writer->writePhp($items_left . " = {$items_left_var};");
 
-        parent:: _generateContent($code_writer);
+        parent::_generateContent($code_writer);
 
         $code_writer->writePhp('}' . "\n");
     }
 }
-

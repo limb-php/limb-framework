@@ -33,7 +33,7 @@ abstract class AdminNodeWithObjectController extends LmbController
 
     function __construct()
     {
-        parent:: __construct();
+        parent::__construct();
 
         if (!$this->_object_class_name || !$this->_controller_name)
             throw new lmbException('Object class name or(and) controller name is not specified');
@@ -64,7 +64,7 @@ abstract class AdminNodeWithObjectController extends LmbController
 
     function doEdit()
     {
-        $this->node = lmbActiveRecord:: findById($this->_node_class_name, $this->request->getInteger('id'), false);
+        $this->node = lmbActiveRecord::findById($this->_node_class_name, $this->request->getInteger('id'), false);
         if (!$this->node)
             return $this->forwardTo404();
 

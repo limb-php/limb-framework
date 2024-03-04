@@ -20,7 +20,7 @@ class lmbJsCombinedMacroTag extends lmbFileVersionMacroTag
     protected function _generateContent($code_writer)
     {
         $this->set('type', $this->has('type') ? $this->get('type') : 'js');
-        parent:: _generateContent($code_writer);
+        parent::_generateContent($code_writer);
     }
 
     protected function _writeFile()
@@ -40,7 +40,7 @@ class lmbJsCombinedMacroTag extends lmbFileVersionMacroTag
                     } else
                         throw new lmbMacroException('File "' . $file . '" not found in ' . $this->getRootDir() . ', src: "' . $child->get('src') . '"');
                 }
-                $file = lmbFs:: normalizePath(realpath($file));
+                $file = lmbFs::normalizePath(realpath($file));
                 if (!in_array($file, $files)) {
                     $files[] = $file;
                     $join_contents .= "\n/* include " . basename($file) . " */\n" . $content;
@@ -48,9 +48,9 @@ class lmbJsCombinedMacroTag extends lmbFileVersionMacroTag
             }
         }
         sort($files, SORT_STRING);
-        $url = lmbFs:: normalizePath(ltrim($this->get('dir') . '/' . md5(implode("\n", $files)) . '.js', '/'));
+        $url = lmbFs::normalizePath(ltrim($this->get('dir') . '/' . md5(implode("\n", $files)) . '.js', '/'));
         $path = $this->getRootDir() . '/' . $url;
-        lmbFs:: safeWrite($path, trim($join_contents));
+        lmbFs::safeWrite($path, trim($join_contents));
 
         $this->_file_path = $path;
         $this->_file_url = $url;

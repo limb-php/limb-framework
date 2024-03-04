@@ -15,7 +15,7 @@ use limb\validation\src\lmbValidator;
 use Tests\active_record\cases\src\lmbActiveRecordValidationStub;
 use Tests\active_record\cases\src\TestOneTableObjectFailing;
 
-require_once '.setup.php';
+//require_once (dirname(__FILE__) . '/.setup.php');
 
 class lmbARValidationTest extends lmbARBaseTestCase
 {

@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use limb\fs\src\lmbFs;
+
 /**
  * class lmbI18nScanner.
  *
@@ -51,7 +53,7 @@ class lmbI18nScanner
 
     protected function scanForFiles($dir)
     {
-        $result = lmbFs:: findRecursive($dir, $types = 'f', $include_regex = '#.ph(tml|p)$#is');
+        $result = lmbFs::findRecursive($dir, $types = 'f', $include_regex = '#.ph(tml|p)$#is');
         foreach ($result as $name) {
             $this->_found_files[] = $name;
         }

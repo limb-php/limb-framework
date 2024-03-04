@@ -23,7 +23,7 @@ class lmbMacroOutputExpressionNode extends lmbMacroNode
     {
         $this->expression = $expression;
 
-        parent:: __construct($location);
+        parent::__construct($location);
     }
 
     function setExpression($expression)

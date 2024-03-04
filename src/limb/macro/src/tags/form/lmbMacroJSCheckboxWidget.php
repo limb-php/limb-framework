@@ -9,8 +9,6 @@
 
 namespace limb\macro\src\tags\form;
 
-use limb\macro\src\tags\form\lmbMacroCheckableInputWidget;
-
 /**
  * class lmbMacroJSCheckboxWidget.
  *
@@ -24,7 +22,7 @@ class lmbMacroJSCheckboxWidget extends lmbMacroCheckableInputWidget
 
     function renderAttributes()
     {
-        parent:: renderAttributes();
+        parent::renderAttributes();
 
         $this->hidden_id = uniqid('js_checkbox_');
         echo " onchange=\"this.form.elements['{$this->hidden_id}'].value = 1*this.checked\"";
@@ -42,4 +40,3 @@ class lmbMacroJSCheckboxWidget extends lmbMacroCheckableInputWidget
         echo "<input type=\"hidden\" id=\"{$this->hidden_id}\" name=\"{$hidden_name}\" value=\"{$value}\" />";
     }
 }
-

@@ -18,7 +18,7 @@ class lmbMacroInsertTag extends lmbMacroTag
     protected static $static_includes_counter = 0;
     protected $is_dynamic = false;
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
         if ($this->has('in'))
             $this->set('into', $this->get('in'));

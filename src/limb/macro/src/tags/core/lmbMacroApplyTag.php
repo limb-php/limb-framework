@@ -68,4 +68,3 @@ class lmbMacroApplyTag extends lmbMacroTag
         return $this->findUpChild('template_' . $name);
     }
 }
-

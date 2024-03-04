@@ -58,7 +58,7 @@ class lmbAdminObjectControllerTest extends TestCase
         $response = $app->imitate($request);
 
         $expected_callchain = 'onCreate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|onBeforeCreate|onBeforeSave|onAfterSave|onAfterCreate|';
-        $this->assertEquals($expected_callchain, $response->getResponseString());
+        $this->assertEquals($expected_callchain, $response->getBody());
     }
 
     function testEventsOnPerformCreateActionWithPostNotValid()

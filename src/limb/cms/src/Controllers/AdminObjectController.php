@@ -30,7 +30,7 @@ abstract class AdminObjectController extends LmbController
 
     function __construct()
     {
-        parent:: __construct();
+        parent::__construct();
 
         if (!$this->_object_class_name)
             throw new lmbException('Object class name is not specified');
@@ -44,7 +44,7 @@ abstract class AdminObjectController extends LmbController
         else
             $this->back_url = $this->_back_url;
 
-        parent:: _passLocalAttributesToView();
+        parent::_passLocalAttributesToView();
     }
 
     function doCreate()
@@ -66,7 +66,7 @@ abstract class AdminObjectController extends LmbController
 
     function doEdit()
     {
-        $this->item = lmbActiveRecord:: findById($this->_object_class_name, $this->request->getInteger('id'));
+        $this->item = lmbActiveRecord::findById($this->_object_class_name, $this->request->getInteger('id'));
         $this->_onEdit();
 
         $this->useForm($this->_form_name);

@@ -22,10 +22,10 @@ class lmbFileVersionMacroTag extends lmbMacroTag
 
         if ($this->has('gzip_static_dir')) {
             $zlevel = $this->has('gzip_level') ? $this->get('gzip_level') : 3;
-            $file_source = lmbFs::normalizePath($this->get('gzip_static_dir'), lmbFs::UNIX) . '/' . str_replace('/', '-', lmbFs:: normalizePath($this->getFileUrl(), lmbFs::UNIX));
-            lmbFs:: cp($this->getFilePath(), $this->getRootDir() . '/' . $file_source);
+            $file_source = lmbFs::normalizePath($this->get('gzip_static_dir'), lmbFs::UNIX) . '/' . str_replace('/', '-', lmbFs::normalizePath($this->getFileUrl(), lmbFs::UNIX));
+            lmbFs::cp($this->getFilePath(), $this->getRootDir() . '/' . $file_source);
             $file_gz = $file_source . '.gz';
-            lmbFs:: safeWrite($this->getRootDir() . '/' . $file_gz, gzencode(file_get_contents($this->getFilePath()), $zlevel, FORCE_DEFLATE));
+            lmbFs::safeWrite($this->getRootDir() . '/' . $file_gz, gzencode(file_get_contents($this->getFilePath()), $zlevel, FORCE_DEFLATE));
             $url = $this->addVersion($file_source);
         }
 
@@ -59,7 +59,7 @@ class lmbFileVersionMacroTag extends lmbMacroTag
 
     function getFileUrl()
     {
-        return lmbFs:: normalizePath($this->get('src'), lmbFs::UNIX);
+        return lmbFs::normalizePath($this->get('src'), lmbFs::UNIX);
     }
 
     function getFilePath()

@@ -27,13 +27,13 @@ class lmbOciManipulationStatement extends lmbOciStatement implements lmbDbManipu
     function execute()
     {
         if (!$this->lobs) {
-            $this->queryId = parent:: execute();
+            $this->queryId = parent::execute();
             return $this->queryId;
         }
 
         $this->connection->beginTransaction();
 
-        $this->queryId = parent:: execute();
+        $this->queryId = parent::execute();
 
         if ($this->_saveLobs())
             $this->connection->commitTransaction();
@@ -86,7 +86,7 @@ class lmbOciManipulationStatement extends lmbOciStatement implements lmbDbManipu
 
     protected function _handleBindVars($sql)
     {
-        return $this->_handleBindedLobs(parent:: _handleBindVars($sql));
+        return $this->_handleBindedLobs(parent::_handleBindVars($sql));
     }
 
     protected function _handleBindedLobs($sql)
@@ -130,7 +130,7 @@ class lmbOciManipulationStatement extends lmbOciStatement implements lmbDbManipu
 
     protected function _prepareStatement()
     {
-        parent:: _prepareStatement();
+        parent::_prepareStatement();
 
         foreach (array_keys($this->lobDescriptors) as $name) {
             if (!oci_bind_by_name($this->statement,

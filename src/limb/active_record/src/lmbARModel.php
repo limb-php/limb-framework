@@ -28,7 +28,7 @@ class lmbARModel extends lmbActiveRecord
     }
 
     /**
-     *  self :: findFirst() convenience alias
+     *  self::findFirst() convenience alias
      * @param mixed misc magic params
      * @return lmbActiveRecord|null
      * @see findFirst()
@@ -111,19 +111,19 @@ class lmbARModel extends lmbActiveRecord
      *  // - to match 'name="hey"' criteria
      *  // - ordered by 'id' property using descendant sort
      *  // - limited to 3 items
-     *  $books = self :: find('Book', array('criteria' => 'name="hey"',
+     *  $books = self::find('Book', array('criteria' => 'name="hey"',
      *                                                 'sort' => array('id' => 'desc'),
      *                                                 'limit' => 3));
      *  //returns a collection of all Book objects in database
-     *  $books = self :: find('Book');
+     *  $books = self::find('Book');
      *  //returns one object with specified id
-     *  $books = self :: find('Book', 1);
+     *  $books = self::find('Book', 1);
      *  //returns a collection of objects which match plain text criteria
-     *  $books = self :: find('Book', 'name="hey"');
+     *  $books = self::find('Book', 'name="hey"');
      *  //returns a collection of objects which match criteria with placeholders
-     *  $books = self :: find('Book', array('name=? and author=?', 'hey', 'bob'));
+     *  $books = self::find('Book', array('name=? and author=?', 'hey', 'bob'));
      *  //returns a collection of objects which match object criteria
-     *  $books = self :: find('Book',
+     *  $books = self::find('Book',
      *                                    new lmbSQLFieldCriteria('name', 'hey'));
      *  </code>
      * @param mixed misc magic params

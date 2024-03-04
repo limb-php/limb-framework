@@ -18,7 +18,7 @@ class lmbMacroListTag extends lmbMacroTag
     protected $counter_var;
     protected $count_source = false;
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
         if (!$this->has('using') && $this->has('for'))
             $this->set('using', $this->get('for'));

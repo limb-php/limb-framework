@@ -53,7 +53,7 @@ class lmbMacroTag extends lmbMacroNode
         if ($this->hasConstant('id'))
             $this->node_id = $this->get('id');
         else
-            $this->node_id = self:: generateNewId();
+            $this->node_id = self::generateNewId();
 
         return $this->node_id;
     }
@@ -212,7 +212,7 @@ class lmbMacroTag extends lmbMacroNode
         $this->raise('Missing required attribute', array('attribute' => $attribute_name));
     }
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
         foreach ($this->tag_info->getRequiredAttributes() as $attr_name) {
             if (!$this->has($attr_name))

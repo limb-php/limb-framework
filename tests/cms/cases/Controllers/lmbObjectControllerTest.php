@@ -49,7 +49,7 @@ class lmbObjectControllerTest extends TestCase
         $controller = new TestObjectController();
         $controller->doDisplay();
 
-        $this->assertEquals(1, count($controller->items));
+        $this->assertCount(1, $controller->items);
         $this->assertInstanceOf(ObjectForTesting::class, $controller->items[0]);
         $this->assertEquals($controller->items[0]->getId(), $object->getId());
     }

@@ -15,9 +15,9 @@ use limb\cache2\src\drivers\lmbCacheAbstractConnection;
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbObject;
-use limb\cache2\src\lmbCacheFactory;
 use limb\net\src\lmbUri;
-use Tests\cache\cases\CacheableFooBarClass;
+use limb\cache2\src\lmbCacheFactory;
+use Tests\cache2\cases\src\CacheableFooBarClass;
 
 abstract class lmbCacheConnectionTestCase extends TestCase
 {
@@ -30,14 +30,10 @@ abstract class lmbCacheConnectionTestCase extends TestCase
      */
     protected $cache;
 
-    protected $storage_init_file;
-
     function __construct()
     {
         parent::__construct();
 
-        if ($this->storage_init_file)
-            require($this->storage_init_file);
     }
 
     function setUp(): void
@@ -293,10 +289,7 @@ abstract class lmbCacheConnectionTestCase extends TestCase
     ob_end_clean();
     echo serialize(\$cache->$method('$arguments_str'));
 EOD;
-        $storage_init_file = $limb_db_dsn = $limb_var_dir = '';
-
-        if ($this->storage_init_file)
-            $storage_init_file = "require_once('{$this->storage_init_file}');";
+        $limb_db_dsn = $limb_var_dir = '';
 
         if (lmbEnv::has('LIMB_DB_DSN'))
             $limb_db_dsn = "lmbEnv::setor('LIMB_DB_DSN', '" . lmbEnv::get('LIMB_DB_DSN') . "');";
@@ -304,7 +297,7 @@ EOD;
         if (lmbEnv::has('LIMB_VAR_DIR'))
             $limb_var_dir = "lmbEnv::setor('LIMB_VAR_DIR', '" . lmbEnv::get('LIMB_VAR_DIR') . "');";
 
-        $request_code = sprintf($request_code, $storage_init_file, $limb_db_dsn, $limb_var_dir);
+        $request_code = sprintf($request_code, $limb_db_dsn, $limb_var_dir);
 
         file_put_contents($filename, $request_code);
         $result = shell_exec("php $filename");

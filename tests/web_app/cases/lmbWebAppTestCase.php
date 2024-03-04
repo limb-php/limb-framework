@@ -9,7 +9,7 @@
 
 namespace Tests\web_app\cases;
 
-require_once '.setup.php';
+require_once (dirname(__FILE__) . '/.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\lmbSimpleDb;

@@ -24,7 +24,7 @@ class lmbArrayIterator extends \ArrayIterator implements lmbCollectionInterface
     public $limit = 0;
     protected $paginated = false;
 
-    function rewind()
+    function rewind(): void
     {
         $this->position = 0;
         parent::rewind();
@@ -40,13 +40,13 @@ class lmbArrayIterator extends \ArrayIterator implements lmbCollectionInterface
         }
     }
 
-    function next()
+    function next(): void
     {
         $this->position++;
         parent::next();
     }
 
-    function valid()
+    function valid(): bool
     {
         if ($this->limit && ($this->position >= $this->limit))
             return false;

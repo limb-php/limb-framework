@@ -19,7 +19,7 @@ use Tests\active_record\cases\src\SocialSecurityForTestObject;
 use Tests\active_record\cases\src\TestOneTableObject;
 use Tests\active_record\cases\src\TestOneTableObjectWithHooks;
 
-require_once '.setup.php';
+//require_once (dirname(__FILE__) . '/.setup.php');
 
 class lmbARDirtyTest extends lmbARBaseTestCase
 {

@@ -12,7 +12,7 @@ namespace Tests\active_record\cases;
 use Tests\active_record\cases\src\lmbActiveRecordEventHandlerStubDelegate;
 use Tests\active_record\cases\src\TestOneTableObject;
 
-require_once '.setup.php';
+//require_once (dirname(__FILE__) . '/.setup.php');
 
 class lmbAREventHandlersTest extends lmbARBaseTestCase
 {

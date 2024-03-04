@@ -18,7 +18,7 @@ class lmbMacroRuntimeWidgetTag extends lmbMacroTag
     protected $widget_class_name;
     protected $runtime_var;
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
         if (!$this->widget_class_name)
             $this->raise('Please specify "$widget_class_name" property of the tag class "' . get_class($this) . '"');
@@ -46,7 +46,7 @@ class lmbMacroRuntimeWidgetTag extends lmbMacroTag
         elseif ($this->hasConstant('name') && (strpos($this->get('name'), '[]') === false)) {
             return $this->get('name');
         } else {
-            $runtime_id = self:: generateNewRuntimeId();
+            $runtime_id = self::generateNewRuntimeId();
             $this->set('runtime_id', $runtime_id);
             return $runtime_id;
         }
@@ -65,4 +65,3 @@ class lmbMacroRuntimeWidgetTag extends lmbMacroTag
         $code_writer->writeToInit("{$widget} = new {$this->widget_class_name}('{$runtime_id}');\n");
     }
 }
-

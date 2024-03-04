@@ -17,7 +17,7 @@ use Tests\active_record\cases\src\MemberForTest;
 use Tests\active_record\cases\src\NameForAggregateTest;
 use Tests\active_record\cases\src\PhotoForTest;
 
-require_once '.setup.php';
+//require_once (dirname(__FILE__) . '/.setup.php');
 
 class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 {

@@ -22,7 +22,7 @@ class lmbMacroInputTag extends lmbMacroFormTagElement
 {
     protected $html_tag = 'input';
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
         $type = strtolower($this->get('type'));
         switch ($type) {
@@ -52,4 +52,3 @@ class lmbMacroInputTag extends lmbMacroFormTagElement
         }
     }
 }
-

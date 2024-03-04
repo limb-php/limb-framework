@@ -24,7 +24,7 @@ class lmbErrorList extends lmbCollection
      * Creates an object of {@link lmbErrorMessage} class.
      * Accepts error message, array of fields list which this error is belong to and array of values.
      * Error message can contain placeholders like {Placeholder} that will be replaced with field names
-     * and values in {@link lmbErrorMessage :: getReadable()}
+     * and values in {@link lmbErrorMessage::getReadable()}
      * Here is an example of adding error to error list in some validation rule:
      * <code>
      *  $error_list->addError('{Field} must contain at least {min} characters.', array('Field' => 'password'), array('min' => 5));

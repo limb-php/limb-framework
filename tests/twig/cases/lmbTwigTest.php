@@ -9,7 +9,7 @@
 
 namespace Tests\twig\cases;
 
-require_once '.setup.php';
+require_once (dirname(__FILE__) . '/.setup.php');
 
 use limb\twig\src\lmbTwigExtension;
 use PHPUnit\Framework\TestCase;

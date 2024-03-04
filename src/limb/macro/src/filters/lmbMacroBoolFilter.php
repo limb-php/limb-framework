@@ -22,7 +22,7 @@ class lmbMacroBoolFilter extends lmbMacroFilter
 {
     function preGenerate($code)
     {
-        parent:: preGenerate($code);
+        parent::preGenerate($code);
 
         $this->true_value = $code->generateVar();
         if (isset($this->params[0]))

@@ -28,7 +28,7 @@ abstract class lmbMacroFunctionBasedFilter extends lmbMacroFilter
         if ($this->include_file)
             $code->registerInclude($this->include_file);
 
-        parent:: preGenerate($code);
+        parent::preGenerate($code);
     }
 
     function getValue()

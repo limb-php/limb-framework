@@ -22,7 +22,7 @@ class lmbMacroSelectTag extends lmbMacroFormTagElement
 {
     protected $html_tag = 'select';
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
         if ($this->getBool('multiple')) {
             $this->widget_class_name = 'limb\macro\src\tags\form\lmbMacroMultipleSelectWidget';

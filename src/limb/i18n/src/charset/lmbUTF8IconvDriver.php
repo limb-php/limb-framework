@@ -9,8 +9,6 @@
 
 namespace limb\i18n\src\charset;
 
-use limb\i18n\src\charset\lmbUTF8BaseDriver;
-
 // This class is based on Harry Fuecks' phputf8 library code(http://sourceforge.net/projects/phputf8)
 
 /**

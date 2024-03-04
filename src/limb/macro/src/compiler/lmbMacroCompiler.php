@@ -12,6 +12,7 @@ namespace limb\macro\src\compiler;
 use limb\fs\src\lmbFs;
 use limb\core\src\lmbDelegate;
 use limb\macro\src\lmbMacroException;
+use limb\macro\src\lmbMacroTemplateLocatorInterface;
 
 /**
  * class lmbMacroCompiler.
@@ -95,7 +96,7 @@ class lmbMacroCompiler
     }
 
     /**
-     * @return lmbMacroTemplateLocator
+     * @return lmbMacroTemplateLocatorInterface
      */
     function getTemplateLocator()
     {
@@ -130,7 +131,7 @@ class lmbMacroCompiler
 
     /**
      *  Registers instance listener of specified type
-     * @param object $callback call back object
+     * @param callable $callback call back object
      */
     static function registerOnCompileCallback($callback)
     {

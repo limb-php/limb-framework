@@ -9,8 +9,6 @@
 
 namespace limb\macro\src\tags\form;
 
-use limb\macro\src\tags\form\lmbMacroFormElementWidget;
-
 /**
  * Represents an HTML input type="radio" and type="checkbox" tags
  * @package macro
@@ -23,7 +21,7 @@ class lmbMacroCheckableInputWidget extends lmbMacroFormElementWidget
 
     function getName()
     {
-        $name = parent:: getName();
+        $name = parent::getName();
         return str_replace('[]', '', $name);
     }
 
@@ -38,7 +36,7 @@ class lmbMacroCheckableInputWidget extends lmbMacroFormElementWidget
         } else
             $this->removeAttribute('checked');
 
-        parent:: renderAttributes();
+        parent::renderAttributes();
     }
 
     function getValue()
@@ -72,4 +70,3 @@ class lmbMacroCheckableInputWidget extends lmbMacroFormElementWidget
         return false;
     }
 }
-

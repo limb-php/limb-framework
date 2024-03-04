@@ -27,14 +27,14 @@ class lmbCliOption
     protected $value;
     protected $is_present = false;
 
-    function __construct($short_or_long_name, $long_name = null, $value_mode = self :: VALUE_NO)
+    function __construct($short_or_long_name, $long_name = null, $value_mode = self::VALUE_NO)
     {
         if (!is_string($long_name) && strlen($short_or_long_name) > 1) {
             $this->long_name = $short_or_long_name;
-            $this->value_mode = !is_null($long_name) ? $long_name : self :: VALUE_NO;
+            $this->value_mode = !is_null($long_name) ? $long_name : self::VALUE_NO;
         } elseif (!is_string($long_name) && strlen($short_or_long_name) == 1) {
             $this->short_name = $short_or_long_name;
-            $this->value_mode = !is_null($long_name) ? $long_name : self :: VALUE_NO;
+            $this->value_mode = !is_null($long_name) ? $long_name : self::VALUE_NO;
         } else {
             if (strlen($short_or_long_name) > strlen($long_name))
                 throw new lmbCliException("Option short name '$short_or_long_name' longer than long name '$long_name'");
@@ -73,17 +73,17 @@ class lmbCliOption
 
     function isValueRequired()
     {
-        return $this->value_mode === self :: VALUE_REQ;
+        return $this->value_mode === self::VALUE_REQ;
     }
 
     function isValueOptional()
     {
-        return $this->value_mode === self :: VALUE_OPT;
+        return $this->value_mode === self::VALUE_OPT;
     }
 
     function isValueForbidden()
     {
-        return $this->value_mode === self :: VALUE_NO;
+        return $this->value_mode === self::VALUE_NO;
     }
 
     function touch()

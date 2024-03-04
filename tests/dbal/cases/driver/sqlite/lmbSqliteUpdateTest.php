@@ -24,6 +24,11 @@ class lmbSqliteUpdateTest extends DriverUpdateTestBase
         parent::init(lmbSqliteManipulationStatement::class);
 
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+        if($this->connection->getType() != 'sqlite')
+            $this->markAsSkipped("Wrong connection to SQLITE");
+
+        $this->connection->getConnection()->busyTimeout(250);
+
         DriverSqliteSetup($this->connection);
 
         parent::setUp();

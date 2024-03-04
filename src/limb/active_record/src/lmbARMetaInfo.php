@@ -29,7 +29,7 @@ class lmbARMetaInfo
     function __construct($active_record, $conn = null)
     {
         $table_name = $active_record->getTableName();
-        $this->db_table = lmbToolkit:: instance()->createTableGateway($table_name, $conn);
+        $this->db_table = lmbToolkit::instance()->createTableGateway($table_name, $conn);
         $this->db_column_names = $this->db_table->getColumnNames();
     }
 

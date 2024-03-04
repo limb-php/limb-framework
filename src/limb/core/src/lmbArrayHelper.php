@@ -98,7 +98,7 @@ class lmbArrayHelper
                 if (!isset($res_array[$key]))
                     $res_array[$key] = array();
 
-                lmbArrayHelper:: arraySet($arr_def, $res_array[$key], $value);
+                lmbArrayHelper::arraySet($arr_def, $res_array[$key], $value);
             } elseif ($size == 1)
                 $res_array[$key] = $value;
         }

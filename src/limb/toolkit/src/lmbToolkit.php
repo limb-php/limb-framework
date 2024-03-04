@@ -20,7 +20,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * The idea behind lmbToolkit class is simple:
  *  1) lmbToolkit is a Singleton
  *  2) lmbToolkit consists of so-called tools. Tools is an object of any class that supports {@link lmbToolkitToolsInterface} interface
- *  3) lmbToolkit redirects all non-existing methods via magic __call to tools if these methods were named in $tools :: getToolsSignatures() result.
+ *  3) lmbToolkit redirects all non-existing methods via magic __call to tools if these methods were named in $tools::getToolsSignatures() result.
  *  4) lmbToolkit also acts as a registry. You can put any data into toolkit and get them out at any place of your application
  * As a result we get an easily accessible object that we can extend with any methods we need.
  * We can also replace one tools with others thus we can return to client code completely different results from the same toolkit methods.

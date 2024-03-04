@@ -10,8 +10,6 @@
 namespace limb\macro\src\tags\lists;
 
 use limb\macro\src\compiler\lmbMacroTag;
-use limb\macro\src\tags\lists\lmbMacroListTag;
-use limb\macro\src\tags\lists\lmbMacroListGlueHelper;
 
 /**
  * Compile time component for separators in a list
@@ -29,9 +27,9 @@ class lmbMacroListGlueTag extends lmbMacroTag
     protected $helper_var;
     protected $pregenerated_attributes = false;
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
-        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');
+        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');  # DO NOT CHANGE
         $list->countSource();
 
         if ($this->has('every'))
@@ -44,7 +42,7 @@ class lmbMacroListGlueTag extends lmbMacroTag
             return;
 
         $this->pregenerated_attributes = true;
-        parent:: _preGenerateAttributes($code_writer);
+        parent::_preGenerateAttributes($code_writer);
     }
 
     // called by parent {{list}} tag (lmbMacroListTag)
@@ -56,7 +54,7 @@ class lmbMacroListGlueTag extends lmbMacroTag
         $helper_var = $this->getHelperVar($code);
 
         $code->writePHP("if(!isset({$helper_var})){\n");
-        $code->writePHP($helper_var . " = new limb\\macro\\src\\tags\\lists\\lmbMacroListGlueHelper();\n");
+        $code->writePHP($helper_var . " = new limb\\macro\\src\\tags\\lists\\lmbMacroListGlueHelper();\n");  # DO NOT CHANGE
         $code->writePHP("}\n");
 
         if ($this->has('step'))
@@ -65,7 +63,7 @@ class lmbMacroListGlueTag extends lmbMacroTag
             $code->writePHP($step_var . " = 1;\n");
 
         $code->writePhp($helper_var . "->setStep({$step_var});\n");
-        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');
+        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');  # DO NOT CHANGE
         $source_var = $list->getSourceVar();
         $code->writePhp($helper_var . "->setTotalItems(count($source_var));\n");
     }
@@ -81,7 +79,7 @@ class lmbMacroListGlueTag extends lmbMacroTag
 
         $code_writer->writePhp($helper_var . "->reset();\n");
 
-        $separators = $this->parent->findImmediateChildrenByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListGlueTag');
+        $separators = $this->parent->findImmediateChildrenByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListGlueTag');  # DO NOT CHANGE
         if (array($separators) && count($separators)) {
             foreach ($separators as $separator) {
                 if (!$separator->isIndependent() && $separator->getNodeId() != $this->getNodeId()) {
@@ -91,7 +89,7 @@ class lmbMacroListGlueTag extends lmbMacroTag
             }
         }
 
-        parent:: _generateContent($code_writer);
+        parent::_generateContent($code_writer);
 
         $code_writer->writePhp("}\n");
     }
@@ -116,4 +114,3 @@ class lmbMacroListGlueTag extends lmbMacroTag
         return $this->helper_var;
     }
 }
-

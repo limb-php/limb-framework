@@ -76,7 +76,7 @@ class lmbLinterManipulationStatement extends lmbLinterStatement implements lmbDb
                 }
             }
         }
-        $this->queryId = parent:: execute();
+        $this->queryId = parent::execute();
         return $this->queryId;
     }
 

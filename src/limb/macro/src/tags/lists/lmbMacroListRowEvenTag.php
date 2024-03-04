@@ -22,12 +22,11 @@ class lmbMacroListRowEvenTag extends lmbMacroTag
 {
     protected function _generateContent($code_writer)
     {
-        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');
+        $list = $this->findParentByClass('limb\\macro\\src\\tags\\lists\\lmbMacroListTag');  # DO NOT CHANGE
         $counter_var = $list->getCounterVar();
 
         $code_writer->writePHP('if((' . $counter_var . '+1) % 2 == 0) {');
-        parent:: _generateContent($code_writer);
+        parent::_generateContent($code_writer);
         $code_writer->writePHP('}');
     }
 }
-

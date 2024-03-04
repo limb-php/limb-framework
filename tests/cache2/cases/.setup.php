@@ -13,4 +13,8 @@ lmbEnv::set('LIMB_CONF_INCLUDE_PATH', $LIMB_CONF_INCLUDE_PATH . ';' . dirname(__
 
 lmb_tests_init_var_dir(dirname(__FILE__) . '/../../../var/cache2');
 
-lmb_tests_init_db_dsn();
+//lmbToolkit::instance()->setDefaultDbDSN(lmbToolkit::instance()->getDbDSNByName('pgsql_dsn'));
+
+lmb_tests_init_db_dsn('mysql_dsn');
+
+lmb_tests_setup_db(dirname(__FILE__) . '/.fixture/init_tests.');

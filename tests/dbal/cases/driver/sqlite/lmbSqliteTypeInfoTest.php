@@ -28,6 +28,9 @@ class lmbSqliteTypeInfoTest extends DriverTypeInfoTestBase
         );
 
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
+        if($this->connection->getType() != 'sqlite')
+            $this->markAsSkipped("Wrong connection to SQLITE");
+
         DriverSqliteSetup($this->connection);
 
         $this->typeInfo = $this->connection->getTypeInfo();

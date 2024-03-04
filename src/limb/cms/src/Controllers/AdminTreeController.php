@@ -55,7 +55,7 @@ class AdminTreeController extends lmbController
     {
         if ($this->request->hasPost() && $this->request->get('delete')) {
             foreach ($this->request->getArray('ids') as $id) {
-                $node = lmbActiveRecord:: findById('lmbCmsNode', $id);
+                $node = lmbActiveRecord::findById('lmbCmsNode', $id);
                 $node->destroy();
             }
             $this->closePopup();
@@ -90,7 +90,7 @@ class AdminTreeController extends lmbController
 
         if ($this->request->hasPost() && $this->request->get('move')) {
             if (!$parent_id = $this->request->get('parent_id')) {
-                $parent_node = lmbCmsNode:: findByPath('/');
+                $parent_node = lmbCmsNode::findByPath('/');
                 $parent_id = $parent_node->id;
             }
 

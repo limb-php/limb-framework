@@ -2,13 +2,13 @@
 
 namespace limb\optimization\src\model;
 
-use src\model\cachedActiveRecord;
 use limb\core\src\lmbObject;
 use limb\active_record\src\lmbActiveRecord;
+use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
-use limb\cms\src\validation\rule\CmsUniqueFieldRule;
+use limb\validation\src\lmbValidator;
 
-class MetaData extends cachedActiveRecord
+class MetaData extends lmbActiveRecord
 {
     protected $_db_table_name = 'object_meta_data';
 
@@ -21,7 +21,8 @@ class MetaData extends cachedActiveRecord
     const TYPE_ARTICLE = 3;
     const TYPE_BRAND = 4;
 
-    static protected $_types = array(10 => array('id' => 10, 'title' => 'Страницы', 'class' => 'lmbCmsNode', 'getter' => 'findForAdminSeo', 'sort' => array('title' => 'ASC')),
+    static protected $_types = array(
+        10 => array('id' => 10, 'title' => 'Страницы', 'class' => 'lmbCmsNode', 'getter' => 'findForAdminSeo', 'sort' => array('title' => 'ASC')),
         20 => array('id' => 20, 'title' => 'Модули', 'class' => 'appModule', 'getter' => 'findForAdmin', 'sort' => null),
         2 => array('id' => 2, 'title' => 'Категории', 'class' => 'pgCategory', 'getter' => 'findForAdminSeo', 'sort' => array('node.level' => 'ASC', 'node.priority' => 'ASC')),
         1 => array('id' => 1, 'title' => 'Товары', 'class' => 'pgProduct', 'getter' => 'findForAdmin', 'sort' => array('title' => 'ASC')),
@@ -41,12 +42,12 @@ class MetaData extends cachedActiveRecord
     /* getters/setters */
     static function getTypes()
     {
-        return self:: $_types;
+        return self::$_types;
     }
 
     static function translateClass($class)
     {
-        foreach (self:: $_types as $id => $type) {
+        foreach (self::$_types as $id => $type) {
             if ($type['class'] == $class)
                 return $id;
         }
@@ -56,13 +57,13 @@ class MetaData extends cachedActiveRecord
 
     static function translateType($type)
     {
-        if (isset(self:: $_types[$type]))
-            return self:: $_types[$type];
+        if (isset(self::$_types[$type]))
+            return self::$_types[$type];
     }
 
     function getObject()
     {
-        $type = self:: translateType($this->type);
+        $type = self::translateType($this->type);
 
         $result = call_user_func(array($type['class'], 'findById'), $this->object_id, false);
 
@@ -73,7 +74,7 @@ class MetaData extends cachedActiveRecord
     {
         if (is_object($object)) {
             $class = get_class($object);
-            $type = self:: translateClass($class);
+            $type = self::translateClass($class);
             $id = $object->id;
         } else {
             $type = $object['class'];
@@ -83,60 +84,60 @@ class MetaData extends cachedActiveRecord
         if (($type !== false) && $id) {
             $criteria = new lmbSQLFieldCriteria('type', $type);
             $criteria->addAnd(new lmbSQLFieldCriteria('object_id', $id));
-            $meta = lmbActiveRecord:: findFirst(__CLASS__, array('cache' => true,
+            $meta = lmbActiveRecord::findFirst(__CLASS__, array('cache' => true,
                 'criteria' => $criteria));
         }
 
         if (!empty($meta))
-            self:: $_meta = $meta;
+            self::$_meta = $meta;
         else
-            self:: $_meta = new lmbObject(array('page_h1' => '', 'page_crumb' => '', 'meta_title' => '', 'meta_description' => '', 'meta_keywords' => ''));
+            self::$_meta = new lmbObject(array('page_h1' => '', 'page_crumb' => '', 'meta_title' => '', 'meta_description' => '', 'meta_keywords' => ''));
     }
 
     public static function getMetaTitle()
     {
-        if (empty(self:: $_meta))
-            self:: _getMetaDataForUrl();
+        if (empty(self::$_meta))
+            self::_getMetaDataForUrl();
 
-        return self:: $_meta->get('title');
+        return self::$_meta->get('title');
     }
 
     public static function getMetaKeywords()
     {
-        if (empty(self:: $_meta))
-            self:: _getMetaDataForUrl();
+        if (empty(self::$_meta))
+            self::_getMetaDataForUrl();
 
-        return self:: $_meta->get('keywords');
+        return self::$_meta->get('keywords');
     }
 
     public static function getMetaDescription()
     {
-        if (empty(self:: $_meta))
-            self:: _getMetaDataForUrl();
+        if (empty(self::$_meta))
+            self::_getMetaDataForUrl();
 
-        return self:: $_meta->get('description');
+        return self::$_meta->get('description');
     }
 
     public static function getPageH1()
     {
-        if (empty(self:: $_meta))
-            self:: _getMetaDataForUrl();
+        if (empty(self::$_meta))
+            self::_getMetaDataForUrl();
 
-        return self:: $_meta->get('h1');
+        return self::$_meta->get('h1');
     }
 
     public static function getPageCrumb()
     {
-        if (empty(self:: $_meta))
-            self:: _getMetaDataForUrl();
+        if (empty(self::$_meta))
+            self::_getMetaDataForUrl();
 
-        return self:: $_meta->get('crumb');
+        return self::$_meta->get('crumb');
     }
 
     public static function getMetaForObject($object)
     {
-        self:: _getMetaForObject($object);
-        return self:: $_meta;
+        self::_getMetaForObject($object);
+        return self::$_meta;
     }
 
     static function findForAdmin($params = array())
@@ -146,7 +147,6 @@ class MetaData extends cachedActiveRecord
             $criteria->addAnd(new lmbSQLFieldCriteria('type', $params['type']));
         }
 
-        return lmbActiveRecord:: find(__CLASS__, array('criteria' => $criteria));
+        return lmbActiveRecord::find(__CLASS__, array('criteria' => $criteria));
     }
 }
-

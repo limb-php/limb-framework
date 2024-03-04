@@ -210,7 +210,7 @@ class lmbFs
 
     static function rm($file)
     {
-        if (!file_exists($file))
+        if (!$file || !file_exists($file))
             return false;
 
         self::_doRm(self::normalizePath($file), self::separator());

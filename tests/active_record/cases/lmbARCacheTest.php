@@ -17,7 +17,7 @@ use limb\cache\src\lmbCacheGroupDecorator;
 use limb\core\src\lmbCollection;
 use limb\core\src\lmbEnv;
 
-require_once '.setup.php';
+//require_once (dirname(__FILE__) . '/.setup.php');
 
 class cachedActiveRecord extends lmbActiveRecord
 {

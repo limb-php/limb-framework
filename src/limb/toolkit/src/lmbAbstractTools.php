@@ -35,7 +35,7 @@ abstract class lmbAbstractTools implements lmbToolkitToolsInterface
 
     /**
      * Returns all methods of the childs classes except methods of lmbToolkitToolsInterface interface
-     * @see lmbToolkitToolsInterface :: getToolsSignatures()
+     * @see lmbToolkitToolsInterface::getToolsSignatures()
      */
     function getToolsSignatures()
     {

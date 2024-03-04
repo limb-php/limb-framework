@@ -19,7 +19,7 @@ use Tests\active_record\cases\src\GroupForTestObjectStub;
 use Tests\active_record\cases\src\UserForTestObject;
 use Tests\active_record\cases\src\UserForTestWithSpecialRelationTable;
 
-require_once '.setup.php';
+//require_once (dirname(__FILE__) . '/.setup.php');
 
 class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 {

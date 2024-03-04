@@ -37,7 +37,7 @@ class lmbMacroView extends lmbView
 
     static function locateTemplateByAlias($alias)
     {
-        $locator = lmbToolkit:: instance()->getMacroLocator();
+        $locator = lmbToolkit::instance()->getMacroLocator();
 
         if ($template_path = $locator->locateSourceTemplate($alias))
             return $template_path;
@@ -56,7 +56,7 @@ class lmbMacroView extends lmbView
 
     function reset()
     {
-        parent:: reset();
+        parent::reset();
         $this->macro_template = null;
     }
 
@@ -73,7 +73,7 @@ class lmbMacroView extends lmbView
         if (!$path = $this->getTemplate())
             return null;
 
-        $toolkit = lmbToolkit:: instance();
+        $toolkit = lmbToolkit::instance();
         $this->macro_template = new lmbMacroTemplate($path, $toolkit->getMacroConfig(), $toolkit->getMacroLocator());
         return $this->macro_template;
     }
