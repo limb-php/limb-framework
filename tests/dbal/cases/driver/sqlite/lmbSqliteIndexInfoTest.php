@@ -18,8 +18,8 @@ require_once(dirname(__FILE__) . '/fixture.inc.php');
 class lmbSqliteIndexInfoTest extends DriverIndexInfoTestBase
 {
     protected $_index_names = array(
-        'primary' => '(indexes autoindex 1)',
-        'unique' => '(indexes autoindex 2)',
+        'primary' => 'sqlite_autoindex_indexes_1',
+        'unique' => 'sqlite_autoindex_indexes_2',
         'common' => 'common'
     );
 
