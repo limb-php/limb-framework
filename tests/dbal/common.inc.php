@@ -150,6 +150,7 @@ if (!function_exists('lmb_tests_teardown_db')) {
 
         $db = new lmbSimpleDb($conn);
         $db->truncateDb();
+        $db->disconnect();
 
         if ($verbose)
             echo "INFO: Database was cleaned up\n";

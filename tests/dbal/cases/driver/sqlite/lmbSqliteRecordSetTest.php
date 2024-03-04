@@ -27,7 +27,8 @@ class lmbSqliteRecordSetTest extends DriverRecordSetTestBase
         if($this->connection->getType() != 'sqlite')
             $this->markAsSkipped("Wrong connection to SQLITE");
 
-        $this->connection->getConnection()->busyTimeout(250);
+        $this->connection->getConnection()->busyTimeout(5000);
+        $this->connection->getConnection()->exec('PRAGMA journal_mode = wal;');
 
         DriverSqliteSetup($this->connection);
 
