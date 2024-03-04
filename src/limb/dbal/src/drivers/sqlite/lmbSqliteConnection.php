@@ -83,14 +83,14 @@ class lmbSqliteConnection extends lmbDbBaseConnection
 
         $errno = $this->connection->lastErrorCode();
 
-        $info = array('driver' => 'sqlite');
+        $info = ['driver' => 'sqlite'];
         $info['errorno'] = $errno;
         $info['db'] = $this->config['database'];
 
         if (!is_null($sql))
             $info['sql'] = $sql;
 
-        throw new lmbDbException($this->connection->lastErrorMsg() . ' SQL: ' . $sql, $info);
+        throw new lmbDbException($this->connection->lastErrorMsg() . '. SQL query: ' . $sql, $info);
     }
 
     function execute($sql)

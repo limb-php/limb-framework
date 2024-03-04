@@ -45,7 +45,7 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
     {
         if (isset($this->rs) && is_a($this->rs, 'SQLite3Result')) {
             if ($this->rs->fetchArray(SQLITE3_ASSOC) === false) {
-                $this->connection->_raiseError();
+                $this->connection->_raiseError($this->query);
             }
         } elseif (!$this->rs) {
             $query = $this->query;
