@@ -40,13 +40,10 @@ class lmbSqliteRecordSet extends lmbDbBaseRecordSet
             $this->rs = null;
     }
 
-    /** @TODO: fix $this->rs->reset() */
     function rewind(): void
     {
         if (isset($this->rs) && is_a($this->rs, 'SQLite3Result')) {
-            if ($this->rs->fetchArray(SQLITE3_ASSOC) === false) {
-                $this->connection->_raiseError($this->query);
-            }
+            $this->rs->reset();
         } elseif (!$this->rs) {
             $query = $this->query;
 

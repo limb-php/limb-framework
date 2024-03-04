@@ -38,6 +38,9 @@ abstract class DriverRecordSetTestBase extends TestCase
         parent::tearDown();
 
         $this->connection->disconnect();
+        unset($this->connection);
+        unset($this->cursor);
+        unset($this->stmt);
 
         lmb_tests_teardown_db();
     }
