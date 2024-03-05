@@ -31,7 +31,7 @@ class lmbFsRecursiveIterator implements \Iterator
         $this->start_dir = $dir;
     }
 
-    function rewind()
+    function rewind(): void
     {
         $this->open_dirs = array();
         $this->valid = true;
@@ -111,12 +111,12 @@ class lmbFsRecursiveIterator implements \Iterator
         return $this->counter;
     }
 
-    function valid()
+    function valid(): bool
     {
         return $this->valid;
     }
 
-    function next()
+    function next(): void
     {
         $this->valid = true;
 

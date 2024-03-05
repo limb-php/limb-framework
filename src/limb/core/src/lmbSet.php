@@ -102,7 +102,7 @@ class lmbSet implements lmbSetInterface
 
     function has($name)
     {
-        if (!$this->_isGuarded($name))
+        if ($name && !$this->_isGuarded($name))
             return property_exists($this, $name);
 
         return false;

@@ -19,7 +19,7 @@ use Tests\web_app\cases\plain\src\Controllers\SecondTestingController;
 use Tests\web_app\cases\plain\src\Controllers\TestingController;
 use Tests\web_app\cases\plain\src\Controllers\TestingForwardController;
 
-require dirname(__FILE__) . '/../../.setup.php';
+require_once dirname(__FILE__) . '/../../.setup.php';
 
 class lmbControllerTest extends TestCase
 {

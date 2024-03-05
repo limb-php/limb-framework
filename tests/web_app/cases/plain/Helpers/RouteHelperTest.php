@@ -17,7 +17,7 @@ use Tests\web_app\cases\plain\src\controller\TestingNoApiController;
 use Tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
 use Tests\web_app\cases\plain\src\Controllers\SecondTestingController;
 
-require dirname(__FILE__) . '/../../.setup.php';
+require_once dirname(__FILE__) . '/../../.setup.php';
 
 class RouteHelperTest extends TestCase
 {

@@ -121,11 +121,12 @@ class lmbReflectionHelper
             ")";
     }
 
+    /** @param $method \ReflectionMethod */
     static protected function _getParameterSignatures($method)
     {
         $signatures = array();
         foreach ($method->getParameters() as $parameter) {
-            $type = $parameter->getClass();
+            $type = $parameter->getType();
             $signatures[] =
                 (!is_null($type) ? $type->getName() . ' ' : '') .
                 ($parameter->isPassedByReference() ? '&' : '') .

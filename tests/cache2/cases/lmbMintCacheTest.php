@@ -13,7 +13,7 @@ use limb\cache2\src\lmbMintCache;
 use limb\cache2\src\drivers\lmbCacheAbstractConnection;
 use PHPUnit\Framework\TestCase;
 
-require '.setup.php';
+require_once dirname(__FILE__) . '/.setup.php';
 
 class lmbMintCacheTest extends TestCase
 {

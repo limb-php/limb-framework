@@ -20,12 +20,12 @@ use limb\macro\src\lmbMacroException;
  */
 class lmbMailpartTag extends lmbMacroTag
 {
-    function preParse($compiller)
+    function preParse($compiler): void
     {
         if (!$this->has('name'))
             throw new lmbMacroException('Tag {{mailpart}}, required attribute "name"');
 
-        parent::preParse($compiller);
+        parent::preParse($compiler);
     }
 
     function _generateBeforeContent($code_writer)

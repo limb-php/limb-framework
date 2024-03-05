@@ -2,8 +2,6 @@
 
 namespace Tests\cache2\cases\logs;
 
-require_once dirname(__FILE__) . '/../.setup.php';
-
 use limb\cache2\src\logs\lmbCacheLogFile;
 use limb\fs\src\lmbFs;
 use limb\core\src\lmbEnv;

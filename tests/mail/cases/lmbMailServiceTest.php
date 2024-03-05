@@ -7,7 +7,7 @@ use limb\mail\src\lmbMailService;
 use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;
 
-require '.setup.php';
+require_once dirname(__FILE__) . '/.setup.php';
 
 class lmbMailServiceTest extends lmbBaseMacroTestCase
 {

@@ -14,7 +14,7 @@ use limb\cache2\src\lmbTaggableCache;
 use limb\cache2\src\lmbCacheFactory;
 use PHPUnit\Framework\TestCase;
 
-require '.setup.php';
+require_once dirname(__FILE__) . '/.setup.php';
 
 class lmbCacheFactoryTest extends TestCase
 {

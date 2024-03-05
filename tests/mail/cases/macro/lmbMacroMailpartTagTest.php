@@ -11,7 +11,7 @@ namespace Tests\mail\cases\macro;
 
 use Tests\macro\cases\lmbBaseMacroTestCase;
 
-require '.setup.php';
+require_once dirname(__FILE__) . '/.setup.php';
 
 class lmbMacroMailpartTagTest extends lmbBaseMacroTestCase
 {

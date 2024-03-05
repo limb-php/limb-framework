@@ -7,7 +7,7 @@ use limb\core\src\lmbSet;
 use limb\wysiwyg\src\lmbWysiwygConfigurationHelper;
 use limb\toolkit\src\lmbToolkit;
 
-require '.setup.php';
+require_once dirname(__FILE__) . '/.setup.php';
 
 class lmbWysiwygConfigurationHelperTest extends TestCase
 {

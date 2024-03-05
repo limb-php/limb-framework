@@ -81,7 +81,7 @@ class lmbDecoratorTest extends TestCase
         $refl = new \ReflectionClass($class);
         $params = $refl->getMethod('typehint')->getParameters();
         $this->assertEquals(1, sizeof($params));
-        $this->assertEquals(DecorateeTestStub::class, $params[0]->getClass()->getName());
+        $this->assertEquals(DecorateeTestStub::class, $params[0]->getType()->getName());
     }
 
     function testCallsPassedToDecorated()

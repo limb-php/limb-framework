@@ -5,6 +5,8 @@ namespace Tests\cache2\cases\logs;
 use PHPUnit\Framework\TestCase;
 use limb\cache2\src\lmbCacheInterface;
 
+require_once dirname(__FILE__) . '/../.setup.php';
+
 abstract class lmbCacheLogTestCase extends TestCase
 {
     /**
