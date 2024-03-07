@@ -155,6 +155,8 @@ class lmbActiveRecord extends lmbObject
      */
     protected $_db_meta_info;
 
+    protected $_ignore_fields = [];
+
     /**#@+
      * Event type constants
      */
@@ -2341,6 +2343,17 @@ class lmbActiveRecord extends lmbObject
     {
         $args = func_get_args();
         self::registerGlobalCallback(self::ON_AFTER_DESTROY, $args);
+    }
+
+    #[\ReturnTypeWillChange]
+    public function jsonSerialize()
+    {
+        $exported = parent::jsonSerialize();
+        if( !empty($this->_ignore_fields) )
+            foreach($this->_ignore_fields as $ifield)
+                unset($exported[$ifield]);
+
+        return $exported;
     }
 
     protected function _invokeListeners($type)
