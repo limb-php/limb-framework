@@ -12,6 +12,8 @@ namespace Tests\tree\cases;
 use limb\tree\src\lmbMPTree;
 use limb\core\src\lmbArrayHelper;
 
+require_once(dirname(__FILE__) . '/.setup.php');
+
 class lmbMPTreeTest extends lmbTreeTestBaseCase
 {
     protected $node_table = 'test_materialized_path_tree';

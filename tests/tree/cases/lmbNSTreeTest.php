@@ -11,6 +11,8 @@ namespace Tests\tree\cases;
 
 use limb\tree\src\lmbNSTree;
 
+require_once(dirname(__FILE__) . '/.setup.php');
+
 class lmbNSTreeTest extends lmbTreeTestBaseCase
 {
     protected $node_table = 'test_nested_sets_tree';

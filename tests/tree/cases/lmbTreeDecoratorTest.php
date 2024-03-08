@@ -9,29 +9,22 @@
 
 namespace Tests\tree\cases;
 
-use limb\tree\src\lmbTreeDecorator;
 use limb\tree\src\lmbMPTree;
-
-class TreeTestVersionForDecorator extends lmbMPTree
-{
-    function __construct()
-    {
-        parent::__construct('test_materialized_path_tree');
-    }
-}
+use limb\tree\src\lmbTreeInterface;
+use Tests\tree\cases\src\TreeTestVersionForDecorator;
 
 //class lmbTreeDecoratorTest extends lmbTreeTestBaseCase
 //{
 //    protected $_node_table = 'test_materialized_path_tree';
 //
-//    function _createTreeImp()
+//    function _createTreeImp(): lmbTreeInterface
 //    {
 //        $tree = new lmbMPTree($this->_node_table, $this->conn,
 //            array('id' => 'id', 'parent_id' => 'p_parent_id',
 //                'level' => 'p_level', 'identifier' => 'p_identifier',
 //                'path' => 'p_path'));
 //
-//        return new lmbTreeDecorator($tree);
+//        return new TreeTestVersionForDecorator($tree);
 //    }
 //
 //    function _cleanUp()
