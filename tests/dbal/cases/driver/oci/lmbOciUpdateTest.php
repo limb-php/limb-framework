@@ -21,6 +21,9 @@ class lmbOciUpdateTest extends DriverUpdateTestBase
 
     function setUp(): void
     {
+        if( !function_exists('oci_execute') )
+            $this->markTestSkipped('no driver oci');
+
         parent::init(lmbOciUpdateStatement::class);
 
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();

@@ -19,6 +19,9 @@ class lmbMssqlDeleteTest extends DriverDeleteTestBase
 {
     function setUp(): void
     {
+        if( !function_exists('sqlsrv_query') )
+            $this->markTestSkipped('no driver mssql');
+
         $this->connection = lmbToolkit:: instance()->getDefaultDbConnection();
         DriverMssqlSetup($this->connection->getConnectionId());
 

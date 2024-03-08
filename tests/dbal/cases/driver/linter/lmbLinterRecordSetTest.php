@@ -21,6 +21,9 @@ class lmbLinterRecordSetTest extends DriverRecordSetTestBase
 
     function setUp(): void
     {
+        if( !function_exists('linter_execute') )
+            $this->markTestSkipped('no driver linter');
+
         parent::init(lmbLinterRecord::class);
 
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();

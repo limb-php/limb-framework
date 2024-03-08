@@ -24,6 +24,9 @@ class lmbLinterConnectionTest extends DriverConnectionTestBase
 
     function setUp(): void
     {
+        if( !function_exists('linter_execute') )
+            $this->markTestSkipped('no driver linter');
+
         parent::init(
             lmbLinterQueryStatement::class,
             lmbLinterInsertStatement::class,

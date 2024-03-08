@@ -20,6 +20,9 @@ class lmbOciRecordTest extends DriverRecordTestBase
 {
     function setUp(): void
     {
+        if( !function_exists('oci_execute') )
+            $this->markTestSkipped('no driver oci');
+
         parent::init(lmbOciRecord::class);
 
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();

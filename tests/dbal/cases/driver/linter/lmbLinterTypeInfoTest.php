@@ -22,6 +22,9 @@ class lmbLinterTypeInfoTest extends DriverTypeInfoTestBase
 
     function setUp(): void
     {
+        if( !function_exists('linter_execute') )
+            $this->markTestSkipped('no driver linter');
+
         parent::init(lmbLinterStatement::class,
             lmbLinterRecord::class);
 
@@ -31,5 +34,3 @@ class lmbLinterTypeInfoTest extends DriverTypeInfoTestBase
         parent::setUp();
     }
 }
-
-

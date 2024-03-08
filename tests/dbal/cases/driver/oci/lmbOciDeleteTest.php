@@ -19,6 +19,9 @@ class lmbOciDeleteTest extends DriverDeleteTestBase
 {
     function setUp(): void
     {
+        if( !function_exists('oci_execute') )
+            $this->markTestSkipped('no driver oci');
+
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
         DriverOciSetup($this->connection->getConnectionId());
 

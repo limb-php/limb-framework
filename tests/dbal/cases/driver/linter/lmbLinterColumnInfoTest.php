@@ -19,7 +19,7 @@ class lmbLinterColumnInfoTest extends DriverColumnInfoTestBase
 {
     function setUp(): void
     {
-        if (lmbToolkit::instance()->getDefaultDbConnection()->getType() != 'linter')
+        if( !function_exists('linter_execute') )
             $this->markTestSkipped('no driver linter');
 
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();

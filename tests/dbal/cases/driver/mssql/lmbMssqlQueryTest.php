@@ -21,6 +21,9 @@ class lmbMssqlQueryTest extends DriverQueryTestBase
 
     function setUp(): void
     {
+        if( !function_exists('sqlsrv_query') )
+            $this->markTestSkipped('no driver mssql');
+
         parent::init(lmbMssqlRecord::class);
 
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();

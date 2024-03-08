@@ -7,6 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
+use limb\dbal\src\exception\lmbDbException;
+
 function DriverOciSetup($conn)
 {
     $sql = "BEGIN EXECUTE IMMEDIATE 'DROP TABLE founding_fathers'; EXCEPTION WHEN OTHERS THEN NULL; END;";
@@ -92,5 +94,3 @@ function DriverOciExec($conn, $sql)
 
     oci_free_statement($stmt);
 }
-
-

@@ -19,6 +19,9 @@ class lmbLinterDriverTransactionTest extends DriverTransactionTestBase
 {
     function setUp(): void
     {
+        if( !function_exists('linter_execute') )
+            $this->markTestSkipped('no driver linter');
+
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
         DriverLinterSetup($this->connection->getConnectionId());
 
