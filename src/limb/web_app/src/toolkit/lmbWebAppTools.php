@@ -66,7 +66,7 @@ class lmbWebAppTools extends lmbAbstractTools
             lmbEnv::setor('LIMB_HTTP_SHARED_PATH', '/shared/');
             lmbEnv::setor('LIMB_HTTP_OFFSET_PATH', '');
         } else {
-            $request = lmbToolkit::instance()->getRequest();
+            $request_uri = lmbToolkit::instance()->getRequest()->getUri();
 
             if (!lmbEnv::has('LIMB_HTTP_OFFSET_PATH')) {
                 $offset = trim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
@@ -79,11 +79,12 @@ class lmbWebAppTools extends lmbAbstractTools
             if (substr(lmbEnv::get('LIMB_HTTP_OFFSET_PATH'), 0, 1) == '/')
                 throw new lmbException('LIMB_HTTP_OFFSET_PATH constant must not have starting slash(' . lmbEnv::get('LIMB_HTTP_OFFSET_PATH') . ')!!!');
 
-            lmbEnv::setor('LIMB_HTTP_REQUEST_PATH', $request->getUri()->toString());
+            lmbEnv::setor('LIMB_HTTP_REQUEST_PATH', $request_uri->toString());
 
             //HTTP_BASE_PATH is defined automatically according to current host and offset settings
-            lmbEnv::setor('LIMB_HTTP_BASE_PATH', $request->getUri()->toString(
-                    array('protocol', 'user', 'password', 'host', 'port')) . '/' . lmbEnv::get('LIMB_HTTP_OFFSET_PATH'));
+            lmbEnv::setor('LIMB_HTTP_BASE_PATH', $request_uri->withPort( lmbEnv::get('LIMB_HTTP_REQUEST_REAL_PORT', $request_uri->getPort()) )
+                    ->toString(['protocol', 'user', 'password', 'host', 'port']) .
+                '/' . lmbEnv::get('LIMB_HTTP_OFFSET_PATH'));
 
             if (substr(lmbEnv::get('LIMB_HTTP_BASE_PATH'), -1, 1) != '/') {
                 echo('LIMB_HTTP_BASE_PATH constant must have trailing slash(' . lmbEnv::get('LIMB_HTTP_BASE_PATH') . ')!!!');
