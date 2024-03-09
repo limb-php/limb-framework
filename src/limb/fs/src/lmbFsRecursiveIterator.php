@@ -101,11 +101,13 @@ class lmbFsRecursiveIterator implements \Iterator
         return $this->item;
     }
 
+    #[\ReturnTypeWillChange]
     function current()
     {
         return $this->getPath();
     }
 
+    #[\ReturnTypeWillChange]
     function key()
     {
         return $this->counter;

@@ -44,12 +44,6 @@ class lmbARBaseTestCase extends TestCase
         $this->conn->disconnect();
 
         lmbToolkit::restore();
-
-        $connection = lmbToolkit::instance()->getDefaultDbConnection();
-
-        if (method_exists($connection, 'isValid'))
-            if (!$connection->isValid())
-                $connection->connect();
     }
 
     protected function _cleanUp()

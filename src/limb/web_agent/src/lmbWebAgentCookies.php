@@ -25,7 +25,7 @@ class lmbWebAgentCookies implements \IteratorAggregate
         $this->cookies = $cookies;
     }
 
-    function set($name, $value)
+    function set($name, $value): void
     {
         $this->cookies[$name] = $value;
     }
@@ -35,12 +35,12 @@ class lmbWebAgentCookies implements \IteratorAggregate
         return $this->has($name) ? $this->cookies[$name] : '';
     }
 
-    function has($name)
+    function has($name): bool
     {
         return isset($this->cookies[$name]);
     }
 
-    function hasCookies()
+    function hasCookies(): bool
     {
         return (boolean)$this->cookies;
     }
@@ -53,12 +53,12 @@ class lmbWebAgentCookies implements \IteratorAggregate
         return implode('; ', $cookies);
     }
 
-    function getIterator()
+    function getIterator(): \Iterator
     {
         return new lmbWebAgentCookieIterator($this->cookies);
     }
 
-    function clean()
+    function clean(): void
     {
         $this->cookies = array();
     }

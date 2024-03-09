@@ -25,27 +25,29 @@ class lmbWebAgentCookieIterator implements \Iterator
         $this->cookies = $cookies;
     }
 
-    function rewind()
+    function rewind(): void
     {
         reset($this->cookies);
     }
 
+    #[ReturnTypeWillChange]
     function current()
     {
         return current($this->cookies);
     }
 
+    #[ReturnTypeWillChange]
     function key()
     {
         return key($this->cookies);
     }
 
-    function next()
+    function next(): void
     {
-        return next($this->cookies);
+        next($this->cookies);
     }
 
-    function valid()
+    function valid(): bool
     {
         return $this->current() !== false;
     }
