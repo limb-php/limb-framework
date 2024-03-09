@@ -2345,13 +2345,14 @@ class lmbActiveRecord extends lmbObject
         self::registerGlobalCallback(self::ON_AFTER_DESTROY, $args);
     }
 
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
-        $exported = parent::jsonSerialize();
-        if( !empty($this->_ignore_fields) )
-            foreach($this->_ignore_fields as $ifield)
-                unset($exported[$ifield]);
+        $exported = [];
+        $properties = $this->getPropertiesNames();
+        foreach ($properties as $name) {
+            if(!in_array($name, $this->_ignore_fields))
+                $exported[$name] = $this->get($name);
+        }
 
         return $exported;
     }

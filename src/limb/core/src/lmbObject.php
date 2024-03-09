@@ -410,8 +410,7 @@ class lmbObject implements lmbSetInterface, \JsonSerializable
         reset($this->_map['public']);
     }
 
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $exported = [];
         $properties = $this->getPropertiesNames();
