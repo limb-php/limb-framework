@@ -15,9 +15,15 @@ namespace limb\dbal\src\drivers;
  * @package dbal
  * @version $Id$
  */
-abstract class lmbDbBaseRecord implements lmbDbRecordInterface
+abstract class lmbDbBaseRecord implements lmbDbRecordInterface, \JsonSerializable
 {
     protected $properties = array();
+
+    //JsonSerializable interface
+    public function jsonSerialize()
+    {
+        return $this->properties;
+    }
 
     //ArrayAccess interface
     function offsetExists($offset): bool
