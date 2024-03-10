@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_agent\cases;
+namespace tests\web_agent\cases;
 
 /**
  * @package web_agent
@@ -16,7 +16,7 @@ namespace Tests\web_agent\cases;
 use limb\web_agent\src\lmbWebAgent;
 use limb\web_agent\src\lmbWebServerCookie;
 use PHPUnit\Framework\TestCase;
-use Tests\web_agent\lmbFakeWebAgentRequest;
+use tests\web_agent\lmbFakeWebAgentRequest;
 
 /**
  * @package web_agent

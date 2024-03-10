@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\imagekit\cases\filters;
+namespace tests\imagekit\cases\filters;
 
-use Tests\imagekit\cases\lmbImageKitTestCase;
+use tests\imagekit\cases\lmbImageKitTestCase;
 
 abstract class lmbBaseOutputImageFilterTestCase extends lmbImageKitTestCase
 {

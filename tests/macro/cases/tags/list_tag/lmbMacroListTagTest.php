@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\macro\cases\tags\list_tag;
+namespace tests\macro\cases\tags\list_tag;
 
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\core\src\lmbArrayIterator;
 
 class lmbMacroListTagTest extends lmbBaseMacroTestCase

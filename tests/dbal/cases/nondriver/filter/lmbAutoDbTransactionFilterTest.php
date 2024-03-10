@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\nondriver\filter;
+namespace tests\dbal\cases\nondriver\filter;
 
 require_once(dirname(__FILE__) . '/../.setup.php');
 
@@ -18,7 +18,7 @@ use limb\filter_chain\src\lmbFilterChain;
 use limb\dbal\src\lmbSimpleDb;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\drivers\lmbAutoTransactionConnection;
-use Tests\dbal\cases\src\FilterWorkingWithDbStub;
+use tests\dbal\cases\src\FilterWorkingWithDbStub;
 
 class lmbAutoDbTransactionFilterTest extends TestCase
 {

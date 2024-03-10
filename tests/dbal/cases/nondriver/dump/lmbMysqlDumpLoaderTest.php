@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\nondriver\dump;
+namespace tests\dbal\cases\nondriver\dump;
 
 use limb\dbal\src\drivers\mysql\lmbMysqlConnection;
 use limb\dbal\src\dump\lmbMysqlDumpLoader;

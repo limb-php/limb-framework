@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\nondriver\query;
+namespace tests\dbal\cases\nondriver\query;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 

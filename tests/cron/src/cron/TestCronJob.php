@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\cron\src\cron;
+namespace tests\cron\src\cron;
 
 use limb\cron\src\cron\CronJob;
 

@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\macro\cases\tags\pager;
+namespace tests\macro\cases\tags\pager;
 
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\core\src\lmbArrayIterator;
 use limb\macro\src\lmbMacroException;
 

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_app\cases\plain\request;
+namespace tests\web_app\cases\plain\request;
 
 require_once dirname(__FILE__) . '/../../.setup.php';
 
@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutes;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\exception\lmbException;
-use Tests\web_app\cases\plain\src\Controllers\Api\Admin\FreeController;
-use Tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
-use Tests\web_app\cases\plain\src\Controllers\SecondTestingController;
+use tests\web_app\cases\plain\src\Controllers\Api\Admin\FreeController;
+use tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
+use tests\web_app\cases\plain\src\Controllers\SecondTestingController;
 
 class lmbRoutesToUrlTest extends TestCase
 {

@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\macro\cases\tags\form;
+namespace tests\macro\cases\tags\form;
 
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\macro\src\tags\form\lmbMacroFormWidget;
 use limb\macro\src\tags\form\lmbMacroFormElementWidget;
 

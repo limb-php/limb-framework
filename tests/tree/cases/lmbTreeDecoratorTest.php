@@ -7,11 +7,11 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\tree\cases;
+namespace tests\tree\cases;
 
 use limb\tree\src\lmbMPTree;
 use limb\tree\src\lmbTreeInterface;
-use Tests\tree\cases\src\TreeTestVersionForDecorator;
+use tests\tree\cases\src\TreeTestVersionForDecorator;
 
 //class lmbTreeDecoratorTest extends lmbTreeTestBaseCase
 //{

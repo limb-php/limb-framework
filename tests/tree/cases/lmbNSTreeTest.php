@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\tree\cases;
+namespace tests\tree\cases;
 
 use limb\tree\src\lmbNSTree;
 

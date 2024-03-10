@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_app\cases\plain\macro;
+namespace tests\web_app\cases\plain\macro;
 
-use Tests\view\lmbMacroTestCase;
+use tests\view\lmbMacroTestCase;
 use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;
 

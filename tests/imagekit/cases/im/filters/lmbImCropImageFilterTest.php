@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\imagekit\cases\im\filters;
+namespace tests\imagekit\cases\im\filters;
 
-use Tests\imagekit\cases\filters\lmbBaseCropImageFilterTestCase;
+use tests\imagekit\cases\filters\lmbBaseCropImageFilterTestCase;
 
 /**
  * @package imagekit

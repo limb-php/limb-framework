@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\nondriver\query;
+namespace tests\dbal\cases\nondriver\query;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 
@@ -19,7 +19,7 @@ use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\core\src\exception\lmbException;
-use Tests\dbal\cases\src\ConnectionTestStub;
+use tests\dbal\cases\src\ConnectionTestStub;
 
 class lmbSelectRawQueryTest extends TestCase
 {

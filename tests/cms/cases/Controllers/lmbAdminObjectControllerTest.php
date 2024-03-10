@@ -7,13 +7,13 @@
  * @license LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\cms\cases\Controllers;
+namespace tests\cms\cases\Controllers;
 
 use limb\net\src\lmbFakeHttpResponse;
 use PHPUnit\Framework\TestCase;
 use limb\active_record\src\lmbActiveRecord;
 use limb\net\src\lmbHttpRequest;
-use Tests\web_app\cases\lmbWebApplicationSandbox;
+use tests\web_app\cases\lmbWebApplicationSandbox;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/../.setup.php');

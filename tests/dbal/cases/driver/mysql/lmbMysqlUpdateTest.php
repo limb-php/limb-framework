@@ -7,11 +7,11 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\mysql;
+namespace tests\dbal\cases\driver\mysql;
 
 use limb\dbal\src\drivers\mysql\lmbMysqlManipulationStatement;
 use limb\toolkit\src\lmbToolkit;
-use Tests\dbal\cases\driver\DriverUpdateTestBase;
+use tests\dbal\cases\driver\DriverUpdateTestBase;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');

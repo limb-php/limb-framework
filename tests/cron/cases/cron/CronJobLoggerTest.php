@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\cron\cases\cron;
+namespace tests\cron\cases\cron;
 
 use limb\cron\src\cron\CronJobLogger;
-use Tests\cron\cases\CronModuleTestCase;
+use tests\cron\cases\CronModuleTestCase;
 
 class CronJobLoggerTest extends CronModuleTestCase
 {

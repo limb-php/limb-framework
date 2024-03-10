@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\i18n\cases\macro;
+namespace tests\i18n\cases\macro;
 
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\i18n\src\charset\lmbUTF8BaseDriver;
 use limb\core\src\lmbSet;
 use limb\i18n\src\charset\lmbI18nString;

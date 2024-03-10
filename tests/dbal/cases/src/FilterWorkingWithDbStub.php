@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\dbal\cases\src;
+namespace tests\dbal\cases\src;
 
 use limb\toolkit\src\lmbToolkit;
 

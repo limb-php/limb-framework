@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\cms\cases\request;
+namespace tests\cms\cases\request;
 
 use limb\net\src\lmbHttpRequest;
-use Tests\cms\cases\lmbCmsTestCase;
+use tests\cms\cases\lmbCmsTestCase;
 use limb\cms\src\request\lmbCmsDocumentRequestDispatcher;
 use limb\web_app\src\request\lmbRoutes;
 use limb\cms\src\model\lmbCmsDocument;

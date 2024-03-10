@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\mail\cases\macro;
+namespace tests\mail\cases\macro;
 
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
 require_once dirname(__FILE__) . '/.setup.php';
 

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\search\cases\indexer;
+namespace tests\search\cases\indexer;
 
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbUri;

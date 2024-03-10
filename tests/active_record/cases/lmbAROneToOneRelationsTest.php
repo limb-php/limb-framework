@@ -7,18 +7,18 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\active_record\cases;
+namespace tests\active_record\cases;
 
 //require_once (dirname(__FILE__) . '/.setup.php');
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARNotFoundException;
 use limb\validation\src\exception\lmbValidationException;
-use Tests\active_record\cases\src\PersonForTestNoCascadeDelete;
-use Tests\active_record\cases\src\PersonForTestObject;
-use Tests\active_record\cases\src\PersonForTestWithNotRequiredSocialSecurity;
-use Tests\active_record\cases\src\PersonForTestWithRequiredSocialSecurity;
-use Tests\active_record\cases\src\SocialSecurityForTestObject;
+use tests\active_record\cases\src\PersonForTestNoCascadeDelete;
+use tests\active_record\cases\src\PersonForTestObject;
+use tests\active_record\cases\src\PersonForTestWithNotRequiredSocialSecurity;
+use tests\active_record\cases\src\PersonForTestWithRequiredSocialSecurity;
+use tests\active_record\cases\src\SocialSecurityForTestObject;
 
 class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
 {

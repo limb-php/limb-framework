@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\cms\cases\model;
+namespace tests\cms\cases\model;
 
 use limb\cms\src\model\lmbCmsTextBlock;
-use Tests\cms\cases\lmbCmsTestCase;
+use tests\cms\cases\lmbCmsTestCase;
 
 class lmbCmsTextBlockTest extends lmbCmsTestCase
 {

@@ -7,20 +7,20 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\active_record\cases;
+namespace tests\active_record\cases;
 
 //require_once (dirname(__FILE__) . '/.setup.php');
 
 use limb\active_record\src\lmbARException;
 use limb\active_record\src\lmbARQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;
-use Tests\active_record\cases\src\CourseForTestObject;
-use Tests\active_record\cases\src\LectureForTestObject;
-use Tests\active_record\cases\src\PersonForTestObject;
-use Tests\active_record\cases\src\ProgramForTestObject;
-use Tests\active_record\cases\src\SocialSecurityForTestObject;
-use Tests\active_record\cases\src\TestOneTableObject;
-use Tests\active_record\cases\src\UserForTestObject;
+use tests\active_record\cases\src\CourseForTestObject;
+use tests\active_record\cases\src\LectureForTestObject;
+use tests\active_record\cases\src\PersonForTestObject;
+use tests\active_record\cases\src\ProgramForTestObject;
+use tests\active_record\cases\src\SocialSecurityForTestObject;
+use tests\active_record\cases\src\TestOneTableObject;
+use tests\active_record\cases\src\UserForTestObject;
 
 class lmbARQueryTest extends lmbARBaseTestCase
 {

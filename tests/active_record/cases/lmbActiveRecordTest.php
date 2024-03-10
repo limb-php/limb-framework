@@ -7,20 +7,20 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\active_record\cases;
+namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARException;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\criteria\lmbSQLRawCriteria;
-use Tests\active_record\cases\src\CourseForTestObject;
-use Tests\active_record\cases\src\LectureForTestObject;
-use Tests\active_record\cases\src\TestOneTableObject;
-use Tests\active_record\cases\src\TestOneTableObject2;
-use Tests\active_record\cases\src\TestOneTableObjectWithCustomDestroy;
-use Tests\active_record\cases\src\TestOneTableObjectWithCustomProperty;
-use Tests\active_record\cases\src\TestOneTableObjectWithHooks;
-use Tests\active_record\cases\src\TestOneTableObjectWithSortParams;
+use tests\active_record\cases\src\CourseForTestObject;
+use tests\active_record\cases\src\LectureForTestObject;
+use tests\active_record\cases\src\TestOneTableObject;
+use tests\active_record\cases\src\TestOneTableObject2;
+use tests\active_record\cases\src\TestOneTableObjectWithCustomDestroy;
+use tests\active_record\cases\src\TestOneTableObjectWithCustomProperty;
+use tests\active_record\cases\src\TestOneTableObjectWithHooks;
+use tests\active_record\cases\src\TestOneTableObjectWithSortParams;
 
 //require_once (dirname(__FILE__) . '/.setup.php');
 

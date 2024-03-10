@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\src;
+namespace tests\dbal\cases\src;
 
 use limb\dbal\src\lmbTableGateway;
 

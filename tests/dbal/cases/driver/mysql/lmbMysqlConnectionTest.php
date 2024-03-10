@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\mysql;
+namespace tests\dbal\cases\driver\mysql;
 
 use limb\dbal\src\drivers\mysql\lmbMysqlConnection;
 use limb\dbal\src\drivers\mysql\lmbMysqlInsertStatement;
@@ -15,7 +15,7 @@ use limb\dbal\src\drivers\mysql\lmbMysqlManipulationStatement;
 use limb\dbal\src\drivers\mysql\lmbMysqlQueryStatement;
 use limb\dbal\src\drivers\mysql\lmbMysqlStatement;
 use limb\toolkit\src\lmbToolkit;
-use Tests\dbal\cases\driver\DriverConnectionTestBase;
+use tests\dbal\cases\driver\DriverConnectionTestBase;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');

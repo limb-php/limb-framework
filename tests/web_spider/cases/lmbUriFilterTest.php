@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_spider\cases;
+namespace tests\web_spider\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\web_spider\src\lmbUriFilter;

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_cache\cases;
+namespace tests\web_cache\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\web_cache\src\lmbFullPageCache;

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_app\cases\plain\controllers;
+namespace tests\web_app\cases\plain\controllers;
 
 use limb\view\src\lmbDummyView;
 use PHPUnit\Framework\TestCase;
@@ -15,9 +15,9 @@ use limb\web_app\src\Controllers\LmbController;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbSet;
 use limb\validation\src\rule\lmbValidationRuleInterface;
-use Tests\web_app\cases\plain\src\Controllers\SecondTestingController;
-use Tests\web_app\cases\plain\src\Controllers\TestingController;
-use Tests\web_app\cases\plain\src\Controllers\TestingForwardController;
+use tests\web_app\cases\plain\src\Controllers\SecondTestingController;
+use tests\web_app\cases\plain\src\Controllers\TestingController;
+use tests\web_app\cases\plain\src\Controllers\TestingForwardController;
 
 require_once dirname(__FILE__) . '/../../.setup.php';
 
@@ -53,17 +53,15 @@ class lmbControllerTest extends TestCase
     {
         $controller = new TestingController();
         $controller->setCurrentAction('display');
-        $controller->performAction($this->toolkit->getRequest());
+        $controller->performAction(request());
         $this->assertTrue($controller->display_performed);
     }
 
     function testPerformedActionStringResultIsWrittenToResponse()
     {
-        $toolkit = lmbToolkit::instance();
-
         $controller = new TestingController();
         $controller->setCurrentAction('write');
-        $result = $controller->performAction($toolkit->getRequest());
+        $result = $controller->performAction(request());
         $this->assertEquals("Hi!", $result->getBody());
     }
 
@@ -76,7 +74,7 @@ class lmbControllerTest extends TestCase
         $controller = new TestingController();
         $controller->setCurrentAction('detail');
 
-        $controller->performAction($toolkit->getRequest());
+        $controller->performAction(request());
         $this->assertEquals('foo' . DIRECTORY_SEPARATOR . 'detail.html', $toolkit->getView()->getTemplate());
     }
 
@@ -89,7 +87,7 @@ class lmbControllerTest extends TestCase
         $controller = new TestingController();
         $controller->setCurrentAction('detail%28');
 
-        $controller->performAction($toolkit->getRequest());
+        $controller->performAction(request());
 
         $this->assertEquals('foo', $controller->getName());
         $this->assertEquals('foo' . DIRECTORY_SEPARATOR . 'detail%28.html', $toolkit->getView()->getTemplate());
@@ -105,7 +103,7 @@ class lmbControllerTest extends TestCase
         $controller->set('_nope', 'NO');
         $controller->setCurrentAction('set_vars');
 
-        $controller->performAction($this->toolkit->getRequest());
+        $controller->performAction(request());
         $view = $this->toolkit->getView();
         $this->assertEquals('item', $view->get('item'));//this one is set in action
         $this->assertEquals('FOO', $view->get('foo'));
@@ -166,14 +164,12 @@ class lmbControllerTest extends TestCase
 
     function testForwardInConstructor()
     {
-        $toolkit = lmbToolkit::instance();
-
         $testController = new TestingForwardController();
 
         $result = $testController->doForward();
         $this->assertEquals('Hi!', $result->getBody());
 
-        $result = $testController->performAction($toolkit->getRequest());
+        $result = $testController->performAction(request());
         $this->assertFalse($result);
     }
 

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_agent\cases;
+namespace tests\web_agent\cases;
 
 /**
  * @package web_agent

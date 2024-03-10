@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_agent;
+namespace tests\web_agent;
 
 use limb\web_agent\src\lmbWebAgentHeaders;
 use limb\web_agent\src\request\lmbAbstractWebAgentRequest;

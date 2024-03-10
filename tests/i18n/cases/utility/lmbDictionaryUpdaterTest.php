@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\i18n\cases\utility;
+namespace tests\i18n\cases\utility;
 
 /**
  * TODO replace cli by taskman

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_app\cases\plain\filter;
+namespace tests\web_app\cases\plain\filter;
 
 require_once dirname(__FILE__) . '/../../.setup.php';
 
@@ -22,19 +22,7 @@ use limb\web_app\src\toolkit\lmbWebAppTools;
 use limb\web_app\src\Controllers\LmbController;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\toolkit\src\lmbToolkit;
-
-class lmbRequestDispatchingTestingController extends LmbController
-{
-    function __construct($name)
-    {
-        $this->name = $name;
-        parent::__construct();
-    }
-
-    function doDisplay()
-    {
-    }
-}
+use tests\web_app\cases\plain\src\filter\lmbRequestDispatchingTestingController;
 
 class RememberRequestParamsController extends LmbController
 {
@@ -42,7 +30,7 @@ class RememberRequestParamsController extends LmbController
     {
         parent::__construct();
 
-        $this->param = $this->request->get('param', null);
+        $this->param = request()->getAttribute('param', null);
     }
 }
 
@@ -105,7 +93,8 @@ class lmbRequestDispatchingFilterTest extends TestCase
     {
         $controller = new lmbRequestDispatchingTestingController($controller_name = 'SomeController');
 
-        $dispatched_params = array('controller' => $controller_name,
+        $dispatched_params = array(
+            'controller' => $controller_name,
             'action' => 'display');
 
         $this->_setUpMocks($dispatched_params, $controller);
@@ -216,7 +205,8 @@ class lmbRequestDispatchingFilterTest extends TestCase
         lmbToolkit::restore();
         lmbToolkit::save();
 
-        $dispatched_params = array('controller' => RememberRequestParamsController::class,
+        $dispatched_params = array(
+            'controller' => RememberRequestParamsController::class,
             'param' => 150);
 
         $this->_setUpMocks($dispatched_params);

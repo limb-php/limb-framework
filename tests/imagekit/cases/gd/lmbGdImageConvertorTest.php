@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\imagekit\cases\gd;
+namespace tests\imagekit\cases\gd;
 
-use Tests\imagekit\cases\lmbBaseImageConvertorTestCase;
+use tests\imagekit\cases\lmbBaseImageConvertorTestCase;
 
 class lmbGdImageConvertorTest extends lmbBaseImageConvertorTestCase
 {

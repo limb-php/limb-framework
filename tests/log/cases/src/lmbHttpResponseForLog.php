@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\log\cases\src;
+namespace tests\log\cases\src;
 
 use limb\net\src\lmbHttpResponse;
 

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\mail\cases;
+namespace tests\mail\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\mail\src\lmbMailer;

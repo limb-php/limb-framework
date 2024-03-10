@@ -7,11 +7,11 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\i18n\cases\macro;
+namespace tests\i18n\cases\macro;
 
 use limb\config\src\lmbIni;
 use limb\core\src\lmbSet;
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\datetime\src\lmbDateTime;
 use limb\toolkit\src\lmbToolkit;
 use limb\i18n\src\locale\lmbLocale;

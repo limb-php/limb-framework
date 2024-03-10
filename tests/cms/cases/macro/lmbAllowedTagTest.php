@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\cms\cases\macro;
+namespace tests\cms\cases\macro;
 
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\acl\src\lmbRoleProviderInterface;
 use limb\toolkit\src\lmbToolkit;

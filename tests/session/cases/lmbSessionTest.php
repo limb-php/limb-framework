@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\session\cases;
+namespace tests\session\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\session\src\lmbSession;

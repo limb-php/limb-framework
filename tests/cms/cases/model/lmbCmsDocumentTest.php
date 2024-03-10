@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\cms\cases\model;
+namespace tests\cms\cases\model;
 
-use Tests\cms\cases\lmbCmsTestCase;
+use tests\cms\cases\lmbCmsTestCase;
 
 class lmbCmsDocumentTest extends lmbCmsTestCase
 {

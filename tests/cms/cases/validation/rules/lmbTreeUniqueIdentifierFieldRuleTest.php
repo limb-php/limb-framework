@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\cms\cases\validation\rules;
+namespace tests\cms\cases\validation\rules;
 
 use limb\validation\src\lmbErrorList;
-use Tests\cms\cases\lmbCmsTestCase;
+use tests\cms\cases\lmbCmsTestCase;
 use limb\cms\src\validation\rule\TreeUniqueIdentifierRule;
 use limb\cms\src\model\lmbCmsDocument;
 

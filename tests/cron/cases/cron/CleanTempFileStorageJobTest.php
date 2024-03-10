@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\cron\cases\cron;
+namespace tests\cron\cases\cron;
 
 use limb\cron\src\cron\CleanTempFileStorageJob;
-use Tests\cron\cases\CronModuleTestCase;
+use tests\cron\cases\CronModuleTestCase;
 use limb\toolkit\src\lmbToolkit;
 use limb\fs\src\lmbFs;
 

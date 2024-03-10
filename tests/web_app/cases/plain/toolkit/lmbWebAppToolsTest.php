@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_app\cases\plain\toolkit;
+namespace tests\web_app\cases\plain\toolkit;
 
 use limb\web_app\src\Controllers\LmbController;
 use PHPUnit\Framework\TestCase;

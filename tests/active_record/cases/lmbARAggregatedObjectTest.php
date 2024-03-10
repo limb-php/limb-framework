@@ -7,15 +7,15 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\active_record\cases;
+namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
-use Tests\active_record\cases\src\ExtraForAggregateTest;
-use Tests\active_record\cases\src\ImageForAggregateTest;
-use Tests\active_record\cases\src\LazyMemberForTest;
-use Tests\active_record\cases\src\MemberForTest;
-use Tests\active_record\cases\src\NameForAggregateTest;
-use Tests\active_record\cases\src\PhotoForTest;
+use tests\active_record\cases\src\ExtraForAggregateTest;
+use tests\active_record\cases\src\ImageForAggregateTest;
+use tests\active_record\cases\src\LazyMemberForTest;
+use tests\active_record\cases\src\MemberForTest;
+use tests\active_record\cases\src\NameForAggregateTest;
+use tests\active_record\cases\src\PhotoForTest;
 
 //require_once (dirname(__FILE__) . '/.setup.php');
 

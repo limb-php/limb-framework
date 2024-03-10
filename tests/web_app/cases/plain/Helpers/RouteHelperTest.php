@@ -7,15 +7,15 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_app\cases\plain\Helpers;
+namespace tests\web_app\cases\plain\Helpers;
 
 use limb\toolkit\src\lmbToolkit;
 use limb\web_app\src\Helpers\lmbRouteHelper;
 use PHPUnit\Framework\TestCase;
-use Tests\web_app\cases\plain\src\controller\Api\NewIndexController;
-use Tests\web_app\cases\plain\src\controller\TestingNoApiController;
-use Tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
-use Tests\web_app\cases\plain\src\Controllers\SecondTestingController;
+use tests\web_app\cases\plain\src\controller\Api\NewIndexController;
+use tests\web_app\cases\plain\src\controller\TestingNoApiController;
+use tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
+use tests\web_app\cases\plain\src\Controllers\SecondTestingController;
 
 require_once dirname(__FILE__) . '/../../.setup.php';
 

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\validation\cases\rule;
+namespace tests\validation\cases\rule;
 
 use limb\validation\src\rule\InvalidValueRule;
 use limb\core\src\lmbSet;

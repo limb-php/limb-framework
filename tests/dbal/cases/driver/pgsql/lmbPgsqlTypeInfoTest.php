@@ -7,12 +7,12 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\pgsql;
+namespace tests\dbal\cases\driver\pgsql;
 
 use limb\dbal\src\drivers\pgsql\lmbPgsqlRecord;
 use limb\dbal\src\drivers\pgsql\lmbPgsqlStatement;
 use limb\toolkit\src\lmbToolkit;
-use Tests\dbal\cases\driver\DriverTypeInfoTestBase;
+use tests\dbal\cases\driver\DriverTypeInfoTestBase;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');

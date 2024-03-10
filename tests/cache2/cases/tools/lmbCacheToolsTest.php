@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\cache2\cases\tools;
+namespace tests\cache2\cases\tools;
 
 use limb\cache2\src\drivers\lmbCacheFileConnection;
 use limb\cache2\src\lmbLoggedCache;

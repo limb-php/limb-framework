@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_app\cases\db\fetcher;
+namespace tests\web_app\cases\db\fetcher;
 
 require_once dirname(__FILE__) . '/../../.setup.php';
 
@@ -17,8 +17,8 @@ use limb\web_app\src\fetcher\lmbActiveRecordFetcher;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbCollection;
 use limb\core\src\exception\lmbException;
-use Tests\web_app\cases\lmbWebAppTestCase;
-use Tests\active_record\cases\src\CourseForTestObject;
+use tests\web_app\cases\lmbWebAppTestCase;
+use tests\active_record\cases\src\CourseForTestObject;
 
 class CourseForFetcherTestVersionObject extends CourseForTestObject
 {

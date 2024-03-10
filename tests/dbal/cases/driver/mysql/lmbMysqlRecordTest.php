@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\mysql;
+namespace tests\dbal\cases\driver\mysql;
 
-use Tests\dbal\cases\driver\DriverRecordTestBase;
+use tests\dbal\cases\driver\DriverRecordTestBase;
 use limb\dbal\src\drivers\mysql\lmbMysqlRecord;
 use limb\toolkit\src\lmbToolkit;
 

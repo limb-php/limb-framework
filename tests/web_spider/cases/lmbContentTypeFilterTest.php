@@ -8,7 +8,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_spider\cases;
+namespace tests\web_spider\cases;
 
 use limb\web_spider\src\lmbContentTypeFilter;
 use PHPUnit\Framework\TestCase;

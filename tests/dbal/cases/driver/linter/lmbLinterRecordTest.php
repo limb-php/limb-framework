@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\linter;
+namespace tests\dbal\cases\driver\linter;
 
-use Tests\dbal\cases\driver\DriverRecordTestBase;
+use tests\dbal\cases\driver\DriverRecordTestBase;
 use limb\dbal\src\drivers\linter\lmbLinterRecord;
 use limb\toolkit\src\lmbToolkit;
 

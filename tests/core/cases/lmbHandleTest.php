@@ -7,15 +7,15 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-namespace Tests\core\cases;
+namespace tests\core\cases;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbHandle;
-use Tests\core\cases\src\lmbHandleDeclaredInSameFile;
-use Tests\core\cases\src\lmbLoadedHandleClass;
-use Tests\core\cases\src\lmbTestHandleClass;
+use tests\core\cases\src\lmbHandleDeclaredInSameFile;
+use tests\core\cases\src\lmbLoadedHandleClass;
+use tests\core\cases\src\lmbTestHandleClass;
 
 class lmbHandleTest extends TestCase
 {

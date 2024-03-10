@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\core\cases;
+namespace tests\core\cases;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 

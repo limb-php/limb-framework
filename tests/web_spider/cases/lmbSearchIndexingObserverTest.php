@@ -7,13 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_spider\cases;
+namespace tests\web_spider\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbUri;
 use limb\web_spider\src\lmbSearchIndexingObserver;
 use limb\web_spider\src\lmbUriContentReader;
-use Tests\web_spider\src\TestingSpiderIndexer;
+use tests\web_spider\src\TestingSpiderIndexer;
 
 class lmbSearchIndexingObserverTest extends TestCase
 {

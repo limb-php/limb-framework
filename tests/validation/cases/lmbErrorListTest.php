@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\validation\cases;
+namespace tests\validation\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\validation\src\lmbErrorList;

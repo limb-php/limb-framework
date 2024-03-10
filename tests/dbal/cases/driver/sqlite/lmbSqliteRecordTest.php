@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\sqlite;
+namespace tests\dbal\cases\driver\sqlite;
 
 use limb\dbal\src\drivers\sqlite\lmbSqliteRecord;
-use Tests\dbal\cases\driver\DriverRecordTestBase;
+use tests\dbal\cases\driver\DriverRecordTestBase;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/.setup.php');

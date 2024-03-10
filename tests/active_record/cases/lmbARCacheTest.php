@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\active_record\cases;
+namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARException;

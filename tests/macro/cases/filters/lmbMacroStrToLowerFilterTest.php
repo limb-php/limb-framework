@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\macro\cases\filters;
+namespace tests\macro\cases\filters;
 
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
 class lmbMacroStrToLowerFilterTest extends lmbBaseMacroTestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\active_record\cases\src;
+namespace tests\active_record\cases\src;
 
 use limb\core\src\lmbCollectionDecorator;
 

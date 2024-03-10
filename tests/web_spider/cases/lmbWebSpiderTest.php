@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_spider\cases;
+namespace tests\web_spider\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbUri;
@@ -17,7 +17,7 @@ use limb\web_spider\src\lmbUriFilter;
 use limb\web_spider\src\lmbUriExtractor;
 use limb\web_spider\src\lmbUriNormalizer;
 use limb\web_spider\src\lmbUriContentReader;
-use Tests\web_spider\src\TestingSpiderObserver;
+use tests\web_spider\src\TestingSpiderObserver;
 
 class lmbWebSpiderTest extends TestCase
 {

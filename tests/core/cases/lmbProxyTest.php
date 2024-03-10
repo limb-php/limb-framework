@@ -7,13 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-namespace Tests\core\cases;
+namespace tests\core\cases;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbObject;
-use Tests\core\cases\src\ProxyTestingStub;
+use tests\core\cases\src\ProxyTestingStub;
 
 class lmbProxyTest extends TestCase
 {

@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\mssql;
+namespace tests\dbal\cases\driver\mssql;
 
-use Tests\dbal\cases\driver\DriverRecordTestBase;
+use tests\dbal\cases\driver\DriverRecordTestBase;
 use limb\dbal\src\drivers\mssql\lmbMssqlRecord;
 use limb\toolkit\src\lmbToolkit;
 

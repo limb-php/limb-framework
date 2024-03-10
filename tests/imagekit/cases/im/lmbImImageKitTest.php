@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\imagekit\cases\im;
+namespace tests\imagekit\cases\im;
 
-use Tests\imagekit\cases\lmbBaseImageKitTestCase;
+use tests\imagekit\cases\lmbBaseImageKitTestCase;
 
 class lmbImImageKitTest extends lmbBaseImageKitTestCase
 {

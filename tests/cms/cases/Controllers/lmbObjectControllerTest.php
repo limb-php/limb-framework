@@ -7,7 +7,7 @@
  * @license LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\cms\cases\Controllers;
+namespace tests\cms\cases\Controllers;
 
 use PHPUnit\Framework\TestCase;
 use limb\active_record\src\lmbActiveRecord;

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_agent\cases\agent\liveinternet;
+namespace tests\web_agent\cases\agent\liveinternet;
 
 /**
  * @package web_agent
@@ -16,7 +16,7 @@ namespace Tests\web_agent\cases\agent\liveinternet;
 use limb\web_agent\src\lmbWebServerCookie;
 use PHPUnit\Framework\TestCase;
 use limb\web_agent\src\agent\liveinternet\lmbLiveInternetAgent;
-use Tests\web_agent\lmbFakeWebAgentRequest;
+use tests\web_agent\lmbFakeWebAgentRequest;
 
 require_once dirname(__FILE__) . '/../../../.setup.php';
 

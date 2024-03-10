@@ -7,13 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\active_record\cases;
+namespace tests\active_record\cases;
 
 use limb\validation\src\exception\lmbValidationException;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;
-use Tests\active_record\cases\src\lmbActiveRecordValidationStub;
-use Tests\active_record\cases\src\TestOneTableObjectFailing;
+use tests\active_record\cases\src\lmbActiveRecordValidationStub;
+use tests\active_record\cases\src\TestOneTableObjectFailing;
 
 //require_once (dirname(__FILE__) . '/.setup.php');
 

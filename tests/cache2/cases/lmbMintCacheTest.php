@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\cache2\cases;
+namespace tests\cache2\cases;
 
 use limb\cache2\src\lmbMintCache;
 use limb\cache2\src\drivers\lmbCacheAbstractConnection;

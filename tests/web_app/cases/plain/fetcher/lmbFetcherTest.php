@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_app\cases\plain\fetcher;
+namespace tests\web_app\cases\plain\fetcher;
 
 use PHPUnit\Framework\TestCase;
 use limb\core\src\lmbCollection;

@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\macro\cases\compiler;
+namespace tests\macro\cases\compiler;
 
 use limb\core\src\lmbEnv;
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\fs\src\lmbFs;
 use limb\macro\src\compiler\lmbMacroFilterInfo;
 use limb\macro\src\compiler\lmbMacroFilterDictionary;

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_app\cases\plain\util;
+namespace tests\web_app\cases\plain\util;
 
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\util\lmbMessageBox;

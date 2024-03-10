@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\imagekit\cases\gd;
+namespace tests\imagekit\cases\gd;
 
-use Tests\imagekit\cases\lmbBaseImageContainerTestCase;
+use tests\imagekit\cases\lmbBaseImageContainerTestCase;
 
 class lmbGdImageContainerTest extends lmbBaseImageContainerTestCase
 {

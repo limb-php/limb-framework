@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\tree\cases\src;
+namespace tests\tree\cases\src;
 
 use limb\tree\src\lmbMPTree;
 

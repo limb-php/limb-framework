@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-namespace Tests\core\cases\src;
+namespace tests\core\cases\src;
 
 class SerializableTestStub
 {

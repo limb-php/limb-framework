@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\core\cases\src;
+namespace tests\core\cases\src;
 
 class MixedTestStub
 {

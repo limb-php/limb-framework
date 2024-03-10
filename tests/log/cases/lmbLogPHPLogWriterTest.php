@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\log\cases;
+namespace tests\log\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\log\src\lmbLogPHPLogWriter;

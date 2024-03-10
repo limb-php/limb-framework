@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\mail\cases;
+namespace tests\mail\cases;
 
 use limb\mail\src\lmbMacroTemplateMail;
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;
 

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_agent\cases\agent\liveinternet;
+namespace tests\web_agent\cases\agent\liveinternet;
 
 use PHPUnit\Framework\TestCase;
 use limb\web_agent\src\agent\liveinternet\lmbLiveInternetValues;

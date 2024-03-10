@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\cache2\cases;
+namespace tests\cache2\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\cache2\src\lmbTaggableCache;

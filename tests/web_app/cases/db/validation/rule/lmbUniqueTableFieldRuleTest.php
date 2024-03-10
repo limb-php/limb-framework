@@ -7,11 +7,11 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_app\cases\db\validation\rule;
+namespace tests\web_app\cases\db\validation\rule;
 
 require_once dirname(__FILE__) . '/../../.setup.php';
 
-use Tests\validation\cases\rule\lmbValidationRuleTestCase;
+use tests\validation\cases\rule\lmbValidationRuleTestCase;
 use limb\dbal\src\lmbSimpleDb;
 use limb\web_app\src\validation\rule\UniqueTableFieldRule;
 use limb\toolkit\src\lmbToolkit;

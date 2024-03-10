@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\macro\cases\compiler;
+namespace tests\macro\cases\compiler;
 
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
 class lmbMacroTemplateTest extends lmbBaseMacroTestCase
 {

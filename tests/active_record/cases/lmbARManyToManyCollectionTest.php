@@ -7,17 +7,17 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\active_record\cases;
+namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbARManyToManyCollection;
 use limb\active_record\src\lmbActiveRecord;
 use limb\core\src\exception\lmbException;
 use limb\dbal\src\lmbDBAL;
 use limb\dbal\src\lmbTableGateway;
-use Tests\active_record\cases\src\GroupForTestObject;
-use Tests\active_record\cases\src\GroupForTestObjectStub;
-use Tests\active_record\cases\src\UserForTestObject;
-use Tests\active_record\cases\src\UserForTestWithSpecialRelationTable;
+use tests\active_record\cases\src\GroupForTestObject;
+use tests\active_record\cases\src\GroupForTestObjectStub;
+use tests\active_record\cases\src\UserForTestObject;
+use tests\active_record\cases\src\UserForTestWithSpecialRelationTable;
 
 //require_once (dirname(__FILE__) . '/.setup.php');
 

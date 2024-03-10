@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\filter_chain\cases\src;
+namespace tests\filter_chain\cases\src;
 
 class OutputFilter2
 {

@@ -7,20 +7,20 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\active_record\cases;
+namespace tests\active_record\cases;
 
 //require_once (dirname(__FILE__) . '/.setup.php');
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbAROneToManyCollection;
 use limb\core\src\exception\lmbException;
-use Tests\active_record\cases\src\CourseForTestObject;
-use Tests\active_record\cases\src\LectureForTestObject;
-use Tests\active_record\cases\src\LectureForTestObjectStub;
-use Tests\active_record\cases\src\lmbARTestingDSDecorator;
-use Tests\active_record\cases\src\SpecialCourseForTestObject;
-use Tests\active_record\cases\src\SpecialLectureForTestObject;
-use Tests\active_record\cases\src\VerySpecialCourseForTestObject;
+use tests\active_record\cases\src\CourseForTestObject;
+use tests\active_record\cases\src\LectureForTestObject;
+use tests\active_record\cases\src\LectureForTestObjectStub;
+use tests\active_record\cases\src\lmbARTestingDSDecorator;
+use tests\active_record\cases\src\SpecialCourseForTestObject;
+use tests\active_record\cases\src\SpecialLectureForTestObject;
+use tests\active_record\cases\src\VerySpecialCourseForTestObject;
 
 class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
 {

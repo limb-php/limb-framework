@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-namespace Tests\web_app\cases\plain\filter;
+namespace tests\web_app\cases\plain\filter;
 
 require_once dirname(__FILE__) . '/../../.setup.php';
 
@@ -16,8 +16,8 @@ use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
 use limb\net\src\lmbHttpResponse;
 use limb\view\src\lmbView;
-use Tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
-use Tests\web_app\cases\plain\src\Controllers\SecondTestingController;
+use tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
+use tests\web_app\cases\plain\src\Controllers\SecondTestingController;
 
 class lmbViewRenderingFilterTest extends TestCase
 {

@@ -72,7 +72,7 @@
             "bootstrap.php"
         ],
         "psr-4": {
-            "Tests\\": "tests/"
+            "tests\\": "tests/"
         }
     },
     "config": {

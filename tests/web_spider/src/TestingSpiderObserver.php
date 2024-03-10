@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\web_spider\src;
+namespace tests\web_spider\src;
 
 class TestingSpiderObserver
 {

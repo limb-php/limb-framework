@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\cms\cases\model;
+namespace tests\cms\cases\model;
 
-use Tests\cms\cases\lmbCmsTestCase;
+use tests\cms\cases\lmbCmsTestCase;
 use limb\active_record\src\lmbActiveRecord;
 use limb\cms\src\model\lmbCmsDocument;
 

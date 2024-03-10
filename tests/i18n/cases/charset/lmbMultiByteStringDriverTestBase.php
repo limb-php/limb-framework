@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\i18n\cases\charset;
+namespace tests\i18n\cases\charset;
 
 use PHPUnit\Framework\TestCase;
 

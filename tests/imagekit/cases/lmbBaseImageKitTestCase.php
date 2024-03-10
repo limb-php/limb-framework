@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\imagekit\cases;
+namespace tests\imagekit\cases;
 
 use limb\imagekit\src\lmbImageKit;
 

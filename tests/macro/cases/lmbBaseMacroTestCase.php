@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\macro\cases;
+namespace tests\macro\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\macro\src\lmbMacroTemplate;

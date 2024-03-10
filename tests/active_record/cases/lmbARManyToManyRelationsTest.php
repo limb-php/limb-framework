@@ -7,17 +7,17 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\active_record\cases;
+namespace tests\active_record\cases;
 
 //require_once (dirname(__FILE__) . '/.setup.php');
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;
-use Tests\active_record\cases\src\GroupForTestObject;
-use Tests\active_record\cases\src\GroupsForTestCollectionStub;
-use Tests\active_record\cases\src\UserForTestObject;
-use Tests\active_record\cases\src\UserForTestWithCustomCollection;
+use tests\active_record\cases\src\GroupForTestObject;
+use tests\active_record\cases\src\GroupsForTestCollectionStub;
+use tests\active_record\cases\src\UserForTestObject;
+use tests\active_record\cases\src\UserForTestWithCustomCollection;
 
 class lmbARManyToManyRelationsTest extends lmbARBaseTestCase
 {

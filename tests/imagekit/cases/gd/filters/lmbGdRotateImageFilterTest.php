@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\imagekit\cases\gd\filters;
+namespace tests\imagekit\cases\gd\filters;
 
-use Tests\imagekit\cases\filters\lmbBaseRotateImageFilterTestCase;
+use tests\imagekit\cases\filters\lmbBaseRotateImageFilterTestCase;
 
 /**
  * @package imagekit

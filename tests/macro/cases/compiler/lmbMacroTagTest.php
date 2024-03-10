@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\macro\cases\compiler;
+namespace tests\macro\cases\compiler;
 
 use PHPUnit\Framework\TestCase;
 use limb\macro\src\compiler\lmbMacroTag;

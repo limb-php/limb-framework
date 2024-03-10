@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\i18n\cases;
+namespace tests\i18n\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\i18n\src\charset\lmbI18nString;

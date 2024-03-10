@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\sqlite;
+namespace tests\dbal\cases\driver\sqlite;
 
 use limb\toolkit\src\lmbToolkit;
-use Tests\dbal\cases\driver\DriverDeleteTestBase;
+use tests\dbal\cases\driver\DriverDeleteTestBase;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');

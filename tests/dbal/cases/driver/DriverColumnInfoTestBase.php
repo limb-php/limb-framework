@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver;
+namespace tests\dbal\cases\driver;
 
 abstract class DriverColumnInfoTestBase extends DriverMetaTestBase
 {

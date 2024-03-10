@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_app\cases;
+namespace tests\web_app\cases;
 
 require_once (dirname(__FILE__) . '/.setup.php');
 

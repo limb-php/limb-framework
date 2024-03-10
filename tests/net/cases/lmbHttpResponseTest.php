@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\net\cases;
+namespace tests\net\cases;
 
 use limb\net\src\lmbJsonHttpResponse;
 use limb\net\src\lmbMetaRedirectStrategy;

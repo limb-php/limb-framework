@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\cms\cases\model;
+namespace tests\cms\cases\model;
 
-use Tests\cms\cases\lmbCmsTestCase;
+use tests\cms\cases\lmbCmsTestCase;
 use limb\cms\src\model\lmbCmsSeo;
 use limb\net\src\lmbUri;
 

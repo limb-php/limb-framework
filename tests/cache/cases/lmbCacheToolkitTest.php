@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\cache\cases;
+namespace tests\cache\cases;
 
 require(dirname(__FILE__) . '/.setup.php');
 

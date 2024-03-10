@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\active_record\cases\src;
+namespace tests\active_record\cases\src;
 
 use limb\active_record\src\lmbActiveRecord;
-use Tests\active_record\cases\src\CourseForTestForTypedLecture;
+use tests\active_record\cases\src\CourseForTestForTypedLecture;
 
 class TypedLectureForTestObject extends lmbActiveRecord
 {

@@ -7,14 +7,14 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\mssql;
+namespace tests\dbal\cases\driver\mssql;
 
 use limb\dbal\src\drivers\mssql\lmbMssqlInsertStatement;
 use limb\dbal\src\drivers\mssql\lmbMssqlManipulationStatement;
 use limb\dbal\src\drivers\mssql\lmbMssqlQueryStatement;
 use limb\dbal\src\drivers\mssql\lmbMssqlStatement;
 use limb\toolkit\src\lmbToolkit;
-use Tests\dbal\cases\driver\DriverConnectionTestBase;
+use tests\dbal\cases\driver\DriverConnectionTestBase;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');

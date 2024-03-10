@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\cms\cases\Controllers;
+namespace tests\cms\cases\Controllers;
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\validation\src\lmbValidator;

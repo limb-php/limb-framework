@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\config\cases;
+namespace tests\config\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbCachedIni;

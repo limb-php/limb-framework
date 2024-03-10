@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\i18n\cases\datetime;
+namespace tests\i18n\cases\datetime;
 
 use limb\i18n\src\datetime\lmbLocaleDateTime;
 

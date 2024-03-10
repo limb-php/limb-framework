@@ -7,12 +7,12 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\oci;
+namespace tests\dbal\cases\driver\oci;
 
 use limb\dbal\src\drivers\oci\lmbOciRecord;
 use limb\dbal\src\drivers\oci\lmbOciStatement;
 use limb\toolkit\src\lmbToolkit;
-use Tests\dbal\cases\driver\DriverTypeInfoTestBase;
+use tests\dbal\cases\driver\DriverTypeInfoTestBase;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');

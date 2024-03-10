@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\nondriver\dump;
+namespace tests\dbal\cases\nondriver\dump;
 
 use limb\core\src\lmbEnv;
 use PHPUnit\Framework\TestCase;

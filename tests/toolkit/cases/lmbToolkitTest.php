@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\toolkit\cases;
+namespace tests\toolkit\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbAbstractTools;

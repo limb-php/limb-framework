@@ -7,14 +7,14 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\linter;
+namespace tests\dbal\cases\driver\linter;
 
 use limb\dbal\src\drivers\linter\lmbLinterInsertStatement;
 use limb\dbal\src\drivers\linter\lmbLinterManipulationStatement;
 use limb\dbal\src\drivers\linter\lmbLinterQueryStatement;
 use limb\dbal\src\drivers\linter\lmbLinterStatement;
 use limb\toolkit\src\lmbToolkit;
-use Tests\dbal\cases\driver\DriverConnectionTestBase;
+use tests\dbal\cases\driver\DriverConnectionTestBase;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');

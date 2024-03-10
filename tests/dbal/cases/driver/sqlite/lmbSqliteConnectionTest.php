@@ -7,14 +7,14 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\sqlite;
+namespace tests\dbal\cases\driver\sqlite;
 
 use limb\dbal\src\drivers\sqlite\lmbSqliteInsertStatement;
 use limb\dbal\src\drivers\sqlite\lmbSqliteManipulationStatement;
 use limb\dbal\src\drivers\sqlite\lmbSqliteQueryStatement;
 use limb\dbal\src\drivers\sqlite\lmbSqliteStatement;
 use limb\toolkit\src\lmbToolkit;
-use Tests\dbal\cases\driver\DriverConnectionTestBase;
+use tests\dbal\cases\driver\DriverConnectionTestBase;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 require_once(dirname(__FILE__) . '/fixture.inc.php');

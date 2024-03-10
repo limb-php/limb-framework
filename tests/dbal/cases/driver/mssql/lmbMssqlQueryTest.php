@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\mssql;
+namespace tests\dbal\cases\driver\mssql;
 
 use limb\dbal\src\drivers\mssql\lmbMssqlRecord;
-use Tests\dbal\cases\driver\DriverQueryTestBase;
+use tests\dbal\cases\driver\DriverQueryTestBase;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/.setup.php');

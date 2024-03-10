@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\mysql;
+namespace tests\dbal\cases\driver\mysql;
 
 use limb\dbal\src\drivers\mysql\lmbMysqlRecord;
-use Tests\dbal\cases\driver\DriverQueryTestBase;
+use tests\dbal\cases\driver\DriverQueryTestBase;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/.setup.php');

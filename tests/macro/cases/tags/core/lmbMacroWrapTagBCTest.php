@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\macro\cases\tags\core;
+namespace tests\macro\cases\tags\core;
 
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
 class lmbMacroWrapTagBCTest extends lmbBaseMacroTestCase
 {

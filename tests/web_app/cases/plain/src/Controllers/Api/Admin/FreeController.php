@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\web_app\cases\plain\src\Controllers\Api\Admin;
+namespace tests\web_app\cases\plain\src\Controllers\Api\Admin;
 
 use limb\web_app\src\Controllers\LmbController;
 

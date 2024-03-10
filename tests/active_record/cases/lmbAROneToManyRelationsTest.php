@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\active_record\cases;
+namespace tests\active_record\cases;
 
 //require_once (dirname(__FILE__) . '/.setup.php');
 
@@ -18,14 +18,14 @@ use limb\active_record\src\lmbARException;
 use limb\core\src\exception\lmbException;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;
-use Tests\active_record\cases\src\CourseForTestObject;
-use Tests\active_record\cases\src\CourseForTestWithCustomCollection;
-use Tests\active_record\cases\src\CourseForTestWithNullifyRelationProperty;
-use Tests\active_record\cases\src\CourseWithNullableLectures;
-use Tests\active_record\cases\src\LectureForTestObject;
-use Tests\active_record\cases\src\LectureIndependentFromCourse;
-use Tests\active_record\cases\src\LecturesForTestCollectionStub;
-use Tests\active_record\cases\src\ProgramForTestObject;
+use tests\active_record\cases\src\CourseForTestObject;
+use tests\active_record\cases\src\CourseForTestWithCustomCollection;
+use tests\active_record\cases\src\CourseForTestWithNullifyRelationProperty;
+use tests\active_record\cases\src\CourseWithNullableLectures;
+use tests\active_record\cases\src\LectureForTestObject;
+use tests\active_record\cases\src\LectureIndependentFromCourse;
+use tests\active_record\cases\src\LecturesForTestCollectionStub;
+use tests\active_record\cases\src\ProgramForTestObject;
 
 class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
 {

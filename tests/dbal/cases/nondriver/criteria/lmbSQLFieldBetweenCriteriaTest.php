@@ -7,12 +7,12 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\nondriver\criteria;
+namespace tests\dbal\cases\nondriver\criteria;
 
 require_once(dirname(__FILE__) . '/../.setup.php');
 
 use PHPUnit\Framework\TestCase;
-use Tests\dbal\cases\src\ConnectionTestStub;
+use tests\dbal\cases\src\ConnectionTestStub;
 use limb\dbal\src\criteria\lmbSQLFieldBetweenCriteria;
 
 class lmbSQLFieldBetweenCriteriaTest extends TestCase

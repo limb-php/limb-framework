@@ -7,13 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\active_record\cases;
+namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARQuery;
-use Tests\active_record\cases\src\LazyTestOneTableObject;
-use Tests\active_record\cases\src\PersonForLazyAttributesTestObject;
-use Tests\active_record\cases\src\TestOneTableObject;
+use tests\active_record\cases\src\LazyTestOneTableObject;
+use tests\active_record\cases\src\PersonForLazyAttributesTestObject;
+use tests\active_record\cases\src\TestOneTableObject;
 
 //require_once (dirname(__FILE__) . '/.setup.php');
 

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\i18n\cases\charset;
+namespace tests\i18n\cases\charset;
 
 use limb\i18n\src\charset\lmbUTF8BaseDriver;
 use limb\i18n\src\charset\lmbI18nString;

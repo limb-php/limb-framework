@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\web_app\cases\plain\macro;
+namespace tests\web_app\cases\plain\macro;
 
-use Tests\view\lmbMacroTestCase;
+use tests\view\lmbMacroTestCase;
 use limb\web_app\src\request\lmbRoutes;
 use limb\web_app\src\Controllers\LmbController;
 

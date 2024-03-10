@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\core\cases\src;
+namespace tests\core\cases\src;
 
 use limb\core\src\lmbMixin;
 

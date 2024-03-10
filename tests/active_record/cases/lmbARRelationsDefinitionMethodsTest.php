@@ -7,12 +7,12 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\active_record\cases;
+namespace tests\active_record\cases;
 
 require_once (dirname(__FILE__) . '/.setup.php');
 
 use PHPUnit\Framework\TestCase;
-use Tests\active_record\cases\src\TestOneTableObjectWithRelationsByMethods;
+use tests\active_record\cases\src\TestOneTableObjectWithRelationsByMethods;
 
 class lmbARRelationsDefinitionMethodsTest extends TestCase
 {

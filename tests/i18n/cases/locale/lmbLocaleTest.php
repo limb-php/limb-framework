@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\i18n\cases\locale;
+namespace tests\i18n\cases\locale;
 
 use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbIni;

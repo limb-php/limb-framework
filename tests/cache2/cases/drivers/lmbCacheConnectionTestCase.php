@@ -7,7 +7,7 @@
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
 
-namespace Tests\cache2\cases\drivers;
+namespace tests\cache2\cases\drivers;
 
 require_once(dirname(__FILE__) . '/../.setup.php');
 
@@ -17,7 +17,7 @@ use limb\core\src\lmbEnv;
 use limb\core\src\lmbObject;
 use limb\net\src\lmbUri;
 use limb\cache2\src\lmbCacheFactory;
-use Tests\cache2\cases\src\CacheableFooBarClass;
+use tests\cache2\cases\src\CacheableFooBarClass;
 
 abstract class lmbCacheConnectionTestCase extends TestCase
 {

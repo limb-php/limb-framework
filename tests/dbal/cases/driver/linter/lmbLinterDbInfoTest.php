@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\linter;
+namespace tests\dbal\cases\driver\linter;
 
-use Tests\dbal\cases\driver\DriverDatabaseInfoTestBase;
+use tests\dbal\cases\driver\DriverDatabaseInfoTestBase;
 use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/.setup.php');

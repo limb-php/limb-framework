@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\macro\cases\tags\tree;
+namespace tests\macro\cases\tags\tree;
 
-use Tests\macro\cases\lmbBaseMacroTestCase;
+use tests\macro\cases\lmbBaseMacroTestCase;
 
 class lmbMacroTreeTagTest extends lmbBaseMacroTestCase
 {

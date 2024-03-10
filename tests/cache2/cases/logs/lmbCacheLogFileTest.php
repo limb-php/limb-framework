@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\cache2\cases\logs;
+namespace tests\cache2\cases\logs;
 
 use limb\cache2\src\logs\lmbCacheLogFile;
 use limb\fs\src\lmbFs;

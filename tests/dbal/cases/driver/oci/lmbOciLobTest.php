@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Tests\dbal\cases\driver\oci;
+namespace tests\dbal\cases\driver\oci;
 
 use limb\toolkit\src\lmbToolkit;
 use PHPUnit\Framework\TestCase;
