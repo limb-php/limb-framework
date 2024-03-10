@@ -62,11 +62,6 @@ class LmbController
      * @var object lmbToolkit instance
      */
     protected $toolkit;
-    /**
-     *
-     * @var \limb\net\src\lmbHttpRequest
-     */
-    protected $request;
 
     /**
      *
@@ -100,7 +95,7 @@ class LmbController
             $this->name = $this->_guessName();
 
         $this->toolkit = lmbToolkit::instance();
-        $this->request = $this->toolkit->getRequest();
+
         $this->session = $this->toolkit->getSession();
 
         $this->error_list = new lmbErrorList();
@@ -328,7 +323,7 @@ class LmbController
         $this->is_forwarded = true;
         $controller = $this->toolkit->createController($controller_name);
         $controller->setCurrentAction($action);
-        return $controller->performAction($this->toolkit->getRequest());
+        return $controller->performAction( request() );
     }
 
     function forwardTo404()
