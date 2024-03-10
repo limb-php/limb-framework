@@ -18,7 +18,6 @@ use limb\toolkit\src\lmbToolkit;
 class lmbWebAppTestCase extends TestCase
 {
     protected $toolkit;
-    protected $request;
     protected $response;
     protected $db;
     protected $connection;
@@ -26,7 +25,6 @@ class lmbWebAppTestCase extends TestCase
     function setUp(): void
     {
         $this->toolkit = lmbToolkit::save();
-        $this->request = $this->toolkit->getRequest();
         $this->response = $this->toolkit->getResponse();
         $this->session = $this->toolkit->getSession();
         $this->session->reset();
@@ -39,7 +37,7 @@ class lmbWebAppTestCase extends TestCase
         lmbToolkit::restore();
     }
 
-    function assertCommandValid($command, $line)
+    function assertCommandValid($command, $line): void
     {
         $this->assertTrue($command->isValid());
 

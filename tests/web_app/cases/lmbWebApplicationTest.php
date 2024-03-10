@@ -1,0 +1,48 @@
+<?php
+/*
+ * Limb PHP Framework
+ *
+ * @link http://limb-project.com
+ * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
+ */
+
+namespace tests\web_app\cases;
+
+use limb\core\src\lmbEnv;
+use limb\fs\src\lmbFs;
+use limb\net\src\lmbHttpRequest;
+use limb\session\src\lmbFakeSession;
+use limb\toolkit\src\lmbToolkit;
+use limb\web_app\src\lmbWebApplication;
+
+require_once (dirname(__FILE__) . '/.setup.php');
+
+class lmbWebApplicationTest extends lmbWebAppTestCase
+{
+
+    function setUp(): void
+    {
+        parent::setUp();
+
+        lmbFs::cp(dirname(__FILE__) . '/template/', lmbEnv::get('LIMB_VAR_DIR'));
+    }
+
+    function tearDown(): void
+    {
+        parent::tearDown();
+    }
+
+    function testPerformApp()
+    {
+        $toolkit = lmbToolkit::instance();
+        $toolkit->setSession(new lmbFakeSession());
+
+        $request = new lmbHttpRequest('https://localhost/index/display');
+
+        $app = new lmbWebApplication();
+        $response = $app->process($request);
+
+        $this->assertEquals('404', $response->getBody());
+    }
+}

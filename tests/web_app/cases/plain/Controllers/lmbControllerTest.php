@@ -9,6 +9,7 @@
 
 namespace tests\web_app\cases\plain\controllers;
 
+use limb\core\src\exception\lmbException;
 use limb\view\src\lmbDummyView;
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\Controllers\LmbController;
@@ -53,8 +54,22 @@ class lmbControllerTest extends TestCase
     {
         $controller = new TestingController();
         $controller->setCurrentAction('display');
-        $controller->performAction(request());
+        $response = $controller->performAction(request());
+
         $this->assertTrue($controller->display_performed);
+    }
+
+    function testPerformNotExistsAction()
+    {
+        $controller = new TestingController();
+        $controller->setCurrentAction('display_no_exists');
+        try {
+            $response = $controller->performAction(request());
+        } catch (lmbException $e) {
+            $this->assertTrue(true);
+        }
+
+        $this->assertFalse($controller->display_performed);
     }
 
     function testPerformedActionStringResultIsWrittenToResponse()

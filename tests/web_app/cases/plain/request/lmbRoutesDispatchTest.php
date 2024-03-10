@@ -29,12 +29,18 @@ class lmbRoutesDispatchTest extends TestCase
 
     function testControllerAndDefaultAction()
     {
-        $config = array(array('path' => '/blog',
-            'defaults' => array('controller' => 'Blog',
-                'action' => 'display')),
+        $config = array(
+            array('path' => '/blog',
+                'defaults' => array(
+                    'controller' => 'Blog',
+                    'action' => 'display')
+            ),
             array('path' => '/news',
-                'defaults' => array('controller' => 'Newsline',
-                    'action' => 'display')));
+                'defaults' => array(
+                    'controller' => 'Newsline',
+                    'action' => 'display')
+            )
+        );
 
         $routes = new lmbRoutes($config);
         $result = $routes->dispatch('/blog');

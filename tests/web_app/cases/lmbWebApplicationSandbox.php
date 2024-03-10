@@ -32,7 +32,6 @@ class lmbWebApplicationSandbox extends lmbFilterChain
     function imitate($request)
     {
         $toolkit = lmbToolkit::instance();
-        $toolkit->setRequest($request);
         $toolkit->setResponse(new lmbFakeHttpResponse());
         $toolkit->setSession(new lmbFakeSession());
 
