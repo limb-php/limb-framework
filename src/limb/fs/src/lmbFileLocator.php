@@ -32,7 +32,7 @@ class lmbFileLocator
             if (file_exists($alias))
                 return $alias;
             else
-                $this->_handleNotResolvedAlias($alias);
+                $this->_handleNotResolvedAlias($alias, $params);
         }
 
         $paths = $this->locations->getLocations($params);

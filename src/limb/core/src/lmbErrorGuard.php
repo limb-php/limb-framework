@@ -19,13 +19,13 @@ class lmbErrorGuard
 {
     static protected $fatal_error_delegate;
 
-    static function registerExceptionHandler()
+    static function registerExceptionHandler(): void
     {
         $delegate = func_get_args();
         set_exception_handler(array(lmbDelegate::objectify($delegate), 'invoke'));
     }
 
-    static function registerFatalErrorHandler()
+    static function registerFatalErrorHandler(): void
     {
         static $shutdown_registered = false;
 
@@ -33,12 +33,12 @@ class lmbErrorGuard
         self::$fatal_error_delegate = lmbDelegate::objectify($delegate);
 
         if (!$shutdown_registered) {
-            register_shutdown_function(array(lmbErrorGuard::class, '_shutdownHandler'));
+            register_shutdown_function(array(self::class, '_shutdownHandler'));
             $shutdown_registered = true;
         }
     }
 
-    static function registerErrorHandler()
+    static function registerErrorHandler(): void
     {
         $delegate = func_get_args();
         set_error_handler(array(lmbDelegate::objectify($delegate), 'invoke'));

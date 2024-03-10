@@ -50,7 +50,6 @@ class lmbMacroView extends lmbView
             return $tpl->render();
         } else {
             throw new lmbException('Empty macro template');
-
         }
     }
 
