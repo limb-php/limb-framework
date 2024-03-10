@@ -10,6 +10,7 @@
 namespace limb\view\src;
 
 use limb\core\src\exception\lmbException;
+use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;
 
@@ -24,7 +25,7 @@ class lmbPHPView extends lmbView
     static function locateTemplateByAlias($alias)
     {
         if (!lmbFs::isPathAbsolute($alias))
-            return lmbToolkit::instance()->tryFindFileByAlias($alias, ['template'], 'php');
+            return lmbToolkit::instance()->tryFindFileByAlias($alias . '.php', ['template', lmbEnv::get('LIMB_VAR_DIR')], 'php');
         elseif (file_exists($alias))
             return $alias;
 
