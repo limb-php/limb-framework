@@ -9,6 +9,7 @@
 
 namespace limb\view\src;
 
+use limb\core\src\exception\lmbException;
 use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;
 
@@ -35,7 +36,11 @@ class lmbPHPView extends lmbView
         extract($this->getVariables());
         ob_start();
 
-        include(self::locateTemplateByAlias($this->getTemplate()));
+        $path = self::locateTemplateByAlias($alias = $this->getTemplate());
+        if(!$path)
+            throw new lmbException('PHPView: unable to find template "' . $alias . '"');
+
+        include($path);
 
         $res = ob_get_contents();
         ob_end_clean();
