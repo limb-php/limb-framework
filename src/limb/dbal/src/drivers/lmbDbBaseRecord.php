@@ -20,7 +20,8 @@ abstract class lmbDbBaseRecord implements lmbDbRecordInterface, \JsonSerializabl
     protected $properties = array();
 
     //JsonSerializable interface
-    public function jsonSerialize()
+    #[\ReturnTypeWillChange]
+    public function jsonSerialize(): array
     {
         return $this->properties;
     }
