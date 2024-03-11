@@ -9,18 +9,19 @@
 
 namespace tests\cache\cases;
 
-require(dirname(__FILE__) . '/.setup.php');
-
 use limb\cache\src\lmbCacheApcBackend;
 
 class lmbCacheApcBackendTestCase extends lmbCacheBackendTestCase
 {
+
     function setUp(): void
     {
         if (!extension_loaded('apc'))
             $this->markTestSkipped('APC extension not found. Test skipped.');
+
         if (!ini_get('apc.enabled'))
             $this->markTestSkipped('APC extension not enabled. Test skipped.');
+
         if ((!ini_get('apc.enable_cli') and php_sapi_name() == 'cli'))
             $this->markTestSkipped('APC CLI not enabled. Test skipped.');
     }

@@ -11,16 +11,24 @@ namespace tests\cache\cases;
 
 use limb\core\src\lmbObject;
 use PHPUnit\Framework\TestCase;
+use tests\cache\cases\src\CacheableFooBarClass;
 
-class CacheableFooBarClass
-{
-}
+require_once (dirname(__FILE__) . '/init.inc.php');
 
 abstract class lmbCacheBackendTestCase extends TestCase
 {
     protected $cache;
 
     abstract function _createPersisterImp();
+
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/.setup.php');
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+    }
 
     function setUp(): void
     {

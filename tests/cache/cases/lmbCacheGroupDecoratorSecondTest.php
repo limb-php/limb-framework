@@ -9,31 +9,14 @@
 
 namespace tests\cache\cases;
 
-require(dirname(__FILE__) . '/.setup.php');
+require_once (dirname(__FILE__) . '/init.inc.php');
 
 use limb\core\src\lmbEnv;
 use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbToolkit;
 use limb\cache\src\lmbCacheGroupDecorator;
 use limb\cache\src\lmbCacheFileBackend;
-
-class SomeClass
-{
-    static function Foo($param)
-    {
-        $cache = lmbToolkit::instance()->getCache();
-        if ($value = $cache->get('bar' . $param, array('group' => 'bar_group'))) {
-            return $value;
-        }
-
-        $value = 'bar_value_' . $param;
-
-        $cache->set('bar' . $param, $value, array('group' => 'bar_group'));
-
-        return $value;
-    }
-}
-
+use tests\cache\cases\src\SomeClass;
 
 class lmbCacheGroupDecoratorSecondTest extends TestCase
 {

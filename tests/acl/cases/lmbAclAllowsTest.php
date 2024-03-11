@@ -13,6 +13,8 @@ use PHPUnit\Framework\TestCase;
 use limb\acl\src\lmbAcl;
 use limb\acl\src\lmbAclException;
 
+require_once (dirname(__FILE__) . '/init.inc.php');
+
 class lmbAclAllowsTest extends TestCase
 {
     /**

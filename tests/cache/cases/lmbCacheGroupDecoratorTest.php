@@ -9,8 +9,6 @@
 
 namespace tests\cache\cases;
 
-require(dirname(__FILE__) . '/.setup.php');
-
 use limb\cache\src\lmbCacheGroupDecorator;
 
 class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTestCase

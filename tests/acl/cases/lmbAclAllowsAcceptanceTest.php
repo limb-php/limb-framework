@@ -12,6 +12,8 @@ namespace tests\Acl\Cases;
 use PHPUnit\Framework\TestCase;
 use limb\acl\src\lmbAcl;
 
+require_once (dirname(__FILE__) . '/init.inc.php');
+
 class lmbAclAllowsAcceptanceTest extends TestCase
 {
     function testAcceptance()

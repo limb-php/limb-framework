@@ -9,8 +9,6 @@
 
 namespace tests\cache\cases;
 
-require_once(dirname(__FILE__) . '/.setup.php');
-
 use limb\cache\src\lmbCacheFileBackend;
 use limb\fs\src\lmbFs;
 use limb\core\src\lmbEnv;

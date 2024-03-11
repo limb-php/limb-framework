@@ -15,6 +15,8 @@ use limb\acl\src\lmbRoleProviderInterface;
 use limb\acl\src\lmbResourceProviderInterface;
 use limb\acl\src\lmbRolesResolverInterface;
 
+require_once (dirname(__FILE__) . '/init.inc.php');
+
 class Acl_Tests_User implements lmbRoleProviderInterface
 {
     protected $is_logged_in;
