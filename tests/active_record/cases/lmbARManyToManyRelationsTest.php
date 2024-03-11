@@ -9,8 +9,6 @@
 
 namespace tests\active_record\cases;
 
-//require_once (dirname(__FILE__) . '/.setup.php');
-
 use limb\active_record\src\lmbActiveRecord;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;

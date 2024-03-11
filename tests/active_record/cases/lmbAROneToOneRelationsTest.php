@@ -9,8 +9,6 @@
 
 namespace tests\active_record\cases;
 
-//require_once (dirname(__FILE__) . '/.setup.php');
-
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARNotFoundException;
 use limb\validation\src\exception\lmbValidationException;
@@ -236,7 +234,7 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
         $person->setSocialSecurity($number);
         $person_id = $person->save();
 
-        $person2 = lmbActiveRecord:: findById(PersonForTestObject::class, $person_id);
+        $person2 = lmbActiveRecord::findById(PersonForTestObject::class, $person_id);
         $number2 = $person2->get('social_security');
 
         $this->assertEquals($person2->getId(), $person_id);
@@ -256,8 +254,8 @@ class lmbAROneToOneRelationsTest extends lmbARBaseTestCase
 
         $person->destroy();
 
-        $this->assertNull(lmbActiveRecord:: findFirst(SocialSecurityForTestObject::class, array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $number_id)));
-        $this->assertNull(lmbActiveRecord:: findFirst(PersonForTestObject::class, array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $person_id)));
+        $this->assertNull(lmbActiveRecord::findFirst(SocialSecurityForTestObject::class, array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $number_id)));
+        $this->assertNull(lmbActiveRecord::findFirst(PersonForTestObject::class, array('criteria' => lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '= ' . $person_id)));
     }
 
     function testParentDeleteAllDeletesChildren()

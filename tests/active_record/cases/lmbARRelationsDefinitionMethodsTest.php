@@ -9,7 +9,7 @@
 
 namespace tests\active_record\cases;
 
-require_once (dirname(__FILE__) . '/.setup.php');
+require_once (dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use tests\active_record\cases\src\TestOneTableObjectWithRelationsByMethods;
@@ -17,6 +17,16 @@ use tests\active_record\cases\src\TestOneTableObjectWithRelationsByMethods;
 class lmbARRelationsDefinitionMethodsTest extends TestCase
 {
     protected $object;
+
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/.setup.php');
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        include (dirname(__FILE__) . '/.teardown.php');
+    }
 
     function setUp(): void
     {

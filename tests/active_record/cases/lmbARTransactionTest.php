@@ -11,8 +11,6 @@ namespace tests\active_record\cases;
 
 use tests\active_record\cases\src\TestOneTableObjectFailing;
 
-//require_once (dirname(__FILE__) . '/.setup.php');
-
 class lmbARTransactionTest extends lmbARBaseTestCase
 {
     protected $tables_to_cleanup = array('test_one_table_object');

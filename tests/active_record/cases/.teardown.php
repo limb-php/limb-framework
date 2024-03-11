@@ -1,3 +1,3 @@
 <?php
-lmb_tests_teardown_db();
 
+lmb_tests_teardown_db();

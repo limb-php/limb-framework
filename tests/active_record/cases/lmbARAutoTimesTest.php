@@ -11,8 +11,6 @@ namespace tests\active_record\cases;
 
 use tests\active_record\cases\src\TestAutoTimesObject;
 
-//require_once (dirname(__FILE__) . '/.setup.php');
-
 class lmbARAutoTimesTest extends lmbARBaseTestCase
 {
     protected $tables_to_cleanup = array('test_auto_times_object');

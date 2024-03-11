@@ -12,8 +12,6 @@ namespace tests\active_record\cases;
 use tests\active_record\cases\src\lmbActiveRecordEventHandlerStubDelegate;
 use tests\active_record\cases\src\TestOneTableObject;
 
-//require_once (dirname(__FILE__) . '/.setup.php');
-
 class lmbAREventHandlersTest extends lmbARBaseTestCase
 {
     protected $tables_to_cleanup = array('test_one_table_object');

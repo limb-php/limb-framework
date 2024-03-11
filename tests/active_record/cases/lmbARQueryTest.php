@@ -9,8 +9,6 @@
 
 namespace tests\active_record\cases;
 
-//require_once (dirname(__FILE__) . '/.setup.php');
-
 use limb\active_record\src\lmbARException;
 use limb\active_record\src\lmbARQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;

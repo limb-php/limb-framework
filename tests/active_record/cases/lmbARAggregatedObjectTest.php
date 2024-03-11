@@ -17,8 +17,6 @@ use tests\active_record\cases\src\MemberForTest;
 use tests\active_record\cases\src\NameForAggregateTest;
 use tests\active_record\cases\src\PhotoForTest;
 
-//require_once (dirname(__FILE__) . '/.setup.php');
-
 class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 {
     protected $tables_to_cleanup = array('member_for_test', 'photo_for_test');

@@ -15,7 +15,7 @@ use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\lmbSimpleDb;
 use tests\active_record\cases\src\lmbARTestingObjectMother;
 
-require_once (dirname(__FILE__) . '/.setup.php');
+require_once (dirname(__FILE__) . '/init.inc.php');
 
 class lmbARBaseTestCase extends TestCase
 {
@@ -23,6 +23,16 @@ class lmbARBaseTestCase extends TestCase
     protected $db;
     protected $creator;
     protected $tables_to_cleanup = array();
+
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/.setup.php');
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        include (dirname(__FILE__) . '/.teardown.php');
+    }
 
     protected function setUp(): void
     {
@@ -37,8 +47,6 @@ class lmbARBaseTestCase extends TestCase
 
     protected function tearDown(): void
     {
-        parent::tearDown();
-
         $this->_cleanUp();
 
         $this->conn->disconnect();
@@ -46,7 +54,7 @@ class lmbARBaseTestCase extends TestCase
         lmbToolkit::restore();
     }
 
-    protected function _cleanUp()
+    protected function _cleanUp(): void
     {
         foreach ($this->tables_to_cleanup as $table_name) {
             $this->db->truncate($table_name);

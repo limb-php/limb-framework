@@ -9,8 +9,6 @@
 
 namespace tests\active_record\cases;
 
-//require_once (dirname(__FILE__) . '/.setup.php');
-
 use limb\active_record\src\lmbAROneToManyCollection;
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARNotFoundException;

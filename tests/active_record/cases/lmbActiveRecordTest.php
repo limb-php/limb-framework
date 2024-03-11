@@ -22,8 +22,6 @@ use tests\active_record\cases\src\TestOneTableObjectWithCustomProperty;
 use tests\active_record\cases\src\TestOneTableObjectWithHooks;
 use tests\active_record\cases\src\TestOneTableObjectWithSortParams;
 
-//require_once (dirname(__FILE__) . '/.setup.php');
-
 class lmbActiveRecordTest extends lmbARBaseTestCase
 {
     protected $tables_to_cleanup = array('test_one_table_object', 'lecture_for_test', 'course_for_test');

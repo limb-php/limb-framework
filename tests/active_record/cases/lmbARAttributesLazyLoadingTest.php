@@ -15,8 +15,6 @@ use tests\active_record\cases\src\LazyTestOneTableObject;
 use tests\active_record\cases\src\PersonForLazyAttributesTestObject;
 use tests\active_record\cases\src\TestOneTableObject;
 
-//require_once (dirname(__FILE__) . '/.setup.php');
-
 class lmbARAttributesLazyLoadingTest extends lmbARBaseTestCase
 {
     protected $tables_to_cleanup = array('test_one_table_object');

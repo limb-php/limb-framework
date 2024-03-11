@@ -19,8 +19,6 @@ use tests\active_record\cases\src\GroupForTestObjectStub;
 use tests\active_record\cases\src\UserForTestObject;
 use tests\active_record\cases\src\UserForTestWithSpecialRelationTable;
 
-//require_once (dirname(__FILE__) . '/.setup.php');
-
 class lmbARManyToManyCollectionTest extends lmbARBaseTestCase
 {
     protected $tables_to_cleanup = array('group_for_test', 'user_for_test', 'user_for_test2group_for_test', 'extended_user_for_test2group_for_test');

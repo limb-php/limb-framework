@@ -123,7 +123,7 @@ if (!function_exists('lmb_tests_db_dump_does_not_exist')) {
 }
 
 if (!function_exists('lmb_tests_setup_db')) {
-    function lmb_tests_setup_db($prefix)
+    function lmb_tests_setup_db($prefix, $verbose = false): void
     {
         $type = lmbToolkit::instance()->getDefaultDbConnection()->getType();
         if (!file_exists($prefix . $type))
@@ -139,7 +139,8 @@ if (!function_exists('lmb_tests_setup_db')) {
         $dump = new lmbDbDump($file);
         $dump->load();
 
-        echo "INFO: Dump is loaded from file '{$file}'\n";
+        if($verbose)
+            echo "INFO: Dump is loaded from file '{$file}'\n";
     }
 }
 
