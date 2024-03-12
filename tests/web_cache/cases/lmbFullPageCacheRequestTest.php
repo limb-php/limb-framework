@@ -14,6 +14,8 @@ use limb\web_cache\src\lmbFullPageCacheRequest;
 use limb\net\src\lmbHttpRequest;
 use PHPUnit\Framework\TestCase;
 
+require_once (dirname(__FILE__) . '/init.inc.php');
+
 class lmbFullPageCacheRequestTest extends TestCase
 {
     function testGetHash()

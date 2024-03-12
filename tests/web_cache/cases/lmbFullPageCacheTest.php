@@ -18,6 +18,8 @@ use limb\web_cache\src\lmbFullPageCacheRequest;
 use limb\web_cache\src\lmbFullPageCacheWriter;
 use limb\net\src\lmbHttpRequest;
 
+require_once (dirname(__FILE__) . '/init.inc.php');
+
 class lmbFullPageCacheTest extends TestCase
 {
     protected $cache;

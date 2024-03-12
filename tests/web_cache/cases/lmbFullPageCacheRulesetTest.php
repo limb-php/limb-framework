@@ -14,6 +14,8 @@ use limb\web_cache\src\lmbFullPageCacheRuleset;
 use limb\web_cache\src\lmbFullPageCacheRule;
 use limb\core\src\lmbObject;
 
+require_once (dirname(__FILE__) . '/init.inc.php');
+
 class lmbFullPageCacheRulesetTest extends TestCase
 {
     function testSetType()

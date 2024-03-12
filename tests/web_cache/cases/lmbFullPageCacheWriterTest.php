@@ -14,6 +14,8 @@ use limb\web_cache\src\lmbFullPageCacheWriter;
 use limb\fs\src\lmbFs;
 use PHPUnit\Framework\TestCase;
 
+require_once (dirname(__FILE__) . '/init.inc.php');
+
 class lmbFullPageCacheWriterTest extends TestCase
 {
     protected $writer;

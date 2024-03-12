@@ -20,6 +20,8 @@ use limb\config\src\lmbFakeIni;
 use limb\fs\src\lmbFs;
 use limb\toolkit\src\lmbToolkit;
 
+require_once (dirname(__FILE__) . '/init.inc.php');
+
 class lmbFullPageCacheFilterTest extends TestCase
 {
     protected $fc;

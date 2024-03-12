@@ -21,7 +21,7 @@ class lmbOciUpdateTest extends DriverUpdateTestBase
     {
         include (dirname(__FILE__) . '/.setup.php');
     }
-    
+
     function setUp(): void
     {
         if( !function_exists('oci_execute') )

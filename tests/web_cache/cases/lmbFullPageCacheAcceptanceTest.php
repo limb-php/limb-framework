@@ -20,7 +20,7 @@ use limb\config\src\lmbFakeIni;
 use limb\toolkit\src\lmbToolkit;
 use PHPUnit\Framework\TestCase;
 
-require_once (dirname(__FILE__) . '/.setup.php');
+require_once (dirname(__FILE__) . '/init.inc.php');
 
 class lmbFullPageCacheAcceptanceTest extends TestCase
 {

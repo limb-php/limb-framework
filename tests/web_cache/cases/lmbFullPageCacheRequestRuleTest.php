@@ -15,6 +15,8 @@ use limb\web_cache\src\lmbFullPageCacheUser;
 use limb\net\src\lmbHttpRequest;
 use PHPUnit\Framework\TestCase;
 
+require_once (dirname(__FILE__) . '/init.inc.php');
+
 class lmbFullPageCacheRequestRuleTest extends TestCase
 {
     function testRequestGlobMatch()
