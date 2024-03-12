@@ -9,7 +9,7 @@
 
 namespace tests\web_app\cases\plain\filter;
 
-require_once dirname(__FILE__) . '/../../.setup.php';
+require_once dirname(__FILE__) . '/../../init.inc.php';
 
 use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbToolkit;
@@ -21,6 +21,11 @@ use limb\core\src\exception\lmbException;
 class lmbActionPerformingFilterTest extends TestCase
 {
     protected $toolkit;
+
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/../../.setup.php');
+    }
 
     protected function setUp(): void
     {

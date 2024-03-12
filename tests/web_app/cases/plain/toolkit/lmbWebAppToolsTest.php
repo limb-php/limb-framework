@@ -20,6 +20,8 @@ use limb\core\src\lmbObject;
 use limb\core\src\exception\lmbException;
 use limb\web_app\src\toolkit\lmbWebAppTools;
 
+require_once dirname(__FILE__) . '/../../init.inc.php';
+
 class lmbWebAppToolsTest extends TestCase
 {
     protected $toolkit;

@@ -14,7 +14,7 @@ use limb\fs\src\lmbFs;
 use limb\core\src\exception\lmbException;
 use tests\view\lmbMacroTestCase;
 
-require_once dirname(__FILE__) . '/.setup.php';
+require_once dirname(__FILE__) . '/../../init.inc.php';
 
 class lmbJsRequireOnceMacroTagTest extends lmbMacroTestCase
 {

@@ -19,6 +19,8 @@ use limb\toolkit\src\lmbMockToolsWrapper;
 use limb\web_app\src\toolkit\lmbProfileTools;
 use limb\toolkit\src\lmbToolkit;
 
+require_once dirname(__FILE__) . '/../../init.inc.php';
+
 class lmbProfileToolsTest extends TestCase
 {
 

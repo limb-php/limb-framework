@@ -12,6 +12,8 @@ namespace tests\web_app\cases\plain\util;
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\util\lmbMessageBox;
 
+require_once dirname(__FILE__) . '/../../init.inc.php';
+
 class lmbMessageBoxTest extends TestCase
 {
     function testGetUnitifiedList()

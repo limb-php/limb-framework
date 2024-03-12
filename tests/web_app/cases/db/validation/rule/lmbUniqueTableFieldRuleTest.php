@@ -9,7 +9,7 @@
 
 namespace tests\web_app\cases\db\validation\rule;
 
-require_once dirname(__FILE__) . '/../../.setup.php';
+require_once dirname(__FILE__) . '/../../../init.inc.php';
 
 use tests\validation\cases\rule\lmbValidationRuleTestCase;
 use limb\dbal\src\lmbSimpleDb;

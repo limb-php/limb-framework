@@ -20,7 +20,7 @@ use tests\web_app\cases\plain\src\Controllers\SecondTestingController;
 use tests\web_app\cases\plain\src\Controllers\TestingController;
 use tests\web_app\cases\plain\src\Controllers\TestingForwardController;
 
-require_once dirname(__FILE__) . '/../../.setup.php';
+require_once dirname(__FILE__) . '/../../init.inc.php';
 
 class lmbControllerTest extends TestCase
 {

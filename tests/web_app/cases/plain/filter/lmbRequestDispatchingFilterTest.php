@@ -9,7 +9,7 @@
 
 namespace tests\web_app\cases\plain\filter;
 
-require_once dirname(__FILE__) . '/../../.setup.php';
+require_once dirname(__FILE__) . '/../../init.inc.php';
 
 use limb\web_app\src\Controllers\NotFoundController;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
@@ -69,6 +69,11 @@ class lmbRequestDispatchingFilterTest extends TestCase
     protected $dispatcher;
     protected $filter;
     protected $chain;
+
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/../../.setup.php');
+    }
 
     function setUp(): void
     {

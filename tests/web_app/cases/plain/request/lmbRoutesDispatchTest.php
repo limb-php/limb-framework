@@ -9,7 +9,7 @@
 
 namespace tests\web_app\cases\plain\request;
 
-require_once dirname(__FILE__) . '/../../.setup.php';
+require_once dirname(__FILE__) . '/../../init.inc.php';
 
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutes;

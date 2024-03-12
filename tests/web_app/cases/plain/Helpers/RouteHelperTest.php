@@ -17,10 +17,14 @@ use tests\web_app\cases\plain\src\controller\TestingNoApiController;
 use tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
 use tests\web_app\cases\plain\src\Controllers\SecondTestingController;
 
-require_once dirname(__FILE__) . '/../../.setup.php';
+require_once dirname(__FILE__) . '/../../init.inc.php';
 
 class RouteHelperTest extends TestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/../../.setup.php');
+    }
 
     function setUp(): void
     {

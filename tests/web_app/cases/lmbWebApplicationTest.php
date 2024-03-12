@@ -16,7 +16,7 @@ use limb\session\src\lmbFakeSession;
 use limb\toolkit\src\lmbToolkit;
 use limb\web_app\src\lmbWebApplication;
 
-require_once (dirname(__FILE__) . '/.setup.php');
+require_once (dirname(__FILE__) . '/init.inc.php');
 
 class lmbWebApplicationTest extends lmbWebAppTestCase
 {

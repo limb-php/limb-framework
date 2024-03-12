@@ -15,7 +15,7 @@ use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
 use limb\view\src\lmbDummyView;
 
-require_once dirname(__FILE__) . '/../../.setup.php';
+require_once dirname(__FILE__) . '/../../init.inc.php';
 
 class FallbackToViewControllerTest extends TestCase
 {

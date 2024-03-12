@@ -9,7 +9,7 @@
 
 namespace tests\web_app\cases\db\fetcher;
 
-require_once dirname(__FILE__) . '/../../.setup.php';
+require_once dirname(__FILE__) . '/../../init.inc.php';
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\toolkit\src\lmbToolkit;

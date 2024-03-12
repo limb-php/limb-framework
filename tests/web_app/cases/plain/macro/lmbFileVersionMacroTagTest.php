@@ -14,7 +14,7 @@ use limb\core\src\lmbEnv;
 use limb\fs\src\lmbFs;
 use tests\view\lmbMacroTestCase;
 
-require_once dirname(__FILE__) . '/.setup.php';
+require_once dirname(__FILE__) . '/../../init.inc.php';
 
 class lmbFileVersionMacroTagTest extends lmbMacroTestCase
 {
