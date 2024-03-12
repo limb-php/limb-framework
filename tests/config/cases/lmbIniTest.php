@@ -13,6 +13,8 @@ use PHPUnit\Framework\TestCase;
 use limb\config\src\lmbIni;
 use limb\fs\src\lmbFs;
 
+require_once (dirname(__FILE__) . '/init.inc.php');
+
 define('INI_TEST_UNIQUE_CONSTANT', '*constant*');
 
 class lmbIniTest extends TestCase

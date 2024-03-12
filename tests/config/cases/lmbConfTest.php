@@ -16,7 +16,7 @@ use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\core\src\exception\lmbNoSuchPropertyException;
 use limb\core\src\exception\lmbInvalidArgumentException;
 
-require_once (dirname(__FILE__) . '/.setup.php');
+require_once (dirname(__FILE__) . '/init.inc.php');
 
 class lmbConfTest extends TestCase
 {
