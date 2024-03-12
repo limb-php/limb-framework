@@ -101,7 +101,7 @@ class lmbBulkInsertQuery extends lmbTemplateQuery
      */
     static function isSupportedByDbConnection($connection): bool
     {
-        $supported_types = array('mysql');
+        $supported_types = ['mysql'];
         return in_array($connection->getType(), $supported_types);
     }
 }

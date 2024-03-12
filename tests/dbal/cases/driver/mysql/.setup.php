@@ -2,8 +2,6 @@
 
 use limb\toolkit\src\lmbToolkit;
 
-require_once(dirname(__FILE__) . '/../../.setup.php');
-
 $dsn = 'mysql_dsn';
 
 try {
@@ -11,5 +9,5 @@ try {
 
     lmb_tests_init_db_dsn($dsn);
 } catch (Exception $e) {
-    return;
+
 }

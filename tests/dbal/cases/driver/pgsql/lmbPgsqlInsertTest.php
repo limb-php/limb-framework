@@ -13,8 +13,7 @@ use limb\dbal\src\drivers\pgsql\lmbPgsqlInsertStatement;
 use tests\dbal\cases\driver\DriverInsertTestBase;
 use limb\toolkit\src\lmbToolkit;
 
-require_once(dirname(__FILE__) . '/.setup.php');
-require_once(dirname(__FILE__) . '/fixture.inc.php');
+require_once(dirname(__FILE__) . '/init.inc.php');
 
 class lmbPgsqlInsertTest extends DriverInsertTestBase
 {

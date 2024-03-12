@@ -16,8 +16,7 @@ use limb\dbal\src\drivers\linter\lmbLinterStatement;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverConnectionTestBase;
 
-require_once(dirname(__FILE__) . '/.setup.php');
-require_once(dirname(__FILE__) . '/fixture.inc.php');
+require_once(dirname(__FILE__) . '/init.inc.php');
 
 class lmbLinterConnectionTest extends DriverConnectionTestBase
 {

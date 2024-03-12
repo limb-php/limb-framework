@@ -15,11 +15,14 @@ abstract class DriverMetaTestBase extends TestCase
 {
     protected $connection;
 
+    public static function tearDownAfterClass(): void
+    {
+        include (dirname(__FILE__) . '/../.teardown.php');
+    }
+
     function tearDown(): void
     {
         $this->connection->disconnect();
         unset($this->connection);
-
-        lmb_tests_teardown_db();
     }
 }

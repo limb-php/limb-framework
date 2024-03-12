@@ -12,8 +12,7 @@ namespace tests\dbal\cases\driver\linter;
 use tests\dbal\cases\driver\DriverDatabaseInfoTestBase;
 use limb\toolkit\src\lmbToolkit;
 
-require_once(dirname(__FILE__) . '/.setup.php');
-require_once(dirname(__FILE__) . '/fixture.inc.php');
+require_once(dirname(__FILE__) . '/init.inc.php');
 
 class lmbLinterDbInfoTest extends DriverDatabaseInfoTestBase
 {

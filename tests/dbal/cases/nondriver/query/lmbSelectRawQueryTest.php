@@ -9,7 +9,7 @@
 
 namespace tests\dbal\cases\nondriver\query;
 
-require_once(dirname(__FILE__) . '/.setup.php');
+require_once(dirname(__FILE__) . '/../init.inc.php');
 
 use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\toolkit\src\lmbToolkit;
@@ -24,6 +24,11 @@ use tests\dbal\cases\src\ConnectionTestStub;
 class lmbSelectRawQueryTest extends TestCase
 {
     protected $conn;
+
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/../.setup.php');
+    }
 
     function setUp(): void
     {

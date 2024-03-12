@@ -13,12 +13,15 @@ use limb\dbal\src\drivers\oci\lmbOciUpdateStatement;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverUpdateTestBase;
 
-require_once(dirname(__FILE__) . '/.setup.php');
-require_once(dirname(__FILE__) . '/fixture.inc.php');
+require_once(dirname(__FILE__) . '/init.inc.php');
 
 class lmbOciUpdateTest extends DriverUpdateTestBase
 {
-
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/.setup.php');
+    }
+    
     function setUp(): void
     {
         if( !function_exists('oci_execute') )

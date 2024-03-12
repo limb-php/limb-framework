@@ -9,7 +9,7 @@
 
 namespace tests\dbal\cases\nondriver\filter;
 
-require_once(dirname(__FILE__) . '/../.setup.php');
+require_once(dirname(__FILE__) . '/../init.inc.php');
 
 use limb\filter_chain\src\lmbChain;
 use PHPUnit\Framework\TestCase;
@@ -24,6 +24,11 @@ class lmbAutoDbTransactionFilterTest extends TestCase
 {
     var $toolkit;
     var $db;
+
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/../.setup.php');
+    }
 
     function setUp(): void
     {

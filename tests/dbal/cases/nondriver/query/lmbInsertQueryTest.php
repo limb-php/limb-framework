@@ -9,7 +9,7 @@
 
 namespace tests\dbal\cases\nondriver\query;
 
-require_once(dirname(__FILE__) . '/.setup.php');
+require_once(dirname(__FILE__) . '/../init.inc.php');
 
 use limb\dbal\src\query\lmbInsertQuery;
 

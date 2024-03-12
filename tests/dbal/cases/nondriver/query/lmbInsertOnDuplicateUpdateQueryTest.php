@@ -9,21 +9,20 @@
 
 namespace tests\dbal\cases\nondriver\query;
 
-require_once(dirname(__FILE__) . '/.setup.php');
+require_once(dirname(__FILE__) . '/../init.inc.php');
 
 use limb\dbal\src\query\lmbInsertOnDuplicateUpdateQuery;
 use limb\toolkit\src\lmbToolkit;
 
 class lmbInsertOnDuplicateUpdateQueryTest extends lmbQueryBaseTestCase
 {
-
     function setUp(): void
     {
         parent::setUp();
 
         $current_connection = lmbToolkit::instance()->getDefaultDbConnection();
         if (!lmbInsertOnDuplicateUpdateQuery::isSupportedByDbConnection($current_connection))
-            $this->markTestSkipped('Not extension not found. Test skipped.');
+            $this->markTestSkipped('Insert On Duplicate Update not supported. Test skipped.');
     }
 
     function testInsert()

@@ -9,7 +9,7 @@
 
 namespace tests\dbal\cases\nondriver\criteria;
 
-require_once(dirname(__FILE__) . '/../.setup.php');
+require_once(dirname(__FILE__) . '/../init.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
@@ -19,6 +19,11 @@ use limb\dbal\src\exception\lmbDbException;
 
 class lmbSQLCriteriaTest extends TestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/../.setup.php');
+    }
+
     function testBuildCriteriaFromString()
     {
         $c = new lmbSQLCriteria('a=1');

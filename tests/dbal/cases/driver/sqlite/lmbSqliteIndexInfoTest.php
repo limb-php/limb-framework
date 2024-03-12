@@ -12,8 +12,7 @@ namespace tests\dbal\cases\driver\sqlite;
 use limb\toolkit\src\lmbToolkit;
 use tests\dbal\cases\driver\DriverIndexInfoTestBase;
 
-require_once(dirname(__FILE__) . '/.setup.php');
-require_once(dirname(__FILE__) . '/fixture.inc.php');
+require_once(dirname(__FILE__) . '/init.inc.php');
 
 class lmbSqliteIndexInfoTest extends DriverIndexInfoTestBase
 {
@@ -23,11 +22,16 @@ class lmbSqliteIndexInfoTest extends DriverIndexInfoTestBase
         'common' => 'common'
     );
 
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/.setup.php');
+    }
+
     function setUp(): void
     {
         $this->connection = lmbToolkit::instance()->getDefaultDbConnection();
         if($this->connection->getType() != 'sqlite')
-            $this->markAsSkipped("Wrong connection to SQLITE");
+            $this->markTestSkipped("Wrong connection to SQLITE");
 
         DriverSqliteSetup($this->connection);
 

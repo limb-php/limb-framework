@@ -2,8 +2,6 @@
 
 use limb\toolkit\src\lmbToolkit;
 
-require_once(dirname(__FILE__) . '/../../.setup.php');
-
 try {
     lmbToolkit::instance()->setDefaultDbDSN(lmbToolkit::instance()->getDbDSNByName('oci_dsn'));
 
