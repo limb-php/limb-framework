@@ -9,13 +9,18 @@
 
 namespace tests\dbal\cases\nondriver\query;
 
-require_once(dirname(__FILE__) . '/../init.inc.php');
+require_once(dirname(__FILE__) . '/../../init.inc.php');
 
 use limb\dbal\src\query\lmbInsertOnDuplicateUpdateQuery;
 use limb\toolkit\src\lmbToolkit;
 
 class lmbInsertOnDuplicateUpdateQueryTest extends lmbQueryBaseTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/../.setup.php');
+    }
+
     function setUp(): void
     {
         parent::setUp();

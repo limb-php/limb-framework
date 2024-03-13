@@ -17,6 +17,8 @@ use tests\active_record\cases\src\MemberForTest;
 use tests\active_record\cases\src\NameForAggregateTest;
 use tests\active_record\cases\src\PhotoForTest;
 
+require_once (dirname(__FILE__) . '/init.inc.php');
+
 class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 {
     protected $tables_to_cleanup = array('member_for_test', 'photo_for_test');
@@ -40,7 +42,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
         $member->setName($name);
         $member->save();
 
-        $member2 = lmbActiveRecord:: findById(MemberForTest::class, $member->getId());
+        $member2 = lmbActiveRecord::findById(MemberForTest::class, $member->getId());
         $this->assertEquals($member2->getName()->getFirst(), $first);
         $this->assertEquals($member2->getName()->getLast(), $last);
     }
@@ -69,7 +71,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
         $member->setName($name);
         $member->save();
 
-        $member2 = lmbActiveRecord:: findById(MemberForTest::class, $member->getId());
+        $member2 = lmbActiveRecord::findById(MemberForTest::class, $member->getId());
         $member2->getName();
         $this->assertEquals($member2->saved_full_name, $name->getFull());
     }
@@ -86,7 +88,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
         $name->setLast($other_last = 'other_last_name');
         $member->save();
 
-        $member2 = lmbActiveRecord:: findById(MemberForTest::class, $member->getId());
+        $member2 = lmbActiveRecord::findById(MemberForTest::class, $member->getId());
         $this->assertEquals($member2->getName()->getLast(), $other_last);
     }
 

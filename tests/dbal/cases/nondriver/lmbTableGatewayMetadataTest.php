@@ -9,7 +9,7 @@
 
 namespace tests\dbal\cases\nondriver;
 
-require_once(dirname(__FILE__) . '/.setup.php');
+require_once(dirname(__FILE__) . '/../init.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\lmbTableGateway;
@@ -17,7 +17,12 @@ use limb\toolkit\src\lmbToolkit;
 
 class lmbTableGatewayMetadataTest extends TestCase
 {
-    var $conn = null;
+    protected $conn = null;
+
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/.setup.php');
+    }
 
     function setUp(): void
     {

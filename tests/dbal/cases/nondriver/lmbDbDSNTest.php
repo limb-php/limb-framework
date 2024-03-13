@@ -9,7 +9,7 @@
 
 namespace tests\dbal\cases\nondriver;
 
-require_once(dirname(__FILE__) . '/.setup.php');
+require_once(dirname(__FILE__) . '/../init.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\lmbDbDSN;
@@ -17,6 +17,11 @@ use limb\core\src\exception\lmbException;
 
 class lmbDbDSNTest extends TestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/.setup.php');
+    }
+
     function testMalformedStringThrowsException()
     {
         try {

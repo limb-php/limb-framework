@@ -9,7 +9,7 @@
 
 namespace tests\dbal\cases\nondriver\query;
 
-require_once(dirname(__FILE__) . '/../init.inc.php');
+require_once(dirname(__FILE__) . '/../../init.inc.php');
 
 use limb\dbal\src\drivers\lmbDbStatementInterface;
 use limb\toolkit\src\lmbToolkit;

@@ -9,13 +9,18 @@
 
 namespace tests\dbal\cases\nondriver\query;
 
-require_once(dirname(__FILE__) . '/../init.inc.php');
+require_once(dirname(__FILE__) . '/../../init.inc.php');
 
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\query\lmbDeleteQuery;
 
 class lmbDeleteQueryTest extends lmbQueryBaseTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/../.setup.php');
+    }
+
     function testDelete()
     {
         $startId = $this->db->insert('test_db_table', array('description' => 'text1'));

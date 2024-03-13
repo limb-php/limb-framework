@@ -9,12 +9,17 @@
 
 namespace tests\dbal\cases\nondriver\query;
 
-require_once(dirname(__FILE__) . '/../init.inc.php');
+require_once(dirname(__FILE__) . '/../../init.inc.php');
 
 use limb\dbal\src\query\lmbInsertQuery;
 
 class lmbInsertQueryTest extends lmbQueryBaseTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/../.setup.php');
+    }
+
     function testInsert()
     {
         $startId = $this->db->insert('test_db_table', array('description' => 'text1'));

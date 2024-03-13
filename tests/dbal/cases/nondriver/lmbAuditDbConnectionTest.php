@@ -9,7 +9,7 @@
 
 namespace tests\dbal\cases\nondriver;
 
-require_once(dirname(__FILE__) . '/.setup.php');
+require_once(dirname(__FILE__) . '/../init.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\dbal\src\drivers\lmbAuditDbConnection;
@@ -20,6 +20,11 @@ class lmbAuditDbConnectionTest extends TestCase
 {
     protected $wrapped;
     protected $connection;
+
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/.setup.php');
+    }
 
     function setUp(): void
     {

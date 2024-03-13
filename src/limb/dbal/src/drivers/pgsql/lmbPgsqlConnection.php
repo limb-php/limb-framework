@@ -84,7 +84,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         }
 
         if (($conn === false) || (pg_connection_status($conn) !== PGSQL_CONNECTION_OK)) {
-            $this->_raiseError('Could not connect to host "' . $this->config['host'] . '" and database "' . $this->config['database'] . '"');
+            $this->_raiseError('Could not connect to host "' . $this->config['host'] . '" and database "' . $this->config['database'] . '" on port ' . $this->config['port']);
         }
 
         if (isset($this->config['charset']) && ($charset = $this->config['charset'])) {

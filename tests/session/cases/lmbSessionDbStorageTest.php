@@ -9,7 +9,7 @@
 
 namespace tests\session\cases;
 
-require_once(dirname(__FILE__) . '/.setup.php');
+require_once(dirname(__FILE__) . '/init.inc.php');
 
 use limb\dbal\src\lmbTableGateway;
 use PHPUnit\Framework\TestCase;
@@ -21,6 +21,11 @@ class lmbSessionDbStorageTest extends TestCase
     protected $db;
     protected $conn;
     protected $driver;
+
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/.setup.php');
+    }
 
     function setUp(): void
     {

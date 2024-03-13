@@ -13,7 +13,7 @@ use limb\dbal\src\toolkit\lmbDbTools;
 use limb\dbal\src\lmbDbDSN;
 use limb\core\src\exception\lmbException;
 
-require_once(dirname(__FILE__) . '/init.inc.php');
+require_once(dirname(__FILE__) . '/../init.inc.php');
 
 class ExceptionalDbConfStub extends lmbConf
 {
@@ -30,9 +30,14 @@ class ExceptionalDbConfStub extends lmbConf
 
 class lmbDbToolsTest extends TestCase
 {
-    var $tools;
-    var $config;
-    var $conn;
+    protected $tools;
+    protected $config;
+    protected $conn;
+
+    public static function setUpBeforeClass(): void
+    {
+        include (dirname(__FILE__) . '/.setup.php');
+    }
 
     function setUp(): void
     {

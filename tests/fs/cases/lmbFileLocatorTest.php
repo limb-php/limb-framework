@@ -9,7 +9,7 @@
 
 namespace tests\fs\cases;
 
-require_once(dirname(__FILE__) . '/.setup.php');
+require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\fs\src\lmbFileLocationsInterface;
@@ -61,8 +61,8 @@ class lmbFileLocatorTest extends TestCase
 
         $mock->method('getLocations');
 
-        $this->assertEquals(lmbFs:: normalizePath($locator->locate(dirname(__FILE__) . '/design/_en/test1.html')),
-            lmbFs:: normalizePath(dirname(__FILE__) . '/design/_en/test1.html'));
+        $this->assertEquals(lmbFs::normalizePath($locator->locate(dirname(__FILE__) . '/design/_en/test1.html')),
+            lmbFs::normalizePath(dirname(__FILE__) . '/design/_en/test1.html'));
     }
 
     function testLocateAll()
@@ -79,10 +79,10 @@ class lmbFileLocatorTest extends TestCase
 
         $all_files = $locator->locateAll('*.html');
         sort($all_files);
-        $this->assertEquals(lmbFs:: normalizePath($all_files[0]),
-            lmbFs:: normalizePath(dirname(__FILE__) . '/design/test1.html'));
+        $this->assertEquals(lmbFs::normalizePath($all_files[0]),
+            lmbFs::normalizePath(dirname(__FILE__) . '/design/test1.html'));
 
-        $this->assertEquals(lmbFs:: normalizePath($all_files[1]),
-            lmbFs:: normalizePath(dirname(__FILE__) . '/design/_en/test1.html'));
+        $this->assertEquals(lmbFs::normalizePath($all_files[1]),
+            lmbFs::normalizePath(dirname(__FILE__) . '/design/_en/test1.html'));
     }
 }

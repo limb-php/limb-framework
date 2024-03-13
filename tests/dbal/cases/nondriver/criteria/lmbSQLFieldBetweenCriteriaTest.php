@@ -9,7 +9,7 @@
 
 namespace tests\dbal\cases\nondriver\criteria;
 
-require_once(dirname(__FILE__) . '/../init.inc.php');
+require_once(dirname(__FILE__) . '/../../init.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use tests\dbal\cases\src\ConnectionTestStub;

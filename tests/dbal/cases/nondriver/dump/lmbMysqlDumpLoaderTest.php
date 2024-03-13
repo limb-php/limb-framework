@@ -13,6 +13,8 @@ use limb\dbal\src\drivers\mysql\lmbMysqlConnection;
 use limb\dbal\src\dump\lmbMysqlDumpLoader;
 use limb\toolkit\src\lmbToolkit;
 
+require_once(dirname(__FILE__) . '/../../init.inc.php');
+
 class lmbMysqlDumpLoaderTest extends lmbSQLDumpLoaderTestCase
 {
     function setUp(): void

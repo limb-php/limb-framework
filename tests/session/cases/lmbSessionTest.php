@@ -9,6 +9,8 @@
 
 namespace tests\session\cases;
 
+require_once(dirname(__FILE__) . '/init.inc.php');
+
 use PHPUnit\Framework\TestCase;
 use limb\session\src\lmbSession;
 use limb\core\src\lmbSerializable;
