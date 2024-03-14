@@ -487,7 +487,7 @@ class lmbFs
             }
             closedir($handle);
         }
-        sort($items);
+
         return $items;
     }
 
