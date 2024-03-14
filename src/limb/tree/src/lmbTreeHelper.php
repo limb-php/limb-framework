@@ -57,7 +57,7 @@ class lmbTreeHelper
         if (!($count = sizeof($children)))
             return;
 
-        $children = lmbArrayHelper::sortArray($children, $sort_params);
+        lmbArrayHelper::sortArray($children, $sort_params);
 
         if (!$sorted_tree_array) {
             $sorted_tree_array = $children;

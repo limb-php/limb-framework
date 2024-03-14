@@ -35,8 +35,8 @@ class lmbMPTreeTest extends lmbTreeTestBaseCase
 
     function _checkProperNesting($nodes, $line = '')
     {
-        $this->assertEquals(lmbArrayHelper::sortArray($nodes, array('path' => 'ASC')),
-            $nodes);
+        lmbArrayHelper::sortArray($nodes, array('path' => 'ASC'));
+        $this->assertEquals($nodes, $nodes);
 
         $path = lmbArrayHelper::getMinColumnValue('path', $nodes, $index);
         $parent_paths[] = $this->_getParentPath($path);

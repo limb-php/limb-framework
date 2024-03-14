@@ -163,7 +163,7 @@ class lmbArrayHelper
     }
 
     //e.g, $sort_params = array('field1' => 'DESC', 'field2' => 'ASC')
-    static function & sortArray($array, $sort_params, $preserve_keys = true)
+    static function sortArray(&$array, $sort_params, $preserve_keys = true): bool
     {
         $array_mod = array();
         foreach ($array as $key => $value)
@@ -199,7 +199,7 @@ class lmbArrayHelper
                 $array[] = $value;
         }
 
-        return $array;
+        return true;
     }
 
     static function getProperty($item, $property_path)

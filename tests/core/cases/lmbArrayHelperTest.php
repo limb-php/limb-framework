@@ -90,7 +90,7 @@ class lmbArrayHelperTest extends TestCase
 
     function testArrayMapRecursive()
     {
-        $arr = array(1, 'apple' => 2, 'basket' => array('chips' => 3, 'nachoes' => 4));
+        $arr = [1, 'apple' => 2, 'basket' => array('chips' => 3, 'nachoes' => 4)];
 
         lmbArrayHelper::arrayMapRecursive(function ($v) {
             return $v + 1;
@@ -101,12 +101,22 @@ class lmbArrayHelperTest extends TestCase
 
     function testSortArray()
     {
-        $arr = array(array('a' => 1, 'b' => 2), array('a' => 2, 'b' => 1), array('a' => 2, 'b' => 0));
+        $arr = [
+            ['a' => 1, 'b' => 2],
+            ['a' => 2, 'b' => 1],
+            ['a' => 2, 'b' => 0]
+        ];
 
-        $res = lmbArrayHelper::sortArray($arr, array('a' => 'DESC', 'b' => 'ASC'));
-        $this->assertEquals(array(2 => array('a' => 2, 'b' => 0), 1 => array('a' => 2, 'b' => 1), 0 => array('a' => 1, 'b' => 2)), $res);
+        lmbArrayHelper::sortArray($arr, ['a' => 'DESC', 'b' => 'ASC']);
+        $this->assertEquals([2 => ['a' => 2, 'b' => 0], 1 => ['a' => 2, 'b' => 1], 0 => ['a' => 1, 'b' => 2]], $arr);
 
-        $res = lmbArrayHelper::sortArray($arr, array('a' => 'DESC', 'b' => 'ASC'), false);
-        $this->assertEquals(array(array('a' => 2, 'b' => 0), array('a' => 2, 'b' => 1), array('a' => 1, 'b' => 2)), $res);
+        $arr = [
+            ['a' => 1, 'b' => 2],
+            ['a' => 2, 'b' => 1],
+            ['a' => 2, 'b' => 0]
+        ];
+
+        lmbArrayHelper::sortArray($arr, ['a' => 'DESC', 'b' => 'ASC'], false);
+        $this->assertEquals([['a' => 2, 'b' => 0], ['a' => 2, 'b' => 1], ['a' => 1, 'b' => 2]], $arr);
     }
 }

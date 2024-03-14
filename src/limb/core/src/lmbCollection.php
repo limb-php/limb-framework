@@ -75,7 +75,7 @@ class lmbCollection implements lmbCollectionInterface
     function sort($params)
     {
         if (count($this->dataset)) {
-            $this->dataset = lmbArrayHelper::sortArray($this->dataset, $params, false);
+            lmbArrayHelper::sortArray($this->dataset, $params, false);
             $this->iteratedDataset = null;
         }
         return $this;
