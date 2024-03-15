@@ -17,6 +17,7 @@ use limb\core\src\exception\lmbException;
 use limb\macro\src\lmbMacroTemplateLocator;
 use limb\macro\src\lmbMacroConfig;
 use limb\view\src\lmbMacroView;
+use limb\view\src\lmbPHPView;
 use limb\view\src\lmbTwigView;
 
 /**
@@ -29,7 +30,8 @@ class lmbViewTools extends lmbAbstractTools
 {
     protected $view_types = [
         '.phtml' => lmbMacroView::class,
-        '.twig' => lmbTwigView::class
+        '.twig' => lmbTwigView::class,
+        '.php' => lmbPHPView::class
     ];
     protected $macro_config;
     protected $macro_locator;

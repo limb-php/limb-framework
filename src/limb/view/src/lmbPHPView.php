@@ -22,10 +22,12 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbPHPView extends lmbView
 {
+    const EXTENSION = '.php';
+
     static function locateTemplateByAlias($alias)
     {
         if (!lmbFs::isPathAbsolute($alias))
-            return lmbToolkit::instance()->tryFindFileByAlias($alias . '.php', ['template', lmbEnv::get('LIMB_VAR_DIR')], 'php');
+            return lmbToolkit::instance()->tryFindFileByAlias($alias, ['template', lmbEnv::get('LIMB_VAR_DIR')], 'php');
         elseif (file_exists($alias))
             return $alias;
 
