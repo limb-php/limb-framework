@@ -22,6 +22,7 @@ use limb\view\src\lmbView;
  *
  * @package web_app
  * @version $Id: lmbActionPerformingFilter.php 7486 2009-01-26 19:13:20Z
+ * @deprecated
  */
 class lmbActionPerformingFilter implements lmbInterceptingFilterInterface
 {

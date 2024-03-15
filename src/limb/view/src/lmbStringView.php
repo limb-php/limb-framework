@@ -26,4 +26,9 @@ class lmbStringView extends lmbView
     {
         return $this->getVariables();
     }
+
+    static function locateTemplateByAlias($alias)
+    {
+        // TODO: Implement locateTemplateByAlias() method.
+    }
 }

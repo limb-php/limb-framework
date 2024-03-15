@@ -60,6 +60,11 @@ class lmbViewTools extends lmbAbstractTools
         return array_keys($this->view_types);
     }
 
+    /**
+     * @param string $alias path to template
+     * @param class-string $view_class
+     * @throws lmbException
+     */
     function locateTemplateByAlias($alias, $view_class = null)
     {
         if (!$view_class)

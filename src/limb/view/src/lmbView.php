@@ -15,7 +15,7 @@ namespace limb\view\src;
  * @package view
  * @version $Id$
  */
-abstract class lmbView
+abstract class lmbView implements lmbViewInterface
 {
     protected $template_name;
     protected $variables = array();

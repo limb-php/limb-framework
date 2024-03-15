@@ -90,4 +90,9 @@ class lmbJsonView extends lmbView
 
         return $data;
     }
+
+    static function locateTemplateByAlias($alias)
+    {
+        // TODO: Implement locateTemplateByAlias() method.
+    }
 }
