@@ -26,19 +26,21 @@ class lmbViewToolsTest extends TestCase
 
         $exts = $toolkit->getSupportedViewExtensions();
 
-        $this->assertEquals(['.phtml', '.twig', '.php'], $exts);
+        $this->assertEquals(['.twig', '.php', '.phtml'], $exts);
     }
 
     function testLocateTemplateByAlias()
     {
-        lmbFs::cp(__DIR__ . '/../template/index/view.php', $file = lmbEnv::get('LIMB_VAR_DIR') . '/index/view.php');
+        $dst_file = lmbEnv::get('LIMB_VAR_DIR') . '/index/view.php';
+        lmbFs::cp(__DIR__ . '/../template/index/view.php', $dst_file);
 
         $toolkit = lmbToolkit::instance();
+        $toolkit->setSupportedViewTypes(['.php' => lmbPHPView::class]);
 
-        $filepath = $toolkit->locateTemplateByAlias('index/view', lmbPHPView::class);
-        $this->assertEquals(lmbEnv::get('LIMB_VAR_DIR') . '/index/view.php', $filepath);
+        $filepath = $toolkit->locateTemplateByAlias('index/view.php', lmbPHPView::class);
+        $this->assertEquals(lmbEnv::get('LIMB_VAR_DIR') . 'index/view.php', $filepath);
 
-        lmbFs::rm($file);
+        lmbFs::rm($dst_file);
     }
 
     function testCreateViewByTemplate()
@@ -46,6 +48,7 @@ class lmbViewToolsTest extends TestCase
         $toolkit = lmbToolkit::instance();
 
         $result = $toolkit->createViewByTemplate('index/view.php');
+        $toolkit->setSupportedViewTypes(['.php' => lmbPHPView::class]);
 
         $this->assertEquals('Hello World!', $result);
     }

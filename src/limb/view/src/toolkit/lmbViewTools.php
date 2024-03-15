@@ -29,9 +29,9 @@ use limb\view\src\lmbTwigView;
 class lmbViewTools extends lmbAbstractTools
 {
     protected $view_types = [
-        '.phtml' => lmbMacroView::class,
         '.twig' => lmbTwigView::class,
-        '.php' => lmbPHPView::class
+        '.php' => lmbPHPView::class,
+        '.phtml' => lmbMacroView::class,
     ];
     protected $macro_config;
     protected $macro_locator;

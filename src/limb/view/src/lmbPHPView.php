@@ -24,6 +24,16 @@ class lmbPHPView extends lmbView
 {
     const EXTENSION = '.php';
 
+    function __construct($template_name, $vars = array())
+    {
+        $pos = strrpos($template_name, self::EXTENSION);
+        if ($pos === false) {
+            $template_name .= self::EXTENSION;
+        }
+
+        parent::__construct($template_name, $vars);
+    }
+
     static function locateTemplateByAlias($alias)
     {
         if (!lmbFs::isPathAbsolute($alias))
