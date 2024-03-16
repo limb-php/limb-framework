@@ -31,6 +31,8 @@ class lmbJsonHttpResponse extends lmbHttpResponse
 
     public function __construct($content = [], $status = 200, $headers = [])
     {
+        $content = $this->_toJson($content);
+
         parent::__construct($content, $status, $headers);
 
         $this->addHeader('Content-type', 'application/json');
@@ -41,18 +43,24 @@ class lmbJsonHttpResponse extends lmbHttpResponse
         $this->use_emulation = $value;
     }
 
-    public function write($string)
+    public function withBody($body): self
+    {
+        $body = $this->_toJson($body);
+        return parent::withBody($body);
+    }
+
+    protected function _toJson($content)
     {
         if (!function_exists('json_encode') || $this->use_emulation)
-            $this->response_string = $this->_encodeEmulation($string);
-        else
-            $this->response_string = json_encode($string, $this->encodingOptions);
+            return $this->_encodeEmulation($content);
+
+        $json_string = json_encode($content, $this->encodingOptions);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new lmbException(json_last_error_msg());
         }
 
-        return $this;
+        return $json_string;
     }
 
     protected function _encodeEmulation($values)

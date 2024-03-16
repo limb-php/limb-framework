@@ -20,8 +20,8 @@ use Psr\Http\Message\StreamInterface;
 class lmbHttpStream implements StreamInterface
 {
     private const READ_WRITE_MODE = [
-        'read' => ['r', 'r+', 'w+', 'x+', 'c+', 'a+'],
-        'write' => ['r+', 'w', 'w+', 'x', 'x+', 'c', 'c+', 'a', 'a+']
+        'read' => '/r|a\+|ab\+|w\+|wb\+|w\+b|x\+|xb\+|c\+|cb\+/',
+        'write' => '/a|w|r\+|rb\+|rw|x|c/'
     ];
 
     /** @var $stream resource|null */
@@ -52,7 +52,7 @@ class lmbHttpStream implements StreamInterface
         }
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         try {
             if ($this->isSeekable()) {
@@ -96,7 +96,7 @@ class lmbHttpStream implements StreamInterface
         return $this->size = $stat['size'] ?? null;
     }
 
-    public function tell()
+    public function tell(): int
     {
         if ($this->stream === null) {
             throw new \RuntimeException('Unable to get current position');
@@ -135,12 +135,12 @@ class lmbHttpStream implements StreamInterface
         }
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->seek(0);
     }
 
-    public function isWritable()
+    public function isWritable(): bool
     {
         if (!is_resource($this->stream)) {
             return false;
@@ -148,7 +148,9 @@ class lmbHttpStream implements StreamInterface
 
         if ($this->writable === null) {
             $mode = $this->getMetadata('mode');
-            $this->writable = in_array($mode, self::READ_WRITE_MODE['write']);
+            //$this->writable = in_array($mode, self::READ_WRITE_MODE['write']);
+
+            $this->writable = (bool)preg_match(self::READ_WRITE_MODE['write'], $mode);
         }
 
         return $this->writable;
@@ -168,7 +170,7 @@ class lmbHttpStream implements StreamInterface
         return $result;
     }
 
-    public function isReadable()
+    public function isReadable(): bool
     {
         if (!is_resource($this->stream)) {
             return false;
@@ -176,13 +178,15 @@ class lmbHttpStream implements StreamInterface
 
         if ($this->readable === null) {
             $mode = $this->getMetadata('mode');
-            $this->readable = in_array($mode, self::READ_WRITE_MODE['read']);
+            //$this->readable = in_array($mode, self::READ_WRITE_MODE['read']);
+
+            $this->readable = (bool)preg_match(self::READ_WRITE_MODE['read'], $mode);
         }
 
         return $this->readable;
     }
 
-    public function read($length)
+    public function read($length): string
     {
         if (!$this->isReadable()) {
             throw new \RuntimeException('Stream is not readable');

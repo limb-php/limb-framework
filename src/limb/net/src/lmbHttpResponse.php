@@ -9,7 +9,7 @@
 
 namespace limb\net\src;
 
-use limb\core\src\exception\lmbException;
+use \Psr\Http\Message\StreamInterface;
 
 /**
  * class lmbHttpResponse.
@@ -159,7 +159,7 @@ class lmbHttpResponse
         511 => 'Network Authentication Required',                             // RFC6585
     ];
 
-    protected $response_string = '';
+    //protected $response_string = '';
     protected $response_file_path = '';
     protected $headers = array();
     protected $cookies = array();
@@ -167,6 +167,8 @@ class lmbHttpResponse
     protected $redirected_path = false;
     protected $redirect_strategy = null;
     protected $transaction_started = false;
+    /** @var StreamInterface|null */
+    private $stream;
 
     /**
      * @var string
@@ -187,7 +189,7 @@ class lmbHttpResponse
     {
         $this->headers = $headers;
 
-        $this->version = '1.0';
+        $this->version = '1.1';
         $this->statusCode = $status;
         $this->write($content);
     }
@@ -241,7 +243,8 @@ class lmbHttpResponse
     /* */
     function reset()
     {
-        $this->response_string = '';
+        //$this->response_string = '';
+        $this->stream = null;
         $this->response_file_path = '';
         $this->headers = array();
         $this->is_redirected = false;
@@ -269,7 +272,7 @@ class lmbHttpResponse
         return $this->statusCode;
     }
 
-    function getStatusCode()
+    function getStatusCode(): int
     {
         return $this->getStatus();
     }
@@ -310,9 +313,10 @@ class lmbHttpResponse
         return $this->getContentType();
     }
 
+    /** @deprecated */
     function getResponseString()
     {
-        return $this->response_string;
+        //return $this->response_string;
     }
 
     function isStarted()
@@ -327,7 +331,8 @@ class lmbHttpResponse
 
         $res = (
             !$this->is_redirected &&
-            empty($this->response_string) &&
+            //empty($this->response_string) &&
+            !$this->stream->getSize() &&
             empty($this->response_file_path) &&
             ($status != 304 && $status != 412));//???
 
@@ -412,14 +417,17 @@ class lmbHttpResponse
 
     public function write($string)
     {
-        $this->response_string = $string;
+        //$this->response_string = $string;
+        $this->getBody()->write($string);
 
         return $this;
     }
 
+    /** @deprecated */
     public function append($string)
     {
-        $this->response_string .= $string;
+        //$this->response_string .= $string;
+        $this->getBody()->write($this->getBody()->getContents() . $string);
 
         return $this;
     }
@@ -487,8 +495,10 @@ class lmbHttpResponse
     {
         if (!empty($this->response_file_path))
             $this->_sendFile($this->response_file_path);
-        else if (!empty($this->response_string))
-            echo $this->response_string;
+        //else if (!empty($this->response_string))
+            //echo $this->response_string;
+        else if ($this->stream->getSize())
+            echo $this->stream;
 
         return $this;
     }
@@ -498,12 +508,12 @@ class lmbHttpResponse
         readfile($file_path);
     }
 
-    public function getProtocolVersion()
+    public function getProtocolVersion(): string
     {
         return $this->version;
     }
 
-    public function withProtocolVersion($version)
+    public function withProtocolVersion($version): self
     {
         if ($this->version === $version) {
             return $this;
@@ -514,7 +524,7 @@ class lmbHttpResponse
         return $new;
     }
 
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headers;
     }
@@ -524,19 +534,19 @@ class lmbHttpResponse
         return isset($this->headers[strtolower($name)]);
     }
 
-    public function getHeader($name)
+    public function getHeader($name): array
     {
         $name = strtolower($name);
 
-        return $this->headers[$name] ?? null;
+        return $this->headers[$name] ?? [];
     }
 
-    public function getHeaderLine($name)
+    public function getHeaderLine($name): string
     {
-        // TODO: Implement getHeaderLine() method.
+        return implode(': ', $this->getHeader($name));
     }
 
-    public function withHeader($name, $value)
+    public function withHeader($name, $value): self
     {
         $normalized = strtolower($name);
 
@@ -546,12 +556,20 @@ class lmbHttpResponse
         return $new;
     }
 
-    public function withAddedHeader($name, $value)
+    public function withAddedHeader($name, $value): self
     {
-        // TODO: Implement withAddedHeader() method.
+        $normalized = strtolower($name);
+
+        $new = clone($this);
+        if(!isset($new->headers[$normalized]))
+            $new->headers[$normalized] = [];
+
+        $new->headers[$normalized][] = $value;
+
+        return $new;
     }
 
-    public function withoutHeader($name)
+    public function withoutHeader($name): self
     {
         $normalized = strtolower($name);
 
@@ -561,24 +579,29 @@ class lmbHttpResponse
         return $new;
     }
 
-    public function getBody()
+    public function getBody(): StreamInterface
     {
-        return $this->getResponseString();
+        if (!$this->stream) {
+            $this->stream = new lmbHttpStream();
+        }
+
+        return $this->stream;
     }
 
-    public function withBody($body)
+    public function withBody($body): self
     {
-        if ($body === $this->response_string) {
+        //if ($body === $this->response_string) {
+        if ($body === $this->stream) {
             return $this;
         }
 
         $new = clone($this);
-        $new->write($body);
+        $new->stream = new lmbHttpStream($body);
 
         return $new;
     }
 
-    public function withStatus($code, $reasonPhrase = '')
+    public function withStatus($code, $reasonPhrase = ''): self
     {
         if ($code === $this->statusCode) {
             return $this;
@@ -591,7 +614,7 @@ class lmbHttpResponse
         return $new;
     }
 
-    public function getReasonPhrase()
+    public function getReasonPhrase(): string
     {
         return $this->statusText;
     }

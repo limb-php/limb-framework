@@ -272,9 +272,10 @@ class lmbHttpResponseTest extends TestCase
 
     function testWithBody()
     {
-        $this->response = $this->response->withBody($content = 'body content');
+        $this->response = $this->response->withBody($content1 = 'body content !!!');
+        $this->response = $this->response->withBody($content2 = 'body content');
 
-        $this->assertEquals($content, $this->response->getBody());
+        $this->assertEquals($content2, $this->response->getBody());
     }
 
     function testWithJsonBody()
