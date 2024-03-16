@@ -189,7 +189,7 @@ class lmbHttpResponse
     {
         $this->headers = $headers;
 
-        $this->version = '1.1';
+        $this->version = '1.0';
         $this->statusCode = $status;
         $this->write($content);
     }
