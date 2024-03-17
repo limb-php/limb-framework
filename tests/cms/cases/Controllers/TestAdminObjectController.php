@@ -11,28 +11,28 @@ class TestAdminObjectController extends lmbAdminObjectController
 
     protected $result = '';
 
-    function getResult()
+    function getResult($request)
     {
         return $this->result;
     }
 
-    function doCreate()
+    function doCreate($request)
     {
-        parent::doCreate();
+        parent::doCreate($request);
 
         return $this->result;
     }
 
-    function doEdit()
+    function doEdit($request)
     {
-        parent::doEdit();
+        parent::doEdit($request);
 
         return $this->result;
     }
 
-    function doDelete()
+    function doDelete($request)
     {
-        parent::doDelete();
+        parent::doDelete($request);
 
         return $this->result;
     }

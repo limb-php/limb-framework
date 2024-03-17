@@ -34,9 +34,9 @@ abstract class lmbObjectController extends LmbController
     /**
      * @return lmbActiveRecord
      */
-    protected function _getObjectByRequestedId($throw_exception = false)
+    protected function _getObjectByRequestedId($request, $throw_exception = false)
     {
-        if (!$id = $this->request->getInteger('id'))
+        if (!$id = $request->getInteger('id'))
             return false;
 
         if (!$item = lmbActiveRecord::findById($this->_object_class_name, $id, $throw_exception))
@@ -45,14 +45,14 @@ abstract class lmbObjectController extends LmbController
         return $item;
     }
 
-    function doDisplay()
+    function doDisplay($request)
     {
         $this->items = lmbActiveRecord::find($this->_object_class_name);
     }
 
-    function doItem()
+    function doItem($request)
     {
-        if (!$this->item = $this->_getObjectByRequestedId())
+        if (!$this->item = $this->_getObjectByRequestedId($request))
             return $this->forwardTo404();
     }
 }

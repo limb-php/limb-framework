@@ -193,7 +193,7 @@ class lmbControllerTest extends TestCase
         $controller = new TestingController();
         $controller->setCurrentAction('popup');
         $response = $controller->performAction(request());
-        $this->assertMatchesRegularExpression('~^<html><script>~', $response->getResponseString());
+        $this->assertMatchesRegularExpression('~^<html><script>~', $response->getBody());
     }
 
     function testDoNotClosePopup()
@@ -202,6 +202,6 @@ class lmbControllerTest extends TestCase
         $controller->setCurrentAction('without_popup');
         $response = $controller->performAction(request());
 
-        $this->assertEquals('', $response->getResponseString());
+        $this->assertEquals('', $response->getBody());
     }
 }

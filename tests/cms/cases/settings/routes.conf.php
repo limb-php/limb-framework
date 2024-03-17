@@ -5,7 +5,7 @@ return [
     'ControllerActionId' => [
         'path' => '/:controller/:action/:id',
         'defaults' => array(
-            'namespace' => 'Tests\cms\cases\Controllers',
+            'namespace' => 'tests\cms\cases\Controllers',
             'action' => 'display'
         ),
     ],
@@ -13,7 +13,7 @@ return [
     'ControllerAction' => [
         'path' => '/:controller/:action',
         'defaults' => array(
-            'namespace' => 'Tests\cms\cases\Controllers',
+            'namespace' => 'tests\cms\cases\Controllers',
             'action' => 'display'
         ),
     ],
@@ -21,7 +21,7 @@ return [
     'Controller' => [
         'path' => '/:controller',
         'defaults' => array(
-            'namespace' => 'Tests\cms\cases\Controllers'
+            'namespace' => 'tests\cms\cases\Controllers'
         ),
     ]
 

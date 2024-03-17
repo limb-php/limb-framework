@@ -37,17 +37,17 @@ abstract class lmbAdminObjectController extends lmbObjectController
     }
 
 
-    function doDisplay()
+    function doDisplay($request)
     {
         $this->items = lmbActiveRecord::find($this->_object_class_name);
-        $this->_applySortParams();
+        $this->_applySortParams($request);
     }
 
-    protected function _applySortParams()
+    protected function _applySortParams($request)
     {
-        $sort = $this->toolkit->getRequest()->getGetFiltered('sort', FILTER_SANITIZE_SPECIAL_CHARS, false);
+        $sort = $request->getGetFiltered('sort', FILTER_SANITIZE_SPECIAL_CHARS, false);
 
-        $direction = $this->toolkit->getRequest()->getGet('direction');
+        $direction = $request->getGet('direction');
         if (!in_array($direction, array('asc', 'desc')))
             $direction = 'asc';
 
@@ -55,7 +55,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         $this->items->sort(array($sort => $direction));
     }
 
-    function doCreate()
+    function doCreate($request)
     {
         $this->item = new $this->_object_class_name();
         $this->_onCreate();
@@ -63,43 +63,43 @@ abstract class lmbAdminObjectController extends lmbObjectController
         $this->useForm($this->_form_name);
         $this->setFormDatasource($this->item);
 
-        if ($this->request->hasPost()) {
-            $this->_import();
+        if ($request->hasPost()) {
+            $this->_import($request);
             $this->_validateAndSave(true);
         } else {
             $this->_initCreateForm();
         }
     }
 
-    function doEdit()
+    function doEdit($request)
     {
-        if (!$this->item = $this->_getObjectByRequestedId())
+        if (!$this->item = $this->_getObjectByRequestedId($request))
             return $this->forwardTo404();
         $this->_onUpdate();
         $this->useForm($this->_form_name);
         $this->setFormDatasource($this->item);
 
-        if ($this->request->hasPost()) {
-            $this->_import();
+        if ($request->hasPost()) {
+            $this->_import($request);
             $this->_validateAndSave(false);
         } else {
             $this->_initEditForm();
         }
     }
 
-    function doDelete()
+    function doDelete($request)
     {
-        if (!$this->request->hasPost())
-            $ids = $this->request->get('ids');
+        if (!$request->hasPost())
+            $ids = $request->get('ids');
         else
-            $ids = $this->request->getPost('ids');
+            $ids = $request->getPost('ids');
 
         if (!is_array($ids))
             $ids = array($ids);
 
         $this->items = lmbActiveRecord::findByIds($this->_object_class_name, $ids);
 
-        if (!$this->request->hasPost())
+        if (!$request->hasPost())
             return;
 
         $this->_onBeforeDelete();
@@ -112,12 +112,12 @@ abstract class lmbAdminObjectController extends lmbObjectController
         return $this->_endDialog();
     }
 
-    function doRevertPublish()
+    function doRevertPublish($request)
     {
-        if ($this->request->has('ids'))
-            $ids = $this->request->get('ids');
-        elseif ($this->request->has('id'))
-            $ids = array($this->request->get('id'));
+        if ($request->has('ids'))
+            $ids = $request->get('ids');
+        elseif ($request->has('id'))
+            $ids = array($request->get('id'));
         else
             return;
 
@@ -129,9 +129,9 @@ abstract class lmbAdminObjectController extends lmbObjectController
         return $this->_endDialog();
     }
 
-    function doPublish()
+    function doPublish($request)
     {
-        if (!$item = $this->_getObjectByRequestedId())
+        if (!$item = $this->_getObjectByRequestedId($request))
             return $this->forwardTo404();
 
         $this->_onBeforePublish();
@@ -142,9 +142,9 @@ abstract class lmbAdminObjectController extends lmbObjectController
         return $this->_endDialog();
     }
 
-    function doUnpublish()
+    function doUnpublish($request)
     {
-        if (!$item = $this->_getObjectByRequestedId())
+        if (!$item = $this->_getObjectByRequestedId($request))
             return $this->forwardTo404();
 
         $this->_onBeforeUnpublish();
@@ -155,18 +155,18 @@ abstract class lmbAdminObjectController extends lmbObjectController
         return $this->_endDialog();
     }
 
-    function doPriority()
+    function doPriority($request)
     {
         $this->_changeItemsPriority($this->_object_class_name);
         return $this->_endDialog();
     }
 
-    protected function _import()
+    protected function _import($request)
     {
         $this->_onBeforeImport();
-        $this->item->import($this->request);
-        if ($this->request->hasFiles()) {
-            foreach ($this->request->getFiles() as $field => $file)
+        $this->item->import($request);
+        if ($request->hasFiles()) {
+            foreach ($request->getFiles() as $field => $file)
                 $this->item->set($field, $file->getName());
         }
         $this->_onAfterImport();

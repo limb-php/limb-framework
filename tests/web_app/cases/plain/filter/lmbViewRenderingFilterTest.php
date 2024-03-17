@@ -56,7 +56,7 @@ class lmbViewRenderingFilterTest extends TestCase
         $controller = new SecondTestingController();
         $result = $controller->performAction($request);
 
-        $this->assertEquals('bar', $result->getResponseString());
+        $this->assertEquals('bar', $result->getBody());
     }
 
     function testDoNotRenderViewIfResponseNotEmpty()
@@ -76,6 +76,6 @@ class lmbViewRenderingFilterTest extends TestCase
         $controller = new ApiTestingController();
         $result = $controller->performAction($request);
 
-        $this->assertEquals('foo', $result->getResponseString());
+        $this->assertEquals('foo', $result->getBody());
     }
 }

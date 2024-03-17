@@ -47,7 +47,7 @@ class lmbObjectControllerTest extends TestCase
         lmbToolkit::instance()->setRequest($request);
 
         $controller = new TestObjectController();
-        $controller->doDisplay();
+        $controller->doDisplay($request);
 
         $this->assertCount(1, $controller->items);
         $this->assertInstanceOf(ObjectForTesting::class, $controller->items[0]);
@@ -64,7 +64,7 @@ class lmbObjectControllerTest extends TestCase
         lmbToolkit::instance()->setRequest($request);
 
         $controller = new TestObjectController();
-        $controller->doItem();
+        $controller->doItem($request);
 
         $this->assertInstanceOf(ObjectForTesting::class, $controller->item);
         $this->assertEquals($controller->item->getId(), $object->getId());

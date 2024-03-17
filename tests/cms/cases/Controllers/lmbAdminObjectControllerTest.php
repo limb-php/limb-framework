@@ -47,7 +47,7 @@ class lmbAdminObjectControllerTest extends TestCase
         $app = new lmbWebApplicationSandbox();
         $response = $app->imitate($request);
 
-        $this->assertEquals('onCreate|initCreateForm|', $response->getResponseString());
+        $this->assertEquals('onCreate|initCreateForm|', $response->getBody());
     }
 
     function testEventsOnPerformCreateActionWithPost()
@@ -69,7 +69,7 @@ class lmbAdminObjectControllerTest extends TestCase
         $response = $app->imitate($request);
 
         $expected_callchain = 'onCreate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|';
-        $this->assertEquals($expected_callchain, $response->getResponseString());
+        $this->assertEquals($expected_callchain, $response->getBody());
     }
 
     function testEventsOnPerformEditActionFirstTime()
@@ -83,7 +83,7 @@ class lmbAdminObjectControllerTest extends TestCase
         $app = new lmbWebApplicationSandbox();
         $response = $app->imitate($request);
 
-        $this->assertEquals('onUpdate|initEditForm|', $response->getResponseString());
+        $this->assertEquals('onUpdate|initEditForm|', $response->getBody());
     }
 
     function testEventsOnPerformEditActionWithPostNotValid()
@@ -98,7 +98,7 @@ class lmbAdminObjectControllerTest extends TestCase
         $response = $app->imitate($request);
 
         $expected_callchain = 'onUpdate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|';
-        $this->assertEquals($expected_callchain, $response->getResponseString());
+        $this->assertEquals($expected_callchain, $response->getBody());
     }
 
     function testEventsOnPerformEditActionWithPost()
@@ -113,7 +113,7 @@ class lmbAdminObjectControllerTest extends TestCase
         $response = $app->imitate($request);
 
         $expected_callchain = 'onUpdate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|onBeforeUpdate|onBeforeSave|onAfterSave|onAfterUpdate|';
-        $this->assertEquals($expected_callchain, $response->getResponseString());
+        $this->assertEquals($expected_callchain, $response->getBody());
     }
 
     function testEventsOnPerformDeleteAction()
@@ -128,6 +128,6 @@ class lmbAdminObjectControllerTest extends TestCase
         $response = $app->imitate($request);
 
         $expected_callchain = 'onBeforeDelete|onAfterDelete|';
-        $this->assertEquals($expected_callchain, $response->getResponseString());
+        $this->assertEquals($expected_callchain, $response->getBody());
     }
 }
