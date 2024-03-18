@@ -2,6 +2,8 @@
 
 namespace limb\net\src;
 
+use Psr\Http\Message\UriInterface;
+
 class lmbUriHelper
 {
 
@@ -46,19 +48,19 @@ class lmbUriHelper
     }
 
 
-    static function getPathElements(lmbUri $uri): array
+    static function getPathElements(UriInterface $uri): array
     {
         return explode('/', $uri->getPath());
     }
 
-    static function getPathElement(lmbUri $uri, $level): string
+    static function getPathElement(UriInterface $uri, $level): string
     {
         $path_elements = self::getPathElements($uri);
 
         return $path_elements[$level] ?? '';
     }
 
-    static function getPathToLevel(lmbUri $uri, $level): string
+    static function getPathToLevel(UriInterface $uri, $level): string
     {
         $path_elements = self::getPathElements($uri);
 
@@ -72,7 +74,7 @@ class lmbUriHelper
         return implode('/', $items);
     }
 
-    static function getPathFromLevel(lmbUri $uri, $level)
+    static function getPathFromLevel(UriInterface $uri, $level)
     {
         $path_elements = self::getPathElements($uri);
 
@@ -99,7 +101,7 @@ class lmbUriHelper
      * /foo/bar/.././/boo.php => /foo/boo.php
      *
      */
-    static function normalizePath(lmbUri $uri): string
+    static function normalizePath(UriInterface $uri): string
     {
         $path = $uri->getPath();
         $path = explode('/', preg_replace('~[\/]+~', '/', $path));
