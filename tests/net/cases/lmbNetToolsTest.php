@@ -30,9 +30,9 @@ class lmbNetToolsTest extends TestCase
     function testGetRequestFromToolkit()
     {
         $request = lmbToolkit::instance()->getRequest();
-        $request->setAttribute('foo', 'bar');
+        lmbToolkit::instance()->setRequest( $request->withAttribute('foo', 'bar') );
 
-        $this->assertEquals('bar', lmbToolkit::instance()->getRequest()->getAttribute('foo'));
+        $this->assertEquals('bar', request()->getAttribute('foo'));
     }
 
 }

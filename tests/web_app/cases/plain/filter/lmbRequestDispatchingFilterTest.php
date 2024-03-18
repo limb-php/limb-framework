@@ -104,7 +104,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
         $this->_setUpMocks($dispatched_params, $controller);
 
-        $this->filter->run($this->chain);
+        $this->filter->run($this->chain, $this->request);
 
         $this->_assertDispatchedOk($controller, 'display', __LINE__);
     }
@@ -117,7 +117,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
         $this->_setUpMocks($dispatched_params, $controller);
 
-        $this->filter->run($this->chain);
+        $this->filter->run($this->chain, $this->request);
 
         $this->_assertDispatchedOk($controller, $controller->getDefaultAction(), __LINE__);
     }
@@ -161,7 +161,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
         $this->_setUpMocks($dispatched_params, $controller);
 
-        $this->filter->run($this->chain);
+        $this->filter->run($this->chain, $this->request);
 
         $this->_assertDispatchedOk($controller, 'display', __LINE__);
     }
@@ -179,7 +179,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
         $this->toolkit = lmbToolkit::merge($tools);
 
-        $this->filter->run($this->chain);
+        $this->filter->run($this->chain, $this->request);
 
         $this->_assertDispatchedOk($controller, 'display', __LINE__);
     }
@@ -195,12 +195,12 @@ class lmbRequestDispatchingFilterTest extends TestCase
         $controller = new lmbRequestDispatchingTestingController('SomeController');
         $this->_setUpMocks($dispatched_params, $controller);
 
-        $this->filter->run($this->chain);
+        $response = $this->filter->run($this->chain, $this->request);
 
         $this->_assertDispatchedOk($controller, $controller->getDefaultAction(), __LINE__);
 
-        $this->assertEquals(150, $this->request->get('id'));
-        $this->assertEquals('bla-bla', $this->request->get('extra'));
+        $this->assertEquals(150, request()->get('id'));
+        $this->assertEquals('bla-bla', request()->getAttribute('extra'));
     }
 
     function testIsRequestAvailableInControllerConstructor()
@@ -216,7 +216,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
         $this->_setUpMocks($dispatched_params);
 
-        $this->filter->run($this->chain);
+        $this->filter->run($this->chain, $this->request);
 
         $controller = $this->toolkit->getDispatchedController();
         $this->assertEquals($dispatched_params['param'], $controller->param);
@@ -242,7 +242,9 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
     protected function _setUpMocks($dispatched_params, $controller = null)
     {
-        $this->chain->expects($this->once())->method('next');
+        $this->chain
+            ->expects($this->once())
+            ->method('next');
 
         $this->dispatcher
             ->expects($this->once())

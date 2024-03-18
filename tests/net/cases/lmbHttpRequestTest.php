@@ -375,7 +375,7 @@ class lmbHttpRequestTest extends TestCase
         $this->assertEquals(200, $request2->getAttribute('attr'));
 
         $request3 = new lmbHttpRequest('https://test.com/wow3');
-        $request3->setAttribute('foo', 'bar');
+        $request3 = $request3->withAttribute('foo', 'bar');
         $request4 = $request3->withAttribute('foo2', 'bar2');
 
         $this->assertEquals('bar', $request3->get('foo'));

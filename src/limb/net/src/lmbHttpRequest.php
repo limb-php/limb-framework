@@ -40,6 +40,8 @@ class lmbHttpRequest extends lmbSet
     protected $__requestTarget;
     protected $__reserved_attrs = array('__version', '__requestTarget', '__method', '__uri', '__headers', '__get', '__post', '__cookies', '__files', '__attributes', '__pretend_post', '__reserved_attrs');
 
+    private $stream;
+
     function __construct($uri_string = null, $method = 'GET', $get = [], $post = [], $cookies = [], $files = [], $headers = [])
     {
         parent::__construct();
@@ -469,13 +471,20 @@ class lmbHttpRequest extends lmbSet
 
     public function getBody()
     {
-        $stdin = fopen('php://stdin', 'r');
-        return stream_get_contents($stdin);
+        $this->stream = fopen('php://stdin', 'r');
+        return stream_get_contents($this->stream);
     }
 
     public function withBody($body)
     {
-        // TODO: Implement withBody() method.
+        if ($body === $this->stream) {
+            return $this;
+        }
+
+        $new = clone($this);
+        $new->stream = new lmbHttpStream($body);
+
+        return $new;
     }
 
     public function getRequestTarget()
@@ -538,6 +547,7 @@ class lmbHttpRequest extends lmbSet
         return $this->__attributes[$name] ?? $default;
     }
 
+    /** @deprecated  */
     public function setAttribute($name, $value)
     {
         $this->__attributes[$name] = $value;
