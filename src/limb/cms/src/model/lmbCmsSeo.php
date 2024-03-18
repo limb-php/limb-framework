@@ -5,6 +5,8 @@ namespace limb\cms\src\model;
 use limb\core\src\lmbObject;
 use limb\active_record\src\lmbActiveRecord;
 use limb\cms\src\validation\rule\CmsUniqueFieldRule;
+use limb\net\src\lmbUri;
+use limb\net\src\lmbUriHelper;
 use limb\validation\src\lmbValidator;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\lmbDBAL;
@@ -58,7 +60,7 @@ class lmbCmsSeo extends lmbActiveRecord
         return self::$_meta;
     }
 
-    public static function getMetaForUrl($uri)
+    public static function getMetaForUrl(lmbUri $uri)
     {
         self::_getMetaDataForUrl($uri);
         return self::$_meta;
@@ -73,8 +75,9 @@ class lmbCmsSeo extends lmbActiveRecord
         $meta = null;
         $sql = 'SELECT keywords, description, title FROM lmb_cms_seo WHERE url = \'/\' OR ';
 
-        for ($i = 1; $i < $count_path; $i++)
-            $sql .= ' url = \'' . self::getDefaultConnection()->escape($uri->getPathToLevel($i)) . '\'' . ($i < $count_path - 1 ? ' OR ' : '');
+        for ($i = 1; $i < $count_path; $i++) {
+            $sql .= ' url = \'' . self::getDefaultConnection()->escape(lmbUriHelper::getPathToLevel($uri, $i)) . '\'' . ($i < $count_path - 1 ? ' OR ' : '');
+        }
 
         $sql .= ' ORDER BY url DESC LIMIT 1';
         $meta = lmbDBAL::fetchOneRow($sql);

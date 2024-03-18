@@ -189,46 +189,6 @@ class lmbUri implements UriInterface
         return sizeof($this->query_items);
     }
 
-    function compare($uri)
-    {
-        return (
-            $this->protocol == $uri->getScheme() &&
-            $this->host == $uri->getHost() &&
-            $this->port == $uri->getPort() &&
-            $this->user === $uri->getUser() &&
-            $this->password === $uri->getPassword() &&
-            $this->compareQuery($uri) &&
-            $this->comparePath($uri) === 0
-        );
-    }
-
-    function compareQuery($uri)
-    {
-        if ($this->countQueryItems() != $uri->countQueryItems())
-            return false;
-
-        foreach ($this->query_items as $name => $value) {
-            if ((($item = $uri->getQueryItem($name)) === false) ||
-                $item != $value)
-                return false;
-        }
-        return true;
-    }
-
-    function comparePath($uri)
-    {
-        $count1 = $this->countPath();
-        $count2 = $uri->countPath();
-        $iterCount = min($count1, $count2);
-
-        for ($i = 0; $i < $iterCount; $i++) {
-            if ($this->getPathElement($i) != $uri->getPathElement($i))
-                return false;
-        }
-
-        return ($count1 - $count2);
-    }
-
     function __toString()
     {
         return $this->toString();
@@ -270,44 +230,6 @@ class lmbUri implements UriInterface
             $string .= !empty($this->anchor) ? '#' . $this->anchor : '';
 
         return $string;
-    }
-
-    function getPathElement($level)
-    {
-        return $this->path_elements[$level] ?? '';
-    }
-
-    function getPathElements()
-    {
-        return $this->path_elements;
-    }
-
-    function getPathToLevel($level)
-    {
-        if (!$this->path_elements || $level >= sizeof($this->path_elements))
-            return '';
-
-        $items = array();
-        for ($i = 0; $i <= $level; $i++)
-            $items[] = $this->path_elements[$i];
-
-        return implode('/', $items);
-    }
-
-    function getPathFromLevel($level)
-    {
-        if ($level <= 0)
-            return $this->path;
-
-        if (!$this->path_elements || $level >= sizeof($this->path_elements))
-            return '/';
-
-        $items[] = '';
-
-        for ($i = $level; $i < sizeof($this->path_elements); $i++)
-            $items[] = $this->path_elements[$i];
-
-        return implode('/', $items);
     }
 
     /**
@@ -413,42 +335,6 @@ class lmbUri implements UriInterface
         }
 
         return $arr;
-    }
-
-    /**
-     * Resolves //, ../ and ./ from a path and returns
-     * the result. Eg:
-     *
-     * /foo/bar/../boo.php    => /foo/boo.php
-     * /foo/bar/../../boo.php => /boo.php
-     * /foo/bar/.././/boo.php => /foo/boo.php
-     *
-     */
-    function normalizePath()
-    {
-        $path = $this->path;
-        $path = explode('/', preg_replace('~[\/]+~', '/', $path));
-
-        for ($i = 0; $i < sizeof($path); $i++) {
-            if ($path[$i] == '.') {
-                unset($path[$i]);
-                $path = array_values($path);
-                $i--;
-            } elseif ($path[$i] == '..' && ($i > 1 || ($i == 1 && $path[0] != ''))) {
-                unset($path[$i]);
-                unset($path[$i - 1]);
-                $path = array_values($path);
-                $i -= 2;
-            } elseif ($path[$i] == '..' && $i == 1 && $path[0] == '') {
-                unset($path[$i]);
-                $path = array_values($path);
-                $i--;
-            } else
-                continue;
-        }
-
-        $this->path = implode('/', $path);
-        $this->path_elements = explode('/', $this->path);
     }
 
     public function getScheme(): string

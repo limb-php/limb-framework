@@ -11,6 +11,7 @@ namespace limb\web_spider\src;
 
 use limb\net\src\lmbUri;
 use limb\core\src\exception\lmbException;
+use limb\net\src\lmbUriHelper;
 
 /**
  * class lmbWebSpider.
@@ -95,11 +96,9 @@ class lmbWebSpider
         if (!$uri->getScheme())
             $uri = $uri->withScheme($context_uri->getScheme());
 
-        $uri = $uri->withFragment('');
-
-        $uri->normalizePath();
-
-        return $uri;
+        return $uri
+            ->withFragment('')
+            ->withPath( lmbUriHelper::normalizePath($uri) );
     }
 
     function _isCacheHit($uri): bool

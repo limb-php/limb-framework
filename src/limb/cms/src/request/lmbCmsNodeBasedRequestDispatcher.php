@@ -9,6 +9,7 @@
 
 namespace limb\cms\src\request;
 
+use limb\net\src\lmbUriHelper;
 use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\core\src\lmbEnv;
 use limb\net\src\lmbUri;
@@ -46,11 +47,11 @@ class lmbCmsNodeBasedRequestDispatcher implements lmbRequestDispatcherInterface
         $result = array();
 
         $uri = $request->getUri();
-        $uri->normalizePath();
+        $uri = $uri->withPath( lmbUriHelper::normalizePath($uri) );
 
         $level = $this->_getHttpBasePathOffsetLevel($uri);
 
-        if (!$node = $this->node_class::findByPath($uri->getPathFromLevel($level)))
+        if (!$node = $this->node_class::findByPath(lmbUriHelper::getPathFromLevel($uri, $level)))
             return $result;
 
         $result['controller'] = $node->getControllerName();
@@ -69,7 +70,7 @@ class lmbCmsNodeBasedRequestDispatcher implements lmbRequestDispatcherInterface
             return 0;
 
         $base_path_uri = new lmbUri(rtrim($this->base_path, '/'));
-        $base_path_uri->normalizePath();
+        $base_path_uri = $uri->withPath( lmbUriHelper::normalizePath($base_path_uri) );
 
         $level = 1;
         while (($uri->getPathElement($level) == $base_path_uri->getPathElement($level)) &&

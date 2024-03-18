@@ -56,7 +56,7 @@ class lmbDbDSN extends lmbObject
             throw new lmbException("Database DSN '$str' is not valid");
         }
 
-        $this->driver = $this->uri->getProtocol();
+        $this->driver = $this->uri->getScheme();
         $this->host = $this->uri->getHost();
         $this->user = $this->uri->getUser();
         $this->password = $this->uri->getPassword();
