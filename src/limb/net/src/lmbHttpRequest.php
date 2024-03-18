@@ -472,8 +472,11 @@ class lmbHttpRequest extends lmbSet implements RequestInterface
 
     public function getBody()
     {
-        $this->stream = fopen('php://stdin', 'r');
-        return stream_get_contents($this->stream);
+        if (!$this->stream) {
+            $this->stream = new lmbHttpStream(fopen('php://input', 'r'));
+        }
+
+        return $this->stream;
     }
 
     public function withBody($body)
