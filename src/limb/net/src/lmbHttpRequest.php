@@ -12,6 +12,7 @@ namespace limb\net\src;
 use limb\core\src\exception\lmbException;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbArrayHelper;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -20,7 +21,7 @@ use Psr\Http\Message\UriInterface;
  * @package net
  * @version $Id: lmbHttpRequest.php 8122 2010-02-02 09:54:14Z
  */
-class lmbHttpRequest extends lmbSet
+class lmbHttpRequest extends lmbSet implements RequestInterface
 {
     /**
      * @var string

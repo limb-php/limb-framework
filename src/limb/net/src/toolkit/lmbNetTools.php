@@ -12,6 +12,8 @@ namespace limb\net\src\toolkit;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\net\src\lmbHttpRequest;
 use limb\net\src\lmbHttpResponse;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * class lmbNetTools.
@@ -24,7 +26,7 @@ class lmbNetTools extends lmbAbstractTools
     protected $response;
     protected $request;
 
-    function getRequest(): lmbHttpRequest
+    function getRequest(): RequestInterface
     {
         if (is_object($this->request))
             return $this->request;
@@ -40,7 +42,7 @@ class lmbNetTools extends lmbAbstractTools
     }
 
     /** @deprecated  */
-    function getResponse($content = '', $status = 200, $headers = []): lmbHttpResponse
+    function getResponse($content = '', $status = 200, $headers = []): ResponseInterface
     {
         $this->response = new lmbHttpResponse($content, $status, $headers);
 
