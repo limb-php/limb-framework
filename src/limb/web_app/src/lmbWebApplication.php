@@ -18,6 +18,7 @@ use limb\web_app\src\exception\lmbErrorHandler;
 use limb\web_app\src\request\lmbRoutesRequestDispatcher;
 use limb\web_app\src\filter\lmbSessionStartupFilter;
 use limb\web_app\src\filter\lmbRequestDispatchingFilter;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * class lmbWebApplication.
@@ -70,7 +71,7 @@ class lmbWebApplication extends lmbFilterChain
         $this->bootstraps[] = $bootstrap;
     }
 
-    function process($request, $callback = null): \limb\net\src\lmbHttpResponse
+    function process($request, $callback = null): ResponseInterface
     {
         $this->_registerBootstraps();
 

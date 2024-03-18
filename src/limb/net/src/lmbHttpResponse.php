@@ -9,6 +9,7 @@
 
 namespace limb\net\src;
 
+use Psr\Http\Message\ResponseInterface;
 use \Psr\Http\Message\StreamInterface;
 
 /**
@@ -17,7 +18,7 @@ use \Psr\Http\Message\StreamInterface;
  * @package net
  * @version $Id: lmbHttpResponse.php 7486 2009-01-26 19:13:20Z
  */
-class lmbHttpResponse
+class lmbHttpResponse implements ResponseInterface
 {
     public const HTTP_CONTINUE = 100;
     public const HTTP_SWITCHING_PROTOCOLS = 101;
