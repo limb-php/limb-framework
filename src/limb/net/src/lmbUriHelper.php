@@ -101,9 +101,8 @@ class lmbUriHelper
      * /foo/bar/.././/boo.php => /foo/boo.php
      *
      */
-    static function normalizePath(UriInterface $uri): string
+    static function normalizePath(string $path): string
     {
-        $path = $uri->getPath();
         $path = explode('/', preg_replace('~[\/]+~', '/', $path));
 
         for ($i = 0; $i < sizeof($path); $i++) {

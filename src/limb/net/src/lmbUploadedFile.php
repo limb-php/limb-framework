@@ -10,6 +10,7 @@
 namespace limb\net\src;
 
 use limb\core\src\lmbObject;
+use Psr\Http\Message\UploadedFileInterface;
 
 /**
  * class lmbUploadedFile.
@@ -21,7 +22,7 @@ use limb\core\src\lmbObject;
  * @method int getSize()
  * @method string getError()
  */
-class lmbUploadedFile extends lmbObject
+class lmbUploadedFile extends lmbObject implements UploadedFileInterface
 {
     public $name;
     public $error;
@@ -29,19 +30,23 @@ class lmbUploadedFile extends lmbObject
     public $size;
     public $tmp_name;
 
+    protected $stream;
+
     function getFilePath()
     {
         return $this->getTmpName();
     }
 
+    /** @deprecated  */
     function getMimeType()
     {
-        return $this->getType();
+        return $this->getClientMediaType();
     }
 
+    /** @deprecated  */
     function move($dest)
     {
-        return move_uploaded_file($this->getTmpName(), $dest);
+        return $this->moveTo($dest);
     }
 
     function isUploaded()
@@ -62,5 +67,25 @@ class lmbUploadedFile extends lmbObject
     function destroy()
     {
         unlink($this->getTmpName());
+    }
+
+    public function getStream()
+    {
+        return $this->stream;
+    }
+
+    public function moveTo(string $targetPath)
+    {
+        return move_uploaded_file($this->getTmpName(), $targetPath);
+    }
+
+    public function getClientFilename()
+    {
+        return $this->getName();
+    }
+
+    public function getClientMediaType()
+    {
+        return $this->getType();
     }
 }

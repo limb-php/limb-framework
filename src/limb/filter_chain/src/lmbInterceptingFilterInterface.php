@@ -9,6 +9,8 @@
 
 namespace limb\filter_chain\src;
 
+use Psr\Http\Message\RequestInterface;
+
 /**
  * Interface for filter classes to be used with lmbFilterChain
  *
@@ -21,7 +23,7 @@ interface lmbInterceptingFilterInterface
      * Runs the filter.
      * Filters should decide whether to pass control to the next filter in the chain or not.
      * @param $filter_chain lmbFilterChain
-     * @param $request \limb\net\src\lmbHttpRequest
+     * @param $request RequestInterface
      * @param $callback \Closure|null
      * @return mixed
      * @see lmbFilterChain::next()

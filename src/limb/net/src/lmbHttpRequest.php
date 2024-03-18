@@ -462,12 +462,25 @@ class lmbHttpRequest extends lmbSet implements RequestInterface
 
     public function withAddedHeader($name, $value)
     {
-        // TODO: Implement withAddedHeader() method.
+        $normalized = strtolower($name);
+
+        $new = clone($this);
+        if(!isset($new->__headers[$normalized]))
+            $new->__headers[$normalized] = [];
+
+        $new->__headers[$normalized][] = $value;
+
+        return $new;
     }
 
     public function withoutHeader($name)
     {
-        // TODO: Implement withoutHeader() method.
+        $normalized = strtolower($name);
+
+        $new = clone($this);
+        unset($new->__headers[$normalized]);
+
+        return $new;
     }
 
     public function getBody()
