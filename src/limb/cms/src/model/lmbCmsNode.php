@@ -212,7 +212,7 @@ class lmbCmsNode extends lmbActiveRecord
 
     static function findRequested()
     {
-        if ($path = lmbToolkit::instance()->getRequest()->getUriPath())
+        if ($path = lmbToolkit::instance()->getRequest()->getUri()->getPath())
             return lmbCmsNode::findByPath($path);
     }
 

@@ -48,7 +48,7 @@ class lmbFullPageCacheRequest
 
     function getHash(): string
     {
-        $path = $this->http_request->getUriPath();
+        $path = $this->http_request->getUri()->getPath();
 
         $extra = $this->_serializeHttpAttributes();
         $extra .= $this->_serializeUserInfo();

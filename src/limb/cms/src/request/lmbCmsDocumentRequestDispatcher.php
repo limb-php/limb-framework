@@ -24,7 +24,7 @@ class lmbCmsDocumentRequestDispatcher implements lmbRequestDispatcherInterface
 {
     function dispatch($request)
     {
-        $path = $request->getUriPath();
+        $path = $request->getUri()->getPath();
         if ($path === '/')
             return;
 

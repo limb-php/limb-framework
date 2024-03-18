@@ -9,6 +9,8 @@
 
 namespace limb\web_app\src\Controllers;
 
+use limb\net\src\lmbHttpRequest;
+
 /**
  * class FallbackToViewController.
  * To use this controller just pass it's name to lmbRequestDispatchingFilter, e.g.:
@@ -25,7 +27,7 @@ class FallbackToViewController extends LmbController
 {
     function performAction($request)
     {
-        $path = trim($request->getUriPath(), '/');
+        $path = trim($request->getUri()->getPath(), '/');
         if ($template_path = $this->findTemplateByAlias($path)) {
             $view = $this->toolkit->createViewByTemplate($template_path);
             $this->toolkit->setView($view);

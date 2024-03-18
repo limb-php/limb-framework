@@ -399,11 +399,6 @@ class lmbHttpRequest extends lmbSet
         $this->__headers = [$header => $host] + $this->__headers;
     }
 
-    function getUriPath(): string
-    {
-        return $this->__uri->getPath();
-    }
-
     function toString(): string
     {
         $flat = array();

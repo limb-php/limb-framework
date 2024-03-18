@@ -34,7 +34,7 @@ class lmbFullPageCacheUriPathRule
 
     function isSatisfiedBy($request)
     {
-        $path = $request->getHttpRequest()->getUriPath();
+        $path = $request->getHttpRequest()->getUri()->getPath();
         $path = $this->_applyOffset($path);
 
         if ($this->dont_negate)

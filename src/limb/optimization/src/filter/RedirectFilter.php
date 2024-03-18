@@ -54,7 +54,7 @@ class RedirectFilter implements lmbInterceptingFilterInterface
     protected function _findRedirectForCurrentUrl($redirects)
     {
         $request = $this->toolkit->getRequest();
-        $uri_path = $request->getUriPath();
+        $uri_path = $request->getUri()->getPath();
 
         foreach ($redirects as $redirect) {
             if (isset($redirect[2]) && ($redirect[2] == $uri_path))
