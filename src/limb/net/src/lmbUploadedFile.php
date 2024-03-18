@@ -19,8 +19,6 @@ use Psr\Http\Message\UploadedFileInterface;
  * @version $Id$
  *
  * @method string getName()
- * @method int getSize()
- * @method string getError()
  */
 class lmbUploadedFile extends lmbObject implements UploadedFileInterface
 {
@@ -81,11 +79,21 @@ class lmbUploadedFile extends lmbObject implements UploadedFileInterface
 
     public function getClientFilename()
     {
-        return $this->getName();
+        return $this->name;
     }
 
     public function getClientMediaType()
     {
         return $this->getType();
+    }
+
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    public function getError()
+    {
+        return $this->error;
     }
 }
