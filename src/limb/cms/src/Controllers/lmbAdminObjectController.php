@@ -58,16 +58,16 @@ abstract class lmbAdminObjectController extends lmbObjectController
     function doCreate($request)
     {
         $this->item = new $this->_object_class_name();
-        $this->_onCreate();
+        $this->_onCreate($request);
 
         $this->useForm($this->_form_name);
         $this->setFormDatasource($this->item);
 
         if ($request->hasPost()) {
             $this->_import($request);
-            $this->_validateAndSave(true);
+            $this->_validateAndSave($request, true);
         } else {
-            $this->_initCreateForm();
+            $this->_initCreateForm($request);
         }
     }
 
@@ -75,15 +75,15 @@ abstract class lmbAdminObjectController extends lmbObjectController
     {
         if (!$this->item = $this->_getObjectByRequestedId($request))
             return $this->forwardTo404();
-        $this->_onUpdate();
+        $this->_onUpdate($request);
         $this->useForm($this->_form_name);
         $this->setFormDatasource($this->item);
 
         if ($request->hasPost()) {
             $this->_import($request);
-            $this->_validateAndSave(false);
+            $this->_validateAndSave($request, false);
         } else {
-            $this->_initEditForm();
+            $this->_initEditForm($request);
         }
     }
 
@@ -102,12 +102,12 @@ abstract class lmbAdminObjectController extends lmbObjectController
         if (!$request->hasPost())
             return;
 
-        $this->_onBeforeDelete();
+        $this->_onBeforeDelete($request);
 
         foreach ($this->items as $item)
             $item->destroy();
 
-        $this->_onAfterDelete();
+        $this->_onAfterDelete($request);
 
         return $this->_endDialog();
     }
@@ -134,10 +134,10 @@ abstract class lmbAdminObjectController extends lmbObjectController
         if (!$item = $this->_getObjectByRequestedId($request))
             return $this->forwardTo404();
 
-        $this->_onBeforePublish();
+        $this->_onBeforePublish($request);
         $item->setIsPublished(1);
         $item->save();
-        $this->_onAfterPublish();
+        $this->_onAfterPublish($request);
 
         return $this->_endDialog();
     }
@@ -147,10 +147,10 @@ abstract class lmbAdminObjectController extends lmbObjectController
         if (!$item = $this->_getObjectByRequestedId($request))
             return $this->forwardTo404();
 
-        $this->_onBeforeUnpublish();
+        $this->_onBeforeUnpublish($request);
         $item->setIsPublished(0);
         $item->save();
-        $this->_onAfterUnpublish();
+        $this->_onAfterUnpublish($request);
 
         return $this->_endDialog();
     }
@@ -163,35 +163,35 @@ abstract class lmbAdminObjectController extends lmbObjectController
 
     protected function _import($request)
     {
-        $this->_onBeforeImport();
+        $this->_onBeforeImport($request);
         $this->item->import($request);
         if ($request->hasFiles()) {
             foreach ($request->getFiles() as $field => $file)
                 $this->item->set($field, $file->getName());
         }
-        $this->_onAfterImport();
+        $this->_onAfterImport($request);
     }
 
-    protected function _validateAndSave($is_create = false)
+    protected function _validateAndSave($request, $is_create = false)
     {
-        $this->_onBeforeValidate();
+        $this->_onBeforeValidate($request);
         $this->item->validate($this->error_list);
-        $this->_onAfterValidate();
+        $this->_onAfterValidate($request);
 
         if ($this->error_list->isValid()) {
             if ($is_create)
-                $this->_onBeforeCreate();
+                $this->_onBeforeCreate($request);
             else
-                $this->_onBeforeUpdate();
+                $this->_onBeforeUpdate($request);
 
-            $this->_onBeforeSave();
+            $this->_onBeforeSave($request);
             $this->item->saveSkipValidation();
-            $this->_onAfterSave();
+            $this->_onAfterSave($request);
 
             if ($is_create)
-                $this->_onAfterCreate();
+                $this->_onAfterCreate($request);
             else
-                $this->_onAfterUpdate();
+                $this->_onAfterUpdate($request);
 
             return $this->_endDialog();
         }
@@ -209,7 +209,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
 
     protected function _changeItemsPriority($model, $where_field, $where_field_value)
     {
-        $priority_items = $this->request->get('priority_items');
+        $priority_items = $request->get('priority_items');
 
         $info_item = new $model();
         $sql = 'SELECT id, priority FROM ' . $info_item->getTableName() . ' WHERE ' . $where_field . '=' . $where_field_value;
@@ -237,83 +237,83 @@ abstract class lmbAdminObjectController extends lmbObjectController
 
     }
 
-    protected function _initCreateForm()
+    protected function _initCreateForm($request)
     {
     }
 
-    protected function _initEditForm()
+    protected function _initEditForm($request)
     {
     }
 
-    protected function _onBeforeSave()
+    protected function _onBeforeSave($request)
     {
     }
 
-    protected function _onAfterSave()
+    protected function _onAfterSave($request)
     {
     }
 
-    protected function _onBeforeCreate()
+    protected function _onBeforeCreate($request)
     {
     }
 
-    protected function _onCreate()
+    protected function _onCreate($request)
     {
     }
 
-    protected function _onAfterCreate()
+    protected function _onAfterCreate($request)
     {
     }
 
-    protected function _onBeforeUpdate()
+    protected function _onBeforeUpdate($request)
     {
     }
 
-    protected function _onUpdate()
+    protected function _onUpdate($request)
     {
     }
 
-    protected function _onAfterUpdate()
+    protected function _onAfterUpdate($request)
     {
     }
 
-    protected function _onBeforeDelete()
+    protected function _onBeforeDelete($request)
     {
     }
 
-    protected function _onAfterDelete()
+    protected function _onAfterDelete($request)
     {
     }
 
-    protected function _onBeforeValidate()
+    protected function _onBeforeValidate($request)
     {
     }
 
-    protected function _onAfterValidate()
+    protected function _onAfterValidate($request)
     {
     }
 
-    protected function _onBeforeImport()
+    protected function _onBeforeImport($request)
     {
     }
 
-    protected function _onAfterImport()
+    protected function _onAfterImport($request)
     {
     }
 
-    protected function _onBeforePublish()
+    protected function _onBeforePublish($request)
     {
     }
 
-    protected function _onAfterPublish()
+    protected function _onAfterPublish($request)
     {
     }
 
-    protected function _onBeforeUnpublish()
+    protected function _onBeforeUnpublish($request)
     {
     }
 
-    protected function _onAfterUnpublish()
+    protected function _onAfterUnpublish($request)
     {
     }
 }

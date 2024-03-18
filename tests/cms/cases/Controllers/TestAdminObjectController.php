@@ -3,6 +3,7 @@
 namespace tests\cms\cases\Controllers;
 
 use limb\cms\src\Controllers\lmbAdminObjectController;
+use limb\net\src\lmbHttpResponse;
 
 class TestAdminObjectController extends lmbAdminObjectController
 {
@@ -11,7 +12,7 @@ class TestAdminObjectController extends lmbAdminObjectController
 
     protected $result = '';
 
-    function getResult($request)
+    function getResult()
     {
         return $this->result;
     }
@@ -20,99 +21,99 @@ class TestAdminObjectController extends lmbAdminObjectController
     {
         parent::doCreate($request);
 
-        return $this->result;
+        return new lmbHttpResponse($this->result);
     }
 
     function doEdit($request)
     {
         parent::doEdit($request);
 
-        return $this->result;
+        return new lmbHttpResponse($this->result);
     }
 
     function doDelete($request)
     {
         parent::doDelete($request);
 
-        return $this->result;
+        return new lmbHttpResponse($this->result);
     }
 
-    protected function _onBeforeSave()
+    protected function _onBeforeSave($request)
     {
         $this->result .= 'onBeforeSave|';
     }
 
-    protected function _onAfterSave()
+    protected function _onAfterSave($request)
     {
         $this->result .= 'onAfterSave|';
     }
 
-    protected function _onBeforeValidate()
+    protected function _onBeforeValidate($request)
     {
         $this->result .= 'onBeforeValidate|';
     }
 
-    protected function _onAfterValidate()
+    protected function _onAfterValidate($request)
     {
         $this->result .= 'onAfterValidate|';
     }
 
-    protected function _onBeforeImport()
+    protected function _onBeforeImport($request)
     {
         $this->result .= 'onBeforeImport|';
     }
 
-    protected function _onAfterImport()
+    protected function _onAfterImport($request)
     {
         $this->result .= 'onAfterImport|';
     }
 
-    protected function _onBeforeCreate()
+    protected function _onBeforeCreate($request)
     {
         $this->result .= 'onBeforeCreate|';
     }
 
-    protected function _onAfterCreate()
+    protected function _onAfterCreate($request)
     {
         $this->result .= 'onAfterCreate|';
     }
 
-    protected function _onCreate()
+    protected function _onCreate($request)
     {
         $this->result .= 'onCreate|';
     }
 
-    protected function _onBeforeUpdate()
+    protected function _onBeforeUpdate($request)
     {
         $this->result .= 'onBeforeUpdate|';
     }
 
-    protected function _onUpdate()
+    protected function _onUpdate($request)
     {
         $this->result .= 'onUpdate|';
     }
 
-    protected function _onAfterUpdate()
+    protected function _onAfterUpdate($request)
     {
         $this->result .= 'onAfterUpdate|';
     }
 
-    protected function _onBeforeDelete()
+    protected function _onBeforeDelete($request)
     {
         $this->result .= 'onBeforeDelete|';
     }
 
-    protected function _onAfterDelete()
+    protected function _onAfterDelete($request)
     {
         $this->result .= 'onAfterDelete|';
     }
 
-    protected function _initCreateForm()
+    protected function _initCreateForm($request)
     {
         $this->result .= 'initCreateForm|';
     }
 
-    protected function _initEditForm()
+    protected function _initEditForm($request)
     {
         $this->result .= 'initEditForm|';
     }

@@ -9,7 +9,7 @@
 
 namespace limb\web_app\src\request;
 
-use limb\net\src\lmbHttpRequest;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * interface lmbRequestDispatcherInterface.
@@ -19,5 +19,5 @@ use limb\net\src\lmbHttpRequest;
  */
 interface lmbRequestDispatcherInterface
 {
-    function dispatch(lmbHttpRequest $request);
+    function dispatch(RequestInterface $request);
 }

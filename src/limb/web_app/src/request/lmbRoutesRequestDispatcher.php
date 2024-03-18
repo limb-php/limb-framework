@@ -14,6 +14,7 @@ use limb\net\src\lmbUriHelper;
 use limb\toolkit\src\lmbToolkit;
 use limb\net\src\lmbUri;
 use limb\core\src\lmbEnv;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * class lmbRoutesRequestDispatcher.
@@ -37,12 +38,11 @@ class lmbRoutesRequestDispatcher implements lmbRequestDispatcherInterface
             $this->base_path = $base_path;
     }
 
-    function dispatch(lmbHttpRequest $request)
+    function dispatch(RequestInterface $request)
     {
         $routes = lmbToolkit::instance()->getRoutes();
 
-        $uri = $request->getUri();
-        $uri = $uri->withPath( lmbUriHelper::normalizePath($uri) );
+        $uri = $request->getUri()->withPath( lmbUriHelper::normalizePath($request->getUri()->getPath()) );
 
         $level = $this->_getHttpBasePathOffsetLevel($uri);
 
