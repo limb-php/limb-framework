@@ -417,19 +417,11 @@ class lmbHttpResponse implements ResponseInterface
         return $this;
     }
 
-    public function write($string)
+    public function write($string, $prepend = false)
     {
-        //$this->response_string = $string;
+        if($prepend)
+            $this->getBody()->rewind();
         $this->getBody()->write($string);
-
-        return $this;
-    }
-
-    /** @deprecated */
-    public function append($string)
-    {
-        //$this->response_string .= $string;
-        $this->getBody()->write($this->getBody()->getContents() . $string);
 
         return $this;
     }

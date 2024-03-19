@@ -52,6 +52,21 @@ class lmbHttpResponseTest extends TestCase
         $this->assertFalse($this->response->isEmpty());
     }
 
+    function testResponseStringWrite()
+    {
+        $this->response->write("<b>wow</b>");
+        $this->response->write("<b>wow2</b>", true);
+        $this->assertEquals('<b>wow2</b>', $this->response->getBody());
+    }
+
+    function testResponseStringAppend()
+    {
+        $this->response->write("<b>wow</b>");
+        $this->response->write("<b>wow2</b>");
+        $this->response->write("<b>wow3</b>");
+        $this->assertEquals('<b>wow</b><b>wow2</b><b>wow3</b>', $this->response->getBody());
+    }
+
     function testNotEmptyReadfile()
     {
         $this->response->readfile("/path/to/file");
