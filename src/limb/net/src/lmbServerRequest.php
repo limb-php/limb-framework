@@ -6,156 +6,93 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
 
-class lmbServerRequest implements ServerRequestInterface
+class lmbServerRequest extends lmbHttpRequest implements ServerRequestInterface
 {
+    protected $__serverParams = [];
 
-    public function getProtocolVersion()
-    {
-        // TODO: Implement getProtocolVersion() method.
-    }
+    /**
+     * @param string                               $method       HTTP method
+     * @param string|UriInterface                  $uri          URI
+     * @param (string|string[])[]                  $headers      Request headers
+     * @param array                                $serverParams Typically the $_SERVER superglobal
+     */
+    public function __construct(
+        string $method,
+               $uri,
+        array $headers = [],
+        array $serverParams = []
+    ) {
+        $this->__serverParams = $serverParams;
 
-    public function withProtocolVersion(string $version)
-    {
-        // TODO: Implement withProtocolVersion() method.
-    }
-
-    public function getHeaders()
-    {
-        // TODO: Implement getHeaders() method.
-    }
-
-    public function hasHeader(string $name)
-    {
-        // TODO: Implement hasHeader() method.
-    }
-
-    public function getHeader(string $name)
-    {
-        // TODO: Implement getHeader() method.
-    }
-
-    public function getHeaderLine(string $name)
-    {
-        // TODO: Implement getHeaderLine() method.
-    }
-
-    public function withHeader(string $name, $value)
-    {
-        // TODO: Implement withHeader() method.
-    }
-
-    public function withAddedHeader(string $name, $value)
-    {
-        // TODO: Implement withAddedHeader() method.
-    }
-
-    public function withoutHeader(string $name)
-    {
-        // TODO: Implement withoutHeader() method.
-    }
-
-    public function getBody()
-    {
-        // TODO: Implement getBody() method.
-    }
-
-    public function withBody(StreamInterface $body)
-    {
-        // TODO: Implement withBody() method.
-    }
-
-    public function getRequestTarget()
-    {
-        // TODO: Implement getRequestTarget() method.
-    }
-
-    public function withRequestTarget(string $requestTarget)
-    {
-        // TODO: Implement withRequestTarget() method.
-    }
-
-    public function getMethod()
-    {
-        // TODO: Implement getMethod() method.
-    }
-
-    public function withMethod(string $method)
-    {
-        // TODO: Implement withMethod() method.
-    }
-
-    public function getUri()
-    {
-        // TODO: Implement getUri() method.
-    }
-
-    public function withUri(UriInterface $uri, bool $preserveHost = false)
-    {
-        // TODO: Implement withUri() method.
+        parent::__construct($uri, $method, [], [], [], [], $headers);
     }
 
     public function getServerParams()
     {
-        // TODO: Implement getServerParams() method.
+        return $this->__serverParams;
     }
 
     public function getCookieParams()
     {
-        // TODO: Implement getCookieParams() method.
+        return $this->__cookies;
     }
 
     public function withCookieParams(array $cookies)
     {
-        // TODO: Implement withCookieParams() method.
-    }
+        if ($this->__cookies === $cookies) {
+            return $this;
+        }
 
-    public function getQueryParams()
-    {
-        // TODO: Implement getQueryParams() method.
-    }
-
-    public function withQueryParams(array $query)
-    {
-        // TODO: Implement withQueryParams() method.
+        $new = clone($this);
+        $new->__cookies = $this->_stripHttpSlashes($cookies);
+        return $new;
     }
 
     public function getUploadedFiles()
     {
-        // TODO: Implement getUploadedFiles() method.
+        return $this->__files;
     }
 
     public function withUploadedFiles(array $uploadedFiles)
     {
-        // TODO: Implement withUploadedFiles() method.
+        if ($this->__files === $uploadedFiles) {
+            return $this;
+        }
+
+        $new = clone($this);
+        $new->__files = $this->_parseUploadedFiles($uploadedFiles);
+        return $new;
+    }
+
+    public function withQueryParams(array $query)
+    {
+        if ($this->__get === $query) {
+            return $this;
+        }
+
+        $new = clone($this);
+        $new->__get = $this->_stripHttpSlashes($query);
+        return $new;
     }
 
     public function getParsedBody()
     {
-        // TODO: Implement getParsedBody() method.
+        return $this->__post;
     }
 
     public function withParsedBody($data)
     {
-        // TODO: Implement withParsedBody() method.
+        if ($this->__post === $data) {
+            return $this;
+        }
+
+        $new = clone($this);
+        $new->__post = $this->_stripHttpSlashes($data);
+        return $new;
     }
 
-    public function getAttributes()
+    public function getQueryParams()
     {
-        // TODO: Implement getAttributes() method.
-    }
-
-    public function getAttribute(string $name, $default = null)
-    {
-        // TODO: Implement getAttribute() method.
-    }
-
-    public function withAttribute(string $name, $value)
-    {
-        // TODO: Implement withAttribute() method.
-    }
-
-    public function withoutAttribute(string $name)
-    {
-        // TODO: Implement withoutAttribute() method.
+        return $this->__get;
     }
 }

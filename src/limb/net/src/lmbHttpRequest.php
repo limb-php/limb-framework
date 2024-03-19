@@ -13,6 +13,7 @@ use limb\core\src\exception\lmbException;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbArrayHelper;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -492,14 +493,15 @@ class lmbHttpRequest extends lmbSet implements RequestInterface
         return $this->stream;
     }
 
-    public function withBody($body)
+    public function withBody(StreamInterface $body)
     {
         if ($body === $this->stream) {
             return $this;
         }
 
         $new = clone($this);
-        $new->stream = new lmbHttpStream($body);
+        //$new->stream = new lmbHttpStream($body);
+        $new->stream = $body;
 
         return $new;
     }
