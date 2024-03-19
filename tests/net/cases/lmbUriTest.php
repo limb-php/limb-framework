@@ -650,13 +650,14 @@ class lmbUriTest extends TestCase
 
     function testGetPathFromLevel()
     {
-        $uri = new lmbUri('/path/to/level');
+        $uri = new lmbUri('/path/to/level/level2');
 
-        $this->assertEquals('/path/to/level', lmbUriHelper::getPathFromLevel($uri, 0));
-        $this->assertEquals('/path/to/level', lmbUriHelper::getPathFromLevel($uri, 1));
-        $this->assertEquals('/to/level', lmbUriHelper::getPathFromLevel($uri, 2));
-        $this->assertEquals('/level', lmbUriHelper::getPathFromLevel($uri, 3));
-        $this->assertEquals('/', lmbUriHelper::getPathFromLevel($uri, 4));
+        $this->assertEquals('/path/to/level/level2', lmbUriHelper::getPathFromLevel($uri, 0));
+        $this->assertEquals('/path/to/level/level2', lmbUriHelper::getPathFromLevel($uri, 1));
+        $this->assertEquals('/to/level/level2', lmbUriHelper::getPathFromLevel($uri, 2));
+        $this->assertEquals('/level/level2', lmbUriHelper::getPathFromLevel($uri, 3));
+        $this->assertEquals('/level2', lmbUriHelper::getPathFromLevel($uri, 4));
+        $this->assertEquals('/', lmbUriHelper::getPathFromLevel($uri, 5));
     }
 
     function testUrlencodedPartsOfQueryAreDecoded()

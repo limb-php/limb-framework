@@ -42,7 +42,7 @@ class lmbRoutesRequestDispatcher implements lmbRequestDispatcherInterface
     {
         $routes = lmbToolkit::instance()->getRoutes();
 
-        $uri = $request->getUri()->withPath( lmbUriHelper::normalizePath($request->getUri()->getPath()) );
+        $uri = $request->getUri()->withPath( lmbUriHelper::normalizePath($request->getUri()) );
 
         $level = $this->_getHttpBasePathOffsetLevel($uri);
 
@@ -60,8 +60,7 @@ class lmbRoutesRequestDispatcher implements lmbRequestDispatcherInterface
         if (!$this->path_offset)
             return 0;
 
-        $base_path_uri = new lmbUri(rtrim($this->base_path, '/'));
-        $base_path_uri = $uri->withPath( lmbUriHelper::normalizePath($base_path_uri) );
+        $base_path_uri = new lmbUri( lmbUriHelper::normalizePath(rtrim($this->base_path, '/')) );
 
         $level = 1;
         while ((lmbUriHelper::getPathElement($uri, $level) == lmbUriHelper::getPathElement($base_path_uri, $level)) &&

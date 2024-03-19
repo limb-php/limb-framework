@@ -132,8 +132,10 @@ class lmbRoutesRequestDispatcherTest extends TestCase
         $routes = new lmbRoutes($config_array);
         $this->toolkit->setRoutes($routes);
 
-        $dispatcher = new lmbRoutesRequestDispatcher($path_offset = '/www',
-            $base_path = 'https://example.com/app/');
+        $dispatcher = new lmbRoutesRequestDispatcher(
+            $path_offset = '/app',
+            $base_path = 'https://example.com/app/'
+        );
 
         $uri = new lmbUri('https://example.com/app/news/admin_display');
         $this->request = $this->request->withUri($uri);
