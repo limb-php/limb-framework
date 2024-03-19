@@ -99,16 +99,7 @@ class lmbHttpRequest extends lmbSet implements RequestInterface
 
     static protected function _readHeaders(): array
     {
-        $headers = [];
-        foreach ($_SERVER as $key => $value) {
-            if (strpos($key, 'HTTP_') === 0) {
-                $headers[substr($key, 5)] = $value;
-            } elseif (in_array($key, ['CONTENT_TYPE', 'CONTENT_LENGTH', 'CONTENT_MD5'], true)) {
-                $headers[$key] = $value;
-            }
-        }
-
-        return $headers;
+        return getallheaders();
     }
 
     static protected function _getRawUriString()

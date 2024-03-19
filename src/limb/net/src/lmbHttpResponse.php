@@ -350,6 +350,7 @@ class lmbHttpResponse implements ResponseInterface
         return !empty($this->response_file_path);
     }
 
+    /** @deprecated  */
     function reload()
     {
         $this->redirect($_SERVER['PHP_SELF']);

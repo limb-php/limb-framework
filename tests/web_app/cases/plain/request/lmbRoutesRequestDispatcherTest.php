@@ -63,8 +63,9 @@ class lmbRoutesRequestDispatcherTest extends TestCase
         $this->toolkit->setRoutes($routes);
 
         $uri = new lmbUri('/news/display');
-        $uri = $uri->withQueryItem('action', 'admin_display');
-        $this->request = $this->request->withUri($uri);
+        $this->request = $this->request
+            ->withUri($uri)
+            ->withAttribute('action', 'admin_display');
 
         $dispatcher = new lmbRoutesRequestDispatcher();
         $result = $dispatcher->dispatch($this->request);
@@ -81,9 +82,12 @@ class lmbRoutesRequestDispatcherTest extends TestCase
         $routes = new lmbRoutes($config_array);
         $this->toolkit->setRoutes($routes);
 
-        $this->request->getUri()->withPath('/news/display');
-        $this->request->set('action', 'admin_display'); // !!!
-        $this->request->set('controller', 'my_controller'); // !!!
+        $this->request
+            ->getUri()
+            ->withPath('/news/display');
+        $this->request = $this->request
+            ->withAttribute('action', 'admin_display') // !!!
+            ->withAttribute('controller', 'my_controller'); // !!!
 
         $dispatcher = new lmbRoutesRequestDispatcher();
         $result = $dispatcher->dispatch($this->request);

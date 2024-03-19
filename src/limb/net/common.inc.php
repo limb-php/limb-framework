@@ -32,3 +32,20 @@ if (!function_exists('request')) {
     }
 
 }
+
+if (!function_exists( 'getallheaders' )) {
+
+    function getallheaders()
+    {
+        $headers = [];
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) == 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            } elseif (in_array($name, ['CONTENT_TYPE', 'CONTENT_LENGTH', 'CONTENT_MD5'], true)) {
+                $headers[$name] = $value;
+            }
+        }
+        return $headers;
+    }
+
+}
