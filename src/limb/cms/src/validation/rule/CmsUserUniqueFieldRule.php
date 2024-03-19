@@ -29,7 +29,8 @@ class CmsUserUniqueFieldRule extends lmbSingleFieldRule
     function check($value)
     {
         $criteria = new lmbSQLFieldCriteria($this->field_name, $value);
-        $criteria->addAnd(new lmbSQLFieldCriteria($this->ignore_user->getPrimaryKeyName(), $this->ignore_user->getId(), lmbSQLFieldCriteria::NOT_EQUAL));
+        if($this->ignore_user)
+            $criteria->addAnd(new lmbSQLFieldCriteria($this->ignore_user->getPrimaryKeyName(), $this->ignore_user->getId(), lmbSQLFieldCriteria::NOT_EQUAL));
 
         if (lmbActiveRecord::findFirst($this->model_class, $criteria)) {
             $error = $this->custom_error ?? lmbI18n::translate('User with {Field} already exists', 'cms');
