@@ -582,21 +582,25 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         return $new;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetExists(mixed $offset)
     {
         return $this->has($offset);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet(mixed $offset)
     {
         return $this->get($offset);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet(mixed $offset, mixed $value)
     {
         $this->set($offset, $value);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset(mixed $offset)
     {
         unset($this->$offset);
