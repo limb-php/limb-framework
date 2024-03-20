@@ -52,6 +52,11 @@ class lmbHttpStream implements StreamInterface
         }
     }
 
+    public function __destruct()
+    {
+        $this->close();
+    }
+
     public function __toString(): string
     {
         try {

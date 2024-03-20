@@ -10,7 +10,6 @@
 namespace limb\net\src;
 
 use limb\core\src\exception\lmbException;
-use limb\core\src\lmbSet;
 use limb\core\src\lmbArrayHelper;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamInterface;
@@ -22,7 +21,7 @@ use Psr\Http\Message\UriInterface;
  * @package net
  * @version $Id: lmbHttpRequest.php 8122 2010-02-02 09:54:14Z
  */
-class lmbHttpRequest extends lmbSet implements RequestInterface
+class lmbHttpRequest implements \ArrayAccess, RequestInterface
 {
     /**
      * @var string
@@ -46,8 +45,6 @@ class lmbHttpRequest extends lmbSet implements RequestInterface
 
     function __construct($uri_string = null, $method = 'GET', $get = [], $post = [], $cookies = [], $files = [], $headers = [])
     {
-        parent::__construct();
-
         $this->_initRequestProperties($uri_string, $method, $get, $post, $cookies, $files, $headers);
     }
 
@@ -216,9 +213,9 @@ class lmbHttpRequest extends lmbSet implements RequestInterface
         return $this->__headers;
     }
 
-    public function getHeader($header_name, $default_value = null)
+    public function getHeader($name, $default_value = null)
     {
-        return $this->__headers[$header_name] ?? $default_value;
+        return $this->__headers[$name] ?? $default_value;
     }
 
     public function hasHeader($name): bool
@@ -583,5 +580,25 @@ class lmbHttpRequest extends lmbSet implements RequestInterface
         $new = clone($this);
         unset($new->__attributes[$name]);
         return $new;
+    }
+
+    public function offsetExists(mixed $offset)
+    {
+        return $this->has($offset);
+    }
+
+    public function offsetGet(mixed $offset)
+    {
+        return $this->get($offset);
+    }
+
+    public function offsetSet(mixed $offset, mixed $value)
+    {
+        $this->set($offset, $value);
+    }
+
+    public function offsetUnset(mixed $offset)
+    {
+        unset($this->$offset);
     }
 }

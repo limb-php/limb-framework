@@ -160,8 +160,6 @@ class lmbHttpResponse implements ResponseInterface
         511 => 'Network Authentication Required',                             // RFC6585
     ];
 
-    //protected $response_string = '';
-    protected $response_file_path = '';
     protected $headers = array();
     protected $cookies = array();
     protected $is_redirected = false;
@@ -244,9 +242,7 @@ class lmbHttpResponse implements ResponseInterface
     /* */
     function reset()
     {
-        //$this->response_string = '';
         $this->stream = null;
-        $this->response_file_path = '';
         $this->headers = array();
         $this->is_redirected = false;
         $this->transaction_started = false;
@@ -314,12 +310,6 @@ class lmbHttpResponse implements ResponseInterface
         return $this->getContentType();
     }
 
-    /** @deprecated */
-    function getResponseString()
-    {
-        //return $this->response_string;
-    }
-
     function isStarted()
     {
         return $this->transaction_started;
@@ -332,9 +322,7 @@ class lmbHttpResponse implements ResponseInterface
 
         $res = (
             !$this->is_redirected &&
-            //empty($this->response_string) &&
             !$this->stream->getSize() &&
-            empty($this->response_file_path) &&
             ($status != 304 && $status != 412));//???
 
         return $res;
@@ -343,11 +331,6 @@ class lmbHttpResponse implements ResponseInterface
     function isHeadersSent(): bool
     {
         return sizeof($this->headers) > 0;
-    }
-
-    function isFileSent(): bool
-    {
-        return !empty($this->response_file_path);
     }
 
     /** @deprecated  */
@@ -412,7 +395,7 @@ class lmbHttpResponse implements ResponseInterface
 
     public function readFile($file_path)
     {
-        $this->response_file_path = $file_path;
+        $this->_fileToStream($file_path);
 
         return $this;
     }
@@ -445,7 +428,7 @@ class lmbHttpResponse implements ResponseInterface
     /**
      * Sends HTTP headers.
      *
-     * @return $this
+     * @return self
      */
     public function sendHeaders()
     {
@@ -487,9 +470,6 @@ class lmbHttpResponse implements ResponseInterface
 
     public function sendContent()
     {
-        if (!empty($this->response_file_path))
-            $this->_fileToStream($this->response_file_path);
-
         if ($this->stream->getSize())
             echo $this->stream;
 
@@ -503,6 +483,7 @@ class lmbHttpResponse implements ResponseInterface
             $this->stream = new lmbHttpStream($fileHandler);
     }
 
+    /** @deprecated  */
     protected function _sendFile($file_path)
     {
         readfile($file_path);

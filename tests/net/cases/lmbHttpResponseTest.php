@@ -69,8 +69,11 @@ class lmbHttpResponseTest extends TestCase
 
     function testNotEmptyReadfile()
     {
-        $this->response->readfile("/path/to/file");
+        $filename = __DIR__ . "/input.jpg";
+        $this->response->readFile($filename);
+
         $this->assertFalse($this->response->isEmpty());
+        $this->assertEquals(file_get_contents($filename), $this->response->getBody());
     }
 
     function testNotEmpty304Status()
@@ -88,17 +91,6 @@ class lmbHttpResponseTest extends TestCase
     function testHeadersNotSent()
     {
         $this->assertFalse($this->response->isHeadersSent());
-    }
-
-    function testFileNotSent()
-    {
-        $this->assertFalse($this->response->isFileSent());
-    }
-
-    function testFileSent()
-    {
-        $this->response->readfile('somefile');
-        $this->assertTrue($this->response->isFileSent());
     }
 
     function testHeadersSent()
@@ -154,19 +146,18 @@ class lmbHttpResponseTest extends TestCase
         $this->assertEquals($this->response->getRedirectedPath(), $path);
     }
 
-    /*function testSendHeadersOnCommit()
-    {
-      $this->mock_response->setCookie('foo', '111');
-
-      $this->mock_response->addHeader("Location", "to-some-place");
-      $this->mock_response->addHeader("Location", "to-some-place2");
-
-      $this->mock_response
-          ->expects($this->exactly(2))
-          ->method('sendHeaders');
-
-      $this->mock_response->commit();
-    }*/
+//    function testSendHeadersOnCommit()
+//    {
+//      $this->mock_response->setCookie('foo', '111');
+//      $this->mock_response->addHeader("Location", "to-some-place");
+//      $this->mock_response->addHeader("Location", "to-some-place2");
+//
+//      $this->mock_response
+//          ->expects($this->exactly(1))
+//          ->method('sendHeaders');
+//
+//      $this->mock_response->commit();
+//    }
 
     /*function testWriteOnCommit()
     {
@@ -181,10 +172,10 @@ class lmbHttpResponseTest extends TestCase
 
     /*function testReadfileOnCommit()
     {
-      $this->mock_response->readfile("/path/to/file");
+      $this->mock_response->readFile("/path/to/file");
       $this->mock_response
           ->expects($this->once())
-          ->method('_sendFile')
+          ->method('_fileToStream')
           ->with("/path/to/file");
 
       $this->mock_response->commit();

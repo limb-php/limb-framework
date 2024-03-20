@@ -9,7 +9,6 @@
 
 namespace tests\cms\cases\Controllers;
 
-use limb\net\src\lmbFakeHttpResponse;
 use PHPUnit\Framework\TestCase;
 use limb\active_record\src\lmbActiveRecord;
 use limb\net\src\lmbHttpRequest;
