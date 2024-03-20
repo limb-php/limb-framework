@@ -4,6 +4,7 @@ namespace limb\optimization\src\model;
 
 use limb\core\src\lmbObject;
 use limb\active_record\src\lmbActiveRecord;
+use limb\net\src\lmbUriHelper;
 use limb\validation\src\lmbValidator;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\criteria\lmbSQLCriteria;
@@ -32,7 +33,7 @@ class MetaInfo extends lmbActiveRecord
         $request = lmbToolKit::instance()->getRequest();
         $uri = $request->getUri();
 
-        $url = $uri->getPathToLevel($uri->countPath() - 1);
+        $url = lmbUriHelper::getPathToLevel($uri, $uri->countPath() - 1);
         $url = ($url[0] == '/') ? (string)substr($url, 1) : $url;
         $url = ((strlen($url) > 1) && ($url[strlen($url) - 1] == '/')) ? (string)substr($url, 0, -1) : $url;
 
@@ -123,4 +124,3 @@ class MetaInfo extends lmbActiveRecord
         ));
     }
 }
-
