@@ -83,7 +83,7 @@ class lmbWebApplication extends lmbFilterChain
             return $this->_callControllerAction($request);
         });
 
-        $this->_terminate($request, $response);
+        $this->_terminate();
 
         return $response;
     }
@@ -101,11 +101,11 @@ class lmbWebApplication extends lmbFilterChain
         }
     }
 
-    protected function _terminate($request, $response)
+    protected function _terminate()
     {
         foreach ($this->bootstraps as $bootstrap) {
             if (is_callable([$bootstrap, 'terminate']))
-                $bootstrap->terminate($request, $response);
+                $bootstrap->terminate();
         }
     }
 

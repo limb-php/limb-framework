@@ -207,7 +207,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         }
     }
 
-    protected function _changeItemsPriority($model, $where_field, $where_field_value)
+    protected function _changeItemsPriority($request, $model, $where_field, $where_field_value)
     {
         $priority_items = $request->get('priority_items');
 

@@ -12,13 +12,14 @@ namespace limb\web_app\src\exception;
 use limb\core\src\lmbErrorGuard;
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
+use limb\web_app\src\request\lmbBootstrapInterface;
 
 /**
  * class lmbErrorHandler
  *
  * @package web_app
  */
-class lmbErrorHandler
+class lmbErrorHandler implements lmbBootstrapInterface
 {
     const CONTEXT_RADIUS = 3;
     const MODE_DEVEL = 'devel';
@@ -35,10 +36,14 @@ class lmbErrorHandler
         $this->error_page = $error500_page;
     }
 
-    function bootstrap(): void
+    function bootstrap($request): void
     {
         lmbErrorGuard::registerFatalErrorHandler($this, 'handleFatalError');
         lmbErrorGuard::registerExceptionHandler($this, 'handleException');
+    }
+
+    function terminate(): void
+    {
     }
 
     function handleFatalError($error)
@@ -54,7 +59,7 @@ class lmbErrorHandler
         response()
             ->reset()
             ->setStatusCode(500, 'Server Error')
-            ->withBody($result)
+            ->write($result)
             ->send();
 
         exit(1);
@@ -76,7 +81,7 @@ class lmbErrorHandler
         response()
             ->reset()
             ->setStatusCode(500, 'Server Error')
-            ->withBody($result)
+            ->write($result)
             ->send();
 
         exit(1);
@@ -84,7 +89,8 @@ class lmbErrorHandler
 
     protected function _isAcceptJson(): bool
     {
-        return (strpos($this->toolkit->getRequest()->getHeader('ACCEPT'), 'json') !== false);
+        $accept = $this->toolkit->getRequest()->getHeader('Accept');
+        return $accept && (strpos($accept, 'json') !== false);
     }
 
     function _echoErrorPage()
