@@ -488,13 +488,19 @@ class lmbHttpResponse implements ResponseInterface
     public function sendContent()
     {
         if (!empty($this->response_file_path))
-            $this->_sendFile($this->response_file_path);
-        //else if (!empty($this->response_string))
-            //echo $this->response_string;
-        else if ($this->stream->getSize())
+            $this->_fileToStream($this->response_file_path);
+
+        if ($this->stream->getSize())
             echo $this->stream;
 
         return $this;
+    }
+
+    protected function _fileToStream($file_path)
+    {
+        $fileHandler = fopen($file_path, 'r');
+        if($fileHandler)
+            $this->stream = new lmbHttpStream($fileHandler);
     }
 
     protected function _sendFile($file_path)
