@@ -53,7 +53,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
      */
     protected function _initRequestProperties($uri_string, $method, $get, $post, $cookies, $files, $headers)
     {
-        $this->__version = '1.0';
+        $this->__version = '1.1';
 
         $this->__method = $method;
 
@@ -213,9 +213,11 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         return $this->__headers;
     }
 
-    public function getHeader($name, $default_value = null)
+    public function getHeader($name)
     {
-        return $this->__headers[$name] ?? $default_value;
+        //$name = strtolower($name);
+
+        return $this->__headers[$name] ?? [];
     }
 
     public function hasHeader($name): bool
@@ -431,11 +433,9 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         return $new;
     }
 
-    public function getHeaderLine($name)
+    public function getHeaderLine($name): string
     {
-        $header_name = strtolower($name);
-
-        return isset($this->__headers[$header_name]) ? ($header_name . ': ' . $this->__headers[$header_name]) : '';
+        return implode(', ', $this->getHeader($name));
     }
 
     public function withHeader($name, $value)

@@ -392,8 +392,11 @@ class lmbHttpRequestTest extends TestCase
         $this->assertEquals(3, $request1->get('x'));
         $this->assertEquals('/foo/bar', $request1->getUri()->getPath());
 
-        $this->assertEquals('test.com', $request1->getHeader('Host'));
-        $this->assertEquals('test2.com', $request2->getHeader('Host'));
+        $this->assertEquals(['test.com'], $request1->getHeader('Host'));
+        $this->assertEquals('test.com', $request1->getHeaderLine('Host'));
+
+        $this->assertEquals(['test2.com'], $request2->getHeader('Host'));
+        $this->assertEquals('test2.com', $request2->getHeaderLine('Host'));
     }
 
     function testGetBoolean()
