@@ -51,7 +51,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
     /**
      * @throws lmbException
      */
-    protected function _initRequestProperties($uri_string, $method, $get, $post, $cookies, $files, $headers)
+    protected function _initRequestProperties($uri_string, $method, $get, $post, $cookies, $files, $headers): void
     {
         $this->__version = '1.1';
 
@@ -390,7 +390,8 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         }*/
         $header = 'Host';
 
-        $this->__headers = [$header => $host] + $this->__headers;
+        $this->__headers[$header] = [];
+        $this->__headers[$header][] = $host;
     }
 
     function toString(): string

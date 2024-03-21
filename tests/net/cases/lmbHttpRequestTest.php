@@ -409,4 +409,24 @@ class lmbHttpRequestTest extends TestCase
         $this->assertTrue($request2->getBoolean('checkbox'));
         $this->assertFalse($request3->getBoolean('checkbox'));
     }
+
+    function testGetHeader()
+    {
+        $_SERVER = [];
+        $_SERVER['HTTP_ACCEPT'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8';
+        $_SERVER['HTTP_ACCEPT_CHARSET'] = 'utf-8';
+        $_SERVER['HTTP_HOST'] = 'test.com';
+        $_SERVER['PHP_SELF'] = 'index.php';
+
+        $request = lmbHttpRequest::createFromGlobals();
+
+        //$this->assertEquals([
+        // 'text/html,application/xhtml+xml,application/xml',
+        // 'q=0.9,image/avif,image/webp,*/*'
+        // 'q=0.8'
+        //], $request->getHeader('Accept'));
+        //$this->assertEquals(['utf-8'], $request->getHeader('Accept-Charset'));
+        $this->assertEquals(['test.com'], $request->getHeader('Host'));
+        //$this->assertEquals('test.com', $request->getHeaderLine('host'));
+    }
 }
