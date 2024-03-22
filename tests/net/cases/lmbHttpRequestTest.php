@@ -426,6 +426,7 @@ class lmbHttpRequestTest extends TestCase
         // 'q=0.8'
         //], $request->getHeader('Accept'));
         //$this->assertEquals(['utf-8'], $request->getHeader('Accept-Charset'));
+        $this->assertEquals('utf-8', $request->getHeaderLine('Accept-Charset'));
         $this->assertEquals(['test.com'], $request->getHeader('Host'));
         //$this->assertEquals('test.com', $request->getHeaderLine('host'));
     }

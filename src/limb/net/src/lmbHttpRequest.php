@@ -217,7 +217,14 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
     {
         //$name = strtolower($name);
 
-        return $this->__headers[$name] ?? [];
+        if( $this->hasHeader($name) ) {
+            if(is_string($this->__headers[$name]))
+                return [$this->__headers[$name]];
+            else
+                return $this->__headers[$name];
+        }
+
+        return [];
     }
 
     public function hasHeader($name): bool
