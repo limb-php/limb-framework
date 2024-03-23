@@ -26,16 +26,17 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
     /**
      * @var string
      */
-    protected $__version;
-    protected $__method;
+    private $__version;
+    private $__method;
+    private $__headers = [];
+    private $__headerNames = [];
     /** @var lmbUri */
     protected $__uri;
-    protected $__headers = array();
-    protected $__get = array();
-    protected $__post = array();
-    protected $__cookies = array();
-    protected $__files = array();
-    protected $__attributes = array();
+    protected $__get = [];
+    protected $__post = [];
+    protected $__cookies = [];
+    protected $__files = [];
+    protected $__attributes = [];
     protected $__pretend_post = false;
     /** @var null|string */
     protected $__requestTarget;
@@ -81,7 +82,8 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
             $this->set($k, $v);
         }
 
-        $this->__headers = $headers;
+        $this->setHeaders($headers);
+
         $this->updateHostFromUri();
     }
 
@@ -89,14 +91,29 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
     {
         $uri_string = self::_getRawUriString();
         $method = $_SERVER['REQUEST_METHOD'] ?? null;
-        $headers = self::_readHeaders();
+        $headers = getallheaders();
 
         return new static($uri_string, $method, $_GET, $_POST, $_COOKIE, $_FILES, $headers);
     }
 
-    static protected function _readHeaders(): array
+    private function setHeaders($headers): void
     {
-        return getallheaders();
+        $this->__headerNames = $this->__headers = [];
+        foreach ($headers as $header => $value) {
+            $header = (string) $header;
+            $normalized_header = strtolower($header);
+
+            if(!is_array($value))
+                $value = [$value];
+
+            if (isset($this->__headerNames[$normalized_header])) {
+                $header = $this->__headerNames[$normalized_header];
+                $this->__headers[$header] = array_merge($this->__headers[$header], $value);
+            } else {
+                $this->__headerNames[$normalized_header] = $header;
+                $this->__headers[$header] = $value;
+            }
+        }
     }
 
     static protected function _getRawUriString()
@@ -213,18 +230,17 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         return $this->__headers;
     }
 
-    public function getHeader($name)
+    public function getHeader($name): array
     {
-        //$name = strtolower($name);
+        $name = strtolower($name);
 
-        if( $this->hasHeader($name) ) {
-            if(is_string($this->__headers[$name]))
-                return [$this->__headers[$name]];
-            else
-                return $this->__headers[$name];
+        if (!isset($this->__headerNames[$name])) {
+            return [];
         }
 
-        return [];
+        $name = $this->__headerNames[$name];
+
+        return $this->__headers[$name];
     }
 
     public function hasHeader($name): bool
@@ -237,12 +253,13 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         if ($this->has('DNT'))
             return true;
 
-        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
+        return $this->hasHeader('X-Requested-With') &&
+            $this->getHeaderLine('X-Requested-With') == 'XMLHttpRequest';
     }
 
     function isPjax(): bool
     {
-        return isset($_SERVER['HTTP_X_PJAX']);
+        return $this->hasHeader('X-Pjax');
     }
 
     function pretendPost($flag = true)
@@ -371,7 +388,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
             $new->set($k, $v);
         }
 
-        if (!$preserveHost || !$this->hasHeader('Host')) {
+        if (!$preserveHost || !$this->__headerNames['host']) {
             $new->updateHostFromUri();
         }
 
@@ -390,15 +407,10 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
             $host .= ':' . $port;
         }
 
-        /*if ($this->hasHeader('Host')) {
-            $header = $this->getHeader('Host');
-        } else {
-            $header = 'Host';
-        }*/
         $header = 'Host';
 
-        $this->__headers[$header] = [];
-        $this->__headers[$header][] = $host;
+        $this->__headers[$header] = [$host];
+        $this->__headerNames[strtolower($header)] = $header;
     }
 
     function toString(): string
@@ -462,7 +474,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         $normalized = strtolower($name);
 
         $new = clone($this);
-        if(!isset($new->__headers[$normalized]))
+        if (!isset($new->__headers[$normalized]))
             $new->__headers[$normalized] = [];
 
         $new->__headers[$normalized][] = $value;
@@ -562,7 +574,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         return $this->__attributes[$name] ?? $default;
     }
 
-    /** @deprecated  */
+    /** @deprecated */
     public function setAttribute($name, $value)
     {
         $this->__attributes[$name] = $value;

@@ -420,14 +420,14 @@ class lmbHttpRequestTest extends TestCase
 
         $request = lmbHttpRequest::createFromGlobals();
 
-        //$this->assertEquals([
-        // 'text/html,application/xhtml+xml,application/xml',
-        // 'q=0.9,image/avif,image/webp,*/*'
-        // 'q=0.8'
-        //], $request->getHeader('Accept'));
-        //$this->assertEquals(['utf-8'], $request->getHeader('Accept-Charset'));
+//        $this->assertEquals([
+//            'text/html,application/xhtml+xml,application/xml',
+//            'q=0.9,image/avif,image/webp,*/*',
+//            'q=0.8'
+//        ], $request->getHeader('Accept'));
+        $this->assertEquals(['utf-8'], $request->getHeader('Accept-Charset'));
         $this->assertEquals('utf-8', $request->getHeaderLine('Accept-Charset'));
         $this->assertEquals(['test.com'], $request->getHeader('Host'));
-        //$this->assertEquals('test.com', $request->getHeaderLine('host'));
+        $this->assertEquals('test.com', $request->getHeaderLine('host'));
     }
 }
