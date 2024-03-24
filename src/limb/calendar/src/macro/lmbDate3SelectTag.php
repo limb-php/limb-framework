@@ -23,7 +23,7 @@ class lmbDate3SelectTag extends lmbMacroFormTagElement
     protected $html_tag = 'input';
     protected $widget_class_name = 'limb\calendar\src\lmbDate3SelectWidget';
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
         $this->set('type', 'hidden');
 
