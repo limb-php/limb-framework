@@ -89,7 +89,7 @@ class lmbErrorHandler implements lmbBootstrapInterface
 
     protected function _isAcceptJson(): bool
     {
-        $accept = $this->toolkit->getRequest()->getHeader('Accept');
+        $accept = $this->toolkit->getRequest()->getHeaderLine('Accept');
         return $accept && (strpos($accept, 'json') !== false);
     }
 
