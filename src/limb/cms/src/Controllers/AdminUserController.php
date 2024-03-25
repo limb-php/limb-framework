@@ -11,18 +11,18 @@ class AdminUserController extends lmbAdminObjectController
 {
     protected $_object_class_name = lmbCmsUser::class;
 
-    function doChangePassword()
+    function doChangePassword($request)
     {
-        if (!$this->request->hasPost())
+        if (!$request->hasPost())
             return;
 
         $this->useForm('user_form');
-        $this->setFormDatasource($this->request);
+        $this->setFormDatasource($request);
 
-        $user = new lmbCmsUser($this->request->getInteger('id'));
-        $this->_validatePasswordFields($user);
+        $user = new lmbCmsUser($request->Integer('id'));
+        $this->_validatePasswordFields($request, $user);
 
-        $user->setPassword($this->request->get('new_password'));
+        $user->setPassword($request->get('new_password'));
         $user->trySave($this->error_list);
 
         if ($this->error_list->isValid()) {
@@ -34,23 +34,23 @@ class AdminUserController extends lmbAdminObjectController
     /**
      * @param lmbCmsUser $user
      */
-    protected function _validatePasswordFields($user)
+    protected function _validatePasswordFields($request, $user)
     {
         $validator = new lmbValidator($this->error_list);
 
         $validator->addRequiredRule('password', 'Поле "Пароль" обязательно для заполнения');
         $validator->addRequiredRule('repeat_new_password', 'Поле "Подтверждение пароля" обязательно для заполнения');
 
-        if (!$user->isPasswordCorrect($this->request->get('password')))
+        if (!$user->isPasswordCorrect($request->get('password')))
             $this->error_list->addError("Выбран некорректный пароль");
 
         $validator->addRule(new MatchRule('password', 'repeat_password', 'Значения полей "Пароль" и "Подтверждение пароля" не совпадают'));
-        $validator->validate($this->request);
+        $validator->validate($request);
     }
 
-    function doDelete()
+    function doDelete($request)
     {
-        $id = $this->request->get('id');
+        $id = $request->get('id');
         if (!$this->item = lmbActiveRecord::findById($this->_object_class_name, $id, false))
             return $this->flashErrorAndRedirect('Пользователь не найден', '/admin_user');
 
@@ -59,7 +59,7 @@ class AdminUserController extends lmbAdminObjectController
 
         $this->item->destroy();
         $this->flash('Пользователь удален');
-        $this->redirect('/admin_user');
+
+        return $this->redirect('/admin_user');
     }
 }
-

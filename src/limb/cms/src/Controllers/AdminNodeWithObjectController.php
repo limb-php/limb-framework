@@ -39,91 +39,91 @@ abstract class AdminNodeWithObjectController extends LmbController
             throw new lmbException('Object class name or(and) controller name is not specified');
     }
 
-    function doCreate()
+    function doCreate($request)
     {
         $this->node = new $this->_node_class_name();
         $this->item = new $this->_object_class_name();
 
         $this->useForm($this->_form_name);
-        $this->setFormDatasource($this->request);
+        $this->setFormDatasource($request);
 
-        if ($this->request->hasPost()) {
+        if ($request->hasPost()) {
             $this->node->setControllerName($this->_controller_name);
             $this->node->setObject($this->item);
             $this->item->setNode($this->node);
-            $this->_import();
+            $this->_import($request);
 
-            if ($this->_generate_identifier || $this->request->get('auto_identifier'))
-                $this->node->setIdentifier(lmbCmsNode::generateIdentifier($this->request->get('parent')));
+            if ($this->_generate_identifier || $request->get('auto_identifier'))
+                $this->node->setIdentifier(lmbCmsNode::generateIdentifier($request->get('parent')));
 
-            $this->_validateAndSave(true);
+            $this->_validateAndSave($request, true);
         } else {
-            $this->_initCreateForm();
+            $this->_initCreateForm($request);
         }
     }
 
-    function doEdit()
+    function doEdit($request)
     {
-        $this->node = lmbActiveRecord::findById($this->_node_class_name, $this->request->getInteger('id'), false);
+        $this->node = lmbActiveRecord::findById($this->_node_class_name, $request->get('id'), false);
         if (!$this->node)
             return $this->forwardTo404();
 
         $this->item = $this->node->getObject();
         $this->useForm($this->_form_name);
-        $this->setFormDatasource($this->request);
+        $this->setFormDatasource($request);
 
-        if ($this->request->hasPost()) {
-            $this->_import();
+        if ($request->hasPost()) {
+            $this->_import($request);
             $this->_validateAndSave(false);
         } else {
-            $this->_initEditForm();
+            $this->_initEditForm($request);
         }
     }
 
-    protected function _import()
+    protected function _import($request)
     {
-        $this->node->import($this->request->export());
-        $this->item->import($this->request->export());
+        $this->node->import($request->export());
+        $this->item->import($request->export());
     }
 
-    protected function _validateAndSave($is_create = false)
+    protected function _validateAndSave($request, $is_create = false)
     {
-        $this->_onBeforeValidate();
+        $this->_onBeforeValidate($request);
         $this->node->validate($this->error_list);
         $this->item->validate($this->error_list);
-        $this->_onAfterValidate();
+        $this->_onAfterValidate($request);
 
         if ($this->error_list->isValid()) {
             if ($is_create)
-                $this->_onBeforeCreate();
+                $this->_onBeforeCreate($request);
             else
-                $this->_onBeforeEdit();
+                $this->_onBeforeEdit($request);
 
-            $this->_onBeforeSave();
+            $this->_onBeforeSave($request);
             $this->node->saveSkipValidation();
-            //$this->item->saveSkipValidation();
-            $this->_onAfterSave();
+            //$this->item->saveSkipValidation($request);
+            $this->_onAfterSave($request);
 
             if ($is_create)
-                $this->_onAfterCreate();
+                $this->_onAfterCreate($request);
             else
-                $this->_onAfterEdit();
+                $this->_onAfterEdit($request);
 
             $this->closePopup();
         }
     }
 
-    protected function _initEditForm()
+    protected function _initEditForm($request)
     {
-        $this->request->merge($this->node->export());
-        $this->request->merge($this->item->export());
-        $this->request->set('node', $this->node);
-        $this->request->set('item', $this->item);
+        $request->merge($this->node->export());
+        $request->merge($this->item->export());
+        $request->set('node', $this->node);
+        $request->set('item', $this->item);
     }
 
-    function performPublishCommand()
+    function performPublishCommand($request)
     {
-        $ids = $this->request->get('ids');
+        $ids = $request->get('ids');
         if (!is_array($ids) || !count($ids))
             $this->closePopup();
 
@@ -136,9 +136,9 @@ abstract class AdminNodeWithObjectController extends LmbController
         $this->closePopup();
     }
 
-    function performUnpublishCommand()
+    function performUnpublishCommand($request)
     {
-        $ids = $this->request->get('ids');
+        $ids = $request->get('ids');
         if (!is_array($ids) || !count($ids))
             $this->closePopup();
 
@@ -151,63 +151,63 @@ abstract class AdminNodeWithObjectController extends LmbController
         $this->closePopup();
     }
 
-    function doDelete()
+    function doDelete($request)
     {
-        if ($this->request->hasPost())
-            $this->_onBeforeDelete();
+        if ($request->hasPost())
+            $this->_onBeforeDelete($request);
 
-        if ($this->request->get('delete')) {
-            foreach ($this->request->getArray('ids') as $id) {
+        if ($request->get('delete')) {
+            foreach ($request->get('ids') as $id) {
                 $node = lmbActiveRecord::findById(lmbCmsNode::class, (int)$id);
                 $node->destroy();
             }
 
-            $this->_onAfterDelete();
+            $this->_onAfterDelete($request);
             $this->closePopup();
         }
     }
 
-    protected function _initCreateForm()
+    protected function _initCreateForm($request)
     {
     }
 
-    protected function _onBeforeSave()
+    protected function _onBeforeSave($request)
     {
     }
 
-    protected function _onAfterSave()
+    protected function _onAfterSave($request)
     {
     }
 
-    protected function _onBeforeCreate()
+    protected function _onBeforeCreate($request)
     {
     }
 
-    protected function _onAfterCreate()
+    protected function _onAfterCreate($request)
     {
     }
 
-    protected function _onBeforeEdit()
+    protected function _onBeforeEdit($request)
     {
     }
 
-    protected function _onAfterEdit()
+    protected function _onAfterEdit($request)
     {
     }
 
-    protected function _onBeforeDelete()
+    protected function _onBeforeDelete($request)
     {
     }
 
-    protected function _onAfterDelete()
+    protected function _onAfterDelete($request)
     {
     }
 
-    protected function _onBeforeValidate()
+    protected function _onBeforeValidate($request)
     {
     }
 
-    protected function _onAfterValidate()
+    protected function _onAfterValidate($request)
     {
     }
 }

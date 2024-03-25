@@ -23,7 +23,7 @@ class AdminDocumentController extends lmbAdminObjectController
 
     function doDisplay($request)
     {
-        if (!$id = $request->getInteger('id')) {
+        if (!(int)$id = $request->get('id')) {
             $this->is_root = true;
             $criteria = new lmbSQLCriteria('parent_id > 0');
             $criteria->addAnd(new lmbSQLCriteria('level = 1'));

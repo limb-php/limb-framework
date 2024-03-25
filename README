@@ -15,7 +15,7 @@ Here is the list of the most notable packages at the moment:
     * dbal: Database Abstraction Layer which supports MySql, PostgreSQL and Oracle at the moment.
     * session: transparent PHP session wrappers with painless persistence of objects
     
-Migrate from Limb3 to Limb4:
+Migrate from Limb3 to <=Limb4.4:
 
     * rename class files (remove '.class' extension)
     * add namespaces to all classes
@@ -30,10 +30,14 @@ Migrate from Limb3 to Limb4:
     * CMS: controller folder renamed to Controllers
     * validation: remove 'lmb' prefix from riles classes. ErrorList return error collection with keys
 
+Migrate from Limb4.4 to >Limb4.4:
+
+    * require PHP 8.0+
+    * net: lmbHttpRequest - removed get*() methods
 
 Limb5 roadmap:
-    * PSR-4
-    * PHP 8.1+ support
+    * PSR-4,7,17
+    * PHP 8.1+
     * AR: remove validation
     * Toolkit: improved DI pattern
     * Remove all of static variables
