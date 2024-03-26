@@ -22,6 +22,7 @@ abstract class DriverColumnInfoTestBase extends DriverMetaTestBase
     function tearDown(): void
     {
         unset($this->table);
+
         parent::tearDown();
     }
 }

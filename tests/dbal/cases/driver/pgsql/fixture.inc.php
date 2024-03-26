@@ -60,7 +60,7 @@ function DriverPgsqlSetup($conn)
 
 function DriverPgsqlExec($conn, $sql)
 {
-    $result = pg_query($conn, $sql);
+    $result = @pg_query($conn, $sql);
     if (!$result && stripos($sql, 'DROP') === false) //ignoring drop errors
         throw new lmbDbException('PgSQL execute error happened: ' . pg_last_error($conn));
 }

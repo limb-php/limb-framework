@@ -11,6 +11,7 @@ namespace limb\dbal\src\drivers\pgsql;
 
 use limb\dbal\src\drivers\lmbDbBaseConnection;
 use limb\dbal\src\drivers\lmbDbStatementInterface;
+use limb\dbal\src\exception\lmbDbConnectionException;
 use limb\dbal\src\exception\lmbDbException;
 
 /**
@@ -55,6 +56,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         return ++$this->statement_number;
     }
 
+    /** @return void */
     function connect()
     {
         $persistent = $this->config['persistent'] ?? null;
@@ -78,13 +80,14 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         }
 
         if ($persistent) {
-            $conn = pg_pconnect($connstr);
+            $conn = @pg_pconnect($connstr);
         } else {
-            $conn = pg_connect($connstr);
+            $conn = @pg_connect($connstr);
         }
 
         if (($conn === false) || (pg_connection_status($conn) !== PGSQL_CONNECTION_OK)) {
             $this->_raiseError('Could not connect to host "' . $this->config['host'] . '" and database "' . $this->config['database'] . '" on port ' . $this->config['port']);
+            return;
         }
 
         if (isset($this->config['charset']) && ($charset = $this->config['charset'])) {
@@ -99,6 +102,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         $this->connectionId = null;
     }
 
+    /** @return void */
     function disconnect()
     {
         if ($this->connectionId) {
@@ -114,29 +118,67 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
     function _raiseError($msg, $params = [])
     {
-        throw new lmbDbException($msg . ($this->connectionId ? ' last pgsql driver error: ' . pg_last_error($this->connectionId) : ''), $params);
+        $message = $msg . ($this->connectionId ? ' last pgsql driver error: ' . pg_last_error($this->connectionId) : '');
+
+        if (
+            strpos($message, 'eof detected') !== false
+            || strpos($message, 'broken pipe') !== false
+            || strpos($message, '0800') !== false
+            || strpos($message, '080P') !== false
+            || strpos($message, 'connection') !== false
+        ) {
+            throw new lmbDbConnectionException($message, $params);
+        } else {
+            throw new lmbDbException($message, $params);
+        }
     }
 
-    function execute($sql)
+    function execute($sql, $retry = true)
     {
-        $result = pg_query($this->getConnectionId(), $sql);
-        if ($result === false) {
-            $this->_raiseError($sql);
-        }
+        try {
+            $result = pg_query($this->getConnectionId(), $sql);
+            if ($result === false) {
+                $this->_raiseError($sql);
+            }
+            return $result;
+        } catch (\Throwable $e) {
+            if ($retry
+                && $e instanceof lmbDbConnectionException
+                && $this->config['reconnect']
+            ) {
+                $this->disconnect();
 
-        return $result;
+                return $this->execute($sql, false);
+            }
+
+            throw $e;
+        }
     }
 
-    function executeStatement($stmt)
+    function executeStatement($stmt, $retry = true)
     {
-        /** @var lmbPgsqlStatement $stmt */
-        $stmt_name = $stmt->getStatementName();
-        $result = pg_execute($this->getConnectionId(), $stmt_name, $stmt->getPrepParams());
-        if ($result === false) {
-            $this->_raiseError($stmt->getSQL(), $stmt->getPrepParams());
-        }
+        try {
+            /** @var lmbPgsqlStatement $stmt */
+            $stmt_name = $stmt->getStatementName();
 
-        return $result;
+            $result = pg_execute($this->getConnectionId(), $stmt_name, $stmt->getPrepParams());
+            if ($result === false) {
+                $this->_raiseError($stmt->getSQL(), $stmt->getPrepParams());
+            }
+
+            return $result;
+        } catch (\Throwable $e) {
+            if ($retry
+                && $e instanceof lmbDbConnectionException
+                && $this->config['reconnect']
+            ) {
+                $this->disconnect();
+
+                return $this->executeStatement($stmt, false);
+            }
+
+            throw $e;
+        }
     }
 
     function beginTransaction()
@@ -217,8 +259,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
     static function checkPgResult($queryId): bool
     {
-        if ( version_compare(PHP_VERSION, '8.1', '>=') )
-        {
+        if (version_compare(PHP_VERSION, '8.1', '>=')) {
             return is_a($queryId, 'PgSql\Result');
         }
 

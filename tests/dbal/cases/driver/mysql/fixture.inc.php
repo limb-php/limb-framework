@@ -73,7 +73,6 @@ function DriverMysqlSetup($conn)
     DriverMysqlExec($conn, $sql);
 
     DriverMysqlExec($conn, 'TRUNCATE `standard_types`');
-
 }
 
 function DriverMysqlExec($conn, $sql)
