@@ -56,7 +56,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
     {
         $this->__version = '1.1';
 
-        $this->__method = $method;
+        $this->__method = strtoupper($method);
 
         $this->__uri = new lmbUri($uri_string);
 
