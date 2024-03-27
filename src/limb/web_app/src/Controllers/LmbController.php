@@ -386,4 +386,13 @@ class LmbController
         }
         return false;
     }
+
+    protected function isAjaxRequest()
+    {
+        if ($this->request->hasHeader('DNT'))
+            return true;
+
+        return $this->request->hasHeader('X-Requested-With') &&
+            $this->request->getHeaderLine('X-Requested-With') == 'XMLHttpRequest';
+    }
 }
