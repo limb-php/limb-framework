@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\web_app\src\request;
+namespace limb\web_app\src\Bootstrap;
 
 /**
  * @package web_app

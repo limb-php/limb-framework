@@ -7,19 +7,18 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\web_app\src\exception;
+namespace limb\web_app\src\Bootstrap;
 
 use limb\core\src\lmbErrorGuard;
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
-use limb\web_app\src\request\lmbBootstrapInterface;
 
 /**
- * class lmbErrorHandler
+ * class lmbErrorHandlerBootstrap
  *
  * @package web_app
  */
-class lmbErrorHandler implements lmbBootstrapInterface
+class lmbErrorHandlerBootstrap implements lmbBootstrapInterface
 {
     const CONTEXT_RADIUS = 3;
     const MODE_DEVEL = 'devel';
@@ -262,5 +261,3 @@ EOD;
         return "\n" . implode("", $context);
     }
 }
-
-
