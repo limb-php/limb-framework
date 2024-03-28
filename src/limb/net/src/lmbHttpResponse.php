@@ -453,7 +453,8 @@ class lmbHttpResponse implements ResponseInterface
         return $this;
     }
 
-    public function json(array $data)
+    /** @param $data \ArrayObject|array */
+    public function json($data)
     {
         $this
             ->addHeader('Content-type', 'application/json')
