@@ -9,18 +9,17 @@
 
 namespace limb\web_app\src\Controllers;
 
-use limb\net\src\lmbHttpResponse;
-use limb\toolkit\src\lmbToolkit;
 use limb\fs\src\lmbFs;
+use limb\toolkit\src\lmbToolkit;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
+use limb\web_app\src\Helpers\lmbRouteHelper;
+use limb\view\src\lmbViewInterface;
 use limb\core\src\exception\lmbException;
 use limb\web_app\src\exception\lmbEmptyControllerResponseException;
-use limb\view\src\lmbJsonView;
-use limb\view\src\lmbView;
-use limb\web_app\src\Helpers\lmbRouteHelper;
+use Psr\Http\Message\ResponseInterface;
 
 lmbEnv::setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
 
@@ -70,7 +69,7 @@ class LmbController
     protected $session;
     /**
      *
-     * @var lmbView
+     * @var lmbViewInterface
      */
     protected $_view;
     /**
@@ -177,39 +176,52 @@ class LmbController
             $this->setTemplate($template_path); // Set View by default. Can be overridden in action method
         }
 
-        $response = null;
         if (method_exists($this, $method = $this->_mapCurrentActionToMethod())) {
-            $response = $this->{$method}($request);
+            $controller_response = $this->{$method}($request);
+
+            if ($controller_response !== null) {
+                if (is_a($controller_response, ResponseInterface::class)) {
+                    return $controller_response;
+                } else {
+                    $response = response();
+
+                    if (is_a($controller_response, lmbViewInterface::class)) {
+                        $response->getBody()->write( $controller_response->render() );
+
+                        return $response;
+                    } elseif (
+                        $controller_response instanceof \ArrayObject ||
+                        $controller_response instanceof \JsonSerializable ||
+                        $controller_response instanceof \stdClass ||
+                        is_array($controller_response)) {
+
+                        $response->json( $controller_response );
+
+                        return $response;
+                    }
+
+                    // string, _toString(), etc
+                    $response->getBody()->write( $controller_response );
+
+                    return $response;
+                }
+            }
         } elseif (!$template_path) {
             throw new lmbException('No method defined in controller "' .
                 get_class($this) . '" for action "' . $this->getCurrentAction() . '" ' .
                 'and no appropriate template found');
         }
 
-        if ($response !== null) {
-            if (!is_a($response, lmbHttpResponse::class)) {
-                if (is_a($response, lmbView::class)) {
-                    $response = $response->render();
-                } elseif (
-                    $response instanceof \ArrayObject ||
-                    $response instanceof \JsonSerializable ||
-                    $response instanceof \stdClass ||
-                    is_array($response)) {
-
-                    $response = lmbJsonView::create($response)->render();
-                }
-
-                $response = response()->withBody($response);
-            }
-        } elseif ($view = lmbToolkit::instance()->getView()) {
+        if ($view = lmbToolkit::instance()->getView()) {
             $this->_passLocalAttributesToView();
 
-            $response = response()->withBody($view->render());
+            $response = response();
+            $response->getBody()->write($view->render());
+
+            return $response;
         } else {
             throw new lmbEmptyControllerResponseException('Empty controller response');
         }
-
-        return $response;
     }
 
     function useForm($form_id, $datasource = null)
@@ -264,7 +276,7 @@ class LmbController
         $this->form_datasource[$form_id] = $datasource;
     }
 
-    function redirect($params_or_url = array(), $route_url = null): lmbHttpResponse
+    function redirect($params_or_url = array(), $route_url = null): ResponseInterface
     {
         return $this->toolkit->redirect($params_or_url, $route_url);
     }

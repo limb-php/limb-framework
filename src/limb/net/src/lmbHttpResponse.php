@@ -334,9 +334,9 @@ class lmbHttpResponse implements ResponseInterface
     }
 
     /** @deprecated  */
-    function reload()
+    function reload(): self
     {
-        $this->redirect($_SERVER['PHP_SELF']);
+        return $this->redirect($_SERVER['PHP_SELF']);
     }
 
     /**
