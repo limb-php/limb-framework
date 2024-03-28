@@ -217,7 +217,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         if ($this->__pretend_post)
             return true;
 
-        return sizeof($this->__post) > 0 || $this->getMethod() == 'post';
+        return sizeof($this->__post) > 0 || $this->getMethod() == 'POST';
     }
 
     public function getClientIp()
@@ -545,7 +545,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
 
     public function getMethod()
     {
-        return strtolower($this->__method);
+        return $this->__method;
     }
 
     public function withMethod($method)
@@ -555,7 +555,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         }
 
         $new = clone($this);
-        $new->__method = $method;
+        $new->__method = strtoupper($method);
         return $new;
     }
 
