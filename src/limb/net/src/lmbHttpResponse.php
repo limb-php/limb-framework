@@ -453,9 +453,13 @@ class lmbHttpResponse implements ResponseInterface
         return $this;
     }
 
-    public function json($data)
+    public function json(array $data)
     {
-        return new lmbJsonHttpResponse($data, $this->statusCode, $this->headers);
+        $this
+            ->addHeader('Content-type', 'application/json')
+            ->getBody()->write(\json_encode($data));
+
+        return $this;
     }
 
     protected function _sendHeader($header, $value)
@@ -571,7 +575,6 @@ class lmbHttpResponse implements ResponseInterface
 
     public function withBody($body): self
     {
-        //if ($body === $this->response_string) {
         if ($body === $this->stream) {
             return $this;
         }
