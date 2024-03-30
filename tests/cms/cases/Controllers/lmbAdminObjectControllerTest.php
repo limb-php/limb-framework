@@ -52,7 +52,7 @@ class lmbAdminObjectControllerTest extends TestCase
 
     function testEventsOnPerformCreateActionWithPost()
     {
-        $request = new lmbHttpRequest('https://localhost/test_admin_object/create', 'GET', [], array('field' => 'test'));
+        $request = new lmbHttpRequest('https://localhost/test_admin_object/create', 'GET', [], ['field' => 'test']);
 
         $app = new lmbWebApplicationSandbox();
         $response = $app->imitate($request);

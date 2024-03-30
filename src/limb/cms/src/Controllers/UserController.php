@@ -11,9 +11,9 @@ use limb\active_record\src\lmbActiveRecord;
 
 class UserController extends LmbController
 {
-    function doForgotPassword()
+    function doForgotPassword($request)
     {
-        if (!$this->request->hasPost())
+        if (!$request->hasPost())
             return;
 
         if (!$user = lmbActiveRecord::findFirst(lmbCmsUser::class, array('email = ?', $this->request->get('email'))))

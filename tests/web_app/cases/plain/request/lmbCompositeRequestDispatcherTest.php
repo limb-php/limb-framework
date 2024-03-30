@@ -22,7 +22,7 @@ class lmbCompositeRequestDispatcherTest extends TestCase
 
     function setUp(): void
     {
-        $this->request = new lmbHttpRequest();
+        $this->request = new lmbHttpRequest('/');
     }
 
     protected function _setUpMocks($dispatcher, $result1, $result2)

@@ -11,7 +11,9 @@ namespace limb\cms\src\Controllers;
 
 use limb\dbal\src\lmbDBAL;
 use limb\active_record\src\lmbActiveRecord;
+use limb\net\src\lmbHttpResponse;
 use limb\toolkit\src\lmbToolkit;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * abstract class AdminObjectController.
@@ -51,13 +53,16 @@ abstract class lmbAdminObjectController extends lmbObjectController
         if (!in_array($direction, array('asc', 'desc')))
             $direction = 'asc';
 
-        if ($sort == false) return;
+        if ($sort == false)
+            return;
+
         $this->items->sort(array($sort => $direction));
     }
 
     function doCreate($request)
     {
         $this->item = new $this->_object_class_name();
+
         $this->_onCreate($request);
 
         $this->useForm($this->_form_name);
@@ -65,23 +70,29 @@ abstract class lmbAdminObjectController extends lmbObjectController
 
         if ($request->hasPost()) {
             $this->_import($request);
-            $this->_validateAndSave($request, true);
+
+            if( $this->_validateAndSave($request, true) )
+                return $this->_endDialog();
         } else {
             $this->_initCreateForm($request);
         }
     }
 
-    function doEdit($request)
+    function doEdit(RequestInterface $request)
     {
         if (!$this->item = $this->_getObjectByRequestedId($request))
             return $this->forwardTo404();
+
         $this->_onUpdate($request);
+
         $this->useForm($this->_form_name);
         $this->setFormDatasource($this->item);
 
         if ($request->hasPost()) {
             $this->_import($request);
-            $this->_validateAndSave($request, false);
+
+            if( $this->_validateAndSave($request, false) )
+                return $this->_endDialog();
         } else {
             $this->_initEditForm($request);
         }
@@ -99,17 +110,17 @@ abstract class lmbAdminObjectController extends lmbObjectController
 
         $this->items = lmbActiveRecord::findByIds($this->_object_class_name, $ids);
 
-        if (!$request->hasPost())
-            return;
+        if ($request->hasPost())
+        {
+            $this->_onBeforeDelete($request);
 
-        $this->_onBeforeDelete($request);
+            foreach ($this->items as $item)
+                $item->destroy();
 
-        foreach ($this->items as $item)
-            $item->destroy();
+            $this->_onAfterDelete($request);
 
-        $this->_onAfterDelete($request);
-
-        return $this->_endDialog();
+            return $this->_endDialog();
+        }
     }
 
     function doRevertPublish($request)
@@ -157,7 +168,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
 
     function doPriority($request)
     {
-        $this->_changeItemsPriority($this->_object_class_name);
+        $this->_changeItemsPriority($request, $this->_object_class_name);
         return $this->_endDialog();
     }
 
@@ -172,7 +183,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         $this->_onAfterImport($request);
     }
 
-    protected function _validateAndSave($request, $is_create = false)
+    protected function _validateAndSave($request, $is_create = false): bool
     {
         $this->_onBeforeValidate($request);
         $this->item->validate($this->error_list);
@@ -193,11 +204,13 @@ abstract class lmbAdminObjectController extends lmbObjectController
             else
                 $this->_onAfterUpdate($request);
 
-            return $this->_endDialog();
+            return true;
         }
+
+        return false;
     }
 
-    protected function _endDialog()
+    protected function _endDialog(): lmbHttpResponse
     {
         if ($this->_popup) {
             return $this->closePopup();

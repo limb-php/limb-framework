@@ -87,7 +87,8 @@ class lmbWebAgent
 
     function doRedirect($max_redirects = 5)
     {
-        if (!$max_redirects || !$this->response->getHeaders()->has('location')) return;
+        if (!$max_redirects || !$this->response->getHeaders()->has('location'))
+            return;
         $location = $this->response->getHeaders()->get('location');
         $bu_vals = $this->values;
         $this->values = new lmbWebAgentValues();
@@ -106,7 +107,7 @@ class lmbWebAgent
 
     protected function prepareContent(&$url, $method, $content)
     {
-        $encoding = $this->charset ? $this->charset : 'utf-8';
+        $encoding = $this->charset ?? 'utf-8';
         $query = $this->values->buildQuery($encoding);
         if ($method == 'GET') {
             if ($query)
@@ -133,7 +134,7 @@ class lmbWebAgent
                     continue;
             } elseif ($cookie->domain != $url['host'])
                 continue;
-            $path = isset($url['path']) ? $url['path'] : '/';
+            $path = $url['path'] ?? '/';
             if (strpos($path, $cookie->path) !== 0)
                 continue;
             $this->request->getCookies()->set($cookie->name, $cookie->value);

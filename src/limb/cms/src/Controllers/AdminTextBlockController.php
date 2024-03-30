@@ -5,20 +5,28 @@ namespace limb\cms\src\Controllers;
 use limb\active_record\src\lmbActiveRecord;
 use limb\cms\src\model\lmbCmsTextBlock;
 use limb\core\src\lmbCollection;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class AdminTextBlockController extends lmbAdminObjectController
 {
     protected $_form_name = 'object_form';
     protected $_object_class_name = lmbCmsTextBlock::class;
+    public array $blocks;
+    public $items;
 
-    public function doDisplay()
+    /** @return ResponseInterface|void */
+    public function doDisplay($request)
     {
+        $this->items = lmbActiveRecord::find(lmbCmsTextBlock::class);
+
         $this->blocks = $this->_getBlocks();
     }
 
     protected function _getBlocks()
     {
-        $blocks = lmbCollection::toFlatArray(lmbActiveRecord::find(lmbCmsTextBlock::class), 'identifier');
+
+        $blocks = lmbCollection::toFlatArray($this->items, 'identifier');
 
         $result = array();
         foreach ($this->toolkit->getConf('text_blocks') as $identifier => $default_properties) {
@@ -38,24 +46,26 @@ class AdminTextBlockController extends lmbAdminObjectController
         return $result;
     }
 
-    public function doEdit()
+    /** @return ResponseInterface|void */
+    public function doEdit(RequestInterface $request)
     {
-        if (!$this->item = lmbCmsTextBlock::findOneByIdentifier($this->request->get('id')))
+        if (!$this->item = lmbCmsTextBlock::findOneByIdentifier($request->getAttribute('id')))
             $this->forwardTo404();
 
         $this->useForm($this->_form_name);
         $this->setFormDatasource($this->item);
 
-        if (!$this->request->hasPost())
+        if (!$request->hasPost())
             return;
 
-        $this->_import();
-        $this->_validateAndSave(false);
+        $this->_import($request);
+        $this->_validateAndSave($request, false);
     }
 
-    function doPreview()
+    /** @return ResponseInterface|void */
+    function doPreview($request)
     {
-        if (!$this->item = lmbCmsTextBlock::findOneByIdentifier($this->request->get('id')))
-            $this->forwardTo404();
+        if (!$this->item = lmbCmsTextBlock::findOneByIdentifier($request->get('id')))
+            return $this->forwardTo404();
     }
 }

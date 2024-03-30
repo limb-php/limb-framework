@@ -25,7 +25,7 @@ class lmbFilterChainTest extends TestCase
 
     function setUp(): void
     {
-        $this->request = new lmbHttpRequest();
+        $this->request = new lmbHttpRequest('/');
 
         $this->fc = new lmbFilterChain();
     }

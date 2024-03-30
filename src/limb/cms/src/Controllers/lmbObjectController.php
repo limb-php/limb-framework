@@ -23,6 +23,9 @@ abstract class lmbObjectController extends LmbController
 {
     protected $_object_class_name = '';
 
+    public $item;
+    public $items;
+
     function __construct()
     {
         parent::__construct();
@@ -32,7 +35,7 @@ abstract class lmbObjectController extends LmbController
     }
 
     /**
-     * @return lmbActiveRecord
+     * @return lmbActiveRecord|false
      */
     protected function _getObjectByRequestedId($request, $throw_exception = false)
     {

@@ -43,7 +43,7 @@ class lmbObjectControllerTest extends TestCase
         $object->setField('test');
         $object->save();
 
-        $request = new lmbHttpRequest('/test_object/', array(), array());
+        $request = new lmbHttpRequest('/test_object/', 'GET', [], []);
         lmbToolkit::instance()->setRequest($request);
 
         $controller = new TestObjectController();
@@ -60,7 +60,7 @@ class lmbObjectControllerTest extends TestCase
         $object->setField('test');
         $object->save();
 
-        $request = new lmbHttpRequest('/test_object/item/' . $object->getId(), array(), array('id' => $object->getId()));
+        $request = new lmbHttpRequest('/test_object/item/' . $object->getId(), 'GET', array(), array('id' => $object->getId()));
         lmbToolkit::instance()->setRequest($request);
 
         $controller = new TestObjectController();
