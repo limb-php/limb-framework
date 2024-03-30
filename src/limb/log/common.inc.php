@@ -27,8 +27,9 @@ if (!function_exists('lmb_var_dump')) {
                 echo '<pre>';
                 echo $dump;
                 echo '</pre>';
-            } else
+            } else {
                 echo $dump;
+            }
         } else {
             return $dump;
         }

@@ -48,7 +48,7 @@ class lmbErrorHandlerBootstrap implements lmbBootstrapInterface
     function handleFatalError($error)
     {
         $this->toolkit = lmbToolkit::instance();
-        $this->toolkit->getLog()->log(LOG_ERR, $error['message']);
+        $this->toolkit->getLog('error')->log(LOG_ERR, $error['message']);
 
         if ($this->toolkit->isWebAppDebugEnabled())
             $result = $this->_echoErrorBacktrace($error);
@@ -70,7 +70,7 @@ class lmbErrorHandlerBootstrap implements lmbBootstrapInterface
             \debugBreak();
 
         $this->toolkit = lmbToolkit::instance();
-        $this->toolkit->getLog()->logException($e);
+        $this->toolkit->getLog('error')->logException($e);
 
         if ($this->toolkit->isWebAppDebugEnabled())
             $result = $this->_echoExceptionBacktrace($e);

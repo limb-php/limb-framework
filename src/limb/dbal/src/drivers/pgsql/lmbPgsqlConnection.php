@@ -57,7 +57,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     }
 
     /** @return void */
-    function connect()
+    function connect(): void
     {
         $persistent = $this->config['persistent'] ?? null;
 
@@ -86,9 +86,13 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         }
 
         if (($conn === false) || (pg_connection_status($conn) !== PGSQL_CONNECTION_OK)) {
-            $this->_raiseError('Could not connect to host "' . $this->config['host'] . '" and database "' . $this->config['database'] . '" on port ' . $this->config['port']);
-            return;
+            $message = 'PgSQL Driver. Could not connect to host "' . $this->config['host'] . '" and database "' . $this->config['database'] . '" on port ' . $this->config['port'];
+
+            $this->_raiseError($message);
         }
+
+        if($this->logger)
+            $this->logger->debug("PgSQL Driver. Connected to DB.\n");
 
         if (isset($this->config['charset']) && ($charset = $this->config['charset'])) {
             pg_set_client_encoding($conn, $charset);
@@ -106,6 +110,9 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     function disconnect()
     {
         if ($this->connectionId) {
+            if($this->logger)
+                $this->logger->debug("PgSQL Driver. Disconnected from DB.\n");
+
             pg_close($this->connectionId);
             $this->connectionId = null;
         }
@@ -118,7 +125,10 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
     function _raiseError($msg, $params = [])
     {
-        $message = $msg . ($this->connectionId ? ' last pgsql driver error: ' . pg_last_error($this->connectionId) : '');
+        $message = $msg . ($this->connectionId ? '. Last driver error: ' . pg_last_error($this->connectionId) : '');
+
+        if($this->logger)
+            $this->logger->debug($message . "\n");
 
         if (
             strpos($message, 'eof detected') !== false
@@ -138,7 +148,9 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         try {
             $result = pg_query($this->getConnectionId(), $sql);
             if ($result === false) {
-                $this->_raiseError($sql);
+                $message = "PgSQL Driver. Error in execute() method";
+
+                $this->_raiseError($message, ['sql' => $sql]);
             }
             return $result;
         } catch (\Throwable $e) {
@@ -163,7 +175,9 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
             $result = pg_execute($this->getConnectionId(), $stmt_name, $stmt->getPrepParams());
             if ($result === false) {
-                $this->_raiseError($stmt->getSQL(), $stmt->getPrepParams());
+                $message = "PgSQL Driver. Error in executeStatement() method";
+
+                $this->_raiseError($message, ['sql' => $stmt->getSQL(), 'prep_params' => $stmt->getPrepParams()]);
             }
 
             return $result;

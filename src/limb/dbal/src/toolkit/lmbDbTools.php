@@ -178,12 +178,12 @@ class lmbDbTools extends lmbAbstractTools
         return $this->dsnes_active[$dsn_hash];
     }
 
-    function setDbConnectionByDsn($dsn, $conn)
+    function setDbConnectionByDsn($dsn, lmbDbConnectionInterface $conn)
     {
         $this->dsnes_active[$this->_getDbDsnHash($dsn)] = $conn;
     }
 
-    function setDbConnectionByName($name, $conn)
+    function setDbConnectionByName($name, lmbDbConnectionInterface $conn)
     {
         if (!is_object($dsn = $this->toolkit->getDbDSNByName($name)))
             throw new lmbException($name . ' database DSN is not valid');
@@ -199,7 +199,7 @@ class lmbDbTools extends lmbAbstractTools
         return $this->getDbConnectionByDsn($dsn);
     }
 
-    function setDefaultDbConnection($conn)
+    function setDefaultDbConnection(lmbDbConnectionInterface $conn)
     {
         $this->setDbConnectionByName('dsn', $conn);
     }
@@ -213,7 +213,7 @@ class lmbDbTools extends lmbAbstractTools
     {
         $dsn = self::castToDsnObject($dsn);
 
-        return (new lmbDbConnectionFactory)->make($dsn);
+        return lmbDbConnectionFactory::make($dsn);
     }
 
     protected function _isDbInfoCacheEnabled()
@@ -246,7 +246,7 @@ class lmbDbTools extends lmbAbstractTools
         return $this->db_info[$id];
     }
 
-    function createTableGateway($table_name, $conn = null)
+    function createTableGateway($table_name, lmbDbConnectionInterface $conn = null)
     {
         if (!$conn)
             $cache_key = $table_name;

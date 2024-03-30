@@ -109,8 +109,8 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @see \limb\log\src\toolkit\lmbLogTools
  * @method getLogDSNes()
- * @method \limb\log\src\lmbLog getLog()
- * @method setLog($log)
+ * @method Psr\Log\LoggerInterface getLog($name = 'error')
+ * @method setLog($name, $log)
  *
  * @see lmbMailTools
  * @method getMailer()

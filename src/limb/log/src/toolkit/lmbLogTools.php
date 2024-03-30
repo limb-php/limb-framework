@@ -40,6 +40,7 @@ class lmbLogTools extends lmbAbstractTools
         return 'file://' . lmbEnv::get('LIMB_VAR_DIR') . 'log/error.log';
     }
 
+    /** @TODO: improve */
     function getLogDSNes(): array
     {
         $default_error_dsn = $this->getDefaultErrorDsn();
@@ -54,20 +55,33 @@ class lmbLogTools extends lmbAbstractTools
         return $conf['logs'];
     }
 
-    public function getLog(): LoggerInterface
+    /** @TODO: improve */
+    public function getLog($name = 'error'): LoggerInterface
     {
-        if ($this->log)
-            return $this->log;
+        if (isset($this->log[$name]) && $this->log[$name])
+            return $this->log[$name];
 
-        $this->log = new lmbLog();
-        foreach ($this->getLogDSNes() as $name => $dsn)
-            $this->log->registerWriter($name, lmbLogWriterFactory::createLogWriter($dsn));
+        $this->log[$name] = new lmbLog();
 
-        return $this->log;
+        $logWriters = $this->getLogDSNes();
+        if(isset($logWriters[$name])) {
+            if( is_array($logWriters[$name]) ) {
+                $ind = 0;
+                foreach ($logWriters[$name] as $dsn) {
+                    $this->log[$name]->registerWriter($name . '_' . $ind++, lmbLogWriterFactory::createLogWriter($dsn));
+                }
+            } else {
+                $dsn = $logWriters[$name];
+                $this->log[$name]->registerWriter($name . '_0', lmbLogWriterFactory::createLogWriter($dsn));
+            }
+        }
+
+        return $this->log[$name];
     }
 
-    public function setLog($log): void
+    /** @TODO: improve */
+    public function setLog($name, $log): void
     {
-        $this->log = $log;
+        $this->log[$name] = $log;
     }
 }

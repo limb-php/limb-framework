@@ -52,10 +52,12 @@ class lmbLogToolsTest extends TestCase
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['REQUEST_METHOD'] = 'GET';
 
-        $logs_conf = array('logs' => array('firePHP://localhost/?check_extension=0'));
+        $logs_conf = array('logs' =>
+            ['db' => 'firePHP://localhost/?check_extension=0']
+        );
         $this->toolkit->setConf('common', $logs_conf);
 
-        $writer = current($this->toolkit->getLog()->getWriters());
+        $writer = current($this->toolkit->getLog('db')->getWriters());
         $this->assertInstanceOf(lmbLogFirePHPWriter::class, $writer);
         $this->assertFalse($writer->isClientExtensionCheckEnabled());
     }

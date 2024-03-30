@@ -49,7 +49,7 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
 
     function handleFatalError($error)
     {
-        $this->toolkit->getLog()->log(LOG_ERR, $error['message']);
+        $this->toolkit->getLog('error')->log(LOG_ERR, $error['message']);
 
         header('HTTP/1.x 500 Server Error');
 
@@ -66,7 +66,7 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
         if (function_exists('\debugBreak'))
             \debugBreak();
 
-        $this->toolkit->getLog()->logException($e);
+        $this->toolkit->getLog('error')->logException($e);
 
         header('HTTP/1.x 500 Server Error');
 

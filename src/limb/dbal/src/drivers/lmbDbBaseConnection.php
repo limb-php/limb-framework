@@ -11,6 +11,8 @@ namespace limb\dbal\src\drivers;
 
 use limb\dbal\src\lmbDbDSN;
 use limb\dbal\src\query\lmbQueryLexerInterface;
+use limb\toolkit\src\lmbToolkit;
+use Psr\Log\LoggerInterface;
 
 /**
  * class lmbBaseDbConnection.
@@ -24,14 +26,18 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
     protected $config;
     protected $dsn_string;
     protected $extension;
+    /** @var $logger LoggerInterface */
+    protected $logger;
 
-    function __construct($config, $dsn_string = null)
+    function __construct($config)
     {
         $this->config = $config;
         if ($config instanceof lmbDbDSN)
             $this->dsn_string = $config->toString();
-        else
-            $this->dsn_string = $dsn_string;
+        elseif(is_string($config))
+            $this->dsn_string = $config;
+
+        $this->logger = lmbToolkit::instance()->getLog('db');
     }
 
     function getConfig()
@@ -51,6 +57,18 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
     function getDsnString()
     {
         return $this->dsn_string;
+    }
+
+    function getLogger()
+    {
+        return $this->logger;
+    }
+
+    function withLogger($logger): self
+    {
+        $this->logger = $logger;
+
+        return $this;
     }
 
     function __sleep()

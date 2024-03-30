@@ -25,7 +25,7 @@ use limb\dbal\src\drivers\linter\lmbLinterConnection;
  */
 class lmbDbConnectionFactory
 {
-    function make($dsn): lmbDbConnectionInterface
+    static function make($dsn): lmbDbConnectionInterface
     {
         $driver = $dsn->get('driver');
 
