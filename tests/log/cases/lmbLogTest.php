@@ -27,19 +27,19 @@ class lmbLogTest extends TestCase
     function setUp(): void
     {
         $this->log = new lmbLog();
-        $this->log->registerWriter(new lmbLogWriterForLogTests(new lmbUri()));
+        $this->log->registerWriter('test', new lmbLogWriterForLogTests(new lmbUri()));
     }
 
     function testWritersManipulation()
     {
         $log = new lmbLog();
-        $this->assertEquals(array(), $log->getWriters());
+        $this->assertEquals([], $log->getWriters());
 
-        $log->registerWriter($writer = new lmbLogWriterForLogTests(new lmbUri()));
-        $this->assertEquals(array($writer), $log->getWriters());
+        $log->registerWriter('test', $writer = new lmbLogWriterForLogTests(new lmbUri()));
+        $this->assertEquals(['test' => $writer], $log->getWriters());
 
         $log->resetWriters();
-        $this->assertEquals(array(), $log->getWriters());
+        $this->assertEquals([], $log->getWriters());
     }
 
     function testLog()

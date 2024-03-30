@@ -12,6 +12,7 @@ namespace limb\log\src;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbBacktrace;
 use limb\core\src\exception\lmbException;
+use Psr\Log\LoggerInterface;
 
 /**
  * class lmbLog.
@@ -19,7 +20,7 @@ use limb\core\src\exception\lmbException;
  * @package log
  * @version $Id$
  */
-class lmbLog
+class lmbLog implements LoggerInterface
 {
     protected $notifyLevel;
 
@@ -54,9 +55,9 @@ class lmbLog
         $this->notifyLevel = $notifyLevel;
     }
 
-    function registerWriter($writer, $allowed_levels = [])
+    function registerWriter($writer_name, $writer, $allowed_levels = [])
     {
-        $this->log_writers[] = [
+        $this->log_writers[$writer_name] = [
             'writer' => $writer,
             'allowed_levels' => $allowed_levels
         ];
@@ -65,8 +66,8 @@ class lmbLog
     function getWriters()
     {
         $writers = [];
-        foreach ($this->log_writers as $writer_info) {
-            $writers[] = $writer_info['writer'];
+        foreach ($this->log_writers as $writer_name => $writer_info) {
+            $writers[$writer_name] = $writer_info['writer'];
         }
 
         return $writers;

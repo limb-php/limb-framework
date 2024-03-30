@@ -14,6 +14,7 @@ use limb\toolkit\src\lmbAbstractTools;
 use limb\core\src\lmbEnv;
 use limb\log\src\lmbLog;
 use limb\log\src\lmbLogWriterFactory;
+use Psr\Log\LoggerInterface;
 
 /**
  * class lmbLogTools.
@@ -23,8 +24,10 @@ use limb\log\src\lmbLogWriterFactory;
  */
 class lmbLogTools extends lmbAbstractTools
 {
+    /** @var $log LoggerInterface */
     protected $log;
 
+    /** @return class-string[] */
     static function getRequiredTools()
     {
         return [
@@ -32,33 +35,38 @@ class lmbLogTools extends lmbAbstractTools
         ];
     }
 
-    function getLogDSNes()
+    function getDefaultErrorDsn(): string
     {
-        $default_dsn = 'file://' . lmbEnv::get('LIMB_VAR_DIR') . 'log/error.log';
+        return 'file://' . lmbEnv::get('LIMB_VAR_DIR') . 'log/error.log';
+    }
+
+    function getLogDSNes(): array
+    {
+        $default_error_dsn = $this->getDefaultErrorDsn();
 
         if (!$this->toolkit->hasConf('common'))
-            return array($default_dsn);
+            return ['error' => $default_error_dsn];
 
         $conf = $this->toolkit->getConf('common');
         if (!isset($conf['logs']))
-            return array($default_dsn);
+            return ['error' => $default_error_dsn];
 
         return $conf['logs'];
     }
 
-    public function getLog(): lmbLog
+    public function getLog(): LoggerInterface
     {
         if ($this->log)
             return $this->log;
 
         $this->log = new lmbLog();
-        foreach ($this->getLogDSNes() as $dsn)
-            $this->log->registerWriter(lmbLogWriterFactory::createLogWriter($dsn));
+        foreach ($this->getLogDSNes() as $name => $dsn)
+            $this->log->registerWriter($name, lmbLogWriterFactory::createLogWriter($dsn));
 
         return $this->log;
     }
 
-    public function setLog($log)
+    public function setLog($log): void
     {
         $this->log = $log;
     }

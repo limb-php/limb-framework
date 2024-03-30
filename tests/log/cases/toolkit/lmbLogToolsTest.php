@@ -35,7 +35,8 @@ class lmbLogToolsTest extends TestCase
     function testGetLogDSNes_default()
     {
         $dsnes = $this->toolkit->getLogDSNes();
-        $this->assertEquals('file://' . lmbEnv::get('LIMB_VAR_DIR') . 'log/error.log', $dsnes[0]);
+        $this->assertCount(1, $dsnes);
+        $this->assertEquals($this->toolkit->getDefaultErrorDsn(), $dsnes['error']);
     }
 
     function testGetLogDSNes_fromConfig()

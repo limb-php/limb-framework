@@ -54,7 +54,7 @@ class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
         }
 
         $log = new lmbLog();
-        $log->registerWriter(new lmbLogPlainFileWriter(lmbEnv::get('LIMB_VAR_DIR') . "/log/db.log"));
+        $log->registerWriter('test', new lmbLogPlainFileWriter(lmbEnv::get('LIMB_VAR_DIR') . "/log/db.log"));
         $log->log(LOG_INFO, $output);
 
     }
