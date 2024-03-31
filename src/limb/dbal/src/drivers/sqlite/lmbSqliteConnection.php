@@ -11,6 +11,7 @@ namespace limb\dbal\src\drivers\sqlite;
 
 use limb\dbal\src\drivers\lmbDbBaseConnection;
 use limb\dbal\src\drivers\lmbDbStatementInterface;
+use limb\dbal\src\exception\lmbDbConnectionException;
 use limb\dbal\src\exception\lmbDbException;
 
 /**
@@ -60,8 +61,14 @@ class lmbSqliteConnection extends lmbDbBaseConnection
     {
         $this->connection = new \SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE);
 
-        if (!file_exists($this->config['database']))
-            $this->_raiseError();
+        if (!file_exists($this->config['database'])) {
+            $message = 'SQLite Driver. Could not connect to database "' . $this->config['database'] . '"';
+
+            $this->_raiseError($message);
+        }
+
+        if($this->logger)
+            $this->logger->info("SQLite Driver. Connected to DB.\n");
     }
 
     function __wakeup()
@@ -72,39 +79,64 @@ class lmbSqliteConnection extends lmbDbBaseConnection
     function disconnect()
     {
         if (is_resource($this->connection)) {
+            if($this->logger)
+                $this->logger->info("SQLite Driver. Disconnected from DB.\n");
+
             $this->connection->close();
         }
     }
 
-    function _raiseError($sql = null)
+    function _raiseError($msg, $params = [])
     {
-        if (!$this->connection)
-            throw new lmbDbException('Could not connect to database "' . $this->config['database'] . '"');
-
         $errno = $this->connection->lastErrorCode();
+        $message = $msg . ($this->connection ? '. Last driver error: ' . $this->connection->lastErrorMsg() : '');
 
-        $info = ['driver' => 'sqlite'];
-        $info['errorno'] = $errno;
-        $info['db'] = $this->config['database'];
+        if($this->logger)
+            $this->logger->info($message . "\n");
 
-        if (!is_null($sql))
-            $info['sql'] = $sql;
+        $params['errorno'] = $errno;
+        $params['db'] = $this->config['database'];
 
-        throw new lmbDbException($this->connection->lastErrorMsg() . '. SQL query: ' . $sql, $info);
+        if ($errno === 23000) {
+            return new lmbDbConnectionException($message, $params);
+        }
+
+        throw new lmbDbException($message, $params);
     }
 
-    function execute($sql)
+    function execute($sql, $retry = true)
     {
-        $result = $this->getConnection()->query($sql);
-        if ($result === false)
-            $this->_raiseError($sql);
+        try {
+            $result = $this->getConnection()->query($sql);
 
-        return $result;
+            if ($this->logger)
+                $this->logger->debug("SQLite Driver. Execute SQL: " . $sql . "\n");
+
+            if ($result === false) {
+                $message = "SQLite Driver. Error in execute() method";
+
+                $this->_raiseError($message, ['sql' => $sql]);
+            }
+
+            return $result;
+        } catch (\Throwable $e) {
+            if ($retry
+                && $e instanceof lmbDbConnectionException
+                && $this->config['reconnect']
+            ) {
+                $this->disconnect();
+
+                return $this->execute($sql, false);
+            }
+
+            throw $e;
+        }
     }
 
-    function executeStatement($stmt)
+    /** @param $stmt lmbSqliteStatement */
+    function executeStatement($stmt, $retry = true)
     {
-        return (bool)$this->execute($stmt->getSQL());
+        return (bool)$this->execute($stmt->getSQL(), $retry);
     }
 
     function beginTransaction()

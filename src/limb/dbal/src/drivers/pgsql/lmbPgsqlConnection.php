@@ -92,7 +92,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         }
 
         if($this->logger)
-            $this->logger->debug("PgSQL Driver. Connected to DB.\n");
+            $this->logger->info("PgSQL Driver. Connected to DB.\n");
 
         if (isset($this->config['charset']) && ($charset = $this->config['charset'])) {
             pg_set_client_encoding($conn, $charset);
@@ -111,7 +111,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     {
         if ($this->connectionId) {
             if($this->logger)
-                $this->logger->debug("PgSQL Driver. Disconnected from DB.\n");
+                $this->logger->info("PgSQL Driver. Disconnected from DB.\n");
 
             pg_close($this->connectionId);
             $this->connectionId = null;
@@ -128,7 +128,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         $message = $msg . ($this->connectionId ? '. Last driver error: ' . pg_last_error($this->connectionId) : '');
 
         if($this->logger)
-            $this->logger->debug($message . "\n");
+            $this->logger->info($message . "\n");
 
         if (
             strpos($message, 'eof detected') !== false
@@ -147,6 +147,10 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     {
         try {
             $result = pg_query($this->getConnectionId(), $sql);
+
+            if($this->logger)
+                $this->logger->debug("PgSQL Driver. Execute SQL: " . $sql . "\n");
+
             if ($result === false) {
                 $message = "PgSQL Driver. Error in execute() method";
 
@@ -167,13 +171,17 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         }
     }
 
+    /** @param $stmt lmbPgsqlStatement */
     function executeStatement($stmt, $retry = true)
     {
         try {
-            /** @var lmbPgsqlStatement $stmt */
             $stmt_name = $stmt->getStatementName();
 
             $result = pg_execute($this->getConnectionId(), $stmt_name, $stmt->getPrepParams());
+
+            if($this->logger)
+                $this->logger->debug("PgSQL Driver. Execute statement: " . $stmt->getSQL() . "\n");
+
             if ($result === false) {
                 $message = "PgSQL Driver. Error in executeStatement() method";
 

@@ -11,6 +11,7 @@ namespace limb\dbal\src\drivers\mysql;
 
 use limb\dbal\src\drivers\lmbDbBaseConnection;
 use limb\dbal\src\drivers\lmbDbStatementInterface;
+use limb\dbal\src\exception\lmbDbConnectionException;
 use limb\dbal\src\exception\lmbDbException;
 
 /**
@@ -59,8 +60,13 @@ class lmbMysqlConnection extends lmbDbBaseConnection
         );
 
         if ($this->connectionId === false) {
-            $this->_raiseError();
+            $message = 'MySQL Driver. Could not connect to host "' . $this->config['host'] . '" and database "' . $this->config['database'] . '" on port ' . $this->config['port'];
+
+            $this->_raiseError($message);
         }
+
+        if($this->logger)
+            $this->logger->info("MySQL Driver. Connected to DB.\n");
 
         if (!empty($this->config['charset'])) {
             mysqli_set_charset($this->getConnectionId(), $this->config['charset']);
@@ -75,43 +81,73 @@ class lmbMysqlConnection extends lmbDbBaseConnection
     function disconnect()
     {
         if ($this->getConnectionId()) {
+            if($this->logger)
+                $this->logger->info("MySQL Driver. Disconnected from DB.\n");
+
             mysqli_close($this->getConnectionId());
             $this->connectionId = null;
         }
     }
 
-    function _raiseError($sql = null)
+    function _raiseError($msg, $params = [])
     {
-        if (!$this->getConnectionId())
-            throw new lmbDbException('Could not connect to host "' . $this->config['host'] . '" and database "' . $this->config['database'] . '"');
-
         $errno = mysqli_errno($this->getConnectionId());
-        $id = 'DB_ERROR';
-        $info = array('driver' => 'lmbMysql');
-        if ($errno != 0) {
-            $info['errorno'] = $errno;
-            $info['error'] = mysqli_error($this->getConnectionId());
-            $id .= '_MESSAGE';
+        $message = $msg . ($this->connectionId ? '. Last driver error: ' . mysqli_error($this->getConnectionId()) : '');
+
+        if($this->logger)
+            $this->logger->info($message . "\n");
+
+        $params['errorno'] = $errno;
+
+        if ($errno === 23000) {
+            throw new lmbDbConnectionException($message, $params);
         }
-        if (!is_null($sql)) {
-            $info['sql'] = $sql;
-            $id .= '_SQL';
+
+        if (
+            strpos($message, 'server has gone away') !== false
+            || strpos($message, 'broken pipe') !== false
+            || strpos($message, 'connection') !== false
+            || strpos($message, 'packets out of order') !== false
+            || ($errno > 2000 && $errno < 2100)
+        ) {
+            throw new lmbDbConnectionException($message, $params);
+        } else {
+            throw new lmbDbException($message, $params);
         }
-        throw new lmbDbException(mysqli_error($this->getConnectionId()) . ' SQL: ' . $sql, $info);
     }
 
-    function execute($sql)
+    function execute($sql, $retry = true)
     {
-        $result = mysqli_query($this->getConnectionId(), $sql);
-        if ($result === false) {
-            $this->_raiseError($sql);
+        try {
+            $result = mysqli_query($this->getConnectionId(), $sql);
+
+            if($this->logger)
+                $this->logger->debug("MySQL Driver. Execute SQL: " . $sql . "\n");
+
+            if ($result === false) {
+                $message = "MySQL Driver. Error in execute() method";
+
+                $this->_raiseError($message, ['sql' => $sql]);
+            }
+            return $result;
+        } catch (\Throwable $e) {
+            if ($retry
+                && $e instanceof lmbDbConnectionException
+                && $this->config['reconnect']
+            ) {
+                $this->disconnect();
+
+                return $this->execute($sql, false);
+            }
+
+            throw $e;
         }
-        return $result;
     }
 
-    function executeStatement($stmt)
+    /** @param $stmt lmbMysqlStatement */
+    function executeStatement($stmt, $retry = true)
     {
-        return $this->execute($stmt->getSQL());
+        return $this->execute($stmt->getSQL(), $retry);
     }
 
     function beginTransaction()
