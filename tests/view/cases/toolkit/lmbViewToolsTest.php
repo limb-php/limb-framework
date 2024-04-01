@@ -38,13 +38,16 @@ class lmbViewToolsTest extends TestCase
         $toolkit->setSupportedViewTypes(['.php' => lmbPHPView::class]);
 
         $filepath = $toolkit->locateTemplateByAlias('index/view.php', lmbPHPView::class);
-        $this->assertEquals(lmbEnv::get('LIMB_VAR_DIR') . 'index/view.php', $filepath);
+        $this->assertEquals(lmbFs::normalizePath($dst_file), lmbFs::normalizePath($filepath));
 
         lmbFs::rm($dst_file);
     }
 
     function testCreateViewByTemplate()
     {
+        $dst_file = lmbEnv::get('LIMB_VAR_DIR') . '/index/view.php';
+        lmbFs::cp(__DIR__ . '/../template/index/view.php', $dst_file);
+
         $toolkit = lmbToolkit::instance();
 
         $result = $toolkit->createViewByTemplate('index/view.php');
