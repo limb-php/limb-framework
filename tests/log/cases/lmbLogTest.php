@@ -28,7 +28,7 @@ class lmbLogTest extends TestCase
     function setUp(): void
     {
         $this->log = new lmbLog();
-        $this->log->registerWriter('test', new lmbLogWriterForLogTests(new lmbUri()));
+        $this->log->registerWriter(new lmbLogWriterForLogTests(new lmbUri()));
     }
 
     function testWritersManipulation()
@@ -36,8 +36,8 @@ class lmbLogTest extends TestCase
         $log = new lmbLog();
         $this->assertEquals([], $log->getWriters());
 
-        $log->registerWriter('test', $writer = new lmbLogWriterForLogTests(new lmbUri()));
-        $this->assertEquals(['test' => $writer], $log->getWriters());
+        $log->registerWriter($writer = new lmbLogWriterForLogTests(new lmbUri()));
+        $this->assertEquals([0 => $writer], $log->getWriters());
 
         $log->resetWriters();
         $this->assertEquals([], $log->getWriters());
@@ -87,11 +87,11 @@ class lmbLogTest extends TestCase
     {
         $log = new lmbLog();
         $writer = new lmbLogWriterForLogTests(new lmbUri());
-        $log->registerWriter('default', $writer);
+        $log->registerWriter($writer);
 
-        $log->emergency('test emergency message');
+        $log->warning('test warning message');
         $entry = current($log->getWriters())->getWritten();
-        $this->assertEquals('Emergency message: test emergency message', $entry->asText());
+        $this->assertEquals('Warning message: test warning message', $entry->asText());
 
         $log->notice('test notice message');
         $entry = current($log->getWriters())->getWritten();

@@ -42,11 +42,11 @@ class lmbLog implements LoggerInterface
     protected $backtrace_depth = [
         LogLevel::DEBUG => 0,
         LogLevel::INFO => 0,
-        LogLevel::NOTICE => 1,
-        LogLevel::WARNING => 1,
+        LogLevel::NOTICE => 0,
+        LogLevel::WARNING => 0,
         LogLevel::ERROR => 5,
         LogLevel::CRITICAL => 5,
-        LogLevel::ALERT => 3,
+        LogLevel::ALERT => 5,
         LogLevel::EMERGENCY => 5
     ];
 
@@ -67,9 +67,9 @@ class lmbLog implements LoggerInterface
         $this->notifyLevel = $notifyLevel;
     }
 
-    function registerWriter($writer_name, $writer, $allowed_levels = [])
+    function registerWriter($writer, $allowed_levels = []): void
     {
-        $this->log_writers[$writer_name] = [
+        $this->log_writers[] = [
             'writer' => $writer,
             'allowed_levels' => $allowed_levels
         ];
@@ -78,8 +78,8 @@ class lmbLog implements LoggerInterface
     function getWriters()
     {
         $writers = [];
-        foreach ($this->log_writers as $writer_name => $writer_info) {
-            $writers[$writer_name] = $writer_info['writer'];
+        foreach ($this->log_writers as $writer_info) {
+            $writers[] = $writer_info['writer'];
         }
 
         return $writers;
@@ -182,7 +182,11 @@ class lmbLog implements LoggerInterface
             $this->log(
                 LogLevel::ERROR,
                 $exception->getMessage(),
-                $exception->getParams(),
+                [
+                    'exception' => $exception,
+                    'params' => $exception->getParams(),
+
+                ],
                 new lmbBacktrace($exception->getTrace(), $backtrace_depth)
             );
         else
@@ -190,6 +194,7 @@ class lmbLog implements LoggerInterface
                 LogLevel::ERROR,
                 $exception->getMessage(),
                 [
+                    'exception' => $exception,
                     'file' => $exception->getFile(),
                     'line' => $exception->getLine()
                 ],

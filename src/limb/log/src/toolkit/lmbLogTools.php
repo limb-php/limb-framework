@@ -41,7 +41,7 @@ class lmbLogTools extends lmbAbstractTools
     }
 
     /** @TODO: improve */
-    function getLogDSNes(): array
+    function getConfLogDSNes(): array
     {
         $default_error_dsn = $this->getDefaultErrorDsn();
 
@@ -63,16 +63,15 @@ class lmbLogTools extends lmbAbstractTools
 
         $this->log[$name] = new lmbLog();
 
-        $logWriters = $this->getLogDSNes();
+        $logWriters = $this->getConfLogDSNes();
         if(isset($logWriters[$name])) {
             if( is_array($logWriters[$name]) ) {
-                $ind = 0;
                 foreach ($logWriters[$name] as $dsn) {
-                    $this->log[$name]->registerWriter($name . '_' . $ind++, lmbLogWriterFactory::createLogWriter($dsn));
+                    $this->log[$name]->registerWriter(lmbLogWriterFactory::createLogWriter($dsn));
                 }
             } else {
                 $dsn = $logWriters[$name];
-                $this->log[$name]->registerWriter($name . '_0', lmbLogWriterFactory::createLogWriter($dsn));
+                $this->log[$name]->registerWriter(lmbLogWriterFactory::createLogWriter($dsn));
             }
         }
 

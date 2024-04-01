@@ -12,6 +12,7 @@ namespace limb\web_app\src\Bootstrap;
 use limb\core\src\lmbErrorGuard;
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
+use Psr\Log\LogLevel;
 
 /**
  * class lmbErrorHandlerBootstrap
@@ -48,7 +49,7 @@ class lmbErrorHandlerBootstrap implements lmbBootstrapInterface
     function handleFatalError($error)
     {
         $this->toolkit = lmbToolkit::instance();
-        $this->toolkit->getLog('error')->log(LOG_ERR, $error['message']);
+        $this->toolkit->getLog('error')->log(LogLevel::ERROR, $error['message']);
 
         if ($this->toolkit->isWebAppDebugEnabled())
             $result = $this->_echoErrorBacktrace($error);
