@@ -12,6 +12,7 @@ namespace tests\log\cases;
 use PHPUnit\Framework\TestCase;
 use limb\log\src\lmbLogEntry;
 use limb\core\src\lmbBacktrace;
+use Psr\Log\LogLevel;
 
 class lmbLogEntryTest extends TestCase
 {
@@ -19,7 +20,7 @@ class lmbLogEntryTest extends TestCase
     function testGetters()
     {
         $entry = new lmbLogEntry(
-            $level = LOG_INFO,
+            $level = LogLevel::INFO,
             $message = 'some text',
             $params = array('foo' => 42),
             $backtrace = new lmbBacktrace(),
@@ -34,27 +35,33 @@ class lmbLogEntryTest extends TestCase
 
     function testGetLevelForHuman()
     {
-        $entry = new lmbLogEntry(LOG_ERR, 'foo');
+        $entry = new lmbLogEntry(LogLevel::ERROR, 'foo');
         $this->assertEquals('Error', $entry->getLevelForHuman());
+
+        $entry = new lmbLogEntry(LogLevel::INFO, 'foo2');
+        $this->assertEquals('Info', $entry->getLevelForHuman());
+
+        $entry = new lmbLogEntry(LogLevel::DEBUG, 'foo3');
+        $this->assertEquals('Debug', $entry->getLevelForHuman());
     }
 
     function testIsLevel()
     {
-        $entry = new lmbLogEntry(LOG_ERR, 'foo');
-        $this->assertTrue($entry->isLevel(LOG_ERR));
-        $this->assertFalse($entry->isLevel(LOG_INFO));
+        $entry = new lmbLogEntry(LogLevel::ERROR, 'foo');
+        $this->assertTrue($entry->isLevel(LogLevel::ERROR));
+        $this->assertFalse($entry->isLevel(LogLevel::INFO));
     }
 
     function testAsText()
     {
-        $entry = new lmbLogEntry(LOG_ERR, 'foo&');
+        $entry = new lmbLogEntry(LogLevel::ERROR, 'foo&');
         $this->assertMatchesRegularExpression('/Error/', $entry->asText());
         $this->assertMatchesRegularExpression('/foo&/', $entry->asText());
     }
 
     function testAsHtml()
     {
-        $entry = new lmbLogEntry(LOG_ERR, 'foo&');
+        $entry = new lmbLogEntry(LogLevel::ERROR, 'foo&');
         $this->assertMatchesRegularExpression('/Error/', $entry->asHtml());
         $this->assertMatchesRegularExpression('/foo&amp;/', $entry->asHtml());
     }

@@ -15,6 +15,7 @@ use limb\log\src\lmbLogWriterInterface;
 use limb\net\src\lmbUri;
 use limb\core\src\exception\lmbException;
 use limb\log\src\lmbLogEntry;
+use Psr\Log\LogLevel;
 
 class lmbLogTest extends TestCase
 {
@@ -42,42 +43,64 @@ class lmbLogTest extends TestCase
         $this->assertEquals([], $log->getWriters());
     }
 
-    function testLog()
+    function testLogLogInfo()
     {
-        $this->log->log(LOG_INFO, 'imessage', 'iparam', 'ibacktrace');
-        $this->assertTrue($this->_getLastLogEntry()->isLevel(LOG_INFO));
-        $this->assertEquals('imessage', $this->_getLastLogEntry()->getMessage());
-        $this->assertEquals('iparam', $this->_getLastLogEntry()->getParams());
-        $this->assertEquals('ibacktrace', $this->_getLastLogEntry()->getBacktrace());
+        $this->log->log(LogLevel::INFO, 'imessage', 'iparam', 'ibacktrace');
+        $this->log->log(LogLevel::WARNING, 'imessage2', 'iparam2', 'ibacktrace2');
+
+        $this->assertTrue($this->_getLastLogEntry()->isLevel(LogLevel::WARNING));
+        $this->assertEquals('imessage2', $this->_getLastLogEntry()->getMessage());
+        $this->assertEquals('iparam2', $this->_getLastLogEntry()->getParams());
+        $this->assertEquals('ibacktrace2', $this->_getLastLogEntry()->getBacktrace());
     }
 
     function testLogException()
     {
         $this->log->logException(new lmbException('exmessage', $code = 42));
-
         $entry = current($this->log->getWriters())->getWritten();
 
-        $this->assertTrue($entry->isLevel(LOG_ERR));
+        $this->assertTrue($entry->isLevel(LogLevel::ERROR));
         $this->assertEquals('exmessage', $entry->getMessage());
     }
 
-//  function testSetErrorLevel()
-//  {
-//    $this->log->setErrorLevel(LOG_WARNING);
-//    $this->log->log(LOG_INFO, 'info');
-//    $this->log->log(LOG_NOTICE, 'notice');
-//    $this->assertNull($this->_getLastLogEntry());
-//  }
+    function testSetNotifyLevel()
+    {
+        $this->log->setNotifyLevel(LogLevel::WARNING);
+        $this->log->info('info');
+        $this->log->debug('notice');
+
+        $this->assertNull($this->_getLastLogEntry());
+    }
 
     function testSetBacktraceDepth()
     {
-        $this->log->setBacktraceDepth(LOG_NOTICE, $depth = 0);
+        $this->log->setBacktraceDepth(LogLevel::NOTICE, $depth = 0);
 
-        $this->log->log(LOG_INFO, 'info');
-        $this->assertCount($depth, $this->_getLastLogEntry()->getBacktrace()->get());
+        $this->log->log(LogLevel::ALERT, 'info');
+        $this->assertCount($this->log->getBacktraceDepth(LogLevel::ALERT), $this->_getLastLogEntry()->getBacktrace()->get());
 
-        $this->log->log(LOG_NOTICE, 'notice');
+        $this->log->log(LogLevel::NOTICE, 'notice');
         $this->assertCount($depth, $this->_getLastLogEntry()->getBacktrace()->get());
+    }
+
+    function testNotifyLevels()
+    {
+        $log = new lmbLog();
+        $writer = new lmbLogWriterForLogTests(new lmbUri());
+        $log->registerWriter('default', $writer);
+
+        $log->emergency('test emergency message');
+        $entry = current($log->getWriters())->getWritten();
+        $this->assertEquals('Emergency message: test emergency message', $entry->asText());
+
+        $log->notice('test notice message');
+        $entry = current($log->getWriters())->getWritten();
+        $this->assertEquals('Notice message: test notice message', $entry->asText());
+
+        // NO debug log!
+        $log->debug('test debug message');
+        $entry = current($log->getWriters())->getWritten();
+        $this->assertEquals('Notice message: test notice message', $entry->asText());
     }
 
     /**
@@ -85,7 +108,8 @@ class lmbLogTest extends TestCase
      */
     protected function _getLastLogEntry()
     {
-        return current($this->log->getWriters())->getWritten();
+        $currentWriter = current($this->log->getWriters());
+        return $currentWriter->getWritten();
     }
 }
 

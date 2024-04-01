@@ -10,6 +10,7 @@
 namespace limb\log\src;
 
 use limb\core\src\lmbSys;
+use Psr\Log\LogLevel;
 
 /**
  * class lmbLogEntry.
@@ -25,12 +26,17 @@ class lmbLogEntry
     protected $params;
     protected $backtrace;
     protected $names_map = array(
-        LOG_INFO => 'Info',
-        LOG_NOTICE => 'Notice',
-        LOG_WARNING => 'Warning',
-        LOG_ERR => 'Error',
+        LogLevel::EMERGENCY => 'Emergency',
+        LogLevel::ALERT => 'Alert',
+        LogLevel::CRITICAL => 'Critical',
+        LogLevel::ERROR => 'Error',
+        LogLevel::WARNING => 'Warning',
+        LogLevel::NOTICE => 'Notice',
+        LogLevel::INFO => 'Info',
+        LogLevel::DEBUG => 'Debug',
     );
 
+    /** @param $backtrace \limb\core\src\lmbBacktrace */
     function __construct($level, $message, $params = array(), $backtrace = null, $time = null)
     {
         $this->level = $level;
@@ -84,7 +90,7 @@ class lmbLogEntry
     {
         $string = $this->getLevelForHuman() . " message: {$this->message}";
         $string .= (count($this->params) ? "\nAdditional attributes: " . var_export($this->params, true) : '');
-        if ($this->backtrace)
+        if ($this->backtrace && !$this->backtrace->isEmpty())
             $string .= "\nBack trace:\n" . $this->backtrace->toString();
 
         return $string;

@@ -13,6 +13,7 @@ use limb\core\src\lmbEnv;
 use limb\core\src\lmbBacktrace;
 use limb\core\src\exception\lmbException;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 /**
  * class lmbLog.
@@ -27,20 +28,31 @@ class lmbLog implements LoggerInterface
     protected $logs = [];
     protected $log_writers = []; // 'writer' => class, 'allowed_levels' => []
 
+    protected $log_levels = array(
+        LogLevel::EMERGENCY => 0,
+        LogLevel::ALERT => 1,
+        LogLevel::CRITICAL => 2,
+        LogLevel::ERROR => 3,
+        LogLevel::WARNING => 4,
+        LogLevel::NOTICE => 5,
+        LogLevel::INFO => 6,
+        LogLevel::DEBUG => 7,
+    );
+
     protected $backtrace_depth = [
-        LOG_DEBUG => 5,
-        LOG_INFO => 3,
-        LOG_NOTICE => 1,
-        LOG_WARNING => 1,
-        LOG_ERR => 5,
-        LOG_CRIT => 5,
-        LOG_ALERT => 3,
-        LOG_EMERG => 5
+        LogLevel::DEBUG => 0,
+        LogLevel::INFO => 0,
+        LogLevel::NOTICE => 1,
+        LogLevel::WARNING => 1,
+        LogLevel::ERROR => 5,
+        LogLevel::CRITICAL => 5,
+        LogLevel::ALERT => 3,
+        LogLevel::EMERGENCY => 5
     ];
 
     public function __construct()
     {
-        $this->notifyLevel = lmbEnv::get('LIMB_LOG_LEVEL', LOG_NOTICE);
+        $this->notifyLevel = lmbEnv::get('LIMB_LOG_LEVEL', LogLevel::NOTICE);
     }
 
     /**
@@ -50,7 +62,7 @@ class lmbLog implements LoggerInterface
      *
      * @return void
      */
-    public function setNotifyLevel(int $notifyLevel): void
+    public function setNotifyLevel($notifyLevel): void
     {
         $this->notifyLevel = $notifyLevel;
     }
@@ -81,18 +93,24 @@ class lmbLog implements LoggerInterface
     /**
      * Checks whether the selected level is above another level.
      *
-     * @param mixed  $level
+     * @param mixed $level
      * @param string $base
      *
      * @return bool
      */
     protected function aboveLevel($level, $base): bool
     {
-        $levelOrder = array_keys($this->backtrace_depth);
-        $baseIndex = array_search($base, $levelOrder);
-        $levelIndex = array_search($level, $levelOrder);
+        //$levelOrder = array_keys($this->log_levels);
+        //$baseIndex = array_search($base, $levelOrder);
+        //$levelIndex = array_search($level, $levelOrder);
+        //return $levelIndex >= $baseIndex;
 
-        return $levelIndex >= $baseIndex;
+        return $this->log_levels[$level] <= $this->log_levels[$base];
+    }
+
+    function getBacktraceDepth($log_level): int
+    {
+        return $this->backtrace_depth[$log_level];
     }
 
     function setBacktraceDepth($log_level, $depth)
@@ -102,42 +120,42 @@ class lmbLog implements LoggerInterface
 
     public function emergency($message, array $context = [])
     {
-        $this->log(LOG_EMERG, $message, $context);
+        $this->log(LogLevel::EMERGENCY, $message, $context);
     }
 
     public function alert($message, array $context = [])
     {
-        $this->log(LOG_ALERT, $message, $context);
+        $this->log(LogLevel::ALERT, $message, $context);
     }
 
     public function critical($message, array $context = [])
     {
-        $this->log(LOG_CRIT, $message, $context);
+        $this->log(LogLevel::CRITICAL, $message, $context);
     }
 
     public function error($message, array $context = [])
     {
-        $this->log(LOG_ERR, $message, $context);
+        $this->log(LogLevel::ERROR, $message, $context);
     }
 
     public function warning($message, array $context = [])
     {
-        $this->log(LOG_WARNING, $message, $context);
+        $this->log(LogLevel::WARNING, $message, $context);
     }
 
     public function notice($message, array $context = [])
     {
-        $this->log(LOG_NOTICE, $message, $context);
+        $this->log(LogLevel::NOTICE, $message, $context);
     }
 
     public function info($message, array $context = [])
     {
-        $this->log(LOG_INFO, $message, $context);
+        $this->log(LogLevel::INFO, $message, $context);
     }
 
     public function debug($message, array $context = [])
     {
-        $this->log(LOG_DEBUG, $message, $context);
+        $this->log(LogLevel::DEBUG, $message, $context);
     }
 
     public function log($level, $message, $context = [], $backtrace = null)
@@ -154,22 +172,22 @@ class lmbLog implements LoggerInterface
 
     function logException($exception)
     {
-        if (!$this->aboveLevel(LOG_ERR, $this->notifyLevel)) {
+        if (!$this->aboveLevel(LogLevel::ERROR, $this->notifyLevel)) {
             return;
         }
 
-        $backtrace_depth = $this->backtrace_depth[LOG_ERR];
+        $backtrace_depth = $this->backtrace_depth[LogLevel::ERROR];
 
         if ($exception instanceof lmbException)
             $this->log(
-                LOG_ERR,
+                LogLevel::ERROR,
                 $exception->getMessage(),
                 $exception->getParams(),
                 new lmbBacktrace($exception->getTrace(), $backtrace_depth)
             );
         else
             $this->log(
-                LOG_ERR,
+                LogLevel::ERROR,
                 $exception->getMessage(),
                 [
                     'file' => $exception->getFile(),

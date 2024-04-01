@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use limb\log\src\lmbLogSyslogWriter;
 use limb\net\src\lmbUri;
 use limb\log\src\lmbLogEntry;
+use Psr\Log\LogLevel;
 
 class lmbLogSyslogWriterTest extends TestCase
 {
@@ -27,7 +28,7 @@ class lmbLogSyslogWriterTest extends TestCase
     function testWrite()
     {
         $writer = new lmbLogSyslogWriter(new lmbUri());
-        $writer->write(new lmbLogEntry(LOG_ERR, "foo\nbar"));
+        $writer->write(new lmbLogEntry(LogLevel::ERROR, "foo\nbar"));
         $content = file_get_contents('/var/log/syslog');
         $this->assertMatchesRegularExpression('/Error/', $content);
         $this->assertMatchesRegularExpression('/foo/', $content);

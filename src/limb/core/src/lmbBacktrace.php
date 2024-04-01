@@ -48,6 +48,11 @@ class lmbBacktrace
         return (sizeof($this->backtrace)) ? $this->backtrace[0] : '';
     }
 
+    function isEmpty(): bool
+    {
+        return !empty($this->backtrace);
+    }
+
     function toString()
     {
         $trace_string = '';
