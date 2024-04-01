@@ -50,7 +50,7 @@ class lmbBacktrace
 
     function isEmpty(): bool
     {
-        return !empty($this->backtrace);
+        return empty($this->backtrace);
     }
 
     function toString()
