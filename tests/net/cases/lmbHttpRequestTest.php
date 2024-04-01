@@ -83,7 +83,7 @@ class lmbHttpRequestTest extends TestCase
         $post = array('c' => 1, 'ju' => 'jitsu', 'kung' => 'fu');
         $request = new lmbHttpRequest('https://test.com', 'POST', [], $post);
 
-        $this->assertEquals('post', $request->getMethod());
+        $this->assertEquals('POST', $request->getMethod());
         $this->assertNotEquals('GET', $request->getMethod());
 
         $this->assertTrue($request->isMethod('POST'));
