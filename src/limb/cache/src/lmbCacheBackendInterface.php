@@ -17,9 +17,9 @@ namespace limb\cache\src;
  */
 interface lmbCacheBackendInterface
 {
-    function add($key, $value, $params = array());
+    function add($key, $value, $params = array(), $ttl = null);
 
-    function set($key, $value, $params = array());
+    function set($key, $value, $params = array(), $ttl = null);
 
     function get($key, $params = array());
 

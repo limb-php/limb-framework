@@ -34,9 +34,9 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
         return $this->_cache_dir;
     }
 
-    function add($key, $value, $params = array())
+    function add($key, $value, $params = array(), $ttl = null)
     {
-        $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $params);
+        $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $ttl);
         if (file_exists($file))
             return false;
 
@@ -50,11 +50,11 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
         }
     }
 
-    function set($key, $value, $params = array())
+    function set($key, $value, $params = array(), $ttl = null)
     {
         $this->delete($key);
 
-        $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $params);
+        $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $ttl);
 
         if (array_key_exists("raw", $params)) {
             lmbFs::safeWrite($file, $value);
@@ -114,11 +114,10 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
         }
     }
 
-    protected function _getCacheFileName($key, $params)
+    protected function _getCacheFileName($key, $ttl = null)
     {
-        $ttl = '';
-        if (isset($params['ttl']))
-            $ttl = time() + $params['ttl'];
+        if ($ttl)
+            $ttl = time() + $ttl;
 
         return $key . '_' . $ttl . '.cache';
     }

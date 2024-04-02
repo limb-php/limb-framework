@@ -19,16 +19,16 @@ class lmbCacheMemoryBackend implements lmbCacheBackendInterface
 {
     protected $_cache = array();
 
-    function add($key, $value, $params = array())
+    /** set if not exists */
+    function add($key, $value, $params = array(), $ttl = null)
     {
         if (array_key_exists($key, $this->_cache))
             return false;
 
-        $this->_cache[$key] = $value;
-        return true;
+        return $this->set($key, $value, $params, $ttl);
     }
 
-    function set($key, $value, $params = array())
+    function set($key, $value, $params = array(), $ttl = null)
     {
         $this->_cache[$key] = $value;
         return true;
@@ -49,12 +49,37 @@ class lmbCacheMemoryBackend implements lmbCacheBackendInterface
 
     function flush()
     {
-        $this->_cache = array();
+        $this->clear();
     }
 
     function stat($params = array())
     {
         return array();
     }
-}
 
+    /** Psr\SimpleCache\CacheInterface **/
+    public function clear()
+    {
+        $this->_cache = array();
+    }
+
+    public function getMultiple($keys, $default = null)
+    {
+        // TODO: Implement getMultiple() method.
+    }
+
+    public function setMultiple($values, $ttl = null)
+    {
+        // TODO: Implement setMultiple() method.
+    }
+
+    public function deleteMultiple($keys)
+    {
+        // TODO: Implement deleteMultiple() method.
+    }
+
+    public function has($key)
+    {
+        return array_key_exists($key, $this->_cache);
+    }
+}

@@ -19,24 +19,24 @@ use limb\core\src\lmbSerializable;
  */
 class lmbCacheApcBackend implements lmbCacheBackendInterface
 {
-    function add($key, $value, $params = array())
+    function add($key, $value, $params = array(), $ttl = null)
     {
         if (array_key_exists("raw", $params)) {
-            return apc_add($key, $value, $this->_getTtl($params));
+            return apc_add($key, $value, $ttl);
         } else {
             $container = new lmbSerializable($value);
-            return apc_add($key, serialize($container), $this->_getTtl($params));
+            return apc_add($key, serialize($container), $ttl);
         }
 
     }
 
-    function set($key, $value, $params = array())
+    function set($key, $value, $params = array(), $ttl = null)
     {
         if (array_key_exists("raw", $params)) {
-            return apc_store($key, $value, $this->_getTtl($params));
+            return apc_store($key, $value, $ttl);
         } else {
             $container = new lmbSerializable($value);
-            return apc_store($key, serialize($container), $this->_getTtl($params));
+            return apc_store($key, serialize($container), $ttl);
         }
     }
 
@@ -69,14 +69,6 @@ class lmbCacheApcBackend implements lmbCacheBackendInterface
             isset($params['cache_type']) ? $params['cache_type'] : "user",
             isset($params['limited']) ? (bool)$params['limited'] : true
         );
-    }
-
-    protected function _getTtl($params)
-    {
-        if (!isset($params['ttl']))
-            $params['ttl'] = 0;
-
-        return $params['ttl'];
     }
 }
 

@@ -34,29 +34,29 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
         return $this->_cache_dir;
     }
 
-    function add($key, $value, $params = array())
+    function add($key, $value, $params = array(), $ttl = null)
     {
-        $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $params);
+        $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $ttl);
         if (file_exists($file))
             return false;
 
-        return $this->_doSet($key, $value, $file, $params);
+        return $this->_doSet($key, $value, $file, $params, $ttl);
 
     }
 
-    function set($key, $value, $params = array())
+    function set($key, $value, $params = array(), $ttl = null)
     {
         $this->delete($key);
 
         $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key);
 
-        return $this->_doSet($key, $value, $file, $params);
+        return $this->_doSet($key, $value, $file, $params, $ttl);
     }
 
-    function _doSet($key, $value, $file, $params)
+    function _doSet($key, $value, $file, $params, $ttl = null)
     {
-        if (isset($params['ttl'])) {
-            $meta['ttl'] = $params['ttl'] + time();
+        if ($ttl) {
+            $meta['ttl'] = $ttl + time();
         }
         if (isset($params['raw']) || in_array('raw', $params)) {
             $meta['raw'] = true;
@@ -157,10 +157,10 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
             return false;
     }
 
-    protected function _setMetaData($key, $data)
+    protected function _setMetaData($key, $metadata)
     {
         $file = $this->_getMetaFilePath($key);
-        lmbFs::safeWrite($file, serialize($data));
+        lmbFs::safeWrite($file, serialize($metadata));
     }
 
     protected function _removeFileMeta($key = false)
@@ -174,7 +174,7 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
         return $this->getCacheDir() . "/" . $this->_getCacheFileName($key) . ".meta";
     }
 
-    protected function _getCacheFileName($key)
+    protected function _getCacheFileName($key, $ttl = null)
     {
         $hash = md5($key);
         return $hash[0] . '/' . $hash[1] . '/' . $key . '_' . '.cache';

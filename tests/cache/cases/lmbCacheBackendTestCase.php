@@ -9,6 +9,7 @@
 
 namespace tests\cache\cases;
 
+use limb\cache\src\lmbCacheBackendInterface;
 use limb\core\src\lmbObject;
 use PHPUnit\Framework\TestCase;
 use tests\cache\cases\src\CacheableFooBarClass;
@@ -17,6 +18,7 @@ require_once (dirname(__FILE__) . '/init.inc.php');
 
 abstract class lmbCacheBackendTestCase extends TestCase
 {
+    /** @var $cache lmbCacheBackendInterface */
     protected $cache;
 
     abstract function _createPersisterImp();
@@ -108,7 +110,7 @@ abstract class lmbCacheBackendTestCase extends TestCase
 
     function testGetWithTtlFalse()
     {
-        $this->cache->set(1, 'value', array('ttl' => 1));
+        $this->cache->set(1, 'value', [], 1);
         sleep(2);
         $this->assertFalse($this->cache->get(1));
     }
@@ -116,7 +118,7 @@ abstract class lmbCacheBackendTestCase extends TestCase
     function testGetWithTtlTrue()
     {
         $val = 'value';
-        $this->cache->set(1, $val, array('ttl' => 3600));
+        $this->cache->set(1, $val, [], 3600);
         $this->assertEquals($val, $this->cache->get(1));
     }
 
