@@ -74,7 +74,7 @@ abstract class lmbView implements lmbViewInterface
             return $this->variables[$variable_name];
     }
 
-    function getVariables()
+    function getVariables(): array
     {
         return $this->variables;
     }

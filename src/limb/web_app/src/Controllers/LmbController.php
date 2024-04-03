@@ -136,7 +136,7 @@ class LmbController
         return lmbRouteHelper::getControllerNameByClass($this);
     }
 
-    function getView()
+    function getView(): lmbViewInterface
     {
         if ($this->_view)
             return $this->_view;

@@ -130,7 +130,7 @@ use Psr\Http\Message\ResponseInterface;
  * @method getSupportedViewTypes()
  * @method getSupportedViewExtensions()
  * @method locateTemplateByAlias($alias, $view_class = null)
- * @method createViewByTemplate($template_name, $vars = [])
+ * @method createViewByTemplate($template_name, $vars = []): lmbViewInterface
  * @method getMacroConfig()
  * @method getMacroLocator()
  * @method setMacroConfig($config)
@@ -138,8 +138,8 @@ use Psr\Http\Message\ResponseInterface;
  * @method setTwigConfig($config)
  *
  * @see lmbWebAppTools
- * @method setView($view)
- * @method \limb\view\src\lmbView getView()
+ * @method setView(\limb\view\src\lmbViewInterface $view)
+ * @method \limb\view\src\lmbView getView(): \limb\view\src\lmbViewInterface
  * @method setDispatchedController($dispatched)
  * @method \limb\web_app\src\Controllers\lmbController getDispatchedController()
  * @method \limb\web_app\src\Controllers\lmbController createController($controller_name, $namespace = '')

@@ -18,7 +18,7 @@ if (!function_exists('view')) {
 
     function view($template_name, $vars = [])
     {
-        return lmbToolkit::instance()->createViewByTemplate($template_name, $vars);
+        return lmbToolkit::instance()->createViewByTemplate($template_name)->setVariables($vars);
     }
 
 }

@@ -22,6 +22,10 @@ interface lmbViewInterface
 
     static function locateTemplateByAlias($alias);
 
+    function setVariables($vars): self;
+
+    function getVariables(): array;
+    
     function render();
 
 }

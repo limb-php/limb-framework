@@ -22,6 +22,7 @@ use limb\core\src\lmbString;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\view\src\lmbDummyView;
 use limb\view\src\lmbView;
+use limb\view\src\lmbViewInterface;
 use limb\view\src\toolkit\lmbViewTools;
 use limb\web_app\src\util\lmbFlashBox;
 use limb\web_app\src\request\lmbRoutes;
@@ -112,7 +113,7 @@ class lmbWebAppTools extends lmbAbstractTools
         $this->view = $view;
     }
 
-    function getView(): lmbView
+    function getView(): lmbViewInterface
     {
         if (is_object($this->view))
             return $this->view;
