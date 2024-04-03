@@ -50,13 +50,11 @@ class LmbController
     /**
      * @var array a pairs of action to template cached map
      */
-    protected $action_template_map = array();
-
+    static protected $action_template_map = [];
     /**
      * @var boolean
      */
-    protected $map_changed = false;
-
+    static protected $map_loaded = false;
     /**
      * @var object lmbToolkit instance
      */
@@ -99,8 +97,6 @@ class LmbController
 
         $this->error_list = new lmbErrorList();
         $this->validator = new lmbValidator($this->error_list);
-
-        $this->_loadCache();
     }
 
     function getDefaultAction()
@@ -348,12 +344,6 @@ class LmbController
         return $this->forward(ServerErrorController::class, 'display');
     }
 
-
-    function __destruct()
-    {
-        $this->_saveCache();
-    }
-
     function isCacheEnabled()
     {
         return (bool)lmbEnv::get('LIMB_CONTROLLER_CACHE_ENABLED');
@@ -361,30 +351,38 @@ class LmbController
 
     function _loadCache()
     {
-        if ($this->isCacheEnabled() && file_exists($cache = lmbEnv::get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache'))
-            $this->action_template_map = unserialize(file_get_contents($cache));
+        if ($this->isCacheEnabled() &&
+            !self::$map_loaded &&
+            file_exists($cache = lmbEnv::get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache')
+        ) {
+            self::$map_loaded = true;
+            self::$action_template_map = unserialize(file_get_contents($cache));
+        }
     }
 
     function _saveCache()
     {
-        if ($this->isCacheEnabled() && $this->map_changed) {
+        if ($this->isCacheEnabled()) {
             lmbFs::safeWrite(lmbEnv::get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache',
-                serialize($this->action_template_map));
+                serialize(self::$action_template_map));
         }
     }
 
     function findTemplateForAction($action)
     {
+        $this->_loadCache();
+
         $controller_name = get_class($this);
 
-        if (isset($this->action_template_map[$controller_name][$action]))
-            return $this->action_template_map[$controller_name][$action];
+        if (isset(self::$action_template_map[$controller_name][$action]))
+            return self::$action_template_map[$controller_name][$action];
 
         $template_format = $this->_getTemplatePath($action);
 
         $template_path = $this->findTemplateByAlias($template_format);
-        $this->action_template_map[$controller_name][$action] = $template_path;
-        $this->map_changed = true;
+        self::$action_template_map[$controller_name][$action] = $template_path;
+
+        $this->_saveCache();
 
         return $template_path;
     }
@@ -399,12 +397,12 @@ class LmbController
         return false;
     }
 
-    protected function isAjaxRequest()
+    protected function isAjaxRequest($request)
     {
-        if ($this->request->hasHeader('DNT'))
+        if ($request->hasHeader('DNT'))
             return true;
 
-        return $this->request->hasHeader('X-Requested-With') &&
-            $this->request->getHeaderLine('X-Requested-With') == 'XMLHttpRequest';
+        return $request->hasHeader('X-Requested-With') &&
+            $request->getHeaderLine('X-Requested-With') == 'XMLHttpRequest';
     }
 }

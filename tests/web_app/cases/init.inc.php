@@ -2,8 +2,9 @@
 
 use limb\core\src\lmbEnv;
 use limb\toolkit\src\lmbToolkit;
-use limb\view\src\lmbPHPView;
 use limb\view\src\lmbTwigView;
+use limb\view\src\lmbMacroView;
+use limb\view\src\lmbPHPView;
 
 require_once(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
 require_once(dirname(__FILE__) . '/../../../src/limb/macro/common.inc.php');
@@ -19,6 +20,7 @@ lmbEnv::set('LIMB_CONF_INCLUDE_PATH', dirname(__FILE__) . '/settings;' . dirname
 lmbToolkit::instance()->setSupportedViewTypes(
     array(
         //'.twig' => lmbTwigView::class,
+        //'.phtml' => lmbMacroView::class,
         '.php' => lmbPHPView::class
     )
 );

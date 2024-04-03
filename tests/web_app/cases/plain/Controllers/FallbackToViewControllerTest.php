@@ -9,6 +9,7 @@
 
 namespace tests\web_app\cases\plain\controllers;
 
+use limb\fs\src\lmbFs;
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\Controllers\FallbackToViewController;
 use limb\net\src\lmbHttpRequest;
@@ -56,12 +57,18 @@ class FallbackToViewControllerTest extends TestCase
         $request = new lmbHttpRequest('https://localhost/about', 'GET');
 
         $controller = new FallbackToViewController();
-        $result = $controller->performAction($request);
+        $response = $controller->performAction($request);
 
-//        $this->assertEquals(
-//            $this->toolkit->getView()->getTemplate(),
-//            $controller->findTemplateByAlias('not_found')
-//        );
+        $this->assertEquals('<h3>404 Page Not Found Error.</h3>', $response->getBody()->__toString());
+
+        $this->assertEquals(
+            lmbFs::normalizePath(
+                $this->toolkit->getView()->getTemplate()
+            ),
+            lmbFs::normalizePath(
+                $controller->findTemplateByAlias('not_found/display')
+            )
+        );
 
         $this->assertFalse($controller->findTemplateByAlias('about.html'));
     }

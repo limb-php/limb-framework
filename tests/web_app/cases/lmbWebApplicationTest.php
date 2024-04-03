@@ -43,6 +43,6 @@ class lmbWebApplicationTest extends lmbWebAppTestCase
         $app = new lmbWebApplication();
         $response = $app->process($request);
 
-        $this->assertEquals('404', $response->getBody());
+        $this->assertEquals('<h3>404 Page Not Found Error.</h3>', $response->getBody());
     }
 }
