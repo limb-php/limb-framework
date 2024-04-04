@@ -25,25 +25,25 @@ class lmbCacheMemcachedBackend implements lmbCacheBackendInterface
         $this->_memcache->addServer($host, $port);
     }
 
-    function add($key, $value, $params = array())
+    function add($key, $value, $ttl = null)
     {
-        return $this->_memcache->add($key, $value, $this->_getTtl($params));
+        return $this->_memcache->add($key, $value, $ttl);
     }
 
-    function set($key, $value, $params = array())
+    function set($key, $value, $ttl = null)
     {
-        return $this->_memcache->set($key, $value, $this->_getTtl($params));
+        return $this->_memcache->set($key, $value, $ttl);
     }
 
-    function get($key, $params = array())
+    function get($key, $default = null)
     {
         if (false === ($value = $this->_memcache->get($key)))
-            return false;
+            return $default;
 
         return $value;
     }
 
-    function delete($key, $params = array())
+    function delete($key)
     {
         $this->_memcache->delete($key);
     }
@@ -66,6 +66,31 @@ class lmbCacheMemcachedBackend implements lmbCacheBackendInterface
             $params['ttl'] = 0;
 
         return $params['ttl'];
+    }
+
+    public function clear()
+    {
+        // TODO: Implement clear() method.
+    }
+
+    public function getMultiple(iterable $keys, mixed $default = null)
+    {
+        // TODO: Implement getMultiple() method.
+    }
+
+    public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null)
+    {
+        // TODO: Implement setMultiple() method.
+    }
+
+    public function deleteMultiple(iterable $keys)
+    {
+        // TODO: Implement deleteMultiple() method.
+    }
+
+    public function has(string $key)
+    {
+        // TODO: Implement has() method.
     }
 }
 

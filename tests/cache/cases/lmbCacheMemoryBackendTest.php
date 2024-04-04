@@ -11,21 +11,21 @@ namespace tests\cache\cases;
 
 use limb\cache\src\lmbCacheMemoryBackend;
 
-class lmbCacheMemoryBackendTestCase extends lmbCacheBackendTestCase
+class lmbCacheMemoryBackendTest extends lmbCacheBackendTestCase
 {
     function _createPersisterImp()
     {
         return new lmbCacheMemoryBackend();
     }
 
-    function testGetWithTtlFalse()
-    {
-        $this->assertTrue(true, 'This should already work.');
-    }
-
-    function testObjectClone()
-    {
-        $this->assertTrue(true, 'This should already work.');
-    }
+//    function testGetWithTtlFalse()
+//    {
+//        $this->assertTrue(true, 'This should already work.');
+//    }
+//
+//    function testObjectClone()
+//    {
+//        $this->assertTrue(true, 'This should already work.');
+//    }
 
 }

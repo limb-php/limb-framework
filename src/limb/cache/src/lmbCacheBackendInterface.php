@@ -9,23 +9,25 @@
 
 namespace limb\cache\src;
 
+use Psr\SimpleCache\CacheInterface;
+
 /**
  * interface lmbCacheBackend.
  *
  * @package cache
  * @version $Id$
  */
-interface lmbCacheBackendInterface
+interface lmbCacheBackendInterface extends CacheInterface
 {
-    function add($key, $value, $params = array(), $ttl = null);
+    function add($key, $value, $ttl = null);
 
-    function set($key, $value, $params = array(), $ttl = null);
+    function set($key, $value, $ttl = null);
 
-    function get($key, $params = array());
+    function get($key, $default = null);
 
-    function delete($key, $params = array());
+    function delete($key);
 
     function flush();
 
-    function stat($params = array());
+    function stat($params = []);
 }

@@ -45,9 +45,9 @@ abstract class lmbCacheBackendTestCase extends TestCase
     }
 
 
-    function testGetFalse()
+    function testGetNull()
     {
-        $this->assertFalse($this->cache->get(1));
+        $this->assertNull($this->cache->get(1));
     }
 
     function testGetTrue()
@@ -91,7 +91,7 @@ abstract class lmbCacheBackendTestCase extends TestCase
 
         $this->cache->delete(1);
 
-        $this->assertFalse($this->cache->get(1));
+        $this->assertNull($this->cache->get(1));
 
         $cache_value = $this->cache->get(2);
         $this->assertEquals($cache_value, $v2);
@@ -104,21 +104,21 @@ abstract class lmbCacheBackendTestCase extends TestCase
 
         $this->cache->flush();
 
-        $this->assertFalse($this->cache->get(1));
-        $this->assertFalse($this->cache->get(2));
+        $this->assertNull($this->cache->get(1));
+        $this->assertNull($this->cache->get(2));
     }
 
     function testGetWithTtlFalse()
     {
-        $this->cache->set(1, 'value', [], 1);
+        $this->cache->set(1, 'value', 1);
         sleep(2);
-        $this->assertFalse($this->cache->get(1));
+        $this->assertFalse($this->cache->get(1, false));
     }
 
     function testGetWithTtlTrue()
     {
         $val = 'value';
-        $this->cache->set(1, $val, [], 3600);
+        $this->cache->set(1, $val, 3600);
         $this->assertEquals($val, $this->cache->get(1));
     }
 
@@ -143,8 +143,8 @@ abstract class lmbCacheBackendTestCase extends TestCase
 
         $obj->set('foo', 'new value');
 
-        $this->assertEquals($value, $this->cache->get(1)->get('foo'));
-
+        $this->assertNotEquals($obj, $this->cache->get(1)); // $obj has been changed
+        $this->assertEquals($value, $this->cache->get(1)->get('foo')); // $obj->foo has old (first) value
     }
 
     function _getCachedValues()

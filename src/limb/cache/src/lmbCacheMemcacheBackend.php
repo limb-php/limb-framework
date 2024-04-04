@@ -23,6 +23,20 @@ class lmbCacheMemcacheBackend implements lmbCacheBackendInterface
 
     protected $_namespace;
 
+    protected $_options = [
+        'raw' => false
+    ];
+
+    function getOption($name)
+    {
+        return $this->_options[$name] ?? null;
+    }
+
+    function setOption($name, $value)
+    {
+        $this->_options[$name] = $value;
+    }
+
     function __construct($host = 'localhost', $port = '11211', $namespace = '')
     {
         $this->_memcache = new \Memcache();
@@ -31,34 +45,34 @@ class lmbCacheMemcacheBackend implements lmbCacheBackendInterface
         $this->_namespace = $namespace;
     }
 
-    function add($key, $value, $params = array())
+    function add($key, $value, $ttl = null)
     {
-        if (array_key_exists("raw", $params))
-            return $this->_memcache->add($this->_namespace . $key, $value, null, $this->_getTtl($params));
+        if ($this->getOption("raw"))
+            return $this->_memcache->add($this->_namespace . $key, $value, null, $ttl);
         else
-            return $this->_memcache->add($this->_namespace . $key, new lmbSerializable($value), null, $this->_getTtl($params));
+            return $this->_memcache->add($this->_namespace . $key, new lmbSerializable($value), null, $ttl);
     }
 
-    function set($key, $value, $params = array())
+    function set($key, $value, $ttl = null)
     {
-        if (array_key_exists("raw", $params))
-            return $this->_memcache->set($this->_namespace . $key, $value, null, $this->_getTtl($params));
+        if ($this->getOption("raw"))
+            return $this->_memcache->set($this->_namespace . $key, $value, null, $ttl);
         else
-            return $this->_memcache->set($this->_namespace . $key, new lmbSerializable($value), null, $this->_getTtl($params));
+            return $this->_memcache->set($this->_namespace . $key, new lmbSerializable($value), null, $ttl);
     }
 
-    function get($key, $params = array())
+    function get($key, $default = null)
     {
         if (false === ($value = $this->_memcache->get($this->_namespace . $key)))
-            return false;
+            return $default;
 
-        if (array_key_exists("raw", $params))
+        if ($this->getOption("raw"))
             return $value;
         else
             return $value->getSubject();
     }
 
-    function delete($key, $params = array())
+    function delete($key)
     {
         $this->_memcache->delete($this->_namespace . $key);
     }
@@ -93,5 +107,30 @@ class lmbCacheMemcacheBackend implements lmbCacheBackendInterface
             $params['ttl'] = 0;
 
         return $params['ttl'];
+    }
+
+    public function clear()
+    {
+        // TODO: Implement clear() method.
+    }
+
+    public function getMultiple(iterable $keys, mixed $default = null)
+    {
+        // TODO: Implement getMultiple() method.
+    }
+
+    public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null)
+    {
+        // TODO: Implement setMultiple() method.
+    }
+
+    public function deleteMultiple(iterable $keys)
+    {
+        // TODO: Implement deleteMultiple() method.
+    }
+
+    public function has(string $key)
+    {
+        // TODO: Implement has() method.
     }
 }

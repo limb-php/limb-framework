@@ -11,7 +11,7 @@ namespace tests\cache\cases;
 
 use limb\cache\src\lmbCacheMemcacheBackend;
 
-class lmbCacheMemcacheBackendTestCase extends lmbCacheBackendTestCase
+class lmbCacheMemcacheBackendTest extends lmbCacheBackendTestCase
 {
 
     private $_host = 'localhost';

@@ -15,43 +15,55 @@ namespace limb\cache\src;
  * @package cache
  * @version $Id$
  */
-class lmbCacheGroupDecorator implements lmbCacheBackendInterface
+class lmbCacheGroupDecorator
 {
+    /** @var $_cache lmbCacheBackendInterface */
     protected $_cache;
     protected $_default_group;
     protected $_groups = array();
 
-    function __construct($cache, $default_group = 'default')
+    function __construct(lmbCacheBackendInterface $cache, $default_group = 'default')
     {
         $this->_cache = $cache;
         $this->_default_group = $default_group;
 
-        if ($groups = $this->_cache->get('groups'))
+        if ($groups = $this->_cache->get('lmb_groups'))
             $this->_groups = $groups;
     }
 
-    function add($key, $value, $params = array(), $ttl = null)
+    function getOption($name)
+    {
+        return $this->_cache->getOption($name);
+    }
+
+    function setOption($name, $value)
+    {
+        $this->_cache->setOption($name, $value);
+        return $this;
+    }
+
+    function add($key, $value, $ttl = null, $params = array())
     {
         $group = $this->_getGroup($params);
-        $result = $this->_cache->add($this->_generateKey($key, $group), $value, $params, $ttl);
+        $result = $this->_cache->add($this->_generateKey($key, $group), $value, $ttl);
 
         if (!$this->_groupKeyExists($key, $group))
             $this->_groups[$group][] = $key;
 
-        $this->_cache->set('groups', $this->_groups);
+        $this->_cache->set('lmb_groups', $this->_groups);
 
         return $result;
     }
 
-    function set($key, $value, $params = array(), $ttl = null)
+    function set($key, $value, $ttl = null, $params = array())
     {
         $group = $this->_getGroup($params);
-        $result = $this->_cache->set($this->_generateKey($key, $group), $value, $params, $ttl);
+        $result = $this->_cache->set($this->_generateKey($key, $group), $value, $ttl);
 
         if (!$this->_groupKeyExists($key, $group))
             $this->_groups[$group][] = $key;
 
-        $this->_cache->set('groups', $this->_groups);
+        $this->_cache->set('lmb_groups', $this->_groups);
 
         return $result;
     }
@@ -72,14 +84,14 @@ class lmbCacheGroupDecorator implements lmbCacheBackendInterface
         return $this->increment($key, -$value);
     }
 
-    function get($key, $params = array())
+    function get($key, $default = null, $params = array())
     {
         $group = $this->_getGroup($params);
 
         if (!$this->_groupKeyExists($key, $group))
-            return false;
+            return $default;
 
-        return $this->_cache->get($this->_generateKey($key, $group), $params);
+        return $this->_cache->get($this->_generateKey($key, $group), $default);
     }
 
     function delete($key, $params = array())
@@ -97,14 +109,14 @@ class lmbCacheGroupDecorator implements lmbCacheBackendInterface
             $this->_cache->delete($this->_generateKey($key, $group));
 
         unset($this->_groups[$group]);
-        $this->_cache->set('groups', $this->_groups);
+        $this->_cache->set('lmb_groups', $this->_groups);
     }
 
     function flush()
     {
         $this->_cache->flush();
         $this->_groups = array();
-        $this->_cache->set('groups', $this->_groups);
+        $this->_cache->set('lmb_groups', $this->_groups);
     }
 
     function stat($params = array())
@@ -135,6 +147,6 @@ class lmbCacheGroupDecorator implements lmbCacheBackendInterface
 
     function __destruct()
     {
-        $this->_cache->set('groups', $this->_groups);
+        $this->_cache->set('lmb_groups', $this->_groups);
     }
 }

@@ -11,7 +11,7 @@ namespace tests\cache\cases;
 
 use limb\cache\src\lmbCacheApcBackend;
 
-class lmbCacheApcBackendTestCase extends lmbCacheBackendTestCase
+class lmbCacheApcBackendTest extends lmbCacheBackendTestCase
 {
 
     function setUp(): void

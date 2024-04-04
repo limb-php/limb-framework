@@ -13,6 +13,9 @@ use limb\cache\src\lmbCacheGroupDecorator;
 
 class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTestCase
 {
+    /** @var $cache lmbCacheGroupDecorator */
+    protected $cache;
+
     function _createPersisterImp()
     {
         return new lmbCacheGroupDecorator(parent::_createPersisterImp(), 'default_group');
@@ -22,8 +25,8 @@ class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTestCase
     {
         $key = 1;
         $this->cache->set($key, $v1 = 'value1');
-        $set_value = $this->cache->set($key, $v2 = 'value2', array('group' => 'test-group'));
-        $add_value = $this->cache->add($key, $v2 = 'value2', array('group' => 'test-group'));
+        $set_value = $this->cache->set($key, $v2 = 'value2', null, array('group' => 'test-group'));
+        $add_value = $this->cache->add($key, $v2 = 'value2', null, array('group' => 'test-group'));
 
         $this->assertTrue($set_value);
         $this->assertFalse($add_value);
@@ -31,24 +34,25 @@ class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTestCase
         $cache_value = $this->cache->get($key);
         $this->assertEquals($cache_value, $v1);
 
-        $cache_value = $this->cache->get($key, array('group' => 'test-group'));
+        $cache_value = $this->cache->get($key, null, array('group' => 'test-group'));
         $this->assertEquals($cache_value, $v2);
     }
 
     function testRawPutToCacheWithGroup()
     {
         $key = 1;
-        $this->cache->set($key, $v1 = 'value1', array('raw' => 1));
-        $set_value = $this->cache->set($key, $v2 = 'value2', array('group' => 'test-group', 'raw' => 1));
-        $add_value = $this->cache->add($key, $v2 = 'value2', array('group' => 'test-group', 'raw' => 1));
+        //$this->cache->setOption('raw', 1);
+        $this->cache->set($key, $v1 = 'value1', null);
+        $set_value = $this->cache->set($key, $v2 = 'value2', null, array('group' => 'test-group'));
+        $add_value = $this->cache->add($key, $v2 = 'value2', null, array('group' => 'test-group'));
 
         $this->assertTrue($set_value);
         $this->assertFalse($add_value);
 
-        $cache_value = $this->cache->get($key, array('raw' => 1));
+        $cache_value = $this->cache->get($key, null);
         $this->assertEquals($cache_value, $v1);
 
-        $cache_value = $this->cache->get($key, array('group' => 'test-group', 'raw' => 1));
+        $cache_value = $this->cache->get($key, null, array('group' => 'test-group'));
         $this->assertEquals($cache_value, $v2);
     }
 
@@ -57,11 +61,11 @@ class lmbCacheGroupDecoratorTest extends lmbCacheFileBackendTestCase
     {
         $key = 1;
         $this->cache->set($key, $v1 = 'value1');
-        $this->cache->set($key, $v2 = 'value2', array('group' => 'test-group'));
+        $this->cache->set($key, $v2 = 'value2', null, array('group' => 'test-group'));
 
         $this->cache->flushGroup('test-group');
 
-        $this->assertFalse($this->cache->get($key, array('group' => 'test-group')));
+        $this->assertNull($this->cache->get($key, null, array('group' => 'test-group')));
 
         $var = $this->cache->get($key);
         $this->assertEquals($var, $v1);

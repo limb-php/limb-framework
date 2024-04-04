@@ -21,6 +21,19 @@ use limb\fs\src\lmbFs;
 class lmbCacheFileBackend implements lmbCacheBackendInterface
 {
     protected $_cache_dir;
+    protected $_options = [
+        'raw' => false
+    ];
+
+    function getOption($name)
+    {
+        return $this->_options[$name] ?? null;
+    }
+
+    function setOption($name, $value)
+    {
+        $this->_options[$name] = $value;
+    }
 
     function __construct($cache_dir)
     {
@@ -34,13 +47,13 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
         return $this->_cache_dir;
     }
 
-    function add($key, $value, $params = array(), $ttl = null)
+    function add($key, $value, $ttl = null)
     {
         $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $ttl);
         if (file_exists($file))
             return false;
 
-        if (array_key_exists("raw", $params)) {
+        if ($this->getOption("raw")) {
             lmbFs::safeWrite($file, $value);
             return true;
         } else {
@@ -50,13 +63,13 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
         }
     }
 
-    function set($key, $value, $params = array(), $ttl = null)
+    function set($key, $value, $ttl = null)
     {
         $this->delete($key);
 
         $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $ttl);
 
-        if (array_key_exists("raw", $params)) {
+        if ($this->getOption("raw")) {
             lmbFs::safeWrite($file, $value);
             return true;
         } else {
@@ -66,18 +79,18 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
         }
     }
 
-    function get($key, $params = array())
+    function get($key, $default = null)
     {
         if (!$file = $this->_findCacheFile($key))
-            return false;
+            return $default;
 
         $res = array();
         if (preg_match('/\/' . $key . '_(\d+)\.cache$/', $file, $res) and isset($res[1])) {
             if ($res[1] - time() < 0)
-                return false;
+                return $default;
         }
 
-        if (array_key_exists("raw", $params)) {
+        if ($this->getOption("raw")) {
             return file_get_contents($file);
         } else {
             $container = unserialize(file_get_contents($file));
@@ -85,14 +98,14 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
         }
     }
 
-    function delete($key, $params = array())
+    function delete($key)
     {
         $this->_removeFileCache($key);
     }
 
     function flush()
     {
-        $this->_removeFileCache();
+        $this->clear();
     }
 
     function stat($params = array())
@@ -127,5 +140,30 @@ class lmbCacheFileBackend implements lmbCacheBackendInterface
         $files = lmbFs::find($this->getCacheDir(), 'f', '/^' . $key . '_?\d*\.cache$/');
         if (count($files))
             return $files[0];
+    }
+
+    public function clear()
+    {
+        $this->_removeFileCache();
+    }
+
+    public function getMultiple(iterable $keys, mixed $default = null)
+    {
+        // TODO: Implement getMultiple() method.
+    }
+
+    public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null)
+    {
+        // TODO: Implement setMultiple() method.
+    }
+
+    public function deleteMultiple(iterable $keys)
+    {
+        // TODO: Implement deleteMultiple() method.
+    }
+
+    public function has(string $key)
+    {
+        // TODO: Implement has() method.
     }
 }

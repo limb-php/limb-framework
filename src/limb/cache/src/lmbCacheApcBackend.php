@@ -19,9 +19,24 @@ use limb\core\src\lmbSerializable;
  */
 class lmbCacheApcBackend implements lmbCacheBackendInterface
 {
-    function add($key, $value, $params = array(), $ttl = null)
+    protected $_options = [
+        'raw' => false
+    ];
+
+    function getOption($name)
     {
-        if (array_key_exists("raw", $params)) {
+        return $this->_options[$name] ?? null;
+    }
+
+    function setOption($name, $value)
+    {
+        $this->_options[$name] = $value;
+        return $this;
+    }
+
+    function add($key, $value, $ttl = null)
+    {
+        if ($this->getOption("raw")) {
             return apc_add($key, $value, $ttl);
         } else {
             $container = new lmbSerializable($value);
@@ -30,9 +45,9 @@ class lmbCacheApcBackend implements lmbCacheBackendInterface
 
     }
 
-    function set($key, $value, $params = array(), $ttl = null)
+    function set($key, $value, $ttl = null)
     {
-        if (array_key_exists("raw", $params)) {
+        if ($this->getOption("raw")) {
             return apc_store($key, $value, $ttl);
         } else {
             $container = new lmbSerializable($value);
@@ -40,12 +55,12 @@ class lmbCacheApcBackend implements lmbCacheBackendInterface
         }
     }
 
-    function get($key, $params = array())
+    function get($key, $default = null)
     {
         if (!$value = apc_fetch($key))
-            return false;
+            return $default;
 
-        if (array_key_exists("raw", $params)) {
+        if ($this->getOption("raw")) {
             return $value;
         } else {
             $container = unserialize($value);
@@ -53,7 +68,7 @@ class lmbCacheApcBackend implements lmbCacheBackendInterface
         }
     }
 
-    function delete($key, $params = array())
+    function delete($key)
     {
         apc_delete($key);
     }
@@ -69,6 +84,31 @@ class lmbCacheApcBackend implements lmbCacheBackendInterface
             isset($params['cache_type']) ? $params['cache_type'] : "user",
             isset($params['limited']) ? (bool)$params['limited'] : true
         );
+    }
+
+    public function clear()
+    {
+        // TODO: Implement clear() method.
+    }
+
+    public function getMultiple(iterable $keys, mixed $default = null)
+    {
+        // TODO: Implement getMultiple() method.
+    }
+
+    public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null)
+    {
+        // TODO: Implement setMultiple() method.
+    }
+
+    public function deleteMultiple(iterable $keys)
+    {
+        // TODO: Implement deleteMultiple() method.
+    }
+
+    public function has(string $key)
+    {
+        // TODO: Implement has() method.
     }
 }
 

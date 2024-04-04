@@ -22,28 +22,43 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbCacheXcacheBackend implements lmbCacheBackendInterface
 {
-    function add($key, $value, $params = array())
+    protected $_options = [
+        'raw' => false
+    ];
+
+    function getOption($name)
+    {
+        return $this->_options[$name] ?? null;
+    }
+
+    function setOption($name, $value)
+    {
+        $this->_options[$name] = $value;
+        return $this;
+    }
+
+    function add($key, $value, $ttl = null)
     {
         if (xcache_isset($key))
             return false;
 
-        return xcache_set($key, serialize($value), $this->_getTtl($params));
+        return xcache_set($key, serialize($value), $ttl);
     }
 
-    function set($key, $value, $params = array())
+    function set($key, $value, $ttl = null)
     {
-        return xcache_set($key, serialize($value), $this->_getTtl($params));
+        return xcache_set($key, serialize($value), $ttl);
     }
 
-    function get($key, $params = array())
+    function get($key, $default = null)
     {
         if (!xcache_isset($key))
-            return false;
+            return $default;
 
         return unserialize(xcache_get($key));
     }
 
-    function delete($key, $params = array())
+    function delete($key)
     {
         xcache_unset($key);
     }
@@ -105,5 +120,30 @@ class lmbCacheXcacheBackend implements lmbCacheBackendInterface
                 $_SERVER[$key] = $xcache_cnf->get($key, 'limb');
             }
         }
+    }
+
+    public function clear()
+    {
+        // TODO: Implement clear() method.
+    }
+
+    public function getMultiple(iterable $keys, mixed $default = null)
+    {
+        // TODO: Implement getMultiple() method.
+    }
+
+    public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null)
+    {
+        // TODO: Implement setMultiple() method.
+    }
+
+    public function deleteMultiple(iterable $keys)
+    {
+        // TODO: Implement deleteMultiple() method.
+    }
+
+    public function has(string $key)
+    {
+        // TODO: Implement has() method.
     }
 }

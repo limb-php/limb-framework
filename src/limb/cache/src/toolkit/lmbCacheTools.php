@@ -16,7 +16,6 @@ use limb\cache\src\lmbCacheApcBackend;
 use limb\cache\src\lmbCacheApcuBackend;
 use limb\cache\src\lmbCacheXcacheBackend;
 use limb\cache\src\lmbCacheFileWithMetaBackend;
-use limb\cache\src\lmbCacheGroupDecorator;
 use limb\core\src\lmbEnv;
 
 /**
@@ -40,22 +39,22 @@ class lmbCacheTools extends lmbAbstractTools
 
         switch ($type) {
             case 'memcache':
-                $this->_cache = new lmbCacheGroupDecorator(new lmbCacheMemcacheBackend($host = 'localhost', $port = '11211', $this->namespace));
+                $this->_cache = new lmbCacheMemcacheBackend($host = 'localhost', $port = '11211', $this->namespace);
                 break;
             case 'memcached':
-                $this->_cache = new lmbCacheGroupDecorator(new lmbCacheMemcachedBackend($host = 'localhost', $port = '11211'));
+                $this->_cache = new lmbCacheMemcachedBackend($host = 'localhost', $port = '11211');
                 break;
             case 'apc':
-                $this->_cache = new lmbCacheGroupDecorator(new lmbCacheApcBackend());
+                $this->_cache = new lmbCacheApcBackend();
                 break;
             case 'apcu':
-                $this->_cache = new lmbCacheGroupDecorator(new lmbCacheApcuBackend());
+                $this->_cache = new lmbCacheApcuBackend();
                 break;
             case 'xcache':
-                $this->_cache = new lmbCacheGroupDecorator(new lmbCacheXcacheBackend());
+                $this->_cache = new lmbCacheXcacheBackend();
                 break;
             case 'files':
-                $this->_cache = new lmbCacheGroupDecorator(new lmbCacheFileWithMetaBackend(lmbEnv::get('LIMB_VAR_DIR') . '/cache'));
+                $this->_cache = new lmbCacheFileWithMetaBackend(lmbEnv::get('LIMB_VAR_DIR') . '/cache');
                 break;
             default:
                 $this->_cache = false;

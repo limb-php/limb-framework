@@ -17,32 +17,51 @@ namespace limb\cache\src;
  */
 class lmbCacheMemoryBackend implements lmbCacheBackendInterface
 {
-    protected $_cache = array();
+    protected $_cache = [];
+
+    protected $_options = [
+        'raw' => false
+    ];
+
+    function getOption($name)
+    {
+        return $this->_options[$name] ?? null;
+    }
+
+    function setOption($name, $value)
+    {
+        $this->_options[$name] = $value;
+        return $this;
+    }
 
     /** set if not exists */
-    function add($key, $value, $params = array(), $ttl = null)
+    function add($key, $value, $ttl = null)
     {
         if (array_key_exists($key, $this->_cache))
             return false;
 
-        return $this->set($key, $value, $params, $ttl);
+        return $this->set($key, $value, $ttl);
     }
 
-    function set($key, $value, $params = array(), $ttl = null)
+    function set($key, $value, $ttl = null)
     {
-        $this->_cache[$key] = $value;
+        $this->_cache[$key] = [serialize($value), time() + $ttl];
         return true;
     }
 
-    function get($key, $params = array())
+    function get($key, $default = null)
     {
         if (!isset($this->_cache[$key]))
-            return false;
+            return $default;
 
-        return $this->_cache[$key];
+        [$value, $ttl] = $this->_cache[$key];
+        if($ttl !== null && time() > $ttl)
+            return $default;
+
+        return unserialize($value);
     }
 
-    function delete($key, $params = array())
+    function delete($key)
     {
         unset($this->_cache[$key]);
     }
@@ -75,7 +94,8 @@ class lmbCacheMemoryBackend implements lmbCacheBackendInterface
 
     public function deleteMultiple($keys)
     {
-        // TODO: Implement deleteMultiple() method.
+        foreach($keys as $key)
+            $this->delete($key);
     }
 
     public function has($key)

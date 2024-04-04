@@ -21,6 +21,19 @@ use limb\fs\src\lmbFs;
 class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
 {
     protected $_cache_dir;
+    protected $_options = [
+        'raw' => false
+    ];
+
+    function getOption($name)
+    {
+        return $this->_options[$name] ?? null;
+    }
+
+    function setOption($name, $value)
+    {
+        $this->_options[$name] = $value;
+    }
 
     function __construct($cache_dir)
     {
@@ -34,31 +47,32 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
         return $this->_cache_dir;
     }
 
-    function add($key, $value, $params = array(), $ttl = null)
+    function add($key, $value, $ttl = null)
     {
         $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key, $ttl);
         if (file_exists($file))
             return false;
 
-        return $this->_doSet($key, $value, $file, $params, $ttl);
+        return $this->_doSet($key, $value, $file, $ttl);
 
     }
 
-    function set($key, $value, $params = array(), $ttl = null)
+    function set($key, $value, $ttl = null)
     {
         $this->delete($key);
 
         $file = $this->getCacheDir() . '/' . $this->_getCacheFileName($key);
 
-        return $this->_doSet($key, $value, $file, $params, $ttl);
+        return $this->_doSet($key, $value, $file, $ttl);
     }
 
-    function _doSet($key, $value, $file, $params, $ttl = null)
+    function _doSet($key, $value, $file, $ttl = null)
     {
         if ($ttl) {
             $meta['ttl'] = $ttl + time();
         }
-        if (isset($params['raw']) || in_array('raw', $params)) {
+
+        if ( $this->getOption('raw') ) {
             $meta['raw'] = true;
         }
         if (isset($meta) and is_array($meta)) {
@@ -75,12 +89,12 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
         }
     }
 
-    function get($key, $params = array())
+    function get($key, $default = null)
     {
         if ($file = $this->_findCacheFile($key)) {
             if ($meta = $this->_getMetaData($key) and isset($meta['ttl'])) {
                 if ($meta['ttl'] - time() < 0)
-                    return false;
+                    return $default;
             }
 
             if (isset($meta['raw'])) {
@@ -91,10 +105,10 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
             }
         }
 
-        return false;
+        return $default;
     }
 
-    function delete($key, $params = array())
+    function delete($key)
     {
         $this->_removeFileCache($key);
     }
@@ -117,7 +131,7 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
 
     function flush()
     {
-        $this->_removeFileCache();
+        $this->clear();
     }
 
     function stat($params = array())
@@ -178,5 +192,30 @@ class lmbCacheFileWithMetaBackend implements lmbCacheBackendInterface
     {
         $hash = md5($key);
         return $hash[0] . '/' . $hash[1] . '/' . $key . '_' . '.cache';
+    }
+
+    public function clear()
+    {
+        $this->_removeFileCache();
+    }
+
+    public function getMultiple(iterable $keys, mixed $default = null)
+    {
+        // TODO: Implement getMultiple() method.
+    }
+
+    public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null)
+    {
+        // TODO: Implement setMultiple() method.
+    }
+
+    public function deleteMultiple(iterable $keys)
+    {
+        // TODO: Implement deleteMultiple() method.
+    }
+
+    public function has(string $key)
+    {
+        // TODO: Implement has() method.
     }
 }

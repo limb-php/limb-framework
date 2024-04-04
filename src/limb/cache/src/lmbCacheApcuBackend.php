@@ -19,33 +19,48 @@ use limb\core\src\lmbSerializable;
  */
 class lmbCacheApcuBackend implements lmbCacheBackendInterface
 {
-    function add($key, $value, $params = array())
+    protected $_options = [
+        'raw' => false
+    ];
+
+    function getOption($name)
     {
-        if (array_key_exists("raw", $params)) {
-            return apcu_add($key, $value, $this->_getTtl($params));
+        return $this->_options[$name] ?? null;
+    }
+
+    function setOption($name, $value)
+    {
+        $this->_options[$name] = $value;
+        return $this;
+    }
+
+    function add($key, $value, $ttl = null)
+    {
+        if ($this->getOption("raw")) {
+            return apcu_add($key, $value, $ttl);
         } else {
             $container = new lmbSerializable($value);
-            return apcu_add($key, serialize($container), $this->_getTtl($params));
+            return apcu_add($key, serialize($container), $ttl);
         }
 
     }
 
-    function set($key, $value, $params = array())
+    function set($key, $value, $ttl = null)
     {
-        if (array_key_exists("raw", $params)) {
-            return apcu_store($key, $value, $this->_getTtl($params));
+        if ($this->getOption("raw")) {
+            return apcu_store($key, $value, $ttl);
         } else {
             $container = new lmbSerializable($value);
-            return apcu_store($key, serialize($container), $this->_getTtl($params));
+            return apcu_store($key, serialize($container), $ttl);
         }
     }
 
-    function get($key, $params = array())
+    function get($key, $default = null)
     {
         if (!$value = apcu_fetch($key))
             return false;
 
-        if (array_key_exists("raq", $params)) {
+        if ($this->getOption("raw")) {
             return $value;
         } else {
             $container = unserialize($value);
@@ -53,7 +68,7 @@ class lmbCacheApcuBackend implements lmbCacheBackendInterface
         }
     }
 
-    function delete($key, $params = array())
+    function delete($key)
     {
         apcu_delete($key);
     }
@@ -77,5 +92,29 @@ class lmbCacheApcuBackend implements lmbCacheBackendInterface
 
         return $params['ttl'];
     }
-}
 
+    public function clear()
+    {
+        // TODO: Implement clear() method.
+    }
+
+    public function getMultiple(iterable $keys, mixed $default = null)
+    {
+        // TODO: Implement getMultiple() method.
+    }
+
+    public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null)
+    {
+        // TODO: Implement setMultiple() method.
+    }
+
+    public function deleteMultiple(iterable $keys)
+    {
+        // TODO: Implement deleteMultiple() method.
+    }
+
+    public function has(string $key)
+    {
+        // TODO: Implement has() method.
+    }
+}
