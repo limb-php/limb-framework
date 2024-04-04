@@ -39,13 +39,13 @@ class lmbActionPerformingFilterTest extends TestCase
 
     function testThrowExceptionIfNoDispatchedController()
     {
-        $filter = new lmbActionPerformingFilter();
-
         $fc = $this->createMock(lmbFilterChain::class);
         $fc->expects($this->never())->method('next');
 
+        $filter = new lmbActionPerformingFilter();
+
         try {
-            $filter->run($fc);
+            $filter->run($fc, request());
             $this->fail();
         } catch (lmbException $e) {
             $this->assertTrue(true);
@@ -55,15 +55,18 @@ class lmbActionPerformingFilterTest extends TestCase
     function testRunOk()
     {
         $controller = $this->createMock(LmbController::class);
-        $controller->expects($this->once())->method('performAction');
+        $controller
+            ->expects($this->once())
+            ->method('performAction');
 
         $this->toolkit->setDispatchedController($controller);
 
-        $filter = new lmbActionPerformingFilter();
-
         $fc = $this->createMock(lmbFilterChain::class);
-        $fc->expects($this->once())->method('next');
+        $fc
+            ->expects($this->once())
+            ->method('next');
 
-        $filter->run($fc);
+        $filter = new lmbActionPerformingFilter();
+        $filter->run($fc, request());
     }
 }

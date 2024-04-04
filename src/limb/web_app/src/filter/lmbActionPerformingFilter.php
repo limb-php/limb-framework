@@ -26,7 +26,7 @@ use limb\view\src\lmbView;
  */
 class lmbActionPerformingFilter implements lmbInterceptingFilterInterface
 {
-    function run($filter_chain, $request = null, $callback = null)
+    function run($filter_chain, $request, $callback = null)
     {
         $dispatched = lmbToolkit::instance()->getDispatchedController();
         if (!is_object($dispatched))

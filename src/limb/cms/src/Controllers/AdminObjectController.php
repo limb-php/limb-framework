@@ -9,9 +9,13 @@
 
 namespace limb\cms\src\Controllers;
 
-use \limb\web_app\src\Controllers\LmbController;
+use limb\cms\src\Commands\lmbCmsPublishObjectCommand;
+use limb\cms\src\Commands\lmbCmsUnpublishObjectCommand;
+use limb\web_app\src\Controllers\LmbController;
 use limb\core\src\exception\lmbException;
 use limb\active_record\src\lmbActiveRecord;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * abstract class AdminObjectController.
@@ -36,7 +40,7 @@ abstract class AdminObjectController extends LmbController
             throw new lmbException('Object class name is not specified');
     }
 
-    protected function _passLocalAttributesToView()
+    protected function _passLocalAttributesToView(): void
     {
         //passing back_url string into view
         if (is_array($this->_back_url))
@@ -47,7 +51,7 @@ abstract class AdminObjectController extends LmbController
         parent::_passLocalAttributesToView();
     }
 
-    function doCreate($request)
+    function doCreate(RequestInterface $request)
     {
         $this->item = new $this->_object_class_name();
         $this->_onCreate($request);
@@ -55,16 +59,22 @@ abstract class AdminObjectController extends LmbController
         $this->useForm($this->_form_name);
         $this->setFormDatasource($this->item);
 
-        if ($request->hasPost()) {
+        if ($request->getMethod() == 'POST') {
             $this->_import($request);
-            $this->_validateAndSave(true);
+
+            $this->_validate($request);
+            if ($this->validator->isValid()) {
+                $this->_store($request);
+
+                return $this->_endDialog();
+            }
         } else {
             $this->item->import($request);
             $this->_initCreateForm($request);
         }
     }
 
-    function doEdit($request)
+    function doEdit(RequestInterface $request)
     {
         $this->item = lmbActiveRecord::findById($this->_object_class_name, (int)$request->get('id'));
         $this->_onEdit($request);
@@ -72,21 +82,27 @@ abstract class AdminObjectController extends LmbController
         $this->useForm($this->_form_name);
         $this->setFormDatasource($this->item);
 
-        if ($request->hasPost()) {
+        if ($request->getMethod() == 'POST') {
             $this->_import($request);
-            $this->_validateAndSave(false);
+
+            $this->_validate($request);
+            if ($this->validator->isValid()) {
+                $this->_update($request);
+
+                return $this->_endDialog();
+            }
         } else {
             $this->_initEditForm($request);
         }
     }
 
-    function doDelete($request)
+    function doDelete(RequestInterface $request)
     {
-        if ($request->hasPost())
+        if ($request->getMethod() == 'POST')
             $this->_onBeforeDelete($request);
 
         if ($request->get('delete') || $request->get('do_action')) {
-            foreach ($request->getArray('ids') as $id) {
+            foreach ($request->get('ids') as $id) {
                 $item = new $this->_object_class_name((int)$id);
                 $item->destroy();
             }
@@ -115,44 +131,38 @@ abstract class AdminObjectController extends LmbController
     protected function _validate($request)
     {
         $this->_onBeforeValidate($request);
-        $this->item->validate($this->error_list);
+        $this->validateRequest($request);
         $this->_onAfterValidate($request);
     }
 
-    protected function _save($request, $is_create)
+    protected function _store($request)
     {
-        if ($is_create)
-            $this->_onBeforeCreate($request);
-        else
-            $this->_onBeforeUpdate($request);
+        $this->_onBeforeCreate($request);
 
         $this->_onBeforeSave($request);
         $this->item->saveSkipValidation();
         $this->_onAfterSave($request);
 
-        if ($is_create)
-            $this->_onAfterCreate($request);
-        else
-            $this->_onAfterUpdate($request);
+        $this->_onAfterCreate($request);
     }
 
-    protected function _validateAndSave($request, $is_create = false)
+    protected function _update($request)
     {
-        $this->_validate($request);
+        $this->_onBeforeUpdate($request);
 
-        if ($this->error_list->isValid()) {
-            $this->_save($request, $is_create);
+        $this->_onBeforeSave($request);
+        $this->item->saveSkipValidation();
+        $this->_onAfterSave($request);
 
-            $this->_endDialog();
-        }
+        $this->_onAfterUpdate($request);
     }
 
-    protected function _endDialog()
+    protected function _endDialog(): ResponseInterface
     {
         if ($this->_popup)
-            $this->closePopup();
+            return $this->closePopup();
         else
-            $this->redirect($this->_back_url);
+            return $this->redirect($this->_back_url);
     }
 
     protected function _initCreateForm($request)

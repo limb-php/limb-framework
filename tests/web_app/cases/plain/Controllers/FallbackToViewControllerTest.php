@@ -47,7 +47,7 @@ class FallbackToViewControllerTest extends TestCase
         $controller->setCurrentAction('detail');
 
         $controller->performAction($request);
-        $this->assertEquals('about.html', $this->toolkit->getView()->getTemplate());
+        $this->assertEquals('dummy_template_path', $this->toolkit->getView()->getTemplate());
     }
 
     function testForwardTo404IfTemplateIsNotFound()

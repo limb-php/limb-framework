@@ -113,7 +113,7 @@ class lmbValidator
     /**
      * @return boolean TRUE if list of errors is empty
      */
-    function isValid()
+    function isValid(): bool
     {
         return $this->getErrorList()->isValid();
     }

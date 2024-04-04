@@ -14,6 +14,7 @@ use limb\active_record\src\lmbActiveRecord;
 use limb\net\src\lmbHttpResponse;
 use limb\toolkit\src\lmbToolkit;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * abstract class AdminObjectController.
@@ -27,7 +28,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
     protected $_popup = true;
     protected $_back_url = array();
 
-    protected function _passLocalAttributesToView()
+    protected function _passLocalAttributesToView(): void
     {
         //passing back_url string into view
         if (is_array($this->_back_url))
@@ -210,7 +211,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         return false;
     }
 
-    protected function _endDialog(): lmbHttpResponse
+    protected function _endDialog(): ResponseInterface
     {
         if ($this->_popup) {
             return $this->closePopup();

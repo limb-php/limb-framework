@@ -19,6 +19,7 @@ use limb\web_app\src\Helpers\lmbRouteHelper;
 use limb\view\src\lmbViewInterface;
 use limb\core\src\exception\lmbException;
 use limb\web_app\src\exception\lmbEmptyControllerResponseException;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 lmbEnv::setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
@@ -55,6 +56,7 @@ class LmbController
      * @var boolean
      */
     static protected $map_loaded = false;
+
     /**
      * @var object lmbToolkit instance
      */
@@ -65,11 +67,12 @@ class LmbController
      * @var lmbViewInterface
      */
     protected $_view;
+
     /**
      *
-     * @var array
+     * @var lmbErrorList
      */
-    protected $error_list = [];
+    protected $error_list;
     /**
      *
      * @var lmbValidator
@@ -89,7 +92,6 @@ class LmbController
         $this->toolkit = lmbToolkit::instance();
 
         $this->error_list = new lmbErrorList();
-        $this->validator = new lmbValidator($this->error_list);
     }
 
     function getDefaultAction()
@@ -108,10 +110,10 @@ class LmbController
     }
 
     /**
-     *  Returns {@link $name}
+     * Returns {@link $name}
      * @return string
      */
-    function getName()
+    function getName(): string
     {
         if ($this->name)
             return $this->name;
@@ -137,13 +139,25 @@ class LmbController
         return $this->_view = $this->toolkit->getView();
     }
 
-    function validate($dataspace)
+    function validateRequest($dataspace): bool
     {
-        $this->validator->validate($dataspace);
-        return $this->validator->isValid();
+        return $this->getValidator()->validate($dataspace);
     }
 
-    function actionExists($action)
+    function getErrorList()
+    {
+        return $this->error_list;
+    }
+
+    function getValidator()
+    {
+        if(!$this->validator)
+            $this->validator = new lmbValidator($this->error_list);
+
+        return $this->validator;
+    }
+
+    function actionExists($action): bool
     {
         if (method_exists($this, $this->_mapActionToMethod($action)))
             return true;
@@ -154,7 +168,18 @@ class LmbController
         return false;
     }
 
-    function performAction($request)
+    function performCommand($class_name, ...$args)
+    {
+        $command = new $class_name();
+        $command->runCommand($args);
+    }
+
+    /**
+     * @return ResponseInterface|false
+     * @throws lmbException
+     * @throws lmbEmptyControllerResponseException
+     */
+    function performAction(RequestInterface $request)
     {
         if ($this->is_forwarded) {
             return false;
@@ -228,7 +253,7 @@ class LmbController
         $this->toolkit->setView($this->_view);
     }
 
-    protected function _passLocalAttributesToView()
+    protected function _passLocalAttributesToView(): void
     {
         if ($this->form_id && $this->error_list) {
             $this->getView()->setFormErrors($this->form_id, $this->error_list);
@@ -244,17 +269,17 @@ class LmbController
         }
     }
 
-    function passToView($var, $value)
+    function passToView($var, $value): void
     {
         $this->getView()->set($var, $value);
     }
 
-    function resetView()
+    function resetView(): void
     {
         $this->getView()->reset();
     }
 
-    function setFormDatasource($datasource, $form_id = null)
+    function setFormDatasource($datasource, $form_id = null): void
     {
         if (!$form_id && !$this->form_id)
             throw new lmbException('There is no form id specified');
@@ -270,41 +295,41 @@ class LmbController
         return $this->toolkit->redirect($params_or_url, $route_url);
     }
 
-    function flashError($message)
+    function flashError($message): void
     {
         $this->toolkit->flashError($message);
     }
 
-    function flashErrorAndRedirect($message, $redirect = array())
+    function flashErrorAndRedirect($message, $redirect = array()): ResponseInterface
     {
         $this->flashError($message);
         return $this->redirect($redirect);
     }
 
-    function flashMessage($message)
+    function flashMessage($message): void
     {
         $this->toolkit->flashMessage($message);
     }
 
-    function flash($message)
+    function flash($message): void
     {
         $this->flashMessage($message);
     }
 
-    function flashAndRedirect($message, $redirect = array())
+    function flashAndRedirect($message, $redirect = array()): ResponseInterface
     {
         $this->flashMessage($message);
         return $this->redirect($redirect);
     }
 
-    function addError($message, $fields = array(), $values = array())
+    function addError($message, $fields = array(), $values = array()): static
     {
         $this->error_list->addError($message, $fields, $values);
 
         return $this;
     }
 
-    function closePopup()
+    function closePopup(): ResponseInterface
     {
         return response('<html><script>if(window.opener){window.opener.focus();window.opener.location.reload();window.close();}</script></html>');
     }
@@ -337,12 +362,12 @@ class LmbController
         return $this->forward(ServerErrorController::class, 'display');
     }
 
-    function isCacheEnabled()
+    function isCacheEnabled(): bool
     {
         return (bool)lmbEnv::get('LIMB_CONTROLLER_CACHE_ENABLED');
     }
 
-    function _loadCache()
+    function _loadCache(): void
     {
         if ($this->isCacheEnabled() &&
             !self::$map_loaded &&
@@ -353,7 +378,7 @@ class LmbController
         }
     }
 
-    function _saveCache()
+    function _saveCache(): void
     {
         if ($this->isCacheEnabled()) {
             lmbFs::safeWrite(lmbEnv::get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache',
@@ -390,7 +415,7 @@ class LmbController
         return false;
     }
 
-    protected function isAjaxRequest($request)
+    protected function isAjaxRequest($request): bool
     {
         if ($request->hasHeader('DNT'))
             return true;

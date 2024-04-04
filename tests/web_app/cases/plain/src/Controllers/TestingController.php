@@ -28,12 +28,12 @@ class TestingController extends LmbController
         $this->item = 'item';
     }
 
-    function doPopup($request)
+    function doPopup()
     {
         return $this->closePopup();
     }
 
-    function doWithoutPopup($request)
+    function doWithoutPopup()
     {
         $this->in_popup = false;
 
@@ -43,12 +43,7 @@ class TestingController extends LmbController
 
     function addValidatorRule($r)
     {
-        $this->validator->addRule($r);
-    }
-
-    function getErrorList()
-    {
-        return $this->error_list;
+        $this->getValidator()->addRule($r);
     }
 
     function set($name, $value)

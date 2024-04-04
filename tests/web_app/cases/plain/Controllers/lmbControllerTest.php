@@ -158,7 +158,7 @@ class lmbControllerTest extends TestCase
         $controller->addValidatorRule($r1);
         $controller->addValidatorRule($r2);
 
-        $this->assertTrue($controller->validate($ds));
+        $this->assertTrue($controller->validateRequest($ds));
     }
 
     function testValidateFailed()
@@ -167,7 +167,7 @@ class lmbControllerTest extends TestCase
         $error_list = $controller->getErrorList();
         $error_list->addError('blah!');
 
-        $this->assertFalse($controller->validate(new lmbSet()));
+        $this->assertFalse($controller->validateRequest(new lmbSet()));
     }
 
     function testForward()
