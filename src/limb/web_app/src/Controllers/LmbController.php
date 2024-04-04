@@ -62,11 +62,6 @@ class LmbController
 
     /**
      *
-     * @var \limb\session\src\lmbSession
-     */
-    protected $session;
-    /**
-     *
      * @var lmbViewInterface
      */
     protected $_view;
@@ -92,8 +87,6 @@ class LmbController
             $this->name = $this->_guessName();
 
         $this->toolkit = lmbToolkit::instance();
-
-        $this->session = $this->toolkit->getSession();
 
         $this->error_list = new lmbErrorList();
         $this->validator = new lmbValidator($this->error_list);

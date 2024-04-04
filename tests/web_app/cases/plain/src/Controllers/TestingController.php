@@ -14,6 +14,8 @@ class TestingController extends LmbController
     {
         $this->display_performed = true;
         $this->template_name = $this->getView()->getTemplate();
+
+        return response();
     }
 
     function doWrite($request)

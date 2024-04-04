@@ -102,8 +102,12 @@ class lmbAROneToManyCollectionTest extends lmbARBaseTestCase
         $collection->add($l1);
         $collection->add($l2);
 
-        $l1->expects($this->never())->method('save');
-        $l2->expects($this->never())->method('save');
+        $l1
+            ->expects($this->never())
+            ->method('save');
+        $l2
+            ->expects($this->never())
+            ->method('save');
 
         $collection->save();
     }
