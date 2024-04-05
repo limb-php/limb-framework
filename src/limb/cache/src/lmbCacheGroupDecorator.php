@@ -50,7 +50,10 @@ class lmbCacheGroupDecorator
         if (!$this->_groupKeyExists($key, $group))
             $this->_groups[$group][] = $key;
 
+        $raw = $this->getOption('raw');
+        $this->setOption('raw', 0);
         $this->_cache->set('lmb_groups', $this->_groups);
+        $this->setOption('raw', $raw);
 
         return $result;
     }
@@ -63,7 +66,10 @@ class lmbCacheGroupDecorator
         if (!$this->_groupKeyExists($key, $group))
             $this->_groups[$group][] = $key;
 
+        $raw = $this->getOption('raw');
+        $this->setOption('raw', 0);
         $this->_cache->set('lmb_groups', $this->_groups);
+        $this->setOption('raw', $raw);
 
         return $result;
     }

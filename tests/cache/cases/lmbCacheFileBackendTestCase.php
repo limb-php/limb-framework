@@ -10,6 +10,7 @@
 namespace tests\cache\cases;
 
 use limb\cache\src\lmbCacheFileBackend;
+use limb\cache\src\lmbCacheFileWithMetaBackend;
 use limb\fs\src\lmbFs;
 use limb\core\src\lmbEnv;
 
@@ -20,7 +21,8 @@ class lmbCacheFileBackendTestCase extends lmbCacheBackendTestCase
     function _createPersisterImp()
     {
         $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/cache';
-        return new lmbCacheFileBackend($this->cache_dir);
+        //return new lmbCacheFileBackend($this->cache_dir);
+        return new lmbCacheFileWithMetaBackend($this->cache_dir);
     }
 
     function testCachedDiskFiles()
