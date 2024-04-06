@@ -15,24 +15,9 @@ namespace limb\cache\src;
  * @package cache
  * @version $Id$
  */
-class lmbCacheMemoryBackend implements lmbCacheBackendInterface
+class lmbCacheMemoryBackend extends lmbAbstractCacheBackend
 {
     protected $_cache = [];
-
-    protected $_options = [
-        'raw' => false
-    ];
-
-    function getOption($name)
-    {
-        return $this->_options[$name] ?? null;
-    }
-
-    function setOption($name, $value)
-    {
-        $this->_options[$name] = $value;
-        return $this;
-    }
 
     /** set if not exists */
     function add($key, $value, $ttl = null)
@@ -45,7 +30,7 @@ class lmbCacheMemoryBackend implements lmbCacheBackendInterface
 
     function set($key, $value, $ttl = null)
     {
-        $this->_cache[$key] = [serialize($value), time() + $ttl];
+        $this->_cache[$key] = [serialize($value), $this->_calcExpireTime($ttl)];
         return true;
     }
 
@@ -54,8 +39,8 @@ class lmbCacheMemoryBackend implements lmbCacheBackendInterface
         if (!isset($this->_cache[$key]))
             return $default;
 
-        [$value, $ttl] = $this->_cache[$key];
-        if($ttl !== null && time() > $ttl)
+        [$value, $expire_time] = $this->_cache[$key];
+        if($expire_time !== null && time() > $expire_time)
             return $default;
 
         return unserialize($value);
@@ -84,12 +69,20 @@ class lmbCacheMemoryBackend implements lmbCacheBackendInterface
 
     public function getMultiple($keys, $default = null)
     {
-        // TODO: Implement getMultiple() method.
+        $result = [];
+
+        foreach($keys as $key)
+            $result[$key] = get($key, $default);
+
+        return $result;
     }
 
     public function setMultiple($values, $ttl = null)
     {
-        // TODO: Implement setMultiple() method.
+        foreach($values as $key => $value)
+            $this->set($key, $value, $ttl);
+        
+        return true;
     }
 
     public function deleteMultiple($keys)

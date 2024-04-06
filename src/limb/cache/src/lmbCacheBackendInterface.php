@@ -19,14 +19,6 @@ use Psr\SimpleCache\CacheInterface;
  */
 interface lmbCacheBackendInterface extends CacheInterface
 {
-    function add($key, $value, $ttl = null);
-
-    function set($key, $value, $ttl = null);
-
-    function get($key, $default = null);
-
-    function delete($key);
-
     function flush();
 
     function stat($params = []);
