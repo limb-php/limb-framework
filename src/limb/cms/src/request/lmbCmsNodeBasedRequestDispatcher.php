@@ -47,12 +47,12 @@ class lmbCmsNodeBasedRequestDispatcher implements lmbRequestDispatcherInterface
         $result = array();
 
         $uri = $request->getUri();
-        $uri = $uri->withPath( lmbUriHelper::normalizePath($uri) );
-
+        $uri = $uri->withPath( lmbUriHelper::normalizePath($uri->getPath()) );
         $level = $this->_getHttpBasePathOffsetLevel($uri);
 
-        if (!$node = $this->node_class::findByPath(lmbUriHelper::getPathFromLevel($uri, $level)))
+        if (!$node = $this->node_class::findByPath(lmbUriHelper::getPathFromLevel($uri, $level))) {
             return $result;
+        }
 
         $result['controller'] = $node->getControllerName();
 
@@ -64,7 +64,7 @@ class lmbCmsNodeBasedRequestDispatcher implements lmbRequestDispatcherInterface
         return $result;
     }
 
-    protected function _getHttpBasePathOffsetLevel($uri)
+    protected function _getHttpBasePathOffsetLevel(lmbUri $uri)
     {
         if (!$this->path_offset)
             return 0;
@@ -73,7 +73,7 @@ class lmbCmsNodeBasedRequestDispatcher implements lmbRequestDispatcherInterface
         $base_path_uri = $uri->withPath( lmbUriHelper::normalizePath($base_path_uri) );
 
         $level = 1;
-        while (($uri->getPathElement($level) == $base_path_uri->getPathElement($level)) &&
+        while ((lmbUriHelper::getPathElement($uri, $level) == lmbUriHelper::getPathElement($base_path_uri, $level)) &&
             ($level < $base_path_uri->countPath())) {
             $level++;
         }

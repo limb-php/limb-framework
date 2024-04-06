@@ -51,24 +51,24 @@ use Psr\Http\Message\ResponseInterface;
  * @method getActiveRecordMetaInfo($active_record, $conn = null)
  *
  * @see lmbCacheTools
- * @method getCache()
+ * @method \limb\cache\src\lmbCacheBackendInterface|null getCache()
  * @method setCache($cache)
  *
  * @see lmbCmsTools
- * @method getCmsTree($tree_name = 'node')
- * @method setCmsTree($tree)
+ * @method \limb\tree\src\lmbMPTree getCmsTree($tree_name = 'node')
+ * @method setCmsTree(\limb\tree\src\lmbMPTree $tree)
  * @method \limb\cms\src\model\lmbCmsSessionUser getCmsAuthSession()
  * @method getCmsUser()
- * @method resetCmsUser()
  * @method setCmsUser($user)
+ * @method resetCmsUser()
  *
  * @see lmbConfTools
+ * @method \limb\core\src\lmbSetInterface getConf($name)
+ * @method \limb\core\src\lmbObject parseYamlFile($file)
  * @method void setConf($name, $conf)
  * @method bool hasConf($name)
  * @method void setConfIncludePath($path)
  * @method getConfIncludePath()
- * @method \limb\core\src\lmbSetInterface getConf($name)
- * @method \limb\core\src\lmbObject parseYamlFile($file)
  *
  * @see lmbDbTools
  * @method setDbEnvironment($env)
@@ -109,7 +109,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @see \limb\log\src\toolkit\lmbLogTools
  * @method getLogDSNes()
- * @method Psr\Log\LoggerInterface getLog($name = 'error')
+ * @method \Psr\Log\LoggerInterface getLog($name = 'error')
  * @method setLog($name, $log)
  *
  * @see lmbMailTools

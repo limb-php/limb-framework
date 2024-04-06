@@ -24,7 +24,7 @@ use limb\dbal\src\criteria\lmbSQLRawCriteria;
 class lmbCmsNode extends lmbActiveRecord
 {
     protected static $_gateway_path = '';
-    protected $_db_table_name = 'node';
+    protected $_db_table_name = 'lmb_cms_node';
     protected $_default_sort_params = array('priority' => 'ASC');
     protected $_is_being_destroyed = false;
 
@@ -33,17 +33,23 @@ class lmbCmsNode extends lmbActiveRecord
     protected $_tree;
     protected $controller_name;
 
-    protected $_has_one = array('parent' => array('field' => 'parent_id',
-        'class' => lmbCmsNode::class,
-        'can_be_null' => true,
-        'cascade_delete' => false));
+    protected $_has_one = array(
+        'parent' => array(
+            'field' => 'parent_id',
+            'class' => lmbCmsNode::class,
+            'can_be_null' => true,
+            'cascade_delete' => false)
+    );
 
-    protected $_has_many = array('kids' => array('field' => 'parent_id',
-        'class' => lmbCmsNode::class));
+    protected $_has_many = array(
+        'kids' => array(
+            'field' => 'parent_id',
+            'class' => lmbCmsNode::class)
+    );
 
     function __construct($magic_params = null)
     {
-        $this->_tree = lmbToolkit::instance()->getCmsTree();
+        $this->_tree = lmbToolkit::instance()->getCmsTree('lmb_cms_node');
 
         parent::__construct($magic_params);
     }
@@ -186,7 +192,7 @@ class lmbCmsNode extends lmbActiveRecord
 
     static function findByPath($path, $conn = null)
     {
-        $tree = lmbToolkit::instance()->getCmsTree();
+        $tree = lmbToolkit::instance()->getCmsTree('lmb_cms_node');
         $node = $tree->getNodeByPath($path);
         if ($node)
             return lmbActiveRecord::findById(lmbCmsNode::class, $node['id'], $conn);
@@ -194,7 +200,7 @@ class lmbCmsNode extends lmbActiveRecord
 
     static function findById($node_id, $conn = null, $_ = null, $__ = null)
     {
-        $tree = lmbToolkit::instance()->getCmsTree();
+        $tree = lmbToolkit::instance()->getCmsTree('lmb_cms_node');
         if ($node_id && $node = $tree->getNode($node_id))
             return lmbActiveRecord::findById(lmbCmsNode::class, $node['id'], true, $conn);
     }
@@ -204,7 +210,7 @@ class lmbCmsNode extends lmbActiveRecord
         if ($node_ar = lmbCmsNode::findById($node_id, $conn))
             return $node_ar;
 
-        $tree = lmbToolkit::instance()->getCmsTree();
+        $tree = lmbToolkit::instance()->getCmsTree('lmb_cms_node');
 
         if ($node = $tree->getNodeByPath($path))
             return lmbActiveRecord::findById(lmbCmsNode::class, $node['id'], true, $conn);
@@ -219,7 +225,7 @@ class lmbCmsNode extends lmbActiveRecord
     static function findChildren($node_id, $depth = 1, $conn = null)
     {
         if ($node_id) {
-            $tree = lmbToolkit::instance()->getCmsTree();
+            $tree = lmbToolkit::instance()->getCmsTree('lmb_cms_node');
             return lmbActiveRecord::decorateRecordSet($tree->getChildren($node_id, $depth),
                 lmbCmsNode::class,
                 $conn);
@@ -228,7 +234,7 @@ class lmbCmsNode extends lmbActiveRecord
 
     static function findChildrenByPath($path, $depth = 1, $conn = null)
     {
-        $tree = lmbToolkit::instance()->getCmsTree();
+        $tree = lmbToolkit::instance()->getCmsTree('lmb_cms_node');
         if ($path && $parent = $tree->getNodeByPath($path))
             return lmbActiveRecord::decorateRecordSet($tree->getChildren($parent['id'], $depth),
                 lmbCmsNode::class,

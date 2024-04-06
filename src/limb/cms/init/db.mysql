@@ -174,3 +174,25 @@ INSERT INTO `lmb_cms_seo` (`id`, `url`, `title`, `description`, `keywords`) VALU
   'Описание',
   'Ключевые слова'
 );
+
+
+DROP TABLE IF EXISTS `lmb_cms_node`;
+CREATE TABLE `lmb_cms_node` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL DEFAULT 0,
+  `priority` int(11) NOT NULL DEFAULT 0,
+  `level` int(11) NOT NULL DEFAULT 0,
+  `identifier` varchar(128) NOT NULL DEFAULT '',
+  `path` varchar(255) NOT NULL DEFAULT '',
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `controller_id` int(11) NOT NULL DEFAULT 0,
+  `object_class_id` int(11) DEFAULT NULL,
+  `object_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `level` (`level`),
+  KEY `parent_id` (`parent_id`),
+  KEY `id` (`id`,`parent_id`),
+  KEY `object_id` (`object_id`),
+  KEY `identifier` (`identifier`,`level`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+INSERT INTO `lmb_cms_node` VALUES (1,0,0,0,'','/1/','',1,NULL,NULL);
