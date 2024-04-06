@@ -188,7 +188,7 @@ class lmbHttpResponse implements ResponseInterface
     {
         $this->headers = $headers;
 
-        $this->version = '1.0';
+        $this->version = '1.1';
         $this->statusCode = $status;
         $this->write($content);
     }
