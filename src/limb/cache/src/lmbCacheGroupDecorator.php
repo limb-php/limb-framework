@@ -90,6 +90,13 @@ class lmbCacheGroupDecorator
         return $this->increment($key, -$value);
     }
 
+    function has($key, $params = array()): bool
+    {
+        $group = $this->_getGroup($params);
+
+        return $this->_groupKeyExists($key, $group);
+    }
+
     function get($key, $default = null, $params = array())
     {
         $group = $this->_getGroup($params);
