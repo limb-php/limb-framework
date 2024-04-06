@@ -23,7 +23,7 @@ abstract class lmbMacroFunctionBasedFilter extends lmbMacroFilter
     protected $function;
     protected $include_file;
 
-    function preGenerate($code)
+    function preGenerate(lmbMacroCodeWriter $code)
     {
         if ($this->include_file)
             $code->registerInclude($this->include_file);

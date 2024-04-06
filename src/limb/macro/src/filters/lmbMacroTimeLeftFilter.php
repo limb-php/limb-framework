@@ -13,6 +13,6 @@ use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
  */
 class lmbMacroTimeLeftFilter extends lmbMacroFunctionBasedFilter
 {
-    protected $include_file = __DIR__ . '/lmbMacroTimeLeftFilter.inc.php';
+    protected $include_file = __DIR__ . '/lmbMacroTimeLeftFilterFunction.php';
     protected $function = 'time_left';
 }

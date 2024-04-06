@@ -21,5 +21,5 @@ use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
 class lmbMacroWordDeclensionFilter extends lmbMacroFunctionBasedFilter
 {
     protected $function = 'lmb_macro_choose_declension_by_number';
-    protected $include_file = __DIR__ . '/lmbMacroWordDeclensionFilter.inc.php';
+    protected $include_file = __DIR__ . '/lmbMacroWordDeclensionFilterFunction.php';
 }

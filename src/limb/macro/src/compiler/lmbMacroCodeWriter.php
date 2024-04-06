@@ -145,7 +145,7 @@ class lmbMacroCodeWriter
         return $this->current_mode;
     }
 
-    function registerInclude($include_file)
+    function registerInclude($include_file): void
     {
         if (!in_array($include_file, $this->include_list))
             $this->include_list[] = $include_file;

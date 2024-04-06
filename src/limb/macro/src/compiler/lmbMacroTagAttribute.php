@@ -49,10 +49,10 @@ class lmbMacroTagAttribute implements lmbMacroExpressionInterface
         $this->expressions[] = $expression;
     }
 
-    function preGenerate($code_writer)
+    function preGenerate(lmbMacroCodeWriter $code)
     {
         foreach ($this->expressions as $fragment)
-            $fragment->preGenerate($code_writer);
+            $fragment->preGenerate($code);
     }
 
     function isDynamic()

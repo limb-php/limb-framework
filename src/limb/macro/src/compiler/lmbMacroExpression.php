@@ -23,7 +23,7 @@ class lmbMacroExpression implements lmbMacroExpressionInterface
         $this->expression_str = $expression_str;
     }
 
-    function preGenerate($code)
+    function preGenerate(lmbMacroCodeWriter $code)
     {
         $this->tmp = $code->generateVar();
         $var = $code->generateVar();

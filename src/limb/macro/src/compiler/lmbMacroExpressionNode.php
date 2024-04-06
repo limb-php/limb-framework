@@ -93,7 +93,7 @@ class lmbMacroExpressionNode implements lmbMacroExpressionInterface
         return $this->parsed->getValue();
     }
 
-    function preGenerate($code_writer)
+    function preGenerate(lmbMacroCodeWriter $code_writer)
     {
         $this->parsed->preGenerate($code_writer);
     }

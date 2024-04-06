@@ -17,7 +17,7 @@ class lmbMacroWordDeclensionFilterTest extends lmbBaseMacroTestCase
     function _getUserResultForNumber($number)
     {
         $code = '{$#number|declension:"пользователь", "пользователей", "пользователя"}';
-        $tpl = $this->_createMacroTemplate($code, 'tpl.html');
+        $tpl = $this->_createMacroTemplate($code, 'word_declension_filter_tpl.html');
         $tpl->set('number', $number);
         $out = $tpl->render();
         return $out;

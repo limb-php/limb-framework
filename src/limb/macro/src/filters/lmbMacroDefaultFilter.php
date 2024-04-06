@@ -21,7 +21,7 @@ use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
 class lmbMacroDefaultFilter extends lmbMacroFunctionBasedFilter
 {
     protected $function = 'lmb_macro_apply_default';
-    protected $include_file = __DIR__ . '/lmbMacroDefaultFilter.inc.php';
+    protected $include_file = __DIR__ . '/lmbMacroDefaultFilterFunction.php';
 
     protected function _getBaseValue()
     {

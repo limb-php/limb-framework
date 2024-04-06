@@ -24,7 +24,7 @@ abstract class lmbMacroFilter implements lmbMacroExpressionInterface
         $this->base = $base;
     }
 
-    function preGenerate($code)
+    function preGenerate(lmbMacroCodeWriter $code)
     {
         $this->base->preGenerate($code);
     }

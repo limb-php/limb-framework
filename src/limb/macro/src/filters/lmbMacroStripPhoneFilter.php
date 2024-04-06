@@ -13,6 +13,6 @@ use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
  */
 class lmbMacroStripPhoneFilter extends lmbMacroFunctionBasedFilter
 {
-    protected $include_file = __DIR__ . '/lmbMacroStripPhoneFilter.inc.php';
+    protected $include_file = __DIR__ . '/lmbMacroStripPhoneFilterFunction.php';
     protected $function = 'strip_phone';
 }

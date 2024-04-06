@@ -16,7 +16,7 @@ namespace limb\macro\src\compiler;
  */
 interface lmbMacroExpressionInterface
 {
-    function preGenerate($code);
+    function preGenerate(lmbMacroCodeWriter $code);
 
     function getValue();
 }
