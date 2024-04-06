@@ -31,6 +31,6 @@ class lmbMacroTextAreaTag extends lmbMacroFormTagElement
     protected function _generateContent($code_writer)
     {
         $textarea = $this->getRuntimeVar();
-        $code_writer->writePHP("echo htmlspecialchars({$textarea}->getValue(), ENT_QUOTES);\n");
+        $code_writer->writePHP("echo htmlspecialchars({$textarea}->getValue() ?? '', ENT_QUOTES);\n");
     }
 }
