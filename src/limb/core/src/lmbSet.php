@@ -51,7 +51,11 @@ class lmbSet implements lmbSetInterface
 
     function getFloat($name)
     {
-        return (float)str_replace(',', '.', $this->get($name));
+        $value = $this->get($name);
+        if( $value === null )
+            return null;
+
+        return (float)str_replace(',', '.', $value);
     }
 
     function set($name, $value)
