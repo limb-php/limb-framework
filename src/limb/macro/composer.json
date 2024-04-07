@@ -7,6 +7,9 @@
         "limb/fs": "^4.2"
     },
     "autoload": {
+        "files": [
+            "common.inc.php"
+        ],
         "psr-0": {
             "limb\\macro\\": ""
         }
