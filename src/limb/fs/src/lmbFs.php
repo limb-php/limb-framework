@@ -364,7 +364,7 @@ class lmbFs
             return '';
 
         $separator = self::separator($to_type);
-        return preg_replace("#[/\\\\]#", $separator, $path);
+        return str_replace(["\\", "/"], [$separator, $separator], $path);
     }
 
     /**

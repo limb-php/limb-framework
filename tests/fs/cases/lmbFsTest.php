@@ -126,6 +126,18 @@ class lmbFsTest extends TestCase
         $this->assertEquals($path, 'tmp' . lmbFs::separator() . 'wow' . lmbFs::separator() . 'hey');
     }
 
+    function testConvertSeparators()
+    {
+        $path = '/var/www/site/settings/macro.conf.php';
+        $this->assertEquals('/var/www/site/settings/macro.conf.php', lmbFs::convertSeparators($path, lmbFs::UNIX));
+
+        $path = '/var/www/site/settings/macro.conf.php';
+        $this->assertEquals('\var\www\site\settings\macro.conf.php', lmbFs::convertSeparators($path, lmbFs::DOS));
+
+        $path = '/var/www/site//settings/macro.conf.php';
+        $this->assertEquals('\var\www\site\\\\settings\macro.conf.php', lmbFs::convertSeparators($path, lmbFs::DOS));
+    }
+
     function testNormalizePathForWindows()
     {
         $path = lmbFs::normalizePath('c:\\var\\dev\\demo\\design\\templates\\test.html');
