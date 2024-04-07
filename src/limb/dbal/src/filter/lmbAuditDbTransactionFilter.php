@@ -8,6 +8,7 @@ use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\dbal\src\drivers\lmbAuditDbConnection;
 use limb\log\src\lmbLog;
 use limb\log\src\lmbLogPlainFileWriter;
+use limb\net\src\lmbHttpResponse;
 use limb\toolkit\src\lmbToolkit;
 
 class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
@@ -30,7 +31,7 @@ class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
         return $response;
     }
 
-    protected function _printStat($response, $info_arr)
+    protected function _printStat(lmbHttpResponse $response, $info_arr)
     {
         $time = (new lmbDateTime())->format("Y-m-d h:i:s");
         $output = $time . "\n";
@@ -50,7 +51,7 @@ class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
         $output .= "Total Time: " . $total_time . "\n";
 
         if ($response->getContentType() == 'text/html') {
-            $response->append("<!--" . $output . " -->");
+            $response->write("<!--" . $output . " -->");
         }
 
         $log = new lmbLog();
