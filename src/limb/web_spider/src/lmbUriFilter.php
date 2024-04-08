@@ -16,7 +16,7 @@ namespace limb\web_spider\src;
  * @version $Id: lmbUriFilter.php 7903 2009-04-26 18:36:36Z
  */
 
-use limb\net\src\lmbUri;
+use Psr\Http\Message\UriInterface;
 
 class lmbUriFilter
 {
@@ -46,7 +46,7 @@ class lmbUriFilter
         $this->disallowed_path_regexes[] = $regex;
     }
 
-    function canPass(lmbUri $uri): bool
+    function canPass(UriInterface $uri): bool
     {
         if (!in_array($uri->getScheme(), $this->allowed_protocols))
             return false;

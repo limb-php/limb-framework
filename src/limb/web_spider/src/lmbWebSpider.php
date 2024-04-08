@@ -12,6 +12,7 @@ namespace limb\web_spider\src;
 use limb\net\src\lmbUri;
 use limb\core\src\exception\lmbException;
 use limb\net\src\lmbUriHelper;
+use Psr\Http\Message\UriInterface;
 
 /**
  * class lmbWebSpider.
@@ -32,7 +33,7 @@ class lmbWebSpider
 
     protected $uri_cache = [];
 
-    function crawl(lmbUri $uri): bool
+    function crawl(UriInterface $uri): bool
     {
         if ($uri->getHost() == '')//???
             return false;
@@ -42,7 +43,7 @@ class lmbWebSpider
         return true;
     }
 
-    function _crawlRecursive(lmbUri $uri, lmbUri $context_uri)
+    function _crawlRecursive(UriInterface $uri, UriInterface $context_uri)
     {
         $uri = $this->_normalizeUriUsingContext($uri, $context_uri);
 
@@ -82,7 +83,7 @@ class lmbWebSpider
         }
     }
 
-    function _normalizeUriUsingContext(lmbUri $uri, lmbUri $context_uri)
+    function _normalizeUriUsingContext(UriInterface $uri, UriInterface $context_uri): UriInterface
     {
         if (!$uri->getHost()) {
             $uri = $uri->withHost($context_uri->getHost());
@@ -98,17 +99,17 @@ class lmbWebSpider
 
         return $uri
             ->withFragment('')
-            ->withPath( lmbUriHelper::normalizePath($uri) );
+            ->withPath( lmbUriHelper::normalizePath($uri->getPath()) );
     }
 
     function _isCacheHit($uri): bool
     {
-        return isset($this->uri_cache[$uri->toString()]);
+        return isset($this->uri_cache[$uri->__toString()]);
     }
 
     function _markCached($uri): void
     {
-        $this->uri_cache[$uri->toString()] = 1;
+        $this->uri_cache[$uri->__toString()] = 1;
     }
 
     function _notifyObservers()

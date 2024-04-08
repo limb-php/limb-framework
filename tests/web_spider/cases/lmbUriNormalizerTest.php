@@ -32,9 +32,11 @@ class lmbUriNormalizerTest extends TestCase
 
     function testNormalizeStripQuery()
     {
-        $links = array(new lmbUri('index.html?a=1&b=2'),
+        $links = array(
+            new lmbUri('index.html?a=1&b=2'),
             new lmbUri('https://test.com/page1.html?whatever'),
-            new lmbUri('https://test.com/page2.html?PHPSESSID=id&a=1'));
+            new lmbUri('https://test.com/page2.html?PHPSESSID=id&a=1')
+        );
 
         $this->normalizer->stripQueryItem('PHPSESSID');
         $this->normalizer->stripQueryItem('whatever');

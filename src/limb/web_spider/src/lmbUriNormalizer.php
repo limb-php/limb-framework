@@ -16,7 +16,7 @@ namespace limb\web_spider\src;
  * @version $Id: lmbUriNormalizer.php 7686 2009-03-04 19:57:12Z
  */
 
-use limb\net\src\lmbUri;
+use Psr\Http\Message\UriInterface;
 
 class lmbUriNormalizer
 {
@@ -44,7 +44,7 @@ class lmbUriNormalizer
         $this->stripped_query_items[] = $key;
     }
 
-    function process(lmbUri $uri): lmbUri
+    function process(UriInterface $uri): UriInterface
     {
         if ($this->strip_anchor) {
             $uri = $uri->withFragment('');

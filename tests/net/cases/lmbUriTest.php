@@ -688,18 +688,29 @@ class lmbUriTest extends TestCase
     {
         $uri = new lmbUri('svn+ssh://ms.org');
 
-        $this->assertEquals('svn+ssh://ms.org', $uri->toString());
+        $this->assertEquals('svn+ssh://ms.org', $uri->__toString());
         $this->assertEquals('svn+ssh', $uri->getScheme());
         $this->assertEquals('ms.org', $uri->getHost());
     }
 
     function testWithFragment()
     {
-        $str = 'http://localhost/query#fragment1';
+        $str = 'https://localhost/query';
         $uri = new lmbUri($str);
-
         $actual_uri = $uri->withFragment('fragment1');
 
-        $this->assertEquals($str, $actual_uri->toString());
+        $this->assertEquals($str . '#fragment1', $actual_uri->__toString());
+        $this->assertEquals(new lmbUri($str . '#fragment1'), $actual_uri);
+    }
+
+    function testWithFragmentPath()
+    {
+        $str = 'https://localhost/query';
+        $uri = new lmbUri($str);
+        $actual_uri = $uri
+            ->withFragment('fragment1')
+            ->withPath('/new_query/test');
+
+        $this->assertEquals('https://localhost/new_query/test#fragment1', $actual_uri->__toString());
     }
 }
