@@ -43,9 +43,9 @@ class lmbARCacheTest extends lmbARBaseTestCase
 
         $lecture->save();
 
-        $this->cache->set($key = $lecture->getId(), $lecture, array('group' => $group = $lecture->getClass(), 'ttl' => null));
+        $this->cache->set($key = $lecture->getId(), $lecture, null, array('group' => $group = $lecture->getClass()));
 
-        if (false !== ($lecture2 = $this->cache->get($key, array('group' => $group)))) {
+        if (null !== ($lecture2 = $this->cache->get($key, null, array('group' => $group)))) {
             $this->assertTrue(isset($lecture2['course']));
         } else {
             $this->fail();
@@ -66,11 +66,11 @@ class lmbARCacheTest extends lmbARBaseTestCase
 
         $course->save();
 
-        $this->cache->set($key_l1 = $l1->getId(), $l1, array('group' => $group_l1 = $l1->getClass(), 'ttl' => null));
-        $this->cache->set($key_l2 = $l2->getId(), $l2, array('group' => $group_l2 = $l2->getClass(), 'ttl' => null));
-        $this->cache->set($key = $course->getId(), $course, array('group' => $group = $course->getClass(), 'ttl' => null));
+        $this->cache->set($key_l1 = $l1->getId(), $l1, null, array('group' => $group_l1 = $l1->getClass()));
+        $this->cache->set($key_l2 = $l2->getId(), $l2, null, array('group' => $group_l2 = $l2->getClass()));
+        $this->cache->set($key = $course->getId(), $course, null, array('group' => $group = $course->getClass()));
 
-        if (false !== ($course2 = $this->cache->get($key, array('group' => $group)))) {
+        if (null !== ($course2 = $this->cache->get($key, null, array('group' => $group)))) {
             $rs = $course2->getLectures();
 
             $rs->rewind();
@@ -81,7 +81,7 @@ class lmbARCacheTest extends lmbARBaseTestCase
             $this->fail();
         }
 
-        if (false !== ($l12 = $this->cache->get($key_l1, array('group' => $group_l1)))) {
+        if (null !== ($l12 = $this->cache->get($key_l1, null, array('group' => $group_l1)))) {
             $this->assertEquals($l12->getTitle(), $l1->getTitle());
 
             $this->assertEquals($l12->getCourse()->getTitle(), $l1->getCourse()->getTitle());
@@ -105,13 +105,13 @@ class lmbARCacheTest extends lmbARBaseTestCase
         $course->save();
 
         /* */
-        $l12 = LectureForTest2:: findById($l1->getId());
-        $l122 = LectureForTest2:: findById($l1->getId());
-        $this->cache->set($key_l12 = $l12->getId(), $l12, array('group' => $group_l12 = $l12->getClass(), 'ttl' => null));
+        $l12 = LectureForTest2::findById($l1->getId());
+        $l122 = LectureForTest2::findById($l1->getId());
 
-        if (false !== ($l12c = $this->cache->get($key_l12, array('group' => $group_l12)))) {
+        $this->cache->set($key_l12 = $l12->getId(), $l12, null, array('group' => $group_l12 = $l12->getClass()));
+
+        if (null !== ($l12c = $this->cache->get($key_l12, null, array('group' => $group_l12)))) {
             $this->assertEquals($l12->getTitle(), $l12c->getTitle());
-
             $this->assertEquals($l12->getCourse()->getTitle(), $l12c->getCourse()->getTitle());
             $this->assertEquals($l122->getCourse()->getTitle(), $l12c->getCourse()->getTitle());
         } else {
@@ -119,11 +119,11 @@ class lmbARCacheTest extends lmbARBaseTestCase
         }
 
         /* */
-        $l12 = LectureForTest2:: findById($l1->getId(), array('attach' => array('course')));
-        $l122 = LectureForTest2:: findById($l1->getId(), array('attach' => array('course')));
-        $this->cache->set($key_l12 = $l12->getId(), $l12, array('group' => $group_l12 = $l12->getClass(), 'ttl' => null));
+        $l12 = LectureForTest2::findById($l1->getId(), array('attach' => array('course')));
+        $l122 = LectureForTest2::findById($l1->getId(), array('attach' => array('course')));
+        $this->cache->set($key_l12 = $l12->getId(), $l12, null, array('group' => $group_l12 = $l12->getClass()));
 
-        if (false !== ($l12c = $this->cache->get($key_l12, array('group' => $group_l12)))) {
+        if (null !== ($l12c = $this->cache->get($key_l12, null, array('group' => $group_l12)))) {
             $this->assertEquals($l12->getTitle(), $l12c->getTitle());
 
             $this->assertEquals($l12->getCourse()->getTitle(), $l12c->getCourse()->getTitle());

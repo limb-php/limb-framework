@@ -45,10 +45,10 @@ class cachedActiveRecord extends lmbActiveRecord
     protected function _find($params = array())
     {
         if (!$this->cache)
-            return parent:: _find($params);
+            return parent::_find($params);
 
         if (isset($params['no_cache']) && $params['no_cache'])
-            return parent:: _find($params);
+            return parent::_find($params);
 
         $hash_params = '';
         foreach ($params as $pkey => $param) {
@@ -72,10 +72,10 @@ class cachedActiveRecord extends lmbActiveRecord
 
         //getting from cache
         $hash = md5($hash_params);
-        $group = self:: getCacheGroup($this, null, $is_single = $return_first, $ttl);
+        $group = self::getCacheGroup($this, null, $is_single = $return_first, $ttl);
 
-        if (false === ($res = $this->cache->get($hash, array('group' => $group)))) {
-            $res = parent:: _find($params);
+        if (false === ($res = $this->cache->get($hash, null, array('group' => $group)))) {
+            $res = parent::_find($params);
 
             if (!$return_first) {
                 $rs_arr = array();
@@ -84,7 +84,7 @@ class cachedActiveRecord extends lmbActiveRecord
                 $res = new lmbCollection($rs_arr);
             }
 
-            $this->cache->set($hash, $res, array('group' => $group, 'ttl' => $ttl));
+            $this->cache->set($hash, $res, $ttl, array('group' => $group));
         }
 
         return $res;
@@ -93,7 +93,7 @@ class cachedActiveRecord extends lmbActiveRecord
     protected function _findById($id_or_arr, $throw_exception)
     {
         if (!$this->cache)
-            return parent:: _findById($id_or_arr, $throw_exception);
+            return parent::_findById($id_or_arr, $throw_exception);
 
         if (is_array($id_or_arr)) {
             if (!isset($id_or_arr['id']))
@@ -116,9 +116,9 @@ class cachedActiveRecord extends lmbActiveRecord
 
         //getting from cache
         $hash = md5(serialize($params));
-        $group = self:: getCacheGroup($this, $id, $is_single = true, $ttl);
+        $group = self::getCacheGroup($this, $id, $is_single = true, $ttl);
 
-        if (false === ($res = $this->cache->get($hash, array('group' => $group)))) {
+        if (null === ($res = $this->cache->get($hash, null, array('group' => $group)))) {
             $params = array_merge($params, array('no_cache' => true));
 
             if ($object = $this->_find($params))
@@ -128,7 +128,7 @@ class cachedActiveRecord extends lmbActiveRecord
             else
                 $res = null;
 
-            $this->cache->set($hash, $res, array('group' => $group, 'ttl' => $ttl));
+            $this->cache->set($hash, $res, $ttl, array('group' => $group));
         }
 
         return $res;
@@ -159,8 +159,8 @@ class cachedActiveRecord extends lmbActiveRecord
         if (!$this->cache)
             return;
 
-        $this->cache->flushGroup(self:: getCacheGroup($this, $this->getId(), $is_single = true));
-        $this->cache->flushGroup(self:: getCacheGroup($this, null, $is_single = true));
+        $this->cache->flushGroup(self::getCacheGroup($this, $this->getId(), $is_single = true));
+        $this->cache->flushGroup(self::getCacheGroup($this, null, $is_single = true));
     }
 
     function flushListCache()
@@ -168,7 +168,7 @@ class cachedActiveRecord extends lmbActiveRecord
         if (!$this->cache)
             return;
 
-        $this->cache->flushGroup(self:: getCacheGroup($this, null, $is_single = false));
+        $this->cache->flushGroup(self::getCacheGroup($this, null, $is_single = false));
     }
 
     protected function _hasManyFlushCache()
