@@ -9,6 +9,8 @@
 
 namespace limb\web_agent\src;
 
+use limb\web_agent\src\request\lmbAbstractWebAgentRequest;
+
 /**
  * Web agent
  *
@@ -17,7 +19,7 @@ namespace limb\web_agent\src;
  */
 class lmbWebAgent
 {
-    protected $request;
+    protected lmbAbstractWebAgentRequest $request;
     protected $cookies;
     protected $values = null;
     protected $response = null;
@@ -107,7 +109,8 @@ class lmbWebAgent
 
     protected function prepareContent(&$url, $method, $content)
     {
-        $encoding = $this->charset ?? 'utf-8';
+        $encoding = !empty($this->charset) ? $this->charset : 'utf-8';
+
         $query = $this->values->buildQuery($encoding);
         if ($method == 'GET') {
             if ($query)

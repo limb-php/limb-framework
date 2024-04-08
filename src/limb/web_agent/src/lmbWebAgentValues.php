@@ -29,8 +29,9 @@ class lmbWebAgentValues extends lmbObject
     {
         $vars = $this->export();
         if ($encoding != 'utf-8') {
-            foreach ($vars as &$var)
+            foreach ($vars as &$var) {
                 $var = mb_convert_encoding($var, $encoding, 'utf-8');
+            }
         }
         return $vars;
     }
