@@ -1,9 +1,6 @@
 <?php
 
 use limb\core\src\lmbEnv;
-use limb\dbal\src\toolkit\lmbDbTools;
-use limb\log\src\toolkit\lmbLogTools;
-use limb\toolkit\src\lmbToolkit;
 
 require_once(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
 require_once(dirname(__FILE__) . '/../../../src/limb/search/common.inc.php');

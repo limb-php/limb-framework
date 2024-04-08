@@ -1,16 +1,13 @@
 <?php
 
+use limb\core\src\lmbEnv;
+
 require_once(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
 require_once(dirname(__FILE__) . '/../../../src/limb/i18n/toolkit.inc.php');
 require_once(dirname(__FILE__) . '/../../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../../dbal/common.inc.php');
 require_once(dirname(__FILE__) . '/init.inc.php');
-
-use limb\core\src\lmbEnv;
-use limb\dbal\src\toolkit\lmbDbTools;
-use limb\toolkit\src\lmbToolkit;
-
-lmbToolkit::merge(new lmbDbTools());
+require_once(dirname(__FILE__) . '/../../../src/limb/dbal/toolkit.inc.php');
 
 $LIMB_CONF_INCLUDE_PATH = lmbEnv::get('LIMB_CONF_INCLUDE_PATH');
 lmbEnv::set('LIMB_CONF_INCLUDE_PATH', dirname(__FILE__) . '/settings;' . $LIMB_CONF_INCLUDE_PATH);
