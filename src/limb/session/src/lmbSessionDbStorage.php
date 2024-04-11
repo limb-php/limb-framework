@@ -55,12 +55,12 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     function install(): bool
     {
         return session_set_save_handler(
-            array($this, 'storageOpen'),
-            array($this, 'storageClose'),
-            array($this, 'storageRead'),
-            array($this, 'storageWrite'),
-            array($this, 'storageDestroy'),
-            array($this, 'storageGc')
+            array($this, 'open'),
+            array($this, 'close'),
+            array($this, 'read'),
+            array($this, 'write'),
+            array($this, 'destroy'),
+            array($this, 'gc')
         );
     }
 
@@ -69,9 +69,9 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
      * Does nothing and returns true
      * @return boolean
      */
-    function storageOpen()
+    function open(): bool
     {
-        return true;
+        return (bool)$this->db;
     }
 
     /**
@@ -79,7 +79,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
      * Does nothing and returns true
      * @return boolean
      */
-    function storageClose()
+    function close(): bool
     {
         return true;
     }
@@ -89,7 +89,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
      * @param string $session_id session ID
      * @return mixed
      */
-    function storageRead($session_id)
+    function read($session_id): false|string
     {
         $rs = $this->db->select(new lmbSQLFieldCriteria('session_id', $session_id));
         $rs->rewind();
@@ -104,7 +104,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
      * @param string $session_id session ID
      * @param mixed $value session data
      */
-    function storageWrite($session_id, $value)
+    function write($session_id, $value): bool
     {
         $crit = new lmbSQLFieldCriteria('session_id', $session_id);
         $rs = $this->db->select($crit);
@@ -128,7 +128,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
      * Removed a row from <b>lmb_session</b> db table
      * @param string $session_id session ID
      */
-    function storageDestroy($session_id)
+    function destroy($session_id): bool
     {
         $this->db->delete(new lmbSQLFieldCriteria('session_id', $session_id));
 
@@ -140,13 +140,13 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
      * Prefers class attribute {@link $max_life_time} if it's not NULL.
      * @param integer $max_life_time system session max lifetime
      */
-    function storageGc($max_life_time)
+    function gc($max_life_time): false|int
     {
         if ($this->max_life_time)
             $max_life_time = $this->max_life_time;
 
         $this->db->delete(new lmbSQLFieldCriteria('last_activity_time', time() - $max_life_time, lmbSQLFieldCriteria::LESS));
 
-        return true;
+        return $this->db->getAffectedRowCount();
     }
 }

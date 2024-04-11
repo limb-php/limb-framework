@@ -20,4 +20,11 @@ interface lmbSessionStorageInterface
      * Installs specific session storage functions
      */
     function install(): bool;
+
+    function open(): bool;
+    function close(): bool;
+    function read($session_id): string|false;
+    function write($session_id, $value): bool;
+    function destroy($session_id): bool;
+    function gc($max_life_time): int|false;
 }

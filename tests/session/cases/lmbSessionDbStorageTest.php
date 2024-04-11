@@ -48,12 +48,12 @@ class lmbSessionDbStorageTest extends TestCase
 
     function testStorageOpen()
     {
-        $this->assertTrue($this->driver->storageOpen());
+        $this->assertTrue($this->driver->open());
     }
 
     function testStorageClose()
     {
-        $this->assertTrue($this->driver->storageClose());
+        $this->assertTrue($this->driver->close());
     }
 
     function testStorageReadOk()
@@ -73,12 +73,12 @@ class lmbSessionDbStorageTest extends TestCase
                 'last_activity_time' => 10)
         );
 
-        $this->assertEquals($data, $this->driver->storageRead($id));
+        $this->assertEquals($data, $this->driver->read($id));
     }
 
     function testStorageReadBadSessionId()
     {
-        $this->assertEquals("", $this->driver->storageRead("'bad';DROP lmb_session;"));
+        $this->assertEquals("", $this->driver->read("'bad';DROP lmb_session;"));
     }
 
     function testStorageReadFalse()
@@ -90,7 +90,7 @@ class lmbSessionDbStorageTest extends TestCase
         );
 
 
-        $this->assertEquals('', $this->driver->storageRead('no_such_session'));
+        $this->assertEquals('', $this->driver->read('no_such_session'));
     }
 
     function testStorageWriteInsert()
@@ -98,7 +98,7 @@ class lmbSessionDbStorageTest extends TestCase
         $value = 'whatever';
         $id = 20;
 
-        $this->driver->storageWrite($id, $value);
+        $this->driver->write($id, $value);
 
         $rs = $this->db->select();
 
@@ -125,7 +125,7 @@ class lmbSessionDbStorageTest extends TestCase
             )
         );
 
-        $this->driver->storageWrite($id, $value);
+        $this->driver->write($id, $value);
 
         $rs = $this->db->select();
 
@@ -144,7 +144,7 @@ class lmbSessionDbStorageTest extends TestCase
         $id = "'fghprty121as';SELECT * FROM test;";
         $value = "'data';DROP lmb_session;";
 
-        $this->driver->storageWrite($id, $value);
+        $this->driver->write($id, $value);
 
         $rs = $this->db->select();
         $rs->rewind();
@@ -161,7 +161,7 @@ class lmbSessionDbStorageTest extends TestCase
                 'session_data' => $value = "'data';DROP lmb_session;")
         );
 
-        $this->driver->storageWrite($id, $value);
+        $this->driver->write($id, $value);
 
         $rs = $this->db->select();
         $rs->rewind();
@@ -187,7 +187,7 @@ class lmbSessionDbStorageTest extends TestCase
                 'session_data' => 'junk')
         );
 
-        $this->driver->storageDestroy($id);
+        $this->driver->destroy($id);
 
         $rs = $this->db->select();
 
@@ -206,7 +206,7 @@ class lmbSessionDbStorageTest extends TestCase
                 'last_activity_time' => time() - 301)
         );
 
-        $this->driver->storageGc(300);
+        $this->driver->gc(300);
 
         $rs = $this->db->select();
         $rs->rewind();
@@ -224,7 +224,7 @@ class lmbSessionDbStorageTest extends TestCase
                 'last_activity_time' => time() - 400)
         );
 
-        $driver->storageGc(300);
+        $driver->gc(300);
 
         $rs = $this->db->select();
         $rs->rewind();
@@ -240,7 +240,7 @@ class lmbSessionDbStorageTest extends TestCase
                 'last_activity_time' => time() - 298)
         );
 
-        $this->driver->storageGc(300);
+        $this->driver->gc(300);
 
         $rs = $this->db->select();
         $rs->rewind();

@@ -25,4 +25,34 @@ class lmbSessionNativeStorage implements lmbSessionStorageInterface
     {
         return true;
     }
+
+    function open(): bool
+    {
+        // TODO: Implement storageOpen() method.
+    }
+
+    function close(): bool
+    {
+        // TODO: Implement storageClose() method.
+    }
+
+    function read($session_id): string|false
+    {
+        // TODO: Implement storageRead() method.
+    }
+
+    function write($session_id, $value): bool
+    {
+        // TODO: Implement storageWrite() method.
+    }
+
+    function destroy($session_id): bool
+    {
+        // TODO: Implement storageDestroy() method.
+    }
+
+    function gc($max_life_time): int|false
+    {
+        // TODO: Implement storageGc() method.
+    }
 }
