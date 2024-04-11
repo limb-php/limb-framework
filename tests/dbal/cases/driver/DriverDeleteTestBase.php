@@ -9,8 +9,37 @@
 
 namespace tests\dbal\cases\driver;
 
-use PHPUnit\Framework\TestCase;
-
-abstract class DriverDeleteTestBase extends TestCase
+abstract class DriverDeleteTestBase extends DriverManipTestBase
 {
+
+    function testDeletion()
+    {
+        $ids = [];
+
+        $sql = "
+          INSERT INTO founding_fathers (
+              first, last
+          ) VALUES (
+              :first:, :last:
+          )";
+
+        $stmt = $this->connection->newStatement($sql);
+        $stmt->setVarChar('first', 'Richard');
+        $stmt->setVarChar('last', 'Nixon');
+        $stmt->execute();
+        $ids[] = $stmt->insertId('id');
+
+        $stmt = $this->connection->newStatement($sql);
+        $stmt->setVarChar('first', 'Richard2');
+        $stmt->setVarChar('last', 'Nixon2');
+        $stmt->execute();
+        $ids[] = $stmt->insertId('id');
+
+        $sql = "DELETE FROM founding_fathers WHERE id IN (" . implode(",", $ids) . ")";
+        $stmt = $this->connection->newStatement($sql);
+        $stmt->execute();
+
+        $this->assertEquals(2, $stmt->getAffectedRowCount());
+    }
+
 }
