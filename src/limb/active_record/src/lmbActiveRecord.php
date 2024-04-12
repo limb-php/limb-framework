@@ -203,20 +203,13 @@ class lmbActiveRecord extends lmbObject
      */
     function __construct($magic_params = null, $conn = null)
     {
+        $this->setConnection( is_object($conn) ? $conn : self::getDefaultConnection() );
+
         $this->_defineRelations();
 
         // For optimization purposes
         $this->_relations = $this->_getAllRelations();
         $this->_single_object_relations = $this->_getSingleObjectRelations();
-
-        if (is_object($conn))
-            $this->_db_conn = $conn;
-        else
-            $this->_db_conn = self::getDefaultConnection();
-
-        $this->_db_conn_dsn = $this->_db_conn->getDsnString();
-
-        $this->getDbTableFields();
 
         $this->_error_list = new lmbErrorList();
 
@@ -260,7 +253,7 @@ class lmbActiveRecord extends lmbObject
         if (is_object(self::$_default_db_conn))
             return self::$_default_db_conn;
 
-        return lmbToolkit::instance()->getDefaultDbConnection();
+        return self::$_default_db_conn = lmbToolkit::instance()->getDefaultDbConnection();
     }
 
     function setConnection($conn)
@@ -291,7 +284,7 @@ class lmbActiveRecord extends lmbObject
         return $this->_db_meta_info = $meta;
     }
 
-    function getDbTableFields()
+    function getDbTableFields(): array
     {
         if ($this->_db_table_fields)
             return $this->_db_table_fields;
@@ -432,20 +425,24 @@ class lmbActiveRecord extends lmbObject
 
     protected function _getAllRelations()
     {
-        return array_merge($this->_has_one,
+        return array_merge(
+            $this->_has_one,
             $this->_has_many,
             $this->_has_many_to_many,
             $this->_belongs_to,
             $this->_many_belongs_to,
-            $this->_composed_of);
+            $this->_composed_of
+        );
     }
 
     protected function _getSingleObjectRelations()
     {
-        return array_merge($this->_has_one,
+        return array_merge(
+            $this->_has_one,
             $this->_belongs_to,
             $this->_many_belongs_to,
-            $this->_composed_of);
+            $this->_composed_of
+        );
     }
 
     /**
@@ -2368,11 +2365,7 @@ class lmbActiveRecord extends lmbObject
 
     function __wakeup()
     {
-        $toolkit = lmbToolkit::instance();
-        $this->_db_conn = $toolkit->getDbConnectionByDsn($this->_db_conn_dsn);
-
-        //$this->_db_meta_info = $toolkit->getActiveRecordMetaInfo($this, $this->_db_conn);
-        $this->getDbTableFields();
+        $this->setConnection( lmbToolkit::instance()->getDbConnectionByDsn($this->_db_conn_dsn) );
 
         //$this->_db_table = $this->getDbMetaInfo()->getDbTable();
         //$this->_db_table->setPrimaryKeyName($this->_primary_key_name);

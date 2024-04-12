@@ -14,7 +14,7 @@ Here is the list of the most notable packages at the moment:
     * active_record: ActiveRecord pattern implementation(Rails alike flavour, http://rubyonrails.com/)
     * dbal: Database Abstraction Layer which supports MySql, PostgreSQL and Oracle at the moment.
     * session: transparent PHP session wrappers with painless persistence of objects
-    
+
 Migrate from Limb3 to <=Limb4.4:
 
     * rename class files (remove '.class' extension)
@@ -38,7 +38,7 @@ Migrate from Limb4.4 to >Limb4.4:
 Limb5 roadmap:
     * PSR-4,7,17
     * PHP 8.1+
-    * AR: remove validation
+    * AR: remove validation, optimize DB connection (no store connection)
     * Toolkit: improved DI pattern
     * Remove all of static variables
 
