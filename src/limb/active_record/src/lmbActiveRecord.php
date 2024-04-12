@@ -809,6 +809,7 @@ class lmbActiveRecord extends lmbObject
         // if '==' no update if in DB has '+'. if '===' always update, in request always type string, but in DB can be integer
         //if(!($this->getDbMetaInfo()->hasColumn($property) && ($old_value == $value)))
         if (!($this->getDbMetaInfo()->hasColumn($property) && ($old_value === $value)))
+        //if ($old_value !== $value)
             $this->_markDirtyProperty($property);
     }
 

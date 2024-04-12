@@ -212,7 +212,7 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
 
         $this->db->delete('course_for_test', 'id = ' . $course->getId());
 
-        $lecture2 = lmbActiveRecord:: findById(LectureIndependentFromCourse::class, $lecture->getId());
+        $lecture2 = lmbActiveRecord::findById(LectureIndependentFromCourse::class, $lecture->getId());
         $this->assertNull($lecture2->getCourse());
     }
 
@@ -225,16 +225,18 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
         $lecture->setAltCourse($course);
         $lecture->save();
 
-        $this->assertEquals($course->getAltLectures()->count(), 1);
+        $this->assertEquals(1, $course->getAltLectures()->count());
 
-        $lecture2 = lmbActiveRecord:: findById(LectureForTestObject::class, $lecture->getId());
-
+        $lecture2 = lmbActiveRecord::findById(LectureForTestObject::class, $lecture->getId());
         $lecture2->setAltCourse(null);
+        // $lecture2->setAltCourse(false);
+        $this->assertTrue($lecture2->isDirtyProperty('alt_course'));
+        //$this->assertTrue($lecture2->isDirtyProperty('alt_course_id'));
         $lecture2->save();
 
-        $this->assertEquals($course->getAltLectures()->count(), 0);
+        $this->assertEquals(0, $course->getAltLectures()->count());
 
-        $lecture3 = lmbActiveRecord:: findById(LectureForTestObject::class, $lecture2->getId());
+        $lecture3 = lmbActiveRecord::findById(LectureForTestObject::class, $lecture2->getId());
         $this->assertNull($lecture3->getAltCourse());
     }
 
@@ -242,11 +244,11 @@ class lmbAROneToManyRelationsTest extends lmbARBaseTestCase
     {
         $course = $this->_initCourse();
 
-        $this->assertEquals($course->save_calls, 0);
+        $this->assertEquals(0, $course->save_calls);
 
         $course->save();
 
-        $this->assertEquals($course->save_calls, 1);
+        $this->assertEquals(1, $course->save_calls);
 
         $lecture = new LectureForTestObject();
         $lecture->setTitle('Physics');
