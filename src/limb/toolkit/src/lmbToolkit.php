@@ -88,7 +88,7 @@ use Psr\Http\Message\ResponseInterface;
  * @method setDefaultDbConnection($conn)
  * @method \limb\dbal\src\drivers\lmbDbConnectionInterface createDbConnection($dsn)
  * @method getDbInfo($conn)
- * @method createTableGateway($table_name, $conn = null)
+ * @method \limb\dbal\src\lmbTableGateway createTableGateway($table_name, $conn = null)
  *
  * @see lmbFsTools
  * @method findFileByAlias($alias, $paths, $locator_name = null, $find_all = false)

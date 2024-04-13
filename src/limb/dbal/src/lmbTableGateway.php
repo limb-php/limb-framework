@@ -130,6 +130,8 @@ class lmbTableGateway
     function setPrimaryKeyName($name)
     {
         $this->_primary_key_name = $name;
+
+        return $this;
     }
 
     function getPrimaryKeyName()

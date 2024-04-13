@@ -330,10 +330,9 @@ class lmbActiveRecord extends lmbObject
      */
     function getDbTable(): lmbTableGateway
     {
-        $db_table = $this->getDbMetaInfo()->getDbTable();
-        $db_table->setPrimaryKeyName($this->_primary_key_name);
-
-        return $db_table;
+        return $this->getDbMetaInfo()
+            ->getDbTable()
+            ->setPrimaryKeyName($this->_primary_key_name);
     }
 
     /**
