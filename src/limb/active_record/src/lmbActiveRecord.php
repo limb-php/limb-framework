@@ -15,6 +15,7 @@ use limb\core\src\lmbDelegate;
 use limb\core\src\lmbCollection;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
+use limb\dbal\src\lmbTableGateway;
 use limb\validation\src\lmbValidator;
 use limb\validation\src\lmbErrorList;
 use limb\validation\src\exception\lmbValidationException;
@@ -65,10 +66,6 @@ class lmbActiveRecord extends lmbObject
      */
     protected $_db_conn_dsn;
 
-    /**
-     * @var object lmbTableGateway instance used to access underlying db table
-     */
-    protected $_db_table;
     /**
      * @var string name of the primary key
      */
@@ -150,7 +147,7 @@ class lmbActiveRecord extends lmbObject
      */
     protected $_default_sort_params = array();
     /**
-     * @var object database metainfo object
+     * @var lmbARMetaInfo database metainfo object
      */
     protected $_db_meta_info;
 
@@ -267,7 +264,7 @@ class lmbActiveRecord extends lmbObject
         return self::getDefaultConnection();
     }
 
-    function getDbMetaInfo()
+    function getDbMetaInfo(): lmbARMetaInfo
     {
         if ($this->_db_meta_info)
             return $this->_db_meta_info;
@@ -329,18 +326,14 @@ class lmbActiveRecord extends lmbObject
 
     /**
      *  Returns table gateway instance used for all db interactions
-     * @return object
+     * @return lmbTableGateway
      */
-    function getDbTable()
+    function getDbTable(): lmbTableGateway
     {
-        if ($this->_db_table)
-            return $this->_db_table;
+        $db_table = $this->getDbMetaInfo()->getDbTable();
+        $db_table->setPrimaryKeyName($this->_primary_key_name);
 
-        $this->_db_table = $this->getDbMetaInfo()->getDbTable();
-        $this->_db_table->setConnection($this->getConnection());
-        $this->_db_table->setPrimaryKeyName($this->_primary_key_name);
-
-        return $this->_db_table;
+        return $db_table;
     }
 
     /**
@@ -781,8 +774,8 @@ class lmbActiveRecord extends lmbObject
 
     /**
      *  Generic magic setter for any attribute
-     * @param string property name
-     * @param mixed property value
+     * @param string $property property name
+     * @param mixed $value property value
      */
     function set($property, $value)
     {
@@ -2371,7 +2364,7 @@ class lmbActiveRecord extends lmbObject
     function __sleep()
     {
         $vars = array_keys(get_object_vars($this));
-        $vars = array_diff($vars, array('_db_conn_name', '_db_conn_dsn', '_db_table', '_db_meta_info'));
+        $vars = array_diff($vars, array('_db_conn_name', '_db_conn_dsn', '_db_meta_info'));
         return $vars;
     }
 }

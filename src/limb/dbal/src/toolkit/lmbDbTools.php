@@ -252,7 +252,7 @@ class lmbDbTools extends lmbAbstractTools
         return $this->db_info[$id];
     }
 
-    function createTableGateway($table_name, lmbDbConnectionInterface $conn = null)
+    function createTableGateway($table_name, lmbDbConnectionInterface $conn = null): lmbTableGateway
     {
         if (!$conn)
             $cache_key = $table_name;

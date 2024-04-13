@@ -9,6 +9,7 @@
 
 namespace limb\active_record\src;
 
+use limb\dbal\src\lmbTableGateway;
 use limb\toolkit\src\lmbToolkit;
 use limb\dbal\src\drivers\lmbDbTypeInfo;
 
@@ -33,7 +34,7 @@ class lmbARMetaInfo
         $this->db_column_names = $this->db_table->getColumnNames();
     }
 
-    function getDbTable()
+    function getDbTable(): lmbTableGateway
     {
         return $this->db_table;
     }
