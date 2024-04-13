@@ -144,8 +144,8 @@ class lmbCmsNode extends lmbActiveRecord
         if (!isset($this->object_id) || !$this->object_id)
             return null;
 
-        $class_name = lmbCmsClassName::findById($this->object_class_id, true, $this->_db_conn);
-        return lmbActiveRecord::findById($class_name->title, $this->object_id, true, $this->_db_conn);
+        $class_name = lmbCmsClassName::findById($this->object_class_id, true, $this->getConnection());
+        return lmbActiveRecord::findById($class_name->title, $this->object_id, true, $this->getConnection());
     }
 
     function getControllerName()
@@ -154,7 +154,7 @@ class lmbCmsNode extends lmbActiveRecord
             return '';
 
         if (!$this->controller_name) {
-            $class_name = lmbCmsClassName::findById($this->controller_id, true, $this->_db_conn);
+            $class_name = lmbCmsClassName::findById($this->controller_id, true, $this->getConnection());
             $this->controller_name = $class_name->title;
         }
 
@@ -255,7 +255,7 @@ class lmbCmsNode extends lmbActiveRecord
     {
         return lmbActiveRecord::decorateRecordSet($this->_tree->getChildren($this->getId(), $depth),
             lmbCmsNode::class,
-            $this->_db_conn);
+            $this->getConnection());
     }
 
     function getParents()
@@ -267,7 +267,7 @@ class lmbCmsNode extends lmbActiveRecord
     {
         return lmbActiveRecord::decorateRecordSet($this->_tree->getChildren('/'),
             lmbCmsNode::class,
-            $this->_db_conn);
+            $this->getConnection());
     }
 
     function getRootNodes()

@@ -61,12 +61,6 @@ class lmbActiveRecord extends lmbObject
     protected $_db_conn_name;
 
     /**
-     * @var lmbDbConnectionInterface object current object's database connection
-     * @see lmbDbConnectionInterface
-     */
-    protected $_db_conn;
-
-    /**
      * @var string current database connection dsn
      */
     protected $_db_conn_dsn;
@@ -227,19 +221,10 @@ class lmbActiveRecord extends lmbObject
     }
 
     /**
-     *  Sets database resource identifier used for database access
-     * @param string $dsn DSN, e.g. mysql://root:secret@localhost/mydb
-     */
-    static function setDefaultDSN($dsn)
-    {
-        self::$_default_db_conn = lmbToolkit::instance()->createDbConnection($dsn);
-    }
-
-    /**
      *  Sets default database connection object
      * @param lmbDbConnectionInterface $conn instance of concrete lmbDbConnection interface implementation
      * @return object previous connection object
-     * @see lmbDbConnectionInterface
+     * @see lmbDbConnection
      */
     static function setDefaultConnection($conn)
     {
@@ -274,15 +259,12 @@ class lmbActiveRecord extends lmbObject
 
     function getConnection(): lmbDbConnectionInterface
     {
-        if($this->_db_conn)
-            return $this->_db_conn;
-
         if($this->_db_conn_name)
-            return $this->_db_conn = lmbToolkit::instance()->getDbConnectionByName($this->_db_conn_name);
+            return lmbToolkit::instance()->getDbConnectionByName($this->_db_conn_name);
         elseif($this->_db_conn_dsn)
-            return $this->_db_conn = lmbToolkit::instance()->getDbConnectionByDsn($this->_db_conn_dsn);
+            return lmbToolkit::instance()->getDbConnectionByDsn($this->_db_conn_dsn);
 
-        return $this->_db_conn = self::getDefaultConnection();
+        return self::getDefaultConnection();
     }
 
     function getDbMetaInfo()
@@ -2112,21 +2094,21 @@ class lmbActiveRecord extends lmbObject
      *  //should print '2'
      *  echo $book->getAuthor()->getId();
      *  </code>
-     * @param $source array|\ArrayIterator|\ArrayAccess|\Iterator
+     * @param $values array|\ArrayIterator|\ArrayAccess|\Iterator
      */
-    function import($source)
+    function import($values)
     {
-        if (is_object($source)) {
-            if ($source instanceof lmbActiveRecord) {
-                $this->importRaw($source->exportRaw());
-                $this->setIsNew($source->isNew());
+        if (is_object($values)) {
+            if ($values instanceof lmbActiveRecord) {
+                $this->importRaw($values->exportRaw());
+                $this->setIsNew($values->isNew());
             } else {
-                $this->import($source->export());
+                $this->import($values->export());
             }
             return;
         }
 
-        foreach ($source as $property => $value) {
+        foreach ($values as $property => $value) {
             if (isset($this->_composed_of[$property]))
                 $this->_importAggregatedObject($property, $value);
             elseif (isset($this->_has_many[$property]))

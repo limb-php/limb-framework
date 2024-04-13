@@ -26,7 +26,7 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
     function getTree()
     {
         if (!$this->_tree)
-            $this->_tree = lmbToolkit::instance()->getCmsTree($this->getTableName(), $this->_db_conn);
+            $this->_tree = lmbToolkit::instance()->getCmsTree($this->getTableName(), $this->getConnection());
 
         return $this->_tree;
     }
@@ -90,14 +90,14 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
     {
         return lmbActiveRecord::decorateRecordSet($this->getTree()->getChildren($this->getId(), $depth),
             get_class($this),
-            $this->_db_conn);
+            $this->getConnection());
     }
 
     function getChildrenAll()
     {
         return lmbActiveRecord::decorateRecordSet($this->getTree()->getChildrenAll($this->getId()),
             get_class($this),
-            $this->_db_conn);
+            $this->getConnection());
     }
 
     function move($target)
@@ -142,6 +142,6 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
         $rs = $this->getTree()->getParents($this);
         return lmbActiveRecord::decorateRecordSet($rs,
             get_class($this),
-            $this->_db_conn);
+            $this->getConnection());
     }
 }
