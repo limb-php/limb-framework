@@ -3,6 +3,55 @@ This is a general CHANGELOG, if you need more detailed changes
 consider viewing CHANGELOG files for each package.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+===== Limb4.5.x (---) =====
+
+  * NET: request/response improved (PSR-7)
+
+===== Limb4.4.x (---) =====
+
+  * PHP 8.0 min requirements
+  * DBAL: reconnect to DB for all drivers
+  * ???
+
+===== Limb4.3.x (---) =====
+
+  * PHP 7.4 min requirements
+  * ???
+
+===== Limb4.2.x (---) =====
+
+  * PHP 7.3 min requirements
+  * TWIG: Support Twig template engin
+  * CORE: getters return null by default instead of LIMB_UNDEFINED
+  * CORE: added ProxyTrait and Handle class using ProxyTrait
+  * CORE: new methods: lmbArrayHelper::mapCallback(), lmbCollection::map(), lmbCollection::jsonSerialize()
+  * CORE: lmbErrorHandler instead of lmbErrorHandlingFilter
+  * LOG: improve logging (move forward to PSR-3)
+  * CACHE: lmbCacheMemcachedBackend, lmbCacheXcacheBackend added
+  * I18N: lmbI18n class insted of lmb_i18n_* functions
+  * DBAL: SQLite3 driver for SQLite connection
+  * DBAL: Old MySQL driver removed. Using MySQLi driver
+  * DBAL: supports Postgres version >= 12
+  * NET: lmbUri implements UriInterface. Improve Request and Response classes (move forward to PSR-7)
+  * WEB_APP: lmbWebFilterChain added (Middleware)
+  * WEB_APP: lmbController::performAction($request) can have Request parameter
+  * MAIL: Remove old libs (PHPMailer2.2, PHPMailer5.1, PHPMailer6.0). Added PHPMailer in composer
+  * VALIDATION: new validation method. see BaseValidator and BaseARValidator
+  * VALIDATION: lmbErrorList::addError can add couple of errors for each field
+  * VALIDATION: rename validation rules: lmb prefix removed
+  * WYSIWYG: FCKEditor removed. use CKEditor
+  * TEST_RUNNER: tests_runner package removed (SimpleTest). PHPUnit added
+  * TASKMAN: removed
+
+===== Limb4.1.x (Fenix) =====
+
+  * lmbEnv class instead of lmb_env_* functions
+  * lmbString class instead of string functions
+
+===== Limb4.0.x (Idea) =====
+
+  * Namespaces (PSR-0)
+
 ===== Limb3-2007.4 (Frozzy) =====
 
   * ACTIVE_RECORD package better error and invalid fields handling using exceptions, support for different names of primary keys added

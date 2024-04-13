@@ -48,12 +48,17 @@ class lmbActiveRecord extends lmbObject
      */
     protected static $_global_listeners = array();
     /**
-     * @var object database connection which is shared by all lmbActiveRecord instances
+     * @var lmbDbConnectionInterface database connection which is shared by all lmbActiveRecord instances
      *             if no connection passed explicitly into constructor
      */
     protected static $_default_db_conn;
 
     protected static $_metas = array();
+
+    /**
+     * @var string current database connection name
+     */
+    protected $_db_conn_name;
 
     /**
      * @var lmbDbConnectionInterface object current object's database connection
@@ -199,11 +204,11 @@ class lmbActiveRecord extends lmbObject
      *  $b = new Book(1);
      *  </code>
      * @param array|integer|null $magic_params Depending on argument type the new object is filled with properties or loaded from database
-     * @param lmbDbConnectionInterface|null $conn
+     * @param lmbDbConnectionInterface|string|null $conn
      */
     function __construct($magic_params = null, $conn = null)
     {
-        $this->setConnection( is_object($conn) ? $conn : self::getDefaultConnection() );
+        $this->setConnection( ($conn !== null) ? $conn : self::getDefaultConnection() );
 
         $this->_defineRelations();
 
@@ -232,7 +237,7 @@ class lmbActiveRecord extends lmbObject
 
     /**
      *  Sets default database connection object
-     * @param object $conn instance of concrete lmbDbConnection interface implementation
+     * @param lmbDbConnectionInterface $conn instance of concrete lmbDbConnection interface implementation
      * @return object previous connection object
      * @see lmbDbConnectionInterface
      */
@@ -245,27 +250,39 @@ class lmbActiveRecord extends lmbObject
 
     /**
      *  Returns current default database connection object
-     * @return object instance of concrete lmbDbConnection interface implementation
-     * @see lmbDbConnection
+     * @return lmbDbConnectionInterface instance of concrete lmbDbConnection interface implementation
+     * @see lmbDbConnectionInterface
      */
-    static function getDefaultConnection()
+    static function getDefaultConnection(): lmbDbConnectionInterface
     {
-        if (is_object(self::$_default_db_conn))
+        if (self::$_default_db_conn)
             return self::$_default_db_conn;
 
         return self::$_default_db_conn = lmbToolkit::instance()->getDefaultDbConnection();
     }
 
-    function setConnection($conn)
+    function setConnection($connection_or_name): void
     {
-        $this->_db_conn = $conn;
+        if(is_string($connection_or_name)) {
+            $this->_db_conn_name = $connection_or_name;
+        } else {
+            //$this->_db_conn_name = 'dsn';
 
-        $this->_db_conn_dsn = $this->_db_conn->getDsnString();
+            $this->_db_conn_dsn = $connection_or_name->getDsnString();
+        }
     }
 
-    function getConnection()
+    function getConnection(): lmbDbConnectionInterface
     {
-        return $this->_db_conn;
+        if($this->_db_conn)
+            return $this->_db_conn;
+
+        if($this->_db_conn_name)
+            return $this->_db_conn = lmbToolkit::instance()->getDbConnectionByName($this->_db_conn_name);
+        elseif($this->_db_conn_dsn)
+            return $this->_db_conn = lmbToolkit::instance()->getDbConnectionByDsn($this->_db_conn_dsn);
+
+        return $this->_db_conn = self::getDefaultConnection();
     }
 
     function getDbMetaInfo()
@@ -277,7 +294,7 @@ class lmbActiveRecord extends lmbObject
         if (isset(self::$_metas[$table_name])) {
             $meta = self::$_metas[$table_name];
         } else {
-            $meta = new lmbARMetaInfo($this, $this->_db_conn);
+            $meta = new lmbARMetaInfo($this, $this->getConnection());
             self::$_metas[$table_name] = $meta;
         }
 
@@ -338,7 +355,7 @@ class lmbActiveRecord extends lmbObject
             return $this->_db_table;
 
         $this->_db_table = $this->getDbMetaInfo()->getDbTable();
-        $this->_db_table->setConnection($this->_db_conn);
+        $this->_db_table->setConnection($this->getConnection());
         $this->_db_table->setPrimaryKeyName($this->_primary_key_name);
 
         return $this->_db_table;
@@ -602,7 +619,7 @@ class lmbActiveRecord extends lmbObject
 
     public function newQuery()
     {
-        return lmbARQuery::create($this, array(), $this->_db_conn);
+        return lmbARQuery::create($this, array(), $this->getConnection());
     }
 
     public static function __callStatic($method, $parameters)
@@ -757,11 +774,11 @@ class lmbActiveRecord extends lmbObject
         $info = $this->getRelationInfo($relation);
 
         if (isset($info['collection']))
-            return new $info['collection']($relation, $this, $criteria, $this->_db_conn);
+            return new $info['collection']($relation, $this, $criteria, $this->getConnection());
         elseif ($this->_hasOneToManyRelation($relation))
-            return new lmbAROneToManyCollection($relation, $this, $criteria, $this->_db_conn);
+            return new lmbAROneToManyCollection($relation, $this, $criteria, $this->getConnection());
         elseif ($this->_hasManyToManyRelation($relation))
-            return new lmbARManyToManyCollection($relation, $this, $criteria, $this->_db_conn);
+            return new lmbARManyToManyCollection($relation, $this, $criteria, $this->getConnection());
     }
 
     protected function _hasRelation($property)
@@ -965,8 +982,9 @@ class lmbActiveRecord extends lmbObject
     protected function _loadBelongsToObject($property)
     {
         return self::findFirst($this->_belongs_to[$property]['class'],
-            array('criteria' => $this->_db_conn->quoteIdentifier($this->_belongs_to[$property]['field']) . ' = ' . (int)$this->getId()),
-            $this->_db_conn);
+            array(
+                'criteria' => $this->getConnection()->quoteIdentifier($this->_belongs_to[$property]['field']) . ' = ' . $this->getId()
+            ), $this->getConnection());
     }
 
     protected function _loadManyBelongsToObject($property)
@@ -983,7 +1001,7 @@ class lmbActiveRecord extends lmbObject
         return self::findById($this->_many_belongs_to[$property]['class'],
             $this->get($this->_many_belongs_to[$property]['field']),
             $throw_exception,
-            $this->_db_conn);
+            $this->getConnection());
     }
 
     protected function _loadOneToOneObject($property)
@@ -1000,7 +1018,7 @@ class lmbActiveRecord extends lmbObject
         return self::findById($this->_has_one[$property]['class'],
             $this->get($this->_has_one[$property]['field']),
             $throw_exception,
-            $this->_db_conn);
+            $this->getConnection());
     }
 
     protected function _canHasOneObjectBeNull($property)
@@ -1153,7 +1171,7 @@ class lmbActiveRecord extends lmbObject
 
             $this->_is_being_saved = false;
         } catch (\Exception $e) {
-            $this->_db_conn->rollbackTransaction();
+            $this->getConnection()->rollbackTransaction();
             throw $e;
         }
 
@@ -1509,7 +1527,7 @@ class lmbActiveRecord extends lmbObject
 
         $params['limit'] = 1;
 
-        $query = lmbARQuery::create($this, $params, $this->_db_conn);
+        $query = lmbARQuery::create($this, $params, $this->getConnection());
         $rs = $query->fetch();
 
         $rs->rewind();
@@ -1565,11 +1583,11 @@ class lmbActiveRecord extends lmbObject
             unset($params['id']);
 
             $id = (int)$id_or_arr['id'];
-            $params['criteria'] = $this->_db_conn->quoteIdentifier($this->_primary_key_name) . '=' . $id;
+            $params['criteria'] = $this->getConnection()->quoteIdentifier($this->_primary_key_name) . '=' . $id;
         } else {
             $id = (int)$id_or_arr;
             $params = array(
-                'criteria' => $this->_db_conn->quoteIdentifier($this->_primary_key_name) . '=' . $id
+                'criteria' => $this->getConnection()->quoteIdentifier($this->_primary_key_name) . '=' . $id
             );
         }
 
@@ -1626,8 +1644,12 @@ class lmbActiveRecord extends lmbObject
         if (self::_isCriteria($params))
             $params = array('criteria' => $params);
 
-        if (isset($params['criteria']))
+        if (isset($params['criteria'])) {
+            if (is_string($params['criteria']))
+                $params['criteria'] = new lmbSQLCriteria($params['criteria']);
+
             $params['criteria']->addAnd(new lmbSQLFieldCriteria($this->getTableName() . '.' . $this->_primary_key_name, $ids, lmbSQLFieldCriteria::IN));
+        }
         else
             $params['criteria'] = new lmbSQLFieldCriteria($this->getTableName() . '.' . $this->_primary_key_name, $ids, lmbSQLFieldCriteria::IN);
 
@@ -1763,7 +1785,7 @@ class lmbActiveRecord extends lmbObject
             }
         }
 
-        $query = lmbARQuery::create($this, $params, $this->_db_conn);
+        $query = lmbARQuery::create($this, $params, $this->getConnection());
         $rs = $query->fetch();
 
         if (isset($params['limit']))
@@ -1782,7 +1804,7 @@ class lmbActiveRecord extends lmbObject
     {
         $magic_params = array_merge($params, array('criteria' => $criteria));
 
-        $query = lmbARQuery::create(static::class, $magic_params, $this->_db_conn);
+        $query = lmbARQuery::create(static::class, $magic_params, $this->getConnection());
         return $query->fetch($decorate = false);
     }
 
@@ -2037,7 +2059,7 @@ class lmbActiveRecord extends lmbObject
 
     protected function _createSQLStatement($sql)
     {
-        return $this->_db_conn->newStatement($sql);
+        return $this->getConnection()->newStatement($sql);
     }
 
     protected function _query($sql)
@@ -2070,7 +2092,7 @@ class lmbActiveRecord extends lmbObject
 
     function _decorateRecordSet($rs)
     {
-        return new lmbARRecordSetDecorator($rs, get_class($this), $this->_db_conn);
+        return new lmbARRecordSetDecorator($rs, get_class($this), $this->getConnection());
     }
 
     function __clone()
@@ -2152,7 +2174,7 @@ class lmbActiveRecord extends lmbObject
             $objects = array();
             foreach ($value as $item) {
                 if (is_numeric($item))
-                    $objects[] = new $class((int)$item, $this->_db_conn);
+                    $objects[] = new $class((int)$item, $this->getConnection());
                 elseif (is_object($item))
                     $objects[] = $item;
             }
@@ -2163,7 +2185,7 @@ class lmbActiveRecord extends lmbObject
     protected function _importEntity($property, $value, $class)
     {
         if (is_numeric($value)) {
-            $obj = new $class((int)$value, $this->_db_conn);
+            $obj = new $class((int)$value, $this->getConnection());
             $this->set($property, $obj);
         } elseif (is_object($value))
             $this->set($property, $value);
@@ -2364,19 +2386,10 @@ class lmbActiveRecord extends lmbObject
             lmbDelegate::invokeAll(self::$_global_listeners[$type], array($this));
     }
 
-    function __wakeup()
-    {
-        $this->setConnection( lmbToolkit::instance()->getDbConnectionByDsn($this->_db_conn_dsn) );
-
-        //$this->_db_table = $this->getDbMetaInfo()->getDbTable();
-        //$this->_db_table->setPrimaryKeyName($this->_primary_key_name);
-        //$this->_db_table_name = $this->_db_table->getTableName();
-    }
-
     function __sleep()
     {
         $vars = array_keys(get_object_vars($this));
-        $vars = array_diff($vars, array('_db_conn', '_db_table', '_db_meta_info'));
+        $vars = array_diff($vars, array('_db_conn_name', '_db_conn_dsn', '_db_table', '_db_meta_info'));
         return $vars;
     }
 }

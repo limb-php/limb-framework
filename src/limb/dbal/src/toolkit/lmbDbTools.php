@@ -89,10 +89,16 @@ class lmbDbTools extends lmbAbstractTools
         }
     }
 
-    protected function _getDbDsnHash($dsn)
+    protected function _getDbDsnHash($dsn): string
     {
-        $dsn = self::castToDsnObject($dsn);
-        return md5($dsn->toString());
+        if(!is_string($dsn)) {
+            $dsn = self::castToDsnObject($dsn);
+            $dsn_string = $dsn->toString();
+        } else {
+            $dsn_string = $dsn;
+        }
+
+        return md5($dsn_string);
     }
 
     static function castToDsnObject($dsn): lmbDbDSN

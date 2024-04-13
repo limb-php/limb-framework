@@ -104,10 +104,10 @@ class cachedActiveRecord extends lmbActiveRecord
             unset($params['id']);
             array_unshift($params, 'first');
             $id = (int)$id_or_arr['id'];
-            $params['criteria'] = $this->_db_conn->quoteIdentifier($this->_primary_key_name) . '=' . $id;
+            $params['criteria'] = $this->getConnection()->quoteIdentifier($this->_primary_key_name) . '=' . $id;
         } else {
             $id = (int)$id_or_arr;
-            $params = array('first', 'criteria' => $this->_db_conn->quoteIdentifier($this->_primary_key_name) . '=' . $id);
+            $params = array('first', 'criteria' => $this->getConnection()->quoteIdentifier($this->_primary_key_name) . '=' . $id);
         }
 
         $ttl = null;
