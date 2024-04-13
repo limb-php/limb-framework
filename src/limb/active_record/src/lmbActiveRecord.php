@@ -261,6 +261,7 @@ class lmbActiveRecord extends lmbObject
     function getDbMetaInfo(): lmbARMetaInfo
     {
         return lmbARMetaInfoStorage::getDbMetaInfo($this->getTableName(), $this->getConnection());
+        //return lmbToolkit::instance()->getActiveRecordMetaInfo($this->getTableName(), $this->getConnection());
     }
 
     function getDbTableFields(): array

@@ -22,7 +22,7 @@ use limb\active_record\src\lmbARMetaInfo;
  */
 class lmbARTools extends lmbAbstractTools
 {
-    protected $metas = array();
+    protected $metas = [];
 
     static function getRequiredTools()
     {
@@ -33,7 +33,7 @@ class lmbARTools extends lmbAbstractTools
     }
 
     /** @deprecated */
-    function getActiveRecordMetaInfo($active_record, $conn = null)
+    function getActiveRecordMetaInfoByAR($active_record, $conn = null)
     {
         $class_name = get_class($active_record);
         if (isset($this->metas[$class_name]))
@@ -44,6 +44,17 @@ class lmbARTools extends lmbAbstractTools
 
         $meta = new lmbARMetaInfo($active_record->getTableName(), $conn);
         $this->metas[$class_name] = $meta;
+        return $meta;
+    }
+
+    function getActiveRecordMetaInfo($table_name, $conn)
+    {
+        if (isset($this->metas[$table_name]))
+            return $this->metas[$table_name];
+
+        $meta = new lmbARMetaInfo($table_name, $conn);
+        $this->metas[$table_name] = $meta;
+
         return $meta;
     }
 }

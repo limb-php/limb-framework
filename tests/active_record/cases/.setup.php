@@ -1,6 +1,9 @@
 <?php
 
+use limb\active_record\src\toolkit\lmbARTools;
 use limb\toolkit\src\lmbToolkit;
+
+lmbToolkit::merge(new lmbARTools());
 
 $dsn = 'mysql_dsn';
 

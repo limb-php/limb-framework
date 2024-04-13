@@ -17,7 +17,7 @@ namespace limb\active_record\src;
  */
 class lmbARMetaInfoStorage
 {
-    public static $_metas = [];
+    protected static $_metas = [];
 
     static function getDbMetaInfo($table_name, $conn): lmbARMetaInfo
     {
