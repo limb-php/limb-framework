@@ -54,8 +54,6 @@ class lmbActiveRecord extends lmbObject
      */
     protected static $_default_db_conn;
 
-    protected static $_metas = array();
-
     /**
      * @var string current database connection name
      */
@@ -146,10 +144,6 @@ class lmbActiveRecord extends lmbObject
      * @var array sort params used to order objects during database retrieval
      */
     protected $_default_sort_params = array();
-    /**
-     * @var lmbARMetaInfo database metainfo object
-     */
-    protected $_db_meta_info;
 
     protected $_ignore_fields = [];
 
@@ -266,18 +260,7 @@ class lmbActiveRecord extends lmbObject
 
     function getDbMetaInfo(): lmbARMetaInfo
     {
-        if ($this->_db_meta_info)
-            return $this->_db_meta_info;
-
-        $table_name = $this->getTableName();
-        if (isset(self::$_metas[$table_name])) {
-            $meta = self::$_metas[$table_name];
-        } else {
-            $meta = new lmbARMetaInfo($this, $this->getConnection());
-            self::$_metas[$table_name] = $meta;
-        }
-
-        return $this->_db_meta_info = $meta;
+        return lmbARMetaInfoStorage::getDbMetaInfo($this->getTableName(), $this->getConnection());
     }
 
     function getDbTableFields(): array
@@ -2363,7 +2346,7 @@ class lmbActiveRecord extends lmbObject
     function __sleep()
     {
         $vars = array_keys(get_object_vars($this));
-        $vars = array_diff($vars, array('_db_conn_name', '_db_conn_dsn', '_db_meta_info'));
+        $vars = array_diff($vars, array('_db_conn_name', '_db_conn_dsn'));
         return $vars;
     }
 }

@@ -39,7 +39,10 @@ class lmbARTools extends lmbAbstractTools
         if (isset($this->metas[$class_name]))
             return $this->metas[$class_name];
 
-        $meta = new lmbARMetaInfo($active_record, $conn);
+        if(!$conn)
+            $conn = $active_record->getConnection();
+
+        $meta = new lmbARMetaInfo($active_record->getTableName(), $conn);
         $this->metas[$class_name] = $meta;
         return $meta;
     }

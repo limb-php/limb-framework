@@ -27,9 +27,8 @@ class lmbARMetaInfo
     protected $set_method_fields = array();
     protected $cast_methods = array();
 
-    function __construct($active_record, $conn = null)
+    function __construct($table_name, $conn = null)
     {
-        $table_name = $active_record->getTableName();
         $this->db_table = lmbToolkit::instance()->createTableGateway($table_name, $conn);
         $this->db_column_names = $this->db_table->getColumnNames();
     }
