@@ -22,7 +22,9 @@ class lmbErrorGuard
     static function registerExceptionHandler(): void
     {
         $delegate = func_get_args();
-        set_exception_handler(array(lmbDelegate::objectify($delegate), 'invoke'));
+        $prev = set_exception_handler(array(lmbDelegate::objectify($delegate), 'invoke'));
+        if($prev !== null)
+            restore_exception_handler();
     }
 
     static function registerFatalErrorHandler(): void
