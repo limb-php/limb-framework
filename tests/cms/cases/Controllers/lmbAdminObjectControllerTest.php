@@ -12,8 +12,8 @@ namespace tests\cms\cases\Controllers;
 use PHPUnit\Framework\TestCase;
 use limb\active_record\src\lmbActiveRecord;
 use limb\net\src\lmbHttpRequest;
-use tests\web_app\cases\lmbWebApplicationSandbox;
 use limb\toolkit\src\lmbToolkit;
+use tests\web_app\cases\plain\src\lmbWebApplicationSandbox;
 
 require_once(dirname(__FILE__) . '/../.setup.php');
 
