@@ -42,9 +42,16 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
             return $filter_chain->next($request, $callback);
         }
         catch (\Throwable $e) {
-            $error = error_get_last();
-            if($error)
-                return $this->handleFatalError($error, $request);
+            if( $e instanceof \Error ) {
+                $error = error_get_last();
+                if($error) {
+                    //$flags = [E_ERROR, E_CORE_ERROR, E_USER_ERROR, E_COMPILE_ERROR, E_RECOVERABLE_ERROR];
+                    $flags = [E_ERROR];
+
+                    if (in_array($error['type'], $flags))
+                        return $this->handleFatalError($error, $request);
+                }
+            }
 
             return $this->handleException($e, $request);
         }
