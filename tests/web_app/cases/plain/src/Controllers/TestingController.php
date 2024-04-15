@@ -2,6 +2,7 @@
 
 namespace tests\web_app\cases\plain\src\Controllers;
 
+use limb\core\src\exception\lmbException;
 use limb\web_app\src\Controllers\LmbController;
 
 class TestingController extends LmbController
@@ -39,6 +40,11 @@ class TestingController extends LmbController
 
         if ($this->in_popup)
             return $this->closePopup();
+    }
+
+    function doException()
+    {
+        throw new lmbException('Test');
     }
 
     function addValidatorRule($r)

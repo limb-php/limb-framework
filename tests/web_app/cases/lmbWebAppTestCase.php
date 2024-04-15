@@ -18,14 +18,12 @@ use limb\toolkit\src\lmbToolkit;
 class lmbWebAppTestCase extends TestCase
 {
     protected $toolkit;
-    protected $response;
     protected $db;
     protected $connection;
 
     function setUp(): void
     {
         $this->toolkit = lmbToolkit::save();
-        $this->response = $this->toolkit->getResponse();
         $this->session = $this->toolkit->getSession();
         $this->session->reset();
         $this->connection = $this->toolkit->getDefaultDbConnection();

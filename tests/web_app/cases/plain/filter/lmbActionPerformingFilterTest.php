@@ -11,10 +11,10 @@ namespace tests\web_app\cases\plain\filter;
 
 require_once dirname(__FILE__) . '/../../init.inc.php';
 
+use limb\web_app\src\filter\lmbActionPerformingAndViewRenderingFilter;
 use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbToolkit;
 use limb\filter_chain\src\lmbFilterChain;
-use limb\web_app\src\filter\lmbActionPerformingFilter;
 use limb\web_app\src\Controllers\LmbController;
 use limb\core\src\exception\lmbException;
 
@@ -42,7 +42,7 @@ class lmbActionPerformingFilterTest extends TestCase
         $fc = $this->createMock(lmbFilterChain::class);
         $fc->expects($this->never())->method('next');
 
-        $filter = new lmbActionPerformingFilter();
+        $filter = new lmbActionPerformingAndViewRenderingFilter();
 
         try {
             $filter->run($fc, request());
@@ -66,7 +66,7 @@ class lmbActionPerformingFilterTest extends TestCase
             ->expects($this->once())
             ->method('next');
 
-        $filter = new lmbActionPerformingFilter();
+        $filter = new lmbActionPerformingAndViewRenderingFilter();
         $filter->run($fc, request());
     }
 }

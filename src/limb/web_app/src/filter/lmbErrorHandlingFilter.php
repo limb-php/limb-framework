@@ -10,7 +10,7 @@
 namespace limb\web_app\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
-use limb\core\src\lmbErrorGuard;
+use limb\net\src\lmbHttpResponse;
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
 
@@ -41,48 +41,57 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
     {
         $this->toolkit = lmbToolkit::instance();
 
-        lmbErrorGuard::registerFatalErrorHandler($this, 'handleFatalError');
-        lmbErrorGuard::registerExceptionHandler($this, 'handleException');
+        try {
+            return $filter_chain->next($request, $callback);
+        }
+        catch (\Throwable $e) {
+            $error = error_get_last();
+            if($error)
+                return $this->handleFatalError($error);
 
-        return $filter_chain->next($request, $callback);
+            return $this->handleException($e);
+        }
     }
 
-    function handleFatalError($error)
+    function handleFatalError($error): lmbHttpResponse
     {
-        $this->toolkit->getLog('error')->error($error['message']);
+        $toolkit = lmbToolkit::instance();
 
-        header('HTTP/1.x 500 Server Error');
+        $toolkit->getLog('error')->error($error['message']);
 
-        if ($this->toolkit->isWebAppDebugEnabled())
-            echo $this->_echoErrorBacktrace($error);
+        if ($toolkit->isWebAppDebugEnabled())
+            $body = $this->_echoErrorBacktrace($error);
         else
-            echo $this->_echoErrorPage();
+            $body = $this->_echoErrorPage();
 
-        exit(1);
+        return response()
+            ->reset()
+            ->setStatusCode(500, 'Server Error')
+            ->write($body);
     }
 
-    function handleException($e)
+    function handleException($e): lmbHttpResponse
     {
+        $toolkit = lmbToolkit::instance();
+
         if (function_exists('\debugBreak'))
             \debugBreak();
 
-        $this->toolkit->getLog('error')->logException($e);
+        $toolkit->getLog('error')->logException($e);
 
-        header('HTTP/1.x 500 Server Error');
-
-        if ($this->toolkit->isWebAppDebugEnabled())
-            echo $this->_echoExceptionBacktrace($e);
+        if ($toolkit->isWebAppDebugEnabled())
+            $body = $this->_echoExceptionBacktrace($e);
         else
-            echo $this->_echoErrorPage();
+            $body = $this->_echoErrorPage();
 
-        exit(1);
+        return response()
+            ->reset()
+            ->setStatusCode(500, 'Server Error')
+            ->write($body);
     }
 
     function _echoErrorPage()
     {
-        for ($i = 0; $i < ob_get_level(); $i++)
-            ob_end_clean();
-
         return file_get_contents($this->error_page);
     }
 
@@ -94,11 +103,8 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
         $line = $error['line'];
         $context = htmlspecialchars($this->_getFileContext($file, $line));
         $request = htmlspecialchars($this->toolkit->getRequest()->dump());
-
-        for ($i = 0; $i < ob_get_level(); $i++)
-            ob_end_clean();
-
         $session = htmlspecialchars($this->toolkit->getSession()->dump());
+
         return $this->_renderTemplate($message, '', $trace, $file, $line, $context, $request, $session);
     }
 
@@ -125,13 +131,10 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
         $request = htmlspecialchars($this->toolkit->getRequest()->dump());
         $session = htmlspecialchars($this->toolkit->getSession()->dump());
 
-        for ($i = 0; $i < ob_get_level(); $i++)
-            ob_end_clean();
-
         return $this->_renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session);
     }
 
-    protected function _renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session)
+    protected function _renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session): string
     {
         $formatted_error = nl2br($error);
         $formatted_file = nl2br($file);
