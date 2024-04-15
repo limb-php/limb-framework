@@ -26,7 +26,6 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
     const MODE_DEVEL = 'devel';
     const MODE_PRODUCTION = 'production';
 
-    protected $toolkit;
     protected $error_page;
 
     function __construct($error500_page = '')
@@ -39,28 +38,26 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
 
     function run($filter_chain, $request = null, $callback = null)
     {
-        $this->toolkit = lmbToolkit::instance();
-
         try {
             return $filter_chain->next($request, $callback);
         }
         catch (\Throwable $e) {
             $error = error_get_last();
             if($error)
-                return $this->handleFatalError($error);
+                return $this->handleFatalError($error, $request);
 
-            return $this->handleException($e);
+            return $this->handleException($e, $request);
         }
     }
 
-    function handleFatalError($error): lmbHttpResponse
+    function handleFatalError($error, $request): lmbHttpResponse
     {
         $toolkit = lmbToolkit::instance();
 
         $toolkit->getLog('error')->error($error['message']);
 
         if ($toolkit->isWebAppDebugEnabled())
-            $body = $this->_echoErrorBacktrace($error);
+            $body = $this->_echoErrorBacktrace($error, $request);
         else
             $body = $this->_echoErrorPage();
 
@@ -70,7 +67,7 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
             ->write($body);
     }
 
-    function handleException($e): lmbHttpResponse
+    function handleException($e, $request): lmbHttpResponse
     {
         $toolkit = lmbToolkit::instance();
 
@@ -80,7 +77,7 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
         $toolkit->getLog('error')->logException($e);
 
         if ($toolkit->isWebAppDebugEnabled())
-            $body = $this->_echoExceptionBacktrace($e);
+            $body = $this->_echoExceptionBacktrace($e, $request);
         else
             $body = $this->_echoErrorPage();
 
@@ -95,21 +92,25 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
         return file_get_contents($this->error_page);
     }
 
-    protected function _echoErrorBacktrace($error)
+    protected function _echoErrorBacktrace($error, $request)
     {
+        $toolkit = lmbToolkit::instance();
+
         $message = $error['message'];
         $trace = '';
         $file = $error['file'];
         $line = $error['line'];
         $context = htmlspecialchars($this->_getFileContext($file, $line));
-        $request = htmlspecialchars($this->toolkit->getRequest()->dump());
-        $session = htmlspecialchars($this->toolkit->getSession()->dump());
+        $request_text = htmlspecialchars($request->dump());
+        $session_text = htmlspecialchars($toolkit->getSession()->dump());
 
-        return $this->_renderTemplate($message, '', $trace, $file, $line, $context, $request, $session);
+        return $this->_renderTemplate($message, '', $trace, $file, $line, $context, $request_text, $session_text);
     }
 
-    protected function _echoExceptionBacktrace($e)
+    protected function _echoExceptionBacktrace($e, $request)
     {
+        $toolkit = lmbToolkit::instance();
+
         $params = '';
         if ($e instanceof lmbException) {
             $error = htmlspecialchars($e->getOriginalMessage());
@@ -128,10 +129,10 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
 
         list($file, $line) = $this->_extractExceptionFileAndLine($e);
         $context = htmlspecialchars($this->_getFileContext($file, $line));
-        $request = htmlspecialchars($this->toolkit->getRequest()->dump());
-        $session = htmlspecialchars($this->toolkit->getSession()->dump());
+        $request_text = htmlspecialchars($request->dump());
+        $session_text = htmlspecialchars($toolkit->getSession()->dump());
 
-        return $this->_renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session);
+        return $this->_renderTemplate($error, $params, $trace, $file, $line, $context, $request_text, $session_text);
     }
 
     protected function _renderTemplate($error, $params, $trace, $file, $line, $context, $request, $session): string

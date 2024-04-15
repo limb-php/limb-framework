@@ -90,7 +90,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
     static public function createFromGlobals(): self
     {
         $uri_string = self::_getRawUriString();
-        $method = $_SERVER['REQUEST_METHOD'] ?? null;
+        $method = $_SERVER['REQUEST_METHOD'] ?? "GET";
         $headers = getallheaders();
 
         return new static($uri_string, $method, $_GET, $_POST, $_COOKIE, $_FILES, $headers);
