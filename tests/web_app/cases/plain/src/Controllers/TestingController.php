@@ -47,6 +47,15 @@ class TestingController extends LmbController
         throw new lmbException('Test');
     }
 
+    function doMemoryLimit()
+    {
+        ini_set('memory_limit', '1M');
+
+        $x = "123456789ABCDEF";
+        while (true)
+            $x .= $x;
+    }
+
     function addValidatorRule($r)
     {
         $this->getValidator()->addRule($r);

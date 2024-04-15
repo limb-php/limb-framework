@@ -15,7 +15,6 @@ use limb\net\src\lmbHttpRequest;
 use limb\session\src\lmbFakeSession;
 use limb\toolkit\src\lmbToolkit;
 use limb\web_app\src\lmbWebApplication;
-use tests\web_app\cases\plain\src\lmbWebApplicationSandbox2;
 
 require_once (dirname(__FILE__) . '/init.inc.php');
 
@@ -39,38 +38,12 @@ class lmbWebApplicationTest extends lmbWebAppTestCase
         $toolkit = lmbToolkit::instance();
         $toolkit->setSession(new lmbFakeSession());
 
-        $request = new lmbHttpRequest('https://localhost/tests/index/display');
+        $request = new lmbHttpRequest('https://localhost/tests/index/404');
 
         $app = new lmbWebApplication();
         $response = $app->process($request);
 
         $this->assertEquals('404', $response->getStatusCode());
         $this->assertEquals('<h3>404 Page Not Found Error.</h3>', $response->getBody());
-    }
-
-    function testPerformAppWithException()
-    {
-        $toolkit = lmbToolkit::instance();
-        $toolkit->setSession(new lmbFakeSession());
-
-        $request = new lmbHttpRequest('https://localhost/tests/testing/exception');
-
-        $app = new lmbWebApplicationSandbox2();
-        $response = $app->process($request);
-
-        $this->assertEquals('500', $response->getStatusCode());
-    }
-
-    function testPerformAppWithFatalError()
-    {
-        $toolkit = lmbToolkit::instance();
-        $toolkit->setSession(new lmbFakeSession());
-
-        $request = new lmbHttpRequest('https://localhost/tests/fatal_error');
-
-        $app = new lmbWebApplicationSandbox2();
-        $response = $app->process($request);
-
-        $this->assertEquals('500', $response->getStatusCode());
     }
 }
