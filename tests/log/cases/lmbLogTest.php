@@ -11,11 +11,10 @@ namespace tests\log\cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\log\src\lmbLog;
-use limb\log\src\lmbLogWriterInterface;
 use limb\net\src\lmbUri;
-use limb\core\src\exception\lmbException;
 use limb\log\src\lmbLogEntry;
 use Psr\Log\LogLevel;
+use tests\log\cases\src\lmbLogWriterForLogTests;
 
 class lmbLogTest extends TestCase
 {
@@ -52,15 +51,6 @@ class lmbLogTest extends TestCase
         $this->assertEquals('imessage2', $this->_getLastLogEntry()->getMessage());
         $this->assertEquals('iparam2', $this->_getLastLogEntry()->getParams());
         $this->assertEquals('ibacktrace2', $this->_getLastLogEntry()->getBacktrace());
-    }
-
-    function testLogException()
-    {
-        $this->log->logException(new lmbException('exmessage', $code = 42));
-        $entry = current($this->log->getWriters())->getWritten();
-
-        $this->assertTrue($entry->isLevel(LogLevel::ERROR));
-        $this->assertEquals('exmessage', $entry->getMessage());
     }
 
     function testSetNotifyLevel()
@@ -110,28 +100,5 @@ class lmbLogTest extends TestCase
     {
         $currentWriter = current($this->log->getWriters());
         return $currentWriter->getWritten();
-    }
-}
-
-class lmbLogWriterForLogTests implements lmbLogWriterInterface
-{
-
-    protected $entry;
-
-    function __construct(lmbUri $dsn)
-    {
-    }
-
-    function write(lmbLogEntry $entry)
-    {
-        $this->entry = $entry;
-    }
-
-    /**
-     * @return lmbLogEntry
-     */
-    function getWritten()
-    {
-        return $this->entry;
     }
 }

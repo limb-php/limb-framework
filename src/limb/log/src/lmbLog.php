@@ -170,38 +170,6 @@ class lmbLog implements LoggerInterface
         $this->_write($level, $message, $context, $backtrace);
     }
 
-    function logException($exception)
-    {
-        if (!$this->aboveLevel(LogLevel::ERROR, $this->notifyLevel)) {
-            return;
-        }
-
-        $backtrace_depth = $this->backtrace_depth[LogLevel::ERROR];
-
-        if ($exception instanceof lmbException)
-            $this->log(
-                LogLevel::ERROR,
-                $exception->getMessage(),
-                [
-                    'exception' => $exception,
-                    'params' => $exception->getParams(),
-
-                ],
-                new lmbBacktrace($exception->getTrace(), $backtrace_depth)
-            );
-        else
-            $this->log(
-                LogLevel::ERROR,
-                $exception->getMessage(),
-                [
-                    'exception' => $exception,
-                    'file' => $exception->getFile(),
-                    'line' => $exception->getLine()
-                ],
-                new lmbBacktrace($exception->getTrace(), $backtrace_depth)
-            );
-    }
-
     protected function _write($level, $string, $context = [], $backtrace = null)
     {
         $entry = new lmbLogEntry($level, $string, $context, $backtrace);
