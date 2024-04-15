@@ -54,15 +54,14 @@ class lmbErrorGuard
         if (!$error = error_get_last())
             return;
 
-        /*$flags = [E_ERROR,E_CORE_ERROR,E_USER_ERROR,E_COMPILE_ERROR,E_RECOVERABLE_ERROR];
+        //$flags = [E_ERROR,E_CORE_ERROR,E_USER_ERROR,E_COMPILE_ERROR,E_RECOVERABLE_ERROR];
+        $flags = [E_ERROR];
         foreach ($flags as $flag)
         {
             if( $error['type']&$flag ) {
                 self::$fatal_error_delegate->invoke($error);
                 break;
             }
-        }*/
-        if ($error['type'] == E_ERROR)
-            self::$fatal_error_delegate->invoke($error);
+        }
     }
 }
