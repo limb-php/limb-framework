@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace tests\web_app\cases;
+namespace tests\web_app\cases\plain\src;
 
 use limb\filter_chain\src\lmbFilterChain;
 use limb\net\src\lmbFakeHttpResponse;

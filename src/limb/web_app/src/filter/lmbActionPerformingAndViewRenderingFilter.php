@@ -36,7 +36,7 @@ class lmbActionPerformingAndViewRenderingFilter implements lmbInterceptingFilter
 
         if ($result !== null) {
             if (is_a($result, lmbHttpResponse::class)) {
-                $response = $result;
+                $response->write($result);
             } elseif ($response->isEmpty()) {
                 if (is_a($result, lmbView::class)) {
                     $result = $result->render();

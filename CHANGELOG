@@ -3,32 +3,57 @@ This is a general CHANGELOG, if you need more detailed changes
 consider viewing CHANGELOG files for each package.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-===== Limb4.5.x (---) =====
+===== Limb5.0.x (Fighter ?) =====
 
+  - PSR-4 autoloader
+  - PHP 8.2 (lmbObject, lmbActiveRecord, etc)
+  - AR: remove validation
+
+
+===== Limb4.5.x (Long runner) =====
+
+  * PHP 8.1 min requirements
   * NET: request/response improved (PSR-7)
+  * CACHE: implements simple cache CacheInterface (PSR-16)
+  * LOG: implements LoggerInterface (PSR-3)
+  * LOG: flexible log-config
+  * SESSION: realize SessionHandlerInterface
+  * WEB_APP: performance improved - LmbController (removed )
+  * ACTIVE_RECORD: performance improved - lmbActiveRecord (remove $_db_conn, $_db_table, $_db_meta_info, $_metas properties)
 
-===== Limb4.4.x (---) =====
+===== Limb4.4.x (Tusk) =====
 
   * PHP 8.0 min requirements
   * DBAL: reconnect to DB for all drivers
+  * CONFIG: toolkit method getConfParam($key). $key can be dot-separated value.
+  * FILTER_CHAIN: new filter chain realization (move forward to PSR-15)
+  * CKEditor updated to 4.22.1
+  * LOG: improved output info about error/exception
+  * FS: find* methods include hidden files by default
+  * FS: removed file sorting in find* methods
+  * SESSION: session data storing as BLOB
+  * OPTIMIZATION: some libs removed from LIB-dir, and added to composer
+  * WEB_APP: performance improved - LmbController (removed Response prop.)
+  * WEB_APP: const LIMB_HTTP_REQUEST_REAL_PORT added
   * ???
+  * formatted code
 
-===== Limb4.3.x (---) =====
+===== Limb4.3.x (Unit ?) =====
 
   * PHP 7.4 min requirements
   * ???
 
-===== Limb4.2.x (---) =====
+===== Limb4.2.x (Frankenstein) =====
 
   * PHP 7.3 min requirements
-  * TWIG: Support Twig template engin
+  * VIEW/TWIG: Support Twig template engin
   * CORE: getters return null by default instead of LIMB_UNDEFINED
   * CORE: added ProxyTrait and Handle class using ProxyTrait
   * CORE: new methods: lmbArrayHelper::mapCallback(), lmbCollection::map(), lmbCollection::jsonSerialize()
   * CORE: lmbErrorHandler instead of lmbErrorHandlingFilter
   * LOG: improve logging (move forward to PSR-3)
   * CACHE: lmbCacheMemcachedBackend, lmbCacheXcacheBackend added
-  * I18N: lmbI18n class insted of lmb_i18n_* functions
+  * I18N: lmbI18n class instead of lmb_i18n_* functions
   * DBAL: SQLite3 driver for SQLite connection
   * DBAL: Old MySQL driver removed. Using MySQLi driver
   * DBAL: supports Postgres version >= 12
