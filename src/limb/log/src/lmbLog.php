@@ -44,8 +44,8 @@ class lmbLog implements LoggerInterface
         LogLevel::INFO => 0,
         LogLevel::NOTICE => 0,
         LogLevel::WARNING => 0,
-        LogLevel::ERROR => 5,
-        LogLevel::CRITICAL => 5,
+        LogLevel::ERROR => 10,
+        LogLevel::CRITICAL => 10,
         LogLevel::ALERT => 5,
         LogLevel::EMERGENCY => 5
     ];
