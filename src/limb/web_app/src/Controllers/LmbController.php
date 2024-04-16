@@ -131,7 +131,8 @@ class LmbController
         return lmbRouteHelper::getControllerNameByClass($this);
     }
 
-    function getView(): lmbViewInterface
+    /** @return lmbViewInterface|null */
+    function getView()
     {
         if ($this->_view)
             return $this->_view;
@@ -226,16 +227,16 @@ class LmbController
                 'and no appropriate template found');
         }
 
-        if ($view = lmbToolkit::instance()->getView()) {
+        if( $view = lmbToolkit::instance()->getView() ) {
             $this->_passLocalAttributesToView();
 
             $response = response();
             $response->getBody()->write($view->render());
 
             return $response;
-        } else {
-            throw new lmbEmptyControllerResponseException('Empty controller response');
         }
+
+        throw new lmbEmptyControllerResponseException('Empty controller response');
     }
 
     function useForm($form_id, $datasource = null)

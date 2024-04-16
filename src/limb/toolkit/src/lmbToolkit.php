@@ -139,7 +139,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @see lmbWebAppTools
  * @method setView(\limb\view\src\lmbViewInterface $view)
- * @method \limb\view\src\lmbView getView(): \limb\view\src\lmbViewInterface
+ * @method \limb\view\src\lmbViewInterface getView():
  * @method setDispatchedController($dispatched)
  * @method \limb\web_app\src\Controllers\lmbController getDispatchedController()
  * @method \limb\web_app\src\Controllers\lmbController createController($controller_name, $namespace = '')

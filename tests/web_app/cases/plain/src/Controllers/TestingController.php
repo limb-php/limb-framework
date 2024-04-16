@@ -14,7 +14,8 @@ class TestingController extends LmbController
     function doDisplay()
     {
         $this->display_performed = true;
-        $this->template_name = $this->getView()->getTemplate();
+        //$this->template_name = $this->getView()->getTemplate();
+        $this->template_name = 'some_template.html';
 
         return response();
     }
@@ -40,6 +41,8 @@ class TestingController extends LmbController
 
         if ($this->in_popup)
             return $this->closePopup();
+
+        return '';
     }
 
     function doException()

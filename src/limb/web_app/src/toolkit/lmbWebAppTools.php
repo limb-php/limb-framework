@@ -21,7 +21,6 @@ use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\view\src\lmbDummyView;
-use limb\view\src\lmbView;
 use limb\view\src\lmbViewInterface;
 use limb\view\src\toolkit\lmbViewTools;
 use limb\web_app\src\util\lmbFlashBox;
@@ -40,7 +39,7 @@ lmbEnv::setor('LIMB_ENABLE_MOD_REWRITE', true); // we assume mod_rewrite in ON b
  */
 class lmbWebAppTools extends lmbAbstractTools
 {
-    protected $view;
+    protected $view = null;
     protected $dispatched_controller;
     protected $routes;
     protected $flash_box;
@@ -115,18 +114,19 @@ class lmbWebAppTools extends lmbAbstractTools
         }
     }
 
-    function setView($view): void
+    function setView(lmbViewInterface $view): void
     {
         $this->view = $view;
     }
 
-    function getView(): lmbViewInterface
+    /** @return lmbViewInterface|null */
+    function getView()
     {
         if (is_object($this->view))
             return $this->view;
 
         //default view
-        $this->view = new lmbDummyView('dummy_template_path');
+        //$this->view = new lmbDummyView('dummy_template_path');
 
         return $this->view;
     }

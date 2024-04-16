@@ -11,6 +11,7 @@ namespace tests\web_app\cases\plain\filter;
 
 require_once dirname(__FILE__) . '/../../init.inc.php';
 
+use limb\view\src\lmbDummyView;
 use limb\web_app\src\filter\lmbActionPerformingAndViewRenderingFilter;
 use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbToolkit;
@@ -59,12 +60,14 @@ class lmbActionPerformingFilterTest extends TestCase
             ->expects($this->once())
             ->method('performAction');
 
+        $this->toolkit->setView(new lmbDummyView('some_template.html'));
         $this->toolkit->setDispatchedController($controller);
 
         $fc = $this->createMock(lmbFilterChain::class);
         $fc
             ->expects($this->once())
-            ->method('next');
+            ->method('next')
+            ->willReturn(response());
 
         $filter = new lmbActionPerformingAndViewRenderingFilter();
         $filter->run($fc, request());

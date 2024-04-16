@@ -200,6 +200,7 @@ class lmbControllerTest extends TestCase
     {
         $controller = new TestingController();
         $controller->setCurrentAction('without_popup');
+
         $response = $controller->performAction(request());
 
         $this->assertEquals('', $response->getBody());
