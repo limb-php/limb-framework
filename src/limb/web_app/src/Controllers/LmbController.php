@@ -64,12 +64,6 @@ class LmbController
 
     /**
      *
-     * @var lmbViewInterface
-     */
-    protected $_view;
-
-    /**
-     *
      * @var lmbErrorList
      */
     protected $error_list;
@@ -134,10 +128,7 @@ class LmbController
     /** @return lmbViewInterface|null */
     function getView()
     {
-        if ($this->_view)
-            return $this->_view;
-
-        return $this->_view = $this->toolkit->getView();
+        return $this->toolkit->getView();
     }
 
     function validateRequest($dataspace): bool
@@ -227,7 +218,7 @@ class LmbController
                 'and no appropriate template found');
         }
 
-        if( $view = lmbToolkit::instance()->getView() ) {
+        if( $view = $this->getView() ) {
             $this->_passLocalAttributesToView();
 
             $response = response();
@@ -249,9 +240,7 @@ class LmbController
 
     function setTemplate($template_path)
     {
-        $this->_view = $this->toolkit->createViewByTemplate($template_path);
-
-        $this->toolkit->setView($this->_view);
+        $this->toolkit->setView( $this->toolkit->createViewByTemplate($template_path) );
     }
 
     protected function _passLocalAttributesToView(): void
