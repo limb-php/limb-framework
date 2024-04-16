@@ -22,7 +22,7 @@ interface lmbInterceptingFilterInterface
     /**
      * Runs the filter.
      * Filters should decide whether to pass control to the next filter in the chain or not.
-     * @param $filter_chain lmbFilterChain
+     * @param $filter_chain lmbInterceptingFilterInterface
      * @param $request RequestInterface
      * @param $callback \Closure|null
      * @return mixed
