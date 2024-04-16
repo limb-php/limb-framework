@@ -33,8 +33,8 @@ class lmbHttpStream implements StreamInterface
 
     public function __construct($body = '')
     {
-        if (!is_string($body) && !is_resource($body)) {
-            throw new \InvalidArgumentException('Argument 1 MUST be a String, Resource or null');
+        if (!(is_string($body) || is_resource($body))) {
+            throw new \InvalidArgumentException('Argument 1 MUST be a String, Resource or null, ' . get_debug_type($body) . ' given');
         }
 
         if (is_string($body)) {

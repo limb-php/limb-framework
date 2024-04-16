@@ -9,6 +9,7 @@
 
 namespace tests\net\cases;
 
+use limb\net\src\lmbHttpStream;
 use limb\net\src\lmbJsonHttpResponse;
 use limb\net\src\lmbMetaRedirectStrategy;
 use PHPUnit\Framework\TestCase;
@@ -148,27 +149,27 @@ class lmbHttpResponseTest extends TestCase
 
 //    function testSendHeadersOnCommit()
 //    {
-//      $this->mock_response->setCookie('foo', '111');
-//      $this->mock_response->addHeader("Location", "to-some-place");
-//      $this->mock_response->addHeader("Location", "to-some-place2");
+//        $this->mock_response->setCookie('foo', '111');
+//        $this->mock_response->addHeader("Location", "to-some-place");
+//        $this->mock_response->addHeader("Location", "to-some-place2");
 //
-//      $this->mock_response
-//          ->expects($this->exactly(1))
-//          ->method('sendHeaders');
+//        $this->mock_response
+//            ->expects($this->exactly(1))
+//            ->method('sendHeaders');
 //
-//      $this->mock_response->commit();
+//        $this->mock_response->commit();
 //    }
 
-    /*function testWriteOnCommit()
-    {
-      $this->mock_response->write("<b>wow</b>");
-      $this->mock_response
-          ->expects($this->once())
-          ->method('_sendString')
-          ->with("<b>wow</b>");
-
-      $this->mock_response->commit();
-    }*/
+//    function testWriteOnCommit()
+//    {
+//        $this->mock_response = $this->mock_response->withBody($body = "<b>wow</b>");
+//        $this->mock_response
+//            ->expects($this->once())
+//            ->method('sendContent')
+//            ->with($body);
+//
+//        $this->mock_response->commit();
+//    }
 
     /*function testReadfileOnCommit()
     {
@@ -278,17 +279,28 @@ class lmbHttpResponseTest extends TestCase
 
     function testWithBody()
     {
-        $this->response = $this->response->withBody($content1 = 'body content !!!');
-        $this->response = $this->response->withBody($content2 = 'body content');
+        $stream1 = new lmbHttpStream($content1 = 'body content !!!');
+        $stream2 = new lmbHttpStream($content2 = 'body content');
+
+        $this->response = $this->response->withBody($stream1);
+        $this->response = $this->response->withBody($content2);
 
         $this->assertEquals($content2, $this->response->getBody());
     }
 
+//    function testWithJsonBodyJsonResponse()
+//    {
+//        $this->json_response = $this->json_response->withBody($content = ['data' => '123']);
+//        $json_content = json_encode($content);
+//
+//        $this->assertEquals($json_content, $this->json_response->getBody());
+//    }
+
     function testWithJsonBody()
     {
-        $this->json_response = $this->json_response->withBody($content = ['data' => '123']);
+        $this->response = $this->response->json($content = ['data' => '123']);
         $json_content = json_encode($content);
 
-        $this->assertEquals($json_content, $this->json_response->getBody());
+        $this->assertEquals($json_content, $this->response->getBody());
     }
 }

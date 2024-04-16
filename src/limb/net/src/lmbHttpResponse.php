@@ -453,7 +453,7 @@ class lmbHttpResponse implements ResponseInterface
         return $this;
     }
 
-    /** @param $data \ArrayObject|array */
+    /** @param $data mixed */
     public function json($data)
     {
         $this
@@ -581,7 +581,10 @@ class lmbHttpResponse implements ResponseInterface
         }
 
         $new = clone($this);
-        $new->stream = new lmbHttpStream($body);
+        if( $body instanceof StreamInterface )
+            $new->stream = $body;
+        else
+            $new->stream = new lmbHttpStream($body);
 
         return $new;
     }
