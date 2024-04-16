@@ -283,7 +283,7 @@ class lmbToolkit extends lmbObject
      * Extends current tools with new tool
      * @return lmbToolkit The only instance of lmbToolkit class
      */
-    static function merge($tool, $name = ''): self
+    static function merge(lmbToolkitToolsInterface $tool, $name = ''): self
     {
         $toolkit = lmbToolkit::instance();
         $toolkit->add($tool, $name);
@@ -293,7 +293,7 @@ class lmbToolkit extends lmbObject
     /**
      * Extends current tools with new tool
      */
-    function add($tool, $name = '')
+    function add(lmbToolkitToolsInterface $tool, $name = '')
     {
         if (!$name)
             $name = get_class($tool);
@@ -301,13 +301,14 @@ class lmbToolkit extends lmbObject
         if (!isset($this->_tools[$name])) {
             $req_tools = $tool::getRequiredTools();
             if (!empty($req_tools)) {
-                foreach ($req_tools as $req_tool) {
-                    lmbToolkit::merge(new $req_tool());
+                foreach ($req_tools as $req_tool_class) {
+                    lmbToolkit::merge(new $req_tool_class());
                 }
             }
 
-            if (method_exists($tool, '_init'))
-                call_user_func_array(array($tool, '_init'), array());
+            if (method_exists($tool, 'bootstrap'))
+                call_user_func_array(array($tool, 'bootstrap'), array());
+            //$tool->bootstrap();
 
             $tools = $this->_tools;
             $tools = array($name => $tool) + $tools;

@@ -17,6 +17,8 @@ namespace limb\toolkit\src;
  */
 interface lmbToolkitToolsInterface
 {
+    public function bootstrap();
+
     static function getRequiredTools();
 
     /**

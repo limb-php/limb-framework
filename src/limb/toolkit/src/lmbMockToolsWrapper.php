@@ -45,6 +45,10 @@ class lmbMockToolsWrapper implements lmbToolkitToolsInterface
         $this->use_only_methods = $use_only_methods;
     }
 
+    public function bootstrap()
+    {
+    }
+
     static function getRequiredTools()
     {
         return [];

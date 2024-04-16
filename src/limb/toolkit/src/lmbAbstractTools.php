@@ -17,7 +17,8 @@ namespace limb\toolkit\src;
  */
 abstract class lmbAbstractTools implements lmbToolkitToolsInterface
 {
-    protected $reserved_methods = array('__construct', '_setRaw', '_getRaw', '_init');
+    protected $_is_inited = false;
+    protected $reserved_methods = array('__construct', '_setRaw', '_getRaw');
     /**
      * @var lmbToolkit reference of lmbToolkit instance
      */
@@ -26,6 +27,14 @@ abstract class lmbAbstractTools implements lmbToolkitToolsInterface
     function __construct()
     {
         $this->toolkit = lmbToolkit::instance();
+    }
+
+    public function bootstrap()
+    {
+        if($this->_is_inited)
+            return;
+
+        $this->_is_inited = true;
     }
 
     static function getRequiredTools()

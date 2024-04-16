@@ -58,8 +58,17 @@ class lmbWebAppTools extends lmbAbstractTools
         ];
     }
 
-    static function _init()
+    public function bootstrap()
     {
+        if($this->_is_inited)
+            return;
+
+        $this->_is_inited = true;
+
+//        if( !$this->isWebAppDebugEnabled() ) {
+//            ini_set('display_errors', 'off');
+//        }
+
         if (PHP_SAPI == 'cli') {
             lmbEnv::setor('LIMB_HTTP_GATEWAY_PATH', '/');
             lmbEnv::setor('LIMB_HTTP_BASE_PATH', '/');
@@ -88,8 +97,7 @@ class lmbWebAppTools extends lmbAbstractTools
                 '/' . lmbEnv::get('LIMB_HTTP_OFFSET_PATH'));
 
             if (substr(lmbEnv::get('LIMB_HTTP_BASE_PATH'), -1, 1) != '/') {
-                echo('LIMB_HTTP_BASE_PATH constant must have trailing slash(' . lmbEnv::get('LIMB_HTTP_BASE_PATH') . ')!!!');
-                exit(1);
+                throw new lmbException('LIMB_HTTP_BASE_PATH constant must have trailing slash(' . lmbEnv::get('LIMB_HTTP_BASE_PATH') . ')!!!');
             }
 
             if (!lmbEnv::has('LIMB_HTTP_GATEWAY_PATH')) {
@@ -102,8 +110,7 @@ class lmbWebAppTools extends lmbAbstractTools
             lmbEnv::setor('LIMB_HTTP_SHARED_PATH', lmbEnv::get('LIMB_HTTP_BASE_PATH') . 'shared/');
 
             if (substr(lmbEnv::get('LIMB_HTTP_SHARED_PATH'), -1, 1) != '/') {
-                echo('LIMB_HTTP_SHARED_PATH constant must have trailing slash(' . lmbEnv::get('LIMB_HTTP_SHARED_PATH') . ')!!!');
-                exit(1);
+                throw new lmbException('LIMB_HTTP_SHARED_PATH constant must have trailing slash(' . lmbEnv::get('LIMB_HTTP_SHARED_PATH') . ')!!!');
             }
         }
     }
