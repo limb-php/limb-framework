@@ -14,8 +14,6 @@ use limb\core\src\exception\lmbNoSuchPropertyException;
 use limb\core\src\lmbObject;
 use limb\core\src\lmbString;
 use limb\core\src\exception\lmbNoSuchMethodException;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Toolkit is an implementation of Dinamic Service Locator pattern
@@ -48,7 +46,8 @@ use Psr\Http\Message\ResponseInterface;
  * @method void setAcl($acl)
  *
  * @see lmbARTools
- * @method getActiveRecordMetaInfo($active_record, $conn = null)
+ * @method getActiveRecordMetaInfo($table_name, \limb\dbal\src\drivers\lmbDbConnectionInterface $conn)
+ * @method getActiveRecordMetaInfoByAR($active_record, \limb\dbal\src\drivers\lmbDbConnectionInterface $conn = null)
  *
  * @see lmbCacheTools
  * @method \limb\cache\src\lmbCacheBackendInterface|null getCache()
@@ -85,9 +84,9 @@ use Psr\Http\Message\ResponseInterface;
  * @method setDbConnectionByName($name, $conn)
  * @method \limb\dbal\src\drivers\lmbDbConnectionInterface getDefaultDbConnection()
  * @method \limb\dbal\src\drivers\lmbDbConnectionInterface getDbConnectionByName($name)
- * @method setDefaultDbConnection($conn)
+ * @method setDefaultDbConnection(\limb\dbal\src\drivers\lmbDbConnectionInterface $conn)
  * @method \limb\dbal\src\drivers\lmbDbConnectionInterface createDbConnection($dsn)
- * @method getDbInfo($conn)
+ * @method getDbInfo(\limb\dbal\src\drivers\lmbDbConnectionInterface $conn)
  * @method \limb\dbal\src\lmbTableGateway createTableGateway($table_name, $conn = null)
  *
  * @see lmbFsTools
@@ -107,30 +106,30 @@ use Psr\Http\Message\ResponseInterface;
  * @method setDictionary($locale, $domain, $dict)
  * @method translate($text, $arg1 = null, $arg2 = null)
  *
- * @see \limb\log\src\toolkit\lmbLogTools
+ * @see lmbLogTools
  * @method getLogDSNes()
  * @method \Psr\Log\LoggerInterface getLog($name = 'error')
- * @method setLog($name, $log)
+ * @method setLog($name, \Psr\Log\LoggerInterface $log)
  *
  * @see lmbMailTools
  * @method getMailer()
  *
  * @see lmbNetTools
- * @method RequestInterface getRequest()
- * @method setRequest($request)
- * @method ResponseInterface getResponse($content = '', $status = 200, $headers = [])
- * @method setResponse($response)
+ * @method \Psr\Http\Message\RequestInterface getRequest()
+ * @method setRequest(\Psr\Http\Message\RequestInterface $request)
+ * @method \Psr\Http\Message\ResponseInterface getResponse($content = '', $status = 200, $headers = [])
+ * @method setResponse(\Psr\Http\Message\ResponseInterface $response)
  *
  * @see lmbSessionTools
  * @method \limb\session\src\lmbSession getSession()
- * @method setSession($session)
+ * @method setSession(\limb\session\src\lmbSession $session)
  *
  * @see lmbViewTools
  * @method setSupportedViewTypes($types)
  * @method getSupportedViewTypes()
  * @method getSupportedViewExtensions()
  * @method locateTemplateByAlias($alias, $view_class = null)
- * @method createViewByTemplate($template_name, $vars = []): lmbViewInterface
+ * @method \limb\view\src\lmbViewInterface createViewByTemplate($template_name, $vars = [])
  * @method getMacroConfig()
  * @method getMacroLocator()
  * @method setMacroConfig($config)
@@ -138,8 +137,8 @@ use Psr\Http\Message\ResponseInterface;
  * @method setTwigConfig($config)
  *
  * @see lmbWebAppTools
- * @method setView(\limb\view\src\lmbViewInterface $view)
- * @method \limb\view\src\lmbViewInterface getView():
+ * @method setView(\limb\view\src\lmbViewInterface|null $view)
+ * @method \limb\view\src\lmbViewInterface|null getView()
  * @method setDispatchedController($dispatched)
  * @method \limb\web_app\src\Controllers\lmbController getDispatchedController()
  * @method \limb\web_app\src\Controllers\lmbController createController($controller_name, $namespace = '')

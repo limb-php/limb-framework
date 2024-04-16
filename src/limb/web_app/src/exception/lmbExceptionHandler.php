@@ -220,38 +220,18 @@ class lmbExceptionHandler
     a:visited { color: #666; }
     a:hover { color: #fff; background-color:#000; }
   </style>
-
-  <script>
-  function TextDump() {
-    w = window.open('', "Error text dump", "scrollbars=yes,resizable=yes,status=yes,width=1000px,height=800px,top=100px,left=100px");
-    w.document.write('<html><body>');
-    w.document.write('<h1>' + document.getElementById('Title').innerHTML + '</h1>');
-    w.document.write(document.getElementById('Context').innerHTML);
-    w.document.write(document.getElementById('Trace').innerHTML);
-    w.document.write(document.getElementById('Request').innerHTML);
-    w.document.write(document.getElementById('Session').innerHTML);
-    w.document.write('</body></html>');
-    w.document.close();
-  }
-  </script>
 </head>
 <body>
 <h2 id='Title'>{$formatted_error}</h2>
 
 <p>{$params}</p>
 
-<a href="#" onclick="document.getElementById('Trace').style.display='none';document.getElementById('Context').style.display='block'; return false;">Context</a> |
-
-<a href="#" onclick="document.getElementById('Trace').style.display='block';document.getElementById('Context').style.display='none'; return false;">Call stack</a> |
-
-<a href="#" onclick="TextDump(); return false;">Raw dump</a>
-
 <div id="Context" style="display: block;">
 <h3>Error in '{$formatted_file}' around line {$line}:</h3>
 <pre>{$context}</pre>
 </div>
 
-<div id="Trace" style="display: none;">
+<div id="Trace" style="display: block;">
 <h3>Call stack:</h3>
 <pre>{$trace}</pre>
 </div>
