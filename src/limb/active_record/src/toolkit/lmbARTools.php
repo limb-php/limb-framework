@@ -35,15 +35,17 @@ class lmbARTools extends lmbAbstractTools
     /** @deprecated */
     function getActiveRecordMetaInfoByAR($active_record, $conn = null)
     {
-        $class_name = get_class($active_record);
-        if (isset($this->metas[$class_name]))
-            return $this->metas[$class_name];
+        $table_name = $active_record->getTableName();
+        
+        if (isset($this->metas[$table_name]))
+            return $this->metas[$table_name];
 
         if(!$conn)
             $conn = $active_record->getConnection();
 
-        $meta = new lmbARMetaInfo($active_record->getTableName(), $conn);
-        $this->metas[$class_name] = $meta;
+        $meta = new lmbARMetaInfo($table_name, $conn);
+        $this->metas[$table_name] = $meta;
+
         return $meta;
     }
 
