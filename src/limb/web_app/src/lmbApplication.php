@@ -2,11 +2,15 @@
 
 namespace limb\web_app\src;
 
-use limb\web_app\src\Controllers\NotFoundController;
-use limb\web_app\src\request\lmbMiddleware;
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
+use limb\web_app\src\exception\lmbControllerNotFoundException;
 use limb\web_app\src\exception\lmbExceptionHandler;
+use limb\web_app\src\request\lmbCompositeRequestDispatcher;
+use limb\web_app\src\request\lmbMiddlewarePipe;
+use limb\web_app\src\request\lmbRequestDispatcherInterface;
+use limb\web_app\src\Controllers\NotFoundController;
+use limb\web_app\src\request\lmbRoutesRequestDispatcher;
 use Psr\Http\Message\ResponseInterface;
 
 class lmbApplication
@@ -14,14 +18,16 @@ class lmbApplication
     protected $bootstraps = [];
 
     protected $default_controller_name = NotFoundController::class;
-    protected $dispatcher;
+    protected lmbRequestDispatcherInterface $dispatcher;
     protected lmbExceptionHandler $handler;
 
     public function __construct()
     {
         $error500_page = dirname(__FILE__) . '/../template/server_error.html';
-
         $this->handler = new lmbExceptionHandler($error500_page);
+
+        $this->dispatcher = new lmbCompositeRequestDispatcher();
+        $this->dispatcher->addDispatcher(new lmbRoutesRequestDispatcher());
     }
 
     function process($request): ResponseInterface
@@ -31,10 +37,11 @@ class lmbApplication
 
             $this->_bootstrap($request);
 
-            $middleware = lmbMiddleware::create()->setDefaultControllerName($this->default_controller_name);
+            $response = lmbMiddlewarePipe::create()->process($request, function ($request) {
+                //$dispatched = lmbToolkit::instance()->getDispatchedController();
+                $dispatched = $this->_getDispatchedController($request);
 
-            $response = $middleware->process($request, function ($request) {
-                return $this->_callControllerAction($request);
+                return $this->_callControllerAction($dispatched, $request);
             });
 
             $this->_terminate();
@@ -86,9 +93,40 @@ class lmbApplication
         }
     }
 
-    protected function _callControllerAction($request)
+    protected function _getDispatchedController($request)
     {
-        $dispatched = lmbToolkit::instance()->getDispatchedController();
+        $dispatched_params = $this->dispatcher->dispatch($request);
+
+//        foreach ($dispatched_params as $name => $value) {
+//            $request = $request->withAttribute($name, $value);
+//            lmbToolkit::instance()->setRequest($request);
+//        }
+
+        return $this->_createController($dispatched_params);
+    }
+
+    protected function _createController($dispatched_params)
+    {
+        try {
+            $controller = lmbToolkit::instance()->createController($dispatched_params['controller'], $dispatched_params['namespace'] ?? '');
+            $controller->setCurrentAction($dispatched_params['action']);
+        } catch (lmbControllerNotFoundException $e) {
+            $controller = $this->_createDefaultController();
+        }
+
+        return $controller;
+    }
+
+    protected function _createDefaultController()
+    {
+        $controller = lmbToolkit::instance()->createController($this->default_controller_name);
+        $controller->setCurrentAction($controller->getDefaultAction());
+
+        return $controller;
+    }
+
+    protected function _callControllerAction($dispatched, $request)
+    {
         if (!is_object($dispatched)) {
             throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
         }

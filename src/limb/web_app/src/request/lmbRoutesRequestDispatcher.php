@@ -9,7 +9,6 @@
 
 namespace limb\web_app\src\request;
 
-use limb\net\src\lmbHttpRequest;
 use limb\net\src\lmbUriHelper;
 use limb\toolkit\src\lmbToolkit;
 use limb\net\src\lmbUri;
@@ -48,10 +47,11 @@ class lmbRoutesRequestDispatcher implements lmbRequestDispatcherInterface
 
         $result = $routes->dispatch(lmbUriHelper::getPathFromLevel($uri, $level));
 
-        if ($action = $request->get('action')) // getAttribute()
-            $result['action'] = $action;
-        if ($controller = $request->get('controller')) // getAttribute()
-            $result['controller'] = $controller;
+//        if ($action = $request->getAttribute('action'))
+//            $result['action'] = $action;
+//        if ($controller = $request->getAttribute('controller'))
+//            $result['controller'] = $controller;
+
         return $result;
     }
 

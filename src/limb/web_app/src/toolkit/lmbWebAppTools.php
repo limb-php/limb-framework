@@ -199,6 +199,7 @@ class lmbWebAppTools extends lmbAbstractTools
         $this->toolkit->getFlashBox()->addMessage($message);
     }
 
+    /** @throw lmbControllerNotFoundException */
     function createController($controller_name, $namespace = '')
     {
         if (strrpos($controller_name, 'Controller') == 0)
