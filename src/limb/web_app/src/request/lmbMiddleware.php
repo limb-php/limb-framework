@@ -11,8 +11,6 @@ use limb\web_app\src\filter\lmbSessionStartupFilter;
 
 class lmbMiddleware extends lmbFilterChain
 {
-    protected $pre_dispatch_filters = array();
-    protected $pre_action_filters = array();
     protected $default_controller_name = null;
     protected $request_dispatcher = null;
 
@@ -42,16 +40,6 @@ class lmbMiddleware extends lmbFilterChain
         $this->request_dispatcher = $dispatcher;
     }
 
-    function addPreDispatchFilter($filter)
-    {
-        $this->pre_dispatch_filters[] = $filter;
-    }
-
-    function addPreActionFilter($filter)
-    {
-        $this->pre_action_filters[] = $filter;
-    }
-
     protected function _addFilters($filters)
     {
         foreach ($filters as $filter)
@@ -61,15 +49,12 @@ class lmbMiddleware extends lmbFilterChain
     protected function _registerFilters(): void
     {
         $this->registerFilter(new lmbHandle(lmbSessionStartupFilter::class,
-            lmbEnv::get('LIMB_SESSION_DRIVER'), lmbEnv::get('LIMB_SESSION_MAX_LIFE_TIME')));
+            lmbEnv::get('LIMB_SESSION_DRIVER'), lmbEnv::get('LIMB_SESSION_MAX_LIFE_TIME'))
+        );
 
         $this->registerFilter(new lmbHandle(lmbAutoDbTransactionFilter::class));
 
-        $this->_addFilters($this->pre_dispatch_filters);
-
         $this->registerFilter($this->getRequestDispatcher());
-
-        $this->_addFilters($this->pre_action_filters);
     }
 
     function process($request, $callback = null): \limb\net\src\lmbHttpResponse

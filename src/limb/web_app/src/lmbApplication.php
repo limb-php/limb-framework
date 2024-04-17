@@ -13,6 +13,8 @@ class lmbApplication
 {
     protected $bootstraps = [];
 
+    protected $default_controller_name = NotFoundController::class;
+    protected $dispatcher;
     protected lmbExceptionHandler $handler;
 
     public function __construct()
@@ -29,7 +31,7 @@ class lmbApplication
 
             $this->_bootstrap($request);
 
-            $middleware = lmbMiddleware::create()->setDefaultControllerName(NotFoundController::class);
+            $middleware = lmbMiddleware::create()->setDefaultControllerName($this->default_controller_name);
 
             $response = $middleware->process($request, function ($request) {
                 return $this->_callControllerAction($request);

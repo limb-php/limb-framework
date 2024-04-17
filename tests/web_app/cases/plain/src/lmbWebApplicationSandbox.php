@@ -21,8 +21,6 @@ class lmbWebApplicationSandbox extends lmbFilterChain
 
     function __construct($app = null)
     {
-        parent::__construct();
-
         if (!is_object($app))
             $app = new lmbWebApplication();
 

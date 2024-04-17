@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace limb\filter_chain\src;
@@ -67,10 +67,6 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
      * @var integer Index of the current active filter while running the chain
      */
     protected $counter = -1;
-
-    function __construct()
-    {
-    }
 
     /**
      * Registers filter (or handle on a filter) in the chain.
