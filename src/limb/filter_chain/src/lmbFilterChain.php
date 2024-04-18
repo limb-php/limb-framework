@@ -75,10 +75,7 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
      */
     function registerFilter($filter, ...$agrs)
     {
-        $this->filters[] = [
-            'filter' => $filter,
-            'args' => $agrs
-        ];
+        $this->filters[] = [$filter, $agrs];
 
         return $this;
     }
@@ -103,10 +100,9 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
         $this->counter++;
 
         if (isset($this->filters[$this->counter])) {
-            $filter = $this->filters[$this->counter]['filter'];
+            [$filter, $agrs] = $this->filters[$this->counter];
             if(!is_object($filter)){
-                $args = $this->filters[$this->counter]['args'];
-                $filter = new $filter(...$args);
+                $filter = new $filter(...$agrs);
             }
 
             return $filter->run($this, $request, $callback);
