@@ -15,19 +15,11 @@ class lmbMiddlewarePipe extends lmbFilterChain
         return new static();
     }
 
-    protected function _addFilters($filters)
-    {
-        foreach ($filters as $filter)
-            $this->registerFilter($filter);
-    }
-
     protected function _registerFilters(): void
     {
-        $this->registerFilter(new lmbHandle(lmbSessionStartupFilter::class,
-            lmbEnv::get('LIMB_SESSION_DRIVER'), lmbEnv::get('LIMB_SESSION_MAX_LIFE_TIME'))
-        );
+        $this->registerFilter(lmbSessionStartupFilter::class);
 
-        $this->registerFilter(new lmbHandle(lmbAutoDbTransactionFilter::class));
+        $this->registerFilter(lmbAutoDbTransactionFilter::class);
     }
 
     function process($request, $callback = null): \limb\net\src\lmbHttpResponse
