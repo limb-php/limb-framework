@@ -199,7 +199,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
         $this->_assertDispatchedOk($controller, $controller->getDefaultAction(), __LINE__);
 
-        $this->assertEquals(150, request()->get('id'));
+        $this->assertEquals(150, request()->getAttribute('id'));
         $this->assertEquals('bla-bla', request()->getAttribute('extra'));
     }
 

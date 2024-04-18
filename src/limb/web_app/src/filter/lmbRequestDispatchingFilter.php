@@ -33,7 +33,7 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
         $this->setDefaultControllerName($default_controller_name);
     }
 
-    function setDefaultControllerName($default_controller_name)
+    function setDefaultControllerName($default_controller_name): void
     {
         $this->default_controller_name = $default_controller_name;
     }
@@ -42,8 +42,12 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
     {
         $dispatched_params = $this->dispatcher->dispatch($request);
 
-        foreach ($dispatched_params as $name => $value) {
-            $request = $request->withAttribute($name, $value);
+        if (!empty($dispatched_params)) {
+            // setup dispatched params to request as attributes
+            foreach ($dispatched_params as $name => $value) {
+                $request = $request->withAttribute($name, $value);
+            }
+            $this->toolkit->setRequest($request);
         }
 
         $controller = $this->_createController($dispatched_params);

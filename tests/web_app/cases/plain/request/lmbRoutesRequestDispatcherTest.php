@@ -71,8 +71,7 @@ class lmbRoutesRequestDispatcherTest extends TestCase
         $result = $dispatcher->dispatch($this->request);
 
         $this->assertEquals('news', $result['controller']);
-        //$this->assertEquals('admin_display', $result['action']);
-        $this->assertEquals('display', $result['action']);
+        $this->assertEquals('admin_display', $result['action']);
     }
 
     function testUseControllerNameFromRequestEvenIfMatchedByRoutes()
@@ -94,10 +93,8 @@ class lmbRoutesRequestDispatcherTest extends TestCase
         $dispatcher = new lmbRoutesRequestDispatcher();
         $result = $dispatcher->dispatch($this->request);
 
-        //$this->assertEquals('my_controller', $result['controller']);
-        //$this->assertEquals('admin_display', $result['action']);
-        $this->assertEquals('news', $result['controller']);
-        $this->assertEquals('display', $result['action']);
+        $this->assertEquals('my_controller', $result['controller']);
+        $this->assertEquals('admin_display', $result['action']);
     }
 
     function testNormalizeUrl()
