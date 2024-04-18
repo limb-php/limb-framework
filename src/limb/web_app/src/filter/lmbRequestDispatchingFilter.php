@@ -44,7 +44,6 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
 
         foreach ($dispatched_params as $name => $value) {
             $request = $request->withAttribute($name, $value);
-            $this->toolkit->setRequest($request);
         }
 
         $controller = $this->_createController($dispatched_params);

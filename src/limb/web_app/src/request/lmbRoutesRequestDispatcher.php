@@ -14,6 +14,7 @@ use limb\toolkit\src\lmbToolkit;
 use limb\net\src\lmbUri;
 use limb\core\src\lmbEnv;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * class lmbRoutesRequestDispatcher.
@@ -47,15 +48,16 @@ class lmbRoutesRequestDispatcher implements lmbRequestDispatcherInterface
 
         $result = $routes->dispatch(lmbUriHelper::getPathFromLevel($uri, $level));
 
-//        if ($action = $request->getAttribute('action'))
-//            $result['action'] = $action;
-//        if ($controller = $request->getAttribute('controller'))
-//            $result['controller'] = $controller;
+        // get override controller and action from request
+        if ($action = $request->getAttribute('action'))
+            $result['action'] = $action;
+        if ($controller = $request->getAttribute('controller'))
+            $result['controller'] = $controller;
 
         return $result;
     }
 
-    protected function _getHttpBasePathOffsetLevel(lmbUri $uri): int
+    protected function _getHttpBasePathOffsetLevel(UriInterface $uri): int
     {
         if (!$this->path_offset)
             return 0;
