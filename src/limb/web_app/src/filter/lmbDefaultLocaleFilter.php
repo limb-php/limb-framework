@@ -9,6 +9,7 @@
 
 namespace limb\web_app\src\filter;
 
+use limb\core\src\lmbEnv;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
 
@@ -22,9 +23,12 @@ class lmbDefaultLocaleFilter implements lmbInterceptingFilterInterface
 {
     protected $default_locale;
 
+    /**
+     * @uses LIMB_DEFAULT_LOCALE
+     */
     function __construct($default_locale = 'en_US')
     {
-        $this->default_locale = $default_locale;
+        $this->default_locale = $default_locale ?? lmbEnv::get('LIMB_DEFAULT_LOCALE');
     }
 
     function run($filter_chain, $request = null, $callback = null)
