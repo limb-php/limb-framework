@@ -28,7 +28,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
     protected $_popup = true;
     protected $_back_url = array();
 
-    protected function _passLocalAttributesToView($view): void
+    protected function _passLocalAttributesToView(): void
     {
         //passing back_url string into view
         if (is_array($this->_back_url))
@@ -36,7 +36,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         else
             $this->back_url = $this->_back_url;
 
-        parent::_passLocalAttributesToView($view);
+        parent::_passLocalAttributesToView();
     }
 
 

@@ -192,8 +192,10 @@ class LmbController
                     $response = response();
 
                     if (is_a($controller_response, lmbViewInterface::class)) {
-                        $this->_passLocalAttributesToView($controller_response);
-                        $response->getBody()->write($controller_response->render());
+                        $this->toolkit->setView($controller_response);
+                        $this->_passLocalAttributesToView();
+
+                        $response->getBody()->write($this->getView()->render());
 
                         return $response;
                     } elseif (
@@ -220,7 +222,7 @@ class LmbController
         }
 
         if( $view = $this->getView() ) {
-            $this->_passLocalAttributesToView($view);
+            $this->_passLocalAttributesToView();
 
             $response = response();
             $response->getBody()->write($view->render());
@@ -255,17 +257,17 @@ class LmbController
         $this->toolkit->setView( $this->toolkit->createViewByTemplate($template_path) );
     }
 
-    protected function _passLocalAttributesToView($view): void
+    protected function _passLocalAttributesToView(): void
     {
         if ($this->form_id && $this->error_list)
-            $view->setFormErrors($this->form_id, $this->error_list);
+            $this->getView()->setFormErrors($this->form_id, $this->error_list);
 
         foreach ($this->form_datasource as $form_id => $datasource)
-            $view->setFormDatasource($form_id, $datasource);
+            $this->getView()->setFormDatasource($form_id, $datasource);
 
         foreach (get_object_vars($this) as $name => $value) {
             if ($name[0] !== '_')
-               $view->set($name, $value);
+                $this->getView()->set($name, $value);
         }
     }
 
