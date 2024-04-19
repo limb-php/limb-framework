@@ -239,6 +239,17 @@ class LmbController
             $this->setFormDatasource($datasource);
     }
 
+    function setFormDatasource($datasource, $form_id = null): void
+    {
+        if ($form_id !== null)
+            $this->form_id  = $form_id;
+
+        if (!$this->form_id)
+            throw new lmbException('There is no form id specified');
+
+        $this->form_datasource[$this->form_id] = $datasource;
+    }
+
     function setTemplate($template_path)
     {
         $this->toolkit->setView( $this->toolkit->createViewByTemplate($template_path) );
@@ -256,17 +267,6 @@ class LmbController
             if ($name[0] !== '_')
                $view->set($name, $value);
         }
-    }
-
-    function setFormDatasource($datasource, $form_id = null): void
-    {
-        if (!$form_id && !$this->form_id)
-            throw new lmbException('There is no form id specified');
-
-        if (!$form_id)
-            $form_id = $this->form_id;
-
-        $this->form_datasource[$form_id] = $datasource;
     }
 
     function redirect($params_or_url = array(), $route_url = null): ResponseInterface
