@@ -6,9 +6,6 @@ use limb\core\src\lmbEnv;
 use limb\datetime\src\lmbDateTime;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\dbal\src\drivers\lmbAuditDbConnection;
-use limb\log\src\lmbLog;
-use limb\log\src\lmbLogPlainFileWriter;
-use limb\net\src\lmbHttpResponse;
 use limb\toolkit\src\lmbToolkit;
 
 class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
@@ -26,12 +23,12 @@ class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
 
         $response = $filter_chain->next($request, $callback);
 
-        $this->_printStat($response, $conn->getStats());
+        $this->_printStat($conn->getStats());
 
         return $response;
     }
 
-    protected function _printStat(lmbHttpResponse $response, $info_arr)
+    protected function _printStat($info_arr)
     {
         $time = (new lmbDateTime())->format("Y-m-d h:i:s");
         $output = $time . "\n";
@@ -50,13 +47,7 @@ class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
         }
         $output .= "Total Time: " . $total_time . "\n";
 
-        if ($response->getContentType() == 'text/html') {
-            $response->write("<!--" . $output . " -->");
-        }
-
-        $log = new lmbLog();
-        $log->registerWriter(new lmbLogPlainFileWriter(lmbEnv::get('LIMB_VAR_DIR') . "/log/db.log"));
+        $log = lmbToolkit::instance()->getLog('db');
         $log->info($output);
-
     }
 }
