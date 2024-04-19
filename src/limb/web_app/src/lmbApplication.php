@@ -3,6 +3,7 @@
 namespace limb\web_app\src;
 
 use limb\core\src\exception\lmbException;
+use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
 use limb\web_app\src\exception\lmbExceptionHandler;
@@ -15,9 +16,9 @@ use Psr\Http\Message\ResponseInterface;
 
 class lmbApplication
 {
-    protected $bootstraps = [];
-
     protected $default_controller_name = NotFoundController::class;
+    protected $bootstraps = [];
+    protected lmbInterceptingFilterInterface $middleware;
     protected lmbRequestDispatcherInterface $dispatcher;
     protected lmbExceptionHandler $handler;
 
@@ -25,21 +26,36 @@ class lmbApplication
     {
         $error500_page = dirname(__FILE__) . '/../template/server_error.html';
         $this->handler = new lmbExceptionHandler($error500_page);
+    }
 
+    protected function _registerDispatcher()
+    {
         $this->dispatcher = new lmbCompositeRequestDispatcher();
         $this->dispatcher->addDispatcher(new lmbRoutesRequestDispatcher());
+    }
+
+    protected function _registerMiddleware()
+    {
+        $this->middleware = lmbMiddlewarePipe::create();
+    }
+
+    protected function _registerBootstraps()
+    {
     }
 
     function process($request): ResponseInterface
     {
         try {
+            $this->_registerDispatcher();
+            $this->_registerMiddleware();
             $this->_registerBootstraps();
 
             $this->_bootstrap($request);
 
-            $response = lmbMiddlewarePipe::create()->process($request, function ($request) {
+            $response = $this->middleware->process($request, function ($request) {
                 //$dispatched = lmbToolkit::instance()->getDispatchedController();
                 $dispatched = $this->_getDispatchedController($request);
+                lmbToolkit::instance()->setDispatchedController($dispatched);
 
                 return $this->_callControllerAction($dispatched, $request);
             });
@@ -64,10 +80,6 @@ class lmbApplication
         }
 
         return $response;
-    }
-
-    function _registerBootstraps()
-    {
     }
 
     function registerBootstrap($bootstrap)
@@ -99,8 +111,8 @@ class lmbApplication
 
 //        foreach ($dispatched_params as $name => $value) {
 //            $request = $request->withAttribute($name, $value);
-//            lmbToolkit::instance()->setRequest($request);
 //        }
+//        lmbToolkit::instance()->setRequest($request);
 
         return $this->_createController($dispatched_params);
     }
