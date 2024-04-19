@@ -192,7 +192,8 @@ class LmbController
                     $response = response();
 
                     if (is_a($controller_response, lmbViewInterface::class)) {
-                        $response->getBody()->write( $controller_response->render() );
+                        $this->_passLocalAttributesToView($controller_response);
+                        $response->getBody()->write($controller_response->render());
 
                         return $response;
                     } elseif (
@@ -219,7 +220,7 @@ class LmbController
         }
 
         if( $view = $this->getView() ) {
-            $this->_passLocalAttributesToView();
+            $this->_passLocalAttributesToView($view);
 
             $response = response();
             $response->getBody()->write($view->render());
@@ -243,30 +244,18 @@ class LmbController
         $this->toolkit->setView( $this->toolkit->createViewByTemplate($template_path) );
     }
 
-    protected function _passLocalAttributesToView(): void
+    protected function _passLocalAttributesToView($view): void
     {
-        if ($this->form_id && $this->error_list) {
-            $this->getView()->setFormErrors($this->form_id, $this->error_list);
-        }
+        if ($this->form_id && $this->error_list)
+            $view->setFormErrors($this->form_id, $this->error_list);
 
         foreach ($this->form_datasource as $form_id => $datasource)
-            $this->getView()->setFormDatasource($form_id, $datasource);
+            $view->setFormDatasource($form_id, $datasource);
 
         foreach (get_object_vars($this) as $name => $value) {
-            if ($name[0] == '_')
-                continue;
-            $this->getView()->set($name, $value);
+            if ($name[0] !== '_')
+               $view->set($name, $value);
         }
-    }
-
-    function passToView($var, $value): void
-    {
-        $this->getView()->set($var, $value);
-    }
-
-    function resetView(): void
-    {
-        $this->getView()->reset();
     }
 
     function setFormDatasource($datasource, $form_id = null): void
