@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cms\src\Controllers;
+namespace limb\cms\src\Controllers\Admin;
 
 use limb\cms\src\Commands\lmbCmsPublishObjectCommand;
 use limb\cms\src\Commands\lmbCmsUnpublishObjectCommand;
@@ -30,6 +30,7 @@ abstract class AdminObjectController extends LmbController
     protected $_popup = true;
     protected $_back_url = array();
 
+    /** @var $item lmbActiveRecord */
     protected $item = null;
 
     function __construct()
@@ -40,7 +41,7 @@ abstract class AdminObjectController extends LmbController
             throw new lmbException('Object class name is not specified');
     }
 
-    protected function _passLocalAttributesToView(): void
+    protected function _passLocalAttributesToView($view): void
     {
         //passing back_url string into view
         if (is_array($this->_back_url))
@@ -48,7 +49,7 @@ abstract class AdminObjectController extends LmbController
         else
             $this->back_url = $this->_back_url;
 
-        parent::_passLocalAttributesToView();
+        parent::_passLocalAttributesToView($view);
     }
 
     function doCreate(RequestInterface $request)
@@ -69,7 +70,7 @@ abstract class AdminObjectController extends LmbController
                 return $this->_endDialog();
             }
         } else {
-            $this->item->import($request);
+            $this->item->import($request->export());
             $this->_initCreateForm($request);
         }
     }
@@ -140,10 +141,12 @@ abstract class AdminObjectController extends LmbController
         $this->_onBeforeCreate($request);
 
         $this->_onBeforeSave($request);
-        $this->item->saveSkipValidation();
+        $result = $this->item->saveSkipValidation();
         $this->_onAfterSave($request);
 
         $this->_onAfterCreate($request);
+
+        return $result;
     }
 
     protected function _update($request)
@@ -151,10 +154,12 @@ abstract class AdminObjectController extends LmbController
         $this->_onBeforeUpdate($request);
 
         $this->_onBeforeSave($request);
-        $this->item->saveSkipValidation();
+        $result = $this->item->saveSkipValidation();
         $this->_onAfterSave($request);
 
         $this->_onAfterUpdate($request);
+
+        return $result;
     }
 
     protected function _endDialog(): ResponseInterface

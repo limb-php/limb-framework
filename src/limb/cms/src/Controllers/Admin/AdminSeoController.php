@@ -1,6 +1,6 @@
 <?php
 
-namespace limb\cms\src\Controllers;
+namespace limb\cms\src\Controllers\Admin;
 
 use limb\cms\src\model\lmbCmsSeo;
 

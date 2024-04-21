@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cms\src\Controllers;
+namespace limb\cms\src\Controllers\Admin;
 
 use limb\web_app\src\Controllers\LmbController;
 

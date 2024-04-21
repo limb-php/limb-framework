@@ -1,6 +1,6 @@
 <?php
 
-namespace limb\cms\src\Controllers;
+namespace limb\cms\src\Controllers\Admin;
 
 use limb\active_record\src\lmbActiveRecord;
 use limb\validation\src\rule\MatchRule;

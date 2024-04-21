@@ -10,7 +10,7 @@
  * @package    cms
  */
 
-namespace limb\cms\src\Controllers;
+namespace limb\cms\src\Controllers\Admin;
 
 use limb\cms\src\model\lmbCmsDocument;
 use limb\active_record\src\lmbActiveRecord;
