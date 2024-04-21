@@ -27,7 +27,12 @@ class lmbValidator
      * @see lmbValidationRule
      * @var array List of added validation rules
      */
-    protected $rules = array();
+    protected $rules = [];
+
+    /**
+     * @var array List of field names
+     */
+    protected $real_field_names = [];
 
     /**
      * @var lmbErrorList List of validation errors
@@ -63,6 +68,11 @@ class lmbValidator
     function setErrorList($error_list)
     {
         $this->error_list = $error_list;
+    }
+
+    function setRealFieldNames($real_field_names)
+    {
+        $this->real_field_names = $real_field_names;
     }
 
     /**
@@ -128,6 +138,7 @@ class lmbValidator
     {
         foreach ($this->rules as $rule)
             $rule->validate($datasource, $this->getErrorList());
+        $this->getErrorList()->renameFields($this->real_field_names);
 
         return $this->isValid();
     }
