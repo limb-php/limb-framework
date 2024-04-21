@@ -41,8 +41,8 @@ class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
      */
     function __construct($session_type = 'native', $session_lifetime = 0)
     {
-        $this->session_type = $session_type ?? lmbEnv::get('LIMB_SESSION_DRIVER');
-        $this->session_lifetime = $session_lifetime ?? lmbEnv::get('LIMB_SESSION_MAX_LIFE_TIME');
+        $this->session_type = lmbEnv::get('LIMB_SESSION_DRIVER') ?? $session_type;
+        $this->session_lifetime = lmbEnv::get('LIMB_SESSION_MAX_LIFE_TIME') ?? $session_lifetime;
     }
 
     /**
