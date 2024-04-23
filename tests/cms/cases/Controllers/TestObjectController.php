@@ -2,7 +2,7 @@
 
 namespace tests\cms\cases\Controllers;
 
-use limb\cms\src\Controllers\lmbObjectController;
+use limb\cms\src\Controllers\Admin\lmbObjectController;
 
 class TestObjectController extends lmbObjectController
 {

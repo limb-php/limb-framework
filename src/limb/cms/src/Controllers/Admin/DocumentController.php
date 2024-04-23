@@ -17,7 +17,7 @@ use limb\active_record\src\lmbActiveRecord;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\core\src\exception\lmbException;
 
-class AdminDocumentController extends lmbAdminObjectController
+class DocumentController extends lmbAdminObjectController
 {
     protected $_object_class_name = lmbCmsDocument::class;
 

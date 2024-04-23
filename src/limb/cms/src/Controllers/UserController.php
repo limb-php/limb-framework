@@ -16,8 +16,10 @@ class UserController extends LmbController
         if (!$request->hasPost())
             return;
 
-        if (!$user = lmbActiveRecord::findFirst(lmbCmsUser::class, array('email = ?', $this->request->get('email'))))
-            return $this->flashError("Пользователь с таким значением email не найден", array('Field' => 'email'));
+        if (!$user = lmbActiveRecord::findFirst(lmbCmsUser::class, array('email = ?', $this->request->get('email')))){
+            $this->flashError("Пользователь с таким значением email не найден", array('Field' => 'email'));
+            return;
+        }
 
         $this->useForm('password_form');
 
@@ -41,9 +43,9 @@ class UserController extends LmbController
         $this->flashAndRedirect("Новый пароль выслан на ваш email", '/user/login');
     }
 
-    function doApprove()
+    function doApprove($request)
     {
-        if (!$user = lmbCmsUser::findFirst(array('generated_password = ?', $this->request->get('id')))) {
+        if (!$user = lmbCmsUser::findFirst(array('generated_password = ?', $request->get('id')))) {
             $this->flashAndRedirect('Вы прошли по неверной ссылке! Убедитесь, что она соответствует ссылке в отправленном вам письме', '/user/forgot_password');
             return;
         }

@@ -8,7 +8,7 @@ use limb\core\src\lmbCollection;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class AdminTextBlockController extends lmbAdminObjectController
+class TextBlockController extends lmbAdminObjectController
 {
     protected $_form_name = 'object_form';
     protected $_object_class_name = lmbCmsTextBlock::class;

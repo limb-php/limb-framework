@@ -9,7 +9,7 @@
 
 namespace tests\cms\cases\Controllers;
 
-use limb\cms\src\Controllers\AdminTextBlockController;
+use limb\cms\src\Controllers\Admin\TextBlockController;
 use limb\cms\src\model\lmbCmsTextBlock;
 use PHPUnit\Framework\TestCase;
 use limb\active_record\src\lmbActiveRecord;
@@ -48,7 +48,7 @@ class AdminTextBlockControllerTest extends TestCase
 
         $request = new lmbHttpRequest('/admin/test_block/', 'GET');
 
-        $controller = new AdminTextBlockController();
+        $controller = new TextBlockController();
         $response = $controller->doDisplay($request);
 
         $this->assertCount(1, $controller->items);
@@ -66,7 +66,7 @@ class AdminTextBlockControllerTest extends TestCase
         $request = new lmbHttpRequest('/admin/test_block/edit/', "POST", array(), array('content' => 'content2_2'));
         $request = $request->withAttribute('id', $object->getIdentifier());
 
-        $controller = new AdminTextBlockController();
+        $controller = new TextBlockController();
         $response = $controller->doEdit($request);
 
         $this->assertInstanceOf(lmbCmsTextBlock::class, $controller->item);

@@ -12,12 +12,12 @@ namespace limb\cms\src\Controllers\Admin;
 use limb\web_app\src\Controllers\LmbController;
 
 /**
- * class AdminController.
+ * class IndexController.
  *
  * @package cms
  * @version $Id$
  */
-class AdminController extends LmbController
+class IndexController extends LmbController
 {
 
 }

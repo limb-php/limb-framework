@@ -2,7 +2,7 @@
 
 namespace tests\cms\cases\Controllers;
 
-use limb\cms\src\Controllers\lmbAdminObjectController;
+use limb\cms\src\Controllers\Admin\lmbAdminObjectController;
 use limb\net\src\lmbHttpResponse;
 
 class TestAdminObjectController extends lmbAdminObjectController

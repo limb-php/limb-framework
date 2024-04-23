@@ -7,7 +7,7 @@ use limb\validation\src\rule\MatchRule;
 use limb\validation\src\lmbValidator;
 use limb\cms\src\model\lmbCmsUser;
 
-class AdminUserController extends lmbAdminObjectController
+class UserController extends lmbAdminObjectController
 {
     protected $_object_class_name = lmbCmsUser::class;
 

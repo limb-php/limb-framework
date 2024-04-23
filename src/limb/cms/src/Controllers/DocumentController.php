@@ -2,6 +2,7 @@
 
 namespace limb\cms\src\Controllers;
 
+use limb\cms\src\Controllers\Admin\lmbObjectController;
 use limb\cms\src\model\lmbCmsDocument;
 
 class DocumentController extends lmbObjectController

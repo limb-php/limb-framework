@@ -15,12 +15,12 @@ use limb\core\src\exception\lmbException;
 use limb\active_record\src\lmbActiveRecord;
 
 /**
- * abstract class AdminNodeWithObjectController.
+ * abstract class NodeWithObjectController.
  *
  * @package cms
  * @version $Id$
  */
-abstract class AdminNodeWithObjectController extends LmbController
+abstract class NodeWithObjectController extends LmbController
 {
     protected $_form_name = 'object_form';
     protected $_controller_name = '';
