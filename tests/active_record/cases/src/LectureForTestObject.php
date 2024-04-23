@@ -7,17 +7,22 @@ use limb\active_record\src\lmbActiveRecord;
 class LectureForTestObject extends lmbActiveRecord
 {
     protected $_db_table_name = 'lecture_for_test';
-    protected $_many_belongs_to = array('course' => array(
-        'field' => 'course_id',
-        'class' => CourseForTestObject::class
-    ),
-        'alt_course' => array('field' => 'alt_course_id',
+    protected $_default_sort_params = ['lecture_for_test.id' => 'ASC'];
+    protected $_many_belongs_to = array(
+        'course' => array(
+            'field' => 'course_id',
+            'class' => CourseForTestObject::class
+        ),
+        'alt_course' => array(
+            'field' => 'alt_course_id',
             'class' => CourseForTestObject::class,
             'can_be_null' => true
         ),
-        'cached_program' => array('field' => 'program_id',
+        'cached_program' => array(
+            'field' => 'program_id',
             'class' => ProgramForTestObject::class
-        ));
+        )
+    );
 
     protected $_test_validator;
 

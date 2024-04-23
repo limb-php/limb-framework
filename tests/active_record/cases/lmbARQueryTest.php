@@ -285,7 +285,7 @@ class lmbARQueryTest extends lmbARBaseTestCase
 
         $this->conn->resetStats();
 
-        $query = lmbARQuery:: create(LectureForTestObject::class, array(), $this->conn);
+        $query = lmbARQuery::create(LectureForTestObject::class, array(), $this->conn);
         $arr = $query->eagerAttach('course')->eagerAttach('alt_course')->fetch()->getArray();
 
         $this->assertEquals($this->conn->countQueries(), 3);
@@ -331,7 +331,7 @@ class lmbARQueryTest extends lmbARBaseTestCase
 
         $this->conn->resetStats();
 
-        $query = lmbARQuery:: create(CourseForTestObject::class, array(), $this->conn);
+        $query = lmbARQuery::create(CourseForTestObject::class, array(), $this->conn);
         $arr = $query->eagerAttach('lectures', array('sort' => array('title' => 'ASC')))->fetch()->getArray();
 
         $this->assertEquals($this->conn->countQueries(), 2);
@@ -471,12 +471,12 @@ class lmbARQueryTest extends lmbARBaseTestCase
 
         $this->conn->resetStats();
 
-        $query = lmbARQuery:: create(CourseForTestObject::class, array(), $this->conn);
-        $query->where(lmbSQLCriteria:: in('id', array($course1->getId(), $course2->getId())));
+        $query = lmbARQuery::create(CourseForTestObject::class, array(), $this->conn);
+        $query->where(lmbSQLCriteria::in('id', [$course1->getId(), $course2->getId()]));
         $rs = $query->eagerAttach('lectures', array('join' => 'alt_course'))->fetch();
         $arr = $rs->getArray();
 
-        $this->assertEquals($this->conn->countQueries(), 2);
+        $this->assertEquals(2, $this->conn->countQueries());
 
         //make sure we really eager fetching
         $this->db->delete('lecture_for_test');
@@ -486,20 +486,20 @@ class lmbARQueryTest extends lmbARBaseTestCase
 
         $this->assertInstanceOf(CourseForTestObject::class, $arr[0]);
         $this->assertEquals($arr[0]->getTitle(), $course1->getTitle());
-        $lectures = $arr[0]->getLectures()->getArray();
-        $this->assertEquals(count($lectures), 3);
-        $this->assertEquals($lectures[0]->getId(), $lecture1->getId());
-        $this->assertEquals($lectures[0]->getAltCourse()->getTitle(), $alt_course2->getTitle());
-        $this->assertEquals($lectures[1]->getId(), $lecture3->getId());
-        $this->assertEquals($lectures[1]->getAltCourse()->getTitle(), $alt_course2->getTitle());
-        $this->assertEquals($lectures[2]->getId(), $lecture4->getId());
-        $this->assertEquals($lectures[2]->getAltCourse()->getTitle(), $alt_course1->getTitle());
 
+        $lectures = $arr[0]->getLectures()->getArray();
+        $this->assertCount(3, $lectures);
+        $this->assertEquals($lecture1->getId(), $lectures[0]->getId());
+        $this->assertEquals($lecture3->getId(), $lectures[1]->getId());
+        $this->assertEquals($lecture4->getId(), $lectures[2]->getId());
+        $this->assertEquals($alt_course2->getId(), $lectures[0]->getAltCourse()->getId());
+        $this->assertEquals($alt_course2->getId(), $lectures[1]->getAltCourse()->getId());
+        $this->assertEquals($alt_course1->getId(), $lectures[2]->getAltCourse()->getId());
 
         $this->assertInstanceOf(CourseForTestObject::class, $arr[1]);
         $this->assertEquals($arr[1]->getTitle(), $course2->getTitle());
         $lectures = $arr[1]->getLectures()->getArray();
-        $this->assertEquals(1, count($lectures));
+        $this->assertCount(1, $lectures);
         $this->assertEquals($lectures[0]->getId(), $lecture2->getId());
         $this->assertEquals($lectures[0]->getAltCourse()->getTitle(), $alt_course1->getTitle());
 

@@ -47,7 +47,7 @@ class lmbActiveRecord extends lmbObject
     /**
      * @var array global event listeners which receieve events from ALL lmbActiveRecord instances
      */
-    protected static $_global_listeners = array();
+    protected static $_global_listeners = [];
     /**
      * @var lmbDbConnectionInterface database connection which is shared by all lmbActiveRecord instances
      *             if no connection passed explicitly into constructor
@@ -75,7 +75,7 @@ class lmbActiveRecord extends lmbObject
     /**
      * @var array list of database table fields
      */
-    protected $_db_table_fields = array();
+    protected $_db_table_fields = [];
     /**
      * @var boolean reflects new or loaded status of an object
      */
@@ -87,35 +87,35 @@ class lmbActiveRecord extends lmbObject
     /**
      * @var array all has-one relations of an object
      */
-    protected $_has_one = array();
+    protected $_has_one = [];
     /**
      * @var array all belongs-to relations of an object
      */
-    protected $_belongs_to = array();
+    protected $_belongs_to = [];
     /**
      * @var array all many-belongs-to relations of an object
      */
-    protected $_many_belongs_to = array();
+    protected $_many_belongs_to = [];
     /**
      * @var array all has-many relations of an object
      */
-    protected $_has_many = array();
+    protected $_has_many = [];
     /**
      * @var array all has-many-to-many relations of an object
      */
-    protected $_has_many_to_many = array();
+    protected $_has_many_to_many = [];
     /**
      * @var array all value object relations of an object
      */
-    protected $_composed_of = array();
+    protected $_composed_of = [];
     /**
      * @var array all relations of an object
      */
-    protected $_relations = array();
+    protected $_relations = [];
     /**
      * @var array all relations of an object to any other object. Like "has one", "many belongs to", "belongs_to".
      */
-    protected $_single_object_relations = array();
+    protected $_single_object_relations = [];
     /**
      * @var boolean true during the object's saving procedure
      */
@@ -135,15 +135,15 @@ class lmbActiveRecord extends lmbObject
     /**
      * @var array array of attributes which should not be loaded at once but only on demand
      */
-    protected $_lazy_attributes = array();
+    protected $_lazy_attributes = [];
     /**
      * @var array array of dirty(changed) attributes of an object
      */
-    protected $_dirty_props = array();
+    protected $_dirty_props = [];
     /**
      * @var array sort params used to order objects during database retrieval
      */
-    protected $_default_sort_params = array();
+    protected $_default_sort_params = [];
 
     protected $_ignore_fields = [];
 
@@ -471,8 +471,8 @@ class lmbActiveRecord extends lmbObject
      */
     function getDefaultSortParams()
     {
-        if (!$this->_default_sort_params)
-            $this->_default_sort_params = array($this->getTableName() . '.' . $this->_primary_key_name => 'ASC');
+        //if (!$this->_default_sort_params)
+            //$this->_default_sort_params = array($this->getTableName() . '.' . $this->_primary_key_name => 'ASC');
 
         return $this->_default_sort_params;
     }
