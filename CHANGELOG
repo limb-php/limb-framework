@@ -17,9 +17,14 @@ consider viewing CHANGELOG files for each package.
   * CACHE: implements simple cache CacheInterface (PSR-16)
   * LOG: implements LoggerInterface (PSR-3)
   * LOG: flexible log-config
+  * ACTIVE_RECORD: performance improved: removed $_db_conn, $_db_table, $_db_meta_info, $_metas properties from lmbActiveRecord
+  * ACTIVE_RECORD: $_default_sort_params no more return order as [id_field => direction] by default
+  * VIEW: toolkit::getView() no more return lmbDummyView by default
+  * WEB_APP: performance improved - LmbController (removed $_view, $request, $response)
+  * WEB_APP: new debug error page
+  * WEB_APP: new versions of lmbApplication and lmbMiddlewarePipe
+  * WEB_APP: const LIMB_DEFAULT_LOCALE added
   * SESSION: realize SessionHandlerInterface
-  * WEB_APP: performance improved - LmbController (removed )
-  * ACTIVE_RECORD: performance improved - lmbActiveRecord (remove $_db_conn, $_db_table, $_db_meta_info, $_metas properties)
 
 ===== Limb4.4.x (Tusk) =====
 

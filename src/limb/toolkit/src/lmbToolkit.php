@@ -141,7 +141,9 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method \limb\view\src\lmbViewInterface|null getView()
  * @method setDispatchedController($dispatched)
  * @method \limb\web_app\src\Controllers\lmbController getDispatchedController()
- * @method \limb\web_app\src\Controllers\lmbController createController($controller_name, $namespace = '')
+ * @method \limb\web_app\src\Controllers\lmbController createController($controller_name, $namespace = '') {
+ *      @throws \limb\web_app\src\exception\lmbControllerNotFoundException
+ * }
  * @method getRouteUrlByName($route_name, $params = array())
  * @method string getRoutesUrl($params = array(), $route_name = '', $skip_controller = false)
  * @method \limb\web_app\src\request\lmbRoutes getRoutes()

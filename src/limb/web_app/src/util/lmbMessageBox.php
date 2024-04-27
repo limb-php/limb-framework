@@ -27,12 +27,15 @@ class lmbMessageBox
         $this->reset();
     }
 
-    function reset()
+    function reset($type = null)
     {
-        $this->messages = [
-            self::ERRORS => [],
-            self::MESSAGES => []
-        ];
+        if($type)
+            $this->messages[$type] = [];
+        else
+            $this->messages = [
+                self::ERRORS => [],
+                self::MESSAGES => []
+            ];
     }
 
     function resetMessages()
@@ -53,6 +56,11 @@ class lmbMessageBox
     function addMessage($message)
     {
         $this->messages[self::MESSAGES][] = $message;
+    }
+
+    function add($type, $message)
+    {
+        $this->messages[$type][] = $message;
     }
 
     function getErrors()
@@ -79,8 +87,8 @@ class lmbMessageBox
     {
         $result = [];
 
-        foreach ($this->getErrors() as $error)
-            $result[] = ['message' => $error, 'is_error' => true, 'is_message' => false, 'type' => 'error'];
+        foreach ($this->getErrors() as $message)
+            $result[] = ['message' => $message, 'is_error' => true, 'is_message' => false, 'type' => 'error'];
 
         foreach ($this->getMessages() as $message)
             $result[] = ['message' => $message, 'is_message' => true, 'is_error' => false, 'type' => 'message'];
