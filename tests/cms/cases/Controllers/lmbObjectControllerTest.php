@@ -13,6 +13,8 @@ use PHPUnit\Framework\TestCase;
 use limb\active_record\src\lmbActiveRecord;
 use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
+use tests\cms\cases\src\Controllers\TestObjectController;
+use tests\cms\cases\src\Model\ObjectForTesting;
 
 require_once(dirname(__FILE__) . '/../.setup.php');
 
@@ -68,5 +70,17 @@ class lmbObjectControllerTest extends TestCase
 
         $this->assertInstanceOf(ObjectForTesting::class, $controller->item);
         $this->assertEquals($controller->item->getId(), $object->getId());
+    }
+
+    function testDoTestExtraParams()
+    {
+        $request = new lmbHttpRequest('/test_object/test_extra_params/987', 'GET', array(), array());
+        lmbToolkit::instance()->setRequest($request);
+
+        $controller = new TestObjectController();
+        $controller->setCurrentAction('test_extra_params');
+        $response = $controller->performAction($request, ['id' => '987']);
+
+        $this->assertEquals('987', $response->getBody());
     }
 }

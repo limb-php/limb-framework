@@ -25,7 +25,7 @@ use Psr\Http\Message\RequestInterface;
  */
 class FallbackToViewController extends LmbController
 {
-    function performAction(RequestInterface $request)
+    function performAction(RequestInterface $request, $dispatched_params = [])
     {
         $path = trim($request->getUri()->getPath(), '/');
         if ($template_path = $this->findTemplateByAlias($path)) {

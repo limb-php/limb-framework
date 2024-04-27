@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\cms\cases\Controllers;
+namespace tests\cms\cases\src\Model;
 
 use limb\active_record\src\lmbActiveRecord;
 

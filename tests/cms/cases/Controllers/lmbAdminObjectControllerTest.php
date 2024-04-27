@@ -13,6 +13,8 @@ use PHPUnit\Framework\TestCase;
 use limb\active_record\src\lmbActiveRecord;
 use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
+use tests\cms\cases\src\Model\AdminObjectForTesting;
+use tests\cms\cases\src\Model\ObjectForTesting;
 use tests\web_app\cases\plain\src\lmbWebApplicationSandbox;
 
 require_once(dirname(__FILE__) . '/../.setup.php');

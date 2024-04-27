@@ -58,9 +58,9 @@ class lmbApplication
                     $request = $request->withAttribute($name, $value);
                 lmbToolkit::instance()->setRequest($request);
 
-                $dispatched = $this->_createController($dispatched_params);
+                $dispatched_controller = $this->_createController($dispatched_params);
 
-                return $this->_callControllerAction($dispatched, $request);
+                return $this->_callControllerAction($dispatched_controller, $request, $dispatched_params);
             });
 
             $this->_terminate();
@@ -128,12 +128,12 @@ class lmbApplication
         return $controller;
     }
 
-    protected function _callControllerAction($dispatched, $request): ResponseInterface
+    protected function _callControllerAction($dispatched_controller, $request, $dispatched_params): ResponseInterface
     {
-        if (!is_object($dispatched)) {
+        if (!is_object($dispatched_controller)) {
             throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
         }
 
-        return $dispatched->performAction($request);
+        return $dispatched_controller->performAction($request, $dispatched_params);
     }
 }

@@ -175,7 +175,7 @@ class LmbController
      * @throws lmbException
      * @throws lmbEmptyControllerResponseException
      */
-    function performAction(RequestInterface $request)
+    function performAction(RequestInterface $request, $dispatched_params = [])
     {
         if ($this->is_forwarded) {
             return false;
@@ -187,7 +187,9 @@ class LmbController
         }
 
         if (method_exists($this, $method = $this->_mapCurrentActionToMethod())) {
-            $controller_response = $this->{$method}($request);
+            $params = $this->_resolveMethodDependencies($request, $dispatched_params, new \ReflectionMethod($this, $method));
+
+            $controller_response = $this->{$method}(...$params);
 
             if ($controller_response !== null) {
                 if (is_a($controller_response, ResponseInterface::class)) {
@@ -327,6 +329,26 @@ class LmbController
     protected function _mapActionToMethod($action)
     {
         return lmbString::camel_case('do_' . $action, false);
+    }
+
+    protected function _resolveMethodDependencies($request, $dispatched_params, $reflector): array
+    {
+        $params = [];
+        $method_params = $reflector->getParameters();
+        foreach ($method_params as $key => $parameter) {
+            $parameter_name = $parameter->getName();
+            if($parameter_name === 'request')
+                $params[$parameter_name] = $request;
+            elseif( isset($dispatched_params[$parameter_name]) )
+                $params[$parameter_name] = $dispatched_params[$parameter_name];
+
+            if (!isset($params[$parameter_name]) &&
+                $parameter->isDefaultValueAvailable()) {
+                $params[$parameter_name] = $parameter->getDefaultValue();
+            }
+        }
+
+        return $params;
     }
 
     function forward($controller_name, $action)

@@ -1,9 +1,10 @@
 <?php
 
-namespace tests\cms\cases\Controllers;
+namespace tests\cms\cases\src\Controllers;
 
 use limb\cms\src\Controllers\Admin\lmbAdminObjectController;
 use limb\net\src\lmbHttpResponse;
+use tests\cms\cases\src\Model\AdminObjectForTesting;
 
 class TestAdminObjectController extends lmbAdminObjectController
 {
