@@ -409,13 +409,17 @@ class lmbHttpResponse implements ResponseInterface
         return $this;
     }
 
-    public function commit()
+    public function commit(): static
     {
         $this->sendHeaders();
 
         $this->sendContent();
 
         $this->transaction_started = true;
+
+        if (PHP_SAPI !== 'cli') {
+            flush();
+        }
 
         return $this;
     }
@@ -428,9 +432,9 @@ class lmbHttpResponse implements ResponseInterface
     /**
      * Sends HTTP headers.
      *
-     * @return self
+     * @return $this
      */
-    public function sendHeaders()
+    public function sendHeaders(): static
     {
         // headers have already been sent by the developer
         if (headers_sent()) {
@@ -473,7 +477,7 @@ class lmbHttpResponse implements ResponseInterface
         setcookie($cookie['name'], $cookie['value'], $cookie['expire'], $cookie['path'], $cookie['domain'], $cookie['secure']);
     }
 
-    public function sendContent()
+    public function sendContent(): static
     {
         if ($this->stream->getSize())
             echo $this->stream;
