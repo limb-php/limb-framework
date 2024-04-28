@@ -68,7 +68,7 @@ class lmbWebAppTools extends lmbAbstractTools
 //            ini_set('display_errors', 'off');
 //        }
 
-        if (PHP_SAPI == 'cli') {
+        if (PHP_SAPI === 'cli') {
             lmbEnv::setor('LIMB_HTTP_GATEWAY_PATH', '/');
             lmbEnv::setor('LIMB_HTTP_BASE_PATH', '/');
             lmbEnv::setor('LIMB_HTTP_REQUEST_PATH', '/');
