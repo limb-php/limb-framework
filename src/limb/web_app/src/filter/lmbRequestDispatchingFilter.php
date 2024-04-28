@@ -22,7 +22,7 @@ use limb\web_app\src\Controllers\NotFoundController;
  */
 class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
 {
-    protected $toolkit;
+    protected lmbToolkit $toolkit;
     protected $dispatcher;
     protected $default_controller_name;
 
@@ -52,10 +52,11 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
 
         $controller = $this->_createController($dispatched_params);
 
-        if (isset($dispatched_params['action']) && $controller->actionExists($dispatched_params['action']))
+        if (!isset($dispatched_params['action']))
+            $dispatched_params['action'] = $controller->getCurrentAction();
+
+        if( $controller->actionExists($dispatched_params['action']) )
             $controller->setCurrentAction($dispatched_params['action']);
-        elseif (!isset($dispatched_params['action']))
-            $controller->setCurrentAction($controller->getDefaultAction());
         else
             $controller = $this->_createDefaultController();
 
@@ -80,9 +81,6 @@ class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
 
     protected function _createDefaultController()
     {
-        $controller = $this->toolkit->createController($this->default_controller_name);
-        $controller->setCurrentAction($controller->getDefaultAction());
-
-        return $controller;
+        return $this->toolkit->createController($this->default_controller_name);
     }
 }

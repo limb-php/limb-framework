@@ -26,11 +26,13 @@ use tests\web_app\cases\plain\src\filter\lmbRequestDispatchingTestingController;
 
 class RememberRequestParamsController extends LmbController
 {
-    function __construct()
-    {
-        parent::__construct();
+    public $param;
 
-        $this->param = request()->getAttribute('param', null);
+    function doDisplay($request, $param = null)
+    {
+        $this->param = $param;
+
+        return response('doDisplay');
     }
 }
 
@@ -119,7 +121,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
         $this->filter->run($this->chain, $this->request);
 
-        $this->_assertDispatchedOk($controller, $controller->getDefaultAction(), __LINE__);
+        $this->_assertDispatchedOk($controller, $controller->getCurrentAction(), __LINE__);
     }
 
 //  function testUse404ControllerIfNoSuchActionInDispatchedController()
@@ -197,7 +199,7 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
         $response = $this->filter->run($this->chain, $this->request);
 
-        $this->_assertDispatchedOk($controller, $controller->getDefaultAction(), __LINE__);
+        $this->_assertDispatchedOk($controller, $controller->getCurrentAction(), __LINE__);
 
         $this->assertEquals(150, request()->getAttribute('id'));
         $this->assertEquals('bla-bla', request()->getAttribute('extra'));
@@ -212,13 +214,17 @@ class lmbRequestDispatchingFilterTest extends TestCase
 
         $dispatched_params = array(
             'controller' => RememberRequestParamsController::class,
-            'param' => 150);
+            'param' => 150
+        );
 
         $this->_setUpMocks($dispatched_params);
 
         $this->filter->run($this->chain, $this->request);
 
         $controller = $this->toolkit->getDispatchedController();
+        $controller->performAction($this->request, $dispatched_params);
+
+        $this->assertInstanceOf(RememberRequestParamsController::class, $controller);
         $this->assertEquals($dispatched_params['param'], $controller->param);
 
         //trick again...

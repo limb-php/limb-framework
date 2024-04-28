@@ -19,6 +19,7 @@ class NotFoundController extends LmbController
 {
     function doDisplay($request)
     {
-        return response( view('not_found/display') )->setStatusCode(404, 'Not Found');
+        return response( view('not_found/display') )
+            ->setStatusCode(404, 'Not Found');
     }
 }

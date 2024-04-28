@@ -187,10 +187,10 @@ abstract class lmbAdminObjectController extends lmbObjectController
     protected function _validateAndSave($request, $is_create = false): bool
     {
         $this->_onBeforeValidate($request);
-        $this->item->validate($this->error_list);
+        $this->item->validate($this->getErrorList());
         $this->_onAfterValidate($request);
 
-        if ($this->error_list->isValid()) {
+        if ($this->getErrorList()->isValid()) {
             if ($is_create)
                 $this->_onBeforeCreate($request);
             else

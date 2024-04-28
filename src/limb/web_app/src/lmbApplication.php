@@ -123,7 +123,7 @@ class lmbApplication
     protected function _createDefaultController()
     {
         $controller = lmbToolkit::instance()->createController($this->default_controller_name);
-        $controller->setCurrentAction($controller->getDefaultAction());
+        $controller->setCurrentAction($controller->getCurrentAction());
 
         return $controller;
     }

@@ -38,12 +38,6 @@ class LmbController
     protected $name;
 
     /**
-     * @var string default action that will be performed by performAction() if no current_action was specified
-     * @deprecated
-     */
-    protected $default_action = 'display';
-
-    /**
      * @var string
      */
     protected $current_action = 'display';
@@ -64,7 +58,7 @@ class LmbController
 
     /**
      *
-     * @var lmbErrorList
+     * @var lmbErrorList|null
      */
     protected $error_list;
     /**
@@ -84,13 +78,6 @@ class LmbController
             $this->name = $this->_guessName();
 
         $this->toolkit = lmbToolkit::instance();
-
-        $this->error_list = new lmbErrorList();
-    }
-
-    function getDefaultAction()
-    {
-        return $this->default_action;
     }
 
     function setCurrentAction($action)
@@ -140,15 +127,18 @@ class LmbController
         return $this->getValidator()->validate($dataspace);
     }
 
-    function getErrorList()
+    function getErrorList(): lmbErrorList
     {
-        return $this->error_list;
+        if($this->error_list)
+            return $this->error_list;
+
+        return $this->error_list = new lmbErrorList();
     }
 
     function getValidator()
     {
         if(!$this->validator)
-            $this->validator = new lmbValidator($this->error_list);
+            $this->validator = new lmbValidator($this->getErrorList());
 
         return $this->validator;
     }
@@ -210,9 +200,7 @@ class LmbController
                         $controller_response instanceof \stdClass ||
                         is_array($controller_response)) {
 
-                        $response->json( $controller_response );
-
-                        return $response;
+                        return $response->json( $controller_response );
                     }
 
                     // string, _toString(), etc
@@ -265,8 +253,8 @@ class LmbController
 
     protected function _passLocalAttributesToView($view): void
     {
-        if ($this->form_id && $this->error_list)
-            $view->setFormErrors($this->form_id, $this->error_list);
+        if ($this->form_id && $this->getErrorList())
+            $view->setFormErrors($this->form_id, $this->getErrorList());
 
         foreach ($this->form_datasource as $form_id => $datasource)
             $view->setFormDatasource($form_id, $datasource);
@@ -311,7 +299,7 @@ class LmbController
 
     function addError($message, $fields = array(), $values = array()): static
     {
-        $this->error_list->addError($message, $fields, $values);
+        $this->getErrorList()->addError($message, $fields, $values);
 
         return $this;
     }
