@@ -10,6 +10,7 @@
 namespace tests\web_app\cases\plain\controllers;
 
 use limb\core\src\exception\lmbException;
+use limb\net\src\lmbHttpRequest;
 use limb\view\src\lmbDummyView;
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\Controllers\LmbController;
@@ -184,8 +185,9 @@ class lmbControllerTest extends TestCase
         $result = $testController->doForward();
         $this->assertEquals('Hi!', $result->getBody());
 
-        $result = $testController->performAction(request());
-        $this->assertFalse($result);
+        $result = $testController->performAction(new lmbHttpRequest('https://localhost/testing_forward/display'));
+        //$this->assertFalse($result);
+        $this->assertEquals('doDisplay action', $result->getBody());
     }
 
     function testClosePopup()

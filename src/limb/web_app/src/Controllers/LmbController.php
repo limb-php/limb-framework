@@ -177,9 +177,9 @@ class LmbController
      */
     function performAction(RequestInterface $request, $dispatched_params = [])
     {
-        if ($this->is_forwarded) {
-            return false;
-        }
+//        if ($this->is_forwarded) {
+//            return false;
+//        }
 
         $template_path = $this->findTemplateForAction($this->getCurrentAction());
         if ($template_path) {
@@ -341,6 +341,8 @@ class LmbController
                 $params[$parameter_name] = $request;
             elseif( isset($dispatched_params[$parameter_name]) )
                 $params[$parameter_name] = $dispatched_params[$parameter_name];
+            elseif( null !== $attr = $request->getAttribute($parameter_name) )
+                $params[$parameter_name] = $attr;
 
             if (!isset($params[$parameter_name]) &&
                 $parameter->isDefaultValueAvailable()) {
