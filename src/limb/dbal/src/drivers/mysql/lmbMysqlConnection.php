@@ -50,16 +50,17 @@ class lmbMysqlConnection extends lmbDbBaseConnection
         return $this->connectionId;
     }
 
-    function connect()
+    function connect(): void
     {
         $port = !empty($this->config['port']) ? (int)$this->config['port'] : null;
         $socket = !empty($this->config['socket']) ? $this->config['socket'] : null;
-        $this->connectionId = mysqli_connect(
+
+        $conn = mysqli_connect(
             $this->config['host'], $this->config['user'], $this->config['password'],
             $this->config['database'], $port, $socket
         );
 
-        if ($this->connectionId === false) {
+        if ($conn === false) {
             $message = 'MySQL Driver. Could not connect to host "' . $this->config['host'] . '" and database "' . $this->config['database'] . '" on port ' . $this->config['port'];
 
             $this->_raiseError($message);
@@ -69,8 +70,10 @@ class lmbMysqlConnection extends lmbDbBaseConnection
             $this->logger->info("MySQL Driver. Connected to DB.\n");
 
         if (!empty($this->config['charset'])) {
-            mysqli_set_charset($this->getConnectionId(), $this->config['charset']);
+            mysqli_set_charset($this->connectionId, $this->config['charset']);
         }
+
+        $this->connectionId = $conn;
     }
 
     function __wakeup()
@@ -80,40 +83,42 @@ class lmbMysqlConnection extends lmbDbBaseConnection
 
     function disconnect()
     {
-        if ($this->getConnectionId()) {
+        if ($this->connectionId) {
             if($this->logger)
                 $this->logger->info("MySQL Driver. Disconnected from DB.\n");
 
-            mysqli_close($this->getConnectionId());
+            mysqli_close($this->connectionId);
             $this->connectionId = null;
         }
     }
 
-    function _raiseError($msg, $params = [])
+    function _raiseError($message, $params = [])
     {
-        $errno = mysqli_errno($this->getConnectionId());
-        $message = $msg . ($this->connectionId ? '. Last driver error: ' . mysqli_error($this->getConnectionId()) : '');
+        if( $this->connectionId ) {
+            $message .= '. Last driver error: ' . mysqli_error($this->connectionId);
+
+            $errno = mysqli_errno($this->connectionId);
+            $params['errorno'] = $errno;
+
+            if (
+                strpos($message, 'server has gone away') !== false
+                || strpos($message, 'broken pipe') !== false
+                || strpos($message, 'connection') !== false
+                || strpos($message, 'packets out of order') !== false
+                || $errno === 23000
+                || ($errno > 2000 && $errno < 2100)
+            ) {
+                if($this->logger)
+                    $this->logger->error($message . "\n");
+
+                throw new lmbDbConnectionException($message, $params);
+            }
+        }
 
         if($this->logger)
-            $this->logger->info($message . "\n");
+            $this->logger->error($message . "\n");
 
-        $params['errorno'] = $errno;
-
-        if ($errno === 23000) {
-            throw new lmbDbConnectionException($message, $params);
-        }
-
-        if (
-            strpos($message, 'server has gone away') !== false
-            || strpos($message, 'broken pipe') !== false
-            || strpos($message, 'connection') !== false
-            || strpos($message, 'packets out of order') !== false
-            || ($errno > 2000 && $errno < 2100)
-        ) {
-            throw new lmbDbConnectionException($message, $params);
-        } else {
-            throw new lmbDbException($message, $params);
-        }
+        throw new lmbDbException($message, $params);
     }
 
     function execute($sql, $retry = true)

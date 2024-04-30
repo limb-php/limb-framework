@@ -123,12 +123,12 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         return pg_version($this->connectionId);
     }
 
-    function _raiseError($msg, $params = [])
+    function _raiseError($message, $params = [])
     {
-        $message = $msg . ($this->connectionId ? '. Last driver error: ' . pg_last_error($this->connectionId) : '');
-
         if($this->logger)
-            $this->logger->info($message . "\n");
+            $this->logger->error($message . "\n");
+
+        $message .= ($this->connectionId ? '. Last driver error: ' . pg_last_error($this->connectionId) : '');
 
         if (
             strpos($message, 'eof detected') !== false
@@ -138,9 +138,9 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
             || strpos($message, 'connection') !== false
         ) {
             throw new lmbDbConnectionException($message, $params);
-        } else {
-            throw new lmbDbException($message, $params);
         }
+
+        throw new lmbDbException($message, $params);
     }
 
     function execute($sql, $retry = true)

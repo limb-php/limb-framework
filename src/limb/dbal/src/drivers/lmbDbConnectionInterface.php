@@ -55,5 +55,5 @@ interface lmbDbConnectionInterface
 
     function getLexer();
 
-    function _raiseError($msg);
+    function _raiseError($message);
 }
