@@ -22,9 +22,14 @@ class lmbApplication
     protected lmbRequestDispatcherInterface $dispatcher;
     protected lmbExceptionHandler $handler;
 
-    public function __construct()
+    public function __construct($default_controller_name = null, $error500_page = null)
     {
-        $error500_page = dirname(__FILE__) . '/../template/server_error.html';
+        if(!$error500_page)
+            $error500_page = dirname(__FILE__) . '/../template/server_error.html';
+
+        if($default_controller_name)
+            $this->default_controller_name = $default_controller_name;
+
         $this->handler = new lmbExceptionHandler($error500_page);
     }
 
@@ -45,18 +50,21 @@ class lmbApplication
 
     function process($request): ResponseInterface
     {
-        try {
-            $this->_registerBootstraps();
-            $this->_registerMiddleware();
-            $this->_registerDispatcher();
+        $this->_registerBootstraps();
+        $this->_registerMiddleware();
+        $this->_registerDispatcher();
 
+        try {
             $this->_bootstrap($request);
 
             $response = $this->middleware->process($request, function ($request) {
                 $dispatched_params = $this->dispatcher->dispatch($request);
+
+                // @TODO: BC start
                 foreach ($dispatched_params as $name => $value)
                     $request = $request->withAttribute($name, $value);
                 lmbToolkit::instance()->setRequest($request);
+                // BC end
 
                 $dispatched_controller = $this->_createController($dispatched_params);
 

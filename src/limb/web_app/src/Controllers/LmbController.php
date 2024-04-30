@@ -167,10 +167,6 @@ class LmbController
      */
     function performAction(RequestInterface $request, $dispatched_params = [])
     {
-//        if ($this->is_forwarded) {
-//            return false;
-//        }
-
         $template_path = $this->findTemplateForAction($this->getCurrentAction());
         if ($template_path) {
             $this->setTemplate($template_path); // Set View by default. Can be overridden in action method
@@ -329,8 +325,10 @@ class LmbController
                 $params[$parameter_name] = $request;
             elseif( isset($dispatched_params[$parameter_name]) )
                 $params[$parameter_name] = $dispatched_params[$parameter_name];
+            // @TODO: BC start
             elseif( null !== $attr = $request->getAttribute($parameter_name) )
                 $params[$parameter_name] = $attr;
+            // BC end
 
             if (!isset($params[$parameter_name]) &&
                 $parameter->isDefaultValueAvailable()) {
