@@ -24,6 +24,13 @@ class lmbMysqlConnection extends lmbDbBaseConnection
 {
     protected $connectionId;
 
+    function __construct($config)
+    {
+        mysqli_report(MYSQLI_REPORT_STRICT);
+
+        parent::__construct($config);
+    }
+
     function getType()
     {
         return 'mysql';
@@ -113,6 +120,11 @@ class lmbMysqlConnection extends lmbDbBaseConnection
 
                 throw new lmbDbConnectionException($message, $params);
             }
+        } else {
+            $message .= '. Last driver connection error: ' . mysqli_connect_error();
+
+            $errno = mysqli_connect_errno();
+            $params['errorno'] = $errno;
         }
 
         if($this->logger)
