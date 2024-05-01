@@ -26,7 +26,7 @@ class lmbMysqlConnection extends lmbDbBaseConnection
 
     function __construct($config)
     {
-        mysqli_report(MYSQLI_REPORT_STRICT);
+        mysqli_report(MYSQLI_REPORT_ERROR); // since PHP8.1  MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT
 
         parent::__construct($config);
     }
@@ -62,7 +62,7 @@ class lmbMysqlConnection extends lmbDbBaseConnection
         $port = !empty($this->config['port']) ? (int)$this->config['port'] : null;
         $socket = !empty($this->config['socket']) ? $this->config['socket'] : null;
 
-        $conn = mysqli_connect(
+        $conn = @mysqli_connect(
             $this->config['host'], $this->config['user'], $this->config['password'],
             $this->config['database'], $port, $socket
         );
@@ -88,7 +88,7 @@ class lmbMysqlConnection extends lmbDbBaseConnection
         $this->connectionId = null;
     }
 
-    function disconnect()
+    function disconnect(): void
     {
         if ($this->connectionId) {
             if($this->logger)

@@ -40,6 +40,11 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
         $this->logger = lmbToolkit::instance()->getLog('db');
     }
 
+    public function __destruct()
+    {
+        $this->disconnect();
+    }
+
     function getConfig()
     {
         return $this->config;
@@ -59,16 +64,21 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
         return $this->dsn_string;
     }
 
-    function getLogger()
+    function getLogger(): LoggerInterface
     {
         return $this->logger;
     }
 
-    function withLogger($logger): self
+    function withLogger(LoggerInterface $logger): self
     {
         $this->logger = $logger;
 
         return $this;
+    }
+
+    public function setLogger(LoggerInterface $logger): void
+    {
+        $this->logger = $logger;
     }
 
     function __sleep()

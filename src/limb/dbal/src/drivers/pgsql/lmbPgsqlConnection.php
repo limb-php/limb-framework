@@ -107,7 +107,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     }
 
     /** @return void */
-    function disconnect()
+    function disconnect(): void
     {
         if ($this->connectionId) {
             if($this->logger)
