@@ -70,7 +70,7 @@ class lmbMysqlConnection extends lmbDbBaseConnection
             $this->logger->info("MySQL Driver. Connected to DB.\n");
 
         if (!empty($this->config['charset'])) {
-            mysqli_set_charset($this->connectionId, $this->config['charset']);
+            mysqli_set_charset($conn, $this->config['charset']);
         }
 
         $this->connectionId = $conn;
