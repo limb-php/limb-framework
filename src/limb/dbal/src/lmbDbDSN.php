@@ -30,6 +30,7 @@ class lmbDbDSN extends lmbObject
     protected $database;
     protected $port;
     protected $charset;
+    protected $reconnect = false;
     protected $extra = [];
 
     function __construct($args)
