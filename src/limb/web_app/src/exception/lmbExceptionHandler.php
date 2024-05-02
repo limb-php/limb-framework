@@ -268,8 +268,9 @@ EOD;
 
     protected function _obEndClean()
     {
-        for ($i = 1; $i < ob_get_level(); $i++) { // $i = 0;
+        for ($i = 0; $i < ob_get_level(); $i++) {
             ob_end_clean();
         }
+        ob_start();
     }
 }
