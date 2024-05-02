@@ -73,8 +73,6 @@ class lmbApplication
 
             $this->_terminate();
         } catch (\Throwable $e) {
-            ob_end_clean(); /// BC. if output exists
-
             if ($e instanceof \Error) {
                 $error = error_get_last();
                 if ($error) {

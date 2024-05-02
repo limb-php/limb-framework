@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace limb\web_app\src\exception;
@@ -42,6 +42,8 @@ class lmbExceptionHandler
 
     public function handleFatalError($error, $request): ResponseInterface
     {
+        $this->_obEndClean();
+
         $toolkit = lmbToolkit::instance();
 
         $this->logger->error($error['message']);
@@ -70,6 +72,8 @@ class lmbExceptionHandler
 
     public function handleException($e, $request): ResponseInterface
     {
+        $this->_obEndClean();
+
         if (function_exists('\debugBreak'))
             \debugBreak();
 
@@ -260,5 +264,12 @@ EOD;
                 return array($params['file'], $params['line']);
         }
         return array($e->getFile(), $e->getLine());
+    }
+
+    protected function _obEndClean()
+    {
+        for ($i = 1; $i < ob_get_level(); $i++) { // $i = 0;
+            ob_end_clean();
+        }
     }
 }
