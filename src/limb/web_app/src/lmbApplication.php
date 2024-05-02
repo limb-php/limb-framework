@@ -117,8 +117,13 @@ class lmbApplication
     protected function _createController($dispatched_params)
     {
         try {
-            $controller = lmbToolkit::instance()->createController($dispatched_params['controller'], $dispatched_params['namespace'] ?? '');
-            $controller->setCurrentAction($dispatched_params['action']);
+            if(isset($dispatched_params['controller'])) {
+                $controller = lmbToolkit::instance()->createController($dispatched_params['controller'], $dispatched_params['namespace'] ?? '');
+                if(isset($dispatched_params['action']))
+                    $controller->setCurrentAction($dispatched_params['action']);
+            } else {
+                $controller = $this->_createDefaultController();
+            }
         } catch (lmbControllerNotFoundException $e) {
             $controller = $this->_createDefaultController();
         }
