@@ -4,8 +4,7 @@ namespace limb\web_app\src\request;
 
 use limb\dbal\src\filter\lmbAutoDbTransactionFilter;
 use limb\filter_chain\src\lmbFilterChain;
-use limb\core\src\lmbHandle;
-use limb\core\src\lmbEnv;
+use limb\net\src\lmbHttpResponse;
 use limb\web_app\src\filter\lmbSessionStartupFilter;
 
 class lmbMiddlewarePipe extends lmbFilterChain
@@ -22,7 +21,7 @@ class lmbMiddlewarePipe extends lmbFilterChain
         $this->registerFilter(lmbAutoDbTransactionFilter::class);
     }
 
-    function process($request, $callback = null): \limb\net\src\lmbHttpResponse
+    function process($request, $callback = null): lmbHttpResponse
     {
         $this->_registerFilters();
 
