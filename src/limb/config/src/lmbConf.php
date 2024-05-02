@@ -76,9 +76,11 @@ class lmbConf extends lmbObject
         if (!$name)
             throw new lmbInvalidArgumentException('Option name not given');
 
-        $result = parent::get($name);
-        if (null === $default && null !== $result)
-            return $result;
+        if(parent::has($name))
+            return parent::get($name, $default);
+
+        if (null !== $default)
+            return $default;
 
         throw new lmbNoSuchPropertyException('Option "' . $name . '" not found', array('config' => $this->_file));
     }
