@@ -175,9 +175,9 @@ class lmbSimpleDb
         return $this;
     }
 
-    function dropTable($table)
+    function dropTable($table, $if_exists = true)
     {
-        $this->conn->newStatement("DROP TABLE `$table`")->execute();
+        $this->conn->newStatement("DROP TABLE " . ($if_exists ? "IF EXISTS" : "") . "`$table`")->execute();
 
         return $this;
     }
