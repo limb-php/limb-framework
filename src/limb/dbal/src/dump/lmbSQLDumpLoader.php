@@ -34,6 +34,14 @@ class lmbSQLDumpLoader implements lmbSQLDumpLoaderInterface
         return $this->statements;
     }
 
+    function dropTables($connection)
+    {
+        $db = new lmbSimpleDb($connection);
+
+        foreach ($this->affected_tables as $table)
+            $db->dropTable($table);
+    }
+
     function cleanTables($connection)
     {
         $db = new lmbSimpleDb($connection);
