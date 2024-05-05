@@ -66,8 +66,11 @@ class lmbCriteriaQuery extends lmbTemplateQuery
                 return 'AND ' . $where;
             else
                 return $where;
-        } else
+        } elseif (!empty($where)) {
             return 'WHERE ' . $where;
+        }
+
+        return '';
     }
 
     protected function _whereClauseExists(&$args = array())
