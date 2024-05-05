@@ -25,7 +25,7 @@ class lmbMacroWysiwygTag extends lmbMacroTextAreaTag
      */
     protected $_helper;
 
-    function preParse($compiler)
+    function preParse($compiler): void
     {
         parent::preParse($compiler);
 

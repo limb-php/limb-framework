@@ -9,6 +9,8 @@
 
 namespace limb\wysiwyg\src\macro;
 
+use limb\wysiwyg\src\helper\FCKeditor\FCKeditor;
+
 /**
  * @package wysiwyg
  * @version $Id$
@@ -26,7 +28,7 @@ class lmbMacroFCKEditorWidget extends lmbMacroBaseWysiwygWidget
 
     protected function _renderEditor()
     {
-        $editor = new limb\wysiwyg\src\helper\FCKeditor\FCKeditor($this->getAttribute('name'));
+        $editor = new FCKeditor($this->getAttribute('name'));
 
         $this->_setEditorParameters($editor);
 
