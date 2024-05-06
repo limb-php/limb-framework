@@ -8,6 +8,7 @@ use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\dbal\src\drivers\lmbAuditDbConnection;
 use limb\toolkit\src\lmbToolkit;
 
+/** @deprecated  */
 class lmbAuditDbTransactionFilter implements lmbInterceptingFilterInterface
 {
     function run($filter_chain, $request = null, $callback = null)
