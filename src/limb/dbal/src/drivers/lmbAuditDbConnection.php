@@ -175,8 +175,8 @@ class lmbAuditDbConnection extends lmbDbConnectionDecorator
         $this->connection->disconnect();
     }
 
-    function _raiseError($msg)
+    function _raiseError($message)
     {
-        $this->connection->_raiseError($msg);
+        $this->connection->_raiseError($message);
     }
 }

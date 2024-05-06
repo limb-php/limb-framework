@@ -4,7 +4,7 @@ namespace limb\dbal\src\drivers;
 
 abstract class lmbDbConnectionDecorator implements lmbDbConnectionInterface
 {
-    protected $connection;
+    protected lmbDbConnectionInterface $connection;
 
     public function __construct(lmbDbConnectionInterface $connection)
     {

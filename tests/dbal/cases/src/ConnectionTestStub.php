@@ -104,7 +104,7 @@ class ConnectionTestStub implements lmbDbConnectionInterface
         // TODO: Implement getExtension() method.
     }
 
-    function _raiseError($msg)
+    function _raiseError($message)
     {
         // TODO: Implement _raiseError() method.
     }

@@ -17,12 +17,15 @@ namespace limb\dbal\src\drivers;
  */
 class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
 {
-    protected $modifying_statements = array('UPDATE',
+    protected $modifying_statements = [
+        'UPDATE',
         'DELETE',
         'INSERT',
         'CREATE',
         'ALTER',
-        'DROP');//do we need more?
+        'DROP'
+    ]; //do we need more?
+
     protected $is_in_transaction = false;
 
     function newStatement($sql): lmbDbStatementInterface
@@ -42,6 +45,25 @@ class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
                 return true;
         }
         return false;
+    }
+
+    function transaction(\Closure $callback)
+    {
+        $this->beginTransaction();
+
+        try {
+            $result = $callback($this);
+
+            $this->commitTransaction();
+        } catch (\Exception $e) {
+            $this->rollbackTransaction();
+            throw $e;
+        } catch (\Throwable $e) {
+            $this->rollbackTransaction();
+            throw $e;
+        }
+
+        return $result;
     }
 
     function beginTransaction()
@@ -154,8 +176,8 @@ class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
         $this->connection->disconnect();
     }
 
-    function _raiseError($msg)
+    function _raiseError($message)
     {
-        $this->connection->_raiseError($msg);
+        $this->connection->_raiseError($message);
     }
 }
