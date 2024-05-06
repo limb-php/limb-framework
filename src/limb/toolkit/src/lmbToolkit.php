@@ -55,11 +55,12 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  *
  * @see lmbCmsTools
  * @method \limb\tree\src\lmbMPTree getCmsTree($tree_name = 'node')
- * @method setCmsTree(\limb\tree\src\lmbMPTree $tree)
+ * @method void setCmsTree(\limb\tree\src\lmbMPTree $tree)
+ * @method string getUserSessionName()
  * @method \limb\cms\src\model\lmbCmsSessionUser getCmsAuthSession()
- * @method getCmsUser()
- * @method setCmsUser($user)
- * @method resetCmsUser()
+ * @method \limb\cms\src\model\lmbCmsUser getCmsUser()
+ * @method void setCmsUser($user)
+ * @method void resetCmsUser()
  *
  * @see lmbConfTools
  * @method \limb\core\src\lmbSetInterface getConf($name)
