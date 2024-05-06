@@ -10,13 +10,11 @@ class lmbCmsAdminFilterHelper
     protected $session;
     protected $filter_name;
 
-    function __construct($filter_name)
+    function __construct($filter_name, $request = null)
     {
         $this->filter_name = $filter_name;
-
-        $toolkit = lmbToolkit::instance();
-        $this->request = $toolkit->getRequest();
-        $this->session = $toolkit->getSession();
+        $this->request = $request ?? lmbToolkit::instance()->getRequest();
+        $this->session = lmbToolkit::instance()->getSession();
     }
 
     function getParams()
