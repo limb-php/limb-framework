@@ -21,7 +21,7 @@ use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 class lmbCmsSessionUser
 {
     protected $user_id;
-    protected $is_logged_in;
+    protected $is_logged_in = false;
     protected $user;
 
     function getUser(): lmbCmsUser
@@ -33,9 +33,10 @@ class lmbCmsSessionUser
             $this->user = lmbActiveRecord::findById(lmbCmsUser::class, $this->user_id);
             if ($this->user)
                 $this->user->setLoggedIn($this->is_logged_in);
-        } else {
-            $this->user = new lmbCmsUser();
         }
+
+        if(!$this->user)
+            $this->user = new lmbCmsUser();
 
         return $this->user;
     }
@@ -52,13 +53,18 @@ class lmbCmsSessionUser
         $user = lmbActiveRecord::findFirst(lmbCmsUser::class, array('criteria' => $criteria));
 
         if ($user && $user->isPasswordCorrect($password)) {
-            $this->setUser($user);
-            $this->setLoggedIn(true);
-            return true;
+            return $this->autoLogin($user);
         }
 
         $this->setLoggedIn(false);
         return false;
+    }
+
+    function autoLogin($user)
+    {
+        $this->setUser($user);
+        $this->setLoggedIn(true);
+        return true;
     }
 
     function logout()

@@ -25,8 +25,6 @@ use limb\validation\src\rule\MatchRule;
 class lmbCmsUser extends lmbActiveRecord
 {
     protected $password;
-    /** @deprecated */
-    protected $is_logged_in = false;
 
     const ROLE_NAME_ADMIN = 'admin';
     const ROLE_NAME_EDITOR = 'editor';
@@ -65,16 +63,6 @@ class lmbCmsUser extends lmbActiveRecord
     {
         if ($this->password)
             $this->setHashedPassword($this->getCryptedPassword($this->password));
-    }
-
-    function isLoggedIn()
-    {
-        return $this->is_logged_in;
-    }
-
-    function setLoggedIn($logged_in)
-    {
-        $this->is_logged_in = $logged_in;
     }
 
     function getCryptedPassword($password)
