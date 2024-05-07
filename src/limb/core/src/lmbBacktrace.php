@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace limb\core\src;
@@ -17,7 +17,7 @@ namespace limb\core\src;
  */
 class lmbBacktrace
 {
-    protected $backtrace = array();
+    protected $backtrace = [];
 
     function __construct($limit_or_backtrace = null, $limit_or_offset = null, $offset = 0)
     {

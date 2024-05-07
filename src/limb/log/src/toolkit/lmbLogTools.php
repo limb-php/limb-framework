@@ -66,8 +66,8 @@ class lmbLogTools extends lmbAbstractTools
         $logWriters = $this->getConfLogDSNes();
         if(isset($logWriters[$name])) {
             if( is_array($logWriters[$name]) ) {
-                foreach ($logWriters[$name] as $dsn) {
-                    $this->log[$name]->registerWriter(lmbLogWriterFactory::createLogWriter($dsn));
+                foreach ($logWriters[$name] as $dsn => $level) {
+                    $this->log[$name]->registerWriter(lmbLogWriterFactory::createLogWriter($dsn), $level);
                 }
             } else {
                 $dsn = $logWriters[$name];

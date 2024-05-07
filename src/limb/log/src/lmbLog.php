@@ -11,7 +11,6 @@ namespace limb\log\src;
 
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbBacktrace;
-use limb\core\src\exception\lmbException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
@@ -24,11 +23,9 @@ use Psr\Log\LogLevel;
 class lmbLog implements LoggerInterface
 {
     protected $notifyLevel;
+    protected $log_writers = []; // 'writer' => class, 'level' => []
 
-    protected $logs = [];
-    protected $log_writers = []; // 'writer' => class, 'allowed_levels' => []
-
-    protected $log_levels = array(
+    protected $log_levels = [
         LogLevel::EMERGENCY => 0,
         LogLevel::ALERT => 1,
         LogLevel::CRITICAL => 2,
@@ -37,7 +34,7 @@ class lmbLog implements LoggerInterface
         LogLevel::NOTICE => 5,
         LogLevel::INFO => 6,
         LogLevel::DEBUG => 7,
-    );
+    ];
 
     protected $backtrace_depth = [
         LogLevel::DEBUG => 0,
@@ -67,11 +64,11 @@ class lmbLog implements LoggerInterface
         $this->notifyLevel = $notifyLevel;
     }
 
-    function registerWriter($writer, $allowed_levels = []): void
+    function registerWriter($writer, $writer_level = null): void
     {
         $this->log_writers[] = [
             'writer' => $writer,
-            'allowed_levels' => $allowed_levels
+            'level' => $writer_level
         ];
     }
 
@@ -93,18 +90,13 @@ class lmbLog implements LoggerInterface
     /**
      * Checks whether the selected level is above another level.
      *
-     * @param mixed $level
+     * @param string $level
      * @param string $base
      *
      * @return bool
      */
     protected function aboveLevel($level, $base): bool
     {
-        //$levelOrder = array_keys($this->log_levels);
-        //$baseIndex = array_search($base, $levelOrder);
-        //$levelIndex = array_search($level, $levelOrder);
-        //return $levelIndex >= $baseIndex;
-
         return $this->log_levels[$level] <= $this->log_levels[$base];
     }
 
@@ -113,67 +105,65 @@ class lmbLog implements LoggerInterface
         return $this->backtrace_depth[$log_level];
     }
 
-    function setBacktraceDepth($log_level, $depth)
+    function setBacktraceDepth($log_level, $depth): void
     {
         $this->backtrace_depth[$log_level] = $depth;
     }
 
-    public function emergency($message, array $context = [])
+    public function emergency($message, array $context = []): void
     {
         $this->log(LogLevel::EMERGENCY, $message, $context);
     }
 
-    public function alert($message, array $context = [])
+    public function alert($message, array $context = []): void
     {
         $this->log(LogLevel::ALERT, $message, $context);
     }
 
-    public function critical($message, array $context = [])
+    public function critical($message, array $context = []): void
     {
         $this->log(LogLevel::CRITICAL, $message, $context);
     }
 
-    public function error($message, array $context = [])
+    public function error($message, array $context = []): void
     {
         $this->log(LogLevel::ERROR, $message, $context);
     }
 
-    public function warning($message, array $context = [])
+    public function warning($message, array $context = []): void
     {
         $this->log(LogLevel::WARNING, $message, $context);
     }
 
-    public function notice($message, array $context = [])
+    public function notice($message, array $context = []): void
     {
         $this->log(LogLevel::NOTICE, $message, $context);
     }
 
-    public function info($message, array $context = [])
+    public function info($message, array $context = []): void
     {
         $this->log(LogLevel::INFO, $message, $context);
     }
 
-    public function debug($message, array $context = [])
+    public function debug($message, array $context = []): void
     {
         $this->log(LogLevel::DEBUG, $message, $context);
     }
 
-    public function log($level, $message, $context = [], $backtrace = null)
+    public function log($level, $message, $context = [], $backtrace = null): void
     {
-        if (!$this->aboveLevel($level, $this->notifyLevel)) {
-            return;
+        if ($this->aboveLevel($level, $this->notifyLevel)) {
+            $this->_write($level, $message, $context, $backtrace);
         }
+    }
 
+    /** @TODO: remove one of aboveLevel() methods */
+    protected function _write($level, $string, $context = [], $backtrace = null)
+    {
         if (!$backtrace)
             $backtrace = new lmbBacktrace($this->backtrace_depth[$level]);
 
-        $this->_write($level, $message, $context, $backtrace);
-    }
-
-    protected function _write($level, $string, $context = [], $backtrace = null)
-    {
         $entry = new lmbLogEntry($level, $string, $context, $backtrace);
-        $this->logs[] = $entry;
 
         $this->_writeLogEntry($entry, $level);
     }
@@ -182,19 +172,11 @@ class lmbLog implements LoggerInterface
     {
         foreach ($this->log_writers as $writer_info) {
             $writer = $writer_info['writer'];
-            $allowed_levels = $writer_info['allowed_levels'];
+            $writer_level = $writer_info['level'] ?? $this->notifyLevel;
 
-            if ($this->_isAllowedLevel($level, $allowed_levels)) {
+            if ($this->aboveLevel($level, $writer_level)) {
                 $writer->write($entry);
             }
         }
-    }
-
-    protected function _isAllowedLevel($level, $allowed_levels): bool
-    {
-        if (empty($allowed_levels))
-            return true;
-
-        return in_array($level, $allowed_levels);
     }
 }

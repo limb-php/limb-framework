@@ -1,6 +1,7 @@
 <?php
 
 use limb\core\src\lmbEnv;
+use Psr\Log\LogLevel;
 
 $conf = [
 
@@ -10,7 +11,7 @@ $conf = [
         ],
 
         'db' => [
-            'file://' . lmbEnv::get('LIMB_VAR_DIR') . 'log/db.log'
+            'file://' . lmbEnv::get('LIMB_VAR_DIR') . 'log/db.log' => LogLevel::NOTICE
         ],
     ]
 
