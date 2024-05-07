@@ -108,4 +108,9 @@ class ConnectionTestStub implements lmbDbConnectionInterface
     {
         // TODO: Implement _raiseError() method.
     }
+
+    function transaction(\Closure $callback)
+    {
+        // TODO: Implement transaction() method.
+    }
 }

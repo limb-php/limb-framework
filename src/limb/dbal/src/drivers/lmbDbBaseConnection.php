@@ -59,6 +59,25 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
 
     abstract function getLexer(): lmbQueryLexerInterface;
 
+    function transaction(\Closure $callback)
+    {
+        $this->beginTransaction();
+
+        try {
+            $result = $callback($this);
+
+            $this->commitTransaction();
+        } catch (\Exception $e) {
+            $this->rollbackTransaction();
+            throw $e;
+        } catch (\Throwable $e) {
+            $this->rollbackTransaction();
+            throw $e;
+        }
+
+        return $result;
+    }
+
     function getDsnString()
     {
         return $this->dsn_string;

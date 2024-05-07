@@ -49,21 +49,7 @@ class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
 
     function transaction(\Closure $callback)
     {
-        $this->beginTransaction();
-
-        try {
-            $result = $callback($this);
-
-            $this->commitTransaction();
-        } catch (\Exception $e) {
-            $this->rollbackTransaction();
-            throw $e;
-        } catch (\Throwable $e) {
-            $this->rollbackTransaction();
-            throw $e;
-        }
-
-        return $result;
+        return $this->connection->transaction($callback);
     }
 
     function beginTransaction()

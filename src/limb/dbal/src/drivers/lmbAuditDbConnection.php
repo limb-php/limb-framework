@@ -179,4 +179,9 @@ class lmbAuditDbConnection extends lmbDbConnectionDecorator
     {
         $this->connection->_raiseError($message);
     }
+
+    function transaction(\Closure $callback)
+    {
+        return $this->connection->transaction($callback);
+    }
 }

@@ -96,7 +96,7 @@ class lmbMssqlConnection extends lmbDbBaseConnection
         }
     }
 
-    function _raiseError($msg, $params = [])
+    function _raiseError($message, $params = [])
     {
         $errarr = sqlsrv_errors();
         $errstr = '';
@@ -108,7 +108,7 @@ class lmbMssqlConnection extends lmbDbBaseConnection
 
             $errcodes[] = $err['code'];
         }
-        $message = $msg . ($this->connectionId ? '. Last driver error: ' . $errstr : '');
+        $message .= ($this->connectionId ? '. Last driver error: ' . $errstr : '');
 
         if($this->logger)
             $this->logger->info($message . "\n");

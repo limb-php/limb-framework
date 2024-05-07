@@ -86,10 +86,10 @@ class lmbSqliteConnection extends lmbDbBaseConnection
         }
     }
 
-    function _raiseError($msg, $params = [])
+    function _raiseError($message, $params = [])
     {
         $errno = $this->connection->lastErrorCode();
-        $message = $msg . ($this->connection ? '. Last driver error: ' . $this->connection->lastErrorMsg() : '');
+        $message .= ($this->connection ? '. Last driver error: ' . $this->connection->lastErrorMsg() : '');
 
         if($this->logger)
             $this->logger->info($message . "\n");

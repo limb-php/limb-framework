@@ -29,6 +29,8 @@ interface lmbDbConnectionInterface
 
     function disconnect();
 
+    function transaction(\Closure $callback);
+
     function beginTransaction();
 
     function commitTransaction();
