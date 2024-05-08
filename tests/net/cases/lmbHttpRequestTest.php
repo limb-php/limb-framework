@@ -36,6 +36,12 @@ class lmbHttpRequestTest extends TestCase
         $this->assertNull($request->get('foo'));
     }
 
+    function testGetGetParam()
+    {
+        $request = new lmbHttpRequest('https://test.com?get=test', 'GET');
+        $this->assertEquals('test', $request->get('get'));
+    }
+
     function testMergePostOverGet()
     {
         $request = new lmbHttpRequest('https://test.com', 'GET', array('a' => 2), array('a' => 3));
