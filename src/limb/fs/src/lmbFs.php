@@ -26,7 +26,8 @@ class lmbFs
     const DOS = 3;
     const WIN32_NET_PREFIX = '\\\\';
 
-    static function safeWrite($file, $content, $perm = 0664)
+    /** @throws lmbFsException */
+    static function safeWrite($file, $content, $perm = 0664): void
     {
         self::mkdir(dirname($file));
 
@@ -101,8 +102,10 @@ class lmbFs
      * Creates the directory $dir with permissions $perm.
      * If $parents is true it will create any missing parent directories,
      * just like 'mkdir -p'.
+     *
+     * @throws lmbFsException
      */
-    static function mkdir($dir, $perm = 0777, $parents = true)
+    static function mkdir($dir, $perm = 0777, $parents = true): void
     {
         if (!$dir)
             throw new lmbFsException('Directory have no value');
@@ -151,7 +154,7 @@ class lmbFs
             array_pop($path_elements);
         }
 
-        if ($path && self::isPathAbsolute($path))
+        if (!empty($path) && self::isPathAbsolute($path))
             return false;
         else
             return 0;
@@ -159,8 +162,10 @@ class lmbFs
 
     /**
      * Creates the directory $dir with permission $perm.
+     *
+     * @throws lmbFsException
      */
-    protected static function _doMkdir($dir, $perm)
+    protected static function _doMkdir($dir, $perm): void
     {
         if (is_dir($dir))
             return;
@@ -219,7 +224,8 @@ class lmbFs
         return true;
     }
 
-    protected static function _doRm($item, $separator)
+    /** @throws lmbFsException */
+    protected static function _doRm($item, $separator): void
     {
         if (!is_dir($item)) {
             if (!@unlink($item))
@@ -244,7 +250,8 @@ class lmbFs
         }
     }
 
-    static function mv($src, $dest)
+    /** @throws lmbFsException */
+    static function mv($src, $dest): void
     {
         if (is_dir($src) || is_file($src)) {
             if (!@rename($src, $dest))
@@ -255,6 +262,7 @@ class lmbFs
             throw new lmbFsException('source file or directory does not exist', array('src' => $src));
     }
 
+    /** @throws lmbFsException */
     static function cp($src, $dest, $exclude_regex = '', $include_regex = '', $as_child = false, $include_hidden = true)
     {
         if (!is_dir($src)) {
@@ -570,7 +578,7 @@ class lmbFs
         if (self::is_path_absolute($path))
             return glob($path);
 
-        $result = array();
+        $result = [];
         foreach (self::get_include_path_items() as $dir) {
             if ($res = glob("$dir/$path")) {
                 foreach ($res as $item)
@@ -585,7 +593,7 @@ class lmbFs
         return explode(PATH_SEPARATOR, get_include_path());
     }
 
-    static function is_path_absolute($path)
+    static function is_path_absolute($path): bool
     {
         if (!$path)
             return false;
