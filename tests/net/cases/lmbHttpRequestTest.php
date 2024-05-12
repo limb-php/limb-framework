@@ -9,6 +9,7 @@
 
 namespace tests\net\cases;
 
+use limb\net\src\exception\lmbMalformedURLException;
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbHttpRequest;
 use limb\net\src\lmbUri;
@@ -16,6 +17,17 @@ use limb\net\src\lmbUploadedFile;
 
 class lmbHttpRequestTest extends TestCase
 {
+    function testWrongUri()
+    {
+        try {
+            $request = new lmbHttpRequest('test.com//fsfd=fdfwe/$^///publication_year:2019');
+            $uri = $request->getUri();
+            $this->fail();
+        } catch (lmbMalformedURLException $e) {
+            $this->assertTrue(true);
+        }
+    }
+
     function testGetUri()
     {
         $request = new lmbHttpRequest('https://test.com');

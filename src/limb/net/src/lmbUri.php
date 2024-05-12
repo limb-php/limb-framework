@@ -11,7 +11,7 @@ namespace limb\net\src;
 
 use Psr\Http\Message\UriInterface;
 use limb\core\src\lmbArrayHelper;
-use limb\core\src\exception\lmbException;
+use limb\net\src\exception\lmbMalformedURLException;
 
 /**
  * class lmbUri.
@@ -32,6 +32,7 @@ class lmbUri implements UriInterface
     private $query_items = array();
     private $anchor = '';
 
+    /** @throws lmbMalformedURLException */
     public function __construct($str = '')
     {
         if ($str) {
@@ -45,11 +46,11 @@ class lmbUri implements UriInterface
             $this->query_items = array();
             $this->anchor = '';
 
-            if ('file' == substr($str, 0, 4))
+            if ('file' === substr($str, 0, 4))
                 $str = $this->_fixFileProtocol($str);
 
-            if (!$parsed_url = @parse_url($str))
-                throw new lmbException("URI '$str' is not valid");
+            if (!$parsed_url = parse_url($str))
+                throw new lmbMalformedURLException("URI '$str' is not valid");
 
             foreach ($parsed_url as $key => $value) {
                 switch ($key) {

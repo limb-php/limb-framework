@@ -9,8 +9,8 @@
 
 namespace limb\net\src;
 
-use limb\core\src\exception\lmbException;
 use limb\core\src\lmbArrayHelper;
+use limb\net\src\exception\lmbMalformedURLException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
@@ -44,13 +44,16 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
 
     private $stream;
 
+    /**
+     * @throws lmbMalformedURLException
+     */
     function __construct($uri_string = null, $method = 'GET', $get = [], $post = [], $cookies = [], $files = [], $headers = [])
     {
         $this->_initRequestProperties($uri_string, $method, $get, $post, $cookies, $files, $headers);
     }
 
     /**
-     * @throws lmbException
+     * @throws lmbMalformedURLException
      */
     protected function _initRequestProperties($uri_string, $method, $get, $post, $cookies, $files, $headers): void
     {
@@ -116,7 +119,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         }
     }
 
-    static protected function _getRawUriString()
+    static protected function _getRawUriString(): string
     {
         $host = 'localhost';
 
@@ -262,7 +265,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         return $this->hasHeader('X-Pjax');
     }
 
-    function pretendPost($flag = true)
+    function pretendPost($flag = true): void
     {
         $this->__pretend_post = $flag;
     }
@@ -371,7 +374,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         return $this->__uri;
     }
 
-    public function withUri(UriInterface $uri, $preserveHost = false)
+    public function withUri(UriInterface $uri, $preserveHost = false): static
     {
         if ($uri === $this->getUri()) {
             return $this;
