@@ -5,7 +5,7 @@ namespace limb\cms\src\model;
 use limb\fs\src\lmbFs;
 use limb\net\src\lmbMimeType;
 
-class lmbCmsFileStorage
+class lmbCmsFileStorage implements lmbCmsFileStorageInterface
 {
     protected $root_dir;
 
