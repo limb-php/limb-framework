@@ -10,7 +10,6 @@
 namespace tests\web_app\cases\plain\src;
 
 use limb\core\src\lmbHandle;
-use limb\web_app\src\Bootstrap\lmbDbConnectionBootstrap;
 use limb\web_app\src\filter\lmbErrorHandlingFilter;
 use limb\web_app\src\filter\lmbRequestDispatchingFilter;
 use limb\web_app\src\filter\lmbSessionStartupFilter;
@@ -18,11 +17,6 @@ use limb\web_app\src\lmbWebApplication;
 
 class lmbWebApplicationSandbox2 extends lmbWebApplication
 {
-    protected function _registerBootstraps()
-    {
-        $this->registerBootstrap(new lmbDbConnectionBootstrap());
-    }
-
     protected function _registerFilters()
     {
         $this->registerFilter(new lmbHandle(lmbErrorHandlingFilter::class, [__DIR__ . '/../../template/server_error.phtml']));

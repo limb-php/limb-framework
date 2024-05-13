@@ -13,7 +13,6 @@ use limb\core\src\exception\lmbException;
 use limb\filter_chain\src\lmbFilterChain;
 use limb\core\src\lmbHandle;
 use limb\toolkit\src\lmbToolkit;
-use limb\web_app\src\Bootstrap\lmbDbConnectionBootstrap;
 use limb\web_app\src\Bootstrap\lmbErrorHandlerBootstrap;
 use limb\web_app\src\Controllers\NotFoundController;
 use limb\web_app\src\request\lmbRoutesRequestDispatcher;
@@ -92,7 +91,6 @@ class lmbWebApplication extends lmbFilterChain
     protected function _registerBootstraps()
     {
         $this->registerBootstrap(new lmbErrorHandlerBootstrap(dirname(__FILE__) . '/../template/server_error.html'));
-        $this->registerBootstrap(new lmbDbConnectionBootstrap());
     }
 
     protected function _bootstrap($request)
