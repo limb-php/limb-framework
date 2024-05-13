@@ -92,7 +92,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
 
     static public function createFromGlobals(): self
     {
-        $uri_string = self::_getRawUriString();
+        $uri_string = self::_getRawUriString($_SERVER);
         $method = $_SERVER['REQUEST_METHOD'] ?? "GET";
         $headers = getallheaders();
 
@@ -119,27 +119,27 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         }
     }
 
-    static protected function _getRawUriString(): string
+    static protected function _getRawUriString($server): string
     {
         $host = 'localhost';
 
-        if (!empty($_SERVER['HTTP_HOST'])) {
-            $items = explode(':', $_SERVER['HTTP_HOST']);
+        if (!empty($server['HTTP_HOST'])) {
+            $items = explode(':', $server['HTTP_HOST']);
             $host = $items[0];
             $port = $items[1] ?? null;
-        } elseif (!empty($_SERVER['SERVER_NAME'])) {
-            $items = explode(':', $_SERVER['SERVER_NAME']);
+        } elseif (!empty($server['SERVER_NAME'])) {
+            $items = explode(':', $server['SERVER_NAME']);
             $host = $items[0];
             $port = $items[1] ?? null;
         }
 
-        if (isset($_SERVER['HTTPS']) && !strcasecmp($_SERVER['HTTPS'], 'on'))
+        if (isset($server['HTTPS']) && !strcasecmp($server['HTTPS'], 'on'))
             $protocol = 'https';
         else
             $protocol = 'http';
 
         if (!isset($port) || $port != intval($port))
-            $port = $_SERVER['SERVER_PORT'] ?? 80;
+            $port = $server['SERVER_PORT'] ?? 80;
 
         if ($protocol == 'http' && $port == 80)
             $port = null;
@@ -147,16 +147,16 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         if ($protocol == 'https' && $port == 443)
             $port = null;
 
-        $server = $protocol . '://' . $host . (isset($port) ? ':' . $port : '');
+        $prot_host_port = $protocol . '://' . $host . (isset($port) ? ':' . $port : '');
 
-        if (isset($_SERVER['REQUEST_URI']))
-            $url = $_SERVER['REQUEST_URI'];
-        elseif (isset($_SERVER['QUERY_STRING']))
-            $url = basename($_SERVER['PHP_SELF']) . '?' . $_SERVER['QUERY_STRING'];
+        if (isset($server['REQUEST_URI']))
+            $url = $server['REQUEST_URI'];
+        elseif (isset($server['QUERY_STRING']))
+            $url = basename($server['PHP_SELF']) . '?' . $server['QUERY_STRING'];
         else
-            $url = (($_SERVER['PHP_SELF'][0] == '/') ? '' : '/') . $_SERVER['PHP_SELF'];
+            $url = (($server['PHP_SELF'][0] == '/') ? '' : '/') . $server['PHP_SELF'];
 
-        return $server . $url;
+        return $prot_host_port . $url;
     }
 
     protected function _parseUploadedFiles($files): array
