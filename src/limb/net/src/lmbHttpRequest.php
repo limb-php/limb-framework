@@ -40,7 +40,6 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
     protected $__pretend_post = false;
     /** @var null|string */
     protected $__requestTarget;
-    protected $__reserved_attrs = array('__version', '__requestTarget', '__method', '__uri', '__headers', '__get', '__post', '__cookies', '__files', '__attributes', '__pretend_post', '__reserved_attrs');
 
     private $stream;
 
@@ -80,8 +79,6 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
 
         $request = lmbArrayHelper::arrayMerge($this->__get, $this->__post, $this->__files);
         foreach ($request as $k => $v) {
-            if (in_array($k, $this->__reserved_attrs))
-                continue;
             $this->set($k, $v);
         }
 
@@ -321,13 +318,6 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
 
     function get($key, $default = null)
     {
-        $_key = "__$key";
-        if (in_array($_key, $this->__reserved_attrs))
-            return $this->$_key;
-
-        if (in_array($key, $this->__reserved_attrs))
-            return null;
-
         if (isset($this->$key))
             return $this->$key;
 
@@ -386,8 +376,6 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         foreach ($items as $k => $v) {
             $new->__get[$k] = $v;
 
-            if (in_array($k, $new->__reserved_attrs))
-                continue;
             $new->set($k, $v);
         }
 
