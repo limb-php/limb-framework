@@ -462,13 +462,9 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
 
     public function withAddedHeader($name, $value)
     {
-        $normalized = strtolower($name);
-
         $new = clone($this);
-        if (!isset($new->__headers[$normalized]))
-            $new->__headers[$normalized] = [];
-
-        $new->__headers[$normalized][] = $value;
+        $headers = array_merge_recursive($new->__headers, [$name => $value]);
+        $new->setHeaders($headers);
 
         return $new;
     }
@@ -478,7 +474,9 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         $normalized = strtolower($name);
 
         $new = clone($this);
-        unset($new->__headers[$normalized]);
+        $headers = $new->__headers;
+        unset($headers[$normalized]);
+        $new->setHeaders($headers);
 
         return $new;
     }

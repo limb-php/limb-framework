@@ -9,7 +9,6 @@
 
 namespace tests\net\cases;
 
-use limb\net\src\exception\lmbMalformedURLException;
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbHttpRequest;
 use limb\net\src\lmbUri;
@@ -17,17 +16,6 @@ use limb\net\src\lmbUploadedFile;
 
 class lmbHttpRequestTest extends TestCase
 {
-//    function testWrongUri()
-//    {
-//        try {
-//            $request = new lmbHttpRequest('http://example.com:80#@google.com//');
-//            $uri = $request->getUri();
-//            $this->fail();
-//        } catch (lmbMalformedURLException $e) {
-//            $this->assertTrue(true);
-//        }
-//    }
-
     function testGetUri()
     {
         $request = new lmbHttpRequest('https://test.com');
@@ -350,12 +338,12 @@ class lmbHttpRequestTest extends TestCase
         $this->assertNull($request->get('n'));
     }
 
-//    function testArrayAccess()
-//    {
-//        $request = new lmbHttpRequest('https://test.com/wow?z=1');
-//        $this->assertEquals('/wow', $request['uri']->getPath());
-//        $this->assertEquals('1', $request['get']['z']);
-//    }
+    function testArrayAccess()
+    {
+        $request = new lmbHttpRequest('https://test.com/wow?z=123&arr[1]=321');
+        $this->assertEquals('321', $request['arr']['1']);
+        $this->assertEquals('123', $request['z']);
+    }
 
     function testHasTest()
     {
@@ -437,12 +425,9 @@ class lmbHttpRequestTest extends TestCase
         $_SERVER['PHP_SELF'] = 'index.php';
 
         $request = lmbHttpRequest::createFromGlobals();
+        $request = $request->withAddedHeader('Accept', ['A', 'B']);
 
-//        $this->assertEquals([
-//            'text/html,application/xhtml+xml,application/xml',
-//            'q=0.9,image/avif,image/webp,*/*',
-//            'q=0.8'
-//        ], $request->getHeader('Accept'));
+        $this->assertEquals(['text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8', 'A', 'B'], $request->getHeader('Accept'));
         $this->assertEquals(['utf-8'], $request->getHeader('Accept-Charset'));
         $this->assertEquals('utf-8', $request->getHeaderLine('Accept-Charset'));
         $this->assertEquals(['test.com'], $request->getHeader('Host'));
