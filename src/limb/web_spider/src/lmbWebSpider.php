@@ -35,7 +35,7 @@ class lmbWebSpider
 
     function crawl(UriInterface $uri): bool
     {
-        if ($uri->getHost() == '')//???
+        if ($uri->getHost() === '')
             return false;
 
         $this->_crawlRecursive($uri, $uri);
@@ -63,8 +63,8 @@ class lmbWebSpider
         if (!$this->getContentTypeFilter()->canPass($reader->getContentType()))
             return;
 
-        if (!$this->getMetaFilter()->canPass($reader->getContent()))
-            return;
+//        if (!$this->getMetaFilter()->canPass($reader->getContent()))
+//            return;
 
         $this->_notifyObservers();
 
@@ -118,17 +118,17 @@ class lmbWebSpider
             $this->observers[$key]->notify($this->content_reader);
     }
 
-    function registerObserver(&$observer)
+    function registerObserver($observer)
     {
-        $this->observers[] =& $observer;
+        $this->observers[] = $observer;
     }
 
     function getUriExtractor(): lmbUriExtractor
     {
-        if (is_object($this->uri_extractor))
+        if ($this->uri_extractor)
             return $this->uri_extractor;
 
-        $this->uri_extractor = new lmbUriExtractor();
+        //$this->uri_extractor = new lmbUriExtractor();
         return $this->uri_extractor;
     }
 
@@ -139,10 +139,10 @@ class lmbWebSpider
 
     function getUriContentReader(): lmbUriContentReader
     {
-        if (is_object($this->content_reader))
+        if ($this->content_reader)
             return $this->content_reader;
 
-        $this->content_reader = new lmbUriContentReader();
+        //$this->content_reader = new lmbUriContentReader();
         return $this->content_reader;
     }
 
@@ -153,10 +153,10 @@ class lmbWebSpider
 
     function getMetaFilter(): lmbMetaFilter
     {
-        if (is_object($this->meta_filter))
+        if ($this->meta_filter)
             return $this->meta_filter;
 
-        $this->meta_filter = new lmbMetaFilter();
+        //$this->meta_filter = new lmbMetaFilter();
         return $this->meta_filter;
     }
 
@@ -167,10 +167,10 @@ class lmbWebSpider
 
     function getContentTypeFilter(): lmbContentTypeFilter
     {
-        if (is_object($this->content_type_filter))
+        if ($this->content_type_filter)
             return $this->content_type_filter;
 
-        $this->content_type_filter = new lmbContentTypeFilter();
+        //$this->content_type_filter = new lmbContentTypeFilter();
         return $this->content_type_filter;
     }
 
@@ -186,10 +186,10 @@ class lmbWebSpider
 
     function getUriFilter(): lmbUriFilter
     {
-        if (is_object($this->uri_filter))
+        if ($this->uri_filter)
             return $this->uri_filter;
 
-        $this->uri_filter = new lmbUriFilter();
+        //$this->uri_filter = new lmbUriFilter();
         return $this->uri_filter;
     }
 
@@ -200,10 +200,10 @@ class lmbWebSpider
 
     function getUriNormalizer(): lmbUriNormalizer
     {
-        if (is_object($this->uri_normalizer))
+        if ($this->uri_normalizer)
             return $this->uri_normalizer;
 
-        $this->uri_normalizer = new lmbUriNormalizer();
+        //$this->uri_normalizer = new lmbUriNormalizer();
         return $this->uri_normalizer;
     }
 }

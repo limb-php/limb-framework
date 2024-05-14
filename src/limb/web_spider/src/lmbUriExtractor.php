@@ -30,7 +30,7 @@ class lmbUriExtractor
         return 2;
     }
 
-    function &extract($content)
+    function &extract($content): array
     {
         preg_match_all($this->_defineUriRegex(),
             $content,

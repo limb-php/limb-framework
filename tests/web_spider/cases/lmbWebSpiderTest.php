@@ -9,6 +9,7 @@
 
 namespace tests\web_spider\cases;
 
+use limb\web_spider\src\lmbMetaFilter;
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbUri;
 use limb\web_spider\src\lmbWebSpider;
@@ -39,6 +40,7 @@ class lmbWebSpiderTest extends TestCase
         $this->content_type_filter = $this->createMock(lmbContentTypeFilter::class);
         $this->normalizer = $this->createMock(lmbUriNormalizer::class);
         $this->reader = $this->createMock(lmbUriContentReader::class);
+        $this->meta_filter = $this->createMock(lmbMetaFilter::class);
 
         $this->spider = new lmbWebSpider();
         $this->spider->registerObserver($this->observer);
@@ -46,6 +48,7 @@ class lmbWebSpiderTest extends TestCase
         $this->spider->setUriFilter($this->uri_filter);
         $this->spider->setContentTypeFilter($this->content_type_filter);
         $this->spider->setUriNormalizer($this->normalizer);
+        $this->spider->setMetaFilter($this->meta_filter);
         $this->spider->setUriContentReader($this->reader);
     }
 
@@ -148,6 +151,13 @@ class lmbWebSpiderTest extends TestCase
             ->expects($this->once())
             ->method('notify')
             ->with($this->createMock(lmbUriContentReader::class));
+
+//        $this->observer
+//            ->expects($this->once())
+//            ->method('canPass')
+//            ->with('<html></html>')
+//            ->willReturn(true);
+
         $one_more_observer
             ->expects($this->once())
             ->method('notify')
@@ -176,34 +186,23 @@ class lmbWebSpiderTest extends TestCase
             ->method('process')
             ->withConsecutive([$uri], [$uri], [$uri_normalized_by_spider], [$uri], [$uri_normalized_by_spider]) //???
             ->willReturnOnConsecutiveCalls($uri, $uri, $uri_normalized_by_spider, $uri, $uri_normalized_by_spider);
-//            ->willReturn($uri)
-//            ->willReturn($uri)
-//            ->willReturn($uri_normalized_by_spider)
-//            ->willReturn($uri)
-//            ->willReturn($uri_normalized_by_spider);
 
         $this->reader
             ->expects($this->exactly(2))
             ->method('open')
             ->willReturnOnConsecutiveCalls($uri, $uri_normalized_by_spider);
-//            ->willReturn($uri)
-//            ->willReturn($uri_normalized_by_spider);
 
         $content1 = 'whatever1';
         $content2 = 'whatever2';
         $this->reader
             ->expects($this->exactly(1))
             ->method('getContent')
-            //->willReturnOnConsecutiveCalls('whatever1', 'whatever2');
-            ->willReturn('whatever1');
-//            ->willReturn('whatever2');
+            ->willReturnOnConsecutiveCalls('whatever1', 'whatever2');
 
         $this->reader
             ->expects($this->exactly(1))
             ->method('getContentType')
             ->willReturnOnConsecutiveCalls($content_type1 = 'type1', $content_type2 = 'type2');
-//            ->willReturn($content_type1 = 'type1')
-//            ->willReturn($content_type2 = 'type2');
 
         $this->content_type_filter
             ->expects($this->exactly(2))
@@ -218,7 +217,7 @@ class lmbWebSpiderTest extends TestCase
             ->expects($this->exactly(2))
             ->method('extract')
             ->withConsecutive([$links1], [$links2])
-            ->willReturnOnConsecutiveCalls($content1, $content2);
+            ->willReturnOnConsecutiveCalls([$links1, $links2], [$links2]);
 
         $this->spider->crawl($uri);
     }
