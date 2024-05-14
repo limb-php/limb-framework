@@ -12,4 +12,9 @@ class OutputFilter1
 
         return $response;
     }
+
+    function handle($fc, $request, $callback = null)
+    {
+        return $this->run($fc, $request, $callback);
+    }
 }

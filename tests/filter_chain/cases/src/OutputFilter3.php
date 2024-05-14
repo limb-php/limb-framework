@@ -2,8 +2,6 @@
 
 namespace tests\filter_chain\cases\src;
 
-use limb\net\src\lmbHttpResponse;
-
 class OutputFilter3
 {
     function run($fc, $request, $callback = null)
@@ -13,5 +11,10 @@ class OutputFilter3
         echo '</filter3>';
 
         return $response;
+    }
+
+    function handle($fc, $request, $callback = null)
+    {
+        return $this->run($fc, $request, $callback);
     }
 }

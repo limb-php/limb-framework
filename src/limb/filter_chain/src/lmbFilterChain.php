@@ -105,6 +105,8 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
                 $filter = new $filter(...$agrs);
             }
 
+            /** @var $filter lmbInterceptingFilterInterface */
+            //return $filter->handle($this, $request, $callback);
             return $filter->run($this, $request, $callback);
         }
 
@@ -142,5 +144,10 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
         $this->process($request, $callback);
 
         return $filter_chain->next($request, $callback);
+    }
+
+    function handle($filter_chain, $request, $callback = null)
+    {
+        return $this->run($filter_chain, $request, $callback);
     }
 }
