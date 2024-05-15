@@ -81,7 +81,7 @@ class lmbErrorList extends lmbCollection
         if (str_contains($key, '*')) {
             $result = [];
             foreach ($this->dataset as $k => $v) {
-                if( preg_match('/'.$key.'/', $k) !== false )
+                if(preg_match('/'.$key.'/', $k))
                     $result[$k] = $v;
             }
 

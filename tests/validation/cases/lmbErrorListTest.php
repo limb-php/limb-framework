@@ -53,9 +53,10 @@ class lmbErrorListTest extends TestCase
 
         $list->addError($message = 'error_group1', array('foo'), array('FOO1'), 'foo1');
         $list->addError($message = 'error_group2', array('foo'), array('FOO2'), 'foo2');
+        $list->addError($message = 'error_group3', array('bar'), array('BOO1'), 'bar1');
         $errors = $list->export();
 
-        $this->assertCount(2, $errors);
+        $this->assertCount(3, $errors);
 
         $errors_for_foo1 = $list->getByKey('foo.foo1');
         $errors_for_foo2 = $list->getByKey('foo.foo2');
@@ -65,6 +66,8 @@ class lmbErrorListTest extends TestCase
         //$this->assertEquals(['error_group1', 'error_group2'], $errors_for_foo3->getReadable());
         $this->assertEquals('error_group1', $errors_for_foo3['foo.foo1']);
         $this->assertEquals('error_group2', $errors_for_foo3['foo.foo2']);
+
+        $this->assertCount(2, $errors_for_foo3);
     }
 
     function testRenameFields()
