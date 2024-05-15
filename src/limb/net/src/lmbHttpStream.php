@@ -48,7 +48,7 @@ class lmbHttpStream implements StreamInterface
         $this->readable = null;
 
         if ($this->isSeekable()) {
-            fseek($body, 0, SEEK_CUR);
+            fseek($body, 0);
         }
     }
 

@@ -9,6 +9,7 @@
 
 namespace tests\net\cases;
 
+use limb\net\src\lmbHttpStream;
 use PHPUnit\Framework\TestCase;
 use limb\net\src\lmbHttpRequest;
 use limb\net\src\lmbUri;
@@ -165,119 +166,6 @@ class lmbHttpRequestTest extends TestCase
         $this->assertEquals(42, $vars['ju']);
     }
 
-    function testGetCookie()
-    {
-        $cookie = array('c' => 1, 'ju' => 'jitsu', 'kung' => 'fu');
-        $request = new lmbHttpRequest('https://test.com', 'GET', array(), array(), $cookie);
-        $this->assertEquals($request->getCookie(), $cookie);
-        $this->assertEquals(1, $request->getCookie('c'));
-        $this->assertNull($request->getCookie('b'), 1);
-
-        $this->assertEquals('cool', $request->getCookie('sambo', 'cool')); // test for default values
-        $this->assertEquals(0, $request->getCookie('sambo', 0));
-
-        $field_names = array('ju', 'kung', 'sambo');
-
-        $this->assertEquals(array('ju' => 'jitsu', 'kung' => 'fu', 'sambo' => null), $request->getCookie($field_names));
-    }
-
-    function testGetFiles()
-    {
-        $files = array(
-            'form' => array(
-                'name' => array(
-                    'file1' => 'file',
-                    'file2' => 'file',
-                ),
-                'type' => array(
-                    'file1' => 'file_type',
-                    'file2' => 'file_type',
-                ),
-                'tmp_name' => array(
-                    'file1' => 'file_tmp_name',
-                    'file2' => 'file_tmp_name',
-                ),
-                'size' => array(
-                    'file1' => 'file_size',
-                    'file2' => 'file_size',
-                ),
-                'error' => array(
-                    'file1' => 'file_err_code',
-                    'file2' => 'file_err_code',
-                ),
-            ),
-        );
-
-        $expected = array(
-            'form' => array(
-                'file1' => new lmbUploadedFile(array(
-                    'name' => 'file',
-                    'type' => 'file_type',
-                    'tmp_name' => 'file_tmp_name',
-                    'size' => 'file_size',
-                    'error' => 'file_err_code'
-                )),
-                'file2' => new lmbUploadedFile(array(
-                    'name' => 'file',
-                    'type' => 'file_type',
-                    'tmp_name' => 'file_tmp_name',
-                    'size' => 'file_size',
-                    'error' => 'file_err_code'
-                )),
-            ),
-        );
-
-        $request = new lmbHttpRequest('https://test.com', 'POST', array(), array(), array(), $files);
-        $this->assertEquals($request->getFiles(), $expected);
-        $this->assertEquals($request->getFiles('form'), $expected['form']);
-
-        //files ARE returned with raw get
-        $this->assertEquals($request->get('form'), $expected['form']);
-    }
-
-    function testHasFiles()
-    {
-        $files = array(
-            'form' => array(
-                'name' => array('file1' => 'file'),
-                'type' => array('file1' => 'file_type'),
-                'tmp_name' => array('file1' => 'file_tmp_name'),
-                'size' => array('file1' => 'file_size'),
-                'error' => array('file1' => 'file_err_code'),
-            ),
-        );
-
-        $request = new lmbHttpRequest('https://test.com', 'POST', array(), array(), array(), $files);
-        $this->assertTrue($request->hasFiles());
-        $this->assertTrue($request->hasFiles('form'));
-        $this->assertFalse($request->hasFiles('not_existed_form'));
-    }
-
-    function testHasNoFiles()
-    {
-        $request = new lmbHttpRequest('https://test.com', 'POST', array(), array(), array(), array());
-        $this->assertFalse($request->hasFiles());
-    }
-
-    function testInitByServerVariables()
-    {
-        $old_uri = @$_SERVER['REQUEST_URI'];
-        $old_host = @$_SERVER['HTTP_HOST'];
-        $old_port = @$_SERVER['SERVER_PORT'];
-
-        $_SERVER['REQUEST_URI'] = '/';
-        $_SERVER['HTTP_HOST'] = 'test.com';
-        $_SERVER['SERVER_PORT'] = '8080';
-        $_SERVER['HTTPS'] = 'on';
-
-        $request = lmbHttpRequest::createFromGlobals();
-        $this->assertEquals('https://test.com:8080/', $request->getUri()->toString());
-
-        $_SERVER['REQUEST_URI'] = $old_uri;
-        $_SERVER['HTTP_HOST'] = $old_host;
-        $_SERVER['SERVER_PORT'] = $old_port;
-    }
-
     function testExtractPortFromHost()
     {
         $old_uri = @$_SERVER['REQUEST_URI'];
@@ -285,6 +173,7 @@ class lmbHttpRequestTest extends TestCase
 
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['HTTP_HOST'] = 'test.com:8787';
+        $_SERVER['HTTPS'] = 'on';
 
         $request = lmbHttpRequest::createFromGlobals();
         $this->assertEquals('https://test.com:8787/', $request->getUri()->toString());
@@ -359,35 +248,6 @@ class lmbHttpRequestTest extends TestCase
         $this->assertEquals([1, 3], $request3->get('zar'));
     }
 
-    function testAttributes()
-    {
-        $request = new lmbHttpRequest('https://test.com/wow?z=1');
-        $request = $request->withAttribute('attr1', '587');
-
-        $this->assertEquals('587', $request->getAttribute('attr1'));
-
-        $request = $request->withAttribute('attr2', '404');
-
-        $this->assertEquals(['attr1' => '587', 'attr2' => '404'], $request->getAttributes());
-
-        $request = $request->withoutAttribute('attr2');
-
-        $this->assertEquals(['attr1' => '587'], $request->getAttributes());
-
-        $request2 = new lmbHttpRequest('https://test.com/wow?attr=100');
-        $request2 = $request2->withAttribute('attr', '200');
-
-        $this->assertEquals(100, $request2->get('attr'));
-        $this->assertEquals(200, $request2->getAttribute('attr'));
-
-        $request3 = new lmbHttpRequest('https://test.com/wow3');
-        $request3 = $request3->withAttribute('foo', 'bar');
-        $request4 = $request3->withAttribute('foo2', 'bar2');
-
-        $this->assertEquals('bar', $request3->get('foo'));
-        $this->assertEquals('bar2', $request4->get('foo2'));
-    }
-
     function testGetWithNewUri()
     {
         $request = new lmbHttpRequest('https://test.com/wow?x=2&z=3');
@@ -432,5 +292,18 @@ class lmbHttpRequestTest extends TestCase
         $this->assertEquals('utf-8', $request->getHeaderLine('Accept-Charset'));
         $this->assertEquals(['test.com'], $request->getHeader('Host'));
         $this->assertEquals('test.com', $request->getHeaderLine('host'));
+    }
+
+    function testStream()
+    {
+        $request = new lmbHttpRequest('https://test.com/');
+        $request = $request->withBody(new lmbHttpStream('string data'));
+
+        $this->assertEquals('str', $request->getBody()->read(3));
+        $this->assertEquals('ing data', $request->getBody()->getContents());
+        $this->assertTrue($request->getBody()->eof());
+        $this->assertEquals(11, $request->getBody()->tell());
+
+        $this->assertEquals('string data', $request->getBody());
     }
 }

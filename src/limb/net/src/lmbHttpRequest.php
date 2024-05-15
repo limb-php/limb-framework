@@ -497,7 +497,6 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
         }
 
         $new = clone($this);
-        //$new->stream = new lmbHttpStream($body);
         $new->stream = $body;
 
         return $new;
