@@ -79,7 +79,13 @@ class lmbErrorList extends lmbCollection
     function getByKey($key)
     {
         if (str_contains($key, '*')) {
+            $result = [];
+            foreach ($this->dataset as $k => $v) {
+                if( preg_match('/'.$key.'/', $k) !== false )
+                    $result[$k] = $v;
+            }
 
+            return $result;
         }
 
         $result = $this->dataset[$key] ?? null;
@@ -91,7 +97,7 @@ class lmbErrorList extends lmbCollection
     }
 
     /**
-     * Returns FALSE is contains at least one error, otherwise returns TRUE
+     * Returns FALSE is containing at least one error, otherwise returns TRUE
      * @return bool
      */
     function isValid(): bool
@@ -101,6 +107,7 @@ class lmbErrorList extends lmbCollection
 
     /**
      * Returns all processed error list with formatted messages
+     *
      * @return array
      * @see lmbErrorList::addError()
      */
@@ -108,6 +115,7 @@ class lmbErrorList extends lmbCollection
     {
         $result = [];
         foreach ($this as $key => $error) {
+            /** @var $error lmbErrorMessage */
             $result[$key] = $error->getReadable();
         }
 

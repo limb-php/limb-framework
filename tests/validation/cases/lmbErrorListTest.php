@@ -62,6 +62,9 @@ class lmbErrorListTest extends TestCase
         $errors_for_foo3 = $list->getByKey('foo.*');
         $this->assertEquals('error_group1', $errors_for_foo1->getReadable());
         $this->assertEquals('error_group2', $errors_for_foo2->getReadable());
+        //$this->assertEquals(['error_group1', 'error_group2'], $errors_for_foo3->getReadable());
+        $this->assertEquals('error_group1', $errors_for_foo3['foo.foo1']);
+        $this->assertEquals('error_group2', $errors_for_foo3['foo.foo2']);
     }
 
     function testRenameFields()
