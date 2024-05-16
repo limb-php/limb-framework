@@ -9,22 +9,29 @@
 
 namespace limb\web_cache\src;
 
+use limb\acl\src\lmbRoleProviderInterface;
+
 /**
  * class lmbFullPageCacheUser.
  *
  * @package web_cache
  * @version $Id: lmbFullPageCacheUser.php 7686 2009-03-04 19:57:12Z
  */
-class lmbFullPageCacheUser
+class lmbFullPageCacheUser implements lmbRoleProviderInterface
 {
-    protected $groups;
+    protected array $groups;
 
-    function __construct($groups = array())
+    function __construct($groups = [])
     {
         $this->groups = $groups;
     }
 
     function getGroups()
+    {
+        return $this->groups;
+    }
+
+    function getRole(): array
     {
         return $this->groups;
     }

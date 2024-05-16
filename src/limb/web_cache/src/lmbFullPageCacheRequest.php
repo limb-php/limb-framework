@@ -9,6 +9,7 @@
 
 namespace limb\web_cache\src;
 
+use limb\acl\src\lmbRoleProviderInterface;
 use limb\core\src\lmbArrayHelper;
 use limb\net\src\lmbHttpRequest;
 use limb\net\src\lmbUri;
@@ -22,7 +23,7 @@ use limb\net\src\lmbUri;
 class lmbFullPageCacheRequest
 {
     protected $http_request;
-    protected $user;
+    protected lmbRoleProviderInterface $user;
     protected $ignore_user_groups = array();
 
     function __construct($http_request, $user)
@@ -71,7 +72,7 @@ class lmbFullPageCacheRequest
 
     protected function _serializeUserInfo(): string
     {
-        $groups = $this->user->getGroups();
+        $groups = $this->user->getRole();
 
         if (!$groups || array_values($groups) == $this->ignore_user_groups)
             return '';
