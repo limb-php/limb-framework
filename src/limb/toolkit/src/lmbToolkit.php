@@ -58,7 +58,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method void setCmsTree(\limb\tree\src\lmbMPTree $tree)
  * @method string getUserSessionName()
  * @method \limb\cms\src\model\lmbCmsSessionUser getCmsAuthSession()
- * @method \limb\cms\src\model\lmbCmsUser getCmsUser()
+ * @method \limb\cms\src\model\lmbCmsUser|\limb\acl\src\lmbRoleProviderInterface getCmsUser()
  * @method void setCmsUser($user)
  * @method void resetCmsUser()
  *

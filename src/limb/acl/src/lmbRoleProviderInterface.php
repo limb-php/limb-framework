@@ -11,5 +11,5 @@ namespace limb\acl\src;
 
 interface lmbRoleProviderInterface
 {
-    function getRole();
+    function getRole(): array;
 }
