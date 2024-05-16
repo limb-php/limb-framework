@@ -10,14 +10,17 @@ use limb\acl\src\lmbAcl;
 
 class TestsRoleProvider implements lmbRoleProviderInterface
 {
-    public $role;
+    public array $role;
 
-    function setRole($role)
+    function setRole($role): void
     {
+        if(!is_array($role))
+            $role = [$role];
+
         $this->role = $role;
     }
 
-    function getRole()
+    function getRole(): array
     {
         return $this->role;
     }
