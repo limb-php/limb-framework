@@ -259,6 +259,15 @@ class LmbController
             if ($name[0] !== '_')
                 $view->set($name, $value);
         }
+
+// FOR LIMB 5.x
+//        $reflect = new \ReflectionClass($this);
+//        $props = $reflect->getProperties(\ReflectionProperty::IS_PUBLIC);
+//        foreach ($props as $value) {
+//            $name = $value->getName();
+//            if ($name[0] !== '_' && !$value->isStatic())
+//                $view->set($name, $this->$name);
+//        }
     }
 
     function redirect($params_or_url = array(), $route_url = null): ResponseInterface
