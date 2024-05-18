@@ -44,8 +44,8 @@ class lmbTimingFilter implements lmbInterceptingFilterInterface
         $path = $request->getUri()->getPath();
         $query = $request->getUri()->getQuery();
         $method = $request->getMethod();
-        $agent = $request->getHeader('USER_AGENT');
+        $agent = $request->getHeaderLine('User-Agent');
 
-        return "$time: $method $host $path $query [$agent], memory: $mem_usage ($peak_mem_usage), time: $gentime s";
+        return "$time: $method $host $path $query [$agent], memory: $mem_usage ($peak_mem_usage), time: $gentime s" . PHP_EOL;
     }
 }
