@@ -10,6 +10,7 @@
 namespace limb\web_app\src\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
+use limb\toolkit\src\lmbToolkit;
 
 /**
  * class lmbTimingFilter.
@@ -25,7 +26,9 @@ class lmbTimingFilter implements lmbInterceptingFilterInterface
 
         $response = $filter_chain->next($request, $callback);
 
-        echo '<small>' . round(microtime(true) - $start_time, 2) . '</small>';
+        $str = round(microtime(true) - $start_time, 2);
+        $logger = lmbToolkit::instance()->getLog('debug');
+        $logger->debug($str);
 
         return $response;
     }
