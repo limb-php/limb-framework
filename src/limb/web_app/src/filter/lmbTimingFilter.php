@@ -26,10 +26,26 @@ class lmbTimingFilter implements lmbInterceptingFilterInterface
 
         $response = $filter_chain->next($request, $callback);
 
-        $str = round(microtime(true) - $start_time, 2);
         $logger = lmbToolkit::instance()->getLog('debug');
-        $logger->debug($str);
+        $logger->debug($this->_getStat($request, $start_time));
 
         return $response;
+    }
+
+    function _getStat($request, $start_time): string
+    {
+        $mem_usage = memory_get_usage();
+        $peak_mem_usage = memory_get_peak_usage();
+
+        $time = date('Y.m.d H:i:s');
+        $gentime = round(microtime(true) - $start_time, 4);
+
+        $host = $request->getUri()->getHost();
+        $path = $request->getUri()->getPath();
+        $query = $request->getUri()->getQuery();
+        $method = $request->getMethod();
+        $agent = $request->getHeader('USER_AGENT');
+
+        return "$time: $method $host $path $query [$agent], memory: $mem_usage ($peak_mem_usage), time: $gentime s";
     }
 }
