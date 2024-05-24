@@ -1,8 +1,9 @@
 <?php
 
-namespace limb\cms\src\Controllers;
+namespace limb\cms\src\Helper;
 
 use limb\toolkit\src\lmbToolkit;
+use Psr\Http\Message\RequestInterface;
 
 class lmbCmsAdminFilterHelper
 {
@@ -10,19 +11,19 @@ class lmbCmsAdminFilterHelper
     protected $session;
     protected $filter_name;
 
-    function __construct($filter_name, $request = null)
+    function __construct(string $filter_name, RequestInterface $request = null)
     {
         $this->filter_name = $filter_name;
         $this->request = $request ?? lmbToolkit::instance()->getRequest();
         $this->session = lmbToolkit::instance()->getSession();
     }
 
-    function getParams()
+    function getParams(): array
     {
         return $this->session->get($this->filter_name, array());
     }
 
-    function setParams($params)
+    function setParams(array $params)
     {
         $this->session->set($this->filter_name, $params);
     }
