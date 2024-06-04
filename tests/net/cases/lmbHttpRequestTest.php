@@ -232,6 +232,12 @@ class lmbHttpRequestTest extends TestCase
         $request = new lmbHttpRequest('https://test.com/wow?z=123&arr[1]=321');
         $this->assertEquals('321', $request['arr']['1']);
         $this->assertEquals('123', $request['z']);
+
+        $request2 = new lmbHttpRequest('https://test.com/wow?boo[1][prior]=123&arr[1]=321');
+        $this->assertEquals('321', $request2->get('arr')['1']);
+        $this->assertEquals('123', $request2->get('boo')['1']['prior']);
+        $this->assertEquals(['prior' => '123'], $request2->get('boo')['1']);
+        $this->assertEquals(['1' => ['prior' => '123']], $request2->get('boo'));
     }
 
     function testHasTest()
