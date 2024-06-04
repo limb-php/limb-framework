@@ -62,6 +62,9 @@ class lmbTwigExtension extends AbstractExtension
 
     public static function format_bytes($size)
     {
+        if( !$size || !is_numeric($size) )
+            return '';
+
         $i = 0;
         while (floor($size / 1024) > 0) {
             ++$i;
