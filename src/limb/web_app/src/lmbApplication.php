@@ -12,6 +12,7 @@ use limb\web_app\src\request\lmbMiddlewarePipe;
 use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\web_app\src\Controllers\NotFoundController;
 use limb\web_app\src\request\lmbRoutesRequestDispatcher;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class lmbApplication
@@ -61,12 +62,15 @@ class lmbApplication
                 $dispatched_params = $this->dispatcher->dispatch($request);
 
                 // @TODO: BC start
-                foreach ($dispatched_params as $name => $value)
-                    $request = $request->withAttribute($name, $value);
-                lmbToolkit::instance()->setRequest($request);
+                if(!empty($dispatched_params)) {
+                    foreach ($dispatched_params as $name => $value)
+                        $request = $request->withAttribute($name, $value);
+                    lmbToolkit::instance()->setRequest($request);
+                }
                 // BC end
 
                 $dispatched_controller = $this->_createController($dispatched_params);
+                lmbToolkit::instance()->setDispatchedController($dispatched_controller);
 
                 return $this->_callControllerAction($dispatched_controller, $request, $dispatched_params);
             });
@@ -128,8 +132,6 @@ class lmbApplication
             $controller = $this->_createDefaultController();
         }
 
-        lmbToolkit::instance()->setDispatchedController($controller);
-
         return $controller;
     }
 
@@ -141,12 +143,19 @@ class lmbApplication
         return $controller;
     }
 
-    protected function _callControllerAction($dispatched_controller, $request, $dispatched_params): ResponseInterface
+    /**
+     * @param \limb\web_app\src\Controllers\LmbController $dispatched_controller
+     * @param RequestInterface $request
+     * @param array $parameters
+     * @return ResponseInterface
+     * @throws lmbException
+     */
+    protected function _callControllerAction($dispatched_controller, $request, $parameters): ResponseInterface
     {
-        if (!is_object($dispatched_controller)) {
+        if (!is_object($parameters)) {
             throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
         }
 
-        return $dispatched_controller->performAction($request, $dispatched_params);
+        return $dispatched_controller->performAction($request, $parameters);
     }
 }
