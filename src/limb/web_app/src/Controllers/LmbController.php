@@ -425,13 +425,4 @@ class LmbController
         }
         return false;
     }
-
-    protected function isAjaxRequest($request): bool
-    {
-        if ($request->hasHeader('DNT'))
-            return true;
-
-        return $request->hasHeader('X-Requested-With') &&
-            $request->getHeaderLine('X-Requested-With') == 'XMLHttpRequest';
-    }
 }
