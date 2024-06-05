@@ -371,11 +371,16 @@ class LmbController
         return (bool)lmbEnv::get('LIMB_CONTROLLER_CACHE_ENABLED');
     }
 
+    static protected function _getCacheFilePath(): string
+    {
+        return lmbEnv::get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache';
+    }
+
     function _loadCache(): void
     {
         if ($this->isCacheEnabled() &&
             !self::$map_loaded &&
-            file_exists($cache = lmbEnv::get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache')
+            file_exists($cache = self::_getCacheFilePath())
         ) {
             self::$map_loaded = true;
             self::$action_template_map = unserialize(file_get_contents($cache));
@@ -385,8 +390,10 @@ class LmbController
     function _saveCache(): void
     {
         if ($this->isCacheEnabled()) {
-            lmbFs::safeWrite(lmbEnv::get('LIMB_VAR_DIR') . '/locators/controller_action2tpl.cache',
-                serialize(self::$action_template_map));
+            lmbFs::safeWrite(
+                self::_getCacheFilePath(),
+                serialize(self::$action_template_map)
+            );
         }
     }
 
