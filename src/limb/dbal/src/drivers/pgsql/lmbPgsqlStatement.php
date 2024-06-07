@@ -171,12 +171,6 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
         }
     }
 
-    function getStatement()
-    {
-        $this->_prepareStatement();
-        return $this->statement;
-    }
-
     protected function _prepareStatement()
     {
         $sql = $this->_handleBindVars($this->sql);
@@ -247,7 +241,7 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
 
     function getStatementName()
     {
-        $this->getStatement();
+        //return $this->statement_name = "pgsql_statement_" . $this->connection->getStatementNumber();
         return $this->statement_name;
     }
 
@@ -258,7 +252,10 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
             $this->sql = $sql;
             $this->free();
         }
+
+        $this->_prepareStatement();
         $queryId = $this->connection->executeStatement($this);
+
         if (isset($stored_sql)) {
             $this->sql = $stored_sql;
             $this->free();

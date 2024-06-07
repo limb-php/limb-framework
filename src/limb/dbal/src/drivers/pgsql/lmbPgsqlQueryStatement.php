@@ -22,7 +22,10 @@ class lmbPgsqlQueryStatement extends lmbPgsqlStatement implements lmbDbQueryStat
     function getOneRecord()
     {
         $record = new lmbPgsqlRecord();
+
+        $this->_prepareStatement();
         $queryId = $this->connection->executeStatement($this);
+
         $values = pg_fetch_assoc($queryId);
         $record->import($values);
         pg_free_result($queryId);
@@ -32,7 +35,9 @@ class lmbPgsqlQueryStatement extends lmbPgsqlStatement implements lmbDbQueryStat
 
     function getOneValue()
     {
+        $this->_prepareStatement();
         $queryId = $this->connection->executeStatement($this);
+
         $row = pg_fetch_row($queryId);
         pg_free_result($queryId);
         if (is_array($row))
@@ -42,7 +47,10 @@ class lmbPgsqlQueryStatement extends lmbPgsqlStatement implements lmbDbQueryStat
     function getOneColumnAsArray()
     {
         $column = array();
+
+        $this->_prepareStatement();
         $queryId = $this->connection->executeStatement($this);
+
         while (is_array($row = pg_fetch_row($queryId)))
             $column[] = $row[0];
         pg_free_result($queryId);

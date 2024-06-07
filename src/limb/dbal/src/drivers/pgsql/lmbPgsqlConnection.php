@@ -53,7 +53,12 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
     function getStatementNumber()
     {
-        return ++$this->statement_number;
+        return $this->statement_number;
+    }
+
+    function incStatementNumber()
+    {
+        $this->statement_number++;
     }
 
     /** @return void */
@@ -175,9 +180,9 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     function executeStatement($stmt, $retry = true)
     {
         try {
-            $stmt_name = $stmt->getStatementName();
+            $result = pg_execute($this->getConnectionId(), $stmt->getStatementName(), $stmt->getPrepParams());
 
-            $result = pg_execute($this->getConnectionId(), $stmt_name, $stmt->getPrepParams());
+            $this->incStatementNumber();
 
             if($this->logger)
                 $this->logger->debug("PgSQL Driver. Execute statement: " . $stmt->getSQL() . " With params " . var_export($stmt->getPrepParams(), true) . "\n");
