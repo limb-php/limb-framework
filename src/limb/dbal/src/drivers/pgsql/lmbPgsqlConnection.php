@@ -182,8 +182,6 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         try {
             $result = pg_execute($this->getConnectionId(), $stmt->getStatementName(), $stmt->getPrepParams());
 
-            $this->incStatementNumber();
-
             if($this->logger)
                 $this->logger->debug("PgSQL Driver. Execute statement: " . $stmt->getSQL() . " With params " . var_export($stmt->getPrepParams(), true) . "\n");
 
