@@ -23,7 +23,7 @@ use limb\dbal\src\exception\lmbDbException;
 class lmbPgsqlConnection extends lmbDbBaseConnection
 {
     protected $connectionId;
-    protected $statement_number = 0;
+    protected $statement_number = 1;
 
     function getType()
     {
@@ -53,11 +53,14 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
 
     function getStatementNumber()
     {
-        return $this->statement_number;
+        return sprintf("%d-%d", $this->statement_number, rand(0, PHP_INT_MAX));
     }
 
     function incStatementNumber()
     {
+        if( $this->statement_number >= PHP_INT_MAX )
+            $this->statement_number = 0;
+
         $this->statement_number++;
     }
 
