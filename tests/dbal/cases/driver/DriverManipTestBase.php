@@ -9,11 +9,12 @@
 
 namespace tests\dbal\cases\driver;
 
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use PHPUnit\Framework\TestCase;
 
 abstract class DriverManipTestBase extends TestCase
 {
-    protected $connection;
+    protected lmbDbConnectionInterface $connection;
 
     function setUp(): void
     {
