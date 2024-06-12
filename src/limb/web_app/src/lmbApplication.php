@@ -152,7 +152,7 @@ class lmbApplication
      */
     protected function _callControllerAction($dispatched_controller, $request, $parameters): ResponseInterface
     {
-        if (!is_object($parameters)) {
+        if (!is_object($dispatched_controller)) {
             throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
         }
 
