@@ -27,7 +27,7 @@ class lmbCmsAccessPolicyFilter implements lmbInterceptingFilterInterface
 
         $user = $this->toolkit->getCmsUser();
 
-        $current_path = '/' . ltrim($this->toolkit->getRequest()->getUri()->getPath(), '/');
+        $current_path = '/' . ltrim($request->getUri()->getPath(), '/');
 
         $controller_name = $this->current_controller->getName();
 

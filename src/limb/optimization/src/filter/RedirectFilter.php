@@ -16,7 +16,7 @@ class RedirectFilter implements lmbInterceptingFilterInterface
 
         $redirects = $this->_loadRedirects();
 
-        $current_redirect = $this->_findRedirectForCurrentUrl($redirects);
+        $current_redirect = $this->_findRedirectForCurrentUrl($request, $redirects);
         if ($current_redirect && ($current_redirect[0] == 'Redirect')) {
             if ($current_redirect[1] == 301)
                 $response = new lmbHttpResponse("", 301);
@@ -51,9 +51,8 @@ class RedirectFilter implements lmbInterceptingFilterInterface
         return $result;
     }
 
-    protected function _findRedirectForCurrentUrl($redirects)
+    protected function _findRedirectForCurrentUrl($request, $redirects)
     {
-        $request = $this->toolkit->getRequest();
         $uri_path = $request->getUri()->getPath();
 
         foreach ($redirects as $redirect) {

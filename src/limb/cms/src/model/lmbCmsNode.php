@@ -216,9 +216,9 @@ class lmbCmsNode extends lmbActiveRecord
             return lmbActiveRecord::findById(lmbCmsNode::class, $node['id'], true, $conn);
     }
 
-    static function findRequested()
+    static function findRequested($request)
     {
-        if ($path = lmbToolkit::instance()->getRequest()->getUri()->getPath())
+        if ($path = $request->getUri()->getPath())
             return lmbCmsNode::findByPath($path);
     }
 

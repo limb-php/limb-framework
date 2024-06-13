@@ -21,6 +21,13 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbSearchFetcher extends lmbFetcher
 {
+    protected $request;
+
+    function setRequest($request)
+    {
+        $this->request = $request;
+    }
+
     protected function _createDataSet()
     {
         $query = new lmbMySQL4FullTextSearchQuery('full_text_uri_content_index',
@@ -45,8 +52,7 @@ class lmbSearchFetcher extends lmbFetcher
 
     protected function _getQueryWords()
     {
-        $request = lmbToolkit::instance()->getRequest();
-        $query = $request->get('query_string');
+        $query = $this->request->get('query_string');
         return explode(' ', htmlspecialchars($query));
     }
 }

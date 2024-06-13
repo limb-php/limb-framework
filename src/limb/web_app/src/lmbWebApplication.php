@@ -33,6 +33,7 @@ class lmbWebApplication extends lmbFilterChain
     protected $pre_action_filters = array();
     protected $request_dispatcher = null;
 
+    protected $inited = false;
     protected $bootstraps = [];
 
     function setDefaultControllerName($name)
@@ -73,11 +74,14 @@ class lmbWebApplication extends lmbFilterChain
 
     function process($request, $callback = null): ResponseInterface
     {
-        $this->_registerBootstraps();
+        if(!$this->inited) {
+            $this->_registerBootstraps();
+            $this->_registerFilters();
+
+            $this->inited = true;
+        }
 
         $this->_bootstrap($request);
-
-        $this->_registerFilters();
 
         $response = parent::process($request, function ($request) {
             return $this->_callControllerAction($request);

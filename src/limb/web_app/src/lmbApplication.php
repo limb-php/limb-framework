@@ -18,6 +18,8 @@ use Psr\Http\Message\ResponseInterface;
 class lmbApplication
 {
     protected $default_controller_name = NotFoundController::class;
+
+    protected $inited = false;
     protected $bootstraps = [];
     protected lmbInterceptingFilterInterface $middleware;
     protected lmbRequestDispatcherInterface $dispatcher;
@@ -51,9 +53,13 @@ class lmbApplication
 
     function process($request): ResponseInterface
     {
-        $this->_registerBootstraps();
-        $this->_registerMiddleware();
-        $this->_registerDispatcher();
+        if(!$this->inited) {
+            $this->_registerBootstraps();
+            $this->_registerMiddleware();
+            $this->_registerDispatcher();
+
+            $this->inited = true;
+        }
 
         try {
             $this->_bootstrap($request);
