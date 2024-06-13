@@ -23,7 +23,7 @@ use limb\dbal\src\exception\lmbDbException;
 class lmbPgsqlConnection extends lmbDbBaseConnection
 {
     protected $connectionId;
-    protected $statement_number = 1;
+    protected $statement_number = 0;
 
     function getType()
     {

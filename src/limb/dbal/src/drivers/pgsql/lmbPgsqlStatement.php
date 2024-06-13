@@ -30,8 +30,8 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
 
     function __construct(lmbPgsqlConnection $connection, $sql)
     {
-        $this->sql = $sql;
         $this->connection = $connection;
+        $this->sql = $sql;
     }
 
     function setConnection($connection)
@@ -174,13 +174,10 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
     protected function _prepareStatement()
     {
         $sql = $this->_handleBindVars($this->sql);
-        //if (empty($this->statement_name) || !lmbPgsqlConnection::checkPgResult($this->statement)) {
-        //if (!lmbPgsqlConnection::checkPgResult($this->statement)) {
-            //$this->statement_name = "pgsql_statement_" . $this->connection->getStatementNumber();
-            $this->generateStatementName();
-            $this->statement = pg_prepare($this->connection->getConnectionId(), $this->getStatementName(), $sql);
-        //}
-        if (!$this->statement) {
+        $this->generateStatementName();
+
+       $this->statement = pg_prepare($this->connection->getConnectionId(), $this->getStatementName(), $sql);
+       if (!$this->statement) {
             $this->connection->_raiseError("Error while preparing statement");
         }
     }
@@ -246,11 +243,11 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
         return $this->statement_name;
     }
 
-    function generateStatementName(): bool
+    function generateStatementName(): string
     {
         $this->connection->incStatementNumber();
 
-        return "pgsql_statement_" . $this->connection->getStatementNumber();
+        return $this->statement_name = "pgsql_statement_" . $this->connection->getStatementNumber();
     }
 
     function execute($sql = "")
