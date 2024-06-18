@@ -56,6 +56,11 @@ class TestingFetcher extends lmbFetcher
     {
         return $this->use_dataset;
     }
+
+    public static function createFetcher(): lmbFetcher
+    {
+        return new static();
+    }
 }
 
 class lmbFetcherTest extends TestCase

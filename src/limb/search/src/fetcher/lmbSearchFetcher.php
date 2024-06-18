@@ -55,4 +55,9 @@ class lmbSearchFetcher extends lmbFetcher
         $query = $this->request->get('query_string');
         return explode(' ', htmlspecialchars($query));
     }
+
+    public static function createFetcher(): lmbFetcher
+    {
+        return new static();
+    }
 }

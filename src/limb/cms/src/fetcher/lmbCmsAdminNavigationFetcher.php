@@ -19,4 +19,9 @@ class lmbCmsAdminNavigationFetcher extends lmbFetcher
         else
             return new lmbCollection();
     }
+
+    public static function createFetcher(): lmbFetcher
+    {
+        return new static();
+    }
 }
