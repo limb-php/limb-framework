@@ -28,7 +28,7 @@ class BaseARValidator extends BaseValidator
         return $validator;
     }
 
-    public function validate($datasource, $is_create = false)
+    public function validate($datasource, $is_create = false): bool
     {
         $this->merge($datasource);
 
