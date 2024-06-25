@@ -2170,6 +2170,9 @@ class lmbActiveRecord extends lmbObject
         if (!$this->isNew() && sizeof($this->_lazy_attributes))
             $this->_loadLazyAttributes();
 
+        foreach ($this->_relations as $name => $relation)
+            $this->{$name}; // getting related records
+
         return parent::export();
     }
 
