@@ -2165,13 +2165,15 @@ class lmbActiveRecord extends lmbObject
      *  Exports object data with lazy properties resolved
      * @return array
      */
-    public function export()
+    public function export($with_relations = false)
     {
         if (!$this->isNew() && sizeof($this->_lazy_attributes))
             $this->_loadLazyAttributes();
 
-        foreach ($this->_relations as $name => $relation)
-            $this->{$name}; // getting related records
+        if($with_relations) {
+            foreach ($this->_relations as $name => $relation)
+                $this->{$name};
+        }
 
         return parent::export();
     }
