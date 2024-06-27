@@ -148,5 +148,8 @@ abstract class lmbFetcher
         return $order_pairs;
     }
 
-    abstract public static function createFetcher(): self;
+    public static function createFetcher(): static
+    {
+        return new static();
+    }
 }
