@@ -641,7 +641,7 @@ class lmbARQueryTest extends lmbARBaseTestCase
 
         $this->conn->resetStats();
 
-        $query = lmbARQuery:: create(LectureForTestObject::class, array(), $this->conn);
+        $query = lmbARQuery::create(LectureForTestObject::class, array(), $this->conn);
         $iterator = $query->eagerJoin('course', array('join' => 'program'))->fetch();
         $arr = $iterator->getArray();
 
@@ -686,7 +686,7 @@ class lmbARQueryTest extends lmbARBaseTestCase
 
         $this->conn->resetStats();
 
-        $query = lmbARQuery:: create(ProgramForTestObject::class, array(), $this->conn);
+        $query = lmbARQuery::create(ProgramForTestObject::class, array(), $this->conn);
         $iterator = $query->eagerAttach('courses', array('attach' => 'lectures'))->fetch();
 
         $arr = $iterator->getArray();

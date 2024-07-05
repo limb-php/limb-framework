@@ -27,12 +27,12 @@ class Acl_Tests_User implements lmbRoleProviderInterface
         $this->is_logged_in = $is_logged_in;
     }
 
-    function getRole()
+    function getRole(): array
     {
         if ($this->is_logged_in)
-            return 'member';
+            return ['member'];
         else
-            return 'guest';
+            return ['guest'];
     }
 }
 
@@ -45,9 +45,9 @@ class Acl_Tests_Member implements lmbRoleProviderInterface
         $this->name = $name;
     }
 
-    function getRole()
+    function getRole(): array
     {
-        return 'member';
+        return ['member'];
     }
 
 }
@@ -87,10 +87,10 @@ class lmbAclObjectsFeaturesTest extends TestCase
     function testGetRole()
     {
         $user = new Acl_Tests_User($is_logged_in = false);
-        $this->assertEquals('guest', $user->getRole());
+        $this->assertEquals(['guest'], $user->getRole());
 
         $user = new Acl_Tests_User($is_logged_in = true);
-        $this->assertEquals('member', $user->getRole());
+        $this->assertEquals(['member'], $user->getRole());
     }
 
     function testGetRoleFromResolver()
