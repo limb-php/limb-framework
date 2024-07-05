@@ -1091,7 +1091,7 @@ class lmbActiveRecord extends lmbObject
         $this->_invokeListeners(self::ON_AFTER_UPDATE);
     }
 
-    protected function _doSave($need_validation)
+    protected function _doSave($need_validation): int|null
     {
         if ($this->_is_being_saved)
             return null;
@@ -1246,7 +1246,7 @@ class lmbActiveRecord extends lmbObject
     /**
      *  Validates object and saves into database, throws exception if there were any errors
      * @param lmbErrorList|null $error_list error list object which will receive all validation errors
-     * @return int id of the saved object
+     * @return int|null id of the saved object
      */
     function save($error_list = null)
     {
@@ -1258,7 +1258,7 @@ class lmbActiveRecord extends lmbObject
 
     /**
      *  Saves object into database skipping any validation, throws exception if there were any errors
-     * @return int id of the saved object
+     * @return int|null id of the saved object
      */
     function saveSkipValidation()
     {
@@ -1849,7 +1849,7 @@ class lmbActiveRecord extends lmbObject
 
     /**
      *  Returns id of object typecasted to integer explicitly
-     * @return int
+     * @return int|null
      */
     function getId()
     {
