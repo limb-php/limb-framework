@@ -22,6 +22,7 @@ class lmbCollection implements lmbCollectionInterface
     protected $offset = 0;
     protected $limit = 0;
     protected $current;
+    protected $key;
     protected $valid = false;
 
     function __construct($array = array())

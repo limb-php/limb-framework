@@ -69,7 +69,7 @@ use limb\core\src\exception\lmbNoSuchPropertyException;
  * @version $Id: lmbObject.php 5567 2007-04-06 14:37:24Z
  * @package core
  */
-class lmbObject implements lmbSetInterface, \JsonSerializable
+class lmbObject implements lmbSetInterface
 {
     static $map_p2m = [];
 

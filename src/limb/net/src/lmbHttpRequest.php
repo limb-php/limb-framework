@@ -32,6 +32,7 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
     private $__headerNames = [];
     /** @var lmbUri */
     protected $__uri;
+    protected $__properties = [];
     protected $__get = [];
     protected $__post = [];
     protected $__cookies = [];
@@ -318,8 +319,10 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
 
     function get($key, $default = null)
     {
-        if (isset($this->$key))
-            return $this->$key;
+        //if (isset($this->$key))
+        //    return $this->$key;
+        if (isset($this->__properties[$key]))
+            return $this->__properties[$key];
 
         if (isset($this->__attributes[$key]))
             return $this->__attributes[$key]; // remove this if in 5.x
@@ -329,26 +332,29 @@ class lmbHttpRequest implements \ArrayAccess, RequestInterface
 
     function set($key, $value)
     {
-        $this->$key = $value;
+        //$this->$key = $value;
+        $this->__properties[$key] = $value;
     }
 
     function merge($data = [])
     {
         foreach ($data as $key => $value)
-            $this->$key = $value;
+            //$this->$key = $value;
+            $this->__properties[$key] = $value;
     }
 
     function has($key): bool
     {
-        return isset($this->$key) || isset($this->__attributes[$key]);
+        //return isset($this->$key) || isset($this->__attributes[$key]);
+        return isset($this->__properties[$key]) || isset($this->__attributes[$key]);
     }
 
     function export(): array
     {
         $exported = array();
 
-        $object_vars = get_object_vars($this);
-        foreach ($object_vars as $name => $var)
+        //$object_vars = get_object_vars($this);
+        foreach ($this->__properties as $name => $var)
             $exported[$name] = $var;
 
         return $exported;

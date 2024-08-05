@@ -17,9 +17,10 @@ namespace limb\fs\src;
  */
 class lmbCachingFileLocator extends lmbFileLocatorDecorator
 {
-    protected $_cached_paths = array();
+    protected $_cached_paths = [];
     protected $_changed = false;
     protected $_cache_name;
+    protected $_cache_dir;
 
     function __construct($locator, $cache_dir, $cache_name = 'default')
     {

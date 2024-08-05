@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace tests\core\cases;
@@ -212,8 +212,12 @@ class lmbSetTest extends TestCase
 
     function testImplementsIterator()
     {
-        $ds = new lmbSet($array = array('test1' => 'foo',
-            'test2' => 'bar'));
+        $ds = new lmbSet(
+            $array = array(
+                'test1' => 'foo',
+                'test2' => 'bar'
+            )
+        );
 
         $result = array();
         foreach ($ds as $key => $value)
@@ -224,9 +228,11 @@ class lmbSetTest extends TestCase
 
     function testImplementsIteratorWithFalseElementsInArray()
     {
-        $ds = new lmbSet($array = array('test1' => 'foo',
+        $ds = new lmbSet($array = array(
+            'test1' => 'foo',
             'test2' => false,
-            'test3' => 'bar'));
+            'test3' => 'bar')
+        );
 
         $result = array();
         foreach ($ds as $key => $value)

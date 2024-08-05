@@ -17,6 +17,16 @@ use limb\net\src\lmbUploadedFile;
 
 class lmbHttpRequestTest extends TestCase
 {
+    function testRequestExport()
+    {
+        $request = new lmbHttpRequest('https://test.com', 'GET', array('c' => 1), array('d' => 2));
+
+        $this->assertEquals($request->export(), [
+            'c' => 1,
+            'd' => 2
+        ]);
+    }
+
     function testGetUri()
     {
         $request = new lmbHttpRequest('https://test.com');

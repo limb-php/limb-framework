@@ -17,7 +17,13 @@ namespace limb\core\src;
  */
 class lmbSet implements lmbSetInterface
 {
-    function __construct($properties = array())
+    protected $__properties = [];
+    protected $__current;
+    protected $__valid;
+    protected $__size;
+    protected $__counter;
+
+    function __construct($properties = [])
     {
         if (is_array($properties))
             $this->import($properties);
@@ -25,8 +31,8 @@ class lmbSet implements lmbSetInterface
 
     function get($name, $default = null)
     {
-        if (isset($this->$name) && !$this->_isGuarded($name))
-            return $this->$name;
+        if (isset($this->__properties[$name]) && !$this->_isGuarded($name))
+            return $this->__properties[$name];
 
         return $default;
     }
@@ -61,13 +67,13 @@ class lmbSet implements lmbSetInterface
     function set($name, $value)
     {
         if (!$this->_isGuarded($name))
-            $this->$name = $value;
+            $this->__properties[$name] = $value;
     }
 
     function remove($name)
     {
-        if (isset($this->$name) && !$this->_isGuarded($name))
-            unset($this->$name);
+        if (isset($this->__properties[$name]) && !$this->_isGuarded($name))
+            unset($this->__properties[$name]);
     }
 
     function removeAll()
@@ -107,7 +113,7 @@ class lmbSet implements lmbSetInterface
     function has($name)
     {
         if ($name && !$this->_isGuarded($name))
-            return property_exists($this, $name);
+            return isset($this->__properties[$name]);
 
         return false;
     }
@@ -125,8 +131,7 @@ class lmbSet implements lmbSetInterface
     protected function _getUnguardedVars()
     {
         $vars = array();
-        $object_vars = get_object_vars($this);
-        foreach ($object_vars as $name => $var) {
+        foreach ($this->__properties as $name => $var) {
             if (!$this->_isGuarded($name))
                 $vars[$name] = $var;
         }
@@ -199,5 +204,27 @@ class lmbSet implements lmbSetInterface
     function key()
     {
         return key($this->__properties);
+    }
+
+    // magic get/set
+    public function __get($property)
+    {
+        return $this->__properties[$property];
+    }
+
+    public function __set($property, $value)
+    {
+        $this->__properties[$property] = $value;
+    }
+
+    public function __isset($property)
+    {
+        return isset($this->__properties[$property]);
+    }
+
+    // impl JsonSerializable
+    public function jsonSerialize(): mixed
+    {
+        return $this->__properties;
     }
 }
