@@ -12,7 +12,7 @@ namespace tests\active_record\cases;
 use limb\active_record\src\lmbActiveRecord;
 use tests\active_record\cases\src\CourseForTestObject;
 use tests\active_record\cases\src\LectureForTestObject;
-use tests\active_record\cases\src\MemberForTest;
+use tests\active_record\cases\src\MemberForTestObject;
 use tests\active_record\cases\src\NameForAggregateTest;
 use tests\active_record\cases\src\PersonForTestObject;
 use tests\active_record\cases\src\SocialSecurityForTestObject;
@@ -247,7 +247,7 @@ class lmbARDirtyTest extends lmbARBaseTestCase
 
     function testSettingAggregatedObjectDoesNotMakesObjectDirty()
     {
-        $member = new MemberForTest();
+        $member = new MemberForTestObject();
 
         $member->setName(new NameForAggregateTest());
         $this->assertFalse($member->isDirty());
@@ -258,18 +258,18 @@ class lmbARDirtyTest extends lmbARBaseTestCase
         $name = new NameForAggregateTest();
         $name->setFirst('name');
 
-        $member = new MemberForTest();
+        $member = new MemberForTestObject();
         $member->setName($name);
         $member->save();
 
-        $member2 = new MemberForTest($member->getId());
+        $member2 = new MemberForTestObject($member->getId());
         $this->assertFalse($member->isDirty());
 
         $member2->getName()->setFirst('other name');
         $this->assertFalse($member2->isDirty());
         $member2->save();
 
-        $member3 = new MemberForTest($member->getId());
+        $member3 = new MemberForTestObject($member->getId());
         $this->assertEquals($member3->getName()->getFirst(), 'other name');
     }
 

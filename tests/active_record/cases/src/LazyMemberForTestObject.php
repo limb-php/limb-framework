@@ -2,7 +2,7 @@
 
 namespace tests\active_record\cases\src;
 
-class LazyMemberForTest extends MemberForTest
+class LazyMemberForTestObject extends MemberForTestObject
 {
     protected $_db_table_name = 'member_for_test';
 

@@ -4,7 +4,7 @@ namespace tests\active_record\cases\src;
 
 use limb\core\src\lmbObject;
 
-class ExtraForAggregateTest extends lmbObject
+class ExtraForAggregateTestObject extends lmbObject
 {
     protected $extra;
 

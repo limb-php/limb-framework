@@ -56,7 +56,7 @@ class lmbARTestingObjectMother
     function createCourse($program = null)
     {
         $course = new CourseForTestObject();
-        $course->setTitle('Course_' . rand(0, 100));
+        $course->setTitle('Course_' . rand(1, 999));
 
         if ($program)
             $course->setProgram($program);
@@ -68,7 +68,7 @@ class lmbARTestingObjectMother
     function createProgram()
     {
         $program = new ProgramForTestObject();
-        $program->setTitle('Program_' . rand(0, 100));
+        $program->setTitle('Program_' . rand(1, 999));
         $program->save();
         return $program;
     }
@@ -76,7 +76,7 @@ class lmbARTestingObjectMother
     function createLecture($course, $alt_course = null, $title = '')
     {
         $lecture = new LectureForTestObject();
-        $title = $title ? $title : 'Lecture_' . rand(0, 100);
+        $title = $title ? $title : 'Lecture_' . rand(1, 999);
         $lecture->setTitle($title);
         $lecture->setCourse($course);
 
@@ -90,7 +90,7 @@ class lmbARTestingObjectMother
     function initUser($linked_object = null)
     {
         $user = new UserForTestObject();
-        $user->setFirstName('User_' . rand(0, 1000));
+        $user->setFirstName('User_' . rand(1, 999));
 
         if ($linked_object)
             $user->setLinkedObject($linked_object);
@@ -108,7 +108,7 @@ class lmbARTestingObjectMother
     function initGroup($title = '')
     {
         $group = new GroupForTestObject();
-        $title = $title ? $title : 'Group_' . rand(0, 1000);
+        $title = $title ? $title : 'Group_' . rand(1, 999);
         $group->setTitle($title);
         return $group;
     }

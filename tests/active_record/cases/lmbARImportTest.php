@@ -15,7 +15,7 @@ use tests\active_record\cases\src\CourseForTestObject;
 use tests\active_record\cases\src\GroupForTestObject;
 use tests\active_record\cases\src\LazyTestOneTableObject;
 use tests\active_record\cases\src\LectureForTestObject;
-use tests\active_record\cases\src\MemberForTest;
+use tests\active_record\cases\src\MemberForTestObject;
 use tests\active_record\cases\src\PersonForTestObject;
 use tests\active_record\cases\src\SocialSecurityForTestObject;
 use tests\active_record\cases\src\TestOneTableObject;
@@ -478,7 +478,7 @@ class lmbARImportTest extends lmbARBaseTestCase
 
     function testImportWithAggrigatedObject()
     {
-        $member = new MemberForTest();
+        $member = new MemberForTestObject();
 
         $member->import(array('first_name' => $first = 'first_name',
             'last_name' => $last = 'last_name'));

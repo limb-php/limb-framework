@@ -10,10 +10,10 @@
 namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
-use tests\active_record\cases\src\ExtraForAggregateTest;
+use tests\active_record\cases\src\ExtraForAggregateTestObject;
 use tests\active_record\cases\src\ImageForAggregateTest;
-use tests\active_record\cases\src\LazyMemberForTest;
-use tests\active_record\cases\src\MemberForTest;
+use tests\active_record\cases\src\LazyMemberForTestObject;
+use tests\active_record\cases\src\MemberForTestObject;
 use tests\active_record\cases\src\NameForAggregateTest;
 use tests\active_record\cases\src\PhotoForTest;
 
@@ -25,7 +25,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 
     function testNewObjectReturnsEmptyAggrigatedObject()
     {
-        $member = new MemberForTest();
+        $member = new MemberForTestObject();
         $this->assertInstanceOf(NameForAggregateTest::class, $member->getName());
 
         $this->assertNull($member->getName()->getFirst());
@@ -38,18 +38,18 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
         $name->setFirst($first = 'first_name');
         $name->setLast($last = 'last_name');
 
-        $member = new MemberForTest();
+        $member = new MemberForTestObject();
         $member->setName($name);
         $member->save();
 
-        $member2 = lmbActiveRecord::findById(MemberForTest::class, $member->getId());
+        $member2 = lmbActiveRecord::findById(MemberForTestObject::class, $member->getId());
         $this->assertEquals($member2->getName()->getFirst(), $first);
         $this->assertEquals($member2->getName()->getLast(), $last);
     }
 
     function testSaveLoadAggrigatedObjectWithShortDefinition()
     {
-        $extra = new ExtraForAggregateTest();
+        $extra = new ExtraForAggregateTestObject();
         $extra->setExtra('value');
 
         $photo = new PhotoForTest();
@@ -57,7 +57,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
         $photo->save();
 
         $photo2 = lmbActiveRecord::findById(PhotoForTest::class, $photo->getId());
-        $this->assertInstanceOf(ExtraForAggregateTest::class, $photo2->getExtra());
+        $this->assertInstanceOf(ExtraForAggregateTestObject::class, $photo2->getExtra());
         $this->assertEquals('value_as_extra_value', $photo2->getExtra()->getValue());
     }
 
@@ -67,11 +67,11 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
         $name->setFirst($first = 'first_name');
         $name->setLast($last = 'last_name');
 
-        $member = new MemberForTest();
+        $member = new MemberForTestObject();
         $member->setName($name);
         $member->save();
 
-        $member2 = lmbActiveRecord::findById(MemberForTest::class, $member->getId());
+        $member2 = lmbActiveRecord::findById(MemberForTestObject::class, $member->getId());
         $member2->getName();
         $this->assertEquals($member2->saved_full_name, $name->getFull());
     }
@@ -81,14 +81,14 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
         $name = new NameForAggregateTest();
         $name->setLast($last = 'last_name');
 
-        $member = new MemberForTest();
+        $member = new MemberForTestObject();
         $member->setName($name);
         $member->save();
 
         $name->setLast($other_last = 'other_last_name');
         $member->save();
 
-        $member2 = lmbActiveRecord::findById(MemberForTest::class, $member->getId());
+        $member2 = lmbActiveRecord::findById(MemberForTestObject::class, $member->getId());
         $this->assertEquals($member2->getName()->getLast(), $other_last);
     }
 
@@ -123,7 +123,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
         $name->setFirst($first = 'first_name');
         $name->setLast($last = 'last_name');
 
-        $member = new MemberForTest();
+        $member = new MemberForTestObject();
         $member->setName($name);
         $member->save();
 
@@ -137,11 +137,11 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
         $name->setFirst($first = 'first_name');
         $name->setLast($last = 'last_name');
 
-        $member = new MemberForTest();
+        $member = new MemberForTestObject();
         $member->setName($name);
         $member->save();
 
-        $member2 = new LazyMemberForTest($member->getId());
+        $member2 = new LazyMemberForTestObject($member->getId());
 
         $this->assertEquals($member->getName()->getFirst(), $first);
         $this->assertEquals($member->getName()->getLast(), $last);
@@ -153,11 +153,11 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
         $name->setFirst($first = 'first_name');
         $name->setLast($last = 'last_name');
 
-        $member = new MemberForTest();
+        $member = new MemberForTestObject();
         $member->setName($name);
         $member->save();
 
-        $member2 = new MemberForTest($member->export());
+        $member2 = new MemberForTestObject($member->export());
 
         $this->assertEquals($member->getName()->getFirst(), $first);
         $this->assertEquals($member->getName()->getLast(), $last);
