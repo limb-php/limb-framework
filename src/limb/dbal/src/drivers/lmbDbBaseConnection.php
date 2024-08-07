@@ -115,6 +115,9 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
         $info['time'] = round(microtime(true) - $start_time, 6);
         $this->queryLog[] = $info;
 
+        if($this->logger)
+            $this->logger->info(implode(" ", $info) . "\n");
+
         return $res;
     }
 
@@ -129,6 +132,9 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
         $info['time'] = round(microtime(true) - $start_time, 6);
         $this->queryLog[] = $info;
 
+        if($this->logger)
+            $this->logger->info(implode(" ", $info) . "\n");
+
         return $res;
     }
 
@@ -140,6 +146,11 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
     function resetStats()
     {
         $this->queryLog = [];
+    }
+
+    function getQueryLog()
+    {
+        return $this->queryLog;
     }
 
     function getQueries($reg_exp = '')
