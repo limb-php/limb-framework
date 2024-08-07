@@ -138,9 +138,6 @@ class lmbMysqlConnection extends lmbDbBaseConnection
         try {
             $result = mysqli_query($this->getConnectionId(), $sql);
 
-            if($this->logger)
-                $this->logger->debug("MySQL Driver. Execute SQL: " . $sql . "\n");
-
             if ($result === false) {
                 $message = "MySQL Driver. Error in execute() method";
 

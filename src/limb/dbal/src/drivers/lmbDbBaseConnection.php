@@ -116,7 +116,7 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
         $this->queryLog[] = $info;
 
         if($this->logger)
-            $this->logger->info(implode(" ", $info) . "\n");
+            $this->logger->debug($this->getType() . " Driver. Execute SQL: " . implode(" ", $info) . "\n");
 
         return $res;
     }
@@ -124,7 +124,7 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
     function executeStatement(lmbDbStatementInterface $stmt, $retry = true)
     {
         $info = array('query' => $stmt->getSQL());
-        $info['params'] = $stmt->getParameters();
+        $info['params'] = $stmt->getParameters(); // var_export($stmt->getPrepParams(), true)
         $start_time = microtime(true);
 
         $res = $this->executeSQLStatement($stmt, $retry);
@@ -133,7 +133,7 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
         $this->queryLog[] = $info;
 
         if($this->logger)
-            $this->logger->info(implode(" ", $info) . "\n");
+            $this->logger->debug($this->getType() . " Driver. Execute statement: " . implode(" ", $info) . "\n");
 
         return $res;
     }

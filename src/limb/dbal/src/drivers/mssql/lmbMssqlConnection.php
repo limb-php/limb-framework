@@ -134,9 +134,6 @@ class lmbMssqlConnection extends lmbDbBaseConnection
             $sql = mb_convert_encoding($sql, 'Windows-1251', 'UTF-8');
             $result = sqlsrv_query($this->getConnectionId(), $sql);
 
-            if($this->logger)
-                $this->logger->debug("MsSQL Driver. Execute SQL: " . $sql . "\n");
-
             if ($result === false) {
                 $message = "MsSQL Driver. Error in execute() method";
 

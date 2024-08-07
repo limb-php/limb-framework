@@ -109,9 +109,6 @@ class lmbSqliteConnection extends lmbDbBaseConnection
         try {
             $result = $this->getConnection()->query($sql);
 
-            if ($this->logger)
-                $this->logger->debug("SQLite Driver. Execute SQL: " . $sql . "\n");
-
             if ($result === false) {
                 $message = "SQLite Driver. Error in execute() method";
 

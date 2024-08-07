@@ -156,9 +156,6 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         try {
             $result = pg_query($this->getConnectionId(), $sql);
 
-            if($this->logger)
-                $this->logger->debug("PgSQL Driver. Execute SQL: " . $sql . "\n");
-
             if ($result === false) {
                 $message = "PgSQL Driver. Error in execute() method";
 
@@ -184,9 +181,6 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     {
         try {
             $result = pg_execute($this->getConnectionId(), $stmt->getStatementName(), $stmt->getPrepParams());
-
-            if($this->logger)
-                $this->logger->debug("PgSQL Driver. Execute statement: " . $stmt->getSQL() . " With params " . var_export($stmt->getPrepParams(), true) . "\n");
 
             if ($result === false) {
                 $message = "PgSQL Driver. Error in executeStatement() method";
