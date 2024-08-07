@@ -117,13 +117,13 @@ class lmbOciConnection extends lmbDbBaseConnection
             throw new lmbDbException('Some unknown oci error occured');
     }
 
-    function execute($sql)
+    function executeSQL($sql, $retry = true)
     {
         $stmt = oci_parse($this->getConnectionId(), $sql);
-        return $this->executeStatement($stmt);
+        return $this->executeStatement($stmt, $retry);
     }
 
-    function executeStatement($stmt)
+    function executeSQLStatement($stmt, $retry = true)
     {
         $stmt = $stmt->getStatement();
         $result = oci_execute($stmt, $this->tstate);

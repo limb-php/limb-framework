@@ -151,7 +151,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         throw new lmbDbException($message, $params);
     }
 
-    function execute($sql, $retry = true)
+    function executeSQL($sql, $retry = true)
     {
         try {
             $result = pg_query($this->getConnectionId(), $sql);
@@ -172,7 +172,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
             ) {
                 $this->disconnect();
 
-                return $this->execute($sql, false);
+                return $this->executeSQL($sql, false);
             }
 
             throw $e;
@@ -180,7 +180,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     }
 
     /** @param $stmt lmbPgsqlStatement */
-    function executeStatement($stmt, $retry = true)
+    function executeSQLStatement($stmt, $retry = true)
     {
         try {
             $result = pg_execute($this->getConnectionId(), $stmt->getStatementName(), $stmt->getPrepParams());
@@ -202,7 +202,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
             ) {
                 $this->disconnect();
 
-                return $this->executeStatement($stmt, false);
+                return $this->executeSQLStatement($stmt, false);
             }
 
             throw $e;

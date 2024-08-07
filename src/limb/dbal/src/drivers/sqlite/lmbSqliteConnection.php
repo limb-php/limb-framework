@@ -104,7 +104,7 @@ class lmbSqliteConnection extends lmbDbBaseConnection
         throw new lmbDbException($message, $params);
     }
 
-    function execute($sql, $retry = true)
+    function executeSQL($sql, $retry = true)
     {
         try {
             $result = $this->getConnection()->query($sql);
@@ -126,7 +126,7 @@ class lmbSqliteConnection extends lmbDbBaseConnection
             ) {
                 $this->disconnect();
 
-                return $this->execute($sql, false);
+                return $this->executeSQL($sql, false);
             }
 
             throw $e;
@@ -134,9 +134,9 @@ class lmbSqliteConnection extends lmbDbBaseConnection
     }
 
     /** @param $stmt lmbSqliteStatement */
-    function executeStatement($stmt, $retry = true)
+    function executeSQLStatement($stmt, $retry = true)
     {
-        return (bool)$this->execute($stmt->getSQL(), $retry);
+        return (bool)$this->executeSQL($stmt->getSQL(), $retry);
     }
 
     function beginTransaction()

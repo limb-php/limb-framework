@@ -16,6 +16,7 @@ use limb\core\src\lmbBacktrace;
  * Remembers stats for later analysis, especially useful in tests
  * @package dbal
  * @version $Id$
+ * @deprecated
  */
 class lmbAuditDbConnection extends lmbDbConnectionDecorator
 {

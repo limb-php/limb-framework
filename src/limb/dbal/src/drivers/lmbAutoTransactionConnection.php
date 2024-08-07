@@ -82,14 +82,14 @@ class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
     }
 
     /* */
-    function execute($sql)
+    function execute($sql, $retry = true)
     {
-        return $this->connection->execute($sql);
+        return $this->connection->execute($sql, $retry);
     }
 
-    function executeStatement($stmt)
+    function executeStatement($stmt, $retry = true)
     {
-        return $this->connection->executeStatement($stmt);
+        return $this->connection->executeStatement($stmt, $retry);
     }
 
     function getConnectionId()

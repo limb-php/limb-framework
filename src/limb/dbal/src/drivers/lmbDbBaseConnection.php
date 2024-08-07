@@ -29,6 +29,8 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
     /** @var $logger LoggerInterface */
     protected $logger;
 
+    protected $queryLog = [];
+
     function __construct($config)
     {
         $this->config = $config;
@@ -98,6 +100,58 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
     public function setLogger(LoggerInterface $logger): void
     {
         $this->logger = $logger;
+    }
+
+    abstract function executeSQL($sql, $retry = true);
+    abstract function executeSQLStatement(lmbDbStatementInterface $stmt, $retry = true);
+
+    function execute($sql, $retry = true)
+    {
+        $info = array('query' => $sql);
+        $start_time = microtime(true);
+
+        $res = $this->executeSQL($sql, $retry);
+
+        $info['time'] = round(microtime(true) - $start_time, 6);
+        $this->queryLog[] = $info;
+
+        return $res;
+    }
+
+    function executeStatement(lmbDbStatementInterface $stmt, $retry = true)
+    {
+        $info = array('query' => $stmt->getSQL());
+        $info['params'] = $stmt->getParameters();
+        $start_time = microtime(true);
+
+        $res = $this->executeSQLStatement($stmt, $retry);
+
+        $info['time'] = round(microtime(true) - $start_time, 6);
+        $this->queryLog[] = $info;
+
+        return $res;
+    }
+
+    function countQueries()
+    {
+        return sizeof($this->queryLog);
+    }
+
+    function resetStats()
+    {
+        $this->queryLog = [];
+    }
+
+    function getQueries($reg_exp = '')
+    {
+        $res = array();
+        foreach ($this->queryLog as $info) {
+            $query = $info['query'];
+            if (!$reg_exp || preg_match('/' . $reg_exp . '/i', $query))
+                $res[] = $query;
+        }
+
+        return $res;
     }
 
     function __sleep()

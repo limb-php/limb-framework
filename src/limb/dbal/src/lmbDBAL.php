@@ -204,6 +204,6 @@ class lmbDBAL
     {
         if (!$conn)
             $conn = lmbToolkit::instance()->getDefaultDbConnection();
-        $conn->execute($sql);
+        $conn->execute($sql, false);
     }
 }

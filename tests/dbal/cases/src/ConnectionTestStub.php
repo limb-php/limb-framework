@@ -69,12 +69,12 @@ class ConnectionTestStub implements lmbDbConnectionInterface
         // TODO: Implement newStatement() method.
     }
 
-    function execute($sql)
+    function execute($sql, $retry = true)
     {
         // TODO: Implement execute() method.
     }
 
-    function executeStatement($stmt)
+    function executeStatement($stmt, $retry = true)
     {
         // TODO: Implement executeStatement() method.
     }

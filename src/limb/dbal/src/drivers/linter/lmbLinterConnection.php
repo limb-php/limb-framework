@@ -218,7 +218,7 @@ class lmbLinterConnection extends lmbDbBaseConnection
             return $cur;
     }
 
-    function execute($sql)
+    function executeSQL($sql, $retry = true)
     {
         $result = null;
         $sql = $this->prepare_sql($sql);
@@ -230,7 +230,7 @@ class lmbLinterConnection extends lmbDbBaseConnection
         return $this->handle_call_result($res, $result, $sql);
     }
 
-    function executeStatement($stmt)
+    function executeSQLStatement($stmt, $retry = true)
     {
         $this->useConnection = false;
         $sql = $stmt->getSQL();

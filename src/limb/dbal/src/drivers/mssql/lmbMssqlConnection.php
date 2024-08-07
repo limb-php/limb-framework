@@ -128,7 +128,7 @@ class lmbMssqlConnection extends lmbDbBaseConnection
         }
     }
 
-    function execute($sql, $retry = true)
+    function executeSQL($sql, $retry = true)
     {
         try {
             $sql = mb_convert_encoding($sql, 'Windows-1251', 'UTF-8');
@@ -150,7 +150,7 @@ class lmbMssqlConnection extends lmbDbBaseConnection
             ) {
                 $this->disconnect();
 
-                return $this->execute($sql, false);
+                return $this->executeSQL($sql, false);
             }
 
             throw $e;
@@ -158,9 +158,9 @@ class lmbMssqlConnection extends lmbDbBaseConnection
     }
 
     /** @param $stmt lmbMssqlStatement */
-    function executeStatement($stmt, $retry = true)
+    function executeSQLStatement($stmt, $retry = true)
     {
-        return (bool)$this->execute($stmt->getSQL(), $retry);
+        return (bool)$this->executeSQL($stmt->getSQL(), $retry);
     }
 
     function beginTransaction()

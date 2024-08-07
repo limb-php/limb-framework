@@ -133,7 +133,7 @@ class lmbMysqlConnection extends lmbDbBaseConnection
         throw new lmbDbException($message, $params);
     }
 
-    function execute($sql, $retry = true)
+    function executeSQL($sql, $retry = true)
     {
         try {
             $result = mysqli_query($this->getConnectionId(), $sql);
@@ -154,7 +154,7 @@ class lmbMysqlConnection extends lmbDbBaseConnection
             ) {
                 $this->disconnect();
 
-                return $this->execute($sql, false);
+                return $this->executeSQL($sql, false);
             }
 
             throw $e;
@@ -162,9 +162,9 @@ class lmbMysqlConnection extends lmbDbBaseConnection
     }
 
     /** @param $stmt lmbMysqlStatement */
-    function executeStatement($stmt, $retry = true)
+    function executeSQLStatement($stmt, $retry = true)
     {
-        return $this->execute($stmt->getSQL(), $retry);
+        return $this->executeSQL($stmt->getSQL(), $retry);
     }
 
     function beginTransaction()
@@ -229,7 +229,7 @@ class lmbMysqlConnection extends lmbDbBaseConnection
 
     function escape($string)
     {
-        return mysqli_escape_string($this->getConnectionId(), $string);
+        return mysqli_real_escape_string($this->getConnectionId(), $string);
     }
 
     function getSequenceValue($queryId = null)
