@@ -71,6 +71,8 @@ use limb\core\src\exception\lmbNoSuchPropertyException;
  */
 class lmbObject implements lmbSetInterface
 {
+    protected $__properties = [];
+
     static $map_p2m = [];
 
     private $_map = [
@@ -98,6 +100,7 @@ class lmbObject implements lmbSetInterface
             return;
         }
         $var_names = get_object_vars($this);
+        $var_names = array_merge_recursive($var_names, $this->__properties);
         foreach ($var_names as $key => $item) {
             if (!$this->_isGuarded($key))
                 $this->_map['public'][$key] = $key;
@@ -137,7 +140,10 @@ class lmbObject implements lmbSetInterface
     {
         $exported = array();
         foreach ($this->getPropertiesNames() as $name)
-            $exported[$name] = $this->{$name};
+            if(property_exists($this, $name))
+                $exported[$name] = $this->$name;
+            else
+                $exported[$name] = $this->__properties[$name];
 
         return $exported;
     }
@@ -176,7 +182,7 @@ class lmbObject implements lmbSetInterface
 
     /**
      * Removes specified property
-     * @param string
+     * @param string $name
      */
     function remove($name)
     {
@@ -185,7 +191,10 @@ class lmbObject implements lmbSetInterface
 
         unset($this->_map['public'][$name]);
         unset($this->_map['dynamic'][$name]);
-        unset($this->$name);
+        if(property_exists($this, $name))
+            unset($this->$name);
+        else
+            unset($this->__properties[$name]);
     }
 
     /**
@@ -195,8 +204,12 @@ class lmbObject implements lmbSetInterface
     {
         $this->_map['public'] = array();
         $this->_map['dynamic'] = array();
-        foreach ($this->getPropertiesNames() as $name)
-            unset($this->$name);
+        foreach ($this->getPropertiesNames() as $name) {
+            if(property_exists($this, $name))
+                unset($this->$name);
+            else
+                unset($this->__properties[$name]);
+        }
     }
 
     /**
@@ -243,8 +256,12 @@ class lmbObject implements lmbSetInterface
 
     protected function _getRaw($name)
     {
-        if ($this->_hasProperty($name))
-            return $this->$name ?? null;
+        if ($this->_hasProperty($name)) {
+            if(property_exists($this, $name))
+                return $this->$name ?? null;
+            else
+                return $this->__properties[$name] ?? null;
+        }
     }
 
     protected function _setRaw($name, $value)
@@ -254,7 +271,11 @@ class lmbObject implements lmbSetInterface
 
         $this->_map['public'][$name] = $name;
         $this->_map['dynamic'][$name] = $name;
-        $this->$name = $value;
+
+        if(property_exists($this, $name))
+            $this->$name = $value;
+        else
+            $this->__properties[$name] = $value;
     }
 
     protected function _isGuarded($property)
@@ -349,10 +370,15 @@ class lmbObject implements lmbSetInterface
      */
     function __set($property, $value)
     {
-        if (array_key_exists($property, $this->_map['dynamic']))
-            $this->$property = $value;
-        else
+        if (array_key_exists($property, $this->_map['dynamic'])) {
+            if(property_exists($this, $property))
+                $this->$property = $value;
+            else
+                $this->__properties[$property] = $value;
+        }
+        else {
             $this->set($property, $value);
+        }
     }
 
     /**
