@@ -10,9 +10,15 @@ class PhotoForTest extends lmbActiveRecord
 
     protected $_composed_of = array(
         'image' => array(
-        'class' => ImageForAggregateTest::class,
-        'mapping' => array('photo_id' => 'id',
-            'extension' => 'image_extension')),
+            'class' => ImageForAggregateTest::class,
+            'mapping' => array(
+                'photo_id' => 'id',
+                'extension' => 'image_extension'
+            )
+        ),
 
-        'extra' => array('class' => ExtraForAggregateTestObject::class));
+        'extra' => array(
+            'class' => ExtraForAggregateTestObject::class
+        )
+    );
 }

@@ -2172,7 +2172,7 @@ class lmbActiveRecord extends lmbObject
 
         if($with_relations) {
             foreach ($this->_relations as $name => $relation)
-                $this->{$name};
+                $this->$name;
         }
 
         return parent::export();

@@ -684,6 +684,16 @@ class lmbARQueryTest extends lmbARBaseTestCase
         $lecture7 = $this->creator->createLecture($course3);
         $lecture8 = $this->creator->createLecture($course4);
 
+        /*
+         * program1 -> $course1, $course3
+         * program2 -> $course2, $course4
+         *
+         * $course1 -> $lecture1, $lecture5
+         * $course2 -> $lecture2, $lecture6
+         * $course3 -> $lecture3, $lecture7
+         * $course4 -> $lecture4, $lecture8
+         */
+
         $this->conn->resetStats();
 
         $query = lmbARQuery::create(ProgramForTestObject::class, array(), $this->conn);
@@ -701,33 +711,36 @@ class lmbARQueryTest extends lmbARBaseTestCase
         $this->conn->resetStats();
 
         $this->assertInstanceOf(ProgramForTestObject::class, $arr[0]);
-        $this->assertEquals($arr[0]->getTitle(), $program1->getTitle());
+        $this->assertEquals($program1->getTitle(), $arr[0]->getTitle());
 
-        $courses = $arr[0]->getCourses()->getArray();
+        $courses = $arr[0]->getCourses()->getArray(); // courses for program1: 0 -> $course1; 1 -> $course3
 
-        $this->assertEquals($courses[0]->getTitle(), $course1->getTitle());
+        $this->assertEquals($course1->getTitle(), $courses[0]->getTitle());
+
         $lectures = $courses[0]->getLectures()->getArray();
-        $this->assertEquals($lectures[0]->getTitle(), $lecture1->getTitle());
-        $this->assertEquals($lectures[1]->getTitle(), $lecture5->getTitle());
+        $this->assertEquals($lecture1->getTitle(), $lectures[0]->getTitle());
+        $this->assertEquals($lecture5->getTitle(), $lectures[1]->getTitle());
 
         $this->assertEquals($courses[1]->getTitle(), $course3->getTitle());
+
         $lectures = $courses[1]->getLectures()->getArray();
-        $this->assertEquals($lectures[0]->getTitle(), $lecture3->getTitle());
-        $this->assertEquals($lectures[1]->getTitle(), $lecture7->getTitle());
+        $this->assertEquals($lecture3->getTitle(), $lectures[0]->getTitle());
+        $this->assertEquals($lecture7->getTitle(), $lectures[1]->getTitle());
 
-        $this->assertEquals($arr[1]->getTitle(), $program2->getTitle());
+        $this->assertEquals($program2->getTitle(), $arr[1]->getTitle());
 
-        $courses = $arr[1]->getCourses()->getArray();
+        $courses = $arr[1]->getCourses()->getArray();  // courses for program2: 0 -> $course2; 1 -> $course4
+        $this->assertEquals($course2->getTitle(), $courses[0]->getTitle());
 
-        $this->assertEquals($courses[0]->getTitle(), $course2->getTitle());
         $lectures = $courses[0]->getLectures()->getArray();
-        $this->assertEquals($lectures[0]->getTitle(), $lecture2->getTitle());
-        $this->assertEquals($lectures[1]->getTitle(), $lecture6->getTitle());
+        $this->assertEquals($lecture2->getTitle(), $lectures[0]->getTitle());
+        $this->assertEquals($lecture6->getTitle(), $lectures[1]->getTitle());
 
-        $this->assertEquals($courses[1]->getTitle(), $course4->getTitle());
+        $this->assertEquals($course4->getTitle(), $courses[1]->getTitle());
+
         $lectures = $courses[1]->getLectures()->getArray();
-        $this->assertEquals($lectures[0]->getTitle(), $lecture4->getTitle());
-        $this->assertEquals($lectures[1]->getTitle(), $lecture8->getTitle());
+        $this->assertEquals($lecture4->getTitle(), $lectures[0]->getTitle());
+        $this->assertEquals($lecture8->getTitle(), $lectures[1]->getTitle());
 
         $this->assertEquals(0, $this->conn->countQueries());
     }
@@ -752,7 +765,7 @@ class lmbARQueryTest extends lmbARBaseTestCase
 
         $this->conn->resetStats();
 
-        $query = lmbARQuery:: create(ProgramForTestObject::class, array(), $this->conn);
+        $query = lmbARQuery::create(ProgramForTestObject::class, array(), $this->conn);
         $arr = $query->eagerAttach('courses')->fetch()->getArray();
 
         $this->assertEquals($this->conn->countQueries(), 2);
