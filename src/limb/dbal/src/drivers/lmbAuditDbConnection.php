@@ -21,25 +21,25 @@ class lmbAuditDbConnection extends lmbDbConnectionDecorator
 {
     protected $stats = array();
 
-    function execute($sql)
+    function execute($sql, $retry = true)
     {
         $info = array('query' => $sql);
         $info['trace'] = $this->getTrace();
         $start_time = microtime(true);
-        $res = $this->connection->execute($sql);
+        $res = $this->connection->execute($sql, $retry);
         $info['time'] = round(microtime(true) - $start_time, 6);
         $this->stats[] = $info;
 
         return $res;
     }
 
-    function executeStatement($stmt)
+    function executeStatement($stmt, $retry = true)
     {
         $info = array('query' => $stmt->getSQL());
         $info['params'] = $stmt->getParameters();
         $info['trace'] = $this->getTrace();
         $start_time = microtime(true);
-        $res = $this->connection->executeStatement($stmt);
+        $res = $this->connection->executeStatement($stmt, $retry);
         $info['time'] = round(microtime(true) - $start_time, 6);
         $this->stats[] = $info;
 

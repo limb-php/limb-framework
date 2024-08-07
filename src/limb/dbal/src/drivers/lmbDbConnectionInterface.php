@@ -39,9 +39,9 @@ interface lmbDbConnectionInterface
 
     function newStatement($sql): lmbDbStatementInterface;
 
-    function execute($sql);
+    function execute($sql, $retry);
 
-    function executeStatement($stmt);
+    function executeStatement(lmbDbStatementInterface $stmt, $retry);
 
     function getTypeInfo(): lmbDbTypeInfo;
 
