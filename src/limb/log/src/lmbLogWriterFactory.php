@@ -9,7 +9,7 @@
 
 namespace limb\log\src;
 
-use limb\fs\src\exception\lmbFileNotFoundException;
+use limb\log\src\exception\lmbClassNotFoundException;
 use limb\net\src\lmbUri;
 
 /**
@@ -31,7 +31,7 @@ class lmbLogWriterFactory
         try {
             $writer = new $writerClassName($dsn);
         } catch (\Error $e) {
-            throw new lmbFileNotFoundException($writerClassName, 'Log writer not found');
+            throw new lmbClassNotFoundException($writerClassName, 'Log writer not found');
         }
 
         return $writer;
