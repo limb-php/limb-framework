@@ -170,9 +170,9 @@ class lmbSet implements lmbSetInterface
     {
         if (!$this->__valid) {
             //removing temporary helpers
-            unset($this->__valid);
-            unset($this->__properties);
-            unset($this->__current);
+            $this->__valid = null;
+            $this->__current = null;
+            $this->__properties = [];
             return false;
         }
         return true;
