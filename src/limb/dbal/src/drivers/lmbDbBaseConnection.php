@@ -124,7 +124,7 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
     function executeStatement(lmbDbStatementInterface $stmt, $retry = true)
     {
         $info = array('query' => $stmt->getSQL());
-        $info['params'] = var_export($stmt->getPrepParams(), true);
+        $info['params'] = var_export($stmt->getParameters(), true);
         $start_time = microtime(true);
 
         $res = $this->executeSQLStatement($stmt, $retry);
