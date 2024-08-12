@@ -183,10 +183,13 @@ class lmbHttpCacheTest extends TestCase
 
         $this->response
             ->method('addHeader')
-            ->withConsecutive(
-                ['HTTP/1.1 412 Precondition Failed'],
-                ['Cache-Control: protected, max-age=0, must-revalidate'],
-                ['Content-Type: text/plain']
+            ->willReturnCallback(fn($header) =>
+                match(
+                    [$header]) {
+                    ['HTTP/1.1 412 Precondition Failed'] => null,
+                    ['Cache-Control: protected, max-age=0, must-revalidate'] => null,
+                    ['Content-Type: text/plain'] => null,
+                }
             );
 
         /*$this->response
@@ -209,13 +212,16 @@ class lmbHttpCacheTest extends TestCase
 
         $this->response
             ->method('addHeader')
-            ->withConsecutive(
-                ['HTTP/1.0 304 Not Modified'],
-                ['Etag: etag'],
-                ['Pragma: '],
-                ['Cache-Control: '],
-                ['Last-Modified: '],
-                ['Expires: ']
+            ->willReturnCallback(fn($header) =>
+            match(
+                [$header]) {
+                    ['HTTP/1.0 304 Not Modified'] => null,
+                    ['Etag: etag'] => null,
+                    ['Pragma: '] => null,
+                    ['Cache-Control: '] => null,
+                    ['Last-Modified: '] => null,
+                    ['Expires: '] => null,
+                }
             );
 
         $this->assertTrue($this->cache->checkAndWrite($this->response));
@@ -239,12 +245,15 @@ class lmbHttpCacheTest extends TestCase
 
         $this->response
             ->method('addHeader')
-            ->withConsecutive(
-                ['Cache-Control: protected, must-revalidate, max-age=0'],
-                ['Last-Modified: ' . $this->cache->formatLastModifiedTime()],
-                ['Etag: ' . $this->cache->getEtag()],
-                ['Pragma: '],
-                ['Expires: ']
+            ->willReturnCallback(fn($header) =>
+            match(
+                [$header]) {
+                    ['Cache-Control: protected, must-revalidate, max-age=0'] => null,
+                    ['Last-Modified: ' . $this->cache->formatLastModifiedTime()] => null,
+                    ['Etag: ' . $this->cache->getEtag()] => null,
+                    ['Pragma: '] => null,
+                    ['Expires: '] => null,
+                }
             );
 
         $this->assertTrue($this->cache->checkAndWrite($this->response));

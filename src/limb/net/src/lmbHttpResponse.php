@@ -354,9 +354,7 @@ class lmbHttpResponse implements ResponseInterface
             @list($header, $value) = explode(':', $header);
         }
 
-        $trimmed = trim($value, " \t");
-
-        $this->headers[$header] = !empty($value) ? $trimmed : null;
+        $this->headers[$header] = !empty($value) ? trim($value, " \t") : null;
 
         return $this;
     }
