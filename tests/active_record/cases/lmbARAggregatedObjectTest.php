@@ -10,6 +10,7 @@
 namespace tests\active_record\cases;
 
 use limb\active_record\src\lmbActiveRecord;
+use limb\active_record\src\lmbARException;
 use tests\active_record\cases\src\ExtraForAggregateTestObject;
 use tests\active_record\cases\src\ImageForAggregateTest;
 use tests\active_record\cases\src\LazyMemberForTestObject;
@@ -129,6 +130,25 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 
         $this->assertEquals($member->get('name')->getFirst(), $first);
         $this->assertEquals($member->get('name')->getLast(), $last);
+    }
+
+    function testWrongSetupMethod()
+    {
+        $name = new NameForAggregateTest();
+        $name->setFirst($first = 'first_name');
+        $name->setLast($last = 'last_name');
+
+        try {
+            $member = new MemberForTestObject();
+            $member->setNewName($name);
+
+            $new_name = $member->new_name->getFirst();
+
+            $this->markTestIncomplete();
+        }
+        catch (lmbARException $e) {
+            $this->assertTrue(true);
+        }
     }
 
     function testLazyAggregatedObjects()

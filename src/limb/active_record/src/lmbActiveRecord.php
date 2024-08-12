@@ -1007,6 +1007,8 @@ class lmbActiveRecord extends lmbObject
 
         if (isset($this->_composed_of[$property]['setup_method'])) {
             $setup_method = $this->_composed_of[$property]['setup_method'];
+            if(!method_exists($this, $setup_method))
+                throw new lmbARException('No setup method ' . get_class($this) . '::' . $setup_method . '() for aggregated object ' . get_class($object));
             $object = $this->$setup_method($object);
         }
 
