@@ -320,7 +320,7 @@ class lmbObject implements lmbSetInterface
             return $this;
         }
 
-        throw new lmbNoSuchMethodException("No such method '$method' in " . get_class($this));
+        throw new lmbNoSuchMethodException("No such method '$method()' in " . get_class($this));
     }
 
     protected function _mapGetToProperty($method)
