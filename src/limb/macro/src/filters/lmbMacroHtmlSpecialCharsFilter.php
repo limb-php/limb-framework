@@ -9,7 +9,7 @@
 
 namespace limb\macro\src\filters;
 
-use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
+use limb\macro\src\compiler\lmbMacroFilter;
 
 /**
  * class limb\macro\src\filters\lmbMacroHtmlSpecialCharsFilter.
@@ -19,8 +19,12 @@ use limb\macro\src\compiler\lmbMacroFunctionBasedFilter;
  * @package macro
  * @version $Id$
  */
-class lmbMacroHtmlSpecialCharsFilter extends lmbMacroFunctionBasedFilter
+class lmbMacroHtmlSpecialCharsFilter extends lmbMacroFilter
 {
-    protected $function = 'htmlspecialchars';
     protected $params = array(ENT_QUOTES);
+
+    function getValue()
+    {
+        return 'htmlspecialchars(' . $this->base->getValue() . ' ?? "", ' . $this->params[0] . ')';
+    }
 }

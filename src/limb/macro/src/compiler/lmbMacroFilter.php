@@ -19,7 +19,7 @@ abstract class lmbMacroFilter implements lmbMacroExpressionInterface
     protected $base;
     protected $params = array();
 
-    function __construct($base)
+    function __construct(lmbMacroExpression $base)
     {
         $this->base = $base;
     }
