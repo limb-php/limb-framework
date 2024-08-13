@@ -13,7 +13,7 @@ use limb\macro\src\compiler\lmbMacroTag;
 class CacheTag extends lmbMacroTag
 {
     protected $_storage;
-    const default_storage = 'lmbToolkit::instance()->getPartialHtmlCacheStorage()';
+    const default_storage = 'limb\toolkit\src\lmbToolkit::instance()->getCache("html")';
 
     protected function _generateContent($code_writer)
     {
