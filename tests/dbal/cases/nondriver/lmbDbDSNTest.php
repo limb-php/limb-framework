@@ -72,12 +72,14 @@ class lmbDbDSNTest extends TestCase
 
     function testConstructUsingArray()
     {
-        $dsn = new lmbDbDSN(array('driver' => 'mysql',
+        $dsn = new lmbDbDSN(array(
+            'driver' => 'mysql',
             'host' => 'localhost',
             'user' => 'wow',
             'password' => 'here',
             'database' => 'db',
-            'port' => 8080));
+            'port' => 8080)
+        );
 
         $this->assertEquals('mysql', $dsn->getDriver());
         $this->assertEquals('wow', $dsn->getUser());
@@ -88,16 +90,36 @@ class lmbDbDSNTest extends TestCase
         $this->assertEquals('mysql://wow:here@localhost:8080/db', $dsn->toString());
     }
 
+    function testConstructUsingArrayDriverAndSchema()
+    {
+        $dsn = new lmbDbDSN(array(
+                'driver' => 'redis',
+                'scheme' => 'udp',
+                'host' => 'localhost',
+                'database' => '1',
+                'port' => 6379)
+        );
+
+        $this->assertEquals('redis', $dsn->getDriver());
+        $this->assertEquals('udp', $dsn->getScheme());
+        $this->assertEquals('localhost', $dsn->getHost());
+        $this->assertEquals(6379, $dsn->getPort());
+        $this->assertEquals('1', $dsn->getDatabase());
+        $this->assertEquals('udp://localhost:6379/1?driver=redis', $dsn->toString());
+    }
+
     function testConstructUsingArrayWithExtraParameters()
     {
-        $dsn = new lmbDbDSN(array('driver' => 'mysql',
+        $dsn = new lmbDbDSN(array(
+            'driver' => 'mysql',
             'host' => 'localhost',
             'user' => 'wow',
             'password' => 'here',
             'database' => 'db',
             'port' => 8080,
             array('param1' => 'hey',
-                'param2' => 'wow')));
+                'param2' => 'wow'))
+        );
 
         $this->assertEquals('mysql', $dsn->getDriver());
         $this->assertEquals('wow', $dsn->getUser());

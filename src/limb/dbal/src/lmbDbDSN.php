@@ -24,6 +24,7 @@ class lmbDbDSN extends lmbObject
     protected $uri;
 
     protected $driver;
+    protected $scheme;
     protected $host;
     protected $user;
     protected $password;
@@ -57,7 +58,10 @@ class lmbDbDSN extends lmbObject
             throw new lmbException("Database DSN '$str' is not valid");
         }
 
-        $this->driver = $this->uri->getScheme();
+        $this->driver = $this->uri->getQueryItem('driver');
+        if(!$this->driver)
+            $this->driver = $this->uri->getScheme();
+        $this->scheme = $this->uri->getScheme();
         $this->host = $this->uri->getHost();
         $this->user = $this->uri->getUser();
         $this->password = $this->uri->getPassword();
@@ -77,12 +81,15 @@ class lmbDbDSN extends lmbObject
     function buildUri()
     {
         $uri = (new lmbUri())
-            ->withScheme($this->driver)
+            ->withScheme($this->scheme ?? $this->driver)
             ->withHost($this->host)
             ->withUserInfo($this->get('user', ''), $this->get('password', ''))
             ->withPath('/' . $this->get('database', ''))
             ->withPort($this->port ?? null)
-            ->withQueryItems($this->extra ?? []);
+            ->withQueryItems($this->extra);
+
+        if($this->scheme && $this->driver)
+            $uri = $uri->withQueryItem('driver', $this->driver);
 
         return $uri;
     }
@@ -90,5 +97,21 @@ class lmbDbDSN extends lmbObject
     function toString()
     {
         return $this->_getUri()->toString();
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'driver' => $this->driver,
+            'scheme' => $this->scheme,
+            'host' => $this->host,
+            'user' => $this->user,
+            'password' =>  $this->password,
+            'port' =>  $this->port,
+            'charset' =>  $this->charset,
+            'database' =>  $this->database,
+            'reconnect' =>  $this->reconnect,
+            'extra' =>  $this->extra
+        ];
     }
 }
