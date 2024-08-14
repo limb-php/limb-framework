@@ -24,7 +24,7 @@ class lmbMacroCKEditorWidget extends lmbMacroBaseWysiwygWidget
 
     protected function _renderEditor()
     {
-        $editor = new limb\wysiwyg\src\helper\CKeditor\CKeditor();
+        $editor = new \limb\wysiwyg\src\helper\CKeditor\CKeditor();
 
         if ($this->_helper->getOption('basePath'))
             $editor->basePath = $this->_helper->getOption('basePath');
