@@ -25,15 +25,28 @@ class lmbLogWriterFactory
         if (!is_object($dsn))
             $dsn = new lmbUri($dsn);
 
-        $writer_name = 'lmbLog' . ucfirst($dsn->getScheme()) . 'Writer';
-        $writerClassName = "limb\\log\\src\\" . $writer_name;
+        switch ($dsn->getScheme()) {
+            case 'null':
+                return new lmbLogNullWriter();
+            case 'echo':
+                return new lmbLogEchoWriter();
+            case 'file':
+                return new lmbLogFileWriter($dsn->toString());
+            case 'plain_file':
+                return new lmbLogPlainFileWriter($dsn->toString());
+            case 'firePHP':
+                return new lmbLogFirePHPWriter($dsn);
+            case 'phplog':
+                return new lmbLogPHPLogWriter($dsn->toString());
+            case 'syslog':
+                return new lmbLogSyslogWriter();
+            case 'redis':
+                return new lmbLogRedisWriter($dsn->toString(), 'log');
+            default:
+                $writer_name = 'lmbLog' . ucfirst($dsn->getScheme()) . 'Writer';
+                $writerClassName = "limb\\log\\src\\" . $writer_name;
 
-        try {
-            $writer = new $writerClassName($dsn);
-        } catch (\Error $e) {
-            throw new lmbClassNotFoundException($writerClassName, 'Log writer not found');
+                throw new lmbClassNotFoundException($writerClassName, 'Log writer not found');
         }
-
-        return $writer;
     }
 }
