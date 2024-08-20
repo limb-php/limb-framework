@@ -31,9 +31,9 @@ class lmbLogWriterFactory
             case 'echo':
                 return new lmbLogEchoWriter();
             case 'file':
-                return new lmbLogFileWriter($dsn->toString());
+                return new lmbLogFileWriter($dsn);
             case 'plain_file':
-                return new lmbLogPlainFileWriter($dsn->toString());
+                return new lmbLogPlainFileWriter($dsn);
             case 'firePHP':
                 return new lmbLogFirePHPWriter($dsn);
             case 'phplog':
