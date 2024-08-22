@@ -15,7 +15,7 @@ namespace limb\cache\src;
  * @package cache
  * @version $Id$
  */
-class lmbCacheGroupDecorator
+class lmbCacheGroupDecorator implements lmbCacheBackendInterface
 {
     /** @var $_cache lmbCacheBackendInterface */
     protected $_cache;
@@ -161,5 +161,25 @@ class lmbCacheGroupDecorator
     function __destruct()
     {
         $this->_cache->set('lmb_groups', $this->_groups);
+    }
+
+    public function clear()
+    {
+        $this->flush();
+    }
+
+    public function getMultiple(iterable $keys, mixed $default = null)
+    {
+        // TODO: Implement getMultiple() method.
+    }
+
+    public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null)
+    {
+        // TODO: Implement setMultiple() method.
+    }
+
+    public function deleteMultiple(iterable $keys)
+    {
+        // TODO: Implement deleteMultiple() method.
     }
 }
