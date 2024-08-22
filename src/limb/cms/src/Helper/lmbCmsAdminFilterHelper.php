@@ -43,12 +43,16 @@ class lmbCmsAdminFilterHelper
         $params = $this->getParams();
 
         if (!$this->request->has($param_name)) {
-            $value = $params[$param_name] ?? $default_value;
+            if( $this->request->getMethod() === 'POST' ) {
+                $value = $default_value;
+            } else {
+                $value = $params[$param_name] ?? $default_value;
 
-            if (is_string($value))
-                $value = trim($value);
+                if (is_string($value))
+                    $value = trim($value);
+            }
 
-            $this->request->set($param_name, $value);
+            $this->request->set($param_name, $value); // ?
         } else {
             $value = $this->request->get($param_name);
         }
