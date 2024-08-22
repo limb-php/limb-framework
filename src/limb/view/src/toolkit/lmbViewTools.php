@@ -116,7 +116,7 @@ class lmbViewTools extends lmbAbstractTools
             return $this->macro_locator;
 
         $config = lmbToolkit::instance()->getMacroConfig();
-        $this->macro_locator = new lmbMacroTemplateLocator(new lmbMacroConfig($config));
+        $this->macro_locator = new lmbMacroTemplateLocator(new lmbMacroConfig($config->export()));
 
         return $this->macro_locator;
     }
