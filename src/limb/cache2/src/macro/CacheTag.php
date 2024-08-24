@@ -19,12 +19,13 @@ class CacheTag extends lmbMacroTag
     {
         $storage_var = $code_writer->generateVar();
         $cache_key = $this->getEscaped('key');
+        $ttl = $this->get('ttl');
         if (!$storage = $this->get('storage'))
             $storage = self::default_storage;
         $code_writer->writePHP($storage_var . " = " . $storage . ";");
-
-        $ttl = $this->get('ttl');
-
+        $code_writer->writePHP("if(!" . $storage_var . ") {");
+        parent::_generateContent($code_writer);
+        $code_writer->writePHP("} else {\n");
         $cached_html = $code_writer->generateVar();
         $code_writer->writePHP("{$cached_html} = {$storage_var}->get(" . $cache_key . ");\n");
 
@@ -40,7 +41,7 @@ class CacheTag extends lmbMacroTag
 
         $ttl_text = ($ttl) ? ", '$ttl'" : '';
         $code_writer->writePHP("{$storage_var}->set(" . $cache_key . ", {$rendered_html}" . $ttl_text . ");\n");
-
+        $code_writer->writePHP("}\n");
         $code_writer->writePHP("}\n");
     }
 }
