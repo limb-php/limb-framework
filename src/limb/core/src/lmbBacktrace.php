@@ -96,7 +96,7 @@ class lmbBacktrace
                     $trace_string .= '"';
                     $trace_string .= htmlspecialchars(substr((string)@$arg, 0, 100));
 
-                    if (strlen($arg) > 100)
+                    if (is_string($arg) && strlen($arg) > 100)
                         $trace_string .= '...';
 
                     $trace_string .= '"';
