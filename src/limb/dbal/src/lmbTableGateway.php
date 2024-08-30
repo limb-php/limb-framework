@@ -240,7 +240,10 @@ class lmbTableGateway
 
         foreach ($values as $key => $value) {
             $column_info = $this->getColumnInfo($key);
-            if ($value === "" && $column_info->isNullable()) {
+//            if ($column_info->isNullable() && $value === "") {
+//                $value = $column_info->getDefaultValue();
+//            }  else
+            if (!$column_info->isNullable() && empty($value)) {
                 $value = $column_info->getDefaultValue();
             }
 
