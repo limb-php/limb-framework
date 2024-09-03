@@ -18,6 +18,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @package web_app
  * @version $Id: lmbErrorHandlingFilter.php 6019 2007-06-27 14:29:40Z
+ * @deprecated
  */
 class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
 {

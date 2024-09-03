@@ -17,6 +17,7 @@ use limb\toolkit\src\lmbToolkit;
  *
  * @package web_app
  * @version $Id: lmbViewRenderingFilter.php 7486 2009-01-26 19:13:20Z
+ * @deprecated
  */
 class lmbViewRenderingFilter implements lmbInterceptingFilterInterface
 {

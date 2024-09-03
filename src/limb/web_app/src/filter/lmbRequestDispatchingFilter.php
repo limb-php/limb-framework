@@ -19,6 +19,7 @@ use limb\web_app\src\Controllers\NotFoundController;
  *
  * @package web_app
  * @version $Id: lmbRequestDispatchingFilter.php 7486 2009-01-26 19:13:20Z
+ * @deprecated
  */
 class lmbRequestDispatchingFilter implements lmbInterceptingFilterInterface
 {

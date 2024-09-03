@@ -17,6 +17,7 @@ use limb\toolkit\src\lmbToolkit;
  *
  * @package cms
  * @version $Id$
+ * @deprecated
  */
 class lmbCmsAccessPolicyFilter implements lmbInterceptingFilterInterface
 {
