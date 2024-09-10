@@ -9,6 +9,7 @@
 
 namespace limb\net\src;
 
+use limb\core\src\exception\lmbException;
 use Psr\Http\Message\ResponseInterface;
 use \Psr\Http\Message\StreamInterface;
 
@@ -458,9 +459,13 @@ class lmbHttpResponse implements ResponseInterface
     /** @param $data mixed */
     public function json($data)
     {
+        $jdata = json_encode($data);
+        if( $jdata === false )
+            throw new lmbException('JSON error in HTTP response: ' . json_last_error_msg());
+
         $this
             ->addHeader('Content-type', 'application/json')
-            ->getBody()->write(\json_encode($data));
+            ->getBody()->write($jdata);
 
         return $this;
     }
