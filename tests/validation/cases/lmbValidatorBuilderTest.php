@@ -38,12 +38,12 @@ class lmbValidatorBuilderTest extends TestCase
         $this->validator
             ->expects($this->exactly(4))
             ->method("addRule")
-            ->withConsecutive(
+            ->willReturnMap([
                 [new lmbHandle(RequiredRule::class, array('login'))],
                 [new lmbHandle(MatchRule::class, array('login', 'bbb'))],
                 [new lmbHandle(SizeRangeRule::class, array('login', 5, 8))],
                 [new lmbHandle(IdentifierRule::class, array('login'))]
-            );
+            ]);
 
         lmbValidatorBuilder::addRules($rules, $this->validator);
     }
@@ -73,13 +73,13 @@ class lmbValidatorBuilderTest extends TestCase
         $this->validator
             ->expects($this->exactly(5))
             ->method("addRule")
-            ->withConsecutive(
+            ->willReturnMap([
                 [new lmbHandle(RequiredRule::class, array('login'))],
                 [new lmbHandle(SizeRangeRule::class, array('login', 5, 8))],
                 [new lmbHandle(EmailRule::class, array('login', $errors['email']))],
                 [new lmbHandle(PatternRule::class, array('login', '/\d+/', $errors['pattern']))],
                 [new lmbHandle(SizeRangeRule::class, array('login', 10, 15, $errors['size_range']))]
-            );
+            ]);
 
         lmbValidatorBuilder::addRules($rules, $this->validator);
     }

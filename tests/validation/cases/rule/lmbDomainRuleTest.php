@@ -144,7 +144,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
 
         $this->error_list
             ->method('addError')
-            ->withConsecutive(
+            ->willReturnMap([
                 [
                     lmb_i18n('{Field} cannot start with a period.', 'validation'),
                     array('Field' => 'testfield'),
@@ -165,7 +165,7 @@ class lmbDomainRuleTest extends lmbValidationRuleTestCase
                     array('Field' => 'testfield'),
                     array('segment' => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                 ]
-            );
+            ]);
 
         $rule->validate($dataspace, $this->error_list);
     }

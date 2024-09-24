@@ -272,13 +272,13 @@ class lmbHttpCacheTest extends TestCase
 
         $this->response
             ->method('addHeader')
-            ->withConsecutive(
+            ->willReturnMap([
                 ['Cache-Control: protected, max-age=100'],
                 ['Last-Modified: ' . $this->cache->formatLastModifiedTime()],
                 ['Etag: ' . $this->cache->getEtag()],
                 ['Pragma: '],
                 ['Expires: ']
-            );
+            ]);
 
         $this->assertTrue($this->cache->checkAndWrite($this->response));
     }
@@ -297,13 +297,13 @@ class lmbHttpCacheTest extends TestCase
 
         $this->response
             ->method('addHeader')
-            ->withConsecutive(
+            ->willReturnMap([
                 ['Cache-Control: public, max-age=100'],
                 ['Last-Modified: ' . $this->cache->formatLastModifiedTime()],
                 ['Etag: ' . $this->cache->getEtag()],
                 ['Pragma: '],
                 ['Expires: ']
-            );
+            ]);
 
         $this->assertTrue($this->cache->checkAndWrite($this->response));
     }
