@@ -131,7 +131,7 @@ class lmbValidator
     /**
      * Performs validation
      * Passes datasource and list of errors to every validation rule
-     * @param \limb\core\src\lmbSetInterface $datasource Datasource to validate
+     * @param \ArrayAccess|array $datasource Datasource to validate
      * @return boolean True if valid
      */
     function validate($datasource): bool
