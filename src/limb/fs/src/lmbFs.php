@@ -42,7 +42,6 @@ class lmbFs
         //just for safety
         flock($fh, LOCK_EX);
         fwrite($fh, $content);
-        //flock($fh, LOCK_UN); // The lock is released also by fclose()
         fclose($fh);
 
         if (lmbSys::isWin32() && file_exists($file))
@@ -50,7 +49,7 @@ class lmbFs
 
         if (!rename($tmp, $file)) {
             unlink($tmp);
-            throw new lmbFsException('could not move file', array('src' => $tmp, 'file' => $file));
+            throw new lmbFsException('Could not move file from ' . $tmp . ' to ' . $file);
         }
 
         chmod($file, $perm);
@@ -229,12 +228,13 @@ class lmbFs
     {
         if (!is_dir($item)) {
             if (!@unlink($item))
-                throw new lmbFsException('failed to remove file', array('file' => $item));
+                throw new lmbFsException('Failed to remove file: ' . $item);
+
             return;
         }
 
         if (!$handle = @opendir($item))
-            throw new lmbFsException('failed to open directory', array('dir' => $item));
+            throw new lmbFsException('Failed to open directory: ' . $item);
 
         while (($file = readdir($handle)) !== false) {
             if ($file === '.' || $file === '..')
@@ -246,7 +246,7 @@ class lmbFs
         closedir($handle);
 
         if (!@rmdir($item)) {
-            throw new lmbFsException('failed to remove directory', array('dir' => $item));
+            throw new lmbFsException('Failed to remove directory: ' . $item);
         }
     }
 
@@ -255,11 +255,11 @@ class lmbFs
     {
         if (is_dir($src) || is_file($src)) {
             if (!@rename($src, $dest))
-                throw new lmbFsException('failed to move item', array('src' => $src, 'dest' => $dest));
+                throw new lmbFsException('Failed to move item from ' . $src . ' to ' . $dest);
 
             clearstatcache();
         } else
-            throw new lmbFsException('source file or directory does not exist', array('src' => $src));
+            throw new lmbFsException('Source file or directory does not exist: ' . $src);
     }
 
     /** @throws lmbFsException */
@@ -272,7 +272,7 @@ class lmbFs
                 $dest = $dest . '/' . basename($src);
 
             if (@copy($src, $dest) === false)
-                throw new lmbFsException('failed to copy file', array('src' => $src, 'dest' => $dest));
+                throw new lmbFsException('Failed to copy file from ' . $src . ' to ' . $dest);
 
             return false;
         }
@@ -349,6 +349,8 @@ class lmbFs
             case self::DOS:
                 return "\\";
         }
+
+        throw new lmbFsException('Invalid directory separator type.');
     }
 
     protected static function _concreteSeparatorType($type)
@@ -422,6 +424,8 @@ class lmbFs
                     $path[0] == "\\" ||
                     preg_match('~^[a-zA-Z]+:~', $path);
         }
+
+        throw new lmbFsException('Invalid directory separator type.');
     }
 
     protected static function _normalizeSeparators($path, $separator)
