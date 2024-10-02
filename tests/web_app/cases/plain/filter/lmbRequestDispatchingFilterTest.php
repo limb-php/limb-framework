@@ -140,7 +140,9 @@ class lmbRequestDispatchingFilterTest extends TestCase
 //
 //    $this->mock_tools
 //        ->method('createController')
-//        ->withConsecutive([$controller_name], [$not_found_controller])
+//        ->willReturnMap([
+//          [$controller_name], [$not_found_controller]
+//        ])
 //        ->willReturn($not_found_controller, $not_found_controller); // , array('404')
 //
 //    $this->filter->setDefaultControllerName(NotFoundController::class);

@@ -216,10 +216,10 @@ class lmbMacroTokenizerTest extends TestCase
 
         $this->listener
             ->method('characters')
-            ->withConsecutive(
+            ->willReturnMap([
                 ['hey'],
                 ['foo']
-            );
+            ]);
 
         $this->listener
             ->expects($this->exactly(2))
@@ -227,10 +227,10 @@ class lmbMacroTokenizerTest extends TestCase
 
         $this->listener
             ->method('php')
-            ->withConsecutive(
+            ->willReturnMap([
                 ['<?php $yo = "{{foo/}}";?>'],
                 ['<?php $var = "{{tag}}{{/tag}}";?>']
-            );
+            ]);
 
         $this->listener
             ->expects($this->never())
@@ -366,10 +366,10 @@ class lmbMacroTokenizerTest extends TestCase
 
         $this->listener
             ->method('startElement')
-            ->withConsecutive(
+            ->willReturnMap([
                 ['foo', array()],
                 ['zoo', array()]
-            );
+            ]);
 
         $this->listener
             ->expects($this->exactly(4))
@@ -377,12 +377,12 @@ class lmbMacroTokenizerTest extends TestCase
 
         $this->listener
             ->method('characters')
-            ->withConsecutive(
+            ->willReturnMap([
                 ['hey'],
                 ['baz'],
                 ['wow'],
                 ['hm..']
-            );
+            ]);
 
         $this->listener
             ->expects($this->exactly(2))
@@ -390,10 +390,10 @@ class lmbMacroTokenizerTest extends TestCase
 
         $this->listener
             ->method('endElement')
-            ->withConsecutive(
+            ->willReturnMap([
                 ['foo'],
                 ['zoo']
-            );
+            ]);
 
         $this->listener
             ->expects($this->never())
@@ -405,10 +405,10 @@ class lmbMacroTokenizerTest extends TestCase
 
         $this->listener
             ->method('php')
-            ->withConsecutive(
+            ->willReturnMap([
                 ['<?php $var = "{{tag}}{{/tag}}";?>'],
                 ['<?php echo 1;?>']
-            );
+            ]);
 
         $this->parser->parse('{{foo}}hey{{/foo}}baz<?php $var = "{{tag}}{{/tag}}";?>{{zoo}}wow{{/zoo}}hm..<?php echo 1;?>');
     }
@@ -525,10 +525,10 @@ class lmbMacroTokenizerTest extends TestCase
     {
         $this->listener
             ->method('startElement')
-            ->withConsecutive(
+            ->willReturnMap([
                 ['b', array()],
                 ['i', array()]
-            );
+            ]);
 
         /*$this->listener
             ->method('endElement')

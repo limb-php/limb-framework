@@ -69,10 +69,10 @@ EOD;
 
         $listener
             ->method('createByAnnotations')
-            ->withConsecutive(
+            ->willReturnMap([
                 [$file, "Foo{$rnd}Tag", array('tag' => "foo_{$rnd}")],
                 [$file, "Bar{$rnd}Tag", array('tag' => "bar_{$rnd}")]
-            );
+            ]);
 
         $info = lmbMacroAnnotationParser::extractFromFile($file, $listener);
     }
