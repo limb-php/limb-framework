@@ -50,7 +50,7 @@ class lmbHttpStreamResponse extends lmbHttpResponse
      *
      * @return $this
      */
-    public function sendHeaders()
+    public function sendHeaders(): static
     {
         if ($this->headersSent) {
             return $this;
@@ -66,7 +66,7 @@ class lmbHttpStreamResponse extends lmbHttpResponse
      *
      * @return $this
      */
-    public function sendContent()
+    public function sendContent(): static
     {
         if ($this->streamed) {
             return $this;

@@ -457,7 +457,7 @@ class lmbHttpResponse implements ResponseInterface
     }
 
     /** @param $data mixed */
-    public function json($data)
+    public function json($data): static
     {
         $jdata = json_encode($data);
         if( $jdata === false )
@@ -468,6 +468,14 @@ class lmbHttpResponse implements ResponseInterface
             ->getBody()->write($jdata);
 
         return $this;
+    }
+
+    /** @param $callback callable */
+    /** @param $status int */
+    /** @param $headers array */
+    public function stream($callback = null, $status = 200, $headers = []): lmbHttpStreamResponse
+    {
+        return new lmbHttpStreamResponse($callback, $status, $headers);
     }
 
     protected function _sendHeader($header, $value)
