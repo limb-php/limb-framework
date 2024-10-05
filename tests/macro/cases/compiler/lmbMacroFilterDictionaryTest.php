@@ -9,11 +9,11 @@
 
 namespace tests\macro\cases\compiler;
 
-use limb\core\src\lmbEnv;
 use tests\macro\cases\lmbBaseMacroTestCase;
-use limb\fs\src\lmbFs;
-use limb\macro\src\compiler\lmbMacroFilterInfo;
-use limb\macro\src\compiler\lmbMacroFilterDictionary;
+use limb\core\lmbEnv;
+use limb\fs\lmbFs;
+use limb\macro\compiler\lmbMacroFilterInfo;
+use limb\macro\compiler\lmbMacroFilterDictionary;
 
 class lmbMacroFilterDictionaryTest extends lmbBaseMacroTestCase
 {

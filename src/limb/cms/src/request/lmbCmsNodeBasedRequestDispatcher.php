@@ -9,10 +9,10 @@
 
 namespace limb\cms\src\request;
 
-use limb\net\src\lmbUriHelper;
+use limb\net\lmbUriHelper;
 use limb\web_app\src\request\lmbRequestDispatcherInterface;
-use limb\core\src\lmbEnv;
-use limb\net\src\lmbUri;
+use limb\core\lmbEnv;
+use limb\net\lmbUri;
 use limb\cms\src\model\lmbCmsNode as Node;
 
 /**

@@ -10,8 +10,8 @@
 namespace tests\net\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\net\src\lmbHttpResponse;
-use limb\net\src\lmbHttpCache;
+use limb\net\lmbHttpResponse;
+use limb\net\lmbHttpCache;
 
 class lmbHttpCacheTest extends TestCase
 {

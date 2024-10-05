@@ -1,8 +1,8 @@
 <?php
 
-namespace limb\cms\src\Helper;
+namespace limb\cms\Helper;
 
-use limb\toolkit\src\lmbToolkit;
+use limb\toolkit\lmbToolkit;
 use Psr\Http\Message\RequestInterface;
 
 class lmbCmsAdminFilterHelper

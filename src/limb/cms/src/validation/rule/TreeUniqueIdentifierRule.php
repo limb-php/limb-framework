@@ -2,10 +2,10 @@
 
 namespace limb\cms\src\validation\rule;
 
-use limb\dbal\src\criteria\lmbSQLFieldCriteria;
-use limb\validation\src\rule\lmbSingleFieldRule;
-use limb\dbal\src\criteria\lmbSQLCriteria;
-use limb\active_record\src\lmbActiveRecord;
+use limb\dbal\criteria\lmbSQLFieldCriteria;
+use limb\validation\rule\lmbSingleFieldRule;
+use limb\dbal\criteria\lmbSQLCriteria;
+use limb\active_record\lmbActiveRecord;
 
 class TreeUniqueIdentifierRule extends lmbSingleFieldRule
 {

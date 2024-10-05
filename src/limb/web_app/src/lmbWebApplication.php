@@ -9,10 +9,10 @@
 
 namespace limb\web_app\src;
 
-use limb\core\src\exception\lmbException;
-use limb\filter_chain\src\lmbFilterChain;
-use limb\core\src\lmbHandle;
-use limb\toolkit\src\lmbToolkit;
+use limb\core\exception\lmbException;
+use limb\filter_chain\lmbFilterChain;
+use limb\core\lmbHandle;
+use limb\toolkit\lmbToolkit;
 use limb\web_app\src\Bootstrap\lmbErrorHandlerBootstrap;
 use limb\web_app\src\Controllers\NotFoundController;
 use limb\web_app\src\request\lmbRoutesRequestDispatcher;

@@ -12,8 +12,8 @@
  * @version $Id: common.inc.php 8041 2010-01-19 20:49:36Z
  */
 
-use limb\net\src\lmbHttpResponse;
-use limb\toolkit\src\lmbToolkit;
+use limb\net\lmbHttpResponse;
+use limb\toolkit\lmbToolkit;
 
 if (!function_exists('response')) {
 

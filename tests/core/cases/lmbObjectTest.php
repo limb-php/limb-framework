@@ -7,14 +7,14 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace tests\core\cases;
+namespace Limb\Tests\core\cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\core\src\lmbObject;
-use limb\core\src\exception\lmbNoSuchPropertyException;
-use limb\core\src\exception\lmbNoSuchMethodException;
+use limb\core\lmbObject;
+use limb\core\exception\lmbNoSuchPropertyException;
+use limb\core\exception\lmbNoSuchMethodException;
 use tests\core\cases\src\lmbTestObject;
 use tests\core\cases\src\ObjectTestVersion;
 use tests\core\cases\src\ObjectTestVersion2;

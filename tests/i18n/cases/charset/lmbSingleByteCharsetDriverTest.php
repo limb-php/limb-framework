@@ -9,7 +9,7 @@
 
 namespace tests\i18n\cases\charset;
 
-use limb\i18n\src\charset\lmbSingleByteCharsetDriver;
+use limb\i18n\charset\lmbSingleByteCharsetDriver;
 use PHPUnit\Framework\TestCase;
 
 class lmbSingleByteCharsetDriverTest extends TestCase

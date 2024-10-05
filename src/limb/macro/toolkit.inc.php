@@ -12,7 +12,7 @@
  * @version $Id$
  */
 
-use limb\toolkit\src\lmbToolkit;
-use limb\fs\src\toolkit\lmbFsTools;
+use limb\toolkit\lmbToolkit;
+use limb\fs\toolkit\lmbFsTools;
 
 lmbToolkit::merge(new lmbFsTools());

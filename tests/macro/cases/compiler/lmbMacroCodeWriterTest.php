@@ -9,10 +9,10 @@
 
 namespace tests\macro\cases\compiler;
 
-use limb\core\src\lmbEnv;
+use limb\core\lmbEnv;
 use tests\macro\cases\lmbBaseMacroTestCase;
-use limb\macro\src\compiler\lmbMacroCodeWriter;
-use limb\macro\src\compiler\lmbMacroTemplateExecutor;
+use limb\macro\compiler\lmbMacroCodeWriter;
+use limb\macro\compiler\lmbMacroTemplateExecutor;
 
 class lmbMacroCodeWriterTest extends lmbBaseMacroTestCase
 {

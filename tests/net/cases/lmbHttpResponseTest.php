@@ -9,12 +9,12 @@
 
 namespace tests\net\cases;
 
-use limb\net\src\lmbHttpStream;
-use limb\net\src\lmbJsonHttpResponse;
-use limb\net\src\lmbMetaRedirectStrategy;
 use PHPUnit\Framework\TestCase;
-use limb\net\src\lmbHttpRedirectStrategy;
-use limb\net\src\lmbHttpResponse;
+use limb\net\lmbHttpStream;
+use limb\net\lmbJsonHttpResponse;
+use limb\net\lmbMetaRedirectStrategy;
+use limb\net\lmbHttpRedirectStrategy;
+use limb\net\lmbHttpResponse;
 
 class lmbHttpResponseTest extends TestCase
 {

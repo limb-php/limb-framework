@@ -10,8 +10,8 @@
 namespace tests\net\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\net\src\lmbUploadedFilesParser;
-use limb\net\src\lmbUploadedFile;
+use limb\net\lmbUploadedFilesParser;
+use limb\net\lmbUploadedFile;
 
 class lmbUploadedFilesParserTest extends TestCase
 {

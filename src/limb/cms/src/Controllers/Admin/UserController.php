@@ -2,9 +2,9 @@
 
 namespace limb\cms\src\Controllers\Admin;
 
-use limb\active_record\src\lmbActiveRecord;
-use limb\validation\src\rule\MatchRule;
-use limb\validation\src\lmbValidator;
+use limb\active_record\lmbActiveRecord;
+use limb\validation\rule\MatchRule;
+use limb\validation\lmbValidator;
 use limb\cms\src\model\lmbCmsUser;
 
 class UserController extends lmbAdminObjectController

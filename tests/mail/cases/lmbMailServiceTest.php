@@ -3,9 +3,9 @@
 namespace tests\mail\cases;
 
 use tests\macro\cases\lmbBaseMacroTestCase;
-use limb\mail\src\lmbMailService;
-use limb\fs\src\lmbFs;
-use limb\toolkit\src\lmbToolkit;
+use limb\mail\lmbMailService;
+use limb\fs\lmbFs;
+use limb\toolkit\lmbToolkit;
 
 require_once dirname(__FILE__) . '/.setup.php';
 

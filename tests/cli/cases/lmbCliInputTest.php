@@ -12,9 +12,9 @@ namespace tests\cli\cases;
 require_once(dirname(__FILE__) . '/.setup.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\cli\src\lmbCliInput;
-use limb\cli\src\lmbCliOption;
-use limb\cli\src\lmbCliException;
+use limb\cli\lmbCliInput;
+use limb\cli\lmbCliOption;
+use limb\cli\lmbCliException;
 
 class lmbCliInputTest extends TestCase
 {

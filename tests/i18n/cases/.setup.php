@@ -1,6 +1,6 @@
 <?php
 
-use limb\core\src\lmbEnv;
+use limb\core\lmbEnv;
 
 lmbEnv::set('LIMB_LOCALE_INCLUDE_PATH', 'i18n/locale;../src/limb/i18n/i18n/locale');
 lmbEnv::set('LIMB_TRANSLATIONS_INCLUDE_PATH', 'i18n/translations;../src/limb/i18n/i18n/translations');

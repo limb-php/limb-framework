@@ -12,8 +12,8 @@ namespace tests\cli\cases;
 require_once(dirname(__FILE__) . '/.setup.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\cli\src\lmbCliOption;
-use limb\cli\src\lmbCliException;
+use limb\cli\lmbCliOption;
+use limb\cli\lmbCliException;
 
 class lmbCliOptionTest extends TestCase
 {
@@ -31,39 +31,39 @@ class lmbCliOptionTest extends TestCase
     {
         $opt = new lmbCliOption('s', lmbCliOption::VALUE_REQ);
         $this->assertNull($opt->getLongName());
-        $this->assertEquals($opt->getShortName(), 's');
-        $this->assertEquals($opt->getValueMode(), lmbCliOption::VALUE_REQ);
-        $this->assertEquals($opt->toString(), '-s');
+        $this->assertEquals('s', $opt->getShortName());
+        $this->assertEquals(lmbCliOption::VALUE_REQ, $opt->getValueMode());
+        $this->assertEquals('-s', $opt->toString());
     }
 
     function testCreateWithLongNameOnly()
     {
         $opt = new lmbCliOption('foo', lmbCliOption::VALUE_REQ);
         $this->assertNull($opt->getShortName());
-        $this->assertEquals($opt->getLongName(), 'foo');
-        $this->assertEquals($opt->getValueMode(), lmbCliOption::VALUE_REQ);
-        $this->assertEquals($opt->toString(), '--foo');
+        $this->assertEquals('foo', $opt->getLongName());
+        $this->assertEquals(lmbCliOption::VALUE_REQ, $opt->getValueMode());
+        $this->assertEquals('--foo', $opt->toString());
     }
 
     function testCreateWithBothNames()
     {
         $opt = new lmbCliOption('f', 'foo', lmbCliOption::VALUE_REQ);
-        $this->assertEquals($opt->getShortName(), 'f');
-        $this->assertEquals($opt->getLongName(), 'foo');
-        $this->assertEquals($opt->getValueMode(), lmbCliOption::VALUE_REQ);
-        $this->assertEquals($opt->toString(), '-f|--foo');
+        $this->assertEquals('f', $opt->getShortName());
+        $this->assertEquals('foo', $opt->getLongName());
+        $this->assertEquals(lmbCliOption::VALUE_REQ, $opt->getValueMode());
+        $this->assertEquals('-f|--foo', $opt->toString());
     }
 
     function testDefaultValueMode()
     {
         $opt = new lmbCliOption('s');
-        $this->assertEquals($opt->getValueMode(), lmbCliOption::VALUE_NO);
+        $this->assertEquals(lmbCliOption::VALUE_NO, $opt->getValueMode());
 
         $opt = new lmbCliOption('foo');
-        $this->assertEquals($opt->getValueMode(), lmbCliOption::VALUE_NO);
+        $this->assertEquals(lmbCliOption::VALUE_NO, $opt->getValueMode());
 
         $opt = new lmbCliOption('f', 'foo');
-        $this->assertEquals($opt->getValueMode(), lmbCliOption::VALUE_NO);
+        $this->assertEquals(lmbCliOption::VALUE_NO, $opt->getValueMode());
     }
 
     function testValueMode()
@@ -103,7 +103,7 @@ class lmbCliOptionTest extends TestCase
         $this->assertNull($opt->getValue());
 
         $opt->setValue('wow');
-        $this->assertEquals($opt->getValue(), 'wow');
+        $this->assertEquals('wow', $opt->getValue());
     }
 
     function testIsPresent()

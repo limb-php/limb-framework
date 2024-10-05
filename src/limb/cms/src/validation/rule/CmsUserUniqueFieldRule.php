@@ -1,11 +1,11 @@
 <?php
 
-namespace limb\cms\src\validation\rule;
+namespace limb\cms\validation\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
-use limb\dbal\src\criteria\lmbSQLFieldCriteria;
-use limb\active_record\src\lmbActiveRecord;
-use limb\i18n\src\lmbI18n;
+use limb\validation\rule\lmbSingleFieldRule;
+use limb\dbal\criteria\lmbSQLFieldCriteria;
+use limb\active_record\lmbActiveRecord;
+use limb\i18n\lmbI18n;
 
 class CmsUserUniqueFieldRule extends lmbSingleFieldRule
 {

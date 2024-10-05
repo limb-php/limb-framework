@@ -1,6 +1,6 @@
 <?php
 
-namespace limb\cms\src\Helper;
+namespace limb\cms\Helper;
 
 class SecurityHelper
 {

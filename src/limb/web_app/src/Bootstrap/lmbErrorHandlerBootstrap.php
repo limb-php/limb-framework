@@ -9,7 +9,7 @@
 
 namespace limb\web_app\src\Bootstrap;
 
-use limb\core\src\lmbErrorGuard;
+use limb\core\lmbErrorGuard;
 use limb\web_app\src\exception\lmbExceptionHandler;
 use Psr\Http\Message\RequestInterface;
 

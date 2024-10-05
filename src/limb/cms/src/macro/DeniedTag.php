@@ -1,8 +1,8 @@
 <?php
 
-namespace limb\cms\src\macro;
+namespace limb\cms\macro;
 
-use limb\macro\src\compiler\lmbMacroTag;
+use limb\macro\compiler\lmbMacroTag;
 
 /**
  * class DeniedTag.
@@ -13,11 +13,11 @@ use limb\macro\src\compiler\lmbMacroTag;
 class DeniedTag extends lmbMacroTag
 {
     protected $_storage;
-    const default_role = 'limb\toolkit\src\lmbToolkit::instance()->getMember()';
+    const default_role = 'limb\toolkit\lmbToolkit::instance()->getMember()';
 
     protected function _generateContent($code_writer)
     {
-        $code_writer->writePHP("if(!limb\\toolkit\\src\\lmbToolkit::instance()->getAcl()->isAllowed(");
+        $code_writer->writePHP("if(!limb\\toolkit\\lmbToolkit::instance()->getAcl()->isAllowed(");
 
         if (!$role = $this->getEscaped('role'))
             $role = self::default_role;

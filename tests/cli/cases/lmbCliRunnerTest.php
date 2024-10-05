@@ -12,12 +12,12 @@ namespace tests\cli\cases;
 require_once(dirname(__FILE__) . '/.setup.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\fs\src\lmbFs;
-use limb\cli\src\lmbCliResponse;
-use limb\cli\src\lmbCliInput;
-use limb\cli\src\lmbCliRunner;
-use limb\core\src\exception\lmbException;
-use limb\core\src\lmbEnv;
+use limb\fs\lmbFs;
+use limb\cli\lmbCliResponse;
+use limb\cli\lmbCliInput;
+use limb\cli\lmbCliRunner;
+use limb\core\exception\lmbException;
+use limb\core\lmbEnv;
 
 class lmbCliRunnerTest extends TestCase
 {
@@ -185,7 +185,7 @@ EOD;
 
         $php = <<<EOD
 <?php
-class $class extends limb\cli\src\lmbCliBaseCmd
+class $class extends limb\cli\lmbCliBaseCmd
 {
   $body
 }

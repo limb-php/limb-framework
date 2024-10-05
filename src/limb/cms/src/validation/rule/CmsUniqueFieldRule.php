@@ -2,10 +2,10 @@
 
 namespace limb\cms\src\validation\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
-use limb\active_record\src\lmbActiveRecord;
-use limb\dbal\src\criteria\lmbSQLCriteria;
-use limb\dbal\src\criteria\lmbSQLFieldCriteria;
+use limb\validation\rule\lmbSingleFieldRule;
+use limb\active_record\lmbActiveRecord;
+use limb\dbal\criteria\lmbSQLCriteria;
+use limb\dbal\criteria\lmbSQLFieldCriteria;
 
 class CmsUniqueFieldRule extends lmbSingleFieldRule
 {

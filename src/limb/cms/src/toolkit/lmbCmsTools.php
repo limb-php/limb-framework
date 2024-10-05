@@ -9,12 +9,12 @@
 
 namespace limb\cms\src\toolkit;
 
-use limb\toolkit\src\lmbAbstractTools;
-use limb\tree\src\lmbMPTree;
+use limb\toolkit\lmbAbstractTools;
+use limb\tree\lmbMPTree;
 use limb\cms\src\model\lmbCmsSessionUser;
 use limb\web_app\src\toolkit\lmbWebAppTools;
 use limb\web_app\src\toolkit\lmbProfileTools;
-use limb\toolkit\src\lmbToolkit;
+use limb\toolkit\lmbToolkit;
 
 /**
  * class lmbCmsTools.

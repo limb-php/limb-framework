@@ -2,11 +2,11 @@
 
 namespace limb\cms\src\model;
 
-use limb\active_record\src\lmbActiveRecord;
-use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\active_record\lmbActiveRecord;
+use limb\dbal\criteria\lmbSQLCriteria;
 use limb\cms\src\validation\rule\CmsTextBlockUniqueFieldRule;
-use limb\toolkit\src\lmbToolkit;
-use limb\validation\src\lmbValidator;
+use limb\toolkit\lmbToolkit;
+use limb\validation\lmbValidator;
 
 class lmbCmsTextBlock extends lmbActiveRecord
 {

@@ -1,6 +1,6 @@
 <?php
 
-use limb\fs\src\lmbFs;
+use limb\fs\lmbFs;
 
 if (!function_exists('lmb_tests_init_var_dir')) {
     function lmb_tests_init_var_dir($value, $verbose = false): void

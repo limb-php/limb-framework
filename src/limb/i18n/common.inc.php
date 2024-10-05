@@ -12,7 +12,7 @@
  * @version $Id: common.inc.php 8042 2010-01-19 20:53:10Z
  */
 
-use limb\i18n\src\lmbI18n;
+use limb\i18n\lmbI18n;
 
 if (!function_exists('lmb_i18n')) {
 

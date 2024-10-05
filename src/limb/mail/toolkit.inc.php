@@ -12,7 +12,7 @@
  * @version $Id: toolkit.inc.php 2022-11-11
  */
 
-use limb\toolkit\src\lmbToolkit;
-use limb\mail\src\toolkit\lmbMailTools;
+use limb\toolkit\lmbToolkit;
+use limb\mail\toolkit\lmbMailTools;
 
 lmbToolkit::merge(new lmbMailTools());

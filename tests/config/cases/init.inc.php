@@ -1,6 +1,6 @@
 <?php
 
-use limb\core\src\lmbEnv;
+use limb\core\lmbEnv;
 
 require_once(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
 require_once(dirname(__FILE__) . '/../../core/common.inc.php');

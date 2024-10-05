@@ -1,8 +1,8 @@
 <?php
 
-namespace tests\core\cases\src;
+namespace Limb\Tests\core\cases\src;
 
-use limb\core\src\lmbMixin;
+use limb\core\lmbMixin;
 
 class MixinCallingOwnerVar extends lmbMixin
 {

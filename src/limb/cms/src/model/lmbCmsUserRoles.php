@@ -9,7 +9,7 @@
 
 namespace limb\cms\src\model;
 
-use limb\core\src\lmbCollection;
+use limb\core\lmbCollection;
 
 /**
  * class lmbCmsUserRoles.

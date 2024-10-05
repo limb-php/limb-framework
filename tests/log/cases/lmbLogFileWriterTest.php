@@ -10,9 +10,9 @@
 namespace tests\log\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\log\src\lmbLogFileWriter;
-use limb\net\src\lmbUri;
-use limb\log\src\lmbLogEntry;
+use limb\log\lmbLogFileWriter;
+use limb\net\lmbUri;
+use limb\log\lmbLogEntry;
 use Psr\Log\LogLevel;
 
 class lmbLogFileWriterTest extends TestCase

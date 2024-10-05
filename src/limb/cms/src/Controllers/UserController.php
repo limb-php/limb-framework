@@ -3,11 +3,11 @@
 namespace limb\cms\src\Controllers;
 
 use limb\web_app\src\Controllers\LmbController;
-use limb\core\src\lmbEnv;
-use limb\mail\src\lmbMailer;
+use limb\core\lmbEnv;
+use limb\mail\lmbMailer;
 use limb\cms\src\model\lmbCmsUser;
-use limb\view\src\lmbMacroView;
-use limb\active_record\src\lmbActiveRecord;
+use limb\view\lmbMacroView;
+use limb\active_record\lmbActiveRecord;
 
 class UserController extends LmbController
 {

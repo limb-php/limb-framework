@@ -10,11 +10,11 @@
 namespace tests\log\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\log\src\lmbLogFirePHPWriter;
-use limb\toolkit\src\lmbToolkit;
-use limb\log\src\lmbLogEntry;
-use limb\net\src\toolkit\lmbNetTools;
-use limb\net\src\lmbUri;
+use limb\log\lmbLogFirePHPWriter;
+use limb\toolkit\lmbToolkit;
+use limb\log\lmbLogEntry;
+use limb\net\toolkit\lmbNetTools;
+use limb\net\lmbUri;
 use Psr\Log\LogLevel;
 
 class lmbLogFirePHPWriterTest extends TestCase

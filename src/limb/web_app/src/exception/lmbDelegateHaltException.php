@@ -9,7 +9,7 @@
 
 namespace limb\web_app\src\exception;
 
-use limb\core\src\exception\lmbException;
+use limb\core\exception\lmbException;
 
 /**
  * class lmbDelegateHaltException.

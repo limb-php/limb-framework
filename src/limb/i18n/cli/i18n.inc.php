@@ -1,7 +1,7 @@
 <?php
 
-use limb\i18n\src\scanner\lmbTSDocument;
-use limb\i18n\src\scanner\lmbI18nScanner;
+use limb\i18n\scanner\lmbTSDocument;
+use limb\i18n\scanner\lmbI18nScanner;
 
 
 function _i18n_taskman_err($message)

@@ -7,13 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace tests\core\cases;
+namespace Limb\Tests\core\cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\core\src\lmbDelegatesChain;
-use limb\core\src\lmbDelegate;
+use limb\core\lmbDelegatesChain;
+use limb\core\lmbDelegate;
 use tests\core\cases\src\DelegatesChainTestingStubObject;
 
 class lmbDelegatesChainTest extends TestCase

@@ -9,12 +9,12 @@
 
 namespace limb\cms\src\model;
 
-use limb\active_record\src\lmbActiveRecord;
-use limb\tree\src\lmbMPTree;
-use limb\validation\src\lmbValidator;
-use limb\cms\src\validation\rule\TreeIdentifierRule;
-use limb\dbal\src\lmbDBAL;
-use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\active_record\lmbActiveRecord;
+use limb\tree\lmbMPTree;
+use limb\validation\lmbValidator;
+use limb\cms\validation\rule\TreeIdentifierRule;
+use limb\dbal\lmbDBAL;
+use limb\dbal\criteria\lmbSQLCriteria;
 
 /**
  * class lmbCmsDocument.

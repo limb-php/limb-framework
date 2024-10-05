@@ -2,10 +2,10 @@
 
 namespace tests\cron\cases\cron;
 
-use limb\cron\src\cron\CleanTempFileStorageJob;
 use tests\cron\cases\CronModuleTestCase;
-use limb\toolkit\src\lmbToolkit;
-use limb\fs\src\lmbFs;
+use limb\cron\cron\CleanTempFileStorageJob;
+use limb\toolkit\lmbToolkit;
+use limb\fs\lmbFs;
 
 class CleanTempFileStorageJobTest extends CronModuleTestCase
 {

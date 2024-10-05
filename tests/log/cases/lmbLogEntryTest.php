@@ -10,8 +10,8 @@
 namespace tests\log\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\log\src\lmbLogEntry;
-use limb\core\src\lmbBacktrace;
+use limb\log\lmbLogEntry;
+use limb\core\lmbBacktrace;
 use Psr\Log\LogLevel;
 
 class lmbLogEntryTest extends TestCase

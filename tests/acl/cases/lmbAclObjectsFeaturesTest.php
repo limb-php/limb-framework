@@ -7,13 +7,13 @@
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
 
-namespace tests\Acl\Cases;
+namespace Limb\Tests\Acl\Cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\acl\src\lmbAcl;
-use limb\acl\src\lmbRoleProviderInterface;
-use limb\acl\src\lmbResourceProviderInterface;
-use limb\acl\src\lmbRolesResolverInterface;
+use limb\acl\lmbAcl;
+use limb\acl\lmbRoleProviderInterface;
+use limb\acl\lmbResourceProviderInterface;
+use limb\acl\lmbRolesResolverInterface;
 
 require_once (dirname(__FILE__) . '/init.inc.php');
 

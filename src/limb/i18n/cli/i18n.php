@@ -1,7 +1,7 @@
 <?php
 
-use limb\fs\src\lmbFs;
-use limb\core\src\lmbEnv;
+use limb\fs\lmbFs;
+use limb\core\lmbEnv;
 
 /* See details in README file */
 

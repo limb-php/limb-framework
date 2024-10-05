@@ -12,9 +12,9 @@ namespace tests\config\cases;
 require_once (dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\toolkit\src\lmbToolkit;
-use limb\config\src\toolkit\lmbConfTools;
-use limb\fs\src\lmbFs;
+use limb\toolkit\lmbToolkit;
+use limb\config\toolkit\lmbConfTools;
+use limb\fs\lmbFs;
 
 class lmbConfToolsTest extends TestCase
 {

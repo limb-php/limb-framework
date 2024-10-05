@@ -9,8 +9,8 @@
 
 namespace limb\web_app\src\exception;
 
-use limb\core\src\exception\lmbException;
-use limb\toolkit\src\lmbToolkit;
+use limb\core\exception\lmbException;
+use limb\toolkit\lmbToolkit;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;

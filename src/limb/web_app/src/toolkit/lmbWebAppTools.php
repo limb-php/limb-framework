@@ -9,24 +9,23 @@
 
 namespace limb\web_app\src\toolkit;
 
-use limb\active_record\src\toolkit\lmbARTools;
-use limb\config\src\toolkit\lmbConfTools;
-use limb\i18n\src\toolkit\lmbI18NTools;
-use limb\log\src\toolkit\lmbLogTools;
-use limb\net\src\lmbHttpResponse;
-use limb\net\src\toolkit\lmbNetTools;
-use limb\session\src\toolkit\lmbSessionTools;
-use limb\toolkit\src\lmbToolkit;
-use limb\core\src\lmbEnv;
-use limb\core\src\lmbString;
-use limb\toolkit\src\lmbAbstractTools;
-use limb\view\src\lmbDummyView;
-use limb\view\src\lmbViewInterface;
-use limb\view\src\toolkit\lmbViewTools;
+use limb\active_record\toolkit\lmbARTools;
+use limb\config\toolkit\lmbConfTools;
+use limb\i18n\toolkit\lmbI18NTools;
+use limb\log\toolkit\lmbLogTools;
+use limb\net\lmbHttpResponse;
+use limb\net\toolkit\lmbNetTools;
+use limb\session\toolkit\lmbSessionTools;
+use limb\toolkit\lmbToolkit;
+use limb\core\lmbEnv;
+use limb\core\lmbString;
+use limb\toolkit\lmbAbstractTools;
+use limb\view\lmbViewInterface;
+use limb\view\toolkit\lmbViewTools;
 use limb\web_app\src\util\lmbFlashBox;
 use limb\web_app\src\request\lmbRoutes;
-use limb\core\src\exception\lmbException;
-use limb\fs\src\exception\lmbFileNotFoundException;
+use limb\core\exception\lmbException;
+use limb\fs\exception\lmbFileNotFoundException;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
 
 lmbEnv::setor('LIMB_ENABLE_MOD_REWRITE', true); // we assume mod_rewrite in ON by default

@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-use limb\toolkit\src\lmbToolkit;
+use limb\toolkit\lmbToolkit;
 use limb\web_app\src\toolkit\lmbWebAppTools;
 use limb\web_app\src\toolkit\lmbProfileTools;
 

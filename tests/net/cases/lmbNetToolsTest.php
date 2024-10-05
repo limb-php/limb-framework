@@ -9,8 +9,8 @@
 
 namespace tests\net\cases;
 
-use limb\toolkit\src\lmbToolkit;
 use PHPUnit\Framework\TestCase;
+use limb\toolkit\lmbToolkit;
 
 require_once (dirname(__FILE__) . '/init.inc.php');
 

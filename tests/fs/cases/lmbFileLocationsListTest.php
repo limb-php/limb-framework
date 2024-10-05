@@ -12,9 +12,9 @@ namespace tests\fs\cases;
 require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\fs\src\lmbFileLocationsInterface;
-use limb\fs\src\lmbFileLocationsList;
-use limb\fs\src\lmbFs;
+use limb\fs\lmbFileLocationsInterface;
+use limb\fs\lmbFileLocationsList;
+use limb\fs\lmbFs;
 
 class lmbFileLocationsListTest extends TestCase
 {

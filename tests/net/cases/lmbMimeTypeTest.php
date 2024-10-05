@@ -10,7 +10,7 @@
 namespace tests\net\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\net\src\lmbMimeType;
+use limb\net\lmbMimeType;
 
 class lmbMimeTypeTest extends TestCase
 {

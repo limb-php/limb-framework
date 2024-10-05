@@ -7,13 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-namespace tests\core\cases;
+namespace Limb\Tests\core\cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\core\src\lmbMixable;
-use limb\core\src\exception\lmbException;
+use limb\core\lmbMixable;
+use limb\core\exception\lmbException;
 use tests\core\cases\src\MixableTestVersion;
 use tests\core\cases\src\MixedTestStub;
 use tests\core\cases\src\MixinBar;

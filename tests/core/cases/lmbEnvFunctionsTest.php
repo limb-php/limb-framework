@@ -1,11 +1,11 @@
 <?php
 
-namespace tests\core\cases;
+namespace Limb\Tests\core\cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\core\src\lmbEnv;
+use limb\core\lmbEnv;
 
 class lmbEnvFunctionsTest extends TestCase
 {

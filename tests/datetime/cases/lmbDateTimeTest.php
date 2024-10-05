@@ -12,9 +12,9 @@ namespace tests\datetime\cases;
 require_once (dirname(__FILE__) . '/.setup.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\datetime\src\lmbDateTime;
-use limb\datetime\src\lmbDateTimeZone;
-use limb\core\src\exception\lmbException;
+use limb\datetime\lmbDateTime;
+use limb\datetime\lmbDateTimeZone;
+use limb\core\exception\lmbException;
 
 class FooDateTime extends lmbDateTime
 {

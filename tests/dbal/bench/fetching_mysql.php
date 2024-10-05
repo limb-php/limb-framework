@@ -1,6 +1,6 @@
 <?php
 
-use limb\dbal\src\lmbDBAL;
+use limb\dbal\lmbDBAL;
 
 set_include_path(dirname(__FILE__) . '/../../../../');
 

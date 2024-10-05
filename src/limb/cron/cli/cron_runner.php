@@ -1,11 +1,11 @@
 <?php
 require_once(dirname(__FILE__) . '/../../../lmb-setup.php');
 
-use limb\core\src\lmbBacktrace;
-use limb\core\src\lmbCollection;
-use limb\fs\src\lmbFs;
-use limb\cron\src\cron\CronJobLogger;
-use limb\core\src\exception\lmbException;
+use limb\core\lmbBacktrace;
+use limb\core\lmbCollection;
+use limb\fs\lmbFs;
+use limb\cron\cron\CronJobLogger;
+use limb\core\exception\lmbException;
 
 function write_error_in_log($errno, $errstr, $errfile, $errline)
 {

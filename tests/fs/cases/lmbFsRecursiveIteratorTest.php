@@ -12,10 +12,10 @@ namespace tests\fs\cases;
 require(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\fs\src\lmbFsRecursiveIterator;
-use limb\fs\src\lmbFs;
-use limb\core\src\lmbEnv;
-use limb\fs\src\exception\lmbFsException;
+use limb\fs\lmbFsRecursiveIterator;
+use limb\fs\lmbFs;
+use limb\core\lmbEnv;
+use limb\fs\exception\lmbFsException;
 
 class lmbFsRecursiveIteratorTest extends TestCase
 {

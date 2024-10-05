@@ -9,12 +9,10 @@
 
 namespace tests\i18n\cases\datetime;
 
-use limb\i18n\src\datetime\lmbLocaleDateTime;
-
-//require('limb/i18n/toolkit.inc.php');
 use PHPUnit\Framework\TestCase;
-use limb\config\src\lmbIni;
-use limb\i18n\src\locale\lmbLocale;
+use limb\i18n\datetime\lmbLocaleDateTime;
+use limb\config\lmbIni;
+use limb\i18n\locale\lmbLocale;
 
 class lmbLocaleDateFormatTest extends TestCase
 {

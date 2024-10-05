@@ -10,8 +10,8 @@
 namespace tests\config\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\config\src\lmbCachedIni;
-use limb\fs\src\lmbFs;
+use limb\config\lmbCachedIni;
+use limb\fs\lmbFs;
 
 require_once (dirname(__FILE__) . '/init.inc.php');
 

@@ -1,6 +1,6 @@
 <?php
 
-use limb\core\src\lmbEnv;
+use limb\core\lmbEnv;
 
 $_SERVER['REQUEST_URI'] = '/test.php';
 

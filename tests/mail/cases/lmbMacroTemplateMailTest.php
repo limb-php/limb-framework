@@ -2,10 +2,10 @@
 
 namespace tests\mail\cases;
 
-use limb\mail\src\lmbMacroTemplateMail;
 use tests\macro\cases\lmbBaseMacroTestCase;
-use limb\fs\src\lmbFs;
-use limb\toolkit\src\lmbToolkit;
+use limb\mail\lmbMacroTemplateMail;
+use limb\fs\lmbFs;
+use limb\toolkit\lmbToolkit;
 
 require_once (dirname(__FILE__) . '/.setup.php');
 

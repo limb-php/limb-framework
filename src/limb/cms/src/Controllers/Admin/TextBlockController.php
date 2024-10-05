@@ -2,9 +2,9 @@
 
 namespace limb\cms\src\Controllers\Admin;
 
-use limb\active_record\src\lmbActiveRecord;
+use limb\active_record\lmbActiveRecord;
 use limb\cms\src\model\lmbCmsTextBlock;
-use limb\core\src\lmbCollection;
+use limb\core\lmbCollection;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

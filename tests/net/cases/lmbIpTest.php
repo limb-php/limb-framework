@@ -10,8 +10,8 @@
 namespace tests\net\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\net\src\lmbIp;
-use limb\core\src\exception\lmbException;
+use limb\net\lmbIp;
+use limb\core\exception\lmbException;
 
 class lmbIpTest extends TestCase
 {

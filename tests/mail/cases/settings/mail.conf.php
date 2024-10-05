@@ -1,6 +1,6 @@
 <?php
 
-use limb\core\src\lmbEnv;
+use limb\core\lmbEnv;
 
 return [
     'smtp_debug' => false,

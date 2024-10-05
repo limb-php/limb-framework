@@ -9,11 +9,11 @@
 
 namespace tests\i18n\cases\translation;
 
-use limb\core\src\lmbEnv;
 use PHPUnit\Framework\TestCase;
-use limb\i18n\src\translation\lmbI18NDictionary;
-use limb\i18n\src\translation\lmbQtDictionaryBackend;
-use limb\fs\src\lmbFs;
+use limb\core\lmbEnv;
+use limb\i18n\translation\lmbI18NDictionary;
+use limb\i18n\translation\lmbQtDictionaryBackend;
+use limb\fs\lmbFs;
 
 class lmbQtDictionaryBackendTest extends TestCase
 {

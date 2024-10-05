@@ -1,8 +1,8 @@
 <?php
 
-namespace tests\core\cases\src;
+namespace Limb\Tests\core\cases\src;
 
-use limb\core\src\lmbMixable;
+use limb\core\lmbMixable;
 
 class MixableTestVersion extends lmbMixable
 {

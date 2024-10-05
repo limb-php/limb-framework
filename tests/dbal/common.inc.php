@@ -7,12 +7,12 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-use limb\core\src\lmbEnv;
-use limb\dbal\src\lmbDbDump;
-use limb\dbal\src\lmbSimpleDb;
-use limb\fs\src\lmbFs;
-use limb\toolkit\src\lmbToolkit;
-use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\core\lmbEnv;
+use limb\dbal\lmbDbDump;
+use limb\dbal\lmbSimpleDb;
+use limb\fs\lmbFs;
+use limb\toolkit\lmbToolkit;
+use limb\dbal\criteria\lmbSQLCriteria;
 
 if (!function_exists('loadTestingDbDump')) {
     function loadTestingDbDump($dump_path)

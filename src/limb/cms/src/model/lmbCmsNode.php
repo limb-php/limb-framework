@@ -9,14 +9,14 @@
 
 namespace limb\cms\src\model;
 
-use limb\active_record\src\lmbActiveRecord;
-use limb\toolkit\src\lmbToolkit;
-use limb\validation\src\lmbValidator;
+use limb\active_record\lmbActiveRecord;
+use limb\toolkit\lmbToolkit;
+use limb\validation\lmbValidator;
 use limb\cms\src\validation\rule\CmsTreeIdentifierRule;
-use limb\dbal\src\criteria\lmbSQLRawCriteria;
+use limb\dbal\criteria\lmbSQLRawCriteria;
 
 /**
- * class limb\cms\src\model\lmbCmsNode.
+ * class limb\cms\model\lmbCmsNode.
  *
  * @package cms
  * @version $Id: lmbCmsNode.php 7486 2009-01-26 19:13:20Z

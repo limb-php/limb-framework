@@ -12,10 +12,9 @@ namespace tests\log\cases\toolkit;
 require(dirname(__FILE__) . '/../.setup.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\core\src\lmbEnv;
-use limb\toolkit\src\lmbToolkit;
-use limb\log\src\toolkit\lmbLogTools;
-use limb\log\src\lmbLogFirePHPWriter;
+use limb\toolkit\lmbToolkit;
+use limb\log\toolkit\lmbLogTools;
+use limb\log\lmbLogFirePHPWriter;
 
 class lmbLogToolsTest extends TestCase
 {

@@ -10,11 +10,11 @@
 namespace tests\config\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\config\src\lmbConf;
-use limb\fs\src\lmbFs;
-use limb\fs\src\exception\lmbFileNotFoundException;
-use limb\core\src\exception\lmbNoSuchPropertyException;
-use limb\core\src\exception\lmbInvalidArgumentException;
+use limb\config\lmbConf;
+use limb\fs\lmbFs;
+use limb\fs\exception\lmbFileNotFoundException;
+use limb\core\exception\lmbNoSuchPropertyException;
+use limb\core\exception\lmbInvalidArgumentException;
 
 require_once (dirname(__FILE__) . '/init.inc.php');
 

@@ -9,8 +9,8 @@
 
 namespace limb\cms\src\validation\rule;
 
-use limb\validation\src\rule\lmbSingleFieldRule;
-use limb\i18n\src\lmbI18n;
+use limb\validation\rule\lmbSingleFieldRule;
+use limb\i18n\lmbI18n;
 
 /**
  * class TreeIdentifierRule.

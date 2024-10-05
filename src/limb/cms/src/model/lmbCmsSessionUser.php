@@ -9,8 +9,8 @@
 
 namespace limb\cms\src\model;
 
-use limb\active_record\src\lmbActiveRecord;
-use limb\dbal\src\criteria\lmbSQLFieldCriteria;
+use limb\active_record\lmbActiveRecord;
+use limb\dbal\criteria\lmbSQLFieldCriteria;
 
 /**
  * class lmbCmsClassName.

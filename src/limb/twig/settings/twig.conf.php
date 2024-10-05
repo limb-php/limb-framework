@@ -1,6 +1,6 @@
 <?php
 
-use limb\core\src\lmbEnv;
+use limb\core\lmbEnv;
 
 return [
     'cache' => lmbEnv::get('LIMB_VAR_DIR') . '/compiled/twig/',

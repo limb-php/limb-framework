@@ -2,7 +2,7 @@
 set_include_path(dirname(__FILE__) . '/../../../../');
 require('limb/core/common.inc.php');
 
-use limb\fs\src\lmbFs;
+use limb\fs\lmbFs;
 
 /*--------------------------------------*/
 lmbFs::mkDir(dirname(__FILE__) . '/temp/');

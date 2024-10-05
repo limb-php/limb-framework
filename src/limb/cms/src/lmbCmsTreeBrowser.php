@@ -9,7 +9,7 @@
 
 namespace limb\cms\src;
 
-use limb\active_record\src\lmbActiveRecord;
+use limb\active_record\lmbActiveRecord;
 use limb\cms\src\model\lmbCmsNode;
 
 /**

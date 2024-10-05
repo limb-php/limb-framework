@@ -13,12 +13,12 @@ namespace tests\i18n\cases\utility;
  * TODO replace cli by taskman
  */
 
-use limb\core\src\lmbEnv;
 use PHPUnit\Framework\TestCase;
-use limb\cli\src\lmbCliResponse;
-use limb\fs\src\lmbFs;
-use limb\i18n\src\translation\lmbQtDictionaryBackend;
-use limb\i18n\src\translation\lmbDictionaryUpdater;
+use limb\core\lmbEnv;
+use limb\cli\lmbCliResponse;
+use limb\fs\lmbFs;
+use limb\i18n\translation\lmbQtDictionaryBackend;
+use limb\i18n\translation\lmbDictionaryUpdater;
 
 class lmbDictionaryUpdaterTest extends TestCase
 {

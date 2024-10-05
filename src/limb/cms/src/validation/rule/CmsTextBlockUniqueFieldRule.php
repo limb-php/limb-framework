@@ -2,9 +2,9 @@
 
 namespace limb\cms\src\validation\rule;
 
-use limb\active_record\src\lmbActiveRecord;
-use limb\validation\src\rule\lmbSingleFieldRule;
-use limb\dbal\src\criteria\lmbSQLFieldCriteria;
+use limb\active_record\lmbActiveRecord;
+use limb\validation\rule\lmbSingleFieldRule;
+use limb\dbal\criteria\lmbSQLFieldCriteria;
 
 class CmsTextBlockUniqueFieldRule extends lmbSingleFieldRule
 {

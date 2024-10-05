@@ -14,7 +14,7 @@
 
 namespace limb\web_app\src\toolkit;
 
-use limb\toolkit\src\lmbAbstractTools;
+use limb\toolkit\lmbAbstractTools;
 
 class lmbProfileTools extends lmbAbstractTools
 {

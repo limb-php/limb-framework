@@ -10,7 +10,7 @@
 namespace tests\mail\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\mail\src\lmbMailer;
+use limb\mail\lmbMailer;
 
 require_once dirname(__FILE__) . '/.setup.php';
 

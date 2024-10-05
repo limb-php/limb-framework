@@ -2,16 +2,16 @@
 
 namespace tests\dbal\cases\toolkit;
 
-use limb\dbal\src\drivers\lmbDbCachedInfo;
-use limb\dbal\src\drivers\mysql\lmbMysqlDbInfo;
 use PHPUnit\Framework\TestCase;
-use limb\core\src\lmbEnv;
-use limb\core\src\lmbSet;
-use limb\config\src\lmbConf;
-use limb\toolkit\src\lmbToolkit;
-use limb\dbal\src\toolkit\lmbDbTools;
-use limb\dbal\src\lmbDbDSN;
-use limb\core\src\exception\lmbException;
+use limb\dbal\drivers\lmbDbCachedInfo;
+use limb\dbal\drivers\mysql\lmbMysqlDbInfo;
+use limb\core\lmbEnv;
+use limb\core\lmbSet;
+use limb\config\lmbConf;
+use limb\toolkit\lmbToolkit;
+use limb\dbal\toolkit\lmbDbTools;
+use limb\dbal\lmbDbDSN;
+use limb\core\exception\lmbException;
 
 require_once(dirname(__FILE__) . '/../init.inc.php');
 

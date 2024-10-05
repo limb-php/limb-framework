@@ -7,13 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace tests\core\cases;
+namespace Limb\Tests\core\cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\core\src\lmbCollection;
-use limb\core\src\lmbSet;
+use limb\core\lmbCollection;
+use limb\core\lmbSet;
 
 class lmbCollectionTest extends TestCase
 {

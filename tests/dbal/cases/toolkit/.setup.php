@@ -1,6 +1,6 @@
 <?php
 
-use limb\toolkit\src\lmbToolkit;
+use limb\toolkit\lmbToolkit;
 
 lmbToolkit::instance()->setDefaultDbDSN(lmbToolkit::instance()->getDbDSNByName('mysql_dsn'));
 

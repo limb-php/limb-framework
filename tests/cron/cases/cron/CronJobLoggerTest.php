@@ -2,7 +2,7 @@
 
 namespace tests\cron\cases\cron;
 
-use limb\cron\src\cron\CronJobLogger;
+use limb\cron\cron\CronJobLogger;
 use tests\cron\cases\CronModuleTestCase;
 
 class CronJobLoggerTest extends CronModuleTestCase

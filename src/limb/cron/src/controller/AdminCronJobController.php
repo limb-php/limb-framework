@@ -2,11 +2,11 @@
 
 namespace limb\cron\src\controller;
 
-use limb\core\src\lmbEnv;
-use limb\web_app\src\controller\lmbController;
-use limb\cron\src\cron\CronJobLogger;
-use limb\dbal\src\lmbTableGateway;
-use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\core\lmbEnv;
+use limb\web_app\src\Controllers\lmbController;
+use limb\cron\cron\CronJobLogger;
+use limb\dbal\lmbTableGateway;
+use limb\dbal\criteria\lmbSQLCriteria;
 
 class AdminCronJobController extends lmbController
 {

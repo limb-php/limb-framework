@@ -12,8 +12,8 @@ namespace tests\datetime\cases;
 require_once (dirname(__FILE__) . '/.setup.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\datetime\src\lmbDateTimePeriod;
-use limb\core\src\exception\lmbException;
+use limb\datetime\lmbDateTimePeriod;
+use limb\core\exception\lmbException;
 
 class lmbDateTimePeriodTest extends TestCase
 {

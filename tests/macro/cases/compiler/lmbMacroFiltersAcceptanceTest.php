@@ -10,9 +10,9 @@
 namespace tests\macro\cases\compiler;
 
 use tests\macro\cases\lmbBaseMacroTestCase;
-use limb\macro\src\compiler\lmbMacroFilter;
-use limb\macro\src\compiler\lmbMacroFilterInfo;
-use limb\macro\src\compiler\lmbMacroFilterDictionary;
+use limb\macro\compiler\lmbMacroFilter;
+use limb\macro\compiler\lmbMacroFilterInfo;
+use limb\macro\compiler\lmbMacroFilterDictionary;
 
 class MacroFilterFooTest extends lmbMacroFilter
 {

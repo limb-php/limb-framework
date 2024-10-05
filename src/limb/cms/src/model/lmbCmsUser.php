@@ -16,12 +16,12 @@ namespace limb\cms\src\model;
  * @version $Id$
  */
 
-use limb\acl\src\lmbRoleProviderInterface;
-use limb\active_record\src\lmbActiveRecord;
+use limb\acl\lmbRoleProviderInterface;
+use limb\active_record\lmbActiveRecord;
 use limb\cms\src\validation\rule\CmsUserUniqueFieldRule;
-use limb\validation\src\lmbValidator;
-use limb\validation\src\rule\EmailRule;
-use limb\validation\src\rule\MatchRule;
+use limb\validation\lmbValidator;
+use limb\validation\rule\EmailRule;
+use limb\validation\rule\MatchRule;
 
 class lmbCmsUser extends lmbActiveRecord implements lmbRoleProviderInterface
 {

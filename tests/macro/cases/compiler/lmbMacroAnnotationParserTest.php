@@ -10,10 +10,10 @@
 namespace tests\macro\cases\compiler;
 
 use PHPUnit\Framework\TestCase;
-use limb\fs\src\lmbFs;
-use limb\core\src\lmbEnv;
-use limb\macro\src\compiler\lmbMacroAnnotationParser;
-use limb\macro\src\compiler\lmbMacroAnnotationParserListenerInterface;
+use limb\fs\lmbFs;
+use limb\core\lmbEnv;
+use limb\macro\compiler\lmbMacroAnnotationParser;
+use limb\macro\compiler\lmbMacroAnnotationParserListenerInterface;
 
 require(dirname(__FILE__) . '/../.setup.php');
 

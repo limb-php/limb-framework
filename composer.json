@@ -1,6 +1,6 @@
 {
     "name": "limb-php/limb-framework",
-    "description": "Limb4 PHP framework",
+    "description": "Limb5 PHP framework",
     "license": "MIT",
     "type": "project",
     "require": {
@@ -69,11 +69,8 @@
         }
     },
     "autoload-dev": {
-        "files": [
-            "bootstrap.php"
-        ],
         "psr-4": {
-            "tests\\": "tests/"
+            "Limb\\Test\\": "tests/"
         }
     },
     "config": {

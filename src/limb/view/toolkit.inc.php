@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-use limb\toolkit\src\lmbToolkit;
-use limb\view\src\toolkit\lmbViewTools;
+use limb\toolkit\lmbToolkit;
+use limb\view\toolkit\lmbViewTools;
 
 lmbToolkit::merge(new lmbViewTools());

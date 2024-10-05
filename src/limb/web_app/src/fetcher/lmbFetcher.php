@@ -9,9 +9,9 @@
 
 namespace limb\web_app\src\fetcher;
 
-use limb\core\src\lmbCollection;
-use limb\core\src\exception\lmbException;
-use limb\core\src\lmbString;
+use limb\core\lmbCollection;
+use limb\core\exception\lmbException;
+use limb\core\lmbString;
 
 /**
  * abstract class lmbFetcher.

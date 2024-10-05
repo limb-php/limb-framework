@@ -11,10 +11,10 @@ namespace tests\session\cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 
-use limb\dbal\src\lmbTableGateway;
 use PHPUnit\Framework\TestCase;
-use limb\session\src\lmbSessionDbStorage;
-use limb\toolkit\src\lmbToolkit;
+use limb\dbal\lmbTableGateway;
+use limb\session\lmbSessionDbStorage;
+use limb\toolkit\lmbToolkit;
 
 class lmbSessionDbStorageTest extends TestCase
 {

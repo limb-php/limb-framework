@@ -11,9 +11,9 @@
 namespace tests\log\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\log\src\lmbLogEchoWriter;
-use limb\net\src\lmbUri;
-use limb\log\src\lmbLogEntry;
+use limb\log\lmbLogEchoWriter;
+use limb\net\lmbUri;
+use limb\log\lmbLogEntry;
 use Psr\Log\LogLevel;
 
 class lmbLogEchoWriterTest extends TestCase

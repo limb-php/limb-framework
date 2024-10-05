@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-namespace tests\core\cases\src;
+namespace Limb\Tests\core\cases\src;
 
-use limb\core\src\lmbProxy;
+use limb\core\lmbProxy;
 
 class ProxyTestingStub extends lmbProxy
 {

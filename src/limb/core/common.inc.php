@@ -12,8 +12,8 @@
  * @version $Id: common.inc.php 8127 2010-02-10 10:40:35Z
  */
 
-use limb\core\src\lmbEnv;
-use limb\core\src\lmbString;
+use limb\core\lmbEnv;
+use limb\core\lmbString;
 
 if (!function_exists('lmb_env_get')) {
 

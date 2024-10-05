@@ -12,9 +12,9 @@
  * @version $Id: toolkit.inc.php 2022-11-11
  */
 
-use limb\toolkit\src\lmbToolkit;
-use limb\active_record\src\toolkit\lmbARTools;
-use limb\cms\src\toolkit\lmbCmsTools;
+use limb\toolkit\lmbToolkit;
+use limb\active_record\toolkit\lmbARTools;
+use limb\cms\toolkit\lmbCmsTools;
 
 lmbToolkit::merge(new lmbCmsTools());
 lmbToolkit::merge(new lmbARTools());

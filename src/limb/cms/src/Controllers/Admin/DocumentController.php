@@ -13,9 +13,9 @@
 namespace limb\cms\src\Controllers\Admin;
 
 use limb\cms\src\model\lmbCmsDocument;
-use limb\active_record\src\lmbActiveRecord;
-use limb\dbal\src\criteria\lmbSQLCriteria;
-use limb\core\src\exception\lmbException;
+use limb\active_record\lmbActiveRecord;
+use limb\dbal\criteria\lmbSQLCriteria;
+use limb\core\exception\lmbException;
 
 class DocumentController extends lmbAdminObjectController
 {
@@ -42,7 +42,7 @@ class DocumentController extends lmbAdminObjectController
     function doPriority($request)
     {
         if ($request->has('parent_id'))
-            $this->_changeItemsPriority($request, 'lmbCmsDocument', 'parent_id', $request->get('parent_id'));
+            $this->_changeItemsPriority($request, lmbCmsDocument::class, 'parent_id', $request->get('parent_id'));
 
         $this->_endDialog();
     }
@@ -73,13 +73,15 @@ class DocumentController extends lmbAdminObjectController
         $request->set('title', trim($request->get('title')));
     }
 
-    protected function _validateAndSave($request, $is_create = false)
+    protected function _validateAndSave($request, $is_create = false): bool
     {
         try {
-            parent::_validateAndSave($request, $is_create);
+            return parent::_validateAndSave($request, $is_create);
         } catch (lmbException $e) {
-            $this->error_list->addError('Документ со значением поля "Идентификатор" уже существует на данном уровне вложения');
+            $this->error_list->addError('Document with the same value in field "Identifier" already exists on the same level');
         }
+
+        return false;
     }
 
 }

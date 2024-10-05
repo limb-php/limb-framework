@@ -12,8 +12,8 @@ namespace limb\cms\src\Controllers\Admin;
 use limb\cms\src\Commands\lmbCmsPublishObjectCommand;
 use limb\cms\src\Commands\lmbCmsUnpublishObjectCommand;
 use limb\web_app\src\Controllers\LmbController;
-use limb\core\src\exception\lmbException;
-use limb\active_record\src\lmbActiveRecord;
+use limb\core\exception\lmbException;
+use limb\active_record\lmbActiveRecord;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

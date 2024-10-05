@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\core\cases\src;
+namespace Limb\Tests\core\cases\src;
 
 class lmbHandleDeclaredInSameFile
 {

@@ -10,7 +10,7 @@
 namespace tests\i18n\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\i18n\src\charset\lmbI18nString;
+use limb\i18n\charset\lmbI18nString;
 
 class lmbI18NHelpersTest extends TestCase
 {

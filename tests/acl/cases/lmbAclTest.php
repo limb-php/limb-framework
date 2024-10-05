@@ -7,11 +7,11 @@
 * @license    LGPL http://www.gnu.org/copyleft/lesser.html
 */
 
-namespace tests\Acl\Cases;
+namespace Limb\Tests\Acl\Cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\acl\src\lmbAcl;
-use limb\acl\src\lmbAclException;
+use limb\acl\lmbAcl;
+use limb\acl\lmbAclException;
 
 require_once (dirname(__FILE__) . '/init.inc.php');
 

@@ -3,8 +3,8 @@
 namespace limb\cms\src\fetcher;
 
 use limb\web_app\src\fetcher\lmbFetcher;
-use limb\core\src\lmbCollection;
-use limb\toolkit\src\lmbToolkit;
+use limb\core\lmbCollection;
+use limb\toolkit\lmbToolkit;
 
 class lmbCmsAdminNavigationFetcher extends lmbFetcher
 {

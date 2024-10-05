@@ -10,9 +10,9 @@
 namespace tests\macro\cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\macro\src\lmbMacroTemplate;
-use limb\macro\src\lmbMacroConfig;
-use limb\fs\src\lmbFs;
+use limb\macro\lmbMacroTemplate;
+use limb\macro\lmbMacroConfig;
+use limb\fs\lmbFs;
 
 require_once(dirname(__FILE__) . '/.setup.php');
 
@@ -29,8 +29,8 @@ class lmbBaseMacroTestCase extends TestCase
         $this->base_dir = lmb_var_dir() . '/tpl';
         $this->cache_dir = $this->base_dir . '/compiled';
         $this->tpl_dir = $this->base_dir;
-        $this->tags_dir = ['*/macro/src/tags'];
-        $this->filters_dir = ['*/macro/src/filters'];
+        $this->tags_dir = ['*/macro/tags'];
+        $this->filters_dir = ['*/macro/filters'];
 
         lmbFs::mkdir(lmb_var_dir());
         lmbFs::mkdir($this->base_dir);
@@ -83,8 +83,8 @@ class lmbBaseMacroTestCase extends TestCase
             'forcecompile' => true,
             'forcescan' => true,
             'tpl_scan_dirs' => [$this->tpl_dir],
-            'tags_scan_dirs' => ['../src/limb/*/src/macro', '../src/limb/macro/src/tags'],
-            'filters_scan_dirs' => ['../src/limb/*/src/macro', '../src/limb/macro/src/filters']
+            'tags_scan_dirs' => ['../src/limb/*/macro', '../src/limb/macro/tags'],
+            'filters_scan_dirs' => ['../src/limb/*/macro', '../src/limb/macro/filters']
         );
         return new lmbMacroConfig($config);
     }

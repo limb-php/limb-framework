@@ -2,12 +2,12 @@
 
 namespace tests\cron\cases;
 
-use limb\cron\src\cron\CronJobLogger;
-use limb\dbal\src\lmbTableGateway;
+use limb\cron\cron\CronJobLogger;
+use limb\dbal\lmbTableGateway;
 use tests\web_app\cases\lmbWebAppTestCase;
-use limb\dbal\src\drivers\lmbAuditDbConnection;
-use limb\toolkit\src\lmbToolkit;
-use limb\dbal\src\lmbSimpleDb;
+use limb\dbal\drivers\lmbAuditDbConnection;
+use limb\toolkit\lmbToolkit;
+use limb\dbal\lmbSimpleDb;
 
 require_once (dirname(__FILE__) . '/.setup.php');
 

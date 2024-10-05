@@ -9,11 +9,11 @@
 
 namespace limb\web_app\src\fetcher;
 
-use limb\core\src\lmbCollection;
-use limb\active_record\src\lmbActiveRecord;
-use limb\core\src\exception\lmbException;
-use limb\active_record\src\lmbARNotFoundException;
-use limb\core\src\lmbString;
+use limb\core\lmbCollection;
+use limb\active_record\lmbActiveRecord;
+use limb\core\exception\lmbException;
+use limb\active_record\lmbARNotFoundException;
+use limb\core\lmbString;
 
 /**
  * class lmbActiveRecordFetcher.

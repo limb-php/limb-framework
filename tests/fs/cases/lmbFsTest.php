@@ -11,10 +11,10 @@ namespace tests\fs\cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 
-use limb\core\src\lmbEnv;
 use PHPUnit\Framework\TestCase;
-use limb\fs\src\lmbFs;
-use limb\fs\src\exception\lmbFsException;
+use limb\core\lmbEnv;
+use limb\fs\lmbFs;
+use limb\fs\exception\lmbFsException;
 
 class SpecialDirWalker
 {

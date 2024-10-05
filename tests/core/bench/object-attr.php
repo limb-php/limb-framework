@@ -1,6 +1,6 @@
 <?php
 
-use limb\core\src\lmbObject;
+use limb\core\lmbObject;
 
 set_include_path(dirname(__FILE__) . '/../../../../');
 require_once('limb/core/common.inc.php');

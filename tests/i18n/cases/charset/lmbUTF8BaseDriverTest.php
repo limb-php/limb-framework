@@ -9,8 +9,8 @@
 
 namespace tests\i18n\cases\charset;
 
-use limb\i18n\src\charset\lmbUTF8BaseDriver;
-use limb\i18n\src\charset\lmbI18nString;
+use limb\i18n\charset\lmbUTF8BaseDriver;
+use limb\i18n\charset\lmbI18nString;
 
 class lmbUTF8BaseDriverTest extends lmbMultiByteStringDriverTestBase
 {

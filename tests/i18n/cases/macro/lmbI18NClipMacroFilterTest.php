@@ -10,9 +10,9 @@
 namespace tests\i18n\cases\macro;
 
 use tests\macro\cases\lmbBaseMacroTestCase;
-use limb\i18n\src\charset\lmbUTF8BaseDriver;
-use limb\core\src\lmbSet;
-use limb\i18n\src\charset\lmbI18nString;
+use limb\i18n\charset\lmbUTF8BaseDriver;
+use limb\core\lmbSet;
+use limb\i18n\charset\lmbI18nString;
 
 require(dirname(__FILE__) . '/../.setup.php');
 

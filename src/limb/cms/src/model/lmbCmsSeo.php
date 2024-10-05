@@ -2,14 +2,14 @@
 
 namespace limb\cms\src\model;
 
-use limb\core\src\lmbObject;
-use limb\active_record\src\lmbActiveRecord;
+use limb\core\lmbObject;
+use limb\active_record\lmbActiveRecord;
 use limb\cms\src\validation\rule\CmsUniqueFieldRule;
-use limb\net\src\lmbUri;
-use limb\net\src\lmbUriHelper;
-use limb\validation\src\lmbValidator;
-use limb\toolkit\src\lmbToolkit;
-use limb\dbal\src\lmbDBAL;
+use limb\net\lmbUri;
+use limb\net\lmbUriHelper;
+use limb\validation\lmbValidator;
+use limb\toolkit\lmbToolkit;
+use limb\dbal\lmbDBAL;
 
 class lmbCmsSeo extends lmbActiveRecord
 {

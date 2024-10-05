@@ -9,11 +9,11 @@
 
 namespace tests\net\cases;
 
-use limb\net\src\lmbHttpStream;
 use PHPUnit\Framework\TestCase;
-use limb\net\src\lmbHttpRequest;
-use limb\net\src\lmbUri;
-use limb\net\src\lmbUploadedFile;
+use limb\net\lmbHttpStream;
+use limb\net\lmbHttpRequest;
+use limb\net\lmbUri;
+use limb\net\lmbUploadedFile;
 
 class lmbHttpRequestTest extends TestCase
 {

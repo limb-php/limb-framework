@@ -10,9 +10,9 @@
 namespace tests\i18n\cases\locale;
 
 use PHPUnit\Framework\TestCase;
-use limb\config\src\lmbIni;
-use limb\i18n\src\locale\lmbLocaleSpec;
-use limb\i18n\src\locale\lmbLocale;
+use limb\config\lmbIni;
+use limb\i18n\locale\lmbLocaleSpec;
+use limb\i18n\locale\lmbLocale;
 
 class lmbLocaleTest extends TestCase
 {

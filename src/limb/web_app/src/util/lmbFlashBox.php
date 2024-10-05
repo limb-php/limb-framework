@@ -9,7 +9,7 @@
 
 namespace limb\web_app\src\util;
 
-use limb\session\src\lmbSession;
+use limb\session\lmbSession;
 
 /**
  * class lmbFlashBox.

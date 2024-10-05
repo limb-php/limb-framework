@@ -2,11 +2,11 @@
 
 namespace limb\cms\src\model;
 
-use limb\active_record\src\lmbActiveRecord;
-use limb\tree\src\lmbMPTree;
-use limb\active_record\src\lmbARException;
-use limb\toolkit\src\lmbToolkit;
-use limb\dbal\src\criteria\lmbSQLCriteria;
+use limb\active_record\lmbActiveRecord;
+use limb\tree\lmbMPTree;
+use limb\active_record\lmbARException;
+use limb\toolkit\lmbToolkit;
+use limb\dbal\criteria\lmbSQLCriteria;
 
 abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
 {

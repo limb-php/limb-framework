@@ -10,8 +10,8 @@
 namespace limb\cms\src\Controllers\Admin;
 
 use limb\web_app\src\Controllers\LmbController;
-use limb\active_record\src\lmbActiveRecord;
-use limb\core\src\exception\lmbException;
+use limb\active_record\lmbActiveRecord;
+use limb\core\exception\lmbException;
 
 /**
  * abstract class AdminObjectController.

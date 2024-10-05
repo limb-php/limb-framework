@@ -2,9 +2,9 @@
 
 namespace limb\cms\src;
 
-use limb\core\src\lmbHandle;
+use limb\core\lmbHandle;
 use limb\web_app\src\lmbWebApplication;
-use limb\dbal\src\filter\lmbAutoDbTransactionFilter;
+use limb\dbal\filter\lmbAutoDbTransactionFilter;
 use limb\web_app\src\filter\lmbSessionStartupFilter;
 use limb\cms\src\filter\lmbCmsRequestDispatchingFilter;
 use limb\cms\src\filter\lmbCmsAccessPolicyFilter;

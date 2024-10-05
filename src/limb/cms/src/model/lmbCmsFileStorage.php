@@ -2,8 +2,8 @@
 
 namespace limb\cms\src\model;
 
-use limb\fs\src\lmbFs;
-use limb\net\src\lmbMimeType;
+use limb\fs\lmbFs;
+use limb\net\lmbMimeType;
 
 class lmbCmsFileStorage implements lmbCmsFileStorageInterface
 {

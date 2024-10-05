@@ -15,10 +15,10 @@ namespace tests\i18n\cases\translation;
 return;
 
 use PHPUnit\Framework\TestCase;
-use limb\cli\src\lmbCliResponse;
-use limb\fs\src\lmbFsRecursiveIterator;
-use limb\i18n\src\translation\lmbSourceDictionaryExtractor;
-use limb\i18n\src\translation\lmbFsDictionaryExtractor;
+use limb\cli\lmbCliResponse;
+use limb\fs\lmbFsRecursiveIterator;
+use limb\i18n\translation\lmbSourceDictionaryExtractor;
+use limb\i18n\translation\lmbFsDictionaryExtractor;
 
 class lmbFsDictionaryExtractorTest extends TestCase
 {

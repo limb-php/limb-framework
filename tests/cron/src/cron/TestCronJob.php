@@ -2,7 +2,7 @@
 
 namespace tests\cron\src\cron;
 
-use limb\cron\src\cron\CronJob;
+use limb\cron\cron\CronJob;
 
 class TestCronJob extends CronJob
 {

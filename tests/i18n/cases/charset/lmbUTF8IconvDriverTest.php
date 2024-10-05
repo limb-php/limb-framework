@@ -9,7 +9,7 @@
 
 namespace tests\i18n\cases\charset;
 
-use limb\i18n\src\charset\lmbUTF8IconvDriver;
+use limb\i18n\charset\lmbUTF8IconvDriver;
 
 class lmbUTF8IconvDriverTest extends lmbMultiByteStringDriverTestBase
 {

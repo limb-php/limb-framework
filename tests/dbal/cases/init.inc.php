@@ -6,7 +6,7 @@ require_once(dirname(__FILE__) . '/../common.inc.php');
 require_once(dirname(__FILE__) . '/init.inc.php');
 require_once(dirname(__FILE__) . '/../../../src/limb/dbal/toolkit.inc.php');
 
-use limb\core\src\lmbEnv;
+use limb\core\lmbEnv;
 use Psr\Log\LogLevel;
 
 $LIMB_CONF_INCLUDE_PATH = lmbEnv::get('LIMB_CONF_INCLUDE_PATH');

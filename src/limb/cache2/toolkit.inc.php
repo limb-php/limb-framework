@@ -12,7 +12,7 @@
  * @version $Id: toolkit.inc.php 2022-10-22
  */
 
-use limb\toolkit\src\lmbToolkit;
-use limb\cache2\src\toolkit\lmbCacheTools;
+use limb\toolkit\lmbToolkit;
+use limb\cache2\toolkit\lmbCacheTools;
 
 lmbToolkit::merge(new lmbCacheTools());

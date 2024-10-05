@@ -9,8 +9,8 @@
 
 namespace limb\cms\src\filter;
 
-use limb\filter_chain\src\lmbInterceptingFilterInterface;
-use limb\toolkit\src\lmbToolkit;
+use limb\filter_chain\lmbInterceptingFilterInterface;
+use limb\toolkit\lmbToolkit;
 
 /**
  * class lmbCmsAccessPolicyFilter.

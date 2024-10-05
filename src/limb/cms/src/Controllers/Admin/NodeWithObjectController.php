@@ -11,8 +11,8 @@ namespace limb\cms\src\Controllers\Admin;
 
 use \limb\web_app\src\Controllers\LmbController;
 use limb\cms\src\model\lmbCmsNode;
-use limb\core\src\exception\lmbException;
-use limb\active_record\src\lmbActiveRecord;
+use limb\core\exception\lmbException;
+use limb\active_record\lmbActiveRecord;
 
 /**
  * abstract class NodeWithObjectController.

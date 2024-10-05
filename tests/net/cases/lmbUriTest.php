@@ -9,10 +9,10 @@
 
 namespace tests\net\cases;
 
-use limb\net\src\lmbUriHelper;
 use PHPUnit\Framework\TestCase;
-use limb\net\src\lmbUri;
-use limb\core\src\exception\lmbException;
+use limb\net\lmbUriHelper;
+use limb\net\lmbUri;
+use limb\core\exception\lmbException;
 
 class lmbUriTest extends TestCase
 {

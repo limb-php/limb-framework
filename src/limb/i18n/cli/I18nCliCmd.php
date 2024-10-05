@@ -7,8 +7,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-use limb\i18n\src\translation\lmbDictionaryUpdater;
-use limb\i18n\src\translation\lmbQtDictionaryBackend;
+use limb\i18n\translation\lmbDictionaryUpdater;
+use limb\i18n\translation\lmbQtDictionaryBackend;
 
 /**
  * class I18nCliCmd.

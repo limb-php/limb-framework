@@ -12,9 +12,9 @@ namespace tests\session\cases;
 require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\session\src\lmbSession;
-use limb\core\src\lmbSerializable;
-use limb\core\src\lmbObject;
+use limb\session\lmbSession;
+use limb\core\lmbSerializable;
+use limb\core\lmbObject;
 
 class lmbSerializableObjectForTests extends lmbSerializable
 {

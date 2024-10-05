@@ -2,9 +2,9 @@
 
 namespace tests\log\cases\src;
 
-use limb\log\src\lmbLogEntry;
-use limb\log\src\lmbLogWriterInterface;
-use limb\net\src\lmbUri;
+use limb\log\lmbLogEntry;
+use limb\log\lmbLogWriterInterface;
+use limb\net\lmbUri;
 
 class lmbLogWriterForLogTests implements lmbLogWriterInterface
 {

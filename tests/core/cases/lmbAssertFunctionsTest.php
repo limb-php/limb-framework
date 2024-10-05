@@ -7,13 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace tests\core\cases;
+namespace Limb\Tests\core\cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\core\src\exception\lmbInvalidArgumentException;
-use limb\core\src\lmbAssert;
+use limb\core\exception\lmbInvalidArgumentException;
+use limb\core\lmbAssert;
 use tests\core\cases\src\extStdClass;
 
 class lmbAssertFunctionsTest extends TestCase
@@ -190,7 +190,7 @@ class lmbAssertFunctionsTest extends TestCase
 
     protected function _callCheck($check_name, $first_check_param, $second_check_param)
     {
-        return call_user_func_array('limb\core\src\lmbAssert::assert_' . $check_name, array($first_check_param, $second_check_param));
+        return call_user_func_array('limb\core\lmbAssert::assert_' . $check_name, array($first_check_param, $second_check_param));
     }
 
     protected function _checkPositive($check_name, $first_check_param, $second_check_param = null)

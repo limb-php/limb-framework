@@ -9,10 +9,9 @@
 
 namespace limb\cms\src\Controllers\Admin;
 
-use limb\dbal\src\lmbDBAL;
-use limb\active_record\src\lmbActiveRecord;
-use limb\net\src\lmbHttpResponse;
-use limb\toolkit\src\lmbToolkit;
+use limb\dbal\lmbDBAL;
+use limb\active_record\lmbActiveRecord;
+use limb\toolkit\lmbToolkit;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

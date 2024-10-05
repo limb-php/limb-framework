@@ -10,9 +10,9 @@
 namespace tests\macro\cases\compiler;
 
 use PHPUnit\Framework\TestCase;
-use limb\macro\src\compiler\lmbMacroSourceLocation;
-use limb\macro\src\compiler\lmbMacroNode;
-use limb\macro\src\compiler\lmbMacroFilterParser;
+use limb\macro\compiler\lmbMacroSourceLocation;
+use limb\macro\compiler\lmbMacroNode;
+use limb\macro\compiler\lmbMacroFilterParser;
 
 require(dirname(__FILE__) . '/../.setup.php');
 
