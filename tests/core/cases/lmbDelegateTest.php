@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace Limb\Tests\core\cases;
@@ -14,7 +14,7 @@ require_once(dirname(__FILE__) . '/init.inc.php');
 use PHPUnit\Framework\TestCase;
 use limb\core\lmbDelegate;
 use limb\core\exception\lmbException;
-use tests\core\cases\src\DelegateTestingStub;
+use Limb\Tests\core\cases\src\DelegateTestingStub;
 
 function DelegateTestingStubFunction($arg = null)
 {
@@ -61,7 +61,7 @@ class lmbDelegateTest extends TestCase
 
     function testInvalidStaticDelegatee()
     {
-        $delegate = new lmbDelegate('tests\core\cases\DelegateTestingStubFunction', 'xxxx');
+        $delegate = new lmbDelegate('Limb\Tests\core\cases\DelegateTestingStubFunction', 'xxxx');
         try {
             $delegate->invoke();
             $this->fail();
@@ -73,7 +73,7 @@ class lmbDelegateTest extends TestCase
 
     function testDelegateToFunction()
     {
-        $delegate = new lmbDelegate('tests\core\cases\DelegateTestingStubFunction');
+        $delegate = new lmbDelegate('Limb\Tests\core\cases\DelegateTestingStubFunction');
         $delegate->invoke('bar');
         $this->assertEquals('bar', DelegateTestingStubFunction());
     }
@@ -166,8 +166,8 @@ class lmbDelegateTest extends TestCase
         $d2 = new lmbDelegate($s2, 'instanceReturningMethod');
         $d3 = new lmbDelegate($s1, 'instanceMethod');
         $d4 = new lmbDelegate($s1, 'instanceReturningMethod');
-        $d5 = new lmbDelegate('tests\core\cases\DelegateTestingStubFunction');
-        $d6 = new lmbDelegate('tests\core\cases\DelegateTestingStubFunction');
+        $d5 = new lmbDelegate('Limb\Tests\core\cases\DelegateTestingStubFunction');
+        $d6 = new lmbDelegate('Limb\Tests\core\cases\DelegateTestingStubFunction');
 
         $this->assertFalse($d1->equal($d2));
         $this->assertTrue($d1->equal($d3));

@@ -15,13 +15,13 @@ use PHPUnit\Framework\TestCase;
 use limb\core\lmbObject;
 use limb\core\exception\lmbNoSuchPropertyException;
 use limb\core\exception\lmbNoSuchMethodException;
-use tests\core\cases\src\lmbTestObject;
-use tests\core\cases\src\ObjectTestVersion;
-use tests\core\cases\src\ObjectTestVersion2;
-use tests\core\cases\src\ObjectTestVersion3;
-use tests\core\cases\src\ObjectTestVersion4;
-use tests\core\cases\src\ObjectTestVersion5;
-use tests\core\cases\src\ObjectTestWithOverridingConstructor;
+use Limb\Tests\core\cases\src\lmbTestObject;
+use Limb\Tests\core\cases\src\ObjectTestVersion;
+use Limb\Tests\core\cases\src\ObjectTestVersion2;
+use Limb\Tests\core\cases\src\ObjectTestVersion3;
+use Limb\Tests\core\cases\src\ObjectTestVersion4;
+use Limb\Tests\core\cases\src\ObjectTestVersion5;
+use Limb\Tests\core\cases\src\ObjectTestWithOverridingConstructor;
 
 class lmbObjectTest extends TestCase
 {
@@ -335,7 +335,7 @@ class lmbObjectTest extends TestCase
         $o1 = new lmbObject();
         $this->assertEquals(lmbObject::class, $o1->getClass());
 
-        $o2 = new ObjectTestVersion($this);
+        $o2 = new ObjectTestVersion($o1->export());
         $this->assertEquals(ObjectTestVersion::class, $o2->getClass());
     }
 

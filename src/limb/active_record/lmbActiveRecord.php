@@ -1001,7 +1001,7 @@ class lmbActiveRecord extends lmbObject
         if ($mapping) {
             foreach ($mapping as $aggregate_field => $ar_field)
                 $object->set($aggregate_field, $this->get($ar_field)); // mapping objects
-        } else if ($this->_hasProperty($property)) {
+        } else if ($this->hasProperty($property)) {
             $object->set($property, $this->_getRaw($property));
         }
 
@@ -2074,7 +2074,7 @@ class lmbActiveRecord extends lmbObject
      *  </code>
      * @param $values array|\ArrayIterator|\ArrayAccess|\Iterator
      */
-    function import($values)
+    function import($values): void
     {
         if (is_object($values)) {
             if ($values instanceof lmbActiveRecord) {
@@ -2167,7 +2167,7 @@ class lmbActiveRecord extends lmbObject
      *  Exports object data with lazy properties resolved
      * @return array
      */
-    public function export($with_relations = false)
+    public function export($with_relations = false): array
     {
         if (!$this->isNew() && sizeof($this->_lazy_attributes))
             $this->_loadLazyAttributes();
@@ -2185,7 +2185,7 @@ class lmbActiveRecord extends lmbObject
      * @return array
      * @see lmbObject::export()
      */
-    function exportRaw()
+    function exportRaw(): array
     {
         return parent::export();
     }
@@ -2265,66 +2265,66 @@ class lmbActiveRecord extends lmbObject
      * @param integer $type callback type
      * @param object|array $callback callback object
      */
-    static function registerGlobalCallback($type, $callback)
+    static function registerGlobalCallback($type, $callback): void
     {
         self::$_global_listeners[$type][] = lmbDelegate::objectify($callback);
     }
 
-    static function registerGlobalOnBeforeSaveCallback($callback)
+    static function registerGlobalOnBeforeSaveCallback($callback): void
     {
         $args = func_get_args();
         self::registerGlobalCallback(self::ON_BEFORE_SAVE, $args);
     }
 
-    static function registerGlobalOnAfterSaveCallback($callback)
+    static function registerGlobalOnAfterSaveCallback($callback): void
     {
         $args = func_get_args();
         self::registerGlobalCallback(self::ON_AFTER_SAVE, $args);
     }
 
-    static function registerGlobalOnBeforeUpdateCallback($callback)
+    static function registerGlobalOnBeforeUpdateCallback($callback): void
     {
         $args = func_get_args();
         self::registerGlobalCallback(self::ON_BEFORE_UPDATE, $args);
     }
 
-    static function registerGlobalOnUpdateCallback($callback)
+    static function registerGlobalOnUpdateCallback($callback): void
     {
         $args = func_get_args();
         self::registerGlobalCallback(self::ON_UPDATE, $args);
     }
 
-    static function registerGlobalOnAfterUpdateCallback($callback)
+    static function registerGlobalOnAfterUpdateCallback($callback): void
     {
         $args = func_get_args();
         self::registerGlobalCallback(self::ON_AFTER_UPDATE, $args);
     }
 
-    static function registerGlobalOnBeforeCreateCallback($callback)
+    static function registerGlobalOnBeforeCreateCallback($callback): void
     {
         $args = func_get_args();
         self::registerGlobalCallback(self::ON_BEFORE_CREATE, $args);
     }
 
-    static function registerGlobalOnCreateCallback($callback)
+    static function registerGlobalOnCreateCallback($callback): void
     {
         $args = func_get_args();
         self::registerGlobalCallback(self::ON_CREATE, $args);
     }
 
-    static function registerGlobalOnAfterCreateCallback($callback)
+    static function registerGlobalOnAfterCreateCallback($callback): void
     {
         $args = func_get_args();
         self::registerGlobalCallback(self::ON_AFTER_CREATE, $args);
     }
 
-    static function registerGlobalOnBeforeDestroyCallback($callback)
+    static function registerGlobalOnBeforeDestroyCallback($callback): void
     {
         $args = func_get_args();
         self::registerGlobalCallback(self::ON_BEFORE_DESTROY, $args);
     }
 
-    static function registerGlobalOnAfterDestroyCallback($callback)
+    static function registerGlobalOnAfterDestroyCallback($callback): void
     {
         $args = func_get_args();
         self::registerGlobalCallback(self::ON_AFTER_DESTROY, $args);

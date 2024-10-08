@@ -70,7 +70,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Limb\\Test\\": "tests/"
+            "Limb\\Tests\\": "tests/"
         }
     },
     "config": {

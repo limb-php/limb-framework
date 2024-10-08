@@ -14,7 +14,7 @@ require_once(dirname(__FILE__) . '/init.inc.php');
 use PHPUnit\Framework\TestCase;
 use limb\core\lmbSerializable;
 use limb\core\lmbEnv;
-use tests\core\cases\src\SerializableTestStub;
+use Limb\Tests\core\cases\src\SerializableTestStub;
 
 class lmbSerializableTest extends TestCase
 {

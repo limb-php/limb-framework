@@ -66,14 +66,14 @@ use limb\core\exception\lmbNoSuchPropertyException;
  * $foo->set('bar', '10.0');
  * </code>
  *
- * @version $Id: lmbObject.php 5567 2007-04-06 14:37:24Z
+ * @version $Id: lmbObject.php
  * @package core
  */
 class lmbObject implements lmbSetInterface
 {
-    protected $__properties = [];
+    protected array $__properties = [];
 
-    static $map_p2m = [];
+    static protected $map_p2m = [];
 
     private $_map = [
         'public' => [],
@@ -82,19 +82,18 @@ class lmbObject implements lmbSetInterface
     ];
 
     /**
-     * Constructor.
      * Fills internals properties if any
      * @param array $properties
      */
-    function __construct($properties = [])
+    function __construct(array $properties = [])
     {
-        $this->_registerPredefinedVariables();
+        $this->registerPredefinedVariables();
 
         if ($properties)
             $this->import($properties);
     }
 
-    protected function _registerPredefinedVariables()
+    protected function registerPredefinedVariables()
     {
         if ($this->_map['initialized']) {
             return;
@@ -102,7 +101,7 @@ class lmbObject implements lmbSetInterface
         $var_names = get_object_vars($this);
         $var_names = array_merge_recursive($var_names, $this->__properties);
         foreach ($var_names as $key => $item) {
-            if (!$this->_isGuarded($key))
+            if (!$this->isGuarded($key))
                 $this->_map['public'][$key] = $key;
         }
 
@@ -114,7 +113,7 @@ class lmbObject implements lmbSetInterface
      * @return string
      * @see get_class
      */
-    final function getClass()
+    final public function getClass()
     {
         return get_class($this);
     }
@@ -123,7 +122,7 @@ class lmbObject implements lmbSetInterface
      * Merges existing properties with new ones
      * @param array $values
      */
-    function import($values)
+    public function import($values): void
     {
         if (!is_array($values))
             return;
@@ -136,9 +135,9 @@ class lmbObject implements lmbSetInterface
      * Exports all object properties as an array
      * @return array
      */
-    public function export()
+    public function export(): array
     {
-        $exported = array();
+        $exported = [];
         foreach ($this->getPropertiesNames() as $name)
             if(property_exists($this, $name))
                 $exported[$name] = $this->$name;
@@ -155,18 +154,18 @@ class lmbObject implements lmbSetInterface
      */
     function has($name): bool
     {
-        return $this->_hasProperty($name) || $this->_mapPropertyToMethod($name);
+        return $this->hasProperty($name) || $this->_mapPropertyToMethod($name);
     }
 
-    protected function _hasProperty($name): bool
+    protected function hasProperty($name): bool
     {
-        $this->_registerPredefinedVariables();
+        $this->registerPredefinedVariables();
         return array_key_exists($name, $this->_map['public']);
     }
 
-    function getPropertiesNames(): array
+    public function getPropertiesNames(): array
     {
-        $this->_registerPredefinedVariables();
+        $this->registerPredefinedVariables();
         return array_keys($this->_map['public']);
     }
 
@@ -184,9 +183,9 @@ class lmbObject implements lmbSetInterface
      * Removes specified property
      * @param string $name
      */
-    function remove($name)
+    function remove($name): void
     {
-        if ($this->_isGuarded($name))
+        if ($this->isGuarded($name))
             return;
 
         unset($this->_map['public'][$name]);
@@ -200,7 +199,7 @@ class lmbObject implements lmbSetInterface
     /**
      * Removes all object properties
      */
-    function reset()
+    function reset(): void
     {
         $this->_map['public'] = array();
         $this->_map['dynamic'] = array();
@@ -219,12 +218,12 @@ class lmbObject implements lmbSetInterface
      * @param mixed $default default value
      * @return mixed|null
      */
-    function get($name, $default = null)
+    public function get($name, $default = null)
     {
         if ($method = $this->_mapPropertyToMethod($name))
             return $this->$method();
 
-        if ($this->_hasProperty($name))
+        if ($this->hasProperty($name))
             return $this->_getRaw($name);
 
         #TODO ???
@@ -241,7 +240,7 @@ class lmbObject implements lmbSetInterface
      * @param mixed $value
      * @return $this
      */
-    function set($name, $value)
+    public function set($name, $value): static
     {
         if ($name) {
             if ($method = $this->_mapPropertyToSetMethod($name)) {
@@ -256,7 +255,7 @@ class lmbObject implements lmbSetInterface
 
     protected function _getRaw($name)
     {
-        if ($this->_hasProperty($name)) {
+        if ($this->hasProperty($name)) {
             if(property_exists($this, $name))
                 return $this->$name ?? null;
             else
@@ -266,7 +265,7 @@ class lmbObject implements lmbSetInterface
 
     protected function _setRaw($name, $value)
     {
-        if ($this->_isGuarded($name))
+        if ($this->isGuarded($name))
             return;
 
         $this->_map['public'][$name] = $name;
@@ -278,9 +277,11 @@ class lmbObject implements lmbSetInterface
             $this->__properties[$name] = $value;
     }
 
-    protected function _isGuarded($property)
+    protected function isGuarded($property)
     {
-        return isset($property[0]) && $property[0] == '_';
+        return isset($property[0]) && $property[0] == '_'; //  && $property[1] == '_'
+        //$property = new \ReflectionProperty($this, $property_name);
+        //return !$property->isPublic();
     }
 
     /**#@+
@@ -325,13 +326,13 @@ class lmbObject implements lmbSetInterface
 
     protected function _mapGetToProperty($method)
     {
-        if (0 === strpos($method, 'get'))
+        if (str_starts_with($method, 'get'))
             return lmbString::under_scores(substr($method, 3));
     }
 
     protected function _mapSetToProperty($method)
     {
-        if (0 === strpos($method, 'set'))
+        if (str_starts_with($method, 'set'))
             return lmbString::under_scores(substr($method, 3));
     }
 
@@ -393,7 +394,7 @@ class lmbObject implements lmbSetInterface
 
     /**
      * __isset  an alias of has()
-     * @return boolean whether or not this object contains $name
+     * @return boolean whether this object contains $name
      */
     function __isset($name)
     {

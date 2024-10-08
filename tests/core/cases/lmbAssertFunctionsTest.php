@@ -14,7 +14,7 @@ require_once(dirname(__FILE__) . '/init.inc.php');
 use PHPUnit\Framework\TestCase;
 use limb\core\exception\lmbInvalidArgumentException;
 use limb\core\lmbAssert;
-use tests\core\cases\src\extStdClass;
+use Limb\Tests\core\cases\src\extStdClass;
 
 class lmbAssertFunctionsTest extends TestCase
 {

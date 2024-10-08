@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace Limb\Tests\core\cases;
@@ -13,7 +13,7 @@ require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\lmbObject;
-use tests\core\cases\src\ProxyTestingStub;
+use Limb\Tests\core\cases\src\ProxyTestingStub;
 
 class lmbProxyTest extends TestCase
 {

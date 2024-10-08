@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace Limb\Tests\core\cases;
@@ -13,9 +13,9 @@ require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\Handle;
-use tests\core\cases\src\lmbHandleDeclaredInSameFile;
-use tests\core\cases\src\lmbLoadedHandleClass;
-use tests\core\cases\src\lmbTestHandleClass;
+use Limb\Tests\core\cases\src\lmbHandleDeclaredInSameFile;
+use Limb\Tests\core\cases\src\lmbLoadedHandleClass;
+use Limb\Tests\core\cases\src\lmbTestHandleClass;
 
 class HandleTest extends TestCase
 {

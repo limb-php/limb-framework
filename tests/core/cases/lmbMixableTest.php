@@ -2,9 +2,9 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
+ * @link http://limb-project.com
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace Limb\Tests\core\cases;
@@ -14,13 +14,13 @@ require_once(dirname(__FILE__) . '/init.inc.php');
 use PHPUnit\Framework\TestCase;
 use limb\core\lmbMixable;
 use limb\core\exception\lmbException;
-use tests\core\cases\src\MixableTestVersion;
-use tests\core\cases\src\MixedTestStub;
-use tests\core\cases\src\MixinBar;
-use tests\core\cases\src\MixinCallingOwnerMethod;
-use tests\core\cases\src\MixinCallingOwnerVar;
-use tests\core\cases\src\MixinFoo;
-use tests\core\cases\src\MixinOverridinFoo;
+use Limb\Tests\core\cases\src\MixableTestVersion;
+use Limb\Tests\core\cases\src\MixedTestStub;
+use Limb\Tests\core\cases\src\MixinBar;
+use Limb\Tests\core\cases\src\MixinCallingOwnerMethod;
+use Limb\Tests\core\cases\src\MixinCallingOwnerVar;
+use Limb\Tests\core\cases\src\MixinFoo;
+use Limb\Tests\core\cases\src\MixinOverridinFoo;
 
 class lmbMixableTest extends TestCase
 {
