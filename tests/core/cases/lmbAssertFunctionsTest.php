@@ -7,14 +7,14 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Limb\Tests\core\cases;
+namespace Limb\Tests\Core\Cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\exception\lmbInvalidArgumentException;
 use limb\core\lmbAssert;
-use Limb\Tests\core\cases\src\extStdClass;
+use Limb\Tests\Core\Cases\src\extStdClass;
 
 class lmbAssertFunctionsTest extends TestCase
 {

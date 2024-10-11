@@ -7,20 +7,20 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Limb\Tests\core\cases;
+namespace Limb\Tests\Core\Cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
 use limb\core\lmbMixable;
 use limb\core\exception\lmbException;
-use Limb\Tests\core\cases\src\MixableTestVersion;
-use Limb\Tests\core\cases\src\MixedTestStub;
-use Limb\Tests\core\cases\src\MixinBar;
-use Limb\Tests\core\cases\src\MixinCallingOwnerMethod;
-use Limb\Tests\core\cases\src\MixinCallingOwnerVar;
-use Limb\Tests\core\cases\src\MixinFoo;
-use Limb\Tests\core\cases\src\MixinOverridinFoo;
+use Limb\Tests\Core\Cases\src\MixableTestVersion;
+use Limb\Tests\Core\Cases\src\MixedTestStub;
+use Limb\Tests\Core\Cases\src\MixinBar;
+use Limb\Tests\Core\Cases\src\MixinCallingOwnerMethod;
+use Limb\Tests\Core\Cases\src\MixinCallingOwnerVar;
+use Limb\Tests\Core\Cases\src\MixinFoo;
+use Limb\Tests\Core\Cases\src\MixinOverridinFoo;
 
 class lmbMixableTest extends TestCase
 {

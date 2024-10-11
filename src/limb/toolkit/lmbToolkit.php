@@ -321,14 +321,16 @@ class lmbToolkit extends lmbObject
     /**
      * Sets variable into toolkit
      * Checks if appropriate setter method in tools exists to delegate to
-     * @return void
+     * @return static
      */
-    function set($name, $value)
+    function set($name, $value): static
     {
         if ($method = $this->_mapPropertyToSetMethod($name))
             $this->$method($value);
         else
             parent::set($name, $value);
+
+        return $this;
     }
 
     /**

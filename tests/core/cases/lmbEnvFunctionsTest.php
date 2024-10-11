@@ -1,6 +1,6 @@
 <?php
 
-namespace Limb\Tests\core\cases;
+namespace Limb\Tests\Core\Cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 

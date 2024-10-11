@@ -7,14 +7,14 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace tests\log\cases;
+namespace Limb\Tests\Log\Cases;
 
 use PHPUnit\Framework\TestCase;
 use limb\log\lmbLog;
 use limb\net\lmbUri;
 use limb\log\lmbLogEntry;
 use Psr\Log\LogLevel;
-use tests\log\cases\src\lmbLogWriterForLogTests;
+use Limb\Tests\Log\Cases\src\lmbLogWriterForLogTests;
 
 class lmbLogTest extends TestCase
 {

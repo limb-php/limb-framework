@@ -1,6 +1,6 @@
 <?php
 
-namespace Limb\Tests\core\cases\src;
+namespace Limb\Tests\Core\Cases\src;
 
 use limb\core\lmbObject;
 

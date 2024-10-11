@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Limb\Tests\core\cases;
+namespace Limb\Tests\Core\Cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 
@@ -15,13 +15,13 @@ use PHPUnit\Framework\TestCase;
 use limb\core\lmbObject;
 use limb\core\exception\lmbNoSuchPropertyException;
 use limb\core\exception\lmbNoSuchMethodException;
-use Limb\Tests\core\cases\src\lmbTestObject;
-use Limb\Tests\core\cases\src\ObjectTestVersion;
-use Limb\Tests\core\cases\src\ObjectTestVersion2;
-use Limb\Tests\core\cases\src\ObjectTestVersion3;
-use Limb\Tests\core\cases\src\ObjectTestVersion4;
-use Limb\Tests\core\cases\src\ObjectTestVersion5;
-use Limb\Tests\core\cases\src\ObjectTestWithOverridingConstructor;
+use Limb\Tests\Core\Cases\src\lmbTestObject;
+use Limb\Tests\Core\Cases\src\ObjectTestVersion;
+use Limb\Tests\Core\Cases\src\ObjectTestVersion2;
+use Limb\Tests\Core\Cases\src\ObjectTestVersion3;
+use Limb\Tests\Core\Cases\src\ObjectTestVersion4;
+use Limb\Tests\Core\Cases\src\ObjectTestVersion5;
+use Limb\Tests\Core\Cases\src\ObjectTestWithOverridingConstructor;
 
 class lmbObjectTest extends TestCase
 {

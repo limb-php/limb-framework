@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\log\cases\src;
+namespace Limb\Tests\Log\Cases\src;
 
 use limb\log\lmbLogEntry;
 use limb\log\lmbLogWriterInterface;

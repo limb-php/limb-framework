@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace Limb\Tests\core\cases\exception;
+namespace Limb\Tests\Core\Cases\Exception;
 
 use PHPUnit\Framework\TestCase;
 use limb\core\exception\lmbException;
