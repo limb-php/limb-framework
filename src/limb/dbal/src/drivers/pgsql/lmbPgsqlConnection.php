@@ -131,12 +131,17 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         return pg_version($this->connectionId);
     }
 
+    function getLastError(): string
+    {
+        return pg_last_error($this->connectionId);
+    }
+
     function _raiseError($message, $params = [])
     {
         if($this->logger)
             $this->logger->error($message . "\n");
 
-        $message .= ($this->connectionId ? '. Last driver error: ' . pg_last_error($this->connectionId) : '');
+        $message .= ($this->connectionId ? '. Last driver error: ' . $this->getLastError() : '');
 
         if (
             strpos($message, 'eof detected') !== false
