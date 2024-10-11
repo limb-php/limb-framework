@@ -176,9 +176,10 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
         $sql = $this->_handleBindVars($this->sql);
         $this->generateStatementName();
 
-       $this->statement = pg_prepare($this->connection->getConnectionId(), $this->getStatementName(), $sql);
-       if (!$this->statement) {
-            $this->connection->_raiseError("Error while preparing statement");
+        $this->statement = pg_prepare($this->connection->getConnectionId(), $this->getStatementName(), $sql);
+        if (!$this->statement) {
+            $err_str = pg_last_error($this->connection->getConnectionId());
+            $this->connection->_raiseError("Error while preparing statement. " . $err_str);
         }
     }
 
