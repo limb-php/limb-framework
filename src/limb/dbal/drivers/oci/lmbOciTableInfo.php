@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\dbal\src\drivers\oci;
+namespace limb\dbal\drivers\oci;
 
-use limb\dbal\src\drivers\lmbDbTableInfo;
-use limb\core\src\exception\lmbNotYetImplementedException;
+use limb\dbal\drivers\lmbDbTableInfo;
+use limb\core\exception\lmbNotYetImplementedException;
 
 /**
  * class lmbOciTableInfo.

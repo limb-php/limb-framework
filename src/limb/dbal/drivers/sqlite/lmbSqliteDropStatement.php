@@ -9,7 +9,7 @@
 
 namespace limb\dbal\drivers\sqlite;
 
-use limb\core\src\exception\lmbException;
+use limb\core\exception\lmbException;
 
 /**
  * class lmbSqliteDropStatement.

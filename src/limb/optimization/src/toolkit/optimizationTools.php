@@ -2,8 +2,8 @@
 
 namespace limb\optimization\src\toolkit;
 
-use limb\active_record\src\toolkit\lmbARTools;
-use limb\toolkit\src\lmbAbstractTools;
+use limb\active_record\toolkit\lmbARTools;
+use limb\toolkit\lmbAbstractTools;
 use limb\optimization\src\model\MetaInfo;
 use limb\optimization\src\model\MetaData;
 

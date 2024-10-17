@@ -9,9 +9,9 @@
 
 namespace limb\dbal\query;
 
-use limb\core\src\exception\lmbException;
-use limb\dbal\src\criteria\lmbSQLCriteria;
-use limb\dbal\src\drivers\lmbDbBaseRecordSet;
+use limb\core\exception\lmbException;
+use limb\dbal\criteria\lmbSQLCriteria;
+use limb\dbal\drivers\lmbDbBaseRecordSet;
 
 /**
  * class lmbSelectRawQuery.

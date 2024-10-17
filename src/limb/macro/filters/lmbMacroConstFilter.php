@@ -12,7 +12,7 @@ namespace limb\macro\filters;
 use limb\macro\compiler\lmbMacroFilter;
 
 /**
- * class limb\macro\src\filters\lmbMacroConstFilter.
+ * class limb\macro\filters\lmbMacroConstFilter.
  *
  * @filter const
  * @package macro
@@ -24,6 +24,6 @@ class lmbMacroConstFilter extends lmbMacroFilter
     {
         $value = ltrim($this->base->getValue(), '$');
 
-        return 'limb\core\src\lmbEnv::get(' . $value . ')';
+        return 'limb\core\lmbEnv::get(' . $value . ')';
     }
 }

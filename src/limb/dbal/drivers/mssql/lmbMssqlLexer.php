@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\dbal\src\drivers\mssql;
+namespace limb\dbal\drivers\mssql;
 
-use limb\dbal\src\drivers\lmbDbBaseLexer;
+use limb\dbal\drivers\lmbDbBaseLexer;
 
 /**
  * class lmbMssqlLexer

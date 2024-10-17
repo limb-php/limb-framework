@@ -9,8 +9,8 @@
 
 namespace limb\dbal\query;
 
-use limb\dbal\src\criteria\lmbSQLCriteria;
-use limb\dbal\src\drivers\lmbDbStatementInterface;
+use limb\dbal\criteria\lmbSQLCriteria;
+use limb\dbal\drivers\lmbDbStatementInterface;
 
 /**
  * class lmbCriteriaQuery.

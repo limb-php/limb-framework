@@ -9,6 +9,7 @@
 
 namespace limb\i18n\macro;
 
+use limb\i18n\charset\lmbI18nString;
 use limb\macro\compiler\lmbMacroFunctionBasedFilter;
 
 /**
@@ -18,5 +19,7 @@ use limb\macro\compiler\lmbMacroFunctionBasedFilter;
  */
 class lmbI18NMacroCapitalizeFilter extends lmbMacroFunctionBasedFilter
 {
-    protected $function = array('limb\i18n\src\charset\lmbI18nString', 'ucfirst');
+    protected $function = array(
+        lmbI18nString::class, 'ucfirst'
+    );
 }

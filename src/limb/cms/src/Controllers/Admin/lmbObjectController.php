@@ -18,6 +18,8 @@ use limb\core\exception\lmbException;
  *
  * @package cms
  * @version $Id$
+ *
+ * @deprecated
  */
 abstract class lmbObjectController extends LmbController
 {

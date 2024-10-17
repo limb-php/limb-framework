@@ -2,9 +2,9 @@
 
 namespace limb\optimization\src\filter;
 
-use limb\filter_chain\src\lmbInterceptingFilterInterface;
-use limb\net\src\lmbHttpResponse;
-use limb\toolkit\src\lmbToolkit;
+use limb\filter_chain\lmbInterceptingFilterInterface;
+use limb\net\lmbHttpResponse;
+use limb\toolkit\lmbToolkit;
 
 class RedirectFilter implements lmbInterceptingFilterInterface
 {

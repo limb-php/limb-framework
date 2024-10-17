@@ -20,5 +20,5 @@ use limb\macro\compiler\lmbMacroFunctionBasedFilter;
  */
 class lmbMacroDecodeIpFilter extends lmbMacroFunctionBasedFilter
 {
-    protected $function = array('limb\net\src\lmbIp', 'decode');
+    protected $function = array('limb\net\lmbIp', 'decode');
 }

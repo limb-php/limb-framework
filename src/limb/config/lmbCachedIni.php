@@ -48,7 +48,7 @@ class lmbCachedIni extends lmbIni
         return $this->_cache_dir . md5($this->_file_path) . '.cache';
     }
 
-    protected function _loadCache()
+    protected function _loadCache(): bool
     {
         if (!$this->isCacheEnabled())
             return false;

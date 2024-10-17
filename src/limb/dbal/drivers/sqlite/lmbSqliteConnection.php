@@ -9,10 +9,10 @@
 
 namespace limb\dbal\drivers\sqlite;
 
-use limb\dbal\src\drivers\lmbDbBaseConnection;
-use limb\dbal\src\drivers\lmbDbStatementInterface;
-use limb\dbal\src\exception\lmbDbConnectionException;
-use limb\dbal\src\exception\lmbDbException;
+use limb\dbal\drivers\lmbDbBaseConnection;
+use limb\dbal\drivers\lmbDbStatementInterface;
+use limb\dbal\exception\lmbDbConnectionException;
+use limb\dbal\exception\lmbDbException;
 
 /**
  * class lmbSqliteConnection.

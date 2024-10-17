@@ -2,13 +2,13 @@
 
 namespace limb\optimization\src\model;
 
-use limb\core\src\lmbObject;
-use limb\active_record\src\lmbActiveRecord;
-use limb\net\src\lmbUriHelper;
-use limb\validation\src\lmbValidator;
-use limb\toolkit\src\lmbToolkit;
-use limb\dbal\src\criteria\lmbSQLCriteria;
-use limb\dbal\src\criteria\lmbSQLFieldCriteria;
+use limb\core\lmbObject;
+use limb\active_record\lmbActiveRecord;
+use limb\net\lmbUriHelper;
+use limb\validation\lmbValidator;
+use limb\toolkit\lmbToolkit;
+use limb\dbal\criteria\lmbSQLCriteria;
+use limb\dbal\criteria\lmbSQLFieldCriteria;
 use limb\cms\src\validation\rule\CmsUniqueFieldRule;
 
 class MetaInfo extends lmbActiveRecord

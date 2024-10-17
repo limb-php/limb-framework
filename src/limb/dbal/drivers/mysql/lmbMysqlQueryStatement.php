@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\dbal\src\drivers\mysql;
+namespace limb\dbal\drivers\mysql;
 
-use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
+use limb\dbal\drivers\lmbDbQueryStatementInterface;
 
 /**
  * class lmbMysqlQueryStatement.

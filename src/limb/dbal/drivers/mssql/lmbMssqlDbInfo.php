@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\dbal\src\drivers\mssql;
+namespace limb\dbal\drivers\mssql;
 
-use limb\dbal\src\drivers\lmbDbInfo;
-use limb\dbal\src\exception\lmbDbException;
+use limb\dbal\drivers\lmbDbInfo;
+use limb\dbal\exception\lmbDbException;
 
 /**
  * class lmbMssqlDbInfo.

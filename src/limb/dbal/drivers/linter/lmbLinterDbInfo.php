@@ -9,8 +9,8 @@
 
 namespace limb\dbal\drivers\linter;
 
-use limb\dbal\src\drivers\lmbDbInfo;
-use limb\dbal\src\exception\lmbDbException;
+use limb\dbal\drivers\lmbDbInfo;
+use limb\dbal\exception\lmbDbException;
 
 /**
  * class lmbLinterDbInfo.

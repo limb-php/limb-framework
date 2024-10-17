@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\dbal\src\drivers\oci;
+namespace limb\dbal\drivers\oci;
 
 /**
  * class lmbOciBlob.

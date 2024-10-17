@@ -12,9 +12,9 @@
  * @version $Id: toolkit.inc.php 2022-11-11
  */
 
-use limb\toolkit\src\lmbToolkit;
+use limb\toolkit\lmbToolkit;
 use limb\web_app\src\toolkit\lmbWebAppTools;
-use limb\config\src\toolkit\lmbConfTools;
+use limb\config\toolkit\lmbConfTools;
 
 lmbToolkit::merge(new lmbWebAppTools());
 lmbToolkit::merge(new lmbConfTools());

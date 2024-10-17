@@ -9,8 +9,8 @@
 
 namespace limb\dbal\drivers\linter;
 
-use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
-use limb\dbal\src\drivers\lmbDbTypeInfo;
+use limb\dbal\drivers\lmbDbManipulationStatementInterface;
+use limb\dbal\drivers\lmbDbTypeInfo;
 
 /**
  * class lmbLinterManipulationStatement.

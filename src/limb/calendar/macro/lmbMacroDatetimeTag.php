@@ -9,7 +9,7 @@
 
 namespace limb\calendar\macro;
 
-use limb\macro\src\tags\form\lmbMacroFormTagElement;
+use limb\macro\tags\form\lmbMacroFormTagElement;
 
 /**
  * @tag datetime
@@ -20,7 +20,7 @@ use limb\macro\src\tags\form\lmbMacroFormTagElement;
 class lmbMacroDatetimeTag extends lmbMacroFormTagElement
 {
     protected $html_tag = 'input';
-    protected $widget_class_name = 'limb\calendar\src\lmbCalendarWidget';
+    protected $widget_class_name = 'limb\calendar\lmbCalendarWidget';
 
     function preParse($compiler): void
     {

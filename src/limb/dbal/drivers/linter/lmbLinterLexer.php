@@ -9,7 +9,7 @@
 
 namespace limb\dbal\drivers\linter;
 
-use limb\dbal\src\drivers\lmbDbBaseLexer;
+use limb\dbal\drivers\lmbDbBaseLexer;
 
 /**
  * class lmbLinterLexer

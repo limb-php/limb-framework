@@ -22,20 +22,20 @@ use limb\toolkit\lmbToolkit;
  */
 class lmbCmsDocumentRequestDispatcher implements lmbRequestDispatcherInterface
 {
-    function dispatch($request)
+    function dispatch($request): array
     {
         $path = $request->getUri()->getPath();
         if ($path === '/')
-            return;
+            return [];
 
         if (!$document = lmbCmsDocument::findByUri($path))
-            return;
+            return [];
 
         if (!$document->getIsPublished()) {
             if (lmbToolkit::instance()->isWebAppDebugEnabled())
                 throw new lmbException('Page not published');
             else
-                return;
+                return [];
         }
 
         return array(

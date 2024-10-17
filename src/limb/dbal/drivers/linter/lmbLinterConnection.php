@@ -9,9 +9,9 @@
 
 namespace limb\dbal\drivers\linter;
 
-use limb\core\src\exception\lmbException;
-use limb\dbal\src\drivers\lmbDbBaseConnection;
-use limb\dbal\src\drivers\lmbDbStatementInterface;
+use limb\core\exception\lmbException;
+use limb\dbal\drivers\lmbDbBaseConnection;
+use limb\dbal\drivers\lmbDbStatementInterface;
 
 /**
  * class lmbLinterConnection.

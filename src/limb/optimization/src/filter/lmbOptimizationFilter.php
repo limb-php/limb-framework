@@ -2,9 +2,9 @@
 
 namespace limb\optimization\src\filter;
 
-use limb\filter_chain\src\lmbInterceptingFilterInterface;
-use limb\toolkit\src\lmbToolkit;
-use limb\macro\src\compiler\lmbMacroCompiler;
+use limb\filter_chain\lmbInterceptingFilterInterface;
+use limb\toolkit\lmbToolkit;
+use limb\macro\compiler\lmbMacroCompiler;
 
 class lmbOptimizationFilter implements lmbInterceptingFilterInterface
 {

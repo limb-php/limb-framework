@@ -9,7 +9,7 @@
 
 namespace limb\dbal\drivers\sqlite;
 
-use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
+use limb\dbal\drivers\lmbDbInsertStatementInterface;
 
 /**
  * class lmbSqliteInsertStatement.

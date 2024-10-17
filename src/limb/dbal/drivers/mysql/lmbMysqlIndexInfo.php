@@ -8,9 +8,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\dbal\src\drivers\mysql;
+namespace limb\dbal\drivers\mysql;
 
-use limb\dbal\src\drivers\lmbDbIndexInfo;
+use limb\dbal\drivers\lmbDbIndexInfo;
 
 /**
  * class lmbMysqlIndexInfo.

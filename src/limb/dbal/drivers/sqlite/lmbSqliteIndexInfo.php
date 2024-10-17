@@ -9,7 +9,7 @@
 
 namespace limb\dbal\drivers\sqlite;
 
-use limb\dbal\src\drivers\lmbDbIndexInfo;
+use limb\dbal\drivers\lmbDbIndexInfo;
 
 /**
  * class lmbSqliteIndexInfo.

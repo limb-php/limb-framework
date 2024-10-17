@@ -9,7 +9,7 @@
 
 namespace limb\dbal\drivers\linter;
 
-use limb\dbal\src\drivers\lmbDbColumnInfo;
+use limb\dbal\drivers\lmbDbColumnInfo;
 
 /**
  * class lmbLinterColumnInfo.

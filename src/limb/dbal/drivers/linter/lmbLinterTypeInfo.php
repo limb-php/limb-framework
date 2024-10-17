@@ -9,7 +9,7 @@
 
 namespace limb\dbal\drivers\linter;
 
-use limb\dbal\src\drivers\lmbDbTypeInfo;
+use limb\dbal\drivers\lmbDbTypeInfo;
 
 /**
  * class lmbLinterTypeInfo.

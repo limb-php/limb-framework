@@ -2,11 +2,11 @@
 
 namespace limb\optimization\src\model;
 
-use limb\core\src\lmbObject;
-use limb\active_record\src\lmbActiveRecord;
-use limb\dbal\src\criteria\lmbSQLCriteria;
-use limb\dbal\src\criteria\lmbSQLFieldCriteria;
-use limb\validation\src\lmbValidator;
+use limb\core\lmbObject;
+use limb\active_record\lmbActiveRecord;
+use limb\dbal\criteria\lmbSQLCriteria;
+use limb\dbal\criteria\lmbSQLFieldCriteria;
+use limb\validation\lmbValidator;
 
 class MetaData extends lmbActiveRecord
 {

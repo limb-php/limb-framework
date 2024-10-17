@@ -9,7 +9,7 @@
 
 namespace limb\dbal\drivers\linter;
 
-use limb\dbal\src\drivers\lmbDbQueryStatementInterface;
+use limb\dbal\drivers\lmbDbQueryStatementInterface;
 
 /**
  * class lmbLinterQueryStatement.

@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\dbal\src\drivers\mssql;
+namespace limb\dbal\drivers\mssql;
 
-use limb\dbal\src\drivers\lmbDbBaseRecordSet;
+use limb\dbal\drivers\lmbDbBaseRecordSet;
 
 /**
  * class lmbMssqlRecordSet.

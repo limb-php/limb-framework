@@ -9,7 +9,7 @@
 
 namespace limb\dbal\drivers\sqlite;
 
-use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
+use limb\dbal\drivers\lmbDbManipulationStatementInterface;
 
 /**
  * class lmbSqliteManipulationStatement.

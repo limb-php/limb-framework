@@ -9,7 +9,7 @@
 
 namespace limb\dbal\drivers\sqlite;
 
-use limb\dbal\src\drivers\lmbDbBaseRecord;
+use limb\dbal\drivers\lmbDbBaseRecord;
 
 /**
  * class lmbSqliteRecord.

@@ -10,7 +10,7 @@
 namespace tests\cms\cases\request;
 
 use limb\cms\src\model\lmbCmsNode;
-use limb\net\src\lmbHttpRequest;
+use limb\net\lmbHttpRequest;
 use tests\cms\cases\lmbCmsTestCase;
 use limb\cms\src\request\lmbCmsNodeBasedRequestDispatcher;
 

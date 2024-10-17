@@ -14,7 +14,7 @@
 
 use limb\toolkit\lmbToolkit;
 use limb\active_record\toolkit\lmbARTools;
-use limb\cms\toolkit\lmbCmsTools;
+use limb\cms\src\toolkit\lmbCmsTools;
 
 lmbToolkit::merge(new lmbCmsTools());
 lmbToolkit::merge(new lmbARTools());

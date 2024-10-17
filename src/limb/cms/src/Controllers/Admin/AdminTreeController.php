@@ -4,8 +4,8 @@ namespace limb\cms\src\Controllers\Admin;
 
 use limb\web_app\src\Controllers\LmbController;
 use limb\active_record\lmbActiveRecord;
-use limb\cms\lmbCmsTreeBrowser;
-use limb\cms\model\lmbCmsNode;
+use limb\cms\src\lmbCmsTreeBrowser;
+use limb\cms\src\model\lmbCmsNode;
 use limb\core\exception\lmbException;
 use limb\toolkit\lmbToolkit;
 

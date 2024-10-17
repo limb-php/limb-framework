@@ -1,7 +1,7 @@
 <?php
 set_include_path(dirname(__FILE__) . '/../../');
 
-use limb\imagekit\src\lmbImageKit;
+use limb\imagekit\lmbImageKit;
 
 lmbImageKit::create('gd')->load(dirname(__FILE__) . '/images/input.jpg', 'jpeg')
     ->resize(array('width' => 100, 'height' => 100))

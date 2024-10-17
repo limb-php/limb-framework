@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\dbal\src\drivers\mysql;
+namespace limb\dbal\drivers\mysql;
 
-use limb\dbal\src\drivers\lmbDbInfo;
-use limb\dbal\src\exception\lmbDbException;
+use limb\dbal\drivers\lmbDbInfo;
+use limb\dbal\exception\lmbDbException;
 
 /**
  * class lmbMysqlDbInfo.

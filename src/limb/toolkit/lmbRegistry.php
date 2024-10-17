@@ -49,7 +49,7 @@ class lmbRegistry
 
     /**
      * Moves all registry entries one level deeper in cache stack
-     * @param string key
+     * @param string $name
      * @return void
      */
     static function save($name)

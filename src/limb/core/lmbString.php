@@ -20,7 +20,7 @@ class lmbString
     static function camel_case($str, $ucfirst = true)
     {
         //if there are no _, why process at all
-        if (strpos($str, '_') === false)
+        if (!str_contains($str, '_'))
             return $ucfirst ? ucfirst($str) : $str;
 
         $items = explode('_', $str);

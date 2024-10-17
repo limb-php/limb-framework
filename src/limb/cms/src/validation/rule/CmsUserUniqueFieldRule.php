@@ -1,6 +1,6 @@
 <?php
 
-namespace limb\cms\validation\rule;
+namespace limb\cms\src\validation\rule;
 
 use limb\validation\rule\lmbSingleFieldRule;
 use limb\dbal\criteria\lmbSQLFieldCriteria;

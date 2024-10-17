@@ -10,7 +10,6 @@
 namespace limb\i18n\locale;
 
 use limb\config\lmbIni;
-use limb\i18n\locale\lmbLocaleSpec;
 use limb\core\exception\lmbException;
 
 /**

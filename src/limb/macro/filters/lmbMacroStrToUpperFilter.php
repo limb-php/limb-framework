@@ -21,5 +21,5 @@ use limb\macro\compiler\lmbMacroFunctionBasedFilter;
  */
 class lmbMacroStrToUpperFilter extends lmbMacroFunctionBasedFilter
 {
-    protected $function = array('limb\i18n\src\charset\lmbI18nString', 'strtoupper');
+    protected $function = array('limb\i18n\charset\lmbI18nString', 'strtoupper');
 }

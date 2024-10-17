@@ -9,7 +9,7 @@
 
 namespace limb\dbal\drivers\linter;
 
-use limb\core\src\exception\lmbException;
+use limb\core\exception\lmbException;
 
 /**
  * class lmbLinterDropStatement.

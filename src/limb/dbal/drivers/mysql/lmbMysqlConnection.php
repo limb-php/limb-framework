@@ -7,12 +7,12 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\dbal\src\drivers\mysql;
+namespace limb\dbal\drivers\mysql;
 
-use limb\dbal\src\drivers\lmbDbBaseConnection;
-use limb\dbal\src\drivers\lmbDbStatementInterface;
-use limb\dbal\src\exception\lmbDbConnectionException;
-use limb\dbal\src\exception\lmbDbException;
+use limb\dbal\drivers\lmbDbBaseConnection;
+use limb\dbal\drivers\lmbDbStatementInterface;
+use limb\dbal\exception\lmbDbConnectionException;
+use limb\dbal\exception\lmbDbException;
 
 /**
  * class lmbMysqlConnection.

@@ -12,7 +12,7 @@ namespace limb\macro\tags\content;
 use limb\macro\compiler\lmbMacroTag;
 
 /**
- * Output copyright years depends current year
+ * Output copyright years depends on current year
  * class limb\macro\tags\content\lmbMacroCopyYearTag
  *
  * @tag copy_year

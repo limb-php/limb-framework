@@ -32,7 +32,7 @@ class lmbMacroTagDictionary
         return self::$instance;
     }
 
-    function load(\limb\macro\src\lmbMacroConfig $config)
+    function load(\limb\macro\lmbMacroConfig $config)
     {
         $this->cache_dir = $config->cache_dir;
         if (!$config->forcescan && $this->_loadCache())

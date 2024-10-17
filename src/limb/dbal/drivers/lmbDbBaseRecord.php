@@ -15,7 +15,7 @@ namespace limb\dbal\drivers;
  * @package dbal
  * @version $Id$
  */
-abstract class lmbDbBaseRecord implements lmbDbRecordInterface, \JsonSerializable
+abstract class lmbDbBaseRecord implements lmbDbRecordInterface
 {
     protected $properties = array();
 

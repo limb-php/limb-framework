@@ -30,7 +30,7 @@ class lmbI18nMacroTag extends lmbMacroTag
     protected function _generateContent($code_writer)
     {
         $code_writer->writePHP('
-    echo limb\i18n\src\lmbI18n::translate(\'' . $this->get('text') . '\',\'' . ($this->has('domain') ? $this->get('domain') : 'default') . '\');
+    echo limb\i18n\lmbI18n::translate(\'' . $this->get('text') . '\',\'' . ($this->has('domain') ? $this->get('domain') : 'default') . '\');
         ');
     }
 

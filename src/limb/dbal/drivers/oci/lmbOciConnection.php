@@ -7,11 +7,11 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\dbal\src\drivers\oci;
+namespace limb\dbal\drivers\oci;
 
-use limb\dbal\src\drivers\lmbDbStatementInterface;
-use limb\dbal\src\exception\lmbDbException;
-use limb\dbal\src\drivers\lmbDbBaseConnection;
+use limb\dbal\drivers\lmbDbStatementInterface;
+use limb\dbal\exception\lmbDbException;
+use limb\dbal\drivers\lmbDbBaseConnection;
 
 /**
  * class lmbOciConnection.

@@ -9,8 +9,8 @@
 
 namespace limb\dbal\drivers\linter;
 
-use limb\dbal\src\drivers\lmbDbTableInfo;
-use limb\core\src\exception\lmbNotYetImplementedException;
+use limb\dbal\drivers\lmbDbTableInfo;
+use limb\core\exception\lmbNotYetImplementedException;
 
 /**
  * class lmbLinterTableInfo.

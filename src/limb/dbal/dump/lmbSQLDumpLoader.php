@@ -98,10 +98,10 @@ class lmbSQLDumpLoader implements lmbSQLDumpLoaderInterface
         return $name;
     }
 
-    protected function _retrieveStatements($raw_sql)
+    protected function _retrieveStatements($sql)
     {
         //naive implementation
-        $stmts = preg_split('/;\s*\n/', $raw_sql);
+        $stmts = preg_split('/;\s*\n/', $sql);
         $processed = array();
         foreach ($stmts as $stmt) {
             if ($stmt = $this->_processStatement($stmt))

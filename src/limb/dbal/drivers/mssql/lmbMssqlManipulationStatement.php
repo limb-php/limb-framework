@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\dbal\src\drivers\mssql;
+namespace limb\dbal\drivers\mssql;
 
-use limb\dbal\src\drivers\lmbDbManipulationStatementInterface;
+use limb\dbal\drivers\lmbDbManipulationStatementInterface;
 
 /**
  * class lmbMssqlManipulationStatement.

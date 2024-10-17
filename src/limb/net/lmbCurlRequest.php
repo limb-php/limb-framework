@@ -44,9 +44,11 @@ class lmbCurlRequest
 
     protected function _initDefaultOptions()
     {
-        $this->opts = array(CURLOPT_HEADER => 0,
+        $this->opts = array(
+            CURLOPT_HEADER => 0,
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => $this->url);
+            CURLOPT_URL => $this->url
+        );
     }
 
     protected function _ensureCurl()

@@ -19,7 +19,7 @@ class CmsTextBlockUniqueFieldRule extends lmbSingleFieldRule
         parent::__construct($field_name, $custom_error);
     }
 
-    function check($value)
+    function check($value): void
     {
         $criteria = new lmbSQLFieldCriteria($this->field_name, $value);
         $criteria->addAnd(new lmbSQLFieldCriteria($this->text_block->getPrimaryKeyName(), $this->text_block->getId(), lmbSQLFieldCriteria::NOT_EQUAL));

@@ -7,11 +7,9 @@ if(file_exists('./setup.php'))
 
 require_once('limb/cli/common.inc.php');
 
-use limb\cli\src\lmbCliResponse;
-use limb\cli\src\lmbCliInput;
-use limb\cli\src\lmbCliOption;
-use limb\cli\src\lmbCliException;
-use limb\cli\src\lmbCliRunner;
+use limb\cli\lmbCliResponse;
+use limb\cli\lmbCliInput;
+use limb\cli\lmbCliRunner;
 
 $output = new lmbCliResponse();
 $output->setVerbose(true);

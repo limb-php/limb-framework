@@ -9,7 +9,7 @@
 
 namespace limb\dbal\drivers\linter;
 
-use limb\dbal\src\drivers\lmbDbInsertStatementInterface;
+use limb\dbal\drivers\lmbDbInsertStatementInterface;
 
 /**
  * class lmbLinterInsertStatement.

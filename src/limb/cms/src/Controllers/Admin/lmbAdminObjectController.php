@@ -20,6 +20,8 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @package cms
  * @version $Id$
+ *
+ * @deprecated
  */
 abstract class lmbAdminObjectController extends lmbObjectController
 {

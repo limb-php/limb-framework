@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\dbal\src\drivers\mysql;
+namespace limb\dbal\drivers\mysql;
 
-use limb\dbal\src\drivers\lmbDbColumnInfo;
+use limb\dbal\drivers\lmbDbColumnInfo;
 
 /**
  * class lmbMysqlColumnInfo.

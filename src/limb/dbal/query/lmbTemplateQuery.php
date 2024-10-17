@@ -9,11 +9,11 @@
 
 namespace limb\dbal\query;
 
-use limb\core\src\exception\lmbException;
-use limb\dbal\src\drivers\lmbDbConnectionInterface;
-use limb\dbal\src\drivers\lmbDbStatementInterface;
-use limb\toolkit\src\lmbToolkit;
-use limb\core\src\lmbString;
+use limb\core\exception\lmbException;
+use limb\dbal\drivers\lmbDbConnectionInterface;
+use limb\dbal\drivers\lmbDbStatementInterface;
+use limb\toolkit\lmbToolkit;
+use limb\core\lmbString;
 
 /**
  * class lmbTemplateQuery.

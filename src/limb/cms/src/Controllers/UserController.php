@@ -40,7 +40,7 @@ class UserController extends LmbController
         $mailer = new lmbMailer();
         $mailer->sendPlainMail($user->getEmail(), lmbEnv::get('ADMIN_EMAIL', "no_reply@bit-cms.com"), "Password recovery", $email_body);
 
-        $this->flashAndRedirect("Новый пароль выслан на ваш email", '/user/login');
+        return $this->flashAndRedirect("Новый пароль выслан на ваш email", '/user/login');
     }
 
     function doApprove($request)
@@ -54,7 +54,7 @@ class UserController extends LmbController
         $user->setGeneratedPassword('');
         $user->saveSkipValidation();
 
-        $this->flashAndRedirect('Новый пароль активирован', '/user/login');
+        return $this->flashAndRedirect('Новый пароль активирован', '/user/login');
     }
 
     function doLogin($request)
@@ -68,7 +68,7 @@ class UserController extends LmbController
                 if (!$redirect_url = urldecode($request->get('redirect')))
                     $redirect_url = '/';
 
-                response()->redirect($redirect_url);
+                return response()->redirect($redirect_url);
             } else {
                 $this->flashError("Неверный логин или пароль");
             }
@@ -80,6 +80,6 @@ class UserController extends LmbController
         $auth = $this->toolkit->getCmsAuthSession();
         $auth->logout();
 
-        response()->redirect('/');
+        return response()->redirect('/');
     }
 }

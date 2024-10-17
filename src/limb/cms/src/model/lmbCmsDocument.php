@@ -12,7 +12,7 @@ namespace limb\cms\src\model;
 use limb\active_record\lmbActiveRecord;
 use limb\tree\lmbMPTree;
 use limb\validation\lmbValidator;
-use limb\cms\validation\rule\TreeIdentifierRule;
+use limb\cms\src\validation\rule\TreeIdentifierRule;
 use limb\dbal\lmbDBAL;
 use limb\dbal\criteria\lmbSQLCriteria;
 

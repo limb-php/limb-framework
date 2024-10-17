@@ -9,7 +9,7 @@
 
 namespace limb\dbal\query;
 
-use limb\dbal\src\drivers\lmbDbStatementInterface;
+use limb\dbal\drivers\lmbDbStatementInterface;
 
 /**
  * class lmbInsertOnDuplicateUpdateQuery.
