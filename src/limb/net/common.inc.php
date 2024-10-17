@@ -14,11 +14,19 @@
 
 use limb\net\src\lmbHttpResponse;
 use limb\toolkit\src\lmbToolkit;
+use limb\view\src\lmbViewInterface;
+use Psr\Http\Message\ResponseInterface;
 
 if (!function_exists('response')) {
 
-    function response($content = '', $status = 200, $headers = [])
+    /**
+     * @param string|lmbViewInterface $content
+     */
+    function response($content = '', $status = 200, $headers = []): ResponseInterface
     {
+        if($content instanceof lmbViewInterface)
+            $content = $content->render();
+
         return new lmbHttpResponse($content, $status, $headers);
     }
 

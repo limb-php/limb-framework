@@ -116,8 +116,8 @@ abstract class lmbView implements lmbViewInterface
         return $this->forms_datasources;
     }
 
-    public function __toString()
-    {
-        return $this->render();
-    }
+//    public function __toString()
+//    {
+//        return $this->render();
+//    }
 }
