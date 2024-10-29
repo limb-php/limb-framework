@@ -4,7 +4,7 @@ namespace tests\active_record\cases\src;
 
 use limb\core\src\lmbObject;
 
-class ImageForAggregateTest extends lmbObject
+class ImageForAggregateTestObject extends lmbObject
 {
     protected $extension;
     protected $photo_id;

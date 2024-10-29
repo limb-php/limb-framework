@@ -5,7 +5,7 @@ namespace tests\active_record\cases\src;
 // Aggregate must implement lmbSet interface.
 use limb\core\src\lmbObject;
 
-class NameForAggregateTest extends lmbObject
+class NameForAggregateTestObject extends lmbObject
 {
     protected $first;
     protected $last;

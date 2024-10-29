@@ -13,7 +13,7 @@ use limb\active_record\src\lmbActiveRecord;
 use tests\active_record\cases\src\CourseForTestObject;
 use tests\active_record\cases\src\LectureForTestObject;
 use tests\active_record\cases\src\MemberForTestObject;
-use tests\active_record\cases\src\NameForAggregateTest;
+use tests\active_record\cases\src\NameForAggregateTestObject;
 use tests\active_record\cases\src\PersonForTestObject;
 use tests\active_record\cases\src\SocialSecurityForTestObject;
 use tests\active_record\cases\src\TestOneTableObject;
@@ -249,13 +249,13 @@ class lmbARDirtyTest extends lmbARBaseTestCase
     {
         $member = new MemberForTestObject();
 
-        $member->setName(new NameForAggregateTest());
+        $member->setName(new NameForAggregateTestObject());
         $this->assertFalse($member->isDirty());
     }
 
     function testAggregatedObjectFieldsAreCheckedForDirtinessOnSaveOnly()
     {
-        $name = new NameForAggregateTest();
+        $name = new NameForAggregateTestObject();
         $name->setFirst('name');
 
         $member = new MemberForTestObject();

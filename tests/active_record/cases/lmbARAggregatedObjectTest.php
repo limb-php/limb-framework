@@ -12,11 +12,11 @@ namespace tests\active_record\cases;
 use limb\active_record\src\lmbActiveRecord;
 use limb\active_record\src\lmbARException;
 use tests\active_record\cases\src\ExtraForAggregateTestObject;
-use tests\active_record\cases\src\ImageForAggregateTest;
+use tests\active_record\cases\src\ImageForAggregateTestObject;
 use tests\active_record\cases\src\LazyMemberForTestObject;
 use tests\active_record\cases\src\MemberForTestObject;
-use tests\active_record\cases\src\NameForAggregateTest;
-use tests\active_record\cases\src\PhotoForTest;
+use tests\active_record\cases\src\NameForAggregateTestObject;
+use tests\active_record\cases\src\PhotoForTestObject;
 
 require_once (dirname(__FILE__) . '/init.inc.php');
 
@@ -24,18 +24,18 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 {
     protected $tables_to_cleanup = array('member_for_test', 'photo_for_test');
 
-    function testNewObjectReturnsEmptyAggrigatedObject()
+    function testNewObjectReturnsEmptyAggregatedObject()
     {
         $member = new MemberForTestObject();
-        $this->assertInstanceOf(NameForAggregateTest::class, $member->getName());
+        $this->assertInstanceOf(NameForAggregateTestObject::class, $member->getName());
 
         $this->assertNull($member->getName()->getFirst());
         $this->assertNull($member->getName()->getLast());
     }
 
-    function testSaveLoadAggrigatedObject()
+    function testSaveLoadAggregatedObject()
     {
-        $name = new NameForAggregateTest();
+        $name = new NameForAggregateTestObject();
         $name->setFirst($first = 'first_name');
         $name->setLast($last = 'last_name');
 
@@ -48,23 +48,23 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
         $this->assertEquals($member2->getName()->getLast(), $last);
     }
 
-    function testSaveLoadAggrigatedObjectWithShortDefinition()
+    function testSaveLoadAggregatedObjectWithShortDefinition()
     {
         $extra = new ExtraForAggregateTestObject();
         $extra->setExtra('value');
 
-        $photo = new PhotoForTest();
+        $photo = new PhotoForTestObject();
         $photo->setExtra($extra);
         $photo->save();
 
-        $photo2 = lmbActiveRecord::findById(PhotoForTest::class, $photo->getId());
+        $photo2 = lmbActiveRecord::findById(PhotoForTestObject::class, $photo->getId());
         $this->assertInstanceOf(ExtraForAggregateTestObject::class, $photo2->getExtra());
         $this->assertEquals('value_as_extra_value', $photo2->getExtra()->getValue());
     }
 
     function testUsingSetupMethodOnAggregatedObjectLoad()
     {
-        $name = new NameForAggregateTest();
+        $name = new NameForAggregateTestObject();
         $name->setFirst($first = 'first_name');
         $name->setLast($last = 'last_name');
 
@@ -79,7 +79,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 
     function testSetDirtinessOfAggregatedObjectFieldsOnSave()
     {
-        $name = new NameForAggregateTest();
+        $name = new NameForAggregateTestObject();
         $name->setLast($last = 'last_name');
 
         $member = new MemberForTestObject();
@@ -95,23 +95,23 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 
     function testDoNotSettingARPrimaryKeyOnAggregatedObjects()
     {
-        $image = new ImageForAggregateTest();
+        $image = new ImageForAggregateTestObject();
         $image->setExtension($extension = 'jpg');
 
-        $photo = new PhotoForTest();
+        $photo = new PhotoForTestObject();
         $photo->setImage($image);
 
         $photo->save();
         $this->assertNotEquals($photo->getImage()->getPhotoId(), $photo->getId());
 
-        $photo2 = lmbActiveRecord::findById(PhotoForTest::class, $photo->getId());
+        $photo2 = lmbActiveRecord::findById(PhotoForTestObject::class, $photo->getId());
         $this->assertEquals($photo2->getImage()->getPhotoId(), $photo2->getId());
 
         $photo2->getImage()->setExtension($other_extension = 'png');
         $photo2->getImage()->setPhotoId($other_photo_id = ($photo2->getId() + 10)); // we try set AR primary key
         $photo2->save();
 
-        $photo3 = lmbActiveRecord::findById(PhotoForTest::class, $photo2->getId());
+        $photo3 = lmbActiveRecord::findById(PhotoForTestObject::class, $photo2->getId());
         $this->assertEquals($photo3->getImage()->getExtension(), $other_extension);
 
         $this->assertNotEquals($photo3->getImage()->getPhotoId(), $other_photo_id); // affect setting AR primary key
@@ -120,7 +120,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 
     function testGenericGetReturnsAlreadyExistingObject()
     {
-        $name = new NameForAggregateTest();
+        $name = new NameForAggregateTestObject();
         $name->setFirst($first = 'first_name');
         $name->setLast($last = 'last_name');
 
@@ -134,7 +134,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 
     function testWrongSetupMethod()
     {
-        $name = new NameForAggregateTest();
+        $name = new NameForAggregateTestObject();
         $name->setFirst($first = 'first_name');
         $name->setLast($last = 'last_name');
 
@@ -153,7 +153,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 
     function testLazyAggregatedObjects()
     {
-        $name = new NameForAggregateTest();
+        $name = new NameForAggregateTestObject();
         $name->setFirst($first = 'first_name');
         $name->setLast($last = 'last_name');
 
@@ -169,7 +169,7 @@ class lmbARAggregatedObjectTest extends lmbARBaseTestCase
 
     function testAggregatedObjectAreImportedProperly()
     {
-        $name = new NameForAggregateTest();
+        $name = new NameForAggregateTestObject();
         $name->setFirst($first = 'first_name');
         $name->setLast($last = 'last_name');
 
