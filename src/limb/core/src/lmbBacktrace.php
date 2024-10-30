@@ -18,24 +18,41 @@ namespace limb\core\src;
 class lmbBacktrace
 {
     protected $backtrace = [];
+    protected $limit = PHP_INT_MAX;
+    protected $offset = 0;
 
     function __construct($limit_or_backtrace = null, $limit_or_offset = null, $offset = 0)
     {
         if (is_array($limit_or_backtrace)) {
             $this->backtrace = $limit_or_backtrace;
-            $limit = $limit_or_offset;
+            $this->limit = $limit_or_offset;
+            $this->offset = (int)$offset;
         } else {
             $this->backtrace = debug_backtrace();
-            $limit = $limit_or_backtrace;
-            $offset = (int)$limit_or_offset;
+            $this->limit = $limit_or_backtrace;
+            $this->offset = (int)$limit_or_offset;
         }
+    }
 
-        //we skip this function call also
-        for ($i = 0; $i < ($offset + 1); $i++)
-            array_shift($this->backtrace);
+    function setBacktrace($backtrace = []): static
+    {
+        $this->backtrace = $backtrace;
 
-        if (!is_null($limit))
-            $this->backtrace = array_splice($this->backtrace, 0, $limit);
+        return $this;
+    }
+
+    function setLimit($limit): static
+    {
+        $this->limit = $limit;
+
+        return $this;
+    }
+
+    function setOffset($offset): static
+    {
+        $this->offset = $offset;
+
+        return $this;
     }
 
     function get()
@@ -53,11 +70,27 @@ class lmbBacktrace
         return empty($this->backtrace);
     }
 
+    protected function _preparedBacktrace(): array
+    {
+        $backtrace = $this->backtrace;
+
+        //we skip this function call also
+        for ($i = 0; $i < ($this->offset + 1); $i++)
+            array_shift($backtrace);
+
+        if (!is_null($this->limit))
+            $backtrace = array_splice($backtrace, 0, $this->limit);
+
+        return $backtrace;
+    }
+
     function toString()
     {
         $trace_string = '';
 
-        foreach ($this->backtrace as $item) {
+        $backtrace = $this->_preparedBacktrace();
+
+        foreach ($backtrace as $item) {
             $trace_string .= '* ';
             $trace_string .= $this->_formatBacktraceItem($item) . PHP_EOL;
         }

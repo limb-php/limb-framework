@@ -158,6 +158,8 @@ class lmbLog implements LoggerInterface
     }
 
     /** @TODO: remove one of aboveLevel() methods */
+    /** @TODO: PSR-3: remove $backtrace */
+    /** @param $backtrace \limb\core\src\lmbBacktrace */
     protected function _write($level, $string, $context = [], $backtrace = null)
     {
         if (!$backtrace)
