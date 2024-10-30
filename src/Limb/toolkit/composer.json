@@ -1,0 +1,17 @@
+{
+    "name": "limb/toolkit",
+    "description": "Dynamic service locator implementation. This package implements kind of dynamic service locator design pattern, na flavour of dependency injection",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\toolkit\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

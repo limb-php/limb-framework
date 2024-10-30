@@ -1,0 +1,18 @@
+{
+    "name": "limb/optimization",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2",
+        "mrclay/jsmin-php": "^2.4.3",
+        "cerdic/css-tidy": "^2.0.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\optimization\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

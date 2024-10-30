@@ -1,0 +1,16 @@
+{
+    "name": "limb/imagekit",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\imagekit\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

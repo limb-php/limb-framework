@@ -1,0 +1,17 @@
+{
+    "name": "limb/acl",
+    "description": "Access Controll List tools. This package provides tools access controll list features",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\acl\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

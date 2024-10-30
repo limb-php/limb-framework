@@ -1,0 +1,20 @@
+{
+    "name": "limb/wysiwyg",
+    "description": "WYSIWYG tag support for templates.",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2",
+        "limb/config": "^4.2",
+        "tinymce/tinymce": "latest",
+        "ckeditor/ckeditor4-releases": "latest"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\wysiwyg\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

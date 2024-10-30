@@ -1,0 +1,23 @@
+{
+    "name": "limb/i18n",
+    "description": "I18N tools. This package provides basic tools for i18n content: translations, multibyte strings handling(utf-8), etc",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2",
+        "limb/fs": "^4.2"
+    },
+    "autoload": {
+        "autoload": {
+            "files": [
+                "common.inc.php"
+            ]
+        },
+        "psr-0": {
+            "limb\\i18n\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

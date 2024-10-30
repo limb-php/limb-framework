@@ -18,54 +18,19 @@
         "urands/firephp": "^1.0",
         "twig/twig": "3.*"
     },
-    "replace": {
-        "limb/acl": "self.version",
-        "limb/active_record": "self.version",
-        "limb/cache": "self.version",
-        "limb/cache2": "self.version",
-        "limb/calendar": "self.version",
-        "limb/cli": "self.version",
-        "limb/cms": "self.version",
-        "limb/config": "self.version",
-        "limb/core": "self.version",
-        "limb/cron": "self.version",
-        "limb/datetime": "self.version",
-        "limb/dbal": "self.version",
-        "limb/filter_chain": "self.version",
-        "limb/fs": "self.version",
-        "limb/i18n": "self.version",
-        "limb/imagekit": "self.version",
-        "limb/log": "self.version",
-        "limb/macro": "self.version",
-        "limb/mail": "self.version",
-        "limb/net": "self.version",
-        "limb/optimization": "self.version",
-        "limb/search": "self.version",
-        "limb/session": "self.version",
-        "limb/toolkit": "self.version",
-        "limb/tree": "self.version",
-        "limb/twig": "self.version",
-        "limb/validation": "self.version",
-        "limb/view": "self.version",
-        "limb/web_agent": "self.version",
-        "limb/web_app": "self.version",
-        "limb/web_cache": "self.version",
-        "limb/web_spider": "self.version",
-        "limb/wysiwyg": "self.version"
-    },
     "autoload": {
         "files": [
-            "src/limb/core/common.inc.php",
-            "src/limb/cms/common.inc.php",
-            "src/limb/i18n/common.inc.php",
-            "src/limb/log/common.inc.php",
-            "src/limb/net/common.inc.php",
-            "src/limb/macro/common.inc.php",
-            "src/limb/view/common.inc.php",
-            "src/limb/optimization/common.inc.php"
+            "src/Limb/Core/common.inc.php",
+            "src/Limb/cms/common.inc.php",
+            "src/Limb/i18n/common.inc.php",
+            "src/Limb/log/common.inc.php",
+            "src/Limb/net/common.inc.php",
+            "src/Limb/macro/common.inc.php",
+            "src/Limb/view/common.inc.php",
+            "src/Limb/optimization/common.inc.php"
         ],
         "psr-4": {
-            "limb\\": "src/limb/"
+            "Limb\\": "src/Limb/"
         }
     },
     "autoload-dev": {

@@ -1,0 +1,17 @@
+{
+    "name": "limb/net",
+    "description": "Network tools. This package provides http request, response handling tools",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\net\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}
