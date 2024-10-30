@@ -73,7 +73,7 @@ class lmbException extends \Exception
     /**
      * @return lmbBacktrace
      */
-    function getBacktraceObject()
+    function getBacktraceObject(): lmbBacktrace
     {
         return new lmbBacktrace($this->backtrace);
     }

@@ -44,8 +44,8 @@ class lmbLogTest extends TestCase
 
     function testLogLogInfo()
     {
-        $this->log->log(LogLevel::INFO, 'imessage', 'iparam', 'ibacktrace');
-        $this->log->log(LogLevel::WARNING, 'imessage2', 'iparam2', 'ibacktrace2');
+        $this->log->log(LogLevel::INFO, 'imessage', ['iparam', 'ibacktrace']);
+        $this->log->log(LogLevel::WARNING, 'imessage2', ['iparam2', 'ibacktrace2']);
 
         $this->assertTrue($this->_getLastLogEntry()->isLevel(LogLevel::WARNING));
         $this->assertEquals('imessage2', $this->_getLastLogEntry()->getMessage());
@@ -96,7 +96,7 @@ class lmbLogTest extends TestCase
     /**
      * @return lmbLogEntry
      */
-    protected function _getLastLogEntry()
+    protected function _getLastLogEntry(): lmbLogEntry
     {
         $currentWriter = current($this->log->getWriters());
         return $currentWriter->getWritten();
