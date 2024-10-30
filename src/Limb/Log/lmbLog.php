@@ -9,6 +9,7 @@
 
 namespace limb\log;
 
+use Limb\Core\Exception\lmbException;
 use limb\core\lmbEnv;
 use limb\core\lmbBacktrace;
 use Psr\Log\LoggerInterface;
@@ -64,7 +65,7 @@ class lmbLog implements LoggerInterface
         $this->notifyLevel = $notifyLevel;
     }
 
-    function registerWriter($writer, $writer_level = null): void
+    function registerWriter(lmbLogWriterInterface $writer, $writer_level = null): void
     {
         $this->log_writers[] = [
             'writer' => $writer,
@@ -72,7 +73,8 @@ class lmbLog implements LoggerInterface
         ];
     }
 
-    function getWriters()
+    /* @return lmbLogWriterInterface[] */
+    function getWriters(): array
     {
         $writers = [];
         foreach ($this->log_writers as $writer_info) {
@@ -150,22 +152,36 @@ class lmbLog implements LoggerInterface
         $this->log(LogLevel::DEBUG, $message, $context);
     }
 
-    public function log($level, $message, $context = [], $backtrace = null): void
+    public function log($level, $message, $context = []): void
     {
         if ($this->aboveLevel($level, $this->notifyLevel)) {
-            $this->_write($level, $message, $context, $backtrace);
+            $this->_write($level, $message, $context);
         }
     }
 
     /** @TODO: remove one of aboveLevel() methods */
-    protected function _write($level, $string, $context = [], $backtrace = null)
+    protected function _write($level, $string, $context = [])
     {
-        if (!$backtrace)
-            $backtrace = new lmbBacktrace($this->backtrace_depth[$level]);
+        $backtrace = $this->_getBacktraceFromContext($context);
+        $backtrace->setLimit($this->backtrace_depth[$level]);
 
         $entry = new lmbLogEntry($level, $string, $context, $backtrace);
 
         $this->_writeLogEntry($entry, $level);
+    }
+
+    protected function _getBacktraceFromContext($context = []): lmbBacktrace
+    {
+        if ($context['exception']) {
+            $exception = $context['exception'];
+            if($exception instanceof lmbException)
+                $backtrace = $exception->getBacktraceObject();
+        }
+
+        if(!isset($backtrace))
+            $backtrace = new lmbBacktrace();
+
+        return $backtrace;
     }
 
     protected function _writeLogEntry($entry, $level)
