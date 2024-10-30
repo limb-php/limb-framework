@@ -164,7 +164,8 @@ class lmbExceptionHandler
                 [
                     'exception' => $exception,
                     'params' => $exception->getParams(),
-                ]
+                ],
+                $exception->getBacktraceObject() // ??? no in PSR-3
             );
         else
             $this->logger->log(
