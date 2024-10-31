@@ -18,7 +18,7 @@ namespace limb\core\src;
 class lmbBacktrace
 {
     protected $backtrace = [];
-    protected $limit = PHP_INT_MAX;
+    protected $limit = null;
     protected $offset = 0;
 
     function __construct($limit_or_backtrace = null, $limit_or_offset = null, $offset = 0)
