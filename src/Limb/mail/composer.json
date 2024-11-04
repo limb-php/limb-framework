@@ -1,0 +1,20 @@
+{
+    "name": "limb/mail",
+    "description": "Mailing library. A wrapper around PHPMailer library(http://phpmailer.sourceforge.net/)",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2",
+        "limb/config": "^4.2",
+        "limb/view": "^4.2",
+        "phpmailer/phpmailer": "^6.6"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\mail\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

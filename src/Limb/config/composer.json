@@ -1,0 +1,18 @@
+{
+    "name": "limb/config",
+    "description": "Configuration tools. This package provides basic tools for accessing configuration files",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2",
+        "limb/fs": "^4.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\config\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

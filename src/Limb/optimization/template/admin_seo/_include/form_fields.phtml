@@ -1,0 +1,35 @@
+<div class='tabs'>
+<ul>
+  <li id='properties'><span>Свойства</span></li>
+</ul>
+
+<div id="tab_properties">
+
+  <dl class="required field">
+    <dt><label for="url">Ссылка на страницу:</label></dt>
+    <dd>{{input type="text" name="url" id="url" title="Ссылк на страницу" class='input width100'/}}</dd>
+    <br/><span>Необходимо указать относительный путь до страницы, например, '/services'</span>
+  </dl>
+
+  <dl class="required field">
+    <label for="title">Заголовок (title):</label>
+    {{input type="text" name="title" id="title" title="Заголовок (title)" class='input width100'/}}
+  </dl>
+
+  <dl class="field">
+    <label for="head">Заголовок (H1):</label>
+    {{input type="text" name="head" id="head" title="Заголовок (H1)" class='input width100'/}}
+  </dl>
+
+  <dl class="field">
+    <dt><label for="keywords">Ключевые слова (meta-keywords):</label></dt>
+    <dd>{{textarea type="text" name="keywords" id="keywords" title="Keywords" style="height:120px; width:99%"}}{{/textarea}}</dd>
+  </dl>
+
+  <dl class="field">
+    <dt><label for="description">Описание (meta-description):</label></dt>
+    <dd>{{textarea name="description" id="description" title="Description" style="height:120px; width:99%"/}}</dd>
+  </dl>
+
+</div>
+</div>

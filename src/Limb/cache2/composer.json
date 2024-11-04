@@ -1,0 +1,18 @@
+{
+    "name": "limb/cache2",
+    "description": "Cache support tools alternative package. Alternative package to support misc. caching techniques in your Limb3 based applications.",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2",
+        "limb/config": "^4.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\cache2\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

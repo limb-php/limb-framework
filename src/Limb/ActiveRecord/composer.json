@@ -1,0 +1,19 @@
+{
+    "name": "limb/active_record",
+    "description": "Rails alike ActiveRecord implementation. This package implements ActiveRecord design pattern for rapid model prototyping and object relational mapping",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2",
+        "limb/dbal": "^4.2",
+        "limb/validation": "^4.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\active_record\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

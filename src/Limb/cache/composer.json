@@ -1,0 +1,17 @@
+{
+    "name": "limb/cache",
+    "description": "Cache support tools. Basic classes to support misc. caching techniques in your Limb4 based applications.",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\cache\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

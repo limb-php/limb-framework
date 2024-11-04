@@ -1,0 +1,3 @@
+<?php
+
+lmbEnv::setor('LIMB_CACHE_DB_META_IN_FILE', false);

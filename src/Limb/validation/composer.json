@@ -1,0 +1,18 @@
+{
+    "name": "limb/validation",
+    "description": "Tools for data validation. This package allows to validate generic data with custom validation rules",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2",
+        "limb/i18n": "^4.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\validation\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}
