@@ -10,6 +10,7 @@
 namespace limb\filter_chain;
 
 use limb\net\lmbHttpRequest;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  *  lmbFilterChain is an implementation of InterceptingFilter design pattern.
@@ -139,7 +140,7 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
      * @see lmbFilterChain::next()
      *
      */
-    function run($filter_chain, $request, $callback = null)
+    function run($filter_chain, $request, $callback = null): ResponseInterface
     {
         $this->process($request, $callback);
 

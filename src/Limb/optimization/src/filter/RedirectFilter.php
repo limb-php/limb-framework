@@ -5,12 +5,13 @@ namespace limb\optimization\src\filter;
 use limb\filter_chain\lmbInterceptingFilterInterface;
 use limb\net\lmbHttpResponse;
 use limb\toolkit\lmbToolkit;
+use Psr\Http\Message\ResponseInterface;
 
 class RedirectFilter implements lmbInterceptingFilterInterface
 {
     protected $toolkit;
 
-    public function run($filter_chain, $request = null, $callback = null)
+    public function run($filter_chain, $request = null, $callback = null): ResponseInterface
     {
         $this->toolkit = lmbToolkit::instance();
 

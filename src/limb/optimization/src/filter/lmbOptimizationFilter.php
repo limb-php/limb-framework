@@ -5,10 +5,11 @@ namespace limb\optimization\src\filter;
 use limb\filter_chain\lmbInterceptingFilterInterface;
 use limb\toolkit\lmbToolkit;
 use limb\macro\compiler\lmbMacroCompiler;
+use Psr\Http\Message\ResponseInterface;
 
 class lmbOptimizationFilter implements lmbInterceptingFilterInterface
 {
-    public function run($filter_chain, $request = null, $callback = null)
+    public function run($filter_chain, $request = null, $callback = null): ResponseInterface
     {
         $conf = lmbToolkit::instance()->getConf('optimization');
 

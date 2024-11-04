@@ -16,6 +16,7 @@ use limb\web_cache\lmbFullPageCacheUser;
 use limb\web_cache\lmbFullPageCacheWriter;
 use limb\web_cache\lmbFullPageCacheIniPolicyLoader;
 use limb\toolkit\lmbToolkit;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * class lmbFullPageCacheFilter.
@@ -42,7 +43,7 @@ class lmbFullPageCacheFilter implements lmbInterceptingFilterInterface
             $this->user = $user;
     }
 
-    function run($filter_chain, $request, $callback = null)
+    function run($filter_chain, $request, $callback = null): ResponseInterface
     {
         $toolkit = lmbToolkit::instance();
 

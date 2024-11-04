@@ -10,6 +10,7 @@
 namespace limb\filter_chain;
 
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Interface for filter classes to be used with lmbFilterChain
@@ -27,7 +28,6 @@ interface lmbInterceptingFilterInterface
      * @param $callback \Closure|null
      * @return mixed
      * @see lmbFilterChain::next()
-     *
      */
-    function run($filter_chain, $request, $callback = null);
+    function run(lmbInterceptingFilterInterface $filter_chain, RequestInterface $request, \Closure $callback = null): ResponseInterface;
 }
