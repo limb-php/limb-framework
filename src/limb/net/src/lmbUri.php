@@ -153,7 +153,7 @@ class lmbUri implements UriInterface
 
     private function setHost($host)
     {
-        $this->host = strtolower($host);
+        $this->host = $host ? strtolower($host) : '';
     }
 
     private function setPort($port)

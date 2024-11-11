@@ -29,6 +29,7 @@ class lmbSqliteTypeInfo extends lmbDbTypeInfo
             'int' => self::TYPE_INTEGER,
             'integer' => self::TYPE_INTEGER,
             'bigint' => self::TYPE_DECIMAL,
+            'unsigned big int' => self::TYPE_DECIMAL,
             'int24' => self::TYPE_INTEGER,
             'real' => self::TYPE_FLOAT,
             'float' => self::TYPE_FLOAT,
