@@ -11,8 +11,8 @@ namespace limb\cms\src\Controllers\Admin;
 
 use limb\dbal\src\lmbDBAL;
 use limb\active_record\src\lmbActiveRecord;
-use limb\net\src\lmbHttpResponse;
 use limb\toolkit\src\lmbToolkit;
+use limb\validation\src\BaseARValidator;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -27,6 +27,8 @@ abstract class lmbAdminObjectController extends lmbObjectController
     protected $_form_name = 'object_form';
     protected $_popup = true;
     protected $_back_url = array();
+
+    protected $_validator_class = BaseARValidator::class;
 
     protected function _passLocalAttributesToView($view): void
     {
@@ -72,10 +74,17 @@ abstract class lmbAdminObjectController extends lmbObjectController
         if ($request->hasPost()) {
             $this->_import($request);
 
-            if( $this->_validateAndSave($request, true) )
+            $this->_validate($request, true);
+
+            if ($this->error_list->isValid()) {
+                $this->_store($request);
+
                 return $this->_endDialog();
+            }
         } else {
             $this->_initCreateForm($request);
+
+            //return response()->json($this->item->export());
         }
     }
 
@@ -92,10 +101,17 @@ abstract class lmbAdminObjectController extends lmbObjectController
         if ($request->hasPost()) {
             $this->_import($request);
 
-            if( $this->_validateAndSave($request, false) )
+            $this->_validate($request, false);
+
+            if ($this->error_list->isValid()) {
+                $this->_update($request);
+
                 return $this->_endDialog();
+            }
         } else {
             $this->_initEditForm($request);
+
+            //return response()->json($this->item->export());
         }
     }
 
@@ -111,8 +127,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
 
         $this->items = lmbActiveRecord::findByIds($this->_object_class_name, $ids);
 
-        if ($request->hasPost())
-        {
+        if ($request->hasPost()) {
             $this->_onBeforeDelete($request);
 
             foreach ($this->items as $item)
@@ -184,39 +199,48 @@ abstract class lmbAdminObjectController extends lmbObjectController
         $this->_onAfterImport($request);
     }
 
-    protected function _validateAndSave($request, $is_create = false): bool
+    protected function _validate($request, $is_create = false)
     {
         $this->_onBeforeValidate($request);
-        $this->item->validate($this->getErrorList());
+        //$this->item->validate($this->getErrorList());
+
+        $validator = new $this->_validator_class($this->_object_class_name);
+        $validator->ignore($this->item);
+        $validator->validate($request->export(), $is_create);
+
+        $this->error_list = $validator->getErrorList();
+        $this->data['error_list'] = $this->error_list->getReadable();
+
         $this->_onAfterValidate($request);
+    }
 
-        if ($this->getErrorList()->isValid()) {
-            if ($is_create)
-                $this->_onBeforeCreate($request);
-            else
-                $this->_onBeforeUpdate($request);
+    protected function _store($request, $is_create = true): bool
+    {
+        $this->_onBeforeCreate($request);
+        $this->_onBeforeSave($request);
+        $this->item->saveSkipValidation();
+        $this->_onAfterSave($request);
+        $this->_onAfterCreate($request);
 
-            $this->_onBeforeSave($request);
-            $this->item->saveSkipValidation();
-            $this->_onAfterSave($request);
+        return true;
+    }
 
-            if ($is_create)
-                $this->_onAfterCreate($request);
-            else
-                $this->_onAfterUpdate($request);
+    protected function _update($request, $is_create = false): bool
+    {
+        $this->_onBeforeUpdate($request);
+        $this->_onBeforeSave($request);
+        $this->item->saveSkipValidation();
+        $this->_onAfterSave($request);
+        $this->_onAfterUpdate($request);
 
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     protected function _endDialog(): ResponseInterface
     {
         if ($this->_popup) {
             return $this->closePopup();
-        }
-        else {
+        } else {
             return $this->redirect($this->_back_url);
         }
     }
