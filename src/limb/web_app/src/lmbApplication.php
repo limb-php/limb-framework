@@ -5,6 +5,7 @@ namespace limb\web_app\src;
 use limb\core\src\exception\lmbException;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
+use limb\web_app\src\exception\lmbControllerActionNotFoundException;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
 use limb\web_app\src\exception\lmbExceptionHandler;
 use limb\web_app\src\request\lmbCompositeRequestDispatcher;
@@ -162,6 +163,12 @@ class lmbApplication
             throw new lmbException('Request is not dispatched yet! lmbDispatchedRequest not found in lmbToolkit!');
         }
 
-        return $dispatched_controller->performAction($request, $parameters);
+        try {
+            return $dispatched_controller->performAction($request, $parameters);
+        } catch (lmbControllerActionNotFoundException $e) {
+            $controller = $this->_createDefaultController();
+
+            return $controller->performAction($request);
+        }
     }
 }

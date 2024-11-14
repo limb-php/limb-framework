@@ -15,6 +15,7 @@ use limb\validation\src\lmbErrorList;
 use limb\validation\src\lmbValidator;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
+use limb\web_app\src\exception\lmbControllerActionNotFoundException;
 use limb\web_app\src\Helpers\lmbRouteHelper;
 use limb\view\src\lmbViewInterface;
 use limb\core\src\exception\lmbException;
@@ -206,7 +207,7 @@ class LmbController
                 }
             }
         } elseif (!$template_path) {
-            throw new lmbException('No method defined in controller "' .
+            throw new lmbControllerActionNotFoundException('No method defined in controller "' .
                 get_class($this) . '" for action "' . $this->getCurrentAction() . '" ' .
                 'and no appropriate template found');
         }
