@@ -93,8 +93,8 @@ class lmbLogEntry
 
         $string = $this->getLevelForHuman() . " message: {$this->message}";
         $string .= (count($params) ? "\nAdditional attributes: " . var_export($params, true) : '');
-        if ($this->backtrace && !$this->backtrace->isEmpty())
-            $string .= "\nBack trace:\n" . $this->backtrace->toString();
+        if ($this->backtrace && $backtrace_str = $this->backtrace->toString())
+            $string .= "\nBack trace:\n" . $backtrace_str;
 
         return $string;
     }

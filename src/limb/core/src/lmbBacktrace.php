@@ -55,7 +55,16 @@ class lmbBacktrace
         return $this;
     }
 
-    function get()
+    /**
+     * get limited backtrace
+     * @return array strings of backtrace
+     */
+    function get(): array
+    {
+        return $this->_preparedBacktrace();
+    }
+
+    function getAll()
     {
         return $this->backtrace;
     }
@@ -70,6 +79,19 @@ class lmbBacktrace
         return empty($this->backtrace);
     }
 
+    function toString()
+    {
+        $trace_string = '';
+
+        $backtrace = $this->_preparedBacktrace();
+
+        foreach ($backtrace as $item) {
+            $trace_string .= '* ';
+            $trace_string .= $this->_formatBacktraceItem($item) . PHP_EOL;
+        }
+        return $trace_string;
+    }
+
     protected function _preparedBacktrace(): array
     {
         $backtrace = $this->backtrace;
@@ -82,19 +104,6 @@ class lmbBacktrace
             $backtrace = array_splice($backtrace, 0, $this->limit);
 
         return $backtrace;
-    }
-
-    function toString()
-    {
-        $trace_string = '';
-
-        $backtrace = $this->_preparedBacktrace();
-
-        foreach ($backtrace as $item) {
-            $trace_string .= '* ';
-            $trace_string .= $this->_formatBacktraceItem($item) . PHP_EOL;
-        }
-        return $trace_string;
     }
 
     function _formatBacktraceItem($item)
