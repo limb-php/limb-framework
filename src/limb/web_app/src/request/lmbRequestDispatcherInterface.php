@@ -19,5 +19,14 @@ use Psr\Http\Message\RequestInterface;
  */
 interface lmbRequestDispatcherInterface
 {
-    function dispatch(RequestInterface $request);
+    /**
+     * @param RequestInterface $request
+     * @return array
+     *
+     * return assoc-array with keys:
+     *  controller - controller name
+     *  action - action name
+     */
+
+    function dispatch(RequestInterface $request): array;
 }

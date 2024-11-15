@@ -38,7 +38,7 @@ class lmbRoutesRequestDispatcher implements lmbRequestDispatcherInterface
             $this->base_path = $base_path;
     }
 
-    function dispatch(RequestInterface $request)
+    function dispatch(RequestInterface $request): array
     {
         $routes = lmbToolkit::instance()->getRoutes();
 

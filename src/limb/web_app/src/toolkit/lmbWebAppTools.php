@@ -20,7 +20,6 @@ use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbEnv;
 use limb\core\src\lmbString;
 use limb\toolkit\src\lmbAbstractTools;
-use limb\view\src\lmbDummyView;
 use limb\view\src\lmbViewInterface;
 use limb\view\src\toolkit\lmbViewTools;
 use limb\web_app\src\util\lmbFlashBox;
@@ -28,6 +27,7 @@ use limb\web_app\src\request\lmbRoutes;
 use limb\core\src\exception\lmbException;
 use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
+use Psr\Http\Message\ResponseInterface;
 
 lmbEnv::setor('LIMB_ENABLE_MOD_REWRITE', true); // we assume mod_rewrite in ON by default
 
@@ -215,7 +215,7 @@ class lmbWebAppTools extends lmbAbstractTools
         return new $controller_name;
     }
 
-    function redirect($params_or_url = [], $route_url = null, $append = ''): lmbHttpResponse
+    function redirect($params_or_url = [], $route_url = null, $append = ''): ResponseInterface
     {
         $redirect = $params_or_url;
         if (is_array($params_or_url)) {

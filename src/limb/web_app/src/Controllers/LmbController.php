@@ -162,7 +162,7 @@ class LmbController
     }
 
     /**
-     * @return ResponseInterface|false
+     * @return ResponseInterface
      * @throws lmbException
      * @throws lmbEmptyControllerResponseException
      */
