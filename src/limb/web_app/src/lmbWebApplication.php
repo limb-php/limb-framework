@@ -74,7 +74,7 @@ class lmbWebApplication extends lmbFilterChain
 
     function process($request, $callback = null): ResponseInterface
     {
-        if(!$this->inited) {
+        if (!$this->inited) {
             $this->_registerBootstraps();
             $this->_registerFilters();
 
@@ -115,17 +115,13 @@ class lmbWebApplication extends lmbFilterChain
 
     protected function _registerFilters()
     {
-        $this->registerFilter(new lmbHandle(lmbSessionStartupFilter::class));
+        $this->registerFilter(lmbSessionStartupFilter::class);
 
         $this->_addFilters($this->pre_dispatch_filters);
 
-        $this->registerFilter(new lmbHandle(
-                lmbRequestDispatchingFilter::class,
-                array(
-                    $this->_getRequestDispatcher(),
-                    $this->default_controller_name
-                )
-            )
+        $this->registerFilter(lmbRequestDispatchingFilter::class,
+                $this->_getRequestDispatcher(),
+                $this->default_controller_name
         );
 
         $this->_addFilters($this->pre_action_filters);
@@ -137,7 +133,7 @@ class lmbWebApplication extends lmbFilterChain
             $this->registerFilter($filter);
     }
 
-    protected function _callControllerAction($request)
+    protected function _callControllerAction($request): ResponseInterface
     {
         $dispatched = lmbToolkit::instance()->getDispatchedController();
         if (!is_object($dispatched)) {
