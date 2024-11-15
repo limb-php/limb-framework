@@ -29,6 +29,8 @@ class lmbWebAppToolsTest extends TestCase
     function setUp(): void
     {
         $this->toolkit = lmbToolkit::save();
+
+        lmbEnv::remove('LIMB_APP_MODE');
     }
 
     function tearDown(): void
