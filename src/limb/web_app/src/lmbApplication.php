@@ -5,6 +5,7 @@ namespace limb\web_app\src;
 use limb\core\src\exception\lmbException;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
+use limb\web_app\src\Controllers\LmbController;
 use limb\web_app\src\exception\lmbControllerActionNotFoundException;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
 use limb\web_app\src\exception\lmbExceptionHandler;
@@ -37,7 +38,7 @@ class lmbApplication
         $this->handler = new lmbExceptionHandler($error500_page);
     }
 
-    protected function _registerDispatcher()
+    protected function _registerDispatcher(): void
     {
         $this->dispatcher = new lmbCompositeRequestDispatcher();
         $this->dispatcher->addDispatcher(new lmbRoutesRequestDispatcher());
@@ -103,12 +104,12 @@ class lmbApplication
         return $response;
     }
 
-    function registerBootstrap($bootstrap)
+    function registerBootstrap($bootstrap): void
     {
         $this->bootstraps[] = $bootstrap;
     }
 
-    protected function _bootstrap($request)
+    protected function _bootstrap($request): void
     {
         foreach ($this->bootstraps as $bootstrap) {
             if (is_callable([$bootstrap, 'bootstrap'])) {
@@ -117,7 +118,7 @@ class lmbApplication
         }
     }
 
-    protected function _terminate()
+    protected function _terminate(): void
     {
         foreach ($this->bootstraps as $bootstrap) {
             if (is_callable([$bootstrap, 'terminate']))
@@ -125,7 +126,7 @@ class lmbApplication
         }
     }
 
-    protected function _createController($dispatched_params)
+    protected function _createController($dispatched_params): LmbController
     {
         try {
             if(isset($dispatched_params['controller'])) {
@@ -142,7 +143,7 @@ class lmbApplication
         return $controller;
     }
 
-    protected function _createDefaultController()
+    protected function _createDefaultController(): LmbController
     {
         $controller = lmbToolkit::instance()->createController($this->default_controller_name);
         $controller->setCurrentAction($controller->getCurrentAction());
@@ -151,7 +152,7 @@ class lmbApplication
     }
 
     /**
-     * @param \limb\web_app\src\Controllers\LmbController $dispatched_controller
+     * @param LmbController $dispatched_controller
      * @param RequestInterface $request
      * @param array $parameters
      * @return ResponseInterface
