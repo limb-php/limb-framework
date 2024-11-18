@@ -2,7 +2,7 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com
+
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
@@ -10,8 +10,8 @@
 namespace limb\dbal\src\query;
 
 use limb\core\src\exception\lmbException;
+use limb\core\src\lmbCollectionInterface;
 use limb\dbal\src\criteria\lmbSQLCriteria;
-use limb\dbal\src\drivers\lmbDbBaseRecordSet;
 
 /**
  * class lmbSelectRawQuery.
@@ -191,13 +191,13 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
         return parent::toString();
     }
 
-    function getRecordSet(): lmbDbBaseRecordSet
+    function getRecordSet(): lmbCollectionInterface
     {
         $stmt = $this->getStatement();
         return $stmt->getRecordSet();
     }
 
-    function fetch()
+    function fetch(): lmbCollectionInterface
     {
         return $this->getRecordSet();
     }

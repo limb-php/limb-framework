@@ -2,19 +2,21 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com
+
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace limb\active_record\src;
 
+use limb\core\src\lmbCollectionInterface;
 use limb\core\src\lmbObject;
 use limb\core\src\lmbString;
 use limb\core\src\lmbDelegate;
 use limb\core\src\lmbCollection;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
+use limb\dbal\src\drivers\lmbDbRecordSetInterface;
 use limb\dbal\src\lmbTableGateway;
 use limb\validation\src\lmbValidator;
 use limb\validation\src\lmbErrorList;
@@ -1692,10 +1694,11 @@ class lmbActiveRecord extends lmbObject
      *  $books = self::find('Book',
      *                                    new lmbSQLFieldCriteria('name', 'hey'));
      *  </code>
+     * @TODO refactor: separate "find" (collection) and "get" (single object) functionality
      * @param string $class_name class name of the object
      * @param mixed $magic_params misc magic params
      * @param object $conn database connection object
-     * @return \Iterator
+     * @return lmbDbRecordSetInterface|lmbCollectionInterface|static|null
      */
     static function find($class_name = null, $magic_params = null, $conn = null)
     {

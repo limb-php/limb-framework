@@ -2,7 +2,7 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com
+
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
@@ -14,7 +14,7 @@ use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
-use limb\dbal\src\drivers\lmbDbBaseRecordSet;
+use limb\core\src\lmbCollectionInterface;
 
 class lmbARQuery extends lmbSelectRawQuery
 {
@@ -106,7 +106,7 @@ class lmbARQuery extends lmbSelectRawQuery
         return $this->addOrder($field, $type);
     }
 
-    function getRecordSet(): lmbDbBaseRecordSet
+    function getRecordSet(): lmbCollectionInterface
     {
         $rs = parent::getRecordSet();
         if ($this->sort_params)
@@ -115,7 +115,13 @@ class lmbARQuery extends lmbSelectRawQuery
         return $rs;
     }
 
-    function fetch($decorate = true)
+    /**
+     * @param $decorate bool
+     * @return lmbCollectionInterface
+     * @throws lmbARException
+     * @throws lmbException
+     */
+    function fetch($decorate = true): lmbCollectionInterface
     {
         $this->_applyJoins($this->base_object, $this->join_relations);
 
@@ -213,7 +219,7 @@ class lmbARQuery extends lmbSelectRawQuery
      * @param string $sql
      * @return lmbARQuery
      */
-    static function create($class_name_or_obj, $params = array(), $conn = null, $sql = '')
+    static function create($class_name_or_obj, $params = array(), $conn = null, $sql = ''): self
     {
         if (!$conn)
             $conn = lmbToolkit::instance()->getDefaultDbConnection();
