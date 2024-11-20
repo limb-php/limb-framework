@@ -2,12 +2,10 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com
- * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cms\src\filter;
+namespace limb\cms\src\Net\filter;
 
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
 use limb\toolkit\src\lmbToolkit;
@@ -21,12 +19,14 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbCmsAccessPolicyFilter implements lmbInterceptingFilterInterface
 {
+    protected $current_controller;
+
     function run($filter_chain, $request = null, $callback = null)
     {
-        $this->toolkit = lmbToolkit::instance();
-        $this->current_controller = $this->toolkit->getDispatchedController();
+        $toolkit = lmbToolkit::instance();
+        $this->current_controller = $toolkit->getDispatchedController();
 
-        $user = $this->toolkit->getCmsUser();
+        $user = $toolkit->getCmsUser();
 
         $current_path = '/' . ltrim($request->getUri()->getPath(), '/');
 
@@ -34,17 +34,17 @@ class lmbCmsAccessPolicyFilter implements lmbInterceptingFilterInterface
 
         if (strpos($controller_name, 'admin') === 0) {
             if (!$user->isLoggedIn()) {
-                $this->toolkit->flashMessage("Not authorized");
-                $this->toolkit->redirect(array('controller' => 'user', 'action' => 'login'), null, '?redirect=' . $current_path);
+                $toolkit->flashMessage("Not authorized");
+                $toolkit->redirectToRoute(['controller' => 'user', 'action' => 'login'], null, '?redirect=' . $current_path);
 
                 return $callback;
             } elseif (!$this->_allowAccess($user)) {
-                $this->toolkit->flashMessage("Forbidden");
+                $toolkit->flashMessage("Forbidden");
 
                 if ('display' != $this->current_controller->getCurrentAction())
                     $this->current_controller->closePopup();
                 else
-                    $this->toolkit->redirect(array('controller' => 'admin', 'action' => 'display'));
+                    $toolkit->redirectToRoute(['controller' => 'admin', 'action' => 'display']);
 
                 return $callback;
             }
@@ -55,11 +55,11 @@ class lmbCmsAccessPolicyFilter implements lmbInterceptingFilterInterface
 
     protected function _allowAccess($user)
     {
-        $acces_rules = $this->toolkit->getConf('roles')->get($user->getRoleType());
+        $toolkit = lmbToolkit::instance();
+        $acces_rules = $toolkit->getConf('roles')->get($user->getRoleType());
         if (!is_array($acces_rules))
             return false;
 
-        $this->current_controller = $this->toolkit->getDispatchedController();
         $current_action = $this->current_controller->getCurrentAction();
 
         if (isset($acces_rules['restricted_controllers']) &&

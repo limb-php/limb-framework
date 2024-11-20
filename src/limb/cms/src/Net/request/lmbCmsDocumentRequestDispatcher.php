@@ -2,17 +2,16 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com
- * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cms\src\request;
+namespace limb\cms\src\Net\request;
 
-use limb\web_app\src\request\lmbRequestDispatcherInterface;
 use limb\cms\src\model\lmbCmsDocument;
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
+use limb\web_app\src\request\lmbRequestDispatcherInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * class lmbDbRequestDispatcher.
@@ -22,20 +21,20 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbCmsDocumentRequestDispatcher implements lmbRequestDispatcherInterface
 {
-    function dispatch($request)
+    function dispatch(RequestInterface $request): array
     {
         $path = $request->getUri()->getPath();
         if ($path === '/')
-            return;
+            return [];
 
         if (!$document = lmbCmsDocument::findByUri($path))
-            return;
+            return [];
 
         if (!$document->getIsPublished()) {
             if (lmbToolkit::instance()->isWebAppDebugEnabled())
                 throw new lmbException('Page not published');
             else
-                return;
+                return [];
         }
 
         return array(

@@ -25,7 +25,6 @@ class TextBlockController extends lmbAdminObjectController
 
     protected function _getBlocks()
     {
-
         $blocks = lmbCollection::toFlatArray($this->items, 'identifier');
 
         $result = array();
@@ -55,11 +54,17 @@ class TextBlockController extends lmbAdminObjectController
         $this->useForm($this->_form_name);
         $this->setFormDatasource($this->item);
 
-        if (!$request->hasPost())
-            return;
+        if ($request->hasPost()) {
+            $this->_import($request);
 
-        $this->_import($request);
-        $this->_validateAndSave($request, false);
+            $this->_validate($request);
+
+            if ($this->error_list->isValid()) {
+                $this->_update($request);
+
+                return $this->_endDialog();
+            }
+        }
     }
 
     /** @return ResponseInterface|void */

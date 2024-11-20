@@ -2,8 +2,6 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com
- * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
@@ -13,7 +11,6 @@ use limb\active_record\src\toolkit\lmbARTools;
 use limb\config\src\toolkit\lmbConfTools;
 use limb\i18n\src\toolkit\lmbI18NTools;
 use limb\log\src\toolkit\lmbLogTools;
-use limb\net\src\lmbHttpResponse;
 use limb\net\src\toolkit\lmbNetTools;
 use limb\session\src\toolkit\lmbSessionTools;
 use limb\toolkit\src\lmbToolkit;
@@ -215,14 +212,20 @@ class lmbWebAppTools extends lmbAbstractTools
         return new $controller_name;
     }
 
-    function redirect($params_or_url = [], $route_url = null, $append = ''): ResponseInterface
+    function redirectToRoute(array $params, string $route_name = '', $append = ''): ResponseInterface
     {
-        $redirect = $params_or_url;
-        if (is_array($params_or_url)) {
-            $redirect = $this->toolkit->getRoutesUrl($params_or_url, $route_url);
-        }
+        $redirect = $this->toolkit->getRoutesUrl($params, $route_name);
 
         return response()->redirect($redirect . $append);
+    }
+
+    function redirect($params_or_url = [], $route_url = '', $append = ''): ResponseInterface
+    {
+         if (is_array($params_or_url)) {
+            return $this->toolkit->redirectToRoute($params_or_url, $route_url, $append);
+         }
+
+        return response()->redirect($params_or_url . $append);
     }
 
     function isWebAppDebugEnabled(): bool

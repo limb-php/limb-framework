@@ -2,18 +2,17 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com
- * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cms\src\request;
+namespace limb\cms\src\Net\request;
 
-use limb\net\src\lmbUriHelper;
-use limb\web_app\src\request\lmbRequestDispatcherInterface;
+use limb\cms\src\model\lmbCmsNode as Node;
 use limb\core\src\lmbEnv;
 use limb\net\src\lmbUri;
-use limb\cms\src\model\lmbCmsNode as Node;
+use limb\net\src\lmbUriHelper;
+use limb\web_app\src\request\lmbRequestDispatcherInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * class lmbCmsNodeBasedRequestDispatcher.
@@ -42,9 +41,9 @@ class lmbCmsNodeBasedRequestDispatcher implements lmbRequestDispatcherInterface
             $this->base_path = $base_path;
     }
 
-    function dispatch($request)
+    function dispatch(RequestInterface $request): array
     {
-        $result = array();
+        $result = [];
 
         $uri = $request->getUri();
         $uri = $uri->withPath( lmbUriHelper::normalizePath($uri->getPath()) );

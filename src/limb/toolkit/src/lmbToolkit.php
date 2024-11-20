@@ -2,7 +2,7 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com
+
  * @copyright  Copyright &copy; 2004-2009 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
@@ -152,7 +152,8 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method \limb\web_app\src\util\lmbFlashBox getFlashBox()
  * @method flashError($message)
  * @method flashMessage($message)
- * @method \limb\net\src\lmbHttpResponse redirect($params_or_url = [], $route_url = null, $append = '')
+ * @method \limb\net\src\lmbHttpResponse redirect($params_or_url = [], $route_url = '', $append = '')
+ * @method \limb\net\src\lmbHttpResponse redirectToRoute(array $params, string $route_url = '', $append = '')
  * @method bool isWebAppDebugEnabled()
  * @method addVersionToUrl($file_src, $safe = false)
  * @method getNormalizeUrlAndVersion($file_src, $safe = false)

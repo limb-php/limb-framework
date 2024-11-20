@@ -2,17 +2,15 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com 
- * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
- * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cms\src\filter;
+namespace limb\cms\src\Net\filter;
 
+use limb\cms\src\Net\request\lmbCmsDocumentRequestDispatcher;
 use limb\web_app\src\Controllers\NotFoundController;
 use limb\web_app\src\filter\lmbRequestDispatchingFilter;
 use limb\web_app\src\request\lmbCompositeRequestDispatcher;
-use limb\cms\src\request\lmbCmsDocumentRequestDispatcher;
 use limb\web_app\src\request\lmbRoutesRequestDispatcher;
 
 /**

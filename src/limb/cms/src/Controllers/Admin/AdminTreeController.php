@@ -20,7 +20,7 @@ class AdminTreeController extends LmbController
             $class_name = $request->get('class_name') ? $request->get('class_name') : 'lmbCmsNode';
             $node = new $class_name();
 
-            $this->_importAndSave($node);
+            $this->_importAndSave($request, $node);
         } else
             $request->set('class_name', 'lmbCmsNode');
     }
@@ -32,7 +32,7 @@ class AdminTreeController extends LmbController
         $this->setFormDatasource($request);
 
         if ($request->hasPost())
-            $this->_importAndSave($node);
+            $this->_importAndSave($request, $node);
         else {
             $request->merge($node->export());
             $request->set('controller_name', $node->getControllerName());
