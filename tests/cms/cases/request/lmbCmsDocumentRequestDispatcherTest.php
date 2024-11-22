@@ -2,19 +2,17 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com
- * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace tests\cms\cases\request;
 
-use limb\net\src\lmbHttpRequest;
-use tests\cms\cases\lmbCmsTestCase;
-use limb\cms\src\request\lmbCmsDocumentRequestDispatcher;
-use limb\web_app\src\request\lmbRoutes;
 use limb\cms\src\model\lmbCmsDocument;
+use limb\cms\src\Net\request\lmbCmsDocumentRequestDispatcher;
+use limb\net\src\lmbHttpRequest;
 use limb\toolkit\src\lmbToolkit;
+use limb\web_app\src\request\lmbRoutes;
+use tests\cms\cases\lmbCmsTestCase;
 
 class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
 {

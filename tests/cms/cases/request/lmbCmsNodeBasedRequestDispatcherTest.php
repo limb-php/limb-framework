@@ -2,17 +2,15 @@
 /*
  * Limb PHP Framework
  *
- * @link http://limb-project.com
- * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
 namespace tests\cms\cases\request;
 
 use limb\cms\src\model\lmbCmsNode;
+use limb\cms\src\Net\request\lmbCmsNodeBasedRequestDispatcher;
 use limb\net\src\lmbHttpRequest;
 use tests\cms\cases\lmbCmsTestCase;
-use limb\cms\src\request\lmbCmsNodeBasedRequestDispatcher;
 
 class lmbCmsNodeBasedRequestDispatcherTest extends lmbCmsTestCase
 {

@@ -2,7 +2,7 @@
 /**
  * Limb Web Application Framework
  *
- * @link http://limb-project.com
+ * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  *
  * @copyright  Copyright &copy; 2004-2009 BIT
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
