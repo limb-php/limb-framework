@@ -47,7 +47,7 @@ class lmbExceptionTest extends TestCase
         $this->assertMatchesRegularExpression('/_createException/', $first_call);
         $this->assertMatchesRegularExpression('/foo/', $first_call);
         $this->assertMatchesRegularExpression('/' . basename(__FILE__) . '/', $first_call);
-        $this->assertMatchesRegularExpression('/43/', $first_call);
+        $this->assertMatchesRegularExpression('/41/', $first_call);
     }
 
     function testGetNiceTraceAsString_HideCalls()

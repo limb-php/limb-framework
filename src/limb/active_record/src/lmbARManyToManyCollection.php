@@ -116,12 +116,14 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
             $this->relation_info['foreign_field'] => $object->getId()));
     }
 
-    function remove($object)
+    /** if $object is null - remove all relations */
+    function remove($object = null)
     {
         $table = new lmbTableGateway($this->relation_info['table'], $this->conn);
         $criteria = new lmbSQLCriteria();
         $criteria->addAnd(lmbSQLCriteria::equal($this->relation_info['field'], $this->owner->getId()));
-        $criteria->addAnd(lmbSQLCriteria::equal($this->relation_info['foreign_field'], $object->getId()));
+        if($object !== null)
+            $criteria->addAnd(lmbSQLCriteria::equal($this->relation_info['foreign_field'], $object->getId()));
         $table->delete($criteria);
         $this->reset();
     }
