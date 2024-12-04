@@ -34,6 +34,9 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
     protected $attach_relations = array();
     protected $default_params = array();
 
+    protected static string $_ctime_field = 'ctime';
+    protected static string $_utime_field = 'utime';
+
     function __construct($relation, $owner, $criteria = null, $conn = null)
     {
         $this->relation = $relation;

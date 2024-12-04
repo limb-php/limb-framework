@@ -112,8 +112,14 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
     {
         $object->save($error_list);
         $table = new lmbTableGateway($this->relation_info['table'], $this->conn);
-        $table->insert(array($this->relation_info['field'] => $this->owner->getId(),
-            $this->relation_info['foreign_field'] => $object->getId()));
+        $data = [
+            $this->relation_info['field'] => $this->owner->getId(),
+            $this->relation_info['foreign_field'] => $object->getId()
+        ];
+        if( $table->hasColumn(self::$_ctime_field) )
+            $data[self::$_ctime_field] = time();
+
+        $table->insert($data);
     }
 
     /** if $object is null - remove all relations */
