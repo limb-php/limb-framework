@@ -1,5 +1,5 @@
 {
-    "name": "limb/filter_chain",
+    "name": "Limb/FilterChain",
     "description": "Interceptig filters pattern implementation. This package allows to create custom chains with nested filters representing different parts of application logic",
     "require": {
         "php": ">=7.2",

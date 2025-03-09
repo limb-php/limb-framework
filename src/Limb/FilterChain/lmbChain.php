@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html 
  */
 
-namespace limb\filter_chain;
+namespace Limb\FilterChain;
 
 /**
  *  lmbFilterChain is an implementation of InterceptinfFilter design pattern.

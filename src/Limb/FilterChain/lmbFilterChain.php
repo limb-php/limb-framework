@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\filter_chain;
+namespace Limb\FilterChain;
 
-use limb\net\lmbHttpRequest;
+use Limb\Net\lmbHttpRequest;
 use Psr\Http\Message\ResponseInterface;
 
 /**
