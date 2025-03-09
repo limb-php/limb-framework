@@ -9,7 +9,7 @@
 
 namespace Limb\Acl\Toolkit;
 
-use limb\toolkit\lmbAbstractTools;
+use limb\Toolkit\lmbAbstractTools;
 use Limb\Acl\lmbAcl;
 
 /**

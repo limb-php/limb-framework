@@ -1,5 +1,5 @@
 {
-    "name": "limb/acl",
+    "name": "Limb/Acl",
     "description": "Access Controll List tools. This package provides tools access controll list features",
     "require": {
         "php": ">=7.2",
