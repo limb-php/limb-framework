@@ -1,0 +1,17 @@
+{
+    "name": "Limb/Fs",
+    "description": "Mis. file system tools",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\fs\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}
