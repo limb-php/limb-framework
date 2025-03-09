@@ -16,6 +16,7 @@ use limb\macro\src\tags\lists\lmbMacroListItemTag;
 class lmbMacroListTag extends lmbMacroTag
 {
     protected $counter_var;
+    protected $source_var;
     protected $count_source = false;
 
     function preParse($compiler): void

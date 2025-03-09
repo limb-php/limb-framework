@@ -18,6 +18,7 @@ class lmbCachingFileLocatorTest extends TestCase
 {
     protected $locator;
     protected $wrapped_locator;
+    protected $cache_file;
 
     function setUp(): void
     {
