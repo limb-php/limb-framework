@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cache;
+namespace Limb\cache;
 
-use limb\core\lmbSerializable;
-use limb\fs\lmbFs;
+use Limb\core\lmbSerializable;
+use Limb\fs\lmbFs;
 
 /**
  * class lmbCacheFileWithMetaBackend.

@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cache;
+namespace Limb\cache;
 
-use limb\core\lmbSerializable;
+use Limb\core\lmbSerializable;
 
 /**
  * class lmbCacheApcuBackend.

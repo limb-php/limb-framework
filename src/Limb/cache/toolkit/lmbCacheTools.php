@@ -7,16 +7,16 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cache\toolkit;
+namespace Limb\cache\toolkit;
 
-use limb\toolkit\lmbAbstractTools;
-use limb\cache\lmbCacheMemcacheBackend;
-use limb\cache\lmbCacheMemcachedBackend;
-use limb\cache\lmbCacheApcBackend;
-use limb\cache\lmbCacheApcuBackend;
-use limb\cache\lmbCacheXcacheBackend;
-use limb\cache\lmbCacheFileWithMetaBackend;
-use limb\core\lmbEnv;
+use Limb\toolkit\lmbAbstractTools;
+use Limb\cache\lmbCacheMemcacheBackend;
+use Limb\cache\lmbCacheMemcachedBackend;
+use Limb\cache\lmbCacheApcBackend;
+use Limb\cache\lmbCacheApcuBackend;
+use Limb\cache\lmbCacheXcacheBackend;
+use Limb\cache\lmbCacheFileWithMetaBackend;
+use Limb\core\lmbEnv;
 
 /**
  * class lmbCacheTools.

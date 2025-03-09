@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cache;
+namespace Limb\cache;
 
 use Psr\SimpleCache\CacheInterface;
 
