@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\log\exception;
+namespace Limb\Log\Exception;
 
-use limb\core\exception\lmbException;
+use Limb\Core\Exception\lmbException;
 
 /**
  * class lmbClassNotFoundException.

@@ -7,10 +7,10 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\log;
+namespace Limb\Log;
 
-use limb\log\exception\lmbClassNotFoundException;
-use limb\net\lmbUri;
+use Limb\Log\Exception\lmbClassNotFoundException;
+use Limb\Net\lmbUri;
 
 /**
  * class lmbLogWriterFactory.

@@ -7,11 +7,11 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\log;
+namespace Limb\Log;
 
 use Limb\Core\Exception\lmbException;
-use limb\core\lmbEnv;
-use limb\core\lmbBacktrace;
+use Limb\Core\lmbEnv;
+use Limb\Core\lmbBacktrace;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 

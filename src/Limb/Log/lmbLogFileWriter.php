@@ -7,12 +7,12 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\log;
+namespace Limb\Log;
 
-use limb\datetime\lmbDateTime;
-use limb\fs\lmbFs;
-use limb\fs\exception\lmbFsException;
-use limb\net\lmbUri;
+use Limb\Datetime\lmbDateTime;
+use Limb\Fs\lmbFs;
+use Limb\Fs\exception\lmbFsException;
+use Limb\Net\lmbUri;
 
 /**
  * class lmbLogFileWriter.

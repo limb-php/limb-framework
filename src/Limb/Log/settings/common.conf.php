@@ -1,6 +1,6 @@
 <?php
 
-use limb\core\lmbEnv;
+use Limb\Core\lmbEnv;
 use Psr\Log\LogLevel;
 
 $conf = [

@@ -7,13 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\log\toolkit;
+namespace Limb\Log\Toolkit;
 
-use limb\config\toolkit\lmbConfTools;
-use limb\toolkit\lmbAbstractTools;
-use limb\core\lmbEnv;
-use limb\log\lmbLog;
-use limb\log\lmbLogWriterFactory;
+use Limb\Config\Toolkit\lmbConfTools;
+use Limb\Toolkit\lmbAbstractTools;
+use Limb\Core\lmbEnv;
+use Limb\Log\lmbLog;
+use Limb\Log\lmbLogWriterFactory;
 use Psr\Log\LoggerInterface;
 
 /**

@@ -1,5 +1,5 @@
 {
-    "name": "limb/log",
+    "name": "Limb/Log",
     "description": "Logging utilities",
     "require": {
         "php": ">=7.2",

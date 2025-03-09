@@ -7,7 +7,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\log;
+namespace Limb\Log;
 
 /**
  * class lmbLogEchoWriter.

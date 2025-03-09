@@ -1,8 +1,8 @@
 <?php
 
-namespace limb\log;
+namespace Limb\Log;
 
-use limb\net\lmbUri;
+use Limb\Net\lmbUri;
 
 class lmbLogFirePHPWriter extends \FB implements lmbLogWriterInterface
 {

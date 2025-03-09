@@ -7,9 +7,9 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\log;
+namespace Limb\Log;
 
-use limb\core\lmbSys;
+use Limb\Core\lmbSys;
 use Psr\Log\LogLevel;
 
 /**
