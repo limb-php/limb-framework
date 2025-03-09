@@ -1,0 +1,17 @@
+{
+    "name": "Limb/Cli",
+    "description": "Command line interface tools. This package contains basic CLI tools for parsing and validating command line arguments and options",
+    "require": {
+        "php": ">=7.2",
+        "limb/core": "^4.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "limb\\cli\\": ""
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}
