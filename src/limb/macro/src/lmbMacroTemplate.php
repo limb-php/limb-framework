@@ -10,19 +10,23 @@ namespace limb\macro\src;
 use limb\macro\src\compiler\lmbMacroTagDictionary;
 use limb\macro\src\compiler\lmbMacroFilterDictionary;
 use limb\macro\src\compiler\lmbMacroCompiler;
+use limb\macro\src\compiler\lmbMacroTemplateExecutor;
 
 /**
  * class lmbMacroTemplate.
  *
  * @package macro
  * @version $Id$
+ *
  */
 class lmbMacroTemplate
 {
     protected $file;
     protected $compiled_file;
+    /** @var lmbMacroTemplateExecutor $executor */
     protected $executor;
     protected $vars = array();
+    /** @var lmbMacroTemplateExecutor $child_executor */
     protected $child_executor;
     protected $config;
     protected $locator;
@@ -30,7 +34,7 @@ class lmbMacroTemplate
     function __construct($file, $config = array(), lmbMacroTemplateLocatorInterface $locator = null)
     {
         $this->file = $file;
-        if (is_object($config) && $config instanceof lmbMacroConfig)
+        if ($config instanceof lmbMacroConfig)
             $this->config = $config;
         else
             $this->config = new lmbMacroConfig($config);

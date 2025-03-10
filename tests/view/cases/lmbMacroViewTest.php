@@ -57,14 +57,19 @@ class lmbMacroViewTest extends TestCase
         $error_list = new lmbErrorList();
         $error_list->addError('An error in {Field} with {Value}', array('Field' => 'title'), array('Value' => 'value1'));
 
-        $view->setFormDatasource('form1', new lmbSet(array('title' => 'My title')));
+        $datasource = new lmbSet(array('title' => 'My title'));
+
+        $view->setFormDatasource('form1', $datasource);
         $view->setFormErrors('form1', $error_list);
+
+        $this->assertEquals($datasource, $view->getFormDatasource('form1'));
+        $this->assertEquals($error_list, $view->getFormErrors('form1'));
 
         $expected = '<form id="form1" name="form1">An error in &quot;Title&quot; with value1|' .
             '<input type="text" name="title" title="Title" value="My title" />' .
             '</form>';
 
-        $this->assertEquals($view->render(), $expected);
+        $this->assertEquals($expected, $view->render());
     }
 
     protected function _createView($file)

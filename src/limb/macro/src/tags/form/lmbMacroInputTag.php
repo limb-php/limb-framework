@@ -7,8 +7,6 @@
 
 namespace limb\macro\src\tags\form;
 
-use limb\macro\src\tags\form\lmbMacroFormTagElement;
-
 /**
  * Macro analog for html <input> tag
  * @tag input

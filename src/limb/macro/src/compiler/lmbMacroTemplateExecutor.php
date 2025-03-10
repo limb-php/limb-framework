@@ -38,14 +38,12 @@ class lmbMacroTemplateExecutor
     function setVars($vars)
     {
         foreach ($vars as $name => $value)
-            $this->$name = $value;
-            //$this->__props[$name] = $value;
+            $this->set($name, $value);
     }
 
     function set($name, $value)
     {
-        $this->$name = $value;
-        //$this->__props[$name] = $value;
+        $this->__props[$name] = $value;
     }
 
     public function get($name)
@@ -58,13 +56,25 @@ class lmbMacroTemplateExecutor
         $this->__context = $context;
     }
 
-    function __get($name)
+    public function __isset($name)
     {
+        return isset($this->__props[$name]);
+    }
+
+    public function __set($name, $value)
+    {
+        $this->set($name, $value);
+    }
+
+    public function __get($name)
+    {
+        if (isset($this->__props[$name]))
+            return $this->__props[$name];
+
         //we can have parent variable context which should be consulted for all missing variables
         //actually, it's quite a dirty hack for a deeper problem which should be addressed later
         if ($this->__context)
-            return $this->__context->$name;
-            //return $this->__context->get($name);
+            return $this->__context->get($name);
 
         //we definitely want to suppress warnings, make it some sort of a NullObject?
         return '';
@@ -78,8 +88,7 @@ class lmbMacroTemplateExecutor
     function includeTemplate($file, $vars = [], $slots_handlers = [])
     {
         $template = new lmbMacroTemplate($file, $this->__config);
-        $template->setVars(get_object_vars($this));//global template vars
-        //$template->setVars(get_object_vars($this->__props));//global template vars
+        $template->setVars($this->__props);//global template vars
         foreach ($slots_handlers as $name => $handlers)
             $template->set('__slot_handlers_' . $name, $handlers);
 
@@ -90,8 +99,7 @@ class lmbMacroTemplateExecutor
     function wrapTemplate($file, $slots_handlers)
     {
         $template = new lmbMacroTemplate($file, $this->__config);
-        $template->setVars(get_object_vars($this));//global template vars
-        //$template->setVars(get_object_vars($this->__props));//global template vars
+        $template->setVars($this->__props);//global template vars
 
         foreach ($slots_handlers as $name => $handlers)
             $template->set('__slot_handlers_' . $name, $handlers);
