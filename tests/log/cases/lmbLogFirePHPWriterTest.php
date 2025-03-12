@@ -33,7 +33,7 @@ class lmbLogFirePHPWriterTest extends TestCase
 
         ob_end_clean();
 
-        $this->assertMatchesRegularExpression('/Error/', $headers[4]);
-        $this->assertMatchesRegularExpression('/foo/', $headers[4]);
+        $this->assertMatchesRegularExpression('/Error/', $headers[4] ?? '');
+        $this->assertMatchesRegularExpression('/foo/', $headers[4] ?? '');
     }
 }

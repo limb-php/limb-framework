@@ -33,22 +33,34 @@ class lmbLogTools extends lmbAbstractTools
         ];
     }
 
-    function getDefaultErrorDsn(): string
+    function getDefaultErrorConf(): string
     {
         return 'file://' . lmbEnv::get('LIMB_VAR_DIR') . 'log/error.log';
     }
 
-    /** @TODO: improve */
+    /** @deprecated */
+    function getDefaultErrorDsn(): string
+    {
+        return $this->getDefaultErrorConf();
+    }
+
+    /** @deprecated */
     function getConfLogDSNes(): array
     {
-        $default_error_dsn = $this->getDefaultErrorDsn();
+        return $this->getLogConfs();
+    }
+
+    /** @TODO: improve */
+    function getLogConfs(): array
+    {
+        $default_error_options = $this->getDefaultErrorConf();
 
         if (!$this->toolkit->hasConf('common'))
-            return ['error' => $default_error_dsn];
+            return ['error' => $default_error_options];
 
         $conf = $this->toolkit->getConf('common');
         if (!isset($conf['logs']))
-            return ['error' => $default_error_dsn];
+            return ['error' => $default_error_options];
 
         return $conf['logs'];
     }
@@ -61,30 +73,29 @@ class lmbLogTools extends lmbAbstractTools
 
         $this->log[$name] = new lmbLog();
 
-        $logWriters = $this->getConfLogDSNes();
+        $logWriters = $this->getLogConfs();
         if(isset($logWriters[$name])) {
             if( is_array($logWriters[$name]) ) {
-                foreach ($logWriters[$name] as $log_writer_key => $log_writer_value) {
-                    if(!$log_writer_key) {
-                        $dsn = $log_writer_value;
+                foreach ($logWriters[$name] as $log_writer_key => $log_writer_options) {
+                    if(is_numeric($log_writer_key) && $log_writer_options) {
+                        $options = $log_writer_options;
                         $level = null;
                     } else {
-                        $dsn = $log_writer_key;
-                        $level = $log_writer_value;
+                        $options = $log_writer_key;
+                        $level = $log_writer_options;
                     }
 
-                    $this->log[$name]->registerWriter(lmbLogWriterFactory::createLogWriter($dsn), $level);
+                    $this->log[$name]->registerWriter(lmbLogWriterFactory::createLogWriter($options), $level);
                 }
             } else {
-                $dsn = $logWriters[$name];
-                $this->log[$name]->registerWriter(lmbLogWriterFactory::createLogWriter($dsn));
+                $options = $logWriters[$name];
+                $this->log[$name]->registerWriter(lmbLogWriterFactory::createLogWriter($options));
             }
         }
 
         return $this->log[$name];
     }
 
-    /** @TODO: improve */
     public function setLog($name, $log): void
     {
         $this->log[$name] = $log;

@@ -32,16 +32,17 @@ class lmbLogToolsTest extends TestCase
 
     function testGetLogDSNes_default()
     {
-        $dsnes = $this->toolkit->getConfLogDSNes();
+        $dsnes = $this->toolkit->getLogConfs();
+
         $this->assertCount(1, $dsnes);
-        $this->assertEquals($this->toolkit->getDefaultErrorDsn(), $dsnes['error']);
+        $this->assertEquals($dsnes['error'], $this->toolkit->getDefaultErrorDsn());
     }
 
     function testGetLogDSNes_fromConfig()
     {
         $this->toolkit->setConf('common', array('logs' => array('foo')));
 
-        $dsnes = $this->toolkit->getConfLogDSNes();
+        $dsnes = $this->toolkit->getLogConfs();
         $this->assertEquals('foo', $dsnes[0]);
     }
 

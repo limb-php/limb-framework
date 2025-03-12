@@ -18,30 +18,37 @@ use limb\net\src\lmbUri;
  */
 class lmbLogWriterFactory
 {
-    public static function createLogWriter($dsn)
+    public static function createLogWriter($config)
     {
-        if (!is_object($dsn))
-            $dsn = new lmbUri($dsn);
+        if (is_string($config)) {
+            $dsn = new lmbUri($config);
+            $driver = $dsn->getScheme();
+        }
+        else {
+            $driver = $config['driver'];
+        }
 
-        switch ($dsn->getScheme()) {
+        switch ($driver) {
             case 'null':
                 return new lmbLogNullWriter();
             case 'echo':
                 return new lmbLogEchoWriter();
             case 'file':
-                return new lmbLogFileWriter($dsn);
+                return new lmbLogFileWriter($config);
             case 'plain_file':
-                return new lmbLogPlainFileWriter($dsn);
+                return new lmbLogPlainFileWriter($config);
             case 'firePHP':
                 return new lmbLogFirePHPWriter($dsn);
             case 'phplog':
-                return new lmbLogPHPLogWriter($dsn->toString());
+                return new lmbLogPHPLogWriter($config);
             case 'syslog':
                 return new lmbLogSyslogWriter();
+            case 'elastic':
+                return new lmbLogElasticWriter($config);
             case 'redis':
-                return new lmbLogRedisWriter($dsn->toString(), 'log');
+                return new lmbLogRedisWriter($config, 'log');
             default:
-                $writer_name = 'lmbLog' . ucfirst($dsn->getScheme()) . 'Writer';
+                $writer_name = 'lmbLog' . ucfirst($driver) . 'Writer';
                 $writerClassName = "limb\\log\\src\\" . $writer_name;
 
                 throw new lmbClassNotFoundException($writerClassName, 'Log writer not found');

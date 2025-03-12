@@ -23,7 +23,7 @@ class lmbLogElasticWriter implements lmbLogWriterInterface
     private $client;
     private $config;
 
-    function __construct(lmbSetInterface $config)
+    function __construct(array $config)
     {
         $this->config = $config;
 
