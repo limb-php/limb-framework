@@ -84,6 +84,7 @@ class lmbLogEntry
         return lmbSys::isCli() ? $this->asText() : $this->asHtml();
     }
 
+    /** @deprecated */
     function asText()
     {
         $params = $this->params;
