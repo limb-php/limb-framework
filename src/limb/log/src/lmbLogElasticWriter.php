@@ -60,7 +60,7 @@ class lmbLogElasticWriter implements lmbLogWriterInterface
             'METHOD' => $_SERVER['REQUEST_METHOD'],
             'URI' => $_SERVER['REQUEST_URI'],
             'REFERER' => $_SERVER['HTTP_REFERER'] ?? null,
-            'MESSAGE' => $entry->asText(),
+            'MESSAGE' => $entry->getMessage(),
             'LEVEL' => $entry->getLevelForHuman(),
         ];
 
