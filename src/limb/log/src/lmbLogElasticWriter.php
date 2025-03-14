@@ -55,13 +55,14 @@ class lmbLogElasticWriter implements lmbLogWriterInterface
         $time = (new lmbDateTime($entry->getTime()))->format("Y-m-d\Th:i:s");
 
         $log_message = [
-            'TIME' => $time,
-            'IP' => lmbIp::getRealIp(),
-            'METHOD' => $_SERVER['REQUEST_METHOD'],
-            'URI' => $_SERVER['REQUEST_URI'],
-            'REFERER' => $_SERVER['HTTP_REFERER'] ?? null,
-            'MESSAGE' => $entry->getMessage(),
-            'LEVEL' => $entry->getLevelForHuman(),
+            'timestamp' => $time,
+            'ip' => lmbIp::getRealIp(),
+            'request_method' => $_SERVER['REQUEST_METHOD'],
+            'port' => $_SERVER['REMOTE_PORT'],
+            'request_uri' => $_SERVER['REQUEST_URI'],
+            'referer' => $_SERVER['HTTP_REFERER'] ?? null,
+            'message' => $entry->getMessage(),
+            'debug_level' => $entry->getLevelForHuman(),
         ];
 
         return $log_message;

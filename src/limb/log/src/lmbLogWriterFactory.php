@@ -23,6 +23,7 @@ class lmbLogWriterFactory
         if (is_string($config)) {
             $dsn = new lmbUri($config);
             $driver = $dsn->getScheme();
+            $config = $dsn;
         }
         else {
             $driver = $config['driver'];
@@ -38,7 +39,7 @@ class lmbLogWriterFactory
             case 'plain_file':
                 return new lmbLogPlainFileWriter($config);
             case 'firePHP':
-                return new lmbLogFirePHPWriter($dsn);
+                return new lmbLogFirePHPWriter($config);
             case 'phplog':
                 return new lmbLogPHPLogWriter($config);
             case 'syslog':
