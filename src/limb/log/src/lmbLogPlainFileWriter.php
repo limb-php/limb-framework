@@ -33,9 +33,9 @@ class lmbLogPlainFileWriter implements lmbLogWriterInterface
         else
             $this->log_file = $dsn_or_path;
 
-        if($options['dateFormat'])
+        if(isset($options['dateFormat']))
             $this->options['dateFormat'] = $options['dateFormat'];
-        if($options['filenameFormat'])
+        if(isset($options['filenameFormat']))
             $this->options['filenameFormat'] = $options['filenameFormat'];
     }
 
