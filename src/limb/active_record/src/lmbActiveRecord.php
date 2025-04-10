@@ -1937,8 +1937,13 @@ class lmbActiveRecord extends lmbObject
             $params = array('criteria' => $criteria);
 
         $rs = self::find($class_name, $params, $conn);
-        foreach ($rs as $object)
+        $count = 0;
+        foreach ($rs as $object) {
             $object->destroy();
+            $count++;
+        }
+
+        return $count;
     }
 
     static function deleteRaw($class_name = null, $criteria = null, $conn = null)
