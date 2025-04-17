@@ -160,10 +160,12 @@ class lmbLog implements LoggerInterface
     }
 
     /** @TODO: remove one of aboveLevel() methods */
-    protected function _write($level, $string, $context = [])
+    /** @TODO: PSR-3: remove $backtrace */
+    /** @param $backtrace \limb\Core\lmbBacktrace */
+    protected function _write($level, $string, $context = [], $backtrace = null)
     {
-        $backtrace = $this->_getBacktraceFromContext($context);
-        $backtrace->setLimit($this->backtrace_depth[$level]);
+        if (!$backtrace)
+            $backtrace = new lmbBacktrace($this->backtrace_depth[$level]);
 
         $entry = new lmbLogEntry($level, $string, $context, $backtrace);
 
