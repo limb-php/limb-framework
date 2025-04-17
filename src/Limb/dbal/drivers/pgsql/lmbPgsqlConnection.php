@@ -135,7 +135,7 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
     {
         return pg_last_error($this->connectionId);
     }
-    
+
     function _raiseError($message, $params = [])
     {
         if($this->logger)

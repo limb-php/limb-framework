@@ -50,10 +50,11 @@ class lmbViewToolsTest extends TestCase
 
         $toolkit = lmbToolkit::instance();
 
-        $result = $toolkit->createViewByTemplate('index/view.php');
+        $view = $toolkit->createViewByTemplate('index/view.php');
+
         $toolkit->setSupportedViewTypes(['.php' => lmbPHPView::class]);
 
-        $this->assertEquals('Hello World!', $result);
+        $this->assertEquals('Hello World!', $view->render());
     }
 
 }

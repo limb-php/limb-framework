@@ -13,10 +13,11 @@
  */
 
 use limb\toolkit\src\lmbToolkit;
+use limb\view\lmbViewInterface;
 
 if (!function_exists('view')) {
 
-    function view($template_name, $vars = [])
+    function view($template_name, $vars = []): lmbViewInterface
     {
         return lmbToolkit::instance()->createViewByTemplate($template_name)->setVariables($vars);
     }
