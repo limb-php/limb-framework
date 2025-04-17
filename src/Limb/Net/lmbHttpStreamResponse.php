@@ -37,9 +37,9 @@ class lmbHttpStreamResponse extends lmbHttpResponse
      *
      * @return $this
      */
-    public function setCallback(callable $callback)
+    public function setCallback(callable $callback): static
     {
-        $this->callback = $callback;
+        $this->callback = $callback(...);
 
         return $this;
     }
@@ -89,7 +89,7 @@ class lmbHttpStreamResponse extends lmbHttpResponse
      *
      * @throws \LogicException when the content is not null
      */
-    public function setContent(?string $content)
+    public function setContent(?string $content): static
     {
         if (null !== $content) {
             throw new \LogicException('The content cannot be set on a StreamedResponse instance.');

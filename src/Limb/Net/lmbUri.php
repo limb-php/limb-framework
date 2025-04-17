@@ -46,7 +46,7 @@ class lmbUri implements UriInterface
             $this->query_items = array();
             $this->anchor = '';
 
-            if ('file' === substr($str, 0, 4))
+            if (str_starts_with($str, 'file'))
                 $str = $this->_fixFileProtocol($str);
 
             if (!$parsed_url = parse_url($str))
@@ -146,17 +146,17 @@ class lmbUri implements UriInterface
         $this->user = $user;
     }
 
-    private function setPassword($password)
+    private function setPassword($password): void
     {
         $this->password = $password;
     }
 
-    private function setHost($host)
+    private function setHost($host): void
     {
-        $this->host = strtolower($host);
+        $this->host = $host ? strtolower($host) : '';
     }
 
-    private function setPort($port)
+    private function setPort($port): void
     {
         $this->port = $port;
     }

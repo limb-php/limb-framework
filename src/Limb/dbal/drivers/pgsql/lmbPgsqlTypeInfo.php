@@ -32,6 +32,7 @@ class lmbPgsqlTypeInfo extends lmbDbTypeInfo
             'int8' => self::TYPE_INTEGER,
             'integer' => self::TYPE_INTEGER,
             'bigint' => self::TYPE_DECIMAL,
+            'unsigned big int' => self::TYPE_DECIMAL,
             'real' => self::TYPE_FLOAT,
             'float' => self::TYPE_FLOAT,
             'float4' => self::TYPE_FLOAT,
