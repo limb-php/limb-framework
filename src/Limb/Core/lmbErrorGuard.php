@@ -17,12 +17,11 @@ namespace Limb\Core;
  */
 class lmbErrorGuard
 {
-    static protected $fatal_error_delegate;
 
     static function registerExceptionHandler(): void
     {
         $delegate = func_get_args();
-        $prev = set_exception_handler(array(lmbDelegate::objectify($delegate), 'invoke'));
+        $prev = set_exception_handler([lmbDelegate::objectify($delegate), 'invoke']);
         if($prev !== null)
             restore_exception_handler();
     }
@@ -32,10 +31,12 @@ class lmbErrorGuard
         static $shutdown_registered = false;
 
         $delegate = func_get_args();
-        self::$fatal_error_delegate = lmbDelegate::objectify($delegate);
 
         if (!$shutdown_registered) {
-            register_shutdown_function(array(self::class, '_shutdownHandler'));
+            register_shutdown_function(
+                [self::class, '_shutdownHandler'],
+                lmbDelegate::objectify($delegate)
+            );
             $shutdown_registered = true;
         }
     }
@@ -43,10 +44,10 @@ class lmbErrorGuard
     static function registerErrorHandler(): void
     {
         $delegate = func_get_args();
-        set_error_handler(array(lmbDelegate::objectify($delegate), 'invoke'));
+        set_error_handler([lmbDelegate::objectify($delegate), 'invoke']);
     }
 
-    static function _shutdownHandler()
+    static function _shutdownHandler($fatal_error_delegate): void
     {
         if (!function_exists('error_get_last'))
             return;
@@ -59,7 +60,7 @@ class lmbErrorGuard
         foreach ($flags as $flag)
         {
             if( $error['type']&$flag ) {
-                self::$fatal_error_delegate->invoke($error);
+                $fatal_error_delegate->invoke($error);
                 break;
             }
         }
