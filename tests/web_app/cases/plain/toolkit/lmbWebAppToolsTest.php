@@ -12,12 +12,12 @@ namespace tests\web_app\cases\plain\toolkit;
 use limb\web_app\src\Controllers\LmbController;
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutes;
-use limb\core\src\lmbSet;
-use limb\core\src\lmbEnv;
-use limb\toolkit\src\lmbToolkit;
-use limb\fs\src\lmbFs;
-use limb\core\src\lmbObject;
-use limb\core\src\exception\lmbException;
+use limb\Core\lmbSet;
+use limb\Core\lmbEnv;
+use limb\Toolkit\lmbToolkit;
+use limb\Fs\lmbFs;
+use limb\Core\lmbObject;
+use limb\Core\Exception\lmbException;
 use limb\web_app\src\toolkit\lmbWebAppTools;
 
 require_once dirname(__FILE__) . '/../../init.inc.php';
@@ -29,6 +29,8 @@ class lmbWebAppToolsTest extends TestCase
     function setUp(): void
     {
         $this->toolkit = lmbToolkit::save();
+
+        lmbEnv::remove('LIMB_APP_MODE');
     }
 
     function tearDown(): void

@@ -9,10 +9,10 @@
 
 namespace limb\web_app\src\request;
 
-use limb\net\src\lmbUriHelper;
-use limb\toolkit\src\lmbToolkit;
-use limb\net\src\lmbUri;
-use limb\core\src\lmbEnv;
+use limb\Net\lmbUriHelper;
+use limb\Toolkit\lmbToolkit;
+use limb\Net\lmbUri;
+use limb\Core\lmbEnv;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -38,7 +38,7 @@ class lmbRoutesRequestDispatcher implements lmbRequestDispatcherInterface
             $this->base_path = $base_path;
     }
 
-    function dispatch(RequestInterface $request)
+    function dispatch(RequestInterface $request): array
     {
         $routes = lmbToolkit::instance()->getRoutes();
 

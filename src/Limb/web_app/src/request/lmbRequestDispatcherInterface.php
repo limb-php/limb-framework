@@ -19,5 +19,5 @@ use Psr\Http\Message\RequestInterface;
  */
 interface lmbRequestDispatcherInterface
 {
-    function dispatch(RequestInterface $request);
+    function dispatch(RequestInterface $request): array;
 }

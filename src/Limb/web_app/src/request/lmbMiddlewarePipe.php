@@ -2,7 +2,7 @@
 
 namespace limb\web_app\src\request;
 
-use limb\Dbal\filter\lmbAutoDbTransactionFilter;
+use limb\Dbal\Filter\lmbAutoDbTransactionFilter;
 use limb\FilterChain\lmbFilterChain;
 use limb\Net\lmbHttpResponse;
 use limb\web_app\src\filter\lmbSessionStartupFilter;

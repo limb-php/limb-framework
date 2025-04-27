@@ -107,9 +107,4 @@ class lmbActiveRecordFetcher extends lmbFetcher
     {
         return new lmbCollection(array($ar));
     }
-
-    public static function createFetcher(): lmbFetcher
-    {
-        return new static();
-    }
 }

@@ -10,11 +10,11 @@
 namespace tests\web_app\cases\plain\fetcher;
 
 use PHPUnit\Framework\TestCase;
-use limb\core\src\lmbCollection;
-use limb\core\src\lmbCollectionDecorator;
+use limb\Core\lmbCollection;
+use limb\Core\lmbCollectionDecorator;
 use limb\web_app\src\fetcher\lmbFetcher;
-use limb\core\src\lmbSet;
-use limb\core\src\exception\lmbException;
+use limb\Core\lmbSet;
+use limb\Core\Exception\lmbException;
 
 class TestingDatasetDecorator extends lmbCollectionDecorator
 {
@@ -55,11 +55,6 @@ class TestingFetcher extends lmbFetcher
     protected function _createDataSet()
     {
         return $this->use_dataset;
-    }
-
-    public static function createFetcher(): lmbFetcher
-    {
-        return new static();
     }
 }
 

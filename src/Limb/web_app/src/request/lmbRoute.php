@@ -9,7 +9,7 @@
 
 namespace limb\web_app\src\request;
 
-use limb\core\src\lmbObject;
+use limb\Core\lmbObject;
 
 /**
  * class lmbRoute.

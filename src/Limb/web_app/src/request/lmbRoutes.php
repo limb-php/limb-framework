@@ -9,7 +9,7 @@
 
 namespace limb\web_app\src\request;
 
-use limb\core\src\exception\lmbException;
+use limb\Core\Exception\lmbException;
 use limb\web_app\src\Helpers\lmbRouteHelper;
 
 /**

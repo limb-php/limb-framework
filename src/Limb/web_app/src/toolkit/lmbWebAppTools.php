@@ -9,24 +9,25 @@
 
 namespace limb\web_app\src\toolkit;
 
-use limb\active_record\toolkit\lmbARTools;
-use limb\config\toolkit\lmbConfTools;
-use limb\i18n\toolkit\lmbI18NTools;
-use limb\log\toolkit\lmbLogTools;
-use limb\net\lmbHttpResponse;
-use limb\net\toolkit\lmbNetTools;
-use limb\session\toolkit\lmbSessionTools;
-use limb\toolkit\lmbToolkit;
-use limb\core\lmbEnv;
-use limb\core\lmbString;
-use limb\toolkit\lmbAbstractTools;
-use limb\view\lmbViewInterface;
-use limb\view\toolkit\lmbViewTools;
+use limb\ActiveRecord\Toolkit\lmbARTools;
+use limb\Config\Toolkit\lmbConfTools;
+use limb\I18n\Toolkit\lmbI18NTools;
+use limb\Log\Toolkit\lmbLogTools;
+use limb\Net\lmbHttpResponse;
+use limb\Net\toolkit\lmbNetTools;
+use limb\Session\Toolkit\lmbSessionTools;
+use limb\Toolkit\lmbToolkit;
+use limb\Core\lmbEnv;
+use limb\Core\lmbString;
+use limb\Toolkit\lmbAbstractTools;
+use limb\View\lmbViewInterface;
+use limb\View\Toolkit\lmbViewTools;
 use limb\web_app\src\util\lmbFlashBox;
 use limb\web_app\src\request\lmbRoutes;
-use limb\core\exception\lmbException;
-use limb\fs\exception\lmbFileNotFoundException;
+use limb\Core\Exception\lmbException;
+use limb\Fs\Exception\lmbFileNotFoundException;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
+use Psr\Http\Message\ResponseInterface;
 
 lmbEnv::setor('LIMB_ENABLE_MOD_REWRITE', true); // we assume mod_rewrite in ON by default
 
@@ -214,7 +215,7 @@ class lmbWebAppTools extends lmbAbstractTools
         return new $controller_name;
     }
 
-    function redirect($params_or_url = [], $route_url = null, $append = ''): lmbHttpResponse
+    function redirect($params_or_url = [], $route_url = null, $append = ''): ResponseInterface
     {
         $redirect = $params_or_url;
         if (is_array($params_or_url)) {

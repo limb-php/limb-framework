@@ -9,15 +9,15 @@
 
 namespace limb\web_app\src\Controllers;
 
-use limb\fs\lmbFs;
-use limb\toolkit\lmbToolkit;
-use limb\validation\lmbErrorList;
-use limb\validation\lmbValidator;
-use limb\core\lmbEnv;
-use limb\core\lmbString;
+use limb\Fs\lmbFs;
+use limb\Toolkit\lmbToolkit;
+use limb\Validation\lmbErrorList;
+use limb\Validation\lmbValidator;
+use limb\Core\lmbEnv;
+use limb\Core\lmbString;
 use limb\web_app\src\Helpers\lmbRouteHelper;
-use limb\view\lmbViewInterface;
-use limb\core\exception\lmbException;
+use limb\View\lmbViewInterface;
+use limb\Core\Exception\lmbException;
 use limb\web_app\src\exception\lmbEmptyControllerResponseException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -161,7 +161,7 @@ class LmbController
     }
 
     /**
-     * @return ResponseInterface|false
+     * @return ResponseInterface
      * @throws lmbException
      * @throws lmbEmptyControllerResponseException
      */

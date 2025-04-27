@@ -21,7 +21,7 @@ class lmbCompositeRequestDispatcher implements lmbRequestDispatcherInterface
 {
     protected $dispatchers;
 
-    function dispatch(RequestInterface $request)
+    function dispatch(RequestInterface $request): array
     {
         foreach ($this->dispatchers as $dispatcher) {
             $result = $dispatcher->dispatch($request);

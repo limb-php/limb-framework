@@ -5,6 +5,7 @@
         displayDetailsOnTestsThatTriggerErrors="true"
         displayDetailsOnTestsThatTriggerNotices="true"
         displayDetailsOnTestsThatTriggerWarnings="true"
+        processIsolation="false"
 >
     <testsuites>
         <testsuite name="Limb Test Suite">
@@ -14,7 +15,7 @@
     <php>
         <ini name="date.timezone" value="UTC" />
         <ini name="intl.default_locale" value="C.UTF-8" />
-        <ini name="memory_limit" value="1024M" />
+        <ini name="memory_limit" value="2048M" />
         <env name="DB_CONNECTION" value="testing" />
         <!--
         <env name="REDIS_HOST" value="127.0.0.1" />
