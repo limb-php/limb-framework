@@ -2,9 +2,9 @@
 
 namespace limb\web_app\src;
 
-use limb\core\exception\lmbException;
-use limb\filter_chain\lmbInterceptingFilterInterface;
-use limb\toolkit\lmbToolkit;
+use limb\Core\Exception\lmbException;
+use limb\FilterChain\lmbInterceptingFilterInterface;
+use limb\Toolkit\lmbToolkit;
 use limb\web_app\src\exception\lmbControllerNotFoundException;
 use limb\web_app\src\exception\lmbExceptionHandler;
 use limb\web_app\src\request\lmbCompositeRequestDispatcher;

@@ -141,15 +141,15 @@ use Limb\Core\Exception\lmbNoSuchMethodException;
  * @method setView(\limb\view\lmbViewInterface|null $view)
  * @method \limb\view\lmbViewInterface|null getView()
  * @method setDispatchedController($dispatched)
- * @method \limb\web_app\Controllers\lmbController getDispatchedController()
- * @method \limb\web_app\Controllers\lmbController createController($controller_name, $namespace = '') {
- *      @throws \limb\web_app\exception\lmbControllerNotFoundException
+ * @method \limb\web_app\src\Controllers\lmbController getDispatchedController()
+ * @method \limb\web_app\src\Controllers\lmbController createController($controller_name, $namespace = '') {
+ *      @throws \limb\web_app\src\exception\lmbControllerNotFoundException
  * }
  * @method getRouteUrlByName($route_name, $params = array())
  * @method string getRoutesUrl($params = array(), $route_name = '', $skip_controller = false)
- * @method \limb\web_app\request\lmbRoutes getRoutes()
+ * @method \limb\web_app\src\request\lmbRoutes getRoutes()
  * @method setRoutes($routes)
- * @method \limb\web_app\util\lmbFlashBox getFlashBox()
+ * @method \limb\web_app\src\util\lmbFlashBox getFlashBox()
  * @method flashError($message)
  * @method flashMessage($message)
  * @method \limb\net\lmbHttpResponse redirect($params_or_url = [], $route_url = null, $append = '')

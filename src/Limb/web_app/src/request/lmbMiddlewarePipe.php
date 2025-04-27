@@ -2,9 +2,9 @@
 
 namespace limb\web_app\src\request;
 
-use limb\dbal\src\filter\lmbAutoDbTransactionFilter;
-use limb\filter_chain\src\lmbFilterChain;
-use limb\net\src\lmbHttpResponse;
+use limb\Dbal\filter\lmbAutoDbTransactionFilter;
+use limb\FilterChain\lmbFilterChain;
+use limb\Net\lmbHttpResponse;
 use limb\web_app\src\filter\lmbSessionStartupFilter;
 
 class lmbMiddlewarePipe extends lmbFilterChain
