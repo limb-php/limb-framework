@@ -9,12 +9,14 @@
 
 namespace Limb\ActiveRecord;
 
+use Limb\Core\lmbCollectionInterface;
 use Limb\Core\lmbObject;
 use Limb\Core\lmbString;
 use Limb\Core\lmbDelegate;
 use Limb\Core\lmbCollection;
 use Limb\Dbal\Criteria\lmbSQLCriteria;
 use Limb\Dbal\Drivers\lmbDbConnectionInterface;
+use limb\dbal\drivers\lmbDbRecordSetInterface;
 use Limb\Dbal\lmbTableGateway;
 use Limb\Validation\lmbValidator;
 use Limb\Validation\lmbErrorList;
@@ -1692,10 +1694,11 @@ class lmbActiveRecord extends lmbObject
      *  $books = self::find('Book',
      *                                    new lmbSQLFieldCriteria('name', 'hey'));
      *  </code>
+     * @TODO refactor: separate "find" (collection) and "get" (single object) functionality
      * @param string $class_name class name of the object
      * @param mixed $magic_params misc magic params
      * @param object $conn database connection object
-     * @return \Iterator
+     * @return lmbDbRecordSetInterface|lmbCollectionInterface|static|null
      */
     static function find($class_name = null, $magic_params = null, $conn = null)
     {

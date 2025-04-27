@@ -9,12 +9,12 @@
 
 namespace Limb\ActiveRecord;
 
-use Limb\Dbal\Drivers\lmbDbConnectionInterface;
+use Limb\Core\lmbCollectionInterface;
+use limb\dbal\drivers\lmbDbConnectionInterface;
 use Limb\Dbal\Query\lmbSelectRawQuery;
 use Limb\Dbal\Criteria\lmbSQLCriteria;
 use Limb\Core\Exception\lmbException;
 use Limb\Toolkit\lmbToolkit;
-use Limb\Dbal\Drivers\lmbDbBaseRecordSet;
 
 class lmbARQuery extends lmbSelectRawQuery
 {
@@ -106,7 +106,7 @@ class lmbARQuery extends lmbSelectRawQuery
         return $this->addOrder($field, $type);
     }
 
-    function getRecordSet(): lmbDbBaseRecordSet
+    function getRecordSet(): lmbCollectionInterface
     {
         $rs = parent::getRecordSet();
         if ($this->sort_params)
@@ -115,7 +115,13 @@ class lmbARQuery extends lmbSelectRawQuery
         return $rs;
     }
 
-    function fetch($decorate = true)
+    /**
+     * @param $decorate bool
+     * @return lmbCollectionInterface
+     * @throws lmbARException
+     * @throws lmbException
+     */
+    function fetch($decorate = true): lmbCollectionInterface
     {
         $this->_applyJoins($this->base_object, $this->join_relations);
 
@@ -213,7 +219,7 @@ class lmbARQuery extends lmbSelectRawQuery
      * @param string $sql
      * @return lmbARQuery
      */
-    static function create($class_name_or_obj, $params = array(), $conn = null, $sql = '')
+    static function create($class_name_or_obj, $params = array(), $conn = null, $sql = ''): self
     {
         if (!$conn)
             $conn = lmbToolkit::instance()->getDefaultDbConnection();

@@ -9,9 +9,9 @@
 
 namespace limb\dbal\query;
 
-use limb\core\exception\lmbException;
-use limb\dbal\criteria\lmbSQLCriteria;
-use limb\dbal\drivers\lmbDbBaseRecordSet;
+use limb\Core\Exception\lmbException;
+use Limb\Core\lmbCollectionInterface;
+use limb\Dbal\Criteria\lmbSQLCriteria;
 
 /**
  * class lmbSelectRawQuery.
@@ -191,13 +191,13 @@ class lmbSelectRawQuery extends lmbCriteriaQuery
         return parent::toString();
     }
 
-    function getRecordSet(): lmbDbBaseRecordSet
+    function getRecordSet(): lmbCollectionInterface
     {
         $stmt = $this->getStatement();
         return $stmt->getRecordSet();
     }
 
-    function fetch()
+    function fetch(): lmbCollectionInterface
     {
         return $this->getRecordSet();
     }
