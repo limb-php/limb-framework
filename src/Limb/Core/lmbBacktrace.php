@@ -55,7 +55,16 @@ class lmbBacktrace
         return $this;
     }
 
-    function get()
+    /**
+     * get limited backtrace
+     * @return array strings of backtrace
+     */
+    function get(): array
+    {
+        return $this->_preparedBacktrace();
+    }
+
+    function getAll()
     {
         return $this->backtrace;
     }
