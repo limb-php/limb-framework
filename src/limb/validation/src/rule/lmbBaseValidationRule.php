@@ -29,9 +29,21 @@ abstract class lmbBaseValidationRule implements lmbValidationRuleInterface
      */
     protected $error_list;
 
+    /**
+     * @var string Custom error message
+     */
+    protected $custom_error;
+
     function isValid(): bool
     {
         return $this->is_valid;
+    }
+
+    function setCustomError(string $custom_error): self
+    {
+        $this->custom_error = $custom_error;
+
+        return $this;
     }
 
     /**
@@ -42,6 +54,8 @@ abstract class lmbBaseValidationRule implements lmbValidationRuleInterface
     {
         $class_parts = explode('\\', get_called_class());
         $validatorName = end($class_parts);
+
+        $message = $this->custom_error ?? $message;
 
         $this->error_list->addError($message, $fields, $values, $validatorName);
         $this->is_valid = false;

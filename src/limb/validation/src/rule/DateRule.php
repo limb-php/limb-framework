@@ -35,4 +35,3 @@ class DateRule extends lmbSingleFieldRule
         }
     }
 }
-

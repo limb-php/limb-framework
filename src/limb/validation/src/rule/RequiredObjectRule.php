@@ -32,10 +32,6 @@ class RequiredObjectRule extends lmbBaseValidationRule
      * @var string Required class name
      */
     protected $class;
-    /**
-     * @var string Custom error message
-     */
-    protected $custom_error;
 
     /**
      * @param string $field_name Field name

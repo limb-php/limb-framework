@@ -31,6 +31,7 @@ class CmsTreeIdentifierRule extends lmbBaseValidationRule
 
         if (!$parent_node = $datasource->getParent()) {
             $error = $this->custom_error ?? lmbI18n::translate('Parent node not found', 'cms');
+            $this->error($error, array('Field' => $this->field_name));
             return;
         }
 

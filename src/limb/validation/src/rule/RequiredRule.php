@@ -30,10 +30,6 @@ class RequiredRule extends lmbBaseValidationRule
      * @var string Field name
      */
     protected $field_name;
-    /**
-     * @var string Custom error message
-     */
-    protected $custom_error;
 
     /**
      * Constructor

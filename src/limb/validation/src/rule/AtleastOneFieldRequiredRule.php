@@ -25,10 +25,6 @@ class AtleastOneFieldRequiredRule extends lmbBaseValidationRule
      * @var array List of fields
      */
     protected $field_names;
-    /**
-     * @var string Custom error message
-     */
-    protected $custom_error;
 
     function __construct($field_names, $custom_error = null)
     {

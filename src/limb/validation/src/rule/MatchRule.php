@@ -30,10 +30,6 @@ class MatchRule extends lmbBaseValidationRule
      * @var string Field name to validate
      */
     protected $field_name;
-    /**
-     * @var string Custom error message
-     */
-    protected $custom_error;
 
     /**
      * Constructor

@@ -22,11 +22,6 @@ abstract class lmbSingleFieldRule extends lmbBaseValidationRule
     protected $field_name;
 
     /**
-     * @var string Custom error message
-     */
-    protected $custom_error;
-
-    /**
      * @param string $field_name Field name
      * @param string|null $custom_error
      */
