@@ -16,7 +16,7 @@ class UserController extends LmbController
         if (!$request->hasPost())
             return;
 
-        if (!$user = lmbActiveRecord::findFirst(lmbCmsUser::class, array('email = ?', $this->request->get('email')))){
+        if (!$user = lmbActiveRecord::findFirst(lmbCmsUser::class, array('email = ?', $request->get('email')))){
             $this->flashError("Пользователь с таким значением email не найден", array('Field' => 'email'));
             return;
         }
@@ -40,7 +40,7 @@ class UserController extends LmbController
         $mailer = new lmbMailer();
         $mailer->sendPlainMail($user->getEmail(), lmbEnv::get('ADMIN_EMAIL', "no_reply@bit-cms.com"), "Password recovery", $email_body);
 
-        return $this->flashAndRedirect("Новый пароль выслан на ваш email", '/user/login');
+        return $this->flashAndRedirect("New password was sent to your email", '/user/login');
     }
 
     function doApprove($request)

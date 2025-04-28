@@ -1,10 +1,10 @@
 <?php
 
-namespace limb\cms\src\fetcher;
+namespace limb\Cms\src\Fetcher;
 
 use limb\web_app\src\fetcher\lmbFetcher;
-use limb\core\lmbCollection;
-use limb\toolkit\lmbToolkit;
+use limb\Core\lmbCollection;
+use limb\Toolkit\lmbToolkit;
 
 class lmbCmsAdminNavigationFetcher extends lmbFetcher
 {
@@ -18,10 +18,5 @@ class lmbCmsAdminNavigationFetcher extends lmbFetcher
             return new lmbCollection($data);
         else
             return new lmbCollection();
-    }
-
-    public static function createFetcher(): static
-    {
-        return new static();
     }
 }

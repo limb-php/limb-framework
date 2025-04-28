@@ -14,6 +14,7 @@ use Limb\Core\Exception\lmbNoSuchPropertyException;
 use Limb\Core\lmbObject;
 use Limb\Core\lmbString;
 use Limb\Core\Exception\lmbNoSuchMethodException;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Toolkit is an implementation of Dinamic Service Locator pattern
@@ -152,7 +153,8 @@ use Limb\Core\Exception\lmbNoSuchMethodException;
  * @method \limb\web_app\src\util\lmbFlashBox getFlashBox()
  * @method flashError($message)
  * @method flashMessage($message)
- * @method \limb\net\lmbHttpResponse redirect($params_or_url = [], $route_url = null, $append = '')
+ * @method ResponseInterface redirectToRoute(array $params, string $route_name = '', $append = '')
+ * @method ResponseInterface redirect($params_or_url = [], $route_url = null, $append = '')
  * @method bool isWebAppDebugEnabled()
  * @method addVersionToUrl($file_src, $safe = false)
  * @method getNormalizeUrlAndVersion($file_src, $safe = false)

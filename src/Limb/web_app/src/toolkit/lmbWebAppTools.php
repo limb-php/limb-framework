@@ -13,7 +13,6 @@ use limb\ActiveRecord\Toolkit\lmbARTools;
 use limb\Config\Toolkit\lmbConfTools;
 use limb\I18n\Toolkit\lmbI18NTools;
 use limb\Log\Toolkit\lmbLogTools;
-use limb\Net\lmbHttpResponse;
 use limb\Net\toolkit\lmbNetTools;
 use limb\Session\Toolkit\lmbSessionTools;
 use limb\Toolkit\lmbToolkit;
@@ -215,14 +214,20 @@ class lmbWebAppTools extends lmbAbstractTools
         return new $controller_name;
     }
 
-    function redirect($params_or_url = [], $route_url = null, $append = ''): ResponseInterface
+    function redirectToRoute(array $params, string $route_name = '', $append = ''): ResponseInterface
     {
-        $redirect = $params_or_url;
-        if (is_array($params_or_url)) {
-            $redirect = $this->toolkit->getRoutesUrl($params_or_url, $route_url);
-        }
+        $redirect = $this->toolkit->getRoutesUrl($params, $route_name);
 
         return response()->redirect($redirect . $append);
+    }
+
+    function redirect($params_or_url = [], $route_url = null, $append = ''): ResponseInterface
+    {
+        if (is_array($params_or_url)) {
+            return $this->toolkit->redirectToRoute($params_or_url, $route_url, $append);
+        }
+
+        return response()->redirect($params_or_url . $append);
     }
 
     function isWebAppDebugEnabled(): bool

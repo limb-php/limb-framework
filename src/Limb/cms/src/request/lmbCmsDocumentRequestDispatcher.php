@@ -7,12 +7,13 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cms\src\request;
+namespace limb\Cms\src\Request;
 
-use limb\web_app\src\request\lmbRequestDispatcherInterface;
-use limb\cms\src\model\lmbCmsDocument;
-use limb\core\exception\lmbException;
-use limb\toolkit\lmbToolkit;
+use limb\web_app\src\Request\lmbRequestDispatcherInterface;
+use Psr\Http\Message\RequestInterface;
+use limb\Cms\src\Model\lmbCmsDocument;
+use limb\Core\Exception\lmbException;
+use limb\Toolkit\lmbToolkit;
 
 /**
  * class lmbDbRequestDispatcher.
@@ -22,7 +23,7 @@ use limb\toolkit\lmbToolkit;
  */
 class lmbCmsDocumentRequestDispatcher implements lmbRequestDispatcherInterface
 {
-    function dispatch($request): array
+    function dispatch(RequestInterface $request): array
     {
         $path = $request->getUri()->getPath();
         if ($path === '/')

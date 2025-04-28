@@ -1,13 +1,13 @@
 <?php
 
-namespace limb\cms\src\Controllers\Admin;
+namespace limb\Cms\src\Controllers\Admin;
 
 use limb\web_app\src\Controllers\LmbController;
-use limb\active_record\lmbActiveRecord;
-use limb\cms\src\lmbCmsTreeBrowser;
-use limb\cms\src\model\lmbCmsNode;
-use limb\core\exception\lmbException;
-use limb\toolkit\lmbToolkit;
+use limb\ActiveRecord\lmbActiveRecord;
+use limb\Cms\src\lmbCmsTreeBrowser;
+use limb\Cms\src\Model\lmbCmsNode;
+use limb\Core\Exception\lmbException;
+use limb\Toolkit\lmbToolkit;
 
 class AdminTreeController extends LmbController
 {
@@ -20,7 +20,7 @@ class AdminTreeController extends LmbController
             $class_name = $request->get('class_name') ? $request->get('class_name') : 'lmbCmsNode';
             $node = new $class_name();
 
-            $this->_importAndSave($node);
+            $this->_importAndSave($request, $node);
         } else
             $request->set('class_name', 'lmbCmsNode');
     }
@@ -32,7 +32,7 @@ class AdminTreeController extends LmbController
         $this->setFormDatasource($request);
 
         if ($request->hasPost())
-            $this->_importAndSave($node);
+            $this->_importAndSave($request, $node);
         else {
             $request->merge($node->export());
             $request->set('controller_name', $node->getControllerName());

@@ -9,11 +9,12 @@
 
 namespace limb\cms\src\request;
 
-use limb\net\lmbUriHelper;
-use limb\web_app\src\request\lmbRequestDispatcherInterface;
-use limb\core\lmbEnv;
-use limb\net\lmbUri;
-use limb\cms\src\model\lmbCmsNode as Node;
+use limb\Net\lmbUriHelper;
+use limb\web_app\src\Request\lmbRequestDispatcherInterface;
+use limb\Core\lmbEnv;
+use limb\Net\lmbUri;
+use limb\Cms\src\Model\lmbCmsNode as Node;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * class lmbCmsNodeBasedRequestDispatcher.
@@ -42,9 +43,9 @@ class lmbCmsNodeBasedRequestDispatcher implements lmbRequestDispatcherInterface
             $this->base_path = $base_path;
     }
 
-    function dispatch($request)
+    function dispatch(RequestInterface $request): array
     {
-        $result = array();
+        $result = [];
 
         $uri = $request->getUri();
         $uri = $uri->withPath( lmbUriHelper::normalizePath($uri->getPath()) );

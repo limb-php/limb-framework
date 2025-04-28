@@ -10,10 +10,10 @@
 namespace limb\cms\src\filter;
 
 use limb\web_app\src\Controllers\NotFoundController;
-use limb\web_app\src\filter\lmbRequestDispatchingFilter;
-use limb\web_app\src\request\lmbCompositeRequestDispatcher;
-use limb\cms\src\request\lmbCmsDocumentRequestDispatcher;
-use limb\web_app\src\request\lmbRoutesRequestDispatcher;
+use limb\web_app\src\Filter\lmbRequestDispatchingFilter;
+use limb\web_app\src\Request\lmbCompositeRequestDispatcher;
+use limb\Cms\src\Request\lmbCmsDocumentRequestDispatcher;
+use limb\web_app\src\Request\lmbRoutesRequestDispatcher;
 
 /**
  * class lmbCmsRequestDispatchingFilter.
