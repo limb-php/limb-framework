@@ -44,8 +44,7 @@ class lmbMacroTemplateExecutor
 
     function set($name, $value)
     {
-        $this->$name = $value;
-        //$this->__props[$name] = $value;
+        $this->__props[$name] = $value;
     }
 
     public function get($name)
