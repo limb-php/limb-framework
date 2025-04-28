@@ -4,7 +4,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "8.1.* || 8.1.*",
+        "php": "8.1.* || 8.1.* || 8.2.*",
         "ext-json": "*",
         "phpmailer/phpmailer": "^6.6",
         "predis/predis": "^2.2",
@@ -21,13 +21,13 @@
     "autoload": {
         "files": [
             "src/Limb/Core/common.inc.php",
-            "src/Limb/cms/common.inc.php",
-            "src/Limb/i18n/common.inc.php",
-            "src/Limb/log/common.inc.php",
-            "src/Limb/net/common.inc.php",
-            "src/Limb/macro/common.inc.php",
-            "src/Limb/view/common.inc.php",
-            "src/Limb/optimization/common.inc.php"
+            "src/Limb/Cms/common.inc.php",
+            "src/Limb/I18n/common.inc.php",
+            "src/Limb/Log/common.inc.php",
+            "src/Limb/Net/common.inc.php",
+            "src/Limb/Macro/common.inc.php",
+            "src/Limb/View/common.inc.php",
+            "src/Limb/Optimization/common.inc.php"
         ],
         "psr-4": {
             "Limb\\": "src/Limb/"

@@ -12,8 +12,8 @@ namespace tests\filter_chain\cases;
 require_once(dirname(__FILE__) . '/.setup.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\net\lmbHttpRequest;
-use limb\filter_chain\lmbFilterChain;
+use Limb\Net\lmbHttpRequest;
+use Limb\FilterChain\lmbFilterChain;
 use tests\filter_chain\cases\src\InterceptingFilterStub;
 use tests\filter_chain\cases\src\OutputFilter1;
 use tests\filter_chain\cases\src\OutputFilter2;
@@ -22,6 +22,7 @@ use tests\filter_chain\cases\src\OutputFilter3;
 class lmbFilterChainTest extends TestCase
 {
     protected $fc;
+    protected $request;
 
     function setUp(): void
     {

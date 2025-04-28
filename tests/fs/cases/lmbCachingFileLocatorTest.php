@@ -12,14 +12,15 @@ namespace Limb\Tests\Fs\Cases;
 require_once(dirname(__FILE__) . '/init.inc.php');
 
 use PHPUnit\Framework\TestCase;
-use limb\fs\lmbFileLocator;
-use limb\fs\lmbCachingFileLocator;
-use limb\core\lmbEnv;
+use Limb\Fs\lmbFileLocator;
+use Limb\Fs\lmbCachingFileLocator;
+use Limb\Core\lmbEnv;
 
 class lmbCachingFileLocatorTest extends TestCase
 {
     protected $locator;
     protected $wrapped_locator;
+    protected $cache_file;
 
     function setUp(): void
     {

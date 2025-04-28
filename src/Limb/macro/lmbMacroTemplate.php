@@ -7,11 +7,12 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\macro;
+namespace Limb\Macro;
 
-use limb\macro\compiler\lmbMacroTagDictionary;
-use limb\macro\compiler\lmbMacroFilterDictionary;
-use limb\macro\compiler\lmbMacroCompiler;
+use Limb\Macro\Compiler\lmbMacroTagDictionary;
+use Limb\Macro\Compiler\lmbMacroFilterDictionary;
+use Limb\Macro\Compiler\lmbMacroCompiler;
+use Limb\Macro\Compiler\lmbMacroTemplateExecutor;
 
 /**
  * class lmbMacroTemplate.
@@ -23,8 +24,10 @@ class lmbMacroTemplate
 {
     protected $file;
     protected $compiled_file;
+    /** @var lmbMacroTemplateExecutor $executor */
     protected $executor;
     protected $vars = array();
+    /** @var lmbMacroTemplateExecutor $child_executor */
     protected $child_executor;
     protected $config;
     protected $locator;
@@ -32,7 +35,7 @@ class lmbMacroTemplate
     function __construct($file, $config = array(), lmbMacroTemplateLocatorInterface $locator = null)
     {
         $this->file = $file;
-        if (is_object($config) && $config instanceof lmbMacroConfig)
+        if ($config instanceof lmbMacroConfig)
             $this->config = $config;
         else
             $this->config = new lmbMacroConfig($config);

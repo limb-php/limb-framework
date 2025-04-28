@@ -1,12 +1,12 @@
 <?php
 
-namespace limb\macro\tags\lists;
+namespace Limb\Macro\Tags\Lists;
 
-use limb\macro\compiler\lmbMacroTag;
+use Limb\Macro\Compiler\lmbMacroTag;
 
 /**
  * The parent compile time component for lists
- * class limb\macro\tags\lists\lmbMacroListTag.
+ * class Limb\Macro\Tags\Lists\lmbMacroListTag.
  *
  * @tag list
  * @aliases list:list
@@ -15,6 +15,7 @@ use limb\macro\compiler\lmbMacroTag;
 class lmbMacroListTag extends lmbMacroTag
 {
     protected $counter_var;
+    protected $source_var;
     protected $count_source = false;
 
     function preParse($compiler): void

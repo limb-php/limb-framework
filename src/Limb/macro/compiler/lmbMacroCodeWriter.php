@@ -23,6 +23,7 @@ class lmbMacroCodeWriter
     protected $class;
 
     protected $parent;
+    protected $render_func;
 
     protected $current_mode = self::MODE_PHP;
 

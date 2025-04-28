@@ -17,6 +17,7 @@ namespace limb\macro\compiler;
 class lmbMacroExpression implements lmbMacroExpressionInterface
 {
     protected $tmp;
+    protected $expression_str;
 
     function __construct($expression_str)
     {

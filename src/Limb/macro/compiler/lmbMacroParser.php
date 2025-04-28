@@ -30,6 +30,7 @@ class lmbMacroParser implements lmbMacroTokenizerListenerInterface
     protected $tree_builder;
 
     protected $tokenizer;
+    protected $preprocessor;
 
     /**
      * @param lmbMacroTreeBuilder $tree_builder
