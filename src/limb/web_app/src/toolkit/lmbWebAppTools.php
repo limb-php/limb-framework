@@ -214,15 +214,15 @@ class lmbWebAppTools extends lmbAbstractTools
 
     function redirectToRoute(array $params, string $route_name = '', $append = ''): ResponseInterface
     {
-        $redirect = $this->toolkit->getRoutesUrl($params, $route_name);
+        $redirect_url = $this->toolkit->getRoutesUrl($params, $route_name);
 
-        return response()->redirect($redirect . $append);
+        return response()->redirect($redirect_url . $append);
     }
 
-    function redirect($params_or_url = [], $route_url = '', $append = ''): ResponseInterface
+    function redirect($params_or_url = [], string $route_name = '', $append = ''): ResponseInterface
     {
          if (is_array($params_or_url)) {
-            return $this->toolkit->redirectToRoute($params_or_url, $route_url, $append);
+            return $this->toolkit->redirectToRoute($params_or_url, $route_name, $append);
          }
 
         return response()->redirect($params_or_url . $append);

@@ -269,7 +269,7 @@ class LmbController
 //        }
     }
 
-    function redirect($params_or_url = array(), $route_url = null): ResponseInterface
+    function redirect($params_or_url = [], $route_url = ''): ResponseInterface
     {
         return $this->toolkit->redirect($params_or_url, $route_url);
     }
@@ -279,7 +279,7 @@ class LmbController
         $this->toolkit->flashError($message);
     }
 
-    function flashErrorAndRedirect($message, $redirect = array()): ResponseInterface
+    function flashErrorAndRedirect($message, $redirect = []): ResponseInterface
     {
         $this->flashError($message);
         return $this->redirect($redirect);
@@ -295,7 +295,7 @@ class LmbController
         $this->flashMessage($message);
     }
 
-    function flashAndRedirect($message, $redirect = array()): ResponseInterface
+    function flashAndRedirect($message, $redirect = []): ResponseInterface
     {
         $this->flashMessage($message);
         return $this->redirect($redirect);
