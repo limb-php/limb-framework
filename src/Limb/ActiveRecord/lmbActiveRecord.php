@@ -759,21 +759,23 @@ class lmbActiveRecord extends lmbObject
 
     /**
      *  Generic magic setter for any attribute
-     * @param string $property property name
+     * @param string $name property name
      * @param mixed $value property value
      */
-    function set($property, $value)
+    function set($name, $value): static
     {
-        if ($this->_hasCollectionRelation($property)) {
+        if ($this->_hasCollectionRelation($name)) {
             if ($this->isNew()) {
-                $collection = $this->createRelationCollection($property);
-                $this->_setRaw($property, $collection);
+                $collection = $this->createRelationCollection($name);
+                $this->_setRaw($name, $collection);
             } else
-                $collection = $this->get($property);
+                $collection = $this->get($name);
 
             $collection->set($value);
         } else
-            $this->_setARField($property, $value);
+            $this->_setARField($name, $value);
+
+        return $this;
     }
 
     function _setARField($property, $value)
@@ -1923,7 +1925,7 @@ class lmbActiveRecord extends lmbObject
      * @param string|array|lmbSQLCriteria $criteria search criteria, if not set all objects are removed
      * @param lmbDbConnectionInterface|null $conn database connection object
      */
-    static function delete($class_name = null, $criteria = null, $conn = null)
+    static function delete($class_name = null, $criteria = null, $conn = null): int
     {
         if (!self::_isClass($class_name)) {
             $conn = $criteria;
@@ -1939,8 +1941,13 @@ class lmbActiveRecord extends lmbObject
             $params = array('criteria' => $criteria);
 
         $rs = self::find($class_name, $params, $conn);
-        foreach ($rs as $object)
+        $count = 0;
+        foreach ($rs as $object) {
             $object->destroy();
+            $count++;
+        }
+
+        return $count;
     }
 
     static function deleteRaw($class_name = null, $criteria = null, $conn = null)
