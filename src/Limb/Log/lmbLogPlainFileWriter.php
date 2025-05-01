@@ -23,32 +23,40 @@ use Limb\Net\lmbUri;
 class lmbLogPlainFileWriter implements lmbLogWriterInterface
 {
     protected $log_file;
+    protected $options = [
+        'dateFormat' => 'U',
+        'filenameFormat' => '{filename}' //'{filename}-{date}'
+    ];
 
-    function __construct($dsn_or_path)
+    function __construct($dsn_or_path, $options = [])
     {
         if( is_a($dsn_or_path, lmbUri::class) )
             $this->log_file = $dsn_or_path->getPath();
         else
             $this->log_file = $dsn_or_path;
+
+        if(isset($options['dateFormat']))
+            $this->options['dateFormat'] = $options['dateFormat'];
+        if(isset($options['filenameFormat']))
+            $this->options['filenameFormat'] = $options['filenameFormat'];
     }
 
     function write(lmbLogEntry $entry)
     {
-        $this->_appendToFile($this->getLogFile(), $entry->getMessage(), $entry->getTime());
+        $this->_appendToFile($this->getLogFile($entry->getTime()), $entry);
     }
 
-    protected function _appendToFile($file_name, $message, $stamp)
+    protected function _appendToFile($file_name, $entry)
     {
         lmbFs::mkdir(dirname($file_name), 0775);
         $file_existed = file_exists($file_name);
 
         if ($fh = fopen($file_name, 'a')) {
             @flock($fh, LOCK_EX);
-            $time = (new lmbDateTime($stamp))->format("Y-m-d h:i:s");
 
-            $log_message = "[{$time}]" . " " . $message;
+            $formated = $this->formatEntry($entry);
 
-            fwrite($fh, $log_message);
+            fwrite($fh, $formated . PHP_EOL);
             @flock($fh, LOCK_UN);
             fclose($fh);
             if (!$file_existed)
@@ -60,8 +68,28 @@ class lmbLogPlainFileWriter implements lmbLogWriterInterface
         }
     }
 
-    function getLogFile()
+    protected function formatEntry(lmbLogEntry $entry): mixed
     {
-        return $this->log_file;
+        $time = (new lmbDateTime($entry->getTime()))->format("Y-m-d h:i:s");
+
+        $log_message = "[{$time}]" . " " . $entry->getMessage();
+
+        return $log_message;
+    }
+
+    function getLogFile($stamp)
+    {
+        $fileInfo = pathinfo($this->log_file);
+        $timedFilename = str_replace(
+            ['{filename}', '{date}'],
+            [$fileInfo['filename'], date($this->options['dateFormat'], $stamp)],
+            ($fileInfo['dirname'] ?? '') . '/' . $this->options['filenameFormat']
+        );
+
+        if (isset($fileInfo['extension'])) {
+            $timedFilename .= '.'.$fileInfo['extension'];
+        }
+
+        return $timedFilename;
     }
 }

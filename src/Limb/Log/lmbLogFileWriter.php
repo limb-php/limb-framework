@@ -34,32 +34,20 @@ class lmbLogFileWriter implements lmbLogWriterInterface
 
     function write(lmbLogEntry $entry)
     {
-        $this->_appendToFile($this->getLogFile(), $entry->asText(), $entry->getTime());
+        $this->_appendToFile($this->getLogFile(), $entry);
     }
 
-    protected function _appendToFile($file_name, $message, $stamp)
+    protected function _appendToFile($file_name, $entry)
     {
         lmbFs::mkdir(dirname($file_name), 0775);
         $file_existed = file_exists($file_name);
 
         if ($fh = fopen($file_name, 'a')) {
             @flock($fh, LOCK_EX);
-            $time = (new lmbDateTime($stamp))->format("Y-m-d h:i:s");
 
-            $log_message = "=========================[{$time}]";
+            $formated = $this->formatEntry($entry);
 
-            if (isset($_SERVER['REMOTE_ADDR']))
-                $log_message .= '[' . $_SERVER['REMOTE_ADDR'] . ']';
-
-            if (isset($_SERVER['REQUEST_URI']))
-                $log_message .= '[' . $_SERVER['REQUEST_METHOD'] . ': ' . $_SERVER['REQUEST_URI'] . ']';
-
-            if (isset($_SERVER['HTTP_REFERER']))
-                $log_message .= '[REF: ' . $_SERVER['HTTP_REFERER'] . ']';
-
-            $log_message .= "=========================\n" . $message;
-
-            fwrite($fh, $log_message);
+            fwrite($fh, $formated . PHP_EOL);
             @flock($fh, LOCK_UN);
             fclose($fh);
             if (!$file_existed)
@@ -69,6 +57,26 @@ class lmbLogFileWriter implements lmbLogWriterInterface
                 "The web server must be allowed to modify the file.\n" .
                 "File logging for '$file_name' is disabled.");
         }
+    }
+
+    protected function formatEntry(lmbLogEntry $entry): mixed
+    {
+        $time = (new lmbDateTime($entry->getTime()))->format("Y-m-d h:i:s");
+
+        $log_message = "=========================[{$time}]";
+
+        if (isset($_SERVER['REMOTE_ADDR']))
+            $log_message .= '[' . $_SERVER['REMOTE_ADDR'] . ']';
+
+        if (isset($_SERVER['REQUEST_URI']))
+            $log_message .= '[' . $_SERVER['REQUEST_METHOD'] . ': ' . $_SERVER['REQUEST_URI'] . ']';
+
+        if (isset($_SERVER['HTTP_REFERER']))
+            $log_message .= '[REF: ' . $_SERVER['HTTP_REFERER'] . ']';
+
+        $log_message .= "=========================\n" . $entry->asText();
+
+        return $log_message;
     }
 
     function getLogFile()

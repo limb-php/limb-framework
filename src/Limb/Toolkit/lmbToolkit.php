@@ -109,7 +109,8 @@ use Psr\Http\Message\ResponseInterface;
  * @method translate($text, $arg1 = null, $arg2 = null)
  *
  * @see lmbLogTools
- * @method getLogDSNes()
+ * @method getLogConfs(): array
+ * @method string getDefaultErrorConf()
  * @method \Psr\Log\LoggerInterface getLog($name = 'error')
  * @method setLog($name, \Psr\Log\LoggerInterface $log)
  *

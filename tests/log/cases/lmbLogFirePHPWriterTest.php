@@ -10,11 +10,11 @@
 namespace Limb\Tests\Log\Cases;
 
 use PHPUnit\Framework\TestCase;
-use limb\log\lmbLogFirePHPWriter;
-use limb\toolkit\lmbToolkit;
-use limb\log\lmbLogEntry;
-use limb\net\toolkit\lmbNetTools;
-use limb\net\lmbUri;
+use Limb\Log\lmbLogFirePHPWriter;
+use Limb\Toolkit\lmbToolkit;
+use Limb\Log\lmbLogEntry;
+use Limb\Net\Toolkit\lmbNetTools;
+use Limb\Net\lmbUri;
 use Psr\Log\LogLevel;
 
 class lmbLogFirePHPWriterTest extends TestCase
@@ -35,7 +35,7 @@ class lmbLogFirePHPWriterTest extends TestCase
 
         ob_end_clean();
 
-        $this->assertMatchesRegularExpression('/Error/', $headers[4]);
-        $this->assertMatchesRegularExpression('/foo/', $headers[4]);
+        $this->assertMatchesRegularExpression('/Error/', $headers[4] ?? '');
+        $this->assertMatchesRegularExpression('/foo/', $headers[4] ?? '');
     }
 }
