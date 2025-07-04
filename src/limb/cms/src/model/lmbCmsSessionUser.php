@@ -7,8 +7,8 @@
 
 namespace limb\cms\src\model;
 
-use limb\active_record\src\lmbActiveRecord;
-use limb\dbal\src\criteria\lmbSQLFieldCriteria;
+use limb\cms\src\Auth\AuthenticatableInterface;
+use limb\cms\src\Repository\lmbUserRepositoryInterface;
 
 /**
  * class lmbCmsClassName.
@@ -18,47 +18,41 @@ use limb\dbal\src\criteria\lmbSQLFieldCriteria;
  */
 class lmbCmsSessionUser
 {
-    protected $user_id;
+    protected $user_id = null;
+    protected $user = null;
     protected $is_logged_in = false;
-    protected $user;
 
-    function getUser(): lmbCmsUser
+    protected $provider;
+
+    function __construct(lmbUserRepositoryInterface $provider)
+    {
+        $this->provider = $provider;
+    }
+
+    function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    function getUser(): AuthenticatableInterface|null
     {
         if (is_object($this->user))
             return $this->user;
 
         if ($this->_isValidSession()) {
-            $this->user = lmbActiveRecord::findById(lmbCmsUser::class, $this->user_id);
-            if ($this->user)
-                $this->user->setLoggedIn($this->is_logged_in);
+            $this->user = $this->provider->findById($this->user_id);
         }
-
-        if(!$this->user)
-            $this->user = new lmbCmsUser();
 
         return $this->user;
     }
 
-    function setUser($user)
+    function setUser(AuthenticatableInterface $user)
     {
         $this->user = $user;
         $this->user_id = $user->id;
     }
 
-    function login($login, $password)
-    {
-        $criteria = new lmbSQLFieldCriteria('login', $login);
-        $user = lmbActiveRecord::findFirst(lmbCmsUser::class, array('criteria' => $criteria));
-
-        if ($user && $user->isPasswordCorrect($password)) {
-            return $this->autoLogin($user);
-        }
-
-        $this->setLoggedIn(false);
-        return false;
-    }
-
-    function autoLogin($user)
+    function login(AuthenticatableInterface $user)
     {
         $this->setUser($user);
         $this->setLoggedIn(true);

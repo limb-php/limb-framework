@@ -7,6 +7,9 @@
 
 namespace limb\cms\src\toolkit;
 
+use limb\cms\src\Auth\AuthenticatableInterface;
+use limb\cms\src\Repository\lmbUserRepository;
+use limb\cms\src\Repository\lmbUserRepositoryInterface;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\tree\src\lmbMPTree;
 use limb\cms\src\model\lmbCmsSessionUser;
@@ -51,29 +54,36 @@ class lmbCmsTools extends lmbAbstractTools
     }
 
     /* user */
-    function getUserSessionName(): string
+    function getUserSessionClassName(): string
     {
-        return $this->user_session_name;
+        return lmbCmsSessionUser::class;
+    }
+
+    function getUserRepository(): lmbUserRepositoryInterface
+    {
+        return lmbUserRepository::factory();
     }
 
     function getCmsAuthSession(): lmbCmsSessionUser
     {
         $session = lmbToolkit::instance()->getSession();
-        $session_user = $session->get($this->getUserSessionName());
-        if (!is_a($session_user, lmbCmsSessionUser::class)) {
-            $session_user = new lmbCmsSessionUser();
-            $session->set($this->getUserSessionName(), $session_user);
+        $session_class_name = $this->getUserSessionClassName();
+
+        $session_user = $session->get($session_class_name);
+        if (!is_a($session_user, $session_class_name)) {
+            $session_user = new $session_class_name( $this->getUserRepository() );
+            $session->set($session_class_name, $session_user);
         }
 
         return $session_user;
     }
 
-    function getCmsUser()
+    function getCmsUser(): AuthenticatableInterface|null
     {
         if (is_object($this->user))
             return $this->user;
 
-        $session_user = $this->toolkit->getCmsAuthSession();
+        $session_user = lmbToolkit::instance()->getCmsAuthSession();
 
         return $this->user = $session_user->getUser();
     }
@@ -82,7 +92,7 @@ class lmbCmsTools extends lmbAbstractTools
     {
         $this->setCmsUser(null);
         $session = lmbToolkit::instance()->getSession();
-        $session->destroy($this->getUserSessionName());
+        $session->destroy($this->getUserSessionClassName());
     }
 
     function setCmsUser($user): void

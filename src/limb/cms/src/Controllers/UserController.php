@@ -2,6 +2,7 @@
 
 namespace limb\cms\src\Controllers;
 
+use limb\cms\src\Auth\lmbAuth;
 use limb\web_app\src\Controllers\LmbController;
 use limb\core\src\lmbEnv;
 use limb\mail\src\lmbMailer;
@@ -63,8 +64,7 @@ class UserController extends LmbController
             $login = $request->get('login');
             $password = $request->get('password');
 
-            $auth = $this->toolkit->getCmsAuthSession();
-            if ($auth->login($login, $password)) {
+            if ( lmbAuth::login($login, $password) ) {
                 if (!$redirect_url = urldecode($request->get('redirect')))
                     $redirect_url = '/';
 
@@ -77,8 +77,7 @@ class UserController extends LmbController
 
     function doLogout()
     {
-        $auth = $this->toolkit->getCmsAuthSession();
-        $auth->logout();
+        lmbAuth::logout();
 
         response()->redirect('/');
     }
