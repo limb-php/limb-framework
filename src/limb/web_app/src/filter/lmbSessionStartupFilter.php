@@ -9,10 +9,10 @@ namespace limb\web_app\src\filter;
 
 use limb\core\src\lmbEnv;
 use limb\filter_chain\src\lmbInterceptingFilterInterface;
-use limb\session\src\lmbSessionNativeStorage;
-use limb\session\src\lmbSessionDbStorage;
-use limb\session\src\lmbSessionMemcacheStorage;
-use limb\session\src\lmbSessionMemcachedStorage;
+use limb\session\src\lmbSessionNativeStorageInitializer;
+use limb\session\src\lmbSessionDbStorageInitializer;
+use limb\session\src\lmbSessionMemcacheStorageInitializer;
+use limb\session\src\lmbSessionMemcachedStorageInitializer;
 use limb\toolkit\src\lmbToolkit;
 
 /**
@@ -41,6 +41,11 @@ class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
     {
         $this->session_type = lmbEnv::get('LIMB_SESSION_DRIVER') ?? $session_type;
         $this->session_lifetime = lmbEnv::get('LIMB_SESSION_MAX_LIFE_TIME') ?? $session_lifetime;
+
+        lmbToolkit::instance()->registerSessionStorageDriver('db', lmbSessionDbStorageInitializer::class);
+        lmbToolkit::instance()->registerSessionStorageDriver('memcache', lmbSessionMemcacheStorageInitializer::class);
+        lmbToolkit::instance()->registerSessionStorageDriver('memcached', lmbSessionMemcachedStorageInitializer::class);
+        lmbToolkit::instance()->registerSessionStorageDriver('native', lmbSessionNativeStorageInitializer::class);
     }
 
     /**
@@ -48,17 +53,8 @@ class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
      */
     function run($filter_chain, $request = null, $callback = null)
     {
-        if ($this->session_type == 'db')
-            $storage = $this->_createDBSessionStorage($this->session_lifetime);
-        elseif ($this->session_type == 'memcache')
-            $storage = $this->_createMemcacheSessionStorage($this->session_lifetime);
-        elseif ($this->session_type == 'memcached')
-            $storage = $this->_createMemcachedSessionStorage($this->session_lifetime);
-        else
-            $storage = $this->_createNativeSessionStorage();
-
         $session = lmbToolkit::instance()->getSession();
-        $session->start($storage);
+        $session->start( lmbToolkit::instance()->sessionStorageFactory($this->session_type, ['lifetime' => $this->session_lifetime]) );
 
         $response = $filter_chain->next($request, $callback);
 
@@ -67,32 +63,4 @@ class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
         return $response;
     }
 
-    protected function _createNativeSessionStorage()
-    {
-        return new lmbSessionNativeStorage();
-    }
-
-    protected function _createMemcachedSessionStorage($lifetime)
-    {
-        $memcached_conf = lmbToolkit::instance()->getConf('memcached');
-        return new lmbSessionMemcachedStorage($memcached_conf['host'] ?? 'localhost', $memcached_conf['port'] ?? '11211', $lifetime);
-    }
-
-    protected function _createMemcacheSessionStorage($lifetime)
-    {
-        $memcache_conf = lmbToolkit::instance()->getConf('memcache');
-        return new lmbSessionMemcacheStorage($memcache_conf['host'] ?? 'localhost', $memcache_conf['port'] ?? '11211', $lifetime);
-    }
-
-    /**
-     * Creates object of {@link lmbSessionDbStorage} class.
-     * If constant LIMB_SESSION_MAX_LIFE_TIME is defined passed it's value as session max life time
-     * @see  lmbInterceptingFilter::run()
-     * @uses LIMB_SESSION_MAX_LIFE_TIME
-     */
-    protected function _createDBSessionStorage($lifetime)
-    {
-        $db_connection = lmbToolkit::instance()->getDefaultDbConnection();
-        return new lmbSessionDbStorage($db_connection, $lifetime);
-    }
 }
