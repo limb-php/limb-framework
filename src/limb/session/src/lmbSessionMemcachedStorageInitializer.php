@@ -7,7 +7,7 @@ use limb\toolkit\src\lmbToolkit;
 class lmbSessionMemcachedStorageInitializer implements lmbSessionStorageInitializerInterface
 {
 
-    function init($options = []): lmbSessionStorageInterface
+    static function init($options = []): lmbSessionStorageInterface
     {
         $memcached_conf = lmbToolkit::instance()->getConf('memcached');
         $lifetime = $options['lifetime'];

@@ -12,7 +12,7 @@ class lmbSessionDBStorageInitializer implements lmbSessionStorageInitializerInte
      * @see  lmbInterceptingFilter::run()
      * @uses LIMB_SESSION_MAX_LIFE_TIME
      */
-    function init($options = []): lmbSessionStorageInterface
+    static function init($options = []): lmbSessionStorageInterface
     {
         $db_connection = lmbToolkit::instance()->getDefaultDbConnection();
         $lifetime = $options['lifetime'];

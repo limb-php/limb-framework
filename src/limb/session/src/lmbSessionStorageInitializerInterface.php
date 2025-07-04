@@ -10,6 +10,6 @@ namespace limb\session\src;
 interface lmbSessionStorageInitializerInterface
 {
 
-    function init($options = []): lmbSessionStorageInterface;
+    static function init($options = []): lmbSessionStorageInterface;
 
 }
