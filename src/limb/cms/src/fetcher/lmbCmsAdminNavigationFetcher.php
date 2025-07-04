@@ -13,10 +13,13 @@ class lmbCmsAdminNavigationFetcher extends lmbFetcher
         $toolkit = lmbToolkit::instance();
         $conf = $toolkit->getConf('navigation');
 
-        $data = $conf->get($toolkit->getCmsUser()->getRoleType());
-        if (is_array($data))
-            return new lmbCollection($data);
-        else
-            return new lmbCollection();
+        $user = $toolkit->getCmsUser();
+        if($user) {
+            $data = $conf->get($user->getRoleType());
+            if (is_array($data))
+                return new lmbCollection($data);
+        }
+
+        return new lmbCollection();
     }
 }

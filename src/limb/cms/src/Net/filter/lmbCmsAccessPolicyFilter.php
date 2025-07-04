@@ -33,7 +33,7 @@ class lmbCmsAccessPolicyFilter implements lmbInterceptingFilterInterface
         $controller_name = $this->current_controller->getName();
 
         if (strpos($controller_name, 'admin') === 0) {
-            if (!$user->isLoggedIn()) {
+            if (!$user || !$user->isLoggedIn()) {
                 $toolkit->flashMessage("Not authorized");
                 $toolkit->redirectToRoute(['controller' => 'user', 'action' => 'login'], null, '?redirect=' . $current_path);
 
