@@ -71,7 +71,7 @@ class lmbAdminObjectControllerTest extends TestCase
 
         $expected_callchain = 'onCreate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|';
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals($expected_callchain, $response->getBody());
+        $this->assertEquals($expected_callchain, $response->getBody()->__toString());
     }
 
     function testEventsOnPerformEditActionFirstTime()
@@ -102,7 +102,7 @@ class lmbAdminObjectControllerTest extends TestCase
 
         $expected_callchain = 'onUpdate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|';
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals($expected_callchain, $response->getBody());
+        $this->assertEquals($expected_callchain, $response->getBody()->__toString());
     }
 
     function testEventsOnPerformEditActionWithPost()

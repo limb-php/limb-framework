@@ -43,7 +43,7 @@ class lmbCmsDocumentRequestDispatcherTest extends lmbCmsTestCase
 
     function testDispatch_NotFoundInDb()
     {
-        $this->assertNull($this->_createDispatcher());
+        $this->assertEmpty($this->_createDispatcher());
     }
 
     function testDispatch_FoundInDb()
