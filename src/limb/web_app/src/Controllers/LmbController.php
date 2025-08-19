@@ -230,6 +230,9 @@ class LmbController
             $this->setFormDatasource($datasource);
     }
 
+    /**
+     * @throws lmbException
+     */
     function setFormDatasource($datasource, $form_id = null): void
     {
         if ($form_id !== null)
@@ -269,7 +272,7 @@ class LmbController
 //        }
     }
 
-    function redirect($params_or_url = [], $route_url = ''): ResponseInterface
+    function redirect($params_or_url = [], string $route_url = ''): ResponseInterface
     {
         return $this->toolkit->redirect($params_or_url, $route_url);
     }
