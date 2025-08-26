@@ -106,7 +106,7 @@ class lmbCmsUser extends lmbActiveRecord implements lmbRoleProviderInterface, Au
 
     public function getAuthPasswordName()
     {
-        return 'password';
+        return 'hashed_password';
     }
 
     public function getAuthPassword()
