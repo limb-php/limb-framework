@@ -3,6 +3,7 @@
 namespace limb\cms\src\Controllers;
 
 use limb\cms\src\Auth\lmbAuth;
+use limb\cms\src\Helper\SecurityHelper;
 use limb\web_app\src\Controllers\LmbController;
 use limb\core\src\lmbEnv;
 use limb\mail\src\lmbMailer;
@@ -27,7 +28,7 @@ class UserController extends LmbController
         if (!$this->error_list->isEmpty())
             return;
 
-        $password = $user->generatePassword();
+        $password = SecurityHelper::generatePassword();
         $user->setNewPassword($password);
         $user->setGeneratedPassword($user->getCryptedPassword($password));
         $user->saveSkipValidation();

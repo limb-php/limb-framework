@@ -76,25 +76,6 @@ class lmbCmsUser extends lmbActiveRecord implements lmbRoleProviderInterface, Au
         return $this->getHashedPassword() == $this->getCryptedPassword($password);
     }
 
-    function generatePassword()
-    {
-        $alphabet = array(
-            array('b', 'c', 'd', 'f', 'g', 'h', 'g', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z',
-                'B', 'C', 'D', 'F', 'G', 'H', 'G', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Z'),
-            array('a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'),
-        );
-
-        $new_password = '';
-        for ($i = 0; $i < 9; $i++) {
-            $j = $i % 2;
-            $min_value = 0;
-            $max_value = count($alphabet[$j]) - 1;
-            $key = rand($min_value, $max_value);
-            $new_password .= $alphabet[$j][$key];
-        }
-        return $new_password;
-    }
-
     function getIsAdmin()
     {
         return $this->getRoleType() == lmbCmsUserRoles::ADMIN;
@@ -111,5 +92,40 @@ class lmbCmsUser extends lmbActiveRecord implements lmbRoleProviderInterface, Au
     function getRole(): array
     {
         return [$this->getRoleType()];
+    }
+
+    public function getAuthIdentifierName()
+    {
+        return 'id';
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->get($this->getAuthIdentifierName());
+    }
+
+    public function getAuthPasswordName()
+    {
+        return 'password';
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->get($this->getAuthPasswordName());
+    }
+
+    public function getRememberToken()
+    {
+        return $this->get($this->getRememberTokenName());
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->set($this->getRememberTokenName(), $value);
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'token';
     }
 }
