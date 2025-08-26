@@ -15,8 +15,8 @@ namespace limb\session\src;
  */
 class lmbFakeSession extends lmbSession
 {
-    function start($storage = null)
+    function start($storage = null): bool
     {
-
+        return true;
     }
 }
