@@ -16,7 +16,7 @@ use limb\cms\src\Repository\lmbUserRepositoryInterface;
  * @package cms
  * @version $Id$
  */
-class lmbCmsSessionUser
+class lmbCmsSessionUser implements AuthSessionInterface
 {
     protected $user_id = null;
     protected $user = null;
@@ -64,7 +64,7 @@ class lmbCmsSessionUser
         $this->setLoggedIn(false);
     }
 
-    function isLoggedIn()
+    function isLoggedIn(): bool
     {
         return $this->is_logged_in;
     }

@@ -36,7 +36,8 @@ class UserController extends LmbController
         $template = new lmbMacroView('user/forgot_password_email.txt');
         $template->set('user', $user);
         $template->set('approve_password_url',
-            'http://' . $_SERVER['HTTP_HOST'] . '/user/approve/' . $user->getGeneratedPassword());
+            'http://' . $_SERVER['HTTP_HOST'] . '/user/approve/' . $user->getGeneratedPassword()
+        );
         $email_body = $template->render();
 
         $mailer = new lmbMailer();
@@ -56,7 +57,7 @@ class UserController extends LmbController
         $user->setGeneratedPassword('');
         $user->saveSkipValidation();
 
-        $this->flashAndRedirect('Новый пароль активирован', '/user/login');
+        $this->flashAndRedirect('New password is applied', '/user/login');
     }
 
     function doLogin($request)
@@ -65,13 +66,13 @@ class UserController extends LmbController
             $login = $request->get('login');
             $password = $request->get('password');
 
-            if ( lmbAuth::login($login, $password) ) {
+            if ( lmbAuth::loginCredentials($login, $password) ) {
                 if (!$redirect_url = urldecode($request->get('redirect')))
                     $redirect_url = '/';
 
                 response()->redirect($redirect_url);
             } else {
-                $this->flashError("Неверный логин или пароль");
+                $this->flashError("Wrong login or password");
             }
         }
     }

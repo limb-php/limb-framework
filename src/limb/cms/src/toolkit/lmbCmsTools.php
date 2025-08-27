@@ -8,6 +8,7 @@
 namespace limb\cms\src\toolkit;
 
 use limb\cms\src\Auth\AuthenticatableInterface;
+use limb\cms\src\model\AuthSessionInterface;
 use limb\cms\src\Repository\lmbUserRepository;
 use limb\cms\src\Repository\lmbUserRepositoryInterface;
 use limb\toolkit\src\lmbAbstractTools;
@@ -25,8 +26,6 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbCmsTools extends lmbAbstractTools
 {
-    protected $user_session_name = 'lmbCmsSessionUser';
-
     protected $tree;
     protected $user;
 
@@ -64,7 +63,7 @@ class lmbCmsTools extends lmbAbstractTools
         return lmbUserRepository::factory();
     }
 
-    function getCmsAuthSession(): lmbCmsSessionUser
+    function getCmsAuthSession(): AuthSessionInterface
     {
         $session = lmbToolkit::instance()->getSession();
         $session_class_name = $this->getUserSessionClassName();

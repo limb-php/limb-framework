@@ -7,12 +7,12 @@ use limb\toolkit\src\lmbToolkit;
 
 class lmbAuth
 {
-    static function getSession(): lmbCmsSessionUser
+    static function getSession(): AuthSessionInterface
     {
         return lmbToolkit::instance()->getCmsAuthSession();
     }
 
-    static function login($login, $password): bool
+    static function loginCredentials($login, $password): bool
     {
         $user_provider = lmbToolkit::instance()->getUserRepository();
         $user_session = self::getSession();
@@ -24,6 +24,13 @@ class lmbAuth
 
         $user_session->logout();
         return false;
+    }
+
+    static function login($user): bool
+    {
+        $user_session = self::getSession();
+
+        return $user_session->login($user);
     }
 
     static function logout(): void
