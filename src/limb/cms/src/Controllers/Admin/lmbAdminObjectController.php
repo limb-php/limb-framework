@@ -113,7 +113,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         }
     }
 
-    function doDelete($request)
+    function doDelete(RequestInterface $request)
     {
         if (!$request->hasPost())
             $ids = $request->get('ids');
@@ -137,7 +137,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         }
     }
 
-    function doRevertPublish($request)
+    function doRevertPublish(RequestInterface $request)
     {
         if ($request->has('ids'))
             $ids = $request->get('ids');
@@ -154,7 +154,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         return $this->_endDialog();
     }
 
-    function doPublish($request)
+    function doPublish(RequestInterface $request)
     {
         if (!$item = $this->_getObjectByRequestedId($request))
             return $this->forwardTo404();
@@ -167,7 +167,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         return $this->_endDialog();
     }
 
-    function doUnpublish($request)
+    function doUnpublish(RequestInterface $request)
     {
         if (!$item = $this->_getObjectByRequestedId($request))
             return $this->forwardTo404();
@@ -180,13 +180,13 @@ abstract class lmbAdminObjectController extends lmbObjectController
         return $this->_endDialog();
     }
 
-    function doPriority($request)
+    function doPriority(RequestInterface $request)
     {
         $this->_changeItemsPriority($request, $this->_object_class_name);
         return $this->_endDialog();
     }
 
-    protected function _import($request)
+    protected function _import(RequestInterface $request)
     {
         $this->_onBeforeImport($request);
         $this->item->import($request);
@@ -197,14 +197,16 @@ abstract class lmbAdminObjectController extends lmbObjectController
         $this->_onAfterImport($request);
     }
 
-    protected function _validate($request, $is_create = false)
+    protected function _validate(RequestInterface $request, $is_create = false)
     {
         $this->_onBeforeValidate($request);
-        //$this->item->validate($this->getErrorList());
+
+        $cloned = clone($this->item);
+        $cloned->import($request->export());
 
         $validator = new $this->_validator_class($this->_object_class_name);
         $validator->ignore($this->item);
-        $validator->validate($request->export(), $is_create);
+        $validator->validate($cloned->export(), $is_create);
 
         $this->error_list = $validator->getErrorList();
         $this->data['error_list'] = $this->error_list->getReadable();
@@ -212,7 +214,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         $this->_onAfterValidate($request);
     }
 
-    protected function _store($request, $is_create = true): bool
+    protected function _store(RequestInterface $request, $is_create = true): bool
     {
         $this->_onBeforeCreate($request);
         $this->_onBeforeSave($request);
@@ -223,7 +225,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         return true;
     }
 
-    protected function _update($request, $is_create = false): bool
+    protected function _update(RequestInterface $request, $is_create = false): bool
     {
         $this->_onBeforeUpdate($request);
         $this->_onBeforeSave($request);
@@ -243,7 +245,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
         }
     }
 
-    protected function _changeItemsPriority($request, $model, $where_field, $where_field_value)
+    protected function _changeItemsPriority(RequestInterface $request, $model, $where_field, $where_field_value)
     {
         $priority_items = $request->get('priority_items');
 
