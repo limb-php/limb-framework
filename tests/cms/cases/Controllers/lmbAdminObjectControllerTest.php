@@ -95,7 +95,7 @@ class lmbAdminObjectControllerTest extends TestCase
         $object->setField('test');
         $object->save();
 
-        $request = new lmbHttpRequest('https://localhost/test_admin_object/edit/' . $object->getId(), 'GET', [], array('id' => $object->getId(), 'field' => ''));
+        $request = new lmbHttpRequest('https://localhost/test_admin_object/edit/' . $object->getId(), 'POST', [], ['id' => $object->getId(), 'field' => '']);
 
         $app = new lmbWebApplicationSandbox();
         $response = $app->imitate($request);
@@ -111,14 +111,14 @@ class lmbAdminObjectControllerTest extends TestCase
         $object->setField('test');
         $object->save();
 
-        $request = new lmbHttpRequest('https://localhost/test_admin_object/edit/' . $object->getId(), 'GET', [], array('id' => $object->getId()));
+        $request = new lmbHttpRequest('https://localhost/test_admin_object/edit/' . $object->getId(), 'POST', [], ['id' => $object->getId()]);
 
         $app = new lmbWebApplicationSandbox();
         $response = $app->imitate($request);
 
         $expected_callchain = 'onUpdate|onBeforeImport|onAfterImport|onBeforeValidate|onAfterValidate|onBeforeUpdate|onBeforeSave|onAfterSave|onAfterUpdate|';
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals($expected_callchain, $response->getBody());
+        $this->assertEquals($expected_callchain, $response->getBody()->__toString());
     }
 
     function testEventsOnPerformDeleteAction()

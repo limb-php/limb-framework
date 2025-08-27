@@ -5,10 +5,12 @@ namespace tests\cms\cases\src\Controllers;
 use limb\cms\src\Controllers\Admin\lmbAdminObjectController;
 use limb\net\src\lmbHttpResponse;
 use tests\cms\cases\src\Model\AdminObjectForTesting;
+use tests\cms\cases\src\Validation\TestObjectValidator;
 
 class TestAdminObjectController extends lmbAdminObjectController
 {
     protected $_object_class_name = AdminObjectForTesting::class;
+    protected $_validator_class = TestObjectValidator::class;
     protected $in_popup = false;
 
     protected $result = '';
