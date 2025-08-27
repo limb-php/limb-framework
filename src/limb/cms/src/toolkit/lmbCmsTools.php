@@ -70,11 +70,17 @@ class lmbCmsTools extends lmbAbstractTools
 
         $session_user = $session->get($session_class_name);
         if (!is_a($session_user, $session_class_name)) {
-            $session_user = new $session_class_name( $this->getUserRepository() );
+            $session_user = new $session_class_name( lmbToolkit::instance()->getUserRepository() );
             $session->set($session_class_name, $session_user);
         }
 
         return $session_user;
+    }
+
+    function resetCmsAuthSession()
+    {
+        $session = lmbToolkit::instance()->getSession();
+        $session->destroy($this->getUserSessionClassName());
     }
 
     function getCmsUser(): AuthenticatableInterface|null
@@ -89,9 +95,10 @@ class lmbCmsTools extends lmbAbstractTools
 
     function resetCmsUser(): void
     {
+        $session_user = lmbToolkit::instance()->getCmsAuthSession();
+        $session_user->resetUser();
+
         $this->setCmsUser(null);
-        $session = lmbToolkit::instance()->getSession();
-        $session->destroy($this->getUserSessionClassName());
     }
 
     function setCmsUser($user): void

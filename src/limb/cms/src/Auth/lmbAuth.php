@@ -2,7 +2,7 @@
 
 namespace limb\cms\src\Auth;
 
-use limb\cms\src\model\lmbCmsSessionUser;
+use limb\cms\src\model\AuthSessionInterface;
 use limb\toolkit\src\lmbToolkit;
 
 class lmbAuth

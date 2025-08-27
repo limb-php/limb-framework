@@ -8,6 +8,7 @@
 namespace tests\cms\cases\Toolkit;
 
 use limb\cms\src\Auth\lmbAuth;
+use limb\cms\src\model\AuthSessionInterface;
 use limb\cms\src\model\lmbCmsSessionUser;
 use limb\cms\src\Repository\lmbUserRepository;
 use limb\toolkit\src\lmbToolkit;
@@ -17,6 +18,11 @@ require_once(dirname(__FILE__) . './../.setup.php');
 
 class ToolkitTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        lmbToolkit::instance()->getSession()->reset();
+    }
+
     function testGetUserRepository()
     {
         $repository = lmbToolkit::instance()->getUserRepository();
@@ -30,7 +36,7 @@ class ToolkitTest extends TestCase
     {
         $auth_session = lmbToolkit::instance()->getCmsAuthSession();
 
-        $this->assertEquals(lmbCmsSessionUser::class, get_class($auth_session));
+        $this->assertInstanceOf(AuthSessionInterface::class, $auth_session);
         $this->assertEquals(null, $auth_session->getUser());
     }
 
@@ -52,7 +58,7 @@ class ToolkitTest extends TestCase
 
         $user = $repository->findByLogin('admin');
         $user->getId(); // initialize object
-        lmbAuth::login('admin', 'secret');
+        lmbAuth::loginCredentials('admin', 'secret');
 
         $this->assertEquals($user, $auth_session->getUser());
         $this->assertTrue($auth_session->isLoggedIn());
@@ -62,7 +68,7 @@ class ToolkitTest extends TestCase
     {
         $auth_session = lmbToolkit::instance()->getCmsAuthSession();
 
-        lmbAuth::login('admin', 'secret');
+        lmbAuth::loginCredentials('admin', 'secret');
 
         $this->assertTrue($auth_session->isLoggedIn());
 

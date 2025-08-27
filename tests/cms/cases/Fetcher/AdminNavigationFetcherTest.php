@@ -12,7 +12,7 @@ require_once(dirname(__FILE__) . '/../.setup.php');
 
 class AdminNavigationFetcherTest extends TestCase
 {
-    function testNavigationFetcher()
+    function testNavigationFetcherCreds()
     {
         $toolkit = lmbToolkit::instance();
         $conf = $toolkit->getConf('navigation');
@@ -20,9 +20,23 @@ class AdminNavigationFetcherTest extends TestCase
         $admin_nav = (new lmbCmsAdminNavigationFetcher)->fetch();
         $this->assertEquals(null, $admin_nav['title']);
 
-        lmbAuth::login('admin', 'secret');
+        lmbAuth::loginCredentials('admin', 'secret');
 
         $admin_nav2 = (new lmbCmsAdminNavigationFetcher)->fetch();
         $this->assertEquals($conf[lmbCmsUserRoles::ADMIN][1], $admin_nav2[1]);
     }
+
+//    function testNavigationFetcher()
+//    {
+//        $toolkit = lmbToolkit::instance();
+//        $conf = $toolkit->getConf('navigation');
+//
+//        $admin_nav = (new lmbCmsAdminNavigationFetcher)->fetch();
+//        $this->assertEquals(null, $admin_nav['title']);
+//
+//        //lmbAuth::login('admin');
+//
+//        $admin_nav2 = (new lmbCmsAdminNavigationFetcher)->fetch();
+//        $this->assertEquals($conf[lmbCmsUserRoles::ADMIN][1], $admin_nav2[1]);
+//    }
 }
