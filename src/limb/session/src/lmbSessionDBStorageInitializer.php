@@ -4,7 +4,7 @@ namespace limb\session\src;
 
 use limb\toolkit\src\lmbToolkit;
 
-class lmbSessionDBStorageInitializer implements lmbSessionStorageInitializerInterface
+class lmbSessionDbStorageInitializer implements lmbSessionStorageInitializerInterface
 {
     /**
      * Creates object of {@link lmbSessionDbStorage} class.
