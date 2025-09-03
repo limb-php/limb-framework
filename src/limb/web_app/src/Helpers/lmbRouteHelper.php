@@ -39,4 +39,21 @@ class lmbRouteHelper
         return implode($separator, $ctrlClassNameArr);
     }
 
+    static function getDotedNameByNamespace($ctrlClassNamespace, $separator = '.'): string
+    {
+        if ($pos = strpos($ctrlClassNamespace, '\\Controllers')) {
+            $ctrlClassNamespace = substr($ctrlClassNamespace, $pos + 13);
+        } elseif ($pos = strpos($ctrlClassNamespace, '\\controller')) {
+            $ctrlClassNamespace = substr($ctrlClassNamespace, $pos + 12);
+        }
+
+        $ctrlClassNamespaceArr = explode('\\', $ctrlClassNamespace);
+
+        $ctrlClassNamespaceArr = array_map(function ($part) {
+            return lmbString::under_scores($part);
+        }, $ctrlClassNamespaceArr);
+
+        return implode($separator, $ctrlClassNamespaceArr);
+    }
+
 }

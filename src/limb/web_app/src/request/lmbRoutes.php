@@ -198,6 +198,7 @@ class lmbRoutes
 
     protected function _makeUrlByRoute($params, $route)
     {
+        $defaults = $route->get('defaults');
         $prefix = $route['prefix'] ?? '';
         $path = $route['prefix'] ? '/:prefix' . $route['path'] : $route['path'];
 
@@ -220,7 +221,7 @@ class lmbRoutes
                 continue;
             }
 
-            if (isset($route['defaults'][$param_name]) && ($route['defaults'][$param_name] === $param_value)) {
+            if (isset($defaults[$param_name]) && ($defaults[$param_name] === $param_value)) {
                 unset($params[$param_name]); // default params will be substituted lower
                 continue;
             }
@@ -235,7 +236,7 @@ class lmbRoutes
         if (count($params))
             return '';
 
-        if (!empty($route['defaults'])) {
+        if (!empty($defaults)) {
             // we define here required default params for building right url,
             // other params at the end of the path can be omitted.
             $required_params = array();
@@ -245,7 +246,7 @@ class lmbRoutes
                 }
             }
 
-            foreach ($route['defaults'] as $param_name => $param_value) {
+            foreach ($defaults as $param_name => $param_value) {
                 if (!in_array(':' . $param_name, $required_params))
                     $param_value = '';
 
@@ -253,6 +254,12 @@ class lmbRoutes
             }
 
             $path = preg_replace('~/+~', '/', $path);
+        }
+
+        if(isset($defaults['namespace']) && $prefix) {
+            $namespace = lmbRouteHelper::getDotedNameByNamespace($defaults['namespace']);
+            if( $namespace )
+                $path = str_replace($namespace . '/', '', $path);
         }
 
         $path = str_replace(':prefix', $prefix, $path);

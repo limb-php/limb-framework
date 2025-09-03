@@ -16,6 +16,7 @@ use limb\core\src\exception\lmbException;
 use tests\web_app\cases\plain\src\Controllers\Api\Admin\FreeController;
 use tests\web_app\cases\plain\src\Controllers\Api\ApiTestingController;
 use tests\web_app\cases\plain\src\Controllers\SecondTestingController;
+use tests\web_app\cases\plain\src\Controllers\Admin\UserController;
 
 class lmbRoutesToUrlTest extends TestCase
 {
@@ -115,6 +116,15 @@ class lmbRoutesToUrlTest extends TestCase
                     'action' => 'display'
                 )
             ),
+
+            'admin_users' => array(
+                'prefix' => 'manager/cpanel',
+                'path' => '/:controller',
+                'defaults' => array(
+                    'namespace' => 'tests\web_app\cases\plain\src\Controllers\Admin',
+                    'action' => 'display'
+                )
+            ),
         );
 
         $routes = new lmbRoutes($config);
@@ -127,6 +137,9 @@ class lmbRoutesToUrlTest extends TestCase
 
         $controller3 = new FreeController();
         $this->assertEquals('/api/admin/free', $routes->toUrl(['controller' => $controller3]));
+
+        $controller4 = new UserController();
+        $this->assertEquals('/manager/cpanel/user', $routes->toUrl(['controller' => $controller4], 'admin_users'));
     }
 
     function testToUrlUseNamedParam()
