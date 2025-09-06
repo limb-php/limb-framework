@@ -51,8 +51,7 @@ class TextBlockController extends lmbAdminObjectController
         if (!$this->item = lmbCmsTextBlock::findOneByIdentifier($request->getAttribute('id')))
             $this->forwardTo404();
 
-        $this->useForm($this->_form_name);
-        $this->setFormDatasource($this->item);
+        $this->useForm($this->_form_name, $this->item);
 
         if ($request->hasPost()) {
             $this->_import($request);

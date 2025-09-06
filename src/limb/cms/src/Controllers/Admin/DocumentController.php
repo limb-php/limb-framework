@@ -56,8 +56,7 @@ class DocumentController extends lmbAdminObjectController
 
         $this->_onCreate($request);
 
-        $this->useForm($this->_form_name);
-        $this->setFormDatasource($this->item);
+        $this->useForm($this->_form_name, $this->item);
 
         if ($request->hasPost()) {
             $this->_import($request);

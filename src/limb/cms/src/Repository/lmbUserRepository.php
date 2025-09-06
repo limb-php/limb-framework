@@ -15,14 +15,22 @@ class lmbUserRepository implements lmbUserRepositoryInterface
         return new static();
     }
 
-    function findById($user_id): lmbCmsUser|null
+    function findById($user_id): lmbCmsUser|lmbActiveRecord|null
     {
         return lmbActiveRecord::findById($this->model_class, $user_id, false);
     }
 
-    function findByLogin($login): lmbCmsUser|null
+    function findByLogin($login): lmbCmsUser|lmbActiveRecord|null
     {
         $criteria = new lmbSQLFieldCriteria('login', $login);
+
+        return lmbActiveRecord::findFirst(lmbCmsUser::class, array('criteria' => $criteria));
+    }
+
+    function findForAdmin($params = [])
+    {
+        $criteria = new lmbSQLFieldCriteria('login', $params['login']);
+
         return lmbActiveRecord::findFirst(lmbCmsUser::class, array('criteria' => $criteria));
     }
 }

@@ -42,8 +42,7 @@ abstract class NodeWithObjectController extends LmbController
         $this->node = new $this->_node_class_name();
         $this->item = new $this->_object_class_name();
 
-        $this->useForm($this->_form_name);
-        $this->setFormDatasource($request);
+        $this->useForm($this->_form_name, $request);
 
         if ($request->hasPost()) {
             $this->node->setControllerName($this->_controller_name);
@@ -67,8 +66,8 @@ abstract class NodeWithObjectController extends LmbController
             return $this->forwardTo404();
 
         $this->item = $this->node->getObject();
-        $this->useForm($this->_form_name);
-        $this->setFormDatasource($request);
+
+        $this->useForm($this->_form_name, $request);
 
         if ($request->hasPost()) {
             $this->_import($request);

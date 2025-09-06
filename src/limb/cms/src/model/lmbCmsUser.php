@@ -38,11 +38,10 @@ class lmbCmsUser extends lmbActiveRecord implements lmbRoleProviderInterface, Au
         $validator->addRequiredRule('name', 'Field "Name" is required');
         $validator->addRequiredRule('login', 'Field "Login" is required');
         $validator->addRequiredRule('email', 'Field "E-mail" is required');
-
         $validator->addRule(new CmsUserUniqueFieldRule('login', $this));
         $validator->addRule(new CmsUserUniqueFieldRule('email', $this));
-
         $validator->addRule(new EmailRule('email', 'Wrong format "E-mail"'));
+
         return $validator;
     }
 
@@ -53,7 +52,6 @@ class lmbCmsUser extends lmbActiveRecord implements lmbRoleProviderInterface, Au
     {
         $validator = $this->_createValidator();
         $validator->addRequiredRule('password', 'Поле "Пароль" обязательно для заполнения');
-
         $validator->addRule(new MatchRule('password', 'repeat_password', 'Значения полей "Пароль" и "Подтверждение пароля" не совпадают'));
 
         return $validator;

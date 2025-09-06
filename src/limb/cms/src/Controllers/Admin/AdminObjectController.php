@@ -55,8 +55,7 @@ abstract class AdminObjectController extends LmbController
         $this->item = new $this->_object_class_name();
         $this->_onCreate($request);
 
-        $this->useForm($this->_form_name);
-        $this->setFormDatasource($this->item);
+        $this->useForm($this->_form_name, $this->item);
 
         if ($request->getMethod() == 'POST') {
             $this->_import($request);
@@ -78,8 +77,7 @@ abstract class AdminObjectController extends LmbController
         $this->item = lmbActiveRecord::findById($this->_object_class_name, (int)$request->get('id'));
         $this->_onEdit($request);
 
-        $this->useForm($this->_form_name);
-        $this->setFormDatasource($this->item);
+        $this->useForm($this->_form_name, $this->item);
 
         if ($request->getMethod() == 'POST') {
             $this->_import($request);

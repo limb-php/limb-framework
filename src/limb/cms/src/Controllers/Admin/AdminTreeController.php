@@ -13,8 +13,7 @@ class AdminTreeController extends LmbController
 {
     function doCreateNode($request)
     {
-        $this->useForm('node_form');
-        $this->setFormDatasource($request);
+        $this->useForm('node_form', $request);
 
         if ($request->hasPost()) {
             $class_name = $request->get('class_name') ? $request->get('class_name') : 'lmbCmsNode';
