@@ -34,6 +34,11 @@ class lmbWebApplication extends lmbFilterChain
     protected $inited = false;
     protected $bootstraps = [];
 
+    static protected function getServerErrorTemplatePath(): string
+    {
+        return dirname(__FILE__) . '/../template/server_error.html';
+    }
+
     function setDefaultControllerName($name)
     {
         $this->default_controller_name = $name;
@@ -90,12 +95,12 @@ class lmbWebApplication extends lmbFilterChain
         return $response;
     }
 
-    protected function _registerBootstraps()
+    protected function _registerBootstraps(): void
     {
-        $this->registerBootstrap(new lmbErrorHandlerBootstrap(dirname(__FILE__) . '/../template/server_error.html'));
+        $this->registerBootstrap(new lmbErrorHandlerBootstrap( self::getServerErrorTemplatePath() ));
     }
 
-    protected function _bootstrap($request)
+    protected function _bootstrap($request): void
     {
         foreach ($this->bootstraps as $bootstrap) {
             if (is_callable([$bootstrap, 'bootstrap']))
@@ -103,7 +108,7 @@ class lmbWebApplication extends lmbFilterChain
         }
     }
 
-    protected function _terminate()
+    protected function _terminate(): void
     {
         foreach ($this->bootstraps as $bootstrap) {
             if (is_callable([$bootstrap, 'terminate']))
@@ -111,7 +116,7 @@ class lmbWebApplication extends lmbFilterChain
         }
     }
 
-    protected function _registerFilters()
+    protected function _registerFilters(): void
     {
         $this->registerFilter(lmbSessionStartupFilter::class);
 
@@ -125,7 +130,7 @@ class lmbWebApplication extends lmbFilterChain
         $this->_addFilters($this->pre_action_filters);
     }
 
-    protected function _addFilters($filters)
+    protected function _addFilters($filters): void
     {
         foreach ($filters as $filter)
             $this->registerFilter($filter);
