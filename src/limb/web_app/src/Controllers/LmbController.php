@@ -29,7 +29,7 @@ lmbEnv::setor('LIMB_CONTROLLER_CACHE_ENABLED', true);
  * @package web_app
  * @version $Id: lmbController.php 8117 2010-01-31 11:20:22Z
  */
-class LmbController
+abstract class LmbController
 {
     /**
      * @var string name of the controller

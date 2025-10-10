@@ -5,11 +5,11 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cms\src\Controllers\Admin;
+namespace limb\cms\src\Controllers;
 
-use limb\web_app\src\Controllers\LmbController;
 use limb\active_record\src\lmbActiveRecord;
 use limb\core\src\exception\lmbException;
+use limb\web_app\src\Controllers\LmbController;
 
 /**
  * abstract class AdminObjectController.
