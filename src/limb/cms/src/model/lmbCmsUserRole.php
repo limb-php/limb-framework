@@ -21,10 +21,13 @@ class lmbCmsUserRole extends lmbObject
     protected $name;
     protected $short_name;
 
-    function __construct($id, $name, $short_name)
+    static function create($id, $name, $short_name)
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->short_name = $short_name;
+        $role = new static();
+        $role->id = $id;
+        $role->name = $name;
+        $role->short_name = $short_name;
+
+        return $role;
     }
 }

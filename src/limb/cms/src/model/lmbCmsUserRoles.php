@@ -37,18 +37,20 @@ class lmbCmsUserRoles
 
     function createAdminRole()
     {
-        return new lmbCmsUserRole(self::ADMIN, 'Admin', 'Admin');
+        return lmbCmsUserRole::create(self::ADMIN, 'Admin', 'Admin');
     }
 
     function createEditorRole()
     {
-        return new lmbCmsUserRole(self::EDITOR, 'Editor', 'Editor');
+        return lmbCmsUserRole::create(self::EDITOR, 'Editor', 'Editor');
     }
 
     function getRoles()
     {
-        return array(self::ADMIN => self::createAdminRole(),
-            self::EDITOR => self::createEditorRole());
+        return array(
+            self::ADMIN => self::createAdminRole(),
+            self::EDITOR => self::createEditorRole()
+        );
     }
 
     function fetch()

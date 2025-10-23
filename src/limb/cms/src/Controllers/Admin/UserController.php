@@ -30,7 +30,7 @@ class UserController extends lmbAdminObjectController
     function doDisplay($request)
     {
         if ($request->hasPost()) {
-            return $this->redirect('/admin_user');
+            return $this->redirect('/admin/user');
         }
 
         $filter_params = $this->_initFilter();
@@ -85,6 +85,6 @@ class UserController extends lmbAdminObjectController
         $this->item->destroy();
         $this->flash('User has been deleted');
 
-        return $this->redirect('/admin_user');
+        return $this->redirect('/admin/user');
     }
 }
