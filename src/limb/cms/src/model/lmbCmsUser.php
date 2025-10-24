@@ -17,6 +17,7 @@ namespace limb\cms\src\model;
 use limb\acl\src\lmbRoleProviderInterface;
 use limb\active_record\src\lmbActiveRecord;
 use limb\cms\src\Auth\AuthenticatableInterface;
+use limb\cms\src\Helper\SecurityHelper;
 use limb\cms\src\validation\rule\CmsUserUniqueFieldRule;
 use limb\validation\src\lmbValidator;
 use limb\validation\src\rule\EmailRule;
@@ -29,49 +30,16 @@ class lmbCmsUser extends lmbActiveRecord implements lmbRoleProviderInterface, Au
     const ROLE_NAME_ADMIN = 'admin';
     const ROLE_NAME_EDITOR = 'editor';
 
-    /**
-     * @return lmbValidator
-     */
-    protected function _createValidator()
-    {
-        $validator = new lmbValidator();
-        $validator->addRequiredRule('name', 'Field "Name" is required');
-        $validator->addRequiredRule('login', 'Field "Login" is required');
-        $validator->addRequiredRule('email', 'Field "E-mail" is required');
-        $validator->addRule(new CmsUserUniqueFieldRule('login', $this));
-        $validator->addRule(new CmsUserUniqueFieldRule('email', $this));
-        $validator->addRule(new EmailRule('email', 'Wrong format "E-mail"'));
-
-        return $validator;
-    }
-
-    /**
-     * @return lmbValidator
-     */
-    protected function _createInsertValidator()
-    {
-        $validator = $this->_createValidator();
-        $validator->addRequiredRule('password', 'Поле "Пароль" обязательно для заполнения');
-        $validator->addRule(new MatchRule('password', 'repeat_password', 'Значения полей "Пароль" и "Подтверждение пароля" не совпадают'));
-
-        return $validator;
-    }
-
     protected function _onBeforeSave()
     {
-        if ($this->password)
-            $this->setHashedPassword($this->getCryptedPassword($this->password));
-    }
-
-    function getCryptedPassword($password)
-    {
-        if (!$this->getCtime()) $this->setCtime(time());
-        return sha1('.kO/|b@S@.42' . $this->getCtime() . sha1($password));
+        if ($this->password) {
+            $this->set($this->getAuthPasswordName(), SecurityHelper::cryptPassword($this->password, $this->ctime));
+        }
     }
 
     function isPasswordCorrect($password): bool
     {
-        return $this->getHashedPassword() == $this->getCryptedPassword($password);
+        return $this->getAuthPassword() == SecurityHelper::cryptPassword($password, $this->ctime);
     }
 
     function getIsAdmin()

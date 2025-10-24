@@ -2,6 +2,7 @@
 
 namespace limb\cms\src\Controllers;
 
+use limb\cms\src\Actions\ForgotPasswordEmailAction;
 use limb\cms\src\Auth\lmbAuth;
 use limb\cms\src\Helper\SecurityHelper;
 use limb\web_app\src\Controllers\LmbController;
@@ -30,20 +31,13 @@ class UserController extends LmbController
 
         $password = SecurityHelper::generatePassword();
         $user->setNewPassword($password);
-        $user->setGeneratedPassword($user->getCryptedPassword($password));
+        $user->setGeneratedPassword(SecurityHelper::cryptPassword($password, $user->ctime));
         $user->saveSkipValidation();
 
-        $template = new lmbMacroView('user/forgot_password_email.txt');
-        $template->set('user', $user);
-        $template->set('approve_password_url',
-            'http://' . $_SERVER['HTTP_HOST'] . '/user/approve/' . $user->getGeneratedPassword()
-        );
-        $email_body = $template->render();
+        ForgotPasswordEmailAction::do($user);
 
-        $mailer = new lmbMailer();
-        $mailer->sendPlainMail($user->getEmail(), lmbEnv::get('ADMIN_EMAIL', "no_reply@bit-cms.com"), "Password recovery", $email_body);
-
-        $this->flashAndRedirect("New password was sent to your e-mail", '/user/login');
+        $this->flash("New password was sent to your e-mail");
+        return $this->redirect('/user/login');
     }
 
     function doApprove($request)
