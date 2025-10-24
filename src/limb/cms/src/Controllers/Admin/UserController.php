@@ -13,7 +13,6 @@ class UserController extends lmbAdminObjectController
 {
     protected $_object_class_name = lmbCmsUser::class;
 
-
     protected function _initFilter(): array
     {
         $filter_name = 'ADMIN_USER_FILTER';
@@ -48,10 +47,15 @@ class UserController extends lmbAdminObjectController
         $this->useForm('user_form', $request);
 
         $user = new lmbCmsUser((int)$request->get('id'));
-        $this->_validatePasswordFields($request, $user);
 
-        $user->setPassword($request->get('new_password'));
-        $user->trySave($this->error_list);
+        if ($this->_validatePasswordFields($request)) {
+            if ($user->isPasswordCorrect($request->get('password'))) {
+                $user->setPassword($request->get('new_password'));
+                $user->trySave($this->error_list);
+            } else {
+                $this->error_list->addError("Выбран некорректный пароль");
+            }
+        }
 
         if ($this->error_list->isValid()) {
             $user->logout();
@@ -62,15 +66,14 @@ class UserController extends lmbAdminObjectController
     /**
      * @param lmbCmsUser $user
      */
-    protected function _validatePasswordFields($request, $user)
+    protected function _validatePasswordFields($request)
     {
         $validator = new lmbValidator($this->error_list);
         $validator->addRequiredRule('password', '"Password" field is required');
         $validator->addRequiredRule('repeat_new_password', 'Поле "Подтверждение пароля" обязательно для заполнения');
-        if (!$user->isPasswordCorrect($request->get('password')))
-            $this->error_list->addError("Выбран некорректный пароль");
         $validator->addRule(new MatchRule('password', 'repeat_password', 'Значения полей "Пароль" и "Подтверждение пароля" не совпадают'));
-        $validator->validate($request);
+        
+        return $validator->validate($request);
     }
 
     function doDelete($request)
