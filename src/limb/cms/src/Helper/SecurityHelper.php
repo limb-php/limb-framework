@@ -48,8 +48,7 @@ class SecurityHelper
     /** @return string Hashed password */
     static function cryptPassword($password, $salt): string
     {
-        $hash = hash_pbkdf2("sha256", $password, $salt, $iterations = 200000, $length = 32);
-        return $hash;
+        return hash_pbkdf2("sha256", $password, $salt, $iterations = 200000, $length = 32);
     }
 
     /* */

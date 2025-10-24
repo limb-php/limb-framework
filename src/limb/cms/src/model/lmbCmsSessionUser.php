@@ -9,7 +9,6 @@ namespace limb\cms\src\model;
 
 use limb\cms\src\Auth\AuthenticatableInterface;
 use limb\cms\src\Repository\lmbUserRepositoryInterface;
-use limb\toolkit\src\lmbToolkit;
 
 /**
  * class lmbCmsClassName.
@@ -28,7 +27,6 @@ class lmbCmsSessionUser implements AuthSessionInterface
     function __construct(lmbUserRepositoryInterface $provider)
     {
         $this->provider = $provider;
-        //$this->session = lmbToolkit::instance()->getSession();
     }
 
     function getUserId()
@@ -90,6 +88,6 @@ class lmbCmsSessionUser implements AuthSessionInterface
 
     function __sleep()
     {
-        return array('user_id', 'is_logged_in');
+        return ['user_id', 'is_logged_in'];
     }
 }
