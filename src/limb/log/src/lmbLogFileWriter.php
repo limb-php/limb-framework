@@ -10,6 +10,7 @@ namespace limb\log\src;
 use limb\datetime\src\lmbDateTime;
 use limb\fs\src\lmbFs;
 use limb\fs\src\exception\lmbFsException;
+use limb\net\src\lmbIp;
 use limb\net\src\lmbUri;
 
 /**
@@ -62,9 +63,8 @@ class lmbLogFileWriter implements lmbLogWriterInterface
         $time = (new lmbDateTime($entry->getTime()))->format("Y-m-d h:i:s");
 
         $log_message = "=========================[{$time}]";
-
-        if (isset($_SERVER['REMOTE_ADDR']))
-            $log_message .= '[' . $_SERVER['REMOTE_ADDR'] . ']';
+        
+        $log_message .= '[' . lmbIp::getRealIp() . ']';
 
         if (isset($_SERVER['REQUEST_URI']))
             $log_message .= '[' . $_SERVER['REQUEST_METHOD'] . ': ' . $_SERVER['REQUEST_URI'] . ']';
