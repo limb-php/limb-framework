@@ -63,7 +63,7 @@ class lmbLogFileWriter implements lmbLogWriterInterface
         $time = (new lmbDateTime($entry->getTime()))->format("Y-m-d h:i:s");
 
         $log_message = "=========================[{$time}]";
-        
+
         $log_message .= '[' . lmbIp::getRealIp() . ']';
 
         if (isset($_SERVER['REQUEST_URI']))
