@@ -21,7 +21,7 @@ use Psr\Log\LogLevel;
 class lmbLog implements LoggerInterface
 {
     protected $notifyLevel;
-    protected $log_writers = []; // 'writer' => class, 'level' => []
+    protected array $log_writers = []; // 'writer' => class, 'level' => []
 
     protected $log_levels = [
         LogLevel::EMERGENCY => 0,
@@ -80,7 +80,7 @@ class lmbLog implements LoggerInterface
         return $writers;
     }
 
-    function resetWriters()
+    function resetWriters(): void
     {
         $this->log_writers = [];
     }
@@ -93,7 +93,7 @@ class lmbLog implements LoggerInterface
      *
      * @return bool
      */
-    protected function aboveLevel($level, $base): bool
+    protected function aboveLevel(string $level, string $base): bool
     {
         return $this->log_levels[$level] <= $this->log_levels[$base];
     }
@@ -148,27 +148,25 @@ class lmbLog implements LoggerInterface
         $this->log(LogLevel::DEBUG, $message, $context);
     }
 
-    public function log($level, $message, $context = [], $backtrace = null): void
+    public function log($level, $message, $context = []): void
     {
         if ($this->aboveLevel($level, $this->notifyLevel)) {
-            $this->_write($level, $message, $context, $backtrace);
+            $this->_write($level, $message, $context);
         }
     }
 
     /** @TODO: remove one of aboveLevel() methods */
-    /** @TODO: PSR-3: remove $backtrace */
-    /** @param $backtrace \limb\core\src\lmbBacktrace */
-    protected function _write($level, $string, $context = [], $backtrace = null)
+    protected function _write($level, $string, $context = []): void
     {
-        if (!$backtrace)
-            $backtrace = new lmbBacktrace($this->backtrace_depth[$level]);
+        if(!isset($context['backtrace']))
+            $context['backtrace'] = new lmbBacktrace($this->backtrace_depth[$level]);
 
-        $entry = new lmbLogEntry($level, $string, $context, $backtrace);
+        $entry = new lmbLogEntry($level, $string, $context);
 
         $this->_writeLogEntry($entry, $level);
     }
 
-    protected function _writeLogEntry($entry, $level)
+    protected function _writeLogEntry($entry, $level): void
     {
         foreach ($this->log_writers as $writer_info) {
             $writer = $writer_info['writer'];

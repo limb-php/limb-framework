@@ -17,11 +17,11 @@ class lmbLogEntryTest extends TestCase
 
     function testGetters()
     {
+        $backtrace = new lmbBacktrace();
         $entry = new lmbLogEntry(
             $level = LogLevel::INFO,
             $message = 'some text',
-            $params = array('foo' => 42),
-            $backtrace = new lmbBacktrace(),
+            $params = array('foo' => 42, 'backtrace' => $backtrace),
             $time = time()
         );
         $this->assertEquals($level, $entry->getLevel());

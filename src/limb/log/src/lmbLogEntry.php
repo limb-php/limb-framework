@@ -35,12 +35,13 @@ class lmbLogEntry
     );
 
     /** @param $backtrace \limb\core\src\lmbBacktrace */
-    function __construct($level, $message, $params = array(), $backtrace = null, $time = null)
+    /** @todo: refactor backtrace */
+    function __construct($level, $message, $context = [], $time = null)
     {
         $this->level = $level;
         $this->message = $message;
-        $this->params = $params;
-        $this->backtrace = $backtrace;
+        $this->params = $context;
+        $this->backtrace = $context['backtrace'] ?? null;
         $this->time = !$time ? time() : $time;
     }
 
@@ -89,6 +90,7 @@ class lmbLogEntry
     {
         $params = $this->params;
         unset($params['exception']);
+        unset($params['backtrace']);
 
         $string = $this->getLevelForHuman() . " message: {$this->message}";
         $string .= (count($params) ? "\nAdditional attributes: " . var_export($params, true) : '');

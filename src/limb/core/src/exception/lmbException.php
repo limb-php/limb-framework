@@ -63,7 +63,7 @@ class lmbException extends \Exception
         return $this->backtrace;
     }
 
-    function getNiceTraceAsString()
+    function getNiceTraceAsString(): string
     {
         return $this->getBacktraceObject()->toString();
     }
@@ -78,16 +78,15 @@ class lmbException extends \Exception
 
     function toNiceString($without_backtrace = false): string
     {
-        $string = '';
-        $string .= get_class($this) . ': ' . $this->getOriginalMessage() . PHP_EOL;
+        $string = get_class($this) . ': ' . $this->getOriginalMessage() . PHP_EOL;
         if ($this->params)
             $string .= 'Additional params: ' . strstr(print_r($this->params, true), PHP_EOL);
         if (!$without_backtrace)
-            $string .= 'Backtrace: ' . PHP_EOL . $this->getBacktraceObject()->toString();
+            $string .= 'Backtrace: ' . PHP_EOL . $this->getNiceTraceAsString();
         return $string;
     }
 
-    function __toString()
+    function __toString(): string
     {
         return $this->toNiceString();
     }
