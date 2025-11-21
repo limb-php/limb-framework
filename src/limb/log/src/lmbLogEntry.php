@@ -40,8 +40,12 @@ class lmbLogEntry
     {
         $this->level = $level;
         $this->message = $message;
-        $this->params = $context;
         $this->backtrace = $context['backtrace'] ?? null;
+        if(isset($context['exception']))
+            unset($context['exception']);
+        if(isset($context['backtrace']))
+            unset($context['backtrace']);
+        $this->params = $context;
         $this->time = !$time ? time() : $time;
     }
 
@@ -88,12 +92,8 @@ class lmbLogEntry
     /** @deprecated */
     function asText()
     {
-        $params = $this->params;
-        unset($params['exception']);
-        unset($params['backtrace']);
-
         $string = $this->getLevelForHuman() . " message: {$this->message}";
-        $string .= (count($params) ? "\nAdditional attributes: " . var_export($params, true) : '');
+        $string .= (count($this->params) ? "\nAdditional attributes: " . var_export($this->params, true) : '');
         if ($this->backtrace && $backtrace_str = $this->backtrace->toString())
             $string .= "\nBack trace:\n" . $backtrace_str;
 
