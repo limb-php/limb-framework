@@ -38,8 +38,6 @@ class lmbLogWriterFactory
                 return new lmbLogFileWriter($config);
             case 'plain_file':
                 return new lmbLogPlainFileWriter($config);
-            case 'firePHP':
-                return new lmbLogFirePHPWriter($config);
             case 'phplog':
                 return new lmbLogPHPLogWriter($config);
             case 'syslog':

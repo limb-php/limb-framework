@@ -16,7 +16,6 @@
     "require-dev": {
         "phpunit/phpunit": "^9 || ^10",
         "robmorgan/phinx": "^0.13.4 || ^0.15.0",
-        "urands/firephp": "^1.0",
         "twig/twig": "3.*"
     },
     "replace": {
