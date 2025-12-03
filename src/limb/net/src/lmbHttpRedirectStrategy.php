@@ -13,7 +13,7 @@ namespace limb\net\src;
  * @package net
  * @version $Id: lmbHttpRedirectStrategy.php 7486 2009-01-26 19:13:20Z
  */
-class lmbHttpRedirectStrategy
+class lmbHttpRedirectStrategy implements RedirectStrategy
 {
     function redirect($response, $path)
     {

@@ -13,7 +13,7 @@ namespace limb\net\src;
  * @package net
  * @version $Id: lmbMetaRedirectStrategy.php 7486 2009-01-26 19:13:20Z
  */
-class lmbMetaRedirectStrategy
+class lmbMetaRedirectStrategy implements RedirectStrategy
 {
     protected $template_path;
 
