@@ -8,6 +8,8 @@
 namespace limb\log\src\toolkit;
 
 use limb\config\src\toolkit\lmbConfTools;
+use limb\log\src\exception\lmbClassNotFoundException;
+use limb\log\src\exception\lmbConfigurationNotFoundException;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\core\src\lmbEnv;
 use limb\log\src\lmbLog;
@@ -65,16 +67,19 @@ class lmbLogTools extends lmbAbstractTools
         return $conf['logs'];
     }
 
-    /** @TODO: improve */
+    /** @TODO: improve
+     * @throws lmbConfigurationNotFoundException
+     * @throws lmbClassNotFoundException
+     */
     public function getLog($name = 'error'): LoggerInterface
     {
         if (isset($this->log[$name]) && $this->log[$name])
             return $this->log[$name];
 
-        $this->log[$name] = new lmbLog();
-
         $logWriters = $this->getLogConfs();
         if(isset($logWriters[$name])) {
+            $this->log[$name] = new lmbLog();
+
             if( is_array($logWriters[$name]) ) {
                 foreach ($logWriters[$name] as $log_writer_key => $log_writer_options) {
                     if(is_numeric($log_writer_key) && $log_writer_options) {
@@ -91,9 +96,11 @@ class lmbLogTools extends lmbAbstractTools
                 $options = $logWriters[$name];
                 $this->log[$name]->registerWriter(lmbLogWriterFactory::createLogWriter($options));
             }
+
+            return $this->log[$name];
         }
 
-        return $this->log[$name];
+        throw new lmbConfigurationNotFoundException('Configuration for logger name "' . $name . '" not found');
     }
 
     public function setLog($name, $log): void

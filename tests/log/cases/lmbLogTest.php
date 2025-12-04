@@ -42,16 +42,19 @@ class lmbLogTest extends TestCase
 
     function testLogLogInfo()
     {
-        $context1 = ['params' => ['iparam'], 'backtrace' => 'ibacktrace'];
-        $context2 = ['params' => ['iparam2'], 'backtrace' => 'ibacktrace2'];
+        $context1 = ['params' => ['iparam'], 'backtrace' => $backtrace1 = 'ibacktrace'];
+        $context2 = ['params' => ['iparam2'], 'backtrace' => $backtrace2 = 'ibacktrace2'];
 
         $this->log->log(LogLevel::INFO, 'imessage', $context1);
         $this->log->log(LogLevel::WARNING, 'imessage2', $context2);
 
+        unset($context1['backtrace']);
+        unset($context2['backtrace']);
+
         $this->assertTrue($this->_getLastLogEntry()->isLevel(LogLevel::WARNING));
         $this->assertEquals('imessage2', $this->_getLastLogEntry()->getMessage());
         $this->assertEquals($context2, $this->_getLastLogEntry()->getParams());
-        $this->assertEquals($context2['backtrace'], $this->_getLastLogEntry()->getBacktrace());
+        $this->assertEquals($backtrace2, $this->_getLastLogEntry()->getBacktrace());
     }
 
     function testSetNotifyLevel()

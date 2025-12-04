@@ -9,6 +9,8 @@ namespace tests\log\cases\toolkit;
 
 require(dirname(__FILE__) . '/../.setup.php');
 
+use limb\log\src\exception\lmbClassNotFoundException;
+use limb\log\src\exception\lmbConfigurationNotFoundException;
 use PHPUnit\Framework\TestCase;
 use limb\toolkit\src\lmbToolkit;
 use limb\log\src\toolkit\lmbLogTools;
@@ -30,18 +32,31 @@ class lmbLogToolsTest extends TestCase
 
     function testGetLogDSNes_default()
     {
-        $dsnes = $this->toolkit->getLogConfs();
+        $conf = $this->toolkit->getLogConfs();
 
-        $this->assertCount(1, $dsnes);
-        $this->assertEquals($dsnes['error'], $this->toolkit->getDefaultErrorDsn());
+        $this->assertCount(1, $conf);
+        $this->assertEquals($conf['error'], $this->toolkit->getDefaultErrorDsn());
     }
 
     function testGetLogDSNes_fromConfig()
     {
-        $this->toolkit->setConf('common', array('logs' => array('foo')));
+        $this->toolkit->setConf('common', array(
+            'logs' => array(
+                'foo'
+            ))
+        );
 
-        $dsnes = $this->toolkit->getLogConfs();
-        $this->assertEquals('foo', $dsnes[0]);
+        $conf = $this->toolkit->getLogConfs();
+        $this->assertEquals('foo', $conf[0]);
+    }
+
+    function testGetLog_notexist()
+    {
+        try {
+            $log_conf = $this->toolkit->getLog('notexist');
+        } catch (lmbConfigurationNotFoundException $e) {
+            $this->assertTrue(true);
+        }
     }
 
 }

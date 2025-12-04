@@ -21,12 +21,13 @@ class lmbLogEntryTest extends TestCase
         $entry = new lmbLogEntry(
             $level = LogLevel::INFO,
             $message = 'some text',
-            $params = array('foo' => 42, 'backtrace' => $backtrace),
+            $context = array('foo' => 42, 'backtrace' => $backtrace),
             $time = time()
         );
+        unset($context['backtrace']);
         $this->assertEquals($level, $entry->getLevel());
         $this->assertEquals($message, $entry->getMessage());
-        $this->assertEquals($params, $entry->getParams());
+        $this->assertEquals($context, $entry->getParams());
         $this->assertEquals($backtrace, $entry->getBacktrace());
         $this->assertEquals($time, $entry->getTime());
     }
