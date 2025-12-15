@@ -7,10 +7,10 @@
 
 namespace limb\web_app\src\fetcher;
 
+use limb\active_record\src\exception\lmbARNotFoundException;
 use limb\core\src\lmbCollection;
 use limb\active_record\src\lmbActiveRecord;
 use limb\core\src\exception\lmbException;
-use limb\active_record\src\lmbARNotFoundException;
 use limb\core\src\lmbString;
 
 /**

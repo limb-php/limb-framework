@@ -5,7 +5,7 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\active_record\src;
+namespace limb\active_record\src\exception;
 
 use limb\core\src\exception\lmbException;
 

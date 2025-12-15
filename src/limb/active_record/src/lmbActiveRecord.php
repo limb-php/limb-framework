@@ -7,6 +7,8 @@
 
 namespace limb\active_record\src;
 
+use limb\active_record\src\exception\lmbARException;
+use limb\active_record\src\exception\lmbARNotFoundException;
 use limb\core\src\lmbCollectionInterface;
 use limb\core\src\lmbObject;
 use limb\core\src\lmbString;
@@ -191,7 +193,7 @@ class lmbActiveRecord extends lmbObject
      * @param array|integer|null $magic_params Depending on argument type the new object is filled with properties or loaded from database
      * @param lmbDbConnectionInterface|string|null $conn
      */
-    function __construct($magic_params = null, $conn = null)
+    function __construct($properties = null, $conn = null)
     {
         $this->setConnection( ($conn !== null) ? $conn : self::getDefaultConnection() );
 
@@ -203,11 +205,11 @@ class lmbActiveRecord extends lmbObject
 
         $this->_error_list = new lmbErrorList();
 
-        if ($magic_params) {
-            if (is_int($magic_params))
-                $this->loadById($magic_params);
-            elseif (is_array($magic_params) || is_object($magic_params))
-                $this->import($magic_params);
+        if ($properties) {
+            if (is_int($properties))
+                $this->loadById($properties);
+            elseif (is_array($properties) || is_object($properties))
+                $this->import($properties);
         }
     }
 
@@ -939,10 +941,13 @@ class lmbActiveRecord extends lmbObject
 
     protected function _loadBelongsToObject($property)
     {
-        return self::findFirst($this->_belongs_to[$property]['class'],
+        return self::findFirst(
+            $this->_belongs_to[$property]['class'],
             array(
                 'criteria' => $this->getConnection()->quoteIdentifier($this->_belongs_to[$property]['field']) . ' = ' . $this->getId()
-            ), $this->getConnection());
+            ),
+            $this->getConnection()
+        );
     }
 
     protected function _loadManyBelongsToObject($property)
@@ -956,10 +961,12 @@ class lmbActiveRecord extends lmbObject
         else
             $throw_exception = true;
 
-        return self::findById($this->_many_belongs_to[$property]['class'],
+        return self::findById(
+            $this->_many_belongs_to[$property]['class'],
             $this->get($this->_many_belongs_to[$property]['field']),
             $throw_exception,
-            $this->getConnection());
+            $this->getConnection()
+        );
     }
 
     protected function _loadOneToOneObject($property)

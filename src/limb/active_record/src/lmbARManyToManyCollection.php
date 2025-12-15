@@ -20,9 +20,9 @@ use limb\dbal\src\criteria\lmbSQLFieldCriteria;
  */
 class lmbARManyToManyCollection extends lmbARRelationCollection
 {
-    protected function _createARQuery($params = array())
+    protected function _createARQuery($magic_params = array())
     {
-        $query = self::createFullARQueryForRelation($this->relation_info, $this->conn, $params);
+        $query = self::createFullARQueryForRelation($this->relation_info, $this->conn, $magic_params);
 
         $join_table = $this->conn->quoteIdentifier($this->relation_info['table']);
         $field = $this->conn->quoteIdentifier($this->relation_info['field']);

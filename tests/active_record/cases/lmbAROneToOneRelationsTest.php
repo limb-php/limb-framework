@@ -7,8 +7,8 @@
 
 namespace tests\active_record\cases;
 
+use limb\active_record\src\exception\lmbARNotFoundException;
 use limb\active_record\src\lmbActiveRecord;
-use limb\active_record\src\lmbARNotFoundException;
 use limb\validation\src\exception\lmbValidationException;
 use tests\active_record\cases\src\PersonForTestNoCascadeDelete;
 use tests\active_record\cases\src\PersonForTestObject;

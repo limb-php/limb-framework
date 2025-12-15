@@ -7,7 +7,7 @@
 
 namespace tests\active_record\cases;
 
-use limb\active_record\src\lmbARException;
+use limb\active_record\src\exception\lmbARException;
 use limb\active_record\src\lmbARQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use tests\active_record\cases\src\CourseForTestObject;

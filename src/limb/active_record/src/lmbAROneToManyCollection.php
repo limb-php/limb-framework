@@ -17,9 +17,9 @@ use limb\dbal\src\criteria\lmbSQLFieldCriteria;
  */
 class lmbAROneToManyCollection extends lmbARRelationCollection
 {
-    protected function _createARQuery($params = array())
+    protected function _createARQuery($magic_params = array())
     {
-        $query = self::createFullARQueryForRelation($this->relation_info, $this->conn, $params);
+        $query = self::createFullARQueryForRelation($this->relation_info, $this->conn, $magic_params);
 
         $relation_field = $this->relation_info['field'];
         if (!strstr($relation_field, '.')) {
@@ -81,9 +81,14 @@ class lmbAROneToManyCollection extends lmbARRelationCollection
 
     protected function _removeRelatedRecords()
     {
-        lmbActiveRecord::delete($this->relation_info['class'],
-            new lmbSQLFieldCriteria($this->relation_info['field'], $this->owner->getId()),
-            $this->conn);
+        lmbActiveRecord::delete(
+            $this->relation_info['class'],
+            new lmbSQLFieldCriteria(
+                $this->relation_info['field'],
+                $this->owner->getId()
+            ),
+            $this->conn
+        );
     }
 
     protected function _saveObject($object, $error_list = null)

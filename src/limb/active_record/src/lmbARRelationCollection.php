@@ -365,18 +365,19 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
 
     function addDecorator($decorator, $params = array())
     {
-        $this->decorators[] = array($decorator, $params);
+        $this->decorators[] = [
+            'decorator' => $decorator,
+            'params' => $params
+        ];
     }
 
     protected function _applyDecorators($dataset)
     {
-        $toolkit = lmbToolkit::instance();
-
         foreach ($this->decorators as $decorator_data) {
-            $refl = new \ReflectionClass($decorator_data[0]);
-            $dataset = call_user_func_array(array($refl, 'newInstance'), array($dataset));
+            $refl = new \ReflectionClass($decorator_data['decorator']);
+            $dataset = call_user_func_array([$refl, 'newInstance'], [$dataset]);
 
-            $this->_addParamsToDataset($dataset, $decorator_data[1]);
+            $this->_addParamsToDataset($dataset, $decorator_data['params']);
         }
         return $dataset;
     }

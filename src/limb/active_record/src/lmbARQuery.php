@@ -7,6 +7,7 @@
 
 namespace limb\active_record\src;
 
+use limb\active_record\src\exception\lmbARException;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;
