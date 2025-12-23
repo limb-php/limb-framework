@@ -26,7 +26,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * Example of usage:
  * <code>
  * lmbToolkit::merge(new limb\net\src\lmbNetTools());
- * lmbToolkit::merge(new limb\net\src\toolkit\lmbDbTools());
+ * lmbToolkit::merge(new limb\net\src\toolkit\lmbDbTools(), 'db');
  * // somewhere in client code
  * $toolkit = lmbToolkit::instance();
  * $toolkit->set('my_var', $value)'
@@ -87,7 +87,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method setDefaultDbConnection(\limb\dbal\src\drivers\lmbDbConnectionInterface $conn)
  * @method \limb\dbal\src\drivers\lmbDbConnectionInterface createDbConnection($dsn)
  * @method getDbInfo(\limb\dbal\src\drivers\lmbDbConnectionInterface $conn)
- * @method \limb\dbal\src\lmbTableGateway createTableGateway($table_name, $conn = null)
+ * @method \limb\dbal\src\lmbTableGateway createTableGateway($table_name, \limb\dbal\src\drivers\lmbDbConnectionInterface $conn = null)
  *
  * @see lmbFsTools
  * @method findFileByAlias($alias, $paths, $locator_name = null, $find_all = false)
@@ -144,8 +144,8 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method \limb\web_app\src\Controllers\lmbController createController($controller_name, $namespace = '') {
  *      @throws \limb\web_app\src\exception\lmbControllerNotFoundException
  * }
- * @method getRouteUrlByName($route_name, $params = array())
- * @method string getRoutesUrl($params = array(), $route_name = '', $skip_controller = false)
+ * @method getRouteUrlByName($route_name, $params = [])
+ * @method string getRoutesUrl($params = [], $route_name = '', $skip_controller = false)
  * @method \limb\web_app\src\request\lmbRoutes getRoutes()
  * @method setRoutes($routes)
  * @method \limb\web_app\src\util\lmbFlashBox getFlashBox()
@@ -205,17 +205,18 @@ class lmbToolkit extends lmbObject
 
     /**
      * Sets new tools object and clear signatures cache
-     * @param $tools lmbToolkitToolsInterface|array
+     * @param $tools array <lmbToolkitToolsInterface>
      */
-    protected function setTools($tools)
+    protected function setTools(array $tools): void
     {
-        if (!is_array($tools))
-            $this->_tools = array($tools);
-        else
-            $this->_tools = $tools;
-
-        $this->_tools_signatures = array();
+        $this->_tools = $tools;
+        $this->_tools_signatures = [];
         $this->_signatures_loaded = false;
+    }
+
+    function hasTool(string $name): bool
+    {
+        return isset($this->_tools[$name]);
     }
 
     /**
@@ -225,6 +226,9 @@ class lmbToolkit extends lmbObject
      */
     static function setup($tools): self
     {
+        if (!is_array($tools))
+            $tools = [$tools];
+
         $toolkit = lmbToolkit::instance();
         $toolkit->setTools($tools);
 
@@ -242,7 +246,7 @@ class lmbToolkit extends lmbObject
         $toolkit = lmbToolkit::instance();
 
         $tools = $toolkit->_tools;
-        $tools_copy = array();
+        $tools_copy = [];
         foreach ($toolkit->_tools as $tool)
             $tools_copy[] = clone($tool);
 
@@ -285,11 +289,30 @@ class lmbToolkit extends lmbObject
      * Extends current tools with new tool
      * @return lmbToolkit The only instance of lmbToolkit class
      */
-    static function merge(lmbToolkitToolsInterface $tool, $name = ''): self
+    static function merge(lmbToolkitToolsInterface $tool): self
     {
         $toolkit = lmbToolkit::instance();
-        $toolkit->add($tool, $name);
+        $toolkit->add($tool);
+
         return $toolkit;
+    }
+
+    static function mergeWith(lmbToolkitToolsInterface $tool, $name): self
+    {
+        $toolkit = lmbToolkit::instance();
+        if ($toolkit->hasTool($name)) {
+            lmbToolkit::merge($tool);
+
+            return $toolkit;
+        }
+
+        throw new lmbException('Tool ' . $name . ' not found in toolkit');
+    }
+
+    static function getToolName($tool): string
+    {
+        $ref = new \ReflectionClass($tool);
+        return $ref->getShortName();
     }
 
     /**
@@ -298,7 +321,7 @@ class lmbToolkit extends lmbObject
     function add(lmbToolkitToolsInterface $tool, $name = '')
     {
         if (!$name)
-            $name = get_class($tool);
+            $name = self::getToolName($tool);
 
         if (!isset($this->_tools[$name])) {
             $req_tools = $tool::getRequiredTools();
@@ -309,11 +332,10 @@ class lmbToolkit extends lmbObject
             }
 
             if (method_exists($tool, 'bootstrap'))
-                call_user_func_array(array($tool, 'bootstrap'), array());
-            //$tool->bootstrap();
+                call_user_func_array(array($tool, 'bootstrap'), []);
 
             $tools = $this->_tools;
-            $tools = array($name => $tool) + $tools;
+            $tools = [$name => $tool] + $tools;
             $this->setTools($tools);
         }
     }
@@ -375,7 +397,7 @@ class lmbToolkit extends lmbObject
      * @return mixed
      * @throws lmbNoSuchMethodException
      */
-    public function __call($method, $args = array())
+    public function __call($method, $args = [])
     {
         $this->_ensureSignatures();
 
@@ -390,7 +412,7 @@ class lmbToolkit extends lmbObject
      * @return void
      * @see lmbToolkitToolsInterface::getToolsSignatures()
      */
-    protected function _ensureSignatures()
+    protected function _ensureSignatures(): void
     {
         if ($this->_signatures_loaded)
             return;
@@ -412,6 +434,9 @@ class lmbToolkit extends lmbObject
         return (bool)$this->_mapPropertyToGetMethod($property);
     }
 
+    /**
+     * @return string|false
+     */
     protected function _mapPropertyToGetMethod($property)
     {
         $this->_ensureSignatures();
@@ -424,6 +449,9 @@ class lmbToolkit extends lmbObject
         return false;
     }
 
+    /**
+     * @return string|false
+     */
     protected function _mapPropertyToSetMethod($property)
     {
         $this->_ensureSignatures();

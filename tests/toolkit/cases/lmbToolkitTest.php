@@ -206,6 +206,20 @@ class lmbToolkitTest extends TestCase
         lmbToolkit::restore();
     }
 
+    function testMergeWith2()
+    {
+        lmbToolkit::save();
+
+        $tname = lmbToolkit::getToolName(TestTools::class);
+        $this->assertEquals('TestTools', $tname);
+
+        lmbToolkit::setup([$tname => new TestTools()]);
+        $toolkit = lmbToolkit::mergeWith(new TestTools3(), $tname);
+        $this->assertEquals('commonMethod2', $toolkit->commonMethod()); // method from TestTools2
+
+        lmbToolkit::restore();
+    }
+
     function testMergeSeveral()
     {
         lmbToolkit::save();
