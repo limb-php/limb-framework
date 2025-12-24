@@ -147,7 +147,7 @@ INSERT INTO `lmb_cms_user` VALUES(
   NULL,
   'support@limb-project.com',
   'Admin',
-  'b9fb54d1cf88c8c9141cdb01215969221899ff97', /* secret */
+  '1ed7e09969478cbf63aec57e54d60cf9', /* secret */
   NULL,
   'admin',
   'admin',

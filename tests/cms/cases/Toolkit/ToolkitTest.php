@@ -9,7 +9,6 @@ namespace tests\cms\cases\Toolkit;
 
 use limb\cms\src\Auth\lmbAuth;
 use limb\cms\src\model\AuthSessionInterface;
-use limb\cms\src\model\lmbCmsSessionUser;
 use limb\cms\src\Repository\lmbUserRepository;
 use limb\toolkit\src\lmbToolkit;
 use PHPUnit\Framework\TestCase;
