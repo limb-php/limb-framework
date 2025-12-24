@@ -75,6 +75,13 @@ class lmbUploadedFilesParserTest extends TestCase
 
         $result = $this->parser->objectify($files);
         $this->assertEquals($result, $expected);
+
+        $file1 = new lmbUploadedFile($files['file1']);
+        $this->assertEquals($file1->getName(), $files['file1']['name']);
+        $this->assertEquals($file1->getType(), $files['file1']['type']);
+        $this->assertEquals($file1->getSize(), $files['file1']['size']);
+        $this->assertEquals($file1->getError(), $files['file1']['error']);
+        $this->assertEquals($file1->getTmpName(), $files['file1']['tmp_name']);
     }
 
     function testComplex()

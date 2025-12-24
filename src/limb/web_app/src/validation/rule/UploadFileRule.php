@@ -2,8 +2,8 @@
 
 namespace limb\web_app\src\validation\rule;
 
-use limb\net\src\lmbUploadedFile;
 use limb\validation\src\rule\lmbValidationRuleInterface;
+use Psr\Http\Message\UploadedFileInterface;
 
 class UploadFileRule implements lmbValidationRuleInterface
 {
@@ -43,7 +43,7 @@ class UploadFileRule implements lmbValidationRuleInterface
 
     private function _validateSingleFile($file, $error_list)
     {
-        if (!($file instanceof lmbUploadedFile)) {
+        if (!($file instanceof UploadedFileInterface)) {
             if ($this->is_requered) {
                 $error_list->addError("{Field}: Uploading failed. No uploaded file.", array('Field' => $this->field_name));
             }

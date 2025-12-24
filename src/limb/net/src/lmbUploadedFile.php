@@ -16,9 +16,8 @@ use Psr\Http\Message\UploadedFileInterface;
  * @package net
  * @version $Id$
  *
- * @method string getName()
  */
-class lmbUploadedFile extends lmbObject implements UploadedFileInterface
+class lmbUploadedFile implements UploadedFileInterface
 {
     public $name;
     public $error;
@@ -27,6 +26,30 @@ class lmbUploadedFile extends lmbObject implements UploadedFileInterface
     public $tmp_name;
 
     protected $stream;
+
+    function __construct($chunk)
+    {
+        $this->name = $chunk['name'];
+        $this->error = $chunk['error'];
+        $this->type = $chunk['type'];
+        $this->size = $chunk['size'];
+        $this->tmp_name = $chunk['tmp_name'];
+    }
+
+    function getName()
+    {
+        return $this->name;
+    }
+
+    function getType()
+    {
+        return $this->type;
+    }
+
+    function getTmpName()
+    {
+        return $this->tmp_name;
+    }
 
     function getFilePath()
     {
