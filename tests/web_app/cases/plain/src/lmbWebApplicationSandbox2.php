@@ -15,7 +15,7 @@ use limb\web_app\src\lmbWebApplication;
 
 class lmbWebApplicationSandbox2 extends lmbWebApplication
 {
-    protected function _registerFilters()
+    protected function _registerFilters(): void
     {
         $this->registerFilter(new lmbHandle(lmbErrorHandlingFilter::class, [__DIR__ . '/../../template/server_error.phtml']));
         $this->registerFilter(new lmbHandle(lmbSessionStartupFilter::class));

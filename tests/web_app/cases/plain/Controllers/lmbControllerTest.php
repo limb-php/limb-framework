@@ -11,13 +11,13 @@ use limb\core\src\exception\lmbException;
 use limb\net\src\lmbHttpRequest;
 use limb\view\src\lmbDummyView;
 use PHPUnit\Framework\TestCase;
-use limb\web_app\src\Controllers\LmbController;
 use limb\toolkit\src\lmbToolkit;
 use limb\core\src\lmbSet;
 use limb\validation\src\rule\lmbValidationRuleInterface;
 use tests\web_app\cases\plain\src\Controllers\SecondTestingController;
 use tests\web_app\cases\plain\src\Controllers\TestingController;
 use tests\web_app\cases\plain\src\Controllers\TestingForwardController;
+use tests\web_app\cases\src\Controllers\TestLmbController;
 
 require_once dirname(__FILE__) . '/../../init.inc.php';
 
@@ -171,7 +171,7 @@ class lmbControllerTest extends TestCase
 
     function testForward()
     {
-        $controller = new lmbController();
+        $controller = new TestLmbController();
         $result = $controller->forward(TestingController::class, 'write');
         $this->assertEquals("Hi!", $result->getBody());
     }

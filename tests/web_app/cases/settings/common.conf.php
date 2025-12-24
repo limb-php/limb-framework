@@ -13,4 +13,14 @@ $conf = array(
     ),
 
     'static_files_version' => 1,
+
+    'logs' => [
+        'error' => [
+            'file://' . lmbEnv::get('LIMB_VAR_DIR') . 'log/error.log'
+        ],
+
+        'db' => [
+            'file://' . lmbEnv::get('LIMB_VAR_DIR') . 'log/db.log' => 'debug'
+        ],
+    ]
 );

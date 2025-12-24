@@ -7,7 +7,6 @@
 
 namespace tests\web_app\cases\plain\toolkit;
 
-use limb\web_app\src\Controllers\LmbController;
 use PHPUnit\Framework\TestCase;
 use limb\web_app\src\request\lmbRoutes;
 use limb\core\src\lmbSet;
@@ -17,6 +16,7 @@ use limb\fs\src\lmbFs;
 use limb\core\src\lmbObject;
 use limb\core\src\exception\lmbException;
 use limb\web_app\src\toolkit\lmbWebAppTools;
+use tests\web_app\cases\src\Controllers\TestLmbController;
 
 require_once dirname(__FILE__) . '/../../init.inc.php';
 
@@ -61,7 +61,7 @@ class lmbWebAppToolsTest extends TestCase
 
         $toolkit = lmbToolkit::merge(new lmbWebAppTools());
         $toolkit->setRoutes($routes);
-        $toolkit->setDispatchedController(new LmbController());
+        $toolkit->setDispatchedController(new TestLmbController());
 
         $to_url_params = array('action' => 'archive');
         $this->assertEquals($toolkit->getRoutesUrl($to_url_params, null, $skip_controller = true),
