@@ -11,15 +11,17 @@ require_once(dirname(__FILE__) . '/../.setup.php');
 
 class lmbCacheSessionConnectionWithoutSerializationTest extends lmbCacheSessionConnectionTest
 {
-    function __construct()
-    {
-        parent::__construct();
 
+    function setUp(): void
+    {
         $this->dsn = 'session:?need_serialization=0';
+
+        parent::setUp();
     }
+
 
     function testObjectClone()
     {
-        // can't work without serilization
+        // can't work without serialization
     }
 }

@@ -11,22 +11,17 @@ require_once(dirname(__FILE__) . '/../.setup.php');
 
 class lmbCacheMemcacheConnectionTest extends lmbCacheConnectionTestCase
 {
-    function __construct()
-    {
-        parent::__construct();
-
-        $this->dsn = 'memcache://localhost/';
-    }
-
     function setUp(): void
     {
-        parent::setUp();
+        $this->dsn = 'memcache://localhost/';
 
         if (!extension_loaded('memcache'))
             $this->markTestSkipped('Memcache extension not found. Test skipped.');
 
         if (!class_exists('Memcache'))
             $this->markTestSkipped('Memcache class not found. Test skipped.');
+
+        parent::setUp();
     }
 
     function testAddAfterDelete()

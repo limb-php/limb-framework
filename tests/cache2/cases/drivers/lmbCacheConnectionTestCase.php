@@ -28,12 +28,6 @@ abstract class lmbCacheConnectionTestCase extends TestCase
      */
     protected $cache;
 
-    function __construct()
-    {
-        parent::__construct();
-
-    }
-
     function setUp(): void
     {
         parent::setUp();

@@ -11,11 +11,14 @@ require_once(dirname(__FILE__) . '/../.setup.php');
 
 class lmbCacheSessionConnectionTest extends lmbCacheConnectionTestCase
 {
-    function __construct()
+
+    function setUp(): void
     {
         $this->dsn = 'session:';
-        parent::__construct();
+
+        parent::setUp();
     }
+
 
     function testGetWithTtl_differentThread()
     {

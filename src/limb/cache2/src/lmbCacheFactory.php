@@ -7,6 +7,7 @@
 
 namespace limb\cache2\src;
 
+use limb\cache2\src\drivers\lmbCacheConnectionInterface;
 use limb\net\src\lmbUri;
 use limb\core\src\exception\lmbException;
 use limb\cache2\src\drivers\lmbCacheAbstractConnection;
@@ -21,9 +22,9 @@ class lmbCacheFactory
 {
     /**
      * @param lmbUri|string $dsn
-     * @return lmbCacheAbstractConnection
+     * @return lmbCacheConnectionInterface
      */
-    static function createConnection($dsn)
+    static function createConnection($dsn): lmbCacheConnectionInterface
     {
         if (!is_a($dsn, lmbUri::class)) {
             $dsn = new lmbUri($dsn);

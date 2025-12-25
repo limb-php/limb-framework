@@ -11,10 +11,13 @@ require_once(dirname(__FILE__) . '/../.setup.php');
 
 class lmbCacheMemoryConnectionWithoutSerializationTest extends lmbCacheMemoryConnectionTest
 {
-    function __construct()
+    function setUp(): void
     {
         $this->dsn = 'memory:?need_serialization=0';
+
+        parent::setUp();
     }
+
 
     function testObjectClone()
     {

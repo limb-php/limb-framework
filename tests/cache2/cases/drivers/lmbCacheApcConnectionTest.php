@@ -11,17 +11,15 @@ require_once(dirname(__FILE__) . '/../.setup.php');
 
 class lmbCacheApcConnectionTest extends lmbCacheConnectionTestCase
 {
-    function __construct()
-    {
-        parent::__construct();
-
-        $this->dsn = 'apc:';
-    }
 
     function setUp(): void
     {
         if (!extension_loaded('apc'))
             $this->markTestSkipped('APC extension not found. Test skipped.');
+
+        $this->dsn = 'apc:';
+
+        parent::setUp();
     }
 
     function testAddNonUnique()

@@ -13,18 +13,14 @@ class lmbCacheDbConnectionTest extends lmbCacheConnectionTestCase
 {
     protected $skip = false;
 
-    function __construct()
-    {
-        parent::__construct();
-
-        $this->dsn = 'db://dsn?table=lmb_cache2';
-    }
-
     function setUp(): void
     {
         if ($this->skip)
             $this->markTestSkipped('lmbCacheDbConnection test skipped (no fixture found).');
 
+        $this->dsn = 'db://dsn?table=lmb_cache2';
+
+        parent::setUp();
     }
 
 }
