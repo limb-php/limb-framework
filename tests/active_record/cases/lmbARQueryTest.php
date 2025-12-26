@@ -690,6 +690,7 @@ class lmbARQueryTest extends lmbARBaseTestCase
          * $course2 -> $lecture2, $lecture6
          * $course3 -> $lecture3, $lecture7
          * $course4 -> $lecture4, $lecture8
+         * $arr - array of products [ program1, program2 ]
          */
 
         $this->conn->resetStats();

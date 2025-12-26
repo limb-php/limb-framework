@@ -263,7 +263,6 @@ class lmbActiveRecord extends lmbObject
     function getDbMetaInfo(): lmbARMetaInfo
     {
         return lmbARMetaInfoStorage::getDbMetaInfo($this->getTableName(), $this->getConnection());
-        //return lmbToolkit::instance()->getActiveRecordMetaInfo($this->getTableName(), $this->getConnection());
     }
 
     function getDbTableFields(): array
@@ -1441,14 +1440,6 @@ class lmbActiveRecord extends lmbObject
         return false;
     }
 
-    static protected function _isClass($name)
-    {
-        if (!is_scalar($name) || is_numeric($name) || !$name)
-            return false;
-
-        return is_subclass_of($name, self::class);
-    }
-
     /**
      *  Finds one instance of object in database, this method is actually a wrapper around find()
      * @param string $class_name class name of the object
@@ -1457,22 +1448,16 @@ class lmbActiveRecord extends lmbObject
      * @return lmbActiveRecord|null
      * @see find()
      */
-    static function findFirst($class_name = null, $magic_params = null, $conn = null)
+    static function findFirst($class_name, $magic_params = null, $conn = null)
     {
-        if (!self::_isClass($class_name)) {
-            $conn = $magic_params;
-            $magic_params = $class_name ?? array();
-            $class_name = static::class;
-        }
+        if (!class_exists($class_name, true))
+            throw new lmbARException("Could not find class '$class_name'");
 
-        $params = array();
+        $params = [];
         if (self::_isCriteria($magic_params))
             $params = array('criteria' => $magic_params);
         elseif (is_array($magic_params))
             $params = $magic_params;
-
-        if (!class_exists($class_name, true))
-            throw new lmbARException("Could not find class '$class_name'");
 
         if (!is_object($conn))
             $conn = self::getDefaultConnection();
@@ -1515,13 +1500,6 @@ class lmbActiveRecord extends lmbObject
      */
     static function findById($class_name, $id = null, $throw_exception = true, $conn = null)
     {
-        if (!self::_isClass($class_name)) {
-            $conn = $throw_exception;
-            $throw_exception = $id;
-            $id = $class_name;
-            $class_name = static::class;
-        }
-
         if (!class_exists($class_name, true))
             throw new lmbARException("Could not find class '$class_name'");
 
@@ -1579,13 +1557,6 @@ class lmbActiveRecord extends lmbObject
      */
     static function findByIds($class_name, $ids = null, $params = null, $conn = null)
     {
-        if (!self::_isClass($class_name)) {
-            $conn = $params;
-            $params = $ids;
-            $ids = $class_name;
-            $class_name = static::class;
-        }
-
         if (!class_exists($class_name, true))
             throw new lmbARException("Could not find class '$class_name'");
 
@@ -1632,12 +1603,6 @@ class lmbActiveRecord extends lmbObject
      */
     static function findBySql($class_name, $sql = null, $conn = null)
     {
-        if (!self::_isClass($class_name)) {
-            $conn = $sql;
-            $sql = $class_name;
-            $class_name = static::class;
-        }
-
         if (!is_object($conn))
             $conn = self::getDefaultConnection();
 
@@ -1654,12 +1619,6 @@ class lmbActiveRecord extends lmbObject
      */
     static function findFirstBySql($class_name, $sql = null, $conn = null)
     {
-        if (!self::_isClass($class_name)) {
-            $conn = $sql;
-            $sql = $class_name;
-            $class_name = static::class;
-        }
-
         $rs = self::findBySql($class_name, $sql, $conn);
         $rs->paginate(0, 1);
         $rs->rewind();
@@ -1707,12 +1666,6 @@ class lmbActiveRecord extends lmbObject
      */
     static function find($class_name = null, $magic_params = null, $conn = null)
     {
-        if (!self::_isClass($class_name)) {
-            $conn = $magic_params;
-            $magic_params = $class_name ?? array();
-            $class_name = static::class;
-        }
-
         if (!is_object($conn))
             $conn = self::getDefaultConnection();
 
@@ -1930,12 +1883,6 @@ class lmbActiveRecord extends lmbObject
      */
     static function delete($class_name = null, $criteria = null, $conn = null)
     {
-        if (!self::_isClass($class_name)) {
-            $conn = $criteria;
-            $criteria = $class_name;
-            $class_name = static::class;
-        }
-
         if (!is_object($conn))
             $conn = self::getDefaultConnection();
 
@@ -1955,12 +1902,6 @@ class lmbActiveRecord extends lmbObject
 
     static function deleteRaw($class_name = null, $criteria = null, $conn = null)
     {
-        if (!self::_isClass($class_name)) {
-            $conn = $criteria;
-            $criteria = $class_name;
-            $class_name = static::class;
-        }
-
         if (!is_object($conn))
             $conn = self::getDefaultConnection();
 
@@ -1971,13 +1912,6 @@ class lmbActiveRecord extends lmbObject
 
     static function updateRaw($class_name, $set = null, $criteria = null, $conn = null)
     {
-        if (!self::_isClass($class_name)) {
-            $conn = $criteria;
-            $criteria = $set;
-            $set = $class_name;
-            $class_name = static::class;
-        }
-
         if (!is_object($conn))
             $conn = self::getDefaultConnection();
 

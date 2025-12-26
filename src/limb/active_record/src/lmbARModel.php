@@ -14,49 +14,43 @@ namespace limb\active_record\src;
 class lmbARModel extends lmbActiveRecord
 {
     /**
-     *  Finds one instance of object in database, this method is actually a wrapper around find()
-     * @param mixed misc magic params
-     * @param object database connection object
-     * @return lmbActiveRecord|null
-     * @see find()
-     */
-    static function findModelFirst($magic_params = null, $conn = null)
-    {
-        return parent::findFirst(static::class, $magic_params, $conn);
-    }
-
-    /**
-     *  self::findFirst() convenience alias
-     * @param mixed misc magic params
+     * Finds one instance of object in database, this method is actually a wrapper around find()
+     * @param mixed $magic_params misc magic params
+     * @param object $conn database connection object
      * @return lmbActiveRecord|null
      * @see findFirst()
      */
-    static function findModelOne($magic_params = null, $conn = null)
+    static function fetchFirst($magic_params = null, $conn = null)
     {
         return parent::findFirst(static::class, $magic_params, $conn);
     }
 
     /**
      *  Finds one instance of object in database using object id, this method is actually a wrapper around find()
-     * @param integer object id
-     * @param object database connection object
+     * @param integer $id object id
+     * @param object $conn database connection object
      * @return lmbActiveRecord|null
-     * @see find()
+     * @see findById()
      */
-    static function findModelById($id, $throw_exception = true, $conn = null)
+    static function fetchById($id, $conn = null)
     {
-        return parent::findById(static::class, $id, $throw_exception, $conn);
+        return parent::findById(static::class, $id, false, $conn);
+    }
+
+    static function fetchByIdOrFail($id, $conn = null)
+    {
+        return parent::findById(static::class, $id, true, $conn);
     }
 
     /**
      *  Finds a collection of objects in database using array of object ids, this method is actually a wrapper around find()
-     * @param array object ids
-     * @param mixed misc magic params
-     * @param object database connection object
-     * @return iterator
-     * @see find()
+     * @param array $ids object ids
+     * @param mixed $params misc magic params
+     * @param object $conn database connection object
+     * @return \iterator
+     * @see findByIds()
      */
-    static function findModelByIds($ids = null, $params = null, $conn = null)
+    static function fetchByIds($ids, $params = null, $conn = null)
     {
         return parent::findByIds(static::class, $ids, $params, $conn);
     }
@@ -64,32 +58,34 @@ class lmbARModel extends lmbActiveRecord
 
     /**
      *  Finds a collection of objects in database using raw SQL
-     * @param string SQL
-     * @param object database connection object
-     * @return iterator
+     * @param string $sql SQL
+     * @param object $conn database connection object
+     * @return \iterator
      */
-    static function findModelBySql($sql = null, $conn = null)
+    static function fetchBySql($sql, $conn = null)
     {
         return parent::findBySql(static::class, $sql, $conn);
     }
 
     /**
      *  Finds first object in database using raw SQL
-     * @param string SQL
-     * @param object database connection object
+     * @param string $sql SQL
+     * @param object $conn database connection object
      * @return lmbActiveRecord
      */
-    static function findModelFirstBySql($sql = null, $conn = null)
+    static function fetchFirstBySql($sql, $conn = null)
     {
         return parent::findFirstBySql(static::class, $sql, $conn);
     }
 
     /**
      *  Alias for findFirstBySql
+     * @param string $sql SQL
+     * @param object $conn database connection object
      * @return lmbActiveRecord
      * @see findFirstBySql()
      */
-    static function findModelOneBySql($sql = null, $conn = null)
+    static function fetchOneBySql($sql = null, $conn = null)
     {
         return parent::findFirstBySql(static::class, $sql, $conn);
     }
@@ -124,19 +120,19 @@ class lmbARModel extends lmbActiveRecord
      *  $books = self::find('Book',
      *                                    new lmbSQLFieldCriteria('name', 'hey'));
      *  </code>
-     * @param mixed misc magic params
-     * @param object database connection object
-     * @return iterator
+     * @param mixed $magic_params misc magic params
+     * @param object $conn database connection object
+     * @return \iterator
      */
-    static function findModel($magic_params = null, $conn = null)
+    static function fetch($magic_params = null, $conn = null)
     {
         return parent::find(static::class, $magic_params, $conn);
     }
 
     /**
      *  Finds all objects which satisfy the passed criteria and destroys them one by one
-     * @param string|object search criteria, if not set all objects are removed
-     * @param object database connection object
+     * @param string|object $criteria search criteria, if not set all objects are removed
+     * @param object $conn database connection object
      */
     static function deleteModel($criteria = null, $conn = null)
     {
@@ -154,8 +150,8 @@ class lmbARModel extends lmbActiveRecord
     }
 
     /* */
-    public function __call($method, $args = array())
-    {
-
-    }
+//    public function __call($method, $args = array())
+//    {
+//
+//    }
 }
