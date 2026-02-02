@@ -84,13 +84,13 @@ class lmbLogEntry
         return $this->names_map[$this->level];
     }
 
-    function toString()
+    function toString(): string
     {
         return lmbSys::isCli() ? $this->asText() : $this->asHtml();
     }
 
     /** @deprecated */
-    function asText()
+    function asText(): string
     {
         $string = $this->getLevelForHuman() . " message: {$this->message}";
         $string .= (count($this->params) ? "\nAdditional attributes: " . var_export($this->params, true) : '');

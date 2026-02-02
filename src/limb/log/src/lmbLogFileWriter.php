@@ -10,6 +10,7 @@ namespace limb\log\src;
 use limb\datetime\src\lmbDateTime;
 use limb\fs\src\lmbFs;
 use limb\fs\src\exception\lmbFsException;
+use limb\log\src\exception\lmbLogWriterException;
 use limb\net\src\lmbIp;
 use limb\net\src\lmbUri;
 
@@ -39,9 +40,13 @@ class lmbLogFileWriter implements lmbLogWriterInterface
     protected function _appendToFile($file_name, $entry)
     {
         lmbFs::mkdir(dirname($file_name), 0775);
-        $file_existed = file_exists($file_name);
 
-        if ($fh = fopen($file_name, 'a')) {
+        $errorMsg = null;
+
+        try {
+            $fh = fopen($file_name, 'a');
+            @chmod($file_name, 0664);
+
             @flock($fh, LOCK_EX);
 
             $formated = $this->formatEntry($entry);
@@ -49,12 +54,13 @@ class lmbLogFileWriter implements lmbLogWriterInterface
             fwrite($fh, $formated . PHP_EOL);
             @flock($fh, LOCK_UN);
             fclose($fh);
-            if (!$file_existed)
-                chmod($file_name, 0664);
-        } else {
-            throw new lmbFsException("Cannot open log file '$file_name' for writing\n" .
-                "The web server must be allowed to modify the file.\n" .
-                "File logging for '$file_name' is disabled.");
+        }
+        catch (\Throwable $e) {
+            $errorMsg = $e->getMessage();
+        }
+
+        if($errorMsg) {
+            //throw new lmbLogWriterException($errorMsg);
         }
     }
 

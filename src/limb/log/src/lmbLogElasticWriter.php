@@ -43,10 +43,10 @@ class lmbLogElasticWriter implements lmbLogWriterInterface
                 'index' => $this->config['index'],
                 'body' => $formated
             ]);
-        } catch (\Exception $e) {
-            if (!$this->config['ignore_error']) {
-                throw new lmbException("Error sending messages to Elasticsearch: " . $e->getMessage());
-            }
+        } catch (\Throwable $e) {
+//            if (!$this->config['ignore_error']) {
+//                throw new lmbLogWriterException("Error sending messages to Elasticsearch: " . $e->getMessage());
+//            }
         }
     }
 
