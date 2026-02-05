@@ -9,7 +9,6 @@ namespace limb\log\src;
 
 use limb\datetime\src\lmbDateTime;
 use limb\fs\src\lmbFs;
-use limb\fs\src\exception\lmbFsException;
 use limb\log\src\exception\lmbLogWriterException;
 use limb\net\src\lmbIp;
 use limb\net\src\lmbUri;

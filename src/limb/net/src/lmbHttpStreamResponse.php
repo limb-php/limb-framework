@@ -21,7 +21,7 @@ class lmbHttpStreamResponse extends lmbHttpResponse
 
     public function __construct($callback = null, $status = 200, $headers = [])
     {
-        parent::__construct(null, $status, $headers);
+        parent::__construct('', $status, $headers);
 
         if (null !== $callback) {
             $this->setCallback($callback);
