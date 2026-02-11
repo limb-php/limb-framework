@@ -18,6 +18,8 @@ use limb\core\src\lmbSerializable;
  */
 class lmbSession implements \ArrayAccess, \Iterator, \Countable
 {
+    protected lmbSessionStorageInterface $storage;
+
     /**
      * @var array variables names that were changed. Used for testing purposes mostly.
      */
@@ -27,10 +29,11 @@ class lmbSession implements \ArrayAccess, \Iterator, \Countable
      * Starts session and installs driver
      * @param lmbSessionStorageInterface $storage Concrete session driver
      */
-    function start(lmbSessionStorageInterface $storage = null): bool
+    function start(lmbSessionStorageInterface $storage): bool
     {
-        if ($storage)
-            $storage->install();
+        $this->storage = $storage;
+
+        $this->storage->install();
 
         $sn = session_name();
         $session_id = $_COOKIE[$sn] ?? '';
@@ -43,6 +46,10 @@ class lmbSession implements \ArrayAccess, \Iterator, \Countable
         return session_start();
     }
 
+    public function getStorage(): lmbSessionStorageInterface
+    {
+        return $this->storage;
+    }
     function close()
     {
         return session_write_close();
