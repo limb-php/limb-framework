@@ -222,11 +222,29 @@ class lmbSessionDbStorageTest extends TestCase
                 'last_activity_time' => time() - 400)
         );
 
-        $driver->gc(300);
+        $driver->gc();
 
         $rs = $this->db->select();
         $rs->rewind();
         $this->assertTrue($rs->valid());
+    }
+
+    function testStorageGcUseSettedMaxLifeTimeOverrided()
+    {
+        $driver = new lmbSessionDbStorage($this->conn, $max_life_time = 500);
+
+        $this->db->insert(
+            array(
+                'session_id' => "whatever",
+                'session_data' => "data",
+                'last_activity_time' => time() - 400)
+        );
+
+        $driver->gc(300);
+
+        $rs = $this->db->select();
+        $rs->rewind();
+        $this->assertFalse($rs->valid());
     }
 
     function testStorageGcFalse()

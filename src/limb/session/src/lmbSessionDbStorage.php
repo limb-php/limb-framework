@@ -138,9 +138,9 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
      * Prefers class attribute {@link $max_life_time} if it's not NULL.
      * @param integer $max_life_time system session max lifetime
      */
-    function gc($max_life_time): false|int
+    function gc($max_life_time = null): false|int
     {
-        if ($this->max_life_time)
+        if ($max_life_time === null)
             $max_life_time = $this->max_life_time;
 
         $this->db->delete(new lmbSQLFieldCriteria('last_activity_time', time() - $max_life_time, lmbSQLFieldCriteria::LESS));
