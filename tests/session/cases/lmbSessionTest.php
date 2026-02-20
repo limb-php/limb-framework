@@ -202,7 +202,7 @@ class lmbSessionTest extends TestCase
     function testResetStartedSession()
     {
         lmbToolkit::instance()->registerSessionStorageDriver('db', lmbSessionDbStorageInitializer::class);
-
+        $this->session->setSessionId("123");
         $this->session->start(lmbToolkit::instance()->sessionStorageFactory('db'));
 
         $key = md5(mt_rand());
@@ -214,10 +214,10 @@ class lmbSessionTest extends TestCase
         $this->assertEquals('test', $this->session[$key]);
 
         $this->session->reset();
+
         $this->session->close();
 
-        $this->assertCount(0, $this->session);
-
+        $this->session->setSessionId("123");
         $this->session->start(lmbToolkit::instance()->sessionStorageFactory('db'));
 
         $this->assertCount(0, $this->session);

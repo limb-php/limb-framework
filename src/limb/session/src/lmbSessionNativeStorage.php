@@ -24,7 +24,7 @@ class lmbSessionNativeStorage implements lmbSessionStorageInterface
         return true;
     }
 
-    function open(string $savePath, string $sessionName): bool
+    function open(): bool
     {
         // TODO: Implement storageOpen() method.
     }
@@ -39,7 +39,7 @@ class lmbSessionNativeStorage implements lmbSessionStorageInterface
         // TODO: Implement storageRead() method.
     }
 
-    function write($session_id, $value): bool
+    function write($session_id, string $value): bool
     {
         // TODO: Implement storageWrite() method.
     }

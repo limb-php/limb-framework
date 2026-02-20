@@ -28,7 +28,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
      */
     protected $db;
     /**
-     * @var integer maximum session life time
+     * @var integer maximum session lifetime
      */
     protected $max_life_time = null;
 
@@ -37,7 +37,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     /**
      *  Constructor.
      * @param lmbDbConnectionInterface $db_connection database connection object
-     * @param integer|null $max_life_time maximum session life time
+     * @param integer|null $max_life_time maximum session lifetime
      */
     function __construct($db_connection, $max_life_time = null)
     {
@@ -67,7 +67,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
      * Does nothing and returns true
      * @return boolean
      */
-    function open(string $savePath, string $sessionName): bool
+    function open(): bool
     {
         return (bool)$this->db;
     }
@@ -100,9 +100,9 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     /**
      * Creates new or updates existing row in <b>lmb_session</b> db table
      * @param string $session_id session ID
-     * @param mixed $value session data
+     * @param string $value session data
      */
-    function write($session_id, $value): bool
+    function write($session_id, string $value): bool
     {
         $crit = new lmbSQLFieldCriteria('session_id', $session_id);
         $rs = $this->db->select($crit);
@@ -134,7 +134,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     }
 
     /**
-     * Checks if storage is still valid. If session if not valid - removes it's row from <b>lmb_session</b> db table
+     * Checks if storage is still valid. If session not valid - removes it's row from <b>lmb_session</b> db table
      * Prefers class attribute {@link $max_life_time} if it's not NULL.
      * @param integer $max_life_time system session max lifetime
      */
