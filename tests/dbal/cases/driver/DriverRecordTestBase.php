@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 abstract class DriverRecordTestBase extends TestCase
 {
+    protected $connection;
     protected $record_class;
 
     function init($record_class)

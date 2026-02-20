@@ -14,6 +14,8 @@ use PHPUnit\Framework\TestCase;
 
 abstract class DriverTypeInfoTestBase extends TestCase
 {
+    protected $connection;
+
     /** @var $typeInfo lmbDbTypeInfo */
     protected $typeInfo;
 

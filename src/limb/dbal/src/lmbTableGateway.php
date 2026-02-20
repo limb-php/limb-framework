@@ -7,6 +7,7 @@
 
 namespace limb\dbal\src;
 
+use limb\dbal\src\drivers\lmbDbColumnInfoInterface;
 use limb\dbal\src\query\lmbInsertQuery;
 use limb\dbal\src\query\lmbSelectQuery;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
@@ -96,13 +97,15 @@ class lmbTableGateway
         $this->_conn = $conn;
     }
 
-    function getColumnInfo($name)
+    function getColumnInfo($name): lmbDbColumnInfoInterface|false
     {
         if ($this->hasColumn($name))
             return $this->getTableInfo()->getColumn($name);
+
+        return false;
     }
 
-    function hasColumn($name)
+    function hasColumn($name): bool
     {
         return $this->getTableInfo()->hasColumn($name);
     }
@@ -241,7 +244,7 @@ class lmbTableGateway
 //            if ($column_info->isNullable() && $value === "") {
 //                $value = $column_info->getDefaultValue();
 //            }  else
-            if (!$column_info->isNullable() && empty($value)) {
+            if (!$column_info->isNullable() && is_null($value)) {
                 $value = $column_info->getDefaultValue();
             }
 

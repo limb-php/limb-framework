@@ -14,6 +14,8 @@ require_once(dirname(__FILE__) . '/init.inc.php');
 
 class lmbSqliteExtensionTest extends TestCase
 {
+    protected $connection;
+
     public static function setUpBeforeClass(): void
     {
         include (dirname(__FILE__) . '/.setup.php');

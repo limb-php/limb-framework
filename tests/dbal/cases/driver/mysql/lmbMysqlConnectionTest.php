@@ -63,14 +63,14 @@ class lmbMysqlConnectionTest extends DriverConnectionTestBase
         $escaped_string = $this->connection->escape($unescaped_string);
 
         try {
-            $this->connection->execute('select \'' . $unescaped_string . '\';');
+            $this->connection->execute('select "' . $unescaped_string . '";');
             $this->fail();
         } catch (\Exception $e) {
             $this->assertTrue(true);
         }
 
         try {
-            $this->connection->execute('select \'' . $escaped_string . '\';');
+            $this->connection->execute('select "' . $escaped_string . '";');
             $this->assertTrue(true);
         } catch (\Exception $e) {
             $this->fail();

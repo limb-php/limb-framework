@@ -12,6 +12,8 @@ use PHPUnit\Framework\TestCase;
 
 abstract class DriverRecordSetTestBase extends TestCase
 {
+    protected $cursor;
+    protected $stmt;
     protected $record_class;
 
     /** @var lmbDbConnectionInterface $connection */

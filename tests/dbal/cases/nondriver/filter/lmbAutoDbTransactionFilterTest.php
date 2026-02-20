@@ -21,6 +21,7 @@ use tests\dbal\cases\src\FilterWorkingWithDbStub;
 class lmbAutoDbTransactionFilterTest extends TestCase
 {
     protected $toolkit;
+    protected $conn;
     protected $db;
 
     public static function setUpBeforeClass(): void
