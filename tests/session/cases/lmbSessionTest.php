@@ -9,6 +9,8 @@ namespace tests\session\cases;
 
 require_once(dirname(__FILE__) . '/init.inc.php');
 
+use limb\session\src\lmbSessionDbStorageInitializer;
+use limb\toolkit\src\lmbToolkit;
 use PHPUnit\Framework\TestCase;
 use limb\session\src\lmbSession;
 use limb\core\src\lmbSerializable;
@@ -21,7 +23,7 @@ class lmbSerializableObjectForTests extends lmbSerializable
 
 class lmbSessionTest extends TestCase
 {
-    protected $session;
+    protected lmbSession $session;
 
     function setUp(): void
     {
@@ -195,6 +197,30 @@ class lmbSessionTest extends TestCase
         $this->session[$key . 'b'] = 'test';
         $this->session[$key . 'c'] = 'test';
         $this->assertCount(3, $this->session);
+    }
+
+    function testResetStartedSession()
+    {
+        lmbToolkit::instance()->registerSessionStorageDriver('db', lmbSessionDbStorageInitializer::class);
+
+        $this->session->start(lmbToolkit::instance()->sessionStorageFactory('db'));
+
+        $key = md5(mt_rand());
+
+        $this->assertNull($this->session[$key]);
+
+        $this->session[$key] = 'test';
+
+        $this->assertEquals('test', $this->session[$key]);
+
+        $this->session->reset();
+        $this->session->close();
+
+        $this->assertCount(0, $this->session);
+
+        $this->session->start(lmbToolkit::instance()->sessionStorageFactory('db'));
+
+        $this->assertCount(0, $this->session);
     }
 
 }

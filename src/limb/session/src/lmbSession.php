@@ -35,21 +35,27 @@ class lmbSession implements \ArrayAccess, \Iterator, \Countable
 
         $this->storage->install();
 
-        $sn = session_name();
-        $session_id = $_COOKIE[$sn] ?? '';
-        if($session_id === '')
-            return session_start();
+        $session_name = session_name();
 
-        if(!self::validateSid($session_id))
-            return false;
+        $session_id = $_COOKIE[$session_name] ?? '';
+        if($session_id !== '') {
+            if(!self::validateSid($session_id))
+                return false;
+        }
 
         return session_start();
+    }
+
+    static function validateSid($key): bool
+    {
+        return preg_match('/^[-,a-zA-Z0-9]{1,128}$/', $key) > 0;
     }
 
     public function getStorage(): lmbSessionStorageInterface
     {
         return $this->storage;
     }
+
     function close()
     {
         return session_write_close();
@@ -60,9 +66,9 @@ class lmbSession implements \ArrayAccess, \Iterator, \Countable
         return session_id();
     }
 
-    static function validateSid($key): bool
+    function setSessionId(string $id): false|string
     {
-        return preg_match('/^[-,a-zA-Z0-9]{1,128}$/', $key) > 0;
+        return session_id($id);
     }
 
     /**
@@ -136,11 +142,12 @@ class lmbSession implements \ArrayAccess, \Iterator, \Countable
 
     /**
      * Clears session
-     * @return void
+     * @return bool
      */
     function reset()
     {
-        $_SESSION = array();
+        $_SESSION = [];
+        return session_unset();
     }
 
     /**

@@ -15,7 +15,7 @@ class lmbSessionDbStorageInitializer implements lmbSessionStorageInitializerInte
     static function init($options = []): lmbSessionStorageInterface
     {
         $db_connection = lmbToolkit::instance()->getDefaultDbConnection();
-        $lifetime = $options['lifetime'];
+        $lifetime = $options['lifetime'] ?? null;
 
         return new lmbSessionDbStorage($db_connection, $lifetime);
     }

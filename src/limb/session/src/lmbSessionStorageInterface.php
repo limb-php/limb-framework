@@ -19,7 +19,7 @@ interface lmbSessionStorageInterface
      */
     function install(): bool;
 
-    function open(): bool;
+    function open(string $savePath, string $sessionName): bool;
     function close(): bool;
     function read($session_id): string|false;
     function write($session_id, $value): bool;

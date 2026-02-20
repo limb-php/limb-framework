@@ -67,7 +67,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
      * Does nothing and returns true
      * @return boolean
      */
-    function open(): bool
+    function open(string $savePath, string $sessionName): bool
     {
         return (bool)$this->db;
     }
