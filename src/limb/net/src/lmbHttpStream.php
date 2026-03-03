@@ -94,9 +94,18 @@ class lmbHttpStream implements StreamInterface
             return null;
         }
 
-        $stat = fstat($this->stream);
+        $uri = $this->getMetadata('uri');
+        if ($uri === 'php://input' || $uri === 'php://stdin') {
+            $this->size = isset($_SERVER['CONTENT_LENGTH'])
+                ? (int)$_SERVER['CONTENT_LENGTH']
+                : null;
+            return $this->size;
+        }
 
-        return $this->size = $stat['size'] ?? null;
+        $stat = fstat($this->stream);
+        $this->size = $stat['size'] ?? null;
+
+        return $this->size;
     }
 
     public function tell(): int
@@ -115,7 +124,16 @@ class lmbHttpStream implements StreamInterface
 
     public function eof(): bool
     {
-        return ($this->stream !== null) && feof($this->stream);
+        if ($this->stream === null) {
+            return true;
+        }
+
+        $size = $this->getSize();
+        if ($size !== null) {
+            return $this->tell() >= $size;
+        }
+
+        return feof($this->stream);
     }
 
     public function isSeekable(): bool
