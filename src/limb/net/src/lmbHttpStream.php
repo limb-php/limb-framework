@@ -94,14 +94,6 @@ class lmbHttpStream implements StreamInterface
             return null;
         }
 
-        $uri = $this->getMetadata('uri');
-        if ($uri === 'php://input' || $uri === 'php://stdin') {
-            $this->size = isset($_SERVER['CONTENT_LENGTH'])
-                ? (int)$_SERVER['CONTENT_LENGTH']
-                : null;
-            return $this->size;
-        }
-
         $stat = fstat($this->stream);
         $this->size = $stat['size'] ?? null;
 
@@ -126,11 +118,6 @@ class lmbHttpStream implements StreamInterface
     {
         if ($this->stream === null) {
             return true;
-        }
-
-        $size = $this->getSize();
-        if ($size !== null) {
-            return $this->tell() >= $size;
         }
 
         return feof($this->stream);
