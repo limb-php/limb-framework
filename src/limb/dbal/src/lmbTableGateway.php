@@ -8,6 +8,7 @@
 namespace limb\dbal\src;
 
 use limb\dbal\src\drivers\lmbDbColumnInfoInterface;
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use limb\dbal\src\query\lmbInsertQuery;
 use limb\dbal\src\query\lmbSelectQuery;
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
@@ -33,16 +34,13 @@ class lmbTableGateway
     protected $_constraints = array();
     protected $_conn;
     protected $_stmt;
-    protected $_toolkit;
 
-    function __construct($table_name = null, $conn = null)
+    function __construct($table_name = null, ?lmbDbConnectionInterface $conn = null)
     {
-        $this->_toolkit = lmbToolkit::instance();
-
         if (is_object($conn))
             $this->_conn = $conn;
         else
-            $this->_conn = $this->_toolkit->getDefaultDbConnection();
+            $this->_conn = lmbToolkit::instance()->getDefaultDbConnection();
 
         if ($table_name)
             $this->_db_table_name = $table_name;
@@ -65,7 +63,7 @@ class lmbTableGateway
 
     protected function _loadTableInfo()
     {
-        $db_info = $this->_toolkit->getDbInfo($this->_conn);
+        $db_info = lmbToolkit::instance()->getDbInfo($this->_conn);
         return $db_info->getTable($this->_db_table_name);
     }
 
@@ -365,16 +363,10 @@ class lmbTableGateway
         return $filtered;
     }
 
-    function __wakeup()
-    {
-        $this->_toolkit = lmbToolkit::instance();
-    }
-
     function __sleep()
     {
         $this->getTableInfo();
         $vars = array_keys(get_object_vars($this));
-        $vars = array_diff($vars, array('_toolkit'));
         return $vars;
     }
 }

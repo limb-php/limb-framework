@@ -43,7 +43,7 @@ interface lmbDbConnectionInterface
 
     function getTypeInfo(): lmbDbTypeInfo;
 
-    function getDatabaseInfo(): lmbDbInfo;
+    function getDatabaseInfo(): lmbDbInfoInterface;
 
     function getSequenceValue($queryId = null);
 

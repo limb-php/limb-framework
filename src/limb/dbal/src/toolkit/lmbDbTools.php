@@ -10,6 +10,7 @@ namespace limb\dbal\src\toolkit;
 use limb\config\src\toolkit\lmbConfTools;
 use limb\dbal\src\drivers\lmbDbConnectionFactory;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
+use limb\dbal\src\drivers\lmbDbInfoInterface;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\core\src\lmbSet;
 use limb\core\src\lmbEnv;
@@ -234,7 +235,7 @@ class lmbDbTools extends lmbAbstractTools
         return $this->is_db_info_cache_enabled;
     }
 
-    function getDbInfo(lmbDbConnectionInterface $conn)
+    function getDbInfo(lmbDbConnectionInterface $conn): lmbDbInfoInterface
     {
         $id = $conn->getHash();
 
@@ -250,7 +251,7 @@ class lmbDbTools extends lmbAbstractTools
         return $this->db_info[$id];
     }
 
-    function createTableGateway($table_name, lmbDbConnectionInterface $conn = null): lmbTableGateway
+    function createTableGateway($table_name, ?lmbDbConnectionInterface $conn = null): lmbTableGateway
     {
         if (!$conn)
             $cache_key = $table_name;

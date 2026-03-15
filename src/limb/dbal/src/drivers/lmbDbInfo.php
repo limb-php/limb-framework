@@ -15,7 +15,7 @@ use limb\dbal\src\exception\lmbDbException;
  * @package dbal
  * @version $Id: lmbDbInfo.php 8072 2010-01-20 08:33:41Z
  */
-abstract class lmbDbInfo
+abstract class lmbDbInfo implements lmbDbInfoInterface
 {
     protected $tables = array();
     protected $name;

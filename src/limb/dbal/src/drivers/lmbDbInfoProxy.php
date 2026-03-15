@@ -8,6 +8,7 @@
 namespace limb\dbal\src\drivers;
 
 use limb\core\src\lmbSerializable;
+use limb\core\src\lmbProxy;
 use limb\fs\src\lmbFs;
 
 /**
@@ -16,13 +17,11 @@ use limb\fs\src\lmbFs;
  * @package dbal
  * @version $Id: lmbDbCachedInfo.php 8051 2010-01-19 22:39:25Z
  */
-class lmbDbCachedInfo implements lmbDbInfoInterface
+class lmbDbInfoProxy extends lmbProxy
 {
     protected $conn;
     protected $db_info;
     protected $cache_file;
-
-    protected $original;
 
     function __construct(lmbDbConnectionInterface $conn, $cache_dir = null)
     {
@@ -99,46 +98,5 @@ class lmbDbCachedInfo implements lmbDbInfoInterface
     protected function _writeToFileCache($db_info)
     {
         lmbFs::safeWrite($this->cache_file, serialize(new lmbSerializable($db_info)));
-    }
-
-    /* */
-    function getName()
-    {
-        if(!$this->original)
-            $this->original = $this->_createOriginalObject();
-
-        return $this->original->getName();
-    }
-
-    function getTable($name)
-    {
-        if(!$this->original)
-            $this->original = $this->_createOriginalObject();
-
-        return $this->original->getTable($name);
-    }
-
-    function hasTable($name)
-    {
-        if(!$this->original)
-            $this->original = $this->_createOriginalObject();
-
-        return $this->original->hasTable($name);
-    }
-
-    function getTableList()
-    {
-        if(!$this->original)
-            $this->original = $this->_createOriginalObject();
-
-        return $this->original->getTableList();
-    }
-
-    function getTables()
-    {
-        if(!$this->original)
-            $this->original = $this->_createOriginalObject();
-
-        return $this->original->getTables();
     }
 }

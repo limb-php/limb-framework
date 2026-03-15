@@ -7,11 +7,12 @@
 
 namespace tests\dbal\cases\driver;
 
+use limb\dbal\src\drivers\lmbDbConnectionInterface;
 use PHPUnit\Framework\TestCase;
 
 abstract class DriverMetaTestBase extends TestCase
 {
-    protected $connection;
+    protected lmbDbConnectionInterface $connection;
 
     public static function tearDownAfterClass(): void
     {
