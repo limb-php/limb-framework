@@ -17,6 +17,8 @@ use tests\web_app\cases\plain\src\lmbWebApplicationSandbox2;
 
 class lmbErrorHandlerTest extends TestCase
 {
+    protected $toolkit;
+
     function setUp(): void
     {
         $this->toolkit = lmbToolkit::save();

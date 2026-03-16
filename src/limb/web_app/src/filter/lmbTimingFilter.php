@@ -18,7 +18,7 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbTimingFilter implements lmbInterceptingFilterInterface
 {
-    public function run($filter_chain, $request = null, $callback = null)
+    public function run(lmbInterceptingFilterInterface $filter_chain, $request = null, $callback = null)
     {
         $start_time = microtime(true);
 

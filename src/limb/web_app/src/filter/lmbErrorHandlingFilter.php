@@ -30,7 +30,7 @@ class lmbErrorHandlingFilter implements lmbInterceptingFilterInterface
         $this->handler = new lmbExceptionHandler($error500_page);
     }
 
-    function run($filter_chain, $request = null, $callback = null): ResponseInterface
+    function run(lmbInterceptingFilterInterface $filter_chain, $request = null, $callback = null): ResponseInterface
     {
         try {
             return $filter_chain->next($request, $callback);

@@ -3,7 +3,6 @@
 require_once(dirname(__FILE__) . '/../../../src/limb/core/common.inc.php');
 require_once(dirname(__FILE__) . '/../../core/common.inc.php');
 require_once(dirname(__FILE__) . '/../common.inc.php');
-require_once(dirname(__FILE__) . '/init.inc.php');
 require_once(dirname(__FILE__) . '/../../../src/limb/dbal/toolkit.inc.php');
 
 use limb\core\src\lmbEnv;

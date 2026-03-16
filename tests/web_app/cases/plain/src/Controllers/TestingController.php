@@ -10,6 +10,11 @@ class TestingController extends LmbController
     protected $name = 'foo';
     public $display_performed = false;
     public $template_name;
+    public $item;
+    public $in_popup;
+    public $params = [];
+    public $foo;
+    public $bar;
 
     function doDisplay()
     {
@@ -66,6 +71,9 @@ class TestingController extends LmbController
 
     function set($name, $value)
     {
-        $this->$name = $value;
+        if(property_exists($this, $name))
+            $this->$name = $value;
+        else
+            $this->params[$name] = $value;
     }
 }

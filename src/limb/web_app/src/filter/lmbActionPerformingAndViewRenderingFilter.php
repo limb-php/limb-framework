@@ -22,7 +22,7 @@ use limb\view\src\lmbView;
  */
 class lmbActionPerformingAndViewRenderingFilter implements lmbInterceptingFilterInterface
 {
-    function run($filter_chain, $request = null, $callback = null)
+    function run(lmbInterceptingFilterInterface $filter_chain, $request = null, $callback = null)
     {
         $dispatched = lmbToolkit::instance()->getDispatchedController();
         if (!is_object($dispatched))

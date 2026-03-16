@@ -19,7 +19,7 @@ use limb\toolkit\src\lmbToolkit;
  */
 class lmbViewRenderingFilter implements lmbInterceptingFilterInterface
 {
-    function run($filter_chain, $request = null, $callback = null)
+    function run(lmbInterceptingFilterInterface $filter_chain, $request = null, $callback = null)
     {
         $response = $filter_chain->next($request, $callback);
 

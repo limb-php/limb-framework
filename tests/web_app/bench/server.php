@@ -9,7 +9,7 @@ require_once('limb/core/common.inc.php');
 require_once('limb/web_app/common.inc.php');
 
 use limb\web_app\src\lmbWebApplication;
-use limb\web_app\src\controller\LmbController;
+use limb\web_app\src\Controllers\LmbController;
 
 class DefaultController extends LmbController
 {
@@ -26,7 +26,7 @@ $application->setDefaultControllerName('default');
 
 $mark = microtime(true);
 
-$application->process();
+$application->process( request() );
 
 $exec_time = microtime(true) - $mark;
 

@@ -16,8 +16,9 @@ use limb\toolkit\src\lmbToolkit;
 class lmbWebAppTestCase extends TestCase
 {
     protected $toolkit;
-    protected $db;
+    protected $session;
     protected $connection;
+    protected $db;
 
     function setUp(): void
     {

@@ -26,3 +26,5 @@ lmbToolkit::instance()->setSupportedViewTypes(
 );
 
 lmb_tests_init_var_dir(dirname(__FILE__) . '/../../../var/web_app');
+
+require_once(dirname(__FILE__) . '/db/.setup.php');
