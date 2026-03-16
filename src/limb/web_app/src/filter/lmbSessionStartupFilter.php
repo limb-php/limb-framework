@@ -20,7 +20,7 @@ use limb\toolkit\src\lmbToolkit;
  *
  * What session storage driver will be used is depend on {@link LIMB_USE_DRIVER} constant value.
  * If LIMB_USE_DRIVER has FALSE value or not defined - native file based session storage will be used.
- * Otherwise database storage driver will be installed.
+ * Otherwise, database storage driver will be installed.
  * @see lmbSessionNativeStorage
  * @see lmbSessionMemcacheStorage
  * @see lmbSessionMemcachedStorage
@@ -51,10 +51,19 @@ class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
     /**
      * @see lmbInterceptingFilter::run()
      */
-    function run($filter_chain, $request = null, $callback = null)
+    function run(lmbInterceptingFilterInterface $filter_chain, $request = null, $callback = null)
     {
         $session = lmbToolkit::instance()->getSession();
-        $session->start( lmbToolkit::instance()->sessionStorageFactory($this->session_type, ['lifetime' => $this->session_lifetime]) );
+
+        $session_name = session_name();
+        $session_id = $_COOKIE[$session_name] ?? '';
+        if($session_id !== '') {
+            if(!$session::isValidSid($session_id))
+                session_create_id();
+        }
+
+        $storage = lmbToolkit::instance()->sessionStorageFactory($this->session_type, ['lifetime' => $this->session_lifetime]);
+        $session->start($storage);
 
         $response = $filter_chain->next($request, $callback);
 

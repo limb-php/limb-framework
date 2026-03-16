@@ -42,7 +42,7 @@ class lmbSessionTools extends lmbAbstractTools
         return $this->session;
     }
 
-    function setSession($session)
+    function setSession($session): void
     {
         $this->session = $session;
     }

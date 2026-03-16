@@ -46,7 +46,7 @@ class lmbSessionDbStorageTest extends TestCase
 
     function testStorageOpen()
     {
-        $this->assertTrue($this->driver->open());
+        $this->assertTrue($this->driver->open('', ''));
     }
 
     function testStorageClose()

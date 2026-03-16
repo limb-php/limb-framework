@@ -23,7 +23,7 @@ class lmbSession implements \ArrayAccess, \Iterator, \Countable
     /**
      * @var array variables names that were changed. Used for testing purposes mostly.
      */
-    protected $touched_names = [];
+    protected array $touched_names = [];
 
     /**
      * Starts session and installs driver
@@ -33,22 +33,10 @@ class lmbSession implements \ArrayAccess, \Iterator, \Countable
     {
         $this->storage = $storage;
 
-        $this->storage->install();
-
-        $session_name = session_name();
-
-        $session_id = $_COOKIE[$session_name] ?? '';
-        if($session_id !== '') {
-            if(!self::validateSid($session_id))
-                return false;
-        }
+        if( !$this->storage->install() )
+            return false;
 
         return session_start();
-    }
-
-    static function validateSid($key): bool
-    {
-        return preg_match('/^[-,a-zA-Z0-9]{1,128}$/', $key) > 0;
     }
 
     public function getStorage(): lmbSessionStorageInterface
@@ -59,6 +47,11 @@ class lmbSession implements \ArrayAccess, \Iterator, \Countable
     function close()
     {
         return session_write_close();
+    }
+
+    static function isValidSid($sessionId): bool
+    {
+        return preg_match('/^[-,a-zA-Z0-9]{1,128}$/', $sessionId) > 0;
     }
 
     function getSessionId(): false|string

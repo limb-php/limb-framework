@@ -44,6 +44,21 @@ class lmbFilterChainTest extends TestCase
         $this->assertInstanceOf(lmbFilterChain::class, $mock_filter->captured['filter_chain']);
     }
 
+    function testProcessAsNext()
+    {
+        $mock_filter = new InterceptingFilterStub();
+
+        $this->fc->registerFilter($mock_filter);
+
+        $this->assertFalse($mock_filter->run);
+
+        $response = $this->fc->next($this->request, function () {});
+
+        $this->assertTrue($mock_filter->run);
+
+        $this->assertInstanceOf(lmbFilterChain::class, $mock_filter->captured['filter_chain']);
+    }
+
     function testProcessProperNesting()
     {
         $f1 = new OutputFilter1();

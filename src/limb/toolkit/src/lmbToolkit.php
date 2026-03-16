@@ -123,6 +123,8 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @see lmbSessionTools
  * @method \limb\session\src\lmbSession getSession()
  * @method setSession(\limb\session\src\lmbSession $session)
+ * @method registerSessionStorageDriver($session_type, $storage_initializer_class)
+ * @method \limb\session\src\lmbSessionStorageInterface sessionStorageFactory($session_type, $options = [])
  *
  * @see lmbViewTools
  * @method setSupportedViewTypes($types)

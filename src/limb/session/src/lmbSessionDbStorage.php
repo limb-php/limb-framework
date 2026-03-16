@@ -26,22 +26,25 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     /**
      * @var lmbTableGateway facade to work with database
      */
-    protected $db;
+    protected lmbTableGateway $db;
     /**
-     * @var integer maximum session lifetime
+     * @var ?int maximum session lifetime
      */
-    protected $max_life_time = null;
+    protected ?int $max_life_time = null;
 
-    protected $session_table_name = 'lmb_session';
+    protected string $session_table_name = 'lmb_session';
 
     /**
      *  Constructor.
      * @param lmbDbConnectionInterface $db_connection database connection object
-     * @param integer|null $max_life_time maximum session lifetime
+     * @param ?int $max_life_time maximum session lifetime
      */
-    function __construct($db_connection, $max_life_time = null)
+    function __construct(lmbDbConnectionInterface $db_connection, ?int $max_life_time = null, ?int $session_table_name = null)
     {
         $this->max_life_time = $max_life_time;
+
+        if($session_table_name)
+            $this->session_table_name = $session_table_name;
 
         $this->db = new lmbTableGateway($this->session_table_name, $db_connection);
         $this->db->setPrimaryKeyName('session_id');
@@ -65,9 +68,11 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     /**
      * Opens session storage
      * Does nothing and returns true
+     * @param string $savePath
+     * @param string $sessionName
      * @return boolean
      */
-    function open(): bool
+    function open(string $savePath, string $sessionName): bool
     {
         return (bool)$this->db;
     }
@@ -85,9 +90,9 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     /**
      * Read a single row from <b>lmb_session</b> db table and returns <b>session_data</b> column
      * @param string $session_id session ID
-     * @return mixed
+     * @return false|string
      */
-    function read($session_id): false|string
+    function read(string $session_id): false|string
     {
         $rs = $this->db->select(new lmbSQLFieldCriteria('session_id', $session_id));
         $rs->rewind();
@@ -102,7 +107,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
      * @param string $session_id session ID
      * @param string $value session data
      */
-    function write($session_id, string $value): bool
+    function write(string $session_id, string $value): bool
     {
         $crit = new lmbSQLFieldCriteria('session_id', $session_id);
         $rs = $this->db->select($crit);
@@ -126,7 +131,7 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
      * Removed a row from <b>lmb_session</b> db table
      * @param string $session_id session ID
      */
-    function destroy($session_id): bool
+    function destroy(string $session_id): bool
     {
         $this->db->delete(new lmbSQLFieldCriteria('session_id', $session_id));
 
@@ -136,9 +141,9 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     /**
      * Checks if storage is still valid. If session not valid - removes it's row from <b>lmb_session</b> db table
      * Prefers class attribute {@link $max_life_time} if it's not NULL.
-     * @param integer $max_life_time system session max lifetime
+     * @param ?int $max_life_time system session max lifetime
      */
-    function gc($max_life_time = null): false|int
+    function gc(?int $max_life_time = null): false|int
     {
         if ($max_life_time === null)
             $max_life_time = $this->max_life_time;
