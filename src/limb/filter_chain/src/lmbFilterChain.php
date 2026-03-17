@@ -71,9 +71,9 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
      *
      * @return self
      */
-    function registerFilter($filter, ...$agrs)
+    function registerFilter($filter, ...$args)
     {
-        $this->filters[] = [$filter, $agrs];
+        $this->filters[] = [$filter, $args];
 
         return $this;
     }
@@ -98,9 +98,9 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
         $this->counter++;
 
         if (isset($this->filters[$this->counter])) {
-            [$filter, $agrs] = $this->filters[$this->counter];
+            [$filter, $args] = $this->filters[$this->counter];
             if(!is_object($filter)){
-                $filter = new $filter(...$agrs);
+                $filter = new $filter(...$args);
             }
 
             /** @var $filter lmbInterceptingFilterInterface */
@@ -120,8 +120,6 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
      */
     function process($request, $callback = null)
     {
-        $this->counter = -1;
-
         return $this->next($request, $callback);
     }
 
@@ -138,13 +136,22 @@ class lmbFilterChain implements lmbInterceptingFilterInterface
      */
     function run($filter_chain, $request, $callback = null)
     {
-        $this->process($request, $callback);
+        //$this->process($request, $callback);
 
-        return $filter_chain->next($request, $callback);
+        //return $filter_chain->next($request, $callback);
+
+        return $this->next($request, function ($request) use ($filter_chain, $callback) {
+            return $filter_chain->next($request, $callback);
+        });
     }
 
-    function handle($filter_chain, $request, $callback = null)
+    /**
+     * Handle the request
+     *
+     * @return mixed
+     */
+    function handle($request, $callback = null)
     {
-        return $this->run($filter_chain, $request, $callback);
+        return $this->process($request, $callback);
     }
 }

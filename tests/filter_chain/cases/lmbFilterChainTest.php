@@ -44,7 +44,7 @@ class lmbFilterChainTest extends TestCase
         $this->assertInstanceOf(lmbFilterChain::class, $mock_filter->captured['filter_chain']);
     }
 
-    function testProcessAsNext()
+    function testProcessAsHandle()
     {
         $mock_filter = new InterceptingFilterStub();
 
@@ -52,7 +52,7 @@ class lmbFilterChainTest extends TestCase
 
         $this->assertFalse($mock_filter->run);
 
-        $response = $this->fc->next($this->request, function () {});
+        $response = $this->fc->handle($this->request, function () {});
 
         $this->assertTrue($mock_filter->run);
 
@@ -70,14 +70,27 @@ class lmbFilterChainTest extends TestCase
             ->registerFilter($f2)
             ->registerFilter($mock_filter);
 
-        ob_start();
-
         $response = $this->fc->process($this->request);
 
-        $str = ob_get_contents();
-        ob_end_clean();
+        $this->assertEquals('<filter1><filter2></filter2></filter1>', $response);
+    }
 
-        $this->assertEquals('<filter1><filter2></filter2></filter1>', $str);
+    function testProcessProperNestingAsHandle()
+    {
+        $f1 = new OutputFilter1();
+        $f2 = new OutputFilter2();
+        $f3 = new OutputFilter3();
+        $mock_filter = new InterceptingFilterStub();
+
+        $this->fc
+            ->registerFilter($f1)
+            ->registerFilter($f2)
+            ->registerFilter($f3)
+            ->registerFilter($mock_filter);
+
+        $response = $this->fc->handle($this->request);
+
+        $this->assertEquals('<filter1><filter2><filter3></filter3></filter2></filter1>', $response);
     }
 
     function testFilterChainAsAFilter()
@@ -102,18 +115,13 @@ class lmbFilterChainTest extends TestCase
             ->registerFilter($f3)
             ->registerFilter($mock_filter);
 
-        ob_start();
-
         $url = '/some_path';
 
         $response = $fc->process(
-            new lmbHttpRequest($url, 'GET'), fn($request) => $request->getUri()->getPath()
+            new lmbHttpRequest($url, 'GET'),
+            fn($request) => $request->getUri()->getPath()
         );
 
-        $str = ob_get_contents();
-        ob_end_clean();
-
-        $this->assertEquals($url, $response);
-        $this->assertEquals('<filter1></filter1><filter2></filter2><filter3></filter3>', $str);
+        $this->assertEquals('<filter1><filter2><filter3>' . $url . '</filter3></filter2></filter1>', $response);
     }
 }

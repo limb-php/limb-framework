@@ -11,7 +11,7 @@ use limb\web_app\src\lmbWebApplication;
 
 class lmbCmsApplication extends lmbWebApplication
 {
-    protected function _registerFilters()
+    protected function _registerFilters(): void
     {
         $this->registerFilter(lmbAutoDbTransactionFilter::class);
         $this->registerFilter(lmbSessionStartupFilter::class);

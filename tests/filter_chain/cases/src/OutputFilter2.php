@@ -2,19 +2,13 @@
 
 namespace tests\filter_chain\cases\src;
 
-class OutputFilter2
+use limb\filter_chain\src\lmbInterceptingFilterInterface;
+
+class OutputFilter2 implements lmbInterceptingFilterInterface
 {
-    function run($fc, $request, $callback = null)
+    function run(lmbInterceptingFilterInterface $filter_chain, $request, $callback = null)
     {
-        echo '<filter2>';
-        $response = $fc->next($request, $callback);
-        echo '</filter2>';
-
-        return $response;
+        return '<filter2>' . $filter_chain->next($request, $callback) . '</filter2>';
     }
 
-    function handle($fc, $request, $callback = null)
-    {
-        return $this->run($fc, $request, $callback);
-    }
 }

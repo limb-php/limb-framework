@@ -16,8 +16,8 @@ class InterceptingFilterStub
         return $fc->next($request, $callback);
     }
 
-    function handle($fc, $request, $callback = null)
-    {
-        return $this->run($fc, $request, $callback);
-    }
+//    function handle($fc, $request, $callback = null)
+//    {
+//        return $this->run($fc, $request, $callback);
+//    }
 }

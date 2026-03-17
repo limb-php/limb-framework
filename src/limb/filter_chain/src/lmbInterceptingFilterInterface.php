@@ -27,5 +27,5 @@ interface lmbInterceptingFilterInterface
      * @see lmbFilterChain::next()
      *
      */
-    function run($filter_chain, $request, $callback = null);
+    function run(lmbInterceptingFilterInterface $filter_chain, $request, $callback = null);
 }

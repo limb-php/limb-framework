@@ -66,7 +66,7 @@ class lmbApplication
         try {
             $this->_bootstrap($request);
 
-            $response = $this->middleware->process($request, function ($request) {
+            $response = $this->middleware->handle($request, function ($request) {
                 $dispatched_params = $this->dispatcher->dispatch($request);
 
                 // @TODO: BC start

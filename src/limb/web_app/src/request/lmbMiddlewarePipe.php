@@ -21,10 +21,10 @@ class lmbMiddlewarePipe extends lmbFilterChain
         $this->registerFilter(lmbAutoDbTransactionFilter::class);
     }
 
-    function process($request, $callback = null): lmbHttpResponse
+    function handle($request, $callback = null): lmbHttpResponse
     {
         $this->_registerFilters();
 
-        return parent::process($request, $callback);
+        return parent::handle($request, $callback);
     }
 }
