@@ -255,19 +255,11 @@ class LmbController
         foreach ($this->form_datasource as $form_id => $datasource)
             $view->setFormDatasource($form_id, $datasource);
 
-        foreach (get_object_vars($this) as $name => $value) {
-            if ($name[0] !== '_')
-                $view->set($name, $value);
+        $reflect = new \ReflectionClass($this);
+        $props = $reflect->getProperties(\ReflectionProperty::IS_PUBLIC);
+        foreach ($props as $value) {
+            $view->set($value->getName(), $value->getValue());
         }
-
-// FOR LIMB 5.x
-//        $reflect = new \ReflectionClass($this);
-//        $props = $reflect->getProperties(\ReflectionProperty::IS_PUBLIC);
-//        foreach ($props as $value) {
-//            $name = $value->getName();
-//            if ($name[0] !== '_' && !$value->isStatic())
-//                $view->set($name, $this->$name);
-//        }
     }
 
     function redirect($params_or_url = array(), $route_url = null): ResponseInterface
