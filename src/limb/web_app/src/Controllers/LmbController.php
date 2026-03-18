@@ -266,9 +266,7 @@ abstract class LmbController
 //        $reflect = new \ReflectionClass($this);
 //        $props = $reflect->getProperties(\ReflectionProperty::IS_PUBLIC);
 //        foreach ($props as $value) {
-//            $name = $value->getName();
-//            if ($name[0] !== '_' && !$value->isStatic())
-//                $view->set($name, $this->$name);
+//            $view->set($value->getName(), $value->getValue());
 //        }
     }
 
