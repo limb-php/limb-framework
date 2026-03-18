@@ -88,6 +88,6 @@ class lmbCmsSessionUser implements AuthSessionInterface
 
     function __sleep()
     {
-        return ['user_id', 'is_logged_in'];
+        return ['user_id', 'is_logged_in', 'provider'];
     }
 }

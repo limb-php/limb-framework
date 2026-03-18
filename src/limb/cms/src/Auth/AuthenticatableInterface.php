@@ -11,4 +11,5 @@ interface AuthenticatableInterface
     public function getRememberToken();
     public function setRememberToken($value);
     public function getRememberTokenName();
+    public function isPasswordCorrect(string $password): bool;
 }

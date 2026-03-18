@@ -6,10 +6,7 @@ use limb\cms\src\Actions\ForgotPasswordEmailAction;
 use limb\cms\src\Auth\lmbAuth;
 use limb\cms\src\Helper\SecurityHelper;
 use limb\web_app\src\Controllers\LmbController;
-use limb\core\src\lmbEnv;
-use limb\mail\src\lmbMailer;
 use limb\cms\src\model\lmbCmsUser;
-use limb\view\src\lmbMacroView;
 use limb\active_record\src\lmbActiveRecord;
 
 class UserController extends LmbController
@@ -51,7 +48,8 @@ class UserController extends LmbController
         $user->setGeneratedPassword('');
         $user->saveSkipValidation();
 
-        $this->flashAndRedirect('New password is applied', '/user/login');
+        $this->flash('New password is applied');
+        $this->redirect('/user/login');
     }
 
     function doLogin($request)
@@ -64,7 +62,8 @@ class UserController extends LmbController
                 if (!$redirect_url = urldecode($request->get('redirect')))
                     $redirect_url = '/';
 
-                response()->redirect($redirect_url);
+                return response()
+                    ->redirect($redirect_url);
             } else {
                 $this->flashError("Wrong login or password");
             }
@@ -75,6 +74,7 @@ class UserController extends LmbController
     {
         lmbAuth::logout();
 
-        response()->redirect('/');
+        response()
+            ->redirect('/');
     }
 }

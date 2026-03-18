@@ -33,7 +33,7 @@ class lmbCmsUser extends lmbARModel implements lmbRoleProviderInterface, Authent
         }
     }
 
-    function isPasswordCorrect($password): bool
+    public function isPasswordCorrect(string $password): bool
     {
         return $this->getAuthPassword() == SecurityHelper::cryptPassword($password, $this->ctime);
     }
