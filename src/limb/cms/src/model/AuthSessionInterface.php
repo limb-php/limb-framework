@@ -10,6 +10,8 @@ interface AuthSessionInterface
 
     function setUser(AuthenticatableInterface $user);
 
+    function resetUser();
+
     function login(AuthenticatableInterface $user);
 
     function logout();
