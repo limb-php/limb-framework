@@ -39,7 +39,7 @@ class lmbMacroFilterDictionary
         //compatibility with PHP 5.1.6
         $filters_scan_dirs = $config->filters_scan_dirs;
         foreach ($filters_scan_dirs as $scan_dir) {
-            foreach (lmbFs::glob($scan_dir . '/*Filter.*') as $file)
+            foreach (lmbFs::glob($scan_dir . '/*Filter.php') as $file)
                 $this->registerFromFile($file);
         }
 

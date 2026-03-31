@@ -45,7 +45,7 @@ class lmbMacroTagDictionary
                 $real_scan_dirs[] = $item;
         }
         foreach ($real_scan_dirs as $scan_dir) {
-            foreach (lmbFs::glob($scan_dir . '/*Tag.*') as $file) {
+            foreach (lmbFs::glob($scan_dir . '/*Tag.php') as $file) {
                 $this->registerFromFile($file);
             }
         }
