@@ -96,13 +96,13 @@ class lmbViewTools extends lmbAbstractTools
         return $this->view_types[$ext];
     }
 
-    function getMacroConfig()
+    function getMacroConfig(): lmbMacroConfig
     {
         if (!$this->macro_config) {
             if (!is_object($config = $this->toolkit->getConf('macro')))
                 throw new lmbException("Macro configuration not found");
 
-            $this->macro_config = $config;
+            $this->macro_config = new lmbMacroConfig($config);
         }
 
         return $this->macro_config;
@@ -113,8 +113,8 @@ class lmbViewTools extends lmbAbstractTools
         if (is_object($this->macro_locator))
             return $this->macro_locator;
 
-        $config = lmbToolkit::instance()->getMacroConfig();
-        $this->macro_locator = new lmbMacroTemplateLocator(new lmbMacroConfig($config->export()));
+        $macro_config = lmbToolkit::instance()->getMacroConfig();
+        $this->macro_locator = new lmbMacroTemplateLocator($macro_config);
 
         return $this->macro_locator;
     }
