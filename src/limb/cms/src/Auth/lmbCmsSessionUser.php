@@ -5,9 +5,8 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-namespace limb\cms\src\model;
+namespace limb\cms\src\Auth;
 
-use limb\cms\src\Auth\AuthenticatableInterface;
 use limb\cms\src\Repository\lmbUserRepositoryInterface;
 
 /**

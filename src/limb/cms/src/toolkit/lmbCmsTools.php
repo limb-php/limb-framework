@@ -8,15 +8,15 @@
 namespace limb\cms\src\toolkit;
 
 use limb\cms\src\Auth\AuthenticatableInterface;
-use limb\cms\src\model\AuthSessionInterface;
+use limb\cms\src\Auth\AuthSessionInterface;
+use limb\cms\src\Auth\lmbCmsSessionUser;
 use limb\cms\src\Repository\lmbUserRepository;
 use limb\cms\src\Repository\lmbUserRepositoryInterface;
 use limb\toolkit\src\lmbAbstractTools;
-use limb\tree\src\lmbMPTree;
-use limb\cms\src\model\lmbCmsSessionUser;
-use limb\web_app\src\toolkit\lmbWebAppTools;
-use limb\web_app\src\toolkit\lmbProfileTools;
 use limb\toolkit\src\lmbToolkit;
+use limb\tree\src\lmbMPTree;
+use limb\web_app\src\toolkit\lmbProfileTools;
+use limb\web_app\src\toolkit\lmbWebAppTools;
 
 /**
  * class lmbCmsTools.

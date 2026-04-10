@@ -1,8 +1,6 @@
 <?php
 
-namespace limb\cms\src\model;
-
-use limb\cms\src\Auth\AuthenticatableInterface;
+namespace limb\cms\src\Auth;
 
 interface AuthSessionInterface
 {

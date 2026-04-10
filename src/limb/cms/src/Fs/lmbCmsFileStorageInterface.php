@@ -1,6 +1,6 @@
 <?php
 
-namespace limb\cms\src\model;
+namespace limb\cms\src\Fs;
 
 interface lmbCmsFileStorageInterface
 {

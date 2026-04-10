@@ -1,6 +1,6 @@
 <?php
 
-namespace limb\cms\src\model;
+namespace limb\cms\src\Fs;
 
 use limb\fs\src\lmbFs;
 use limb\net\src\lmbMimeType;

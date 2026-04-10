@@ -8,10 +8,10 @@
 namespace limb\toolkit\src;
 
 use limb\core\src\exception\lmbException;
+use limb\core\src\exception\lmbNoSuchMethodException;
 use limb\core\src\exception\lmbNoSuchPropertyException;
 use limb\core\src\lmbObject;
 use limb\core\src\lmbString;
-use limb\core\src\exception\lmbNoSuchMethodException;
 
 /**
  * Toolkit is an implementation of Dinamic Service Locator pattern
@@ -35,7 +35,23 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * $db_connection = $toolkit->getDefaultDbConnection(); // supported by lmbDbTools
  * $toolkit->get('my_var'); // returns $value value
  * </code>
- * @see lmbToolkitToolsInterface
+ * @throws \limb\web_app\src\exception\lmbControllerNotFoundException
+ * }
+ * @method getRouteUrlByName($route_name, $params = [])
+ * @method string getRoutesUrl($params = [], $route_name = '', $skip_controller = false)
+ * @method \limb\web_app\src\request\lmbRoutes getRoutes()
+ * @method setRoutes($routes)
+ * @method \limb\web_app\src\util\lmbFlashBox getFlashBox()
+ * @method flashError($message)
+ * @method flashMessage($message)
+ * @method \limb\net\src\lmbHttpResponse redirect($params_or_url = [], string $route_name = '', $append = '')
+ * @method \limb\net\src\lmbHttpResponse redirectToRoute(array $params, string $route_name = '', $append = '')
+ * @method bool isWebAppDebugEnabled()
+ * @method addVersionToUrl($file_src, $safe = false)
+ * @method getNormalizeUrlAndVersion($file_src, $safe = false)
+ * @method selectDomainForFile($domains, $file_src, $safe = false)
+ *
+ *@see lmbToolkitToolsInterface
  * @package toolkit
  * @version $Id: lmbToolkit.php 8177 2010-04-23 18:10:17Z
  *
@@ -56,7 +72,7 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method void setCmsTree(\limb\tree\src\lmbMPTree $tree)
  * @method string getUserSessionClassName()
  * @method \limb\cms\src\Repository\lmbUserRepositoryInterface getUserRepository()
- * @method \limb\cms\src\model\AuthSessionInterface getCmsAuthSession()
+ * @method \limb\cms\src\Auth\AuthSessionInterface getCmsAuthSession()
  * @method \limb\cms\src\Auth\AuthenticatableInterface|null getCmsUser()
  * @method void setCmsUser(\limb\cms\src\Auth\AuthenticatableInterface $user)
  * @method void resetCmsUser()
@@ -144,22 +160,6 @@ use limb\core\src\exception\lmbNoSuchMethodException;
  * @method setDispatchedController($dispatched)
  * @method \limb\web_app\src\Controllers\lmbController getDispatchedController()
  * @method \limb\web_app\src\Controllers\lmbController createController($controller_name, $namespace = '') {
- *      @throws \limb\web_app\src\exception\lmbControllerNotFoundException
- * }
- * @method getRouteUrlByName($route_name, $params = [])
- * @method string getRoutesUrl($params = [], $route_name = '', $skip_controller = false)
- * @method \limb\web_app\src\request\lmbRoutes getRoutes()
- * @method setRoutes($routes)
- * @method \limb\web_app\src\util\lmbFlashBox getFlashBox()
- * @method flashError($message)
- * @method flashMessage($message)
- * @method \limb\net\src\lmbHttpResponse redirect($params_or_url = [], string $route_name = '', $append = '')
- * @method \limb\net\src\lmbHttpResponse redirectToRoute(array $params, string $route_name = '', $append = '')
- * @method bool isWebAppDebugEnabled()
- * @method addVersionToUrl($file_src, $safe = false)
- * @method getNormalizeUrlAndVersion($file_src, $safe = false)
- * @method selectDomainForFile($domains, $file_src, $safe = false)
- *
  */
 class lmbToolkit extends lmbObject
 {
