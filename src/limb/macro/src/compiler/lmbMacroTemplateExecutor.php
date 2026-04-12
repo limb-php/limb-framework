@@ -76,7 +76,7 @@ class lmbMacroTemplateExecutor
         if ($this->__context)
             return $this->__context->get($name);
 
-        //we definitely want to suppress warnings, make it some sort of a NullObject?
+        //we definitely want to suppress warnings, make it some sort of NullObject?
         return '';
     }
 
@@ -85,7 +85,7 @@ class lmbMacroTemplateExecutor
         extract($args);
     }
 
-    function includeTemplate($file, $vars = [], $slots_handlers = [])
+    function includeTemplate($file, $vars = [], $slots_handlers = []): void
     {
         $template = new lmbMacroTemplate($file, $this->__config);
         $template->setVars($this->__props);//global template vars

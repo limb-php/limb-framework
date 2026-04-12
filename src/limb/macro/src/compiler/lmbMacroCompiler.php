@@ -31,7 +31,7 @@ class lmbMacroCompiler
     protected $template_locator;
 
     /**
-     * @var lmbMacroSourceParser
+     * @var lmbMacroParser
      */
     protected $parser;
 
@@ -60,7 +60,7 @@ class lmbMacroCompiler
         $this->filter_dictionary = $filter_dictionary;
     }
 
-    function compile($source_file, $compiled_file, $class, $render_func)
+    function compile($source_file, $compiled_file, $class, $render_func): void
     {
         $root_node = new lmbMacroNode(new lmbMacroSourceLocation($source_file, ''));
 
@@ -77,14 +77,14 @@ class lmbMacroCompiler
         self::writeFile($compiled_file, $generated_code);
     }
 
-    function _generateTemplateCode($class, $render_func, $root_node)
+    function _generateTemplateCode($class, $render_func, lmbMacroNode $root_node): string
     {
         $code_writer = new lmbMacroCodeWriter($class, $render_func);
         $root_node->generate($code_writer);
         return $code_writer->renderCode();
     }
 
-    function parseTemplate($file_name, $root_node)
+    function parseTemplate($file_name, $root_node): void
     {
         if (!$source_file_path = $this->template_locator->locateSourceTemplate($file_name))
             throw new lmbMacroException('Template source file not found', array('file_name' => $file_name));
@@ -128,10 +128,10 @@ class lmbMacroCompiler
     }
 
     /**
-     *  Registers instance listener of specified type
+     * Registers instance listener of specified type
      * @param callable $callback call back object
      */
-    static function registerOnCompileCallback($callback)
+    static function registerOnCompileCallback($callback): void
     {
         self::$_listeners['on_compile'] = lmbDelegate::objectify($callback);
     }

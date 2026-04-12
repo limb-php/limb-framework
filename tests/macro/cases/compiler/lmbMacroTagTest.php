@@ -165,6 +165,10 @@ class lmbMacroTagTest extends TestCase
     {
         $code_writer = $this->createMock(lmbMacroCodeWriter::class);
         $attribute = $this->createMock(lmbMacroTagAttribute::class);
+        // @TODO: we need this? or set lmbMacroTagAttribute::$name to '' by default
+        $attribute
+            ->method('getName')
+            ->willReturn('some_name');
         $attribute
             ->expects($this->once())
             ->method('preGenerate');

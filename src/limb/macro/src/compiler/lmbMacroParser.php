@@ -11,7 +11,7 @@ use limb\fs\src\exception\lmbFileNotFoundException;
 use limb\macro\src\lmbMacroException;
 
 /**
- * class lmbMacroParser.
+ * class lmbMacroParser
  *
  * @package macro
  * @version $Id$

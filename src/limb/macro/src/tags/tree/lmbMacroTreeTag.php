@@ -16,6 +16,8 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroTreeTag extends lmbMacroTag
 {
+    protected $method;
+
     protected function _generateContent($code_writer)
     {
         if (!$level = $this->get('level'))

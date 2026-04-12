@@ -18,6 +18,10 @@ use limb\macro\src\compiler\lmbMacroTag;
  */
 class lmbMacroPagerListTag extends lmbMacroTag
 {
+    protected $pager;
+    protected $elipses_count_var;
+    protected $show_separator_var;
+
     protected function _generateContent($code_writer)
     {
         $this->pager = $this->findParentByClass('limb\macro\src\tags\pager\lmbMacroPagerTag')->getRuntimeVar();

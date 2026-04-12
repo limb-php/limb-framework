@@ -101,7 +101,7 @@ class lmbMacroTemplate
         return array($compiled_file, $macro_executor_class);
     }
 
-    protected function _createCompiler()
+    protected function _createCompiler(): lmbMacroCompiler
     {
         $tag_dictionary = lmbMacroTagDictionary::instance();
         $filter_dictionary = lmbMacroFilterDictionary::instance();

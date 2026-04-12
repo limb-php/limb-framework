@@ -124,6 +124,7 @@ class lmbMacroCodeWriter
             "if(!class_exists('{$this->class}', false)){\n" .
             $this->_renderIncludeList() .
             "class {$this->class} " . ($this->parent ? "extends {$this->parent} " : '') . "{\n" .
+            'protected $__template_tags = [];' . "\n" .
             (!$this->init_code ? "" :
                 "\nfunction _init() {" .
                 "\n$this->init_code\n" .

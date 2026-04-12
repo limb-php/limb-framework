@@ -19,10 +19,10 @@ use limb\macro\src\lmbMacroException;
 class lmbI18nMacroTag extends lmbMacroTag
 {
 
-    function preParse($compiller): void
+    function preParse($compiler): void
     {
         if (!$this->has('text')) throw new lmbMacroException('tag {{i18n}} required attribute "text"');
-        parent::preParse($compiller);
+        parent::preParse($compiler);
     }
 
     protected function _generateContent($code_writer)

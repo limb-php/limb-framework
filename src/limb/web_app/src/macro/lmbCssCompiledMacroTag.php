@@ -2,7 +2,6 @@
 
 namespace limb\web_app\src\macro;
 
-use limb\web_app\src\macro\lmbFileVersionMacroTag;
 use limb\fs\src\lmbFs;
 use limb\macro\src\lmbMacroException;
 

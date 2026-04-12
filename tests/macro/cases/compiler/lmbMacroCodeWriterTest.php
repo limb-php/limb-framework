@@ -14,6 +14,7 @@ use limb\macro\src\compiler\lmbMacroTemplateExecutor;
 
 class lmbMacroCodeWriterTest extends lmbBaseMacroTestCase
 {
+    protected $class;
     protected $writer;
 
     function setUp(): void

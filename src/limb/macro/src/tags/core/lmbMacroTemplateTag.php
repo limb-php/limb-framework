@@ -28,25 +28,27 @@ class lmbMacroTemplateTag extends lmbMacroPassiveTag
         parent::preParse($compiler);
     }
 
-    function generateNow($code, $wrap_with_method = true)
+    function generateNow($code_writer, $wrap_with_method = true)
     {
         if ($wrap_with_method) {
-            $args = $code->generateVar();
+            $args = $code_writer->generateVar();
             $this->method = '_template' . self::generateUniqueId();
-            $code->beginMethod($this->getMethod(), array($args . '= array()'));
-            $code->writePHP("if($args) extract($args);");
-            parent::generateNow($code);
-            $code->endMethod();
+            $code_writer->beginMethod($this->getMethod(), array($args . '= array()'));
+            $code_writer->writePHP("if($args) extract($args);");
+            parent::generateNow($code_writer);
+            $code_writer->endMethod();
         } else
-            parent::generateNow($code);
+            parent::generateNow($code_writer);
     }
 
     function generateFromDynamicAppply($code)
     {
         $this->generateNow($code, $wrap_with_method = true);
 
-        $code->writeToInit('if(!isset($this->__template_tags)) $this->__template_tags = array();');
-        $code->writeToInit("\n");
+        // @TODO: remove this. in lmbMacroCodeWriter::renderCode() we added $__template_tags
+        //$code->writeToInit('if(!isset($this->__template_tags)) $this->__template_tags = array();');
+        //$code->writeToInit("\n");
+
         $code->writeToInit('$this->__template_tags["' . $this->get('name') . '"] = "' . $this->getMethod() . '";');
         $code->writeToInit("\n");
     }

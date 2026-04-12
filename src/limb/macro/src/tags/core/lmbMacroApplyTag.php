@@ -41,7 +41,7 @@ class lmbMacroApplyTag extends lmbMacroTag
 
             $method = $code_writer->generateVar();
             $code_writer->writePHP('if(!isset(' . '$this->__template_tags[' . $name . ']))' . "\n" .
-                ' throw new lmbMacroException("Could not find template tag \'" . ' . $name . ' . "\' for dynamic apply");' . "\n"
+                ' throw new limb\macro\src\lmbMacroException("Could not find template tag \'" . ' . $name . ' . "\' for dynamic apply");' . "\n"
             );
             $code_writer->writePHP($method . ' = $this->__template_tags[' . $name . '];');
             $code_writer->writePHP('$this->' . $method . '(' . $arg_str . ');');

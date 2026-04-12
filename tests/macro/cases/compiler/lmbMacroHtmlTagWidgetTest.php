@@ -14,6 +14,8 @@ require(dirname(__FILE__) . '/../.setup.php');
 
 class lmbMacroHtmlTagWidgetTest extends TestCase
 {
+    protected $widget;
+
     function setUp(): void
     {
         $this->widget = new lmbMacroHtmlTagWidget('TestId');
