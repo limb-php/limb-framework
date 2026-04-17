@@ -115,7 +115,7 @@ class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
         return $this->connection->getTypeInfo();
     }
 
-    function getDatabaseInfo(): lmbDbInfo
+    function getDatabaseInfo(): lmbDbInfoInterface
     {
         return $this->connection->getDatabaseInfo();
     }

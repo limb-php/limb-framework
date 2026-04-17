@@ -49,17 +49,12 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         return $this->connectionId;
     }
 
-    function getStatementNumber()
-    {
-        return sprintf("%d-%d", $this->statement_number, rand(0, PHP_INT_MAX));
-    }
-
-    function incStatementNumber()
+    function getStatementNumber(): int
     {
         if( $this->statement_number >= PHP_INT_MAX )
             $this->statement_number = 0;
 
-        $this->statement_number++;
+        return ++$this->statement_number;
     }
 
     /** @return void */

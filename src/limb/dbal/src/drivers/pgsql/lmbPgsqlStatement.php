@@ -244,9 +244,9 @@ class lmbPgsqlStatement implements lmbDbStatementInterface
 
     function generateStatementName(): string
     {
-        $this->connection->incStatementNumber();
+        $sn = $this->connection->getStatementNumber();
 
-        return $this->statement_name = "pgsql_statement_" . $this->connection->getStatementNumber();
+        return $this->statement_name = "pgsql_statement_" . $sn;
     }
 
     function execute($sql = "")
