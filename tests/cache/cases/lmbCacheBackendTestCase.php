@@ -19,6 +19,8 @@ abstract class lmbCacheBackendTestCase extends TestCase
     /** @var $cache lmbCacheBackendInterface */
     protected $cache;
 
+    protected $cache_dir;
+
     abstract function _createPersisterImp();
 
     public static function setUpBeforeClass(): void

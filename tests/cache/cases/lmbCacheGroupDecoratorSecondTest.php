@@ -18,6 +18,8 @@ use tests\cache\cases\src\SomeClass;
 
 class lmbCacheGroupDecoratorSecondTest extends TestCase
 {
+    protected $cache_dir;
+
     function _createBackend()
     {
         $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/cache';

@@ -14,23 +14,22 @@ use limb\core\src\lmbEnv;
 
 class lmbCacheFileBackendTestCase extends lmbCacheBackendTestCase
 {
-    protected $cache_dir;
-
     function _createPersisterImp()
     {
         $this->cache_dir = lmbEnv::get('LIMB_VAR_DIR') . '/cache';
-        //return new lmbCacheFileBackend($this->cache_dir);
-        return new lmbCacheFileWithMetaBackend($this->cache_dir);
+        return new lmbCacheFileBackend($this->cache_dir);
     }
 
     function testCachedDiskFiles()
     {
-        $items = lmbFs::ls($this->cache_dir);
+        $items = lmbFs::findRecursive($this->cache_dir, $types = 'f');
+
         $this->assertEquals(0, sizeof($items));
+
 
         $this->cache->set(1, $cache_value = 'value');
 
-        $items = lmbFs::ls($this->cache_dir);
+        $items = lmbFs::findRecursive($this->cache_dir, $types = 'f');
         $this->assertEquals(1, sizeof($items));
 
         $this->assertEquals($this->cache->get(1), $cache_value);
