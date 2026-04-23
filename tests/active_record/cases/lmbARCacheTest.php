@@ -7,6 +7,7 @@
 
 namespace tests\active_record\cases;
 
+use limb\active_record\src\lmbActiveRecord;
 use limb\cache\src\lmbCacheFileWithMetaBackend;
 use limb\cache\src\lmbCacheGroupDecorator;
 use limb\core\src\lmbEnv;
@@ -103,8 +104,8 @@ class lmbARCacheTest extends lmbARBaseTestCase
         $course->save();
 
         /* */
-        $l12 = LectureForTest2::findById($l1->getId());
-        $l122 = LectureForTest2::findById($l1->getId());
+        $l12 = lmbActiveRecord::findById(LectureForTest2::class, $l1->getId());
+        $l122 = lmbActiveRecord::findById(LectureForTest2::class, $l1->getId());
 
         $this->cache->set($key_l12 = $l12->getId(), $l12, null, array('group' => $group_l12 = $l12->getClass()));
 
@@ -117,8 +118,8 @@ class lmbARCacheTest extends lmbARBaseTestCase
         }
 
         /* */
-        $l12 = LectureForTest2::findById($l1->getId(), array('attach' => array('course')));
-        $l122 = LectureForTest2::findById($l1->getId(), array('attach' => array('course')));
+        $l12 = lmbActiveRecord::findById(LectureForTest2::class, $l1->getId(), array('attach' => array('course')));
+        $l122 = lmbActiveRecord::findById(LectureForTest2::class, $l1->getId(), array('attach' => array('course')));
         $this->cache->set($key_l12 = $l12->getId(), $l12, null, array('group' => $group_l12 = $l12->getClass()));
 
         if (null !== ($l12c = $this->cache->get($key_l12, null, array('group' => $group_l12)))) {

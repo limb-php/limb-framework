@@ -201,7 +201,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $this->assertEquals($found->export(), $object2->export());
 
         //testing convenient alias
-        $found = TestOneTableObject::findById($object2->getId());
+        $found = lmbActiveRecord::findById(TestOneTableObject::class, $object2->getId());
         $this->assertEquals($found->export(), $object2->export());
     }
 
@@ -434,7 +434,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $this->assertEquals($object2->getId(), $rs->current()->getId());
 
         //testing convenient alias
-        $rs = TestOneTableObject::find();
+        $rs = lmbActiveRecord::find(TestOneTableObject::class);
         $rs->rewind();
         $this->assertEquals($object1->getId(), $rs->current()->getId());
         $rs->next();
@@ -455,7 +455,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $this->assertFalse($rs->valid());
 
         //testing convenient alias
-        $rs = TestOneTableObject::find(array('criteria' => new lmbSQLFieldCriteria('id', $object2->getId())));
+        $rs = lmbActiveRecord::find(TestOneTableObject::class, array('criteria' => new lmbSQLFieldCriteria('id', $object2->getId())));
         $rs->rewind();
         $this->assertEquals($object2->getId(), $rs->current()->getId());
         $rs->next();
@@ -474,7 +474,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $this->assertFalse($rs->valid());
 
         //testing convenient alias
-        $rs = TestOneTableObject::find(new lmbSQLFieldCriteria('id', $object2->getId()));
+        $rs = lmbActiveRecord::find(TestOneTableObject::class, new lmbSQLFieldCriteria('id', $object2->getId()));
         $rs->rewind();
         $this->assertEquals($object2->getId(), $rs->current()->getId());
         $rs->next();
@@ -493,7 +493,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $this->assertFalse($rs->valid());
 
         //testing convenient alias
-        $rs = TestOneTableObject::find(lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '=' . $object2->getId());
+        $rs = lmbActiveRecord::find(TestOneTableObject::class, lmbActiveRecord::getDefaultConnection()->quoteIdentifier("id") . '=' . $object2->getId());
         $rs->rewind();
         $this->assertEquals($object2->getId(), $rs->current()->getId());
         $rs->next();
@@ -537,7 +537,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $this->assertNull(lmbActiveRecord::find(TestOneTableObject::class, -10000));
 
         //testing convenient alias
-        $this->assertNull(TestOneTableObject::find(-10000));
+        $this->assertNull(lmbActiveRecord::find(TestOneTableObject::class, -10000));
     }
 
     function testFindAllWithSortParams()
@@ -712,7 +712,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $this->assertFalse($rs->valid());
 
         //testing convenient alias
-        $rs = TestOneTableObject::findByIds(array($object1->getId(), $object3->getId()), array('sort' => array('id' => 'asc')));
+        $rs = lmbActiveRecord::findByIds(TestOneTableObject::class, array($object1->getId(), $object3->getId()), array('sort' => array('id' => 'asc')));
         $rs->rewind();
         $this->assertEquals($object1->getId(), $rs->current()->getId());
         $rs->next();
@@ -752,7 +752,8 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $this->assertFalse($rs->valid());
 
         //testing convenient alias
-        $rs = TestOneTableObject::findByIds(
+        $rs = lmbActiveRecord::findByIds(
+            TestOneTableObject::class,
             array($object1->getId(), $object3->getId(), $object4->getId()),
             array(
                 'sort' => array('id' => 'asc'),
@@ -806,7 +807,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $object1 = $this->creator->createOneTableObject();
         $object2 = $this->creator->createOneTableObject();
 
-        TestOneTableObject::delete();
+        lmbActiveRecord::delete(TestOneTableObject::class);
         $this->assertEquals(0, $this->db->count('test_one_table_object'));
     }
 
@@ -830,7 +831,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $object2 = $this->creator->createOneTableObject();
 
         ob_start();
-        TestOneTableObjectWithCustomDestroy::delete();
+        lmbActiveRecord::delete(TestOneTableObjectWithCustomDestroy::class);
         $contents = ob_get_contents();
         ob_end_clean();
 
@@ -858,7 +859,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $object2 = $this->creator->createOneTableObject();
 
         $criteria = new lmbSQLFieldCriteria('id', $object2->getId());
-        TestOneTableObject::delete($criteria);
+        lmbActiveRecord::delete(TestOneTableObject::class, $criteria);
 
         $this->assertEquals(1, $this->db->count('test_one_table_object'));
 
@@ -881,7 +882,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $object1 = $this->creator->createOneTableObject();
         $object2 = $this->creator->createOneTableObject();
 
-        TestOneTableObject::deleteRaw();
+        lmbActiveRecord::deleteRaw(TestOneTableObject::class);
 
         $this->assertEquals(0, $this->db->count('test_one_table_object'));
     }
@@ -906,7 +907,7 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $object2 = $this->creator->createOneTableObject();
 
         ob_start();
-        TestOneTableObjectWithCustomDestroy::deleteRaw();
+        lmbActiveRecord::deleteRaw(TestOneTableObjectWithCustomDestroy::class);
         $contents = ob_get_contents();
         ob_end_clean();
 
@@ -963,9 +964,9 @@ class lmbActiveRecordTest extends lmbARBaseTestCase
         $object1 = $this->creator->createOneTableObject();
         $object2 = $this->creator->createOneTableObject();
 
-        TestOneTableObject::updateRaw(array('content' => 'blah'));
+        lmbActiveRecord::updateRaw(TestOneTableObject::class, array('content' => 'blah'));
 
-        $rs = TestOneTableObject::find();
+        $rs = lmbActiveRecord::find(TestOneTableObject::class);
         $rs->rewind();
         $this->assertEquals('blah', $rs->current()->getContent());
         $rs->next();
