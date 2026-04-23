@@ -787,7 +787,9 @@ class lmbARQueryTest extends lmbARBaseTestCase
         $query = lmbARQuery:: create(ProgramForTestObject::class, array(), $this->conn);
         $query->eagerJoin('courses');
         try {
-            $it = $query->fetch();
+            // fetch() returns a lazy collection now; trigger materialization
+            // so the relation-type validation in _applyJoins fires.
+            $query->fetch()->load();
             $this->assertTrue(false);
         } catch (lmbARException $e) {
             $this->assertTrue(true);

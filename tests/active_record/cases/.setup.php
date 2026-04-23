@@ -5,7 +5,7 @@ use limb\toolkit\src\lmbToolkit;
 
 lmbToolkit::merge(new lmbARTools());
 
-$dsn = 'mysql_dsn';
+$dsn = getenv('LIMB_TEST_DSN') ?: 'mysql_dsn';
 
 lmbToolkit::instance()->setDefaultDbDSN(lmbToolkit::instance()->getDbDSNByName($dsn));
 

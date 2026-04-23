@@ -15,6 +15,7 @@ use tests\active_record\cases\src\TestOneTableObjectWithRelationsByMethods;
 class lmbARRelationsDefinitionMethodsTest extends TestCase
 {
     protected $object;
+    protected $relations;
 
     public static function setUpBeforeClass(): void
     {

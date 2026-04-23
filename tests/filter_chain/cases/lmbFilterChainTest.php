@@ -44,7 +44,7 @@ class lmbFilterChainTest extends TestCase
         $this->assertInstanceOf(lmbFilterChain::class, $mock_filter->captured['filter_chain']);
     }
 
-    function testProcessAsHandle()
+    function testProcessWithTerminalCallback()
     {
         $mock_filter = new InterceptingFilterStub();
 
@@ -52,7 +52,7 @@ class lmbFilterChainTest extends TestCase
 
         $this->assertFalse($mock_filter->run);
 
-        $response = $this->fc->handle($this->request, function () {});
+        $response = $this->fc->process($this->request, function () {});
 
         $this->assertTrue($mock_filter->run);
 
@@ -75,7 +75,7 @@ class lmbFilterChainTest extends TestCase
         $this->assertEquals('<filter1><filter2></filter2></filter1>', $response);
     }
 
-    function testProcessProperNestingAsHandle()
+    function testProcessProperNestingWithoutTerminalCallback()
     {
         $f1 = new OutputFilter1();
         $f2 = new OutputFilter2();
@@ -88,7 +88,7 @@ class lmbFilterChainTest extends TestCase
             ->registerFilter($f3)
             ->registerFilter($mock_filter);
 
-        $response = $this->fc->handle($this->request);
+        $response = $this->fc->process($this->request);
 
         $this->assertEquals('<filter1><filter2><filter3></filter3></filter2></filter1>', $response);
     }

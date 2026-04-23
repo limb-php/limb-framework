@@ -8,49 +8,19 @@
 namespace limb\filter_chain\src;
 
 /**
- *  lmbFilterChain is an implementation of InterceptinfFilter design pattern.
+ *  Legacy intercepting-filter chain without an HTTP request/callback.
  *
- *  lmbFilterChain contains registered filters and controls execution of the chain.
- *  Usually used as a FrontController in Limb based web applications (see web_app package)
+ *  Filters call $chain->next() to continue the pipeline. For PSR-style
+ *  request/response middleware use {@see lmbFilterChain} instead.
  *
- *  lmbFilterChain can be an intercepting filter in its turn as well.
- *
- *  The best way to think about filters is as of a "russian nested doll", e.g:
+ *  Usage:
  *  <code>
- *  // +-Filter A
- *  // | +-Filter B
- *  // | | +-Filter C
- *  // | | |_
- *  // | |_
- *  // |_
- *  </code>
- *  To achieve this sample structure you should write the following code:
- *  <code>
- *  $chain = new lmbFilterChain();
+ *  $chain = new lmbChain();
  *  $chain->registerFilter(new A());
  *  $chain->registerFilter(new B());
- *  $chain->registerFilter(new C());
- *  </code>
- *
- *  Remember, it's the filter that decides whether to pass control to the
- *  underlying filter, this is done by calling filter chain instance next()
- *  method.
- *
- *  Usage example:
- *  <code>
- *  //create new chain
- *  $chain = new limb\filter_chain\src\lmbFilterChain();
- *  //register filter object in the chain
- *  $chain->registerFilter(new MyFilter());
- *  //register a handle for a filter in the chain
- *  //in this case we can avoid PHP code parsing if
- *  //this filter won't be processed
- *  $chain->registerFilter(new lmbHandle('\namespace\MyFilter'));
- *  //executes the chain
  *  $chain->process();
  *  </code>
  *
- * @version $Id: lmbChain.php 7486 2009-01-26 19:13:20Z
  * @package filter_chain
  */
 class lmbChain implements lmbChainInterface

@@ -85,6 +85,13 @@ class lmbARManyToManyCollection extends lmbARRelationCollection
             $criteria->addAnd(new lmbSQLFieldCriteria($this->relation_info['foreign_field'], $to_remove_ids, lmbSQLFieldCriteria::IN));
             $table->delete($criteria);
         }
+
+        // For a persisted owner, blow away the cached lazy dataset so the next
+        // count()/at()/iteration re-queries the freshly persisted state.
+        // Skip for new (in-memory) owners — their dataset was just built up
+        // by add() and resetting would discard it.
+        if (!$this->is_owner_new)
+            $this->reset();
     }
 
     protected function _getExistingRecords($objects)

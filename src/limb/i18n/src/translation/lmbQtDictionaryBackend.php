@@ -23,6 +23,7 @@ lmbEnv::setor('LIMB_TRANSLATIONS_INCLUDE_PATH', 'i18n/translations;limb/*/i18n/t
  */
 class lmbQtDictionaryBackend //extends lmbDictionaryBackend ???
 {
+    protected $search_path;
     protected $use_cache = false;
     protected $cache_dir;
 

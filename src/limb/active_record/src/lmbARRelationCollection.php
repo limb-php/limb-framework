@@ -355,6 +355,10 @@ abstract class lmbARRelationCollection implements lmbCollectionInterface
         }
 
         $this->_removeRelatedRecords();
+
+        // Invalidate the cached dataset so subsequent count()/at()/iteration
+        // reflect the freshly persisted state.
+        $this->reset();
     }
 
     abstract function set($objects);

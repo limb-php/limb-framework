@@ -77,6 +77,13 @@ class lmbAROneToManyCollection extends lmbARRelationCollection
             } else
                 $obj->destroy();
         }
+
+        // For a persisted owner, blow away the cached lazy dataset so the next
+        // count()/at()/iteration re-queries the freshly persisted state.
+        // Skip for new (in-memory) owners — their dataset was just built up
+        // by add() and resetting would discard it.
+        if (!$this->is_owner_new)
+            $this->reset();
     }
 
     protected function _removeRelatedRecords()

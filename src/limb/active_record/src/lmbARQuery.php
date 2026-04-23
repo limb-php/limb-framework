@@ -13,7 +13,10 @@ use limb\dbal\src\query\lmbSelectRawQuery;
 use limb\dbal\src\criteria\lmbSQLCriteria;
 use limb\core\src\exception\lmbException;
 use limb\toolkit\src\lmbToolkit;
+use limb\core\src\lmbCollection;
 use limb\core\src\lmbCollectionInterface;
+use limb\core\src\lmbSet;
+use limb\core\src\lmbArrayHelper;
 
 class lmbARQuery extends lmbSelectRawQuery
 {
@@ -23,6 +26,7 @@ class lmbARQuery extends lmbSelectRawQuery
     protected $attach_relations = array();
     protected $sort_params = array();
     protected $use_proxy = false;
+    protected bool $_joins_applied = false;
 
     function __construct($base_class_name_or_obj, $conn, $sql = '', $magic_params = array())
     {
@@ -115,20 +119,58 @@ class lmbARQuery extends lmbSelectRawQuery
     }
 
     /**
-     * @param $decorate bool
+     *  Executes the query and returns the result.
+     *
+     *  When $decorate is true (default) a lazy lmbCollectionInterface is
+     *  returned: no SQL is executed and no related-object hydration happens
+     *  until the result is actually accessed (iterated, counted, indexed,
+     *  getArray()-ed, ...). The first access triggers:
+     *      1. _applyJoins() on the underlying SQL,
+     *      2. parent::fetch() to run the query,
+     *      3. AR object construction for each row,
+     *      4. eager join/attach hydration.
+     *
+     *  When $decorate is false the underlying record set is fetched eagerly
+     *  and returned as-is, without AR conversion. This matches the historical
+     *  behaviour expected by internal callers such as findAllRecords().
+     *
+     * @param bool $decorate
      * @return lmbCollectionInterface
      * @throws lmbARException
      * @throws lmbException
      */
     function fetch($decorate = true): lmbCollectionInterface
     {
-        $this->_applyJoins($this->base_object, $this->join_relations);
+        if (!$decorate) {
+            $this->_ensureJoinsApplied();
+            $rs = parent::fetch();
+            if ($this->sort_params)
+                $rs->sort($this->sort_params);
+            return $rs;
+        }
+
+        return new lmbARLazyCollection($this);
+    }
+
+    /**
+     *  Materializes the full result set into a plain {@see lmbCollection} of
+     *  hydrated lmbActiveRecord instances, resolving eager joins and attaches.
+     *
+     *  Public so {@see lmbARLazyCollection} can drive iteration on demand.
+     */
+    function fetchAll(): lmbCollectionInterface
+    {
+        $this->_ensureJoinsApplied();
 
         $rs = parent::fetch();
 
-        if ($decorate) {
-            $rs = new lmbARRecordSetDecorator(
-                $rs,
+        if ($this->sort_params)
+            $rs->sort($this->sort_params);
+
+        $objects = [];
+        foreach ($rs as $record) {
+            $objects[] = lmbARRecordSetDecorator::createObjectFromRecord(
+                $record,
                 $this->base_object,
                 $this->_conn,
                 $this->base_object->getLazyAttributes(),
@@ -136,14 +178,74 @@ class lmbARQuery extends lmbSelectRawQuery
             );
         }
 
-        $rs = $this->_decorateWithJoinDecorator($rs);
+        if ($this->join_relations)
+            $this->_hydrateJoins($objects, $this->base_object, $this->join_relations, '');
 
-        $rs = $this->_decorateWithAttachDecorator($rs);
+        if ($this->attach_relations)
+            $this->_hydrateAttaches($objects, $this->base_object, $this->attach_relations, '');
 
-        if ($this->sort_params)
-            $rs->sort($this->sort_params);
+        return new lmbCollection($objects);
+    }
 
-        return $rs;
+    /**
+     *  Returns the row count for the current query (criteria + eager joins
+     *  applied), without materialising any AR objects. The underlying record
+     *  set rewrites SELECT ... to SELECT COUNT(*) and runs a fresh statement,
+     *  so this stays cheap and reflects the live database state on every call.
+     */
+    function countRows(): int
+    {
+        $this->_ensureJoinsApplied();
+        return (int) parent::fetch()->count();
+    }
+
+    /**
+     *  Fetches the row at position $pos using LIMIT 1 OFFSET, hydrates it into
+     *  an lmbActiveRecord and resolves eager joins/attaches for that single
+     *  record. Returns null when the offset is out of range.
+     *
+     *  Each call issues fresh SQL; callers iterating sequentially should use
+     *  the iteration interface (which materialises once) instead.
+     */
+    function fetchAt(int $pos): ?lmbActiveRecord
+    {
+        $this->_ensureJoinsApplied();
+
+        $rs = parent::fetch();
+        $record = $rs->at($pos);
+        if (!$record)
+            return null;
+
+        $object = lmbARRecordSetDecorator::createObjectFromRecord(
+            $record,
+            $this->base_object,
+            $this->_conn,
+            $this->base_object->getLazyAttributes(),
+            $this->use_proxy
+        );
+
+        $objects = [$object];
+
+        if ($this->join_relations)
+            $this->_hydrateJoins($objects, $this->base_object, $this->join_relations, '');
+
+        if ($this->attach_relations)
+            $this->_hydrateAttaches($objects, $this->base_object, $this->attach_relations, '');
+
+        return $objects[0];
+    }
+
+    /**
+     *  Applies eager-join SQL exactly once. _applyJoins is push-style (every
+     *  call appends LEFT JOINs and SELECT columns), so every code path that
+     *  may run before fetch must funnel through this guard.
+     */
+    private function _ensureJoinsApplied(): void
+    {
+        if ($this->_joins_applied)
+            return;
+        $this->_joins_applied = true;
+        $this->_applyJoins($this->base_object, $this->join_relations);
     }
 
     protected function _applyJoins($base_object, $joins, $parent_relation_name = '')
@@ -195,20 +297,205 @@ class lmbARQuery extends lmbSelectRawQuery
         }
     }
 
-    protected function _decorateWithJoinDecorator($rs)
+    /**
+     *  Eagerly extracts joined columns from each record into related
+     *  lmbActiveRecord objects and assigns them as properties on the parent
+     *  records. Nested 'join' / 'attach' params are processed recursively
+     *  before the current level is collapsed.
+     *
+     * @param array $records  parent records (lmbActiveRecord instances)
+     * @param lmbActiveRecord $base_object  prototype for $records
+     * @param array $join_relations
+     * @param string $prefix  column prefix accumulated from parent levels
+     */
+    protected function _hydrateJoins(array $records, $base_object, array $join_relations, string $prefix): void
     {
-        if (count($this->join_relations))
-            return new lmbARRecordSetJoinDecorator($rs, $this->base_object, $this->_conn, $this->join_relations);
-        else
-            return $rs;
+        if (!$records)
+            return;
+
+        foreach ($join_relations as $relation_name => $params) {
+            $relation_info = $base_object->getRelationInfo($relation_name);
+            $related_class = $relation_info['class'];
+            $related_object = new $related_class(null, $this->_conn);
+
+            // Process nested join columns first so deeper prefixed fields are
+            // collapsed before this level removes its own columns.
+            if (!empty($params['join'])) {
+                $nested_joins = is_string($params['join']) ? [$params['join'] => []] : $params['join'];
+                $this->_hydrateJoins($records, $related_object, $nested_joins, $prefix . $relation_name . '__');
+            }
+
+            // Nested attaches inside a join. Note: prefix used to look up parent
+            // IDs is intentionally just `$relation_name . '__'` to preserve the
+            // original lmbARRecordSetJoinDecorator behaviour.
+            if (!empty($params['attach'])) {
+                $nested_attaches = is_string($params['attach']) ? [$params['attach'] => []] : $params['attach'];
+                $this->_hydrateAttaches($records, $related_object, $nested_attaches, $relation_name . '__');
+            }
+
+            foreach ($records as $record) {
+                $this->_extractJoinedRelation($record, $relation_name, $relation_info, $prefix);
+            }
+        }
     }
 
-    protected function _decorateWithAttachDecorator($rs)
+    /**
+     *  For a single parent record, pulls all `<prefix><relation>__*` columns
+     *  into a fresh lmbSet, removes them from the parent and instantiates the
+     *  related lmbActiveRecord; the result is assigned as `<prefix><relation>`
+     *  on the parent record.
+     */
+    protected function _extractJoinedRelation($record, string $relation_name, array $relation_info, string $prefix): void
     {
-        if (count($this->attach_relations))
-            return new lmbARRecordSetAttachDecorator($rs, $this->base_object, $this->_conn, $this->attach_relations);
-        else
-            return $rs;
+        $field_prefix = $prefix . $relation_name . '__';
+
+        if (!empty($relation_info['can_be_null']) && !$record->get($prefix . $relation_info['field']))
+            return;
+
+        $fields = new lmbSet();
+        $data = ($record instanceof lmbActiveRecord) ? $record->exportRaw() : $record->export();
+
+        foreach ($data as $field => $value) {
+            if (strpos($field, $field_prefix) === 0) {
+                $fields->set(substr($field, strlen($field_prefix)), $value);
+                $record->remove($field);
+            }
+        }
+
+        $related_object = lmbARRecordSetDecorator::createObjectFromRecord(
+            $fields,
+            $relation_info['class'],
+            $this->_conn
+        );
+        $record->set($prefix . $relation_name, $related_object);
+    }
+
+    /**
+     *  Eagerly resolves attach relations: collects parent IDs across all
+     *  records, runs one query per relation and assigns the loaded objects
+     *  back as properties on the parent records.
+     *
+     * @param array $records
+     * @param lmbActiveRecord $base_object
+     * @param array $attach_relations
+     * @param string $prefix  column prefix for parent ID lookups
+     */
+    protected function _hydrateAttaches(array $records, $base_object, array $attach_relations, string $prefix): void
+    {
+        if (!$records)
+            return;
+
+        foreach ($attach_relations as $relation_name => $params) {
+            if (!is_array($params))
+                $params = [];
+
+            $relation_type = $base_object->getRelationType($relation_name);
+            $relation_info = $base_object->getRelationInfo($relation_name);
+            $relation_class = $relation_info['class'];
+            $relation_object = new $relation_class(null, $this->_conn);
+
+            $loaded = $this->_loadAttachedObjects($records, $base_object, $relation_object, $relation_type, $relation_info, $prefix, $params);
+
+            $this->_assignAttachedObjects($records, $base_object, $relation_name, $relation_type, $relation_info, $prefix, $loaded);
+        }
+    }
+
+    protected function _loadAttachedObjects(array $records, $base_object, $relation_object, $relation_type, array $relation_info, string $prefix, array $params): array
+    {
+        $relation_class = $relation_info['class'];
+
+        switch ($relation_type) {
+            case lmbActiveRecord::HAS_ONE:
+            case lmbActiveRecord::MANY_BELONGS_TO:
+                $ids = lmbArrayHelper::getColumnValues($prefix . $relation_info['field'], $records);
+                if (!$ids)
+                    return [];
+                $attached = lmbActiveRecord::findByIds($relation_class, $ids, $params, $this->_conn);
+                return lmbCollection::toFlatArray($attached, $relation_object->getPrimaryKeyName(), false);
+
+            case lmbActiveRecord::BELONGS_TO:
+                $ids = lmbArrayHelper::getColumnValues($prefix . $base_object->getPrimaryKeyName(), $records);
+                if (!$ids)
+                    return [];
+                $criteria = lmbSQLCriteria::in($relation_info['field'], $ids);
+                $params['criteria'] = isset($params['criteria']) ? $params['criteria']->addAnd($criteria) : $criteria;
+                $attached = lmbActiveRecord::find($relation_class, $params, $this->_conn);
+                return lmbCollection::toFlatArray($attached, $relation_info['field'], false);
+
+            case lmbActiveRecord::HAS_MANY:
+                if (!isset($params['sort']))
+                    $params['sort'] = $relation_object->getDefaultSortParams();
+                $params['sort'] = [$relation_info['field'] => 'ASC'] + $params['sort'];
+
+                $query = lmbAROneToManyCollection::createFullARQueryForRelation($relation_info, $this->_conn, $params);
+                $ids = lmbArrayHelper::getColumnValues($prefix . $base_object->getPrimaryKeyName(), $records);
+                if (!$ids)
+                    return [];
+                $query->addCriteria(lmbSQLCriteria::in($relation_info['field'], $ids));
+
+                $loaded = [];
+                foreach ($query->fetch() as $attached_object) {
+                    $loaded[$attached_object->get($relation_info['field'])][] = $attached_object;
+                }
+                return $loaded;
+
+            case lmbActiveRecord::HAS_MANY_TO_MANY:
+                if (!isset($params['sort']))
+                    $params['sort'] = $relation_object->getDefaultSortParams();
+                $params['sort'] = [$relation_info['field'] => 'ASC'] + $params['sort'];
+
+                $query = lmbARManyToManyCollection::createFullARQueryForRelation($relation_info, $this->_conn, $params);
+                $query->addField($relation_info['table'] . '.' . $relation_info['field'], 'link__id');
+
+                $ids = lmbArrayHelper::getColumnValues($prefix . $base_object->getPrimaryKeyName(), $records);
+                if (!$ids)
+                    return [];
+                $query->addCriteria(lmbSQLCriteria::in($relation_info['field'], $ids));
+
+                $loaded = [];
+                foreach ($query->fetch() as $attached_object) {
+                    $loaded[$attached_object->get('link__id')][] = $attached_object;
+                }
+                return $loaded;
+        }
+
+        return [];
+    }
+
+    protected function _assignAttachedObjects(array $records, $base_object, string $relation_name, $relation_type, array $relation_info, string $prefix, array $loaded): void
+    {
+        foreach ($records as $record) {
+            $fields = new lmbSet();
+
+            switch ($relation_type) {
+                case lmbActiveRecord::HAS_ONE:
+                case lmbActiveRecord::MANY_BELONGS_TO:
+                    $key = $record->get($prefix . $relation_info['field']);
+                    if (isset($loaded[$key]))
+                        $fields->set($prefix . $relation_name, $loaded[$key]);
+                    break;
+
+                case lmbActiveRecord::BELONGS_TO:
+                    $key = $record->get($prefix . $base_object->getPrimaryKeyName());
+                    if (isset($loaded[$key]))
+                        $fields->set($prefix . $relation_name, $loaded[$key]);
+                    break;
+
+                case lmbActiveRecord::HAS_MANY:
+                case lmbActiveRecord::HAS_MANY_TO_MANY:
+                    $collection = $base_object->createRelationCollection($relation_name);
+                    $collection->setOwner($record);
+                    $key = $record->get($prefix . $base_object->getPrimaryKeyName());
+                    $collection->setDataset(new lmbCollection($loaded[$key] ?? []));
+                    $fields->set($prefix . $relation_name, $collection);
+                    break;
+            }
+
+            if ($record instanceof lmbActiveRecord)
+                $record->loadFromRecord($fields);
+            else
+                $record->import($fields->export());
+        }
     }
 
     /**

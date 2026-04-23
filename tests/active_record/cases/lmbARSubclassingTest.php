@@ -128,7 +128,7 @@ class lmbARSubclassingTest extends lmbARBaseTestCase
         $criteria->add(lmbSQLCriteria::equal('title', 'title1'));
         $criteria->addOr(lmbSQLCriteria::equal('title', 'title2'));
 
-        $records = lmbActiveRecord:: find(BarFooOneTableTestObject::class, $criteria)->sort(array('id'))->getArray();
+        $records = lmbActiveRecord::find(BarFooOneTableTestObject::class, $criteria)->sort(array('id'))->getArray();
         $this->assertCount(2, $records);
         $this->assertEquals($records[0]->title, $valid_object1->title);
         $this->assertEquals($records[1]->title, $valid_object2->title);
