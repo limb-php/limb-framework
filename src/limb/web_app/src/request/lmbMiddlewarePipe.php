@@ -4,11 +4,13 @@ namespace limb\web_app\src\request;
 
 use limb\dbal\src\filter\lmbAutoDbTransactionFilter;
 use limb\filter_chain\src\lmbFilterChain;
-use limb\net\src\lmbHttpResponse;
 use limb\web_app\src\filter\lmbSessionStartupFilter;
+use Psr\Http\Message\ResponseInterface;
 
 class lmbMiddlewarePipe extends lmbFilterChain
 {
+    private bool $filtersRegistered = false;
+
     static function create(): static
     {
         return new static();
@@ -21,9 +23,12 @@ class lmbMiddlewarePipe extends lmbFilterChain
         $this->registerFilter(lmbAutoDbTransactionFilter::class);
     }
 
-    function handle($request, $callback = null): lmbHttpResponse
+    function handle($request, $callback = null): ResponseInterface
     {
-        $this->_registerFilters();
+        if (!$this->filtersRegistered) {
+            $this->_registerFilters();
+            $this->filtersRegistered = true;
+        }
 
         return parent::handle($request, $callback);
     }

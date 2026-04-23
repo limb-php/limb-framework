@@ -17,7 +17,7 @@ use limb\net\src\lmbHttpRequest;
  *
  *  lmbFilterChain can be an intercepting filter in its turn as well.
  *
- *  The best way to think about filters is as of a "russian nested doll", e.g:
+ *  The best way to think about filters is as of a "Russian nested doll", e.g:
  *  <code>
  *  // +-Filter A
  *  // | +-Filter B
