@@ -167,27 +167,30 @@ class lmbArrayHelper
         foreach ($array as $key => $value)
             $array_mod['_' . $key] = $value;
 
+        // Collect (column, flag) pairs and splat them into array_multisort().
+        // Equivalent to the historical eval()'d "array_multisort($col1, $flag1, ..., $array_mod)"
+        // but without runtime code generation.
+        $sort_values = [];
+        $sort_flags = [];
+        $args = [];
         $i = 0;
-        $multi_sort_line = "return array_multisort( ";
         foreach ($sort_params as $name => $sort_type) {
-            $i++;
-            foreach ($array_mod as $row_key => $row) {
+            $column = [];
+            foreach ($array_mod as $row) {
                 if (is_object($row))
-                    $sort_values[$i][] = $row->get($name);
+                    $column[] = $row->get($name);
                 else
-                    $sort_values[$i][] = $row[$name];
+                    $column[] = $row[$name];
             }
-
-            if ($sort_type == 'DESC')
-                $sort_args[$i] = SORT_DESC;
-            else
-                $sort_args[$i] = SORT_ASC;
-
-            $multi_sort_line .= '$sort_values[' . $i . '], $sort_args[' . $i . '], ';
+            $sort_values[$i] = $column;
+            $sort_flags[$i] = ($sort_type == 'DESC') ? SORT_DESC : SORT_ASC;
+            $args[] = &$sort_values[$i];
+            $args[] = &$sort_flags[$i];
+            $i++;
         }
-        $multi_sort_line .= '$array_mod );';
+        $args[] = &$array_mod;
 
-        eval($multi_sort_line);
+        array_multisort(...$args);
 
         $array = array();
         foreach ($array_mod as $key => $value) {
