@@ -485,5 +485,143 @@ class lmbObjectTest extends TestCase
 
         }
     }
+
+    //
+    // --- Property->method resolution cache ($map_p2m) -----------------------
+    //
+
+    protected function setUp(): void
+    {
+        // Each cache test starts from a clean slate so assertions on counts
+        // aren't polluted by whatever the other tests warmed up.
+        lmbObject::clearP2MCache();
+        lmbObject::setP2MCacheLimit(10000);
+    }
+
+    function testP2MCacheIsPopulatedOnFirstLookup()
+    {
+        $stats = lmbObject::getP2MCacheStats();
+        $this->assertSame(0, $stats['entries']);
+
+        $obj = new ObjectTestVersion();
+        $obj->bar = 'raw';
+        $this->assertEquals('raw_get_called', $obj->get('bar')); // triggers mapping
+
+        $stats = lmbObject::getP2MCacheStats();
+        $this->assertGreaterThanOrEqual(1, $stats['entries']);
+        $this->assertSame(1, $stats['classes']);
+        $this->assertArrayHasKey(ObjectTestVersion::class, lmbObject::$map_p2m);
+        $this->assertSame('getBar', lmbObject::$map_p2m[ObjectTestVersion::class]['bar']);
+    }
+
+    function testP2MCacheRemembersMisses()
+    {
+        $obj = new ObjectTestVersion();
+        // 'nope' has no getNope() — should be cached as false so we don't
+        // re-run method_exists() on every access.
+        try {
+            $obj->get('nope');
+            $this->fail('expected lmbNoSuchPropertyException');
+        } catch (lmbNoSuchPropertyException $e) {
+            // expected
+        }
+
+        $this->assertArrayHasKey('nope', lmbObject::$map_p2m[ObjectTestVersion::class]);
+        $this->assertFalse(lmbObject::$map_p2m[ObjectTestVersion::class]['nope']);
+    }
+
+    function testClearP2MCacheFullFlush()
+    {
+        $obj = new ObjectTestVersion();
+        $obj->bar = 'raw';
+        $obj->get('bar');
+        $this->assertGreaterThan(0, lmbObject::getP2MCacheStats()['entries']);
+
+        lmbObject::clearP2MCache();
+
+        $stats = lmbObject::getP2MCacheStats();
+        $this->assertSame(0, $stats['entries']);
+        $this->assertSame(0, $stats['classes']);
+        $this->assertSame([], lmbObject::$map_p2m);
+    }
+
+    function testClearP2MCachePerClass()
+    {
+        $v1 = new ObjectTestVersion();
+        $v1->bar = 'raw';
+        $v1->get('bar');
+
+        $v2 = new ObjectTestVersion2();
+        $v2->get('foo', 'ignored'); // harmless miss, still touches the cache
+
+        $this->assertSame(2, lmbObject::getP2MCacheStats()['classes']);
+
+        lmbObject::clearP2MCache(ObjectTestVersion::class);
+
+        $this->assertArrayNotHasKey(ObjectTestVersion::class, lmbObject::$map_p2m);
+        $this->assertArrayHasKey(ObjectTestVersion2::class, lmbObject::$map_p2m);
+        $this->assertSame(1, lmbObject::getP2MCacheStats()['classes']);
+    }
+
+    function testP2MCacheStillCorrectAfterClear()
+    {
+        $obj = new ObjectTestVersion();
+        $obj->bar = 'raw';
+        $this->assertEquals('raw_get_called', $obj->get('bar'));
+
+        lmbObject::clearP2MCache();
+
+        // After a cold cache the mapping must still resolve correctly.
+        $this->assertEquals('raw_get_called', $obj->get('bar'));
+        $this->assertSame('getBar', lmbObject::$map_p2m[ObjectTestVersion::class]['bar']);
+    }
+
+    function testP2MCacheLimitEvictsWhenExceeded()
+    {
+        lmbObject::setP2MCacheLimit(2);
+
+        $obj = new ObjectTestVersion();
+        $obj->bar = 'raw';
+        $obj->get('bar');    // entry 1: bar -> getBar
+        $obj->get('is_error'); // entry 2: is_error -> isError
+
+        $this->assertSame(2, lmbObject::getP2MCacheStats()['entries']);
+
+        // Third distinct lookup trips the cap → cache is flushed, then
+        // the new entry is inserted.
+        try { $obj->get('nope'); } catch (lmbNoSuchPropertyException $e) {}
+
+        $stats = lmbObject::getP2MCacheStats();
+        $this->assertLessThanOrEqual(2, $stats['entries']);
+        $this->assertGreaterThanOrEqual(1, $stats['entries']);
+    }
+
+    function testP2MCacheCountIsStableWhenSamePropertyResolvedTwice()
+    {
+        $obj = new ObjectTestVersion();
+        $obj->bar = 'raw';
+
+        $obj->get('bar');
+        $first = lmbObject::getP2MCacheStats()['entries'];
+
+        $obj->get('bar');
+        $second = lmbObject::getP2MCacheStats()['entries'];
+
+        $this->assertSame($first, $second, 'Repeated lookup must not double-count.');
+    }
+
+    function testSetP2MCacheLimitZeroDisablesCap()
+    {
+        lmbObject::setP2MCacheLimit(0);
+        $this->assertSame(0, lmbObject::getP2MCacheStats()['limit']);
+
+        $obj = new ObjectTestVersion();
+        $obj->bar = 'raw';
+        for ($i = 0; $i < 50; $i++) {
+            try { $obj->get('prop_' . $i); } catch (lmbNoSuchPropertyException $e) {}
+        }
+        // With cap disabled the cache must keep every miss — no auto-flush.
+        $this->assertGreaterThanOrEqual(50, lmbObject::getP2MCacheStats()['entries']);
+    }
     /** /@ */
 }

@@ -71,7 +71,25 @@ class lmbObject implements lmbSetInterface
 {
     protected $__properties = [];
 
+    /**
+     * Property-name -> getter-method lookup cache, keyed by class.
+     *   self::$map_p2m[$class][$property] = $methodName | false
+     *
+     * Nested-by-class so callers can invalidate a single class cheaply
+     * (e.g. between requests in a long-running worker) without wiping
+     * the entries for every other class. A soft entry cap guards against
+     * pathological growth when property names come from user input.
+     */
     static $map_p2m = [];
+
+    /** Running total of cached entries across all classes. */
+    private static int $map_p2m_count = 0;
+
+    /**
+     * Maximum total cache entries before the cache is flushed.
+     * 0 disables the cap entirely (legacy behaviour).
+     */
+    private static int $map_p2m_limit = 10000;
 
     private $_map = [
         'public' => [],
@@ -335,24 +353,87 @@ class lmbObject implements lmbSetInterface
 
     protected function _mapPropertyToMethod($property)
     {
-        $hash = static::class . '::' . $property;
+        $class = static::class;
 
-        if (array_key_exists($hash, self::$map_p2m))
-            return self::$map_p2m[$hash];
+        if (isset(self::$map_p2m[$class]) && array_key_exists($property, self::$map_p2m[$class]))
+            return self::$map_p2m[$class][$property];
 
         $capsed = lmbString::camel_case($property);
         $method = 'get' . $capsed;
-        if ($method !== 'get' && method_exists($this, $method)) {
-            self::$map_p2m[$hash] = $method;
-            return $method;
-        }
+        if ($method !== 'get' && method_exists($this, $method))
+            return self::_rememberP2M($class, $property, $method);
+
         //'is_foo' property is mapped to 'isFoo' method if it exists
-        if (strpos($property, 'is_') === 0 && method_exists($this, $capsed)) {
-            self::$map_p2m[$hash] = $capsed;
-            return $capsed;
+        if (strpos($property, 'is_') === 0 && method_exists($this, $capsed))
+            return self::_rememberP2M($class, $property, $capsed);
+
+        return self::_rememberP2M($class, $property, false);
+    }
+
+    /**
+     * Store a property->method mapping and enforce the soft cap.
+     * When the cap is exceeded we clear the whole cache rather than
+     * running an LRU — callers that care about long-running workers
+     * should call clearP2MCache() periodically on their own cadence.
+     *
+     * @param string       $class
+     * @param string       $property
+     * @param string|false $method
+     * @return string|false
+     */
+    private static function _rememberP2M(string $class, string $property, $method)
+    {
+        if (self::$map_p2m_limit > 0 && self::$map_p2m_count >= self::$map_p2m_limit)
+            self::clearP2MCache();
+
+        if (!isset(self::$map_p2m[$class][$property]))
+            self::$map_p2m_count++;
+
+        self::$map_p2m[$class][$property] = $method;
+        return $method;
+    }
+
+    /**
+     * Flush the property->method resolution cache.
+     *
+     * @param string|null $class When null (default), clears everything.
+     *                           Otherwise clears only entries for that class.
+     */
+    public static function clearP2MCache(?string $class = null): void
+    {
+        if ($class === null) {
+            self::$map_p2m = [];
+            self::$map_p2m_count = 0;
+            return;
         }
-        self::$map_p2m[$hash] = false;
-        return false;
+        if (isset(self::$map_p2m[$class])) {
+            self::$map_p2m_count -= count(self::$map_p2m[$class]);
+            if (self::$map_p2m_count < 0)
+                self::$map_p2m_count = 0;
+            unset(self::$map_p2m[$class]);
+        }
+    }
+
+    /**
+     * Configure the soft cap on total cache entries.
+     * Pass 0 to disable the cap (legacy behaviour).
+     */
+    public static function setP2MCacheLimit(int $limit): void
+    {
+        self::$map_p2m_limit = max(0, $limit);
+    }
+
+    /**
+     * Introspection helper for daemons / monitoring. Returns:
+     *   ['entries' => int, 'classes' => int, 'limit' => int]
+     */
+    public static function getP2MCacheStats(): array
+    {
+        return [
+            'entries' => self::$map_p2m_count,
+            'classes' => count(self::$map_p2m),
+            'limit' => self::$map_p2m_limit,
+        ];
     }
 
     protected function _mapPropertyToSetMethod($property)
