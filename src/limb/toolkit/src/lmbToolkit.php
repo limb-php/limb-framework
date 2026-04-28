@@ -10,7 +10,6 @@ namespace limb\toolkit\src;
 use limb\core\src\exception\lmbException;
 use limb\core\src\exception\lmbNoSuchMethodException;
 use limb\core\src\exception\lmbNoSuchPropertyException;
-use limb\core\src\lmbObject;
 use limb\core\src\lmbString;
 
 /**
@@ -161,7 +160,7 @@ use limb\core\src\lmbString;
  * @method \limb\web_app\src\Controllers\lmbController getDispatchedController()
  * @method \limb\web_app\src\Controllers\lmbController createController($controller_name, $namespace = '') {
  */
-class lmbToolkit extends lmbObject
+class lmbToolkit
 {
     /**
      * @var lmbToolkit Toolkit singleton instance
@@ -183,6 +182,14 @@ class lmbToolkit extends lmbObject
      * @var string Unique id of this toolkit
      */
     protected $_id;
+    /**
+     * In-class key/value bag used by set()/get()/setRaw()/getRaw().
+     * Replaces the lmbObject property-bag that lmbToolkit previously inherited.
+     * Keys starting with "_" are treated as guarded and silently ignored on write,
+     * matching the legacy lmbObject::_setRaw() contract.
+     * @var array<string, mixed>
+     */
+    private array $_vars = array();
 
     function __construct()
     {
@@ -352,7 +359,7 @@ class lmbToolkit extends lmbObject
         if ($method = $this->_mapPropertyToSetMethod($name))
             $this->$method($value);
         else
-            parent::set($name, $value);
+            $this->setRaw($name, $value);
     }
 
     /**
@@ -365,31 +372,75 @@ class lmbToolkit extends lmbObject
     {
         if ($method = $this->_mapPropertyToGetMethod($name))
             return $this->$method();
-        else
-            return parent::get($name, $default);
+
+        if (array_key_exists($name, $this->_vars))
+            return $this->_vars[$name];
+
+        if (null !== $default)
+            return $default;
+
+        throw new lmbNoSuchPropertyException("No such property '$name' in " . get_class($this));
     }
 
     function has($name): bool
     {
-        return $this->_hasGetMethodFor($name) || parent::has($name);
+        return $this->_hasGetMethodFor($name) || array_key_exists($name, $this->_vars);
     }
 
     /**
-     * Sets variable into toolkit directly
+     * Sets variable into toolkit directly, bypassing tool-delegation.
+     * Guarded names (prefixed with "_") are silently ignored; this mirrors the
+     * legacy lmbObject::_setRaw() contract the toolkit used to inherit.
      * @return void
      */
     function setRaw($var, $value)
     {
-        parent::_setRaw($var, $value);
+        if (isset($var[0]) && $var[0] === '_')
+            return;
+
+        $this->_vars[$var] = $value;
     }
 
     /**
-     * Gets variable from toolkit directly
+     * Gets variable from toolkit directly, bypassing tool-delegation.
+     * Returns null if the name was never set.
      * @return mixed
      */
     function getRaw($var)
     {
-        return parent::_getRaw($var);
+        return $this->_vars[$var] ?? null;
+    }
+
+    /**
+     * Exports the raw variable bag. Used by save()/restore() round-trips.
+     * @return array<string, mixed>
+     */
+    function export(): array
+    {
+        return $this->_vars;
+    }
+
+    /**
+     * Imports variables into the raw bag. Guarded names are silently skipped.
+     * @param array<string, mixed>|mixed $values
+     * @return void
+     */
+    function import($values): void
+    {
+        if (!is_array($values))
+            return;
+
+        foreach ($values as $name => $value)
+            $this->setRaw($name, $value);
+    }
+
+    /**
+     * Clears the raw variable bag. Tools registration is unaffected.
+     * @return void
+     */
+    function reset(): void
+    {
+        $this->_vars = array();
     }
 
     /**

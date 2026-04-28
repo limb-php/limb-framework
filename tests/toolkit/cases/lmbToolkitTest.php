@@ -303,4 +303,106 @@ class lmbToolkitTest extends TestCase
 
         lmbToolkit::restore();
     }
+
+    /**
+     * Regression: lmbToolkit used to extend lmbObject and thereby inherited
+     * Iterator / ArrayAccess / jsonSerialize / getPropertiesNames etc. None of
+     * that was ever part of the service-locator contract and nothing in the
+     * codebase relied on it. We removed the inheritance; make sure those
+     * symbols do not reappear accidentally.
+     */
+    function testToolkitDoesNotInheritFromLmbObject()
+    {
+        $toolkit = new lmbToolkit();
+
+        $this->assertNotInstanceOf(\limb\core\src\lmbObject::class, $toolkit);
+        $this->assertNotInstanceOf(\limb\core\src\lmbSetInterface::class, $toolkit);
+        $this->assertNotInstanceOf(\Iterator::class, $toolkit);
+        $this->assertNotInstanceOf(\ArrayAccess::class, $toolkit);
+    }
+
+    /**
+     * Regression: raw variables must survive a full save() -> mutate -> restore()
+     * round-trip. Before the refactor this relied on lmbObject::export() /
+     * lmbObject::import(); now it relies on lmbToolkit's own in-class bag.
+     */
+    function testRawVarsSurviveSaveRestoreRoundTrip()
+    {
+        lmbToolkit::save();
+
+        $toolkit = lmbToolkit::instance();
+        $toolkit->setRaw('alpha', 1);
+        $toolkit->setRaw('beta', ['nested' => true]);
+
+        lmbToolkit::save();
+
+        $toolkit->setRaw('alpha', 999);
+        $toolkit->setRaw('beta', 'clobbered');
+        $toolkit->setRaw('gamma', 'added-after-snapshot');
+
+        lmbToolkit::restore();
+
+        $this->assertEquals(1, $toolkit->getRaw('alpha'));
+        $this->assertEquals(['nested' => true], $toolkit->getRaw('beta'));
+        $this->assertNull($toolkit->getRaw('gamma'));
+
+        lmbToolkit::restore();
+    }
+
+    /**
+     * Regression: keys prefixed with "_" were treated as guarded by the old
+     * lmbObject::_setRaw() and silently dropped. Consumers (e.g. lmbAbstractTools)
+     * rely on this contract to avoid accidentally overwriting protected slots
+     * such as _tools. Keep the behaviour after the refactor.
+     */
+    function testSetRawSilentlyIgnoresGuardedNames()
+    {
+        $toolkit = new lmbToolkit();
+
+        $toolkit->setRaw('_tools', 'malicious');
+        $toolkit->setRaw('_id', 'clobber');
+
+        $this->assertNull($toolkit->getRaw('_tools'));
+        $this->assertNull($toolkit->getRaw('_id'));
+    }
+
+    /**
+     * Regression: has() must report presence of both raw-stored vars and
+     * tool-provided getters, with no leakage from the old lmbObject property map.
+     */
+    function testHasReportsRawAndToolGetterButNotArbitraryMethods()
+    {
+        lmbToolkit::save();
+
+        $toolkit = lmbToolkit::setup(new TestTools());
+        $toolkit->setRaw('my_var', 42);
+
+        $this->assertTrue($toolkit->has('my_var'));
+        $this->assertTrue($toolkit->has('var')); // provided by TestTools::getVar
+        $this->assertFalse($toolkit->has('totally_unknown'));
+
+        lmbToolkit::restore();
+    }
+
+    /**
+     * Regression: reset() must clear ONLY the raw variable bag, leaving the
+     * registered tools and the toolkit's _id intact.
+     */
+    function testResetClearsRawVarsButKeepsTools()
+    {
+        lmbToolkit::save();
+
+        $toolkit = lmbToolkit::setup(new TestTools());
+        $toolkit->setRaw('x', 1);
+
+        $this->assertEquals('commonMethod1', $toolkit->commonMethod());
+        $this->assertEquals(1, $toolkit->getRaw('x'));
+
+        $toolkit->reset();
+
+        $this->assertNull($toolkit->getRaw('x'));
+        $this->assertEquals('commonMethod1', $toolkit->commonMethod()); // tool still there
+
+        lmbToolkit::restore();
+    }
 }
