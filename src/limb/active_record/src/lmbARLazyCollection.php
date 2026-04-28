@@ -25,8 +25,9 @@ use limb\core\src\lmbCollectionInterface;
  *      materialisation time only. count() still returns the unpaginated total
  *      (matching the historical raw-record-set semantics); countPaginated()
  *      respects the local offset/limit.
- *    - sort() loose forms like ['id'] or 'id' are normalised to the
- *      ['id' => 'ASC'] shape expected by lmbArrayHelper::sortArray().
+ *    - sort() accepts every loose form lmbArrayHelper::sortArray() accepts
+ *      (['id'], 'id', ['id' => 'ASC'], etc.) — normalisation lives there
+ *      so every caller benefits from the same fix.
  *
  * @package active_record
  */
@@ -145,33 +146,26 @@ class lmbARLazyCollection extends lmbCollectionDecorator
      *  Records the requested sort. Applied in-memory at materialisation time
      *  (or immediately, if the snapshot is already loaded), matching what
      *  lmbARQuery::sort_params used to do via the raw record set.
+     *
+     *  Shape normalisation (['id'] → ['id' => 'ASC'] etc.) lives in
+     *  lmbArrayHelper::sortArray() now, so any loose form accepted there is
+     *  accepted here too.
      */
     function sort($params)
     {
-        $this->sort_params = self::_normalizeSortParams($params);
+        // Minimal coercion to keep $sort_params typed as array; full
+        // shape-normalisation happens downstream in lmbArrayHelper.
+        if (is_array($params))
+            $this->sort_params = $params;
+        elseif (is_string($params) && $params !== '')
+            $this->sort_params = [$params];
+        else
+            $this->sort_params = [];
 
         if ($this->loaded && $this->sort_params)
             $this->iterator->sort($this->sort_params);
 
         return $this;
-    }
-
-    private static function _normalizeSortParams($params): array
-    {
-        if (is_string($params))
-            return [$params => 'ASC'];
-
-        if (!is_array($params))
-            return [];
-
-        $normalized = [];
-        foreach ($params as $key => $value) {
-            if (is_int($key))
-                $normalized[(string) $value] = 'ASC';
-            else
-                $normalized[$key] = $value;
-        }
-        return $normalized;
     }
 
     function getArray()

@@ -160,12 +160,37 @@ class lmbArrayHelper
         return $in_array;
     }
 
-    //e.g, $sort_params = array('field1' => 'DESC', 'field2' => 'ASC')
+    /**
+     * Sort an array of rows (assoc arrays or objects with ->get()) by one
+     * or more columns.
+     *
+     * Accepted $sort_params shapes (all get normalised):
+     *   ['col' => 'ASC']           canonical form
+     *   ['col' => 'DESC', ...]     multi-column, case-sensitive direction
+     *   ['col']                    int-keyed list; implies 'ASC'
+     *   ['col1', 'col2' => 'DESC'] mixed; each int-keyed entry implies 'ASC'
+     *   'col'                      single string; implies 'ASC'
+     *   null / '' / []             no-op (returns true, $array unchanged)
+     */
     static function sortArray(&$array, $sort_params, $preserve_keys = true): bool
     {
+        $sort_params = self::_normalizeSortParams($sort_params);
+
         $array_mod = array();
         foreach ($array as $key => $value)
             $array_mod['_' . $key] = $value;
+
+        if (!$sort_params) {
+            // Nothing to sort by — just normalise key prefixes back and bail.
+            $array = array();
+            foreach ($array_mod as $key => $value) {
+                if ($preserve_keys)
+                    $array[substr($key, 1)] = $value;
+                else
+                    $array[] = $value;
+            }
+            return true;
+        }
 
         // Collect (column, flag) pairs and splat them into array_multisort().
         // Equivalent to the historical eval()'d "array_multisort($col1, $flag1, ..., $array_mod)"
@@ -201,6 +226,38 @@ class lmbArrayHelper
         }
 
         return true;
+    }
+
+    /**
+     * Canonicalise loose sort-param forms into the strict
+     * ['col' => 'ASC'|'DESC'] shape expected by the column-extraction loop.
+     *
+     * Historically callers (including lmbActiveRecord::find(...)->sort(['id']))
+     * passed int-keyed lists, which caused the loop to read the int key as the
+     * column name and blow up on $row->get(0). Normalising here means every
+     * caller (lmbCollection::sort, lmbTreeHelper::sort, lmbARLazyCollection::sort,
+     * lmbMPTree, ad-hoc users) gets the fix for free.
+     */
+    private static function _normalizeSortParams($sort_params): array
+    {
+        if (is_string($sort_params))
+            return $sort_params === '' ? [] : [$sort_params => 'ASC'];
+
+        if (!is_array($sort_params))
+            return [];
+
+        $normalized = [];
+        foreach ($sort_params as $key => $value) {
+            if (is_int($key)) {
+                if (is_string($value) && $value !== '')
+                    $normalized[$value] = 'ASC';
+                // silently drop non-string int-keyed entries — they can't
+                // name a column so there's nothing sensible to do with them
+            } else {
+                $normalized[$key] = $value;
+            }
+        }
+        return $normalized;
     }
 
     static function getProperty($item, $property_path)
