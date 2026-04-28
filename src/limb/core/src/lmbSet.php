@@ -16,6 +16,10 @@ namespace limb\core\src;
 class lmbSet implements lmbSetInterface
 {
     protected $__properties = [];
+    // Iteration-only snapshot. Keeping it separate from $__properties
+    // means foreach() never mutates the underlying storage, and guarded
+    // (underscore-prefixed) properties survive iteration.
+    protected $__iter_snapshot = [];
     protected $__current;
     protected $__valid;
     protected $__size;
@@ -167,10 +171,10 @@ class lmbSet implements lmbSetInterface
     function valid(): bool
     {
         if (!$this->__valid) {
-            //removing temporary helpers
-            $this->__valid = null;
+            // Iteration finished: drop the temporary buffer, but never
+            // touch $__properties — that's the real storage.
+            $this->__iter_snapshot = [];
             $this->__current = null;
-            $this->__properties = [];
             return false;
         }
         return true;
@@ -184,16 +188,16 @@ class lmbSet implements lmbSetInterface
 
     function next(): void
     {
-        $this->__current = next($this->__properties);
+        $this->__current = next($this->__iter_snapshot);
         $this->__counter++;
         $this->__valid = $this->__size > $this->__counter;
     }
 
     function rewind(): void
     {
-        $this->__properties = $this->_getUnguardedVars();
-        $this->__current = reset($this->__properties);
-        $this->__size = count($this->__properties);
+        $this->__iter_snapshot = $this->_getUnguardedVars();
+        $this->__current = reset($this->__iter_snapshot);
+        $this->__size = count($this->__iter_snapshot);
         $this->__counter = 0;
         $this->__valid = $this->__size > $this->__counter;
     }
@@ -201,7 +205,7 @@ class lmbSet implements lmbSetInterface
     #[\ReturnTypeWillChange]
     function key()
     {
-        return key($this->__properties);
+        return key($this->__iter_snapshot);
     }
 
     // magic get/set

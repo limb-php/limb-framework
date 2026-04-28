@@ -238,4 +238,35 @@ class lmbSetTest extends TestCase
 
         $this->assertEquals($array, $result);
     }
+
+    /**
+     * Regression: lmbSet::valid() wipes $__properties when iteration ends.
+     * After a single foreach the set appears empty and even re-iterating
+     * yields nothing, because rewind() sources from the cleared bag.
+     */
+    function testIteratingDoesNotDestroySetContents()
+    {
+        $data = array('test1' => 'foo', 'test2' => 'bar', 'test3' => 'baz');
+        $ds = new lmbSet($data);
+
+        $first = array();
+        foreach ($ds as $key => $value)
+            $first[$key] = $value;
+
+        $this->assertEquals($data, $first, 'First iteration must visit every property.');
+
+        // After iteration the set must still hold the same data.
+        $this->assertFalse($ds->isEmpty(), 'Iterating a set must not empty it.');
+        $this->assertTrue($ds->has('test1'));
+        $this->assertEquals('foo', $ds->get('test1'));
+        $this->assertEquals(array_keys($data), $ds->getPropertyList());
+        $this->assertEquals($data, $ds->export());
+
+        // A second iteration must yield the same keys/values as the first.
+        $second = array();
+        foreach ($ds as $key => $value)
+            $second[$key] = $value;
+
+        $this->assertEquals($first, $second, 'Re-iterating a set must be idempotent.');
+    }
 }
