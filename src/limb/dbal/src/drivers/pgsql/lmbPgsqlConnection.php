@@ -286,4 +286,42 @@ class lmbPgsqlConnection extends lmbDbBaseConnection
         return is_resource($queryId);
     }
 
+    /**
+     * PostgreSQL exposes advisory locks via pg_advisory_lock / pg_advisory_unlock.
+     * They are connection-scoped and transaction-independent.
+     */
+    function supportsAdvisoryLocks(): bool
+    {
+        return true;
+    }
+
+    /**
+     * pg_advisory_lock() takes a bigint, not a name, so we fold the name
+     * into 64 bits. crc32 is fine for dispersion; we pack it into a signed
+     * int64 domain by casting through unsigned sprintf.
+     *
+     * pg_advisory_lock blocks until acquired — no timeout argument.
+     * $timeout_seconds is accepted for interface parity but ignored.
+     */
+    function acquireAdvisoryLock(string $name, int $timeout_seconds = 0): bool
+    {
+        $stmt = $this->newStatement("SELECT pg_advisory_lock(:key:)");
+        $stmt->setInteger('key', $this->_advisoryLockKey($name));
+        $stmt->getOneValue();
+        return true;
+    }
+
+    function releaseAdvisoryLock(string $name): bool
+    {
+        $stmt = $this->newStatement("SELECT pg_advisory_unlock(:key:)");
+        $stmt->setInteger('key', $this->_advisoryLockKey($name));
+        $result = $stmt->getOneValue();
+        return $result === true || $result === 't' || (int) $result === 1;
+    }
+
+    private function _advisoryLockKey(string $name): int
+    {
+        return (int) sprintf('%u', crc32($name));
+    }
+
 }

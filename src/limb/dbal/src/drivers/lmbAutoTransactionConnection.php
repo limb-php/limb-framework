@@ -164,4 +164,19 @@ class lmbAutoTransactionConnection extends lmbDbConnectionDecorator
     {
         $this->connection->_raiseError($message);
     }
+
+    function supportsAdvisoryLocks(): bool
+    {
+        return $this->connection->supportsAdvisoryLocks();
+    }
+
+    function acquireAdvisoryLock(string $name, int $timeout_seconds = 0): bool
+    {
+        return $this->connection->acquireAdvisoryLock($name, $timeout_seconds);
+    }
+
+    function releaseAdvisoryLock(string $name): bool
+    {
+        return $this->connection->releaseAdvisoryLock($name);
+    }
 }

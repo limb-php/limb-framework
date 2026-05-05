@@ -167,4 +167,23 @@ abstract class lmbDbBaseConnection implements lmbDbConnectionInterface
     {
         return array('config', 'dsn_string');
     }
+
+    /**
+     * Default: no advisory lock primitive is configured. Drivers that have
+     * one (mysql, pgsql) override this group of three.
+     */
+    function supportsAdvisoryLocks(): bool
+    {
+        return false;
+    }
+
+    function acquireAdvisoryLock(string $name, int $timeout_seconds = 0): bool
+    {
+        return true;
+    }
+
+    function releaseAdvisoryLock(string $name): bool
+    {
+        return true;
+    }
 }

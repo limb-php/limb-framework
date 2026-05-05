@@ -113,4 +113,19 @@ class ConnectionTestStub implements lmbDbConnectionInterface
     {
         // TODO: Implement transaction() method.
     }
+
+    function supportsAdvisoryLocks(): bool
+    {
+        return false;
+    }
+
+    function acquireAdvisoryLock(string $name, int $timeout_seconds = 0): bool
+    {
+        return true;
+    }
+
+    function releaseAdvisoryLock(string $name): bool
+    {
+        return true;
+    }
 }

@@ -9,50 +9,81 @@ namespace limb\session\src;
 
 use limb\dbal\src\criteria\lmbSQLFieldCriteria;
 use limb\dbal\src\drivers\lmbDbConnectionInterface;
+use limb\dbal\src\exception\lmbDbException;
 use limb\dbal\src\lmbTableGateway;
 
 /**
- * lmbSessionDbStorage store session data in database.
+ * lmbSessionDbStorage stores session data in a database.
  * lmb_session db table used to store session data.
  * The structure of lmb_session db table can be found in limb/session/init/ folder.
- * @todo Check client ip while reading session.
- * @todo Allow to set any db table name to store session data in.
+ *
+ * Concurrency strategy
+ * --------------------
+ * Two complementary mechanisms protect against racing writes for the same
+ * session id:
+ *
+ *   1. write() is an UPDATE-first-then-INSERT. When the INSERT collides
+ *      with a concurrent writer (lmbDbException::isDuplicateKey()) we retry
+ *      as UPDATE, collapsing the classic "two requests both saw count==0
+ *      and both INSERTed" race.
+ *
+ *   2. read() acquires a named advisory lock on the underlying connection
+ *      (see lmbDbConnectionInterface::acquireAdvisoryLock). Drivers that
+ *      have a primitive — MySQL, PostgreSQL — implement it; others return
+ *      success as a no-op. close() releases whatever was acquired.
+ *
+ * All driver-specific SQL lives in the DBAL layer. This class knows
+ * nothing about GET_LOCK or pg_advisory_lock.
+ *
+ * Advisory locking is enabled by default; disable via $use_row_locking for
+ * apps that manage concurrency outside the session handler (Redis locks,
+ * single-process deployments, etc.).
+ *
  * @see lmbSessionStartupFilter
+ * @see lmbDbConnectionInterface::acquireAdvisoryLock
+ * @see lmbDbException::isDuplicateKey
  * @version $Id: lmbSessionDbStorage.php 7486 2009-01-26 19:13:20Z
  * @package session
  */
 class lmbSessionDbStorage implements lmbSessionStorageInterface
 {
     /**
-     * @var lmbTableGateway facade to work with database
+     * Advisory lock-acquisition timeout in seconds. Drivers that honour a
+     * timeout (MySQL GET_LOCK) use it; others (PostgreSQL pg_advisory_lock)
+     * block indefinitely. 50s roughly aligns with PHP's default
+     * max_execution_time, so a truly stuck peer cannot blackhole callers
+     * for longer than the request already allows.
      */
+    private const LOCK_TIMEOUT_SECONDS = 50;
+
     protected lmbTableGateway $db;
-    /**
-     * @var ?int maximum session lifetime
-     */
+    protected lmbDbConnectionInterface $conn;
     protected ?int $max_life_time = null;
-
     protected string $session_table_name = 'lmb_session';
+    protected bool $use_row_locking;
 
-    /**
-     *  Constructor.
-     * @param lmbDbConnectionInterface $db_connection database connection object
-     * @param ?int $max_life_time maximum session lifetime
-     */
-    function __construct(lmbDbConnectionInterface $db_connection, ?int $max_life_time = null, ?int $session_table_name = null)
+    /** Session id currently holding an advisory lock; null if none. */
+    private ?string $locked_session_id = null;
+
+    function __construct(
+        lmbDbConnectionInterface $db_connection,
+        ?int $max_life_time = null,
+        ?string $session_table_name = null,
+        bool $use_row_locking = true
+    )
     {
+        $this->conn = $db_connection;
         $this->max_life_time = $max_life_time;
 
-        if($session_table_name)
+        if ($session_table_name)
             $this->session_table_name = $session_table_name;
 
         $this->db = new lmbTableGateway($this->session_table_name, $db_connection);
         $this->db->setPrimaryKeyName('session_id');
+
+        $this->use_row_locking = $use_row_locking;
     }
 
-    /**
-     * @see lmbSessionStorage::install()
-     */
     function install(): bool
     {
         return session_set_save_handler(
@@ -65,72 +96,83 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
         );
     }
 
-    /**
-     * Opens session storage
-     * Does nothing and returns true
-     * @param string $savePath
-     * @param string $sessionName
-     * @return boolean
-     */
     function open(string $savePath, string $sessionName): bool
     {
         return (bool)$this->db;
     }
 
     /**
-     * Closes session storage
-     * Does nothing and returns true
-     * @return boolean
+     * Releases the advisory lock that read() acquired, if any, so the next
+     * request for this session id can proceed.
      */
     function close(): bool
     {
+        if ($this->locked_session_id !== null) {
+            $this->conn->releaseAdvisoryLock($this->_lockName($this->locked_session_id));
+            $this->locked_session_id = null;
+        }
         return true;
     }
 
     /**
-     * Read a single row from <b>lmb_session</b> db table and returns <b>session_data</b> column
-     * @param string $session_id session ID
-     * @return false|string
+     * Acquires the per-session advisory lock (when enabled and the driver
+     * supports it), then reads the row. Returns the session blob or an
+     * empty string on miss — PHP's session-handler contract expects an
+     * empty string, not false.
      */
     function read(string $session_id): false|string
     {
+        if ($this->use_row_locking)
+            $this->_lock($session_id);
+
         $rs = $this->db->select(new lmbSQLFieldCriteria('session_id', $session_id));
         $rs->rewind();
         if ($rs->valid())
             return $rs->current()->getBlob('session_data');
         else
-            return ''; // return String. Important!!!
+            return '';
     }
 
     /**
-     * Creates new or updates existing row in <b>lmb_session</b> db table
-     * @param string $session_id session ID
-     * @param string $value session data
+     * Writes the session row.
+     *
+     * Common case — row exists — is one UPDATE.
+     * First-time create is UPDATE (0 rows) then INSERT.
+     * Under a racing concurrent INSERT we catch the duplicate-key and
+     * retry as UPDATE; every concurrent writer converges.
      */
     function write(string $session_id, string $value): bool
     {
         $crit = new lmbSQLFieldCriteria('session_id', $session_id);
-        $rs = $this->db->select($crit);
+        $now = time();
 
-        $data = array(
-            'last_activity_time' => time(),
-            'session_data' => $value
-        );
+        $this->db->update([
+            'last_activity_time' => $now,
+            'session_data' => $value,
+        ], $crit);
 
-        if ($rs->count() > 0) {
-            $this->db->update($data, $crit);
-        } else {
-            $data['session_id'] = "{$session_id}";
-            $this->db->insert($data);
+        if ($this->db->getAffectedRowCount() > 0)
+            return true;
+
+        try {
+            $this->db->insert([
+                'session_id' => $session_id,
+                'last_activity_time' => $now,
+                'session_data' => $value,
+            ]);
+        } catch (lmbDbException $e) {
+            if (!$e->isDuplicateKey())
+                throw $e;
+
+            $this->db->update([
+                'last_activity_time' => $now,
+                'session_data' => $value,
+            ], $crit);
         }
 
         return true;
     }
 
-    /**
-     * Removed a row from <b>lmb_session</b> db table
-     * @param string $session_id session ID
-     */
     function destroy(string $session_id): bool
     {
         $this->db->delete(new lmbSQLFieldCriteria('session_id', $session_id));
@@ -139,9 +181,8 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     }
 
     /**
-     * Checks if storage is still valid. If session not valid - removes it's row from <b>lmb_session</b> db table
-     * Prefers class attribute {@link $max_life_time} if it's not NULL.
-     * @param ?int $max_life_time system session max lifetime
+     * Deletes rows older than $max_life_time seconds. Prefers the argument,
+     * falling back to the constructor-supplied value.
      */
     function gc(?int $max_life_time = null): false|int
     {
@@ -151,5 +192,37 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
         $this->db->delete(new lmbSQLFieldCriteria('last_activity_time', time() - $max_life_time, lmbSQLFieldCriteria::LESS));
 
         return $this->db->getAffectedRowCount();
+    }
+
+    /**
+     * Delegates the lock to the underlying connection. Failure to acquire
+     * (timeout, driver refusal) is logged and we proceed without the lock
+     * — a stale read is better than a 500 to the end user when the DBAL
+     * is under heavy contention.
+     */
+    private function _lock(string $session_id): void
+    {
+        if (!$this->conn->supportsAdvisoryLocks())
+            return;
+
+        $acquired = $this->conn->acquireAdvisoryLock(
+            $this->_lockName($session_id),
+            self::LOCK_TIMEOUT_SECONDS
+        );
+
+        if ($acquired) {
+            $this->locked_session_id = $session_id;
+        } else {
+            @error_log("lmbSessionDbStorage: advisory lock for session '$session_id' could not be acquired within " . self::LOCK_TIMEOUT_SECONDS . 's; proceeding without lock.');
+        }
+    }
+
+    /**
+     * Prefixed to avoid colliding with any unrelated advisory-lock usage
+     * on the same connection.
+     */
+    private function _lockName(string $session_id): string
+    {
+        return 'lmb_session:' . $session_id;
     }
 }

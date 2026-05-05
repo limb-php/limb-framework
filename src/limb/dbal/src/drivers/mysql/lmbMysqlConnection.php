@@ -231,4 +231,35 @@ class lmbMysqlConnection extends lmbDbBaseConnection
     {
         return mysqli_insert_id($this->getConnectionId());
     }
+
+    /**
+     * MySQL offers named advisory locks via GET_LOCK / RELEASE_LOCK. Locks
+     * are per-connection, automatically released on disconnect, and
+     * independent of any transaction on this connection.
+     */
+    function supportsAdvisoryLocks(): bool
+    {
+        return true;
+    }
+
+    /**
+     * GET_LOCK(name, timeout) returns 1 on success, 0 on timeout, NULL on
+     * error. We only treat 1 as success so callers get a reliable bool.
+     */
+    function acquireAdvisoryLock(string $name, int $timeout_seconds = 0): bool
+    {
+        $stmt = $this->newStatement("SELECT GET_LOCK(:name:, :timeout:)");
+        $stmt->setVarChar('name', $name);
+        $stmt->setInteger('timeout', max(0, $timeout_seconds));
+        $result = $stmt->getOneValue();
+        return (int) $result === 1;
+    }
+
+    function releaseAdvisoryLock(string $name): bool
+    {
+        $stmt = $this->newStatement("SELECT RELEASE_LOCK(:name:)");
+        $stmt->setVarChar('name', $name);
+        $result = $stmt->getOneValue();
+        return (int) $result === 1;
+    }
 }
