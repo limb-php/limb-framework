@@ -201,7 +201,6 @@ class lmbSessionTest extends TestCase
 
     function testResetStartedSession()
     {
-        lmbToolkit::instance()->registerSessionStorageDriver('db', lmbSessionDbStorageInitializer::class);
         $this->session->setSessionId("123");
         $this->session->start(lmbToolkit::instance()->sessionStorageFactory('db'));
 

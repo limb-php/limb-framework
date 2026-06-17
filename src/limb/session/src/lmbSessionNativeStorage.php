@@ -15,16 +15,7 @@ namespace limb\session\src;
  */
 class lmbSessionNativeStorage implements lmbSessionStorageInterface
 {
-    /**
-     * Does nothing
-     * @see lmbSessionStorage::install()
-     */
-    function install(): bool
-    {
-        return true;
-    }
-
-    function open(string $savePath, string $sessionName): bool
+    function open(string $path, string $name): bool
     {
         return true;
     }
@@ -34,23 +25,38 @@ class lmbSessionNativeStorage implements lmbSessionStorageInterface
         return true;
     }
 
-    function read(string $session_id): string|false
+    function read(string $id): string|false
     {
         // TODO: Implement storageRead() method.
     }
 
-    function write(string $session_id, string $value): bool
+    function write(string $id, string $data): bool
     {
         // TODO: Implement storageWrite() method.
     }
 
-    function destroy(string $session_id): bool
+    function destroy(string $id): bool
     {
         // TODO: Implement storageDestroy() method.
     }
 
-    function gc(?int $max_life_time): int|false
+    function gc(?int $max_lifetime): int|false
     {
         // TODO: Implement storageGc() method.
+    }
+
+    function create_sid()
+    {
+        // TODO: Implement create_sid() method.
+    }
+
+    function validateId($session_id)
+    {
+        // TODO: Implement validateId() method.
+    }
+
+    function updateTimestamp($session_id, $sessionData)
+    {
+        // TODO: Implement updateTimestamp() method.
     }
 }

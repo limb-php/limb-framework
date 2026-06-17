@@ -41,11 +41,6 @@ class lmbSessionStartupFilter implements lmbInterceptingFilterInterface
     {
         $this->session_type = lmbEnv::get('LIMB_SESSION_DRIVER') ?? $session_type;
         $this->session_lifetime = lmbEnv::get('LIMB_SESSION_MAX_LIFE_TIME') ?? $session_lifetime;
-
-        lmbToolkit::instance()->registerSessionStorageDriver('db', lmbSessionDbStorageInitializer::class);
-        lmbToolkit::instance()->registerSessionStorageDriver('memcache', lmbSessionMemcacheStorageInitializer::class);
-        lmbToolkit::instance()->registerSessionStorageDriver('memcached', lmbSessionMemcachedStorageInitializer::class);
-        lmbToolkit::instance()->registerSessionStorageDriver('native', lmbSessionNativeStorageInitializer::class);
     }
 
     /**

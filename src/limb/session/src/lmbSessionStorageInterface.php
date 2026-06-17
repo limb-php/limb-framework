@@ -12,17 +12,16 @@ namespace limb\session\src;
  * @version $Id: lmbSessionStorageInterface.php 7486 2009-01-26 19:13:20Z
  * @package session
  */
-interface lmbSessionStorageInterface
+interface lmbSessionStorageInterface extends \SessionHandlerInterface
 {
-    /**
-     * Installs specific session storage functions
-     */
-    function install(): bool;
-
-    function open(string $savePath, string $sessionName): bool;
+    function open(string $path, string $name): bool;
     function close(): bool;
-    function read(string $session_id): string|false;
-    function write(string $session_id, string $value): bool;
-    function destroy(string $session_id): bool;
-    function gc(?int $max_life_time): int|false;
+    function read(string $id): string|false;
+    function write(string $id, string $data): bool;
+    function destroy(string $id): bool;
+    function gc(?int $max_lifetime): int|false;
+
+    function create_sid();
+    function validateId($session_id);
+    function updateTimestamp($session_id, $sessionData);
 }

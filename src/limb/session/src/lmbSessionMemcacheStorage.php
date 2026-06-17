@@ -39,29 +39,13 @@ class lmbSessionMemcacheStorage implements lmbSessionStorageInterface
     }
 
     /**
-     * @return bool
-     * @see lmbSessionStorage::install()
-     */
-    function install(): bool
-    {
-        return session_set_save_handler(
-            array($this, 'open'),
-            array($this, 'close'),
-            array($this, 'read'),
-            array($this, 'write'),
-            array($this, 'destroy'),
-            array($this, 'gc')
-        );
-    }
-
-    /**
      * Opens session storage
      * Does nothing and returns true
-     * @param string $savePath
-     * @param string $sessionName
+     * @param string $path
+     * @param string $name
      * @return boolean
      */
-    function open(string $savePath, string $sessionName): bool
+    function open(string $path, string $name): bool
     {
         return true;
     }
@@ -81,9 +65,9 @@ class lmbSessionMemcacheStorage implements lmbSessionStorageInterface
      * @param string session ID
      * @return false|string
      */
-    function read(string $session_id): false|string
+    function read(string $id): false|string
     {
-        $value = $this->_memcache->get('lmb_session_' . $session_id);
+        $value = $this->_memcache->get('lmb_session_' . $id);
         if ($value !== false)
             return $value;
         else
@@ -96,21 +80,21 @@ class lmbSessionMemcacheStorage implements lmbSessionStorageInterface
      * @param string session data
      * @return bool
      */
-    function write(string $session_id, string $value): bool
+    function write(string $id, string $data): bool
     {
-        $this->_memcache->set('lmb_session_' . $session_id, $value, null, $this->max_life_time);
+        $this->_memcache->set('lmb_session_' . $id, $data, null, $this->max_life_time);
 
         return true;
     }
 
     /**
      * Removed a row from <b>lmb_session</b> db table
-     * @param string $session_id
+     * @param string $id
      * @return bool
      */
-    function destroy(string $session_id): bool
+    function destroy(string $id): bool
     {
-        $this->_memcache->delete('lmb_session_' . $session_id);
+        $this->_memcache->delete('lmb_session_' . $id);
 
         return true;
     }
@@ -121,8 +105,23 @@ class lmbSessionMemcacheStorage implements lmbSessionStorageInterface
      * @param integer system session max life time
      * @return false|int
      */
-    function gc(?int $max_life_time): false|int
+    function gc(?int $max_lifetime): false|int
     {
         return true;
+    }
+
+    function create_sid()
+    {
+        // TODO: Implement create_sid() method.
+    }
+
+    function validateId($session_id)
+    {
+        // TODO: Implement validateId() method.
+    }
+
+    function updateTimestamp($session_id, $sessionData)
+    {
+        // TODO: Implement updateTimestamp() method.
     }
 }

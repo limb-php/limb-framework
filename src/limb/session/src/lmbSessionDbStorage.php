@@ -51,28 +51,13 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     }
 
     /**
-     * @see lmbSessionStorage::install()
-     */
-    function install(): bool
-    {
-        return session_set_save_handler(
-            array($this, 'open'),
-            array($this, 'close'),
-            array($this, 'read'),
-            array($this, 'write'),
-            array($this, 'destroy'),
-            array($this, 'gc')
-        );
-    }
-
-    /**
      * Opens session storage
      * Does nothing and returns true
-     * @param string $savePath
-     * @param string $sessionName
+     * @param string $path
+     * @param string $name
      * @return boolean
      */
-    function open(string $savePath, string $sessionName): bool
+    function open(string $path, string $name): bool
     {
         return (bool)$this->db;
     }
@@ -89,12 +74,12 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
 
     /**
      * Read a single row from <b>lmb_session</b> db table and returns <b>session_data</b> column
-     * @param string $session_id session ID
+     * @param string $id session ID
      * @return false|string
      */
-    function read(string $session_id): false|string
+    function read(string $id): false|string
     {
-        $rs = $this->db->select(new lmbSQLFieldCriteria('session_id', $session_id));
+        $rs = $this->db->select(new lmbSQLFieldCriteria('session_id', $id));
         $rs->rewind();
         if ($rs->valid())
             return $rs->current()->getBlob('session_data');
@@ -104,23 +89,23 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
 
     /**
      * Creates new or updates existing row in <b>lmb_session</b> db table
-     * @param string $session_id session ID
-     * @param string $value session data
+     * @param string $id session ID
+     * @param string $data session data
      */
-    function write(string $session_id, string $value): bool
+    function write(string $id, string $data): bool
     {
-        $crit = new lmbSQLFieldCriteria('session_id', $session_id);
+        $crit = new lmbSQLFieldCriteria('session_id', $id);
         $rs = $this->db->select($crit);
 
         $data = array(
             'last_activity_time' => time(),
-            'session_data' => $value
+            'session_data' => $data
         );
 
         if ($rs->count() > 0) {
             $this->db->update($data, $crit);
         } else {
-            $data['session_id'] = "{$session_id}";
+            $data['session_id'] = "{$id}";
             $this->db->insert($data);
         }
 
@@ -129,11 +114,11 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
 
     /**
      * Removed a row from <b>lmb_session</b> db table
-     * @param string $session_id session ID
+     * @param string $id session ID
      */
-    function destroy(string $session_id): bool
+    function destroy(string $id): bool
     {
-        $this->db->delete(new lmbSQLFieldCriteria('session_id', $session_id));
+        $this->db->delete(new lmbSQLFieldCriteria('session_id', $id));
 
         return true;
     }
@@ -141,15 +126,30 @@ class lmbSessionDbStorage implements lmbSessionStorageInterface
     /**
      * Checks if storage is still valid. If session not valid - removes it's row from <b>lmb_session</b> db table
      * Prefers class attribute {@link $max_life_time} if it's not NULL.
-     * @param ?int $max_life_time system session max lifetime
+     * @param ?int $max_lifetime system session max lifetime
      */
-    function gc(?int $max_life_time = null): false|int
+    function gc(?int $max_lifetime = null): false|int
     {
-        if ($max_life_time === null)
-            $max_life_time = $this->max_life_time;
+        if ($max_lifetime === null)
+            $max_lifetime = $this->max_life_time;
 
-        $this->db->delete(new lmbSQLFieldCriteria('last_activity_time', time() - $max_life_time, lmbSQLFieldCriteria::LESS));
+        $this->db->delete(new lmbSQLFieldCriteria('last_activity_time', time() - $max_lifetime, lmbSQLFieldCriteria::LESS));
 
         return $this->db->getAffectedRowCount();
+    }
+
+    function create_sid()
+    {
+        // TODO: Implement create_sid() method.
+    }
+
+    function validateId($session_id)
+    {
+        // TODO: Implement validateId() method.
+    }
+
+    function updateTimestamp($session_id, $sessionData)
+    {
+        // TODO: Implement updateTimestamp() method.
     }
 }

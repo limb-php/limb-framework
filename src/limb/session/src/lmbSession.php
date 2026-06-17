@@ -33,7 +33,7 @@ class lmbSession implements \ArrayAccess, \Iterator, \Countable
     {
         $this->storage = $storage;
 
-        if( !$this->storage->install() )
+        if( !session_set_save_handler($this->storage) )
             return false;
 
         return session_start();

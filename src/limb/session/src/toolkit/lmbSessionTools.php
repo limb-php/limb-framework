@@ -9,9 +9,14 @@ namespace limb\session\src\toolkit;
 
 use limb\core\src\exception\lmbException;
 use limb\dbal\src\toolkit\lmbDbTools;
+use limb\session\src\lmbSessionDbStorageInitializer;
+use limb\session\src\lmbSessionMemcachedStorageInitializer;
+use limb\session\src\lmbSessionMemcacheStorageInitializer;
+use limb\session\src\lmbSessionNativeStorageInitializer;
 use limb\session\src\lmbSessionStorageInterface;
 use limb\toolkit\src\lmbAbstractTools;
 use limb\session\src\lmbSession;
+
 /**
  * class lmbSessionTools.
  *
@@ -24,6 +29,8 @@ class lmbSessionTools extends lmbAbstractTools
 
     protected $session_drivers_dict = [];
     protected $session_drivers = [];
+
+    static protected $isSessionStoragesItited = false;
 
     static function getRequiredTools()
     {
@@ -50,6 +57,8 @@ class lmbSessionTools extends lmbAbstractTools
 
     function sessionStorageFactory($session_type, $options = []): lmbSessionStorageInterface
     {
+        $this->_initSessionStorages();
+
         if(!isset($this->session_drivers_dict[$session_type]))
             throw new lmbException('Session storage "' . $session_type . '" not found');
 
@@ -58,6 +67,18 @@ class lmbSessionTools extends lmbAbstractTools
 
         $storageInitClass = $this->session_drivers_dict[$session_type];
         return $this->session_drivers[$session_type] = $storageInitClass::init($options);
+    }
+
+    protected function _initSessionStorages(): void
+    {
+        if(!self::$isSessionStoragesItited) {
+            $this->registerSessionStorageDriver('db', lmbSessionDbStorageInitializer::class);
+            $this->registerSessionStorageDriver('memcache', lmbSessionMemcacheStorageInitializer::class);
+            $this->registerSessionStorageDriver('memcached', lmbSessionMemcachedStorageInitializer::class);
+            $this->registerSessionStorageDriver('native', lmbSessionNativeStorageInitializer::class);
+
+            self::$isSessionStoragesItited = true;
+        }
     }
 
     function registerSessionStorageDriver($session_type, $storage_initializer_class): void
