@@ -21,7 +21,7 @@ interface lmbSessionStorageInterface extends \SessionHandlerInterface
     function destroy(string $id): bool;
     function gc(?int $max_lifetime): int|false;
 
-    function create_sid();
-    function validateId($session_id);
-    function updateTimestamp($session_id, $sessionData);
+//    function create_sid(): string;
+//    function validateId($session_id): bool;
+//    function updateTimestamp($session_id, $sessionData): bool;
 }

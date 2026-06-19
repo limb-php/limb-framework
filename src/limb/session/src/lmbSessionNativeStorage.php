@@ -45,18 +45,18 @@ class lmbSessionNativeStorage implements lmbSessionStorageInterface
         // TODO: Implement storageGc() method.
     }
 
-    function create_sid()
-    {
-        // TODO: Implement create_sid() method.
-    }
-
-    function validateId($session_id)
-    {
-        // TODO: Implement validateId() method.
-    }
-
-    function updateTimestamp($session_id, $sessionData)
-    {
-        // TODO: Implement updateTimestamp() method.
-    }
+//    function create_sid(): string
+//    {
+//        // TODO: Implement create_sid() method.
+//    }
+//
+//    function validateId($session_id)
+//    {
+//        // TODO: Implement validateId() method.
+//    }
+//
+//    function updateTimestamp($session_id, $sessionData)
+//    {
+//        // TODO: Implement updateTimestamp() method.
+//    }
 }
