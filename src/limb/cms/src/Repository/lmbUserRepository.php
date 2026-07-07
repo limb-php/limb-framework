@@ -16,12 +16,12 @@ class lmbUserRepository implements lmbUserRepositoryInterface
         return new static();
     }
 
-    function findById($user_id): null|lmbCmsUser
+    function findById($id, $throw_exception = true, $conn = null): lmbCmsUser|lmbActiveRecord|null
     {
-        return lmbActiveRecord::findById($this->model_class, $user_id, false);
+        return lmbActiveRecord::findById($this->model_class, $id, false);
     }
 
-    function findByLogin($login): null|lmbCmsUser
+    function findByLogin($login): lmbCmsUser|lmbActiveRecord|null
     {
         $criteria = new lmbSQLFieldCriteria('login', $login);
 
